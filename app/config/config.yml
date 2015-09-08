@@ -101,5 +101,5 @@ hwi_oauth:
                 scope:               "email profile"
             twitter:
                 type:                twitter
-                client_id:           <consumer-key>
-                client_secret:       <consumer-secret>
+                client_id:           SCB3ampx9Fd9488e18xqboOs4
+                client_secret:       O7OCJYUmdllfHuCghOikTtUu63R90nMMLjAMAgIz9BIFBBYB9x
