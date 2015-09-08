@@ -12,3 +12,6 @@
 .travis.yml
 .idea/
 *~
+app/SymfonyRequirements.php
+app/check.php
+composer.lock
