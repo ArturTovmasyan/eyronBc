@@ -94,3 +94,12 @@ hwi_oauth:
                 type:                facebook
                 client_id:           1490967017868221  # change
                 client_secret:       90c9d88f98f5aac57a035fcb6fbfa6e4 # change
+            google:
+                type:                google
+                client_id:           407268305667-2qid1nfpsvehkn19gg9564b3ij0f2kmt.apps.googleusercontent.com
+                client_secret:       24qfM-_VNckGHBA9GiaXc8Zf
+                scope:               "email profile"
+            twitter:
+                type:                twitter
+                client_id:           <consumer-key>
+                client_secret:       <consumer-secret>
