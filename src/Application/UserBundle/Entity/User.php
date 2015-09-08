@@ -24,4 +24,59 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Goal", mappedBy="users")
+     **/
+    protected $goals;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add goals
+     *
+     * @param \AppBundle\Entity\Goal $goals
+     * @return User
+     */
+    public function addGoal(\AppBundle\Entity\Goal $goals)
+    {
+        $this->goals[] = $goals;
+
+        return $this;
+    }
+
+    /**
+     * Remove goals
+     *
+     * @param \AppBundle\Entity\Goal $goals
+     */
+    public function removeGoal(\AppBundle\Entity\Goal $goals)
+    {
+        $this->goals->removeElement($goals);
+    }
+
+    /**
+     * Get goals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGoals()
+    {
+        return $this->goals;
+    }
 }
