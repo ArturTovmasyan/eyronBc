@@ -92,5 +92,5 @@ hwi_oauth:
     resource_owners:
             facebook:
                 type:                facebook
-                client_id:           351351
-                client_secret:       2545454
+                client_id:           1490967017868221  # change
+                client_secret:       90c9d88f98f5aac57a035fcb6fbfa6e4 # change
