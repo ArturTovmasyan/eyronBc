@@ -5,4 +5,5 @@ parameters:
 
 services:
     hwi_oauth.user.provider.entity:
-            class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+            class: Application\UserBundle\Provider\UserProvider
+            arguments: [@fos_user.user_manager]
