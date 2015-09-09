@@ -16,11 +16,25 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
 
-            new FOS\UserBundle\FOSUserBundle(),
+            // custom bundles
+            new AppBundle\AppBundle(),
             new Application\UserBundle\ApplicationUserBundle(),
+
+            // fos bundles
+            new FOS\UserBundle\FOSUserBundle(),
+
+            //oauth bundle
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+
+            // sonata bundles
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

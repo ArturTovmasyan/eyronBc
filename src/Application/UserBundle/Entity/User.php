@@ -36,19 +36,19 @@ class User extends BaseUser
 
     /**
      * @var
-     * @ORM\Column(name="first_name", type="string", length=50)
+     * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      */
     protected $firstName;
 
     /**
-     * @ORM\Column(name="age", type="smallint")
+     * @ORM\Column(name="age", type="smallint", nullable=true)
      * @var
      */
     protected $age;
 
     /**
      * @var
-     * @ORM\Column(name="last_name", type="string", length=50)
+     * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      */
     protected $lastName;
 
@@ -63,6 +63,8 @@ class User extends BaseUser
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
