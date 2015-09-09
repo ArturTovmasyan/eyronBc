@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
-    // use file
+    // use file trait
     use File;
 
     /**
@@ -210,7 +210,7 @@ class User extends BaseUser
      */
     protected function getPath()
     {
-        return 'photo';
+        return 'UsersPhoto';
     }
 
 
