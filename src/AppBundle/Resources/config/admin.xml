@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- Tag -->
+        <service id="sonata.admin.app.tag" class="AppBundle\Admin\TagAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="General" label="Tag"/>
+            <argument/>
+            <argument>AppBundle\Entity\Tag</argument>
+            <argument/>
+        </service>
+
+        <!-- Category -->
+        <service id="sonata.admin.app.category" class="AppBundle\Admin\CategoryAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="General" label="Category"/>
+            <argument/>
+            <argument>AppBundle\Entity\Category</argument>
+            <argument/>
+        </service>
+
+        <!-- Aphorism -->
+        <service id="sonata.admin.app.aphorism" class="AppBundle\Admin\AphorismAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="General" label="Aphorism"/>
+            <argument/>
+            <argument>AppBundle\Entity\Aphorism</argument>
+            <argument/>
+        </service>
+
+        <!-- Aphorism -->
+        <service id="sonata.admin.app.time.sentence" class="AppBundle\Admin\TimeSentenceAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="General" label="Time Sentence"/>
+            <argument/>
+            <argument>AppBundle\Entity\TimeSentence</argument>
+            <argument/>
+        </service>
+
+    </services>
+
+
+</container>

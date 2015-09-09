@@ -16,7 +16,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="time_sentence")
- * @Assert\Callback(methods={"checkReplace"})
  */
 class TimeSentence
 {
@@ -34,9 +33,9 @@ class TimeSentence
 
     /**
      * @var
-     * @ORM\Column(name="replace", type="string", length=50)
+     * @ORM\Column(name="replace_string", type="string", length=50)
      */
-    protected $replace;
+    protected $replaceString;
 
     /**
      * @var
@@ -78,29 +77,6 @@ class TimeSentence
     }
 
     /**
-     * Set replace
-     *
-     * @param string $replace
-     * @return TimeSentence
-     */
-    public function setReplace($replace)
-    {
-        $this->replace = $replace;
-
-        return $this;
-    }
-
-    /**
-     * Get replace
-     *
-     * @return string 
-     */
-    public function getReplace()
-    {
-        return $this->replace;
-    }
-
-    /**
      * Set replaceWith
      *
      * @param string $replaceWith
@@ -129,21 +105,23 @@ class TimeSentence
      */
     public function checkReplace($context)
     {
-
         // get content
         $content = strtolower($this->getContent());
 
         // get replace
-        $replace = strtolower($this->getReplace());
+        $replace = strtolower($this->getReplaceString());
 
         // check replace
         if($replace){
 
             // find in content, and add error, if replace field not found in content
-            if(!strpos($content, $replace)){
+            $match = preg_match("/\b$replace\b/", $content);
+
+            // find in content, and add error, if replace field not found in content
+            if($match == 0){
 
                 // add error
-                $context->addViolationAt('replace', 'You have`nt this world in content', array(), null);
+                $context->addViolationAt('replaceString', 'You have`nt this world in content', array(), null);
             }
         }
     }
@@ -159,7 +137,7 @@ class TimeSentence
         $newString = $this->getReplaceWith();
 
         // get old string
-        $oldString = $this->getReplace();
+        $oldString = $this->getReplaceString();
 
         //get content
         $content = $this->getContent();
@@ -168,9 +146,32 @@ class TimeSentence
         if($newString){
 
             // replace content
-            $content = str_replace("%$$oldString%", $newString, $$content);
+            $content = str_replace("%$$oldString%", $newString, $content);
         }
 
         return $content;
+    }
+
+    /**
+     * Set replaceString
+     *
+     * @param string $replaceString
+     * @return TimeSentence
+     */
+    public function setReplaceString($replaceString)
+    {
+        $this->replaceString = $replaceString;
+
+        return $this;
+    }
+
+    /**
+     * Get replaceString
+     *
+     * @return string 
+     */
+    public function getReplaceString()
+    {
+        return $this->replaceString;
     }
 }
