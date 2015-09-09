@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Entity;
 
+use AppBundle\Traits\File;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,8 +17,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User //extends BaseUser
+class User extends BaseUser
 {
+    // use file
+    use File;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,6 +40,11 @@ class User //extends BaseUser
      */
     protected $firstName;
 
+    /**
+     * @ORM\Column(name="age", type="smallint")
+     * @var
+     */
+    protected $age;
 
     /**
      * @var
@@ -168,4 +177,39 @@ class User //extends BaseUser
     {
         return $this->aboutMe;
     }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     * @return User
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer 
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Override getPath function in file trait
+     *
+     * @return string
+     */
+    protected function getPath()
+    {
+        return 'photo';
+    }
+
+
 }
