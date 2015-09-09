@@ -17,6 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Goal
 {
+    // constants for status
+    const ACTIVE = 1;
+    const COMPLETED = 0;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -35,6 +39,12 @@ class Goal
     protected $description;
 
     /**
+     * @var
+     * @ORM\Column(name="status", type="smallint")
+     */
+    protected $status;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", inversedBy="goals")
      * @ORM\JoinTable(name="users_goals",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -49,6 +59,7 @@ class Goal
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->status = self::ACTIVE;
     }
 
     /**
@@ -138,5 +149,28 @@ class Goal
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Goal
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
