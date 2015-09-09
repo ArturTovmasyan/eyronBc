@@ -10,7 +10,7 @@
 /vendor/
 /web/bundles/
 .travis.yml
-.idea/
+.idea
 *~
 app/SymfonyRequirements.php
 app/check.php
