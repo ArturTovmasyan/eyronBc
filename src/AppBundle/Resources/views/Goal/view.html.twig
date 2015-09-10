@@ -5,6 +5,8 @@
      {% set goal = userGoal.goal %}
      {% set images = goal.images %}
 
+     Category: {{ goal.category }}
+     <br>
      Description: {{ goal.description }}
      <br>
      Privacy: {{ userGoal.getPrivacyString|trans() }}

@@ -18,9 +18,12 @@
 
          {% set formGoal = form.goal %}
 
+         {{ form_row(formGoal.category) }}
+         {{ form_row(formGoal.description) }}
+
+
          {{ form_row(form.quality) }}
          {{ form_row(form.privacy) }}
-         {{ form_row(formGoal.description) }}
 
          <ul class="images" data-prototype="{{ form_widget(formGoal.images.vars.prototype.file)|e }}">
              {% if formGoal.images.vars.value is null %}
