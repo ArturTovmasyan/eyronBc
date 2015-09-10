@@ -1,0 +1,42 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {# todo:: add jquery #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
+
+{% endblock %}
+
+
+ {% block body %}
+
+     <form method="post" action="#" enctype="multipart/form-data">
+
+         {{ form_row(form.description) }}
+         {{ form_row(form.userGoal) }}
+
+         <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype.file)|e }}">
+             {% if form.images.vars.value is null %}
+                 {{ form_widget(form.images) }}
+             {% else %}
+                 {% if form.vars.value.document|length > 0 %}
+                     <ul class="file-list">
+                         {% for images in form.vars.value.images.getSnapshot() %}
+                             <li>
+                                 <a class="delete-link" href="#" > Delete </a>
+                                 <a href="{{ images.downloadLink }}"
+                                    target="_blank">{{ images.fileOriginalName | default(images.file ? images.file.getClientOriginalName) }}</a>
+                             </li>
+                         {% endfor %}
+                     </ul>
+                 {% endif %}
+             {% endif %}
+         </ul>
+
+         <input type="submit" value="Save">
+
+     </form>
+
+ {% endblock %}

@@ -38,18 +38,11 @@ class UserGoal
      */
     protected $id;
 
-
-    /**
-     * @ORM\Column(name="description", type="string")
-     */
-    protected $description;
-
     /**
      * @var
      * @ORM\Column(name="status", type="smallint")
      */
     protected $status;
-
 
     /**
      * @var
@@ -91,29 +84,6 @@ class UserGoal
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return UserGoal
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

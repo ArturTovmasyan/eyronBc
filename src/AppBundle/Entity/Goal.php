@@ -24,6 +24,10 @@ class Goal
      */
     protected $id;
 
+    /**
+     * @ORM\Column(name="description", type="string")
+     */
+    protected $description;
 
     /**
      * @ORM\OneToMany(targetEntity="GoalImage", mappedBy="goal", cascade={"persist", "remove"})
@@ -120,5 +124,28 @@ class Goal
     public function getUserGoal()
     {
         return $this->userGoal;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Goal
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

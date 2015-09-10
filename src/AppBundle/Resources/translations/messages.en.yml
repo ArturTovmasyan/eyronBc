@@ -1,0 +1,10 @@
+
+user_goal:
+      public: Public
+      private: Private
+      privacy: Privacy
+      quality: Quality
+      important: Important
+      not_important: Not Important
+      urgent: Urgent
+      not_urgent: Not Urgent
