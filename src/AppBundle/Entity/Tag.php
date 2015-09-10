@@ -38,6 +38,14 @@ class Tag
     protected $slug;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->title;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

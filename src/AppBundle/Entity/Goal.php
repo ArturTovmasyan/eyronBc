@@ -48,7 +48,7 @@ class Goal
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="categories_tags",
+     * @ORM\JoinTable(name="goals_tags",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )

@@ -33,6 +33,7 @@ class CategoryAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('title')
+            ->add('tags')
 
         ;
     }
@@ -43,6 +44,7 @@ class CategoryAdmin extends Admin
 
         $formMapper
             ->add('title')
+            ->add('tags')
         ;
     }
 
@@ -52,6 +54,7 @@ class CategoryAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('title')
+            ->add('tags')
         ;
     }
 
@@ -61,6 +64,7 @@ class CategoryAdmin extends Admin
         $listMapper
             ->add('id')
             ->add('title')
+            ->add('tags')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

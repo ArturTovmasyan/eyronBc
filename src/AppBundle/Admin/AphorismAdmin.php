@@ -33,6 +33,8 @@ class AphorismAdmin extends Admin
         $showMapper
             ->add('id')
             ->add('content')
+            ->add('category')
+            ->add('tags')
 
         ;
     }
@@ -43,6 +45,8 @@ class AphorismAdmin extends Admin
 
         $formMapper
             ->add('content')
+            ->add('category')
+            ->add('tags')
         ;
     }
 
@@ -52,6 +56,8 @@ class AphorismAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('content')
+            ->add('category')
+            ->add('tags')
         ;
     }
 
@@ -61,6 +67,8 @@ class AphorismAdmin extends Admin
         $listMapper
             ->add('id')
             ->add('content')
+            ->add('category')
+            ->add('tags')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
