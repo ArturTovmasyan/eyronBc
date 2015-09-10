@@ -9,7 +9,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
+use AppBundle\Form\UserGoalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,8 +33,11 @@ class GoalController extends Controller
      */
     public function addAction(Request $request)
     {
+        // create new object
+        $userGoal = new UserGoal();
+
         // create goal form
-        $form  = $this->createForm(new GoalType());
+        $form  = $this->createForm(new UserGoalType(), $userGoal);
 
         // check request method
         if($request->isMethod("POST")){
@@ -43,7 +48,7 @@ class GoalController extends Controller
             // check valid
             if($form->isValid()){
 
-                dump($form->getData());
+                dump($userGoal);
                 exit;
             }
         }

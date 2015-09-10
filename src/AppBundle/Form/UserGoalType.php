@@ -27,6 +27,7 @@ class UserGoalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('goal', new GoalType(), array('label' => false))
             ->add('quality', 'choice', array(
                 'choices' => array(
                     UserGoal::IMPORTANT => 'user_goal.important',

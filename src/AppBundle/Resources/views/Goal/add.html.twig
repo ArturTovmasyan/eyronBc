@@ -14,16 +14,21 @@
 
      <form method="post" action="#" enctype="multipart/form-data">
 
-         {{ form_row(form.description) }}
-         {{ form_row(form.userGoal) }}
+         {{ form_errors(form) }}
 
-         <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype.file)|e }}">
-             {% if form.images.vars.value is null %}
-                 {{ form_widget(form.images) }}
+         {% set formGoal = form.goal %}
+
+         {{ form_row(form.quality) }}
+         {{ form_row(form.privacy) }}
+         {{ form_row(formGoal.description) }}
+
+         <ul class="images" data-prototype="{{ form_widget(formGoal.images.vars.prototype.file)|e }}">
+             {% if formGoal.images.vars.value is null %}
+                 {{ form_widget(formGoal.images) }}
              {% else %}
-                 {% if form.vars.value.document|length > 0 %}
+                 {% if formGoal.vars.value.images|length > 0 %}
                      <ul class="file-list">
-                         {% for images in form.vars.value.images.getSnapshot() %}
+                         {% for images in formGoal.vars.value.images %}
                              <li>
                                  <a class="delete-link" href="#" > Delete </a>
                                  <a href="{{ images.downloadLink }}"
@@ -34,6 +39,8 @@
                  {% endif %}
              {% endif %}
          </ul>
+
+         {{ form_widget(form._token) }}
 
          <input type="submit" value="Save">
 
