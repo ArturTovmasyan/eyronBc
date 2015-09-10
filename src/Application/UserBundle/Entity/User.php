@@ -30,9 +30,9 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Goal", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", mappedBy="user", cascade={"persist"})
      **/
-    protected $goals;
+    protected $userGoal;
 
     /**
      * @var
@@ -76,39 +76,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Add goals
-     *
-     * @param \AppBundle\Entity\Goal $goals
-     * @return User
-     */
-    public function addGoal(\AppBundle\Entity\Goal $goals)
-    {
-        $this->goals[] = $goals;
-
-        return $this;
-    }
-
-    /**
-     * Remove goals
-     *
-     * @param \AppBundle\Entity\Goal $goals
-     */
-    public function removeGoal(\AppBundle\Entity\Goal $goals)
-    {
-        $this->goals->removeElement($goals);
-    }
-
-    /**
-     * Get goals
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGoals()
-    {
-        return $this->goals;
     }
 
     /**
@@ -214,4 +181,38 @@ class User extends BaseUser
     }
 
 
+
+    /**
+     * Add userGoal
+     *
+     * @param \AppBundle\Entity\UserGoal $userGoal
+     * @return User
+     */
+    public function addUserGoal(\AppBundle\Entity\UserGoal $userGoal)
+    {
+        $this->userGoal[] = $userGoal;
+        $userGoal->setUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove userGoal
+     *
+     * @param \AppBundle\Entity\UserGoal $userGoal
+     */
+    public function removeUserGoal(\AppBundle\Entity\UserGoal $userGoal)
+    {
+        $this->userGoal->removeElement($userGoal);
+    }
+
+    /**
+     * Get userGoal
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserGoal()
+    {
+        return $this->userGoal;
+    }
 }

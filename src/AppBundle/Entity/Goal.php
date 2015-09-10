@@ -17,20 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Goal
 {
-    // constants for status
-    const ACTIVE = 0;
-    const COMPLETED = 1;
-
-    // constants for privacy
-    const PUBLIC_PRIVACY = 1;
-    const PRIVATE_PRIVACY = 2;
-
-    // constants for quality
-    const URGENT = 1;
-    const NOT_URGENT = 2;
-    const IMPORTANT = 3;
-    const NOT_IMPORTANT = 4;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -40,52 +26,15 @@ class Goal
 
 
     /**
-     * @ORM\Column(name="description", type="string")
-     */
-    protected $description;
-
-    /**
-     * @var
-     * @ORM\Column(name="status", type="smallint")
-     */
-    protected $status;
-
-
-    /**
-     * @var
-     * @ORM\Column(name="privacy", type="smallint")
-     */
-    protected $privacy;
-
-    /**
-     * @var
-     * @ORM\Column(name="quality", type="smallint")
-     */
-    protected $quality;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", inversedBy="goals")
-     * @ORM\JoinTable(name="users_goals",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")}
-     *      )
-     **/
-    protected $users;
-
-    /**
      * @ORM\OneToMany(targetEntity="GoalImage", mappedBy="goal", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     protected $images;
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->status = self::ACTIVE;
-    }
+     * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist"})
+     **/
+    protected $userGoal;
 
     /**
      * Get id
@@ -95,154 +44,6 @@ class Goal
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Goal
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Goal
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Add users
-     *
-     * @param \Application\UserBundle\Entity\User $users
-     * @return Goal
-     */
-    public function addUser(\Application\UserBundle\Entity\User $users)
-    {
-        $this->users[] = $users;
-
-        return $this;
-    }
-
-    /**
-     * Remove users
-     *
-     * @param \Application\UserBundle\Entity\User $users
-     */
-    public function removeUser(\Application\UserBundle\Entity\User $users)
-    {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Goal
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set privacy
-     *
-     * @param integer $privacy
-     * @return Goal
-     */
-    public function setPrivacy($privacy)
-    {
-        $this->privacy = $privacy;
-
-        return $this;
-    }
-
-    /**
-     * Get privacy
-     *
-     * @return integer 
-     */
-    public function getPrivacy()
-    {
-        return $this->privacy;
-    }
-
-    /**
-     * Set quality
-     *
-     * @param integer $quality
-     * @return Goal
-     */
-    public function setQuality($quality)
-    {
-        $this->quality = $quality;
-
-        return $this;
-    }
-
-    /**
-     * Get quality
-     *
-     * @return integer 
-     */
-    public function getQuality()
-    {
-        return $this->quality;
     }
 
     /**
@@ -277,5 +78,47 @@ class Goal
     public function getImages()
     {
         return $this->images;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userGoal = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add userGoal
+     *
+     * @param \AppBundle\Entity\UserGoal $userGoal
+     * @return Goal
+     */
+    public function addUserGoal(\AppBundle\Entity\UserGoal $userGoal)
+    {
+        $this->userGoal[] = $userGoal;
+        $userGoal->setGoal($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove userGoal
+     *
+     * @param \AppBundle\Entity\UserGoal $userGoal
+     */
+    public function removeUserGoal(\AppBundle\Entity\UserGoal $userGoal)
+    {
+        $this->userGoal->removeElement($userGoal);
+    }
+
+    /**
+     * Get userGoal
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserGoal()
+    {
+        return $this->userGoal;
     }
 }
