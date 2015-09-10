@@ -38,6 +38,15 @@ class Aphorism
     protected $category;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="aphorisms_tags",
+     *      joinColumns={@ORM\JoinColumn(name="aphorism_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     **/
+    protected $tags;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -91,5 +100,45 @@ class Aphorism
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     * @return Aphorism
+     */
+    public function addTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

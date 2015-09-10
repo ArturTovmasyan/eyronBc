@@ -47,6 +47,15 @@ class Goal
     protected $category;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="categories_tags",
+     *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     **/
+    protected $tags;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -176,5 +185,38 @@ class Goal
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     * @return Goal
+     */
+    public function addTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \AppBundle\Entity\Tag $tags
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
