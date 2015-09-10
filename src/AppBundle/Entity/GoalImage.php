@@ -79,6 +79,6 @@ class GoalImage
      */
     protected function getPath()
     {
-        return 'GoalsImages';
+        return 'images';
     }
 }

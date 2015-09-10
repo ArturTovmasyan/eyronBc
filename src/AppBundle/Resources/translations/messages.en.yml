@@ -8,3 +8,5 @@ user_goal:
       not_important: Not Important
       urgent: Urgent
       not_urgent: Not Urgent
+      active: Active
+      completed: Completed

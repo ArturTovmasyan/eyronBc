@@ -57,7 +57,7 @@ class UserGoal
     protected $quality;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal")
+     * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      **/
     protected $goal;
@@ -100,6 +100,29 @@ class UserGoal
     }
 
     /**
+     * This function is used to get status integer, and convert to string
+     *
+     * @return null|string
+     */
+    public function getStatusString()
+    {
+        // empty result
+        $result = null;
+
+        // switch for status and return result
+        switch($this->status){
+            case self::ACTIVE:
+                $result = 'user_goal.active';
+                break;
+            case self::COMPLETED:
+                $result = 'user_goal.completed';
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
      * Get status
      *
      * @return integer 
@@ -133,6 +156,29 @@ class UserGoal
     }
 
     /**
+     * This function is used to get privacy integer, and convert to string
+     *
+     * @return null|string
+     */
+    public function getPrivacyString()
+    {
+        // empty result
+        $result = null;
+
+        // switch for privacy and return result
+        switch($this->privacy){
+            case self::PRIVATE_PRIVACY:
+                $result = 'user_goal.private';
+                break;
+            case self::PUBLIC_PRIVACY:
+                $result = 'user_goal.public';
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
      * Set quality
      *
      * @param integer $quality
@@ -153,6 +199,35 @@ class UserGoal
     public function getQuality()
     {
         return $this->quality;
+    }
+
+    /**
+     * This function is used to get quality integer, and convert to string
+     *
+     * @return null|string
+     */
+    public function getQualityString()
+    {
+        // empty result
+        $result = null;
+
+        // switch for quality and return result
+        switch($this->quality){
+            case self::IMPORTANT:
+                $result = 'user_goal.important';
+                break;
+            case self::NOT_IMPORTANT:
+                $result = 'user_goal.not_important';
+                break;
+            case self::URGENT:
+                $result = 'user_goal.urgent';
+                break;
+            case self::NOT_URGENT:
+                $result = 'user_goal.not_urgent';
+                break;
+        }
+
+        return $result;
     }
 
     /**

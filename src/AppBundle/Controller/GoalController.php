@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Goal;
+use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
 use AppBundle\Form\UserGoalType;
@@ -16,6 +16,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 
 /**
  * @Route("/goal")
@@ -30,6 +33,7 @@ class GoalController extends Controller
      * @Template()
      * @param Request $request
      * @return array
+     *  @Secure(roles="ROLE_USER")
      */
     public function addAction(Request $request)
     {
@@ -48,11 +52,56 @@ class GoalController extends Controller
             // check valid
             if($form->isValid()){
 
-                dump($userGoal);
-                exit;
+                // get entity manager
+                $em = $this->getDoctrine()->getManager();
+
+                // get goal
+                $goal = $userGoal->getGoal();
+
+                //get images
+                $images = $goal->getImages();
+
+                // check images
+                if($images) {
+
+                    // loop for images
+                    foreach($images as $image) {
+
+                        // upload file
+                        $image->uploadFile();
+
+                        // ad image to goal
+                        $goal->addImage($image);
+
+                        // persist goal
+                        $em->persist($goal);
+                    }
+                }
+
+                // set user
+                $userGoal->setUser($this->getUser());
+
+                $em->persist($userGoal);
+                $em->flush();
+
+                // redirect to view
+                return $this->redirectToRoute('view_goal', array('id' => $userGoal->getId()));
+
             }
         }
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/view/{id}", name="view_goal")
+     * @Template()
+     * @ParamConverter("userGoal", class="AppBundle:UserGoal")
+     * @param UserGoal $userGoal
+     * @return array
+     */
+    public function viewAction(UserGoal $userGoal)
+    {
+        return array('userGoal' => $userGoal);
     }
 }

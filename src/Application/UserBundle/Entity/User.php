@@ -177,7 +177,7 @@ class User extends BaseUser
      */
     protected function getPath()
     {
-        return 'UsersPhoto';
+        return 'photo';
     }
 
 

@@ -1,0 +1,21 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+ {% block body %}
+
+     {% set goal = userGoal.goal %}
+     {% set images = goal.images %}
+
+     Description: {{ goal.description }}
+     <br>
+     Privacy: {{ userGoal.getPrivacyString|trans() }}
+     <br>
+     Quality: {{ userGoal.getQualityString|trans() }}
+     <br>
+     Status: {{ userGoal.getStatusString|trans() }}
+     <br>
+
+     {% for image in images %}
+        <img src="{{ image.downloadLink }}"> <br>
+     {% endfor %}
+
+ {% endblock %}
