@@ -38,6 +38,16 @@ class Category
     protected $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity="Aphorism", mappedBy="category", cascade={"persist"})
+     **/
+    protected $aphorisms;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Goal", mappedBy="category", cascade={"persist"})
+     **/
+    protected $goals;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -91,5 +101,81 @@ class Category
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->aphorisms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add aphorisms
+     *
+     * @param \AppBundle\Entity\Aphorism $aphorisms
+     * @return Category
+     */
+    public function addAphorism(\AppBundle\Entity\Aphorism $aphorisms)
+    {
+        $this->aphorisms[] = $aphorisms;
+        $aphorisms->setCategory($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove aphorisms
+     *
+     * @param \AppBundle\Entity\Aphorism $aphorisms
+     */
+    public function removeAphorism(\AppBundle\Entity\Aphorism $aphorisms)
+    {
+        $this->aphorisms->removeElement($aphorisms);
+    }
+
+    /**
+     * Get aphorisms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAphorisms()
+    {
+        return $this->aphorisms;
+    }
+
+    /**
+     * Add goals
+     *
+     * @param \AppBundle\Entity\Goal $goals
+     * @return Category
+     */
+    public function addGoal(\AppBundle\Entity\Goal $goals)
+    {
+        $this->goals[] = $goals;
+        $goals->setCategory($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove goals
+     *
+     * @param \AppBundle\Entity\Goal $goals
+     */
+    public function removeGoal(\AppBundle\Entity\Goal $goals)
+    {
+        $this->goals->removeElement($goals);
+    }
+
+    /**
+     * Get goals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGoals()
+    {
+        return $this->goals;
     }
 }

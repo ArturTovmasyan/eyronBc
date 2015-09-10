@@ -41,6 +41,12 @@ class Goal
     protected $userGoal;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="goals")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     **/
+    protected $category;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -147,5 +153,28 @@ class Goal
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     * @return Goal
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
