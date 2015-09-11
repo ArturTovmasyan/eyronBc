@@ -94,6 +94,12 @@ class GoalController extends Controller
                     // get new tags
                     $newTags = array_diff($tags, $dbTags);
 
+                    // tags that is already exist in database
+                    $existTags = array_diff($tags, $newTags);
+
+                    // get tags from database
+                    $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
+
                     // loop for array
                     foreach($newTags as $tagString){
 
@@ -105,6 +111,13 @@ class GoalController extends Controller
 
                         // add tag
                         $goal->addTag($tag);
+                    }
+
+                    // loop for tags n database
+                    foreach($oldTags as $oldTag){
+
+                        // add tag
+                        $goal->addTag($oldTag);
                     }
                 }
 

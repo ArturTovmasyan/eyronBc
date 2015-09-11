@@ -33,4 +33,26 @@ class TagRepository extends EntityRepository
         return $result;
     }
 
+
+    /**
+     * @param $titles
+     * @return array
+     */
+    public function findTagsByTitles($titles)
+    {
+        $result = array();
+
+        if(count($titles) > 0){
+            $result =  $this->getEntityManager()
+                ->createQuery("SELECT t
+                           FROM AppBundle:Tag t WHERE t.title in (:titles)")
+                ->setParameter('titles', $titles)
+                ->getResult()
+            ;
+        }
+
+
+        return $result;
+    }
+
 }
