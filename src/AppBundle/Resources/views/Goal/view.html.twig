@@ -16,6 +16,15 @@
      Status: {{ userGoal.getStatusString|trans() }}
      <br>
 
+    {% set tags = goal.tags %}
+
+    {% if tags %}
+        Tags:
+        {% for tag in tags %}
+            {{ tag.title }} ,
+        {% endfor %}
+    {% endif %}
+
      {% for image in images %}
         <img src="{{ image.downloadLink }}"> <br>
      {% endfor %}

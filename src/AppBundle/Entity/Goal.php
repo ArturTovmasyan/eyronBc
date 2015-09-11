@@ -47,7 +47,7 @@ class Goal
     protected $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="goals_tags",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
@@ -218,5 +218,22 @@ class Goal
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * This function is used to get hash tags from description
+     *
+     * @return mixed
+     */
+    public function getHashTags()
+    {
+        // get description
+        $content = $this->description;
+
+        // get hash tags
+        preg_match_all('/#([^\s]+)/', $content, $hashTags);
+
+        // return hash tags
+        return $hashTags[1];
     }
 }

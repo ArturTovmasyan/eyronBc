@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
 use AppBundle\Form\UserGoalType;
@@ -80,6 +81,24 @@ class GoalController extends Controller
 
                 // set user
                 $userGoal->setUser($this->getUser());
+
+                // get tags from description
+                $tags = $goal->getHashTags();
+
+                // check tags
+                if($tags){
+                    foreach($tags as $tagString){
+
+                        // create new tag
+                        $tag = new Tag();
+
+                        // set tag title
+                        $tag->setTitle(strtolower($tagString));
+
+                        // add tag
+                        $goal->addTag($tag);
+                    }
+                }
 
                 $em->persist($userGoal);
                 $em->flush();
