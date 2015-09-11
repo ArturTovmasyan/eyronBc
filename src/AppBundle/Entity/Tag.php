@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TagRepository")
  * @ORM\Table(name="tag")
  */
 class Tag

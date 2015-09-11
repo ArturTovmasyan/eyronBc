@@ -87,7 +87,15 @@ class GoalController extends Controller
 
                 // check tags
                 if($tags){
-                    foreach($tags as $tagString){
+
+                    // get tags from db
+                    $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
+
+                    // get new tags
+                    $newTags = array_diff($tags, $dbTags);
+
+                    // loop for array
+                    foreach($newTags as $tagString){
 
                         // create new tag
                         $tag = new Tag();

@@ -228,7 +228,7 @@ class Goal
     public function getHashTags()
     {
         // get description
-        $content = $this->description;
+        $content = strtolower($this->description);
 
         // get hash tags
         preg_match_all('/#([^\s]+)/', $content, $hashTags);
