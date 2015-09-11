@@ -19,6 +19,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
+    const MALE = 0;
+    const FEMALE = 1;
+
     // use file trait
     use File;
 
@@ -47,6 +50,12 @@ class User extends BaseUser
     protected $age;
 
     /**
+     * @ORM\Column(name="gender", type="smallint", nullable=true)
+     * @var
+     */
+    protected $gender;
+
+    /**
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      */
@@ -57,6 +66,29 @@ class User extends BaseUser
      * @ORM\Column(name="about_me", type="string", nullable=true)
      */
     protected $aboutMe;
+
+    /**
+     * @var
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $facebookId;
+    /**
+     * @var
+     * @ORM\Column(type="string", length=50,  nullable=true)
+     */
+    protected $twitterId;
+
+    /**
+     * @var
+     * @ORM\Column(type="string", length=50,  nullable=true)
+     */
+    protected $googleId;
+
+    /**
+     * @var
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $socialPhotoLink;
 
     /**
      * Constructor
@@ -214,5 +246,120 @@ class User extends BaseUser
     public function getUserGoal()
     {
         return $this->userGoal;
+    }
+
+    /**
+     * Set facebookId
+     *
+     * @param string $facebookId
+     * @return User
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookId
+     *
+     * @return string 
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * Set googleId
+     *
+     * @param string $googleId
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * Get googleId
+     *
+     * @return string 
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * Set socialPhotoLink
+     *
+     * @param string $socialPhotoLink
+     * @return User
+     */
+    public function setSocialPhotoLink($socialPhotoLink)
+    {
+        $this->socialPhotoLink = $socialPhotoLink;
+
+        return $this;
+    }
+
+    /**
+     * Get socialPhotoLink
+     *
+     * @return string 
+     */
+    public function getSocialPhotoLink()
+    {
+        return $this->socialPhotoLink;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param integer $gender
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return integer 
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set twitterId
+     *
+     * @param string $twitterId
+     * @return User
+     */
+    public function setTwitterId($twitterId)
+    {
+        $this->twitterId = $twitterId;
+
+        return $this;
+    }
+
+    /**
+     * Get twitterId
+     *
+     * @return string 
+     */
+    public function getTwitterId()
+    {
+        return $this->twitterId;
     }
 }
