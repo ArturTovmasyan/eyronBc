@@ -92,17 +92,17 @@ hwi_oauth:
     resource_owners:
             facebook:
                 type:                facebook
-                client_id:           1490967017868221  # change
-                client_secret:       90c9d88f98f5aac57a035fcb6fbfa6e4 # change
+                client_id:           "%facebook_client_id%"
+                client_secret:       "%facebook_client_secret%"
             google:
                 type:                google
-                client_id:           407268305667-2qid1nfpsvehkn19gg9564b3ij0f2kmt.apps.googleusercontent.com
-                client_secret:       24qfM-_VNckGHBA9GiaXc8Zf
+                client_id:           "%google_client_id%"
+                client_secret:       "%google_client_secret%"
                 scope:               "email profile"
             twitter:
                 type:                twitter
-                client_id:           SCB3ampx9Fd9488e18xqboOs4
-                client_secret:       O7OCJYUmdllfHuCghOikTtUu63R90nMMLjAMAgIz9BIFBBYB9x
+                client_id:           "%twitter_client_id%"
+                client_secret:       "%twitter_client_secret%"
 
 # sonata block configuration
 sonata_block:
