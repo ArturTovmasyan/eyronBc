@@ -42,17 +42,17 @@ class AphorismAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $object = $this->getSubject();
-
-        // check object
-        if($object->getId()){
-
-            // replace '#' symbols
-            $content = str_replace('#', '', $object->getContent());
-
-            // set content
-            $object->setContent($content);
-        }
+//        $object = $this->getSubject();
+//
+//        // check object
+//        if($object->getId()){
+//
+//            // replace '#' symbols
+//            $content = str_replace('#', '', $object->getContent());
+//
+//            // set content
+//            $object->setContent($content);
+//        }
 
         $formMapper
             ->add('author')
@@ -157,7 +157,7 @@ class AphorismAdmin extends Admin
                 $title = str_replace('.', '', $title);
 
                 // set tag title
-                $tag->setTitle($title);
+                $tag->setTag($title);
 
                 // add tag
                 $object->addTag($tag);
@@ -193,7 +193,16 @@ class AphorismAdmin extends Admin
     private function getHashTags($text)
     {
         // get description
-        $content = strtolower($text);
+        $text = strtolower($text);
+
+        // replace ',' symbols
+        $title = str_replace(',', '', $text);
+
+        // replace ':' symbols
+        $title = str_replace(':', '', $title);
+
+        // replace '.' symbols
+        $content = str_replace('.', '', $title);
 
         // get hash tags
         preg_match_all('/#([^\s]+)/', $content, $hashTags);

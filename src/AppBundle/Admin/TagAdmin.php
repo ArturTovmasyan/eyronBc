@@ -32,7 +32,7 @@ class TagAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('title')
+            ->add('tag')
 
         ;
     }
@@ -42,7 +42,7 @@ class TagAdmin extends Admin
     {
 
         $formMapper
-            ->add('title')
+            ->add('tag')
         ;
     }
 
@@ -51,7 +51,7 @@ class TagAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('title')
+            ->add('tag')
         ;
     }
 
@@ -60,7 +60,7 @@ class TagAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('title')
+            ->add('tag')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

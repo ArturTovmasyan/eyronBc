@@ -22,13 +22,13 @@ class TagRepository extends EntityRepository
         $result = array();
 
         $query =  $this->getEntityManager()
-            ->createQuery("SELECT t.title
+            ->createQuery("SELECT t.tag
                            FROM AppBundle:Tag t ")
             ->getResult(Query::HYDRATE_ARRAY)
             ;
 
         if($query){
-            $result =  array_map(function($value) { return $value['title']; }, $query);
+            $result =  array_map(function($value) { return $value['tag']; }, $query);
         }
         return $result;
     }
@@ -45,7 +45,7 @@ class TagRepository extends EntityRepository
         if(count($titles) > 0){
             $result =  $this->getEntityManager()
                 ->createQuery("SELECT t
-                           FROM AppBundle:Tag t WHERE t.title in (:titles)")
+                           FROM AppBundle:Tag t WHERE t.tag in (:titles)")
                 ->setParameter('titles', $titles)
                 ->getResult()
             ;

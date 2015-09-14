@@ -11,11 +11,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TagRepository")
  * @ORM\Table(name="tag")
+ * @UniqueEntity(fields={"tag"}, errorPath="tag", message="Duplicate og tag")
+ *
  */
 class Tag
 {
@@ -27,12 +30,12 @@ class Tag
     protected $id;
 
     /**
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="tag", type="string" , unique=true)
      */
-    protected $title;
+    protected $tag;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"tag"})
      * @ORM\Column(name="slug", type="string", unique=true, nullable=false)
      */
     protected $slug;
@@ -42,7 +45,7 @@ class Tag
      */
     public function __toString()
     {
-        return (string) $this->title;
+        return (string) $this->tag;
     }
 
     /**
@@ -56,26 +59,26 @@ class Tag
     }
 
     /**
-     * Set title
+     * Set tag
      *
-     * @param string $title
+     * @param string $tag
      * @return Category
      */
-    public function setTitle($title)
+    public function setTag($tag)
     {
-        $this->title = $title;
+        $this->tag = $tag;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get tag
      *
      * @return string 
      */
-    public function getTitle()
+    public function getTag()
     {
-        return $this->title;
+        return $this->tag;
     }
 
     /**

@@ -107,7 +107,7 @@ class GoalController extends Controller
                         $tag = new Tag();
 
                         // set tag title
-                        $tag->setTitle(strtolower($tagString));
+                        $tag->setTag(strtolower($tagString));
 
                         // add tag
                         $goal->addTag($tag);
