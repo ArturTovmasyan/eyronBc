@@ -33,6 +33,7 @@ class AphorismAdmin extends Admin
     {
         $showMapper
             ->add('id')
+            ->add('author')
             ->add('content')
             ->add('tags')
         ;
@@ -46,7 +47,7 @@ class AphorismAdmin extends Admin
         // check object
         if($object->getId()){
 
-            // replace '#' simbols
+            // replace '#' symbols
             $content = str_replace('#', '', $object->getContent());
 
             // set content
@@ -54,6 +55,7 @@ class AphorismAdmin extends Admin
         }
 
         $formMapper
+            ->add('author')
             ->add('content', 'textarea')
             ->add('tags')
         ;
@@ -64,6 +66,7 @@ class AphorismAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
+            ->add('author')
             ->add('content')
             ->add('tags')
         ;
@@ -74,6 +77,7 @@ class AphorismAdmin extends Admin
     {
         $listMapper
             ->add('id')
+            ->add('author')
             ->add('content')
             ->add('tags')
             ->add('_action', 'actions', array(
@@ -141,8 +145,19 @@ class AphorismAdmin extends Admin
                 // create new tag
                 $tag = new Tag();
 
+                $title = strtolower($tagString);
+
+                // replace ',' symbols
+                $title = str_replace(',', '', $title);
+
+                // replace ':' symbols
+                $title = str_replace(':', '', $title);
+
+                // replace '.' symbols
+                $title = str_replace('.', '', $title);
+
                 // set tag title
-                $tag->setTitle(strtolower($tagString));
+                $tag->setTitle($title);
 
                 // add tag
                 $object->addTag($tag);
