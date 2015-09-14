@@ -32,13 +32,7 @@ class Aphorism
     protected $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="aphorisms")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     **/
-    protected $category;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="aphorisms_tags",
      *      joinColumns={@ORM\JoinColumn(name="aphorism_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
@@ -79,28 +73,6 @@ class Aphorism
         return $this->content;
     }
 
-    /**
-     * Set category
-     *
-     * @param \AppBundle\Entity\Category $category
-     * @return Aphorism
-     */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \AppBundle\Entity\Category 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
     /**
      * Constructor
      */
