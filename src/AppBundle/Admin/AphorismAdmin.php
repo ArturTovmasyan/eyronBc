@@ -193,19 +193,10 @@ class AphorismAdmin extends Admin
     private function getHashTags($text)
     {
         // get description
-        $text = strtolower($text);
-
-        // replace ',' symbols
-        $title = str_replace(',', '', $text);
-
-        // replace ':' symbols
-        $title = str_replace(':', '', $title);
-
-        // replace '.' symbols
-        $content = str_replace('.', '', $title);
+        $content = strtolower($text);
 
         // get hash tags
-        preg_match_all('/#([^\s]+)/', $content, $hashTags);
+        preg_match_all("/#(\w+)/", $content, $hashTags);
 
         // return hash tags
         return $hashTags[1];
