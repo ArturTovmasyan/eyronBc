@@ -44,6 +44,14 @@ class TimeSentence
     protected $replaceWith;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
      * Get id
      *
      * @return integer

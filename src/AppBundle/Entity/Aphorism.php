@@ -74,6 +74,14 @@ class Aphorism
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()

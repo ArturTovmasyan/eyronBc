@@ -66,6 +66,14 @@ class Goal
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
      * Add images
      *
      * @param \AppBundle\Entity\GoalImage $images
