@@ -44,7 +44,7 @@ class TimeSentenceAdmin extends Admin
     {
 
         $formMapper
-            ->add('content')
+            ->add('content', 'textarea')
             ->add('replaceString')
             ->add('replaceWith')
         ;
