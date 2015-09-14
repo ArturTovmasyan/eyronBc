@@ -41,6 +41,17 @@ class AphorismAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $object = $this->getSubject();
+
+        // check object
+        if($object->getId()){
+
+            // replace '#' simbols
+            $content = str_replace('#', '', $object->getContent());
+
+            // set content
+            $object->setContent($content);
+        }
 
         $formMapper
             ->add('content', 'textarea')
