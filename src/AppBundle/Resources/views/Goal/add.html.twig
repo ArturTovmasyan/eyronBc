@@ -4,7 +4,7 @@
 
     {{ parent() }}
     {# todo:: add jquery #}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
 
 {% endblock %}
@@ -12,41 +12,76 @@
 
  {% block body %}
 
-     <form method="post" action="#" enctype="multipart/form-data">
-
-         {{ form_errors(form) }}
-
          {% set formGoal = form.goal %}
 
-         {{ form_row(formGoal.category) }}
-         {{ form_row(formGoal.description) }}
+     <div>
+         {{ form_errors(form) }}
+         <form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">
 
+             <div class="form-group">
+                 <label for="{{ formGoal.category.vars.id }}" class="col-sm-2 control-label">{{ form_label(formGoal.category) }}</label>
+                 <div class="col-sm-10">
+                     {{ form_widget(formGoal.category, {'attr': {'class':'form-control'} }) }}
+                 </div>
+             </div>
 
-         {{ form_row(form.quality) }}
-         {{ form_row(form.privacy) }}
+             <div class="form-group">
+                 <label for="{{ form.quality.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.quality) }}</label>
+                 <div class="col-sm-10">
+                     {{ form_widget(form.quality, {'attr': {'class':'form-control'} }) }}
+                 </div>
+             </div>
 
-         <ul class="images" data-prototype="{{ form_widget(formGoal.images.vars.prototype.file)|e }}">
-             {% if formGoal.images.vars.value is null %}
-                 {{ form_widget(formGoal.images) }}
-             {% else %}
-                 {% if formGoal.vars.value.images|length > 0 %}
-                     <ul class="file-list">
-                         {% for images in formGoal.vars.value.images %}
-                             <li>
-                                 <a class="delete-link" href="#" > Delete </a>
-                                 <a href="{{ images.downloadLink }}"
-                                    target="_blank">{{ images.fileOriginalName | default(images.file ? images.file.getClientOriginalName) }}</a>
-                             </li>
-                         {% endfor %}
-                     </ul>
-                 {% endif %}
-             {% endif %}
-         </ul>
+             <div class="form-group">
+                 <label for="{{ formGoal.description.vars.id }}" class="col-sm-2 control-label">{{ form_label(formGoal.description) }}</label>
+                 <div class="col-sm-10">
+                     {{ form_widget(formGoal.description, {'attr': {'class':'form-control'} }) }}
+                 </div>
+             </div>
 
-         {{ form_widget(form._token) }}
+             <div class="form-group">
+                 <label for="{{ form.privacy.vars.id }}" class="col-sm-2 control-label radio-inline">{{ form_label(form.privacy) }}</label>
+                 <div class="col-sm-10">
+                     {% for privacy in form.privacy.children  %}
+                         <div class="radio">
+                             <label>
+                                 {{ form_widget(privacy) }}
+                                 {{ form_label(privacy) }}
+                             </label>
+                         </div>
+                     {% endfor %}
+                 </div>
+             </div>
 
-         <input type="submit" value="Save">
+             <div class="form-group">
+                 <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(formGoal.images.vars.prototype.file)|e }}">
+                     {% if formGoal.images.vars.value is null %}
+                         {{ form_widget(formGoal.images) }}
+                     {% else %}
+                         {% if formGoal.vars.value.images|length > 0 %}
+                             <ul class="file-list">
+                                 {% for images in formGoal.vars.value.images %}
+                                     <li>
+                                         <a class="delete-link" href="#" > Delete </a>
+                                         <a href="{{ images.downloadLink }}"
+                                            target="_blank">{{ images.fileOriginalName | default(images.file ? images.file.getClientOriginalName) }}</a>
+                                     </li>
+                                 {% endfor %}
+                             </ul>
+                         {% endif %}
+                     {% endif %}
+                 </ul>
+             </div>
 
-     </form>
+             <div class="form-group">
+                 <div class="col-sm-offset-2 col-sm-10">
+                     <button type="submit" class="btn btn-default">Save</button>
+                 </div>
+             </div>
+
+             {{ form_widget(form._token) }}
+
+         </form>
+     </div>
 
  {% endblock %}
