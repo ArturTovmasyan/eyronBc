@@ -82,44 +82,8 @@ class GoalController extends Controller
                 // set user
                 $userGoal->setUser($this->getUser());
 
-                // get tags from description
-                $tags = $goal->getHashTags();
-
-                // check tags
-                if($tags){
-
-                    // get tags from db
-                    $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
-
-                    // get new tags
-                    $newTags = array_diff($tags, $dbTags);
-
-                    // tags that is already exist in database
-                    $existTags = array_diff($tags, $newTags);
-
-                    // get tags from database
-                    $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
-
-                    // loop for array
-                    foreach($newTags as $tagString){
-
-                        // create new tag
-                        $tag = new Tag();
-
-                        // set tag title
-                        $tag->setTag(strtolower($tagString));
-
-                        // add tag
-                        $goal->addTag($tag);
-                    }
-
-                    // loop for tags n database
-                    foreach($oldTags as $oldTag){
-
-                        // add tag
-                        $goal->addTag($oldTag);
-                    }
-                }
+                // get gags
+                $this->getAndAddTags($goal);
 
                 $em->persist($userGoal);
                 $em->flush();
@@ -143,5 +107,95 @@ class GoalController extends Controller
     public function viewAction(UserGoal $userGoal)
     {
         return array('userGoal' => $userGoal);
+    }
+
+
+    /**
+     * @param $object
+     */
+    private function getAndAddTags(&$object)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get content
+        $content = $object->getDescription();
+
+        // get tags from description
+        $tags = $this->getHashTags($content);
+
+        // check tags
+        if($tags){
+
+            // get tags from db
+            $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
+
+            // get new tags
+            $newTags = array_diff($tags, $dbTags);
+
+            // tags that is already exist in database
+            $existTags = array_diff($tags, $newTags);
+
+            // get tags from database
+            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
+
+            // loop for array
+            foreach($newTags as $tagString){
+
+                // create new tag
+                $tag = new Tag();
+
+                $title = strtolower($tagString);
+
+                // replace ',' symbols
+                $title = str_replace(',', '', $title);
+
+                // replace ':' symbols
+                $title = str_replace(':', '', $title);
+
+                // replace '.' symbols
+                $title = str_replace('.', '', $title);
+
+                // set tag title
+                $tag->setTag($title);
+
+                // add tag
+                $object->addTag($tag);
+
+                // persist tag
+                $em->persist($tag);
+
+            }
+
+            // loop for tags n database
+            foreach($oldTags as $oldTag){
+
+                // check tag in collection
+                if(!$object->getTags()->contains($oldTag)){
+
+                    // add tag
+                    $object->addTag($oldTag);
+
+                    // persist tag
+                    $em->persist($oldTag);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $text
+     * @return mixed
+     */
+    private function getHashTags($text)
+    {
+        // get description
+        $content = strtolower($text);
+
+        // get hash tags
+        preg_match_all("/#(\w+)/", $content, $hashTags);
+
+        // return hash tags
+        return $hashTags[1];
     }
 }
