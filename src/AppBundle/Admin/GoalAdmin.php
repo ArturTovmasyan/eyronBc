@@ -10,6 +10,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Tag;
+use AppBundle\Form\GoalImageType;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -49,6 +50,13 @@ class GoalAdmin extends Admin
             ->add('category')
             ->add('description')
             ->add('tags')
+            ->add('images', 'collection',
+                array('type' => new GoalImageType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'label' => false
+                ))
+        ;
         ;
     }
 
@@ -86,6 +94,7 @@ class GoalAdmin extends Admin
     public function prePersist($object)
     {
         $this->getAndAddTags($object);
+        $this->addImages($object);
     }
 
     /**
@@ -94,6 +103,7 @@ class GoalAdmin extends Admin
     public function postUpdate($object)
     {
         $this->getAndAddTags($object);
+        $this->addImages($object);
     }
 
     /**
@@ -160,7 +170,7 @@ class GoalAdmin extends Admin
             foreach($oldTags as $oldTag){
 
                 // check tag in collection
-                if(!$object->getTags()->contains($oldTag)){
+                if(!$object->getTags() || !$object->getTags()->contains($oldTag)){
 
                     // add tag
                     $object->addTag($oldTag);
@@ -189,5 +199,35 @@ class GoalAdmin extends Admin
 
         // return hash tags
         return $hashTags[1];
+    }
+
+    /**
+     * @param $object
+     */
+    private function addImages($object)
+    {
+        $em = $this->getModelManager();
+
+        //get images
+        $images = $object->getImages();
+
+        // check images
+        if($images) {
+
+            // loop for images
+            foreach($images as $image) {
+
+                // upload file
+                $image->uploadFile();
+
+                // ad image to goal
+                $object->addImage($image);
+
+                $em->update($image);
+
+
+
+            }
+        }
     }
 }

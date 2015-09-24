@@ -20,7 +20,7 @@ class GoalImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', 'file');
+        $builder->add('file', 'file', array('label'=>false));
     }
 
     /**
