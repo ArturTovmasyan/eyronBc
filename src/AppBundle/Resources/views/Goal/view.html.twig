@@ -4,18 +4,11 @@
 
      {{ parent() }}
 
-     {% set goal = userGoal.goal %}
      {% set images = goal.images %}
 
      Category: {{ goal.category }}
      <br>
      Description: {{ goal.description }}
-     <br>
-     Privacy: {{ userGoal.getPrivacyString|trans() }}
-     <br>
-     Quality: {{ userGoal.getQualityString|trans() }}
-     <br>
-     Status: {{ userGoal.getStatusString|trans() }}
      <br>
 
     {% set tags = goal.tags %}
@@ -26,6 +19,9 @@
             {{ tag.tag }} ,
         {% endfor %}
     {% endif %}
+
+     <br />
+
 
      {% for image in images %}
         <img src="{{ image.downloadLink }}"> <br>

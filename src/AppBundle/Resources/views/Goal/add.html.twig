@@ -12,56 +12,33 @@
 
      {{ parent() }}
 
-
-         {% set formGoal = form.goal %}
-
      <div>
          {{ form_errors(form) }}
          <form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">
 
              <div class="form-group">
-                 <label for="{{ formGoal.category.vars.id }}" class="col-sm-2 control-label">{{ form_label(formGoal.category) }}</label>
+                 <label for="{{ form.category.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.category) }}</label>
                  <div class="col-sm-10">
-                     {{ form_widget(formGoal.category, {'attr': {'class':'form-control'} }) }}
+                     {{ form_widget(form.category, {'attr': {'class':'form-control'} }) }}
+                 </div>
+             </div>
+
+
+             <div class="form-group">
+                 <label for="{{ form.description.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.description) }}</label>
+                 <div class="col-sm-10">
+                     {{ form_widget(form.description, {'attr': {'class':'form-control'} }) }}
                  </div>
              </div>
 
              <div class="form-group">
-                 <label for="{{ form.quality.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.quality) }}</label>
-                 <div class="col-sm-10">
-                     {{ form_widget(form.quality, {'attr': {'class':'form-control'} }) }}
-                 </div>
-             </div>
-
-             <div class="form-group">
-                 <label for="{{ formGoal.description.vars.id }}" class="col-sm-2 control-label">{{ form_label(formGoal.description) }}</label>
-                 <div class="col-sm-10">
-                     {{ form_widget(formGoal.description, {'attr': {'class':'form-control'} }) }}
-                 </div>
-             </div>
-
-             <div class="form-group">
-                 <label for="{{ form.privacy.vars.id }}" class="col-sm-2 control-label radio-inline">{{ form_label(form.privacy) }}</label>
-                 <div class="col-sm-10">
-                     {% for privacy in form.privacy.children  %}
-                         <div class="radio">
-                             <label>
-                                 {{ form_widget(privacy) }}
-                                 {{ form_label(privacy) }}
-                             </label>
-                         </div>
-                     {% endfor %}
-                 </div>
-             </div>
-
-             <div class="form-group">
-                 <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(formGoal.images.vars.prototype.file)|e }}">
-                     {% if formGoal.images.vars.value is null %}
-                         {{ form_widget(formGoal.images) }}
+                 <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(form.images.vars.prototype.file)|e }}">
+                     {% if form.images.vars.value is null %}
+                         {{ form_widget(form.images) }}
                      {% else %}
-                         {% if formGoal.vars.value.images|length > 0 %}
+                         {% if form.vars.value.images|length > 0 %}
                              <ul class="file-list">
-                                 {% for images in formGoal.vars.value.images %}
+                                 {% for images in form.vars.value.images %}
                                      <li>
                                          <a class="delete-link" href="#" > Delete </a>
                                          <a href="{{ images.downloadLink }}"

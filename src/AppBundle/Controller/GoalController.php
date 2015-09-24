@@ -8,11 +8,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\Goal;
 use AppBundle\Entity\Tag;
-use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
-use AppBundle\Form\UserGoalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,10 +37,10 @@ class GoalController extends Controller
     public function addAction(Request $request)
     {
         // create new object
-        $userGoal = new UserGoal();
+        $goal = new Goal();
 
         // create goal form
-        $form  = $this->createForm(new UserGoalType(), $userGoal);
+        $form  = $this->createForm(new GoalType(), $goal);
 
         // check request method
         if($request->isMethod("POST")){
@@ -55,9 +53,6 @@ class GoalController extends Controller
 
                 // get entity manager
                 $em = $this->getDoctrine()->getManager();
-
-                // get goal
-                $goal = $userGoal->getGoal();
 
                 //get images
                 $images = $goal->getImages();
@@ -79,17 +74,14 @@ class GoalController extends Controller
                     }
                 }
 
-                // set user
-                $userGoal->setUser($this->getUser());
-
                 // get gags
                 $this->getAndAddTags($goal);
 
-                $em->persist($userGoal);
+                $em->persist($goal);
                 $em->flush();
 
                 // redirect to view
-                return $this->redirectToRoute('view_goal', array('id' => $userGoal->getId()));
+                return $this->redirectToRoute('view_goal', array('id' => $goal->getId()));
 
             }
         }
@@ -100,13 +92,13 @@ class GoalController extends Controller
     /**
      * @Route("/view/{id}", name="view_goal")
      * @Template()
-     * @ParamConverter("userGoal", class="AppBundle:UserGoal")
-     * @param UserGoal $userGoal
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
      * @return array
      */
-    public function viewAction(UserGoal $userGoal)
+    public function viewAction(Goal $goal)
     {
-        return array('userGoal' => $userGoal);
+        return array('goal' => $goal);
     }
 
 
@@ -117,7 +109,13 @@ class GoalController extends Controller
      */
     public function listAction()
     {
-        return array('goals' => null);
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // find all goals
+        $goals = $em->getRepository("AppBundle:Goal")->findAll();
+
+        return array('goals' => $goals);
     }
 
 

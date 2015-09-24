@@ -4,4 +4,22 @@
 
      {{ parent() }}
 
+    {% if goals %}
+        <div class="row">
+        {% for goal in goals %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="..." alt="...">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>{{ goal.description }}</p>
+                        <p>
+                            <a href="{{ path("view_goal", {'id': goal.id}) }}" class="btn btn-primary" role="button">Show</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
  {% endblock %}
