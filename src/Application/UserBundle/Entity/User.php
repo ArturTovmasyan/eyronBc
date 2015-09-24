@@ -212,6 +212,26 @@ class User extends BaseUser
         return 'photo';
     }
 
+    /**
+     * Override getPath function in file trait
+     *
+     * @return string
+     */
+    protected function getMobilePath()
+    {
+        return $this->getPath() . '/mobile';
+    }
+
+    /**
+     * Override getPath function in file trait
+     *
+     * @return string
+     */
+    protected function getTabletPath()
+    {
+        return $this->getPath() . '/tablet';
+    }
+
 
 
     /**

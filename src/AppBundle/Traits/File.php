@@ -170,6 +170,7 @@ trait File
                 unlink($path);
             }
         }
+
         // get file originalName
         $this->fileOriginalName = $this->getFile()->getClientOriginalName();
 
@@ -179,14 +180,29 @@ trait File
         // generate filename
         $this->fileName = md5(microtime()) . '.' . $path_parts['extension'];
 
-        // upload file
-        $this->getFile()->move($this->getAbsolutePath(), $this->fileName);
-
         // set size
         $this->setFileSize($this->getFile()->getClientSize());
 
+        // upload file
+        $this->getFile()->move($this->getAbsolutePath(), $this->fileName);
+
         // set file to null
         $this->file = null;
+
+        // get original file
+        $file = $this->getAbsolutePath() . $this->fileName ;
+
+        // create imagick for mobile image
+        $im = new \Imagick($file);
+        $im->resizeImage(10, 10, \Imagick::FILTER_LANCZOS, 1, true);
+        $mobileFile = $this->getAbsoluteMobilePath() . $this->fileName;
+        $im->writeImage( $mobileFile );
+
+        // create imagick for tablet image
+        $im = new \Imagick($file);
+        $im->resizeImage(20, 20, \Imagick::FILTER_LANCZOS, 1, true);
+        $tabletFile = $this->getAbsoluteTabletPath() . $this->fileName;
+        $im->writeImage( $tabletFile );
     }
 
 
@@ -196,6 +212,22 @@ trait File
     public function getAbsolutePath()
     {
         return $this->getUploadRootDir() . '/' . $this->getPath() .'/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsoluteMobilePath()
+    {
+        return $this->getUploadRootDir() . '/' . $this->getMobilePath() .'/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsoluteTabletPath()
+    {
+        return $this->getUploadRootDir() . '/' . $this->getTabletPath() .'/';
     }
 
     /**
@@ -214,6 +246,22 @@ trait File
     protected function getPath()
     {
         return 'files';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTabletPath()
+    {
+        return 'tablet';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getMobilePath()
+    {
+        return 'mobile';
     }
 
 
