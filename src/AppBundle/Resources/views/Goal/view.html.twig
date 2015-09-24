@@ -2,6 +2,8 @@
 
  {% block body %}
 
+     {{ parent() }}
+
      {% set goal = userGoal.goal %}
      {% set images = goal.images %}
 

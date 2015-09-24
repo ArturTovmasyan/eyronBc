@@ -111,6 +111,17 @@ class GoalController extends Controller
 
 
     /**
+     * @Route("/list", name="goals_list")
+     * @Template()
+     * @return array
+     */
+    public function listAction()
+    {
+        return array('goals' => null);
+    }
+
+
+    /**
      * @param $object
      */
     private function getAndAddTags(&$object)

@@ -3,14 +3,15 @@
 {% block javascripts %}
 
     {{ parent() }}
-    {# todo:: add jquery #}
-    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
 
 {% endblock %}
 
 
  {% block body %}
+
+     {{ parent() }}
+
 
          {% set formGoal = form.goal %}
 
