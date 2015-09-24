@@ -18,9 +18,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class GoalImageType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', 'file', array('label'=>false));
+        $builder
+            ->add('file', 'file', array('label'=>false))
+            ->add('primary', 'radio', array(
+                'label' => 'Primary '
+            ))
+        ;
     }
 
     /**

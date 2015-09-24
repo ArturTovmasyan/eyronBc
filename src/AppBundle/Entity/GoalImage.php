@@ -38,6 +38,12 @@ class GoalImage
      */
     protected $goal;
 
+    /**
+     * @ORM\Column(type="smallint", name="primary_image")
+     * @var
+     */
+    protected $primary;
+
 
     /**
      * Get id
@@ -80,5 +86,28 @@ class GoalImage
     protected function getPath()
     {
         return 'images';
+    }
+
+    /**
+     * Set primary
+     *
+     * @param boolean $primary
+     * @return GoalImage
+     */
+    public function setPrimary($primary)
+    {
+        $this->primary = $primary;
+
+        return $this;
+    }
+
+    /**
+     * Get primary
+     *
+     * @return boolean 
+     */
+    public function getPrimary()
+    {
+        return $this->primary;
     }
 }

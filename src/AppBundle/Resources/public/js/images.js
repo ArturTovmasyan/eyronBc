@@ -34,9 +34,17 @@ function addTagForm($collectionHolder, $newLinkLi, $addDeleteLink) {
     // get the new index
     var index = $collectionHolder.data('index');
 
+    console.log(prototype);
+
+    var newPrototype = prototype.replace(/__name__]\[primary]/g, 1+'][primary]');
+
+    var newPrototype2 = newPrototype.replace(/___name___primary/g, '_1_primary');
+
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
+    var newForm = newPrototype2.replace(/__name__/g, index);
+
+    //console.log(newForm);
 
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);

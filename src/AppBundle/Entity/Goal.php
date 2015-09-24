@@ -244,4 +244,29 @@ class Goal
         // return hash tags
         return $hashTags[1];
     }
+
+
+    /**
+     * @return bool|mixed
+     */
+    public function getPrimaryPhoto()
+    {
+        // get images
+        $images = $this->getImages();
+
+        // check images
+        if($images){
+
+            // loop for images
+            foreach($images as $image){
+
+                // check is primary
+                if($image->getPrimary()){
+                    return $image;
+                }
+            }
+        }
+
+        return null;
+    }
 }

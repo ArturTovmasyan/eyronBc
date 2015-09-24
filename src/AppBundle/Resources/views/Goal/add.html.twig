@@ -32,7 +32,7 @@
              </div>
 
              <div class="form-group">
-                 <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(form.images.vars.prototype.file)|e }}">
+                 <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
                      {% if form.images.vars.value is null %}
                          {{ form_widget(form.images) }}
                      {% else %}

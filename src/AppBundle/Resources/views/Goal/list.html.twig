@@ -9,8 +9,11 @@
         {% for goal in goals %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    {% if goal.images and goal.images|length > 0 %}
-                    {% set image = goal.images.first %}
+
+                    {% set image = goal.getPrimaryPhoto %}
+
+                    {% if image %}
+                    {% set image = goal.getPrimaryPhoto %}
                         <img src="{{ image.downloadLink }}" alt="..." width="50" height="50">
                     {% endif %}
 
