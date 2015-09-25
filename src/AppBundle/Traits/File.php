@@ -148,64 +148,6 @@ trait File
         return '/' . $this->getUploadDir() . '/' . $this->getPath() . '/' . $this->fileName;
     }
 
-
-    /**
-     * This function is used to upload image
-     *
-     */
-    public function uploadFile()
-    {
-        // the file property can be empty if the field is not required
-        if (null == $this->getFile())
-        {
-            return;
-        }
-        // check file name
-        if($this->getFileName()){
-            // get file path
-            $path = $this->getAbsolutePath() . $this->getFileName();
-            // check file
-            if(file_exists($path)){
-                // remove file
-                unlink($path);
-            }
-        }
-
-        // get file originalName
-        $this->fileOriginalName = $this->getFile()->getClientOriginalName();
-
-        // get file
-        $path_parts = pathinfo($this->getFile()->getClientOriginalName());
-
-        // generate filename
-        $this->fileName = md5(microtime()) . '.' . $path_parts['extension'];
-
-        // set size
-        $this->setFileSize($this->getFile()->getClientSize());
-
-        // upload file
-        $this->getFile()->move($this->getAbsolutePath(), $this->fileName);
-
-        // set file to null
-        $this->file = null;
-
-        // get original file
-        $file = $this->getAbsolutePath() . $this->fileName ;
-
-        // create imagick for mobile image
-        $im = new \Imagick($file);
-        $im->resizeImage(10, 10, \Imagick::FILTER_LANCZOS, 1, true);
-        $mobileFile = $this->getAbsoluteMobilePath() . $this->fileName;
-        $im->writeImage( $mobileFile );
-
-        // create imagick for tablet image
-        $im = new \Imagick($file);
-        $im->resizeImage(20, 20, \Imagick::FILTER_LANCZOS, 1, true);
-        $tabletFile = $this->getAbsoluteTabletPath() . $this->fileName;
-        $im->writeImage( $tabletFile );
-    }
-
-
     /**
      * @return string
      */

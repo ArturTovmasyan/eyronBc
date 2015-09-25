@@ -208,6 +208,8 @@ class GoalAdmin extends Admin
     {
         $em = $this->getModelManager();
 
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('lp_service');
+
         //get images
         $images = $object->getImages();
 
@@ -218,7 +220,8 @@ class GoalAdmin extends Admin
             foreach($images as $image) {
 
                 // upload file
-                $image->uploadFile();
+
+                $bucketService->uploadFile($image);
 
                 // ad image to goal
                 $object->addImage($image);

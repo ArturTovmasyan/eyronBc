@@ -7,6 +7,12 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    tablet:
+        with: 200
+        height: 200
+    mobile:
+        with: 100
+        height: 100
 
 framework:
     #esi:             ~

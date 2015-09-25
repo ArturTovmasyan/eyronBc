@@ -42,6 +42,8 @@ class GoalController extends Controller
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
 
+        $bucketService = $this->get('bl_service');
+
         // check request method
         if($request->isMethod("POST")){
 
@@ -63,8 +65,7 @@ class GoalController extends Controller
                     // loop for images
                     foreach($images as $image) {
 
-                        // upload file
-                        $image->uploadFile();
+                        $bucketService->uploadFile($image);
 
                         // ad image to goal
                         $goal->addImage($image);
