@@ -12,6 +12,11 @@
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <!-- service for lead schema form -->
+        <service id="bl.multiple.file" class="AppBundle\Form\Type\BlMultipleFileType">
+            <tag name="form.type" alias="bl_multiple_file" />
+        </service>
     </services>
 
 </container>

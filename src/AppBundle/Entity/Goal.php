@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\MultipleFileInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="goal")
  */
-class Goal
+class Goal implements MultipleFileInterface
 {
     /**
      * @ORM\Id
@@ -268,5 +270,24 @@ class Goal
         }
 
         return null;
+    }
+
+    /**
+     *
+     */
+    public function  getBlMultipleFile()
+    {
+    }
+
+    /**
+     * @param $multipleFile
+     */
+    public function  setBlMultipleFile($multipleFile)
+    {
+        // check added images
+        if(count($multipleFile) > 0){
+
+            $this->images = new ArrayCollection($multipleFile);
+        }
     }
 }

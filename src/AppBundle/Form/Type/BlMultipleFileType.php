@@ -3,34 +3,28 @@
  * Created by PhpStorm.
  * User: aram
  * Date: 9/10/15
- * Time: 9:56 AM
+ * Time: 10:10 AM
  */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
+use AppBundle\Form\GoalImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 /**
- * Class GoalType
+ * Class BlMultipleFileType
  * @package AppBundle\Form
  */
-class GoalType extends AbstractType
+class BlMultipleFileType extends AbstractType
 {
-
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @return null|string|\Symfony\Component\Form\FormTypeInterface
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function getParent()
     {
-        $builder
-            ->add('category')
-            ->add('description', 'textarea')
-            ->add('bl_multiple_file', 'bl_multiple_file')
-        ;
+        return 'collection';
     }
 
     /**
@@ -39,7 +33,9 @@ class GoalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Goal'
+            'type' => new GoalImageType(),
+            'allow_add' => true,
+            'allow_delete' => true,
         ));
     }
 
@@ -48,6 +44,6 @@ class GoalType extends AbstractType
      */
     public function getName()
     {
-        return 'app_bundle_goal';
+        return 'bl_multiple_file';
     }
 }

@@ -1,0 +1,109 @@
+{% block bl_multiple_file_widget %}
+
+<div class="form-group">
+    <ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+        {#{% if form.images.vars.value is null %}#}
+            {#{{ form_widget(form.images) }}#}
+        {#{% else %}#}
+            {#{% if form.vars.value.images|length > 0 %}#}
+                {#<ul class="file-list">#}
+                    {#{% for images in form.vars.value.images %}#}
+                        {#<li>#}
+                            {#<a class="delete-link" href="#" > Delete </a>#}
+                            {#<a href="{{ images.downloadLink }}"#}
+                               {#target="_blank">{{ images.fileOriginalName | default(images.file ? images.file.getClientOriginalName) }}</a>#}
+                        {#</li>#}
+                    {#{% endfor %}#}
+                {#</ul>#}
+            {#{% endif %}#}
+        {#{% endif %}#}
+
+        {% for child in form %}
+        {{ form_widget(form.file) }}
+        {{ form_widget(form.primary) }}
+        {% endfor %}
+
+
+
+
+    </ul>
+</div>
+
+{% endblock %}
+
+{% macro lead_prototype(form) %}
+
+    {{ form_widget(form.file) }}
+    {{ form_widget(form.primary) }}
+
+    {#<div class="lead-info-row">#}
+        {#<div class="w-row form-row">#}
+            {#<div class="w-col w-col-9">#}
+                {#<div class="form-input">#}
+                    {#<div>{{ form_widget(form.name) }}</div>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="w-col w-col-3 no-padding">#}
+                {#<div class="required-block">#}
+
+                    {#<input type="checkbox" name="{{ form.required.vars.full_name }}" id="{{ form.required.vars.id }}">#}
+                    {#<label for="{{ form.required.vars.id }}">Required?</label>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+{% endmacro %}
+
+
+{#{% block bl_multiple_file_widget %}#}
+    {#{% spaceless %}#}
+
+        {#<ul class="" data-prototype="{{ _self.lead_prototype(form.vars.prototype)|e }}">#}
+
+            {#{% for child in form %}#}
+
+                {#<div class="lead-info-row">#}
+                    {#<div class="w-row form-row">#}
+                        {#<div class="w-col w-col-9">#}
+                            {#<div class="form-input">#}
+                                {#<div>{{ form_widget(child.name) }}</div>#}
+                            {#</div>#}
+                        {#</div>#}
+
+                        {#<div class="w-col w-col-3 no-padding">#}
+                            {#<div class="required-block">#}
+
+                                {#<input type="checkbox" name="{{ child.required.vars.full_name }}" id="{{ child.required.vars.id }}_{{ js_class }}"#}
+                                        {#{% if child.required.vars.checked %} checked="checked" {% endif %} >#}
+                                {#<label for="{{ child.required.vars.id }}_{{ js_class }}">Required?</label>#}
+
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+
+            {#{% endfor %}#}
+
+        {#</ul>#}
+    {#{% endspaceless %}#}
+{#{% endblock %}#}
+
+{#{% macro lead_prototype(form) %}#}
+
+    {#<div class="lead-info-row">#}
+        {#<div class="w-row form-row">#}
+            {#<div class="w-col w-col-9">#}
+                {#<div class="form-input">#}
+                    {#<div>{{ form_widget(form.name) }}</div>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="w-col w-col-3 no-padding">#}
+                {#<div class="required-block">#}
+
+                    {#<input type="checkbox" name="{{ form.required.vars.full_name }}" id="{{ form.required.vars.id }}">#}
+                    {#<label for="{{ form.required.vars.id }}">Required?</label>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+{#{% endmacro %}#}

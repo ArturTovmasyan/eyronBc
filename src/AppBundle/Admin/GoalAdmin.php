@@ -50,12 +50,13 @@ class GoalAdmin extends Admin
             ->add('category')
             ->add('description')
             ->add('tags')
-            ->add('images', 'collection',
-                array('type' => new GoalImageType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'label' => false
-                ))
+            ->add('bl_multiple_file', 'bl_multiple_file')
+//            ->add('images', 'collection',
+//                array('type' => new GoalImageType(),
+//                    'allow_add' => true,
+//                    'allow_delete' => true,
+//                    'label' => false
+//                ))
         ;
         ;
     }
@@ -208,7 +209,7 @@ class GoalAdmin extends Admin
     {
         $em = $this->getModelManager();
 
-        $bucketService = $this->getConfigurationPool()->getContainer()->get('lp_service');
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
 
         //get images
         $images = $object->getImages();
@@ -227,9 +228,6 @@ class GoalAdmin extends Admin
                 $object->addImage($image);
 
                 $em->update($image);
-
-
-
             }
         }
     }

@@ -44,6 +44,10 @@
             <argument/>
             <argument>AppBundle\Entity\Goal</argument>
             <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:goal_edit.html.twig</argument>
+            </call>
         </service>
 
     </services>

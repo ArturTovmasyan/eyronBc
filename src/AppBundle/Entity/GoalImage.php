@@ -33,7 +33,7 @@ class GoalImage
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Goal", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Goal", inversedBy="images", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      */
     protected $goal;
