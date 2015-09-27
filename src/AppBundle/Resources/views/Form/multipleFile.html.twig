@@ -1,17 +1,5 @@
 {% block bl_multiple_file_widget %}
 
-    <style>
-        .bl-radio{
-            opacity: 1 !important ;
-            width: 20px;
-            height: 18px;
-            top: -4px;
-        }
-        .iCheck-helper{
-        position: relative !important;
-        }
-    </style>
-
 <div class="form-group">
     <ul class="images col-sm-6 control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
         {% set count = 0 %}
@@ -25,7 +13,7 @@
                         target="_blank">{{ child.vars.value.fileOriginalName }}
                 </a>
 
-                <input class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
+                <input onclick="toHidden('{{ hiddenId }}' )" class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
                        value="{{ child.primaryShow.vars.value }}"
                         {% if child.primary.vars.value == 1 %} checked {% endif %}
                         />

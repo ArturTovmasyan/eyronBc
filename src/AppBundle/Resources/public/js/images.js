@@ -7,6 +7,8 @@ var $newLinkLi = $('<li></li>').append($addTagLink);
 
 jQuery(document).ready(function() {
 
+    // remove 'checked' state
+    $('.bl-radio').iCheck('destroy');
 
     // Get the ul that holds the collection of tags
     $collectionHolder = $('ul.images');
