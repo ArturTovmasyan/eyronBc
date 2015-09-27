@@ -8,11 +8,11 @@ imports:
 parameters:
     locale: en
     tablet:
-        with: 200
-        height: 200
+        with: 640
+        height: 480
     mobile:
-        with: 100
-        height: 100
+        with: 480
+        height: 320
 
 framework:
     #esi:             ~

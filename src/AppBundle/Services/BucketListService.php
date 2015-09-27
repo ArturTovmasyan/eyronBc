@@ -86,16 +86,22 @@ class BucketListService
 
         // create imagick for mobile image
         $im = new \Imagick($file);
+        $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('mobile')['with'], $this->container->getParameter('mobile')['height'],
-            \Imagick::STYLE_NORMAL, 1, true);
+            \Imagick::FILTER_LANCZOS, 0.7, true);
         $mobileFile = $object->getAbsoluteMobilePath() . $object->getFileName();
         $im->writeImage( $mobileFile );
+        $im->clear();
+        $im->destroy();
 
         // create imagick for tablet image
         $im = new \Imagick($file);
+        $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('tablet')['with'], $this->container->getParameter('tablet')['height'],
-            \Imagick::STYLE_NORMAL, 1, true);
+            \Imagick::FILTER_LANCZOS, 0.7, true);
         $tabletFile = $object->getAbsoluteTabletPath() . $object->getFileName();
         $im->writeImage( $tabletFile );
+        $im->clear();
+        $im->destroy();
     }
 }
