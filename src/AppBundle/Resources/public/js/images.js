@@ -27,18 +27,16 @@ jQuery(document).ready(function() {
     });
 });
 
-function addTagForm($collectionHolder, $newLinkLi, $addDeleteLink) {
+function addTagForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
 
     // get the new index
     var index = $collectionHolder.data('index');
 
-    console.log(prototype);
+    var newPrototype = prototype.replace(/__name__]\[primaryShow]/g, 1+'][primaryShow]');
 
-    var newPrototype = prototype.replace(/__name__]\[primary]/g, 1+'][primary]');
-
-    var newPrototype2 = newPrototype.replace(/___name___primary/g, '_1_primary');
+    var newPrototype2 = newPrototype.replace(/___name___primaryShow/g, '_1_primaryShow');
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
@@ -67,4 +65,11 @@ function addTagFormDeleteLink($newFormLi)
         // remove the li for the tag form
         $newFormLi.remove();
     });
+}
+
+function toHidden(hiddenId)
+{
+    console.log(hiddenId);
+    $(".bl_primary_hidden").val(0);
+    $("#"+hiddenId).val(1);
 }

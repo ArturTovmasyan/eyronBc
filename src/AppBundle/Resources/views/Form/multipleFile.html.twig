@@ -13,20 +13,29 @@
     </style>
 
 <div class="form-group">
-    <ul class="images col-sm-6 control-label" data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+    <ul class="images col-sm-6 control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
         {% set count = 0 %}
         {% for child in form %}
-            {% set id =  replaceString("file_"~count~"_primary", "file_1_primary", child.primary.vars.id  ) %}
-            {% set name =  replaceString("[bl_multiple_file]["~count~"][primary]", "[bl_multiple_file][1][primary]", child.primary.vars.full_name  ) %}
+            {% set id =  replaceString("file_"~count~"_primaryShow", "file_1_primaryShow", child.primaryShow.vars.id  ) %}
+            {% set name =  replaceString("[bl_multiple_file]["~count~"][primaryShow]", "[bl_multiple_file][1][primaryShow]", child.primaryShow.vars.full_name  ) %}
+            {% set hiddenId = child.primary.vars.id %}
 
             <li>
                 <a href="{{ child.vars.value.downloadLink }}"
                         target="_blank">{{ child.vars.value.fileOriginalName }}
                 </a>
 
-                <input class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}" value="{{ child.primary.vars.value }}" {% if child.primary.vars.checked %} checked {% endif %} />
+                <input class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
+                       value="{{ child.primaryShow.vars.value }}"
+                        {% if child.primary.vars.value == 1 %} checked {% endif %}
+                        />
                 <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" > Delete </a>
             </li>
+
+            {{ form_widget(child.primary, {'attr': {'class' : 'bl_primary_hidden'} } ) }}
+
+            {% set count = count + 1 %}
+
 
         {% endfor %}
     </ul>
@@ -34,7 +43,11 @@
 
 {% endblock %}
 
-{% macro lead_prototype(form) %}
+{% macro multiple_prototype(form) %}
+
+    {% set hiddenId = form.primary.vars.id %}
+
     {{ form_widget(form.file) }}
-    {{ form_widget(form.primary) }}
+     Primary {{ form_widget(form.primaryShow,  {'attr': {'onclick': "toHidden('"~hiddenId~"' )"} }) }}
+    {{ form_widget(form.primary, {'attr': {'class' : 'bl_primary_hidden'} } ) }}
 {% endmacro %}

@@ -214,9 +214,6 @@ class GoalAdmin extends Admin
         //get images
         $images = $object->getImages();
 
-        dump($images);
-
-exit;
         // check images
         if($images) {
 
@@ -233,7 +230,5 @@ exit;
                 $em->update($image);
             }
         }
-
-        exit;
     }
 }

@@ -26,9 +26,11 @@ class GoalImageType extends AbstractType
     {
         $builder
             ->add('file', 'file', array('label'=>false))
-            ->add('primary', 'radio', array(
-                'label' => 'Primary '
+            ->add('primaryShow', 'radio', array(
+                'label' => 'Primary ',
+                'mapped'=>false
             ))
+            ->add('primary', 'hidden')
         ;
     }
 
