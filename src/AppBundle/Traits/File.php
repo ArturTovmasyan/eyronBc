@@ -223,12 +223,28 @@ trait File
      */
     public function preRemove()
     {
-        // get file path
+        // get origin file path
         $filePath = $this->getAbsolutePath() . $this->getFileName();
 
         // check file and remove
         if (file_exists($filePath)){
             unlink($filePath);
+        }
+
+        // get mobile file path
+        $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
+
+        // check file and remove
+        if (file_exists($mobileFilePath)){
+            unlink($mobileFilePath);
+        }
+
+        // get tablet file path
+        $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
+
+        // check file and remove
+        if (file_exists($tabletFilePath)){
+            unlink($tabletFilePath);
         }
     }
 }

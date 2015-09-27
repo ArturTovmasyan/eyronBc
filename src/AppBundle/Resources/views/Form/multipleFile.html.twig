@@ -23,15 +23,12 @@
                 <a href="{{ child.vars.value.downloadLink }}"
                         target="_blank">{{ child.vars.value.fileOriginalName }}
                 </a>
-                <input class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}" value="1">
-                <a class="delete-link" href="#" > Delete </a>
+
+                <input class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}" value="{{ child.primary.vars.value }}" {% if child.primary.vars.checked %} checked {% endif %} />
+                <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" > Delete </a>
             </li>
 
         {% endfor %}
-
-
-
-
     </ul>
 </div>
 

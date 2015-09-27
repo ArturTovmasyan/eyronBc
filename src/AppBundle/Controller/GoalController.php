@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\GoalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,7 +33,7 @@ class GoalController extends Controller
      * @Template()
      * @param Request $request
      * @return array
-     *  @Secure(roles="ROLE_USER")
+     * @Secure(roles="ROLE_USER")
      */
     public function addAction(Request $request)
     {
@@ -207,5 +208,27 @@ class GoalController extends Controller
 
         // return hash tags
         return $hashTags[1];
+    }
+
+    /**
+     * @Route("/remove-image/{filename}", name="remove_image")
+     * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
+     *   "mapping": {"filename": "fileName"},
+     *   "repository_method" = "findOneByFileName" })
+     */
+    public  function removeImage(GoalImage $goalImage)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // remove goal image files
+        $goalImage->preRemove();
+
+        // remove from bd
+        $em->remove($goalImage);
+
+        $em->flush();
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }
