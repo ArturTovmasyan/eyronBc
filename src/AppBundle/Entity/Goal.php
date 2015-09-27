@@ -273,10 +273,16 @@ class Goal implements MultipleFileInterface
     }
 
     /**
-     *
+     * @return array
      */
     public function  getBlMultipleFile()
     {
+        // check images and return array
+        if($this->images){
+
+            return $this->images->toArray();
+        }
+        return array();
     }
 
     /**

@@ -17,6 +17,12 @@
         <service id="bl.multiple.file" class="AppBundle\Form\Type\BlMultipleFileType">
             <tag name="form.type" alias="bl_multiple_file" />
         </service>
+
+        <!-- service for twig extension replace in string -->
+        <service id="bl.replace.in" class="AppBundle\Twig\Extension\ReplaceExtension">
+            <tag name="twig.extension"/>
+        </service>
+
     </services>
 
 </container>

@@ -50,7 +50,7 @@ class GoalAdmin extends Admin
             ->add('category')
             ->add('description')
             ->add('tags')
-            ->add('bl_multiple_file', 'bl_multiple_file')
+            ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false))
 //            ->add('images', 'collection',
 //                array('type' => new GoalImageType(),
 //                    'allow_add' => true,

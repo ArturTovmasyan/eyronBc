@@ -39,7 +39,7 @@ class GoalImage
     protected $goal;
 
     /**
-     * @ORM\Column(type="smallint", name="primary_image")
+     * @ORM\Column(type="smallint", name="primary_image", nullable=true)
      * @var
      */
     protected $primary;
@@ -128,6 +128,6 @@ class GoalImage
      */
     public function getPrimary()
     {
-        return $this->primary;
+        return (Boolean)$this->primary;
     }
 }
