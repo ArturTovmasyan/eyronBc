@@ -94,6 +94,10 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Application\UserBundle\Entity\User
+    registration:
+            form:
+                type: bl_user_registration
+                handler: bl_user.form.handler.registration
 
 #    hwi oauth configs
 hwi_oauth:
