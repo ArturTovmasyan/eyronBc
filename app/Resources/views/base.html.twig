@@ -3,11 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
 
-            <link rel="stylesheet" href="{{ asset("jquery_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("jquery_components/bootstrap/dist/css/bootstrap.min.css") }}">
+
+        {% block stylesheets %}
+            {% stylesheets output='css/base.css'
+            'bundles/app/less/style.less'
+            filter='less,cssrewrite,yui_css' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
 
         {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>

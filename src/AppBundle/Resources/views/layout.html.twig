@@ -5,23 +5,86 @@
 
     {% set route = app.request.get('_route') %}
 
-    <div>
-        <ul class="nav nav-pills nav-justified">
+    <div id="mainframe">
+        <div id="wrap">
+            <header>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">BUCKETLIST</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active">
+                                    <a href="#">IDEAS</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-search"></span> SEARCH
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="#">JOIN</a>
+                                </li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </nav>
+            </header>
 
-            <li role="presentation" {% if route == "homepage" %} class="active" {% endif %}>
-                <a href="{{ path("homepage") }}">Home</a>
-            </li>
+            {#<div>#}
+                {#<ul class="nav nav-pills nav-justified">#}
 
-            <li role="presentation" {% if route == "add_goal" %} class="active" {% endif %}>
-                <a href="{{ path("add_goal") }}">Add New Goal</a>
-            </li>
+                    {#<li role="presentation" {% if route == "homepage" %} class="active" {% endif %}>#}
+                        {#<a href="{{ path("homepage") }}">Home</a>#}
+                    {#</li>#}
 
-            <li role="presentation" {% if route == "goals_list" %} class="active" {% endif %}>
-                <a href="{{ path("goals_list") }}">Goals</a>
-            </li>
-        </ul>
+                    {#<li role="presentation" {% if route == "add_goal" %} class="active" {% endif %}>#}
+                        {#<a href="{{ path("add_goal") }}">Add New Goal</a>#}
+                    {#</li>#}
+
+                    {#<li role="presentation" {% if route == "goals_list" %} class="active" {% endif %}>#}
+                        {#<a href="{{ path("goals_list") }}">Goals</a>#}
+                    {#</li>#}
+                {#</ul>#}
+            {#</div>#}
+
+
+        </div>
+
+        <footer>
+
+            <div class="container">
+                <ul>
+                    <li>
+                        <a href="#">HOW IT WORKS</a>
+                    </li>
+                    <li>
+                        <a href="#">ABOUT bL127</a>
+                    </li>
+                    <li>
+                        <a href="#">CONTACT US</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p>
+                        <small>&copy; 2015 Bucketlist <a href="#">Terms of Service &amp; Privacy Policy</a></small>
+
+                    </p>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <hr/>
-
 {% endblock %}
