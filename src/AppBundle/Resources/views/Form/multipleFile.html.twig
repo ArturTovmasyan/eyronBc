@@ -8,19 +8,22 @@
             {% set name =  replaceString("[bl_multiple_file]["~count~"][primaryShow]", "[bl_multiple_file][1][primaryShow]", child.primaryShow.vars.full_name  ) %}
             {% set hiddenId = child.primary.vars.id %}
 
-            <li>
-                <a href="{{ child.vars.value.downloadLink }}"
-                        target="_blank">{{ child.vars.value.fileOriginalName }}
-                </a>
+            {% if child.vars.value.filename is not null %}
 
-                <img width="260" src="{{asset(child.vars.value.downloadLink)}}">
+                <li>
+                    <a href="{{ child.vars.value.downloadLink }}"
+                            target="_blank">{{ child.vars.value.fileOriginalName }}
+                    </a>
 
-                <input onclick="toHidden('{{ hiddenId }}' )" class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
-                       value="{{ child.primaryShow.vars.value }}"
-                        {% if child.primary.vars.value == 1 %} checked {% endif %}
-                        />
-                <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" > Delete </a>
-            </li>
+                    <img width="260" src="{{asset(child.vars.value.downloadLink)}}">
+
+                    <input onclick="toHidden('{{ hiddenId }}' )" class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
+                           value="{{ child.primaryShow.vars.value }}"
+                            {% if child.primary.vars.value == 1 %} checked {% endif %}
+                            />
+                    <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" > Delete </a>
+                </li>
+        {% endif %}
 
             {{ form_widget(child.primary, {'attr': {'class' : 'bl_primary_hidden'} } ) }}
 

@@ -9,6 +9,7 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\GoalImage;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 
 class DoctrineListener
@@ -49,22 +50,21 @@ class DoctrineListener
             if($entity instanceof Goal){
                 $this->setPrimary($entity);
             }
-//            elseif($entity instanceof )
         }
     }
 
 
     private function setPrimary(&$entity)
     {
-//        // get all images
-//        $images = $entity->getImages();
-//
-//        // check count
-//        if(count($images )== 1){
-//
-//            // and set primary to the first images, is images as one
-//            $images->first()->setPrimary(true);
-//        }
+        // get all images
+        $images = $entity->getImages();
+
+        // check count
+        if(count($images )== 1){
+
+            // and set primary to the first images, is images as one
+            $images->first()->setPrimary(true);
+        }
 
     }
 }
