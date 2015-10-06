@@ -42,18 +42,12 @@ class DoctrineListener
                 $this->setPrimary($entity);
             }
         }
-
-        // for delete
-        foreach ($uow->getScheduledEntityDeletions() as $entity) {
-
-            // check entity
-            if($entity instanceof Goal){
-                $this->setPrimary($entity);
-            }
-        }
     }
 
 
+    /**
+     * @param $entity
+     */
     private function setPrimary(&$entity)
     {
         // get all images
