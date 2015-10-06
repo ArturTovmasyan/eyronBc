@@ -17,9 +17,9 @@
          <form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">
 
              <div class="form-group">
-                 <label for="{{ form.category.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.category) }}</label>
+                 <label for="{{ form.title.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.title) }}</label>
                  <div class="col-sm-10">
-                     {{ form_widget(form.category, {'attr': {'class':'form-control'} }) }}
+                     {{ form_widget(form.title, {'attr': {'class':'form-control'} }) }}
                  </div>
              </div>
 
@@ -32,26 +32,6 @@
              </div>
 
              {{ form_widget(form.bl_multiple_file) }}
-
-             {#<div class="form-group">#}
-                 {#<ul class="images col-sm-2 control-label" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">#}
-                     {#{% if form.images.vars.value is null %}#}
-                         {#{{ form_widget(form.images) }}#}
-                     {#{% else %}#}
-                         {#{% if form.vars.value.images|length > 0 %}#}
-                             {#<ul class="file-list">#}
-                                 {#{% for images in form.vars.value.images %}#}
-                                     {#<li>#}
-                                         {#<a class="delete-link" href="#" > Delete </a>#}
-                                         {#<a href="{{ images.downloadLink }}"#}
-                                            {#target="_blank">{{ images.fileOriginalName | default(images.file ? images.file.getClientOriginalName) }}</a>#}
-                                     {#</li>#}
-                                 {#{% endfor %}#}
-                             {#</ul>#}
-                         {#{% endif %}#}
-                     {#{% endif %}#}
-                 {#</ul>#}
-             {#</div>#}
 
              <div class="form-group">
                  <div class="col-sm-offset-2 col-sm-10">

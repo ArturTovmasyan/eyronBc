@@ -27,7 +27,7 @@ class GoalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category')
+            ->add('title')
             ->add('description', 'textarea')
             ->add('bl_multiple_file', 'bl_multiple_file')
         ;

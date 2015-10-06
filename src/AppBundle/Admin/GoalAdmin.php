@@ -48,7 +48,7 @@ class GoalAdmin extends Admin
 
         $formMapper
             ->add('title')
-            ->add('description')
+            ->add('description', 'textarea')
             ->add('tags')
             ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
     }
