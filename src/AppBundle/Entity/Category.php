@@ -38,14 +38,9 @@ class Category
     protected $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Goal", mappedBy="category", cascade={"persist"})
-     **/
-    protected $goals;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Tag")
      * @ORM\JoinTable(name="categories_tags",
-     *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      **/
@@ -120,40 +115,6 @@ class Category
     public function __construct()
     {
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add goals
-     *
-     * @param \AppBundle\Entity\Goal $goals
-     * @return Category
-     */
-    public function addGoal(\AppBundle\Entity\Goal $goals)
-    {
-        $this->goals[] = $goals;
-        $goals->setCategory($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove goals
-     *
-     * @param \AppBundle\Entity\Goal $goals
-     */
-    public function removeGoal(\AppBundle\Entity\Goal $goals)
-    {
-        $this->goals->removeElement($goals);
-    }
-
-    /**
-     * Get goals
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGoals()
-    {
-        return $this->goals;
     }
 
     /**
