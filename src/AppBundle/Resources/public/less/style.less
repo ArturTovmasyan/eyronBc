@@ -7,12 +7,14 @@ body, html{
 
 body{
   padding-top: 70px;
+  background-color: #f2f2f2;
 }
 
 
 #mainframe{
   position: relative;
   min-height:100%;
+
 }
 
 #wrap{
@@ -41,7 +43,39 @@ header .navbar-default{
 
 }
 
+.purple{
+  color:#7627f5;
+}
 
+.btn-purple{
+  background-color:#7627f5;
+  color:#ffffff;
+
+  &:hover, &:focus{
+    color:#ffffff;
+    outline:none;
+    background-color:#6009EA;
+  }
+}
+
+h1{
+  color:#021421;
+}
+
+.upload{
+  .rounded-corners;
+  background-color: #ffffff;
+  border:3px solid #ebebeb;
+  color:#a3a3a3;
+}
+
+p{
+  color:#a3a3a3;
+}
+
+input{
+  color:#a3a3a3;
+}
 
 footer{
   width:100%;
@@ -51,18 +85,21 @@ footer{
   background-color: #021421;
   color:#ffffff;
 
-  p{
-    padding:15px;
-  }
-  a{
-    color:#ffffff;
+  small{
+    display: block;
+    padding: 15px 0;
+
+    a{
+      color:#ffffff;
+      padding-left: 10px;
+    }
   }
 
   ul{
     padding:50px 0;
     text-align: center;
     li{
-      display: inline-block;
+      list-style: none;
       padding: 5px 20px;
       a{
         color:#ffffff;
@@ -74,5 +111,29 @@ footer{
     bottom:0;
     width: 100%;
     background-color: #000000;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  footer{
+    ul{
+      li{
+        display: inline-block;
+      }
+    }
+    small{
+      clear:both;
+      a{
+        float:right;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  footer{
+    small{
+      padding: 15px 30px;
+    }
   }
 }
