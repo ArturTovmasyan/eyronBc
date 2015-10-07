@@ -1,0 +1,72 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+ {% block body %}
+  {#{{ parent() }}#}
+
+  <div class="row">
+   <h1 class="text-center">Sign up and discover great ideas</h1>
+
+   <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+    <form class="form-horizontal text-center">
+
+     <input type="file"/>
+
+     <a class="upload">
+      <span>Upload a photo</span>
+     </a>
+
+     <div class="form-group">
+      <div class="col-sm-6">
+       <input type="text" class="form-control"  placeholder="First name">
+      </div>
+      <div class="col-sm-6">
+       <input type="text" class="form-control" id="inputEmail3" placeholder="Last name">
+      </div>
+     </div>
+
+     <div class="form-group">
+      <div class="col-sm-12">
+       <input type="email" class="form-control" placeholder="Email">
+      </div>
+     </div>
+     <div class="form-group">
+      <div class="col-sm-6">
+       <input type="password" class="form-control"  placeholder="Password">
+      </div>
+      <div class="col-sm-6">
+       <input type="password" class="form-control" id="inputEmail3" placeholder="Re-enter password">
+      </div>
+     </div>
+
+     <div class="form-group">
+      <div class="col-sm-4">
+       <input type="email" class="form-control" id="inputEmail3" placeholder="Month">
+      </div>
+      <div class="col-sm-4">
+       <input type="email" class="form-control" id="inputEmail3" placeholder="Day">
+      </div>
+      <div class="col-sm-4">
+       <input type="email" class="form-control" id="inputEmail3" placeholder="Year">
+      </div>
+     </div>
+     <p>By clicling Sign up, you agree to our
+      <a href="#" class="purple">Terms of Service &amp; Privacy Policy</a>
+     </p>
+
+     <button class="btn btn-purple">Sign Up</button>
+
+    </form>
+   </div>
+
+  </div>
+
+  <div class="row">
+   <div class="col-md-12">
+    <p class="text-center">Already have an account
+     <a href="#" class="purple">
+      <strong>SIGN IN</strong>
+     </a>
+    </p>
+   </div>
+  </div>
+ {% endblock %}
