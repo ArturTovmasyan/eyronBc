@@ -32,6 +32,21 @@ class Goal implements MultipleFileInterface
     protected $description;
 
     /**
+     * @ORM\Column(name="title", type="string", nullable=true)
+     */
+    protected $title;
+
+    /**
+     * @ORM\Column(name="video_link", type="string", nullable=true)
+     */
+    protected $videoLink;
+
+    /**
+     * @ORM\Column(name="video_description", type="string", nullable=true)
+     */
+    protected $videoDescription;
+
+    /**
      * @ORM\OneToMany(targetEntity="GoalImage", mappedBy="goal", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
@@ -41,12 +56,6 @@ class Goal implements MultipleFileInterface
      * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist"})
      **/
     protected $userGoal;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="goals")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     **/
-    protected $category;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
@@ -175,29 +184,6 @@ class Goal implements MultipleFileInterface
     }
 
     /**
-     * Set category
-     *
-     * @param \AppBundle\Entity\Category $category
-     * @return Goal
-     */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \AppBundle\Entity\Category 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
      * Add tags
      *
      * @param \AppBundle\Entity\Tag $tags
@@ -295,5 +281,74 @@ class Goal implements MultipleFileInterface
 
             $this->images = new ArrayCollection($multipleFile);
         }
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Goal
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set videoLink
+     *
+     * @param string $videoLink
+     * @return Goal
+     */
+    public function setVideoLink($videoLink)
+    {
+        $this->videoLink = $videoLink;
+
+        return $this;
+    }
+
+    /**
+     * Get videoLink
+     *
+     * @return string 
+     */
+    public function getVideoLink()
+    {
+        return $this->videoLink;
+    }
+
+    /**
+     * Set videoDescription
+     *
+     * @param string $videoDescription
+     * @return Goal
+     */
+    public function setVideoDescription($videoDescription)
+    {
+        $this->videoDescription = $videoDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get videoDescription
+     *
+     * @return string 
+     */
+    public function getVideoDescription()
+    {
+        return $this->videoDescription;
     }
 }

@@ -37,6 +37,12 @@ class User extends BaseUser
      **/
     protected $userGoal;
 
+
+    /**
+     * @Assert\NotBlank(groups={"personal"}, message="not_blank")
+     */
+    protected $username;
+
     /**
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
@@ -54,6 +60,12 @@ class User extends BaseUser
      * @var
      */
     protected $gender;
+
+    /**
+     * @var
+     * @ORM\Column(name="birth_date", type="datetime", nullable=true)
+     */
+    protected $birthDate;
 
     /**
      * @var
@@ -232,8 +244,6 @@ class User extends BaseUser
         return $this->getPath() . '/tablet';
     }
 
-
-
     /**
      * Add userGoal
      *
@@ -244,6 +254,19 @@ class User extends BaseUser
     {
         $this->userGoal[] = $userGoal;
         $userGoal->setUser($this);
+
+        return $this;
+    }
+
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        $this->username = $email;
 
         return $this;
     }
@@ -381,5 +404,28 @@ class User extends BaseUser
     public function getTwitterId()
     {
         return $this->twitterId;
+    }
+
+    /**
+     * Set birthDate
+     *
+     * @param \DateTime $birthDate
+     * @return User
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthDate
+     *
+     * @return \DateTime 
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
     }
 }

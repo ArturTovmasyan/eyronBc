@@ -4,13 +4,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <services>
-        <service id="application_user.example" class="Application\UserBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+
+        <!--  Service for registration form -->
+        <service id="bl_user.form.registration" class="Application\UserBundle\Form\Type\RegistrationType">
+            <tag name="form.type" alias="bl_user_registration" />
         </service>
+
+        <!--  Service for registration form handler -->
+        <service id="bl_user.form.handler.registration" class="Application\UserBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="service_container" />
+        </service>
+
     </services>
-    -->
+
 </container>

@@ -35,7 +35,7 @@ class GoalAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('category')
+            ->add('title')
             ->add('description')
             ->add('tags')
 
@@ -47,25 +47,17 @@ class GoalAdmin extends Admin
     {
 
         $formMapper
-            ->add('category')
-            ->add('description')
+            ->add('title')
+            ->add('description', 'textarea')
             ->add('tags')
-            ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false))
-//            ->add('images', 'collection',
-//                array('type' => new GoalImageType(),
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'label' => false
-//                ))
-        ;
-        ;
+            ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
     }
 
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('category')
+            ->add('title')
             ->add('description')
             ->add('tags')
         ;
@@ -76,7 +68,7 @@ class GoalAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('category')
+            ->add('title')
             ->add('description')
             ->add('tags')
             ->add('_action', 'actions', array(
