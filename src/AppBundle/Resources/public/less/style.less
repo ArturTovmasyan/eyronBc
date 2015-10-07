@@ -50,6 +50,7 @@ header .navbar-default{
 .btn-purple{
   background-color:#7627f5;
   color:#ffffff;
+  padding:10px 35px;
 
   &:hover, &:focus{
     color:#ffffff;
@@ -60,13 +61,27 @@ header .navbar-default{
 
 h1{
   color:#021421;
+  font-size: 19px;
 }
+
 ul li{list-style: none;}
+
+.signup{
+  .margin-top{
+    margin-top:10px;
+  }
+}
 .upload{
+  width:100px;
+  height:100px;
+  margin:0 auto;
   .rounded-corners;
   background-color: #ffffff;
   border:3px solid #ebebeb;
   color:#a3a3a3;
+  padding:28px 18px;
+  display: block;
+  cursor:pointer;
 }
 
 p{
@@ -77,6 +92,17 @@ input{
   color:#a3a3a3;
 }
 
+.form-group{
+  div{
+    margin-bottom:5px;
+  }
+  p{
+    font-size: 12px;
+    a{
+      font-size: 12px;
+    }
+  }
+}
 figure{
   background-color: #cfcfcf;
 
@@ -153,6 +179,17 @@ footer{
 }
 
 @media (min-width: @screen-sm) {
+  h1{
+    font-size:36px;
+    margin:20px 20px 30px;
+  }
+
+  .signup{
+    .margin-top{
+      margin-top:35px;
+    }
+  }
+
   footer{
     ul{
       li{
@@ -169,6 +206,12 @@ footer{
 }
 
 @media (min-width: @screen-md) {
+
+  h1{
+    font-size:50px;
+    margin:20px 20px 50px;
+  }
+
   footer{
     small{
       padding: 15px 30px;
