@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="main">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
 
-        <link rel="stylesheet" href="{{ asset("jquery_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
 
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
@@ -49,7 +50,11 @@
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        <a href="#">JOIN</a>
+                                        <a href="javascript:void(0)"
+                                           data-placement="bottom-left"
+                                           data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"
+                                           data-animation="am-flip-x"
+                                           bs-popover>JOIN</a>
                                     </li>
                                 </ul>
                             </div>
@@ -100,8 +105,13 @@
 
         {% block javascripts %}
 
-            <script src="{{ asset("jquery_components/jquery/dist/jquery.js") }}"></script>
-            <script src="{{ asset("jquery_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}"></script>
+            <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular/angular.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}"></script>
+            <script src="{{ asset("bundles/app/js/angular/main.js") }}"></script>
 
         {% endblock %}
     </body>
