@@ -1,5 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
- {% block body %}
-  {{ parent() }}
+ {% block content %}
+     {% include 'AppBundle:Main:home_videos.html.twig' %}
+     {% include 'AppBundle:Main:ideas.html.twig' %}
  {% endblock %}
