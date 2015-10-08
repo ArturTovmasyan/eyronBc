@@ -37,17 +37,28 @@ header{
           padding-top:27px;
           padding-bottom:26px;
           color: #e3e3e3;
+
+          &:hover{
+            background-color: #7627f5;
+            color: #e3e3e3;
+          }
         }
       }
 
-      .active a {
+      .active a{
         background-color: #7627f5;
         color: #e3e3e3;
+
+        &:hover{
+          background-color: #7627f5;
+          color: #e3e3e3;
+        }
       }
       .glyphicon-search {
         padding-right: 5px;
         font-size: 19px;
         top:5px;
+        height:30px;
       }
 
       .ideas-icon{
@@ -74,6 +85,60 @@ header{
       }
     }
   }
+  
+}
+
+.sign{
+  border-radius: 0;
+  background-color: #2b2b2b;
+  top:82px !important;
+  padding:0;
+
+  .popover-content{
+    padding:0;
+  }
+}
+
+#signin{
+    text-align: center;
+    min-width: 260px;
+    background-color: #2b2b2b;
+    padding: 20px 15px;
+
+    a{
+      display: block;
+      padding:10px 0;
+      border-top:1px solid #021421;
+      border-bottom:1px solid #021421;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+  .social{
+      padding-left:20px;
+      li{
+        margin-top:9px;
+        a{
+          padding:0;
+          display: block;
+          height:36px;
+          border:0;
+        }
+
+        .facebook{
+          background: url('../images/social.png') no-repeat 0 0;
+        }
+
+        .twitter{
+          background: url('../images/social.png') no-repeat 0 -44px;
+        }
+
+        .google{
+          background: url('../images/social.png') no-repeat 0 -88px;
+        }
+      }
+    }
 }
 
 .homepage{
