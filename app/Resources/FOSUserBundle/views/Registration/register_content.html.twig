@@ -1,82 +1,82 @@
 <div class="container">
-<div  class="signup">
-    <div class=" row">
-        <h1 class="text-center">Sign up and discover great ideas</h1>
+    <div  class="signup">
+        <div class=" row">
+            <h1 class="text-center">Sign up and discover great ideas</h1>
 
-        <div class="col-md-offset-4 col-md-4 col-md-offset-4">
-            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
+            <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
-                {{ form_errors(form) }}
+                    {{ form_errors(form) }}
 
-                <div class="form-group">
-                    <input type="file" style="display: none"/>
-                    {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
-                    <div class="hide">
-                        {{ form_widget(form.file) }}
+                    <div class="form-group">
+                        <input type="file" style="display: none"/>
+                        {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
+                        <div class="hide">
+                            {{ form_widget(form.file) }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        {{ form_errors(form.plainPassword.first) }}
+                        {{ form_errors(form.plainPassword.second) }}
                     </div>
-                    <div class="col-sm-6">
-                        {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            {{ form_widget(form.birthDate.month, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_month'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_widget(form.birthDate.day, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_day'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_widget(form.birthDate.year, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_year'|trans({}, 'FOSUserBundle') } }) }}
+                        </div>
                     </div>
-                    {{ form_errors(form.plainPassword.first) }}
-                    {{ form_errors(form.plainPassword.second) }}
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-4">
-                        {{ form_widget(form.birthDate.month, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_month'|trans({}, 'FOSUserBundle') } }) }}
+                    <div class="form-group">
+                        <p>By clicking Sign up, you agree to our
+                            <a href="#" class="purple">Terms of Service &amp; Privacy Policy</a>
+                        </p>
                     </div>
-                    <div class="col-sm-4">
-                        {{ form_widget(form.birthDate.day, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_day'|trans({}, 'FOSUserBundle') } }) }}
-                    </div>
-                    <div class="col-sm-4">
-                        {{ form_widget(form.birthDate.year, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_year'|trans({}, 'FOSUserBundle') } }) }}
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <p>By clicking Sign up, you agree to our
-                        <a href="#" class="purple">Terms of Service &amp; Privacy Policy</a>
-                    </p>
-                </div>
+                    <button type="submit" class="btn btn-purple">Sign Up</button>
 
-                <button type="submit" class="btn btn-purple">Sign Up</button>
+                    {{ form_widget(form._token) }}
 
-                {{ form_widget(form._token) }}
+                </form>
+            </div>
 
-            </form>
         </div>
 
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <p class="text-center margin-top">Already have an account
-                <a href="#" class="purple">
-                    <strong>SIGN IN</strong>
-                </a>
-            </p>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center margin-top">Already have an account
+                    <a href="#" class="purple">
+                        <strong>SIGN IN</strong>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 </div>
