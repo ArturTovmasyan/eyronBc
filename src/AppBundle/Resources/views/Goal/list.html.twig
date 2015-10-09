@@ -1,32 +1,265 @@
+{#{% extends "AppBundle::layout.html.twig" %}#}
+
+ {#{% block content %}#}
+
+     {#{{ parent() }}#}
+
+    {#{% if goals %}#}
+        {#<div class="row">#}
+        {#{% for goal in goals %}#}
+            {#<div class="col-sm-6 col-md-4">#}
+                {#<div class="thumbnail">#}
+
+                    {#{% set image = goal.getPrimaryPhoto %}#}
+
+                    {#{% if image %}#}
+                    {#{% set image = goal.getPrimaryPhoto %}#}
+                        {#<img src="{{ image.downloadLink }}" alt="..." width="50" height="50">#}
+                    {#{% endif %}#}
+
+                    {#<div class="caption">#}
+                        {#<h3>{{ goal.title }}</h3>#}
+                        {#<p>{{ goal.description }}</p>#}
+                        {#<p>#}
+                            {#<a href="{{ path("view_goal", {'id': goal.id}) }}" class="btn btn-primary" role="button">Show</a>#}
+                        {#</p>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endfor %}#}
+        {#</div>#}
+    {#{% endif %}#}
+ {#{% endblock %}#}
+
+
 {% extends "AppBundle::layout.html.twig" %}
 
- {% block content %}
+{% block content %}
+    <div class="filter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#"> MAP
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                        {#<span class="glyphicon glyphicon-chevron-down"></span>#}
+                    </a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="#" class="purple"> Adveture
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                        {#<span class="glyphicon glyphicon-chevron-down"></span>#}
+                    </a>
 
-     {{ parent() }}
+                    {#HERE MUST BE POPUP#}
+                    <ul style="display: none">
+                        <li>
+                            <a href="#">
+                                <span class='glyphicon glyphicon-plus-sign'></span>test1
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class='glyphicon glyphicon-plus-sign'></span>test2
+                            </a>
+                        </li>
+                    </ul>
 
-    {% if goals %}
-        <div class="row">
-        {% for goal in goals %}
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-
-                    {% set image = goal.getPrimaryPhoto %}
-
-                    {% if image %}
-                    {% set image = goal.getPrimaryPhoto %}
-                        <img src="{{ image.downloadLink }}" alt="..." width="50" height="50">
-                    {% endif %}
-
-                    <div class="caption">
-                        <h3>{{ goal.title }}</h3>
-                        <p>{{ goal.description }}</p>
-                        <p>
-                            <a href="{{ path("view_goal", {'id': goal.id}) }}" class="btn btn-primary" role="button">Show</a>
-                        </p>
-                    </div>
                 </div>
             </div>
-        {% endfor %}
         </div>
-    {% endif %}
- {% endblock %}
+
+        <div style="height:300px;border:1px solid #2b2b2b;"> Place for map</div>
+    </div>
+
+    <div class="container">
+        <h1 class="text-center">Discover ideas that inspire you</h1>
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-md-8">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-md-4">
+                <figure>
+                    <img src=""  height="262"/>
+                    <figcaption>
+                        <ul class="row">
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-plus"></span>ADD
+                                </a>
+                            </li>
+                            <li class="col-sm-5">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                </a>
+                            </li>
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
