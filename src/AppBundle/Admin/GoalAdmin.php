@@ -37,6 +37,7 @@ class GoalAdmin extends Admin
             ->add('id')
             ->add('title')
             ->add('description')
+            ->add('videoLink')
             ->add('tags')
 
         ;
@@ -49,6 +50,7 @@ class GoalAdmin extends Admin
         $formMapper
             ->add('title')
             ->add('description', 'textarea')
+            ->add('videoLink')
             ->add('tags')
             ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
     }
@@ -59,6 +61,7 @@ class GoalAdmin extends Admin
         $datagridMapper
             ->add('title')
             ->add('description')
+            ->add('videoLink')
             ->add('tags')
         ;
     }
@@ -70,6 +73,7 @@ class GoalAdmin extends Admin
             ->add('id')
             ->add('title')
             ->add('description')
+            ->add('videoLink')
             ->add('tags')
             ->add('_action', 'actions', array(
                 'actions' => array(
