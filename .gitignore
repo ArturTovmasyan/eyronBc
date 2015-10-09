@@ -18,6 +18,6 @@
 app/SymfonyRequirements.php
 app/check.php
 composer.lock
-web/css
-web/uploads/*
-web/jquery_components/
+/web/css
+/web/uploads/*
+/web/jquery_components/
