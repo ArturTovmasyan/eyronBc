@@ -35,7 +35,7 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block content %}
-    <div class="filter">
+    <div class="content-top">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -45,25 +45,17 @@
                     </a>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="#" class="purple"> Adveture
+                    <button type="button"
+                            class="purple"
+                            data-container="body"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-content="hello"
+                            data-template='{{ include('AppBundle:Blocks:filter.html.twig') }}'>
+                        Adveture
                         <span class="glyphicon glyphicon-chevron-up"></span>
                         {#<span class="glyphicon glyphicon-chevron-down"></span>#}
-                    </a>
-
-                    {#HERE MUST BE POPUP#}
-                    <ul style="display: none">
-                        <li>
-                            <a href="#">
-                                <span class='glyphicon glyphicon-plus-sign'></span>test1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class='glyphicon glyphicon-plus-sign'></span>test2
-                            </a>
-                        </li>
-                    </ul>
-
+                    </button>
                 </div>
             </div>
         </div>
