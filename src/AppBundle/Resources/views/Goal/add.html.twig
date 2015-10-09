@@ -15,12 +15,16 @@
      <div class="content-top">
          <div class="container">
              <div class="row">
-                 <div class="col-md-6">
+                 <div class="col-sm-6">
                      <h3 class="purple">Suggest as public</h3>
                      <p>By checking you agree to ....</p>
                  </div>
-                 <div class="col-md-6 text-right">
+                 <div class="col-sm-6 text-right">
                      <div class="buttons">
+                         <button type="button" class="btn btn-default">
+                             <span class="glyphicon glyphicon-chevron-left"></span>
+                             GO BACK TO EDIT
+                         </button>
                          <button type="button" class="btn btn-default">PREVIEW</button>
                          <button type="button" class="btn btn-purple">PUBLISH
                              <span class="glyphicon glyphicon-chevron-right"></span>
@@ -32,8 +36,11 @@
      </div>
 
     <div class="container">
+
          <div class="row">
-             <div class="col-md-10">
+
+             <div class="col-md-12">
+                 <div class="goals">
                  {{ form_errors(form) }}
                  {#<form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">#}
 
@@ -64,26 +71,41 @@
 
                  {#</form>#}
 
-                 <form  method="post" action="#" enctype="multipart/form-data">
-                     <div class="form-group">
-                         <input type="text" class="form-control" placeholder="Some goal">
-                     </div>
-                     <div class="form-group">
-                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                     </div>
-                     <div class="form-group">
-                         <label for="exampleInputFile">File input</label>
-                         <input type="file" id="exampleInputFile">
-                         <p class="help-block">Example block-level help text here.</p>
-                     </div>
-                     <div class="checkbox">
-                         <label>
-                             <input type="checkbox"> Check me out
-                         </label>
-                     </div>
-                     <button type="submit" class="btn btn-default">Submit</button>
-                 </form>
+                     <form  method="post" action="#" enctype="multipart/form-data">
+                         <div class="form-group">
+                             <input type="text" class="form-control title" placeholder="Enter Title of the goal">
+                         </div>
 
+                         <div class="row">
+                             <div class="col-md-offset-1 col-md-10">
+                                 <div class="form-group">
+                                     <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                     <div class="tags">
+                                         <button type="button" class="btn btn-purple">tag1</button>
+                                         <button type="button" class="btn btn-purple">tag2</button>
+                                     </div>
+
+                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                         when an unknown printer took a galley of type and scrambled
+                                         it to make a type specimen book.
+                                     </p>
+
+                                 </div>
+
+                                 <div class="text-center"><br />here will be drag and drop<br /></div>
+
+                                 <div class="form-group">
+                                     <input type="text" class="form-control" placeholder="http://www.laravelsoft.com/">
+                                 </div>
+
+                                 <iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>
+                             </div>
+                         </div>
+
+
+                     </form>
+                 </div>
              </div>
          </div>
     </div>
