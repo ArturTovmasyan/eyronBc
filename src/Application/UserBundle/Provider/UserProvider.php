@@ -174,7 +174,7 @@ class UserProvider extends   BaseProvider
             $user->setFirstName($fullName[0]);
 
             // set last name
-            $user->setLastName($fullName[0]);
+            $user->setLastName($fullName[1]);
 
             // set password
             $user->setPassword('');

@@ -35,12 +35,12 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#">BUCKETLIST</a>
+                                <a class="navbar-brand" href="{{ path("homepage") }}">BUCKETLIST</a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
                                     <li class="active">
-                                        <a href="#">
+                                        <a href="{{ path('goals_list') }}">
                                             <span class="ideas-icon"></span>IDEAS
                                         </a>
                                     </li>
@@ -67,6 +67,7 @@
                                                data-placement="bottom-left"
                                                data-ng-click="joinToggle = !joinToggle"
                                                data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"
+                                               {#data-content-template="{{ path("fos_user_security_login") }}"#}
                                                data-animation="am-flip-x"
                                                bs-popover><span class="join"></span>JOIN
                                             </a>
