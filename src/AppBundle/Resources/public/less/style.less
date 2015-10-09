@@ -42,6 +42,10 @@ header{
             background-color: #7627f5;
             color: #e3e3e3;
           }
+
+          &:focus{
+            outline:none;
+          }
         }
       }
 
@@ -80,6 +84,7 @@ header{
         margin-right: 5px;
       }
 
+
       li {
         border-left: 1px solid #1a394a;
       }
@@ -116,6 +121,15 @@ header{
             .rounded-corners;
           }
         }
+
+        .join-class {
+          min-width:260px;
+          background-color: #2b2b2b;
+          color:#e3e3e3;
+          &:hover{
+            background-color: #2b2b2b;
+          }
+        }
       }
     }
   }
@@ -127,6 +141,7 @@ header{
   background-color: #2b2b2b;
   top:82px !important;
   padding:0;
+  border:0;
 
   .popover-content{
     padding:0;
@@ -135,7 +150,7 @@ header{
 
 #signin{
     text-align: center;
-    min-width: 260px;
+    min-width: 319px;
     background-color: #2b2b2b;
     padding: 20px 15px;
 
@@ -153,7 +168,7 @@ header{
     }
 
   .social{
-      padding-left:20px;
+      padding-left:50px;
       li{
         margin-top:9px;
         a{
@@ -175,11 +190,6 @@ header{
           background: url('../images/social.png') no-repeat 0 -88px;
         }
       }
-    }
-
-    .join-class{
-      max-width:260px;
-      background-color: #2b2b2b;
     }
 }
 
@@ -368,6 +378,13 @@ footer{
     margin:20px 20px 30px;
   }
 
+  #signin{
+    min-width:260px;
+    .social{
+      padding-left:20px;
+    }
+  }
+  
   .signup{
     padding-top:30px;
     .margin-top{
@@ -395,6 +412,8 @@ footer{
 }
 
 @media (min-width: @screen-md) {
+
+
 
   h1{
     font-size:50px;
