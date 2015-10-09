@@ -193,7 +193,7 @@ header{
     }
 }
 
-.filter{
+.content-top{
   background-color: #ffffff;
   padding:10px 0 0;
 
@@ -202,12 +202,38 @@ header{
     display: block;
     font-size:18px;
     padding:10px 0 10px;
-
   }
+
+  button{
+    background-color: transparent;
+    border:0;
+    font-size:18px;
+    padding:10px 0 10px;
+    outline:none;
+  }
+}
+
+ul.filter{
+  padding:15px 0 0;
   li{
+    padding: 7px 25px 5px;
     a{
+      color:#3b3b3b;
+      display: block;
+      vertical-align: top;
       span{
         padding-right:10px;
+        font-size:20px;
+      }
+      &:hover{
+        text-decoration: none;
+      }
+    }
+    &:hover{
+      background-color: #7725f6;
+
+      a{
+        color:#ffffff;
       }
     }
   }
