@@ -53,11 +53,14 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         {% if app.user %}
+                                            {% set user =  app.user %}
                                             <a class="user clearfix">
                                                 <figure>
-                                                    <img src="{{ asset('bundles/app/images/smile.jpg') }}" alt="..." class="img-circle img-responsive">
+                                                    {% if user.fileName %}
+                                                    <img src="{{ user.getDownloadLink }}" alt="{{ user.fileOriginalName  }}" class="img-circle img-responsive">
+                                                    {% endif %}
                                                 </figure>
-                                                <span>name <br/>last name</span>
+                                                <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
                                                 <span class="glyphicon glyphicon-chevron-up"></span>
                                                 {#<span class="glyphicon glyphicon-chevron-down"></span>#}
                                             </a>
