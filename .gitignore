@@ -9,11 +9,15 @@
 /composer.phar
 /vendor/
 /web/bundles/
+/web/app
+/angular/app/bower_components
+/angular/app/node_modules
 .travis.yml
 .idea
 *~
 app/SymfonyRequirements.php
 app/check.php
 composer.lock
+web/css
 web/uploads/*
 web/jquery_components/

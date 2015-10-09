@@ -1,0 +1,413 @@
+@import "function.less";
+@import "variables.less";
+
+body, html{
+  height:100%;
+}
+
+body{
+  padding-top: 80px;
+  background-color: #f2f2f2;
+}
+
+#mainframe{
+  position: relative;
+  min-height:100%;
+}
+
+#wrap{
+  position: relative;
+  padding-bottom: 300px;
+}
+
+header{
+  #line{
+    height:4px;
+    background: url('../images/line.jpg');
+  }
+  .navbar{
+    min-height:80px;
+  }
+  .navbar-default {
+    background: #021421;
+
+    .navbar-nav{
+      li{
+        a{
+          padding-top:27px;
+          padding-bottom:26px;
+          color: #e3e3e3;
+
+          &:hover{
+            background-color: #7627f5;
+            color: #e3e3e3;
+          }
+        }
+      }
+
+      .active a{
+        background-color: #7627f5;
+        color: #e3e3e3;
+
+        &:hover{
+          background-color: #7627f5;
+          color: #e3e3e3;
+        }
+      }
+      .glyphicon-search {
+        padding-right: 5px;
+        font-size: 19px;
+        top:5px;
+        height:30px;
+      }
+
+      .ideas-icon{
+        display:inline-block;
+        background: url('../images/ideas.png') no-repeat center center;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        padding-right: 11px;
+        margin-right: 5px;
+      }
+      .join{
+        display:inline-block;
+        background: url('../images/join.png') no-repeat center center;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        padding-right: 11px;
+        margin-right: 5px;
+      }
+
+      li {
+        border-left: 1px solid #1a394a;
+      }
+    }
+    .navbar-right{
+      li{
+        a{
+          padding-top:26px;
+          padding-bottom:26px;
+
+          &:hover{
+            background-color: transparent;
+            color: #e3e3e3;
+          }
+        }
+        .user{
+          display: block;
+          padding: 15px 5px 15px 15px;
+          figure{
+            background-color: transparent;
+            width:50px;
+            float:left;
+            margin: 0 10px 0 0;
+          }
+          span{
+            float:left;
+            margin-top:6px;
+          }
+          span:last-child{
+            border: 2px solid;
+            padding: 4px 7px 6px;
+            display: inline-block;
+            margin: 11px 0 5px 10px;
+            .rounded-corners;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.sign{
+  border-radius: 0;
+  background-color: #2b2b2b;
+  top:82px !important;
+  padding:0;
+
+  .popover-content{
+    padding:0;
+  }
+}
+
+#signin{
+    text-align: center;
+    min-width: 260px;
+    background-color: #2b2b2b;
+    padding: 20px 15px;
+
+    a{
+      display: block;
+      padding:10px 0;
+      border-top:1px solid #021421;
+      border-bottom:1px solid #021421;
+      &:hover {
+        background-color: transparent;
+      }
+      span{
+        padding-right:10px;
+      }
+    }
+
+  .social{
+      padding-left:20px;
+      li{
+        margin-top:9px;
+        a{
+          padding:0;
+          display: block;
+          height:36px;
+          border:0;
+        }
+
+        .facebook{
+          background: url('../images/social.png') no-repeat 0 0;
+        }
+
+        .twitter{
+          background: url('../images/social.png') no-repeat 0 -44px;
+        }
+
+        .google{
+          background: url('../images/social.png') no-repeat 0 -88px;
+        }
+      }
+    }
+
+    .join-class{
+      max-width:260px;
+      background-color: #2b2b2b;
+    }
+}
+
+.homepage{
+  width:100%;
+  position: absolute;
+  top:35px;
+  color:#ffffff;
+  h1{
+    color:#ffffff;
+  }
+
+  h4{
+    padding:0 20px;
+    line-height:25px;
+  }
+
+  .btn-purple{
+    margin:50px 0;
+  }
+}
+
+.apps{
+  padding-left:0;
+  width:222px;
+  margin: 0 auto;
+  li{
+    float:left;
+    padding:5px;
+    a{
+      width:101px;
+      height:35px;
+      display: block;
+    }
+  }
+  .app-store{
+    background: url('../images/icons.png') no-repeat 0 0;
+  }
+
+  .google-play{
+    background: url('../images/icons.png') no-repeat -104px 0;
+  }
+}
+
+.purple{
+  color:#7627f5;
+}
+
+.btn-purple{
+  background-color:#7725f6;
+  color:#ffffff;
+  padding:10px 35px;
+
+  &:hover, &:focus{
+    color:#ffffff;
+    outline:none;
+    background-color:#6009EA;
+  }
+}
+
+h1{
+  color:#021421;
+  font-size: 19px;
+}
+
+ul li{list-style: none;}
+
+.signup{
+  padding-top:10px;
+  .margin-top{
+    margin-top:10px;
+  }
+}
+
+.upload{
+  width:100px;
+  height:100px;
+  margin:0 auto;
+  .rounded-corners;
+  background-color: #ffffff;
+  border:3px solid #ebebeb;
+  color:#a3a3a3;
+  padding:28px 18px;
+  display: block;
+  cursor:pointer;
+}
+
+p{
+  color:#a3a3a3;
+}
+
+input{
+  color:#a3a3a3;
+}
+
+.form-group{
+  div{
+    margin-bottom:5px;
+  }
+  p{
+    font-size: 12px;
+    a{
+      font-size: 12px;
+    }
+  }
+}
+figure{
+  background-color: #cfcfcf;
+
+  figcaption{
+    background-color: #ffffff;
+    overflow-x: hidden;
+    margin-bottom:20px;
+
+    ul{
+      padding-left:0;
+      margin-bottom:0;
+      li{
+        text-align: center;
+        border-right:1px solid #f0f0f0;
+        a{
+          color:#7d7d7d;
+          display: block;
+          padding: 10px 0;
+          span{
+            padding-right: 10px;
+          }
+
+        }
+        &:last-child{
+          border-right:0;
+        }
+        &:hover{
+          background-color: #e3e3e3;
+          a{
+            color:#7d7d7d;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+footer{
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  height:300px;
+  background-color: #021523;
+  color:#ffffff;
+
+  small{
+    display: block;
+    padding: 15px 0;
+
+    a{
+      color:#ffffff;
+      padding-left: 10px;
+    }
+  }
+
+  ul{
+    padding:10px 0;
+    text-align: center;
+    li{
+      list-style: none;
+      padding: 5px 20px;
+      a{
+        color:#ffffff;
+      }
+    }
+  }
+
+  .footer-bottom{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    background-color: #000000;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  h1{
+    font-size:36px;
+    margin:20px 20px 30px;
+  }
+
+  .signup{
+    padding-top:30px;
+    .margin-top{
+      margin-top:35px;
+    }
+  }
+
+  footer{
+    ul{
+      padding:60px 0 0;
+      li{
+        display: inline-block;
+      }
+    }
+    .apps{
+      padding:30px 0 60px;
+    }
+    small{
+      clear:both;
+      a{
+        float:right;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+
+  h1{
+    font-size:50px;
+    margin:20px 20px 50px;
+  }
+
+  .homepage{
+    top:150px;
+  }
+
+  footer{
+    small{
+      padding: 25px 30px;
+    }
+  }
+}

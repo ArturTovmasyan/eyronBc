@@ -1,21 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="main">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
 
-            <link rel="stylesheet" href="{{ asset("jquery_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
+
+        {% block stylesheets %}
+            {% stylesheets output='css/base.css'
+            'bundles/app/less/style.less'
+            filter='less,cssrewrite,yui_css' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
 
         {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        <div id="mainframe">
+            <div id="wrap">
+                <header>
+                    <nav class="navbar navbar-default navbar-fixed-top">
+                        <div id="line"></div>
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#">BUCKETLIST</a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li class="active">
+                                        <a href="#">
+                                            <span class="ideas-icon"></span>IDEAS
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-search"></span> SEARCH
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="javascript:void(0)"
+                                           data-placement="bottom-left"
+                                           data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"
+                                           data-animation="am-flip-x"
+                                           bs-popover><span class="join"></span>JOIN</a>
+
+                                        <a class="user clearfix" style="display: none">
+                                            <figure>
+                                                <img src="{{ asset('bundles/app/images/smile.jpg') }}" alt="..." class="img-circle img-responsive">
+                                            </figure>
+                                            <span>name <br/>last name</span>
+                                            <span class="glyphicon glyphicon-chevron-up"></span>
+                                            {#<span class="glyphicon glyphicon-chevron-down"></span>#}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+
+                {% block content %}{% endblock %}
+
+            </div>
+
+            <footer>
+
+                <div class="container">
+                    <ul>
+                        <li>
+                            <a href="#">HOW IT WORKS</a>
+                        </li>
+                        <li>
+                            <a href="#">ABOUT bL127</a>
+                        </li>
+                        <li>
+                            <a href="#">CONTACT US</a>
+                        </li>
+                    </ul>
+
+                    <ul class="apps clearfix">
+                        <li>
+                            <a href="#" class="app-store"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="google-play"></a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <small>&copy; 2015 Bucketlist <a href="#">Terms of Service &amp; Privacy Policy</a></small>
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+
+        {% endblock %}
+
         {% block javascripts %}
 
-            <script src="{{ asset("jquery_components/jquery/dist/jquery.js") }}"></script>
-            <script src="{{ asset("jquery_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}"></script>
+            <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular/angular.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}"></script>
+            <script src="{{ asset("bundles/app/js/angular/main.js") }}"></script>
 
         {% endblock %}
     </body>
