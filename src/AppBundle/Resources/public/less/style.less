@@ -204,12 +204,30 @@ header{
     padding:10px 0 10px;
   }
 
-  button{
-    background-color: transparent;
+  .no-bg{
+    //background-color: transparent;
     border:0;
     font-size:18px;
     padding:10px 0 10px;
     outline:none;
+
+    &:hover,&:focus{
+      outline:none;
+      border:0;
+      background-color: transparent;
+    }
+  }
+
+  .buttons{
+    margin:35px 0;
+    button{
+      margin-left:10px;
+      padding:6px 12px;
+      &:first-child{
+        border:1px solid #a4a4a4;
+        color:#a4a4a4;
+      }
+    }
   }
 }
 
@@ -239,7 +257,7 @@ ul.filter{
   }
 }
 
-.glyphicon-chevron-up,.glyphicon-chevron-down{
+.glyphicon-chevron-up,.glyphicon-chevron-down,.glyphicon-chevron-right{
   border: 2px solid;
   padding: 2px 4px 4px;
   display: inline-block;

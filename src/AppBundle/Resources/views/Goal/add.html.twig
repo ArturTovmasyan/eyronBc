@@ -12,36 +12,79 @@
 
      {{ parent() }}
 
-     <div>
-         {{ form_errors(form) }}
-         <form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">
-
-             <div class="form-group">
-                 <label for="{{ form.title.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.title) }}</label>
-                 <div class="col-sm-10">
-                     {{ form_widget(form.title, {'attr': {'class':'form-control'} }) }}
+     <div class="content-top">
+         <div class="container">
+             <div class="row">
+                 <div class="col-md-6">
+                     <h3 class="purple">Suggest as public</h3>
+                     <p>By checking you agree to ....</p>
+                 </div>
+                 <div class="col-md-6 text-right">
+                     <div class="buttons">
+                         <button type="button" class="btn btn-default">PREVIEW</button>
+                         <button type="button" class="btn btn-purple">PUBLISH
+                             <span class="glyphicon glyphicon-chevron-right"></span>
+                         </button>
+                     </div>
                  </div>
              </div>
-
-
-             <div class="form-group">
-                 <label for="{{ form.description.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.description) }}</label>
-                 <div class="col-sm-10">
-                     {{ form_widget(form.description, {'attr': {'class':'form-control'} }) }}
-                 </div>
-             </div>
-
-             {{ form_widget(form.bl_multiple_file) }}
-
-             <div class="form-group">
-                 <div class="col-sm-offset-2 col-sm-10">
-                     <button type="submit" class="btn btn-default">Save</button>
-                 </div>
-             </div>
-
-             {{ form_widget(form._token) }}
-
-         </form>
+         </div>
      </div>
 
+    <div class="container">
+         <div class="row">
+             <div class="col-md-10">
+                 {{ form_errors(form) }}
+                 {#<form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">#}
+
+                     {#<div class="form-group">#}
+                         {#<label for="{{ form.title.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.title) }}</label>#}
+                         {#<div class="col-sm-10">#}
+                             {#{{ form_widget(form.title, {'attr': {'class':'form-control'} }) }}#}
+                         {#</div>#}
+                     {#</div>#}
+
+
+                     {#<div class="form-group">#}
+                         {#<label for="{{ form.description.vars.id }}" class="col-sm-2 control-label">{{ form_label(form.description) }}</label>#}
+                         {#<div class="col-sm-10">#}
+                             {#{{ form_widget(form.description, {'attr': {'class':'form-control'} }) }}#}
+                         {#</div>#}
+                     {#</div>#}
+
+                     {#{{ form_widget(form.bl_multiple_file) }}#}
+
+                     {#<div class="form-group">#}
+                         {#<div class="col-sm-offset-2 col-sm-10">#}
+                             {#<button type="submit" class="btn btn-default">Save</button>#}
+                         {#</div>#}
+                     {#</div>#}
+
+                     {#{{ form_widget(form._token) }}#}
+
+                 {#</form>#}
+
+                 <form  method="post" action="#" enctype="multipart/form-data">
+                     <div class="form-group">
+                         <input type="text" class="form-control" placeholder="Some goal">
+                     </div>
+                     <div class="form-group">
+                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                     </div>
+                     <div class="form-group">
+                         <label for="exampleInputFile">File input</label>
+                         <input type="file" id="exampleInputFile">
+                         <p class="help-block">Example block-level help text here.</p>
+                     </div>
+                     <div class="checkbox">
+                         <label>
+                             <input type="checkbox"> Check me out
+                         </label>
+                     </div>
+                     <button type="submit" class="btn btn-default">Submit</button>
+                 </form>
+
+             </div>
+         </div>
+    </div>
  {% endblock %}
