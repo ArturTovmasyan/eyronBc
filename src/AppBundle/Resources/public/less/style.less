@@ -130,21 +130,16 @@ header{
             background-color: #2b2b2b;
           }
         }
+        .popover{
+          padding:0;
+          border-radius: 0;
+          border:0;
+        }
+        .popover-content{
+          padding:0;
+        }
       }
     }
-  }
-
-}
-
-.sign{
-  border-radius: 0;
-  background-color: #2b2b2b;
-  top:82px !important;
-  padding:0;
-  border:0;
-
-  .popover-content{
-    padding:0;
   }
 }
 
@@ -153,6 +148,7 @@ header{
     min-width: 319px;
     background-color: #2b2b2b;
     padding: 20px 15px;
+
 
     a{
       display: block;
@@ -167,31 +163,41 @@ header{
       }
     }
 
-  .social{
-      padding-left:50px;
-      li{
-        margin-top:9px;
-        a{
-          padding:0;
-          display: block;
-          height:36px;
-          border:0;
-        }
+    form{
+      a{
+        padding:0 0 10px 0;
+        border:0;
+      }
+    }
 
-        .facebook{
-          background: url('../images/social.png') no-repeat 0 0;
-        }
+    h4{
+      color:#ffffff;
+    }
+    .social{
+        padding-left:50px;
+        li{
+          margin-top:9px;
+          a{
+            padding:0;
+            display: block;
+            height:36px;
+            border:0;
+          }
 
-        .twitter{
-          background: url('../images/social.png') no-repeat 0 -44px;
-        }
+          .facebook{
+            background: url('../images/social.png') no-repeat 0 0;
+          }
 
-        .google{
-          background: url('../images/social.png') no-repeat 0 -88px;
+          .twitter{
+            background: url('../images/social.png') no-repeat 0 -44px;
+          }
+
+          .google{
+            background: url('../images/social.png') no-repeat 0 -88px;
+          }
         }
       }
     }
-}
 
 .content-top{
   background-color: #ffffff;
@@ -486,6 +492,7 @@ footer{
 
   #signin{
     min-width:260px;
+    overflow: hidden;
     .social{
       padding-left:20px;
     }
