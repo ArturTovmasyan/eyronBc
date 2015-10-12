@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goal', [])
+angular.module('goal', ['Interpolation'])
     .controller('goalAdd',['$scope', '$timeout', function($scope, $timeout){
 
         $('.purple input').iCheck({
@@ -8,8 +8,10 @@ angular.module('goal', [])
             increaseArea: '20%'
         });
 
-        Dropzone.options.goalDropzone = false;
 
+        // file uploads
+
+        Dropzone.options.goalDropzone = false;
         $scope.submit = function(){
             $scope.goalDropzone.uploadFiles($scope.goalDropzone.files);
         };
@@ -30,5 +32,9 @@ angular.module('goal', [])
                     },1000);
                 }
             });
-        }
+        };
+
+        // end file uploads
+
+
     }]);
