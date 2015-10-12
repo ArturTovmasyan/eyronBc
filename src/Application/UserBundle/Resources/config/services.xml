@@ -22,8 +22,9 @@
         </service>
 
         <!--  service for authentication   -->
-        <!--<service id="authentication_handler" class="Application\UserBundle\Handler\AuthenticationHandler">-->
-        <!--</service>-->
+        <service id="authentication_handler" class="Application\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="router" />
+        </service>
 
     </services>
 

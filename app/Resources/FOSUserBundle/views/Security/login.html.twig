@@ -1,30 +1,45 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
-
-{% block fos_user_content %}
-{% if error %}
-    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-{% endif %}
-
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
-    <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-
-    <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-    <input type="password" id="password" name="_password" required="required" />
-
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
-
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-</form>
-
-    {{ include('HWIOAuthBundle:Connect:login.html.twig' ) }}
+  {% for type, messages in app.session.flashBag.all %}
+      {% for message in messages %}
+          <div class="{{ type }}">
+              {{ message|trans({}, 'FOSUserBundle') }}
+          </div>
+      {% endfor %}
+  {% endfor %}
 
 
-    or <a href="{{ path("fos_user_registration_register") }}">register</a>
+    {#<div class="popover sign">#}
+    <div class="">
+        <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
 
+        <div class="popover-content">
+            <div id="signin">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
 
+                    <div class="form-group">
+                        <input type="text"  class="form-control" id="username" name="_username" required="required" placeholder="Email" />
+                    </div>
 
-{% endblock fos_user_content %}
+                    <div class="form-group">
+                        <input type="password"  class="form-control"  id="password" placeholder="Password" name="_password" required="required" />
+                    </div>
+
+                    {#<a href="{{ path("fos_user_resetting_check_email") }}">Forgot password</a>#}
+                    <p>Forgot password</p>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-purple">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                    </div>
+
+                </form>
+
+                <a href="{{ path("fos_user_registration_register") }}">
+                    <span class="glyphicon glyphicon-plus-sign"></span>Sign Up
+                </a>
+
+                <ul class="social">
+                    {{ include('HWIOAuthBundle:Connect:login.html.twig' ) }}
+                </ul>
+            </div>
+
+        </div>
+    </div>

@@ -69,8 +69,8 @@
                                                ng-class="{'join-class': joinToggle}"
                                                data-placement="bottom-left"
                                                data-ng-click="joinToggle = !joinToggle"
-                                               data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"
-                                               {#data-content-template="{{ path("fos_user_security_login") }}"#}
+                                               {#data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"#}
+                                               data-content-template="{{ path("fos_user_security_login") }}"
                                                data-animation="am-flip-x"
                                                bs-popover><span class="join"></span>JOIN
                                             </a>
