@@ -93,8 +93,7 @@
                                  <div class="form-group">
                                      <textarea class="form-control" ng-model="description" value="[[ description ]]" rows="4" placeholder="Description"></textarea>
                                      <div class="tags">
-                                         <button type="button" class="btn btn-purple">tag1</button>
-                                         <button type="button" class="btn btn-purple">tag2</button>
+                                         <button ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
                                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -102,6 +101,8 @@
                                          when an unknown printer took a galley of type and scrambled
                                          it to make a type specimen book.
                                      </p>
+
+                                     <input type="hidden" name="tags" value="[[ tags ]]"/>
 
                                  </div>
 

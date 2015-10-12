@@ -36,5 +36,17 @@ angular.module('goal', ['Interpolation'])
 
         // end file uploads
 
+        // description Tagging
+
+        $scope.$watch('description',function(d){
+            if(!d){
+                return;
+            }
+
+            var reg = /(#[a-z0-9][a-z0-9\-_]+)/ig;
+            $scope.tags = d.match(reg);
+        },true);
+
+        // end description Tagging
 
     }]);
