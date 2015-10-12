@@ -1,9 +1,18 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block javascripts %}
+{% block angularApp %} <html ng-app="goal" ng-controller="goalAdd"> {% endblock %}
 
+{% block stylesheets %}
     {{ parent() }}
+
+    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
     <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/angular/goal.js') }}"></script>
 
 {% endblock %}
 
@@ -16,7 +25,7 @@
          <div class="container">
              <div class="row">
                  <div class="col-sm-6">
-                     <h3 class="purple">Suggest as public</h3>
+                     <h3 class="purple">Suggest as public <input type="checkbox"></h3>
                      <p>By checking you agree to ....</p>
                  </div>
                  <div class="col-sm-6 text-right">

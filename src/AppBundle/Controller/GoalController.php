@@ -33,7 +33,6 @@ class GoalController extends Controller
      * @Template()
      * @param Request $request
      * @return array
-     * @Secure(roles="ROLE_USER")
      */
     public function addAction(Request $request)
     {

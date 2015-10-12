@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="main">
+{% block angularApp %} <html ng-app="main"> {% endblock %}
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -127,6 +127,7 @@
 
             <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}"></script>
             <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular/angular.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}"></script>
