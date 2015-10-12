@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * Class AuthenticationHandler
@@ -24,21 +25,48 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
     /**
+     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     */
+    private $router;
+
+    /**
+     * @param Router $router
+     */
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
+
+    /**
      * @param Request $request
      * @param TokenInterface $token
      * @return RedirectResponse|Response
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        // generate url
+        $url =  $request->headers->get('referer') ?
+            $request->headers->get('referer') :
+            $this->router->generate('homepage');
 
-////        if ($request->isXmlHttpRequest())
-//        {
-//            $result = array('success' => true);
-//            $response = new Response(json_encode($result));
-//            $response->headers->set('Content-Type', 'application/json');
-//            return $response;
-//        }
-//        return new RedirectResponse($this->router->generate('anag_new'));
+        // check request method
+        if ($request->isXmlHttpRequest()) {
+
+            // create response
+            $response =  new Response(Response::HTTP_OK);
+            $response->setContent(json_encode(array('link' => $url)));
+
+            // set header
+            $response->headers->set('Content-Type', 'application/json');
+
+            // return response
+            return $response;
+        }
+        else {
+
+            return new RedirectResponse($url);
+        }
     }
 
     /**
@@ -48,15 +76,32 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
+        // generate url
+        $url =  $request->headers->get('referer') ?
+            $request->headers->get('referer') :
+            $this->router->generate('homepage');
 
-////        if ($request->isXmlHttpRequest())
-//        {
-//            $result = array('success' => false, 'message' => $exception->getMessage());
-//            $response = new Response(json_encode($result));
-//            $response->headers->set('Content-Type', 'application/json');
-//            return $response;
-//        }
-//        return new Response();
+        // check request method
+        if ($request->isXmlHttpRequest()) {
+            // create response
+            $response =  new Response('', Response::HTTP_BAD_REQUEST);
+
+            $response->setContent(json_encode(array('message'=>'Incorrect Email or Password')));
+            // set header
+            $response->headers->set('Content-Type', 'application/json');
+
+            // return response
+            return $response;
+        }
+        else {
+
+            // set flush message
+            $request->getSession()->getFlashBag()->add('error', $exception->getMessage());
+
+            // redirect
+            return new RedirectResponse($url);
+        }
+
     }
 
 }

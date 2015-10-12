@@ -19,8 +19,8 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                #success_handler: authentication_handler
-                #failure_handler: authentication_handler
+                success_handler: authentication_handler
+                failure_handler: authentication_handler
                 default_target_path: /
             anonymous: true
             logout:
