@@ -1,0 +1,14 @@
+<div class="container">
+    <div  class="signup">
+        <div class=" row">
+            <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+                <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset form-horizontal">
+                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-purple" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
