@@ -179,6 +179,8 @@ class UserProvider extends   BaseProvider
             // set password
             $user->setPassword('');
 
+            $user->setSocialPhotoLink("https://graph.facebook.com/" . $response['id'] . "/picture?type=large");
+
             // update user
             $this->userManager->updateUser($user);
 
