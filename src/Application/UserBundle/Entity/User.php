@@ -428,4 +428,23 @@ class User extends BaseUser
     {
         return $this->birthDate;
     }
+
+
+    /**
+     * @return string
+     */
+    public function getPhotoLink()
+    {
+        // if social user, return social img
+        if(($this->getFacebookId() || $this->getGoogleId() || $this->getTwitterId()) && $this->getSocialPhotoLink() ){
+            return $this->getSocialPhotoLink();
+        }
+        // if uses have photo
+        elseif($this->getFileName()){
+            return $this->getDownloadLink();
+        }
+
+        return null;
+
+    }
 }

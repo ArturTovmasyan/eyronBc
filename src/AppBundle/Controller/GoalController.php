@@ -104,6 +104,31 @@ class GoalController extends Controller
 
 
     /**
+     * @Route("/inner/{id}", name="inner_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @return array
+     */
+    public function innerAction(Goal $goal)
+    {
+        return array('goal' => $goal);
+    }
+
+    /**
+     * @Route("/end/{id}", name="end_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @return array
+     */
+    public function endAction(Goal $goal)
+    {
+        return array('goal' => $goal);
+    }
+
+
+    /**
      * @Route("/list", name="goals_list")
      * @Template()
      * @return array
