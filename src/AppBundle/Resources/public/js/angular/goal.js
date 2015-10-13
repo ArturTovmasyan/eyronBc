@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('goal', ['Interpolation',
-        'GoogleMaps',
+        'Google',
         'mgcrea.ngStrap.popover',
         'ngAnimate'
     ])
