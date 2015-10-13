@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goal', ['Interpolation'])
+angular.module('goal', ['Interpolation','GoogleMaps'])
     .controller('goalAdd',['$scope', '$timeout', function($scope, $timeout){
 
         $('.purple input').iCheck({
