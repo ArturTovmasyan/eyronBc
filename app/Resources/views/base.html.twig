@@ -55,9 +55,9 @@
                                         {% if app.user %}
                                             {% set user =  app.user %}
                                             <a class="user clearfix">
-                                                <figure>
+                                                <figure class="img-circle">
                                                     {% if user.getPhotoLink %}
-                                                    <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-circle img-responsive">
+                                                    <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                     {% endif %}
                                                 </figure>
                                                 <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
