@@ -10,11 +10,6 @@ class RegistrationControllerTest extends WebTestCase
     const HTTP_STATUS_REDIRECT = 302;
 
     /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $em;
-
-    /**
      * @var null
      */
     private $client = null;
@@ -25,9 +20,6 @@ class RegistrationControllerTest extends WebTestCase
     public function setUp()
     {
         self::bootKernel();
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
         $this->client = static::createClient();
     }
 
