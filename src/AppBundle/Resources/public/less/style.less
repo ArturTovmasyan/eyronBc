@@ -6,7 +6,7 @@ body, html{
 }
 
 body{
-  padding-top: 85px;
+  padding-top: 80px;
   background-color: #f2f2f2;
 }
 
@@ -26,7 +26,7 @@ header{
     background: url('../images/line.jpg');
   }
   .navbar{
-    min-height:80px;
+    min-height:75px;
   }
   .navbar-default {
     background: #021421;
@@ -34,8 +34,8 @@ header{
     .navbar-nav{
       li{
         a{
-          padding-top:27px;
-          padding-bottom:26px;
+          padding-top:22px;
+          padding-bottom:23px;
           color: #e3e3e3;
 
           &:hover{
@@ -92,8 +92,8 @@ header{
     .navbar-right{
       li{
         a{
-          padding-top:26px;
-          padding-bottom:26px;
+          padding-top:22px;
+          padding-bottom:23px;
 
           &:hover{
             background-color: transparent;
@@ -106,6 +106,8 @@ header{
           figure{
             background-color: transparent;
             width:50px;
+            height:50px;
+            overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
           }
@@ -398,6 +400,18 @@ ul li{list-style: none;}
   .margin-top{
     margin-top:10px;
   }
+
+  .form-group{
+    div{
+      margin-bottom:5px;
+    }
+    p{
+      font-size: 17px;
+      a{
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 .upload{
@@ -419,18 +433,6 @@ p{
 
 input{
   color:#a3a3a3;
-}
-
-.form-group{
-  div{
-    margin-bottom:5px;
-  }
-  p{
-    font-size: 12px;
-    a{
-      font-size: 12px;
-    }
-  }
 }
 
 figure{
@@ -471,9 +473,27 @@ figure{
   }
 }
 
-.inner{
-  background-color: #ffffff;
+.inner-container{
+  background-color: #d6d6d6;
+
+  q{
+    display: block;
+    padding:25px 0;
+    color:#ffffff;
+  }
+
+  h1{
+    background-color: #021421;
+    color:#ffffff;
+    padding:10px 25px;
+    font-size:40px;
+  }
+
+  .inner{
+    background-color: #ffffff;
+  }
 }
+
 
 footer{
   width:100%;
@@ -514,10 +534,6 @@ footer{
 }
 
 @media (min-width: @screen-sm) {
-  h1{
-    font-size:36px;
-    margin:20px 20px 30px;
-  }
 
   #signin{
     min-width:260px;
@@ -528,9 +544,23 @@ footer{
   }
 
   .signup{
+
+    h1{
+      font-size:36px;
+      margin:20px 20px 30px;
+    }
+
     padding-top:30px;
     .margin-top{
       margin-top:35px;
+    }
+    .form-group{
+      p{
+        font-size: 19px;
+        a{
+          font-size: 18px;
+        }
+      }
     }
   }
 
@@ -555,11 +585,11 @@ footer{
 
 @media (min-width: @screen-md) {
 
-
-
-  h1{
-    font-size:50px;
-    margin:20px 20px 50px;
+  .signup{
+    h1{
+      font-size:50px;
+      margin:20px 20px 50px;
+    }
   }
 
   .homepage{

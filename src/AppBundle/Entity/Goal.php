@@ -72,7 +72,7 @@ class Goal implements MultipleFileInterface
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint")
+     * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     protected $status;
 
@@ -368,7 +368,7 @@ class Goal implements MultipleFileInterface
      * @param integer $status
      * @return Goal
      */
-    public function setStatus($status)
+    public function setStatus($status = self::PUBLIC_PRIVACY)
     {
         $this->status = $status;
 
