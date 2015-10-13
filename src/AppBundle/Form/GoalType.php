@@ -27,12 +27,11 @@ class GoalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description', 'textarea')
+            ->add('title', null, array('required'=>true))
+            ->add('description', 'textarea', array('required'=>true))
             ->add('status')
-            ->add('files', 'hidden', array('mapped' => false))
             ->add('hashTags', 'hidden', array('mapped' => false))
-            ->add('videoLink')
+            ->add('videoLink', null, array('required' => false))
         ;
     }
 

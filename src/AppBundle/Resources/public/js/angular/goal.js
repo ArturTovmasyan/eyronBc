@@ -13,6 +13,9 @@ angular.module('goal', ['Interpolation','GoogleMaps'])
 
         Dropzone.options.goalDropzone = false;
         $scope.submit = function(){
+
+            $scope.hiddenFiles = $scope.goalDropzone.files[0];
+            $scope.hiddenFilesText = $scope.goalDropzone.files[0].name;
             $scope.goalDropzone.uploadFiles($scope.goalDropzone.files);
         };
 
