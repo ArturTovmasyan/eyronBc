@@ -74,7 +74,7 @@ class Goal implements MultipleFileInterface
      * @var
      * @ORM\Column(name="status", type="smallint")
      */
-    protected $status;
+    protected $status = self::PUBLIC_PRIVACY;
 
     /**
      * Get id

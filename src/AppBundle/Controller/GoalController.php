@@ -46,39 +46,19 @@ class GoalController extends Controller
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
 
-        $bucketService = $this->get('bl_service');
-
         // check request method
         if($request->isMethod("POST")){
-
-            $files = $request->files->get('file');
-
-//            $request->request->set('test', 'test');
-
-//            $request->files->set('test', $files);
 
             // get data from request
             $form->handleRequest($request);
 
-            $t = $request = $this->get('request_stack')->getCurrentRequest();
-
-//            $request->request->set('test', $files);
-
-
             // check valid
             if($form->isValid()){
-
-//                dump($request);
-//                dump($form->get('hashTags')->getData());
-//                dump($form->get('files')->getData());
-//                dump($form->get('status')->getData());
-//                dump($form->get('status')->getData());
-//                dump($goal);
-
 
                 // get entity manager
                 $em = $this->getDoctrine()->getManager();
 
+//                $bucketService = $this->get('bl_service');
 //                //get images
 //                $images = $goal->getImages();
 //
@@ -98,15 +78,17 @@ class GoalController extends Controller
 //                    }
 //                }
 //
-//                // get gags
-//                $this->getAndAddTags($goal);
-//
-//                $em->persist($goal);
-//                $em->flush();
+                // get tags from form
+                $tags = $form->get('hashTags')->getData();
+
+                // add tags
+                $this->getAndAddTags($goal, $tags);
+
+                $em->persist($goal);
+                $em->flush();
 
                 // redirect to view
-//                return $this->redirectToRoute('add_goal');
-
+                return $this->redirectToRoute('view_goal');
             }
         }
 
@@ -171,19 +153,19 @@ class GoalController extends Controller
     /**
      * @param $object
      */
-    private function getAndAddTags(&$object)
+    private function getAndAddTags(&$object, $tags)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get content
-        $content = $object->getDescription();
-
-        // get tags from description
-        $tags = $this->getHashTags($content);
-
         // check tags
         if($tags){
+
+            // remove # from json
+            $tags = str_replace('#', '', $tags);
+
+            // get array
+            $tags = json_decode($tags);
 
             // get tags from db
             $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
