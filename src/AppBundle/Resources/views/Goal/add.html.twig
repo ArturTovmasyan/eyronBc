@@ -1,9 +1,21 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block javascripts %}
+{% block angularApp %} <html ng-app="goal" ng-controller="goalAdd"> {% endblock %}
 
+{% block stylesheets %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
+
+    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/app/js/images.js') }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('app/bower_components/dropzone/downloads/dropzone.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
 
 {% endblock %}
 
@@ -16,7 +28,7 @@
          <div class="container">
              <div class="row">
                  <div class="col-sm-6">
-                     <h3 class="purple">Suggest as public</h3>
+                     <h3 class="purple">Suggest as public <input type="checkbox"></h3>
                      <p>By checking you agree to ....</p>
                  </div>
                  <div class="col-sm-6 text-right">
@@ -25,8 +37,8 @@
                              <span class="glyphicon glyphicon-chevron-left"></span>
                              GO BACK TO EDIT
                          </button>
-                         <button type="button" class="btn btn-default">PREVIEW</button>
-                         <button type="button" class="btn btn-purple">PUBLISH
+                         <button type="button" class="btn btn-default" ng-click="submit()">PREVIEW</button>
+                         <button type="button" class="btn btn-purple" ng-click="submit()">PUBLISH
                              <span class="glyphicon glyphicon-chevron-right"></span>
                          </button>
                      </div>
@@ -71,7 +83,7 @@
 
                  {#</form>#}
 
-                     <form  method="post" action="#" enctype="multipart/form-data">
+                     <form method="post" class="main-form" action="{{ path('add_goal') }}">
                          <div class="form-group">
                              <input type="text" class="form-control title" placeholder="Enter Title of the goal">
                          </div>
@@ -79,10 +91,9 @@
                          <div class="row">
                              <div class="col-md-offset-1 col-md-10">
                                  <div class="form-group">
-                                     <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                     <textarea class="form-control" ng-model="description" value="[[ description ]]" rows="4" placeholder="Description"></textarea>
                                      <div class="tags">
-                                         <button type="button" class="btn btn-purple">tag1</button>
-                                         <button type="button" class="btn btn-purple">tag2</button>
+                                         <button ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
                                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -91,9 +102,14 @@
                                          it to make a type specimen book.
                                      </p>
 
+                                     <input type="hidden" name="tags" value="[[ tags ]]"/>
+
                                  </div>
 
-                                 <div class="text-center"><br />here will be drag and drop<br /></div>
+                                 <div class="text-center" ng-init="initDropzone('{{ path('add_goal') }}','.main-form')">
+                                     <br />here will be drag and drop<br />
+                                     <div class="dropzone" id="goalDropzone"></div>
+                                 </div>
 
                                  <div class="form-group">
                                      <input type="text" class="form-control" placeholder="http://www.laravelsoft.com/">
@@ -102,8 +118,6 @@
                                  <iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>
                              </div>
                          </div>
-
-
                      </form>
                  </div>
              </div>
