@@ -28,8 +28,6 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
  */
 class GoalController extends Controller
 {
-    private $files;
-
     /**
      * @Route("/add", name="add_goal")
      * @Template()
