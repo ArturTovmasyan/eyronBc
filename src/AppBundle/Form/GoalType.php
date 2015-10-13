@@ -29,7 +29,10 @@ class GoalType extends AbstractType
         $builder
             ->add('title')
             ->add('description', 'textarea')
-            ->add('bl_multiple_file', 'bl_multiple_file')
+            ->add('status')
+            ->add('files', 'hidden', array('mapped' => false))
+            ->add('hashTags', 'hidden', array('mapped' => false))
+            ->add('videoLink')
         ;
     }
 
