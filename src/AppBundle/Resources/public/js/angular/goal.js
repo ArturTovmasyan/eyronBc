@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('goal', ['Interpolation','GoogleMaps'])
+angular.module('goal', ['Interpolation',
+        'GoogleMaps',
+        'mgcrea.ngStrap.popover',
+        'ngAnimate'
+    ])
     .controller('goalAdd',['$scope', '$timeout', function($scope, $timeout){
 
         $('.purple input').iCheck({
