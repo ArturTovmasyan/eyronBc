@@ -106,6 +106,8 @@ header{
           figure{
             background-color: transparent;
             width:50px;
+            height:50px;
+            overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
           }
@@ -433,8 +435,6 @@ input{
   color:#a3a3a3;
 }
 
-
-
 figure{
   background-color: #cfcfcf;
 
@@ -473,9 +473,27 @@ figure{
   }
 }
 
-.inner{
-  background-color: #ffffff;
+.inner-container{
+  background-color: #d6d6d6;
+
+  q{
+    display: block;
+    padding:25px 0;
+    color:#ffffff;
+  }
+
+  h1{
+    background-color: #021421;
+    color:#ffffff;
+    padding:10px 25px;
+    font-size:40px;
+  }
+
+  .inner{
+    background-color: #ffffff;
+  }
 }
+
 
 footer{
   width:100%;
@@ -516,10 +534,6 @@ footer{
 }
 
 @media (min-width: @screen-sm) {
-  h1{
-    font-size:36px;
-    margin:20px 20px 30px;
-  }
 
   #signin{
     min-width:260px;
@@ -530,6 +544,12 @@ footer{
   }
 
   .signup{
+
+    h1{
+      font-size:36px;
+      margin:20px 20px 30px;
+    }
+
     padding-top:30px;
     .margin-top{
       margin-top:35px;
@@ -565,11 +585,11 @@ footer{
 
 @media (min-width: @screen-md) {
 
-
-
-  h1{
-    font-size:50px;
-    margin:20px 20px 50px;
+  .signup{
+    h1{
+      font-size:50px;
+      margin:20px 20px 50px;
+    }
   }
 
   .homepage{
