@@ -19,6 +19,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Goal implements MultipleFileInterface
 {
+    // constants for privacy
+    const PUBLIC_PRIVACY = 1;
+    const PRIVATE_PRIVACY = 2;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -65,6 +69,12 @@ class Goal implements MultipleFileInterface
      *      )
      **/
     protected $tags;
+
+    /**
+     * @var
+     * @ORM\Column(name="status", type="smallint")
+     */
+    protected $status;
 
     /**
      * Get id
@@ -350,5 +360,28 @@ class Goal implements MultipleFileInterface
     public function getVideoDescription()
     {
         return $this->videoDescription;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Goal
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
