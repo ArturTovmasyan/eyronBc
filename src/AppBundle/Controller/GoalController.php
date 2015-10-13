@@ -28,6 +28,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
  */
 class GoalController extends Controller
 {
+    private $files;
+
     /**
      * @Route("/add", name="add_goal")
      * @Template()
@@ -39,6 +41,8 @@ class GoalController extends Controller
         // create new object
         $goal = new Goal();
 
+        $files = null;
+
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
 
@@ -47,47 +51,66 @@ class GoalController extends Controller
         // check request method
         if($request->isMethod("POST")){
 
+            $files = $request->files->get('file');
+
+//            $request->request->set('test', 'test');
+
+//            $request->files->set('test', $files);
+
             // get data from request
             $form->handleRequest($request);
+
+            $t = $request = $this->get('request_stack')->getCurrentRequest();
+
+//            $request->request->set('test', $files);
+
 
             // check valid
             if($form->isValid()){
 
+//                dump($request);
+//                dump($form->get('hashTags')->getData());
+//                dump($form->get('files')->getData());
+//                dump($form->get('status')->getData());
+//                dump($form->get('status')->getData());
+//                dump($goal);
+
+
                 // get entity manager
                 $em = $this->getDoctrine()->getManager();
 
-                //get images
-                $images = $goal->getImages();
-
-                // check images
-                if($images) {
-
-                    // loop for images
-                    foreach($images as $image) {
-
-                        $bucketService->uploadFile($image);
-
-                        // ad image to goal
-                        $goal->addImage($image);
-
-                        // persist goal
-                        $em->persist($goal);
-                    }
-                }
-
-                // get gags
-                $this->getAndAddTags($goal);
-
-                $em->persist($goal);
-                $em->flush();
+//                //get images
+//                $images = $goal->getImages();
+//
+//                // check images
+//                if($images) {
+//
+//                    // loop for images
+//                    foreach($images as $image) {
+//
+//                        $bucketService->uploadFile($image);
+//
+//                        // ad image to goal
+//                        $goal->addImage($image);
+//
+//                        // persist goal
+//                        $em->persist($goal);
+//                    }
+//                }
+//
+//                // get gags
+//                $this->getAndAddTags($goal);
+//
+//                $em->persist($goal);
+//                $em->flush();
 
                 // redirect to view
-                return $this->redirectToRoute('view_goal', array('id' => $goal->getId()));
+//                return $this->redirectToRoute('add_goal');
 
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'files' => $files);
     }
 
     /**
