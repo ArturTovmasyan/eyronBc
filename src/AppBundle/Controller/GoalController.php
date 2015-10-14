@@ -34,15 +34,35 @@ use Symfony\Component\HttpFoundation\Response;
 class GoalController extends Controller
 {
     /**
-     * @Route("/add", name="add_goal")
+     * @Route("/add/{id}", defaults={"id" = null}, name="add_goal")
      * @Template()
      * @param Request $request
+     * @param $id
      * @return array
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request, $id = null)
     {
-        // create new object
-        $goal = new Goal();
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // check id
+        if($id){
+
+            // get goal
+            $goal = $em->getRepository("AppBundle:Goal")->find($id);
+
+            // check goal and return not found
+            if(!$goal){
+
+                throw $this->createNotFoundException("Goal $id not found");
+            }
+
+        }
+        else{
+
+            // create new object
+            $goal = new Goal();
+        }
 
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
@@ -55,9 +75,6 @@ class GoalController extends Controller
 
             // check valid
             if($form->isValid()){
-
-                // get entity manager
-                $em = $this->getDoctrine()->getManager();
 
                 // get tags from form
                 $tags = $form->get('hashTags')->getData();
