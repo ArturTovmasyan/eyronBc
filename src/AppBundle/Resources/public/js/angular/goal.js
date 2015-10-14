@@ -5,7 +5,7 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate'
     ])
-    .controller('goalAdd',['$scope', function($scope){
+    .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
 
         $scope.files = [];
 
@@ -34,13 +34,17 @@ angular.module('goal', ['Interpolation',
                         return;
                     }
 
-                    $scope.files.push(JSON.parse(res.xhr.responseText));
+                    $scope.files.concat(JSON.parse(res.xhr.responseText));
                     $scope.$apply();
                 }
             });
         };
 
         // end file uploads
+
+        $scope.trustedUrl = function(url){
+            return $sce.trustAsResourceUrl(url);
+        };
 
         // description Tagging
 
