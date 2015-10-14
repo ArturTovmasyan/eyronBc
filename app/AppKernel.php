@@ -23,6 +23,8 @@ class AppKernel extends Kernel
 
             // fos bundles
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
 
             //oauth bundle
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
@@ -45,6 +47,7 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Application\CommentBundle\ApplicationCommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -49,7 +49,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AppBundle]
+    bundles:        [ AppBundle, FOSCommentBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -104,6 +104,13 @@ fos_user:
             form:
                 type: bl_user_registration
                 handler: bl_user.form.handler.registration
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Application\CommentBundle\Entity\Comment
+            thread: Application\CommentBundle\Entity\Thread
 
 #    hwi oauth configs
 hwi_oauth:

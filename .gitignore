@@ -19,5 +19,6 @@ app/SymfonyRequirements.php
 app/check.php
 composer.lock
 /web/css/
+/web/js/
 /web/uploads/*
 /web/jquery_components/
