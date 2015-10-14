@@ -59,4 +59,11 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
+    }])
+    .controller('goalEnd',['$scope', function($scope){
+
+        $('input.private-checkbox').iCheck({
+            checkboxClass: 'iradio_square-grey',
+            increaseArea: '20%'
+        });
     }]);
