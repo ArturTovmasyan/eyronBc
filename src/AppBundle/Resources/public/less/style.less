@@ -526,6 +526,70 @@ figure{
 
   .inner-content{
     background-color: #ffffff;
+    overflow: hidden;
+
+    .goal-information{
+      ul:last-child{
+        padding-left:0;
+        &>li{
+          border-bottom:1px solid #a4a4a4;
+          padding-top:10px;
+          padding-bottom:10px;
+          color:#a4a4a4;
+          ul{
+            li{
+              display: inline-block;
+              border-bottom:0;
+              padding-bottom:0;
+
+              &first-child{
+                span{
+                 display: block;
+                  font-size: 15px;
+                }
+              }
+              
+              &:last-child{
+                a{
+                  background: url('../images/arrow-right.png') no-repeat center center;
+                  display: block;
+                  width:49px;
+                  height:48px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .goal-links {
+      padding-left:0;
+      margin-bottom:0;
+
+      li {
+        text-align: center;
+        a {
+          display: block;
+          color: #a4a4a4;
+          padding: 10px 0;
+
+          span{
+            border: 2px solid;
+            padding: 3px 5px 4px;
+            display: inline-block;
+            margin: 0 5px 0 0;
+            .rounded-corners;
+          }
+        }
+        &:hover {
+          background-color: #e3e3e3;
+        }
+        &:last-child{
+          border-right:1px solid #a4a4a4;
+        }
+      }
+    }
   }
 
   .inner{
