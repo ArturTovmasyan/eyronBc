@@ -35,13 +35,15 @@ class GoalImageRepository extends EntityRepository
      */
     public function findAllOlder()
     {
+        // create new dae
+        $date = new \DateTime('now');
         $query =  $this->getEntityManager()
-            ->createQuery(" SELECT i
+            ->createQuery(" SELECT i, g
                             FROM AppBundle:GoalImage i
                             LEFT JOIN i.goal g
-                            WHERE g.id is null and g.updated < :myDate
+                            WHERE g.id is null and TIMESTAMPDIFF( HOUR ,  i.updated,  :date ) > 1
                             ")
-            ->setParameter('myDate', new \DateTime('-1 days'))
+            ->setParameter('date', $date)
             ->getResult()
         ;
 

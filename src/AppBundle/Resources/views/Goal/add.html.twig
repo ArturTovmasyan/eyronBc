@@ -24,7 +24,7 @@
  {% block content %}
 
      {{ parent() }}
- <form method="post" class="main-form" action="{{ path('add_goal', {'request' : app.request} ) }}" enctype="multipart/form-data">
+ <form method="post" class="main-form" action="{{ path('add_goal') }}" enctype="multipart/form-data">
      <div class="content-top">
          <div class="container">
              <div class="row">

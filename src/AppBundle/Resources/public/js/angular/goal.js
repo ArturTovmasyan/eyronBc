@@ -18,9 +18,10 @@ angular.module('goal', ['Interpolation',
         Dropzone.options.goalDropzone = false;
         $scope.submit = function(){
 
-            var t = [1, 2];
+            //todo:get response ids
+            var ids = [1, 2];
             $scope.goalDropzone.uploadFiles($scope.goalDropzone.files);
-            $scope.files = t;
+            $scope.files = ids;
         };
 
         $scope.initDropzone = function(url, formSelector){
@@ -33,6 +34,8 @@ angular.module('goal', ['Interpolation',
                 addRemoveLinks: true,
                 uploadMultiple: true,
                 autoProcessQueue: false,
+                maxThumbnailFilesize: 6,
+                maxFiles: 6,
                 completemultiple: function(){
                     $timeout(function(){
                         angular.element(formSelector)[0].submit();
