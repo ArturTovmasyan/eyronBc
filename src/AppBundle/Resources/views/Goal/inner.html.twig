@@ -6,17 +6,17 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                <q>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s
-                </q>
+                {% if aphorism  %}
+                    <q>
+                       {{ aphorism.content }}
+                    </q>
+                {% endif %}
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-9">
-                <h2>title of the goal</h2>
+                <h2>{{ goal.title }}</h2>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -26,22 +26,25 @@
             <div class="row">
                 <div class="col-sm-7 col-md-9">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        {% set images = goal.images %}
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            {% for key, image in images %}
+                                <li data-target="#carousel-example-generic" data-slide-to="{{ key }}"
+                                    {% if image == loop.first %}
+                                        class="active"
+                                    {% endif %}
+                                        ></li>
+                            {% endfor %}
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="" >
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="" >
-                            </div>
-
+                            {% for key, image in images %}
+                                <div class="item {% if image == loop.first  %} active {% endif %}">
+                                    <img src="{{ image.downloadLink }}" alt="" >
+                                </div>
+                            {% endfor %}
                         </div>
 
                         <!-- Controls -->
@@ -201,25 +204,15 @@
             <div class="inner">
                 <div class="row">
                     <div class="col-md-9">
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                        </p>
 
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry's standard dummy text ever since the 1500s
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry's standard dummy text ever since the 1500s
+                            {{ goal.description }}
                         </p>
 
-                        <iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>
+                        {% if goal.videoLink %}
+
+                        <iframe width="100%" height="500" src="{{ goal.videoLink }}" frameborder="0" allowfullscreen></iframe>
+                        {% endif %}
 
                         <h4>Success stories</h4><hr />
 

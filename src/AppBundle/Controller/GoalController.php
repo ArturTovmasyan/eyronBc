@@ -204,7 +204,13 @@ class GoalController extends Controller
      */
     public function innerAction(Goal $goal)
     {
-        return array('goal' => $goal);
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get aphorism by goal
+        $aphorism = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
+
+        return array('goal' => $goal, 'aphorism' => $aphorism);
     }
 
     /**
@@ -239,6 +245,7 @@ class GoalController extends Controller
 
     /**
      * @param $object
+     * @param $tags
      */
     private function getAndAddTags(&$object, $tags)
     {
@@ -288,22 +295,6 @@ class GoalController extends Controller
 
             }
         }
-    }
-
-    /**
-     * @param $text
-     * @return mixed
-     */
-    private function getHashTags($text)
-    {
-        // get description
-        $content = strtolower($text);
-
-        // get hash tags
-        preg_match_all("/#(\w+)/", $content, $hashTags);
-
-        // return hash tags
-        return $hashTags[1];
     }
 
     /**
