@@ -89,7 +89,12 @@ class GoalController extends Controller
                 $this->removeAllGoalImage();
 
                 if($images){
+
+                    // get json from request
                     $images = json_decode($images);
+
+                    // remove duplicate
+                    $images = array_unique($images);
 
                     // get goal images form bd
                     $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
@@ -106,6 +111,7 @@ class GoalController extends Controller
                     }
 
                 }
+
                 $em->persist($goal);
                 $em->flush();
 
@@ -150,7 +156,7 @@ class GoalController extends Controller
     public function addImagesAction(Request $request)
     {
         // empty data fro all images
-        $images = array();
+        $images = $result =  array();
 
         // get all files form request
         $files = $request->files->get('file');
@@ -185,17 +191,25 @@ class GoalController extends Controller
             $em->flush();
         }
 
+        if($images){
+            foreach($images as $image){
+                $result[] = $image->getId();
+            }
+        }
 
-        // create json context
-        $context = SerializationContext::create()->setGroups(array('images'));
 
-        // create serializer
-        $serializer = SerializerBuilder::create()->build();
 
-        // get json content
-        $jsonContent = $serializer->serialize($images, 'json', $context);
 
-        return new Response($jsonContent, Response::HTTP_OK);
+//        // create json context
+//        $context = SerializationContext::create()->setGroups(array('images'));
+//
+//        // create serializer
+//        $serializer = SerializerBuilder::create()->build();
+//
+//        // get json content
+//        $jsonContent = $serializer->serialize($images, 'json', $context);
+
+        return new JsonResponse($result, Response::HTTP_OK);
 
     }
 
