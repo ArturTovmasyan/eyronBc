@@ -11,12 +11,14 @@ namespace AppBundle\Entity;
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class GoalImage
  * @package AppBundle\Entity
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalImageRepository")
  * @ORM\Table(name="goal_image")
  */
 class GoalImage
@@ -28,6 +30,7 @@ class GoalImage
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"images"})
      */
     protected $id;
 
@@ -43,6 +46,22 @@ class GoalImage
      * @var
      */
     protected $primary;
+
+    /**
+     * @var
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+
+    /**
+     * @var
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
 
 
     /**
@@ -129,5 +148,51 @@ class GoalImage
     public function getPrimary()
     {
         return (Boolean)$this->primary;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return GoalImage
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return GoalImage
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

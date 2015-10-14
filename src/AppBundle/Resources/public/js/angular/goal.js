@@ -18,9 +18,9 @@ angular.module('goal', ['Interpolation',
         Dropzone.options.goalDropzone = false;
         $scope.submit = function(){
 
-            $scope.hiddenFiles = $scope.goalDropzone.files[0];
-            $scope.hiddenFilesText = $scope.goalDropzone.files[0].name;
+            var t = [1, 2];
             $scope.goalDropzone.uploadFiles($scope.goalDropzone.files);
+            $scope.files = t;
         };
 
         $scope.initDropzone = function(url, formSelector){

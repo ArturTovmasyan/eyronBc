@@ -77,9 +77,11 @@
 
                                  </div>
 
-                                 <div class="text-center" ng-init="initDropzone('{{ path('add_goal') }}','.main-form')">
+                                 <div class="text-center" ng-init="initDropzone('{{ path('add_images') }}','.main-form')">
                                      <div class="dropzone" id="goalDropzone"></div>
                                  </div>
+
+                                 {{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}
 
                                  <div class="form-group">
                                      {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'http://www.laravelsoft.com/' } }) }}
@@ -88,11 +90,6 @@
                                  <iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>
                              </div>
                          </div>
-
-                     {#<input ng-model="hiddenFiles" type="file" name="files[]" id="js-upload-files" multiple>#}
-                     {#<input ng-model="hiddenFilesText" type="text" name="text[]" />#}
-
-                     {#<input ng-model="hiddenFiles1" name="file" type="file">#}
 
                      {{ form_widget(form._token) }}
                  </div>

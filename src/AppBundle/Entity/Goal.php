@@ -12,6 +12,7 @@ use AppBundle\Model\MultipleFileInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -75,6 +76,22 @@ class Goal implements MultipleFileInterface
      * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     protected $status;
+
+    /**
+     * @var
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+
+    /**
+     * @var
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
 
     /**
      * Get id
@@ -383,5 +400,51 @@ class Goal implements MultipleFileInterface
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Goal
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Goal
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

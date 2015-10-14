@@ -12,12 +12,17 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\GoalType;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -39,8 +44,6 @@ class GoalController extends Controller
         // create new object
         $goal = new Goal();
 
-        $files = null;
-
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
 
@@ -56,32 +59,36 @@ class GoalController extends Controller
                 // get entity manager
                 $em = $this->getDoctrine()->getManager();
 
-//                $bucketService = $this->get('bl_service');
-//                //get images
-//                $images = $goal->getImages();
-//
-//                // check images
-//                if($images) {
-//
-//                    // loop for images
-//                    foreach($images as $image) {
-//
-//                        $bucketService->uploadFile($image);
-//
-//                        // ad image to goal
-//                        $goal->addImage($image);
-//
-//                        // persist goal
-//                        $em->persist($goal);
-//                    }
-//                }
-//
                 // get tags from form
                 $tags = $form->get('hashTags')->getData();
 
                 // add tags
                 $this->getAndAddTags($goal, $tags);
 
+                // get images ids
+                $images = $form->get('files')->getData();
+
+                // remove all images that older one day
+                $this->removeAllGoalImage();
+
+                if($images){
+                    $images = json_decode($images);
+
+                    // get goal images form bd
+                    $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
+
+                    // check goal images
+                    if($goalImages){
+
+                        // loop for goal images
+                        foreach($goalImages as $goalImage){
+
+                            // add to goal
+                            $goal->addImage($goalImage);
+                        }
+                    }
+
+                }
                 $em->persist($goal);
                 $em->flush();
 
@@ -90,7 +97,89 @@ class GoalController extends Controller
             }
         }
 
-        return array('form' => $form->createView(), 'files' => $files);
+        return array('form' => $form->createView());
+    }
+
+
+    /**
+     *  This function is used to remove files and goal images from db
+     */
+    private function removeAllGoalImage()
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get all old images
+        $goalImages = $em->getRepository('AppBundle:GoalImage')->findAllOlder();
+
+        // loop for images
+        if($goalImages){
+
+            // loop for images
+            foreach($goalImages as $goalImage){
+                $em->remove($goalImage);
+            }
+        }
+    }
+
+    /**
+     * This action is used for upload images from drag and drop
+     *
+     * @Route("/add-images", name="add_images")
+     * @Method({"POST"})
+     * @param Request $request
+     * @return array
+     */
+    public function addImagesAction(Request $request)
+    {
+        // empty data fro all images
+        $images = array();
+
+        // get all files form request
+        $files = $request->files->get('file');
+
+        // check file
+        if($files){
+
+            // get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // loop for files
+            foreach($files as $file){
+
+                // create new goal image object
+                $goalImage = new GoalImage();
+
+                // set file
+                $goalImage->setFile($file);
+
+                // upload file
+                $bucketService->uploadFile($goalImage);
+
+                $em->persist($goalImage);
+
+                // add to array
+                $images[] = $goalImage;
+            }
+            // flush data
+            $em->flush();
+        }
+
+
+        // create json context
+        $context = SerializationContext::create()->setGroups(array('images'));
+
+        // create serializer
+        $serializer = SerializerBuilder::create()->build();
+
+        // get json content
+        $jsonContent = $serializer->serialize($images, 'json', $context);
+
+        return new Response($jsonContent, Response::HTTP_OK);
+
     }
 
     /**
