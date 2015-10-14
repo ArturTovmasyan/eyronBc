@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
@@ -197,18 +198,6 @@ class GoalController extends Controller
             }
         }
 
-
-
-
-//        // create json context
-//        $context = SerializationContext::create()->setGroups(array('images'));
-//
-//        // create serializer
-//        $serializer = SerializerBuilder::create()->build();
-//
-//        // get json content
-//        $jsonContent = $serializer->serialize($images, 'json', $context);
-
         return new JsonResponse($result, Response::HTTP_OK);
 
     }
@@ -254,6 +243,74 @@ class GoalController extends Controller
     public function endAction(Goal $goal)
     {
         return array('goal' => $goal);
+    }
+
+
+    /**
+     * @Route("/done/{id}", name="done_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function doneAction(Goal $goal)
+    {
+        // get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get user goal
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+
+        // check user goal and create if noc exist
+        if(!$userGoal){
+            $userGoal = new UserGoal();
+        }
+
+        // set status to done
+        $userGoal->setStatus(UserGoal::COMPLETED);
+
+        $em->persist($userGoal);
+        $em->flush();
+
+        return $this->redirect($_SERVER["HTTP_REFERER"]);
+    }
+
+    /**
+     * @Route("/add-to-me/{id}", name="add_to_me_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function addToMeAction(Goal $goal)
+    {
+        // get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // create new user goal
+        $userGoal = new UserGoal();
+
+        // set status
+        $userGoal->setStatus(UserGoal::ACTIVE);
+
+        // set user
+        $userGoal->setUser($user);
+
+        //set goal
+        $userGoal->setGoal($goal);
+
+        $em->persist($userGoal);
+        $em->flush();
+
+        return $this->redirect($_SERVER["HTTP_REFERER"]);
     }
 
 

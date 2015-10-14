@@ -47,11 +47,6 @@ class Goal implements MultipleFileInterface
     protected $videoLink;
 
     /**
-     * @ORM\Column(name="video_description", type="string", nullable=true)
-     */
-    protected $videoDescription;
-
-    /**
      * @ORM\OneToMany(targetEntity="GoalImage", mappedBy="goal", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
@@ -357,35 +352,12 @@ class Goal implements MultipleFileInterface
     }
 
     /**
-     * Set videoDescription
-     *
-     * @param string $videoDescription
-     * @return Goal
-     */
-    public function setVideoDescription($videoDescription)
-    {
-        $this->videoDescription = $videoDescription;
-
-        return $this;
-    }
-
-    /**
-     * Get videoDescription
-     *
-     * @return string 
-     */
-    public function getVideoDescription()
-    {
-        return $this->videoDescription;
-    }
-
-    /**
      * Set status
      *
      * @param integer $status
      * @return Goal
      */
-    public function setStatus($status = self::PUBLIC_PRIVACY)
+    public function setStatus($status = self::PRIVATE_PRIVACY)
     {
         $this->status = $status;
 

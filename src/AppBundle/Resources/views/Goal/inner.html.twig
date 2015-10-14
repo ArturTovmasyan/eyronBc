@@ -60,19 +60,21 @@
                 </div>
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
-                        <ul class="row goal-links">
-                            <li class="col-md-6 col-md-push-6">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                        {% if is_granted("ROLE_USER") %}
+                            <ul class="row goal-links">
+                                <li class="col-md-6 col-md-push-6">
+                                    <a href="{{ path('done_goal', {'id' : goal.id}) }}">
+                                        <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
 
-                                </a>
-                            </li>
-                            <li class="col-md-6 col-md-pull-6">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-plus"></span>ADD
-                                </a>
-                            </li>
-                        </ul>
+                                    </a>
+                                </li>
+                                <li class="col-md-6 col-md-pull-6">
+                                    <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                                        <span class="glyphicon glyphicon-plus"></span>ADD
+                                    </a>
+                                </li>
+                            </ul>
+                        {% endif %}
 
                         <div style="border:1px solid purple;height:300px;">here will be map</div>
 

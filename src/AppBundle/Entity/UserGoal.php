@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="users_goals")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
+ * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
  */
 class UserGoal
 {
@@ -40,19 +40,19 @@ class UserGoal
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint")
+     * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     protected $status;
 
     /**
      * @var
-     * @ORM\Column(name="privacy", type="smallint")
+     * @ORM\Column(name="privacy", type="smallint", nullable=true)
      */
     protected $privacy;
 
     /**
      * @var
-     * @ORM\Column(name="quality", type="smallint")
+     * @ORM\Column(name="quality", type="smallint", nullable=true)
      */
     protected $quality;
 
