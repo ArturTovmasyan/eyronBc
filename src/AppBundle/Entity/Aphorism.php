@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\AphorismRepository")
  * @ORM\Table(name="aphorism")
  */
 class Aphorism
