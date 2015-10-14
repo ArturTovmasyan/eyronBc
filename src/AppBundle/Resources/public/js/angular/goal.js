@@ -5,26 +5,20 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate'
     ])
-    .controller('goalAdd',['$scope', '$timeout', function($scope, $timeout){
+    .controller('goalAdd',['$scope', function($scope){
+
+        $scope.files = [];
 
         $('.purple input').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });
 
-
         // file uploads
 
         Dropzone.options.goalDropzone = false;
-        $scope.submit = function(){
 
-            //todo:get response ids
-            var ids = [1, 2];
-            $scope.goalDropzone.uploadFiles($scope.goalDropzone.files);
-            $scope.files = ids;
-        };
-
-        $scope.initDropzone = function(url, formSelector){
+        $scope.initDropzone = function(url){
             if(!url){
                 return;
             }
@@ -33,13 +27,15 @@ angular.module('goal', ['Interpolation',
                 url: url,
                 addRemoveLinks: true,
                 uploadMultiple: true,
-                autoProcessQueue: false,
                 maxThumbnailFilesize: 6,
                 maxFiles: 6,
-                completemultiple: function(){
-                    $timeout(function(){
-                        angular.element(formSelector)[0].submit();
-                    },1000);
+                complete: function(res){
+                    if(res.xhr.status !== 200){
+                        return;
+                    }
+
+                    $scope.files.push(JSON.parse(res.xhr.responseText));
+                    $scope.$apply();
                 }
             });
         };

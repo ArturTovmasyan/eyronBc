@@ -40,8 +40,8 @@
                              {#<span class="glyphicon glyphicon-chevron-left"></span>#}
                              {#GO BACK TO EDIT#}
                          {#</button>#}
-                         <button type="button" class="btn btn-default" name="btn_preview" ng-click="submit()">PREVIEW</button>
-                         <button type="button" class="btn btn-purple" name="btn_publish" ng-click="submit()">PUBLISH
+                         <button type="button" class="btn btn-default" name="btn_preview">PREVIEW</button>
+                         <button type="button" class="btn btn-purple" name="btn_publish">PUBLISH
                              <span class="glyphicon glyphicon-chevron-right"></span>
                          </button>
                      </div>
@@ -77,7 +77,7 @@
 
                                  </div>
 
-                                 <div class="text-center" ng-init="initDropzone('{{ path('add_images') }}','.main-form')">
+                                 <div class="text-center" ng-init="initDropzone('{{ path('add_images') }}')">
                                      <div class="dropzone" id="goalDropzone"></div>
                                  </div>
 
