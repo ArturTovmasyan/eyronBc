@@ -252,6 +252,14 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get environment
+        $env = $this->container->getParameter("kernel.environment");
+
+        // check environment
+        if($env == "test") {
+            $tags = array();
+        }
+
         // check tags
         if($tags){
 
