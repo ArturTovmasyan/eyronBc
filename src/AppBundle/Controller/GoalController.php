@@ -319,6 +319,26 @@ class GoalController extends Controller
                 $em->persist($tag);
 
             }
+
+            // tags that is already exist in database
+            $existTags = array_diff($tags, $newTags);
+
+            // get tags from database
+            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
+
+            // loop for tags n database
+            foreach($oldTags as $oldTag){
+
+                // check tag in collection
+                if(!$object->getTags() || ! in_array($oldTag, $object->getTags())){
+
+                    // add tag
+                    $object->addTag($oldTag);
+
+                    // persist tag
+                    $em->persist($oldTag);
+                }
+            }
         }
     }
 
