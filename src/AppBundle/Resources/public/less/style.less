@@ -19,7 +19,10 @@ body{
   position: relative;
   padding-bottom: 300px;
 }
-
+input.form-control:focus,textarea.form-control:focus{
+  border-color: #7725f6;
+  box-shadow: none;
+}
 header{
   #line{
     height:4px;
@@ -155,7 +158,6 @@ label{
     background-color: #2b2b2b;
     padding: 20px 15px;
 
-
     a{
       display: block;
       padding:10px 0;
@@ -207,13 +209,17 @@ label{
 
 .content-top{
   background-color: #ffffff;
-  padding:10px 0 0;
+  //padding:10px 0 0;
 
   a{
     color:#a4a4a4;
     display: block;
     font-size:18px;
     padding:10px 0 10px;
+  }
+
+  h3{
+    padding-top: 12px;
   }
 
   .no-bg{
@@ -231,7 +237,7 @@ label{
   }
 
   .buttons{
-    margin:35px 0;
+    margin:40px 0;
     button{
       margin-left:10px;
       padding:6px 12px;
@@ -285,8 +291,8 @@ ul.filter{
 
   .title{
     background-color: #e6e6e6;
-    color:#adadad;
-    padding: 30px;
+    color:#afafaf;
+    padding: 10px 20px;
     border: 0;
     font-size: 20px;
     border-radius: 0;
@@ -310,7 +316,7 @@ ul.filter{
   }
 }
 
-.gol-end{
+.goal-end{
   background-color: #ffffff;
   padding:10px 20px 0;
   .rounded-corners(6px);
@@ -324,18 +330,30 @@ ul.filter{
   .purple{
     font-size:18px;
   }
+
+
+
   .on{
-    background: url('../images/icons.png') no-repeat 0 0;
+    background: url('../images/goal-off.png') no-repeat 0 0;
+    border: 0;
+    height: 38px;
+    width: 77px;
+    background-size: 78%;
   }
   .off{
-    background: url('../images/icons.png') no-repeat 0 0;
+    background: url('../images/goal-off.png') no-repeat 0 -41px;
+    border: 0;
+    height: 38px;
+    width: 77px;
+    background-size: 78%;
   }
 }
 
 .text-left{
   text-align: left !important;
 }
-.homepage{
+
+.homepage,.goals-end{
   width:100%;
   position: absolute;
   top:35px;
@@ -350,7 +368,7 @@ ul.filter{
   }
 
   .btn-purple{
-    margin:50px 0;
+    margin:15px 0 10px;
   }
 
   .gol-end{
@@ -399,19 +417,20 @@ ul.filter{
 }
 
 h1{
-  color:#021421;
+  color:#021523;
   font-size: 19px;
 }
 
 ul li{list-style: none;}
 
+.margin-top{
+  margin-top:10px;
+}
+
 .signup{
-  padding-top:10px;
-  .margin-top{
-    margin-top:10px;
-  }
 
   .form-group{
+    margin-bottom:10px;
     div{
       margin-bottom:5px;
     }
@@ -435,6 +454,7 @@ ul li{list-style: none;}
   padding:28px 18px;
   display: block;
   cursor:pointer;
+  margin-bottom:9px;
 }
 
 p{
@@ -483,24 +503,37 @@ figure{
   }
 }
 
+.dropzone{
+  margin:40px 0;
+}
 .inner-container{
-  background-color: #d6d6d6;
+  background-color: #d8d8d8;
 
   q{
     display: block;
     padding:25px 0;
     color:#ffffff;
+    font-size:17px;
+    text-align: justify;
   }
 
-  h1{
-    background-color: #021421;
+  h2{
+    background-color: #021523;
     color:#ffffff;
-    padding:10px 25px;
-    font-size:40px;
+    padding:10px 40px;
+    margin-bottom:20px;
+  }
+
+  .inner-content{
+    background-color: #ffffff;
   }
 
   .inner{
-    background-color: #ffffff;
+    padding:10px 20px;
+  }
+
+  h4{
+    color:#a4a4a4;
   }
 }
 
@@ -528,7 +561,7 @@ footer{
     text-align: center;
     li{
       list-style: none;
-      padding: 5px 20px;
+      padding: 5px 25px;
       a{
         color:#ffffff;
       }
@@ -545,6 +578,19 @@ footer{
 
 @media (min-width: @screen-sm) {
 
+  h1,h2{
+    font-size:36px;
+  }
+
+  h2{
+    padding: 31px 0 34px;
+    margin: 0;
+  }
+
+  .margin-top{
+    margin-top:40px;
+  }
+
   #signin{
     min-width:260px;
     overflow: hidden;
@@ -560,17 +606,37 @@ footer{
       margin:20px 20px 30px;
     }
 
-    padding-top:30px;
-    .margin-top{
-      margin-top:35px;
-    }
     .form-group{
       p{
+        padding-top:13px;
         font-size: 19px;
+        margin-bottom:20px;
         a{
           font-size: 18px;
         }
       }
+    }
+  }
+  .homepage,.goals-end{
+    .btn-purple{
+      margin:33px 0 17px;
+    }
+  }
+  .goal-end{
+    textarea{
+      resize: none;
+    }
+    label{
+      font-size:20px;
+      padding-top:3px !important;
+      font-weight:normal;
+    }
+  }
+
+  .goals{
+    .title{
+      padding:30px 40px;
+      font-size: 25px;
     }
   }
 
@@ -594,17 +660,45 @@ footer{
 }
 
 @media (min-width: @screen-md) {
+  h1,h2{
+    font-size:52px;
+  }
+
+  h2{
+    padding: 62px 0 68px;
+    margin: 0;
+  }
 
   .signup{
     h1{
-      font-size:50px;
-      margin:20px 20px 50px;
+      font-size:52px;
+      margin:60px 0;
     }
   }
 
   .homepage{
-    top:150px;
+    top:177px;
+    h1{
+      padding-bottom:46px;
+    }
+
+    .btn-purple{
+      margin:63px 0 34px;
+    }
   }
+  .goals-end{
+    top:74px;
+
+    h2{
+      padding-bottom:40px;
+    }
+  }
+  .goals{
+    .margin-top{
+      margin-top:30px;
+    }
+  }
+
 
   footer{
     small{
