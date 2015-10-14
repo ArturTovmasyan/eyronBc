@@ -34,7 +34,7 @@ angular.module('goal', ['Interpolation',
                         return;
                     }
 
-                    $scope.files.concat(JSON.parse(res.xhr.responseText));
+                    $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
                     $scope.$apply();
                 }
             });
