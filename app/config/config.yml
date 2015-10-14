@@ -113,6 +113,7 @@ hwi_oauth:
                 type:                facebook
                 client_id:           "%facebook_client_id%"
                 client_secret:       "%facebook_client_secret%"
+                scope:              "public_profile user_friends email"
             google:
                 type:                google
                 client_id:           "%google_client_id%"
