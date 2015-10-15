@@ -116,8 +116,11 @@ class GoalController extends Controller
                 $em->persist($goal);
                 $em->flush();
 
+                // generate url
+                $url = !is_null($request->get("btn_publish")) ? "end_goal" : "view_goal";
+
                 // redirect to view
-                return $this->redirectToRoute('view_goal', array('id'=> $goal->getId()));
+                return $this->redirectToRoute($url, array('id'=> $goal->getId()));
             }
         }
 
