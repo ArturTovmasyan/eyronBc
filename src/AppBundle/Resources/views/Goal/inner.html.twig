@@ -1,6 +1,12 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ng-app="goal"> {% endblock %}
+{% block angularApp %} <html ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 <div class="inner-container">
@@ -27,38 +33,15 @@
 
             <div class="row">
                 <div class="col-sm-7 col-md-9">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        {% set images = goal.images %}
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            {% for key, image in images %}
-                                <li data-target="#carousel-example-generic" data-slide-to="{{ key }}"
-                                    {% if image == loop.first %}
-                                        class="active"
-                                    {% endif %}
-                                        ></li>
-                            {% endfor %}
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            {% for key, image in images %}
-                                <div class="item {% if image == loop.first  %} active {% endif %}">
-                                    <img src="{{ image.downloadLink }}" alt="" >
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                    <ul class="main-pgwSlideshow">
+                        <li><img src="http://www.inthenetsportsacademy.com/wp-content/uploads/2013/12/football.jpg" alt="San Francisco, USA" data-description="Golden Gate Bridge"></li>
+                        <li><img src="http://www.suffolkfa.com/~/media/CountySites/suffolkfa/images/n/nike-football.ashx" alt="Rio de Janeiro, Brazil"></li>
+                        <li><img src="http://nifootball.co.uk/assets/images/uploads/news/news_image_1_.jpg" alt="" data-large-src="london.jpg"></li>
+                        <li><img src="http://www.twoo.com/blog/wp-content/uploads/2012/07/Football.jpg" alt=""></li>
+                        <li><img src="http://blogs.bmj.com/bjsm/files/2014/08/football-on-the-stadium-4565.jpg" alt=""></li>
+                        <li><img src="http://i.ytimg.com/vi/hrRCuTfBRYU/maxresdefault.jpg" alt=""></li>
+                        <li><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-IuUtcbukcOfA0PJfScwp60v_U1uVgTcbt3lOZfW8Y8A_jNn5" alt=""></li>
+                    </ul>
                 </div>
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
@@ -114,93 +97,7 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
-
-            {#<div class="row">#}
-                {#<div class="col-md-9">#}
-                    {#<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">#}
-                        {#<!-- Indicators -->#}
-                        {#<ol class="carousel-indicators">#}
-                            {#<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>#}
-                            {#<li data-target="#carousel-example-generic" data-slide-to="1"></li>#}
-                            {#<li data-target="#carousel-example-generic" data-slide-to="2"></li>#}
-                        {#</ol>#}
-
-                        {#<!-- Wrapper for slides -->#}
-                        {#<div class="carousel-inner" role="listbox">#}
-                            {#<div class="item active">#}
-                                {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="" >#}
-                            {#</div>#}
-                            {#<div class="item">#}
-                                {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="" >#}
-                            {#</div>#}
-
-                        {#</div>#}
-
-                        {#<!-- Controls -->#}
-                        {#<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">#}
-                            {#<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>#}
-                            {#<span class="sr-only">Previous</span>#}
-                        {#</a>#}
-                        {#<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">#}
-                            {#<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>#}
-                            {#<span class="sr-only">Next</span>#}
-                        {#</a>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-md-3">#}
-                    {#<div class="goal-information">#}
-                        {#<ul class="row goal-links">#}
-                            {#<li class="col-md-6 col-md-push-6">#}
-                                {#<a href="#">#}
-                                    {#<span class="glyphicon glyphicon glyphicon-ok"></span>DONE#}
-
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li class="col-md-6 col-md-pull-6">#}
-                                {#<a href="#">#}
-                                    {#<span class="glyphicon glyphicon-plus"></span>ADD#}
-                                {#</a>#}
-                            {#</li>#}
-                        {#</ul>#}
-
-                        {#<div style="border:1px solid purple;height:300px;">here will be map</div>#}
-
-                        {#<ul>#}
-                            {#<li>#}
-                                {#<ul class="row">#}
-                                    {#<li class="col-md-4">#}
-                                        {#done by#}
-                                        {#<span class="purple">13245</span>#}
-                                    {#</li>#}
-                                    {#<li class="col-md-4">#}
-
-                                    {#</li>#}
-                                    {#<li class="col-md-4">#}
-                                        {#<a href="#"></a>#}
-                                    {#</li>#}
-                                {#</ul>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<ul class="row">#}
-                                    {#<li class="col-md-4">#}
-                                        {#listed by#}
-                                        {#<span class="purple">13245</span>#}
-                                    {#</li>#}
-                                    {#<li class="col-md-4">#}
-
-                                    {#</li>#}
-                                    {#<li class="col-md-4">#}
-                                        {#<a href="#"></a>#}
-                                    {#</li>#}
-                                {#</ul>#}
-                            {#</li>#}
-                        {#</ul>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-
             <div class="row">
                 <div class="col-md-12">
                     here will be add this share
@@ -290,6 +187,8 @@
     {{ parent() }}
 
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
+    <script src="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app/scripts/GoogleMaps/GoogleMaps.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
+
 {% endblock %}
