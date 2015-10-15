@@ -2,31 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: aram
- * Date: 10/8/15
- * Time: 5:08 PM
+ * Date: 10/15/15
+ * Time: 11:39 AM
  */
 
-
-namespace AppBundle\Entity;
-
-use AppBundle\Traits\File;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+namespace AppBundle\Traits;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="marker")
+ * Class Location
+ * @package AppBundle\Traits
  */
-class Marker
+trait Location
 {
-
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @ORM\Column(type="smallint", name="address", nullable=true)
@@ -47,22 +34,11 @@ class Marker
     protected $lng;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set address
      *
      * @param integer $address
-     * @return Marker
+     * @return $this
      */
     public function setAddress($address)
     {
@@ -74,7 +50,7 @@ class Marker
     /**
      * Get address
      *
-     * @return integer 
+     * @return integer
      */
     public function getAddress()
     {
@@ -85,7 +61,7 @@ class Marker
      * Set lat
      *
      * @param float $lat
-     * @return Marker
+     * @return $this
      */
     public function setLat($lat)
     {
@@ -97,7 +73,7 @@ class Marker
     /**
      * Get lat
      *
-     * @return float 
+     * @return float
      */
     public function getLat()
     {
@@ -108,7 +84,7 @@ class Marker
      * Set lng
      *
      * @param float $lng
-     * @return Marker
+     * @return $this
      */
     public function setLng($lng)
     {
@@ -120,10 +96,11 @@ class Marker
     /**
      * Get lng
      *
-     * @return float 
+     * @return float
      */
     public function getLng()
     {
         return $this->lng;
     }
+
 }

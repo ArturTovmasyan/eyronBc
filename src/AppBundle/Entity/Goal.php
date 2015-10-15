@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\MultipleFileInterface;
+use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -23,6 +24,8 @@ class Goal implements MultipleFileInterface
     // constants for privacy
     const PUBLIC_PRIVACY = 1;
     const PRIVATE_PRIVACY = 2;
+
+    use Location;
 
     /**
      * @ORM\Id
