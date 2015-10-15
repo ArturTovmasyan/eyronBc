@@ -339,7 +339,7 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAll();
+        $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount();
 
         // get paginator
         $paginator  = $this->get('knp_paginator');

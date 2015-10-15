@@ -17,5 +17,25 @@ use Doctrine\ORM\Query;
  */
 class GoalRepository extends EntityRepository
 {
+    /**
+     * @param $count
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllWithCount($count = null)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('g', 'i')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.images', 'i');
+
+        if($count){
+            $query
+                ->setMaxResults($count);
+        }
+        return $query->getQuery()->getResult();
+    }
 
 }

@@ -19,7 +19,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // find goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAll();
+        $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
 
         return array('goals' => $goals);
     }
