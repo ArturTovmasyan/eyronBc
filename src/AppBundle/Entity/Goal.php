@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal")
  */
 class Goal implements MultipleFileInterface

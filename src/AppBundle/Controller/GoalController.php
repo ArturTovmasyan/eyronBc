@@ -227,10 +227,21 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get users that done this goal
+        $doneByUsers = $em->getRepository("ApplicationUserBundle:User")->findDoneBy($goal);
+
+        // get users that listed this goal
+        $listedByUsers = $em->getRepository("ApplicationUserBundle:User")->findListedBy($goal);
+
         // get aphorism by goal
         $aphorism = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
 
-        return array('goal' => $goal, 'aphorism' => $aphorism);
+        return array(
+            'goal' => $goal,
+            'aphorism' => $aphorism,
+            'doneByUsers' => $doneByUsers,
+            'listedByUsers' => $listedByUsers
+        );
     }
 
     /**
