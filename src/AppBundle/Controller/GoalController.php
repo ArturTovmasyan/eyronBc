@@ -329,10 +329,11 @@ class GoalController extends Controller
 
     /**
      * @Route("/list", name="goals_list")
+     * @param Request $request
      * @Template()
      * @return array
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -340,7 +341,17 @@ class GoalController extends Controller
         // find all goals
         $goals = $em->getRepository("AppBundle:Goal")->findAll();
 
-        return array('goals' => $goals);
+        // get paginator
+        $paginator  = $this->get('knp_paginator');
+
+        // paginate data
+        $pagination = $paginator->paginate(
+            $goals,
+            $request->query->getInt('page', 1)/*page number*/,
+            7/*limit per page*/
+        );
+
+        return array('goals' => $pagination);
     }
 
 
