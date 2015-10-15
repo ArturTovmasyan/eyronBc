@@ -253,10 +253,9 @@ label{
 
   .buttons{
     margin:40px 0;
-    button,a{
+    button{
       margin-left:10px;
       padding:6px 12px;
-      display: inline-block;
       &:first-child{
         border:1px solid #a4a4a4;
         color:#a4a4a4;
@@ -531,6 +530,7 @@ figure{
 }
 .inner-container{
   background-color: #d8d8d8;
+  padding-bottom: 30px;
 
   q{
     display: block;
@@ -665,6 +665,44 @@ footer{
     bottom:0;
     width: 100%;
     background-color: #000000;
+  }
+}
+
+#fos_comment_thread{
+
+  #fos_comment_comment_body{
+    height:250px;
+    background-color: #f4f4f4;
+    width:100%;
+    resize: none;
+  }
+  .fos_comment_submit{
+      input{
+        background-color:#7725f6;
+        color:#ffffff;
+        padding:10px 35px;
+        border:0;
+
+        &:hover, &:focus{
+          color:#ffffff;
+          outline:none;
+          background-color:#6009EA;
+        }
+      }
+  }
+  .fos_comment_comment_reply{
+    button{
+      background-color:#7725f6;
+      color:#ffffff;
+      padding:10px 35px;
+      border:0;
+
+      &:hover, &:focus{
+        color:#ffffff;
+        outline:none;
+        background-color:#6009EA;
+      }
+    }
   }
 }
 
