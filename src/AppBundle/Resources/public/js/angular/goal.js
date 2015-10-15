@@ -66,4 +66,12 @@ angular.module('goal', ['Interpolation',
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });
+    }])
+    .controller('goalInner',['$scope', function($scope){
+
+        angular.element('.main-pgwSlideshow').pgwSlideshow({
+            displayList: false,
+            intervalDuration: 3000,
+            autoSlide: true
+        });
     }]);
