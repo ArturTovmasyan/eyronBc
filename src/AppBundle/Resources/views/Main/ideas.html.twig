@@ -17,23 +17,7 @@
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
                             </a>
                             <figcaption>
-                                <ul class="row">
-                                    <li class="col-sm-5">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-plus"></span>ADD
-                                        </a>
-                                    </li>
-                                    <li class="col-sm-5">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                        </a>
-                                    </li>
-                                    <li class="col-sm-2">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-share-alt"></span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
                             </figcaption>
                         </figure>
                     </div>
@@ -54,25 +38,7 @@
                         <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="346" alt="{{ goal.title }}">
                     </a>
                     <figcaption>
-                        <ul class="row">
-                            {% if is_granted("ROLE_USER") %}
-                                <li class="col-sm-5">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-plus"></span>ADD
-                                    </a>
-                                </li>
-                                <li class="col-sm-5">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="col-sm-2">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                </a>
-                            </li>
-                        </ul>
+                        {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
                     </figcaption>
                 </figure>
             {% endfor %}
@@ -93,25 +59,7 @@
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="262" alt="{{ goal.title }}">
                             </a>
                             <figcaption>
-                                <ul class="row">
-                                    {% if is_granted("ROLE_USER") %}
-                                        <li class="col-sm-5">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-plus"></span>ADD
-                                            </a>
-                                        </li>
-                                        <li class="col-sm-5">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    <li class="col-sm-2">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-share-alt"></span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
                             </figcaption>
                         </figure>
                     </div>
@@ -136,25 +84,7 @@
                         <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
                     </a>
                     <figcaption>
-                        <ul class="row">
-                            {% if is_granted("ROLE_USER") %}
-                                <li class="col-sm-5">
-                                    <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                        <span class="glyphicon glyphicon-plus"></span>ADD
-                                    </a>
-                                </li>
-                                <li class="col-sm-5">
-                                    <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                        <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="col-sm-2">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                </a>
-                            </li>
-                        </ul>
+                        {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
                     </figcaption>
                 </figure>
             </div>
