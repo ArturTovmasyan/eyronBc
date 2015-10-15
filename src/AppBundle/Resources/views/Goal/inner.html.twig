@@ -33,15 +33,15 @@
 
             <div class="row">
                 <div class="col-sm-7 col-md-9">
-                    <ul class="main-pgwSlideshow">
-                        <li><img src="http://www.inthenetsportsacademy.com/wp-content/uploads/2013/12/football.jpg" alt="San Francisco, USA" data-description="Golden Gate Bridge"></li>
-                        <li><img src="http://www.suffolkfa.com/~/media/CountySites/suffolkfa/images/n/nike-football.ashx" alt="Rio de Janeiro, Brazil"></li>
-                        <li><img src="http://nifootball.co.uk/assets/images/uploads/news/news_image_1_.jpg" alt="" data-large-src="london.jpg"></li>
-                        <li><img src="http://www.twoo.com/blog/wp-content/uploads/2012/07/Football.jpg" alt=""></li>
-                        <li><img src="http://blogs.bmj.com/bjsm/files/2014/08/football-on-the-stadium-4565.jpg" alt=""></li>
-                        <li><img src="http://i.ytimg.com/vi/hrRCuTfBRYU/maxresdefault.jpg" alt=""></li>
-                        <li><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-IuUtcbukcOfA0PJfScwp60v_U1uVgTcbt3lOZfW8Y8A_jNn5" alt=""></li>
-                    </ul>
+                    {% set  images = goal.images %}
+                    {% if images %}
+
+                        <ul class="main-pgwSlideshow">
+                            {% for image in images %}
+                                <li><img src="{{ image.downloadLink }}" alt="{{ goal.title }}"></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
