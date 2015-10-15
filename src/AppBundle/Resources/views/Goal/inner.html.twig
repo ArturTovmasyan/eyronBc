@@ -73,7 +73,9 @@
                                         <span class="purple">{{ doneByUsers|length }}</span>
                                     </li>
                                     <li class="col-md-4">
-
+                                        {% for doneByUser in doneByUsers %}
+                                            <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                        {% endfor %}
                                     </li>
                                     <li class="col-md-4">
                                         <a href="#"></a>
@@ -87,7 +89,9 @@
                                         <span class="purple">{{ listedByUsers|length }}</span>
                                     </li>
                                     <li class="col-md-4">
-
+                                        {% for listedByUser in listedByUsers %}
+                                            <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                        {% endfor %}
                                     </li>
                                     <li class="col-md-4">
                                         <a href="#"></a>
