@@ -13,9 +13,15 @@ class MainController extends Controller
      * @Route("/", name="homepage")
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        return array();
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // find goals
+        $goals = $em->getRepository("AppBundle:Goal")->findAll();
+
+        return array('goals' => $goals);
     }
 
     /**

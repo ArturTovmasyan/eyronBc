@@ -3,104 +3,70 @@
 
     <div class="row">
 
-    <div class="col-sm-6 col-md-4">
-        <div class="row">
-            <div class="col-sm-12">
-                <figure>
-                    <img src="{{ asset("bundles/app/images/image.png") }}"  height="262"/>
-                    <figcaption>
-                        <ul class="row">
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-plus"></span>ADD
-                                </a>
-                            </li>
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                </a>
-                            </li>
-                            <li class="col-sm-2">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </figcaption>
-                </figure>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <figure>
-                    <img src=""  height="262"/>
-                    <figcaption>
-                        <ul class="row">
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-plus"></span>ADD
-                                </a>
-                            </li>
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                </a>
-                            </li>
-                            <li class="col-sm-2">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </figcaption>
-                </figure>
-            </div>
+        <div class="col-sm-6 col-md-4">
+            {% for goal in goals|slice(0, 2)  %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <figure>
+                            {% set image = goal.getPrimaryPhoto %}
+
+                            {% if image %}
+                                {% set image = goal.getPrimaryPhoto %}
+                            {% endif %}
+                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
+                            </a>
+                            <figcaption>
+                                <ul class="row">
+                                    <li class="col-sm-5">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-plus"></span>ADD
+                                        </a>
+                                    </li>
+                                    <li class="col-sm-5">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                        </a>
+                                    </li>
+                                    <li class="col-sm-2">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-share-alt"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            {% endfor %}
+
         </div>
 
-    </div>
-
-    <div class="col-sm-6 col-md-4">
-        <figure>
-            <img src=""  height="584"/>
-            <figcaption>
-                <ul class="row">
-                    <li class="col-sm-5">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-plus"></span>ADD
-                        </a>
-                    </li>
-                    <li class="col-sm-5">
-                        <a href="#">
-                            <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                        </a>
-                    </li>
-                    <li class="col-sm-2">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-share-alt"></span>
-                        </a>
-                    </li>
-                </ul>
-            </figcaption>
-        </figure>
-    </div>
-
-    <div class="col-sm-6 col-md-4">
-        <div class="row">
-            <div class="col-sm-12">
+        <div class="col-sm-6 col-md-4">
+            {% for goal in goals|slice(2, 1)  %}
                 <figure>
-                    <img src=""  height="262"/>
+                    {% set image = goal.getPrimaryPhoto %}
+
+                    {% if image %}
+                        {% set image = goal.getPrimaryPhoto %}
+                    {% endif %}
+                    <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                        <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="346" alt="{{ goal.title }}">
+                    </a>
                     <figcaption>
                         <ul class="row">
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-plus"></span>ADD
-                                </a>
-                            </li>
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                </a>
-                            </li>
+                            {% if is_granted("ROLE_USER") %}
+                                <li class="col-sm-5">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-plus"></span>ADD
+                                    </a>
+                                </li>
+                                <li class="col-sm-5">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="col-sm-2">
                                 <a href="#">
                                     <span class="glyphicon glyphicon-share-alt"></span>
@@ -109,91 +75,90 @@
                         </ul>
                     </figcaption>
                 </figure>
-            </div>
+            {% endfor %}
+
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <figure>
-                    <img src=""  height="262"/>
-                    <figcaption>
-                        <ul class="row">
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-plus"></span>ADD
-                                </a>
-                            </li>
-                            <li class="col-sm-5">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                                </a>
-                            </li>
-                            <li class="col-sm-2">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-share-alt"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </figcaption>
-                </figure>
-            </div>
+
+        <div class="col-sm-6 col-md-4">
+            {% for goal in goals|slice(3, 2)  %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <figure>
+                            {% set image = goal.getPrimaryPhoto %}
+
+                            {% if image %}
+                                {% set image = goal.getPrimaryPhoto %}
+                            {% endif %}
+                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="262" alt="{{ goal.title }}">
+                            </a>
+                            <figcaption>
+                                <ul class="row">
+                                    {% if is_granted("ROLE_USER") %}
+                                        <li class="col-sm-5">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-plus"></span>ADD
+                                            </a>
+                                        </li>
+                                        <li class="col-sm-5">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="col-sm-2">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-share-alt"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
 
     </div>
 
 
     <div class="row">
+        {% for goal in goals|slice(5, 2)  %}
 
-    <div class="col-md-8">
-       <figure>
-           <img src=""  height="262"/>
-           <figcaption>
-               <ul class="row">
-                   <li class="col-sm-5">
-                       <a href="#">
-                           <span class="glyphicon glyphicon-plus"></span>ADD
-                       </a>
-                   </li>
-                   <li class="col-sm-5">
-                       <a href="#">
-                           <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                       </a>
-                   </li>
-                   <li class="col-sm-2">
-                       <a href="#">
-                           <span class="glyphicon glyphicon-share-alt"></span>
-                       </a>
-                   </li>
-               </ul>
-           </figcaption>
-       </figure>
-    </div>
+            <div class="col-md-{{ loop.first ?  8 : 4 }}">
+                <figure>
+                    {% set image = goal.getPrimaryPhoto %}
 
-    <div class="col-md-4">
-       <figure>
-           <img src=""  height="262"/>
-           <figcaption>
-               <ul class="row">
-                   <li class="col-sm-5">
-                       <a href="#">
-                           <span class="glyphicon glyphicon-plus"></span>ADD
-                       </a>
-                   </li>
-                   <li class="col-sm-5">
-                       <a href="#">
-                           <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-                       </a>
-                   </li>
-                   <li class="col-sm-2">
-                       <a href="#">
-                           <span class="glyphicon glyphicon-share-alt"></span>
-                       </a>
-                   </li>
-               </ul>
-           </figcaption>
-       </figure>
-    </div>
-
+                    {% if image %}
+                        {% set image = goal.getPrimaryPhoto %}
+                    {% endif %}
+                    <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                        <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
+                    </a>
+                    <figcaption>
+                        <ul class="row">
+                            {% if is_granted("ROLE_USER") %}
+                                <li class="col-sm-5">
+                                    <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                                        <span class="glyphicon glyphicon-plus"></span>ADD
+                                    </a>
+                                </li>
+                                <li class="col-sm-5">
+                                    <a href="{{ path('done_goal', {'id' : goal.id}) }}">
+                                        <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="col-sm-2">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="row">
