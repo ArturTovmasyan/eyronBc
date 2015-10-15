@@ -1,15 +1,21 @@
 <ul class="row">
     {% if is_granted("ROLE_USER") %}
-        <li class="col-sm-5">
-            <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                <span class="glyphicon glyphicon-plus"></span>ADD
-            </a>
-        </li>
-        <li class="col-sm-5">
-            <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
-            </a>
-        </li>
+
+        {% if not isMyGoal(goal, app.user, "add") %}
+            <li class="col-sm-5">
+                <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                    <span class="glyphicon glyphicon-plus"></span>ADD
+                </a>
+            </li>
+        {% endif %}
+
+        {% if  not isMyGoal(goal, app.user, 'done') %}
+            <li class="col-sm-5">
+                <a href="{{ path('done_goal', {'id' : goal.id}) }}">
+                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                </a>
+            </li>
+        {% endif %}
     {% endif %}
     <li class="col-sm-2">
         <a href="#">

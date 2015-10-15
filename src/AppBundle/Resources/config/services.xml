@@ -23,6 +23,12 @@
             <tag name="twig.extension"/>
         </service>
 
+
+        <!-- service for twig extension is my goal -->
+        <service id="bl.is_my_goal" class="AppBundle\Twig\Extension\IsMyGoalExtension">
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service doctrine listener -->
         <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
             <tag name="doctrine.event_listener" event = "onFlush"/>

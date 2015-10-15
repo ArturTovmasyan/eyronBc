@@ -279,6 +279,8 @@ class GoalController extends Controller
         // check user goal and create if noc exist
         if(!$userGoal){
             $userGoal = new UserGoal();
+            $userGoal->setGoal($goal);
+            $userGoal->setUser($user);
         }
 
         // set status to done

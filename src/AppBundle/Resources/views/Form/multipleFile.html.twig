@@ -1,5 +1,5 @@
 {% block bl_multiple_file_widget %}
-<div class="form-group">
+<div class="form-group clearfix">
     <ul class="images col-sm-6 control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
         {% set count = 0 %}
         {% for child in form %}
@@ -14,7 +14,7 @@
                             target="_blank">{{ child.vars.value.fileOriginalName }}
                     </a>
 
-                    <img width="260" src="{{asset(child.vars.value.downloadLink)}}">
+                    <img class="clearfix" width="260" src="{{asset(child.vars.value.downloadLink)}}">
 
                     <input onclick="toHidden('{{ hiddenId }}' )" class="bl-radio" type="radio" id="{{ id }}" name="{{ name }}"
                            value="1"
