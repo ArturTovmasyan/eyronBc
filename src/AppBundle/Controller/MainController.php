@@ -25,7 +25,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/howitworks", name="how_it_works_container")
+     * @Route("/how-it-works", name="how_it_works")
      * @Template()
      */
     public function howItWorksAction()
@@ -36,10 +36,10 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/aboutbl", name="about_bl_container")
+     * @Route("/about", name="about_bl")
      * @Template()
      */
-    public function AboutBLAction()
+    public function aboutBLAction()
     {
         $t = strtoupper('about bL127');
 
@@ -47,10 +47,10 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/contactus", name="contact_us_container")
+     * @Route("/contact-us", name="contact_us")
      * @Template()
      */
-    public function ContactUsAction()
+    public function contactUsAction()
     {
         $t = strtoupper('contact us');
 
