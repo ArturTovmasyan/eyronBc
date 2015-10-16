@@ -65,6 +65,10 @@ class PageAdmin extends Admin
             ->add('name', 'choice', array(
                 'choices' => $names,
                 'empty_value' => 'Choose the name of page',
+                'choices_as_values' => true,
+                'choice_label' => function ($allChoices, $currentChoiceKey) {
+                    return $allChoices;
+                },
             ))
             ->add('description',  null, array('attr' => array('class' => 'tinymce')))
             ->add('position')
