@@ -379,11 +379,14 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get search key
+        $search = $request->get('search');
+
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->findAll();
 
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search);
 
         // get paginator
         $paginator  = $this->get('knp_paginator');
