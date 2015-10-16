@@ -60,12 +60,18 @@ angular.module('goal', ['Interpolation',
         // end description Tagging
 
     }])
-    .controller('goalEnd',[function(){
+    .controller('goalEnd', ['$scope', function($scope){
+
+        $scope.stepsArray = [{}];
 
         $('input.private-checkbox').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });
+
+        $scope.addNewStep = function(){
+
+        }
     }])
     .controller('goalInner',[function(){
 
@@ -75,6 +81,21 @@ angular.module('goal', ['Interpolation',
                 intervalDuration: 3000,
                 autoSlide: true
             });
+        }
+    }])
+    .directive('step',[function(){
+        return {
+            restrict: 'EA',
+            scope: {
+            },
+            compile: function(){
+                return function(scope){
+                    console.log(scope);
+
+                    scope.$watch('ngModel',function(d){
+                    },true);
+                }
+            }
         }
     }])
     .animation('.slide', function() {

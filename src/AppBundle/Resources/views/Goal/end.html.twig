@@ -38,20 +38,29 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row" data-ng-repeat="(k,step) in stepsArray">
 
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input type="text"
+                               class="form-control"
+                               data-step
+                               id="inputEmail3"
+                               placeholder="Email">
                         </div>
 
                         <label for="inputEmail3" class="col-sm-2 control-label">
-                            <span data-ng-show="onoffswitch[0]">To Do</span>
-                            <span data-ng-hide="onoffswitch[0]">Done</span>
+                            <span data-ng-show="step.switch">To Do</span>
+                            <span data-ng-hide="step.switch">Done</span>
                         </label>
 
                         <div class="col-sm-2">
                             <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" data-ng-model="onoffswitch[0]" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                <input type="checkbox"
+                                   name="onoffswitch"
+                                   data-ng-model="step.switch"
+                                   class="onoffswitch-checkbox"
+                                   id="myonoffswitch">
+
                                 <label class="onoffswitch-label" for="myonoffswitch">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
