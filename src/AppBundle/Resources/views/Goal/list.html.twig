@@ -19,7 +19,7 @@
                             data-toggle="popover"
                             data-placement="bottom"
                             data-content="hello"
-                            data-template='{{ include('AppBundle:Blocks:filter.html.twig') }}'>
+                            data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
                         Adveture
                         <span class="glyphicon glyphicon-chevron-up"></span>
                         {#<span class="glyphicon glyphicon-chevron-down"></span>#}

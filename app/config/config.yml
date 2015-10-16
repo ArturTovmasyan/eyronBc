@@ -85,6 +85,11 @@ doctrine:
         dql:
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+        filters:
+            # An array of filters
+            publish_filter:
+                class:                AppBundle\Filter\PublishFilter
+                enabled:              true
 
 # Swiftmailer Configuration
 swiftmailer:
