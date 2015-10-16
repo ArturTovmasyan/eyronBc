@@ -46,13 +46,18 @@ class GoalRepository extends EntityRepository
      */
     public function findAllByCategory($category = null, $search = null)
     {
+        //COUNT(lead) as HIDDEN cnt
+
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i')
+                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
+                ->leftJoin('g.userGoal', 'ug')
+                ->groupBy('g.id')
+            ->orderBy('cnt', 'desc')
         ;
 
         if($category){
@@ -70,9 +75,9 @@ class GoalRepository extends EntityRepository
             $query
                 ->andWhere('g.title LIKE :search')
                 ->setParameter('search', '%' . $search . '%')
+                ->groupBy('g.id')
             ;
         }
-
 
         return $query->getQuery()->getResult();
     }

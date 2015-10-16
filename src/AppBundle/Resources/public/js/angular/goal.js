@@ -4,6 +4,7 @@ angular.module('goal', ['Interpolation',
         'Google',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
+        'ngSanitize',
         'Components'
     ])
     .controller('goalAdd',['$scope', '$sce', function($scope, $sce){

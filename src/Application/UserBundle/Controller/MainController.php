@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class MainController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/settings", name="settings")
      * @Template()
      */
-    public function indexAction($name)
+    public function settingsAction()
     {
-        return array('name' => $name);
+        return array();
     }
 }

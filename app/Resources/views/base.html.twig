@@ -63,7 +63,8 @@
                                                 class="user clearfix"
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle1 = !joinToggle1"
-                                                data-template-url="{{ asset('bundles/app/htmls/profile.html') }}"
+                                                data-html="true"
+                                                data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
                                                     <figure class="img-circle">
@@ -136,6 +137,7 @@
             <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular/angular.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}"></script>
+            <script src="{{ asset("app/bower_components/angular-sanitize/angular-sanitize.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}"></script>
             <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}"></script>
