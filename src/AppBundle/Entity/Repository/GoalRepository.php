@@ -40,10 +40,11 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $category
+     * @param $search
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null)
+    public function findAllByCategory($category = null, $search = null)
     {
         $query =
             $this->getEntityManager()
@@ -51,13 +52,28 @@ class GoalRepository extends EntityRepository
                 ->addSelect('g', 'i')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
-                ->leftJoin('g.tags', 'gt');
+                ->leftJoin('g.tags', 'gt')
+        ;
 
         if($category){
             $query
-                ->leftJoin('AppBundle:Category', 'c', 'WITH', 'c.id = 1')
+                ->andWhere('gt.id in (
+                SELECT ct.id FROM AppBundle:Category c
+                LEFT JOIN c.tags ct
+                WHERE c.slug = :catId
+                )')
+                ->setParameter('catId', $category)
             ;
         }
+
+        if($search){
+            $query
+                ->andWhere('g.title LIKE :search')
+                ->setParameter('search', '%' . $search . '%')
+            ;
+        }
+
+
         return $query->getQuery()->getResult();
     }
 }
