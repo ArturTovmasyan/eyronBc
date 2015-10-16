@@ -46,8 +46,9 @@
                                         </a>
                                     </li>
                                     <li class="search">
-                                        <form class="navbar-form navbar-left" role="search">
+                                        <form class="navbar-form navbar-left" role="search" action="{{ path("goals_list") }}">
                                             <input type="text"
+                                               name="search"
                                                class="form-control"
                                                data-ng-enter-submit=".search form"
                                                placeholder="SEARCH">

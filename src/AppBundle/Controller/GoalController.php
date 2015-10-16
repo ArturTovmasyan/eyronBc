@@ -118,7 +118,7 @@ class GoalController extends Controller
                 $em->flush();
 
                 // generate url
-                $url = !is_null($request->get("btn_publish")) ? "end_goal" : "view_goal";
+                $url = !is_null($request->get("btn_publish")) ? "add_to_me_goal" : "view_goal";
 
                 // redirect to view
                 return $this->redirectToRoute($url, array('id'=> $goal->getId()));
@@ -262,19 +262,6 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/end/{id}", name="end_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @param Goal $goal
-     * @return array
-     */
-    public function endAction(Goal $goal)
-    {
-        return array('goal' => $goal);
-    }
-
-
-    /**
      * @Route("/done/{id}", name="done_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
@@ -326,6 +313,9 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // empty data
+        $steps = array();
+
         $userGoal = new UserGoal();
 
         // create goal form
@@ -340,12 +330,47 @@ class GoalController extends Controller
             // check form
             if($form->isValid()){
 
+                // get step text
+                $stepTexts = $request->get('stepText');
+
+                // if step text
+                if($stepTexts){
+
+                    // get switch
+                    $switch = $request->get('switch');
+
+                    // loop for step text
+                    foreach($stepTexts as $key => $stepText){
+
+                        // check step text
+                        if(strlen($stepText) > 0 ){
+                            // get step
+                            $name = $stepText;
+
+                            // get status
+                            $status = is_array($switch) && array_key_exists($key, $switch) ? UserGoal::DONE : UserGoal::TO_DO;
+
+                            $steps[$name] = $status;
+                        }
+                    }
+                }
+
+                // get location
+                $location = json_decode($form->get('location')->getData());
+
+                if($location){
+                    $userGoal->setAddress($location->address);
+                    $userGoal->setLat($location->location->latitude);
+                    $userGoal->setLng($location->location->longitude);
+                }
+
                 // check goal status
                 if(!$goal->getPublish()){
 
                     // set to publish
                     $goal->setPublish(Goal::PUBLISH);
                 }
+
 
                 // set status
                 $userGoal->setStatus(UserGoal::ACTIVE);
@@ -356,10 +381,19 @@ class GoalController extends Controller
                 //set goal
                 $userGoal->setGoal($goal);
 
+                // set step
+                $userGoal->setSteps($steps);
+
+                // todo:: chaje to date
+                $doDate = new \DateTime();
+
+                // set do date
+                $userGoal->setDoDate($doDate);
+
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirect($_SERVER["HTTP_REFERER"]);
+                return $this->redirectToRoute("goals_list");
             }
         }
 

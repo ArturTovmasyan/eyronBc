@@ -26,14 +26,19 @@ class UserGoal
     const COMPLETED = 1;
 
     // constants for privacy
-    const PUBLIC_PRIVACY = 1;
-    const PRIVATE_PRIVACY = 2;
+    const PUBLIC_PRIVACY = 0;
+    const PRIVATE_PRIVACY = 1;
 
     // constants for quality
     const URGENT = 1;
     const NOT_URGENT = 2;
     const IMPORTANT = 3;
     const NOT_IMPORTANT = 4;
+
+    // constants for steps
+    const TO_DO = 0;
+    const DONE = 1;
+
 
     /**
      * @ORM\Id
@@ -67,6 +72,18 @@ class UserGoal
     protected $note;
 
     /**
+     * @var
+     * @ORM\Column(name="steps", type="array", nullable=true)
+     */
+    protected $steps;
+
+    /**
+     * @var
+     * @ORM\Column(name="due_date", type="datetime", nullable=true)
+     */
+    protected $doDate;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      **/
@@ -77,11 +94,6 @@ class UserGoal
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
     protected $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Step", mappedBy="goal", cascade={"persist"})
-     **/
-    protected $steps;
 
     /**
      * Constructor
@@ -292,40 +304,6 @@ class UserGoal
     }
 
     /**
-     * Add steps
-     *
-     * @param \AppBundle\Entity\Step $steps
-     * @return UserGoal
-     */
-    public function addStep(\AppBundle\Entity\Step $steps)
-    {
-        $this->steps[] = $steps;
-        $steps->setGoal($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove steps
-     *
-     * @param \AppBundle\Entity\Step $steps
-     */
-    public function removeStep(\AppBundle\Entity\Step $steps)
-    {
-        $this->steps->removeElement($steps);
-    }
-
-    /**
-     * Get steps
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSteps()
-    {
-        return $this->steps;
-    }
-
-    /**
      * Set note
      *
      * @param string $note
@@ -346,5 +324,51 @@ class UserGoal
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set doDate
+     *
+     * @param \DateTime $doDate
+     * @return UserGoal
+     */
+    public function setDoDate($doDate)
+    {
+        $this->doDate = $doDate;
+
+        return $this;
+    }
+
+    /**
+     * Get doDate
+     *
+     * @return \DateTime 
+     */
+    public function getDoDate()
+    {
+        return $this->doDate;
+    }
+
+    /**
+     * Set steps
+     *
+     * @param array $steps
+     * @return UserGoal
+     */
+    public function setSteps($steps)
+    {
+        $this->steps = $steps;
+
+        return $this;
+    }
+
+    /**
+     * Get steps
+     *
+     * @return array 
+     */
+    public function getSteps()
+    {
+        return $this->steps;
     }
 }

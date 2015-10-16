@@ -27,29 +27,10 @@ class UserGoalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('goal', new GoalType(), array('label' => false))
-            ->add('quality', 'choice', array(
-                'choices' => array(
-                    UserGoal::IMPORTANT => 'user_goal.important',
-                    UserGoal::NOT_IMPORTANT => 'user_goal.not_important',
-                    UserGoal::URGENT => 'user_goal.urgent',
-                    UserGoal::NOT_URGENT => 'user_goal.not_urgent'
-                ),
-                'label' => 'user_goal.quality',
-                'empty_value' => ' ',
-                'required' => false,
-                ))
-            ->add('privacy', 'choice', array(
-                'choices' => array(
-                    UserGoal::PUBLIC_PRIVACY => 'user_goal.public',
-                    UserGoal::PRIVATE_PRIVACY => 'user_goal.private'
-                ),
-                'label' => 'user_goal.privacy',
-                'empty_value' => null,
-                'required' => false,
-                'multiple' => false,
-                'expanded' => true,
-            ))
+            ->add('targetDate', 'hidden', array('mapped' => false))
+            ->add('note')
+            ->add('location', 'hidden', array('mapped' => false))
+            ->add('privacy')
         ;
     }
 
