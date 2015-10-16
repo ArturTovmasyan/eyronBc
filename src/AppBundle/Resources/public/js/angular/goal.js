@@ -87,12 +87,34 @@ angular.module('goal', ['Interpolation',
         return {
             restrict: 'EA',
             scope: {
+                ngModel: '=',
+                array: '=',
+                key: '='
             },
             compile: function(){
                 return function(scope){
                     console.log(scope);
 
                     scope.$watch('ngModel',function(d){
+                        if(angular.isUndefined(d)){
+                            return;
+                        }
+
+                        if(d === ''){
+                            if(!scope.key){
+                                if(scope.array.length > 1){
+                                    scope.array.splice(scope.key, 1);
+                                }
+                            }
+                            else {
+                                scope.array.splice(scope.key,1);
+                            }
+                        }
+                        else {
+                            if(!scope.array[scope.key + 1]){
+                                scope.array[scope.key + 1] = {};
+                            }
+                        }
                     },true);
                 }
             }
