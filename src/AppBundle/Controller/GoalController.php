@@ -462,7 +462,7 @@ class GoalController extends Controller
             foreach($oldTags as $oldTag){
 
                 // check tag in collection
-                if(!$object->getTags() || ! in_array($oldTag, $object->getTags())){
+                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
 
                     // add tag
                     $object->addTag($oldTag);
