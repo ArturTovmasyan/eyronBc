@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PageRepository")
  * @ORM\Table(name="page")
  * @UniqueEntity(fields={"name"}, errorPath="name", message="You already have this page")
  */

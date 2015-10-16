@@ -27,9 +27,13 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i')
+                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.images', 'i');
+                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->groupBy('g.id')
+                ->orderBy('cnt', 'desc')
+        ;
 
         if($count){
             $query
@@ -57,7 +61,7 @@ class GoalRepository extends EntityRepository
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
                 ->groupBy('g.id')
-            ->orderBy('cnt', 'desc')
+                ->orderBy('cnt', 'desc')
         ;
 
         if($category){
