@@ -13,6 +13,7 @@ use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
+use AppBundle\Form\UserGoalType;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -313,10 +314,11 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function addToMeAction(Goal $goal)
+    public function addToMeAction(Goal $goal, Request $request)
     {
         // get current user
         $user = $this->getUser();
@@ -324,22 +326,44 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // create new user goal
         $userGoal = new UserGoal();
 
-        // set status
-        $userGoal->setStatus(UserGoal::ACTIVE);
+        // create goal form
+        $form  = $this->createForm(new UserGoalType(), $userGoal);
 
-        // set user
-        $userGoal->setUser($user);
+        // check method
+        if($request->isMethod("POST")){
 
-        //set goal
-        $userGoal->setGoal($goal);
+            // get data
+            $form->handleRequest($request);
 
-        $em->persist($userGoal);
-        $em->flush();
+            // check form
+            if($form->isValid()){
 
-        return $this->redirect($_SERVER["HTTP_REFERER"]);
+                // check goal status
+                if(!$goal->getPublish()){
+
+                    // set to publish
+                    $goal->setPublish(Goal::PUBLISH);
+                }
+
+                // set status
+                $userGoal->setStatus(UserGoal::ACTIVE);
+
+                // set user
+                $userGoal->setUser($user);
+
+                //set goal
+                $userGoal->setGoal($goal);
+
+                $em->persist($userGoal);
+                $em->flush();
+
+                return $this->redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        return  array('form' => $form->createView());
     }
 
 
@@ -445,7 +469,7 @@ class GoalController extends Controller
             foreach($oldTags as $oldTag){
 
                 // check tag in collection
-                if(!$object->getTags() || ! in_array($oldTag, $object->getTags())){
+                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
 
                     // add tag
                     $object->addTag($oldTag);

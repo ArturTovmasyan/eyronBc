@@ -93,7 +93,7 @@ doctrine:
             # An array of filters
             publish_filter:
                 class:                AppBundle\Filter\PublishFilter
-                enabled:              true
+                enabled:              false
 
 # Swiftmailer Configuration
 swiftmailer:
