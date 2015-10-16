@@ -3,7 +3,8 @@
 angular.module('goal', ['Interpolation',
         'Google',
         'mgcrea.ngStrap.popover',
-        'ngAnimate'
+        'ngAnimate',
+        'Components'
     ])
     .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
 

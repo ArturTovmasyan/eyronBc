@@ -46,18 +46,12 @@
                                         </a>
                                     </li>
                                     <li class="search">
-                                        {#<a href="#">#}
-                                            {#<span class="glyphicon glyphicon-search"></span> SEARCH#}
-                                        {#</a>#}
-
-
-                                            <form class="navbar-form navbar-left" role="search">
-
-                                                    <input type="text" class="form-control" placeholder="SEARCH">
-
-                                            </form>
-
-
+                                        <form class="navbar-form navbar-left" role="search">
+                                            <input type="text"
+                                               class="form-control"
+                                               data-ng-enter-submit=".search form"
+                                               placeholder="SEARCH">
+                                        </form>
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
@@ -66,7 +60,6 @@
                                             {% set user = app.user %}
                                             <a  href="javascript:void(0)"
                                                 class="user clearfix"
-                                                {#data-ng-class="{'join-class': joinToggle1}"#}
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle1 = !joinToggle1"
                                                 data-template-url="{{ asset('bundles/app/htmls/profile.html') }}"
@@ -145,6 +138,7 @@
             <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}"></script>
             <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}"></script>
             <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}"></script>
+            <script src="{{ asset("app/scripts/Components/Components.js") }}"></script>
             <script src="{{ asset("bundles/app/js/angular/main.js") }}"></script>
             <script>
                 $(function () {
