@@ -91,6 +91,21 @@ header{
       li {
         border-left: 1px solid #1a394a;
       }
+
+      .search{
+        width:240px;
+        form{
+          width:100%;
+          //padding:11px 35px;
+        }
+        input{
+          width:100%;
+          border:0;
+          color:#ffffff;
+          background: url('../images/search-icon.png') no-repeat 18px center transparent;
+          padding-left:50px;
+        }
+      }
     }
     .navbar-right{
       li{
@@ -713,6 +728,14 @@ footer{
     font-size:36px;
   }
 
+  .search{
+    //width:400px;
+    form{
+      width:100%;
+      padding:11px 0;
+    }
+  }
+
   h2{
     padding: 31px 0 34px;
     margin: 0;
@@ -804,6 +827,11 @@ footer{
 }
 
 @media (min-width: @screen-md) {
+
+  .search{
+    width:600px;
+  }
+
   h1,h2{
     font-size:52px;
   }
@@ -850,3 +878,5 @@ footer{
     }
   }
 }
+
+
