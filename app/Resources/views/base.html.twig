@@ -68,26 +68,33 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         {% if app.user %}
-                                            {% set user =  app.user %}
-                                            <a class="user clearfix">
-                                                <figure class="img-circle">
-                                                    {% if user.getPhotoLink %}
-                                                    <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
-                                                    {% endif %}
-                                                </figure>
-                                                <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                <span class="glyphicon glyphicon-chevron-up"></span>
-                                                {#<span class="glyphicon glyphicon-chevron-down"></span>#}
+                                            {% set user = app.user %}
+                                            <a  href="javascript:void(0)"
+                                                class="user clearfix"
+                                                {#data-ng-class="{'join-class': joinToggle1}"#}
+                                                data-placement="bottom-left"
+                                                data-ng-click="joinToggle1 = !joinToggle1"
+                                                data-template-url="{{ asset('bundles/app/htmls/profile.html') }}"
+                                                data-animation="am-flip-x"
+                                                data-bs-popover>
+                                                    <figure class="img-circle">
+                                                        {% if user.getPhotoLink %}
+                                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                        {% endif %}
+                                                    </figure>
+                                                    <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
+                                                    <span class="glyphicon glyphicon-chevron-up" data-ng-hide="joinToggle1"></span>
+                                                    <span class="glyphicon glyphicon-chevron-down" data-ng-show="joinToggle1"></span>
                                             </a>
                                         {% else %}
-                                            <a href="javascript:void(0)"
-                                               ng-class="{'join-class': joinToggle}"
-                                               data-placement="bottom-left"
-                                               data-ng-click="joinToggle = !joinToggle"
-                                               {#data-template-url="{{ asset('bundles/app/htmls/sign-in.html') }}"#}
-                                               data-content-template="{{ path("fos_user_security_login") }}"
-                                               data-animation="am-flip-x"
-                                               bs-popover><span class="join"></span>JOIN
+                                            <a  href="javascript:void(0)"
+                                                data-ng-class="{'join-class': joinToggle2}"
+                                                data-placement="bottom-left"
+                                                data-ng-click="joinToggle2 = !joinToggle2"
+                                                data-content-template="{{ path("fos_user_security_login") }}"
+                                                data-animation="am-flip-x"
+                                                data-bs-popover>
+                                                    <span class="join"></span>JOIN
                                             </a>
                                         {% endif %}
                                     </li>
@@ -96,13 +103,9 @@
                         </div>
                     </nav>
                 </header>
-
                 {% block content %}{% endblock %}
-
             </div>
-
-            <footer >
-
+            <footer style="display: none">
                 <div class="container">
                     <ul>
                         <li>
