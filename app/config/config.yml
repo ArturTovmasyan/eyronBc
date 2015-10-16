@@ -13,6 +13,10 @@ parameters:
     mobile:
         with: 480
         height: 320
+    pages:
+        contact-us: contact-us
+        how-it-work: how-it-work
+        about: about
 
 framework:
     #esi:             ~
@@ -162,3 +166,30 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sluggable: true
+
+# tinumce
+stfalcon_tinymce:
+    include_jquery:       false
+    tinymce_jquery:       false
+    language: en
+    theme:
+          # Simple theme: same as default theme
+          simple:
+               plugins:
+                   - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+                   - "searchreplace wordcount visualblocks visualchars code fullscreen"
+                   - "insertdatetime media nonbreaking save table contextmenu directionality"
+                   - "emoticons template paste textcolor"
+               toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+               toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+               image_advtab: true
+#          # Advanced theme with almost all enabled plugins
+#          advanced:
+#               plugins:
+#                   - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+#                   - "searchreplace wordcount visualblocks visualchars code fullscreen"
+#                   - "insertdatetime media nonbreaking save table contextmenu directionality"
+#                   - "emoticons template paste textcolor"
+#               toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+#               toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+#               image_advtab: true
