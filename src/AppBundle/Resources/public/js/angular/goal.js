@@ -60,18 +60,20 @@ angular.module('goal', ['Interpolation',
         // end description Tagging
 
     }])
-    .controller('goalEnd',['$scope', function($scope){
+    .controller('goalEnd',[function(){
 
         $('input.private-checkbox').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });
     }])
-    .controller('goalInner',['$scope', function($scope){
+    .controller('goalInner',[function(){
 
-        angular.element('.main-pgwSlideshow').pgwSlideshow({
-            displayList: false,
-            intervalDuration: 3000,
-            autoSlide: true
-        });
+        if(angular.element('.main-pgwSlideshow').length){
+            angular.element('.main-pgwSlideshow').pgwSlideshow({
+                displayList: false,
+                intervalDuration: 3000,
+                autoSlide: true
+            });
+        }
     }]);
