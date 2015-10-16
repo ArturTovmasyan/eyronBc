@@ -61,12 +61,12 @@ header{
           color: #e3e3e3;
         }
       }
-      .glyphicon-search {
-        padding-right: 5px;
-        font-size: 19px;
-        top:5px;
-        height:30px;
-      }
+      //.glyphicon-search {
+      //  padding-right: 5px;
+      //  font-size: 19px;
+      //  top:5px;
+      //  height:30px;
+      //}
 
       .ideas-icon{
         display:inline-block;
@@ -229,12 +229,12 @@ label{
       height:35px;
       vertical-align: middle;
     }
-    .input{
-      background: url('../images/publish-icon.png') no-repeat 0 0;
-    }
-    .checked{
-      background: url('../images/publish-icon.png') no-repeat -45px 0;
-    }
+    //.input{
+    //  background: url('../images/publish-icon.png') no-repeat 0 0;
+    //}
+    //.checked{
+    //  background: url('../images/publish-icon.png') no-repeat -45px 0;
+    //}
   }
 
   .no-bg{
@@ -253,9 +253,10 @@ label{
 
   .buttons{
     margin:40px 0;
-    button{
+    button,a{
       margin-left:10px;
       padding:6px 12px;
+      display: inline-block;
       &:first-child{
         border:1px solid #a4a4a4;
         color:#a4a4a4;
@@ -314,8 +315,6 @@ ul.filter{
     border-radius: 0;
   }
 
-
-
   .form-group{
     p{
       font-size: 16px;
@@ -355,20 +354,20 @@ ul.filter{
 
 
 
-  .on{
-    background: url('../images/goal-off.png') no-repeat 0 0;
-    border: 0;
-    height: 38px;
-    width: 77px;
-    background-size: 78%;
-  }
-  .off{
-    background: url('../images/goal-off.png') no-repeat 0 -41px;
-    border: 0;
-    height: 38px;
-    width: 77px;
-    background-size: 78%;
-  }
+  //.on{
+  //  background: url('../images/goal-off.png') no-repeat 0 0;
+  //  border: 0;
+  //  height: 38px;
+  //  width: 77px;
+  //  background-size: 78%;
+  //}
+  //.off{
+  //  background: url('../images/goal-off.png') no-repeat 0 -41px;
+  //  border: 0;
+  //  height: 38px;
+  //  width: 77px;
+  //  background-size: 78%;
+  //}
 }
 
 .text-left{
@@ -762,6 +761,16 @@ footer{
       font-size:20px;
       padding-top:3px !important;
       font-weight:normal;
+    }
+
+    label.onoffswitch-label{
+      padding-top:0 !important;
+    }
+
+    .onoffswitch{
+      .onoffswitch-switch{
+        width:33px;
+      }
     }
   }
 

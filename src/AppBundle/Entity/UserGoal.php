@@ -69,6 +69,11 @@ class UserGoal
     protected $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="Step", mappedBy="goal", cascade={"persist"})
+     **/
+    protected $steps;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -274,5 +279,39 @@ class UserGoal
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add steps
+     *
+     * @param \AppBundle\Entity\Step $steps
+     * @return UserGoal
+     */
+    public function addStep(\AppBundle\Entity\Step $steps)
+    {
+        $this->steps[] = $steps;
+        $steps->setGoal($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove steps
+     *
+     * @param \AppBundle\Entity\Step $steps
+     */
+    public function removeStep(\AppBundle\Entity\Step $steps)
+    {
+        $this->steps->removeElement($steps);
+    }
+
+    /**
+     * Get steps
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSteps()
+    {
+        return $this->steps;
     }
 }

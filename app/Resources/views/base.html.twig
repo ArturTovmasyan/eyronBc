@@ -2,7 +2,7 @@
 {% block angularApp %} <html ng-app="main"> {% endblock %}
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}BucketList{% endblock %}</title>
 
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
@@ -46,9 +46,23 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-search"></span> SEARCH
-                                        </a>
+                                        {#<a href="#">#}
+                                            {#<span class="glyphicon glyphicon-search"></span> SEARCH#}
+                                        {#</a>#}
+
+                                        <div id="navbar" class="navbar-collapse collapse">
+                                            <form class="navbar-form navbar-left" role="search">
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                      <button class="btn btn-default" type="button">
+                                                          <span class="glyphicon glyphicon-search"></span>
+                                                      </button>
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="SEARCH">
+                                                </div>
+                                            </form>
+                                        </div>
+
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
@@ -91,17 +105,17 @@
                 </header>
                 {% block content %}{% endblock %}
             </div>
-            <footer style="display: none">
+            <footer>
                 <div class="container">
                     <ul>
                         <li>
-                            <a href="{{ path('how_it_works') }}" class="" >HOW IT WORKS</a>
+                            <a href="#" class="" >HOW IT WORKS</a>
                         </li>
                         <li>
-                            <a href="{{ path('about_bl') }}" class="" >ABOUT bL127</a>
+                            <a href="#" class="" >ABOUT bL127</a>
                         </li>
                         <li>
-                            <a href="{{ path('contact_us') }}" class="" >CONTACT US</a>
+                            <a href="#" class="" >CONTACT US</a>
                         </li>
                     </ul>
 

@@ -19,7 +19,7 @@
                             data-toggle="popover"
                             data-placement="bottom"
                             data-content="hello"
-                            data-template='{{ include('AppBundle:Blocks:filter.html.twig') }}'>
+                            data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
                         Adveture
                         <span class="glyphicon glyphicon-chevron-up"></span>
                         {#<span class="glyphicon glyphicon-chevron-down"></span>#}
@@ -54,7 +54,7 @@
                         </a>
                         <figcaption>
 
-                            {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                            {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
 
                         </figcaption>
                     </figure>
@@ -77,7 +77,7 @@
                         </a>
                         <figcaption>
 
-                            {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                            {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
 
                         </figcaption>
                     </figure>
@@ -101,7 +101,7 @@
                         </a>
                         <figcaption>
 
-                            {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                            {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
 
                         </figcaption>
                     </figure>

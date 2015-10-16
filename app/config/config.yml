@@ -13,6 +13,10 @@ parameters:
     mobile:
         with: 480
         height: 320
+    pages:
+        contact-us: Contact Us
+        how-it-work: HOW IT WORKS
+        about: ABOUT bL127
 
 framework:
     #esi:             ~
@@ -85,6 +89,11 @@ doctrine:
         dql:
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+        filters:
+            # An array of filters
+            publish_filter:
+                class:                AppBundle\Filter\PublishFilter
+                enabled:              true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -157,3 +166,20 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sluggable: true
+
+# tinumce
+stfalcon_tinymce:
+    include_jquery:       false
+    tinymce_jquery:       false
+    language: en
+    theme:
+          # Simple theme: same as default theme
+          simple:
+               plugins:
+                   - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+                   - "searchreplace wordcount visualblocks visualchars code fullscreen"
+                   - "insertdatetime media nonbreaking save table contextmenu directionality"
+                   - "emoticons template paste textcolor"
+               toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+               toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+               image_advtab: true

@@ -2,11 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class MainController
+ * @package AppBundle\Controller
+ */
 class MainController extends Controller
 {
     /**
@@ -25,35 +30,24 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/how-it-works", name="how_it_works")
+     * @Route("/page/{slug}", name="page")
+     * @param slug
      * @Template()
+     * @return array
      */
-    public function howItWorksAction()
+    public function pageAction($slug)
     {
-        $t = strtoupper('how it works');
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('AppBundle:Main:how_it_works.html.twig', array('t' => $t));
-    }
+        // get page
+        $page = $em->getRepository("AppBundle:Page")->findOneBy(array('slug' => $slug));
 
-    /**
-     * @Route("/about", name="about_bl")
-     * @Template()
-     */
-    public function aboutBLAction()
-    {
-        $t = strtoupper('about bL127');
+        // check page
+        if(!$page){
+            throw $this->createNotFoundException("Page not found");
+        }
 
-        return $this->render('AppBundle:Main:about_bl.html.twig', array('t' => $t));
-    }
-
-    /**
-     * @Route("/contact-us", name="contact_us")
-     * @Template()
-     */
-    public function contactUsAction()
-    {
-        $t = strtoupper('contact us');
-
-        return $this->render('AppBundle:Main:about_bl.html.twig', array('t' => $t));
+        return array('page' => $page);
     }
 }
