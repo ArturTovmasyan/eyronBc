@@ -10,6 +10,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Traits\Location;
+
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
@@ -17,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class UserGoal
 {
+    use Location;
+
     // constants for status
     const ACTIVE = 0;
     const COMPLETED = 1;
@@ -55,6 +59,12 @@ class UserGoal
      * @ORM\Column(name="quality", type="smallint", nullable=true)
      */
     protected $quality;
+
+    /**
+     * @var
+     * @ORM\Column(name="note", type="text", nullable=true)
+     */
+    protected $note;
 
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
@@ -313,5 +323,28 @@ class UserGoal
     public function getSteps()
     {
         return $this->steps;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return UserGoal
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }

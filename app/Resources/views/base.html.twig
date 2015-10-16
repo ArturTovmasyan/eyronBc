@@ -2,7 +2,7 @@
 {% block angularApp %} <html ng-app="main"> {% endblock %}
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}BucketList{% endblock %}</title>
 
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
@@ -40,15 +40,24 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
                                     {#<li class="active">#}
-                                    <li >
+                                    <li>
                                         <a href="{{ path('goals_list') }}">
                                             <span class="ideas-icon"></span>IDEAS
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-search"></span> SEARCH
-                                        </a>
+                                    <li class="search">
+                                        {#<a href="#">#}
+                                            {#<span class="glyphicon glyphicon-search"></span> SEARCH#}
+                                        {#</a>#}
+
+
+                                            <form class="navbar-form navbar-left" role="search">
+
+                                                    <input type="text" class="form-control" placeholder="SEARCH">
+
+                                            </form>
+
+
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
@@ -91,7 +100,7 @@
                 </header>
                 {% block content %}{% endblock %}
             </div>
-            <footer style="display: none">
+            <footer>
                 <div class="container">
                     <ul>
                         <li>

@@ -10,7 +10,6 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
-use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,8 +28,6 @@ class Goal implements MultipleFileInterface, PublishAware
     // constants for inner page
     const INNER = "inner";
     const VIEW = "view";
-
-    use Location;
 
     /**
      * @ORM\Id

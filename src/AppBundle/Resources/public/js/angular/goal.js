@@ -60,18 +60,78 @@ angular.module('goal', ['Interpolation',
         // end description Tagging
 
     }])
-    .controller('goalEnd',['$scope', function($scope){
+    .controller('goalEnd', ['$scope', function($scope){
+
+        $scope.stepsArray = [{}];
 
         $('input.private-checkbox').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });
-    }])
-    .controller('goalInner',['$scope', function($scope){
 
-        angular.element('.main-pgwSlideshow').pgwSlideshow({
-            displayList: false,
-            intervalDuration: 3000,
-            autoSlide: true
-        });
-    }]);
+        $scope.addNewStep = function(){
+
+        }
+    }])
+    .controller('goalInner',[function(){
+
+        if(angular.element('.main-pgwSlideshow').length){
+            angular.element('.main-pgwSlideshow').pgwSlideshow({
+                displayList: false,
+                intervalDuration: 3000,
+                autoSlide: true
+            });
+        }
+    }])
+    .directive('step',[function(){
+        return {
+            restrict: 'EA',
+            scope: {
+                ngModel: '=',
+                array: '=',
+                key: '='
+            },
+            compile: function(){
+                return function(scope){
+                    console.log(scope);
+
+                    scope.$watch('ngModel',function(d){
+                        if(angular.isUndefined(d)){
+                            return;
+                        }
+
+                        if(d === ''){
+                            if(!scope.key){
+                                if(scope.array.length > 1){
+                                    scope.array.splice(scope.key, 1);
+                                }
+                            }
+                            else {
+                                scope.array.splice(scope.key,1);
+                            }
+                        }
+                        else {
+                            if(!scope.array[scope.key + 1]){
+                                scope.array[scope.key + 1] = {};
+                            }
+                        }
+                    },true);
+                }
+            }
+        }
+    }])
+    .animation('.slide', function() {
+        var NG_HIDE_CLASS = 'ng-hide';
+        return {
+            beforeAddClass: function(element, className, done) {
+                if(className === NG_HIDE_CLASS) {
+                    element.slideUp(done);
+                }
+            },
+            removeClass: function(element, className, done) {
+                if(className === NG_HIDE_CLASS) {
+                    element.hide().slideDown(done);
+                }
+            }
+        }
+    });

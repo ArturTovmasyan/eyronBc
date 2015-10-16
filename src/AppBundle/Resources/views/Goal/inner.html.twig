@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="view-content">
         {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
     </div>
