@@ -26,6 +26,10 @@ class Goal implements MultipleFileInterface, PublishAware
     const PUBLIC_PRIVACY = 1;
     const PRIVATE_PRIVACY = 2;
 
+    // constants for inner page
+    const INNER = "inner";
+    const VIEW = "view";
+
     use Location;
 
     /**

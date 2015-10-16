@@ -227,6 +227,18 @@ class GoalController extends Controller
      */
     public function innerAction(Goal $goal)
     {
+        return array('goal' => $goal);
+    }
+
+    /**
+     * @Template("AppBundle:Blocks:goalInner.html.twig")
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @param $page
+     * @return array
+     */
+    public function innerContentAction(Goal $goal, $page = Goal::INNER)
+    {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
@@ -241,6 +253,7 @@ class GoalController extends Controller
 
         return array(
             'goal' => $goal,
+            'page' => $page,
             'aphorism' => $aphorism,
             'doneByUsers' => $doneByUsers,
             'listedByUsers' => $listedByUsers

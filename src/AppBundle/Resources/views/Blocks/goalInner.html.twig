@@ -1,3 +1,6 @@
+{% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}
+{% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
+
 <div class="inner-container">
     <div class="container">
         <div class="row">
@@ -34,8 +37,8 @@
                 </div>
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
-                        {% if is_granted("ROLE_USER") %}
-                            <ul class="row goal-links">
+                        {% if page == inner and is_granted("ROLE_USER") %}
+                            <ul  class="row goal-links">
                                 <li class="col-md-6 col-md-push-6">
                                     <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                         <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
@@ -53,41 +56,42 @@
                         <div style="border:1px solid purple;height:300px;">
                             <div data-simple-map-marker style="width: 99.8%; height: 298px"></div>
                         </div>
-
-                        <ul>
-                            <li>
-                                <ul class="row">
-                                    <li class="col-md-4">
-                                        done by
-                                        <span class="purple">{{ doneByUsers|length }}</span>
-                                    </li>
-                                    <li class="col-md-4">
-                                        {% for doneByUser in doneByUsers %}
-                                            <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                        {% endfor %}
-                                    </li>
-                                    <li class="col-md-4">
-                                        <a href="#"></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="row">
-                                    <li class="col-md-4">
-                                        listed by
-                                        <span class="purple">{{ listedByUsers|length }}</span>
-                                    </li>
-                                    <li class="col-md-4">
-                                        {% for listedByUser in listedByUsers %}
-                                            <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                        {% endfor %}
-                                    </li>
-                                    <li class="col-md-4">
-                                        <a href="#"></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        {% if page == inner %}
+                            <ul>
+                                <li>
+                                    <ul class="row">
+                                        <li class="col-md-4">
+                                            done by
+                                            <span class="purple">{{ doneByUsers|length }}</span>
+                                        </li>
+                                        <li class="col-md-4">
+                                            {% for doneByUser in doneByUsers %}
+                                                <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                            {% endfor %}
+                                        </li>
+                                        <li class="col-md-4">
+                                            <a href="#"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <ul class="row">
+                                        <li class="col-md-4">
+                                            listed by
+                                            <span class="purple">{{ listedByUsers|length }}</span>
+                                        </li>
+                                        <li class="col-md-4">
+                                            {% for listedByUser in listedByUsers %}
+                                                <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                            {% endfor %}
+                                        </li>
+                                        <li class="col-md-4">
+                                            <a href="#"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -110,19 +114,21 @@
                             <iframe width="100%" height="500" src="{{ goal.videoLink }}" frameborder="0" allowfullscreen></iframe>
                         {% endif %}
 
-                        <h4>Success stories</h4><hr />
+                        {% if page == inner %}
 
-                        <div style="width:100%; height:350px;background-color: #cccccc">
-                            <p>messages place </p>
-                        </div>
+                            <h4>Success stories</h4><hr />
 
-                        <div style="width:100%; height:350px;background-color: #cccccc">
-                            <p>messages place </p>
+                            <div style="width:100%; height:350px;background-color: #cccccc">
+                                <p>messages place </p>
+                            </div>
 
-                            <img src="" alt="Image" width="700" height="320"/>
-                        </div>
+                            <div style="width:100%; height:350px;background-color: #cccccc">
+                                <p>messages place </p>
 
-                        <div style="width:100%; height:350px;background-color: #cccccc">
+                                <img src="" alt="Image" width="700" height="320"/>
+                            </div>
+
+                            <div style="width:100%; height:350px;background-color: #cccccc">
                             <p>messages place </p>
 
                             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -162,9 +168,11 @@
                             </div>
                         </div>
 
-                        <h4>Comments</h4><hr />
+                            <h4>Comments</h4><hr />
 
-                        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': goal.id} %}
+                            {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': goal.id} %}
+
+                        {% endif %}
 
 
                     </div>
