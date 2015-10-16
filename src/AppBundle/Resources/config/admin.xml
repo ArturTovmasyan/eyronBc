@@ -38,6 +38,18 @@
             <argument/>
         </service>
 
+        <!-- page -->
+        <service id="sonata.admin.app.page" class="AppBundle\Admin\PageAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="General" label="Page"/>
+            <argument/>
+            <argument>AppBundle\Entity\Page</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:page_edit.html.twig</argument>
+            </call>
+        </service>
+
         <!-- Goal -->
         <service id="sonata.admin.app.goal" class="AppBundle\Admin\GoalAdmin">
             <tag name="sonata.admin" manager_type="orm" group="General" label="Goal"/>

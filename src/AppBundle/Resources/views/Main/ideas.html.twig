@@ -17,7 +17,7 @@
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
                             </a>
                             <figcaption>
-                                {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                             </figcaption>
                         </figure>
                     </div>
@@ -38,7 +38,7 @@
                         <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="346" alt="{{ goal.title }}">
                     </a>
                     <figcaption>
-                        {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                     </figcaption>
                 </figure>
             {% endfor %}
@@ -59,7 +59,7 @@
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="262" alt="{{ goal.title }}">
                             </a>
                             <figcaption>
-                                {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                             </figcaption>
                         </figure>
                     </div>
@@ -84,7 +84,7 @@
                         <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}">
                     </a>
                     <figcaption>
-                        {%  include "AppBundle:Main:goalFooter.html.twig" with {'goal' : goal }  %}
+                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                     </figcaption>
                 </figure>
             </div>

@@ -227,6 +227,18 @@ class GoalController extends Controller
      */
     public function innerAction(Goal $goal)
     {
+        return array('goal' => $goal);
+    }
+
+    /**
+     * @Template("AppBundle:Blocks:goalInner.html.twig")
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @param $page
+     * @return array
+     */
+    public function innerContentAction(Goal $goal, $page = Goal::INNER)
+    {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
@@ -241,6 +253,7 @@ class GoalController extends Controller
 
         return array(
             'goal' => $goal,
+            'page' => $page,
             'aphorism' => $aphorism,
             'doneByUsers' => $doneByUsers,
             'listedByUsers' => $listedByUsers
@@ -331,18 +344,22 @@ class GoalController extends Controller
 
 
     /**
-     * @Route("/list", name="goals_list")
+     * @Route("/list/{category}", defaults={"category" = null} ,name="goals_list")
      * @param Request $request
+     * @param $category
      * @Template()
      * @return array
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $category = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get categories
+        $categories  = $em->getRepository('AppBundle:Category')->findAll();
+
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount();
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category);
 
         // get paginator
         $paginator  = $this->get('knp_paginator');
@@ -354,7 +371,7 @@ class GoalController extends Controller
             7/*limit per page*/
         );
 
-        return array('goals' => $pagination);
+        return array('goals' => $pagination, 'categories' => $categories);
     }
 
 

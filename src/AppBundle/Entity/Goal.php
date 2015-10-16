@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\MultipleFileInterface;
+use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,11 +20,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal")
  */
-class Goal implements MultipleFileInterface
+class Goal implements MultipleFileInterface, PublishAware
 {
     // constants for privacy
     const PUBLIC_PRIVACY = 1;
     const PRIVATE_PRIVACY = 2;
+
+    // constants for inner page
+    const INNER = "inner";
+    const VIEW = "view";
 
     use Location;
 
@@ -74,6 +79,12 @@ class Goal implements MultipleFileInterface
      * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     protected $status;
+
+    /**
+     * @var
+     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     */
+    protected $publish = false;
 
     /**
      * @var
@@ -421,5 +432,28 @@ class Goal implements MultipleFileInterface
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set publish
+     *
+     * @param boolean $publish
+     * @return Goal
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * Get publish
+     *
+     * @return boolean
+     */
+    public function getPublish()
+    {
+        return $this->publish;
     }
 }
