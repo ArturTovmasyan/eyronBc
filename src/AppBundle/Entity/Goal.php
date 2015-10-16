@@ -66,11 +66,6 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $userGoal;
 
     /**
-     * @ORM\OneToMany(targetEntity="Step", mappedBy="goal", cascade={"persist"})
-     **/
-    protected $steps;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="goals_tags",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
@@ -437,40 +432,6 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Add steps
-     *
-     * @param \AppBundle\Entity\Step $steps
-     * @return Goal
-     */
-    public function addStep(\AppBundle\Entity\Step $steps)
-    {
-        $this->steps[] = $steps;
-        $steps->setGoal($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove steps
-     *
-     * @param \AppBundle\Entity\Step $steps
-     */
-    public function removeStep(\AppBundle\Entity\Step $steps)
-    {
-        $this->steps->removeElement($steps);
-    }
-
-    /**
-     * Get steps
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSteps()
-    {
-        return $this->steps;
     }
 
     /**

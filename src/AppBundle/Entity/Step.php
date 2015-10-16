@@ -32,11 +32,10 @@ class Step
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Goal", inversedBy="steps")
+     * @ORM\ManyToOne(targetEntity="UserGoal", inversedBy="steps")
      * @ORM\JoinColumn(name="step_id", referencedColumnName="id")
      */
     protected $goal;
-
 
     /**
      * Get id
@@ -74,10 +73,10 @@ class Step
     /**
      * Set goal
      *
-     * @param \AppBundle\Entity\Goal $goal
+     * @param \AppBundle\Entity\UserGoal $goal
      * @return Step
      */
-    public function setGoal(\AppBundle\Entity\Goal $goal = null)
+    public function setGoal(\AppBundle\Entity\UserGoal $goal = null)
     {
         $this->goal = $goal;
 
@@ -87,7 +86,7 @@ class Step
     /**
      * Get goal
      *
-     * @return \AppBundle\Entity\Goal 
+     * @return \AppBundle\Entity\UserGoal 
      */
     public function getGoal()
     {
