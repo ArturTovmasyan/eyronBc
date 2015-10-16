@@ -59,8 +59,13 @@ class PageAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
 
+        $names = $this->getConfigurationPool()->getContainer()->getParameter("pages");
+
         $formMapper
-            ->add('name')
+            ->add('name', 'choice', array(
+                'choices' => $names,
+                'empty_value' => 'Choose the name of page',
+            ))
             ->add('description',  null, array('attr' => array('class' => 'tinymce')))
             ->add('position')
         ;
