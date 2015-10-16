@@ -340,6 +340,13 @@ class GoalController extends Controller
             // check form
             if($form->isValid()){
 
+                // check goal status
+                if(!$goal->getPublish()){
+
+                    // set to publish
+                    $goal->setPublish(Goal::PUBLISH);
+                }
+
                 // set status
                 $userGoal->setStatus(UserGoal::ACTIVE);
 

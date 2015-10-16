@@ -18,6 +18,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Step
 {
+    // constants for status
+    const TO_DO = 0;
+    const DONE = 1;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -29,6 +33,11 @@ class Step
      * @ORM\Column(name="name", type="string")
      */
     protected $name;
+
+    /**
+     * @ORM\Column(name="status",  type="smallint")
+     */
+    protected $status;
 
     /**
      *
@@ -91,5 +100,28 @@ class Step
     public function getGoal()
     {
         return $this->goal;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Step
+     */
+    public function setStatus($status = self::TO_DO)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
