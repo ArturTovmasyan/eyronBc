@@ -34,14 +34,14 @@
             <div class="row">
                 <div class="col-sm-7 col-md-9">
                     {% set images = goal.images %}
-                    {% if images | length %}
+                    {% if images and images | length %}
 
                         <ul class="main-pgwSlideshow">
                             {% for image in images %}
                                 <li><img src="{{ image.downloadLink }}" alt="{{ goal.title }}"></li>
                             {% endfor %}
                         </ul>
-                        
+
                     {% endif %}
                 </div>
                 <div class="col-sm-5 col-md-3">
