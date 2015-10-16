@@ -40,28 +40,23 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
                                     {#<li class="active">#}
-                                    <li >
+                                    <li>
                                         <a href="{{ path('goals_list') }}">
                                             <span class="ideas-icon"></span>IDEAS
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="search">
                                         {#<a href="#">#}
                                             {#<span class="glyphicon glyphicon-search"></span> SEARCH#}
                                         {#</a>#}
 
-                                        <div id="navbar" class="navbar-collapse collapse">
+
                                             <form class="navbar-form navbar-left" role="search">
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                      <button class="btn btn-default" type="button">
-                                                          <span class="glyphicon glyphicon-search"></span>
-                                                      </button>
-                                                    </span>
+
                                                     <input type="text" class="form-control" placeholder="SEARCH">
-                                                </div>
+
                                             </form>
-                                        </div>
+
 
                                     </li>
                                 </ul>
