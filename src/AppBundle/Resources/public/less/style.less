@@ -765,6 +765,47 @@ footer{
   }
 }
 
+#datepicker{
+  .datepicker-inline{
+    margin:0 auto;
+    .table-condensed{
+      thead{
+        background-color: #7627f5;
+        tr{
+          th{
+            border-radius: 0;
+            color:#ffffff;
+            &:hover{
+              background-color: #7627f5;
+            }
+          }
+          &:last-child{
+            border-top:3px solid #ffffff;
+          }
+        }
+
+      }
+      tbody{
+        td{
+          border-radius: 0;
+          background-color: #f4f4f4;
+          border: 2px solid #ffffff;
+          color:#a3a3a3;
+          &:first-child{
+            border-left:0;
+          }
+          &:last-child{
+            border-right:0;
+          }
+        }
+        .active{
+          background: #7627f5;
+          color:#ffffff;
+        }
+      }
+    }
+  }
+}
 @media (min-width: @screen-sm) {
 
   h1,h2{
