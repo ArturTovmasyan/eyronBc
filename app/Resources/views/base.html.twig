@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% block angularApp %} <html ng-app="main"> {% endblock %}
+{% block angularApp %} <html ng-app="main" data-ng-controller="MainController"> {% endblock %}
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}BucketList{% endblock %}</title>
@@ -79,6 +79,7 @@
                                             </a>
                                         {% else %}
                                             <a  href="javascript:void(0)"
+                                                class="sign-in-popover"
                                                 data-ng-class="{'join-class': joinToggle2}"
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle2 = !joinToggle2"
