@@ -5,13 +5,14 @@ angular.module('main',['mgcrea.ngStrap.popover',
     'Components',
     'ngSanitize'])
     .controller('MainController',['$scope',function($scope){
-        console.log($scope);
 
         $scope.openSignInPopover = function(){
-            var popoverScope = angular.element(".sign-in-popover").scope().$$childHead;
+            var middleScope = angular.element(".sign-in-popover").scope();
+            var popoverScope = middleScope.$$childHead;
+
             if(!popoverScope.$isShown){
                 popoverScope.$show();
-                $scope.joinToggle2 = !$scope.joinToggle2;
+                middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
         }
     }]);
