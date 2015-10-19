@@ -20,9 +20,11 @@
 
     {% if inner is not defined %}
         <li class="col-sm-2">
-            <a href="#">
-                <span class="glyphicon glyphicon-share-alt"></span>
-            </a>
+            {#<a href="#">#}
+                {#<span class="glyphicon glyphicon-share-alt">#}
+                    <div class="addthis_native_toolbox"></div>
+                {#</span>#}
+            {#</a>#}
         </li>
     {% endif %}
 </ul>
