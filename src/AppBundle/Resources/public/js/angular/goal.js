@@ -66,16 +66,24 @@ angular.module('goal', ['Interpolation',
 
         $scope.stepsArray = [{}];
 
-        $('#datepicker').datepicker();
-        $("#datepicker").on("changeDate", function() {
-            $("#hidden_date_value").val(
-                $("#datepicker").datepicker('getFormattedDate')
+        angular.element('#datepicker').datepicker();
+        angular.element("#datepicker").on("changeDate", function() {
+            angular.element("#hidden_date_value").val(
+                angular.element("#datepicker").datepicker('getFormattedDate')
             )
         });
 
-        $('input.private-checkbox').iCheck({
+        angular.element('input.private-checkbox').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
+        });
+
+        angular.element('.place-autocomplete').bind('keydown',function(ev){
+            if(ev.which === 13){
+                ev.preventDefault();
+                ev.stopPropagation();
+                return false;
+            }
         });
 
         $scope.addNewStep = function(){

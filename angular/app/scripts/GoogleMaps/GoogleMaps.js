@@ -63,7 +63,6 @@ angular.module('Google', [])
                     var autocomplete = new google.maps.places.Autocomplete(el[0],{types: ['address']});
                     google.maps.event.addListener(autocomplete, 'place_changed', function(){
                         var result = autocomplete.getPlace();
-                        console.log(result);
 
                         if(!result.geometry ||
                             !result.geometry.location ||
