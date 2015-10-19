@@ -66,6 +66,13 @@ angular.module('goal', ['Interpolation',
 
         $scope.stepsArray = [{}];
 
+        $('#datepicker').datepicker();
+        $("#datepicker").on("changeDate", function() {
+            $("#hidden_date_value").val(
+                $("#datepicker").datepicker('getFormattedDate')
+            )
+        });
+
         $('input.private-checkbox').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
@@ -95,8 +102,6 @@ angular.module('goal', ['Interpolation',
             },
             compile: function(){
                 return function(scope){
-                    console.log(scope);
-
                     scope.$watch('ngModel',function(d){
                         if(angular.isUndefined(d)){
                             return;
