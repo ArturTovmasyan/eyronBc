@@ -68,7 +68,7 @@ angular.module('goal', ['Interpolation',
 
         $('#datepicker').datepicker();
         $("#datepicker").on("changeDate", function() {
-            $("#hidden_date_value").val(
+            $(".hidden_date_value").val(
                 $("#datepicker").datepicker('getFormattedDate')
             )
         });

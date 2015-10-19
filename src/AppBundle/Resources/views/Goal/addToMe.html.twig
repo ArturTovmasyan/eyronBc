@@ -25,11 +25,13 @@
                         <h4>A goal without target date is a dream ...</h4>
 
                         <div style="height:250px;width:250px;margin-bottom:10px;">
-                            <div id="datepicker" data-date="12/03/2012" style="color: black"></div>
-                            <input type="hidden" id="hidden_date_value"/>
+                            <div id="datepicker" data-date="{{ "now"|date("m/d/Y") }}" style="color: black"></div>
+                            {#<input type="hidden" class="hidden_date_value"/>#}
                         </div>
 
                         <form class="form-horizontal"action="#" method="post">
+                            <input id="{{  form.birthday.vars.id }}" type="hidden" class="hidden_date_value" name="{{ form.birthday.vars.full_name }}"/>
+
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <input type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control" placeholder="Location ex. Yerevan, Armenia:" />

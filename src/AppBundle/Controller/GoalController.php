@@ -384,8 +384,8 @@ class GoalController extends Controller
                 // set step
                 $userGoal->setSteps($steps);
 
-                // todo:: chaje to date
-                $doDate = new \DateTime();
+                $doDate = $form->get('birthday')->getData();
+                $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
 
                 // set do date
                 $userGoal->setDoDate($doDate);

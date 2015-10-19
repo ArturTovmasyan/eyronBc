@@ -30,6 +30,7 @@ class UserGoalType extends AbstractType
             ->add('targetDate', 'hidden', array('mapped' => false))
             ->add('note')
             ->add('location', 'hidden', array('mapped' => false))
+            ->add('birthday', 'hidden', array('mapped' => false))
             ->add('privacy')
         ;
     }
