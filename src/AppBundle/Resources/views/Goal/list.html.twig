@@ -49,7 +49,7 @@
                                 {% set image = goal.getPrimaryPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="262" alt="{{ goal.title }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}" class="img-responsive">
                             </a>
                             <figcaption>
 
@@ -72,7 +72,7 @@
                                 {% set image = goal.getPrimaryPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="262" alt="{{ goal.title }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}" class="img-responsive">
                             </a>
                             <figcaption>
 
@@ -96,7 +96,7 @@
                                 {% set image = goal.getPrimaryPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="{{ loop.first ?  713 : 346 }}" alt="{{ goal.title }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="{{ loop.first ?  713 : 346 }}" alt="{{ goal.title }}" class="img-responsive">
                             </a>
                             <figcaption>
 

@@ -17,9 +17,12 @@
             </li>
         {% endif %}
     {% endif %}
-    <li class="col-sm-2">
-        <a href="#">
-            <span class="glyphicon glyphicon-share-alt"></span>
-        </a>
-    </li>
+
+    {% if inner is not defined %}
+        <li class="col-sm-2">
+            <a href="#">
+                <span class="glyphicon glyphicon-share-alt"></span>
+            </a>
+        </li>
+    {% endif %}
 </ul>

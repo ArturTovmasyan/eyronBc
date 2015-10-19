@@ -32,7 +32,9 @@
 
                         <ul class="main-pgwSlideshow">
                             {% for image in images %}
-                                <li><img src="{{ image.downloadLink }}" alt="{{ goal.title }}"></li>
+                                <li>
+                                    <img src="{{ image.downloadLink }}" alt="{{ goal.title }}" class="img-responsive">
+                                </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -41,11 +43,11 @@
                     <div class="goal-information">
                         {% if page == inner and is_granted("ROLE_USER") %}
                             <ul  class="row goal-links">
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal, 'inner' : true }  %}
                             </ul>
                         {% endif %}
 
-                        <div style="border:1px solid purple;height:300px;">
+                        <div>
                             <div data-simple-map-marker style="width: 99.8%; height: 298px"></div>
                         </div>
                         {% if page == inner %}
@@ -54,12 +56,20 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             done by
-                                            <span class="purple">{{ doneByUsers|length }}</span>
+                                            <p class="purple">{{ doneByUsers|length }}</p>
                                         </li>
                                         <li class="col-md-4">
-                                            {% for doneByUser in doneByUsers %}
-                                                <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                            {% endfor %}
+                                            <ul class="users">
+                                                {% set left = 0 %}
+                                                {% for doneByUser in doneByUsers %}
+                                                    <li style="right: {{ left }}px">
+                                                        <figure>
+                                                            <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                        </figure>
+                                                    </li>
+                                                    {% set left = left + 20 %}
+                                                {% endfor %}
+                                            </ul>
                                         </li>
                                         <li class="col-md-4">
                                             <a href="#"></a>
@@ -70,12 +80,20 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             listed by
-                                            <span class="purple">{{ listedByUsers|length }}</span>
+                                            <p class="purple">{{ listedByUsers|length }}</p>
                                         </li>
                                         <li class="col-md-4">
-                                            {% for listedByUser in listedByUsers %}
-                                                <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                            {% endfor %}
+                                            <ul class="users">
+                                                {% set left = 0 %}
+                                                {% for listedByUser in listedByUsers %}
+                                                    <li style="right: {{ left }}px">
+                                                        <figure>
+                                                            <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                        </figure>
+                                                    </li>
+                                                    {% set left = left + 20 %}
+                                                {% endfor %}
+                                            </ul>
                                         </li>
                                         <li class="col-md-4">
                                             <a href="#"></a>
