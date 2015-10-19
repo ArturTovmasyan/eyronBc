@@ -2,12 +2,15 @@
 
 {% block content %}
 
-    {{ page.name }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center"> {{ page.name }} </h1>
 
-    <hr/>
-
-    {{ page.description|raw }}
-
+                {{ page.description|raw }}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

@@ -1,12 +1,18 @@
-<ul>
+<ul class="user-menu">
     <li>
-        <a href="{{ path('add_goal') }}">Create Goal</a>
+        <a href="{{ path('add_goal') }}">
+            <i class="glyphicon glyphicon-pencil"></i>Create Goal
+        </a>
     </li>
 
     <li>
-        <a href="{{ path("settings") }}">Settings</a>
+        <a href="{{ path("settings") }}">
+            <i class="glyphicon glyphicon-cog"></i>Settings
+        </a>
     </li>
     <li>
-        <a href="{{ path("fos_user_security_logout") }}">Logout</a>
+        <a href="{{ path("fos_user_security_logout") }}">
+           <i class="glyphicon glyphicon-off"></i> Logout
+        </a>
     </li>
 </ul>
