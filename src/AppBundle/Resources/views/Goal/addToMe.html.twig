@@ -24,9 +24,7 @@
                     <div class="goal-end">
                         <h4>A goal without target date is a dream ...</h4>
 
-                        <div style="margin-bottom:10px;">
-                            <div id="datepicker" data-date="{{ "now"|date("m/d/Y") }}" style="color: black"></div>
-                        </div>
+                        <div id="datepicker" data-date="{{ "now"|date("m/d/Y") }}" style="color: black"></div>
 
                         <form class="form-horizontal"action="#" method="post">
                             <input id="{{  form.birthday.vars.id }}" type="hidden" class="hidden_date_value" name="{{ form.birthday.vars.full_name }}"/>

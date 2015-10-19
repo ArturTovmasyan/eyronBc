@@ -150,6 +150,7 @@ header{
         }
         .user-menu{
           padding-left:0;
+          min-width: 150px;
           li{
             padding:10px;
             border-left:0;
@@ -251,7 +252,7 @@ label{
     color:#a4a4a4;
     display: block;
     font-size:18px;
-    padding:10px 0 10px;
+    padding:20px 0 15px;
   }
 
   h3{
@@ -277,7 +278,7 @@ label{
     //background-color: transparent;
     border:0;
     font-size:18px;
-    padding:10px 0 10px;
+    padding:20px 0 15px;
     outline:none;
 
     &:hover,&:focus{
@@ -383,7 +384,7 @@ ul.filter{
   margin-bottom: 20px;
 
   h4{
-    color:#021421;
+    color:#3d3d3d;
     text-align: center;
   }
 
@@ -673,7 +674,7 @@ figure{
           background-color: #e3e3e3;
         }
         &:last-child{
-          border-right:1px solid #a4a4a4;
+          border-left:1px solid #a4a4a4;
         }
       }
     }
@@ -766,6 +767,7 @@ footer{
 }
 
 #datepicker{
+  margin-bottom:15px;
   .datepicker-inline{
     margin:0 auto;
     .table-condensed{
@@ -804,6 +806,11 @@ footer{
         }
       }
     }
+  }
+}
+.addthis_native_toolbox{
+  .addthis_counter.addthis_pill_style{
+    height:auto;
   }
 }
 @media (min-width: @screen-sm) {
@@ -911,9 +918,12 @@ footer{
 }
 
 @media (min-width: @screen-md) {
-
-  .search{
-    width:600px;
+  header {
+    .navbar-default{
+      .navbar-nav{
+        .search{ width:600px;}
+      }
+    }
   }
 
   h1,h2{

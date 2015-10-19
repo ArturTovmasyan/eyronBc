@@ -1,8 +1,8 @@
-<ul class="row">
+<ul class="row {% if inner is defined %} goal-links {% endif %} ">
     {% if is_granted("ROLE_USER") %}
 
         {% if not isMyGoal(goal, app.user, "add") %}
-            <li class="col-sm-5">
+            <li class="col-sm-4">
                 <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                     <span class="glyphicon glyphicon-plus"></span>ADD
                 </a>
@@ -10,7 +10,7 @@
         {% endif %}
 
         {% if  not isMyGoal(goal, app.user, 'done') %}
-            <li class="col-sm-5">
+            <li class="col-sm-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
                 </a>
@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if inner is not defined %}
-        <li class="col-sm-2">
+        <li class="col-sm-4">
             {#<a href="#">#}
                 {#<span class="glyphicon glyphicon-share-alt">#}
                     <div class="addthis_native_toolbox"></div>
