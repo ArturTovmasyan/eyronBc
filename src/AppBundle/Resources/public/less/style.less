@@ -378,13 +378,21 @@ ul.filter{
 }
 
 .goal-container{
-  min-height:990px;
+  min-height:1000px;
+  height:auto !important;
+  height:1000px;
+  background-color: #000000;
+
+  img{
+    position: absolute;
+  }
 }
 .goal-end{
   background-color: #ffffff;
   padding:10px 20px 0;
   .rounded-corners(6px);
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+
 
   h4{
     color:#3d3d3d;
@@ -394,23 +402,13 @@ ul.filter{
   .purple{
     font-size:18px;
   }
+  form{
+    padding-bottom:10px;
+  }
+}
 
-
-
-  //.on{
-  //  background: url('../images/goal-off.png') no-repeat 0 0;
-  //  border: 0;
-  //  height: 38px;
-  //  width: 77px;
-  //  background-size: 78%;
-  //}
-  //.off{
-  //  background: url('../images/goal-off.png') no-repeat 0 -41px;
-  //  border: 0;
-  //  height: 38px;
-  //  width: 77px;
-  //  background-size: 78%;
-  //}
+.no-marginb{
+  margin-bottom:0;
 }
 
 .text-left{
@@ -440,6 +438,9 @@ ul.filter{
       margin:10px 0 20px;
     }
   }
+}
+.goals-end{
+  position: relative;
 }
 
 .apps{
@@ -893,7 +894,14 @@ footer{
       margin:33px 0 17px;
     }
   }
+  .goal-container{
+    min-height:900px;
+    height:auto !important;
+    height:900px;
+  }
+
   .goal-end{
+    margin-bottom:60px;
     textarea{
       resize: none;
     }
@@ -978,12 +986,23 @@ footer{
       margin:63px 0 34px;
     }
   }
+
   .goals-end{
     top:74px;
 
     h2{
       padding-bottom:40px;
     }
+  }
+
+  .goal-container{
+    min-height:1025px;
+    height:auto !important;
+    height:1025px;
+  }
+
+  .goal-end{
+    margin-bottom:100px;
   }
   .goals{
     .margin-top{
