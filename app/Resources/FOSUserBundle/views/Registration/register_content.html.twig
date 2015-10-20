@@ -1,7 +1,7 @@
 <div class="container">
     <div  class="signup">
         <div class=" row">
-            <h1 class="text-center">Sign up and discover great ideas</h1>
+            <h1 class="text-center">{{ 'registration.sign_up_title'|trans({}, 'FOSUserBundle') }}</h1>
 
             <div class="col-md-6 col-md-offset-3">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
@@ -55,12 +55,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <p>By clicking Sign up, you agree to our
-                            <a href="#" class="purple">Terms of Service &amp; Privacy Policy</a>
+                        <p>{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
+                            <a href="#" class="purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
                         </p>
                     </div>
 
-                    <button type="submit" class="btn btn-purple">Sign Up</button>
+                    <button type="submit" class="btn btn-purple">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') }}</button>
 
                     {{ form_widget(form._token) }}
 
@@ -71,9 +71,9 @@
 
         <div class="row">
             <div class="col-md-12">
-                <p class="text-center margin-top">Already have an account
+                <p class="text-center margin-top">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
                     <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="purple">
-                        <strong>SIGN IN</strong>
+                        <strong>{{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') }}</strong>
                     </a>
                 </p>
             </div>
