@@ -1,10 +1,12 @@
-{#<video width="100%" height="auto"  autoplay>#}
-    {#<source src="movie.mp4" type="video/mp4">#}
-    {#<source src="movie.ogg" type="video/ogg">#}
-    {#Your browser does not support the video tag.#}
-{#</video>#}
+<div class="video">
+    <video width="100%" height="auto"  autoplay muted loop>
+        <source src="{{ asset('bundles/app/videos/test.mp4') }}" type="video/mp4">
+        <source src="{{ asset('bundles/app/videos/test.webm') }}" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+</div>
 
-    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
+    {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />#}
 
     <div class="homepage text-center">
         <h1>{{ 'homepage_title'|trans|raw }}</h1>
