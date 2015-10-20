@@ -15,6 +15,33 @@ create_goal: Create Goal
 settings: Settings
 logout: Logout
 
+# goal
+goal:
+      public: Suggest as public
+      agree: By checking you agree to ....
+      preview: PREVIEW
+      pblish: PUBLISH
+      description_title: Any word in title and description can be converted into a hashtag simply by placing a '#' sign in the beginning of the word.
+      successfully_add: Your idea has been added successfully.
+      congratulations: Congratulations!
+      is_dream: A goal without target date is a dream ...
+      location_ex: Location ex. Yerevan, Armenia:
+      note_p: Add a note
+      add_step: Add a step
+      to_do: To Do
+      done: Done
+      as_private: Set as private
+      not_found: Goals not found
+      list_title: Discover ideas that inspire you
+
+# home
+
+
+btn_delete: Delete
+btn_publish: PUBLISH
+btn_back_and_edit: GO BACK TO EDIT
+btn_discover_more: DISCOVER MORE
+
 
 user_goal:
       public: Public

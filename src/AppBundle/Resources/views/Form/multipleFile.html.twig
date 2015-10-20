@@ -20,7 +20,7 @@
                            value="1"
                             {% if child.primary.vars.value == 1 %} checked {% endif %}
                             />
-                    <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" > Delete </a>
+                    <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" >{{ 'btn_delete'|trans }}</a>
                 </li>
         {% endif %}
 
