@@ -17,4 +17,25 @@ angular.module('Components',[])
                 })
             }
         }
+    }])
+    .directive('openPopover',['$timeout',function($timeout){
+        return {
+            restrict: 'EA',
+            scope: {
+                selector: '@'
+            },
+            compile: function(){
+                return function(scope){
+                    var middleScope = angular.element(scope.selector).scope();
+                    var popoverScope = middleScope.$$childHead;
+
+                    if(!popoverScope.$isShown){
+                        $timeout(function(){
+                            popoverScope.$show();
+                            middleScope.joinToggle2 = !middleScope.joinToggle2;
+                        },400);
+                    }
+                }
+            }
+        }
     }]);

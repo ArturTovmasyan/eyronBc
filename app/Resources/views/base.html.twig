@@ -22,6 +22,7 @@
     <body>
         {% block body %}
             {#{{ dump(app.session.flashBag.peekAll) }}#}
+
         <div id="mainframe">
             <div id="wrap">
                 <header>
@@ -89,6 +90,9 @@
                                                 data-bs-popover>
                                                     <span class="join"></span>JOIN
                                             </a>
+                                            {% if app.session.flashBag.peekAll|length %}
+                                                <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+                                            {% endif %}
                                         {% endif %}
                                     </li>
                                 </ul>
