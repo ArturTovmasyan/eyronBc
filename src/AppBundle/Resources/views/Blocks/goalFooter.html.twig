@@ -4,7 +4,7 @@
         {% if not isMyGoal(goal, app.user, "add") %}
             <li class="col-sm-4">
                 <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                    <span class="glyphicon glyphicon-plus"></span>ADD
+                    <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
                 </a>
             </li>
         {% endif %}
@@ -12,7 +12,7 @@
         {% if  not isMyGoal(goal, app.user, 'done') %}
             <li class="col-sm-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                    <span class="glyphicon glyphicon glyphicon-ok"></span>DONE
+                    <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
                 </a>
             </li>
         {% endif %}

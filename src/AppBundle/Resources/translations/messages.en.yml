@@ -5,6 +5,16 @@ search: SEARCH
 join: JOIN
 copyright: 2015 Bucketlist
 
+#blocks
+most_popular: MOST POPULAR
+add: ADD
+done: DONE
+success_stories: Success stories
+comments: Comments
+create_goal: Create Goal
+settings: Settings
+logout: Logout
+
 
 user_goal:
       public: Public
