@@ -21,7 +21,6 @@
 
     <body>
         {% block body %}
-            {#{{ dump(app.session.flashBag.peekAll) }}#}
         <div id="mainframe">
             <div id="wrap">
                 <header>
@@ -79,7 +78,7 @@
                                             </a>
                                         {% else %}
                                             <a  href="javascript:void(0)"
-                                                ng-init="joinToggle2 = false"
+                                                data-ng-init="joinToggle2 = false"
                                                 class="sign-in-popover"
                                                 data-ng-class="{'join-class': joinToggle2}"
                                                 data-placement="bottom-left"
@@ -89,6 +88,9 @@
                                                 data-bs-popover>
                                                     <span class="join"></span>JOIN
                                             </a>
+                                            {% if app.vasession.flashBag.peekAll|length %}
+                                                <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+                                            {% endif %}
                                         {% endif %}
                                     </li>
                                 </ul>
