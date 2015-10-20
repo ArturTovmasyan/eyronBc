@@ -35,7 +35,7 @@
     </div>
 
     <div class="container">
-        <h2 class="text-center">Discover ideas that inspire you</h2>
+        <h2 class="text-center"> {{ 'goal.list_title'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
 
@@ -111,7 +111,10 @@
             </div>
 
         {% else %}
-            <p> Goals not found </p>
+            <p>
+                {{ 'goal.not_found'|trans }}
+
+            </p>
         {% endif %}
 
         {# display navigation #}

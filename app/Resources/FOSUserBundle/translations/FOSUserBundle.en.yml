@@ -5,12 +5,14 @@ invalid_data: Username, Member ID or password is incorrect
 security:
     login:
         title: Login to Your Account
-        username: "Username"
-        password: "Password"
+        username: Username
+        password: Password
         remember_me: Remember me
         forgot_password: Forgot password?
-
-        submit: Sign in
+        email: Email
+        sign_up: Sign Up
+        submit: Sign In
+        connect: CONNECT WITH
 
 # Profile
 profile:
@@ -45,6 +47,13 @@ registration:
 
             Regards,
             the Team.
+    sign_up_title: Sign up and discover great ideas
+    agreement: By clicking Sign up, you agree to our
+    sign_up_btn: Sign Up
+    privacy_policy: Terms of Service & Privacy Policy
+    sign_up_btn: Sign up and discover great ideas
+    have_account: Already have an account
+    sign_in_btn: SIGN IN
 
 # Password resetting
 resetting:
@@ -58,6 +67,7 @@ resetting:
         invalid_username: The username or email address "%username%" does not exist.
         username: "Username or email address:"
         submit: Reset password
+        reset: RESET PASSWORD
     reset:
         submit: Change password
     flash:

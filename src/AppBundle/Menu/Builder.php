@@ -30,7 +30,6 @@ class Builder extends ContainerAware
         $em = $this->container->get('doctrine')->getManager();
 
         // find all menus
-//        $pages = $em->getRepository('AppBundle:Page')->findAll();
         $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
 
         // check pages
@@ -39,7 +38,7 @@ class Builder extends ContainerAware
             foreach($pages as $page){
 
                 // add menu
-                $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters'=>array('slug' => $page->getSlug())));
+                $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())));
             }
         }
 

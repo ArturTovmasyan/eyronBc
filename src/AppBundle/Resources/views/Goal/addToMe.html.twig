@@ -17,12 +17,12 @@
         <div class="container">
             <div class="row">
 
-                <h2 class="text-center">Congratulations! <br />Your idea has been added successfully.</h2>
+                <h2 class="text-center">{{ "goal.congratulations"|trans }}<br />{{ "goal.successfully_add"|trans }}</h2>
 
                 <div class="col-md-6 col-md-offset-3">
 
                     <div class="goal-end">
-                        <h4>A goal without target date is a dream ...</h4>
+                        <h4>{{ "goal.is_dream"|trans }}</h4>
 
                         <div id="datepicker" data-date="{{ "now"|date("m/d/Y") }}" style="color: black"></div>
 
@@ -31,14 +31,14 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <input type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="Location ex. Yerevan, Armenia:" />
+                                    <input type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="{{ "goal.location_ex"|trans }}" />
                                     <input id="{{  form.location.vars.id }}" type="hidden" class="location-hidden" name="{{ form.location.vars.full_name }}"/>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'Add a note' } } ) }}
+                                    {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans } } ) }}
                                 </div>
                             </div>
 
@@ -52,12 +52,12 @@
                                            data-array="stepsArray"
                                            data-ng-model="step.text"
                                            name="stepText[ [[ k ]] ]"
-                                           placeholder="Add a step">
+                                           placeholder="{{ "goal.add_step"|trans }}">
                                 </div>
 
                                 <label class="col-sm-2 control-label">
-                                    <span data-ng-show="step.switch">Done</span>
-                                    <span data-ng-hide="step.switch">To Do</span>
+                                    <span data-ng-show="step.switch">{{ "goal.done"|trans }}</span>
+                                    <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
                                 </label>
 
                                 <div class="col-sm-2">
@@ -78,7 +78,7 @@
 
                             <div class="form-group row no-marginb">
 
-                                <label for="inputEmail3" class="col-sm-10 control-label purple text-left">Set as private</label>
+                                <label for="inputEmail3" class="col-sm-10 control-label purple text-left">{{ "goal.as_private"|trans }}</label>
 
                                 <div class="col-sm-2">
                                     <input type="checkbox" id="{{  form.privacy.vars.id }}" name="{{  form.privacy.vars.full_name }}" class="private-checkbox" value="1">
@@ -87,10 +87,10 @@
 
                             </div>
 
-                            <p>By checking you are angree ...</p>
+                            <p>{{ "goal.agree"|trans }}</p>
 
                             <div class="form-group text-center ">
-                                <button type="submit" class="btn btn-purple">DISCOVER MORE</button>
+                                <button type="submit" class="btn btn-purple">{{ "btn_discover_more"|trans }}</button>
                             </div>
 
                             {{ form_widget(form._token) }}
