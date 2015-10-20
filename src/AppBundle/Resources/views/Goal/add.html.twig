@@ -18,7 +18,9 @@
              <div class="row">
                  <div class="col-sm-6">
                      <h3 class="purple">{{ 'goal.public'|trans }}
-                         <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" value="1">
+
+
+                         <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
                      </h3>
                      <p>{{ 'goal.agree'|trans }}</p>
                  </div>
