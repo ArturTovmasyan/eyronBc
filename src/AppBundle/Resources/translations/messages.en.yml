@@ -35,12 +35,16 @@ goal:
       list_title: Discover ideas that inspire you
 
 # home
+homepage_title: Dreams come true, <br /> dream big!
+homepage_list_title: Explore over thousand great ideas
+homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
 
 
 btn_delete: Delete
 btn_publish: PUBLISH
 btn_back_and_edit: GO BACK TO EDIT
 btn_discover_more: DISCOVER MORE
+btn_start_now: START NOW
 
 
 user_goal:

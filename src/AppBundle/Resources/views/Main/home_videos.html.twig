@@ -7,13 +7,13 @@
     <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
 
     <div class="homepage text-center">
-        <h1>Dreams come true,<br />dream big!</h1>
+        <h1>{{ 'homepage_title'|trans|raw }}</h1>
 
-        <h4>Have your list of goals for life and see how much more you
-            would achieve over what you could possibly imagine.
+        <h4>
+            {{ 'homepage_description'|trans }}
         </h4>
 
-        <a href="{{ path("add_goal") }}" class="btn btn-purple">START NOW</a>
+        <a href="{{ path("add_goal") }}" class="btn btn-purple">{{ 'btn_start_now'|trans }}</a>
 
         <ul class="apps clearfix">
             <li>
