@@ -106,3 +106,4 @@ form:
     birth_date_day: "Day"
     birth_date_year: "Year"
     file: "Upload a photo"
+    choose: Choose

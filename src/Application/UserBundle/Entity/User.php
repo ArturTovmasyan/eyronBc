@@ -62,6 +62,16 @@ class User extends BaseUser
     protected $gender;
 
     /**
+     *
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Your password must be at least {{ limit }} characters long",
+     *
+     * )
+     */
+    protected $plainPassword;
+
+    /**
      * @var
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      */

@@ -35,8 +35,8 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
-            ->add('birthDate', 'date', array('label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
-            ->add('file', 'file', array('required'=>false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
+            ->add('birthDate', 'date', array('required' => false, 'empty_value' => 'form.choose', 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
+            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
