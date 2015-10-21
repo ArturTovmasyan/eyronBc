@@ -58,6 +58,12 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $images;
 
     /**
+     * @ORM\OneToMany(targetEntity="SuccessStory", mappedBy="goal", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    protected $successStories;
+
+    /**
      * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist"})
      **/
     protected $userGoal;
@@ -452,5 +458,39 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getPublish()
     {
         return $this->publish;
+    }
+
+    /**
+     * Add successStories
+     *
+     * @param \AppBundle\Entity\SuccessStory $successStories
+     * @return Goal
+     */
+    public function addSuccessStory(\AppBundle\Entity\SuccessStory $successStories)
+    {
+        $this->successStories[] = $successStories;
+        $successStories->setGoal($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove successStories
+     *
+     * @param \AppBundle\Entity\SuccessStory $successStories
+     */
+    public function removeSuccessStory(\AppBundle\Entity\SuccessStory $successStories)
+    {
+        $this->successStories->removeElement($successStories);
+    }
+
+    /**
+     * Get successStories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSuccessStories()
+    {
+        return $this->successStories;
     }
 }

@@ -10,9 +10,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
+use AppBundle\Form\SuccessStoryType;
 use AppBundle\Form\UserGoalType;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
@@ -266,10 +268,11 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function doneAction(Goal $goal)
+    public function doneAction(Goal $goal, Request $request)
     {
         // get current user
         $user = $this->getUser();
@@ -280,20 +283,65 @@ class GoalController extends Controller
         // get user goal
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
 
-        // check user goal and create if noc exist
-        if(!$userGoal){
-            $userGoal = new UserGoal();
-            $userGoal->setGoal($goal);
-            $userGoal->setUser($user);
+        // create new success story object
+        $story = new SuccessStory();
+
+        // create form
+        $form = $this->createForm(new SuccessStoryType(), $story);
+
+        // check method
+        if($request->isMethod("POST")){
+
+            // get data from request
+            $form->handleRequest($request);
+
+            // check data
+            if($form->isValid()){
+
+                // check user goal and create if noc exist
+                if(!$userGoal){
+                    $userGoal = new UserGoal();
+                    $userGoal->setGoal($goal);
+                    $userGoal->setUser($user);
+                }
+
+                // set status to done
+                $userGoal->setStatus(UserGoal::COMPLETED);
+
+                // is clicked add story button
+                if(!is_null($request->get('add_story'))){
+
+                    // get bucket list service
+                    $bucketService = $this->get('bl_service');
+
+                    // get files
+                    $files = $story->getFiles();
+
+                    // check files
+                    if($files){
+
+                        // loop for files
+                        foreach($files as $file) {
+
+                            // upload file
+                            $bucketService->uploadFile($file);
+                            $story->addFile($file);
+                        }
+                    }
+
+                    // add success story to goal
+                    $goal->addSuccessStory($story);
+                    $em->persist($story);
+                }
+
+                $em->persist($userGoal);
+                $em->flush();
+
+                return $this->redirectToRoute("goals_list");
+            }
         }
 
-        // set status to done
-        $userGoal->setStatus(UserGoal::COMPLETED);
-
-        $em->persist($userGoal);
-        $em->flush();
-
-        return $this->redirect($_SERVER["HTTP_REFERER"]);
+        return array('form' => $form->createView());
     }
 
     /**

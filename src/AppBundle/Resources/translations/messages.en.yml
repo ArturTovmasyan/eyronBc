@@ -39,14 +39,14 @@ homepage_title: Dreams come true, <br /> dream big!
 homepage_list_title: Explore over thousand great ideas
 homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
 
-
+# buttons
 btn_delete: Delete
 btn_publish: PUBLISH
 btn_back_and_edit: GO BACK TO EDIT
 btn_discover_more: DISCOVER MORE
 btn_start_now: START NOW
 
-
+# user goal form
 user_goal:
       public: Public
       private: Private
@@ -58,3 +58,8 @@ user_goal:
       not_urgent: Not Urgent
       active: Active
       completed: Completed
+
+# success story form
+success_story:
+      description: Description
+      files: Files
