@@ -45,11 +45,17 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        // generate url
-        $url =  $request->headers->get('referer') ?
-            $request->headers->get('referer') :
-            $this->router->generate('homepage');
-
+        // get roles
+        $user = $token->getUser();
+        if($user && $user->isAdmin()){
+            $url = $this->router->generate('sonata_admin_dashboard');
+        }
+        else{
+            // generate url
+            $url =  $request->headers->get('referer') ?
+                $request->headers->get('referer') :
+                $this->router->generate('homepage');
+        }
         // check request method
         if ($request->isXmlHttpRequest()) {
 

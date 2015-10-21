@@ -118,6 +118,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->enabled = true;
 
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -464,5 +465,22 @@ class User extends BaseUser
     public function showName()
     {
         return $this->getFirstName() .  ' ' . $this->getLastName();
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        // get roles
+        $roles = $this->getRoles();
+
+        // check roles
+        if($roles && is_array($roles) && ((in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPER_ADMIN', $roles)))){
+            return true;
+        }
+
+        return false;
     }
 }
