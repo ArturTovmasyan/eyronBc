@@ -329,6 +329,8 @@ class GoalController extends Controller
                         }
                     }
 
+
+                    $story->setUser($user);
                     // add success story to goal
                     $goal->addSuccessStory($story);
                     $em->persist($story);

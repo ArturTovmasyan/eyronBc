@@ -447,4 +447,12 @@ class User extends BaseUser
         return null;
 
     }
+
+    /**
+     * @return string
+     */
+    public function showName()
+    {
+        return $this->getFirstName() .  ' ' . $this->getLastName();
+    }
 }

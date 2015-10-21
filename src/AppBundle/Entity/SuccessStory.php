@@ -44,6 +44,11 @@ class SuccessStory
     protected $files;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
+     **/
+    protected $user;
+
+    /**
      * @var
      *
      * @Gedmo\Timestampable(on="create")
@@ -205,5 +210,28 @@ class SuccessStory
     public function getStory()
     {
         return $this->story;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\UserBundle\Entity\User $user
+     * @return SuccessStory
+     */
+    public function setUser(\Application\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
