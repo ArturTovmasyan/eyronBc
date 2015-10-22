@@ -98,6 +98,11 @@
                         </div>
                     </nav>
                 </header>
+                {% if app.user and app.user.getRegistrationToken is not null %}
+
+                    {{ 'register_text'|trans }}
+
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
             <footer>

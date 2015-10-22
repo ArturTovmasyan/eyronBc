@@ -20,7 +20,8 @@ class MainController extends Controller
 
     /**
      * @Route("/check-login", name="check-login")
-     * @Template()
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function checkLoginAction(Request $request)
     {
@@ -33,5 +34,33 @@ class MainController extends Controller
 
         $this->addFlash('', '');
         return $this->redirect($url);
+    }
+
+    /**
+     * @Route("/registration-confirm/{token}", name="registration_confirm")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param $token
+     */
+    public function confirmAction($token)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get user by token
+        $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
+
+        // check user
+        if(!$user){
+
+            throw $this->createNotFoundException("user not found");
+        }
+
+        // set token to null
+        $user->setRegistrationToken(null);
+
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
     }
 }

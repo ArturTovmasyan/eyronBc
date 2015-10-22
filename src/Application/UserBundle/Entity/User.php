@@ -113,6 +113,12 @@ class User extends BaseUser
     protected $socialPhotoLink;
 
     /**
+     * @var
+     * @ORM\Column(name="registration_token", type="string", nullable=true, unique=true)
+     */
+    protected $registrationToken;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -482,5 +488,28 @@ class User extends BaseUser
         }
 
         return false;
+    }
+
+    /**
+     * Set registrationToken
+     *
+     * @param string $registrationToken
+     * @return User
+     */
+    public function setRegistrationToken($registrationToken)
+    {
+        $this->registrationToken = $registrationToken;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationToken
+     *
+     * @return string 
+     */
+    public function getRegistrationToken()
+    {
+        return $this->registrationToken;
     }
 }

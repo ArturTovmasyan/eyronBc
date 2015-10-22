@@ -63,3 +63,5 @@ user_goal:
 success_story:
       description: Description
       files: Files
+
+register_text:  Please confirm your email
