@@ -6,7 +6,7 @@ body, html{
 }
 
 body{
-  padding-top: 80px;
+  padding-top: 75px;
   background-color: #f2f2f2;
 }
 
@@ -607,11 +607,20 @@ figure{
     color:#ffffff;
     font-size:17px;
     text-align: justify;
+    word-break: break-all;
   }
   cite{
     display:block;
     margin-bottom:10px;
     color:#ffffff;
+  }
+
+  .goal-image{
+    position: absolute;
+    width:100%;
+    img{
+      width:100%;
+    }
   }
 
   h2{
@@ -632,7 +641,7 @@ figure{
       margin-left: -15px;
       background-color: #ffffff;
       ul:last-child{
-        padding-left:0;
+        padding-left:10px;
         &>li{
           border-bottom:1px solid #a4a4a4;
           padding-top:10px;
@@ -848,7 +857,7 @@ footer{
 .view-content{
   background: url('../images/view.jpg') no-repeat center top;
   background-size: 99%;
-  margin:20px 0;
+  margin: 0 0 20px 0;
 
 
   div{
@@ -863,7 +872,6 @@ footer{
   }
 
   .search{
-    //width:400px;
     form{
       width:100%;
       padding:14px 0;
@@ -948,6 +956,14 @@ footer{
     }
     h3.title{
       padding: 17px 40px;
+    }
+  }
+
+  .inner-container{
+    .goal-image{
+      img{
+        height:720px;
+      }
     }
   }
 
@@ -1055,6 +1071,7 @@ footer{
       margin-top:30px;
     }
   }
+
 
 
   footer{
