@@ -13,10 +13,6 @@ parameters:
     mobile:
         with: 480
         height: 320
-    pages:
-        contact-us: Contact Us
-        how-it-work: HOW IT WORKS
-        about: ABOUT bL127
 
 framework:
     #esi:             ~

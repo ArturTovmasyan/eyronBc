@@ -58,18 +58,8 @@ class PageAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-
-        $names = $this->getConfigurationPool()->getContainer()->getParameter("pages");
-
         $formMapper
-            ->add('name', 'choice', array(
-                'choices' => $names,
-                'empty_value' => 'Choose the name of page',
-                'choices_as_values' => true,
-                'choice_label' => function ($allChoices, $currentChoiceKey) {
-                    return $allChoices;
-                },
-            ))
+            ->add('name')
             ->add('description',  null, array('attr' => array('class' => 'tinymce')))
             ->add('position')
         ;
