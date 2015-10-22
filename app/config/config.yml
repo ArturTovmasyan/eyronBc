@@ -7,16 +7,15 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    languages:
+        en: en
+        ru: ru
     tablet:
         with: 640
         height: 480
     mobile:
         with: 480
         height: 320
-    pages:
-        contact-us: Contact Us
-        how-it-work: HOW IT WORKS
-        about: ABOUT bL127
 
 framework:
     #esi:             ~
@@ -46,7 +45,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: [ 'AppBundle:Form:multipleFile.html.twig']
+        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'A2lixTranslationFormBundle::default.html.twig']
 
 
 # Assetic Configuration
@@ -162,10 +161,13 @@ sonata_admin:
 
 # stfo doctrine extensions
 stof_doctrine_extensions:
+    default_locale: en
+    translation_fallback: true
     orm:
         default:
             timestampable: true
             sluggable: true
+            translatable: true
 
 # tinumce
 stfalcon_tinymce:
@@ -183,3 +185,7 @@ stfalcon_tinymce:
                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
                toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
                image_advtab: true
+
+a2lix_translation_form:
+    locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
+    default_required: false

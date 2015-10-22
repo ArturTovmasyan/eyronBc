@@ -1,16 +1,17 @@
 application_comment:
     resource: "@ApplicationCommentBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}/
 
 application_user:
     resource: "@ApplicationUserBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /{_locale}/
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    prefix:   /{_locale}/
 
 # fos user routes
 fos_user_security:

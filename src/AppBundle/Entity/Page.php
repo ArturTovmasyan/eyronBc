@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Translation\PageTranslation;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -15,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PageRepository")
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\PageTranslation")
  * @ORM\Table(name="page")
  * @UniqueEntity(fields={"name"}, errorPath="name", message="You already have this page")
  */
@@ -29,6 +32,7 @@ class Page
 
     /**
      * @ORM\Column(name="name", type="string")
+     * @Gedmo\Translatable
      */
     protected $name;
 
@@ -45,9 +49,55 @@ class Page
     protected $position;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text")
      */
     protected $description;
+
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="AppBundle\Entity\Translation\PageTranslation",
+     *   mappedBy="object",
+     *   cascade={"persist", "remove"}
+     * )
+     */
+    protected $translations;
+
+    /**
+     * Required for Translatable behaviour
+     * @Gedmo\Locale
+     */
+    protected $locale;
+
+
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getTranslations()
+//    {
+//        return $this->translations;
+//    }
+//
+//
+//    /**
+//     * @param PageTranslation $pageTranslation
+//     */
+//    public function addTranslation($pageTranslation)
+//    {
+//        if (!$this->translations->contains($pageTranslation)) {
+//            $this->translations[] = $pageTranslation;
+//            $pageTranslation->setObject($this);
+//        }
+//    }
 
     /**
      * Get id
@@ -149,5 +199,39 @@ class Page
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add translations
+     *
+     * @param \AppBundle\Entity\Translation\PageTranslation $translations
+     * @return Page
+     */
+    public function addTranslation(\AppBundle\Entity\Translation\PageTranslation $translations)
+    {
+        $this->translations[] = $translations;
+
+        $translations->setObject($this);
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param \AppBundle\Entity\Translation\PageTranslation $translations
+     */
+    public function removeTranslation(\AppBundle\Entity\Translation\PageTranslation $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
+
+    /**
+     * Get translations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 }

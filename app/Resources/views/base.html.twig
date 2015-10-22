@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 {% block angularApp %} <html ng-app="main" data-ng-controller="MainController"> {% endblock %}
+
+{% set lang = app.request.attributes.get('_locale') %}
+
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}BucketList{% endblock %}</title>
@@ -98,6 +101,11 @@
                         </div>
                     </nav>
                 </header>
+                {% if app.user and app.user.getRegistrationToken is not null %}
+
+                    {{ 'register_text'|trans }}
+
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
             <footer>
@@ -118,7 +126,16 @@
 
                 <div class="footer-bottom">
                     <div class="container">
-                        <small>&copy; {{ 'copyright'|trans }}<a href="#">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a></small>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <small>&copy; {{ 'copyright'|trans }}
+                                    {#<a href="#">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>#}
+                                </small>
+                            </div>
+                            <div class="col-sm-6">
+                                {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -33,29 +33,34 @@ class IsMyGoalExtension extends \Twig_Extension
      * @param $type
      * @return bool
      */
-    public function isMyGoal(Goal $goal, User $user, $type)
+    public function isMyGoal(Goal $goal, $user, $type)
     {
-        // get user goals
-        $userGoals = $user->getUserGoal();
+        // check user
+        if($user instanceof User){
 
-        // check user count
-        if($userGoals->count() > 0){
+            // get user goals
+            $userGoals = $user->getUserGoal();
 
-            // get array from persist collection
-            $userGoalsArray = $userGoals->toArray();
+            // check user count
+            if($userGoals->count() > 0){
 
-            // check if in array
-            if(array_key_exists($goal->getId(), $userGoalsArray)){
+                // get array from persist collection
+                $userGoalsArray = $userGoals->toArray();
 
-                // get user current goal
-                $userGoal = $userGoalsArray[$goal->getId()];
+                // check if in array
+                if(array_key_exists($goal->getId(), $userGoalsArray)){
 
-                // if for add ro list return true
-                if($type == "add" || $userGoal ->getStatus() == UserGoal::COMPLETED ){
-                    return true;
+                    // get user current goal
+                    $userGoal = $userGoalsArray[$goal->getId()];
+
+                    // if for add ro list return true
+                    if($type == "add" || $userGoal ->getStatus() == UserGoal::COMPLETED ){
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
 

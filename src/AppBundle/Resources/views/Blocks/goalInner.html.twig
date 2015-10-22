@@ -47,7 +47,7 @@
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
                         <ul class="row  goal-links ">
-                        {% if page == inner and is_granted("ROLE_USER") %}
+                        {% if page == inner %}
                             {% if not isMyGoal(goal, app.user, "add") %}
                                 <li class="col-sm-6">
                                     <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
@@ -147,7 +147,7 @@
 
                             {% set stories = goal.getSuccessStories %}
 
-                            {% if stories %}
+                            {% if stories|length > 0 %}
                                 <h4>{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% for story in stories %}

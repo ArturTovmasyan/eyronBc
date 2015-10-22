@@ -6,11 +6,15 @@
     <div class="content-top">
         <div class="container">
             <div class="row">
+
                 <div class="col-sm-6">
-                    <a href="javascript:void(0)" data-ng-click="showMap = !showMap"> MAP
-                        <span class="glyphicon glyphicon-chevron-up ng-hide" data-ng-show="showMap"></span>
-                        <span class="glyphicon glyphicon-chevron-down" data-ng-hide="showMap"></span>
-                    </a>
+
+                    {% if 'travel' in app.request.get('category') %}
+                        <a href="javascript:void(0)" data-ng-click="showMap = !showMap"> MAP
+                            <span class="glyphicon glyphicon-chevron-up ng-hide" data-ng-show="showMap"></span>
+                            <span class="glyphicon glyphicon-chevron-down" data-ng-hide="showMap"></span>
+                        </a>
+                    {% endif %}
                 </div>
                 <div class="col-sm-6 text-right">
                     <button type="button"
@@ -28,10 +32,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="slide" data-ng-hide="showMap">
-            <div data-simple-map-marker style="width: 100%; height: 300px"></div>
-        </div>
+        {% if 'travel' in app.request.get('category') %}
+            <div class="slide" data-ng-hide="showMap">
+                <div data-simple-map-marker style="width: 100%; height: 300px"></div>
+            </div>
+        {% endif %}
     </div>
 
     <div class="container">

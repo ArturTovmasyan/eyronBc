@@ -1,5 +1,5 @@
 <ul class="row {% if inner is defined %} goal-links {% endif %} ">
-    {% if is_granted("ROLE_USER") %}
+    {#{% if is_granted("ROLE_USER") %}#}
 
         {% if not isMyGoal(goal, app.user, "add") %}
             <li class="col-sm-4">
@@ -16,7 +16,7 @@
                 </a>
             </li>
         {% endif %}
-    {% endif %}
+    {#{% endif %}#}
 
     {% if inner is not defined %}
         <li class="col-sm-4">

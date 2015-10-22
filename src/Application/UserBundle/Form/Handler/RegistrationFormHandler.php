@@ -53,6 +53,8 @@ class RegistrationFormHandler extends BaseHandler
      */
     protected function onSuccess(UserInterface $user, $confirmation)
     {
+        // get router
+        $router = $this->container->get('router');
 
         // get bl service
         $blService = $this->container->get('bl_service');
@@ -60,9 +62,28 @@ class RegistrationFormHandler extends BaseHandler
         // upload files
         $blService->uploadFile($user);
 
+        // generate token
+        $token = md5(microtime());
+
+        // set token
+        $user->setRegistrationToken($token);
+
+        // generate url
+        $url = $this->request->getHttpHost() . $router->generate("registration_confirm", array('token' => $token));
+
+        $html = "Click this <a href='$url'>link</a> to confirm your email";
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('test')
+            ->setFrom('test@test.am')
+            ->setCc($user->getEmail())
+            ->setContentType("text/plain; charset=UTF-8")
+            ->setBody($html, "text/plain");
+
+        $this->container->get('mailer')->send($message);
+
         // Note: if you plan on modifying the user then do it before calling the
         // parent method as the parent method will flush the changes
-
         parent::onSuccess($user, $confirmation);
 
         // otherwise add your functionality here
