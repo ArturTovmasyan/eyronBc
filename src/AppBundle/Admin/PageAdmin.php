@@ -59,8 +59,12 @@ class PageAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('description',  null, array('attr' => array('class' => 'tinymce')))
+//            ->add('name')
+//            ->add('description',  null, array('attr' => array('class' => 'tinymce')))
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'by_reference' => false,
+                'translatable_class' => 'AppBundle\Entity\Page',
+            ))
             ->add('position')
         ;
     }
