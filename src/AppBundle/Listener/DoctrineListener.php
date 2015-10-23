@@ -55,13 +55,21 @@ class DoctrineListener
         // get all images
         $images = $entity->getImages();
 
-        // check count
-        if(count($images )== 1){
+        // check images
+        if($images){
 
-            // and set primary to the first images, is images as one
+            // loop for images
+            foreach($images as $image){
+
+                // if cover is selected return
+                if($image->getList() == true){
+                    return;
+                }
+            }
+
+            // else set cover first
             $images->first()->setList(true);
         }
-
     }
 
     /**
@@ -72,10 +80,19 @@ class DoctrineListener
         // get all images
         $images = $entity->getImages();
 
-        // check count
-        if(count($images )== 1){
+        // check images
+        if($images){
 
-            // and set primary to the first images, is images as one
+            // loop for images
+            foreach($images as $image){
+
+                // if cover is selected return
+                if($image->getCover() == true){
+                    return;
+                }
+            }
+
+            // else set cover first
             $images->first()->setCover(true);
         }
 

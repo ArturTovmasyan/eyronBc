@@ -11,6 +11,7 @@ namespace AppBundle\Entity\Repository;
 use AppBundle\Entity\Goal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Class GoalRepository
@@ -28,9 +29,9 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.images', 'i')
+//                ->leftJoin('g.images', 'i')
                 ->leftJoin('g.userGoal', 'ug')
                 ->groupBy('g.id')
                 ->orderBy('cnt', 'desc')
