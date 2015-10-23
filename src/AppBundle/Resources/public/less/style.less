@@ -624,6 +624,7 @@ figure{
 
 .dropzone{
   margin:40px 0;
+  background: url('../images/drop_drag.png') no-repeat center 80px rgba(0,0,0,0.03) !important;
 }
 .inner-container{
   background-color: #d8d8d8;
@@ -900,11 +901,20 @@ footer{
 }
 
 .view-content{
-  background: url('../images/view.jpg') no-repeat center top;
-  background-size: 99%;
-  margin: 0 0 20px 0;
+  background: url('../images/view-old.jpg') no-repeat center top;
+  margin: 50px 0 20px 0;
+  min-height:800px;
+  padding:125px 10px 10px;
+  overflow: hidden;
 
+  .inner-container{
 
+    .goal-image{
+      img{
+        height:auto;
+      }
+    }
+  }
   div{
     overflow-x: hidden;
   }
