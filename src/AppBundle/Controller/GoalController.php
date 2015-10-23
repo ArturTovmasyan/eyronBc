@@ -43,11 +43,15 @@ class GoalController extends Controller
      * @param Request $request
      * @param $id
      * @return array
+     * @Secure(roles="ROLE_USER")
      */
     public function addAction(Request $request, $id = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
 
         // check id
         if($id){
@@ -113,8 +117,10 @@ class GoalController extends Controller
                             $goal->addImage($goalImage);
                         }
                     }
-
                 }
+
+                // set author
+                $goal->setAuthor($currentUser);
 
                 $em->persist($goal);
                 $em->flush();
@@ -162,14 +168,14 @@ class GoalController extends Controller
      */
     public function addImagesAction(Request $request)
     {
-        // empty data fro all images
-        $images = $result =  array();
-
         // get all files form request
-        $files = $request->files->get('file');
+        $file = $request->files->get('file');
 
         // check file
-        if($files){
+        if($file){
+
+            // get validator
+            $validator = $this->get('validator');
 
             // get entity manager
             $em = $this->getDoctrine()->getManager();
@@ -177,35 +183,34 @@ class GoalController extends Controller
             // get bucket list service
             $bucketService = $this->get('bl_service');
 
-            // loop for files
-            foreach($files as $file){
+            // create new goal image object
+            $goalImage = new GoalImage();
 
-                // create new goal image object
-                $goalImage = new GoalImage();
+            // set file
+            $goalImage->setFile($file);
 
-                // set file
-                $goalImage->setFile($file);
+            // validate goal image
+            $error = $validator->validate($goalImage);
+
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            }
+            else{ // upload image id there is no error
 
                 // upload file
                 $bucketService->uploadFile($goalImage);
 
                 $em->persist($goalImage);
-
-                // add to array
-                $images[] = $goalImage;
             }
+
             // flush data
             $em->flush();
-        }
+            return new JsonResponse($goalImage->getId(), Response::HTTP_OK);
 
-        if($images){
-            foreach($images as $image){
-                $result[] = $image->getId();
             }
-        }
 
-        return new JsonResponse($result, Response::HTTP_OK);
-
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
 
     /**

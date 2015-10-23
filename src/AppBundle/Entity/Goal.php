@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
+use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,6 +30,9 @@ class Goal implements MultipleFileInterface, PublishAware
     const INNER = "inner";
     const VIEW = "view";
 
+    // use location trait
+    use Location;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -37,11 +41,18 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $id;
 
     /**
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="description", type="string", nullable=true)
      */
     protected $description;
 
     /**
+     * @Assert\Length(
+     *      groups={"goal"},
+     *      min = 3,
+     *      max = 255,
+     *      minMessage = "Your title must be at least {{ limit }} characters long",
+     *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     protected $title;
@@ -67,6 +78,19 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist"})
      **/
     protected $userGoal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="authorGoals")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     **/
+    protected $author;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="editedGoals")
+     * @ORM\JoinColumn(name="editor_id", referencedColumnName="id")
+     **/
+    protected $editor;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
@@ -492,5 +516,51 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getSuccessStories()
     {
         return $this->successStories;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \Application\UserBundle\Entity\User $author
+     * @return Goal
+     */
+    public function setAuthor(\Application\UserBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Application\UserBundle\Entity\User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param \Application\UserBundle\Entity\User $editor
+     * @return Goal
+     */
+    public function setEditor(\Application\UserBundle\Entity\User $editor = null)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return \Application\UserBundle\Entity\User 
+     */
+    public function getEditor()
+    {
+        return $this->editor;
     }
 }

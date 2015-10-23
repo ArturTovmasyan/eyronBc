@@ -20,7 +20,7 @@ goal:
       public: Suggest as public
       agree: By checking you agree to ....
       preview: PREVIEW
-      pblish: PUBLISH
+      publish: PUBLISH
       description_title: Any word in title and description can be converted into a hashtag simply by placing a '#' sign in the beginning of the word.
       successfully_add: Your idea has been added successfully.
       congratulations: Congratulations!
@@ -65,3 +65,8 @@ success_story:
       files: Files
 
 register_text:  Please confirm your email
+file:
+    width_extension: File width mast be min 400 px
+    heigh_extension: File height mast be min 400 px
+    extension_error: Wrong format of file
+    size_error: Wrong size of file

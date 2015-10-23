@@ -80,7 +80,15 @@ class BucketListService
 
         // set file to null
         $object->setFile(null);
+    }
 
+    /**
+     * This function is used to generate files for tablet
+     *
+     * @param $object
+     */
+    public function generateFilesForApplication(&$object)
+    {
         // get original file
         $file = $object->getAbsolutePath() . $object->getFileName() ;
 
@@ -89,6 +97,12 @@ class BucketListService
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('mobile')['with'], $this->container->getParameter('mobile')['height'],
             \Imagick::FILTER_LANCZOS, 0.7, true);
+
+        // check if folder is not exist, create it
+        if (!file_exists($object->getAbsoluteMobilePath())) {
+            mkdir($object->getAbsoluteMobilePath(), 0777, true);
+        }
+
         $mobileFile = $object->getAbsoluteMobilePath() . $object->getFileName();
         $im->writeImage( $mobileFile );
         $im->clear();
@@ -99,9 +113,71 @@ class BucketListService
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('tablet')['with'], $this->container->getParameter('tablet')['height'],
             \Imagick::FILTER_LANCZOS, 0.7, true);
+
+        // check if folder is not exist, create it
+        if (!file_exists($object->getAbsoluteTabletPath())) {
+            mkdir($object->getAbsoluteTabletPath(), 0777, true);
+        }
+
         $tabletFile = $object->getAbsoluteTabletPath() . $object->getFileName();
         $im->writeImage( $tabletFile );
         $im->clear();
         $im->destroy();
+    }
+
+    /**
+     * This function is used to generate files for tablet
+     *
+     * @param $object
+     */
+    public function generateFileForCover(&$object)
+    {
+        // get original file
+        $file = $object->getAbsolutePath() . $object->getFileName() ;
+
+        // create imagick for mobile image
+        $im = new \Imagick($file);
+        $im->setImageCompressionQuality(100);
+        $im->resizeImage($this->container->getParameter('cover')['with'], $this->container->getParameter('cover')['height'],
+            \Imagick::FILTER_LANCZOS, 0.7, true);
+
+        // check if folder is not exist, create it
+        if (!file_exists($object->getAbsoluteCoverPath())) {
+            mkdir($object->getAbsoluteCoverPath(), 0777, true);
+        }
+
+        $coverFile = $object->getAbsoluteCoverPath() . $object->getFileName();
+        $im->writeImage( $coverFile );
+        $im->clear();
+        $im->destroy();
+
+    }
+
+    /**
+     * This function is used to generate files list
+     *
+     * @param $object
+     */
+    public function generateFileForList(&$object)
+    {
+        // get original file
+        $file = $object->getAbsolutePath() . $object->getFileName() ;
+
+        // create imagick for mobile image
+        $im = new \Imagick($file);
+        $im->setImageCompressionQuality(100);
+        $im->resizeImage($this->container->getParameter('list')['with'], $this->container->getParameter('list')['height'],
+            \Imagick::FILTER_LANCZOS, 0.7, true);
+
+        // check if folder is not exist, create it
+        if (!file_exists($object->getAbsoluteCoverPath())) {
+            mkdir($object->getAbsoluteCoverPath(), 0777, true);
+        }
+
+        $coverFile = $object->getAbsoluteCoverPath() . $object->getFileName();
+        $im->writeImage( $coverFile );
+        $im->clear();
+        $im->destroy();
+
     }
 }

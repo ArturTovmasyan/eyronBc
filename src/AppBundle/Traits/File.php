@@ -18,24 +18,24 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait File
 {
     /**
-     * @Assert\File(
-     *          groups={"success_story"},
-     *          maxSize="2000000",
-     *          mimeTypes = {
-     *              "image/png",
-     *              "image/jpeg",
-     *              "image/jpg",
-     *              "image/gif",
-     *          },
-     *          mimeTypesMessage = "file.extension_error",
-     *          maxSizeMessage = "file.size_error",
-     * )
      * @Assert\Image(
      *     groups={"Registration", "Profile", "Default"},
      *     minWidth = 400,
      *     minHeight = 400,
      *     minWidthMessage = "file.width_extension",
      *     minHeightMessage = "file.height_extension",
+     * )
+     *
+     * @Assert\Image(
+     *     groups={"goal", "success_story"},
+     *     minWidth = 640,
+     *     minHeight = 360,
+     *     mimeTypes = {
+     *         "image/gif",
+     *          },
+     *     minWidthMessage = "file.width_extension",
+     *     minHeightMessage = "file.height_extension",
+     *     mimeTypesMessage = "file.extension_error",
      * )
      */
     protected  $file;

@@ -36,7 +36,8 @@ class StoryImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\StoryImage'
+            'data_class' => 'AppBundle\Entity\StoryImage',
+            'validation_groups' => 'success_story'
         ));
     }
 

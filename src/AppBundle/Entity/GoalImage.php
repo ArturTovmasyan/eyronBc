@@ -26,6 +26,10 @@ class GoalImage
     // use file trait
     use File;
 
+    // constants for folder
+    const COVER = 'cover';
+    const F_LIST = 'list';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -125,6 +129,40 @@ class GoalImage
     protected function getTabletPath()
     {
         return $this->getPath() . '/tablet';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCoverPath()
+    {
+        return $this->getPath() . '/' .self::COVER;
+    }
+
+
+    /**
+     * @return string
+     */
+    protected function getListPath()
+    {
+        return $this->getPath() . '/' .self::F_LIST;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getAbsoluteCoverPath()
+    {
+        return $this->getUploadRootDir() . '/' . $this->getCoverPath() .'/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsoluteListPath()
+    {
+        return $this->getUploadRootDir() . '/' . $this->getListPath() .'/';
     }
 
     /**
