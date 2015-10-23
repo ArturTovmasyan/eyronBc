@@ -84,6 +84,18 @@ class UserGoal
     protected $doDate;
 
     /**
+     * @var
+     * @ORM\Column(name="completion_date", type="datetime", nullable=true)
+     */
+    protected $completionDate;
+
+    /**
+     * @var
+     * @ORM\Column(name="listed_date", type="datetime", nullable=true)
+     */
+    protected $listedDate;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      **/
@@ -370,5 +382,37 @@ class UserGoal
     public function getSteps()
     {
         return $this->steps;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompletionDate()
+    {
+        return $this->completionDate;
+    }
+
+    /**
+     * @param mixed $completionDate
+     */
+    public function setCompletionDate($completionDate)
+    {
+        $this->completionDate = $completionDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListedDate()
+    {
+        return $this->listedDate;
+    }
+
+    /**
+     * @param mixed $listedDate
+     */
+    public function setListedDate($listedDate)
+    {
+        $this->listedDate = $listedDate;
     }
 }

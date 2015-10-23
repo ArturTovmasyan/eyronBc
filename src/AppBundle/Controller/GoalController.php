@@ -313,6 +313,9 @@ class GoalController extends Controller
                 // set status to done
                 $userGoal->setStatus(UserGoal::COMPLETED);
 
+                // set date
+                $userGoal->setCompletionDate(new \DateTime());
+
                 // is clicked add story button
                 if(!is_null($request->get('add_story'))){
 
@@ -429,6 +432,9 @@ class GoalController extends Controller
 
                 // set status
                 $userGoal->setStatus(UserGoal::ACTIVE);
+
+                // set date
+                $userGoal->setListedDate(new \DateTime());
 
                 // set user
                 $userGoal->setUser($user);
