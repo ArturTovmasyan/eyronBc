@@ -553,7 +553,7 @@ input{
 
 figure{
   background-color: #cfcfcf;
-    a{
+    &>a{
       display: block;
       height:260px;
       overflow: hidden;
@@ -561,6 +561,12 @@ figure{
       img{
         width:100%;
       }
+
+      //&:hover{
+      //  -moz-box-shadow:    inset 0 0 10px #000000;
+      //  -webkit-box-shadow: inset 0 0 10px #000000;
+      //  box-shadow:         inset 0 0 10px #000000;
+      //}
     }
 
     .height{
@@ -595,6 +601,19 @@ figure{
           background-color: #e3e3e3;
           a{
             color:#7d7d7d;
+
+            &:hover{
+              color:#7d7d7d;
+              text-decoration: none;
+
+            }
+          }
+        }
+
+        &:focus,&:active{
+          background-color: #e3e3e3;
+          a{
+            color:#ffffff;
           }
         }
 
@@ -739,6 +758,13 @@ figure{
     color:#ffffff;
   }
 }
+
+.email{
+  margin-top: 19px;
+  background: transparent;
+  text-align:center;
+}
+
 footer{
   width:100%;
   position: absolute;
@@ -750,11 +776,6 @@ footer{
   small{
     display: block;
     padding: 15px 0;
-
-    a{
-      color:#ffffff;
-      padding-left: 10px;
-    }
   }
 
   ul{
@@ -765,6 +786,11 @@ footer{
       padding: 5px 25px;
       a{
         color:#ffffff;
+        text-transform: uppercase;
+
+        &:hover{
+          color:#7725f6;
+        }
       }
     }
   }
@@ -780,7 +806,8 @@ footer{
       a{
         padding-top: 19px;
         display: inline-block;
-        font-size: 13px
+        font-size: 13px;
+        text-transform: capitalize;
       }
     }
   }
