@@ -44,6 +44,10 @@ class GoalRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * @param $user
+     * @return array
+     */
     public function findMyDrafts($user)
     {
         $query =
@@ -77,7 +81,7 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
