@@ -311,7 +311,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * @return bool|mixed
      */
-    public function getPrimaryPhoto()
+    public function getListPhoto()
     {
         // get images
         $images = $this->getImages();
@@ -322,8 +322,33 @@ class Goal implements MultipleFileInterface, PublishAware
             // loop for images
             foreach($images as $image){
 
-                // check is primary
-                if($image->getPrimary()){
+                // check is list
+                if($image->getList()){
+                    return $image;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * @return bool|mixed
+     */
+    public function getCoverPhoto()
+    {
+        // get images
+        $images = $this->getImages();
+
+        // check images
+        if($images){
+
+            // loop for images
+            foreach($images as $image){
+
+                // check is cover
+                if($image->getCover()){
                     return $image;
                 }
             }

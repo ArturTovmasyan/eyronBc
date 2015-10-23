@@ -11,10 +11,10 @@
                 {% for goal in goals %}
                     <div class="col-sm-6 col-md-4">
                         <figure>
-                            {% set image = goal.getPrimaryPhoto %}
+                            {% set image = goal.getListPhoto %}
 
                             {% if image %}
-                                {% set image = goal.getPrimaryPhoto %}
+                                {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('add_goal', {'id': goal.id }) }}">
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>

@@ -69,9 +69,16 @@ function addTagFormDeleteLink($newFormLi)
     });
 }
 
-function toHidden(hiddenId)
+function toHiddenList(hiddenId)
 {
     console.log(hiddenId);
-    $(".bl_primary_hidden").val(0);
+    $(".bl_list_hidden").val(0);
+    $("#"+hiddenId).val(1);
+}
+
+function toHiddenCover(hiddenId)
+{
+    console.log(hiddenId);
+    $(".bl_cover_hidden").val(0);
     $("#"+hiddenId).val(1);
 }

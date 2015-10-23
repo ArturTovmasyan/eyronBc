@@ -3,9 +3,12 @@
 
 <div class="inner-container">
 
-    <figure class="goal-image">
-        <img  src="{{ asset('bundles/app/images/cover2.jpg') }}" alt="" />
-    </figure>
+    {% set cover = goal.getCoverPhoto %}
+    {% if cover %}
+        <figure class="goal-image">
+            <img  src="{{ cover.downloadLink }}" alt="{{ goal.title }}" />
+        </figure>
+    {% endif %}
 
     <div class="container">
         <div class="row">

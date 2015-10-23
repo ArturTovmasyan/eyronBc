@@ -46,10 +46,16 @@ class GoalImage
     protected $goal;
 
     /**
-     * @ORM\Column(type="smallint", name="primary_image", nullable=true)
+     * @ORM\Column(type="boolean", name="list_image", nullable=true)
      * @var
      */
-    protected $primary;
+    protected $list;
+
+    /**
+     * @ORM\Column(type="boolean", name="cover_image", nullable=true)
+     * @var
+     */
+    protected $cover;
 
     /**
      * @var
@@ -166,29 +172,6 @@ class GoalImage
     }
 
     /**
-     * Set primary
-     *
-     * @param boolean $primary
-     * @return GoalImage
-     */
-    public function setPrimary($primary)
-    {
-        $this->primary = $primary;
-
-        return $this;
-    }
-
-    /**
-     * Get primary
-     *
-     * @return boolean 
-     */
-    public function getPrimary()
-    {
-        return (Boolean)$this->primary;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -204,7 +187,7 @@ class GoalImage
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -227,10 +210,42 @@ class GoalImage
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param mixed $list
+     */
+    public function setList($list = 0)
+    {
+        $this->list = $list;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param mixed $cover
+     */
+    public function setCover($cover = 0)
+    {
+        $this->cover = $cover;
     }
 }
