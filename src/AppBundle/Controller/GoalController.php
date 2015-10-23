@@ -422,16 +422,16 @@ class GoalController extends Controller
                     $userGoal->setLng($location->location->longitude);
                 }
 
-                // check goal status
-                if(!$goal->getPublish()){
-
-                    // set to publish
-                    $goal->setPublish(Goal::PUBLISH);
-                }
-
-
                 // set status
                 $userGoal->setStatus(UserGoal::ACTIVE);
+
+                // if user is author, and goal is in draft
+                if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
+
+                    // set status to publish
+                    $goal->setReadinessStatus(Goal::TO_PUBLISH);
+                    $em->persist($goal);
+                }
 
                 // set date
                 $userGoal->setListedDate(new \DateTime());

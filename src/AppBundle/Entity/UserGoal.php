@@ -177,7 +177,7 @@ class UserGoal
      * @param integer $privacy
      * @return UserGoal
      */
-    public function setPrivacy($privacy)
+    public function setPrivacy($privacy = self::PUBLIC_PRIVACY)
     {
         $this->privacy = $privacy;
 

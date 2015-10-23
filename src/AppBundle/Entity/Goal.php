@@ -590,4 +590,23 @@ class Goal implements MultipleFileInterface, PublishAware
     {
         $this->readinessStatus = $readinessStatus;
     }
+
+
+    /**
+     * This function is used to check is user author if this goal
+     *
+     * @param $user
+     * @return bool
+     */
+    public function isAuthor($user)
+    {
+        // get author
+        $author = $this->getAuthor();
+
+        // check author
+        if($author && $author->getId() == $user->getId()){
+            return true;
+        }
+        return false;
+    }
 }
