@@ -574,6 +574,40 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("/drafts", name="goal_drafts")
+     * @Template()
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function draftAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
+
+        // get current user
+        $user = $currentUser;
+
+        // find all drafts goal
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($user);
+
+        // get paginator
+        $paginator  = $this->get('knp_paginator');
+
+        // paginate data
+        $pagination = $paginator->paginate(
+            $goals,
+            $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/
+        );
+
+        return array('goals' => $pagination);
+
+    }
+
+    /**
      * @Route("/remove-image/{filename}", name="remove_image")
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
      *   "mapping": {"filename": "fileName"},

@@ -22,9 +22,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Goal implements MultipleFileInterface, PublishAware
 {
-    // constants for privacy
-    const PUBLIC_PRIVACY = 1;
-    const PRIVATE_PRIVACY = 2;
+    // constants for privacy status
+    const PUBLIC_PRIVACY = true;
+    const PRIVATE_PRIVACY = false;
+
+    // constants for readinessStatus
+    const DRAFT = false;
+    const TO_PUBLISH = true;
+
 
     // constants for inner page
     const INNER = "inner";
@@ -103,15 +108,21 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      */
-    protected $status;
+    protected $status = self::PRIVATE_PRIVACY;
+
+    /**
+     * @var
+     * @ORM\Column(name="readiness_status", type="boolean", nullable=true)
+     */
+    protected $readinessStatus = self::DRAFT;
 
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean", nullable=true)
      */
-    protected $publish = false;
+    protected $publish = PublishAware::NOT_PUBLISH;
 
     /**
      * @var
@@ -562,5 +573,21 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getEditor()
     {
         return $this->editor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReadinessStatus()
+    {
+        return $this->readinessStatus;
+    }
+
+    /**
+     * @param mixed $readinessStatus
+     */
+    public function setReadinessStatus($readinessStatus)
+    {
+        $this->readinessStatus = $readinessStatus;
     }
 }

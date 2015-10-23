@@ -14,7 +14,8 @@ namespace AppBundle\Model;
  */
 interface PublishAware
 {
-    const PUBLISH = 1;
+    const PUBLISH = true;
+    const NOT_PUBLISH = false;
 
     /**
      * @param bool $publish
