@@ -19,6 +19,7 @@ trait File
 {
     /**
      * @Assert\File(
+     *          groups={"success_story"},
      *          maxSize="2000000",
      *          mimeTypes = {
      *              "image/png",
@@ -28,6 +29,13 @@ trait File
      *          },
      *          mimeTypesMessage = "file.extension_error",
      *          maxSizeMessage = "file.size_error",
+     * )
+     * @Assert\Image(
+     *     groups={"Registration", "Profile", "Default"},
+     *     minWidth = 400,
+     *     minHeight = 400,
+     *     minWidthMessage = "file.width_extension",
+     *     minHeightMessage = "file.height_extension",
      * )
      */
     protected  $file;
