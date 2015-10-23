@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
+use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,13 +22,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Goal implements MultipleFileInterface, PublishAware
 {
-    // constants for privacy
-    const PUBLIC_PRIVACY = 1;
-    const PRIVATE_PRIVACY = 2;
+    // constants for privacy status
+    const PUBLIC_PRIVACY = true;
+    const PRIVATE_PRIVACY = false;
+
+    // constants for readinessStatus
+    const DRAFT = false;
+    const TO_PUBLISH = true;
+
 
     // constants for inner page
     const INNER = "inner";
     const VIEW = "view";
+
+    // use location trait
+    use Location;
 
     /**
      * @ORM\Id
@@ -37,11 +46,18 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $id;
 
     /**
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="description", type="string", nullable=true)
      */
     protected $description;
 
     /**
+     * @Assert\Length(
+     *      groups={"goal"},
+     *      min = 3,
+     *      max = 255,
+     *      minMessage = "Your title must be at least {{ limit }} characters long",
+     *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     protected $title;
@@ -69,6 +85,19 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $userGoal;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="authorGoals")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     **/
+    protected $author;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="editedGoals")
+     * @ORM\JoinColumn(name="editor_id", referencedColumnName="id")
+     **/
+    protected $editor;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      * @ORM\JoinTable(name="goals_tags",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
@@ -79,15 +108,21 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      */
-    protected $status;
+    protected $status = self::PRIVATE_PRIVACY;
+
+    /**
+     * @var
+     * @ORM\Column(name="readiness_status", type="boolean", nullable=true)
+     */
+    protected $readinessStatus = self::DRAFT;
 
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean", nullable=true)
      */
-    protected $publish = false;
+    protected $publish = PublishAware::NOT_PUBLISH;
 
     /**
      * @var
@@ -276,7 +311,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * @return bool|mixed
      */
-    public function getPrimaryPhoto()
+    public function getListPhoto()
     {
         // get images
         $images = $this->getImages();
@@ -287,8 +322,33 @@ class Goal implements MultipleFileInterface, PublishAware
             // loop for images
             foreach($images as $image){
 
-                // check is primary
-                if($image->getPrimary()){
+                // check is list
+                if($image->getList()){
+                    return $image;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * @return bool|mixed
+     */
+    public function getCoverPhoto()
+    {
+        // get images
+        $images = $this->getImages();
+
+        // check images
+        if($images){
+
+            // loop for images
+            foreach($images as $image){
+
+                // check is cover
+                if($image->getCover()){
                     return $image;
                 }
             }
@@ -492,5 +552,86 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getSuccessStories()
     {
         return $this->successStories;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \Application\UserBundle\Entity\User $author
+     * @return Goal
+     */
+    public function setAuthor(\Application\UserBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Application\UserBundle\Entity\User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param \Application\UserBundle\Entity\User $editor
+     * @return Goal
+     */
+    public function setEditor(\Application\UserBundle\Entity\User $editor = null)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return \Application\UserBundle\Entity\User 
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReadinessStatus()
+    {
+        return $this->readinessStatus;
+    }
+
+    /**
+     * @param mixed $readinessStatus
+     */
+    public function setReadinessStatus($readinessStatus)
+    {
+        $this->readinessStatus = $readinessStatus;
+    }
+
+
+    /**
+     * This function is used to check is user author if this goal
+     *
+     * @param $user
+     * @return bool
+     */
+    public function isAuthor($user)
+    {
+        // get author
+        $author = $this->getAuthor();
+
+        // check author
+        if($author && $author->getId() == $user->getId()){
+            return true;
+        }
+        return false;
     }
 }

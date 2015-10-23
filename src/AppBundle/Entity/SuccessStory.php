@@ -69,6 +69,12 @@ class SuccessStory
      */
     protected $story;
 
+
+    /**
+     * @ORM\Column(name="video_link", type="string")
+     */
+    protected $videoLink;
+
     /**
      * Get id
      *
@@ -233,5 +239,28 @@ class SuccessStory
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set videoLink
+     *
+     * @param string $videoLink
+     * @return SuccessStory
+     */
+    public function setVideoLink($videoLink)
+    {
+        $this->videoLink = $videoLink;
+
+        return $this;
+    }
+
+    /**
+     * Get videoLink
+     *
+     * @return string 
+     */
+    public function getVideoLink()
+    {
+        return $this->videoLink;
     }
 }

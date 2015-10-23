@@ -48,10 +48,10 @@
                 {% for goal in goals|slice(0, 3)  %}
                     <div class="col-sm-6 col-md-4">
                         <figure>
-                            {% set image = goal.getPrimaryPhoto %}
+                            {% set image = goal.getListPhoto %}
 
                             {% if image %}
-                                {% set image = goal.getPrimaryPhoto %}
+                                {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}">
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
@@ -71,10 +71,10 @@
 
                     <div class="col-md-{{ loop.first ?  4 : 8 }}">
                         <figure>
-                            {% set image = goal.getPrimaryPhoto %}
+                            {% set image = goal.getListPhoto %}
 
                             {% if image %}
-                                {% set image = goal.getPrimaryPhoto %}
+                                {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" >
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
@@ -95,10 +95,10 @@
 
                     <div class="col-md-{{ loop.first ?  8 : 4 }}">
                         <figure>
-                            {% set image = goal.getPrimaryPhoto %}
+                            {% set image = goal.getListPhoto %}
 
                             {% if image %}
-                                {% set image = goal.getPrimaryPhoto %}
+                                {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" class="height">
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="{{ loop.first ?  713 : 346 }}" alt="{{ goal.title }}"/>

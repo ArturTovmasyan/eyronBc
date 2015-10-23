@@ -43,11 +43,15 @@ class GoalController extends Controller
      * @param Request $request
      * @param $id
      * @return array
+     * @Secure(roles="ROLE_USER")
      */
     public function addAction(Request $request, $id = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
 
         // check id
         if($id){
@@ -113,8 +117,10 @@ class GoalController extends Controller
                             $goal->addImage($goalImage);
                         }
                     }
-
                 }
+
+                // set author
+                $goal->setAuthor($currentUser);
 
                 $em->persist($goal);
                 $em->flush();
@@ -162,14 +168,14 @@ class GoalController extends Controller
      */
     public function addImagesAction(Request $request)
     {
-        // empty data fro all images
-        $images = $result =  array();
-
         // get all files form request
-        $files = $request->files->get('file');
+        $file = $request->files->get('file');
 
         // check file
-        if($files){
+        if($file){
+
+            // get validator
+            $validator = $this->get('validator');
 
             // get entity manager
             $em = $this->getDoctrine()->getManager();
@@ -177,35 +183,34 @@ class GoalController extends Controller
             // get bucket list service
             $bucketService = $this->get('bl_service');
 
-            // loop for files
-            foreach($files as $file){
+            // create new goal image object
+            $goalImage = new GoalImage();
 
-                // create new goal image object
-                $goalImage = new GoalImage();
+            // set file
+            $goalImage->setFile($file);
 
-                // set file
-                $goalImage->setFile($file);
+            // validate goal image
+            $error = $validator->validate($goalImage);
+
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            }
+            else{ // upload image id there is no error
 
                 // upload file
                 $bucketService->uploadFile($goalImage);
 
                 $em->persist($goalImage);
-
-                // add to array
-                $images[] = $goalImage;
             }
+
             // flush data
             $em->flush();
-        }
+            return new JsonResponse($goalImage->getId(), Response::HTTP_OK);
 
-        if($images){
-            foreach($images as $image){
-                $result[] = $image->getId();
             }
-        }
 
-        return new JsonResponse($result, Response::HTTP_OK);
-
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -307,6 +312,9 @@ class GoalController extends Controller
 
                 // set status to done
                 $userGoal->setStatus(UserGoal::COMPLETED);
+
+                // set date
+                $userGoal->setCompletionDate(new \DateTime());
 
                 // is clicked add story button
                 if(!is_null($request->get('add_story'))){
@@ -414,16 +422,19 @@ class GoalController extends Controller
                     $userGoal->setLng($location->location->longitude);
                 }
 
-                // check goal status
-                if(!$goal->getPublish()){
-
-                    // set to publish
-                    $goal->setPublish(Goal::PUBLISH);
-                }
-
-
                 // set status
                 $userGoal->setStatus(UserGoal::ACTIVE);
+
+                // if user is author, and goal is in draft
+                if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
+
+                    // set status to publish
+                    $goal->setReadinessStatus(Goal::TO_PUBLISH);
+                    $em->persist($goal);
+                }
+
+                // set date
+                $userGoal->setListedDate(new \DateTime());
 
                 // set user
                 $userGoal->setUser($user);
@@ -566,6 +577,40 @@ class GoalController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * @Route("/drafts", name="goal_drafts")
+     * @Template()
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function draftAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $currentUser = $this->getUser();
+
+        // get current user
+        $user = $currentUser;
+
+        // find all drafts goal
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($user);
+
+        // get paginator
+        $paginator  = $this->get('knp_paginator');
+
+        // paginate data
+        $pagination = $paginator->paginate(
+            $goals,
+            $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/
+        );
+
+        return array('goals' => $pagination);
+
     }
 
     /**

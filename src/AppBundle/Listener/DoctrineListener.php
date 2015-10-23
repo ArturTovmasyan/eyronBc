@@ -30,7 +30,8 @@ class DoctrineListener
 
             // check entity
             if($entity instanceof Goal){
-                $this->setPrimary($entity);
+                $this->setList($entity);
+                $this->setCover($entity);
             }
         }
 
@@ -39,7 +40,8 @@ class DoctrineListener
 
             // check entity
             if($entity instanceof Goal){
-                $this->setPrimary($entity);
+                $this->setList($entity);
+                $this->setCover($entity);
             }
         }
     }
@@ -48,16 +50,50 @@ class DoctrineListener
     /**
      * @param $entity
      */
-    private function setPrimary(&$entity)
+    private function setList(&$entity)
     {
         // get all images
         $images = $entity->getImages();
 
-        // check count
-        if(count($images )== 1){
+        // check images
+        if($images){
 
-            // and set primary to the first images, is images as one
-            $images->first()->setPrimary(true);
+            // loop for images
+            foreach($images as $image){
+
+                // if cover is selected return
+                if($image->getList() == true){
+                    return;
+                }
+            }
+
+            // else set cover first
+            $images->first()->setList(true);
+        }
+    }
+
+    /**
+     * @param $entity
+     */
+    private function setCover(&$entity)
+    {
+        // get all images
+        $images = $entity->getImages();
+
+        // check images
+        if($images){
+
+            // loop for images
+            foreach($images as $image){
+
+                // if cover is selected return
+                if($image->getCover() == true){
+                    return;
+                }
+            }
+
+            // else set cover first
+            $images->first()->setCover(true);
         }
 
     }

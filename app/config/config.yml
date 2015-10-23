@@ -16,6 +16,12 @@ parameters:
     mobile:
         with: 480
         height: 320
+    list:
+        with: 320
+        height: 180
+    cover:
+        with: 1024
+        height: 768
 
 framework:
     #esi:             ~

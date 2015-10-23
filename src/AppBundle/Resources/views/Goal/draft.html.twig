@@ -1,0 +1,40 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text-center"> {{ 'goal.drafts'|trans }}</h2>
+
+        {% if goals.getTotalItemCount > 0 %}
+
+            <div class="row">
+                {% for goal in goals %}
+                    <div class="col-sm-6 col-md-4">
+                        <figure>
+                            {% set image = goal.getListPhoto %}
+
+                            {% if image %}
+                                {% set image = goal.getListPhoto %}
+                            {% endif %}
+                            <a href="{{ path('add_goal', {'id': goal.id }) }}">
+                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                            </a>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>
+                {{ 'goal.not_found'|trans }}
+
+            </p>
+        {% endif %}
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(goals) }}
+        </div>
+
+    </div>
+
+{% endblock %}

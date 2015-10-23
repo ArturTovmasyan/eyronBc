@@ -26,6 +26,10 @@ class GoalImage
     // use file trait
     use File;
 
+    // constants for folder
+    const COVER = 'cover';
+    const F_LIST = 'list';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -42,10 +46,16 @@ class GoalImage
     protected $goal;
 
     /**
-     * @ORM\Column(type="smallint", name="primary_image", nullable=true)
+     * @ORM\Column(type="boolean", name="list_image", nullable=true)
      * @var
      */
-    protected $primary;
+    protected $list;
+
+    /**
+     * @ORM\Column(type="boolean", name="cover_image", nullable=true)
+     * @var
+     */
+    protected $cover;
 
     /**
      * @var
@@ -128,26 +138,37 @@ class GoalImage
     }
 
     /**
-     * Set primary
-     *
-     * @param boolean $primary
-     * @return GoalImage
+     * @return string
      */
-    public function setPrimary($primary)
+    protected function getCoverPath()
     {
-        $this->primary = $primary;
+        return $this->getPath() . '/' .self::COVER;
+    }
 
-        return $this;
+
+    /**
+     * @return string
+     */
+    protected function getListPath()
+    {
+        return $this->getPath() . '/' .self::F_LIST;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getAbsoluteCoverPath()
+    {
+        return $this->getUploadRootDir() . '/' . $this->getCoverPath() .'/';
     }
 
     /**
-     * Get primary
-     *
-     * @return boolean 
+     * @return string
      */
-    public function getPrimary()
+    public function getAbsoluteListPath()
     {
-        return (Boolean)$this->primary;
+        return $this->getUploadRootDir() . '/' . $this->getListPath() .'/';
     }
 
     /**
@@ -166,7 +187,7 @@ class GoalImage
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -189,10 +210,42 @@ class GoalImage
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param mixed $list
+     */
+    public function setList($list = 0)
+    {
+        $this->list = $list;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param mixed $cover
+     */
+    public function setCover($cover = 0)
+    {
+        $this->cover = $cover;
     }
 }

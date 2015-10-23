@@ -16,7 +16,7 @@ trait Location
 {
 
     /**
-     * @ORM\Column(type="smallint", name="address", nullable=true)
+     * @ORM\Column(type="string", name="address", nullable=true)
      * @var
      */
     protected $address;

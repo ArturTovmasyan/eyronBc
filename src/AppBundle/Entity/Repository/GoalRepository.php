@@ -8,8 +8,10 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\Goal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Class GoalRepository
@@ -27,9 +29,9 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.images', 'i')
+//                ->leftJoin('g.images', 'i')
                 ->leftJoin('g.userGoal', 'ug')
                 ->groupBy('g.id')
                 ->orderBy('cnt', 'desc')
@@ -39,6 +41,26 @@ class GoalRepository extends EntityRepository
             $query
                 ->setMaxResults($count);
         }
+        return $query->getQuery()->getResult();
+    }
+
+    public function findMyDrafts($user)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('g')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->leftJoin('ug.user', 'ugu')
+                ->leftJoin('g.author', 'a')
+                ->where('a.id = :user or ugu.id = :user ')
+                ->andWhere('g.readinessStatus = :status')
+                ->setParameter('user', $user)
+                ->setParameter('status', Goal::DRAFT)
+        ;
+
         return $query->getQuery()->getResult();
     }
 

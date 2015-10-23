@@ -37,6 +37,17 @@ class User extends BaseUser
      **/
     protected $userGoal;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Goal", indexBy="goal_id", mappedBy="author", cascade={"persist"})
+     **/
+    protected $authorGoals;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Goal", indexBy="goal_id", mappedBy="editor", cascade={"persist"})
+     **/
+    protected $editedGoals;
+
 
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
@@ -511,5 +522,73 @@ class User extends BaseUser
     public function getRegistrationToken()
     {
         return $this->registrationToken;
+    }
+
+    /**
+     * Add authorGoals
+     *
+     * @param \AppBundle\Entity\Goal $authorGoals
+     * @return User
+     */
+    public function addAuthorGoal(\AppBundle\Entity\Goal $authorGoals)
+    {
+        $this->authorGoals[] = $authorGoals;
+        $authorGoals->setAuthor($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove authorGoals
+     *
+     * @param \AppBundle\Entity\Goal $authorGoals
+     */
+    public function removeAuthorGoal(\AppBundle\Entity\Goal $authorGoals)
+    {
+        $this->authorGoals->removeElement($authorGoals);
+    }
+
+    /**
+     * Get authorGoals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAuthorGoals()
+    {
+        return $this->authorGoals;
+    }
+
+    /**
+     * Add editedGoals
+     *
+     * @param \AppBundle\Entity\Goal $editedGoals
+     * @return User
+     */
+    public function addEditedGoal(\AppBundle\Entity\Goal $editedGoals)
+    {
+        $this->editedGoals[] = $editedGoals;
+        $editedGoals->setEditor($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove editedGoals
+     *
+     * @param \AppBundle\Entity\Goal $editedGoals
+     */
+    public function removeEditedGoal(\AppBundle\Entity\Goal $editedGoals)
+    {
+        $this->editedGoals->removeElement($editedGoals);
+    }
+
+    /**
+     * Get editedGoals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEditedGoals()
+    {
+        return $this->editedGoals;
     }
 }

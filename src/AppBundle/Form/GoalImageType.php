@@ -26,7 +26,8 @@ class GoalImageType extends AbstractType
     {
         $builder
             ->add('file', 'file', array('label'=>false))
-            ->add('primary', 'hidden')
+            ->add('list', 'hidden')
+            ->add('cover', 'hidden')
         ;
     }
 
