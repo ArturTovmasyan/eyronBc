@@ -9,15 +9,8 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\HttpFoundation\Response;
-
 
 /**
  * Class BucketListController
@@ -27,31 +20,20 @@ class BucketListController extends Controller
 {
     /**
      * @Route("/my-list", name="my_list")
-     * @param Request $request
-     * @param $category
      * @Template()
      * @return array
      */
-    public function myListAction(Request $request, $category = null)
+    public function myListAction()
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get current user
+        $user = $this->getUser();
 
-//        // find all goals
-//        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search);
-//
-//        // get paginator
-//        $paginator  = $this->get('knp_paginator');
-//
-//        // paginate data
-//        $pagination = $paginator->paginate(
-//            $goals,
-//            $request->query->getInt('page', 1)/*page number*/,
-//            7/*limit per page*/
-//        );
+        // find all goals
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByUser($user);
 
-//        return array('goals' => $pagination, 'categories' => $categories);
-        return array();
+        return array('goals' => $goals);
     }
 }

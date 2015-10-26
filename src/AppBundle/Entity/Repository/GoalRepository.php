@@ -69,6 +69,30 @@ class GoalRepository extends EntityRepository
     }
 
     /**
+     * @param $user
+     * @return array
+     */
+    public function findAllByUser($user)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('g')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->leftJoin('ug.user', 'ugu')
+                ->leftJoin('g.author', 'a')
+                ->where('a.id = :user or ugu.id = :user ')
+                ->andWhere('g.readinessStatus = :status')
+                ->setParameter('user', $user)
+                ->setParameter('status', Goal::TO_PUBLISH)
+        ;
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
      * @param $category
      * @param $search
      * @return mixed
@@ -76,8 +100,6 @@ class GoalRepository extends EntityRepository
      */
     public function findAllByCategory($category = null, $search = null)
     {
-        //COUNT(lead) as HIDDEN cnt
-
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
