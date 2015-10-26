@@ -85,7 +85,7 @@ class DoctrineListener
             $images = $goal->getImages();
 
             // check images
-            if($images){
+            if($images->count() > 0){
 
                 // loop for images
                 foreach($images as $image){
@@ -123,7 +123,7 @@ class DoctrineListener
             $images = $goal->getImages();
 
             // check images
-            if($images){
+            if($images->count() > 0){
 
                 // loop for images
                 foreach($images as $image){
