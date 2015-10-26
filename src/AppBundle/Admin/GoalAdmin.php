@@ -97,7 +97,7 @@ class GoalAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function postUpdate($object)
+    public function preUpdate($object)
     {
         $this->getAndAddTags($object);
         $this->addImages($object);

@@ -10,10 +10,27 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Services\BucketListService;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Symfony\Component\DependencyInjection\Container;
 
 class DoctrineListener
 {
+    /**
+     * @var
+     */
+    public $container;
+
+
+    /**
+     * @param Container $container
+     */
+    function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+
     /**
      * @param OnFlushEventArgs $args
      */
@@ -33,13 +50,18 @@ class DoctrineListener
                 $this->setList($entity);
                 $this->setCover($entity);
             }
+            // check entity
+            if($entity instanceof GoalImage){
+                $this->setList($entity);
+                $this->setCover($entity);
+            }
         }
 
         // for update
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
             // check entity
-            if($entity instanceof Goal){
+            if($entity instanceof GoalImage){
                 $this->setList($entity);
                 $this->setCover($entity);
             }
@@ -50,51 +72,76 @@ class DoctrineListener
     /**
      * @param $entity
      */
-    private function setList(&$entity)
+    private function setList($entity)
     {
-        // get all images
-        $images = $entity->getImages();
+        // get bl service
+        $blService = $this->container->get('bl_service');
 
-        // check images
-        if($images){
+        // get goal
+        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
 
-            // loop for images
-            foreach($images as $image){
+        if($goal){
+            // get all images
+            $images = $goal->getImages();
 
-                // if cover is selected return
-                if($image->getList() == true){
-                    return;
+            // check images
+            if($images){
+
+                // loop for images
+                foreach($images as $image){
+
+                    // if cover is selected return
+                    if($image->getList() == true){
+                        $blService->generateFileForList($image);
+                        return;
+                    }
                 }
-            }
 
-            // else set cover first
-            $images->first()->setList(true);
+                // else set cover first
+                $images->first()->setList(true);
+                $blService->generateFileForList($images->first());
+            }
+        }
+        elseif($entity->getList() == true){
+            $blService->generateFileForList($entity);
         }
     }
 
     /**
      * @param $entity
      */
-    private function setCover(&$entity)
+    private function setCover($entity)
     {
-        // get all images
-        $images = $entity->getImages();
+        // get bl service
+        $blService = $this->container->get('bl_service');
 
-        // check images
-        if($images){
+        // get goal
+        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
 
-            // loop for images
-            foreach($images as $image){
+        if($goal){
+            // get all images
+            $images = $goal->getImages();
 
-                // if cover is selected return
-                if($image->getCover() == true){
-                    return;
+            // check images
+            if($images){
+
+                // loop for images
+                foreach($images as $image){
+
+                    // if cover is selected return
+                    if($image->getCover() == true){
+                        $blService->generateFileForCover($image);
+                        return;
+                    }
                 }
+
+                // else set cover first
+                $images->first()->setCover(true);
+                $blService->generateFileForCover($images->first());
             }
-
-            // else set cover first
-            $images->first()->setCover(true);
         }
-
+        elseif($entity->getCover() == true){
+            $blService->generateFileForCover($entity);
+        }
     }
 }
