@@ -10,10 +10,27 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Services\BucketListService;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Symfony\Component\DependencyInjection\Container;
 
 class DoctrineListener
 {
+    /**
+     * @var
+     */
+    public $container;
+
+
+    /**
+     * @param Container $container
+     */
+    function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+
     /**
      * @param OnFlushEventArgs $args
      */
@@ -43,6 +60,12 @@ class DoctrineListener
                 $this->setList($entity);
                 $this->setCover($entity);
             }
+
+            // check entity
+            if($entity instanceof GoalImage){
+                $this->setList($entity->getGoal());
+                $this->setCover($entity->getGoal());
+            }
         }
     }
 
@@ -50,8 +73,11 @@ class DoctrineListener
     /**
      * @param $entity
      */
-    private function setList(&$entity)
+    private function setList($entity)
     {
+        // get bl service
+        $blService = $this->container->get('bl_service');
+
         // get all images
         $images = $entity->getImages();
 
@@ -63,20 +89,25 @@ class DoctrineListener
 
                 // if cover is selected return
                 if($image->getList() == true){
+                    $blService->generateFileForList($image);
                     return;
                 }
             }
 
             // else set cover first
             $images->first()->setList(true);
+            $blService->generateFileForList($images->first());
         }
     }
 
     /**
      * @param $entity
      */
-    private function setCover(&$entity)
+    private function setCover($entity)
     {
+        // get bl service
+        $blService = $this->container->get('bl_service');
+
         // get all images
         $images = $entity->getImages();
 
@@ -88,13 +119,14 @@ class DoctrineListener
 
                 // if cover is selected return
                 if($image->getCover() == true){
+                    $blService->generateFileForCover($image);
                     return;
                 }
             }
 
             // else set cover first
             $images->first()->setCover(true);
+            $blService->generateFileForCover($images->first());
         }
-
     }
 }

@@ -96,7 +96,7 @@ class BucketListService
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('mobile')['with'], $this->container->getParameter('mobile')['height'],
-            \Imagick::FILTER_LANCZOS, 0.7, true);
+            \Imagick::FILTER_LANCZOS, 0.7, false);
 
         // check if folder is not exist, create it
         if (!file_exists($object->getAbsoluteMobilePath())) {
@@ -112,7 +112,7 @@ class BucketListService
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('tablet')['with'], $this->container->getParameter('tablet')['height'],
-            \Imagick::FILTER_LANCZOS, 0.7, true);
+            \Imagick::FILTER_LANCZOS, 0.7, false);
 
         // check if folder is not exist, create it
         if (!file_exists($object->getAbsoluteTabletPath())) {
@@ -130,7 +130,7 @@ class BucketListService
      *
      * @param $object
      */
-    public function generateFileForCover(&$object)
+    public function generateFileForCover($object)
     {
         // get original file
         $file = $object->getAbsolutePath() . $object->getFileName() ;
@@ -139,7 +139,7 @@ class BucketListService
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('cover')['with'], $this->container->getParameter('cover')['height'],
-            \Imagick::FILTER_LANCZOS, 0.7, true);
+            \Imagick::FILTER_LANCZOS, 0.7, false);
 
         // check if folder is not exist, create it
         if (!file_exists($object->getAbsoluteCoverPath())) {
@@ -154,11 +154,11 @@ class BucketListService
     }
 
     /**
-     * This function is used to generate files list
+     * This function is used to generate files for tablet
      *
      * @param $object
      */
-    public function generateFileForList(&$object)
+    public function generateFileForList($object)
     {
         // get original file
         $file = $object->getAbsolutePath() . $object->getFileName() ;
@@ -167,14 +167,14 @@ class BucketListService
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
         $im->resizeImage($this->container->getParameter('list')['with'], $this->container->getParameter('list')['height'],
-            \Imagick::FILTER_LANCZOS, 0.7, true);
+            \Imagick::FILTER_LANCZOS, 0.7, false);
 
         // check if folder is not exist, create it
-        if (!file_exists($object->getAbsoluteCoverPath())) {
-            mkdir($object->getAbsoluteCoverPath(), 0777, true);
+        if (!file_exists($object->getAbsoluteListPath())) {
+            mkdir($object->getAbsoluteListPath(), 0777, true);
         }
 
-        $coverFile = $object->getAbsoluteCoverPath() . $object->getFileName();
+        $coverFile = $object->getAbsoluteListPath() . $object->getFileName();
         $im->writeImage( $coverFile );
         $im->clear();
         $im->destroy();
