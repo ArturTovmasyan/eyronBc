@@ -50,21 +50,20 @@ class DoctrineListener
                 $this->setList($entity);
                 $this->setCover($entity);
             }
+            // check entity
+            if($entity instanceof GoalImage){
+                $this->setList($entity);
+                $this->setCover($entity);
+            }
         }
 
         // for update
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
             // check entity
-            if($entity instanceof Goal){
+            if($entity instanceof GoalImage){
                 $this->setList($entity);
                 $this->setCover($entity);
-            }
-
-            // check entity
-            if($entity instanceof GoalImage){
-                $this->setList($entity->getGoal());
-                $this->setCover($entity->getGoal());
             }
         }
     }
@@ -78,25 +77,33 @@ class DoctrineListener
         // get bl service
         $blService = $this->container->get('bl_service');
 
-        // get all images
-        $images = $entity->getImages();
+        // get goal
+        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
 
-        // check images
-        if($images){
+        if($goal){
+            // get all images
+            $images = $goal->getImages();
 
-            // loop for images
-            foreach($images as $image){
+            // check images
+            if($images){
 
-                // if cover is selected return
-                if($image->getList() == true){
-                    $blService->generateFileForList($image);
-                    return;
+                // loop for images
+                foreach($images as $image){
+
+                    // if cover is selected return
+                    if($image->getList() == true){
+                        $blService->generateFileForList($image);
+                        return;
+                    }
                 }
-            }
 
-            // else set cover first
-            $images->first()->setList(true);
-            $blService->generateFileForList($images->first());
+                // else set cover first
+                $images->first()->setList(true);
+                $blService->generateFileForList($images->first());
+            }
+        }
+        elseif($entity->getList() == true){
+            $blService->generateFileForList($entity);
         }
     }
 
@@ -108,25 +115,33 @@ class DoctrineListener
         // get bl service
         $blService = $this->container->get('bl_service');
 
-        // get all images
-        $images = $entity->getImages();
+        // get goal
+        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
 
-        // check images
-        if($images){
+        if($goal){
+            // get all images
+            $images = $goal->getImages();
 
-            // loop for images
-            foreach($images as $image){
+            // check images
+            if($images){
 
-                // if cover is selected return
-                if($image->getCover() == true){
-                    $blService->generateFileForCover($image);
-                    return;
+                // loop for images
+                foreach($images as $image){
+
+                    // if cover is selected return
+                    if($image->getCover() == true){
+                        $blService->generateFileForCover($image);
+                        return;
+                    }
                 }
-            }
 
-            // else set cover first
-            $images->first()->setCover(true);
-            $blService->generateFileForCover($images->first());
+                // else set cover first
+                $images->first()->setCover(true);
+                $blService->generateFileForCover($images->first());
+            }
+        }
+        elseif($entity->getCover() == true){
+            $blService->generateFileForCover($entity);
         }
     }
 }
