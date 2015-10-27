@@ -1,4 +1,5 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "AppBundle::layout_top.html.twig" %}
+
 
 {% block angularApp %} <html ng-app="goal" ng-controller="goalAdd"> {% endblock %}
 
@@ -9,7 +10,57 @@
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
+{% block content_header %}
+
+    <div class="content-header">
+        <figure>
+            <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+        </figure>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9">
+
+                    <h2>{{ goal.title }}</h2>
+                    <p>{{ goal.author.showName }}</p>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <a href="#">
+                                {{ 'listed_by'|trans | upper }}
+                                <span>{{ listedByUsers|length }}</span>
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <a href="#">
+                                {{ 'done_by'|trans | upper }}
+                                <span>{{ doneByUsers|length }}</span>
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 text-right">
+                    <a href="#" class="border forget">
+                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content_container %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">

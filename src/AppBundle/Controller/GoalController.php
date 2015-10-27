@@ -337,6 +337,12 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // get users that done this goal
+        $doneByUsers = $em->getRepository("ApplicationUserBundle:User")->findDoneBy($goal);
+
+        // get users that listed this goal
+        $listedByUsers = $em->getRepository("ApplicationUserBundle:User")->findListedBy($goal);
+
         // get current user
         $user = $this->getUser();
 
@@ -394,7 +400,12 @@ class GoalController extends Controller
             }
         }
 
-        return array('form' => $form->createView());
+        return array(
+            'form' => $form->createView(),
+            'goal' => $goal,
+            'doneByUsers' => $doneByUsers,
+            'listedByUsers' => $listedByUsers,
+        );
     }
 
     /**
