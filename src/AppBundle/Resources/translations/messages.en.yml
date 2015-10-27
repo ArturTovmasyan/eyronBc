@@ -98,7 +98,11 @@ right_menu:
 
 manage: MANAGE
 
+
 # my bucket list
 add_goal: add a goal
 doing_here: What are you doing here? Come on,
 forget: FORGET IT
+
+done_by: Done by
+listed_by: Listed by

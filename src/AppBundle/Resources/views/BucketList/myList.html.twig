@@ -19,11 +19,19 @@
                     <div class="row">
 
                         <div class="col-md-6">
-
+                            <a href="#">
+                                {{ 'listed_by'|trans | upper }}
+                                <span>12</span>
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
                         </div>
 
                         <div class="col-md-6">
-
+                            <a href="#">
+                                {{ 'done_by'|trans | upper }}
+                                <span>12</span>
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
                         </div>
 
                     </div>
@@ -32,7 +40,7 @@
 
                 <div class="col-md-3 text-right">
                     <a href="#" class="border forget">
-                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans }}
+                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
                     </a>
                 </div>
 
