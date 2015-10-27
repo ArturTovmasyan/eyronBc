@@ -71,3 +71,10 @@ file:
     heigh_extension: File height mast be min 400 px
     extension_error: Wrong format of file
     size_error: Wrong size of file
+
+filter:
+   dream: Dreams
+   import_urgent: Important,urgent
+   not_import_urgent: Not important,urgent
+   import_not_urgent: Important, not urgent
+   not_import_not_urgent: Not important, not urgent
