@@ -17,6 +17,7 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
 use AppBundle\Form\SuccessStoryType;
 use AppBundle\Form\UserGoalType;
+use Application\UserBundle\Entity\User;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -710,6 +711,31 @@ class GoalController extends Controller
 
         return array('goals' => $pagination);
 
+    }
+
+    /**
+     * @Route("/remove-goal/{goal}/{user}", name="remove_goal")
+     *
+     * @param Goal $goal
+     * @param User $user
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @ParamConverter("user", class="ApplicationUserBundle:User")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public  function removeGoal(Goal $goal, User $user)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get user goal
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
+
+        // remove from bd
+        $em->remove($userGoal);
+
+        $em->flush();
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
