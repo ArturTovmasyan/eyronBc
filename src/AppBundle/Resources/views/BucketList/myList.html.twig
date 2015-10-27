@@ -211,33 +211,9 @@
                         {% if popularGoals %}
                             {% for popularGoal in popularGoals %}
                                 <figure>
-                                    {#<img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />#}
-                                    <img src="{{ asset('bundles/app/images/test1.png') }}" alt= "Some image" class="img-responsive" />
-                                    <figcaption>sdf
-                                        <ul class="row goal-links">
-
-                                            <li class="col-sm-4">
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
-                                                </a>
-                                            </li>
-
-                                            <li class="col-sm-4">
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
-                                                </a>
-                                            </li>
-
-                                            <li class="col-sm-4">
-
-                                                <div class="addthis_native_toolbox"></div>
-
-                                            </li>
-
-                                        </ul>
-
-                                        {#{%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}#}
-
+                                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
                                     </figcaption>
                                 </figure>
                                 <br />

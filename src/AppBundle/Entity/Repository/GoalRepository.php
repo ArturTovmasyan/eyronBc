@@ -45,6 +45,34 @@ class GoalRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+
+    /**
+     * @param $count
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findPopular($user, $count)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
+                ->from('AppBundle:Goal', 'g')
+//                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->leftJoin('ug.user', 'u')
+                ->andWhere('ug is null or u.id != :user')
+                ->groupBy('g.id')
+                ->orderBy('cnt', 'desc')
+                ->setParameter('user', $user->getId());
+
+        if($count){
+            $query
+                ->setMaxResults($count);
+        }
+        return $query->getQuery()->getResult();
+    }
+
     /**
      * @param $user
      * @return array
