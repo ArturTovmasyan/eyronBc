@@ -557,10 +557,15 @@ class GoalController extends Controller
                 $userGoal->setSteps($steps);
 
                 $doDate = $form->get('birthday')->getData();
-                $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
 
-                // set do date
-                $userGoal->setDoDate($doDate);
+                // check date
+                if($doDate){
+
+                    $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
+
+                    // set do date
+                    $userGoal->setDoDate($doDate);
+                }
 
                 $em->persist($userGoal);
                 $em->flush();
