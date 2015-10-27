@@ -9,8 +9,10 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Goal;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\GoalImageType;
+use AppBundle\Model\PublishAware;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -90,6 +92,13 @@ class GoalAdmin extends Admin
      */
     public function prePersist($object)
     {
+        // get current user
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+
+        $object->setAuthor($user);
+        $object->setPublish(PublishAware::PUBLISH);
+        $object->setReadinessStatus(Goal::TO_PUBLISH);
+
         $this->getAndAddTags($object);
         $this->addImages($object);
     }
@@ -99,6 +108,13 @@ class GoalAdmin extends Admin
      */
     public function preUpdate($object)
     {
+        // get current user
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+
+        $object->setEditor($user);
+        $object->setPublish(PublishAware::PUBLISH);
+        $object->setReadinessStatus(Goal::TO_PUBLISH);
+
         $this->getAndAddTags($object);
         $this->addImages($object);
     }
