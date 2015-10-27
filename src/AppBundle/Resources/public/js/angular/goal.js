@@ -37,6 +37,7 @@ angular.module('goal', ['Interpolation',
 
             $scope.goalDropzone = new Dropzone('#goalDropzone', {
                 url: url,
+                dictDefaultMessage: "hello world",
                 addRemoveLinks: true,
                 uploadMultiple: false,
                 maxThumbnailFilesize: 6,
