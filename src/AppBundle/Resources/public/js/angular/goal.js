@@ -11,6 +11,16 @@ angular.module('goal', ['Interpolation',
 
         $scope.files = [];
 
+        $scope.openSignInPopover = function(){
+            var middleScope = angular.element(".sign-in-popover").scope();
+            var popoverScope = middleScope.$$childHead;
+
+            if(!popoverScope.$isShown){
+                popoverScope.$show();
+                middleScope.joinToggle2 = !middleScope.joinToggle2;
+            }
+        }
+
         $('.purple input').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
@@ -66,6 +76,16 @@ angular.module('goal', ['Interpolation',
 
         $scope.stepsArray = [{}];
 
+        $scope.openSignInPopover = function(){
+            var middleScope = angular.element(".sign-in-popover").scope();
+            var popoverScope = middleScope.$$childHead;
+
+            if(!popoverScope.$isShown){
+                popoverScope.$show();
+                middleScope.joinToggle2 = !middleScope.joinToggle2;
+            }
+        };
+
         angular.element('#datepicker').datepicker();
         angular.element("#datepicker").on("changeDate", function() {
             angular.element(".hidden_date_value").val(
@@ -85,13 +105,17 @@ angular.module('goal', ['Interpolation',
                 return false;
             }
         });
-
-        $scope.addNewStep = function(){
-
-        }
     }])
-    .controller('goalInner',[function(){
+    .controller('goalInner',['$scope',function($scope){
+        $scope.openSignInPopover = function(){
+            var middleScope = angular.element(".sign-in-popover").scope();
+            var popoverScope = middleScope.$$childHead;
 
+            if(!popoverScope.$isShown){
+                popoverScope.$show();
+                middleScope.joinToggle2 = !middleScope.joinToggle2;
+            }
+        }
     }])
     .directive('step',[function(){
         return {
