@@ -107,6 +107,7 @@ angular.module('goal', ['Interpolation',
         });
     }])
     .controller('goalInner',['$scope',function($scope){
+
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
             var popoverScope = middleScope.$$childHead;
@@ -115,7 +116,12 @@ angular.module('goal', ['Interpolation',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
-        }
+        };
+
+        angular.element('.goal-information').scrollToFixed({
+            marginTop: 85,
+            limit: angular.element('footer').offset().top
+        });
     }])
     .directive('step',[function(){
         return {
