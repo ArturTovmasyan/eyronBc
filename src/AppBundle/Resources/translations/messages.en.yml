@@ -78,3 +78,9 @@ filter:
    not_import_urgent: Not important,urgent
    import_not_urgent: Important, not urgent
    not_import_not_urgent: Not important, not urgent
+
+menu:
+  bucket: My Bucketlist
+  active: Active
+  completed: Completed
+  map: Map
