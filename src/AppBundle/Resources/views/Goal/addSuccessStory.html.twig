@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-3 text-right">
-                    <a href="#" class="border forget">
+                    <a href="{{ path('remove_goal', {'goal' : goal.id , 'user': app.user.id }) }}" class="border forget">
                         <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
                     </a>
                 </div>
