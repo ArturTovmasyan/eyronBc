@@ -92,12 +92,30 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('goalInner',[function(){
 
-        if(angular.element('.main-pgwSlideshow').length){
-            angular.element('.main-pgwSlideshow').pgwSlideshow({
-                displayList: false,
-                intervalDuration: 3000,
-                autoSlide: true
-            });
+        if(angular.element('.main-slider').length){
+            var options = {
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $ChanceToShow: 2
+                }
+            };
+            var jssor_slider1 = new $JssorSlider$('main-slider', options);
+
+            var ScaleSlider = function() {
+                var parentWidth = $('#main-slider').parent().width();
+                if (parentWidth) {
+                    jssor_slider1.$ScaleWidth(parentWidth);
+                }
+                else
+                    window.setTimeout(ScaleSlider, 30);
+            }
+            //Scale slider after document ready
+            ScaleSlider();
+
+            //Scale slider while window load/resize/orientationchange.
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
         }
     }])
     .directive('step',[function(){

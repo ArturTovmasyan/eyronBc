@@ -36,16 +36,23 @@
             <div class="row">
                 <div class="col-sm-7 col-md-9">
                     {% set images = goal.images %}
-                    {% if images and images | length %}
+                    {#{% if images and images | length %}#}
 
-                        <ul class="main-pgwSlideshow">
-                            {% for image in images %}
-                                <li>
-                                    <img src="{{ image.downloadLink }}" alt="{{ goal.title }}" class="img-responsive">
-                                </li>
-                            {% endfor %}
+                        <div id="main-slider" style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;">
+                            <!-- Slides Container -->
+                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 300px;">
+                                <div><img u="image" src="http://plants.montara.com/ListPages/FamPages/showpix/ranunculaS/aqufor_a.JPEG" /></div>
+                                <div><img u="image" src="http://www.quirkysanfrancisco.com/wp-content/uploads/2009/07/san-francisco-bay-bridge-640x360.jpg" /></div>
+                            </div>
+                        </div>
+                        <ul class="main-slider">
+                            {#{% for image in images %}#}
+                                {#<li>#}
+                                    {#<img src="{{ image.downloadLink }}" alt="{{ goal.title }}" class="img-responsive">#}
+                                {#</li>#}
+                            {#{% endfor %}#}
                         </ul>
-                    {% endif %}
+                    {#{% endif %}#}
                 </div>
                 <div class="col-sm-5 col-md-3">
                     <div class="goal-information">
