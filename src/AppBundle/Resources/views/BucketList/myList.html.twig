@@ -1,62 +1,136 @@
 {% extends "AppBundle:BucketList:base.html.twig" %}
 
 {% block content_container%}
-    <div class="bucketlist-tab">
+    <div class="bucketlist">
         <div class="container">
+            <div class="row">
+                <ul class="menu">
+                    <li>
+                        <a data-toggle="tab" href="#home">{{ 'menu.bucket'|trans }}</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#menu1">{{ 'menu.active'|trans }}</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#menu2">{{ 'menu.completed'|trans }}</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="#">{{ 'menu.map'|trans }}
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </li>
+                </ul>
 
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a data-toggle="tab" href="#home">{{ 'menu.bucket'|trans }}</a>
-                </li>
-                <li>
-                    <a data-toggle="tab" href="#menu1">{{ 'menu.active'|trans }}</a>
-                </li>
-                <li>
-                    <a data-toggle="tab" href="#menu2">{{ 'menu.completed'|trans }}</a>
-                </li>
-                <li class="pull-right">
-                    <a href="#">{{ 'menu.map'|trans }}
-                        <span class="glyphicon glyphicon-chevron-up"></span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
-                    <form class="form-inline">
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{ 'filter.dream'|trans }}
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> {{ 'filter.import_urgent'|trans }}
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">{{ 'filter.not_import_urgent'|trans }}
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> {{ 'filter.import_not_urgent'|trans }}
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">{{ 'filter.not_import_not_urgent'|trans }}
-                        </label>
-                    </form>
-                </div>
-                <div id="menu1" class="tab-pane fade">
-                    Will be some information
-                </div>
-                <div id="menu2" class="tab-pane fade">
-                    Will be some information
-                </div>
             </div>
-
         </div>
-    </div>
 
-    <div class="container">
+        <hr />
+
+        <div class="container">
+            <form class="form-inline">
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{ 'filter.dream'|trans }}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> {{ 'filter.import_urgent'|trans }}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">{{ 'filter.not_import_urgent'|trans }}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> {{ 'filter.import_not_urgent'|trans }}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">{{ 'filter.not_import_not_urgent'|trans }}
+                </label>
+            </form>
+        </div>
+    </div> <br />
+
+    <div class="container" >
         <div class="row">
 
             <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-2">
 
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <figure>
+                                    <img src="{{ asset('bundles/app/images/test1.png') }}" alt= "Some image" class="img-responsive" />
+                                </figure>
+                            </div>
+
+                            <div class="col-md-7">
+                                <article class="information">
+                                    <h3>here will be title</h3>
+                                    <p>by done....</p>
+
+                                    <ul class="clearfix">
+                                        <li>
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-list-alt"></span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                    <span class="sr-only">45% Complete</span>
+                                                </div>
+                                            </div>
+
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-eye-close"></span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-off"></span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-cog"></span>
+                                                {{ 'manage'|trans }}
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-6 text-right">
+                                            <a href="#" class="border">
+                                                <span class="glyphicon glyphicon-ok-circle"></span>
+                                                {{ 'done'|trans }}
+
+                                                <span class="glyphicon glyphicon-ok-circle green-bg"></span>
+                                                {{ 'success_story'|trans }}
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-3">
@@ -75,7 +149,33 @@
                         <figure>
                             <img src="{{ asset('bundles/app/images/test1.png') }}" alt= "Some image" class="img-responsive" />
                             <figcaption>
-                                {#{%  include "AppBundle:Blocks:goalFooter.html.twig" %}#}
+                                <ul class="row goal-links">
+
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
+                                            </a>
+                                        </li>
+
+
+
+
+                                        <li class="col-sm-4">
+
+                                            <div class="addthis_native_toolbox"></div>
+
+                                        </li>
+
+                                </ul>
+
                             </figcaption>
                         </figure>
                     </li>
