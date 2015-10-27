@@ -1,7 +1,87 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "AppBundle:BucketList:base.html.twig" %}
 
+{% block content_container%}
+    <div class="bucketlist-tab">
+        <div class="container">
 
-{% block content %}
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#home">{{ 'menu.bucket'|trans }}</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#menu1">{{ 'menu.active'|trans }}</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#menu2">{{ 'menu.completed'|trans }}</a>
+                </li>
+                <li class="pull-right">
+                    <a href="#">{{ 'menu.map'|trans }}
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </li>
+            </ul>
 
-    My Bucket list
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <form class="form-inline">
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{ 'filter.dream'|trans }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> {{ 'filter.import_urgent'|trans }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">{{ 'filter.not_import_urgent'|trans }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> {{ 'filter.import_not_urgent'|trans }}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">{{ 'filter.not_import_not_urgent'|trans }}
+                        </label>
+                    </form>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    Will be some information
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    Will be some information
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-9">
+
+            </div>
+
+            <div class="col-md-3">
+                <ul class="right-block">
+                    <li class="clearfix">
+                        <a href="#">{{ 'right_menu.create'|trans }}</a>
+                        <a href="#">{{ 'right_menu.draft'|trans }}
+                            <span>0</span>
+                        </a>
+                    </li>
+                    <li class="clearfix">
+                        <span>{{ 'right_menu.ideas'|trans }}</span>
+                        <a href="#">{{ 'right_menu.show'|trans }}</a>
+                    </li>
+                    <li>
+                        <figure>
+                            <img src="{{ asset('bundles/app/images/test1.png') }}" alt= "Some image" class="img-responsive" />
+                            <figcaption>
+                                {#{%  include "AppBundle:Blocks:goalFooter.html.twig" %}#}
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

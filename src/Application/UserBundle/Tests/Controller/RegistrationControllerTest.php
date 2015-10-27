@@ -159,7 +159,7 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_OK);
 
         // click in resetting link
-        $link = $crawler->selectLink('Forgot password')->link();
+        $link = $crawler->selectLink('Forgot password?')->link();
         $this->client->click($link);
 
         // Assert that the response is a redirect to /resetting/request

@@ -28,17 +28,18 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $manager)
     {
-        // create goal
-        $goal = new Goal();
-        $goal->setDescription('goal1 goal1');
-        $goal->setTitle('goal1');
-        $goal->setStatus(1);
-        $goal->setVideoLink('www.google.com');
-        $manager->persist($goal);
-
-        $manager->flush();
-
-        $this->addReference('goal', $goal);
+//        // create goal
+//        $goal = new Goal();
+//        $goal->setDescription('goal1 goal1');
+//        $goal->setTitle('goal1');
+//        $goal->setStatus(1);
+//        $goal->setVideoLink('www.google.com');
+//        $goal->setVideoLink('www.google.com');
+//        $manager->persist($goal);
+//
+//        $manager->flush();
+//
+//        $this->addReference('goal', $goal);
     }
 
     /**
