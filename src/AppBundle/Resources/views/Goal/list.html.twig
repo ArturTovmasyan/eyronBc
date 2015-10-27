@@ -44,7 +44,7 @@
 
         {% if goals.getTotalItemCount > 0 %}
 
-            <div class="row">
+            <div class="row" id="row">
                 {% for goal in goals|slice(0, 3)  %}
                     <div class="col-sm-6 col-md-4">
                         <figure>
@@ -53,7 +53,7 @@
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
-                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                            <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>

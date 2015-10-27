@@ -10,40 +10,33 @@ class MainControllerTest extends BaseClass
     public function testIndex()
     {
         // try to open homepage
-        $this->client->request('GET', '/');
+        $crawler = $this->client->request('GET', '/');
+        // count goals
+        $countGoals1 = count($crawler->filter('#main_row1 a[id="main_goalTitle1"]'));
+        $countGoals2 = count($crawler->filter('#main_row2 a[id="main_goalTitle2"]'));
+
+        $this->assertEquals(2, $countGoals1);
+        $this->assertEquals(1, $countGoals2);
+
+        // click in goal1 title link
+        $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->eq(0)->link();
+        $this->client->click($link);
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
-    }
 
-    /**
-     * This function is used to check how_it_works page
-     */
-    public function testHowItWorks()
-    {
-        // try to open how_it_works page
-        $this->client->request('GET', '/howitworks');
+        $crawler = $this->client->back();
+
+        // click in goal3 title link
+        $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->eq(1)->link();
+        $this->client->click($link);
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
-    }
 
-    /**
-     * This function is used to check about_bl page
-     */
-    public function testAboutBl()
-    {
-        // try to open about_bl page
-        $this->client->request('GET', '/aboutbl');
+        $crawler = $this->client->back();
 
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
-    }
-
-    /**
-     * This function is used to check contact_us page
-     */
-    public function testContactUs()
-    {
-        // try to open contact_us page
-        $this->client->request('GET', '/contactus');
+        // click in goal2 title link
+        $link = $crawler->filter('#main_row2 a[id="main_goalTitle2"]')->link();
+        $this->client->click($link);
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
     }
