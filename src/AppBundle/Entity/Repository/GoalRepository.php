@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -72,7 +73,35 @@ class GoalRepository extends EntityRepository
      * @param $user
      * @return array
      */
-    public function findAllByUser($user)
+    public function findMyDraftsCount($user)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('COUNT(g)')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->leftJoin('ug.user', 'ugu')
+                ->leftJoin('g.author', 'a')
+                ->where('a.id = :user or ugu.id = :user ')
+                ->andWhere('g.readinessStatus = :status')
+                ->setParameter('user', $user)
+                ->setParameter('status', Goal::DRAFT)
+        ;
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param $user
+     * @param $status
+     * @param $dream
+     * @param $urgent
+     * @param $important
+     * @return array
+     */
+    public function findAllByUser($user, $status, $dream, $urgent, $important)
     {
         $query =
             $this->getEntityManager()
@@ -88,6 +117,36 @@ class GoalRepository extends EntityRepository
                 ->setParameter('user', $user)
                 ->setParameter('status', Goal::TO_PUBLISH)
         ;
+
+        // check status
+        if($status){
+            $query
+                ->andWhere('ug.status =:status')
+                ->setParameter('status', $status);
+        }
+
+        // check urgent
+        if($urgent){
+            $query
+                ->andWhere('ug.urgent =:urgent')
+                ->setParameter('urgent', UserGoal::URGENT);
+
+        }
+
+        /// check important
+        if($important){
+            $query
+                ->andWhere('ug.important = :important')
+                ->setParameter('important', UserGoal::IMPORTANT);
+            ;
+
+        }
+
+        // check dream
+        if($dream){
+            $query
+                ->andWhere('ug.doDate is null');
+        }
 
         return $query->getQuery()->getResult();
     }

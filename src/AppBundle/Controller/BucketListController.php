@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BucketListController
@@ -19,21 +20,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/my-list", name="my_list")
+     * @Route("/my-list/{status}", defaults={"status" = null, "filter" = null },  name="my_list")
      * @Template()
+     * @param $status
      * @return array
      */
-    public function myListAction()
+    public function myListAction($status, Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        // get dream
+        $dream = $request->get('d');
+
+        // get urgent filter
+        $urgent = $request->get('i');
+
+        // get important filter
+        $important = $request->get('u');
 
         // get current user
         $user = $this->getUser();
 
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByUser($user);
+        $goals = $em->getRepository("AppBundle:Goal")
+            ->findAllByUser($user, $status, $dream, $urgent, $important);
 
-        return array('goals' => $goals);
+        // get drafts
+        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+
+        // get popular goals
+        $popularGoals = $em->getRepository("AppBundle:Goal")->findAllWithCount(2);
+
+        return array(
+            'goals' => $goals,
+            'draftsCount' => $draftsCount,
+            'popularGoals' => $popularGoals,
+            );
     }
 }
