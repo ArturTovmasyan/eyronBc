@@ -55,20 +55,21 @@
         <div class="container">
             <div class="row">
                 <ul class="menu">
-
                     {% set status = app.request.get('status') %}
                     {% set active = constant("AppBundle\\Entity\\UserGoal::ACTIVE") %}
                     {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
 
-                    <li>
+                    <li {% if status is null %} class="active" {% endif %} >
                         <a  href="{{ path('my_list') }}">{{ 'menu.bucket'|trans }}</a>
-                    </li>
-                    <li>
+
+                    <li {% if status == active %} class="active" {% endif %}>
                         <a  href="{{ path('my_list', {'status' : active} ) }}">{{ 'menu.active'|trans }}</a>
                     </li>
-                    <li>
+
+                    <li {% if status == completed %} class="active" {% endif %}>
                         <a href="{{ path('my_list', {'status' : completed }) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
+
                     <li class="pull-right">
                         <a href="#">{{ 'menu.map'|trans }}
                             <span class="glyphicon glyphicon-chevron-up"></span>
@@ -182,7 +183,7 @@
                                             {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                 <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border">
                                                     <span class="glyphicon glyphicon-ok-circle green-bg"></span>
-                                                    {{ 'success_story'|trans }}
+                                                    {{ 'successtory'|trans }}
                                                 </a>
                                             {% else %}
                                                 <a href="{{ path("add_to_me_goal", {'id' : goal.id }) }}" class="border">

@@ -22,8 +22,8 @@ class UserGoal
     use Location;
 
     // constants for status
-    const ACTIVE = 0;
-    const COMPLETED = 1;
+    const ACTIVE = 1;
+    const COMPLETED = 2;
 
     // constants for privacy
     const PUBLIC_PRIVACY = 0;
