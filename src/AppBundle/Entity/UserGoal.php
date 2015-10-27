@@ -22,18 +22,18 @@ class UserGoal
     use Location;
 
     // constants for status
-    const ACTIVE = 0;
-    const COMPLETED = 1;
+    const ACTIVE = 1;
+    const COMPLETED = 2;
 
     // constants for privacy
     const PUBLIC_PRIVACY = 0;
     const PRIVATE_PRIVACY = 1;
 
     // constants for quality
-    const URGENT = 1;
-    const NOT_URGENT = 2;
-    const IMPORTANT = 3;
-    const NOT_IMPORTANT = 4;
+    const URGENT = true;
+    const NOT_URGENT = false;
+    const IMPORTANT = true;
+    const NOT_IMPORTANT = false;
 
     // constants for steps
     const TO_DO = 0;
@@ -61,9 +61,15 @@ class UserGoal
 
     /**
      * @var
-     * @ORM\Column(name="quality", type="smallint", nullable=true)
+     * @ORM\Column(name="urgent", type="boolean", nullable=true)
      */
-    protected $quality;
+    protected $urgent;
+
+    /**
+     * @var
+     * @ORM\Column(name="important", type="boolean", nullable=true)
+     */
+    protected $important;
 
     /**
      * @var
@@ -218,58 +224,6 @@ class UserGoal
     }
 
     /**
-     * Set quality
-     *
-     * @param integer $quality
-     * @return UserGoal
-     */
-    public function setQuality($quality)
-    {
-        $this->quality = $quality;
-
-        return $this;
-    }
-
-    /**
-     * Get quality
-     *
-     * @return integer 
-     */
-    public function getQuality()
-    {
-        return $this->quality;
-    }
-
-    /**
-     * This function is used to get quality integer, and convert to string
-     *
-     * @return null|string
-     */
-    public function getQualityString()
-    {
-        // empty result
-        $result = null;
-
-        // switch for quality and return result
-        switch($this->quality){
-            case self::IMPORTANT:
-                $result = 'user_goal.important';
-                break;
-            case self::NOT_IMPORTANT:
-                $result = 'user_goal.not_important';
-                break;
-            case self::URGENT:
-                $result = 'user_goal.urgent';
-                break;
-            case self::NOT_URGENT:
-                $result = 'user_goal.not_urgent';
-                break;
-        }
-
-        return $result;
-    }
-
-    /**
      * Set goal
      *
      * @param \AppBundle\Entity\Goal $goal
@@ -414,5 +368,67 @@ class UserGoal
     public function setListedDate($listedDate)
     {
         $this->listedDate = $listedDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrgent()
+    {
+        return $this->urgent;
+    }
+
+    /**
+     * @param mixed $urgent
+     */
+    public function setUrgent($urgent)
+    {
+        $this->urgent = $urgent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImportant()
+    {
+        return $this->important;
+    }
+
+    /**
+     * @param mixed $important
+     */
+    public function setImportant($important)
+    {
+        $this->important = $important;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCompleted()
+    {
+        // get all steps
+        $steps = $this->getSteps();
+
+        // check step
+        if($steps){
+
+            // get count of steps
+            $count = count($steps);
+
+            // count of steps for done
+            $done = 0;
+
+            // loop for steps
+            foreach($steps as $step){
+
+                // check is step done
+                if($step == self::DONE) {
+                    $done ++;
+                }
+            }
+            return $done * 100 / $count;
+        }
+        return 100;
     }
 }

@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -36,6 +37,34 @@ class GoalRepository extends EntityRepository
                 ->groupBy('g.id')
                 ->orderBy('cnt', 'desc')
         ;
+
+        if($count){
+            $query
+                ->setMaxResults($count);
+        }
+        return $query->getQuery()->getResult();
+    }
+
+
+    /**
+     * @param $count
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findPopular($user, $count)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
+                ->from('AppBundle:Goal', 'g')
+//                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.userGoal', 'ug')
+                ->leftJoin('ug.user', 'u')
+                ->andWhere('ug is null or u.id != :user')
+                ->groupBy('g.id')
+                ->orderBy('cnt', 'desc')
+                ->setParameter('user', $user->getId());
 
         if($count){
             $query
@@ -72,12 +101,12 @@ class GoalRepository extends EntityRepository
      * @param $user
      * @return array
      */
-    public function findAllByUser($user)
+    public function findMyDraftsCount($user)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g')
+                ->addSelect('COUNT(g)')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.userGoal', 'ug')
@@ -86,10 +115,10 @@ class GoalRepository extends EntityRepository
                 ->where('a.id = :user or ugu.id = :user ')
                 ->andWhere('g.readinessStatus = :status')
                 ->setParameter('user', $user)
-                ->setParameter('status', Goal::TO_PUBLISH)
+                ->setParameter('status', Goal::DRAFT)
         ;
 
-        return $query->getQuery()->getResult();
+        return $query->getQuery()->getSingleScalarResult();
     }
 
     /**
