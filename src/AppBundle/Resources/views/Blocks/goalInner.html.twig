@@ -84,7 +84,7 @@
                                 <li>
                                     <ul class="row">
                                         <li class="col-md-4">
-                                            done by
+                                            {{ 'done_by'|trans | upper }}
                                             <p class="purple">{{ doneByUsers|length }}</p>
                                         </li>
                                         <li class="col-md-4">
@@ -108,7 +108,7 @@
                                 <li>
                                     <ul class="row">
                                         <li class="col-md-4">
-                                            listed by
+                                            {{ 'listed_by'|trans | upper }}
                                             <p class="purple">{{ listedByUsers|length }}</p>
                                         </li>
                                         <li class="col-md-4">
