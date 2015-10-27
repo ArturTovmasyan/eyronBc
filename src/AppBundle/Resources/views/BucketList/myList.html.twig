@@ -52,4 +52,36 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-9">
+
+            </div>
+
+            <div class="col-md-3">
+                <ul class="right-block">
+                    <li class="clearfix">
+                        <a href="#">{{ 'right_menu.create'|trans }}</a>
+                        <a href="#">{{ 'right_menu.draft'|trans }}
+                            <span>0</span>
+                        </a>
+                    </li>
+                    <li class="clearfix">
+                        <span>{{ 'right_menu.ideas'|trans }}</span>
+                        <a href="#">{{ 'right_menu.show'|trans }}</a>
+                    </li>
+                    <li>
+                        <figure>
+                            <img src="{{ asset('bundles/app/images/test1.png') }}" alt= "Some image" class="img-responsive" />
+                            <figcaption>
+                                {#{%  include "AppBundle:Blocks:goalFooter.html.twig" %}#}
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

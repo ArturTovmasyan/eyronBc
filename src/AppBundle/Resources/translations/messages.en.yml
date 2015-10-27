@@ -84,3 +84,9 @@ menu:
   active: Active
   completed: Completed
   map: Map
+
+right_menu:
+  create: Create a Goal
+  draft: Drafts
+  ideas: Popolar Ideas
+  show: Show all

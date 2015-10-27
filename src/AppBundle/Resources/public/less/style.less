@@ -1053,6 +1053,35 @@ footer{
   }
 }
 
+.right-block{
+  background: #ffffff;
+  padding:10px 20px;
+
+  li{
+    border-bottom:1px solid #cccccc;
+    padding-top:30px;
+      a,span{
+        color:#666666;
+
+        &:hover{
+          text-decoration:none;
+        }
+      }
+
+      a:first-child{
+        float:left;
+      }
+
+      a:last-child{
+        float:right;
+      }
+    &:last-child{
+      padding-top:20px;
+      border-bottom:0;
+    }
+  }
+}
+
 @media (min-width: @screen-md) {
   header {
     .navbar-default{
