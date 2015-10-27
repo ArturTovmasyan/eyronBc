@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
@@ -94,7 +95,7 @@ class GoalController extends Controller
                 $images = $form->get('files')->getData();
 
                 // remove all images that older one day
-                $this->removeAllGoalImage();
+                $this->removeAllOldImages();
 
                 if($images){
 
@@ -140,7 +141,7 @@ class GoalController extends Controller
     /**
      *  This function is used to remove files and goal images from db
      */
-    private function removeAllGoalImage()
+    private function removeAllOldImages()
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -154,6 +155,18 @@ class GoalController extends Controller
             // loop for images
             foreach($goalImages as $goalImage){
                 $em->remove($goalImage);
+            }
+        }
+
+        // get all old story images
+        $storyImages = $em->getRepository('AppBundle:StoryImage')->findAllOlder();
+
+        // loop for images
+        if($storyImages){
+
+            // loop for images
+            foreach($storyImages as $storyImage){
+                $em->remove($storyImages);
             }
         }
     }
@@ -273,11 +286,10 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
-     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function doneAction(Goal $goal, Request $request)
+    public function doneAction(Goal $goal)
     {
         // get current user
         $user = $this->getUser();
@@ -288,14 +300,50 @@ class GoalController extends Controller
         // get user goal
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
 
+        // check user goal and create if noc exist
+        if(!$userGoal){
+            $userGoal = new UserGoal();
+            $userGoal->setGoal($goal);
+            $userGoal->setUser($user);
+        }
+
+        // set status to done
+        $userGoal->setStatus(UserGoal::COMPLETED);
+
+        // set date
+        $userGoal->setCompletionDate(new \DateTime());
+
+        $em->persist($userGoal);
+        $em->flush();
+
+        return $this->redirectToRoute("goals_list");
+    }
+
+    /**
+     * @Route("/add-story/{id}", name="add_story")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @Secure(roles="ROLE_USER")
+     */
+    public function addSuccessStoryAction(Goal $goal, Request $request)
+    {
         // create new success story object
         $story = new SuccessStory();
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $user = $this->getUser();
 
         // create form
         $form = $this->createForm(new SuccessStoryType(), $story);
 
         // check method
-        if($request->isMethod("POST")){
+        if($request->isMethod("POST")) {
 
             // get data from request
             $form->handleRequest($request);
@@ -303,48 +351,42 @@ class GoalController extends Controller
             // check data
             if($form->isValid()){
 
-                // check user goal and create if noc exist
-                if(!$userGoal){
-                    $userGoal = new UserGoal();
-                    $userGoal->setGoal($goal);
-                    $userGoal->setUser($user);
-                }
+                // get images ids
+                $images = $form->get('files')->getData();
 
-                // set status to done
-                $userGoal->setStatus(UserGoal::COMPLETED);
+                // remove all images that older one day
+                $this->removeAllOldImages();
 
-                // set date
-                $userGoal->setCompletionDate(new \DateTime());
+                if($images){
 
-                // is clicked add story button
-                if(!is_null($request->get('add_story'))){
+                    // get json from request
+                    $images = json_decode($images);
 
-                    // get bucket list service
-                    $bucketService = $this->get('bl_service');
+                    // remove duplicate
+                    $images = array_unique($images);
 
-                    // get files
-                    $files = $story->getFiles();
+                    // get goal images form bd
+                    $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($images);
 
-                    // check files
-                    if($files){
+                    // check story images
+                    if($storyImages){
 
-                        // loop for files
-                        foreach($files as $file) {
+                        // loop for story images
+                        foreach($storyImages as $storyImage){
 
-                            // upload file
-                            $bucketService->uploadFile($file);
-                            $story->addFile($file);
+                            // add to story
+                            $story->addFile($storyImage);
                         }
                     }
-
-
-                    $story->setUser($user);
-                    // add success story to goal
-                    $goal->addSuccessStory($story);
-                    $em->persist($story);
                 }
 
-                $em->persist($userGoal);
+                // add user
+                $story->setUser($user);
+
+                // add success story to goal
+                $goal->addSuccessStory($story);
+                $em->persist($story);
+
                 $em->flush();
 
                 return $this->redirectToRoute("goals_list");
@@ -353,6 +395,63 @@ class GoalController extends Controller
 
         return array('form' => $form->createView());
     }
+
+    /**
+     * This action is used for upload images from drag and drop
+     *
+     * @Route("/add-story-images", name="add-story_images")
+     * @Method({"POST"})
+     * @param Request $request
+     * @return array
+     */
+    public function addSuccessStoryImage(Request $request)
+    {
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if($file){
+
+            // get validator
+            $validator = $this->get('validator');
+
+            // get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new story image object
+            $storyImage = new StoryImage();
+
+            // set file
+            $storyImage->setFile($file);
+
+            // validate goal image
+            $error = $validator->validate($storyImage);
+
+            // check in error
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            }
+            else{ // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($storyImage);
+
+                $em->persist($storyImage);
+            }
+
+            // flush data
+            $em->flush();
+            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
+
+        }
+
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
+    }
+
 
     /**
      * @Route("/add-to-me/{id}", name="add_to_me_goal")

@@ -46,6 +46,8 @@ btn_publish: PUBLISH
 btn_back_and_edit: GO BACK TO EDIT
 btn_discover_more: DISCOVER MORE
 btn_start_now: START NOW
+btn_cancel: Cancel
+btn_save: Save
 
 # user goal form
 user_goal:
@@ -62,8 +64,10 @@ user_goal:
 
 # success story form
 success_story:
-      description: Description
+      title: Write a success stroy , please !
+      description: Success story ...
       files: Files
+      url: Video URL: https://www...
 
 register_text:  Please confirm your email
 file:

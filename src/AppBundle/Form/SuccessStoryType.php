@@ -26,13 +26,9 @@ class SuccessStoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('story', 'textarea', array('label' => 'success_story.description'))
-            ->add('files', 'collection', array(
-                'label' => 'success_story.files',
-                'type' => new StoryImageType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-            ))
+            ->add('story', 'textarea')
+            ->add('videoLink', null)
+            ->add('files', 'hidden', array('mapped' => false))
         ;
     }
 
