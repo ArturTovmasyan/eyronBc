@@ -55,14 +55,19 @@
         <div class="container">
             <div class="row">
                 <ul class="menu">
+
+                    {% set status = app.request.get('status') %}
+                    {% set active = constant("AppBundle\\Entity\\UserGoal::ACTIVE") %}
+                    {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+
                     <li>
-                        <a data-toggle="tab" href="#home">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path('my_list') }}">{{ 'menu.bucket'|trans }}</a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#menu1">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path('my_list', {'status' : active} ) }}">{{ 'menu.active'|trans }}</a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#menu2">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path('my_list', {'status' : completed }) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
                         <a href="#">{{ 'menu.map'|trans }}
