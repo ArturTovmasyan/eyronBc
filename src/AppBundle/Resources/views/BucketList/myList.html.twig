@@ -1,5 +1,47 @@
 {% extends "AppBundle:BucketList:base.html.twig" %}
 
+
+{% block content_header %}
+
+    <div class="content-header">
+        <figure>
+            <img src="{{ asset('bundles/app/images/cover2.jpg') }}" alt= "Some image" class="img-responsive" />
+        </figure>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9">
+
+                    <h2>Here will be title</h2>
+                    <p>Here will be autor</p>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 text-right">
+                    <a href="#" class="border forget">
+                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
 {% block content_container%}
     <div class="bucketlist">
         <div class="container">

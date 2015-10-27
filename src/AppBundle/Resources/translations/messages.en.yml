@@ -10,7 +10,7 @@ most_popular: MOST POPULAR
 add: ADD
 done: DONE
 success_stories: Success stories
-success_story: Success story
+successtory: Success story
 comments: Comments
 create_goal: Create Goal
 settings: Settings
@@ -93,3 +93,5 @@ right_menu:
   show: Show all
 
 manage: MANAGE
+
+forget: FORGET IT
