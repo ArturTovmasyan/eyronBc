@@ -401,4 +401,34 @@ class UserGoal
     {
         $this->important = $important;
     }
+
+    /**
+     * @return int
+     */
+    public function getCompleted()
+    {
+        // get all steps
+        $steps = $this->getSteps();
+
+        // check step
+        if($steps){
+
+            // get count of steps
+            $count = count($steps);
+
+            // count of steps for done
+            $done = 0;
+
+            // loop for steps
+            foreach($steps as $step){
+
+                // check is step done
+                if($step == self::DONE) {
+                    $done ++;
+                }
+            }
+            return $done * 100 / $count;
+        }
+        return 100;
+    }
 }

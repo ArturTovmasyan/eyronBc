@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
@@ -38,5 +40,60 @@ class UserGoalRepository extends EntityRepository
         ;
 
         return $query;
+    }
+
+    /**
+     * @param $user
+     * @param $status
+     * @param $dream
+     * @param $urgent
+     * @param $important
+     * @return array
+     */
+    public function findAllByUser($user, $status, $dream, $urgent, $important)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('ug')
+                ->from('AppBundle:UserGoal', 'ug')
+                ->leftJoin('ug.goal', 'g')
+                ->leftJoin('g.images', 'i')
+                ->leftJoin('ug.user', 'ugu')
+                ->where('ugu.id = :user ')
+                ->setParameter('user', $user)
+        ;
+
+        // check status
+        if($status){
+            $query
+                ->andWhere('ug.status =:status')
+                ->setParameter('status', $status);
+        }
+
+        // check urgent
+        if($urgent){
+            $query
+                ->andWhere('ug.urgent =:urgent')
+                ->setParameter('urgent', UserGoal::URGENT);
+
+        }
+
+        /// check important
+        if($important){
+            $query
+                ->andWhere('ug.important = :important')
+                ->setParameter('important', UserGoal::IMPORTANT);
+            ;
+
+        }
+
+        // check dream
+        if($dream){
+            $query
+                ->andWhere('ug.doDate is null');
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

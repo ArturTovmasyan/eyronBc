@@ -43,7 +43,7 @@ class BucketListController extends Controller
         $user = $this->getUser();
 
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")
+        $userGoals = $em->getRepository("AppBundle:UserGoal")
             ->findAllByUser($user, $status, $dream, $urgent, $important);
 
         // get drafts
@@ -53,7 +53,7 @@ class BucketListController extends Controller
         $popularGoals = $em->getRepository("AppBundle:Goal")->findAllWithCount(2);
 
         return array(
-            'goals' => $goals,
+            'userGoals' => $userGoals,
             'draftsCount' => $draftsCount,
             'popularGoals' => $popularGoals,
             );
