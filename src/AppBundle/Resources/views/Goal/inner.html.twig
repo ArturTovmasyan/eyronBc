@@ -1,22 +1,17 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    <link href="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.css') }}" rel="stylesheet">
-{% endblock %}
 
 {% block content %}
-        {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
+    {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
-    <script src="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app/bower_components/jssor-slider/js/jssor.slider.mini.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app/scripts/GoogleMaps/GoogleMaps.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
 

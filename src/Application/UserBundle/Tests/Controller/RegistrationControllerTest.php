@@ -157,6 +157,10 @@ class RegistrationControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/login');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_OK);
+        // Assert that the response is not a redirect to /check-login
+        $this->assertFalse(
+            $this->client->getResponse()->isRedirect('/check-login')
+        );
 
         // click in resetting link
         $link = $crawler->selectLink('Forgot password?')->link();
