@@ -35,6 +35,12 @@ class UserGoal
     const IMPORTANT = true;
     const NOT_IMPORTANT = false;
 
+    // constants for filter in twig
+    const URGENT_IMPORTANT = 1;
+    const URGENT_NOT_IMPORTANT = 2;
+    const NOT_URGENT_IMPORTANT = 3;
+    const NOT_URGENT_NOT_IMPORTANT = 4;
+
     // constants for steps
     const TO_DO = 0;
     const DONE = 1;

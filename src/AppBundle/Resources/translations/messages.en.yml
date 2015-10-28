@@ -100,9 +100,14 @@ manage: MANAGE
 
 
 # my bucket list
-add_goal: add a goal
-doing_here: What are you doing here? Come on,
-forget: FORGET IT
+my_bucket_list:
+  add_goal: add a goal
+  doing_here: What are you doing here? Come on,
+  need_goal: Your life needs goals,
+  add_some: add some more
+  complete: It’s time to act and complete some goals
 
 done_by: Done by
 listed_by: Listed by
+forget: FORGET IT
+dream: No deadline, No goal! You are just dreaming

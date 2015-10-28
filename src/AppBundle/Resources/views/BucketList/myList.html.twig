@@ -58,16 +58,25 @@
                     {% set status = app.request.get('status') %}
                     {% set active = constant("AppBundle\\Entity\\UserGoal::ACTIVE") %}
                     {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                    {% set dream = app.request.get('d') %}
+                    {% set filter = app.request.get('f') %}
+
+
+                    {% if dream %}
+                        <p>{{ 'dream'|trans }}</p>
+                    {% endif %}
+
+                    {% set my_router_params =  app.request.query.all|merge({'status' : active}) %}
 
                     <li {% if status is null %} class="active" {% endif %} >
-                        <a  href="{{ path('my_list') }}">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path('my_list', my_router_params) }}">{{ 'menu.bucket'|trans }}</a>
 
                     <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path('my_list', {'status' : active} ) }}">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path('my_list', my_router_params|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
                     </li>
 
                     <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path('my_list', {'status' : completed }) }}">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path('my_list', my_router_params|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
 
                     <li class="pull-right">
@@ -83,22 +92,21 @@
         <hr />
 
         <div class="container">
-            <form class="form-inline">
+            <form class="form-inline" action="#">
+
+                {# dream filter #}
                 <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{ 'filter.dream'|trans }}
+                    <input {% if dream %} checked {% endif %} type="radio" name="d" value="1"> {{ 'filter.dream'|trans }}
                 </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> {{ 'filter.import_urgent'|trans }}
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">{{ 'filter.not_import_urgent'|trans }}
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> {{ 'filter.import_not_urgent'|trans }}
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">{{ 'filter.not_import_not_urgent'|trans }}
-                </label>
+
+                {# other filters #}
+                {% for id, name in filters %}
+                    <label class="radio-inline">
+                        <input {% if filter == id %} checked {% endif %} type="radio" name="f" value="{{ id }}"> {{ name|trans }}
+                    </label>
+                {% endfor %}
+
+                <input type="submit" name="filter">
             </form>
         </div>
     </div> <br />
@@ -186,7 +194,7 @@
                                                     {{ 'successtory'|trans }}
                                                 </a>
                                             {% else %}
-                                                <a href="{{ path("add_to_me_goal", {'id' : goal.id }) }}" class="border">
+                                                <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="border">
                                                     <span class="glyphicon glyphicon-ok-circle"></span>
                                                     {{ 'done'|trans }}
                                                 </a>
@@ -205,7 +213,14 @@
                         <br />
                     {% endfor %}
                 {% else %}
-                    {{ 'doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'add_goal'|trans }}</a>
+
+                    {% if status ==  completed %}
+                        {{ 'my_bucket_list.complete'|trans }}
+                    {% elseif status == active %}
+                        {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('goals_list') }}">{{ 'my_bucket_list.add_some'|trans }}</a>
+                    {% else %}
+                        {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                    {% endif %}
                 {% endif %}
             </div>
 
