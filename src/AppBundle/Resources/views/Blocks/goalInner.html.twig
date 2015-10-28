@@ -159,7 +159,7 @@
                             {% if stories|length > 0 %}
                                 <h4>{{ 'success_stories'|trans }}</h4><hr />
 
-                                {% for story in stories %}
+                                {% for key, story in stories %}
                                     {% set addedUser = story.user %}
                                     {% set files = story.files%}
 
@@ -179,7 +179,7 @@
 
                                         </div>
 
-                                        {% if files %}
+                                        {% if files and files|length %}
 
                                             {% if files|length < 2 %}
                                                 {% set file = files.first %}
@@ -192,9 +192,10 @@
                                                 </div>
                                             {% else %}
                                                 <div class="row">
-                                                    <div id="story-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 300px;">
+
+                                                    <div id="story-slider{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 700px">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 200px">
+                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 700px; height: 200px">
                                                             {% for file in files %}
                                                                 <div>
                                                                     <img u="image" src="{{ file.downloadLink }}"/>
@@ -202,9 +203,9 @@
                                                             {% endfor %}
                                                         </div>
                                                         <!-- Arrow Left -->
-                                                        <span u="arrowleft" class="jssora13l"></span>
+                                                        <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
                                                         <!-- Arrow Right -->
-                                                        <span u="arrowright" class="jssora13r"></span>
+                                                        <span u="arrowright" class="story-slider-arrow jssora13r"></span>
                                                     </div>
                                                 </div>
                                             {% endif %}
