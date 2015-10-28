@@ -24,15 +24,17 @@
                     <div class="goal-end">
                         <h4>{{ "goal.is_dream"|trans }}</h4>
 
-                        <div id="datepicker" data-date="{{ "now"|date("m/d/Y") }}" style="color: black"></div>
+                        <div id="datepicker" data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}" style="color: black"></div>
 
-                        <form class="form-horizontal"action="#" method="post">
-                            <input id="{{  form.birthday.vars.id }}" type="hidden" class="hidden_date_value" name="{{ form.birthday.vars.full_name }}"/>
+                        {% set array = [{'text' : 'jafbaskj', 'switch' : 'on' }, {'text' : 'dfasf', 'switch' : 'off' } ] %}
+
+                        <form class="form-horizontal"action="#" method="post" ng-init="initSteps({{ data.getStepsJson }})">
+                            <input id="{{  form.birthday.vars.id }}" type="hidden" class="hidden_date_value" value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}" name="{{ form.birthday.vars.full_name }}"/>
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <input type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="{{ "goal.location_ex"|trans }}" />
-                                    <input id="{{  form.location.vars.id }}" type="hidden" class="location-hidden" name="{{ form.location.vars.full_name }}"/>
+                                    <input value="{{ data.address }}" type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="{{ "goal.location_ex"|trans }}" />
+                                    <input id="{{  form.location.vars.id }}" value="{{ data.getLocations }}" type="hidden" class="location-hidden" name="{{ form.location.vars.full_name }}"/>
                                 </div>
                             </div>
 
@@ -42,7 +44,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
+
+                            <div class="form-group row"  data-ng-repeat="(k, step) in stepsArray">
 
                                 <div class="col-sm-8">
                                     <input type="text"
@@ -81,7 +84,7 @@
                                 <label for="inputEmail3" class="col-sm-10 control-label purple text-left">{{ "goal.as_private"|trans }}</label>
 
                                 <div class="col-sm-2">
-                                    <input type="checkbox" id="{{  form.privacy.vars.id }}" name="{{  form.privacy.vars.full_name }}" class="private-checkbox" value="1">
+                                    <input {% if data.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %} checked {% endif %} type="checkbox" id="{{  form.privacy.vars.id }}" name="{{  form.privacy.vars.full_name }}" class="private-checkbox" value="1">
 
                                 </div>
 
@@ -94,7 +97,6 @@
                             </div>
 
                             {{ form_widget(form._token) }}
-
 
                         </form>
                     </div>

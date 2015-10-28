@@ -441,4 +441,52 @@ class UserGoal
         }
         return 100;
     }
+
+    /**
+     * This function is used to return json location for twig
+     *
+     * @return string
+     */
+    public function getLocations()
+    {
+        // check data
+        if($this->getLng() && $this->getLat() && $this->getAddress()){
+            $result = array(
+                "location" =>
+                    array(
+                        "latitude" => $this->getLng(),
+                        "longitude" => $this->getLat()
+                    ),
+                "address" => $this->getAddress() );
+
+            return json_encode($result);
+        }
+
+        return null;
+
+
+    }
+
+    /**
+     * This function is used to return json location for twig
+     *
+     * @return string
+     */
+    public function getStepsJson()
+    {
+        $result= array();
+
+        // get steps
+        $steps = $this->getSteps();
+
+        if($steps){
+            foreach($steps as $text => $switch){
+                $result[] = array('text' => $text, 'switch' => $switch == self::DONE ? "on" : 'off');
+            }
+        }
+        else{
+            $result[] = array();
+        }
+        return json_encode($result);
+    }
 }

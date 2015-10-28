@@ -466,15 +466,16 @@ class GoalController extends Controller
 
 
     /**
-     * @Route("/add-to-me/{id}", name="add_to_me_goal")
+     * @Route("/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
      * @param Request $request
+     * @param Request $userGoalId
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function addToMeAction(Goal $goal, Request $request)
+    public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
     {
         // get current user
         $user = $this->getUser();
@@ -485,7 +486,23 @@ class GoalController extends Controller
         // empty data
         $steps = array();
 
-        $userGoal = new UserGoal();
+        // check userGoalId
+        if($userGoalId){
+
+            $userGoal = $em->getRepository("AppBundle:UserGoal")->find($userGoalId);
+
+            // check user goal, and return not found exception
+            if(!$userGoal){
+                throw $this->createNotFoundException('usergoal not found');
+            }
+
+        }
+        else{
+            $userGoal = new UserGoal();
+
+            //set goal
+            $userGoal->setGoal($goal);
+        }
 
         // create goal form
         $form  = $this->createForm(new UserGoalType(), $userGoal);
@@ -550,9 +567,6 @@ class GoalController extends Controller
                 // set user
                 $userGoal->setUser($user);
 
-                //set goal
-                $userGoal->setGoal($goal);
-
                 // set step
                 $userGoal->setSteps($steps);
 
@@ -574,7 +588,7 @@ class GoalController extends Controller
             }
         }
 
-        return  array('form' => $form->createView());
+        return  array('form' => $form->createView(), 'data' => $userGoal);
     }
 
 
