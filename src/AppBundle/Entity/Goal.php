@@ -15,6 +15,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
@@ -42,6 +44,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"map"})
      */
     protected $id;
 
@@ -59,6 +62,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @ORM\Column(name="title", type="string", nullable=true)
+     * @Groups({"map"})
      */
     protected $title;
 
@@ -330,6 +334,20 @@ class Goal implements MultipleFileInterface, PublishAware
         }
 
         return null;
+    }
+
+    /**
+     * @VirtualProperty
+     * @return null
+     * @Groups({"map"})
+     */
+    public function getListPhotoDownloadLink()
+    {
+        // get list image
+        $image = $this->getListPhoto();
+
+        // return download link
+        return $image ? $image->getDownloadLink() : null;
     }
 
 
@@ -633,5 +651,28 @@ class Goal implements MultipleFileInterface, PublishAware
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUsedCount()
+    {
+        // empty data vor result
+        $result = array('listedBy' => 0, 'doneBy' => 0);
+
+        // get user goals
+        $userGoals = $this->getUserGoal();
+
+        // check user goals
+        if($userGoals){
+
+            // loop for user goals
+            foreach($userGoals as $userGoal){
+                $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy'] ++;
+
+                }
+        }
+        return $result;
     }
 }

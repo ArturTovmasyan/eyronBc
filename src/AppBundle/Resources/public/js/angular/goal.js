@@ -75,7 +75,6 @@ angular.module('goal', ['Interpolation',
     .controller('goalEnd', ['$scope', function($scope){
 
         $scope.stepsArray = [{}];
-
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
             var popoverScope = middleScope.$$childHead;
@@ -84,6 +83,10 @@ angular.module('goal', ['Interpolation',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
+        };
+
+        $scope.initSteps = function(json){
+            $scope.stepsArray = json;
         };
 
         angular.element('#datepicker').datepicker();

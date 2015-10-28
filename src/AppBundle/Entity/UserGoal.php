@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
 
@@ -35,6 +36,12 @@ class UserGoal
     const IMPORTANT = true;
     const NOT_IMPORTANT = false;
 
+    // constants for filter in twig
+    const URGENT_IMPORTANT = 1;
+    const URGENT_NOT_IMPORTANT = 2;
+    const NOT_URGENT_IMPORTANT = 3;
+    const NOT_URGENT_NOT_IMPORTANT = 4;
+
     // constants for steps
     const TO_DO = 0;
     const DONE = 1;
@@ -44,12 +51,14 @@ class UserGoal
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"map"})
      */
     protected $id;
 
     /**
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @Groups({"map"})
      */
     protected $status;
 
@@ -104,6 +113,7 @@ class UserGoal
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @Groups({"map"})
      **/
     protected $goal;
 
@@ -430,5 +440,53 @@ class UserGoal
             return $done * 100 / $count;
         }
         return 100;
+    }
+
+    /**
+     * This function is used to return json location for twig
+     *
+     * @return string
+     */
+    public function getLocations()
+    {
+        // check data
+        if($this->getLng() && $this->getLat() && $this->getAddress()){
+            $result = array(
+                "location" =>
+                    array(
+                        "latitude" => $this->getLng(),
+                        "longitude" => $this->getLat()
+                    ),
+                "address" => $this->getAddress() );
+
+            return json_encode($result);
+        }
+
+        return null;
+
+
+    }
+
+    /**
+     * This function is used to return json location for twig
+     *
+     * @return string
+     */
+    public function getStepsJson()
+    {
+        $result= array();
+
+        // get steps
+        $steps = $this->getSteps();
+
+        if($steps){
+            foreach($steps as $text => $switch){
+                $result[] = array('text' => $text, 'switch' => $switch == self::DONE ? "on" : 'off');
+            }
+        }
+        else{
+            $result[] = array();
+        }
+        return json_encode($result);
     }
 }

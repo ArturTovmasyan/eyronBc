@@ -46,11 +46,10 @@ class UserGoalRepository extends EntityRepository
      * @param $user
      * @param $status
      * @param $dream
-     * @param $urgent
-     * @param $important
+     * @param $filter
      * @return array
      */
-    public function findAllByUser($user, $status, $dream, $urgent, $important)
+    public function findAllByUser($user, $status, $dream, $filter)
     {
         $query =
             $this->getEntityManager()
@@ -71,23 +70,38 @@ class UserGoalRepository extends EntityRepository
                 ->setParameter('status', $status);
         }
 
-        // check urgent
-        if($urgent){
+        // check filter
+        if($filter){
             $query
-                ->andWhere('ug.urgent =:urgent')
-                ->setParameter('urgent', UserGoal::URGENT);
-
-        }
-
-        /// check important
-        if($important){
-            $query
-                ->andWhere('ug.important = :important')
-                ->setParameter('important', UserGoal::IMPORTANT);
+                ->andWhere('ug.urgent is null OR ug.urgent =:urgent')
+                ->andWhere('ug.important is null OR  ug.important = :important')
             ;
 
-        }
+            // switch for filter
+            switch($filter){
+                case UserGoal::URGENT_IMPORTANT:
+                    $query
+                        ->setParameter('urgent' , UserGoal::URGENT )
+                        ->setParameter('important' , UserGoal::IMPORTANT);
+                    break;
+                case UserGoal::NOT_URGENT_IMPORTANT:
+                    $query
+                        ->setParameter('urgent' , UserGoal::NOT_URGENT)
+                        ->setParameter('important',UserGoal::IMPORTANT);
+                    break;
+                case UserGoal::URGENT_NOT_IMPORTANT:
+                    $query
+                        ->setParameter('urgent' , UserGoal::URGENT)
+                        ->setParameter('important' , UserGoal::NOT_IMPORTANT);
+                    break;
+                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
+                    $query
+                        ->setParameter('urgent' , UserGoal::NOT_URGENT)
+                        ->setParameter('important', UserGoal::NOT_IMPORTANT);
+                    break;
 
+            }
+        }
         // check dream
         if($dream){
             $query

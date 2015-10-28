@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\UserGoal;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,17 +35,23 @@ class BucketListController extends Controller
         $dream = $request->get('d');
 
         // get urgent filter
-        $urgent = $request->get('i');
-
-        // get important filter
-        $important = $request->get('u');
+        $filter = $request->get('f');
 
         // get current user
         $user = $this->getUser();
 
         // find all goals
         $userGoals = $em->getRepository("AppBundle:UserGoal")
-            ->findAllByUser($user, $status, $dream, $urgent, $important);
+            ->findAllByUser($user, $status, $dream, $filter);
+
+        // create filter
+        $filters = array(
+            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
+            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
+            );
+
 
         // get drafts
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
@@ -56,6 +63,7 @@ class BucketListController extends Controller
             'userGoals' => $userGoals,
             'draftsCount' => $draftsCount,
             'popularGoals' => $popularGoals,
+            'filters' => $filters
             );
     }
 }

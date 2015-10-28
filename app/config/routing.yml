@@ -64,3 +64,9 @@ fos_comment_api:
     resource: "@FOSCommentBundle/Resources/config/routing.yml"
     prefix: /api
     defaults: { _format: html }
+
+# custom rests
+app_goal_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\GoalRestController
+    prefix:   /api

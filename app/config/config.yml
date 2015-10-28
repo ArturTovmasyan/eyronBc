@@ -119,12 +119,26 @@ fos_user:
                 type: bl_user_registration
                 handler: bl_user.form.handler.registration
 
+# fos comment bundle
 fos_comment:
     db_driver: orm
     class:
         model:
             comment: Application\CommentBundle\Entity\Comment
             thread: Application\CommentBundle\Entity\Thread
+
+# fos rest bundle
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: false
+    body_converter:
+                enabled: true
+    format_listener: false
+    view:
+        view_response_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
 
 #    hwi oauth configs
 hwi_oauth:
