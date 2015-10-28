@@ -14,11 +14,11 @@
             <div class="col-md-6"></div>
             <div class="col-md-6">
                 {% if aphorism  %}
-                    <q>
-                        {{ aphorism.content }}
-                    </q>
-                    <cite class="text-right">{{ aphorism.author }}</cite>
-
+                    <div class="ticker">
+                        <ul>
+                            <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                        </ul>
+                    </div>
                 {% endif %}
             </div>
         </div>
