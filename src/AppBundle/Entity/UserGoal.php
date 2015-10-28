@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
 
@@ -50,12 +51,14 @@ class UserGoal
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"map"})
      */
     protected $id;
 
     /**
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @Groups({"map"})
      */
     protected $status;
 
@@ -110,6 +113,7 @@ class UserGoal
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @Groups({"map"})
      **/
     protected $goal;
 
