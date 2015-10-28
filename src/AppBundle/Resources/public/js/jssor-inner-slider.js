@@ -25,7 +25,9 @@ $(document).ready(function(){
 
             if(parentWidth2) {
 //                story.$ScaleWidth(Math.min(parentWidth2, window.screen.width));
-                story.$ScaleWidth(window.screen.width / 1.5);
+                if(window.screen.width < 1366){
+                    story.$ScaleWidth(window.screen.width);
+                }
             }
 
             if (parentWidth) {
