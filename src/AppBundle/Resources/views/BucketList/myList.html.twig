@@ -116,7 +116,7 @@
 
             <div class="col-md-9">
 
-                {% if userGoals %}
+                {% if userGoals[1] %}
 
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
@@ -151,9 +151,9 @@
                                             {#{% if userGoal.note is not null %}#}
                                                 {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
                                             {#{% endif %}#}
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-list-alt"></span>
-                                            </a>
+                                            <span title="{{ 'my_bucket_list.notes'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+                                            <span title="{{ 'my_bucket_list.steps'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+
                                         </li>
 
                                         <li>
@@ -171,9 +171,7 @@
                                         {% if goal.author and goal.author.id == app.user.id %}
 
                                             <li>
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                </a>
+                                                <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
                                             </li>
                                         {% endif %}
 
@@ -182,18 +180,14 @@
                                         {% if userGoal.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %}
 
                                             <li>
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon-eye-close"></span>
-                                                </a>
+                                                <span title="{{ 'my_bucket_list.invisible'|trans }}" class="glyphicon glyphicon-eye-close"></span>
                                             </li>
                                         {% endif %}
 
                                         {# Missed deadline #}
                                         {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                                             <li>
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon-off"></span>
-                                                </a>
+                                                <span title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="glyphicon glyphicon-off"></span>
                                             </li>
                                         {% endif %}
 
