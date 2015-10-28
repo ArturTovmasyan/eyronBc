@@ -12,17 +12,24 @@ $(document).ready(function(){
                 $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
             }
         };
-        var jssor_slider1 = new $JssorSlider$('main-slider', options);
+        var main = new $JssorSlider$('main-slider', options);
         options.$SlideSpacing = 5;
         options.$DisplayPieces = 2;
         options.$SlideWidth = 200;
 
-        var jssor_slider2 = new $JssorSlider$('story-slider', options);
+        var story = new $JssorSlider$('story-slider', options);
 
         var ScaleSlider = function() {
             var parentWidth = $('#main-slider').parent().width();
+            var parentWidth2 = $('#story-slider').parent().width();
+
+            if(parentWidth2) {
+//                story.$ScaleWidth(Math.min(parentWidth2, window.screen.width));
+                story.$ScaleWidth(window.screen.width / 1.5);
+            }
+
             if (parentWidth) {
-                jssor_slider1.$ScaleWidth(parentWidth);
+                main.$ScaleWidth(parentWidth);
             }
             else {
                 window.setTimeout(ScaleSlider, 30);
