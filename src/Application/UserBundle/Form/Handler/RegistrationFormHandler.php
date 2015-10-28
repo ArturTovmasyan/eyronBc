@@ -71,7 +71,7 @@ class RegistrationFormHandler extends BaseHandler
         // generate url
         $url = $this->request->getHttpHost() . $router->generate("registration_confirm", array('token' => $token));
 
-        $html = "Click this <a href='$url'>link</a> to confirm your email";
+        $html = "Verification link has been sent to your e-mail address. Please, confirm your account by clicking on the link <a href='$url'>link</a>";
 
         $message = \Swift_Message::newInstance()
             ->setSubject('test')
