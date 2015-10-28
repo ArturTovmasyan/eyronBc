@@ -13,6 +13,11 @@ $(document).ready(function(){
             }
         };
         var jssor_slider1 = new $JssorSlider$('main-slider', options);
+        options.$SlideSpacing = 5;
+        options.$DisplayPieces = 2;
+        options.$SlideWidth = 200;
+
+        var jssor_slider2 = new $JssorSlider$('story-slider', options);
 
         var ScaleSlider = function() {
             var parentWidth = $('#main-slider').parent().width();

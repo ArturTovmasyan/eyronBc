@@ -182,7 +182,7 @@
                                         {% if files %}
 
                                             {% if files|length < 2 %}
-                                                {% set file =files.first %}
+                                                {% set file = files.first %}
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <figure>
@@ -192,13 +192,21 @@
                                                 </div>
                                             {% else %}
                                                 <div class="row">
-                                                    {% for file in files %}
-                                                        <div class="col-md-6">
-                                                            <figure>
-                                                                <img src="{{ file.getDownloadLink }}" alt="Image" width="200" height="320"/>
-                                                            </figure>
+                                                    <div id="story-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 300px;">
+                                                        <!-- Slides Container -->
+                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 200px">
+                                                            {% for file in files %}
+                                                                <div>
+                                                                    <img u="image" src="{{ file.downloadLink }}"/>
+                                                                </div>
+                                                            {% endfor %}
                                                         </div>
-                                                    {% endfor %}
+
+                                                        <!-- Arrow Left -->
+                                                        <span u="arrowleft" class="jssora13l"></span>
+                                                        <!-- Arrow Right -->
+                                                        <span u="arrowright" class="jssora13r"></span>
+                                                    </div>
                                                 </div>
                                             {% endif %}
                                         {% endif %}
