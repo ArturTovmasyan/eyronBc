@@ -14,11 +14,11 @@
             <div class="col-md-6"></div>
             <div class="col-md-6">
                 {% if aphorism  %}
-                    <q>
-                        {{ aphorism.content }}
-                    </q>
-                    <cite class="text-right">{{ aphorism.author }}</cite>
-
+                    <div class="ticker">
+                        <ul>
+                            <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                        </ul>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -193,9 +193,9 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 700px">
+                                                    <div id="story-slider{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 700px; height: 200px">
+                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
                                                             {% for file in files %}
                                                                 <div>
                                                                     <img u="image" src="{{ file.downloadLink }}"/>

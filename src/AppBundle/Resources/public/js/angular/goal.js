@@ -125,6 +125,8 @@ angular.module('goal', ['Interpolation',
             marginTop: 85,
             limit: angular.element('footer').offset().top
         });
+
+        angular.element('.ticker').ticker();
     }])
     .directive('step',[function(){
         return {
