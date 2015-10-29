@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Entity;
 
+use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,15 @@ class User extends BaseUser
 {
     const MALE = 0;
     const FEMALE = 1;
+
+    // constants for percent
+    const SIGN_UP = 15;
+    const CONFIRM_ACCOUNT = 15;
+    const UPLOAD_IMAGE = 10;
+    const ADD_GOAL = 15;
+    const SET_DEADLINE = 15;
+    const COMPLETE_GOAL = 15;
+    const SUCCESS_STORY = 15;
 
     // use file trait
     use File;
@@ -590,5 +600,120 @@ class User extends BaseUser
     public function getEditedGoals()
     {
         return $this->editedGoals;
+    }
+
+
+    /**
+     * This function is used to check percent of completed profile
+     *
+     * @return int
+     */
+    public function getCompletedPercent()
+    {
+        // default percent
+        $percent = 0;
+
+        // set default sign up
+        $percent += self::SIGN_UP;
+
+        // check confirmation
+        $percent += is_null($this->registrationToken) ? self::CONFIRM_ACCOUNT : 0;
+
+        // check image
+        $percent += $this->socialPhotoLink || $this->fileName ? self::UPLOAD_IMAGE : 0;
+
+        // check goal
+        $percent += $this->userGoal->count() > 0 ? self::ADD_GOAL : 0;
+
+        // check deadlines
+        $percent += $this->checkDeadLines() ? self::SET_DEADLINE : 0;
+
+        // check completed goals
+        $percent += $this->checkCompletedGoals() ? self::COMPLETE_GOAL : 0;
+
+        // check success story
+        $percent +=  $this->checkSuccessStory() ? self::SUCCESS_STORY : 0;
+
+        return $percent;
+
+    }
+
+    /**
+     * This function is used to check hav user add deadline
+     *
+     * @return bool
+     */
+    public function checkDeadLines()
+    {
+        // get user goal
+        $userGoals = $this->userGoal;
+
+        // check user goal
+        if($userGoals){
+
+            // loop for user goals
+            foreach($userGoals as $userGoal){
+
+                // check deadlines
+                if($userGoal->getDoDate()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This function is used to check have user complete goal
+     *
+     * @return bool
+     */
+    public function checkCompletedGoals()
+    {
+        // get user goal
+        $userGoals = $this->userGoal;
+
+        // check user goal
+        if($userGoals){
+
+            // loop for user goals
+            foreach($userGoals as $userGoal){
+
+                // check status
+                if($userGoal->getStatus() == UserGoal::COMPLETED){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * This function is used to check have user add success story
+     *
+     * @return bool
+     */
+    public function checkSuccessStory()
+    {
+        // get user goal
+        $userGoals = $this->userGoal;
+
+        // check user goal
+        if($userGoals){
+
+            // loop for user goals
+            foreach($userGoals as $userGoal){
+
+                // get goal
+                $goal = $userGoal->getGoal();
+
+                // check success stories
+                if($goal->getSuccessStories()->count() > 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
