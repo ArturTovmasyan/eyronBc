@@ -95,7 +95,7 @@ class GoalAdmin extends Admin
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
 
-        $object->setAuthor($user);
+        $object->setEditor($user);
         $object->setPublish(PublishAware::PUBLISH);
         $object->setReadinessStatus(Goal::TO_PUBLISH);
 

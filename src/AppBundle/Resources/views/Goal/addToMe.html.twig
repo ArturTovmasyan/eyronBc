@@ -21,10 +21,60 @@
 
                 <div class="col-md-6 col-md-offset-3">
 
+                    {% set completed = false %}
+
                     <div class="goal-end">
+
+                        {# edit goal status #}
+                        {% if data.id is not null %}
+
+                            {% set completed = data.status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+
+                            <div class="clearfix">
+                                <div class="form-group">
+
+                                    <label class="col-sm-9 control-label">
+                                        <span data-ng-show="step.switch">{{ "goal.is_completed"|trans }}</span>
+                                        <span data-ng-hide="step.switch">{{ "goal.is_active"|trans }}</span>
+                                    </label>
+
+                                    <div class="col-sm-2">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox"
+                                                   name="goal-status"
+                                                   data-ng-model="step.switch"
+                                                   class="onoffswitch-checkbox"
+                                                   id="myonoffswitch[[k]]">
+
+                                            <label class="onoffswitch-label" for="myonoffswitch[[k]]">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-12 control-label">
+                                    <span data-ng-show="step.switch">{{ "goal.completed_text"|trans }}</span>
+                                    <span data-ng-hide="step.switch">{{ "goal.active_text"|trans }}</span>
+                                </label>
+                            </div>
+                            <br />
+
+                            {% if completed %}
+                                <div class="clearfix">
+                                    <span style="color: black">
+                                    {{ "goal.completion_date"|trans }} {{ data.completionDate|date('d M Y') }}
+                                    </span>
+                                </div>
+                            {% endif %}
+                            <br />
+
+                        {% endif %}
+
                         <h4>{{ "goal.is_dream"|trans }}</h4>
 
-                        <div id="datepicker" data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}" style="color: black"></div>
+                        <div id="datepicker" enableOnReadonly="true" data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}" style="color: black"></div>
 
                         {% set array = [{'text' : 'jafbaskj', 'switch' : 'on' }, {'text' : 'dfasf', 'switch' : 'off' } ] %}
 
@@ -33,7 +83,7 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <input value="{{ data.address }}" type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="{{ "goal.location_ex"|trans }}" />
+                                    <input {% if completed %} disabled {% endif %} value="{{ data.address }}" type="text" google-places-autocomplete hidden-storage=".location-hidden" class="form-control place-autocomplete" placeholder="{{ "goal.location_ex"|trans }}" />
                                     <input id="{{  form.location.vars.id }}" value="{{ data.getLocations }}" type="hidden" class="location-hidden" name="{{ form.location.vars.full_name }}"/>
                                 </div>
                             </div>
