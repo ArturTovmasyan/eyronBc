@@ -117,6 +117,7 @@ my_bucket_list:
   notes: Notes
   steps: Steps
   missed_deadline: Missed deadline
+  year_old: y.o.
 
 done_by: Done by
 listed_by: Listed by

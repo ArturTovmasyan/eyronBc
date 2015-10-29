@@ -1,11 +1,14 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
+{% set user = app.user %}
 
 {% block content_header %}
 
+    {% set stats = user.getStats %}
+
     <div class="content-header">
         <figure>
-            <img src="{{ asset('bundles/app/images/cover2.jpg') }}" alt="Some image" class="img-responsive" />
+            <img src="{{ user.getPhotoLink }}" alt="Some image" class="img-responsive" />
         </figure>
 
         <div class="profile">
@@ -15,24 +18,24 @@
                     <div class="col-md-4">
                         <figure>
                             <div>
-                                <img src="{{ asset('bundles/app/images/smile.jpg') }}" alt="" class="img-responsive img-circle"/>
+                                <img src="{{ user.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
                             </div>
 
                             <figcaption>
                                 <ul>
                                     <li>
                                         <span>{{ 'user_goal.active'|trans }}</span>
-                                        <span>0</span>
+                                        <span>{{ stats.active }}</span>
                                     </li>
 
                                     <li>
                                         <span>{{ 'listed_by'|trans }}</span>
-                                        <span>0</span>
+                                        <span>{{ stats.listedBy }}</span>
                                     </li>
 
                                     <li>
                                         <span>{{ 'done'|trans }}</span>
-                                        <span>0</span>
+                                        <span>{{ stats.doneBy }}</span>
                                     </li>
                                 </ul>
                             </figcaption>
@@ -40,19 +43,21 @@
                     </div>
 
                     <div class="col-md-4">
-                        <h1 class="bg-blue">Pamela J. Karg</h1>
-                        <p>Here will be autor</p>
+                        <h1 class="bg-blue">{{ user.showName }}</h1>
+                        {% if  user.getAge  %}
+                            <p>{{ user.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                        {% endif %}
                     </div>
 
                     <div class="col-md-4">
-                        <a href="#" class="pull-right">
+                        <a href="{{ path("settings") }}" class="pull-right">
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
 
                         <div class="absolute clearfix" style="margin-top:250px;">
                             <i>{{ 'complete_message'|trans }}</i>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:{{ user.getCompletedPercent }}%">
                                     <span class="sr-only">45% Complete</span>
                                 </div>
                             </div>

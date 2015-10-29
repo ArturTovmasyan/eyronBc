@@ -71,12 +71,6 @@ class User extends BaseUser
     protected $firstName;
 
     /**
-     * @ORM\Column(name="age", type="smallint", nullable=true)
-     * @var
-     */
-    protected $age;
-
-    /**
      * @ORM\Column(name="gender", type="smallint", nullable=true)
      * @var
      */
@@ -229,27 +223,25 @@ class User extends BaseUser
         return $this->aboutMe;
     }
 
-    /**
-     * Set age
-     *
-     * @param integer $age
-     * @return User
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return integer 
-     */
     public function getAge()
     {
-        return $this->age;
+        // get birthDate
+        $birthDate = $this->getBirthDate();
+
+        // check birthDate
+        if($birthDate){
+
+            // get year
+            $now = new \DateTime();
+
+            // get different
+            $year = $now->format("Y");
+
+            return $year - $this->birthDate->format("Y");
+
+        }
+
+        return null;
     }
 
     /**
