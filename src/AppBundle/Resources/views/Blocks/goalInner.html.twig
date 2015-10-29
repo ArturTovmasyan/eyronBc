@@ -16,7 +16,9 @@
                 {% if aphorism  %}
                     <div class="ticker">
                         <ul>
-                            <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                            {% for ap in aphorism %}
+                                <li>{{ ap.content }} ({{ ap.author }})</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 {% endif %}

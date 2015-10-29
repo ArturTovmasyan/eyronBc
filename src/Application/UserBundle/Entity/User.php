@@ -716,4 +716,25 @@ class User extends BaseUser
         }
         return false;
     }
+
+    /**
+     * @return array
+     */
+    public function getStats()
+    {
+        $result = array("listedBy" => 0, "active" => $this->authorGoals->count(), "doneBy" => 0);
+
+        // get user goals
+        $userGoals = $this->getUserGoal();
+
+        // check user goals
+        if($userGoals){
+            // loop for user goals
+            foreach($userGoals as $userGoal){
+
+                $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy']++;
+            }
+        }
+        return $result;
+    }
 }

@@ -60,9 +60,10 @@ class AphorismRepository extends EntityRepository
         if($result){
 
             // get count
-            $count = count($result);
+//            $count = count($result);
 
-            return $result[rand(0, $count-1)];
+//            return $result[rand(0, $count-1)];
+            return $result;
         }
 
         return null;
