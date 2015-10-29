@@ -513,10 +513,6 @@ class GoalController extends Controller
             // get data
             $form->handleRequest($request);
 
-            dump($request);
-
-            exit;
-
             // check form
             if($form->isValid()){
 
