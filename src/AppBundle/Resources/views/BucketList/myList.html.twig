@@ -39,10 +39,19 @@
                 </div>
 
                 <div class="col-md-3 text-right">
+
                     <a href="#" class="border forget">
                         <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
                     </a>
                 </div>
+
+                {#<div class="relative">#}
+                    {#<div class="delete-message">#}
+                        {#<h3>{{ 'delete_message'|trans|upper|raw }}</h3>#}
+                        {#<a href="#" class="btn btn-default">{{ 'btn_delete'|trans | upper }}</a>#}
+                        {#<a href="#" class="btn btn-default bg-purple">{{ 'btn_cancel'|trans | upper }}</a>#}
+                    {#</div>#}
+                {#</div>#}
 
             </div>
         </div>
@@ -116,7 +125,7 @@
 
             <div class="col-md-9">
 
-                {% if userGoals[1] %}
+                {% if userGoals %}
 
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}

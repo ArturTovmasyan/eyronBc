@@ -121,4 +121,7 @@ drag_drop: Select photos for your idea
 upload: |
   Upload multiple images (max 6)
 
+delete_message: |
+  You are about to delete your goal. <br />
+  Are you sure?
 
