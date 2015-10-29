@@ -80,6 +80,12 @@
 
                         <div id="datepicker" enableOnReadonly="true" data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}" style="color: black"></div>
 
+                        {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") <  "now"|date("m/d/Y")  %}
+                            <div style="color: black">
+                                {{ "goal.missed_deadline"|trans }}
+                            </div>
+                        {% endif %}
+
                         {% set array = [{'text' : 'jafbaskj', 'switch' : 'on' }, {'text' : 'dfasf', 'switch' : 'off' } ] %}
 
                         <form class="form-horizontal"action="#" method="post" ng-init="initSteps({{ data.getStepsJson }})">
@@ -100,6 +106,12 @@
 
                             {% if data.id is not null %}
                                 <h4>{{ "goal.complete_step"|trans }}</h4>
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:{{ data.getCompleted }}%">
+                                        <span class="sr-only">45% Complete</span>
+                                    </div>
+                                </div>
                             {% endif %}
 
                             <div class="form-group row"  data-ng-repeat="(k, step) in stepsArray">
@@ -148,7 +160,14 @@
 
                             </div>
 
-                            <p>{{ "goal.agree"|trans }}</p>
+                            <p>{{ "goal.invisible_text"|trans }}</p>
+
+
+                            {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
+                                <div style="color: black">
+                                    (Must be icon) Private   {{ 'goal.private_text'|trans }}
+                                </div>
+                            {% endif %}
 
                             <div class="form-group text-center ">
                                 <button type="submit" class="btn btn-purple">{{ "btn_discover_more"|trans }}</button>

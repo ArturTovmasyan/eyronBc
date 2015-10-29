@@ -41,6 +41,9 @@ goal:
       active_text: If you accomplished your Goal, just mark it
       completion_date: Completion date :
       complete_step: Take steps - Complete your Goal !
+      private_text: You created this Goal only for your Bucketlist
+      invisible_text: You can make the Goal invisible got other users
+      missed_deadline: You missed your deadline, please set new one
 
 # home
 homepage_title: Dreams come true, <br /> dream big!
