@@ -62,7 +62,10 @@
 
                                  <div class="text-center" ng-init="initDropzone('{{ path('add_images') }}')">
                                      <div class="dropzone" id="goalDropzone">
-                                         <div class="dz-message">Select photos for your idea</div>
+                                         <div class="dz-message">
+                                            <h3>{{ 'drag_drop'|trans }}</h3>
+                                            <p>{{ 'upload'|trans | raw}}</p>
+                                         </div>
                                      </div>
                                  </div>
 
