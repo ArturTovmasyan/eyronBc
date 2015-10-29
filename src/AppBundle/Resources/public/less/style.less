@@ -938,8 +938,19 @@ footer{
   position: relative;
 }
 
+//.absolute{
+//  position: absolute;
+//  bottom:0;
+//  width:100%;
+//}
+
 .bg-purple{
   background-color:#7627f5 !important;
+}
+
+.bg-blue{
+  background-color:#021523;
+  color:#ffffff;
 }
 
 .content-header{
@@ -1014,6 +1025,12 @@ footer{
     margin:175px 0 20px;
   }
 
+  h1{
+    padding:10px 40px;
+    margin:25px 0 20px;
+  }
+
+
   p{
     background-color: #021523;
     color:#ffffff;
@@ -1021,6 +1038,59 @@ footer{
     display: inline-block;
     margin-bottom:50px;
   }
+}
+
+.profile{
+  padding:40px 0 0 0;
+
+  figure{
+    background-color: rgba(207, 207, 207, 0.54);
+    text-align: center;
+    position:relative;
+    padding:20px;
+
+    div{
+      width:200px;
+      height:200px;
+      margin:0 auto;
+      overflow:hidden;
+    }
+    figcaption{
+      margin-top:20px;
+      background-color: transparent;
+
+      li{
+        display: inline-block;
+        border-right:1px solid #ffffff;
+        padding:0 10px;
+
+        span{
+          display:block;
+          color:#ffffff;
+
+          &:last-child{
+            font-size:18px;
+            color:#ffffff;
+          }
+        }
+        &:last-child{
+          border:0;
+        }
+        &:hover{
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  h1{
+    font-size:45px;
+    padding:10px 25px;
+  }
+
+  i{
+    color:#ffffff;
+  }
+
 }
 
 .border{

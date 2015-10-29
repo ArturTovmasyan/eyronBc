@@ -5,45 +5,93 @@
 
     <div class="content-header">
         <figure>
-            <img src="{{ asset('bundles/app/images/cover2.jpg') }}" alt= "Some image" class="img-responsive" />
+            <img src="{{ asset('bundles/app/images/cover2.jpg') }}" alt="Some image" class="img-responsive" />
         </figure>
 
-        <div class="container">
-            <div class="row">
+        <div class="profile">
+            <div class="container">
+                <div class="row">
 
-                <div class="col-md-9">
+                    <div class="col-md-4">
+                        <figure>
+                            <div>
+                                <img src="{{ asset('bundles/app/images/smile.jpg') }}" alt="" class="img-responsive img-circle"/>
+                            </div>
 
-                    <h2>Here will be title</h2>
-                    <p>Here will be autor</p>
+                            <figcaption>
+                                <ul>
+                                    <li>
+                                        <span>{{ 'user_goal.active'|trans }}</span>
+                                        <span>0</span>
+                                    </li>
 
-                    <div class="row">
+                                    <li>
+                                        <span>{{ 'listed_by'|trans }}</span>
+                                        <span>0</span>
+                                    </li>
 
-                        <div class="col-md-6">
-                            <a href="#">
-                                {{ 'listed_by'|trans | upper }}
-                                <span>12</span>
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </div>
-
-                        <div class="col-md-6">
-                            <a href="#">
-                                {{ 'done_by'|trans | upper }}
-                                <span>12</span>
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </div>
-
+                                    <li>
+                                        <span>{{ 'done'|trans }}</span>
+                                        <span>0</span>
+                                    </li>
+                                </ul>
+                            </figcaption>
+                        </figure>
                     </div>
 
-                </div>
+                    <div class="col-md-4">
+                        <h1 class="bg-blue">Pamela J. Karg</h1>
+                        <p>Here will be autor</p>
+                    </div>
 
-                <div class="col-md-3 text-right">
+                    <div class="col-md-4">
+                        <a href="#" class="pull-right">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
 
-                    <a href="#" class="border forget">
-                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
-                    </a>
+                        <div class="absolute clearfix" style="margin-top:250px;">
+                            <i>{{ 'complete_message'|trans }}</i>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                    <span class="sr-only">45% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                {#<div class="col-md-9">#}
+
+                    {#<h2>Here will be title</h2>#}
+                    {#<p>Here will be autor</p>#}
+
+                    {#<div class="row">#}
+
+                        {#<div class="col-md-6">#}
+                            {#<a href="#">#}
+                                {#{{ 'listed_by'|trans | upper }}#}
+                                {#<span>12</span>#}
+                                {#<span class="glyphicon glyphicon-user"></span>#}
+                            {#</a>#}
+                        {#</div>#}
+
+                        {#<div class="col-md-6">#}
+                            {#<a href="#">#}
+                                {#{{ 'done_by'|trans | upper }}#}
+                                {#<span>12</span>#}
+                                {#<span class="glyphicon glyphicon-user"></span>#}
+                            {#</a>#}
+                        {#</div>#}
+
+                    {#</div>#}
+
+                {#</div>#}
+
+                {#<div class="col-md-3 text-right">#}
+
+                    {#<a href="#" class="border forget">#}
+                        {#<span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}#}
+                    {#</a>#}
+                {#</div>#}
 
                 {#<div class="relative">#}
                     {#<div class="delete-message">#}
