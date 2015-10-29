@@ -271,12 +271,12 @@ class GoalController extends Controller
         $listedByUsers = $em->getRepository("ApplicationUserBundle:User")->findListedBy($goal);
 
         // get aphorism by goal
-        $aphorism = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
+        $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
 
         return array(
             'goal' => $goal,
             'page' => $page,
-            'aphorism' => $aphorism,
+            'aphorisms' => $aphorisms,
             'doneByUsers' => $doneByUsers,
             'listedByUsers' => $listedByUsers
         );

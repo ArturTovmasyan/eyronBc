@@ -13,11 +13,11 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                {% if aphorism  %}
+                {% if aphorisms  %}
                     <div class="ticker">
                         <ul>
-                            {% for ap in aphorism %}
-                                <li>{{ ap.content }} ({{ ap.author }})</li>
+                            {% for aphorism in aphorisms %}
+                                <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
                             {% endfor %}
                         </ul>
                     </div>
