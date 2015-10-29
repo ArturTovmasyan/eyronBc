@@ -122,3 +122,14 @@ done_by: Done by
 listed_by: Listed by
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
+
+drag_drop: Select photos for your idea
+upload: |
+  Upload multiple images (max 6)
+
+delete_message: |
+  You are about to delete your goal. <br />
+  Are you sure?
+
+complete_message: Complete your profile
+

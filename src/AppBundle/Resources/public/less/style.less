@@ -628,8 +628,15 @@ figure{
 }
 
 .dropzone{
+  min-height:320px !important;
   margin:40px 0;
-  background: url('../images/drop_drag.png') no-repeat center 80px rgba(0,0,0,0.03) !important;
+  background: url('../images/drop_drag.png') no-repeat center 60px rgba(0,0,0,0.03) !important;
+
+  .dz-message{
+    position: absolute;
+    width: 100%;
+    bottom: 35px;
+  }
 }
 .inner-container{
   background-color: #d8d8d8;
@@ -927,6 +934,25 @@ footer{
   }
 }
 
+.relative{
+  position: relative;
+}
+
+//.absolute{
+//  position: absolute;
+//  bottom:0;
+//  width:100%;
+//}
+
+.bg-purple{
+  background-color:#7627f5 !important;
+}
+
+.bg-blue{
+  background-color:#021523;
+  color:#ffffff;
+}
+
 .content-header{
   position: relative;
   height:450px;
@@ -953,6 +979,25 @@ footer{
     }
   }
 
+  .delete-message{
+    text-align:center;
+    padding:100px;
+    position: absolute;
+    display: block;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    h3{
+      color:#ffffff;
+      padding:0 0 60px 0;
+      font-size:35px;
+      line-height:60px;
+    }
+
+    .btn-default{
+      background-color: transparent;
+    }
+  }
+
   .forget{
     margin: 50px 0 0;
     color:#ffffff;
@@ -964,7 +1009,14 @@ footer{
       margin-right:10px;
       margin-left:0;
     }
+    &:hover{
+      .delete-message{
+        display:block;
+      }
+    }
   }
+
+
 
   h2{
     background-color: #021523;
@@ -973,6 +1025,12 @@ footer{
     margin:175px 0 20px;
   }
 
+  h1{
+    padding:10px 40px;
+    margin:25px 0 20px;
+  }
+
+
   p{
     background-color: #021523;
     color:#ffffff;
@@ -980,6 +1038,59 @@ footer{
     display: inline-block;
     margin-bottom:50px;
   }
+}
+
+.profile{
+  padding:40px 0 0 0;
+
+  figure{
+    background-color: rgba(207, 207, 207, 0.54);
+    text-align: center;
+    position:relative;
+    padding:20px;
+
+    div{
+      width:200px;
+      height:200px;
+      margin:0 auto;
+      overflow:hidden;
+    }
+    figcaption{
+      margin-top:20px;
+      background-color: transparent;
+
+      li{
+        display: inline-block;
+        border-right:1px solid #ffffff;
+        padding:0 10px;
+
+        span{
+          display:block;
+          color:#ffffff;
+
+          &:last-child{
+            font-size:18px;
+            color:#ffffff;
+          }
+        }
+        &:last-child{
+          border:0;
+        }
+        &:hover{
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  h1{
+    font-size:45px;
+    padding:10px 25px;
+  }
+
+  i{
+    color:#ffffff;
+  }
+
 }
 
 .border{
