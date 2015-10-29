@@ -167,7 +167,7 @@ class GoalController extends Controller
 
             // loop for images
             foreach($storyImages as $storyImage){
-                $em->remove($storyImages);
+                $em->remove($storyImage);
             }
         }
     }
