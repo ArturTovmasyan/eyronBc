@@ -72,7 +72,11 @@
 
                         {% endif %}
 
-                        <h4>{{ "goal.is_dream"|trans }}</h4>
+                        {% if data.id is null  %}
+                            <h4>{{ "goal.is_dream"|trans }}</h4>
+                        {% elseif data.doDate is null %}
+                            <h4>{{ "dream"|trans }}</h4>
+                        {% endif %}
 
                         <div id="datepicker" enableOnReadonly="true" data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}" style="color: black"></div>
 
@@ -94,6 +98,9 @@
                                 </div>
                             </div>
 
+                            {% if data.id is not null %}
+                                <h4>{{ "goal.complete_step"|trans }}</h4>
+                            {% endif %}
 
                             <div class="form-group row"  data-ng-repeat="(k, step) in stepsArray">
 
@@ -101,6 +108,7 @@
                                     <input type="text"
                                            class="form-control"
                                            data-step
+                                           {% if completed %}disabled{% endif %}
                                            data-key="k"
                                            data-array="stepsArray"
                                            data-ng-model="step.text"
@@ -115,7 +123,7 @@
 
                                 <div class="col-sm-2">
                                     <div class="onoffswitch">
-                                        <input type="checkbox"
+                                        <input {% if completed %}disabled{% endif %} type="checkbox"
                                                name="switch[ [[k]] ]"
                                                data-ng-model="step.switch"
                                                class="onoffswitch-checkbox"

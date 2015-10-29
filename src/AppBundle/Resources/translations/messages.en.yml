@@ -40,6 +40,7 @@ goal:
       completed_text: If you believe your Goal is still Active, you can undo it
       active_text: If you accomplished your Goal, just mark it
       completion_date: Completion date :
+      complete_step: Take steps - Complete your Goal !
 
 # home
 homepage_title: Dreams come true, <br /> dream big!
