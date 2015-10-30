@@ -19,10 +19,16 @@ body{
   position: relative;
   padding-bottom: 300px;
 }
+
 input.form-control:focus,textarea.form-control:focus{
   border-color: #7725f6;
   box-shadow: none;
 }
+
+textarea{
+  resize: none;
+}
+
 header{
   #line{
     height:4px;
@@ -485,6 +491,7 @@ ul.filter{
     }
   }
 }
+
 .btn-purple{
   background-color:#7725f6;
   color:#ffffff;
@@ -496,6 +503,21 @@ ul.filter{
     background-color:#6009EA;
   }
 }
+
+.btn-transparent{
+  background-color:transparent;
+  color:#cccccc;
+  padding:10px 35px;
+  border:1px solid #cccccc;
+  margin-right:15px;
+
+  &:hover, &:focus{
+    color:#cccccc;
+    outline:none;
+    background-color:transparent;
+  }
+}
+
 
 h1{
   color:#021523;
@@ -955,7 +977,7 @@ footer{
 
 .content-header{
   position: relative;
-  height:450px;
+  height:350px;
   overflow: hidden;
 
   figure{
@@ -981,25 +1003,27 @@ footer{
 
   .delete-message{
     text-align:center;
-    padding:100px;
+    padding:65px 0 40px;
     position: absolute;
     display: block;
     width:100%;
     background-color: rgba(0, 0, 0, 0.5);
     h3{
       color:#ffffff;
-      padding:0 0 60px 0;
+      padding:0 0 50px 0;
       font-size:35px;
       line-height:60px;
     }
 
     .btn-default{
       background-color: transparent;
+      margin-right:20px;
     }
+
   }
 
   .forget{
-    margin: 50px 0 0;
+    margin: 30px 0 0;
     color:#ffffff;
     display: inline-block;
     padding:5px 30px;
@@ -1022,7 +1046,7 @@ footer{
     background-color: #021523;
     color:#ffffff;
     padding:10px 40px;
-    margin:175px 0 20px;
+    margin:130px 0 5px;
   }
 
   h1{
@@ -1036,10 +1060,15 @@ footer{
     color:#ffffff;
     padding:10px 40px;
     display: inline-block;
-    margin-bottom:50px;
+    margin-bottom:15px;
   }
 }
 
+.story-title{
+  color:#7627f5;
+  margin:30px 0 25px;
+  font-size:28px;
+}
 .profile{
   padding:40px 0 0 0;
 
@@ -1261,6 +1290,8 @@ footer{
 
   ul{
     padding-left:0;
+    margin-bottom:1px;
+
     li{
       display: inline-block;
       padding:10px 15px;
@@ -1280,6 +1311,10 @@ footer{
           color:#7725f6;
         }
       }
+
+      &:last-child:hover{
+        border-bottom:0;
+      }
     }
     .active{
       border-bottom:1px solid #7725f6;
@@ -1290,7 +1325,7 @@ footer{
   }
 
   hr{
-    margin-top:0;
+    margin-top: 0px;
   }
 
   form{

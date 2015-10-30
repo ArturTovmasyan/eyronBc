@@ -129,6 +129,8 @@ forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
 
 drag_drop: Select photos for your idea
+drag_drop_story: Select photos for your story
+
 upload: |
   Upload multiple images (max 6)
 
