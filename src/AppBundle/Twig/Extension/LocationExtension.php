@@ -42,16 +42,16 @@ class LocationExtension extends \Twig_Extension
                 if($goal instanceof UserGoal){
                     $result[$goal->getId()] = array(
                         'title' => $goal->getGoal()->getTitle(),
-                        'lng' => $goal->getLng(),
-                        'lat' => $goal->getLat(),
+                        'latitude' => $goal->getLat(),
+                        'longitude' => $goal->getLng(),
                     );
                 }
                 // is goal
                 else{
                     $result[$goal->getId()] = array(
                         'title' => $goal->getTitle(),
-                        'lng' => $goal->getLng(),
-                        'lat' => $goal->getLat(),
+                        'latitude' => $goal->getLat(),
+                        'longitude' => $goal->getLng(),
                     );
                 }
             }

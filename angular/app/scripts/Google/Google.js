@@ -4,7 +4,7 @@ angular.module('Google', [])
         function Initialize(el){
             var m, data = {};
             data.center = new google.maps.LatLng(40.177037, 44.514841);
-            data.zoom = 16;
+            data.zoom = 10;
             data.mapTypeId = google.maps.MapTypeId.ROADMAP;
             m = new google.maps.Map(el,data);
 
@@ -31,7 +31,6 @@ angular.module('Google', [])
                 }
 
                 return function(scope, el){
-                    scope.markers = {};
                     scope.map = Initialize(el[0]);
 
                     scope.$watch('markers',function(d){
@@ -39,6 +38,9 @@ angular.module('Google', [])
                             return;
                         }
 
+                        angular.forEach(d, function(v){
+                            addMarker(v, scope.map);
+                        });
                     },true);
                 };
             }
