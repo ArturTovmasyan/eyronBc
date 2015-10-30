@@ -145,7 +145,7 @@
         {% endblock %}
 
         {% block javascripts %}
-
+            <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
             <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}" type="text/javascript"></script>
             <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}" type="text/javascript"></script>
             <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" type="text/javascript"></script>
@@ -157,6 +157,7 @@
             <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
             <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
             <script src="{{ asset("bundles/app/js/angular/main.js") }}" type="text/javascript"></script>
+
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5624b2123b6addeb" async="async"></script>
 
             <script>
