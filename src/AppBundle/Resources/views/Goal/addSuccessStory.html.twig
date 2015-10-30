@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <h3 class="purple">{{ 'success_story.title'|trans }}</h3>
+                <h3 class="story-title">{{ 'success_story.title'|trans }}</h3>
 
                 <div>
                     {{ form_errors(form) }}
@@ -30,7 +30,7 @@
                     <form action="#" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
-                            {{ form_widget(form.story, {'attr': {'class':'form-control', 'placeholder' : 'success_story.description' } } ) }}
+                            {{ form_widget(form.story, {'attr': {'class':'form-control', 'placeholder' : 'success_story.description', 'rows' :"4" } } ) }}
                         </div>
 
                         <div class="text-center" ng-init="initDropzone('{{ path('add-story_images') }}')">
