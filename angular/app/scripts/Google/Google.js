@@ -14,28 +14,21 @@ angular.module('Google', [])
         return {
             restrict: 'EA',
             scope: {
-                markers: '='
+                markers: '=',
+                openPopup: '&'
             },
             compile: function compile(){
 
                 function addMarker(obj, map){
-
-                    if(!angular.isObject(obj)){
-                        return $log.error("'addMarker`s argument isn`t object");
-                    }
-
                     if(!angular.isNumber(obj.latitude) || !angular.isNumber(obj.longitude)){
                         return;
                     }
 
-                    var marker = new google.maps.Marker({
+                    return new google.maps.Marker({
                         position: new google.maps.LatLng(obj.latitude, obj.longitude),
                         map: map
                     });
-
-                    return marker;
                 }
-
 
                 return function(scope, el){
                     scope.markers = {};
