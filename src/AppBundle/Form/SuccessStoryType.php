@@ -27,7 +27,7 @@ class SuccessStoryType extends AbstractType
     {
         $builder
             ->add('story', 'textarea')
-            ->add('videoLink', null)
+            ->add('videoLink', null, array('required' => false))
             ->add('files', 'hidden', array('mapped' => false))
         ;
     }

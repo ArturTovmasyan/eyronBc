@@ -30,14 +30,15 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
+                ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
-//                ->leftJoin('g.images', 'i')
+                ->join('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.userGoal', 'ug')
-                ->groupBy('g.id')
+                ->addGroupBy('g.id')
                 ->orderBy('cnt', 'desc')
         ;
 
+        // check count
         if($count){
             $query
                 ->setMaxResults($count);

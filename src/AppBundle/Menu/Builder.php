@@ -10,6 +10,7 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class Builder
@@ -18,24 +19,57 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class Builder extends ContainerAware
 {
     /**
+     * @var
+     */
+    private $otherMenu;
+
+    /**
+     * @var
+     */
+    private $policyMenu;
+
+    /**
+     * Sets the Container associated with this Controller.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+        // get doctrine manager
+        $em = $this->container->get('doctrine')->getManager();
+        $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
+
+        // check pages
+        if($pages){
+
+            // loop for pages
+            foreach($pages as $page){
+
+                //
+                strpos('policy', $page->getName()) === false ? $this->otherMenu[] = $page : $this->policyMenu[] = $page ;
+            }
+        }
+    }
+
+    /**
      * @param FactoryInterface $factory
      * @param array $options
      * @return \Knp\Menu\ItemInterface
      */
     public function mainMenu(FactoryInterface $factory, array $options)
     {
+
+        // get e
         $menu = $factory->createItem('root');
 
-        // get doctrine manager
-        $em = $this->container->get('doctrine')->getManager();
-
-        // find all menus
-        $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
 
         // check pages
-        if($pages){
+        if($this->otherMenu){
             // loop for all pages
-            foreach($pages as $page){
+            foreach($this->otherMenu as $page){
 
                 // add menu
                 $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())));
@@ -52,21 +86,19 @@ class Builder extends ContainerAware
      */
     public function privacyMenu(FactoryInterface $factory, array $options)
     {
+        // get menu
         $menu = $factory->createItem('root');
 
-        // get doctrine manager
-        $em = $this->container->get('doctrine')->getManager();
-
-        // find all menus
-        $pages = $em->getRepository('AppBundle:Page')->findPrivacy();
-
         // check pages
-        if($pages){
+        if($this->policyMenu){
+
             // loop for all pages
-            foreach($pages as $page){
+            foreach($this->policyMenu as $page){
 
                 // add menu
-                $menu->addChild($page->getName(), array('route' => 'page', 'routeParameters' => array('slug' => $page->getSlug())));
+                $menu->addChild($page->getName(), array(
+                    'route' => 'page',
+                    'routeParameters' => array('slug' => $page->getSlug())));
             }
         }
 

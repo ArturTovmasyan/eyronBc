@@ -42,8 +42,9 @@ goal:
       completion_date: Completion date :
       complete_step: Take steps - Complete your Goal !
       private_text: You created this Goal only for your Bucketlist
-      invisible_text: You can make the Goal invisible got other users
+      invisible_text: You can make the Goal invisible for other users
       missed_deadline: You missed your deadline, please set new one
+      scheduled_date: Scheduled Date
 
 # home
 homepage_title: Dreams come true, <br /> dream big!
@@ -102,7 +103,7 @@ menu:
 right_menu:
   create: Create a Goal
   draft: Drafts
-  ideas: Popolar Ideas
+  ideas: Popular Ideas
   show: Show all
 
 manage: MANAGE
