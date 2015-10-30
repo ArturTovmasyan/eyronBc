@@ -89,7 +89,17 @@ angular.module('goal', ['Interpolation',
             $scope.stepsArray = json;
         };
 
-        angular.element('#datepicker').datepicker();
+        angular.element('#datepicker').datepicker({
+            beforeShowDay: function(){
+                var cond = angular.element('#datepicker').data('datepicker-disable');
+                if(cond){
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        });
         angular.element("#datepicker").on("changeDate", function() {
             angular.element(".hidden_date_value").val(
                 angular.element("#datepicker").datepicker('getFormattedDate')

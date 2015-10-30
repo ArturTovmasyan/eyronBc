@@ -47,12 +47,11 @@
                                             <div class="col-sm-2">
                                                 <div class="onoffswitch">
                                                     <input type="checkbox"
-                                                           name="goal_status"
-                                                           data-ng-model="complete.switch"
-                                                           class="onoffswitch-checkbox"
-                                                           id="myonoffswitch"
-                                                           value="1"
-                                                            >
+                                                       name="goal_status"
+                                                       data-ng-model="complete.switch"
+                                                       class="onoffswitch-checkbox"
+                                                       id="myonoffswitch"
+                                                       value="1">
 
                                                     <label class="onoffswitch-label" for="myonoffswitch">
                                                         <span class="onoffswitch-inner"></span>
@@ -86,7 +85,7 @@
                                     <h4>{{ "dream"|trans }}</h4>
                                 {% endif %}
 
-                                <div id="datepicker" enableOnReadonly="true"
+                                <div id="datepicker" data-datepicker-disable="{{ completed }}"
                                      data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
                                      style="color: black"></div>
 
@@ -96,20 +95,19 @@
                                     </div>
                                 {% endif %}
 
-                                {% set array = [{'text' : 'jafbaskj', 'switch' : 'on' }, {'text' : 'dfasf', 'switch' : 'off' } ] %}
-
                                 <input id="{{ form.birthday.vars.id }}" type="hidden" class="hidden_date_value"
                                        value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
                                        name="{{ form.birthday.vars.full_name }}"/>
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <input {% if completed %} disabled {% endif %} value="{{ data.address }}"
-                                                                                       type="text"
-                                                                                       google-places-autocomplete
-                                                                                       hidden-storage=".location-hidden"
-                                                                                       class="form-control place-autocomplete"
-                                                                                       placeholder="{{ "goal.location_ex"|trans }}"/>
+                                        <input {% if completed %} disabled {% endif %}
+                                                value="{{ data.address }}"
+                                                type="text"
+                                                data-google-places-autocomplete
+                                                data-hidden-storage=".location-hidden"
+                                                class="form-control place-autocomplete"
+                                                placeholder="{{ "goal.location_ex"|trans }}"/>
                                         <input id="{{ form.location.vars.id }}" value="{{ data.getLocations }}"
                                                type="hidden" class="location-hidden"
                                                name="{{ form.location.vars.full_name }}"/>
