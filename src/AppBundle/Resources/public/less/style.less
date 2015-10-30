@@ -19,10 +19,16 @@ body{
   position: relative;
   padding-bottom: 300px;
 }
+
 input.form-control:focus,textarea.form-control:focus{
   border-color: #7725f6;
   box-shadow: none;
 }
+
+textarea{
+  resize: none;
+}
+
 header{
   #line{
     height:4px;
@@ -485,6 +491,7 @@ ul.filter{
     }
   }
 }
+
 .btn-purple{
   background-color:#7725f6;
   color:#ffffff;
@@ -496,6 +503,20 @@ ul.filter{
     background-color:#6009EA;
   }
 }
+
+.btn-transparent{
+  background-color:transparent;
+  color:#cccccc;
+  padding:10px 35px;
+  border:1px solid #cccccc;
+
+  &:hover, &:focus{
+    color:#cccccc;
+    outline:none;
+    background-color:transparent;
+  }
+}
+
 
 h1{
   color:#021523;

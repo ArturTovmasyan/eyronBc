@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <p>{{ 'success_story.title'|trans }}</p>
+                <h3 class="purple">{{ 'success_story.title'|trans }}</h3>
 
                 <div>
                     {{ form_errors(form) }}
@@ -34,7 +34,12 @@
                         </div>
 
                         <div class="text-center" ng-init="initDropzone('{{ path('add-story_images') }}')">
-                            <div class="dropzone" id="goalDropzone"></div>
+                            <div class="dropzone" id="goalDropzone">
+                                <div class="dz-message">
+                                    <h3>{{ 'drag_drop_story'|trans }}</h3>
+                                    <p>{{ 'upload'|trans | raw}}</p>
+                                </div>
+                            </div>
                         </div>
 
                         {{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}
@@ -45,9 +50,9 @@
 
                         <iframe width="100%" height="500" ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
 
-                        <div class="form-group">
-                            <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}">
-                            <a href="{{ path('goals_list') }}">{{ 'btn_cancel'|trans }}</a>
+                        <div class="form-group text-center">
+                            <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-transparent">
+                            <a href="{{ path('goals_list') }}" class="btn btn-purple">{{ 'btn_cancel'|trans }}</a>
                         </div>
 
                         {{ form_widget(form._token) }}
