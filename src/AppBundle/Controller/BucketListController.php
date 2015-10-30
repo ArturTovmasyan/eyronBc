@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Class BucketListController
@@ -25,6 +26,7 @@ class BucketListController extends Controller
      * @Template()
      * @param $status
      * @return array
+     * @Secure(roles="ROLE_USER")
      */
     public function myListAction($status, Request $request)
     {

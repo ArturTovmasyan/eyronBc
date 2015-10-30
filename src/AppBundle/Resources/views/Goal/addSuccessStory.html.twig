@@ -12,50 +12,7 @@
 
 {% block content_header %}
 
-    <div class="content-header">
-        <figure>
-            <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
-        </figure>
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-9">
-
-                    <h2>{{ goal.title }}</h2>
-                    <p>{{ goal.author.showName|default(null) }}</p>
-
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <a href="#">
-                                {{ 'listed_by'|trans | upper }}
-                                <span>{{ listedByUsers|length }}</span>
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </div>
-
-                        <div class="col-md-6">
-                            <a href="#">
-                                {{ 'done_by'|trans | upper }}
-                                <span>{{ doneByUsers|length }}</span>
-                                <span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-3 text-right">
-                    <a href="{{ path('remove_goal', {'goal' : goal.id , 'user': app.user.id }) }}" class="border forget">
-                        <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
 {% endblock %}
 
