@@ -133,7 +133,7 @@ class GoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'count(ug) as HIDDEN  cnt')
+                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
