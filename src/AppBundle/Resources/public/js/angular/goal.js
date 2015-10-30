@@ -89,7 +89,17 @@ angular.module('goal', ['Interpolation',
             $scope.stepsArray = json;
         };
 
-        angular.element('#datepicker').datepicker();
+        angular.element('#datepicker').datepicker({
+            beforeShowDay: function(){
+                var cond = angular.element('#datepicker').data('datepicker-disable');
+                if(cond){
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        });
         angular.element("#datepicker").on("changeDate", function() {
             angular.element(".hidden_date_value").val(
                 angular.element("#datepicker").datepicker('getFormattedDate')
@@ -162,19 +172,4 @@ angular.module('goal', ['Interpolation',
                 }
             }
         }
-    }])
-    .animation('.slide', function() {
-        var NG_HIDE_CLASS = 'ng-hide';
-        return {
-            beforeAddClass: function(element, className, done) {
-                if(className === NG_HIDE_CLASS) {
-                    element.slideUp(done);
-                }
-            },
-            removeClass: function(element, className, done) {
-                if(className === NG_HIDE_CLASS) {
-                    element.hide().slideDown(done);
-                }
-            }
-        }
-    });
+    }]);

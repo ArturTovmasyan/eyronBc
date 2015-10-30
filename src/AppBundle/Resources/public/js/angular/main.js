@@ -3,6 +3,7 @@
 angular.module('main',['mgcrea.ngStrap.popover',
     'ngAnimate',
     'Components',
+    'Google',
     'ngSanitize'])
     .controller('MainController',['$scope',function($scope){
 
