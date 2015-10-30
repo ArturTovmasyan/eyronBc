@@ -18,8 +18,6 @@ use AppBundle\Form\GoalType;
 use AppBundle\Form\SuccessStoryType;
 use AppBundle\Form\UserGoalType;
 use Application\UserBundle\Entity\User;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -317,7 +315,7 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return $this->redirectToRoute("goals_list");
+        return $this->redirectToRoute("my_list");
     }
 
     /**
@@ -396,7 +394,7 @@ class GoalController extends Controller
 
                 $em->flush();
 
-                return $this->redirectToRoute("goals_list");
+                return $this->redirectToRoute("my_list");
             }
         }
 
@@ -584,7 +582,7 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute("goals_list");
+                return $this->redirectToRoute("my_list");
             }
         }
 
@@ -751,6 +749,7 @@ class GoalController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @ParamConverter("user", class="ApplicationUserBundle:User")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Secure(roles="ROLE_USER")
      */
     public  function removeGoal(Goal $goal, User $user)
     {
@@ -760,16 +759,25 @@ class GoalController extends Controller
         // get user goal
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
 
+        // check user goal
+        if(!$userGoal){
+
+            // return Exception
+            throw $this->createNotFoundException("This goal  is not in user bucketlist");
+
+        }
+
         // remove from bd
         $em->remove($userGoal);
 
         $em->flush();
 
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        return $this->redirectToRoute("my_list");
     }
 
     /**
      * @Route("/remove-image/{filename}", name="remove_image")
+     * @Secure(roles="ROLE_USER")
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
      *   "mapping": {"filename": "fileName"},
      *   "repository_method" = "findOneByFileName" })

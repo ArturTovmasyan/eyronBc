@@ -1,0 +1,52 @@
+<div class="content-header">
+    <figure>
+        <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+    </figure>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <h2>{{ goal.title }}</h2>
+                <p>{{ goal.author.showName|default(null) }}</p>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <a href="#">
+                            {{ 'listed_by'|trans | upper }}
+                            <span>{{ listedByUsers|length }}</span>
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6">
+                        <a href="#">
+                            {{ 'done_by'|trans | upper }}
+                            <span>{{ doneByUsers|length }}</span>
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3 text-right">
+                <a data-ng-click="showDetails = ! showDetails" href="#" class="border forget">
+                    <span class="glyphicon glyphicon-trash"></span> {{ 'forget'|trans | upper }}
+                </a>
+            </div>
+
+            <div data-ng-show="showDetails" class="relative">
+                <div class="delete-message">
+                    <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
+                    <a href="{{ path('remove_goal', {'goal' : goal.id , 'user': app.user.id }) }}" class="btn btn-default">{{ 'btn_delete'|trans | upper }}</a>
+                    <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-default bg-purple">{{ 'btn_cancel'|trans | upper }}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
