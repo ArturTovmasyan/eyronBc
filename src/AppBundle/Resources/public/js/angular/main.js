@@ -5,7 +5,7 @@ angular.module('main',['mgcrea.ngStrap.popover',
     'Components',
     'Google',
     'ngSanitize'])
-    .controller('MainController',['$scope',function($scope){
+    .controller('MainController',['$scope', function($scope){
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -15,5 +15,11 @@ angular.module('main',['mgcrea.ngStrap.popover',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
+        };
+
+        console.log($scope);
+
+        $scope.onMarkerClick = function(goal){
+            console.log(goal);
         }
     }]);

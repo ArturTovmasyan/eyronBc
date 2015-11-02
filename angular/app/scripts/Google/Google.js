@@ -15,7 +15,7 @@ angular.module('Google', [])
             restrict: 'EA',
             scope: {
                 markers: '=',
-                openPopup: '&'
+                onMarkerClick: '&'
             },
             compile: function compile(){
 
@@ -39,7 +39,11 @@ angular.module('Google', [])
                         }
 
                         angular.forEach(d, function(v){
-                            addMarker(v, scope.map);
+                            var m = addMarker(v, scope.map);
+
+                            m.addListener('click', function() {
+                                scope.onMarkerClick({goal: v});
+                            });
                         });
                     },true);
                 };
