@@ -51,8 +51,8 @@
                         <iframe data-ng-show="videolink" width="100%" height="500" ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
 
                         <div class="form-group text-center">
-                            <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-transparent">
-                            <a href="{{ path('goals_list') }}" class="btn btn-purple">{{ 'btn_cancel'|trans }}</a>
+                            <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-purple button-lg">
+                            <a href="{{ path('goals_list') }}" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                         </div>
 
                         {{ form_widget(form._token) }}
