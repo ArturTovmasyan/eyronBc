@@ -37,9 +37,9 @@
                                     {% set completed = data.status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
 
                                     <div class="clearfix">
-                                        <div class="form-group">
+                                        <div class="form-group row no-marginb">
 
-                                            <label class="col-sm-9 control-label">
+                                            <label class="col-sm-10 control-label text-left purple">
                                                 <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                                                 <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                                             </label>
@@ -61,22 +61,22 @@
                                             </div>
                                         </div>
 
-                                        <label class="col-sm-12 control-label">
-                                            <span data-ng-show="complete.switch">{{ "goal.completed_text"|trans }}</span>
-                                            <span data-ng-hide="complete.switch">{{ "goal.active_text"|trans }}</span>
-                                        </label>
+                                        <div class="row">
+                                            <label class="col-sm-12 control-label text-left">
+                                                <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
+                                                <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
+                                            </label>
+                                        </div>
+
                                     </div>
-                                    <br/>
 
                                     {% if completed %}
                                         <div class="clearfix">
-                                    <span style="color: black">
-                                    {{ "goal.completion_date"|trans }} {{ data.completionDate|date('d M Y') }}
-                                    {{ "goal.scheduled_date"|trans }} {{ data.doDate|date('d M Y') }}
-                                    </span>
+                                            <strong class="text-dark-grey">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong>
+                                            <span class="text-grey">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
                                         </div>
                                     {% endif %}
-                                    <br/>
+                                    <hr/>
 
                                 {% endif %}
 
