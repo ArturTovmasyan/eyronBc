@@ -404,7 +404,7 @@ ul.filter{
 
   h4{
     color:#3d3d3d;
-    text-align: center;
+    text-align: left;
   }
 
   .purple{
@@ -439,7 +439,7 @@ ul.filter{
   width:100%;
   position: absolute;
   top:35px;
-  color:#ffffff;
+  //color:#ffffff;
   h1{
     color:#ffffff;
   }
@@ -459,8 +459,13 @@ ul.filter{
     }
   }
 }
+
 .goals-end{
   position: relative;
+  color:#666666;
+  .btn-purple{
+    margin:0 20px 0 0;
+  }
 }
 
 .apps{
@@ -932,6 +937,7 @@ footer{
           border-radius: 0;
           background-color: #f4f4f4;
           border: 2px solid #ffffff;
+          border-spacing: 10px;
           color:#a3a3a3;
           font-size:18px;
           padding:6px 25px;
@@ -943,9 +949,15 @@ footer{
             border-right:0;
           }
         }
+
         .active{
           background: #7627f5;
           color:#ffffff;
+        }
+
+        .today{
+          background: #f4f4f4;
+          border:2px solid #7627f5;
         }
       }
     }
@@ -1215,7 +1227,7 @@ footer{
       }
     }
   }
-  .homepage,.goals-end{
+  .homepage{
     .btn-purple{
       margin:33px 0 17px;
     }
@@ -1446,10 +1458,7 @@ footer{
   background-color:#ffffff;
 }
 
-.bottom{
-  background-color:#f1f1f1;
-  padding:15px 0 25px;
-}
+
 .right-block{
   background: #ffffff;
   padding:20px 30px 30px;
@@ -1596,6 +1605,12 @@ footer{
     h2{
       padding-bottom:40px;
     }
+
+
+  }
+  .bottom{
+    background-color:#f1f1f1;
+    padding:15px 0 25px;
   }
 
   .goal-container{
@@ -1609,20 +1624,29 @@ footer{
 
     .purple{
       font-size:24px;
+      vertical-align:middle;
       span{
         font-size:24px;
       }
     }
 
+    .glyphicon{
+      margin-right:10px;
+    }
     strong{
       display:inline-block;
       margin-top:5px;
     }
 
     h4{
-      text-align:center;
       font-size:24px;
       line-height:35px;
+    }
+
+    h5{
+      padding-left:0 !important;
+      font-size:18px;
+      color:#666666 !important;
     }
   }
   .goals{
