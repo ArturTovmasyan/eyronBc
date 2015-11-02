@@ -98,7 +98,8 @@ angular.module('goal', ['Interpolation',
                 else {
                     return true;
                 }
-            }
+            },
+            todayHighlight: true
         });
         angular.element("#datepicker").on("changeDate", function() {
             angular.element(".hidden_date_value").val(
