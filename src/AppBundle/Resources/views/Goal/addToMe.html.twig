@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row form-group">
                                             <label class="col-sm-12 control-label text-left">
                                                 <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
                                                 <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
@@ -72,7 +72,7 @@
 
                                     {% if completed %}
                                         <div class="clearfix">
-                                            <strong class="text-dark-grey">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong>
+                                            <strong class="text-dark-grey">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong> &nbsp;
                                             <span class="text-grey">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
                                         </div>
                                     {% endif %}
