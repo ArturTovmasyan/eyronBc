@@ -38,11 +38,13 @@ angular.module('Google', [])
                             return;
                         }
 
-                        angular.forEach(d, function(v){
+                        angular.forEach(d, function(v, k){
+                            v.id = k;
                             var m = addMarker(v, scope.map);
 
                             m.addListener('click', function() {
                                 scope.onMarkerClick({goal: v});
+                                scope.$apply();
                             });
                         });
                     },true);
