@@ -164,9 +164,6 @@
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
 
-                        {#{{ dump(goal.getUsedCount.listedBy) }}#}
-                        {#{{ dump(goal.getUsedCount.doneBy) }}#}
-
                         <div class="row">
                             <div class="col-md-1">
 
@@ -185,7 +182,7 @@
                                                     <div class="col-md-6">
                                                         <a href="#">
                                                             {{ 'listed_by'|trans | upper }}
-                                                            <span>123</span>
+                                                            <span>{{ goal.getUsedCount.listedBy }}</span>
                                                             <span class="glyphicon glyphicon-user"></span>
                                                         </a>
                                                     </div>
@@ -193,7 +190,7 @@
                                                     <div class="col-md-6">
                                                         <a href="#">
                                                             {{ 'done_by'|trans | upper }}
-                                                            <span>235</span>
+                                                            <span>{{ goal.getUsedCount.doneBy }}</span>
                                                             <span class="glyphicon glyphicon-user"></span>
                                                         </a>
                                                     </div>
