@@ -447,7 +447,6 @@ ul.filter{
   h4{
     padding:0 20px;
     line-height:25px;
-    color:#ffffff;
   }
 
   .btn-purple{
@@ -493,6 +492,10 @@ ul.filter{
 
 .purple{
   color:#7627f5 !important;
+}
+
+.text-white{
+  color:#ffffff;
 }
 
 .users{
@@ -917,18 +920,17 @@ footer{
     margin:0 auto;
     width:auto;
     .table-condensed{
+      border-collapse: separate;
       thead{
         background-color: #7627f5;
         tr{
           th{
             border-radius: 0;
             color:#ffffff;
+            border-bottom:2px solid #ffffff;
             &:hover{
               background-color: #7627f5;
             }
-          }
-          &:last-child{
-            border-top:3px solid #ffffff;
           }
         }
 
@@ -937,7 +939,7 @@ footer{
         td{
           border-radius: 0;
           background-color: #f4f4f4;
-          border: 2px solid #ffffff;
+          border: 1px solid #ffffff;
           border-spacing: 10px;
           color:#a3a3a3;
           font-size:18px;
