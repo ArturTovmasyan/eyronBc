@@ -1,10 +1,26 @@
 <div class="modal" tabindex="-1" data-role="dialog" data-aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body" style="background-image: url([[ mapPopup.image ]])">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+
                 <h4 class="modal-title" data-ng-bind="mapPopup.title"></h4>
-                <a ng-href="/app_dev.php/goal/add-to-me/[[mapPopup.id]]/[[mapPopup.id]]" class="btn btn-default">Manage</a>
-                <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+
+                <figure>
+                    <img src="[[ mapPopup.image ]]" alt="Background image" class="img-responsive"/>
+
+                    <figcaption>
+                        <a ng-href="/app_dev.php/goal/add-to-me/[[mapPopup.id]]/[[mapPopup.id]]" class="btn">
+                            <i class="glyphicon glyphicon-cog"></i>Manage
+                        </a>
+
+                        <button type="button" class="btn btn-transparent" ng-click="$hide()">
+                            <i class="glyphicon glyphicon-ok-circle"></i>Done
+                        </button>
+                    </figcaption>
+                </figure>
+
+
+
             </div>
         </div>
     </div>
