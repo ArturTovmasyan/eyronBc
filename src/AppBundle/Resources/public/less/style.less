@@ -918,15 +918,25 @@ footer{
     width:auto;
     .table-condensed{
       border-collapse: separate;
+      background-color: #f4f4f4;
       thead{
-        background-color: #7627f5;
+        //background-color: #7627f5;
         tr{
           th{
             border-radius: 0;
-            color:#ffffff;
+            color:#7627f5;
             border-bottom:2px solid #ffffff;
             &:hover{
-              background-color: #7627f5;
+              background-color: #f4f4f4;
+            }
+          }
+
+          &:nth-child(2){
+            th{
+              font-size:16px;
+              padding:10px;
+              text-transform: uppercase;
+              border-bottom:3px solid #ffffff;
             }
           }
         }
@@ -935,7 +945,7 @@ footer{
       tbody{
         td{
           border-radius: 0;
-          background-color: #f4f4f4;
+          //background-color: #f4f4f4;
           border: 1px solid #ffffff;
           border-spacing: 10px;
           color:#a3a3a3;
