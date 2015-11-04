@@ -86,9 +86,9 @@
                                 {% endif %}
 
                                 {% if data.id is null %}
-                                    <h4>{{ "goal.is_dream"|trans }}</h4>
+                                    <h4 class="text-center">{{ "goal.is_dream"|trans }}</h4>
                                 {% elseif data.doDate is null %}
-                                    <h4>{{ "dream"|trans }}</h4>
+                                    <h4 class="text-center">{{ "dream"|trans }}</h4>
                                 {% endif %}
 
                                 <div id="datepicker" data-datepicker-disable="{{ completed }}"
