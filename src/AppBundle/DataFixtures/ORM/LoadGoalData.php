@@ -28,12 +28,16 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $manager)
     {
+        // get user
+        $user = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('admin@admin.com');
+
         // create goal
         $goal = new Goal();
         $goal->setDescription('goal1 goal1');
         $goal->setTitle('goal1');
         $goal->setStatus(1);
         $goal->setVideoLink('www.google.com');
+        $goal->setAuthor($user);
         $manager->persist($goal);
 
         // create goal
@@ -42,6 +46,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal->setTitle('goal3');
         $goal->setStatus(1);
         $goal->setVideoLink('www.google.com');
+        $goal->setAuthor($user);
         $manager->persist($goal);
 
         $manager->flush();

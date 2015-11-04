@@ -8,6 +8,8 @@ class GoalControllerTest extends BaseClass
 {
     /**
      * This function is used to check goal list
+     *
+     *
      */
     public function testList()
     {
@@ -137,5 +139,93 @@ class GoalControllerTest extends BaseClass
         $count = $crawler->filter('html:contains("goal1")');
 
         $this->assertCount(1, $count);
+    }
+
+    /**
+     * This function is used to check goal inner page
+     *
+     * @depends testView
+     */
+    public function testInner()
+    {
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
+
+        // get goal id
+        $id = $goal->getId();
+
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/inner/' . $id);
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
+
+        $count = $crawler->filter('html:contains("goal3")');
+
+        $this->assertCount(1, $count);
+
+        // click in add link
+        $link = $crawler->selectLink('ADD')->link();
+        $this->client->click($link);
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
+
+        // try to open goal add-to-me page
+        $crawler = $this->client->request('POST', '/goal/add-to-me/' . $id);
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
+
+        // location array
+        $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
+
+        // get form
+        $form = $crawler->selectButton('DISCOVER MORE')->form(array(
+            'app_bundle_user_goal[birthday]' => '10/14/2015',
+            'app_bundle_user_goal[location]' => json_encode($location),
+            'app_bundle_user_goal[note]' =>  'goal note',
+
+        ));
+
+        // submit form
+        $this->client->submit($form);
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT);
+
+        // get user goal
+        $userGoal = $this->em->getRepository('AppBundle:UserGoal')->findOneByNote('goal note');
+
+        // check user goal status
+        $this->assertEquals( $userGoal->getStatus(), BaseClass::ACTIVE);
+
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/my-list');
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK);
+
+        // get user
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
+
+        // Assert that the response content contains a user first_name
+        $this->assertContains($user->getfirstName(), $this->client->getResponse()->getContent());
+
+        // Assert that the response content contains a goal title
+        $this->assertContains($goal->getTitle(), $this->client->getResponse()->getContent());
+
+        // click in done link
+        $link = $crawler->filter('#check_status a[id="done"]')->link();
+        $this->client->click($link);
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT);
+
+        $this->em->clear();
+
+        // get user goal
+        $userGoal = $this->em->getRepository('AppBundle:UserGoal')->findOneByNote('goal note');
+
+        // check user goal status
+        $this->assertEquals( $userGoal->getStatus(), BaseClass::COMPLETED);
+
+        //TODO manage
+//                dump($this->client->getResponse()->getContent());
+//        exit;
     }
 }
