@@ -25,6 +25,11 @@ input.form-control:focus,textarea.form-control:focus{
   box-shadow: none;
 }
 
+a{
+  &:hover{
+    text-decoration: none;
+  }
+}
 textarea{
   resize: none;
 }
@@ -69,12 +74,6 @@ header{
           color: #e3e3e3;
         }
       }
-      //.glyphicon-search {
-      //  padding-right: 5px;
-      //  font-size: 19px;
-      //  top:5px;
-      //  height:30px;
-      //}
 
       .ideas-icon{
         display:inline-block;
@@ -312,10 +311,16 @@ label{
   }
 }
 
+//.popover.bottom{
+//  background-color: #ffffff;
+//}
+
 ul.filter{
-  padding:15px 0 0;
+  padding: 10px 0 0 0;
+
   li{
     padding: 7px 25px 5px;
+
     a{
       color:#3b3b3b;
       display: block;
@@ -389,7 +394,7 @@ ul.filter{
   min-height:1000px;
   height:auto !important;
   height:1000px;
-  background-color: #000000;
+  //background-color: #000000;
 
   img{
     position: absolute;
@@ -434,11 +439,10 @@ ul.filter{
   color:#999999;
 }
 
-.homepage,.goals-end{
+.homepage{
   width:100%;
   position: absolute;
   top:35px;
-  //color:#ffffff;
   h1{
     color:#ffffff;
   }
@@ -450,12 +454,6 @@ ul.filter{
 
   .btn-purple{
     margin:15px 0 10px;
-  }
-
-  .gol-end{
-    .btn-purple{
-      margin:10px 0 20px;
-    }
   }
 }
 
@@ -1612,7 +1610,7 @@ footer{
 
 
   }
-  .bottom{
+  .bottom-part{
     background-color:#f1f1f1;
     padding:15px 0 25px;
   }
@@ -1625,6 +1623,7 @@ footer{
 
   .goal-end{
     margin-bottom:100px;
+    padding-bottom:5px;
 
     .purple{
       font-size:24px;
