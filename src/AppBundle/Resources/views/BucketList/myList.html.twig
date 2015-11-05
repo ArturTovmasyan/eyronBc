@@ -267,7 +267,7 @@
 
                                                     {% set status = userGoal.status %}
                                                     {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                                                        <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border">
+                                                        <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border" id="successtory">
                                                             <span class="glyphicon glyphicon-ok-circle green-bg"></span>
                                                             {{ 'successtory'|trans }}
                                                         </a>

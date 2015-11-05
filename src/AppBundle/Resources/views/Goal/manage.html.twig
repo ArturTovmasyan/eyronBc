@@ -145,7 +145,7 @@
                                                data-key="k"
                                                data-array="stepsArray"
                                                data-ng-model="step.text"
-                                               name="stepText[ [[ k ]] ]"
+                                               name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
                                                placeholder="{{ "goal.add_step"|trans }}">
                                     </div>
 
@@ -157,7 +157,7 @@
                                     <div class="col-sm-2">
                                         <div class="onoffswitch">
                                             <input {% if completed %}disabled{% endif %} type="checkbox"
-                                                   name="switch[ [[k]] ]"
+                                                   name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
                                                    data-ng-model="step.switch"
                                                    class="onoffswitch-checkbox"
                                                    id="myonoffswitch[[k]]">
