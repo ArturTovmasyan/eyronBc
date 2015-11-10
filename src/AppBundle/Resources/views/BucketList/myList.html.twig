@@ -165,10 +165,18 @@
                     {% set goal = userGoal.goal %}
 
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-md-1" style="border-left: 1px solid; height: 175px">
+                                <div class="img-circle" style="border: 1px solid; background: white; padding: 10px;     position: absolute; left: -42%; width: 50px; height: 50px;">
+                                    date
+                                </div>
 
+
+                                <div style="border-top: 1px solid; height: 175px; margin-top: 30px; ">
+                                    <div class="img-circle" style="border: 1px solid; background: white; padding: 10px; position: absolute; left: -42%; top: 40%;">dfgd</div>
+                                </div>
                             </div>
                             <div class="col-md-11 bg-white">
+
 
                                 <div class="row">
 
@@ -288,7 +296,6 @@
 
                             </div>
                         </div>
-                        <br />
                     {% endfor %}
                 {% else %}
 
@@ -318,6 +325,9 @@
                         {% if popularGoals %}
                             {% for popularGoal in popularGoals %}
                                 <figure>
+
+                                    <h3>{{ popularGoal.title }}</h3>
+
                                     <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
                                     <figcaption>
                                         {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
