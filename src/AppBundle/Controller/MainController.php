@@ -50,4 +50,14 @@ class MainController extends Controller
 
         return array('page' => $page);
     }
+
+    /**
+     * @Route("/news_feed", name="news_feed")
+     * @Template()
+     * @return array
+     */
+    public function newsFeedAction()
+    {
+        return array();
+    }
 }
