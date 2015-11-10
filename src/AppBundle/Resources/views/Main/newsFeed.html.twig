@@ -2,4 +2,152 @@
 
 {% block content %}
     {{ parent() }}
+
+    <div class="container" id="news-feed">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="bg-white">
+                    <div class="clearfix">
+
+                        <figure class="image">
+                            <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive" />
+                        </figure>
+
+                        <div class="">
+                            <h4>
+                                Name Surname <span>added a goal</span>
+                            </h4>
+                            <p>7 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <figure>
+
+                                <a href="#" id="goalTitle">
+                                    <h3>Goal title </h3>
+                                    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
+                                </a>
+                                <figcaption>
+
+                                    <ul class="row goal-links">
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-plus green-bg"></span>{{ 'added'|trans |upper}}
+                                            </a>
+                                        </li>
+
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon glyphicon-ok green-bg"></span>{{ 'completed'|trans|upper }}
+                                            </a>
+                                        </li>
+
+                                        <li class="col-sm-4">
+                                            <div class="addthis_native_toolbox"></div>
+                                        </li>
+                                    </ul>
+
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="bg-white">
+                    <div class="clearfix">
+
+                        <figure class="image">
+
+                            <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive" />
+                        </figure>
+
+                        <div class="">
+                            <h4>
+                                Name Surname <span>created a goal</span>
+                            </h4>
+                            <p> 4 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <figure>
+
+                                <a href="#" id="goalTitle">
+                                    <h3>Goal title</h3>
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
+                                </a>
+                                <figcaption>
+
+                                    <ul class="row goal-links">
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans |upper}}
+                                            </a>
+                                        </li>
+
+                                        <li class="col-sm-4">
+                                            <a href="#">
+                                                <span class="glyphicon glyphicon glyphicon-ok "></span>{{ 'done'|trans|upper }}
+                                            </a>
+                                        </li>
+
+                                        <li class="col-sm-4">
+                                            <div class="addthis_native_toolbox"></div>
+                                        </li>
+                                    </ul>
+
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="right-block">
+                    <li class="clearfix">
+                        <a href="#">{{ 'right_menu.create'|trans }}</a>
+                        <a href="#">{{ 'right_menu.draft'|trans }}
+                            <span>dfdf</span>
+                        </a>
+                    </li>
+                    <li>
+
+                        <figure class="relative">
+
+                            <a href="#" id="goalTitle">
+                                <h3>Goal title</h3>
+                                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
+                            </a>
+                            <figcaption>
+                                <ul class="row goal-links">
+                                    <li class="col-sm-4">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans |upper}}
+                                        </a>
+                                    </li>
+
+                                    <li class="col-sm-4">
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon glyphicon-ok "></span>{{ 'done'|trans|upper }}
+                                        </a>
+                                    </li>
+
+                                    <li class="col-sm-4">
+                                        <div class="addthis_native_toolbox"></div>
+                                    </li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <br />
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

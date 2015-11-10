@@ -141,3 +141,6 @@ delete_message: |
 
 complete_message: Complete your profile
 
+added: Added
+completed: Completed
+
