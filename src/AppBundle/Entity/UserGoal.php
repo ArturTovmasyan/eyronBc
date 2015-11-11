@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\LoggableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +19,7 @@ use AppBundle\Traits\Location;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
  */
-class UserGoal
+class UserGoal implements LoggableInterface
 {
     use Location;
 
@@ -122,6 +123,19 @@ class UserGoal
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
     protected $user;
+
+    /**
+     * @return null|string
+     */
+    public function getAction()
+    {
+        if ($this->getUser()->getId() == $this->getGoal()->getAuthor()->getId()){
+            return null;
+        }
+
+        return "added a goal";
+    }
+
 
     /**
      * Constructor

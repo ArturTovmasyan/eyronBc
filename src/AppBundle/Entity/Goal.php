@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\LoggableInterface;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -22,7 +23,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal")
  */
-class Goal implements MultipleFileInterface, PublishAware
+class Goal implements MultipleFileInterface, PublishAware, LoggableInterface
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;
@@ -143,6 +144,22 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Column(type="datetime")
      */
     protected $updated;
+
+    /**
+     * @return $this
+     */
+    public function getGoal()
+    {
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return "create new goal";
+    }
 
     /**
      * Get id
