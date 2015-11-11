@@ -107,7 +107,91 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 ">
+                <div class="row bg-white">
+                    <div class="col-md-10">
+                        <br />
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">45% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <a class="glyphicon glyphicon-question-sign"></a>
+                    </div>
+                </div><br />
+
+                <div class="row bg-white">
+                    <div class="col-md-10">
+                        <br />
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">45% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        <a class="glyphicon glyphicon-chevron-up"></a>
+                    </div>
+
+                </div>
+                <ol class="clearfix" style="background-color: #bebebe;">
+                    <li>
+                        <a href="#">Sign up <i class="glyphicon glyphicon-ok"></i></a>
+                    </li>
+
+                    <li>
+                        <a href="#">Add a goal <i class="glyphicon glyphicon-question-sign"></i></a>
+                    </li>
+                </ol>
+                <br />
+
+                <div class="bg-white">
+                    <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-th-list"></i>My Bucketlist</h4>
+                    <hr/>
+                    <ul class="horizontal-menu">
+                        <li>
+                            <span>{{ 'user_goal.active'|trans }}</span>
+                            <span>0</span>
+                        </li>
+
+                        <li>
+                            <span>{{ 'listed_by'|trans }}</span>
+                            <span>0</span>
+                        </li>
+
+                        <li>
+                            <span>{{ 'done'|trans |capitalize }}</span>
+                            <span>0</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white">
+                    <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-user"></i>Coalfriends24</h4>
+                    <hr/>
+                    <ul style="padding:0 0 10px;">
+                        <li class="clearfix" style="border-bottom:1px solid #cccccc;">
+
+                            <figure class="image" style="margin:0 20px">
+                                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                            </figure>
+
+                            <div>
+                                <h5 class="text-dark-grey">Name Surname</h5>
+                                <a href="#" class="text-grey">{{ 'listed_by'|trans }} 0</a> |
+                                <a href="#" class="text-grey">{{ 'completed'|trans }} 2</a>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+
                 <ul class="right-block">
                     <li class="clearfix">
                         <a href="#">{{ 'right_menu.create'|trans }}</a>
@@ -116,35 +200,7 @@
                         </a>
                     </li>
                     <li>
-
-                        <figure class="relative">
-
-                            <a href="#" id="goalTitle">
-                                <h3>Goal title</h3>
-                                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
-                            </a>
-                            <figcaption>
-                                <ul class="row goal-links">
-                                    <li class="col-sm-4">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans |upper}}
-                                        </a>
-                                    </li>
-
-                                    <li class="col-sm-4">
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon glyphicon-ok "></span>{{ 'done'|trans|upper }}
-                                        </a>
-                                    </li>
-
-                                    <li class="col-sm-4">
-                                        <div class="addthis_native_toolbox"></div>
-                                    </li>
-                                </ul>
-                            </figcaption>
-                        </figure>
-                        <br />
-
+                        {%  include "AppBundle:Blocks:rightBlock.html.twig" with {'popularGoals' : null }  %}
                     </li>
                 </ul>
             </div>

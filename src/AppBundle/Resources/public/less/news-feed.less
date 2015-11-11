@@ -43,4 +43,28 @@
       margin-bottom:0;
     }
   }
+
+  .horizontal-menu{
+    li{
+      display: inline-block;
+      border-right:1px solid #666666;
+      padding:0 20px;
+
+      span{
+        display:block;
+        color:#666666;
+
+        &:last-child{
+          font-size:18px;
+          color:#666666;
+        }
+      }
+      &:last-child{
+        border:0;
+      }
+      &:hover{
+        background-color: transparent;
+      }
+    }
+  }
 }

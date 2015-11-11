@@ -165,17 +165,19 @@
                     {% set goal = userGoal.goal %}
 
                         <div class="row">
-                            <div class="col-md-1" style="border-left: 1px solid; height: 175px">
-                                <div class="img-circle" style="border: 1px solid; background: white; padding: 10px;     position: absolute; left: -42%; width: 50px; height: 50px;">
-                                    date
-                                </div>
+                            <div class="col-md-2">
+                                <div style="border-left: 1px solid #c2c2c2; height: 175px">
+                                    <div class="img-circle" style="border: 1px solid #c2c2c2; background: white; padding: 10px; font-size:14px;line-heght:25px;    position: absolute; top:-1px;left:0; width: 50px; height: 50px;">
+                                        23
+                                    </div>
 
 
-                                <div style="border-top: 1px solid; height: 175px; margin-top: 30px; ">
-                                    <div class="img-circle" style="border: 1px solid; background: white; padding: 10px; position: absolute; left: -42%; top: 40%;">dfgd</div>
+                                    <div style="border-top: 1px solid #c2c2c2; height: 175px; margin-top: 30px; ">
+                                        <div class="img-circle" style="border: 1px solid #c2c2c2; background: white; padding: 10px; position: absolute; left: -42%; top: 40%;">dfgd</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-11 bg-white">
+                            <div class="col-md-10 bg-white">
 
 
                                 <div class="row">
@@ -322,20 +324,7 @@
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
-                        {% if popularGoals %}
-                            {% for popularGoal in popularGoals %}
-                                <figure>
-
-                                    <h3>{{ popularGoal.title }}</h3>
-
-                                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
-                                    <figcaption>
-                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
-                                    </figcaption>
-                                </figure>
-                                <br />
-                            {% endfor %}
-                        {% endif %}
+                        {%  include "AppBundle:Blocks:rightBlock.html.twig" with {'popularGoals' : popularGoals }  %}
                     </li>
                 </ul>
             </div>
