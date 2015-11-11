@@ -8,7 +8,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Model\LoggableInterface;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -22,8 +21,9 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal")
+ * @Gedmo\Loggable
  */
-class Goal implements MultipleFileInterface, PublishAware, LoggableInterface
+class Goal implements MultipleFileInterface, PublishAware
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;
@@ -46,6 +46,7 @@ class Goal implements MultipleFileInterface, PublishAware, LoggableInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"map"})
+     * @Gedmo\Versioned
      */
     protected $id;
 

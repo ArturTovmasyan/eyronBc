@@ -8,18 +8,19 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Model\LoggableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
+ * @Gedmo\Loggable
  */
-class UserGoal implements LoggableInterface
+class UserGoal
 {
     use Location;
 
@@ -53,6 +54,7 @@ class UserGoal implements LoggableInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"map"})
+     * @Gedmo\Versioned
      */
     protected $id;
 
@@ -60,6 +62,7 @@ class UserGoal implements LoggableInterface
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
      * @Groups({"map"})
+     * @Gedmo\Versioned
      */
     protected $status;
 
@@ -90,6 +93,7 @@ class UserGoal implements LoggableInterface
     /**
      * @var
      * @ORM\Column(name="steps", type="array", nullable=true)
+     * @Gedmo\Versioned
      */
     protected $steps;
 
