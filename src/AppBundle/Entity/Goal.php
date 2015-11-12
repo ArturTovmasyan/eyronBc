@@ -46,7 +46,6 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"map"})
-     * @Gedmo\Versioned
      */
     protected $id;
 

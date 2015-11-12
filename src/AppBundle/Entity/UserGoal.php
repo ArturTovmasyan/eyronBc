@@ -54,7 +54,6 @@ class UserGoal
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"map"})
-     * @Gedmo\Versioned
      */
     protected $id;
 
@@ -119,6 +118,7 @@ class UserGoal
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      * @Groups({"map"})
+     * @Gedmo\Versioned
      **/
     protected $goal;
 
