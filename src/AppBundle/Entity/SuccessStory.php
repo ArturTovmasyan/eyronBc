@@ -19,6 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SuccessStoryRepository")
  * @ORM\Table(name="success_story")
+ * @Gedmo\Loggable
  */
 class SuccessStory
 {

@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class SuccessStoryRepository extends EntityRepository
 {
+    /**
+     * @param $ids
+     * @return array|null
+     */
+    public function findByIdsWithRelations($ids)
+    {
+        if (!count($ids)){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT ss, goal, u
+                           FROM AppBundle:SuccessStory ss
+                           INDEX BY ss.id
+                           JOIN ss.goal goal
+                           JOIN ss.user u
+                           WHERE ss.id IN (:ssIds)")
+            ->setParameter('ssIds', $ids)
+            ->getResult();
+    }
 }

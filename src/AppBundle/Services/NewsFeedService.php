@@ -16,25 +16,40 @@ class NewsFeedService
 {
     private $mapper = [
         'AppBundle\Entity\Goal' => [
-                'function' => 'getGoalNewFeed',
-                'idsArray' => 'goalIds',
-                'entities' => 'goals'
-            ],
+            'function' => 'getGoalNewFeed',
+            'idsArray' => 'goalIds',
+            'entities' => 'goals'
+        ],
         'AppBundle\Entity\UserGoal' => [
-                'function' => 'getUserGoalNewFeed',
-                'idsArray' => 'userGoalIds',
-                'entities' => 'userGoals'
-            ]
+            'function' => 'getUserGoalNewFeed',
+            'idsArray' => 'userGoalIds',
+            'entities' => 'userGoals'
+        ],
+        'Application\CommentBundle\Entity\Comment' => [
+            'function' => 'getCommentNewFeed',
+            'idsArray' => 'commentsIds',
+            'entities' => 'comments'
+        ],
+        'AppBundle\Entity\SuccessStory' => [
+            'function' => 'getSuccessStoryNewFeed',
+            'idsArray' => 'successStoryIds',
+            'entities' => 'successStory'
+        ]
     ];
 
     protected $users ;
 
-    protected $goalIds     = [];
-    protected $goals       = [];
+    protected $goalIds          = [];
+    protected $goals            = [];
 
-    protected $userGoalIds = [];
-    protected $userGoals   = [];
+    protected $userGoalIds      = [];
+    protected $userGoals        = [];
 
+    protected $commentsIds      = [];
+    protected $comments         = [];
+
+    protected $successStoryIds  = [];
+    protected $successStory     = [];
 
     protected $container;
     protected $em;
@@ -92,7 +107,7 @@ class NewsFeedService
 
     /**
      * @param $entityLog
-     * @return null
+     * @return NewFeed|null
      */
     private function getUserGoalNewFeed($entityLog)
     {
@@ -114,7 +129,7 @@ class NewsFeedService
             }
             $newFeed->datetime = $entityLog->getLoggedAt();
             $newFeed->goal = $userGoal->getGoal();
-            $newFeed->user = $userGoal->getUser();
+            $newFeed->user = $this->users[$entityLog->getUsername()];
 
             return $newFeed;
         }
@@ -135,6 +150,61 @@ class NewsFeedService
             $newFeed->datetime = $entityLog->getLoggedAt();
             $newFeed->goal = $this->goals[$entityLog->getObjectId()];
             $newFeed->user = $this->users[$entityLog->getUsername()];
+
+            return $newFeed;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $entityLog
+     * @return NewFeed|null
+     */
+    private function getSuccessStoryNewFeed($entityLog)
+    {
+        if ($entityLog->getAction() == "create")
+        {
+            $successStory = $this->successStory[$entityLog->getObjectId()];
+            $newFeed = new NewFeed();
+            $newFeed->action = $this->trans->trans('goal.success_story', array(), 'newsFeed');
+            $newFeed->datetime = $entityLog->getLoggedAt();
+            $newFeed->goal = $successStory->getGoal();
+            $newFeed->user = $this->users[$entityLog->getUsername()];
+            $newFeed->successStory = $successStory;
+
+            return $newFeed;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $entityLog
+     * @return NewFeed|null
+     */
+    private function getCommentNewFeed($entityLog)
+    {
+        if ($entityLog->getAction() == "create")
+        {
+            $comment = $this->comments[$entityLog->getObjectId()];
+            if (isset($this->goals[$comment->getThread()->getId()])){
+                $goal = $this->goals[$comment->getThread()->getId()];
+            }
+            else {
+                $goal = $this->em->getRepository('AppBundle:Goal')->find($comment->getThread()->getId());
+            }
+
+            if (!$goal){
+                return null;
+            }
+
+            $newFeed = new NewFeed();
+            $newFeed->action = $this->trans->trans('goal.comment', array(), 'newsFeed');
+            $newFeed->datetime = $entityLog->getLoggedAt();
+            $newFeed->goal = $goal;
+            $newFeed->user = $this->users[$entityLog->getUsername()];
+            $newFeed->comment = $comment;
 
             return $newFeed;
         }
