@@ -10,6 +10,7 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * Class GoalRepository
  * @package AppBundle\Entity\Repository
  */
-class GoalRepository extends EntityRepository
+class GoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
 {
     /**
      * @param $count
@@ -162,5 +163,26 @@ class GoalRepository extends EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $ids
+     * @return array|null
+     */
+    public function findByIdsWithRelations($ids)
+    {
+        if (!count($ids)){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i, author
+                           FROM AppBundle:Goal g
+                           INDEX BY g.id
+                           JOIN g.images i
+                           JOIN g.author author
+                           WHERE g.id IN (:goalIds)")
+            ->setParameter('goalIds', $ids)
+            ->getResult();
     }
 }

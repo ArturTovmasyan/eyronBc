@@ -58,6 +58,12 @@ class MainController extends Controller
      */
     public function newsFeedAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $allLogs = $em->getRepository('Gedmo\Loggable\Entity\LogEntry')->findAll();
+
+        $this->get('bl_news_feed_service')->getNewsFeed($allLogs);
+
+        dump($allLogs); exit;
         return array();
     }
 }

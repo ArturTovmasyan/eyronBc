@@ -7,7 +7,6 @@
     <services>
 
         <!--  Bucket List Service -->
-
         <service id="bl_service" class="AppBundle\Services\BucketListService">
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -38,6 +37,11 @@
         <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
             <argument type="service" id="service_container" />
             <tag name="doctrine.event_listener" event = "onFlush"/>
+        </service>
+
+        <!-- NewsFeed service -->
+        <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
+            <argument type="service" id="service_container" />
         </service>
 
     </services>
