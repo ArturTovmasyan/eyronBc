@@ -1,3 +1,4 @@
 goal:
   create: created a goal
   add: added a goal
+  complete: completed a goal

@@ -8,6 +8,7 @@
 namespace AppBundle\Services;
 
 
+use AppBundle\Entity\UserGoal;
 use AppBundle\Model\NewFeed;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -95,21 +96,29 @@ class NewsFeedService
      */
     private function getUserGoalNewFeed($entityLog)
     {
-        if ($entityLog->getAction() == "create"){
-            $userGoal = $this->userGoals[$entityLog->getObjectId()];
-            if ($userGoal->getGoal()->getAuthor()->getId() == $userGoal->getUser()->getId()){
+        $userGoal = $this->userGoals[$entityLog->getObjectId()];
+        if ($entityLog->getAction() == "create" &&
+            $userGoal->getGoal()->getAuthor()->getId() == $userGoal->getUser()->getId()){
                 return null;
+        }
+
+        if ($entityLog->getAction() == "create" ||
+            ($entityLog->getAction() == "update" && isset($entityLog->getData()['status']) && $entityLog->getData()['status'] == UserGoal::COMPLETED)){
+
+            $newFeed = new NewFeed();
+            if ($entityLog->getData()['status'] == UserGoal::COMPLETED){
+                $newFeed->action = $this->trans->trans('goal.complete', array(), 'newsFeed');
             }
             else {
-                $newFeed = new NewFeed();
                 $newFeed->action = $this->trans->trans('goal.add', array(), 'newsFeed');
-                $newFeed->datetime = $entityLog->getLoggedAt();
-                $newFeed->goal = $userGoal->getGoal();
-                $newFeed->user = $userGoal->getUser();
-
-                return $newFeed;
             }
+            $newFeed->datetime = $entityLog->getLoggedAt();
+            $newFeed->goal = $userGoal->getGoal();
+            $newFeed->user = $userGoal->getUser();
+
+            return $newFeed;
         }
+
         return null;
     }
 

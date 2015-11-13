@@ -92,7 +92,6 @@ class UserGoal
     /**
      * @var
      * @ORM\Column(name="steps", type="array", nullable=true)
-     * @Gedmo\Versioned
      */
     protected $steps;
 
