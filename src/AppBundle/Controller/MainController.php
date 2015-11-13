@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -54,16 +55,22 @@ class MainController extends Controller
     /**
      * @Route("/news_feed", name="news_feed")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      * @return array
      */
     public function newsFeedAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $allLogs = $em->getRepository('Gedmo\Loggable\Entity\LogEntry')->findAll();
 
-        $this->get('bl_news_feed_service')->getNewsFeed($allLogs);
+        // get drafts
+        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($this->getUser());
 
-        dump($allLogs); exit;
-        return array();
+        // get popular goals
+        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), 2);
+
+        return array(
+            'draftsCount'  => $draftsCount,
+            'popularGoals' => $popularGoals
+        );
     }
 }

@@ -11,6 +11,8 @@ namespace Application\CommentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\SignedCommentInterface;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -26,6 +28,7 @@ class Comment extends BaseComment implements SignedCommentInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"comment"})
      */
     protected $id;
 
@@ -43,6 +46,28 @@ class Comment extends BaseComment implements SignedCommentInterface
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
      */
     protected $author;
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     * @Groups({"comment"})
+     */
+    public function getCommentBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     * @Groups({"comment"})
+     */
+    public function getCommentCreationDate()
+    {
+        return $this->createdAt;
+    }
 
     /**
      * @param UserInterface $author

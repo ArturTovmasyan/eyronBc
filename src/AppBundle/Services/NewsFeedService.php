@@ -91,18 +91,17 @@ class NewsFeedService
             $this->$objectArray = $this->em->getRepository($className)->findByIdsWithRelations($this->$idsArray);
         }
 
+        $newsFeed = [];
+
         foreach($entityLogs as $entityLog){
             $functionName = $this->mapper[$entityLog->getObjectClass()]['function'];
             $newFeed = $this->$functionName($entityLog);
             if ($newFeed){
-                dump($newFeed);
+                $newsFeed[] = $newFeed;
             }
-
-
-
         }
 
-        exit;
+        return $newsFeed;
     }
 
     /**

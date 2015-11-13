@@ -185,4 +185,18 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('goalIds', $ids)
             ->getResult();
     }
+
+    /**
+     * @param $username
+     * @return array
+     */
+    public function findNewsFeeds($username)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT le
+                           FROM Gedmo\\Loggable\\Entity\\LogEntry le
+                           WHERE le.username != :username")
+            ->setParameter('username', $username)
+            ->getResult();
+    }
 }
