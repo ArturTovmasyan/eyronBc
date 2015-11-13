@@ -129,19 +129,6 @@ class UserGoal
     protected $user;
 
     /**
-     * @return null|string
-     */
-    public function getAction()
-    {
-        if ($this->getUser()->getId() == $this->getGoal()->getAuthor()->getId()){
-            return null;
-        }
-
-        return "added a goal";
-    }
-
-
-    /**
      * Constructor
      */
     public function __construct()

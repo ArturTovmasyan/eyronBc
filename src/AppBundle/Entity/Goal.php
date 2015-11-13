@@ -146,22 +146,6 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $updated;
 
     /**
-     * @return $this
-     */
-    public function getGoal()
-    {
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAction()
-    {
-        return "create new goal";
-    }
-
-    /**
      * Get id
      *
      * @return integer 
