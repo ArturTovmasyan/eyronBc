@@ -59,17 +59,6 @@ class Comment extends BaseComment implements SignedCommentInterface
     }
 
     /**
-     * @return string
-     *
-     * @VirtualProperty()
-     * @Groups({"comment"})
-     */
-    public function getCommentCreationDate()
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * @param UserInterface $author
      */
     public function setAuthor(UserInterface $author)

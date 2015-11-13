@@ -56,7 +56,6 @@ class SuccessStory
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"success_story"})
      */
     protected $created;
 
