@@ -1,40 +1,95 @@
-<div class="row bg-white">
-    <div class="col-md-10">
-        <br />
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                <span class="sr-only">45% Complete</span>
+{#<div class="row bg-white">#}
+    {#<div class="col-md-10">#}
+        {#<br />#}
+        {#<div class="progress">#}
+            {#<div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">#}
+                {#<span class="sr-only">45% Complete</span>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    {#<div class="col-md-2">#}
+        {#<br />#}
+        {#<a class="glyphicon glyphicon-question-sign"></a>#}
+    {#</div>#}
+{#</div><br />#}
+
+{% if user is defined %}
+
+    <div class="row bg-white">
+        <div class="col-md-10">
+            <br />
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="{{ user.getCompletedPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">{{ user.getCompletedPercent() }}% Complete</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-2">
-        <br />
-        <a class="glyphicon glyphicon-question-sign"></a>
-    </div>
-</div><br />
-
-<div class="row bg-white">
-    <div class="col-md-10">
-        <br />
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                <span class="sr-only">45% Complete</span>
-            </div>
+        <div class="col-md-2">
+            <br />
+            <a class="glyphicon glyphicon-chevron-up"></a>
         </div>
-    </div>
-    <div class="col-md-2">
-        <br />
-        <a class="glyphicon glyphicon-chevron-up"></a>
-    </div>
 
-</div>
-<ol class="clearfix" style="background-color: #bebebe;">
-    <li>
-        <a href="#">Sign up <i class="glyphicon glyphicon-ok"></i></a>
-    </li>
+    </div>
+    <ol class="clearfix" style="background-color: #bebebe;">
+        <li>
+            <a href="#">Sign up <i class="glyphicon glyphicon-ok"></i></a>
+        </li>
+        <li>
+            <a href="#">Confirm your account
+                {% if user.registrationToken is null %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
 
-    <li>
-        <a href="#">Add a goal <i class="glyphicon glyphicon-question-sign"></i></a>
-    </li>
-</ol>
-<br />
+        </li>
+        <li>
+            <a href="#">Upload an image
+                {% if user.socialPhotoLink or  user.fileName %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="#">Add a goal
+                {% if user.userGoal|length > 0 %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="#">Set a deadline
+                {% if user.checkDeadLines() %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="#">Complete a goal
+                {% if user.checkCompletedGoals() %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
+        </li>
+
+        <li>
+            <a href="#">Write a success story
+                {% if user.checkSuccessStory() %}
+                    <i class="glyphicon glyphicon-ok"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                {% endif %}
+            </a>
+        </li>
+    </ol>
+    <br />
+{% endif %}

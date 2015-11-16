@@ -67,6 +67,7 @@ class NewsFeedService
 
     /**
      * @param $entityLogs
+     * @return array
      */
     public function getNewsFeed($entityLogs)
     {

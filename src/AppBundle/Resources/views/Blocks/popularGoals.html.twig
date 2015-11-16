@@ -6,7 +6,9 @@
 
                 <h3>{{ popularGoal.title }}</h3>
 
-                <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
+                <a href="{{ path('inner_goal', {'id': popularGoal.id }) }}" id="goalTitle">
+                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
+                </a>
                 <figcaption>
                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
                 </figcaption>

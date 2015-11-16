@@ -26,6 +26,16 @@
                                 <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
                             </div>
                         </div>
+
+                        {% if convertedNew.comment is not null %}
+                            {{ convertedNew.comment.body }}
+                        {% endif %}
+
+                        {% if convertedNew.successStory is not null %}
+                            {{ convertedNew.successStory.story }}
+                        {% endif %}
+
+
                         <div class="row">
 
                             <div class="col-sm-12">
@@ -51,7 +61,7 @@
 
 
             <div class="col-md-4 ">
-                {% include 'AppBundle:Blocks:completeProfile.html.twig' %}
+                {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
