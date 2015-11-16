@@ -62,14 +62,28 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        // get drafts
-        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($this->getUser());
+        // get popular goals
+        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), 2);
+
+        return array(
+            'popularGoals' => $popularGoals
+        );
+    }
+
+    /**
+     * @Route("/goal_friends", name="goal_friends")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function goalFriendsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
 
         // get popular goals
         $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), 2);
 
         return array(
-            'draftsCount'  => $draftsCount,
             'popularGoals' => $popularGoals
         );
     }

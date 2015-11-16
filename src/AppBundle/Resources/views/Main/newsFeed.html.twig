@@ -108,8 +108,24 @@
                 </div>
             </div>
 
-            {% include 'AppBundle:Blocks:popular.ideas.html.twig' with {'popularGoals': popularGoals, 'draftsCount': draftsCount} %}
+            <div class="col-md-4 ">
+                {% include 'AppBundle:Blocks:completeProfile.html.twig' %}
+                {% include 'AppBundle:Blocks:myBucketlist.html.twig' %}
+                {% include 'AppBundle:Blocks:goalfriends.html.twig' %}
 
+
+                <ul class="right-block">
+                    <li class="clearfix">
+                        <a href="#">{{ 'right_menu.create'|trans }}</a>
+                        <a href="#">{{ 'right_menu.draft'|trans }}
+                            <span>dfdf</span>
+                        </a>
+                    </li>
+                    <li>
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'popularGoals' : popularGoals }  %}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
