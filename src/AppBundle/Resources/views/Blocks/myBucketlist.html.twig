@@ -1,20 +1,25 @@
-<div class="bg-white">
-    <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-th-list"></i>My Bucketlist</h4>
-    <hr/>
-    <ul class="horizontal-menu">
-        <li>
-            <span>{{ 'user_goal.active'|trans }}</span>
-            <span>0</span>
-        </li>
+{% if user is defined %}
+    <div class="bg-white">
+        <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-th-list"></i>My Bucketlist</h4>
+        <hr/>
 
-        <li>
-            <span>{{ 'listed_by'|trans }}</span>
-            <span>0</span>
-        </li>
+        {% set stats = user.getStats %}
 
-        <li>
-            <span>{{ 'done'|trans |capitalize }}</span>
-            <span>0</span>
-        </li>
-    </ul>
-</div>
+        <ul class="horizontal-menu">
+            <li>
+                <span>{{ 'user_goal.active'|trans }}</span>
+                <span>{{ stats.active }}</span>
+            </li>
+
+            <li>
+                <span>{{ 'listed_by'|trans }}</span>
+                <span>{{ stats.listedBy }}</span>
+            </li>
+
+            <li>
+                <span>{{ 'done'|trans |capitalize }}</span>
+                <span>{{ stats.doneBy }}</span>
+            </li>
+        </ul>
+    </div>
+{% endif %}

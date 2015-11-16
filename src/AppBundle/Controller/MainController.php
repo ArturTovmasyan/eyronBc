@@ -67,7 +67,7 @@ class MainController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1)/*page number*/,
-            2/*limit per page*/
+            5/*limit per page*/
         );
 
         return array('pagination' => $pagination);

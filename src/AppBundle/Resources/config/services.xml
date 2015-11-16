@@ -34,6 +34,12 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension to get goal friends -->
+        <service id="bl.popular.goal.friends.extension" class="AppBundle\Twig\Extension\GoalFriendsExtension">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service for twig extension is my goal -->
         <service id="bl.is_my_goal" class="AppBundle\Twig\Extension\IsMyGoalExtension">
             <tag name="twig.extension"/>

@@ -52,8 +52,8 @@
 
             <div class="col-md-4 ">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' %}
-                {% include 'AppBundle:Blocks:myBucketlist.html.twig' %}
-                {% include 'AppBundle:Blocks:goalfriends.html.twig' %}
+                {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
 
                 <ul class="right-block">

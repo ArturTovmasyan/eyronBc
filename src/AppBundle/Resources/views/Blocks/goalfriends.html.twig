@@ -1,20 +1,27 @@
-<div class="bg-white">
-    <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-user"></i>Coalfriends24</h4>
-    <hr/>
-    <ul style="padding:0 0 10px;">
-        <li class="clearfix" style="border-bottom:1px solid #cccccc;">
+{% if user is defined %}
+    {% set goalFriends = goalFriends(user) %}
+    <div class="bg-white">
+        <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-user"></i>Coalfriends {{ goalFriends|length }}</h4>
+        <hr/>
+        <ul style="padding:0 0 10px;">
 
-            <figure class="image" style="margin:0 20px">
-                <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
-            </figure>
+            {% for goalFriend in goalFriends %}
+                <li class="clearfix" style="border-bottom:1px solid #cccccc;">
 
-            <div>
-                <h5 class="text-dark-grey">Name Surname</h5>
-                <a href="#" class="text-grey">{{ 'listed_by'|trans }} 0</a> |
-                <a href="#" class="text-grey">{{ 'completed'|trans }} 2</a>
-            </div>
-        </li>
+                    <figure class="image" style="margin:0 20px">
+                        <img src="{{ goalFriend.filename ? goalFriend.getImagePath() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                    </figure>
 
+                    <div>
+                        <h5 class="text-dark-grey">{{ goalFriend.firstname }} {{ goalFriend.lastname }}</h5>
 
-    </ul>
-</div>
+                        {% set stats = goalFriend.getStats %}
+                        <a href="#" class="text-grey">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
+                        <a href="#" class="text-grey">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+{% endif %}
