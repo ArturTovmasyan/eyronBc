@@ -10,7 +10,6 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
-use AppBundle\Services\BucketListService;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\DependencyInjection\Container;
 

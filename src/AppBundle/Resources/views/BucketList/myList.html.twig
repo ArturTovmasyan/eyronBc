@@ -323,7 +323,7 @@
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'popularGoals' : popularGoals }  %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
                     </li>
                 </ul>
             </div>

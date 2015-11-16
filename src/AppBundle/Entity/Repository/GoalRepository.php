@@ -187,16 +187,57 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
-     * @param $username
+     * @param $userId
      * @return array
      */
-    public function findNewsFeeds($username)
+    public function findUserNewsQuery($userId)
     {
+        $goalFriendsUsernames = $this->findGoalFriends($userId, true);
+        //TODO: may be will be a good idea
+        if (!count($goalFriendsUsernames)){
+            return $this->getEntityManager()
+                ->createQuery("SELECT le
+                               FROM Gedmo\\Loggable\\Entity\\LogEntry le
+                               WHERE false");
+        }
+
         return $this->getEntityManager()
             ->createQuery("SELECT le
                            FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                           WHERE le.username != :username")
-            ->setParameter('username', $username)
-            ->getResult();
+                           WHERE le.username IN (:usernames)
+                           ORDER BY le.loggedAt DESC")
+            ->setParameter('usernames', $goalFriendsUsernames);
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findGoalFriends($userId, $getOnlyUsernames = false)
+    {
+        $results = $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('DISTINCT u')
+                    ->from('ApplicationUserBundle:User', 'u')
+                    ->join('u.userGoal', 'ug')
+                    ->join('ug.goal', 'g')
+                    ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
+                             AND u.id != :userId")
+                    ->setParameter('userId', $userId)
+                    ->getQuery()
+                    ->getResult();
+
+
+        if ($getOnlyUsernames){
+            $usernames = [];
+            foreach($results as $result){
+                $usernames[] = $result->getUsername();
+            }
+
+            return $usernames;
+        }
+
+        return $results;
     }
 }

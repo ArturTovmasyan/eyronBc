@@ -58,13 +58,9 @@ class BucketListController extends Controller
         // get drafts
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
-        // get popular goals
-        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($user, 2);
-
         return array(
             'userGoals' => $userGoals,
             'draftsCount' => $draftsCount,
-            'popularGoals' => $popularGoals,
             'filters' => $filters
             );
     }

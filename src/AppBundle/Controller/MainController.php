@@ -58,16 +58,19 @@ class MainController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @return array
      */
-    public function newsFeedAction()
+    public function newsFeedAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Goal')->findUserNewsQuery($this->getUser()->getId());
 
-        // get popular goals
-        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), 2);
-
-        return array(
-            'popularGoals' => $popularGoals
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
         );
+
+        return array('pagination' => $pagination);
     }
 
     /**
@@ -78,13 +81,6 @@ class MainController extends Controller
      */
     public function goalFriendsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        // get popular goals
-        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), 2);
-
-        return array(
-            'popularGoals' => $popularGoals
-        );
+        return array();
     }
 }

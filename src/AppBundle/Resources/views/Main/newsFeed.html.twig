@@ -3,110 +3,52 @@
 {% block content %}
     {{ parent() }}
 
+    {% set convertedNews = convertNews(pagination) %}
+
     <div class="container" id="news-feed">
         <div class="row">
             <div class="col-md-8">
-                <div class="bg-white">
-                    <div class="clearfix">
 
-                        <figure class="image">
-                            <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive" />
-                        </figure>
+                {% for convertedNew in convertedNews %}
 
-                        <div class="">
-                            <h4>
-                                Name Surname <span>added a goal</span>
-                            </h4>
-                            <p>7 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="row">
+                    <div class="bg-white">
+                        <div class="clearfix">
 
-                        <div class="col-sm-12">
-                            <figure>
-
-                                <a href="#" id="goalTitle">
-                                    <h3>Goal title </h3>
-                                    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
-                                </a>
-                                <figcaption>
-
-                                    <ul class="row goal-links">
-                                        <li class="col-sm-4">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-plus green-bg"></span>{{ 'added'|trans |upper}}
-                                            </a>
-                                        </li>
-
-                                        <li class="col-sm-4">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon glyphicon-ok green-bg"></span>{{ 'completed'|trans|upper }}
-                                            </a>
-                                        </li>
-
-                                        <li class="col-sm-4">
-                                            <div class="addthis_native_toolbox"></div>
-                                        </li>
-                                    </ul>
-
-                                </figcaption>
+                            <figure class="image">
+                                <img src="{{ convertedNew.user.filename ? convertedNew.user.getImagePath() : asset('bundles/app/images/cover.jpg') }}"
+                                     alt= "Some image" class="img-circle img-responsive" />
                             </figure>
+
+                            <div class="">
+                                <h4>
+                                    {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }} <span>{{ convertedNew.action }}</span>
+                                </h4>
+                                <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <figure>
+                                    <a href="#" id="goalTitle">
+                                        <h3>{{ convertedNew.goal.title }}</h3>
+                                        <img src="{{ convertedNew.goal.getListPhoto ? convertedNew.goal.getListPhoto.getDownloadLink : null }}" alt= "Some image" class="img-responsive" />
+                                    </a>
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : convertedNew.goal }  %}
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br/>
+                    <br/>
+                {% endfor %}
 
-                <div class="bg-white">
-                    <div class="clearfix">
-
-                        <figure class="image">
-
-                            <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive" />
-                        </figure>
-
-                        <div class="">
-                            <h4>
-                                Name Surname <span>created a goal</span>
-                            </h4>
-                            <p> 4 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-sm-12">
-                            <figure>
-
-                                <a href="#" id="goalTitle">
-                                    <h3>Goal title</h3>
-                                    <i class="glyphicon glyphicon-lock"></i>
-                                    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
-                                </a>
-                                <figcaption>
-
-                                    <ul class="row goal-links">
-                                        <li class="col-sm-4">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans |upper}}
-                                            </a>
-                                        </li>
-
-                                        <li class="col-sm-4">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon glyphicon-ok "></span>{{ 'done'|trans|upper }}
-                                            </a>
-                                        </li>
-
-                                        <li class="col-sm-4">
-                                            <div class="addthis_native_toolbox"></div>
-                                        </li>
-                                    </ul>
-
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
                 </div>
             </div>
+
 
             <div class="col-md-4 ">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' %}
@@ -122,7 +64,7 @@
                         </a>
                     </li>
                     <li>
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'popularGoals' : popularGoals }  %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
                     </li>
                 </ul>
             </div>
