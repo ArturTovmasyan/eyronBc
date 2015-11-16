@@ -213,7 +213,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $userId
      * @return array
      */
-    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null)
+    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null, $email = null)
     {
         $query = $this
                     ->getEntityManager()
@@ -225,13 +225,17 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
                              AND u.id != :userId")
                     ->setParameter('userId', $userId)
-                    ->getQuery();
+                    ;
+
+        if ($email){
+            $query->andWhere("u.email LIKE :email")->setParameter('email', '%' . $email . '%');
+        }
 
         if ($count){
             $query->setMaxResults($count);
         }
 
-        $results = $query->getResult();
+        $results = $query->getQuery()->getResult();
 
 
         if ($getOnlyUsernames){

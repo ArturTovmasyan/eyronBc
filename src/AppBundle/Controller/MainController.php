@@ -79,8 +79,11 @@ class MainController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @return array
      */
-    public function goalFriendsAction()
+    public function goalFriendsAction(Request $request)
     {
-        return array();
+        $email = $request->get('search') ? $request->get('search') : null;
+        $em = $this->getDoctrine()->getManager();
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $email);
+        return array('goalFriends' => $goalFriends);
     }
 }
