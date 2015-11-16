@@ -30,7 +30,7 @@
 
                             <div class="col-sm-12">
                                 <figure>
-                                    <a href="#" id="goalTitle">
+                                    <a href="{{ path('inner_goal', {'id': convertedNew.goal.id }) }}" id="goalTitle">
                                         <h3>{{ convertedNew.goal.title }}</h3>
                                         <img src="{{ convertedNew.goal.getListPhoto ? convertedNew.goal.getListPhoto.getDownloadLink : null }}" alt= "Some image" class="img-responsive" />
                                     </a>
