@@ -53,7 +53,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/news_feed", name="news_feed")
+     * @Route("/news-feed", name="news_feed")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      * @return array
@@ -74,7 +74,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/goal_friends", name="goal_friends")
+     * @Route("/goal-friends", name="goal_friends")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      * @return array
