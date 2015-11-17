@@ -26,16 +26,18 @@
         </div>
         <div class="col-md-2">
             <br />
-            <a class="glyphicon glyphicon-chevron-up"></a>
+            <a class="glyphicon glyphicon-chevron-up"
+               data-ng-class="{'glyphicon-chevron-up': !completeProfileProperties, 'glyphicon-chevron-down': completeProfileProperties}"
+               data-ng-click="completeProfileProperties=!completeProfileProperties"></a>
         </div>
 
     </div>
-    <ol class="clearfix" style="background-color: #bebebe;">
+    <ol class="clearfix slide" data-ng-show="completeProfileProperties" style="background-color: #bebebe;">
         <li>
-            <a href="#">{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }} <i class="glyphicon glyphicon-ok"></i></a>
+            <a href="javascript:void(0)">{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }} <i class="glyphicon glyphicon-ok"></i></a>
         </li>
         <li>
-            <a href="#">{{ 'account.complete_text'|trans }}
+            <a href="javascript:void(0)">{{ 'account.complete_text'|trans }}
                 {% if user.registrationToken is null %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -45,7 +47,7 @@
 
         </li>
         <li>
-            <a href="#">{{ 'image_complete_text'|trans }}
+            <a href="javascript:void(0)">{{ 'image_complete_text'|trans }}
                 {% if user.socialPhotoLink or  user.fileName %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -54,7 +56,7 @@
             </a>
         </li>
         <li>
-            <a href="#">{{ 'my_bucket_list.add_goal'|trans |capitalize }}
+            <a href="javascript:void(0)">{{ 'my_bucket_list.add_goal'|trans |capitalize }}
                 {% if user.userGoal|length > 0 %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -63,7 +65,7 @@
             </a>
         </li>
         <li>
-            <a href="#">{{ 'deadline.complete_text'|trans }}
+            <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
                 {% if user.checkDeadLines() %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -72,7 +74,7 @@
             </a>
         </li>
         <li>
-            <a href="#">{{ 'goal.complete_text'|trans }}
+            <a href="javascript:void(0)">{{ 'goal.complete_text'|trans }}
                 {% if user.checkCompletedGoals() %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -82,7 +84,7 @@
         </li>
 
         <li>
-            <a href="#">{{ 'success_story.complete_text'|trans }}
+            <a href="javascript:void(0)">{{ 'success_story.complete_text'|trans }}
                 {% if user.checkSuccessStory() %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}

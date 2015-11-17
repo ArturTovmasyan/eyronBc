@@ -18,8 +18,6 @@ angular.module('main',['mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover',
             }
         };
 
-        console.log($scope);
-
         $scope.onMarkerClick = function(goal){
             console.log(goal);
             $scope.mapPopup = goal;

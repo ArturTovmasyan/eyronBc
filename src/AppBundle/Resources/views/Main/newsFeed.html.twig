@@ -8,9 +8,7 @@
     <div class="container" id="news-feed">
         <div class="row">
             <div class="col-md-8">
-
                 {% for convertedNew in convertedNews %}
-
                     <div class="bg-white">
                         <div class="clearfix">
 
@@ -26,7 +24,6 @@
                                 <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
                             </div>
                         </div>
-
                         {% if convertedNew.comment is not null %}
                             <div>{{ convertedNew.comment.body }}</div>
                         {% endif %}
@@ -35,9 +32,7 @@
                             <div>{{ convertedNew.successStory.story }}</div>
                         {% endif %}
 
-
                         <div class="row">
-
                             <div class="col-sm-12">
                                 <figure>
                                     <a href="{{ path('inner_goal', {'id': convertedNew.goal.id }) }}" id="goalTitle">
@@ -59,12 +54,10 @@
                 </div>
             </div>
 
-
             <div class="col-md-4 ">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
-
 
                 <ul class="right-block">
                     <li class="clearfix">
