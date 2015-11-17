@@ -9,6 +9,12 @@
         <div class="row">
             <div class="col-md-8">
                 {% for convertedNew in convertedNews %}
+
+                    {% if convertedNew.comment is not null or convertedNew.successStory is not null %}
+                        {{ _self.goal(convertedNew.goal) }}
+                    {% endif %}
+
+
                     <div class="bg-white">
                         <div class="clearfix">
 
@@ -24,6 +30,7 @@
                                 <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
                             </div>
                         </div>
+
                         {% if convertedNew.comment is not null %}
                             <div>{{ convertedNew.comment.body }}</div>
                         {% endif %}
@@ -32,19 +39,10 @@
                             <div>{{ convertedNew.successStory.story }}</div>
                         {% endif %}
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <figure>
-                                    <a href="{{ path('inner_goal', {'id': convertedNew.goal.id }) }}" id="goalTitle">
-                                        <h3>{{ convertedNew.goal.title }}</h3>
-                                        <img src="{{ convertedNew.goal.getListPhoto ? convertedNew.goal.getListPhoto.getDownloadLink : null }}" alt= "Some image" class="img-responsive" />
-                                    </a>
-                                    <figcaption>
-                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : convertedNew.goal }  %}
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        </div>
+                        {% if convertedNew.comment is null and convertedNew.successStory is null %}
+                            {{ _self.goal(convertedNew.goal) }}
+                        {% endif %}
+
                     </div>
                     <br/>
                 {% endfor %}
@@ -72,3 +70,20 @@
         </div>
     </div>
 {% endblock %}
+
+
+{% macro goal(goal) %}
+    <div class="row">
+        <div class="col-sm-12">
+            <figure>
+                <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
+                    <h3>{{ goal.title }}</h3>
+                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "Some image" class="img-responsive" />
+                </a>
+                <figcaption>
+                    {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+{% endmacro %}
