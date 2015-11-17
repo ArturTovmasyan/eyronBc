@@ -9,7 +9,7 @@
                 <li class="clearfix" style="border-bottom:1px solid #cccccc;">
 
                     <figure class="image" style="margin:0 20px">
-                        <img src="{{ goalFriend.filename ? goalFriend.getImagePath() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                        <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
                     </figure>
 
                     <div>

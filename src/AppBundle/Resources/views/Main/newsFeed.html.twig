@@ -15,7 +15,7 @@
                         <div class="clearfix">
 
                             <figure class="image">
-                                <img src="{{ convertedNew.user.filename ? convertedNew.user.getImagePath() : asset('bundles/app/images/cover.jpg') }}"
+                                <img src="{{ convertedNew.user.getPhotoLink() ? convertedNew.user.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
                                      alt= "Some image" class="img-circle img-responsive" />
                             </figure>
 
