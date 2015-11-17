@@ -15,7 +15,7 @@
                     {% endif %}
 
 
-                    <div class="bg-white">
+                    <div class="bg-white" style="padding: 10px">
                         <div class="clearfix">
 
                             <figure class="image">
@@ -32,11 +32,11 @@
                         </div>
 
                         {% if convertedNew.comment is not null %}
-                            <div>{{ convertedNew.comment.body }}</div>
+                            <div style="font-size: 17px; padding: 10px 30px; background-color: #F2F2F2;">{{ convertedNew.comment.body }}</div>
                         {% endif %}
 
                         {% if convertedNew.successStory is not null %}
-                            <div>{{ convertedNew.successStory.story }}</div>
+                            <div style="font-size: 17px; padding: 10px 30px; background-color: #F2F2F2;">{{ convertedNew.successStory.story }}</div>
                         {% endif %}
 
                         {% if convertedNew.comment is null and convertedNew.successStory is null %}
