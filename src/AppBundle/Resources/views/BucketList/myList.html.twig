@@ -132,11 +132,9 @@
                         {# other filters #}
                         {% for id, name in filters %}
                             <label class="radio-inline">
-                                <input {% if filter == id %} checked {% endif %} type="radio" name="f" value="{{ id }}"> {{ name|trans }}
+                                <input {% if filter == id %} checked {% endif %} onclick="submit()" type="radio" name="f" value="{{ id }}"> {{ name|trans }}
                             </label>
                         {% endfor %}
-
-                        <input type="submit" name="filter">
                     </form>
                 </div>
 
