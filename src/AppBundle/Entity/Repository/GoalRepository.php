@@ -198,7 +198,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             return $this->getEntityManager()
                 ->createQuery("SELECT le
                                FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                               WHERE false");
+                               WHERE 1 = 2");
         }
 
         return $this->getEntityManager()
