@@ -1,6 +1,6 @@
 {% if user is defined %}
     <div class="bg-white">
-        <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-th-list"></i>My Bucketlist</h4>
+        <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-th-list"></i>{{ 'my_bucketlist'|trans }}</h4>
         <hr/>
 
         {% set stats = user.getStats %}

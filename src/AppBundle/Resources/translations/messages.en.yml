@@ -19,6 +19,7 @@ my_bucketlist: My Bucketlist
 
 # goal
 goal:
+      complete_text: Complete a goal
       public: Suggest as public
       agree: By checking you agree to ....
       preview: PREVIEW
@@ -76,12 +77,18 @@ user_goal:
 
 # success story form
 success_story:
+      complete_text: Write a success story
       title: Write a success story , please !
       description: Success story ...
       files: Files
       url: Video URL: https://www...
 
 register_text:  Please confirm your email
+
+account:
+  complete_text: Confirm your account
+  complete: Complete
+
 file:
     width_extension: File width mast be min 400 px
     heigh_extension: File height mast be min 400 px
@@ -143,4 +150,11 @@ complete_message: Complete your profile
 
 added: Added
 completed: Completed
+submit: Submit
+search_placeholder: Search for Goalfriends
+
+deadline:
+  complete_text: Set a deadline
+
+image_complete_text: Upload an image
 

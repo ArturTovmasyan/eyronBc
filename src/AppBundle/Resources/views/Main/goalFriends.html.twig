@@ -9,14 +9,16 @@
 
                 <div class="row ">
                     <div class="bg-white"><br />
-                    <form role="search" action="" method="GET">
+                    <form role="search" action="#" method="GET">
                         <div class="form-group row">
 
                             <div class="col-sm-10">
-                                <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="Email" value="{{ app.request.get('search') }}">
+                                <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
                             </div>
                             <div  class="col-sm-2">
-                                <button type="submit" class="btn btn-default">Submit</button>
+                                <a href="{{ path('goal_friends') }}">
+                                    <i class="glyphicon glyphicon-remove-circle" style="font-size: 25px"></i>
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -54,7 +56,8 @@
 
                 {% endfor %}
 
-                {% if counter is divisible by(2) and counter != 0  %}
+
+                {% if counter is not divisible by(2) and counter != 0  %}
                     </div>
                 {% endif %}
 
@@ -69,10 +72,8 @@
 
                 <ul class="right-block">
                     <li class="clearfix">
-                        <a href="#">{{ 'right_menu.create'|trans }}</a>
-                        <a href="#">{{ 'right_menu.draft'|trans }}
-                            <span>dfdf</span>
-                        </a>
+                        <span>{{ 'right_menu.ideas'|trans }}</span>
+                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
                         {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
