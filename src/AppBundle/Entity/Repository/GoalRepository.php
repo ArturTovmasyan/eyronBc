@@ -193,12 +193,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findUserNewsQuery($userId)
     {
         $goalFriendsUsernames = $this->findGoalFriends($userId, true);
-        //TODO: may be will be a good idea
         if (!count($goalFriendsUsernames)){
-            return $this->getEntityManager()
-                ->createQuery("SELECT le
-                               FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                               WHERE 1 = 2");
+            $goalFriendsUsernames[] = '';
         }
 
         return $this->getEntityManager()
