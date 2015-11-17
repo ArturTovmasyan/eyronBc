@@ -15,21 +15,20 @@
 
 {% if user is defined %}
 
-    <div class="row bg-white">
-        <div class="col-md-10">
+    <div class="bg-white clearfix">
+
             <br />
-            <div class="progress">
+            <div class="progress pull-left" style="width:250px;">
                 <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="{{ user.getCompletedPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                     <span class="sr-only">{{ user.getCompletedPercent() }}% {{ 'account.complete'|trans }}</span>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <br />
-            <a class="glyphicon glyphicon-chevron-up"
+
+           
+            <a class="glyphicon glyphicon-chevron-up pull-right"
                data-ng-class="{'glyphicon-chevron-up': !completeProfileProperties, 'glyphicon-chevron-down': completeProfileProperties}"
                data-ng-click="completeProfileProperties=!completeProfileProperties"></a>
-        </div>
+
 
     </div>
     <ol class="clearfix slide" data-ng-show="completeProfileProperties" style="background-color: #bebebe;">

@@ -5,10 +5,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 bg-white">
 
-                <div class="row ">
-                    <div class="bg-white"><br />
+               <br /><br />
+
                     <form role="search" action="#" method="GET">
                         <div class="form-group row">
 
@@ -22,8 +22,8 @@
                             </div>
                         </div>
                     </form>
-                    </div>
-                </div>
+
+
 
                 {% set counter = 0 %}
                 {% for goalFriend in goalFriends %}
@@ -31,7 +31,7 @@
                         <div class="row">
                     {% endif %}
 
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <div class="bg-white clearfix">
                                     <figure class="image">
                                         <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
@@ -65,7 +65,7 @@
 
 
 
-            <div class="col-md-4 ">
+            <div class="col-md-4">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
