@@ -1,7 +1,11 @@
 {% if user is defined %}
     {% set goalFriends = goalFriends(user) %}
     <div class="bg-white">
-        <h4 style="padding:20px 20px 0"><i class="glyphicon glyphicon-user"></i>Coalfriends {{ goalFriends|length }}</h4>
+        <h4 style="padding:20px 20px 0">
+            <a href="{{ path('goal_friends') }}">
+                <i class="glyphicon glyphicon-user"></i>{{ 'goalfriends'|trans }} {{ goalFriends|length }}
+            </a>
+        </h4>
         <hr/>
         <ul style="padding:0 0 10px;">
 
