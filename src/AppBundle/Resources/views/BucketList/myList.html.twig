@@ -163,19 +163,19 @@
                     {% set goal = userGoal.goal %}
 
                         <div class="row">
-                            <div class="col-md-2">
-                                <div style="border-left: 1px solid #c2c2c2; height: 175px">
-                                    <div class="img-circle" style="border: 1px solid #c2c2c2; background: white; padding: 10px; font-size:14px;line-heght:25px;    position: absolute; top:-1px;left:0; width: 50px; height: 50px;">
+                            <div class="col-sm-2 no-right">
+                                <div class="date-left hidden-xs">
+                                    <div class="img-circle">
                                         23
                                     </div>
 
 
-                                    <div style="border-top: 1px solid #c2c2c2; height: 175px; margin-top: 30px; ">
-                                        <div class="img-circle" style="border: 1px solid #c2c2c2; background: white; padding: 10px; position: absolute; left: -42%; top: 40%;">dfgd</div>
+                                    <div class="elipse">
+                                        <div class="img-circle">dfgd</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-10 bg-white">
+                            <div class="col-sm-10 bg-white no-left">
 
 
                                 <div class="row">
@@ -187,7 +187,7 @@
                                             </a>
                                             <figcaption>
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-sm-6">
                                                         <a href="#">
                                                             {{ 'listed_by'|trans | upper }}
                                                             <span>{{ goal.getUsedCount.listedBy }}</span>
@@ -195,7 +195,7 @@
                                                         </a>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-sm-6">
                                                         <a href="#">
                                                             {{ 'done_by'|trans | upper }}
                                                             <span>{{ goal.getUsedCount.doneBy }}</span>
@@ -211,10 +211,10 @@
                                     <div class="col-md-6">
                                         <article class="information">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <h3><a href="{{ path('inner_goal', {'id' : goal.id }) }}">{{ goal.title }}</a></h3>
                                                 </div>
-                                                <div class="col-md-6 pull-right">
+                                                <div class="col-sm-6 pull-right">
                                                     <div class="addthis_native_toolbox"></div>
                                                 </div>
                                             </div>
@@ -264,14 +264,14 @@
                                             </ul>
 
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <a href="{{ path('manage_goal', {'id' : goal.id , 'userGoalId' : userGoal.id}) }}">
                                                         <span class="glyphicon glyphicon-cog"></span>
                                                         {{ 'manage'|trans }}
                                                     </a>
                                                 </div>
 
-                                                <div class="col-md-6 text-right" id="check_status">
+                                                <div class="col-sm-6 text-right" id="check_status">
 
                                                     {% set status = userGoal.status %}
                                                     {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
