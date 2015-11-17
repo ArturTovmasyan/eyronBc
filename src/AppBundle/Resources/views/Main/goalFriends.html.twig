@@ -54,13 +54,13 @@
 
                 {% endfor %}
 
-                {% if counter is divisible by(2) %}
+                {% if counter is divisible by(2) and counter != 0  %}
                     </div>
                 {% endif %}
 
                 </div>
 
-            </div>
+
 
             <div class="col-md-4 ">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
