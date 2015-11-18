@@ -1,19 +1,19 @@
 {% if user is defined %}
     {% set goalFriends = goalFriends(user) %}
-    <div class="bg-white">
-        <h4 class="padding">
-            <a href="{{ path('goal_friends') }}" class="text-gray">
-                <i class="glyphicon glyphicon-user"></i>
-                {{ 'goalfriends'|trans }} {{ goalFriends|length }}
-            </a>
-        </h4>
+    <div class="bg-white padding margin-bottom">
+
+        <a href="{{ path('goal_friends') }}" class="heading text-gray">
+            <i class="glyphicon glyphicon-user"></i>
+            {{ 'goalfriends'|trans }} {{ goalFriends|length }}
+        </a>
+
         <hr/>
-        <ul style="padding:0 0 10px;">
+        <ul class="list">
 
             {% for goalFriend in goalFriends|slice(0,2) %}
-                <li class="clearfix" style="border-bottom:1px solid #cccccc;">
+                <li class="clearfix">
 
-                    <figure class="image" style="margin:0 20px">
+                    <figure class="image">
                         <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
                     </figure>
 

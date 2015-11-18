@@ -7,18 +7,18 @@
     margin:20px 20px 20px 25px;
     float:left;
 
-
     img{
-      width:50px;
-      height:50px;
+      width:45px;
+      height:45px;
       margin:0 auto;
     }
 
   }
 
   em{
-    padding: 0 0 4px 15px;
+    padding: 0 0 5px 15px;
     display: block;
+    font-size: 16px;
   }
 
   hr{
@@ -26,12 +26,30 @@
   }
 
   h4{
+    font-size:16px;
     font-weight: bold;
-    margin:25px 0 2px 0;
+    padding:14px 0 2px 0;
+    margin-bottom:0;
     span{
       color:#7d7d7d;
     }
   }
+
+  a{
+    font-size:13px;
+  }
+
+  .heading{
+    font-size:16px;
+    i{
+      margin-right:8px;
+    }
+
+    &:hover{
+      color: #666666;
+    }
+  }
+
   #goalTitle{
     h3{
       position: absolute;
@@ -53,45 +71,61 @@
     }
   }
 
-
-}
-
-.image{
-  margin:20px 20px 20px 25px;
-  float:left;
-
-
-  img{
-    width:50px;
-    height:50px;
-    margin:0 auto;
+  .padding{
+    padding:30px 20px 15px;
   }
 
-}
-ol{
-  padding:20px 50px;
-  background-color: #e6e6e6;
-  li{
-    color:#7d7d7d;
-    margin-bottom:15px;
-    a{
-      color:#666666;
-
-      i{
-        margin-left:25px;
-      }
-      &:hover{
+  ol{
+    padding:20px 50px;
+    background-color: #e6e6e6;
+    li{
+      color:#7d7d7d;
+      margin-bottom:10px;
+      a{
         color:#666666;
+        font-size:16px;
+
+        i{
+          margin-left:25px;
+        }
+        &:hover{
+          color:#666666;
+        }
       }
     }
   }
+
+  .list{
+    li{
+      border-bottom:1px solid #cccccc;
+
+      figure{
+        margin:0 20px;
+      }
+    }
+  }
+
 }
+//
+//.image{
+//  margin:20px 20px 20px 25px;
+//  float:left;
+//
+//  img{
+//    width:45px;
+//    height:45px;
+//    margin:0 auto;
+//  }
+//
+//}
+
 
 .glyphicon-remove-circle{
   font-size:25px;
+  top: 4px;
 }
 .horizontal-menu{
-  padding:0 0 15px 20px;
+  padding:0 10px 0 0;
   li{
     display: inline-block;
     border-right:1px solid #666666;
@@ -100,6 +134,7 @@ ol{
     strong{
       display:block;
       color:#666666;
+      font-size:14px;
     }
 
     span{
@@ -107,8 +142,7 @@ ol{
       color:#7d7d7d;
 
       &:last-child{
-        font-size:18px;
-        //color:#666666;
+        font-size:22px;
       }
     }
     &:last-child{
