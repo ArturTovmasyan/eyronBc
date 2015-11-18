@@ -22,16 +22,16 @@
                     </form>
 
 
-                </div><br/>
+                </div>
 
                 {% set counter = 0 %}
                 {% for goalFriend in goalFriends %}
                     {% if counter is divisible by(2) %}
-                        <div class="row">
+                        <div class="row margin-top">
                     {% endif %}
 
                             <div class="col-sm-6">
-                                <div class="bg-white clearfix">
+                                <div class="bg-white padding clearfix">
                                     <figure class="image">
                                         <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
                                              alt= "Some image" class="img-circle img-responsive" />

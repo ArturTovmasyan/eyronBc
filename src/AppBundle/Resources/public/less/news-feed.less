@@ -4,7 +4,7 @@
   padding:30px 0;
   margin-top:10px;
   .image{
-    margin:20px 20px 20px 25px;
+    margin:0 20px 0 0;
     float:left;
 
     img{
@@ -25,11 +25,15 @@
     margin-top:10px;
   }
 
+  .glyphicon-question-sign{
+    font-size:20px;
+    padding:0 10px;
+  }
   h4{
     font-size:16px;
     font-weight: bold;
-    padding:14px 0 2px 0;
-    margin-bottom:0;
+    padding:5px 0 2px 0;
+    margin:0;
     span{
       color:#7d7d7d;
     }
@@ -66,8 +70,32 @@
 
   figure{
     background-color: transparent;
+    &>a{
+      display: block;
+    }
     figcaption{
       margin-bottom:0;
+    }
+  }
+
+  .right-block{
+    figure{
+      background-color: transparent;
+      &>a{
+        display: block;
+        width: 280px;
+        height:155px;
+      }
+      figcaption{
+        bottom:-1px;
+        a{
+          span.glyphicon{
+            border: 2px solid;
+            padding: 2px 4px 4px;
+          }
+        }
+
+      }
     }
   }
 
@@ -88,6 +116,10 @@
         i{
           margin-left:25px;
         }
+        .glyphicon-question-sign{
+          font-size:16px;
+          padding:0;
+        }
         &:hover{
           color:#666666;
         }
@@ -96,29 +128,43 @@
   }
 
   .list{
+    padding-left:0;
     li{
       border-bottom:1px solid #cccccc;
+      margin-bottom:10px;
+      padding-bottom:10px;
 
       figure{
         margin:0 20px;
+      }
+
+      h4{
+        padding-top:0;
+        margin-top:5px;
       }
     }
   }
 
 }
-//
-//.image{
-//  margin:20px 20px 20px 25px;
-//  float:left;
-//
-//  img{
-//    width:45px;
-//    height:45px;
-//    margin:0 auto;
-//  }
-//
-//}
 
+.comment-place{
+  font-size: 17px;
+  padding: 10px 30px;
+  background-color: #f2f2f2;
+  position: relative;
+  margin-top:10px;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f2f2f2;
+  position: absolute;
+  top: -8px;
+  left:14px;
+}
 
 .glyphicon-remove-circle{
   font-size:25px;
@@ -153,3 +199,4 @@
     }
   }
 }
+

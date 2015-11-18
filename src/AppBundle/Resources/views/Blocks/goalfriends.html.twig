@@ -1,6 +1,6 @@
 {% if user is defined %}
     {% set goalFriends = goalFriends(user) %}
-    <div class="bg-white padding margin-bottom">
+    <div class="bg-white padding margin-top">
 
         <a href="{{ path('goal_friends') }}" class="heading text-gray">
             <i class="glyphicon glyphicon-user"></i>
@@ -17,8 +17,8 @@
                         <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
                     </figure>
 
-                    <div>
-                        <h5 class="text-dark-gray">{{ goalFriend.firstname }} {{ goalFriend.lastname }}</h5>
+                    <div class="pull-left text-gray">
+                        <h4 class="text-dark-gray">{{ goalFriend.firstname }} {{ goalFriend.lastname }}</h4>
 
                         {% set stats = goalFriend.getStats %}
                         <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |

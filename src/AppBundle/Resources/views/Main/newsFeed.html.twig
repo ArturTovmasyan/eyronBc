@@ -14,16 +14,16 @@
                         {{ _self.goal(convertedNew.goal) }}
                     {% endif %}
 
-
+                    <div class="line"></div>
                     <div class="bg-white padding">
-                        <div class="clearfix">
 
+                        <div class="clearfix">
                             <figure class="image">
                                 <img src="{{ convertedNew.user.getPhotoLink() ? convertedNew.user.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
                                      alt= "Some image" class="img-circle img-responsive" />
                             </figure>
 
-                            <div class="">
+                            <div class="pull-left text-gray">
                                 <h4>
                                     {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }} <span>{{ convertedNew.action }}</span>
                                 </h4>
@@ -32,11 +32,17 @@
                         </div>
 
                         {% if convertedNew.comment is not null %}
-                            <div style="font-size: 17px; padding: 10px 30px; background-color: #F2F2F2;">{{ convertedNew.comment.body }}</div>
+                            <div class="comment-place">
+                                <span class="arrow-up"></span>
+                                {{ convertedNew.comment.body }}
+                            </div>
                         {% endif %}
 
                         {% if convertedNew.successStory is not null %}
-                            <div style="font-size: 17px; padding: 10px 30px; background-color: #F2F2F2;">{{ convertedNew.successStory.story }}</div>
+                            <div class="comment-place">
+                                <span class="arrow-up"></span>
+                                {{ convertedNew.successStory.story }}
+                            </div>
                         {% endif %}
 
                         {% if convertedNew.comment is null and convertedNew.successStory is null %}
@@ -52,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4 ">
+            <div class="col-md-4">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
