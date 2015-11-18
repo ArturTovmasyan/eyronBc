@@ -74,8 +74,8 @@
 
                                     {% if completed %}
                                         <div class="clearfix">
-                                            <strong class="text-dark-grey">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong> &nbsp;
-                                            <span class="text-grey">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                                            <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong> &nbsp;
+                                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
                                         </div>
                                     {% endif %}
                                     <hr/>
@@ -93,7 +93,7 @@
                                      ></div>
 
                                 {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") <  "now"|date("m/d/Y") %}
-                                    <p class="text-grey text-center">
+                                    <p class="text-gray text-center">
                                         <i class="glyphicon glyphicon-exclamation-sign purple"></i>{{ "goal.missed_deadline"|trans }}
                                     </p>
                                 {% endif %}
@@ -205,8 +205,8 @@
 
 
                                 {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
-                                    <p class="text-grey">
-                                        <strong class="text-dark-grey">
+                                    <p class="text-gray">
+                                        <strong class="text-dark-gray">
                                             <i class="glyphicon glyphicon-lock"></i>
                                             {{ 'user_goal.private' |trans }}
                                         </strong> &nbsp;

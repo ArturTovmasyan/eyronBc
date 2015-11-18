@@ -1,8 +1,9 @@
 {% if user is defined %}
     <div class="bg-white">
-        <h4 style="padding:20px 20px 0">
-            <a href="{{ path('my_list') }}">
-                <i class="glyphicon glyphicon-th-list"></i>{{ 'my_bucketlist'|trans }}
+        <h4 class="padding ">
+            <a href="{{ path('my_list') }}" class="text-gray">
+                <i class="glyphicon glyphicon-th-list"></i>
+                {{ 'my_bucketlist'|trans }}
             </a>
         </h4>
         <hr/>
@@ -11,17 +12,17 @@
 
         <ul class="horizontal-menu">
             <li>
-                <span>{{ 'user_goal.active'|trans }}</span>
+                <strong>{{ 'user_goal.active'|trans }}</strong>
                 <span>{{ stats.active }}</span>
             </li>
 
             <li>
-                <span>{{ 'listed_by'|trans }}</span>
+                <strong>{{ 'listed_by'|trans }}</strong>
                 <span>{{ stats.listedBy }}</span>
             </li>
 
             <li>
-                <span>{{ 'done'|trans |capitalize }}</span>
+                <strong>{{ 'done'|trans |capitalize }}</strong>
                 <span>{{ stats.doneBy }}</span>
             </li>
         </ul>

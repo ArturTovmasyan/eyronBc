@@ -15,23 +15,30 @@
 
 {% if user is defined %}
 
-    <div class="bg-white clearfix">
+    <div class="bg-white padding">
+        <div class="row">
+            <em>Complete your profile</em>
+            <div class="col-xs-10">
 
-            <br />
-            <div class="progress pull-left" style="width:250px;">
-                <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="{{ user.getCompletedPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                    <span class="sr-only">{{ user.getCompletedPercent() }}% {{ 'account.complete'|trans }}</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="{{ user.getCompletedPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only">{{ user.getCompletedPercent() }}% {{ 'account.complete'|trans }}</span>
+                    </div>
                 </div>
+
             </div>
 
-           
-            <a class="glyphicon glyphicon-chevron-up pull-right"
-               data-ng-class="{'glyphicon-chevron-up': !completeProfileProperties, 'glyphicon-chevron-down': completeProfileProperties}"
-               data-ng-click="completeProfileProperties=!completeProfileProperties"></a>
-
+            <div class="col-xs-2">
+                <a class="glyphicon glyphicon-chevron-up text-gray"
+                   data-ng-class="{'glyphicon-chevron-up': !completeProfileProperties, 'glyphicon-chevron-down': completeProfileProperties}"
+                   data-ng-click="completeProfileProperties=!completeProfileProperties">
+                </a>
+            </div>
+        </div>
 
     </div>
-    <ol class="clearfix slide" data-ng-show="completeProfileProperties" style="background-color: #bebebe;">
+
+    <ol class="slide" data-ng-show="completeProfileProperties">
         <li>
             <a href="javascript:void(0)">{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }} <i class="glyphicon glyphicon-ok"></i></a>
         </li>
@@ -92,5 +99,5 @@
             </a>
         </li>
     </ol>
-    <br />
+
 {% endif %}

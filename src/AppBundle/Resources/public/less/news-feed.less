@@ -1,8 +1,8 @@
 @import "function.less";
 
-#news-feed{
+#news-feed,#goal-friends{
   padding:30px 0;
-
+  margin-top:10px;
   .image{
     margin:20px 20px 20px 25px;
     float:left;
@@ -14,6 +14,15 @@
       margin:0 auto;
     }
 
+  }
+
+  em{
+    padding: 0 0 4px 15px;
+    display: block;
+  }
+
+  hr{
+    margin-top:10px;
   }
 
   h4{
@@ -59,19 +68,47 @@
   }
 
 }
+ol{
+  padding:20px 50px;
+  background-color: #e6e6e6;
+  li{
+    color:#7d7d7d;
+    margin-bottom:15px;
+    a{
+      color:#666666;
+
+      i{
+        margin-left:25px;
+      }
+      &:hover{
+        color:#666666;
+      }
+    }
+  }
+}
+
+.glyphicon-remove-circle{
+  font-size:25px;
+}
 .horizontal-menu{
+  padding:0 0 15px 20px;
   li{
     display: inline-block;
     border-right:1px solid #666666;
-    padding:0 20px;
+    padding:0 20px 0 10px;
+
+    strong{
+      display:block;
+      color:#666666;
+    }
 
     span{
       display:block;
-      color:#666666;
+      color:#7d7d7d;
 
       &:last-child{
         font-size:18px;
-        color:#666666;
+        //color:#666666;
       }
     }
     &:last-child{
