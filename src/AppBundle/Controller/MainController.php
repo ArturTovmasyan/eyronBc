@@ -81,9 +81,9 @@ class MainController extends Controller
      */
     public function goalFriendsAction(Request $request)
     {
-        $email = $request->get('search') ? $request->get('search') : null;
+        $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $email);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search);
         return array('goalFriends' => $goalFriends);
     }
 }

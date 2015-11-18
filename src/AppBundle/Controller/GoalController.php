@@ -315,7 +315,7 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return $this->redirectToRoute("my_list");
+        return $this->redirectToRoute("user_profile");
     }
 
     /**
@@ -394,7 +394,7 @@ class GoalController extends Controller
 
                 $em->flush();
 
-                return $this->redirectToRoute("my_list");
+                return $this->redirectToRoute("user_profile");
             }
         }
 
@@ -582,7 +582,7 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute("my_list");
+                return $this->redirectToRoute("user_profile");
             }
         }
 
@@ -710,7 +710,7 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute("my_list");
+                return $this->redirectToRoute("user_profile");
             }
         }
 
@@ -900,7 +900,7 @@ class GoalController extends Controller
 
         $em->flush();
 
-        return $this->redirectToRoute("my_list");
+        return $this->redirectToRoute("user_profile");
     }
 
     /**

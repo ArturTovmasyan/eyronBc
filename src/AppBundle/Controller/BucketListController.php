@@ -23,11 +23,11 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/my-list/{status}", defaults={"status" = null },  name="my_list")
-     * @Route("/user-profile/{user}/{status}", defaults={"status" = null},  name="user_profile")
+     * @Route("/user-profile/{status}/{user}", defaults={"user" = null, "status" = 0},  name="user_profile")
      * @Template()
-     * @param $user
+     * @param User $user
      * @param $status
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
@@ -65,7 +65,7 @@ class BucketListController extends Controller
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
         return array(
-            'profile_user' => $user,
+            'profileUser' => $user,
             'userGoals' => $userGoals,
             'draftsCount' => $draftsCount,
             'filters' => $filters

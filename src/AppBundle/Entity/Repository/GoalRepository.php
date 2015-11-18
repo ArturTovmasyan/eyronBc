@@ -209,7 +209,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $userId
      * @return array
      */
-    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null, $email = null)
+    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null, $search = null)
     {
         $query = $this
                     ->getEntityManager()
@@ -223,8 +223,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->setParameter('userId', $userId)
                     ;
 
-        if ($email){
-            $query->andWhere("u.email LIKE :email")->setParameter('email', '%' . $email . '%');
+        if ($search){
+            $query->andWhere("u.firstName LIKE :search or u.lastName LIKE :search")->setParameter('search', '%' . $search . '%');
         }
 
         if ($count){

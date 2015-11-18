@@ -14,7 +14,9 @@
                 <li class="clearfix">
 
                     <figure class="image">
-                        <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                        <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}">
+                            <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                        </a>
                     </figure>
 
                     <div class="pull-left text-gray">
