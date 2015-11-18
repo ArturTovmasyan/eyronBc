@@ -1,9 +1,9 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
-{% set user = app.user %}
 
 {% block content_header %}
 
+    {% set user = profile_user %}
     {% set stats = user.getStats %}
 
     <div class="content-header">
@@ -238,7 +238,7 @@
 
                                                 {# private#}
 
-                                                {% if goal.author and goal.author.id == app.user.id %}
+                                                {% if goal.author and goal.author.id == user.id %}
 
                                                     <li>
                                                         <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
@@ -321,7 +321,7 @@
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
                     </li>
                 </ul>
             </div>
