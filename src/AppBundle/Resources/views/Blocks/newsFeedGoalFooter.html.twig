@@ -1,4 +1,4 @@
-<ul class="row {% if inner is defined %} goal-links {% endif %} ">
+<ul class="row {% if inner is defined %} goal-links {% endif %} news-footer">
     {#{% if is_granted("ROLE_USER") %}#}
 
         {% if not isMyGoal(goal, app.user, "add") %}
@@ -9,8 +9,12 @@
             </li>
         {% else %}
             <li class="col-sm-4">
-                <span class="label label-success">{{ 'added'|trans }}</span>
+                {#<span class="label label-success">{{ 'added'|trans }}</span>#}
+                <strong>
+                    <span class="glyphicon glyphicon-plus-sign text-green"></span>{{ 'added'|trans |upper}}
+                </strong>
             </li>
+
         {% endif %}
 
         {% if  not isMyGoal(goal, app.user, 'done') %}
@@ -21,7 +25,10 @@
             </li>
         {% else %}
             <li class="col-sm-4">
-                <span class="label label-success">{{ 'completed'|trans }}</span>
+                {#<span class="label label-success">{{ 'completed'|trans }}</span>#}
+                <strong>
+                    <span class="glyphicon glyphicon-ok-sign text-green"></span>{{ 'completed'|trans |upper}}
+                </strong>
             </li>
         {% endif %}
     {#{% endif %}#}
