@@ -111,6 +111,10 @@ class NewsFeedService
      */
     private function getUserGoalNewFeed($entityLog)
     {
+        if (!isset($this->userGoals[$entityLog->getObjectId()]) || !isset($this->users[$entityLog->getUsername()])){
+            return null;
+        }
+
         $userGoal = $this->userGoals[$entityLog->getObjectId()];
         if ($entityLog->getAction() == "create" &&
             $userGoal->getGoal()->getAuthor()->getId() == $userGoal->getUser()->getId()){
@@ -143,6 +147,10 @@ class NewsFeedService
      */
     private function getGoalNewFeed($entityLog)
     {
+        if (!isset($this->goals[$entityLog->getObjectId()]) || !isset($this->users[$entityLog->getUsername()])){
+            return null;
+        }
+
         if ($entityLog->getAction() == "create")
         {
             $newFeed = new NewFeed();
@@ -163,6 +171,10 @@ class NewsFeedService
      */
     private function getSuccessStoryNewFeed($entityLog)
     {
+        if (!isset($this->successStory[$entityLog->getObjectId()]) || !isset($this->users[$entityLog->getUsername()])){
+            return null;
+        }
+
         if ($entityLog->getAction() == "create")
         {
             $successStory = $this->successStory[$entityLog->getObjectId()];
@@ -185,6 +197,10 @@ class NewsFeedService
      */
     private function getCommentNewFeed($entityLog)
     {
+        if (!isset($this->comments[$entityLog->getObjectId()]) || !isset($this->users[$entityLog->getUsername()])){
+            return null;
+        }
+
         if ($entityLog->getAction() == "create")
         {
             $comment = $this->comments[$entityLog->getObjectId()];
