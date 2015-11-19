@@ -47,9 +47,7 @@ class Builder extends ContainerAware
 
             // loop for pages
             foreach($pages as $page){
-
-                //
-                strpos('policy', $page->getName()) === false ? $this->otherMenu[] = $page : $this->policyMenu[] = $page ;
+                strpos(strtolower($page->getName()), 'policy') === false ? $this->otherMenu[] = $page : $this->policyMenu[] = $page ;
             }
         }
     }

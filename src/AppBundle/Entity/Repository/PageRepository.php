@@ -17,8 +17,6 @@ use Doctrine\ORM\Query;
  */
 class PageRepository extends EntityRepository
 {
-    const PRIVACY = 'privacy';
-
     /**
      * @return array
      */
@@ -29,30 +27,7 @@ class PageRepository extends EntityRepository
                 ->createQueryBuilder()
                 ->addSelect('p')
                 ->from('AppBundle:Page', 'p')
-                ->where('p.name NOT LIKE :privacy')
                 ->orderBy('p.position', 'ASC')
-                ->setParameter('privacy' , '%' . self::PRIVACY . '%')
-        ;
-
-        $query->getQuery()->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
-
-        return $query->getQuery()->getResult();
-    }
-
-    /**
-     * @return array
-     */
-    public function findPrivacy()
-    {
-        $query =
-            $this->getEntityManager()
-                ->createQueryBuilder()
-                ->addSelect('p')
-                ->from('AppBundle:Page', 'p')
-                ->where('p.name LIKE :privacy')
-                ->orderBy('p.position', 'ASC')
-                ->setParameter('privacy' , '%' . self::PRIVACY . '%')
-                ->setMaxResults(1)
         ;
 
         $query->getQuery()->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
