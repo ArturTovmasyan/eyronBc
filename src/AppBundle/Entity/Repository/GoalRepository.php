@@ -179,8 +179,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->createQuery("SELECT g, i, author
                            FROM AppBundle:Goal g
                            INDEX BY g.id
-                           JOIN g.images i
-                           JOIN g.author author
+                           LEFT JOIN g.images i
+                           LEFT JOIN g.author author
                            WHERE g.id IN (:goalIds)")
             ->setParameter('goalIds', $ids)
             ->getResult();
