@@ -3,12 +3,10 @@
 {% block content %}
     {{ parent() }}
 
-    {% set convertedNews = convertNews(pagination) %}
-
     <div class="container" id="news-feed">
         <div class="row">
             <div class="col-md-8">
-                {% for convertedNew in convertedNews %}
+                {% for convertedNew in pagination %}
 
                     {% if convertedNew.comment is not null or convertedNew.successStory is not null %}
                         {{ _self.goal(convertedNew.goal) }}
@@ -28,7 +26,7 @@
                                     <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 0}) }}" class="text-dark-gray">
                                         {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }}
                                     </a>
-                                    <span class="text-gray">{{ convertedNew.action }}</span>
+                                    <span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>
                                 </h4>
                                 <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
                             </div>

@@ -85,4 +85,22 @@ class UserRepository extends EntityRepository
             ->setParameter('usernames', $usernames)
             ->getResult();
     }
+
+    /**
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findWithRelationsById($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u , ug, g, ss
+                           FROM ApplicationUserBundle:User u
+                           LEFT JOIN u.userGoal ug
+                           LEFT JOIN ug.goal g
+                           LEFT JOIN g.successStories ss
+                           WHERE u.id = :userId")
+            ->setParameter('userId', $userId)
+            ->getOneOrNullResult();
+    }
 }

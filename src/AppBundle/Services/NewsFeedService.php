@@ -9,7 +9,7 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\UserGoal;
-use AppBundle\Model\NewFeed;
+use AppBundle\Entity\NewFeed;
 use Symfony\Component\DependencyInjection\Container;
 
 class NewsFeedService
@@ -66,11 +66,12 @@ class NewsFeedService
     }
 
     /**
-     * @param $entityLogs
      * @return array
      */
-    public function getNewsFeed($entityLogs)
+    public function updateNewsFeed()
     {
+        $entityLogs = $this->em->getRepository('AppBundle:NewFeed')->findUnconvertedLogs();
+
         $userUsernames = [];
         //Get logged entities ids in corresponding arrays
         foreach($entityLogs as $entityLog){
@@ -93,14 +94,17 @@ class NewsFeedService
         }
 
         $newsFeed = [];
-
         foreach($entityLogs as $entityLog){
             $functionName = $this->mapper[$entityLog->getObjectClass()]['function'];
             $newFeed = $this->$functionName($entityLog);
             if ($newFeed){
+                $newFeed->setLog($entityLog);
+                $this->em->persist($newFeed);
                 $newsFeed[] = $newFeed;
             }
         }
+
+        $this->em->flush();
 
         return $newsFeed;
     }
@@ -126,14 +130,14 @@ class NewsFeedService
 
             $newFeed = new NewFeed();
             if ($entityLog->getData()['status'] == UserGoal::COMPLETED){
-                $newFeed->action = $this->trans->trans('goal.complete', array(), 'newsFeed');
+                $newFeed->setAction(NewFeed::GOAL_COMPLETE);
             }
             else {
-                $newFeed->action = $this->trans->trans('goal.add', array(), 'newsFeed');
+                $newFeed->setAction(NewFeed::GOAL_ADD);
             }
-            $newFeed->datetime = $entityLog->getLoggedAt();
-            $newFeed->goal = $userGoal->getGoal();
-            $newFeed->user = $this->users[$entityLog->getUsername()];
+            $newFeed->setDatetime($entityLog->getLoggedAt());
+            $newFeed->setGoal($userGoal->getGoal());
+            $newFeed->setUser($this->users[$entityLog->getUsername()]);
 
             return $newFeed;
         }
@@ -154,10 +158,10 @@ class NewsFeedService
         if ($entityLog->getAction() == "create")
         {
             $newFeed = new NewFeed();
-            $newFeed->action = $this->trans->trans('goal.create', array(), 'newsFeed');
-            $newFeed->datetime = $entityLog->getLoggedAt();
-            $newFeed->goal = $this->goals[$entityLog->getObjectId()];
-            $newFeed->user = $this->users[$entityLog->getUsername()];
+            $newFeed->setAction(NewFeed::GOAL_CREATE);
+            $newFeed->setDatetime($entityLog->getLoggedAt());
+            $newFeed->setGoal($this->goals[$entityLog->getObjectId()]);
+            $newFeed->setUser($this->users[$entityLog->getUsername()]);
 
             return $newFeed;
         }
@@ -179,11 +183,11 @@ class NewsFeedService
         {
             $successStory = $this->successStory[$entityLog->getObjectId()];
             $newFeed = new NewFeed();
-            $newFeed->action = $this->trans->trans('goal.success_story', array(), 'newsFeed');
-            $newFeed->datetime = $entityLog->getLoggedAt();
-            $newFeed->goal = $successStory->getGoal();
-            $newFeed->user = $this->users[$entityLog->getUsername()];
-            $newFeed->successStory = $successStory;
+            $newFeed->setAction(NewFeed::SUCCESS_STORY);
+            $newFeed->setDatetime($entityLog->getLoggedAt());
+            $newFeed->setGoal($successStory->getGoal());
+            $newFeed->setUser($this->users[$entityLog->getUsername()]);
+            $newFeed->setSuccessStory($successStory);
 
             return $newFeed;
         }
@@ -216,11 +220,11 @@ class NewsFeedService
             }
 
             $newFeed = new NewFeed();
-            $newFeed->action = $this->trans->trans('goal.comment', array(), 'newsFeed');
-            $newFeed->datetime = $entityLog->getLoggedAt();
-            $newFeed->goal = $goal;
-            $newFeed->user = $this->users[$entityLog->getUsername()];
-            $newFeed->comment = $comment;
+            $newFeed->setAction(NewFeed::COMMENT);
+            $newFeed->setDatetime($entityLog->getLoggedAt());
+            $newFeed->setGoal($goal);
+            $newFeed->setUser($this->users[$entityLog->getUsername()]);
+            $newFeed->setComment($comment);
 
             return $newFeed;
         }

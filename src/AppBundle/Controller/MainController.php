@@ -28,9 +28,10 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
+        $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $query = $em->getRepository('AppBundle:Goal')->findUserNewsQuery($this->getUser()->getId());
+        $query = $em->getRepository('AppBundle:NewFeed')->findNewFeedQuery($this->getUser()->getId());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -74,7 +75,15 @@ class MainController extends Controller
     {
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search);
-        return array('goalFriends' => $goalFriends);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, true);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $goalFriends,
+            $request->query->getInt('page', 1)/*page number*/,
+            30/*limit per page*/
+        );
+
+        return array('pagination' => $pagination);
     }
 }

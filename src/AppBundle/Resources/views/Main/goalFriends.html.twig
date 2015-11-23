@@ -25,7 +25,7 @@
                 </div>
 
                 {% set counter = 0 %}
-                {% for goalFriend in goalFriends %}
+                {% for goalFriend in pagination %}
                     {% if counter is divisible by(2) %}
                         <div class="row margin-top">
                     {% endif %}
@@ -61,7 +61,11 @@
                 {% if counter is not divisible by(2) and counter != 0  %}
                     </div>
                 {% endif %}
-<br />
+                    <br />
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
                 </div>
 
 

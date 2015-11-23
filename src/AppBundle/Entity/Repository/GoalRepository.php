@@ -190,26 +190,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $userId
      * @return array
      */
-    public function findUserNewsQuery($userId)
-    {
-        $goalFriendsUsernames = $this->findGoalFriends($userId, true);
-        if (!count($goalFriendsUsernames)){
-            $goalFriendsUsernames[] = '';
-        }
-
-        return $this->getEntityManager()
-            ->createQuery("SELECT le
-                           FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                           WHERE le.username IN (:usernames)
-                           ORDER BY le.loggedAt DESC")
-            ->setParameter('usernames', $goalFriendsUsernames);
-    }
-
-    /**
-     * @param $userId
-     * @return array
-     */
-    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null, $search = null)
+    public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
     {
         $query = $this
                     ->getEntityManager()
@@ -231,16 +212,20 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $query->setMaxResults($count);
         }
 
+        if ($getOnlyQuery){
+            return $query->getQuery();
+        }
+
         $results = $query->getQuery()->getResult();
 
 
-        if ($getOnlyUsernames){
-            $usernames = [];
+        if ($getOnlyIds){
+            $ids = [];
             foreach($results as $result){
-                $usernames[] = $result->getUsername();
+                $ids[] = $result->getId();
             }
 
-            return $usernames;
+            return $ids;
         }
 
         return $results;

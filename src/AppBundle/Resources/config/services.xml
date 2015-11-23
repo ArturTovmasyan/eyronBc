@@ -28,8 +28,14 @@
             <tag name="twig.extension"/>
         </service>
 
-        <!-- service for twig extension to convert news -->
-        <service id="bl.news.extension" class="AppBundle\Twig\Extension\ConvertNewsExtension">
+        <!-- service for twig extension to get popular goals -->
+        <service id="bl.user.relations.extension" class="AppBundle\Twig\Extension\UserWithRelationsExtension">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <!-- service for twig extension to get new action -->
+        <service id="bl.news.extension" class="AppBundle\Twig\Extension\NewActionExtension">
             <argument type="service" id="service_container" />
             <tag name="twig.extension"/>
         </service>

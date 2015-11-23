@@ -10,10 +10,10 @@ namespace AppBundle\Twig\Extension;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Class NewsFeedExtension
+ * Class UserWithRelationsExtension
  * @package AppBundle\Twig\Extension
  */
-class ConvertNewsExtension extends \Twig_Extension
+class UserWithRelationsExtension extends \Twig_Extension
 {
     /**
      * @var Container
@@ -34,22 +34,24 @@ class ConvertNewsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('convertNews', array($this, 'convertNews'))
+            new \Twig_SimpleFunction('userWithRelations', array($this, 'userWithRelations'))
         );
     }
 
     /**
-     * @param $entryLogs
+     * @param $userId
      * @return mixed
      */
-    public function convertNews($entryLogs)
+    public function userWithRelations($userId)
     {
-        $newsFeed = $this->container->get('bl_news_feed_service')->getNewsFeed($entryLogs);
-        return $newsFeed;
+        $em = $this->container->get('doctrine')->getManager();
+        $user = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsById($userId);
+
+        return $user;
     }
 
     public function getName()
     {
-        return 'bl_news_extension';
+        return 'bl_user_with_relations_extension';
     }
 }

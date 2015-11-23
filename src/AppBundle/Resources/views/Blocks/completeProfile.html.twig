@@ -1,5 +1,7 @@
 {% if user is defined %}
 
+    {% set user = userWithRelations(app.user.id) %}
+
     <div class="bg-white padding">
         <div class="row">
             <em>Complete your profile</em>
