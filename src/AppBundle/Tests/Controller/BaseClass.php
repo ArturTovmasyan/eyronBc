@@ -23,6 +23,11 @@ class BaseClass extends WebTestCase
     protected $client = null;
 
     /**
+     * @var null
+     */
+    protected $clientSecond = null;
+
+    /**
      * {@inheritDoc}
      */
     public function setUp()
@@ -33,6 +38,10 @@ class BaseClass extends WebTestCase
             ->getManager();
         $this->client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->clientSecond = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user@user.com',
             'PHP_AUTH_PW'   => 'Test1234',
         ));
     }

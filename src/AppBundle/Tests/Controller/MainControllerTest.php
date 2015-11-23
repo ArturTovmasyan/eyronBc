@@ -70,4 +70,50 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not click link in news-feed page!');
     }
+
+    /**
+     * This function is used to check goalFriends page
+     *
+     * @depends testNewsFeed
+     */
+    public function testGoalFriends()
+    {
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
+
+        // get goal id
+        $id = $goal->getId();
+
+        // try to open goal add-to-me page
+        $crawler = $this->clientSecond->request('POST', '/goal/add-to-me/' . $id);
+
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add-to-me page!');
+
+        // location array
+        $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
+
+        // get form
+        $form = $crawler->selectButton('DISCOVER MORE')->form(array(
+            'app_bundle_user_goal[birthday]' => '10/14/2015',
+            'app_bundle_user_goal[location]' => json_encode($location),
+            'app_bundle_user_goal[note]' => 'goal note2',
+
+        ));
+
+        // submit form
+        $this->clientSecond->submit($form);
+
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not create user2 goal in add-to-me page!');
+
+        // get user2
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByEmail('user@user.com');
+
+        // try to search user2
+        $this->client->request('GET', '/goal-friends?search=' . $user->getFirstName());
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not find a user with this firstName in goal-friends page!');
+
+        // Assert that the response content contains a string user firstName
+        $this->assertContains($user->getFirstName(), $this->client->getResponse()->getContent(), 'can not search user in goal-friends page!');
+    }
 }
