@@ -1,0 +1,19 @@
+{% if user is defined and count is defined%}
+    {% set popularGoals = popularGoals(user, count) %}
+    {% if popularGoals %}
+        {% for popularGoal in popularGoals %}
+            <figure>
+
+                <h3>{{ popularGoal.title }}</h3>
+
+                <a href="{{ path('inner_goal', {'id': popularGoal.id }) }}" id="goalTitle">
+                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
+                </a>
+                <figcaption>
+                    {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
+                </figcaption>
+            </figure>
+            <br />
+        {% endfor %}
+    {% endif %}
+{% endif %}

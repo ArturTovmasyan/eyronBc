@@ -12,11 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
+ * @Gedmo\Loggable
  */
 class UserGoal
 {
@@ -59,6 +61,7 @@ class UserGoal
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
      * @Groups({"map"})
+     * @Gedmo\Versioned
      */
     protected $status;
 
@@ -114,6 +117,7 @@ class UserGoal
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      * @Groups({"map"})
+     * @Gedmo\Versioned
      **/
     protected $goal;
 

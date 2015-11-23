@@ -1,14 +1,14 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
-{% set user = app.user %}
+
 
 {% block content_header %}
 
-    {% set stats = user.getStats %}
+    {% set stats = profileUser.getStats %}
 
     <div class="content-header">
         <figure>
-            <img src="{{ user.getPhotoLink }}" alt="Some image" class="img-responsive" />
+            <img src="{{ profileUser.getPhotoLink }}" alt="Some image" class="img-responsive" />
         </figure>
 
         <div class="profile">
@@ -18,7 +18,7 @@
                     <div class="col-md-4">
                         <figure>
                             <div>
-                                <img src="{{ user.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
+                                <img src="{{ profileUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
                             </div>
 
                             <figcaption>
@@ -34,7 +34,7 @@
                                     </li>
 
                                     <li>
-                                        <span>{{ 'done'|trans }}</span>
+                                        <span>{{ 'done'|trans |capitalize }}</span>
                                         <span>{{ stats.doneBy }}</span>
                                     </li>
                                 </ul>
@@ -43,26 +43,29 @@
                     </div>
 
                     <div class="col-md-4">
-                        <h1 class="bg-blue">{{ user.showName }}</h1>
-                        {% if  user.getAge  %}
-                            <p>{{ user.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                        <h1 class="bg-blue">{{ profileUser.showName }}</h1>
+                        {% if  profileUser.getAge  %}
+                            <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
                     </div>
 
-                    <div class="col-md-4">
-                        <a href="{{ path("settings") }}" class="pull-right">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </a>
+                    {% if profileUser.id == app.user.id %}
+                        <div class="col-md-4">
+                            <a href="{{ path("settings") }}" class="pull-right">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
 
-                        <div class="absolute clearfix" style="margin-top:250px;">
-                            <i>{{ 'complete_message'|trans }}</i>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:{{ user.getCompletedPercent }}%">
-                                    <span class="sr-only">45% Complete</span>
+                            <div class="absolute clearfix" style="margin-top:250px;">
+                                <i>{{ 'complete_message'|trans }}</i>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped aktive" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:{{ user.getCompletedPercent }}%">
+                                        <span class="sr-only">45% Complete</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -71,6 +74,13 @@
 {% endblock %}
 
 {% block content_container%}
+    <div class="slide" data-ng-hide="showMap">
+        <div data-simple-map-marker
+            data-markers="{{ locations(userGoals) | json_encode }}"
+            data-on-marker-click="onMarkerClick(goal)"
+            style="width: 100%; height: 300px">
+        </div>
+    </div>
     <div class="bucketlist">
         <div class="container">
             <div class="row">
@@ -78,30 +88,36 @@
                     {% set status = app.request.get('status') %}
                     {% set active = constant("AppBundle\\Entity\\UserGoal::ACTIVE") %}
                     {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                    {% set all = 0 %}
                     {% set dream = app.request.get('d') %}
                     {% set filter = app.request.get('f') %}
-
 
                     {% if dream %}
                         <p>{{ 'dream'|trans }}</p>
                     {% endif %}
 
-                    {% set my_router_params =  app.request.query.all|merge({'status' : active}) %}
 
-                    <li {% if status is null %} class="active" {% endif %} >
-                        <a  href="{{ path('my_list', my_router_params) }}">{{ 'menu.bucket'|trans }}</a>
+                    {% set my_router_params =  app.request.query.all %}
+                    {% set userId = {} %}
+                    {% if profileUser.id != app.user.id %}
+                        {% set userId = {'user' : profileUser.id} %}
+                    {% endif %}
+
+                    <li {% if status == all %} class="active" {% endif %} >
+                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : all})|merge(userId)) }}">{{ 'menu.bucket'|trans }}</a>
 
                     <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path('my_list', my_router_params|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : active})|merge(userId)) }}">{{ 'menu.active'|trans }}</a>
                     </li>
 
                     <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path('my_list', my_router_params|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path('user_profile', my_router_params|merge({'status' : completed })|merge(userId)) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
 
                     <li class="pull-right">
-                        <a href="#">{{ 'menu.map'|trans }}
-                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        <a href="javascript:void(0)" data-ng-click="showMap = !showMap"> {{ 'menu.map'|trans }}
+                            <span class="glyphicon glyphicon-chevron-up" data-ng-hide="showMap"></span>
+                            <span class="glyphicon glyphicon-chevron-down ng-hide" data-ng-show="showMap"></span>
                         </a>
                     </li>
                 </ul>
@@ -112,141 +128,185 @@
         <hr />
 
         <div class="container">
-            <form class="form-inline" action="#">
+            <div class="row">
 
-                {# dream filter #}
-                <label class="radio-inline">
-                    <input {% if dream %} checked {% endif %} type="radio" name="d" value="1"> {{ 'filter.dream'|trans }}
-                </label>
+                <div class="col-md-10">
+                    <form class="form-inline" action="#">
 
-                {# other filters #}
-                {% for id, name in filters %}
-                    <label class="radio-inline">
-                        <input {% if filter == id %} checked {% endif %} type="radio" name="f" value="{{ id }}"> {{ name|trans }}
-                    </label>
-                {% endfor %}
+                        {# dream filter #}
+                        <label class="radio-inline">
+                            <input {% if dream %} checked {% endif %} onclick="submit()" type="radio" name="d" value="1"> {{ 'filter.dream'|trans }}
+                        </label>
 
-                <input type="submit" name="filter">
-            </form>
+                        {# other filters #}
+                        {% for id, name in filters %}
+                            <label class="radio-inline">
+                                <input {% if filter == id %} checked {% endif %} onclick="submit()" type="radio" name="f" value="{{ id }}"> {{ name|trans }}
+                            </label>
+                        {% endfor %}
+                    </form>
+                </div>
+
+                <div class="col-md-2 mail-print">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-print"></span>
+                    </a>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </a>
+                </div>
+
+            </div>
+
         </div>
     </div> <br />
 
-    <div class="container" >
+    <div class="container goals-information" >
         <div class="row">
 
-            <div class="col-md-9">
+            <div class="col-md-8">
 
                 {% if userGoals %}
 
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
 
-                        {#{{ dump(goal.getUsedCount.listedBy) }}#}
-                        {#{{ dump(goal.getUsedCount.doneBy) }}#}
-
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-sm-2 no-right">
+                                <div class="date-left hidden-xs">
+                                    <div class="img-circle">
+                                        {{ userGoal.doDate|date('d') }}
+                                    </div>
 
+
+                                    <div class="elipse">
+                                        <div class="img-circle">{{ userGoal.doDate|date('M, Y') }}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-10">
-
-                        <div class="row">
-
-                            <div class="col-md-5">
-                                <figure>
-                                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
-                                </figure>
-                            </div>
-
-                            <div class="col-md-7">
-                                <article class="information">
-                                    <h3>{{ goal.title }}</h3>   <div class="addthis_native_toolbox"></div>
-                                    <p>{{ goal.author.showName|default(null)  }}</p>
-
-                                    <ul class="clearfix">
+                            <div class="col-sm-10 bg-white no-left">
 
 
+                                <div class="row">
 
-                                        <li>
-                                            {#{% if userGoal.note is not null %}#}
-                                                {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
-                                            {#{% endif %}#}
-                                            <span title="{{ 'my_bucket_list.notes'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
-                                            <span title="{{ 'my_bucket_list.steps'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+                                    <div class="col-md-6">
+                                        <figure>
+                                            <a href="{{ path('inner_goal', {'id' : goal.id }) }}">
+                                                <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+                                            </a>
+                                            <figcaption>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <a href="#">
+                                                            {{ 'listed_by'|trans | upper }}
+                                                            <span>{{ goal.getUsedCount.listedBy }}</span>
+                                                            <span class="glyphicon glyphicon-user"></span>
+                                                        </a>
+                                                    </div>
 
-                                        </li>
+                                                    <div class="col-sm-6">
+                                                        <a href="#">
+                                                            {{ 'done_by'|trans | upper }}
+                                                            <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                            <span class="glyphicon glyphicon-user"></span>
+                                                        </a>
+                                                    </div>
 
-                                        <li>
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
 
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped {% if userGoal.steps|length > 0 %} aktive{% endif %} " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ userGoal.getCompleted }}%">
-                                                    <span class="sr-only">45% Complete</span>
+                                    <div class="col-md-6">
+                                        <article class="information">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <h3><a href="{{ path('inner_goal', {'id' : goal.id }) }}">{{ goal.title }}</a></h3>
+                                                </div>
+                                                <div class="col-sm-6 pull-right">
+                                                    <div class="addthis_native_toolbox"></div>
                                                 </div>
                                             </div>
 
-                                        </li>
+                                            <p>{{ goal.author.showName|default(null)  }}</p>
+                                            <ul class="clearfix">
+                                                <li>
+                                                    {#{% if userGoal.note is not null %}#}
+                                                        {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
+                                                    {#{% endif %}#}
+                                                    <span title="{{ 'my_bucket_list.notes'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+                                                    <span title="{{ 'my_bucket_list.steps'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+                                                </li>
+                                                <li>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped {% if userGoal.steps|length > 0 %} aktive{% endif %} " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ userGoal.getCompleted }}%">
+                                                            <span class="sr-only">45% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
 
-                                        {# private#}
+                                                {# private#}
 
-                                        {% if goal.author and goal.author.id == app.user.id %}
+                                                {% if goal.author and goal.author.id == user.id %}
 
-                                            <li>
-                                                <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
-                                            </li>
-                                        {% endif %}
+                                                    <li>
+                                                        <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
+                                                    </li>
+                                                {% endif %}
 
-                                        {# invisible #}
+                                                {# invisible #}
 
-                                        {% if userGoal.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %}
+                                                {% if userGoal.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %}
 
-                                            <li>
-                                                <span title="{{ 'my_bucket_list.invisible'|trans }}" class="glyphicon glyphicon-eye-close"></span>
-                                            </li>
-                                        {% endif %}
+                                                    <li>
+                                                        <span title="{{ 'my_bucket_list.invisible'|trans }}" class="glyphicon glyphicon-eye-close"></span>
+                                                    </li>
+                                                {% endif %}
 
-                                        {# Missed deadline #}
-                                        {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
-                                            <li>
-                                                <span title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="glyphicon glyphicon-off"></span>
-                                            </li>
-                                        {% endif %}
+                                                {# Missed deadline #}
+                                                {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
+                                                    <li>
+                                                        <span title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="glyphicon glyphicon-off"></span>
+                                                    </li>
+                                                {% endif %}
 
-                                    </ul>
+                                            </ul>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <a href="{{ path('add_to_me_goal', {'id' : goal.id , 'userGoalId' : userGoal.id}) }}">
-                                                <span class="glyphicon glyphicon-cog"></span>
-                                                {{ 'manage'|trans }}
-                                            </a>
-                                        </div>
 
-                                        <div class="col-md-6 text-right">
+                                            {% if profileUser.id == app.user.id %}
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <a href="{{ path('manage_goal', {'id' : goal.id , 'userGoalId' : userGoal.id}) }}">
+                                                            <span class="glyphicon glyphicon-cog"></span>
+                                                            {{ 'manage'|trans }}
+                                                        </a>
+                                                    </div>
 
-                                            {% set status = userGoal.status %}
-                                            {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                                                <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border">
-                                                    <span class="glyphicon glyphicon-ok-circle green-bg"></span>
-                                                    {{ 'successtory'|trans }}
-                                                </a>
-                                            {% else %}
-                                                <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="border">
-                                                    <span class="glyphicon glyphicon-ok-circle"></span>
-                                                    {{ 'done'|trans }}
-                                                </a>
+                                                    <div class="col-sm-6 text-right" id="check_status">
+
+                                                        {% set status = userGoal.status %}
+                                                        {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                                                            <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border" id="successtory">
+                                                                <span class="glyphicon glyphicon-ok-circle green-bg"></span>
+                                                                {{ 'successtory'|trans }}
+                                                            </a>
+                                                        {% else %}
+                                                            <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="border" id="done">
+                                                                <span class="glyphicon glyphicon-ok-circle"></span>
+                                                                {{ 'done'|trans }}
+                                                            </a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
                                             {% endif %}
-                                        </div>
 
+                                        </article>
                                     </div>
 
-                                </article>
+                                </div>
+
                             </div>
-
                         </div>
-
-                    </div>
-                        </div>
-                        <br />
                     {% endfor %}
                 {% else %}
 
@@ -260,7 +320,7 @@
                 {% endif %}
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <ul class="right-block">
                     <li class="clearfix">
                         <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
@@ -273,17 +333,7 @@
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
-                        {% if popularGoals %}
-                            {% for popularGoal in popularGoals %}
-                                <figure>
-                                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
-                                    <figcaption>
-                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
-                                    </figcaption>
-                                </figure>
-                                <br />
-                            {% endfor %}
-                        {% endif %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
                     </li>
                 </ul>
             </div>

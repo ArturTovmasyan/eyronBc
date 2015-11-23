@@ -1,0 +1,30 @@
+{% if user is defined %}
+    <div class="bg-white padding margin-top">
+
+        <a href="{{ path('user_profile') }}" class="heading text-gray">
+            <i class="glyphicon glyphicon-th-list"></i>
+            {{ 'my_bucketlist'|trans }}
+        </a>
+
+        <hr/>
+
+        {% set stats = user.getStats %}
+
+        <ul class="horizontal-menu">
+            <li>
+                <strong>{{ 'user_goal.active'|trans }}</strong>
+                <span>{{ stats.active }}</span>
+            </li>
+
+            <li>
+                <strong>{{ 'listed_by'|trans }}</strong>
+                <span>{{ stats.listedBy }}</span>
+            </li>
+
+            <li>
+                <strong>{{ 'done'|trans |capitalize }}</strong>
+                <span>{{ stats.doneBy }}</span>
+            </li>
+        </ul>
+    </div>
+{% endif %}

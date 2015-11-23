@@ -8,6 +8,9 @@ class BaseClass extends WebTestCase
 {
     const HTTP_STATUS_OK = 200;
     const HTTP_STATUS_REDIRECT = 302;
+    // constants for status
+    const ACTIVE = 1;
+    const COMPLETED = 2;
 
     /**
      * @var \Doctrine\ORM\EntityManager

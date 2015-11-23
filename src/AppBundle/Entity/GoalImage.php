@@ -12,6 +12,7 @@ use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -73,6 +74,15 @@ class GoalImage
      */
     protected $updated;
 
+
+    /**
+     * @VirtualProperty
+     * @Groups({"images"})
+     */
+    public function getImagePath()
+    {
+        return $this->getDownloadLink();
+    }
 
     /**
      * Get id

@@ -10,6 +10,7 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\Query;
  * Class UserGoalRepository
  * @package AppBundle\Entity\Repository
  */
-class UserGoalRepository extends EntityRepository
+class UserGoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
 {
     /**
      * @param $user
@@ -109,5 +110,27 @@ class UserGoalRepository extends EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $ids
+     * @return array|null
+     */
+    public function findByIdsWithRelations($ids)
+    {
+        if (!count($ids)){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT ug, u, g, author
+                           FROM AppBundle:UserGoal ug
+                           INDEX BY ug.id
+                           JOIN ug.user u
+                           JOIN ug.goal g
+                           JOIN g.author author
+                           WHERE ug.id IN (:userGoalIds)")
+            ->setParameter('userGoalIds', $ids)
+            ->getResult();
     }
 }

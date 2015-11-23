@@ -12,6 +12,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Class SuccessStory
@@ -19,6 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SuccessStoryRepository")
  * @ORM\Table(name="success_story")
+ * @Gedmo\Loggable
  */
 class SuccessStory
 {
@@ -27,6 +29,7 @@ class SuccessStory
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"success_story"})
      */
     protected $id;
 
@@ -66,6 +69,7 @@ class SuccessStory
 
     /**
      * @ORM\Column(name="story", type="text")
+     * @Groups({"success_story"})
      */
     protected $story;
 

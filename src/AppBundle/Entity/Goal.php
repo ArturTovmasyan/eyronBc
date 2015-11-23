@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal")
+ * @Gedmo\Loggable
  */
 class Goal implements MultipleFileInterface, PublishAware
 {
@@ -44,7 +45,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"map"})
+     * @Groups({"map", "goal"})
      */
     protected $id;
 
@@ -62,7 +63,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @ORM\Column(name="title", type="string", nullable=true)
-     * @Groups({"map"})
+     * @Groups({"map", "goal"})
      */
     protected $title;
 
@@ -353,6 +354,8 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @return bool|mixed
+     * @VirtualProperty
+     * @Groups({"goal"})
      */
     public function getCoverPhoto()
     {

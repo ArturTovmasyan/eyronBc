@@ -10,6 +10,7 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * Class GoalRepository
  * @package AppBundle\Entity\Repository
  */
-class GoalRepository extends EntityRepository
+class GoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
 {
     /**
      * @param $count
@@ -162,5 +163,86 @@ class GoalRepository extends EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $ids
+     * @return array|null
+     */
+    public function findByIdsWithRelations($ids)
+    {
+        if (!count($ids)){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i, author
+                           FROM AppBundle:Goal g
+                           INDEX BY g.id
+                           LEFT JOIN g.images i
+                           LEFT JOIN g.author author
+                           WHERE g.id IN (:goalIds)")
+            ->setParameter('goalIds', $ids)
+            ->getResult();
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findUserNewsQuery($userId)
+    {
+        $goalFriendsUsernames = $this->findGoalFriends($userId, true);
+        if (!count($goalFriendsUsernames)){
+            $goalFriendsUsernames[] = '';
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT le
+                           FROM Gedmo\\Loggable\\Entity\\LogEntry le
+                           WHERE le.username IN (:usernames)
+                           ORDER BY le.loggedAt DESC")
+            ->setParameter('usernames', $goalFriendsUsernames);
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findGoalFriends($userId, $getOnlyUsernames = false, $count = null, $search = null)
+    {
+        $query = $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('DISTINCT u')
+                    ->from('ApplicationUserBundle:User', 'u')
+                    ->join('u.userGoal', 'ug')
+                    ->join('ug.goal', 'g')
+                    ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
+                             AND u.id != :userId")
+                    ->setParameter('userId', $userId)
+                    ;
+
+        if ($search){
+            $query->andWhere("u.firstName LIKE :search or u.lastName LIKE :search")->setParameter('search', '%' . $search . '%');
+        }
+
+        if ($count){
+            $query->setMaxResults($count);
+        }
+
+        $results = $query->getQuery()->getResult();
+
+
+        if ($getOnlyUsernames){
+            $usernames = [];
+            foreach($results as $result){
+                $usernames[] = $result->getUsername();
+            }
+
+            return $usernames;
+        }
+
+        return $results;
     }
 }

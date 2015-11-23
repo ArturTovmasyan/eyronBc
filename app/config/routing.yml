@@ -70,3 +70,8 @@ app_goal_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\GoalRestController
     prefix:   /api
+
+app_nwe_feed_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\NewsFeedController
+    prefix:   /api

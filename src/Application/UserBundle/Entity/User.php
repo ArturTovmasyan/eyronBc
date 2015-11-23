@@ -13,6 +13,8 @@ use AppBundle\Traits\File;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
@@ -39,6 +41,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"user"})
      */
     protected $id;
 
@@ -61,12 +64,14 @@ class User extends BaseUser
 
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
+     * @Groups({"user"})
      */
     protected $username;
 
     /**
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
+     * @Groups({"user"})
      */
     protected $firstName;
 
@@ -95,6 +100,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
+     * @Groups({"user"})
      */
     protected $lastName;
 
@@ -132,6 +138,16 @@ class User extends BaseUser
      * @ORM\Column(name="registration_token", type="string", nullable=true, unique=true)
      */
     protected $registrationToken;
+
+    /**
+     * @VirtualProperty
+     * @Groups({"user"})
+     */
+    public function getImagePath()
+    {
+        return $this->getDownloadLink();
+    }
+
 
     /**
      * Constructor

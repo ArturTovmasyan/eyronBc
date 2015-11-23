@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,13 +23,15 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/my-list/{status}", defaults={"status" = null, "filter" = null },  name="my_list")
+     * @Route("/user-profile/{status}/{user}", defaults={"user" = null, "status" = 0},  name="user_profile")
      * @Template()
+     * @param User $user
      * @param $status
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function myListAction($status, Request $request)
+    public function myListAction(User $user = null, $status, Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -39,8 +42,11 @@ class BucketListController extends Controller
         // get urgent filter
         $filter = $request->get('f');
 
-        // get current user
-        $user = $this->getUser();
+
+        if (!$user) {
+            // get current user
+            $user = $this->getUser();
+        }
 
         // find all goals
         $userGoals = $em->getRepository("AppBundle:UserGoal")
@@ -58,13 +64,10 @@ class BucketListController extends Controller
         // get drafts
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
-        // get popular goals
-        $popularGoals = $em->getRepository("AppBundle:Goal")->findPopular($user, 2);
-
         return array(
+            'profileUser' => $user,
             'userGoals' => $userGoals,
             'draftsCount' => $draftsCount,
-            'popularGoals' => $popularGoals,
             'filters' => $filters
             );
     }

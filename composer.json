@@ -30,7 +30,7 @@
         "sonata-project/intl-bundle": "2.2.*",
         "sonata-project/easy-extends-bundle" :"2.1.7",
 
-        "stof/doctrine-extensions-bundle": "1.1.*",
+        "stof/doctrine-extensions-bundle": "1.2.*",
 
         "jms/serializer-bundle": "~0.12",
         "jms/security-extra-bundle": "1.5.*",
@@ -40,7 +40,8 @@
         "friendsofsymfony/comment-bundle": "2.0.*",
         "knplabs/knp-paginator-bundle": "2.4.*",
         "stfalcon/tinymce-bundle": "0.3.*",
-        "a2lix/translation-form-bundle": "1.*"
+        "a2lix/translation-form-bundle": "1.*",
+        "gedmo/doctrine-extensions": "^2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -315,7 +315,7 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return $this->redirectToRoute("my_list");
+        return $this->redirectToRoute("user_profile");
     }
 
     /**
@@ -394,7 +394,7 @@ class GoalController extends Controller
 
                 $em->flush();
 
-                return $this->redirectToRoute("my_list");
+                return $this->redirectToRoute("user_profile");
             }
         }
 
@@ -582,7 +582,135 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute("my_list");
+                return $this->redirectToRoute("user_profile");
+            }
+        }
+
+        return  array('form' => $form->createView(), 'data' => $userGoal);
+    }
+
+    /**
+     * This function is duplicate of 'add to me action', and in future must be merge with it
+     *
+     * @Route("/manage/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="manage_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param Goal $goal
+     * @param Request $request
+     * @param Request $userGoalId
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function manageAction(Request $request, Goal $goal, $userGoalId = null)
+    {
+        // get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // empty data
+        $steps = array();
+
+        // check userGoalId
+        if($userGoalId){
+
+            $userGoal = $em->getRepository("AppBundle:UserGoal")->find($userGoalId);
+
+            // check user goal, and return not found exception
+            if(!$userGoal){
+                throw $this->createNotFoundException('usergoal not found');
+            }
+
+        }
+        else{
+            $userGoal = new UserGoal();
+
+            //set goal
+            $userGoal->setGoal($goal);
+        }
+
+        // create goal form
+        $form  = $this->createForm(new UserGoalType(), $userGoal);
+
+        // check method
+        if($request->isMethod("POST")){
+
+            // get data
+            $form->handleRequest($request);
+
+            // check form
+            if($form->isValid()){
+
+                // get step text
+                $stepTexts = $request->get('stepText');
+
+                // if step text
+                if($stepTexts){
+
+                    // get switch
+                    $switch = $request->get('switch');
+
+                    // loop for step text
+                    foreach($stepTexts as $key => $stepText){
+
+                        // check step text
+                        if(strlen($stepText) > 0 ){
+                            // get step
+                            $name = $stepText;
+
+                            // get status
+                            $status = is_array($switch) && array_key_exists($key, $switch) ? UserGoal::DONE : UserGoal::TO_DO;
+
+                            $steps[$name] = $status;
+                        }
+                    }
+                }
+
+                // get location
+                $location = json_decode($form->get('location')->getData());
+
+                if($location){
+                    $userGoal->setAddress($location->address);
+                    $userGoal->setLat($location->location->latitude);
+                    $userGoal->setLng($location->location->longitude);
+                }
+
+                // set status
+                $userGoal->setStatus(UserGoal::ACTIVE);
+
+                // if user is author, and goal is in draft
+                if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
+
+                    // set status to publish
+                    $goal->setReadinessStatus(Goal::TO_PUBLISH);
+                    $em->persist($goal);
+                }
+
+                // set date
+                $userGoal->setListedDate(new \DateTime());
+
+                // set user
+                $userGoal->setUser($user);
+
+                // set step
+                $userGoal->setSteps($steps);
+
+                $doDate = $form->get('birthday')->getData();
+
+                // check date
+                if($doDate){
+
+                    $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
+
+                    // set do date
+                    $userGoal->setDoDate($doDate);
+                }
+
+                $em->persist($userGoal);
+                $em->flush();
+
+                return $this->redirectToRoute("user_profile");
             }
         }
 
@@ -772,7 +900,7 @@ class GoalController extends Controller
 
         $em->flush();
 
-        return $this->redirectToRoute("my_list");
+        return $this->redirectToRoute("user_profile");
     }
 
     /**

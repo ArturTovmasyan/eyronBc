@@ -67,5 +67,22 @@ class UserRepository extends EntityRepository
 
     }
 
+    /**
+     * @param $usernames
+     * @return array|null
+     */
+    public function findByUsernames($usernames)
+    {
+        if (!count($usernames)){
+            return null;
+        }
 
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           INDEX BY u.username
+                           WHERE u.username IN (:usernames)")
+            ->setParameter('usernames', $usernames)
+            ->getResult();
+    }
 }

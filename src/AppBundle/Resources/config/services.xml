@@ -7,7 +7,6 @@
     <services>
 
         <!--  Bucket List Service -->
-
         <service id="bl_service" class="AppBundle\Services\BucketListService">
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -23,6 +22,23 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension to get popular goals -->
+        <service id="bl.popular.goals.extension" class="AppBundle\Twig\Extension\PopularGoalsExtension">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <!-- service for twig extension to convert news -->
+        <service id="bl.news.extension" class="AppBundle\Twig\Extension\ConvertNewsExtension">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <!-- service for twig extension to get goal friends -->
+        <service id="bl.popular.goal.friends.extension" class="AppBundle\Twig\Extension\GoalFriendsExtension">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="twig.extension"/>
+        </service>
 
         <!-- service for twig extension is my goal -->
         <service id="bl.is_my_goal" class="AppBundle\Twig\Extension\IsMyGoalExtension">
@@ -38,6 +54,11 @@
         <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
             <argument type="service" id="service_container" />
             <tag name="doctrine.event_listener" event = "onFlush"/>
+        </service>
+
+        <!-- NewsFeed service -->
+        <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
+            <argument type="service" id="service_container" />
         </service>
 
     </services>

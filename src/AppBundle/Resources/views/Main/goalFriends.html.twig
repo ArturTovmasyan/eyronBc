@@ -1,0 +1,86 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="container" id="goal-friends">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="bg-white padding">
+                    <form role="search" action="#" method="GET">
+                        <div class="form-group row">
+
+                            <div class="col-xs-10 col-sm-11">
+                                <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
+                            </div>
+                            <div  class="col-xs-2 col-sm-1">
+                                <a href="{{ path('goal_friends') }}" class="text-gray">
+                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+                {% set counter = 0 %}
+                {% for goalFriend in goalFriends %}
+                    {% if counter is divisible by(2) %}
+                        <div class="row margin-top">
+                    {% endif %}
+
+                            <div class="col-sm-6">
+                                <div class="bg-white padding clearfix">
+                                    <figure class="image">
+                                        <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}">
+                                            <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
+                                                 alt= "Some image" class="img-circle img-responsive" />
+                                        </a>
+                                    </figure>
+
+                                    <div class="pull-left text-gray">
+                                        <h4 class="text-dark-gray">
+                                            {{ goalFriend.firstname }} {{ goalFriend.lastname }}
+                                        </h4>
+                                        {% set stats = goalFriend.getStats %}
+                                        <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
+                                        <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                    {% if counter is not divisible by(2) %}
+                        </div>
+                    {% endif %}
+                    {% set counter = counter + 1 %}
+
+                {% endfor %}
+
+
+                {% if counter is not divisible by(2) and counter != 0  %}
+                    </div>
+                {% endif %}
+<br />
+                </div>
+
+
+
+            <div class="col-md-4">
+                {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+
+
+                <ul class="right-block">
+                    <li class="clearfix">
+                        <span>{{ 'right_menu.ideas'|trans }}</span>
+                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                    </li>
+                    <li>
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

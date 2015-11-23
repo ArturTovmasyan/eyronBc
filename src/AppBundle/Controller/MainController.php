@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -49,5 +50,40 @@ class MainController extends Controller
         }
 
         return array('page' => $page);
+    }
+
+    /**
+     * @Route("/news-feed", name="news_feed")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function newsFeedAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Goal')->findUserNewsQuery($this->getUser()->getId());
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
+        return array('pagination' => $pagination);
+    }
+
+    /**
+     * @Route("/goal-friends", name="goal_friends")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function goalFriendsAction(Request $request)
+    {
+        $search = $request->get('search') ? $request->get('search') : null;
+        $em = $this->getDoctrine()->getManager();
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search);
+        return array('goalFriends' => $goalFriends);
     }
 }
