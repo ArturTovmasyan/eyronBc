@@ -62,7 +62,7 @@ class MigrationCommand extends ContainerAwareCommand
             $user = new User();
             $user->setEmail('admin');
 
-            $encoded = $encoder->encodePassword($user, 'admin');
+            $encoded = $encoder->encodePassword($user, 'admin1324');
             $user->setPassword($encoded);
             $em->persist($user);
             $em->flush();
