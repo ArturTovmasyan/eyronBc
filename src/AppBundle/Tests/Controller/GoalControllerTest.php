@@ -196,7 +196,7 @@ class GoalControllerTest extends BaseClass
         $this->assertEquals($userGoal->getStatus(), BaseClass::ACTIVE, 'user goal status is not active!');
 
         // try to open goal profile page
-        $crawler = $this->client->request('GET', '/my-list');
+        $crawler = $this->client->request('GET', '/user-profile');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal profile page!');
 
@@ -237,8 +237,6 @@ class GoalControllerTest extends BaseClass
             'app_bundle_user_goal[note]' => 'goal note edited',
 
         ));
-//        // tick in goal status checkbox
-//        $form['goal_status']->tick();
 
         // submit form
         $this->client->submit($form);
@@ -246,7 +244,7 @@ class GoalControllerTest extends BaseClass
         $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not manage user goal!');
 // check success story
         // try to open user goal list page
-        $crawler = $this->client->request('GET', '/my-list');
+        $crawler = $this->client->request('GET', '/user-profile');
 
         // click in done link
         $link = $crawler->filter('#check_status a[id="done"]')->link();
@@ -255,7 +253,7 @@ class GoalControllerTest extends BaseClass
         $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not click in DONE link in profile page!');
 
         // try to open user goal list page
-        $crawler = $this->client->request('GET', '/my-list');
+        $crawler = $this->client->request('GET', '/user-profile');
 
         // Assert that the response content contains a 'Success story'
         $this->assertContains('Success story', $this->client->getResponse()->getContent(), 'can not find Success story link in profile page!');
@@ -275,9 +273,5 @@ class GoalControllerTest extends BaseClass
         // submit form
         $this->client->submit($form);
         $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not create Success story!');
-
-        //TODO manage, successtory
-//        dump($this->client->getResponse()->getContent());
-//        exit;
     }
 }
