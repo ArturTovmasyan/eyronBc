@@ -85,7 +85,7 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $successStories;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="UserGoal", mappedBy="goal", cascade={"persist", "remove"})
      **/
     protected $userGoal;
 

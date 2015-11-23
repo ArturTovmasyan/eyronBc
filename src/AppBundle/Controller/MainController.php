@@ -19,15 +19,27 @@ class MainController extends Controller
      * @Route("/", name="homepage")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // find goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
+        if (!$this->getUser()){
+            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
+            return array('goals' => $goals);
+        }
 
-        return array('goals' => $goals);
+
+        //If user is logged in then show news feed
+        $query = $em->getRepository('AppBundle:Goal')->findUserNewsQuery($this->getUser()->getId());
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+
+        return $this->render('AppBundle:Main:newsFeed.html.twig', array('pagination' => $pagination));
     }
 
     /**
@@ -50,27 +62,6 @@ class MainController extends Controller
         }
 
         return array('page' => $page);
-    }
-
-    /**
-     * @Route("/news-feed", name="news_feed")
-     * @Template()
-     * @Security("has_role('ROLE_USER')")
-     * @return array
-     */
-    public function newsFeedAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Goal')->findUserNewsQuery($this->getUser()->getId());
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
-        );
-
-        return array('pagination' => $pagination);
     }
 
     /**
