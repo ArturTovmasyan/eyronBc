@@ -35,7 +35,7 @@ class NewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Groups({"new_feed"})
      */
@@ -43,7 +43,7 @@ class NewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="Goal")
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Groups({"new_feed"})
      */
@@ -63,7 +63,7 @@ class NewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\CommentBundle\Entity\Comment")
-     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Groups({"new_feed"})
      */
@@ -71,7 +71,7 @@ class NewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="SuccessStory")
-     * @ORM\JoinColumn(name="success_story_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="success_story_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @Groups({"new_feed"})
      */
@@ -79,7 +79,7 @@ class NewFeed
 
     /**
      * @ORM\OneToOne(targetEntity="Gedmo\Loggable\Entity\LogEntry")
-     * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="log_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $log;
 
