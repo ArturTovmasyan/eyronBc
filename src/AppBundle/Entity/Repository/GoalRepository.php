@@ -156,7 +156,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         if($search){
             $query
-                ->andWhere('g.title LIKE :search')
+                ->andWhere('g.title LIKE :search or g.description LIKE :search')
                 ->setParameter('search', '%' . $search . '%')
                 ->groupBy('g.id')
             ;
