@@ -28,19 +28,7 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
-        $this->get('bl_news_feed_service')->updateNewsFeed();
-
-        //If user is logged in then show news feed
-        $query = $em->getRepository('AppBundle:NewFeed')->findNewFeedQuery($this->getUser()->getId());
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
-        );
-
-        return $this->render('AppBundle:Main:newsFeed.html.twig', array('pagination' => $pagination));
+        return $this->redirectToRoute('activities');
     }
 
     /**
@@ -82,6 +70,30 @@ class MainController extends Controller
             $goalFriends,
             $request->query->getInt('page', 1)/*page number*/,
             30/*limit per page*/
+        );
+
+        return array('pagination' => $pagination);
+    }
+
+    /**
+     * @Route("/activities", name="activities")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function activitiesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $this->get('bl_news_feed_service')->updateNewsFeed();
+
+        //If user is logged in then show news feed
+        $query = $em->getRepository('AppBundle:NewFeed')->findNewFeedQuery($this->getUser()->getId());
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
         );
 
         return array('pagination' => $pagination);
