@@ -52,6 +52,14 @@ class BucketListController extends Controller
         $userGoals = $em->getRepository("AppBundle:UserGoal")
             ->findAllByUser($user, $status, $dream, $filter);
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $userGoals,
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+
+
         // create filter
         $filters = array(
             UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
@@ -66,7 +74,7 @@ class BucketListController extends Controller
 
         return array(
             'profileUser' => $user,
-            'userGoals' => $userGoals,
+            'userGoals' => $pagination,
             'draftsCount' => $draftsCount,
             'filters' => $filters
             );

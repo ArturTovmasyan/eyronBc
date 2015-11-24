@@ -32,21 +32,27 @@
 
                             <div class="col-sm-6">
                                 <div class="bg-white padding clearfix">
-                                    <figure class="image">
-                                        <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}">
-                                            <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
-                                                 alt= "Some image" class="img-circle img-responsive" />
-                                        </a>
-                                    </figure>
+                                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}" style="display:block;">
+                                        <div class="row no-gutter">
+                                            <div class="col-sm-3">
+                                                <figure class="image">
+                                                    <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
+                                                             alt= "Some image" class="img-circle img-responsive" />
+                                                </figure>
+                                            </div>
 
-                                    <div class="pull-left text-gray">
-                                        <h4 class="text-dark-gray">
-                                            {{ goalFriend.firstname }} {{ goalFriend.lastname }}
-                                        </h4>
-                                        {% set stats = goalFriend.getStats %}
-                                        <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
-                                        <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
-                                    </div>
+                                            <div class="col-sm-9">
+                                                <div class="text-gray">
+                                                    <h4 class="text-dark-gray">
+                                                        {{ goalFriend.firstname }} {{ goalFriend.lastname }}
+                                                    </h4>
+                                                    {% set stats = goalFriend.getStats %}
+                                                    <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
+                                                    <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
 

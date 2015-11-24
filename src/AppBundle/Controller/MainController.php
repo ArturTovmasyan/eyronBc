@@ -28,7 +28,7 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
-        return $this->redirectToRoute('activities');
+        return $this->redirectToRoute('activity');
     }
 
     /**
@@ -76,7 +76,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/activities", name="activities")
+     * @Route("/activity", name="activity")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      * @return array

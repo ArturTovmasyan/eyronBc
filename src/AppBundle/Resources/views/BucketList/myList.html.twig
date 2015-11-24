@@ -318,6 +318,10 @@
                         {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_goal'|trans }}</a>
                     {% endif %}
                 {% endif %}
+
+                <div class="navigation">
+                    {{ knp_pagination_render(userGoals) }}
+                </div>
             </div>
 
             <div class="col-md-4">
