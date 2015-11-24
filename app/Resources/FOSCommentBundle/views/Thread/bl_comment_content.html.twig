@@ -1,0 +1,14 @@
+{% extends "FOSCommentBundle:Thread:comment_content.html.twig" %}
+
+{% block fos_comment_comment_metas_authorline %}
+
+    <img src="{{ comment.author.getDownloadLink }}" />
+
+    <span class="fos_comment_comment_authorname">
+        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+        {% else %}
+            {{ comment.authorName }}
+        {% endif %}
+    </span> - {{ comment.createdAt|date }}
+{% endblock fos_comment_comment_metas_authorline %}
