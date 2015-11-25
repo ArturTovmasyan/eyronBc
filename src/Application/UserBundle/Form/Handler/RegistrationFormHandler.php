@@ -71,14 +71,15 @@ class RegistrationFormHandler extends BaseHandler
         // generate url
         $url = $this->request->getHttpHost() . $router->generate("registration_confirm", array('token' => $token));
 
-        $html = "Verification link has been sent to your e-mail address. Please, confirm your account by clicking on the link <a href='$url'>link</a>";
-
         $message = \Swift_Message::newInstance()
-            ->setSubject('test')
-            ->setFrom('test@test.am')
+            ->setSubject('Please confirm your Bucketlist.com account')
+            ->setFrom('confirmEmail@bucketlist.com')
             ->setCc($user->getEmail())
-            ->setContentType("text/plain; charset=UTF-8")
-            ->setBody($html, "text/plain");
+            ->setContentType("text/html; charset=UTF-8")
+            ->setBody($this->container->get('templating')->render(
+                'ApplicationUserBundle:Registration:emailConfirm.html.twig',
+                array('name' => $user->getFirstName(), 'url' => $url, 'email' => $user->getEmail())
+            ), "text/html");
 
         $this->container->get('mailer')->send($message);
 
