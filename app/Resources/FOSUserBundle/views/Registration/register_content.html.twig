@@ -48,6 +48,7 @@
                         {% endif %}
                     </div>
 
+                    <p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
                     <div class="form-group row">
                         <div class="col-sm-4">
                             {{ form_widget(form.birthDate.month, {
@@ -67,7 +68,7 @@
 
                     <div class="form-group row">
                         <p>{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
-                            <a href="#" class="purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
+                            <a href="{{ getPolicyLink() }}" class="purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
                         </p>
                     </div>
 

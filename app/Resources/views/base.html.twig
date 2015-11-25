@@ -108,7 +108,10 @@
                 </header>
                 {% if app.user and app.user.getRegistrationToken is not null %}
 
-                    <p class="email">{{ 'register_text'|trans }}</p>
+                    <p class="email">
+                        {{ 'register_text'|trans }}<br />
+                        {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                    </p>
 
                 {% endif %}
                 {% block content %}{% endblock %}

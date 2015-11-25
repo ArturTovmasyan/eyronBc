@@ -110,6 +110,7 @@ form:
     new_password_confirmation: "Verification"
     firstName: "First Name"
     lastName: "Last Name"
+    date_of_birth: Date of birth
     birth_date_month: "Month"
     birth_date_day: "Day"
     birth_date_year: "Year"

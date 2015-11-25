@@ -98,4 +98,17 @@ class MainController extends Controller
 
         return array('pagination' => $pagination);
     }
+
+
+
+    /**
+     * @Route("/register/confirmed", name="registration_confirmed")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function registrationConfirmedAction()
+    {
+        return $this->redirectToRoute('activity');
+    }
 }

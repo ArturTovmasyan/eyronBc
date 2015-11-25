@@ -40,6 +40,12 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension to get new action -->
+        <service id="bl.policy.link.extension" class="AppBundle\Twig\Extension\GetPolicyLinkExtension">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service for twig extension to get goal friends -->
         <service id="bl.popular.goal.friends.extension" class="AppBundle\Twig\Extension\GoalFriendsExtension">
             <argument type="service" id="doctrine.orm.entity_manager" />
