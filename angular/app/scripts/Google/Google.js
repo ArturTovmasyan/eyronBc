@@ -5,6 +5,7 @@ angular.module('Google', [])
             var m, data = {};
             data.center = new google.maps.LatLng(40.177037, 44.514841);
             data.zoom = 10;
+            data.scrollwheel = false;
             data.mapTypeId = google.maps.MapTypeId.ROADMAP;
             m = new google.maps.Map(el,data);
 
