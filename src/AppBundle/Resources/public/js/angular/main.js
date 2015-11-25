@@ -6,7 +6,7 @@ angular.module('main',['mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover',
     'Interpolation',
     'Google',
     'ngSanitize'])
-    .controller('MainController',['$scope', '$modal', function($scope, $modal){
+    .controller('MainController',['$scope', '$modal', '$timeout', function($scope, $modal, $timeout){
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -17,6 +17,16 @@ angular.module('main',['mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover',
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
         };
+
+        $scope.triggerMap = function(mapSelector){
+            if(!mapSelector){
+                return;
+            }
+            $timeout(function(){
+                var mapScope = angular.element(mapSelector).isolateScope();
+                google.maps.event.trigger(mapScope.map, 'resize');
+            },150);
+        }
 
         $scope.onMarkerClick = function(goal){
             console.log(goal);
