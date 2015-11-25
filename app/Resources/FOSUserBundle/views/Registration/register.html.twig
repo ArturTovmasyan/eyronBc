@@ -3,3 +3,29 @@
 {% block content %}
     {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock content%}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        function EmailValidation(textbox){
+
+            if(textbox.value.indexOf('@') == -1){
+                textbox.setCustomValidity("{{ 'email.dogApsent'|trans({}, "FOSUserBundle") }}");
+            }
+            else if (textbox.value[0] == '@'){
+                textbox.setCustomValidity("{{ 'email.beforeDog'|trans({}, "FOSUserBundle") }}");
+            }
+            else if (!textbox.value.match(/@.+\..+/g)){
+                textbox.setCustomValidity("{{ 'email.afterDog'|trans({}, "FOSUserBundle") }}");
+            }
+            else {
+                textbox.setCustomValidity('');
+            }
+
+            return true;
+        }
+    </script>
+
+{% endblock javascripts %}

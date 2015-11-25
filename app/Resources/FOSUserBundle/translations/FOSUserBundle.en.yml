@@ -1,3 +1,8 @@
+email:
+    dogApsent: please, include an @ in the email address
+    beforeDog: please, enter a part preceding @
+    afterDog:  please, enter a part followed by @
+
 # Security
 "Bad credentials": Invalid username or password
 invalid_data: Username, Member ID or password is incorrect
