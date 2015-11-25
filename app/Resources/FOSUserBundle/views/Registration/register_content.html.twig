@@ -32,6 +32,8 @@
                         </div>
                     </div>
 
+                    {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
+                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
                     <div class="form-group row">
                         <div class="col-sm-6">
                             {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
@@ -39,8 +41,11 @@
                         <div class="col-sm-6">
                             {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
                         </div>
-                        {{ form_errors(form.plainPassword.first) }}
-                        {{ form_errors(form.plainPassword.second) }}
+
+                        {% if errorMessage != 'Error' %}
+                            {{ form_errors(form.plainPassword.first) }}
+                            {{ form_errors(form.plainPassword.second) }}
+                        {% endif %}
                     </div>
 
                     <div class="form-group row">

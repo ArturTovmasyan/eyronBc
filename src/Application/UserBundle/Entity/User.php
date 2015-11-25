@@ -82,11 +82,15 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     *
      * @Assert\Length(
      *      min = 6,
-     *      minMessage = "Your password must be at least {{ limit }} characters long",
+     *      minMessage = "Error",
+     * )
      *
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z\d\.]/",
+     *     match=true,
+     *     message="Error"
      * )
      */
     protected $plainPassword;

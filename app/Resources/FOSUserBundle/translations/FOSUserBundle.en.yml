@@ -3,6 +3,9 @@ email:
     beforeDog: please, enter a part preceding @
     afterDog:  please, enter a part followed by @
 
+password:
+    validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
+
 # Security
 "Bad credentials": Invalid username or password
 invalid_data: Username, Member ID or password is incorrect

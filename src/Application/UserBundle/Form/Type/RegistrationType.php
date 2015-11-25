@@ -26,12 +26,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle',
-                'attr' => array(
-                    'oninvalid' => "setCustomValidity('Նշեք երեխայի ծննդյան տարեթիվը')",
-                    'oninput' => "setCustomValidity('')"
-                )
-            ))
+            ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle',
                 'attr' => array(
                     'oninvalid' => "EmailValidation(this)",
