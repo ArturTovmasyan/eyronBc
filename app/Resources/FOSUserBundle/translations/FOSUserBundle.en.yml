@@ -3,6 +3,10 @@ email:
     beforeDog: please, enter a part preceding @
     afterDog:  please, enter a part followed by @
     resend:    Resend message
+    update:    Update email address
+
+    update: Update email address
+    update_message: We have not been able to send confirmation emails to your new %email% address You can change to a different address or we can try again.
 
 password:
     validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
@@ -42,6 +46,7 @@ change_password:
 # Registration
 registration:
     check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+    resend_message: A new confirmation message has been sent to %email%.
     confirmed: Congrats %username%, your account is now activated.
     back: Back to the originating page.
     submit: Register

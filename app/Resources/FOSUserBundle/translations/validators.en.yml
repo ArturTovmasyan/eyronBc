@@ -1,11 +1,11 @@
 fos_user:
     username:
-        already_used: The username is already used
+        already_used: Account with this email already exists, please, sign in.
         blank: Please enter a username
         short: "[-Inf,Inf]The username is too short"
         long: "[-Inf,Inf]The username is too long"
     email:
-        already_used: The email is already used
+        already_used: Account with this email already exists, please, sign in.
         blank: Please enter an email
         short: "[-Inf,Inf]The email is too short"
         long: "[-Inf,Inf]The email is too long"

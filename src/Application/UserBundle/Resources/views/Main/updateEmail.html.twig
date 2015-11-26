@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+    <br /><br />
+    <h3>{{ 'email.update'|trans({}, 'FOSUserBundle') }}</h3>
+
+    {{ 'email.update_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+
+    <form method="POST" action="{{ path('update_email') }}">
+        {{ form_errors(form.email) }}
+        <div class="row">
+            {{ form_widget(form.email) }}
+            {{ form_widget(form.done) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+    </form>
+{% endblock %}

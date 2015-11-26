@@ -2,6 +2,7 @@
 
 namespace Application\UserBundle\Controller;
 
+use Application\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -63,6 +64,7 @@ class MainController extends Controller
 
     /**
      * @Route("/resend-message", name="resend_message")
+     * @Template()
      * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @return RedirectResponse
@@ -72,9 +74,59 @@ class MainController extends Controller
         $user = $this->getUser();
         if ($user->getRegistrationToken()){
             $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName());
+
+            return array();
         }
 
         $referer = $request->headers->get('referer');
         return new RedirectResponse($referer);
+    }
+
+    /**
+     * @Route("/update-email", name="update_email")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateEmailAction(Request $request)
+    {
+        if (!$this->getUser()->getRegistrationToken()){
+            return $this->redirectToRoute('homepage');
+        }
+
+        $user = new User();
+        $form = $this->createFormBuilder($user, array('validation_groups' => array('update_email')))
+            ->add('email', 'email', array('attr' => array(
+                'oninvalid' => "EmailValidation(this)",
+                'oninput' => "EmailValidation(this)"
+                )
+            ))
+            ->add('done', 'submit')
+            ->getForm();
+
+
+        if ($request->getMethod() == "POST"){
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()){
+
+                $token = md5(microtime());
+                $email = $form->get('email')->getData();
+
+                $this->getUser()->setRegistrationToken($token);
+                $this->getUser()->setEmail($email);
+
+                $this->get('bl.email.sender')->sendConfirmEmail($email, $token, $this->getUser()->getFirstName());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
+        return array('form' => $form->createView());
     }
 }

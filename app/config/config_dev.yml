@@ -46,4 +46,4 @@ assetic:
 
 swiftmailer:
 #    disable_delivery:  true
-#    delivery_address: andranik.hovhan@gmail.com
+    delivery_address: andranik.hovhan@gmail.com

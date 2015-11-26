@@ -1,20 +1,15 @@
 {% extends "::base.html.twig" %}
 
+{% block confirm_email %}
+{% endblock %}
+
 {% block content %}
-
-
     {% if verified %}
         <h3>{{ 'verification.verified'|trans({}, 'FOSUserBundle') }}</h3>
-
         {{ 'verification.verified_content'|trans({'%XXX%': project_name}, 'FOSUserBundle') }}
     {% else %}
-
        <h3>{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h3>
-
         {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
         <a href="#">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
-
     {% endif %}
-
-
 {% endblock %}

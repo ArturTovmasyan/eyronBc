@@ -106,15 +106,16 @@
                         </div>
                     </nav>
                 </header>
-                {% if app.user and app.user.getRegistrationToken is not null %}
-
-                    <p class="email">
-                        {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
-                        {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
-                        <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
-                    </p>
-
-                {% endif %}
+                {% block confirm_email %}
+                    {% if app.user and app.user.getRegistrationToken is not null %}
+                        <p class="email">
+                            {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
+                            {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                            <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
+                            <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</a>
+                        </p>
+                    {% endif %}
+                {% endblock %}
                 {% block content %}{% endblock %}
             </div>
             <footer>
@@ -175,6 +176,26 @@
 
                     $('[data-toggle="popover"]').popover()
                 })
+            </script>
+
+            <script>
+                function EmailValidation(textbox){
+
+                    if(textbox.value.indexOf('@') == -1){
+                        textbox.setCustomValidity("{{ 'email.dogApsent'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (textbox.value[0] == '@'){
+                        textbox.setCustomValidity("{{ 'email.beforeDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (!textbox.value.match(/@.+\..+/g)){
+                        textbox.setCustomValidity("{{ 'email.afterDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else {
+                        textbox.setCustomValidity('');
+                    }
+
+                    return true;
+                }
             </script>
 
         {% endblock %}

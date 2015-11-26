@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+    <br /><br />
+    {{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}<br />
+    {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
+{% endblock %}

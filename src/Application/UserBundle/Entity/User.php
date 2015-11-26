@@ -12,6 +12,7 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
@@ -19,6 +20,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Register", "update_email"})
  */
 class User extends BaseUser
 {
@@ -60,7 +62,6 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Goal", indexBy="goal_id", mappedBy="editor", cascade={"persist"})
      **/
     protected $editedGoals;
-
 
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
