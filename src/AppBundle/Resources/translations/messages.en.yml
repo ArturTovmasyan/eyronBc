@@ -83,7 +83,7 @@ success_story:
       files: Files
       url: Video URL: https://www...
 
-register_text:  Confirm your email address to access all of Bucketlist's features.
+register_text:  Confirm your email address to access all of %XXX%'s features.
 
 account:
   complete_text: Confirm your account

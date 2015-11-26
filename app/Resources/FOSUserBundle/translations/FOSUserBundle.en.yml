@@ -2,6 +2,7 @@ email:
     dogApsent: please, include an @ in the email address
     beforeDog: please, enter a part preceding @
     afterDog:  please, enter a part followed by @
+    resend:    Resend message
 
 password:
     validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
@@ -116,3 +117,12 @@ form:
     birth_date_year: "Year"
     file: "Upload a photo"
     choose: Choose
+
+verification:
+    verified: Account verified
+    verified_content: Now you can start using all of %XXX%'s great features.
+
+    wrong: Something went wrong
+    wrong_content: This link is invalid. For more information, please visit our
+    help_center: Help Center
+

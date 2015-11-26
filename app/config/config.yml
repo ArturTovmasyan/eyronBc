@@ -53,6 +53,9 @@ twig:
     form:
         resources: [ 'AppBundle:Form:multipleFile.html.twig', 'A2lixTranslationFormBundle::default.html.twig']
 
+    globals:
+        project_name: %project_name%
+
 
 # Assetic Configuration
 assetic:

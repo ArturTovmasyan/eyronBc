@@ -53,9 +53,6 @@ class RegistrationFormHandler extends BaseHandler
      */
     protected function onSuccess(UserInterface $user, $confirmation)
     {
-        // get router
-        $router = $this->container->get('router');
-
         // get bl service
         $blService = $this->container->get('bl_service');
 
@@ -68,20 +65,7 @@ class RegistrationFormHandler extends BaseHandler
         // set token
         $user->setRegistrationToken($token);
 
-        // generate url
-        $url = $this->request->getHttpHost() . $router->generate("registration_confirm", array('token' => $token));
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Please confirm your Bucketlist.com account')
-            ->setFrom('confirmEmail@bucketlist.com')
-            ->setCc($user->getEmail())
-            ->setContentType("text/html; charset=UTF-8")
-            ->setBody($this->container->get('templating')->render(
-                'ApplicationUserBundle:Registration:emailConfirm.html.twig',
-                array('name' => $user->getFirstName(), 'url' => $url, 'email' => $user->getEmail())
-            ), "text/html");
-
-        $this->container->get('mailer')->send($message);
+        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
         // Note: if you plan on modifying the user then do it before calling the
         // parent method as the parent method will flush the changes

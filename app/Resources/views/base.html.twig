@@ -109,8 +109,9 @@
                 {% if app.user and app.user.getRegistrationToken is not null %}
 
                     <p class="email">
-                        {{ 'register_text'|trans }}<br />
+                        {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
                         {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                        <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
                     </p>
 
                 {% endif %}

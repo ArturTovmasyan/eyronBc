@@ -5,6 +5,8 @@ namespace Application\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
@@ -38,29 +40,41 @@ class MainController extends Controller
 
     /**
      * @Route("/registration-confirm/{token}", name="registration_confirm")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Template()
      * @param $token
+     * @return array
      */
     public function confirmAction($token)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        // get user by token
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
 
         // check user
         if(!$user){
-
-            throw $this->createNotFoundException("user not found");
+            return array('verified' => false);
         }
 
-        // set token to null
         $user->setRegistrationToken(null);
-
         $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute('homepage');
+        return array('verified' => true);
+    }
+
+    /**
+     * @Route("/resend-message", name="resend_message")
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function resendMessageAction(Request $request)
+    {
+        $user = $this->getUser();
+        if ($user->getRegistrationToken()){
+            $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName());
+        }
+
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
     }
 }
