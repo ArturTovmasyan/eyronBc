@@ -1,27 +1,29 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-<html ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}
+    <html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
 
+    <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
           rel="stylesheet">
     <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
+    <style>
+        html {
+            overflow-y: auto !important;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     <div class="goal-container">
-
         <div class="goals-end">
-
             <div class="container">
-
                 <div class="row">
-
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-6 col-md-offset-3 form-modal" style="width: auto; margin-top: 80px;display: none">
 
                         {#{% set user = app.user %}#}
                         {#{% set goal = data.goal %}#}
@@ -29,7 +31,7 @@
 
                         {% set completed = false %}
                         <form class="form-horizontal" action="#" method="post"
-                              ng-init="initSteps({{ data.getStepsJson }})">
+                              data-ng-init="initSteps({{ data.getStepsJson }})">
 
                             <div class="goal-end">
 
@@ -184,7 +186,7 @@
                                             <input type="checkbox"
                                                    name="switch-private"
                                                    data-ng-model="switch_private"
-                                                   ng-init="switch_private = true"
+                                                   data-ng-init="switch_private = true"
                                                    class="onoffswitch-checkbox"
                                                    id="myonoffswitch-private">
 
@@ -232,8 +234,23 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
             type="text/javascript"></script>
     <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function(){
+            setTimeout(function(){
+                $('.form-modal').show();
+                $('.form-modal').modal({
+                    fadeDuration: 500,
+                    showClose: false,
+                    escapeClose: false,
+                    clickClose: false
+                });
+            },500);
+        });
+    </script>
 {% endblock %}
