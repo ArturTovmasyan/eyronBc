@@ -40,7 +40,7 @@
 
         </li>
         <li>
-            <a href="javascript:void(0)">{{ 'image_complete_text'|trans }}
+            <a href="{{ path('settings') }}"><strong>{{ 'image_complete_text'|trans }}</strong>
                 {% if user.socialPhotoLink or  user.fileName %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">{{ 'my_bucket_list.add_goal'|trans |capitalize }}
+            <a href="{{ path('add_goal') }}"><strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
                 {% if user.userGoal|length > 0 %}
                     <i class="glyphicon glyphicon-ok"></i>
                 {% else %}
