@@ -89,7 +89,7 @@ class User extends BaseUser
      * )
      *
      * @Assert\Regex(
-     *     pattern="/[a-zA-Z\d\.]/",
+     *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message="Error"
      * )
