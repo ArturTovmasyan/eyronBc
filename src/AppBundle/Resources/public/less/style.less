@@ -196,6 +196,32 @@ label{
   color:#a4a4a4;
 }
 
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right:10px solid #eeeeee;
+}
+
+.fos_comment_comment_authorname,.fos_comment_comment_new_form{
+  position:relative;
+  background-color:#eeeeee;
+  padding: 15px 15px 20px;
+  display: block;
+  margin-bottom: 10px;
+
+  i{
+    position:absolute;
+    left:-8px;
+  }
+
+  textarea{
+    height:auto !important;
+    border:0 ;
+  }
+}
+
 #signin{
     text-align: center;
     min-width: 319px;
@@ -877,7 +903,6 @@ footer{
 #fos_comment_thread{
 
   #fos_comment_comment_body{
-    height:250px;
     background-color: #f4f4f4;
     width:100%;
     resize: none;
@@ -886,7 +911,8 @@ footer{
       input{
         background-color:#7725f6;
         color:#ffffff;
-        padding:10px 35px;
+        padding:5px 20px;
+        margin-top:5px;
         border:0;
 
         &:hover, &:focus{

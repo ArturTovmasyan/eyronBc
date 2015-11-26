@@ -1,14 +1,39 @@
 {% extends "FOSCommentBundle:Thread:comment_content.html.twig" %}
 
-{% block fos_comment_comment_metas_authorline %}
+{% block fos_comment_comment %}
 
-    <img src="{{ comment.author.getDownloadLink }}" />
+    <div class="row">
 
-    <span class="fos_comment_comment_authorname">
-        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
-            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
-        {% else %}
-            {{ comment.authorName }}
-        {% endif %}
-    </span> - {{ comment.createdAt|date }}
-{% endblock fos_comment_comment_metas_authorline %}
+        <div class="col-sm-1">
+            <figure class="img-circle">
+                <img src="{{ comment.author.getDownloadLink }}" class="img-responsive img-circle"/>
+            </figure>
+        </div>
+
+        <div class="col-sm-11">
+
+            <span class="fos_comment_comment_authorname">
+                <i class="arrow-left"></i>
+                {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                    {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                {% else %}
+                    {{ comment.authorName }} {{ comment.createdAt|date }}
+                    {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                        {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                    {% else %}
+                        <p>
+                            {% if comment is fos_comment_raw %}
+                                {{ comment.rawBody | raw }}
+                            {% else %}
+                                {{ comment.body | nl2br }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+
+
+{% endblock fos_comment_comment %}
