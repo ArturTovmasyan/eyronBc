@@ -4,8 +4,15 @@
 <div class="container">
     <div  class="signup">
         <div class=" row">
+
+            <h1 class="text-center">{{ 'resetting.check_email.title'|trans({}, 'FOSUserBundle') }}</h1>
+
             <div class="col-md-6 col-md-offset-3">
-                <p class="text-center">{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}</p>
+                <p class="text-center">{{ 'resetting.check_email.check_email_first_text'|trans({'%email%': email}, 'FOSUserBundle') }}</p>
+                <p class="text-center">{{ 'resetting.check_email.check_email_second_text'|trans({}, 'FOSUserBundle') }}</p>
+                <p class="text-center">
+                    <a href="{{ path('fos_user_resetting_check_email') }}" >{{ 'resetting.check_email.have_not_received'|trans({}, 'FOSUserBundle') }}</a>
+                </p>
             </div>
         </div>
     </div>

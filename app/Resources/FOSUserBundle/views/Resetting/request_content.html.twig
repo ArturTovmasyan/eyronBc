@@ -10,7 +10,7 @@
                 <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request form-horizontal">
                     <div class="form-group">
                         {% if invalid_username is defined %}
-                            <p class="text-danger">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+                            <p class="text-danger">{{ 'resetting.request.invalid_username'|trans({}, 'FOSUserBundle') }}</p>
                         {% endif %}
                         <input type="email" oninvalid="EmailValidation(this)" oninput="EmailValidation(this)" class="form-control" id="username" name="username" required="required"  placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}"/>
                     </div>

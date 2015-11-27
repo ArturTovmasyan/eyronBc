@@ -121,6 +121,8 @@ swiftmailer:
 
 #    fos user bundle
 fos_user:
+    service:
+        mailer: bl.user.mailer
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Application\UserBundle\Entity\User
@@ -128,6 +130,10 @@ fos_user:
             form:
                 type: bl_user_registration
                 handler: bl_user.form.handler.registration
+    resetting:
+        token_ttl: 10
+        email:
+            template: FOSUserBundle:Resetting:email.html.twig
 
 # fos comment bundle
 fos_comment:
