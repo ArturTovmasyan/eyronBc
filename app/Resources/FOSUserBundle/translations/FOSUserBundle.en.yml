@@ -89,6 +89,7 @@ resetting:
         reset_text: We’ll send instructions to reset your password to your email.
     reset:
         submit: Change password
+        title: Enter New Password
     flash:
         success: The password has been reset successfully
     email:
