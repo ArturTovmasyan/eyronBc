@@ -74,7 +74,7 @@ resetting:
     title: Recover Your Account
     change_title: Change Password
     password: New Password
-    confirm_password: Confirm New Password
+    confirm_password: Confirm Password
     password_already_requested: The password for this user has already been requested within the last 24 hours.
     check_email:
         title: Check your email
@@ -88,7 +88,7 @@ resetting:
         reset: Reset your password
         reset_text: We’ll send instructions to reset your password to your email.
     reset:
-        submit: Change password
+        submit: Done
         title: Enter New Password
     flash:
         success: The password has been reset successfully
