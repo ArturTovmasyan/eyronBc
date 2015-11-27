@@ -5,6 +5,8 @@
 
 {% block content %}
     <br /><br />
-    {{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}<br />
-    {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
+    <h3  class="text-center">
+        {{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}<br />
+        {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
+    </h3>
 {% endblock %}

@@ -4,18 +4,33 @@
 {% endblock %}
 
 {% block content %}
-    <br /><br />
-    <h3>{{ 'email.update'|trans({}, 'FOSUserBundle') }}</h3>
 
-    {{ 'email.update_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+    <div class="container">
+        <div  class="signup">
+            <div class=" row">
 
-    <form method="POST" action="{{ path('update_email') }}">
-        {{ form_errors(form.email) }}
-        <div class="row">
-            {{ form_widget(form.email) }}
-            {{ form_widget(form.done) }}
+                <h1 class="text-center">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</h1>
+
+                <div class="col-md-6 col-md-offset-3">
+
+                    {{ 'email.update_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }} <br /><br />
+                    <form method="POST" action="{{ path('update_email') }}" class="form-horizontal">
+                        {{ form_errors(form.email) }}
+                        <div class="form-group">
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form.done, {'attr': {'class': 'btn btn-purple'}}) }}
+                        </div>
+
+                        {{ form_widget(form._token) }}
+                    </form>
+
+                </div>
+
+            </div>
         </div>
+    </div>
 
-        {{ form_widget(form._token) }}
-    </form>
+
 {% endblock %}

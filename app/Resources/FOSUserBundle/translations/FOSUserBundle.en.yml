@@ -79,9 +79,10 @@ resetting:
     check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
     request:
         invalid_username: The username or email address "%username%" does not exist.
-        username: "Username or email address:"
+        username: "Email"
         submit: Reset password
-        reset: RESET PASSWORD
+        reset: Reset your password
+        reset_text: We’ll send instructions to reset your password to your email.
     reset:
         submit: Change password
     flash:
