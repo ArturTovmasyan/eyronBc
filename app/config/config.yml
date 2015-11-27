@@ -131,7 +131,6 @@ fos_user:
                 type: bl_user_registration
                 handler: bl_user.form.handler.registration
     resetting:
-        token_ttl: 10
         email:
             template: FOSUserBundle:Resetting:email.html.twig
 
