@@ -4,13 +4,14 @@
 
             <h1 class="text-center">{{ 'resetting.request.reset'|trans({}, 'FOSUserBundle') }}</h1>
 
+            <h4 class="text-center">{{ 'resetting.request.reset_text'|trans({}, 'FOSUserBundle') }}</h4>
+
             <div class="col-md-6 col-md-offset-3">
 
-                {{ 'resetting.request.reset_text'|trans({}, 'FOSUserBundle') }}<br /><br />
                 <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request form-horizontal">
                     <div class="form-group">
                         {% if invalid_username is defined %}
-                            <p class="text-danger">{{ 'resetting.request.invalid_username'|trans({}, 'FOSUserBundle') }}</p>
+                            <p class="text-danger text-center">{{ 'resetting.request.invalid_username'|trans({}, 'FOSUserBundle') }}</p>
                         {% endif %}
                         <input type="email" oninvalid="EmailValidation(this)" oninput="EmailValidation(this)" class="form-control" id="username" name="username" required="required"  placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}"/>
                     </div>

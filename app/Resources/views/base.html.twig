@@ -108,12 +108,14 @@
                 </header>
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
-                        <p class="email">
-                            {{ 'register_text'|trans({'%XXX%': project_name}) }}<br />
-                            {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
-                            <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
-                            <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</a>
-                        </p>
+                        <div class="email">
+                            <p>{{ 'register_text'|trans({'%XXX%': project_name}) }}</p>
+                            <p>{{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</p>
+                            <p>
+                                <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
+                                <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</a>
+                            </p>
+                        </div>
                     {% endif %}
                 {% endblock %}
                 {% block content %}{% endblock %}
