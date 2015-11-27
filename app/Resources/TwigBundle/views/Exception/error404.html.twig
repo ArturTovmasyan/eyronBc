@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block confirm_email %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <h3>{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h3>
+                <p>
+                    {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
+                    <a href="#" class="purple">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

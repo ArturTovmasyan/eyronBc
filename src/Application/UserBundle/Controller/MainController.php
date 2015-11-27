@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends Controller
 {
@@ -52,14 +54,14 @@ class MainController extends Controller
 
         // check user
         if(!$user){
-            return array('verified' => false);
+            throw new NotFoundHttpException('Invalid token');
         }
 
         $user->setRegistrationToken(null);
         $em->persist($user);
         $em->flush();
 
-        return array('verified' => true);
+        return array();
     }
 
     /**

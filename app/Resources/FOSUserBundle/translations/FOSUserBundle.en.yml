@@ -39,9 +39,9 @@ profile:
 
 # Password change
 change_password:
-    submit: Change password
-    flash:
-        success: The password has been changed
+    submit: Done
+    success_first: You've successfully changed your password
+    success_second: Now you can start using all of %project_name%'s great features
 
 # Registration
 registration:
@@ -87,9 +87,6 @@ resetting:
         submit: Send
         reset: Reset your password
         reset_text: We’ll send instructions to reset your password to your email.
-    reset:
-        submit: Done
-        title: Enter New Password
     flash:
         success: The password has been reset successfully
     email:
