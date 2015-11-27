@@ -94,10 +94,10 @@ resetting:
     email:
         subject: Reset your %project_name% password
         message_first: |
-            Hello %username%!
+            <h3>Hello %username%!</h3>
 
-            We received a request to reset the password for your account, %email%.
-            If you made this request, click the link below. If you didn't make this request, you can ignore this email.
+            <p>We received a request to reset the password for your account, %email%.</p>
+            <p>If you made this request, click the link below. If you didn't make this request, you can ignore this email.</p>
 
         message_second: |
             Please do not reply to this message.

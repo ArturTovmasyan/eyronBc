@@ -6,12 +6,14 @@
 {% block body_text %}{% endblock %}
 
 {% block body_html %}
-        {{ 'resetting.email.message_first'|trans({'%username%': user.firstname, '%email%': user.email}, 'FOSUserBundle') }}
-        <br /><br />
+        <p>{{ 'resetting.email.message_first'|trans({'%username%': user.firstname, '%email%': user.email}, 'FOSUserBundle') |raw }}</p>
 
-        <a href="{{ confirmationUrl}}" >{{ 'resetting.email.link'|trans({}, 'FOSUserBundle') }}</a>
+        <br />
+        <p><a href="{{ confirmationUrl}}" >{{ 'resetting.email.link'|trans({}, 'FOSUserBundle')|raw }}</a></p>
+        <br />
 
-        <br /><br />
-        {{ 'resetting.email.message_second'|trans({}, 'FOSUserBundle') }}
-        <a href="#">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
+        <p>
+            {{ 'resetting.email.message_second'|trans({}, 'FOSUserBundle')|raw }}
+            <a href="#">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
+        </p>
 {% endblock %}
