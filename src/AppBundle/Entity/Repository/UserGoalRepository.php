@@ -47,10 +47,10 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      * @param $user
      * @param $status
      * @param $dream
-     * @param $filter
+     * @param $requestFilters
      * @return array
      */
-    public function findAllByUser($user, $status, $dream, $filter)
+    public function findAllByUser($user, $status, $dream, $requestFilters)
     {
         $query =
             $this->getEntityManager()
@@ -71,43 +71,39 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                 ->setParameter('status', $status);
         }
 
-        // check filter
-        if($filter){
-            $query
-                ->andWhere('ug.urgent is null OR ug.urgent =:urgent')
-                ->andWhere('ug.important is null OR  ug.important = :important')
-            ;
 
-            // switch for filter
-            switch($filter){
-                case UserGoal::URGENT_IMPORTANT:
-                    $query
-                        ->setParameter('urgent' , UserGoal::URGENT )
-                        ->setParameter('important' , UserGoal::IMPORTANT);
-                    break;
-                case UserGoal::NOT_URGENT_IMPORTANT:
-                    $query
-                        ->setParameter('urgent' , UserGoal::NOT_URGENT)
-                        ->setParameter('important',UserGoal::IMPORTANT);
-                    break;
-                case UserGoal::URGENT_NOT_IMPORTANT:
-                    $query
-                        ->setParameter('urgent' , UserGoal::URGENT)
-                        ->setParameter('important' , UserGoal::NOT_IMPORTANT);
-                    break;
-                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
-                    $query
-                        ->setParameter('urgent' , UserGoal::NOT_URGENT)
-                        ->setParameter('important', UserGoal::NOT_IMPORTANT);
-                    break;
+        $subQuery = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->addSelect('ug')
+            ->from('AppBundle:UserGoal', 'ug')
+            ->leftJoin('ug.goal', 'g');
 
+
+        foreach($requestFilters as $id => $requestFilter){
+            if ($requestFilter) {
+                switch ($id) {
+                    case UserGoal::URGENT_IMPORTANT:
+                        $subQuery->orWhere('ug.urgent = true and ug.important = true');
+                        break;
+                    case UserGoal::NOT_URGENT_IMPORTANT:
+                        $subQuery->orWhere('ug.urgent = false and ug.important = true');
+                        break;
+                    case UserGoal::URGENT_NOT_IMPORTANT:
+                        $subQuery->orWhere('ug.urgent = true and ug.important = false');
+                        break;
+                    case UserGoal::NOT_URGENT_NOT_IMPORTANT:
+                        $subQuery->orWhere('ug.urgent = false and ug.important = false');
+                        break;
+                }
             }
         }
+
         // check dream
         if($dream){
-            $query
-                ->andWhere('ug.doDate is null');
+            $subQuery->orWhere('ug.doDate is null');
         }
+
+        $query->andWhere($subQuery->getDQLPart('where'));
 
         return $query->getQuery()->getResult();
     }

@@ -75,13 +75,13 @@ class UserGoal
      * @var
      * @ORM\Column(name="urgent", type="boolean", nullable=true)
      */
-    protected $urgent;
+    protected $urgent = false;
 
     /**
      * @var
      * @ORM\Column(name="important", type="boolean", nullable=true)
      */
-    protected $important;
+    protected $important = false;
 
     /**
      * @var

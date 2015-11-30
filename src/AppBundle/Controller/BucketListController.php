@@ -39,8 +39,12 @@ class BucketListController extends Controller
         // get dream
         $dream = $request->get('d');
 
-        // get urgent filter
-        $filter = $request->get('f');
+        $requestFilters = array(
+            UserGoal::URGENT_IMPORTANT         => $request->get('f_' . UserGoal::URGENT_IMPORTANT)         ? true : false,
+            UserGoal::URGENT_NOT_IMPORTANT     => $request->get('f_' . UserGoal::URGENT_NOT_IMPORTANT)     ? true : false,
+            UserGoal::NOT_URGENT_IMPORTANT     => $request->get('f_' . UserGoal::NOT_URGENT_IMPORTANT)     ? true : false,
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => $request->get('f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT) ? true : false,
+        );
 
 
         if (!$user) {
@@ -50,7 +54,7 @@ class BucketListController extends Controller
 
         // find all goals
         $userGoals = $em->getRepository("AppBundle:UserGoal")
-            ->findAllByUser($user, $status, $dream, $filter);
+            ->findAllByUser($user, $status, $dream, $requestFilters);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -66,7 +70,7 @@ class BucketListController extends Controller
             UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
             UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
-            );
+        );
 
 
         // get drafts

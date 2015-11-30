@@ -89,7 +89,6 @@
                     {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                     {% set all = 0 %}
                     {% set dream = app.request.get('d') %}
-                    {% set filter = app.request.get('f') %}
 
                     {% if dream %}
                         <p>{{ 'dream'|trans }}</p>
@@ -139,8 +138,9 @@
 
                         {# other filters #}
                         {% for id, name in filters %}
+                            {% set queryParameterName = "f_" ~ id %}
                             <label class="radio-inline">
-                                <input {% if filter == id %} checked {% endif %} onclick="submit()" type="radio" name="f" value="{{ id }}"> {{ name|trans }}
+                                <input {% if app.request.get(queryParameterName) %} checked {% endif %} onclick="submit()" type="checkbox" name="f_{{ id }}"> {{ name|trans }}
                             </label>
                         {% endfor %}
                     </form>
