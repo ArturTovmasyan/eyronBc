@@ -8,7 +8,7 @@
             <div class="col-xs-10">
 
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped aktive " role="progressbar" aria-valuenow="{{ user.getCompletedPercent() }}" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <div class="progress-bar progress-bar-striped aktive " role="progressbar" style="width: {{ user.getCompletedPercent() }}%">
                         <span class="sr-only">{{ user.getCompletedPercent() }}% {{ 'account.complete'|trans }}</span>
                     </div>
                 </div>
