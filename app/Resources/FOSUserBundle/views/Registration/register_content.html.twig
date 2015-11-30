@@ -43,8 +43,7 @@
                         </div>
 
                         {% if errorMessage != 'Error' %}
-                            {{ form_errors(form.plainPassword.first, {'attr': {'style': "color:red"}}) }}
-                            {{ form_errors(form.plainPassword.second, {'attr': {'style': "color:red"}}) }}
+                            <span class="text-center" style="color:red">{{ errorMessage }}</span>
                         {% endif %}
                     </div>
 

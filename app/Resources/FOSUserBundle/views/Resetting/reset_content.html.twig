@@ -19,7 +19,7 @@
 
 
                         {% if errorMessage != 'Error' %}
-                            <span class="text-center">{{ form_errors(form.new.first, {'attr': {'style': "color:red"}}) }}</span>
+                            <span class="text-center" style="color:red">{{ errorMessage }}</span>
                         {% endif %}
                     </div>
                     <div class="form-group">
