@@ -179,9 +179,9 @@
                                            class="col-sm-10 control-label purple text-left">{{ "goal.as_private"|trans }}</label>
 
                                     <div class="col-sm-2">
-                                        <input {% if data.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %} checked {% endif %}
-                                                type="checkbox" id="{{ form.privacy.vars.id }}"
-                                                name="{{ form.privacy.vars.full_name }}" class="private-checkbox"
+                                        <input {% if not data.isVisible %} checked {% endif %}
+                                                type="checkbox" id="{{ form.isVisible.vars.id }}"
+                                                name="{{ form.isVisible.vars.full_name }}" class="private-checkbox"
                                                 value="1">
 
                                     </div>

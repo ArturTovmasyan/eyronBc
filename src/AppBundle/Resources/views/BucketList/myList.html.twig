@@ -244,19 +244,15 @@
                                                     </div>
                                                 </li>
 
-                                                {# private#}
 
                                                 {% if goal.author and goal.author.id == user.id %}
-
                                                     <li>
                                                         <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
                                                     </li>
                                                 {% endif %}
 
                                                 {# invisible #}
-
-                                                {% if userGoal.privacy == constant("AppBundle\\Entity\\UserGoal::PRIVATE_PRIVACY") %}
-
+                                                {% if userGoal.isVisible %}
                                                     <li>
                                                         <span title="{{ 'my_bucket_list.invisible'|trans }}" class="glyphicon glyphicon-eye-close"></span>
                                                     </li>

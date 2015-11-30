@@ -184,13 +184,13 @@
                                     <div class="col-sm-2">
                                         <div class="onoffswitch">
                                             <input type="checkbox"
-                                                   name="switch-private"
+                                                   name="{{ form.isVisible.vars.full_name }}"
+                                                   id="{{ form.isVisible.vars.id }}"
                                                    data-ng-model="switch_private"
-                                                   data-ng-init="switch_private = true"
-                                                   class="onoffswitch-checkbox"
-                                                   id="myonoffswitch-private">
+                                                   data-ng-init="switch_private={{ data.isVisible }}"
+                                                   class="onoffswitch-checkbox">
 
-                                            <label class="onoffswitch-label" for="myonoffswitch-private">
+                                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
                                                 <span class="onoffswitch-inner"></span>
                                                 <span class="onoffswitch-switch"></span>
                                             </label>

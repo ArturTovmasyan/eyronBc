@@ -28,16 +28,6 @@ class UserGoal
     const ACTIVE = 1;
     const COMPLETED = 2;
 
-    // constants for privacy
-    const PUBLIC_PRIVACY = 0;
-    const PRIVATE_PRIVACY = 1;
-
-    // constants for quality
-    const URGENT = true;
-    const NOT_URGENT = false;
-    const IMPORTANT = true;
-    const NOT_IMPORTANT = false;
-
     // constants for filter in twig
     const URGENT_IMPORTANT = 1;
     const URGENT_NOT_IMPORTANT = 2;
@@ -47,7 +37,6 @@ class UserGoal
     // constants for steps
     const TO_DO = 0;
     const DONE = 1;
-
 
     /**
      * @ORM\Id
@@ -67,19 +56,19 @@ class UserGoal
 
     /**
      * @var
-     * @ORM\Column(name="privacy", type="smallint", nullable=true)
+     * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      */
-    protected $privacy;
+    protected $isVisible;
 
     /**
      * @var
-     * @ORM\Column(name="urgent", type="boolean", nullable=true)
+     * @ORM\Column(name="urgent", type="boolean", nullable=false)
      */
     protected $urgent = false;
 
     /**
      * @var
-     * @ORM\Column(name="important", type="boolean", nullable=true)
+     * @ORM\Column(name="important", type="boolean", nullable=false)
      */
     protected $important = false;
 
@@ -189,29 +178,6 @@ class UserGoal
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set privacy
-     *
-     * @param integer $privacy
-     * @return UserGoal
-     */
-    public function setPrivacy($privacy = self::PUBLIC_PRIVACY)
-    {
-        $this->privacy = $privacy;
-
-        return $this;
-    }
-
-    /**
-     * Get privacy
-     *
-     * @return integer 
-     */
-    public function getPrivacy()
-    {
-        return $this->privacy;
     }
 
     /**
@@ -492,5 +458,28 @@ class UserGoal
             $result[] = array();
         }
         return json_encode($result);
+    }
+
+    /**
+     * Set isVisible
+     *
+     * @param boolean $isVisible
+     * @return UserGoal
+     */
+    public function setIsVisible($isVisible)
+    {
+        $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    /**
+     * Get isVisible
+     *
+     * @return boolean 
+     */
+    public function getIsVisible()
+    {
+        return $this->isVisible;
     }
 }
