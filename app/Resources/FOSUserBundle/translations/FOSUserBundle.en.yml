@@ -12,7 +12,7 @@ password:
     validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
 
 # Security
-"Bad credentials": Invalid username or password
+"Bad credentials": The email and password you entered did not match our records. Please try again.
 invalid_data: Username, Member ID or password is incorrect
 
 security:
