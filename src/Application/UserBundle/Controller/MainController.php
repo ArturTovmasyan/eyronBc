@@ -30,25 +30,12 @@ class MainController extends Controller
      */
     public function checkLoginAction(Request $request)
     {
-        //get current user
-        $user = $this->getUser();
-
-        //check if user haven`t any goals
-        if($user && $user->getUserGoal()->count() == 0) {
-            // generate url
-            $url = $this->generateUrl('goals_list');
-        }
-        else {
-
-            // get referer
-            $referer = $request->server->get('HTTP_REFERER');
-
-            // generate url
-            $url = $referer ?
-                $referer :
-                $this->generateUrl('homepage');
-        }
-
+        // get referer
+        $referer = $request->server->get('HTTP_REFERER');
+        // generate url
+        $url = $referer ?
+            $referer :
+            $this->generateUrl('homepage');
 
         $this->addFlash('', '');
         return $this->redirect($url);
