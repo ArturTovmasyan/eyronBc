@@ -6,6 +6,11 @@
     <div class="container" id="news-feed">
         <div class="row">
             <div class="col-md-8">
+
+                {% if pagination.getTotalItemCount() == 0 %}
+                    {{ 'activity.not_have'|trans }}  <a href="{{ path('goals_list') }}">goals</a>
+                {% endif %}
+
                 {% for convertedNew in pagination %}
 
                     {% if convertedNew.comment is not null or convertedNew.successStory is not null %}

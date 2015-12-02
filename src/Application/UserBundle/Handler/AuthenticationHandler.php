@@ -52,9 +52,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         }
         else{
             // generate url
-            $url =  $request->headers->get('referer') ?
-                $request->headers->get('referer') :
-                $this->router->generate('homepage');
+            $url = $this->router->generate('check-login');
         }
         // check request method
         if ($request->isXmlHttpRequest()) {

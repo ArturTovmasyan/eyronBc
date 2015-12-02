@@ -114,6 +114,8 @@ right_menu:
   ideas: Popular Ideas
   show: Show all
 
+activity:
+  not_have: You have no goals, please, start adding
 manage: MANAGE
 
 
