@@ -45,7 +45,7 @@ change_password:
 
 # Registration
 registration:
-    check_email: A confirmation message was sent to %email%. It contains an activation link you must click to activate your account.
+    check_email: A confirmation message was sent to %email%
     resend_message: A new confirmation message has been sent to %email%.
     confirmed: Congrats %username%, your account is now activated.
     back: Back to the originating page.
