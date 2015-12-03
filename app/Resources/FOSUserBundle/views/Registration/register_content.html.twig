@@ -50,16 +50,39 @@
                     <p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
                     <div class="form-group row">
                         <div class="col-sm-4">
-                            {{ form_widget(form.birthDate.month, {
-                                'empty_valude' :'choose',
-                                'attr':
-                                    {'class' : 'form-control', 'placeholder': 'form.birth_date_month'|trans({}, 'FOSUserBundle') } }) }}
+
+                            {% set months = form.birthDate.month.vars.choices %}
+
+                            <select id="fos_user_registration_form_birthDate_month" name="fos_user_registration_form[birthDate][month]" class="form-control" >
+                                <option value="" selected disabled>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for month in months %}
+                                    <option value="{{ month.value }}">{{ month.label }}</option>
+                                {% endfor %}
+                            </select>
+
                         </div>
                         <div class="col-sm-4">
-                            {{ form_widget(form.birthDate.day, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_day'|trans({}, 'FOSUserBundle') } }) }}
+
+                            {% set days = form.birthDate.day.vars.choices %}
+
+                            <select id="fos_user_registration_form_birthDate_day" name="fos_user_registration_form[birthDate][day]" class="form-control" >
+                                <option value="" selected disabled>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for day in days %}
+                                    <option value="{{ day.value }}">{{ day.value }}</option>
+                                {% endfor %}
+                            </select>
+
                         </div>
                         <div class="col-sm-4">
-                            {{ form_widget(form.birthDate.year, {'attr': {'class' : 'form-control', 'placeholder': 'form.birth_date_year'|trans({}, 'FOSUserBundle') } }) }}
+
+                            {% set years = form.birthDate.year.vars.choices %}
+
+                            <select id="fos_user_registration_form_birthDate_year" name="fos_user_registration_form[birthDate][year]" class="form-control" >
+                                <option value="" selected disabled>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                {% for year in years %}
+                                    <option value="{{ year.value }}">{{ year.value }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         {{ form_errors(form.birthDate) }}
 
