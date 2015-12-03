@@ -34,7 +34,7 @@ class MainController extends Controller
         $user = $this->getUser();
 
         //check if user haven`t any goals
-        if($user && $user->getUserGoal()->count() == 0) {
+        if($user && count($user->getUserGoal()) == 0) {
             // generate url
             $url = $this->generateUrl('goals_list');
         }

@@ -17,7 +17,6 @@ class RegistrationController extends BaseController
         if ($process) {
             $user = $form->getData();
 
-
             $authUser = false;
             if ($confirmationEnabled) {
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
