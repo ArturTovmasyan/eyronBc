@@ -31,6 +31,8 @@ security:
                     facebook:           /login/check-facebook
                     google:             /login/check-google
                     twitter:            /login/check-twitter
+                success_handler: authentication_handler
+                failure_handler: authentication_handler
                 default_target_path: /
                 login_path:        /check-login
                 failure_path:      /check-login
