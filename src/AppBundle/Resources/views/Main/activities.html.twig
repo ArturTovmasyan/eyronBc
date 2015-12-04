@@ -8,7 +8,7 @@
             <div class="col-md-8">
 
                 {% if pagination.getTotalItemCount() == 0 %}
-                    {{ 'activity.not_have'|trans }}  <a href="{{ path('goals_list') }}">goals</a>
+                    {{ 'activity.not_have'|trans }}  <a href="{{ path('goals_list') }}">adding</a>
                 {% endif %}
 
                 {% for convertedNew in pagination %}
