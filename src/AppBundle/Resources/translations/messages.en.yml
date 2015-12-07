@@ -21,10 +21,10 @@ my_bucketlist: My Bucketlist
 goal:
       complete_text: Complete a goal
       public: Suggest as public
-      agree: By checking you agree to ....
+      agree: By checking you suggest your goal to be listed in the Ideas list
       preview: PREVIEW
-      publish: PUBLISH
-      description_title: Any word in title and description can be converted into a hashtag simply by placing a '#' sign in the beginning of the word.
+      publish: Create
+      description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag
       successfully_add: Your idea has been added successfully.
       congratulations: Congratulations!
       is_dream: A goal without target date is a dream ...
@@ -115,7 +115,7 @@ right_menu:
   show: Show all
 
 activity:
-  not_have: You have no goals, please, start adding
+  not_have: You have no goals, please, start
 manage: MANAGE
 
 
@@ -138,11 +138,12 @@ listed_by: Listed by
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
 
-drag_drop: Select photos for your idea
+drag_drop: You can upload up to 6 images
 drag_drop_story: Select photos for your story
 
 upload: |
-  Upload multiple images (max 6)
+  An image must have minimum dimensions 640x360px with recommended dimensions of 1280x720px.
+   The maximum size of an image must not exceed 4MB
 
 delete_message: |
   You are about to delete your goal. <br />
