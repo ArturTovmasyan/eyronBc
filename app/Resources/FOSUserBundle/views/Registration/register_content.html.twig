@@ -47,7 +47,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <p {% if errorMessage == 'Error' %}style="color:red"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                            <p {% if errorMessage == 'Error' %}class="text-danger"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
                         </div>
                     </div>
 
