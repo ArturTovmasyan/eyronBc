@@ -26,7 +26,6 @@ goal:
       publish: Create
       description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag
       successfully_add: Your idea has been added successfully.
-      congratulations: Congratulations!
       is_dream: A goal without target date is a dream ...
       location_ex: Location ex. Yerevan, Armenia:
       note_p: Add a note
@@ -47,7 +46,8 @@ goal:
       invisible_text: You can make the Goal invisible for other users
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
-      create_success: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
+      create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
+      create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
 
 # home
 homepage_title: Dreams come true, <br /> dream big!

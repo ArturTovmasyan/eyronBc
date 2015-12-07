@@ -25,11 +25,8 @@
         <div class="goals-end">
             <div class="container">
                 <div class="row">
-
-                    <h2 class="text-center">{{ "goal.congratulations"|trans }}<br/>{{ "goal.successfully_add"|trans }}
-                    </h2>
-
                     <div class="col-md-6 col-md-offset-3 form-modal" style="width: auto; margin-top: 80px;display: none">
+                        <span>{{ "goal.create_goal"|trans }}</span>
                         {% set completed = false %}
                         <form class="form-horizontal" action="#" method="post"
                               data-ng-init="initSteps({{ data.getStepsJson }})">
