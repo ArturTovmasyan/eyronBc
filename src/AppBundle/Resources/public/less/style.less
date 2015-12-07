@@ -889,20 +889,35 @@ figure{
 
 .navigation{
   a{
-    color:#021421;
-    &:hover{
+    color:#b3b3b3;
+    .rounded-corners;
+    &:hover,&:focus{
       text-decoration: none;
     }
   }
   span{
-    padding:2px 6px;
+    display: inline-block;
+    padding:7px 14px;
     margin: 0 5px 0 0;
-    background-color: #cccccc;
-    color:#021421;
+    background-color: #ffffff;
+    color:#b3b3b3;
+    .rounded-corners;
+    text-align: center;
+    font-size:13px;
   }
   span.current{
-    background-color: #7725f6;
+    background-color: #0058e6;
     color:#ffffff;
+  }
+  .next,.previous{
+    background-color: #e3e3e3;
+    color:#000000;
+    a{
+      color:#999999;
+    }
+  }
+  .last,.first{
+    display: none;
   }
 }
 
