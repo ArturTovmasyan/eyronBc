@@ -1,7 +1,7 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
 {% block angularApp %}
-    <html data-ng-app="goal" data-ng-controller="goalEnd">
+    <html data-ng-app="goal">
 {% endblock %}
 
 {% block stylesheets %}
@@ -279,7 +279,7 @@
                                                             {{ 'manage'|trans }}
                                                         </a>
 
-                                                        <div class="form-modal" style="width: auto; margin-top: 80px;display: none">
+                                                        <div class="form-modal" data-ng-controller="goalEnd" style="width: auto; margin-top: 80px;display: none">
                                                             {{ render(controller("AppBundle:Goal:manage", {'id' : goal.id , 'userGoalId' : userGoal.id})) }}
                                                         </div>
 
@@ -357,10 +357,17 @@
     <script>
         $(document).ready(function(){
             $(".open-form-modal").click(function(){
+                var link = $(this);
                 var modal = $(this).next();
+
                 modal.show();
                 modal.modal({
                     fadeDuration: 500
+                });
+
+                modal.on($.modal.CLOSE, function(){
+                    link.after(modal);
+                    modal.hide();
                 });
             })
         });
