@@ -24,6 +24,7 @@ body{
 input.form-control:focus,textarea.form-control:focus{
   border-color: #7725f6;
   box-shadow: none;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a{
@@ -38,8 +39,21 @@ a{
   }
 }
 
+*button{
+
+  outline:0;
+  &:hover,&:focus{
+    outline:0;
+  }
+}
+
+h1,h2,h3,h4,h5,h5,p,select{
+  font-family: 'Open Sans', sans-serif;
+}
+
 textarea{
   resize: none;
+  font-family: 'Open Sans', sans-serif;
 }
 
 header{
@@ -473,10 +487,32 @@ ul.filter{
   color:#999999;
 }
 
+//.homepage{
+//  width:100%;
+//  position: absolute;
+//  top:35px;
+//  h1{
+//    color:#ffffff;
+//  }
+//
+//  h4{
+//    padding:0 20px;
+//    line-height:25px;
+//  }
+//
+//  .btn-purple{
+//    margin:15px 0 10px;
+//  }
+//}
+
 .homepage{
-  width:100%;
-  position: absolute;
-  top:35px;
+  background: url('../images/cover.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  height:768px;
+
   h1{
     color:#ffffff;
   }
@@ -490,6 +526,17 @@ ul.filter{
     margin:15px 0 10px;
   }
 }
+
+.btn-blue{
+  background-color: #0058e6;
+  color:#ffffff;
+
+  &:hover,&:focus{
+    color:#ffffff;
+    outline:none;
+  }
+}
+
 
 .goals-end{
   position: relative;
@@ -527,6 +574,10 @@ ul.filter{
 
 .text-white{
   color:#ffffff;
+}
+
+.text-blue{
+  color: #0058e6;
 }
 
 .users{
@@ -838,20 +889,35 @@ figure{
 
 .navigation{
   a{
-    color:#021421;
-    &:hover{
+    color:#b3b3b3;
+    .rounded-corners;
+    &:hover,&:focus{
       text-decoration: none;
     }
   }
   span{
-    padding:2px 6px;
+    display: inline-block;
+    padding:7px 14px;
     margin: 0 5px 0 0;
-    background-color: #cccccc;
-    color:#021421;
+    background-color: #ffffff;
+    color:#b3b3b3;
+    .rounded-corners;
+    text-align: center;
+    font-size:13px;
   }
   span.current{
-    background-color: #7725f6;
+    background-color: #0058e6;
     color:#ffffff;
+  }
+  .next,.previous{
+    background-color: #e3e3e3;
+    color:#000000;
+    a{
+      color:#999999;
+    }
+  }
+  .last,.first{
+    display: none;
   }
 }
 
@@ -913,6 +979,10 @@ footer{
 
     ul{
       padding:0;
+      text-align: right;
+      li{
+        padding:5px 2px 5px 25px;
+      }
       a{
         padding-top: 19px;
         display: inline-block;
@@ -1340,10 +1410,10 @@ footer{
     .form-group{
       p{
         padding-top:13px;
-        font-size: 19px;
+        font-size: 17px;
         margin-bottom:20px;
         a{
-          font-size: 18px;
+          font-size: 17px;
         }
       }
     }
