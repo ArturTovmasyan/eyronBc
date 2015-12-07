@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ng-app="goal" ng-controller="goalAdd"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalAdd"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,10 +9,9 @@
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
 {% endblock %}
 
- {% block content %}
-
-     {{ parent() }}
- <form method="post" class="main-form" action="#" enctype="multipart/form-data">
+{% block content %}
+{{ parent() }}
+<form method="post" class="main-form" action="#" enctype="multipart/form-data">
      <div class="content-top">
          <div class="container">
              <div class="row">
@@ -99,7 +98,7 @@
              </div>
          </div>
     </div>
- </form>
+</form>
 {% endblock %}
 
 {% block javascripts %}
