@@ -33,10 +33,10 @@
                                                    name="goal_status"
                                                    data-ng-model="complete.switch"
                                                    class="onoffswitch-checkbox"
-                                                   id="myonoffswitch{{ data.goal.id ? data.goal.id:0 }}"
-                                                   value="1">
+                                                   data-ng-checked="[[ (complete.switch && complete.switch!='off')?true:false ]]"
+                                                   id="myonoffswitch-active{{ data.goal.id ? data.goal.id:0 }}">
 
-                                                <label class="onoffswitch-label" for="myonoffswitch{{ data.goal.id ? data.goal.id:0 }}">
+                                                <label class="onoffswitch-label" for="myonoffswitch-active{{ data.goal.id ? data.goal.id:0 }}">
                                                     <span class="onoffswitch-inner"></span>
                                                     <span class="onoffswitch-switch"></span>
                                                 </label>
@@ -134,13 +134,15 @@
                                     <span data-ng-show="step.switch">{{ "goal.done"|trans }}</span>
                                     <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
                                 </label>
-
+                                switch: [[ step.switch ]]
                                 <div class="col-sm-2">
                                     <div class="onoffswitch">
                                         <input {% if completed %}disabled{% endif %} type="checkbox"
                                                name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
                                                data-ng-model="step.switch"
+                                               data-ng-init="step.switch==='off'?step.switch=false:(step.switch==='on'?step.switch=true:step.switch)"
                                                class="onoffswitch-checkbox"
+                                               data-ng-checked="step.switch"
                                                id="myonoffswitch{{ data.goal.id ? data.goal.id:0 }}[[k]]">
 
                                         <label class="onoffswitch-label" for="myonoffswitch{{ data.goal.id ? data.goal.id:0 }}[[k]]">
@@ -165,8 +167,9 @@
                                         <input type="checkbox"
                                                name="switch-private"
                                                data-ng-model="switch_private"
-                                               data-ng-init="switch_private = true"
+                                               data-ng-init="switch_private=true"
                                                class="onoffswitch-checkbox"
+                                               data-ng-checked="[[ (switch_private && switch_private!='off')?true:false ]]"
                                                id="myonoffswitch-private{{ data.goal.id ? data.goal.id:0 }}">
 
                                         <label class="onoffswitch-label" for="myonoffswitch-private{{ data.goal.id ? data.goal.id:0 }}">
