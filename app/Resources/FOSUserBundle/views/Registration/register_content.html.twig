@@ -127,7 +127,6 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(".upload").hide();
                 $('.uploaded-image').show();
                 $('.uploaded-image')
                         .attr('src', e.target.result);
