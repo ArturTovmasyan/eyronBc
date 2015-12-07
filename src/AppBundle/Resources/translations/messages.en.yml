@@ -47,6 +47,7 @@ goal:
       invisible_text: You can make the Goal invisible for other users
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
+      create_success: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
 
 # home
 homepage_title: Dreams come true, <br /> dream big!
