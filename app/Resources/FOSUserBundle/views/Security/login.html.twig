@@ -6,7 +6,7 @@
         <form action="{{ path("fos_user_security_check") }}" method="post">
 
             <div class="form-group">
-                <input type="text"  class="form-control" id="username" name="_username" required="required" placeholder="{{ 'security.login.email'|trans({}, 'FOSUserBundle') }}" />
+                <input type="email" class="form-control" id="username" name="_username" required="required" placeholder="{{ 'security.login.email'|trans({}, 'FOSUserBundle') }}" />
             </div>
 
             <div class="form-group">
