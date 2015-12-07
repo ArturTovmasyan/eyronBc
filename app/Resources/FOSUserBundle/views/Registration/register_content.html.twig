@@ -33,20 +33,19 @@
                     </div>
 
                     {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
-                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
-                    <div class="form-group row">
+
+                    <div class="form-group row no-padding">
                         <div class="col-sm-6">
                             {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
                         </div>
                         <div class="col-sm-6">
                             {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                            {% if errorMessage != 'Error' %}
+                                <span class="text-center" style="color:red">{{ errorMessage }}</span>
+                            {% endif %}
                         </div>
-
-                        {% if errorMessage != 'Error' %}
-                            <span class="text-center" style="color:red">{{ errorMessage }}</span>
-                        {% endif %}
                     </div>
-
+                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
                     <p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
                     <div class="form-group row">
                         <div class="col-sm-4">
@@ -90,11 +89,11 @@
 
                     <div class="form-group row">
                         <p>{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
-                            <a href="{{ getPolicyLink() }}" class="purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
+                            <a href="{{ getPolicyLink() }}" class="text-blue">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
                         </p>
                     </div>
 
-                    <button type="submit" class="btn btn-purple">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') }}</button>
+                    <button type="submit" class="btn btn-blue">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') }}</button>
 
                     {{ form_widget(form._token) }}
 
@@ -106,7 +105,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center margin-top">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
-                    <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="purple">
+                    <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-blue">
                         <strong>{{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') }}</strong>
                     </a>
                 </p>
