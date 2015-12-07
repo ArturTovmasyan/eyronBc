@@ -103,15 +103,13 @@
 
                     <li {% if status == all %} class="active" {% endif %} >
                         <a  href="{{ path('user_profile', my_router_params|merge({'status' : all})|merge(userId)) }}">{{ 'menu.bucket'|trans }}</a>
-
+                    </li>
                     <li {% if status == active %} class="active" {% endif %}>
                         <a  href="{{ path('user_profile', my_router_params|merge({'status' : active})|merge(userId)) }}">{{ 'menu.active'|trans }}</a>
                     </li>
-
                     <li {% if status == completed %} class="active" {% endif %}>
                         <a href="{{ path('user_profile', my_router_params|merge({'status' : completed })|merge(userId)) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
-
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
                             <span class="glyphicon glyphicon-chevron-up" data-ng-hide="showMap"></span>
@@ -119,12 +117,9 @@
                         </a>
                     </li>
                 </ul>
-
             </div>
         </div>
-
-        <hr />
-
+        <hr/>
         <div class="container">
             <div class="row">
 
@@ -170,8 +165,6 @@
                                     <div class="img-circle">
                                         {{ userGoal.doDate|date('d') }}
                                     </div>
-
-
                                     <div class="elipse">
                                         <div>{{ userGoal.doDate|date('M, Y') }}</div>
                                     </div>
