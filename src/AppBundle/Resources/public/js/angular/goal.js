@@ -71,6 +71,12 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
+        var modal = angular.element(".form-modal");
+        modal.show();
+        modal.modal({
+            fadeDuration: 500
+        });
+
     }])
     .controller('goalEnd', ['$scope', function($scope){
 

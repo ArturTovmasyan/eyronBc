@@ -66,7 +66,7 @@ class GoalController extends Controller
             }
 
         }
-        else{
+        else {
 
             // create new object
             $goal = new Goal();
@@ -124,6 +124,8 @@ class GoalController extends Controller
 
                 $em->persist($goal);
                 $em->flush();
+
+                return array('form' => $form->createView(), 'goalId' => $goal->getId());
 
                 // generate url
                 $url = !is_null($request->get("btn_publish")) ? "add_to_me_goal" : "view_goal";
@@ -625,7 +627,7 @@ class GoalController extends Controller
             }
 
         }
-        else{
+        else {
             $userGoal = new UserGoal();
 
             //set goal
