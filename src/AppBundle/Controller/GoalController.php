@@ -600,6 +600,7 @@ class GoalController extends Controller
      * @param Request $userGoalId
      * @return array
      * @Secure(roles="ROLE_USER")
+     * @throws
      */
     public function manageAction(Request $request, Goal $goal, $userGoalId = null)
     {
