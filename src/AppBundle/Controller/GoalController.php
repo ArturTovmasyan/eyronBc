@@ -44,6 +44,7 @@ class GoalController extends Controller
      * @param $id
      * @return array
      * @Secure(roles="ROLE_USER")
+     * @throws
      */
     public function addAction(Request $request, $id = null)
     {
@@ -61,7 +62,6 @@ class GoalController extends Controller
 
             // check goal and return not found
             if(!$goal){
-
                 throw $this->createNotFoundException("Goal $id not found");
             }
 
@@ -472,6 +472,7 @@ class GoalController extends Controller
      * @param Request $userGoalId
      * @return array
      * @Secure(roles="ROLE_USER")
+     * @throws
      */
     public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
     {
