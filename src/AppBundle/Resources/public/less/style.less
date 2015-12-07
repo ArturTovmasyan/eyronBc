@@ -6,7 +6,7 @@ body, html{
 }
 
 body{
-  padding-top: 75px;
+  padding-top:80px;
   background-color: #f2f2f2;
 }
 
@@ -47,7 +47,7 @@ a{
   }
 }
 
-h1,h2,h3,h4,h5,h5,p,select{
+h1,h2,h3,h4,h5,h5,p,select,button{
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -82,11 +82,10 @@ header{
     background: url('../images/line.jpg');
   }
   .navbar{
-    min-height:75px;
+    min-height:80px;
   }
   .navbar-default {
     background: #021421;
-
 
     .navbar-nav{
       li{
@@ -659,27 +658,44 @@ ul li{list-style: none;}
 }
 
 .signup{
+  padding-bottom:5px;
     h1{
       color:#021523;
     }
+    p{
+      font-size:12px;
+      a{
+        font-size:12px;
+        &:hover{
+          text-decoration: underline;
+          color:#7724F6;
+        }
+      }
+    }
+    input{
+      font-size: 14px;
+    }
+
+
   .form-group{
     margin-bottom:10px;
     div{
       margin-bottom:5px;
     }
     p{
-      font-size: 17px;
+      //font-size: 17px;
       color:#999999;
       a{
         font-size: 14px;
-        
-        &:hover{
-          text-decoration: underline;
-        }
       }
     }
   }
 
+  //p:last-child{
+  //  a{
+  //    font-size:12px;
+  //  }
+  //}
 }
 
 .upload{
@@ -973,7 +989,7 @@ footer{
 
   small{
     display: block;
-    padding: 15px 0;
+    padding: 24px 0 15px;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
   }
@@ -990,7 +1006,7 @@ footer{
         font-weight: bold;
 
         &:hover{
-          color:#7725f6;
+          color:#7724F6;
         }
       }
     }
@@ -1015,6 +1031,9 @@ footer{
         text-transform: capitalize;
         color:#D3D3D3;
         font-weight: 600;
+        &:hover{
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -1428,21 +1447,45 @@ footer{
   }
 
   .signup{
+    padding-bottom:10px;
 
     h1{
       font-size:36px;
       margin:20px 20px 30px;
     }
 
-    .form-group{
-      p{
-        padding-top:13px;
-        font-size: 17px;
-        margin-bottom:20px;
-        a{
-          font-size: 17px;
+    .text-dark-gray{
+      font-size: 16px;
+    }
+
+    .no-padding{
+      div:first-child{
+        padding-right:0;
+        input{
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
       }
+      div:last-child{
+        padding-left:0;
+        input{
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+    }
+
+    .form-group{
+      margin-bottom: 4px;
+      p{
+        //padding-top:13px;
+        margin-bottom:30px;
+      }
+    }
+
+    .btn-blue{
+      padding:13px 51px;
+      .rounded-corners(10px);
     }
   }
   .homepage{
@@ -1738,7 +1781,7 @@ footer{
 }
 
 .margin-top{
-  margin-top:10px;
+  margin-top:20px;
 }
 
 .line{
@@ -1865,27 +1908,13 @@ footer{
   }
 
   .signup{
+    padding-bottom:20px;
     h1{
       font-size:52px;
-      margin:60px 0;
+      margin:60px 0 35px;
     }
 
-    .no-padding{
-      div:first-child{
-        padding-right:0;
-        input{
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-      }
-      div:last-child{
-        padding-left:0;
-        input{
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-      }
-    }
+
   }
 
   .video{

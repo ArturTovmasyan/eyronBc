@@ -3,7 +3,7 @@
         <div class=" row">
             <h1 class="text-center">{{ 'registration.sign_up_title'|trans({}, 'FOSUserBundle') }}</h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
                    <div><span style="color:red">{{ form_errors(form) }}</span></div>
@@ -45,8 +45,14 @@
                             {% endif %}
                         </div>
                     </div>
-                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <p {% if errorMessage == 'Error' %}style="color:red"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                        </div>
+                    </div>
+
                     <p class="text-dark-gray">{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
+
                     <div class="form-group row">
                         <div class="col-sm-4">
 
@@ -93,7 +99,7 @@
                         </p>
                     </div>
 
-                    <button type="submit" class="btn btn-blue">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') }}</button>
+                    <button type="submit" class="btn btn-blue">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') | upper }}</button>
 
                     {{ form_widget(form._token) }}
 
@@ -106,7 +112,7 @@
             <div class="col-md-12">
                 <p class="text-center margin-top text-gray">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
                     <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-blue">
-                        <strong>{{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') }}</strong>
+                        {{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') | capitalize}}
                     </a>
                 </p>
             </div>
