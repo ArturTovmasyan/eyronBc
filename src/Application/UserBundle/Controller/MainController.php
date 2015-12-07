@@ -3,13 +3,16 @@
 namespace Application\UserBundle\Controller;
 
 use Application\UserBundle\Entity\User;
+use Application\UserBundle\Form\Type\SettingsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends Controller
@@ -18,17 +21,81 @@ class MainController extends Controller
      * @Route("/settings", name="settings")
      * @Template()
      */
-    public function settingsAction()
+    public function settingsAction(Request $request)
     {
-        return array();
-    }
 
-    /**
-     * @Route("/check-login", name="check-login")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function checkLoginAction(Request $request)
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get translator
+        $tr = $this->get('translator');
+
+        // get current user
+        $user = $this->getUser();
+
+        //get fos user manager
+        $fosManager = $this->container->get("fos_user.user_manager");
+
+        // create goal form
+        $form = $this->createForm(new SettingsType(), $user);
+
+        // check request method
+        if ($request->isMethod("POST")) {
+
+            // get data from request
+            $form->handleRequest($request);
+
+            // check valid
+            if ($form->isValid()) {
+
+                // get current password in form
+                $currentPassword = $form->get('password')->getData();
+
+                //get new password in form
+                $newPassword = $form->get('plainPassword')->getData();
+
+                //get current user password
+                $userPassword = $user->getPassword();
+
+                //get encoder service
+                $encoder_service = $this->get('security.encoder_factory');
+
+                //encoder user
+                $encoder = $encoder_service->getEncoder($user);
+
+                //encoder sent current password
+                $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
+
+                //set custom error class
+                $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
+
+                if($userPassword == $encode_data_pass) {
+
+                    //set new password
+                    $user->setPlainPassword($newPassword);
+                    $this->get('bl_service')->uploadFile($user);
+
+                    $fosManager->updateUser($user);
+
+                    return $this->redirect($this->generateUrl('settings'));
+
+                }
+                else {
+                    //set error in field
+                    $form->get('password')->addError($error);
+                }
+            }
+        }
+
+            return array('form' => $form->createView());
+        }
+
+        /**
+         * @Route("/check-login", name="check-login")
+         * @param Request $request
+         * @return \Symfony\Component\HttpFoundation\RedirectResponse
+         */
+        public function checkLoginAction(Request $request)
     {
 
         //get current user
@@ -54,13 +121,13 @@ class MainController extends Controller
         return $this->redirect($url);
     }
 
-    /**
-     * @Route("/registration-confirm/{token}", name="registration_confirm")
-     * @Template()
-     * @param $token
-     * @return array
-     */
-    public function confirmAction($token)
+        /**
+         * @Route("/registration-confirm/{token}", name="registration_confirm")
+         * @Template()
+         * @param $token
+         * @return array
+         */
+        public function confirmAction($token)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
@@ -77,14 +144,14 @@ class MainController extends Controller
         return array();
     }
 
-    /**
-     * @Route("/resend-message", name="resend_message")
-     * @Template()
-     * @Security("has_role('ROLE_USER')")
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function resendMessageAction(Request $request)
+        /**
+         * @Route("/resend-message", name="resend_message")
+         * @Template()
+         * @Security("has_role('ROLE_USER')")
+         * @param Request $request
+         * @return RedirectResponse
+         */
+        public function resendMessageAction(Request $request)
     {
         $user = $this->getUser();
         if ($user->getRegistrationToken()){
@@ -97,14 +164,14 @@ class MainController extends Controller
         return new RedirectResponse($referer);
     }
 
-    /**
-     * @Route("/update-email", name="update_email")
-     * @Template()
-     * @Security("has_role('ROLE_USER')")
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function updateEmailAction(Request $request)
+        /**
+         * @Route("/update-email", name="update_email")
+         * @Template()
+         * @Security("has_role('ROLE_USER')")
+         * @param Request $request
+         * @return RedirectResponse
+         */
+        public function updateEmailAction(Request $request)
     {
         if (!$this->getUser()->getRegistrationToken()){
             return $this->redirectToRoute('homepage');
@@ -115,7 +182,7 @@ class MainController extends Controller
             ->add('email', 'email', array('attr' => array(
                 'oninvalid' => "EmailValidation(this)",
                 'oninput' => "EmailValidation(this)"
-                )
+            )
             ))
             ->add('done', 'submit')
             ->getForm();
@@ -144,4 +211,4 @@ class MainController extends Controller
 
         return array('form' => $form->createView());
     }
-}
+    }

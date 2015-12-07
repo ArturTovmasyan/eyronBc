@@ -10,6 +10,7 @@ email:
 
 password:
     validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
+    error: Invalid current password
 
 # Security
 "Bad credentials.": The email and password you entered did not match our records. Please try again.
@@ -116,8 +117,8 @@ form:
     username: "Username"
     email: "Email"
     current_password: "Current password"
-    password: "Password"
-    re_password: "Re-enter password"
+    password: "New password"
+    re_password: "Repeat new password"
     password_confirmation: "Verification"
     new_password: "New password"
     new_password_confirmation: "Verification"
