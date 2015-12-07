@@ -91,8 +91,8 @@
                                 {% endif %}
 
                                 <div id="datepicker" data-datepicker-disable="{{ completed }}"
-                                     data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
-                                     ></div>
+                                     data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}">
+                                </div>
 
                                 {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") <  "now"|date("m/d/Y") %}
                                     <p class="text-gray text-center">
