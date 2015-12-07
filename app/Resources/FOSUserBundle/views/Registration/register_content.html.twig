@@ -45,8 +45,8 @@
                             {% endif %}
                         </div>
                     </div>
-                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
-                    <p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
+                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                    <p class="text-dark-gray">{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
                     <div class="form-group row">
                         <div class="col-sm-4">
 
@@ -104,7 +104,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <p class="text-center margin-top">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
+                <p class="text-center margin-top text-gray">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
                     <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-blue">
                         <strong>{{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') }}</strong>
                     </a>
