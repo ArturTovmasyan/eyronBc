@@ -142,10 +142,10 @@
                 </div>
 
                 <div class="col-md-2 mail-print">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <span class="glyphicon glyphicon-print"></span>
                     </a>
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <span class="glyphicon glyphicon-envelope"></span>
                     </a>
                 </div>
@@ -180,7 +180,7 @@
                                             <figcaption>
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <a href="#">
+                                                        <a href="javascript:void(0)">
                                                             {{ 'listed_by'|trans | upper }}
                                                             <span>{{ goal.getUsedCount.listedBy }}</span>
                                                             <span class="glyphicon glyphicon-user"></span>
@@ -188,7 +188,7 @@
                                                     </div>
 
                                                     <div class="col-sm-6">
-                                                        <a href="#">
+                                                        <a href="javascript:void(0)">
                                                             {{ 'done_by'|trans | upper }}
                                                             <span>{{ goal.getUsedCount.doneBy }}</span>
                                                             <span class="glyphicon glyphicon-user"></span>
@@ -220,7 +220,7 @@
                                                 </li>
                                                 <li>
                                                     <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped {% if userGoal.steps|length > 0 %} aktive{% endif %} " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ userGoal.getCompleted }}%">
+                                                        <div class="progress-bar progress-bar-striped {% if userGoal.steps|length > 0 %} aktive{% endif %}" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ userGoal.getCompleted }}%">
                                                             <span class="sr-only">45% Complete</span>
                                                         </div>
                                                     </div>
