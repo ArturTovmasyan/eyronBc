@@ -4,6 +4,7 @@ namespace Application\UserBundle\Controller;
 
 use Application\UserBundle\Entity\User;
 use Application\UserBundle\Form\Type\SettingsType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -20,10 +21,10 @@ class MainController extends Controller
     /**
      * @Route("/settings", name="settings")
      * @Template()
+     * @Secure(roles="ROLE_USER")
      */
     public function settingsAction(Request $request)
     {
-
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 

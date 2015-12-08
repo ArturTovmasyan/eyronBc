@@ -19,16 +19,12 @@
                                             {% if user.getPhotoLink %}
                                                 <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                 {{ form_label(form.file, 'change profile pictures') }}
-                                                <div class="hide">
-                                                    {{ form_widget(form.file) }}
-                                                </div>
                                             {% else %}
                                                 {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
-                                                <div class="hide">
-                                                    {{ form_widget(form.file) }}
-                                                </div>
                                             {% endif %}
-
+                                            <div class="hide">
+                                                {{ form_widget(form.file) }}
+                                            </div>
                                         </figure>
                                     {% endif %}
                                     </li>
