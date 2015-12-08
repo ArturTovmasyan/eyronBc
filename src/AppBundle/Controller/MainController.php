@@ -28,7 +28,17 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
-        return $this->redirectToRoute('activity');
+        // get current user
+        $currentUser = $this->getUser();
+
+        // check user is have a goal
+        if (count($currentUser->getUserGoal()) > 0) {
+            $url = 'activity';
+        } else {
+            $url = 'goals_list';
+        }
+
+        return $this->redirectToRoute($url);
     }
 
     /**
