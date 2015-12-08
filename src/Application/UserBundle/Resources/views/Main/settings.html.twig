@@ -10,12 +10,9 @@
                         <div><span style="color:red">{{ form_errors(form) }}</span></div>
 
                         <div class="form-group">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
                                     {% if app.user %}
                                     {% set user = app.user %}
                                         <figure class="img-circle">
-
                                             {% if user.getPhotoLink %}
                                                 <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                 {{ form_label(form.file, 'change profile pictures') }}
@@ -27,8 +24,6 @@
                                             </div>
                                         </figure>
                                     {% endif %}
-                                    </li>
-                                </ul>
 
                             {{ form_errors(form.file) }}
                         </div>
