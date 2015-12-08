@@ -3,16 +3,17 @@
         <div class=" row">
             <h1 class="text-center">{{ 'registration.sign_up_title'|trans({}, 'FOSUserBundle') }}</h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
-                   <div><span style="color:red">{{ form_errors(form) }}</span></div>
+                    <div><span style="color:red">{{ form_errors(form) }}</span></div>
 
                     <div class="form-group">
-                        <input type="file" class="hide"/>
+                        {#<input type="file" class="hide"/>#}
                         {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
+                        <img src="#" class="uploaded-image" width="200" height="140" style="display: none">
                         <div class="hide">
-                            {{ form_widget(form.file) }}
+                            {{ form_widget(form.file, {attr: {"onchange": "showUploadedImage(this)" } }) }}
                         </div>
                         {{ form_errors(form.file) }}
                     </div>
@@ -45,17 +46,25 @@
                             {% endif %}
                         </div>
                     </div>
-                    <p {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
-                    <p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <p {% if errorMessage == 'Error' %}class="text-danger"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                        </div>
+                    </div>
+
+                    <p class="text-dark-gray">{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
+
                     <div class="form-group row">
                         <div class="col-sm-4">
 
                             {% set months = form.birthDate.month.vars.choices %}
 
+                            {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}  %}
+
                             <select id="fos_user_registration_form_birthDate_month" name="fos_user_registration_form[birthDate][month]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for month in months %}
-                                    <option value="{{ month.value }}">{{ month.label }}</option>
+                                    <option value="{{ month.value }}">{{ arrayMonth[month.value] }}</option>
                                 {% endfor %}
                             </select>
 
@@ -65,7 +74,7 @@
                             {% set days = form.birthDate.day.vars.choices %}
 
                             <select id="fos_user_registration_form_birthDate_day" name="fos_user_registration_form[birthDate][day]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for day in days %}
                                     <option value="{{ day.value }}">{{ day.value }}</option>
                                 {% endfor %}
@@ -77,7 +86,7 @@
                             {% set years = form.birthDate.year.vars.choices %}
 
                             <select id="fos_user_registration_form_birthDate_year" name="fos_user_registration_form[birthDate][year]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for year in years %}
                                     <option value="{{ year.value }}">{{ year.value }}</option>
                                 {% endfor %}
@@ -93,7 +102,7 @@
                         </p>
                     </div>
 
-                    <button type="submit" class="btn btn-blue">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') }}</button>
+                    <button type="submit" class="btn btn-blue">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') | upper }}</button>
 
                     {{ form_widget(form._token) }}
 
@@ -104,12 +113,28 @@
 
         <div class="row">
             <div class="col-md-12">
-                <p class="text-center margin-top">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
+                <p class="text-center margin-top text-gray">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
                     <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-blue">
-                        <strong>{{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') }}</strong>
+                        {{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') | capitalize}}
                     </a>
                 </p>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function showUploadedImage(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.uploaded-image').show();
+                $('.uploaded-image')
+                        .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

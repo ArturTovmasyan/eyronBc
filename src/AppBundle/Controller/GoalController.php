@@ -66,7 +66,7 @@ class GoalController extends Controller
             }
 
         }
-        else{
+        else {
 
             // create new object
             $goal = new Goal();
@@ -202,7 +202,7 @@ class GoalController extends Controller
             $goalImage->setFile($file);
 
             // validate goal image
-            $error = $validator->validate($goalImage);
+            $error = $validator->validate($goalImage, null, array('goal'));
 
             if(count($error) > 0){
                 return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
@@ -214,13 +214,13 @@ class GoalController extends Controller
                 $bucketService->uploadFile($goalImage);
 
                 $em->persist($goalImage);
+                // flush data
+                $em->flush();
             }
 
-            // flush data
-            $em->flush();
             return new JsonResponse($goalImage->getId(), Response::HTTP_OK);
 
-            }
+        }
 
         return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
@@ -625,7 +625,7 @@ class GoalController extends Controller
             }
 
         }
-        else{
+        else {
             $userGoal = new UserGoal();
 
             //set goal

@@ -67,7 +67,7 @@ registration:
     sign_up_btn: Sign Up
     privacy_policy: Terms of Service & Privacy Policy
     sign_up_btn: Sign up and discover great ideas
-    have_account: Already have an account
+    have_account: Already have an account ?
     sign_in_btn: SIGN IN
 
 # Password resetting
