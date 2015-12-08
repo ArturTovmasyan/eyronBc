@@ -31,10 +31,16 @@ trait File
      *     minWidth = 640,
      *     minHeight = 360,
      *     mimeTypes = {
-     *         "image/gif",
+     *         "image/png",
+     *              "image/jpeg",
+     *              "image/jpg",
+     *              "image/gif",
+     *              "application/pdf",
+     *              "application/x-pdf",
+     *              "image/vnd-wap-wbmp"
      *          },
-     *     minWidthMessage = "file.width_extension",
-     *     minHeightMessage = "file.height_extension",
+     *     minWidthMessage = "file.goal_image_width_extension",
+     *     minHeightMessage = "file.goal_image_height_extension",
      *     mimeTypesMessage = "file.extension_error",
      * )
      */

@@ -28,5 +28,7 @@ email_duplicate: The email address you have entered is already registered
 file:
     width_extension: File width mast be min 400 px
     heigh_extension: File height mast be min 400 px
+    goal_image_width_extension: File width mast be min 640 px
+    goal_image_heigh_extension: File height mast be min 360 px
     extension_error: Wrong format of file
     size_error: Wrong size of file
