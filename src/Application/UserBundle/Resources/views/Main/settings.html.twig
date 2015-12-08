@@ -14,7 +14,7 @@
                                     {% set user = app.user %}
                                         <figure class="img-circle">
                                             {% if user.getPhotoLink %}
-                                                <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="200" height="140">
                                                 {{ form_label(form.file, 'change profile pictures') }}
                                             {% else %}
                                                 {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
