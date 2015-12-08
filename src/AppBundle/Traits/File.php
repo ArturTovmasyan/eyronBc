@@ -29,7 +29,7 @@ trait File
      * @Assert\Image(
      *     groups={"goal", "success_story"},
      *     minWidth = 640,
-     *     minHeight = 360,
+     *     minHeight = 640,
      *     mimeTypes = {
      *         "image/png",
      *              "image/jpeg",

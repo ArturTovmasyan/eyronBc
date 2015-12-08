@@ -12,16 +12,16 @@ parameters:
         ru: ru
     tablet:
         with: 640
-        height: 480
+        height: 640
     mobile:
         with: 480
         height: 320
     list:
         with: 320
-        height: 180
+        height: 320
     cover:
-        with: 1024
-        height: 768
+        with: 1280
+        height: 720
 
 framework:
     #esi:             ~
