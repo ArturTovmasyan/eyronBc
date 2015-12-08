@@ -41,6 +41,7 @@
                             <div class="col-sm-12">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
+                            <span style="color:red">{{ form_errors(form.email) }}</span>
                         </div>
 
                         {#<div class="form-group row no-padding">#}

@@ -66,7 +66,8 @@ class SettingsType extends AbstractType
 
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Application\UserBundle\Entity\User'
+            'data_class' => 'Application\UserBundle\Entity\User',
+            'validation_groups' => 'Register'
         ));
     }
 

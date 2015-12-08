@@ -83,12 +83,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(
+     * @Assert\Length(groups={"Register"},
      *      min = 6,
      *      minMessage = "Error",
      * )
      *
-     * @Assert\Regex(
+     * @Assert\Regex(groups={"Register"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message="Error"
