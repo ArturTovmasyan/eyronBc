@@ -85,11 +85,13 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
 
+                                {% set arrayMonth = {1:'Jan.', 2:'Feb.', 3:'Mar.', 4:'Apr.', 5:'May', 6:'June', 7:'July', 8:'Aug.', 9:'Sept.', 10:'Oct.', 11:'Nov.', 12:'Dec.'} %}
+
                                 {% set months = form.birthDate.month.vars.choices %}
 
                                 <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]" class="form-control">
                                     {% for month in months %}
-                                        <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ month.label }}</option>
+                                        <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
                                     {% endfor %}
                                 </select>
 
