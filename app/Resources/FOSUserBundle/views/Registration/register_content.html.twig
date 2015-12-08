@@ -62,7 +62,7 @@
                             {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}  %}
 
                             <select id="fos_user_registration_form_birthDate_month" name="fos_user_registration_form[birthDate][month]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for month in months %}
                                     <option value="{{ month.value }}">{{ arrayMonth[month.value] }}</option>
                                 {% endfor %}
@@ -74,7 +74,7 @@
                             {% set days = form.birthDate.day.vars.choices %}
 
                             <select id="fos_user_registration_form_birthDate_day" name="fos_user_registration_form[birthDate][day]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for day in days %}
                                     <option value="{{ day.value }}">{{ day.value }}</option>
                                 {% endfor %}
@@ -86,7 +86,7 @@
                             {% set years = form.birthDate.year.vars.choices %}
 
                             <select id="fos_user_registration_form_birthDate_year" name="fos_user_registration_form[birthDate][year]" class="form-control" >
-                                <option value="" selected disabled>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                <option value="" selected>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
                                 {% for year in years %}
                                     <option value="{{ year.value }}">{{ year.value }}</option>
                                 {% endfor %}
