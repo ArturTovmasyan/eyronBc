@@ -122,8 +122,8 @@ form:
     password_confirmation: "Verification"
     new_password: "New password"
     new_password_confirmation: "Verification"
-    firstName: "First Name"
-    lastName: "Last Name"
+    firstName: "First name"
+    lastName: "Last name"
     date_of_birth: Date of birth
     birth_date_month: "Month"
     birth_date_day: "Day"
