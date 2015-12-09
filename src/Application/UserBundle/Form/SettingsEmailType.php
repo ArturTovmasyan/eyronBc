@@ -21,19 +21,9 @@ class SettingsEmailType extends AbstractType
     {
         $builder
             ->add('settingEmails', 'text', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
-            ->add('primary', 'hidden', array('mapped'=>false, 'label'=>false))
+            ->add('primary', 'hidden', array('label'=>false))
         ;
     }
-
-//    /**
-//     * @param OptionsResolver $resolver
-//     */
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults(array(
-//            'data_class' => 'Application\UserBundle\Entity\User'
-//        ));
-//    }
 
     /**
      * @return string

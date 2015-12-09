@@ -25,8 +25,7 @@ class MainController extends Controller
      */
     public function settingsAction(Request $request)
     {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
+
 
         //get translator
         $tr = $this->get('translator');
@@ -88,15 +87,49 @@ class MainController extends Controller
             }
         }
 
-            return array('form' => $form->createView());
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * This function is used to remove settings email by email name
+     *
+     * @Route("/settings/remove-email/{email}", name="remove_email")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeEmailInSettings($email)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $this->getUser();
+
+        //get user all emails
+        $settingEmails = $user->getSettingEmails();
+
+        foreach($settingEmails as $key => $settingEmail)
+        {
+            if($email == $settingEmail['settingEmails']) {
+                unset($settingEmails[$key]);
+            }
         }
 
-        /**
-         * @Route("/check-login", name="check-login")
-         * @param Request $request
-         * @return \Symfony\Component\HttpFoundation\RedirectResponse
-         */
-        public function checkLoginAction(Request $request)
+        //set changed email data
+        $user->setSettingEmails($settingEmails);
+
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
+
+    }
+
+    /**
+     * @Route("/check-login", name="check-login")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function checkLoginAction(Request $request)
     {
 
         //get current user
@@ -122,13 +155,13 @@ class MainController extends Controller
         return $this->redirect($url);
     }
 
-        /**
-         * @Route("/registration-confirm/{token}", name="registration_confirm")
-         * @Template()
-         * @param $token
-         * @return array
-         */
-        public function confirmAction($token)
+    /**
+     * @Route("/registration-confirm/{token}", name="registration_confirm")
+     * @Template()
+     * @param $token
+     * @return array
+     */
+    public function confirmAction($token)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
@@ -145,14 +178,14 @@ class MainController extends Controller
         return array();
     }
 
-        /**
-         * @Route("/resend-message", name="resend_message")
-         * @Template()
-         * @Security("has_role('ROLE_USER')")
-         * @param Request $request
-         * @return RedirectResponse
-         */
-        public function resendMessageAction(Request $request)
+    /**
+     * @Route("/resend-message", name="resend_message")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function resendMessageAction(Request $request)
     {
         $user = $this->getUser();
         if ($user->getRegistrationToken()){
@@ -165,14 +198,14 @@ class MainController extends Controller
         return new RedirectResponse($referer);
     }
 
-        /**
-         * @Route("/update-email", name="update_email")
-         * @Template()
-         * @Security("has_role('ROLE_USER')")
-         * @param Request $request
-         * @return RedirectResponse
-         */
-        public function updateEmailAction(Request $request)
+    /**
+     * @Route("/update-email", name="update_email")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateEmailAction(Request $request)
     {
         if (!$this->getUser()->getRegistrationToken()){
             return $this->redirectToRoute('homepage');
@@ -212,4 +245,4 @@ class MainController extends Controller
 
         return array('form' => $form->createView());
     }
-    }
+}

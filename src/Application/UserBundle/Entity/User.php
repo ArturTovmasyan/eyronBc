@@ -10,6 +10,7 @@ namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -778,5 +779,31 @@ class User extends BaseUser
     public function getSettingEmails()
     {
         return $this->settingEmails;
+    }
+
+    /**
+     * @return array
+     */
+    public function  getBlMultipleEmail()
+    {
+        // check images and return array
+        if($this->settingEmails){
+
+            return $this->settingEmails;
+        }
+        return array();
+    }
+
+    /**
+     * @param $settingEmails
+     */
+
+    public function  setBlMultipleEmail($settingEmails)
+    {
+        // check added images
+        if(count($settingEmails) > 0){
+
+            $this->settingEmails = $settingEmails;
+        }
     }
 }

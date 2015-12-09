@@ -39,9 +39,9 @@
 
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                {{ form_widget(form.settingEmails, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                                {{ form_widget(form.bl_multiple_email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
-                            <span style="color:red">{{ form_errors(form.settingEmails) }}</span>
+                            <span style="color:red">{{ form_errors(form.bl_multiple_email) }}</span>
                         </div>
 
                         {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}

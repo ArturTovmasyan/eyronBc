@@ -1,47 +1,48 @@
 {% block bl_multiple_email_widget %}
-<div class="form-group clearfix">
+    <div class="form-group clearfix">
 
-    <ul class="images col-sm-6 control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
-        {% set count = 0 %}
-        {% for child in form %}
+        <ul class="images col-sm-6 control-label" data-prototype="{{ _self.multiple_prototype(form.vars.prototype)|e }}">
+            {% set count = 0 %}
+            {% for child in form %}
 
-            {% set primaryHiddenId = child.primary.vars.id %}
-            {% set primaryId =  'primary_show_id' %}
-            {% set primaryName =  'primary_show_name' %}
+                {% set primaryHiddenId = child.primary.vars.id %}
+                {% set primaryId =  'primary_show_id' %}
+                {% set primaryName =  'primary_show_name' %}
 
-            {% if child.vars.value.settingEmails is not null %}
+                {% if  child.vars.value.settingEmails is not null %}
 
-                {#<li>#}
-                    {#<input value="{{ child.vars.value.settingEmails }}">#}
-                {#</li>#}
+                    <li>
+                        Primary email  {{ form_widget(child.settingEmails) }}
+                    </li>
+                    <li>
+                        <input onclick="toHiddenList('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
+                               value="1"
+                                {% if child.primary.vars.value == 1 %} checked {% endif %}
+                                />
 
-                <li>
-                    Primary Email <input onclick="toHiddenList('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
-                           value="1"
-                            {% if child.primary.vars.value == 1 %} checked {% endif %}
-                            />
-                    <a class="delete-link" href="#" >{{ 'btn_delete'|trans }}</a>
-                </li>
-        {% endif %}
+                        <a class="delete-link" href="{{ path('remove_email', {'email' : child.settingEmails.vars.value } ) }}">{{ 'btn_delete'|trans }}</a>
+                    </li>
 
-            {{ form_widget(child.primary, {'attr': {'class' : 'bl_list_hidden'} } ) }}
+                {% endif %}
 
-            {% set count = count + 1 %}
+                {{ form_widget(child.primary, {'attr': {'class' : 'bl_list_hidden'} } ) }}
 
-        {% endfor %}
-    </ul>
-</div>
+                {% set count = count + 1 %}
+
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}
 
 {% macro multiple_prototype(form) %}
 
     {% set primaryHiddenId = form.primary.vars.id %}
-    {% set primaryId =  'list_show_id' %}
-    {% set primaryName =  'list_show_name' %}
+    {% set primaryId =  'primary_show_id' %}
+    {% set primaryName =  'primary_show_name' %}
 
-    {{ form_widget(form.settingEmails) }}
-    Primary Email  <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
+    Primary email {{ form_widget(form.settingEmails) }}
+    <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
            value="1"
             />
     {{ form_widget(form.primary, {'attr': {'class' : 'bl_list_hidden'} } ) }}
