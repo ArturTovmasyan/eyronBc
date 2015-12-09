@@ -30,6 +30,7 @@ trait File
      *     groups={"goal", "success_story"},
      *     minWidth = 640,
      *     minHeight = 640,
+     *     maxSize="4000000",
      *     mimeTypes = {
      *         "image/png",
      *              "image/jpeg",
