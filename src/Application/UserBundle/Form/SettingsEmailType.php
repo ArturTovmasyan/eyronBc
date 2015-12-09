@@ -20,20 +20,20 @@ class SettingsEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('settingEmails', 'email', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
+            ->add('settingEmails', 'text', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
             ->add('primary', 'hidden', array('mapped'=>false, 'label'=>false))
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Application\UserBundle\Entity\User'
-        ));
-    }
+//    /**
+//     * @param OptionsResolver $resolver
+//     */
+//    public function configureOptions(OptionsResolver $resolver)
+//    {
+//        $resolver->setDefaults(array(
+//            'data_class' => 'Application\UserBundle\Entity\User'
+//        ));
+//    }
 
     /**
      * @return string

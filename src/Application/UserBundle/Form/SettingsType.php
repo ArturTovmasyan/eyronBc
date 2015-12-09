@@ -28,7 +28,7 @@ class SettingsType extends AbstractType
         $builder
             ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('settingEmails', 'bl_multiple_email', array('label' => 'Primary', 'translation_domain' => 'FOSUserBundle',
+            ->add('settingEmails', 'bl_multiple_email', array(
                 'attr' => array(
                     'oninvalid' => "EmailValidation(this)",
                     'oninput' => "EmailValidation(this)")
