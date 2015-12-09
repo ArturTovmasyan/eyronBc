@@ -7,11 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class SettingsEmailType
+ * Class UserEmailType
  * @package Application\UserBundle\Form
  */
 
-class SettingsEmailType extends AbstractType
+class UserEmailType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,7 +20,7 @@ class SettingsEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('settingEmails', 'text', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
+            ->add('userEmails', 'text', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
             ->add('primary', 'hidden', array('label'=>false))
         ;
     }

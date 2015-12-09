@@ -147,9 +147,9 @@ class User extends BaseUser
 
     /**
      * @var
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(name="user_emails", type="array", nullable=true)
      */
-    protected $settingEmails;
+    protected $userEmails;
 
     /**
      * @VirtualProperty
@@ -759,51 +759,51 @@ class User extends BaseUser
     }
 
     /**
-     * Set settingEmails
-     *
-     * @param array $settingEmails
-     * @return User
-     */
-    public function setSettingEmails($settingEmails)
-    {
-        $this->settingEmails = $settingEmails;
-
-        return $this;
-    }
-
-    /**
-     * Get settingEmails
-     *
-     * @return array 
-     */
-    public function getSettingEmails()
-    {
-        return $this->settingEmails;
-    }
-
-    /**
      * @return array
      */
     public function  getBlMultipleEmail()
     {
         // check images and return array
-        if($this->settingEmails){
+        if($this->userEmails){
 
-            return $this->settingEmails;
+            return $this->userEmails;
         }
         return array();
     }
 
     /**
-     * @param $settingEmails
+     * @param $userEmails
      */
 
-    public function  setBlMultipleEmail($settingEmails)
+    public function  setBlMultipleEmail($userEmails)
     {
         // check added images
-        if(count($settingEmails) > 0){
+        if(count($userEmails) > 0){
 
-            $this->settingEmails = $settingEmails;
+            $this->userEmails = $userEmails;
         }
+    }
+
+    /**
+     * Set userEmails
+     *
+     * @param array $userEmails
+     * @return User
+     */
+    public function setUserEmails($userEmails)
+    {
+        $this->userEmails = $userEmails;
+
+        return $this;
+    }
+
+    /**
+     * Get userEmails
+     *
+     * @return array 
+     */
+    public function getUserEmails()
+    {
+        return $this->userEmails;
     }
 }

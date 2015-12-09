@@ -9,18 +9,18 @@
                 {% set primaryId =  'primary_show_id' %}
                 {% set primaryName =  'primary_show_name' %}
 
-                {% if  child.vars.value.settingEmails is not null %}
+                {% if  child.vars.value.userEmails is not null %}
 
                     <li>
-                        Primary email  {{ form_widget(child.settingEmails) }}
+                        Primary email  {{ form_widget(child.userEmails) }}
                     </li>
                     <li>
-                        <input onclick="toHiddenList('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
+                        <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
                                value="1"
                                 {% if child.primary.vars.value == 1 %} checked {% endif %}
                                 />
 
-                        <a class="delete-link" href="{{ path('remove_email', {'email' : child.settingEmails.vars.value } ) }}">{{ 'btn_delete'|trans }}</a>
+                        <a class="delete-link" href="{{ path('remove_email', {'email' : child.userEmails.vars.value } ) }}">{{ 'btn_delete'|trans }}</a>
                     </li>
 
                 {% endif %}
@@ -41,7 +41,7 @@
     {% set primaryId =  'primary_show_id' %}
     {% set primaryName =  'primary_show_name' %}
 
-    Primary email {{ form_widget(form.settingEmails) }}
+    Primary email {{ form_widget(form.userEmails) }}
     <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
            value="1"
             />

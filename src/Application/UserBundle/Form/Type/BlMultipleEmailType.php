@@ -2,7 +2,7 @@
 
 namespace Application\UserBundle\Form\Type;
 
-use Application\UserBundle\Form\SettingsEmailType;
+use Application\UserBundle\Form\UserEmailType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,7 +28,7 @@ class BlMultipleEmailType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'type' => new SettingsEmailType(),
+            'type' => new UserEmailType(),
             'allow_add' => true,
             'allow_delete' => true,
         ));

@@ -26,7 +26,6 @@ class MainController extends Controller
     public function settingsAction(Request $request)
     {
 
-
         //get translator
         $tr = $this->get('translator');
 
@@ -105,17 +104,19 @@ class MainController extends Controller
         $user = $this->getUser();
 
         //get user all emails
-        $settingEmails = $user->getSettingEmails();
+        $userEmails = $user->getUserEmails();
 
-        foreach($settingEmails as $key => $settingEmail)
-        {
-            if($email == $settingEmail['settingEmails']) {
-                unset($settingEmails[$key]);
+        //check if current user have settingsEmail
+        if($userEmails) {
+            foreach ($userEmails as $key => $userEmail) {
+                if ($email == $userEmail['settingEmails']) {
+                    unset($userEmails[$key]);
+                }
             }
         }
 
         //set changed email data
-        $user->setSettingEmails($settingEmails);
+        $user->setUserEmails($userEmails);
 
         $em->persist($user);
         $em->flush();
