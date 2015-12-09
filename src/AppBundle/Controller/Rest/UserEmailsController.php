@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Rest;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -38,7 +39,7 @@ class UserEmailsController extends FOSRestController
      * )
      * @Rest\View()
      */
-    public function deleteUserEmails(Request $request)
+    public function deleteUserEmailsAction(Request $request)
     {
         // get all data
         $data = $request->request->all();

@@ -65,6 +65,11 @@ fos_comment_api:
     prefix: /api
     defaults: { _format: html }
 
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /development/rest/
+
 # custom rests
 app_goal_rest:
     type:     rest
