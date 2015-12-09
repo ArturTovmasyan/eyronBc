@@ -71,7 +71,6 @@ function addTagFormDeleteLink($newFormLi)
 
 function toHiddenPrimary(hiddenId)
 {
-    console.log(hiddenId);
     $(".bl_list_hidden").val(0);
     $("#"+hiddenId).val(1);
 }
