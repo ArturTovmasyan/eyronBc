@@ -20,7 +20,7 @@ class SettingsEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('settingEmails', 'email', array('label'=>false))
+            ->add('settingEmails', 'email', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
             ->add('primary', 'hidden', array('mapped'=>false, 'label'=>false))
         ;
     }
