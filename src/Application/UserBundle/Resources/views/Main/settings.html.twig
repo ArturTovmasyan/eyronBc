@@ -39,20 +39,10 @@
 
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                                {{ form_widget(form.settingEmails, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
-                            <span style="color:red">{{ form_errors(form.email) }}</span>
+                            <span style="color:red">{{ form_errors(form.settingEmails) }}</span>
                         </div>
-
-                        {#<div class="form-group row no-padding">#}
-                        {#<div class="col-sm-6">#}
-                        {#{{ form_widget(form.email, {'attr': {'readonly': 'true', 'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}#}
-
-                        {#</div>#}
-                        {#<div class="col-sm-6">#}
-                        {#{{ form_widget(form.change_email, {'attr': {'class' : 'form-control', 'placeholder': 'change email' } }) }}#}
-                        {#</div>#}
-                        {#</div>#}
 
                         {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
 

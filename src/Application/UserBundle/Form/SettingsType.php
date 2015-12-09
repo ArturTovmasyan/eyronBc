@@ -6,7 +6,7 @@
  * Time: 10:29 AM
  */
 
-namespace Application\UserBundle\Form\Type;
+namespace Application\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,19 +28,11 @@ class SettingsType extends AbstractType
         $builder
             ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle',
+            ->add('settingEmails', 'bl_multiple_email', array('label' => 'Primary', 'translation_domain' => 'FOSUserBundle',
                 'attr' => array(
                     'oninvalid' => "EmailValidation(this)",
-                    'oninput' => "EmailValidation(this)"
-                )
+                    'oninput' => "EmailValidation(this)")
             ))
-//            ->add('change_email', 'email',array('mapped' => false,
-//                'attr' => array(
-//                    'oninvalid' => "EmailValidation(this)",
-//                    'oninput' => "EmailValidation(this)"
-//                ),
-//
-//            ))
             ->add('password', 'password', array(
                 'required' => true,
                 'label' => 'form.current_password',

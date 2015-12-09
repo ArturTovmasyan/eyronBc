@@ -145,6 +145,12 @@ class User extends BaseUser
     protected $registrationToken;
 
     /**
+     * @var
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $settingEmails;
+
+    /**
      * @VirtualProperty
      * @Groups({"user"})
      */
@@ -749,5 +755,28 @@ class User extends BaseUser
             }
         }
         return $result;
+    }
+
+    /**
+     * Set settingEmails
+     *
+     * @param array $settingEmails
+     * @return User
+     */
+    public function setSettingEmails($settingEmails)
+    {
+        $this->settingEmails = $settingEmails;
+
+        return $this;
+    }
+
+    /**
+     * Get settingEmails
+     *
+     * @return array 
+     */
+    public function getSettingEmails()
+    {
+        return $this->settingEmails;
     }
 }

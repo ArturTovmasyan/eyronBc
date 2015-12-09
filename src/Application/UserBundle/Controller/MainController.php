@@ -3,7 +3,7 @@
 namespace Application\UserBundle\Controller;
 
 use Application\UserBundle\Entity\User;
-use Application\UserBundle\Form\Type\SettingsType;
+use Application\UserBundle\Form\SettingsType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
