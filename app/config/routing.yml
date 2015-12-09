@@ -75,3 +75,8 @@ app_nwe_feed_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /api
+
+app_emails_remove_rest:
+    type:     rest
+    resource: @AppBundle/Controller/Rest/UserEmailsController.php
+    prefix:   /api

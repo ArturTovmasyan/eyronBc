@@ -109,7 +109,7 @@ class MainController extends Controller
         //check if current user have settingsEmail
         if($userEmails) {
             foreach ($userEmails as $key => $userEmail) {
-                if ($email == $userEmail['settingEmails']) {
+                if ($email == $userEmail['userEmails']) {
                     unset($userEmails[$key]);
                 }
             }
