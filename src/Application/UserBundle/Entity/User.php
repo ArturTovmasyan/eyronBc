@@ -735,7 +735,11 @@ class User extends BaseUser
      */
     public function getStats()
     {
-        $result = array("listedBy" => 0, "active" => $this->authorGoals->count(), "doneBy" => 0);
+        //get active goal count
+        $active = $this->authorGoals->count();
+
+        //set done goal default value
+        $doneBy = 0;
 
         // get user goals
         $userGoals = $this->getUserGoal();
@@ -745,9 +749,20 @@ class User extends BaseUser
             // loop for user goals
             foreach($userGoals as $userGoal){
 
-                $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy']++;
+                if( $userGoal->getStatus() !== UserGoal::ACTIVE) {
+
+                    //count done goal
+                    $doneBy = ++$doneBy;
+                }
             }
         }
+
+        //get listed by count
+        $listedBy = $active + $doneBy;
+
+        //set data in result array
+        $result = array("listedBy" => $listedBy, "active" => $this->authorGoals->count(), "doneBy" =>$doneBy);
+
         return $result;
     }
 }
