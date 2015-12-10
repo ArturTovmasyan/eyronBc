@@ -106,20 +106,24 @@ class MainController extends Controller
         //get user all emails
         $userEmails = $user->getUserEmails();
 
-        //check if current user have settingsEmail
+        //check if current user have userEmails
         if($userEmails) {
-            foreach ($userEmails as $key => $userEmail) {
-                if ($email == $userEmail['userEmails']) {
-                    unset($userEmails[$key]);
-                }
+
+            //get userEmail value in array
+            $emailsValue = array_map(function($item){ return $item['userEmails']; }, $userEmails);
+
+            //if remove email exist in array
+            if(($key = array_search($email, $emailsValue)) !== false) {
+
+                unset($userEmails[$key]);
             }
+
+            //set changed email data
+            $user->setUserEmails($userEmails);
+
+            $em->persist($user);
+            $em->flush();
         }
-
-        //set changed email data
-        $user->setUserEmails($userEmails);
-
-        $em->persist($user);
-        $em->flush();
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
 
