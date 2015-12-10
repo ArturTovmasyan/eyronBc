@@ -90,7 +90,7 @@ class MainController extends Controller
     }
 
     /**
-     * This function is used to remove settings email by email name
+     * This function is used to remove user emails by email name
      *
      * @Route("/settings/remove-email/{email}", name="remove_email")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
