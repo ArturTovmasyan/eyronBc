@@ -45,8 +45,14 @@
                                 <ul class="nav navbar-nav">
                                     {#<li class="active">#}
                                     <li>
+                                        <a href="#">
+                                            <span class="ideas-icon"></span>{{ 'activity'|trans |upper }}
+                                        </a>
+                                    </li>
+
+                                    <li>
                                         <a href="{{ path('goals_list') }}">
-                                            <span class="ideas-icon"></span>{{ 'ideas'|trans }}
+                                            <span class="ideas-icon"></span>{{ 'ideas'|trans |upper }}
                                         </a>
                                     </li>
                                     <li class="search">
