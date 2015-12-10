@@ -777,7 +777,7 @@ class User extends BaseUser
 
     public function  setBlMultipleEmail($userEmails)
     {
-        // check added images
+        // check added userEmails
         if(count($userEmails) > 0){
 
             $this->userEmails = $userEmails;
