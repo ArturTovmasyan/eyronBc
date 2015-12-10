@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container">
-        <h2 class="text-center"> {{ 'goal.drafts'|trans }}</h2>
+        <h2 class="text-center"> {{ 'right_menu.draft'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
 
@@ -16,9 +16,14 @@
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
-                            <a href="{{ path('add_goal', {'id': goal.id }) }}">
+                            <a href="#">
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
+                            <figcaption>
+
+                                {%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}
+
+                            </figcaption>
                         </figure>
                     </div>
                 {% endfor %}
@@ -26,7 +31,6 @@
         {% else %}
             <p>
                 {{ 'goal.not_found'|trans }}
-
             </p>
         {% endif %}
 
