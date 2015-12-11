@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /**
@@ -872,6 +873,48 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("/remove-draft/{goal}", name="remove_draft_goal")
+     *
+     * @param Goal $goal
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Secure(roles="ROLE_USER")
+     */
+    public  function removeDraftGoal(Goal $goal)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $user = $this->getUser();
+
+        // get user goal
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
+
+        //check if user goal exist and 1
+        if(count($userGoal) == 1) {
+            // remove from bd
+            $em->remove($userGoal);
+        }
+
+        //get goal draft by goal id
+        $goalDraft = $em->getRepository('AppBundle:Goal')->find($goal);
+
+        //check user goal
+        if(!$goalDraft){
+
+            // return Exception
+            throw $this->createNotFoundException("This draft goal by id $goal not found");
+        }
+
+        // remove from bd
+        $em->remove($goalDraft);
+        $em->flush();
+
+        return $this->redirectToRoute("user_profile");
+    }
+
+    /**
      * @Route("/remove-goal/{goal}/{user}", name="remove_goal")
      *
      * @param Goal $goal
@@ -893,7 +936,7 @@ class GoalController extends Controller
         if(!$userGoal){
 
             // return Exception
-            throw $this->createNotFoundException("This goal  is not in user bucketlist");
+            throw $this->createNotFoundException("This goal is not in user bucketlist");
 
         }
 

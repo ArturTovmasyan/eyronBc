@@ -63,6 +63,8 @@ btn_discover_more: DISCOVER MORE
 btn_start_now: START NOW
 btn_cancel: Cancel
 btn_save: Save
+btn_edit: EDIT
+btn_remove: DELETE
 
 # user goal form
 user_goal:

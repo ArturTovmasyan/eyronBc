@@ -1,0 +1,14 @@
+<ul class="row {% if inner is defined %} goal-links {% endif %} ">
+        <li class="col-sm-6">
+            <a href="{{ path('add_goal', {'id': goal.id }) }}" class="open-form-modal">
+                <span class="glyphicon glyphicon-cog"></span>
+                {{ 'btn_edit'|trans }}
+            </a>
+        </li>
+
+        <li class="col-sm-6">
+            <a href="{{ path('remove_draft_goal', {'goal' : goal.id}) }}">
+                <span class="glyphicon glyphicon-trash"></span>{{ 'btn_remove'|trans }}
+            </a>
+        </li>
+</ul>
