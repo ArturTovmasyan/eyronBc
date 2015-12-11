@@ -67,12 +67,18 @@ class UserEmailsController extends FOSRestController
         //get user all emails
         $userEmails = $user->getUserEmails();
 
-        //check if current user have settingsEmail
+        //check if current user have userEmails
         if($userEmails) {
-            foreach ($userEmails as $key => $userEmail) {
-                if ($email == $userEmail['userEmails']) {
-                    unset($userEmails[$key]);
-                }
+
+            //get userEmail value in array
+            $emailsValue = array_map(function ($item) {
+                return $item['userEmails'];
+            }, $userEmails);
+
+            //if remove email exist in array
+            if (($key = array_search($email, $emailsValue)) !== false) {
+
+                unset($userEmails[$key]);
             }
         }
 
