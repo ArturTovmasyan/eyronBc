@@ -25,7 +25,6 @@ class MainController extends Controller
      */
     public function settingsAction(Request $request)
     {
-
         //get translator
         $tr = $this->get('translator');
 
@@ -34,6 +33,9 @@ class MainController extends Controller
 
         //get fos user manager
         $fosManager = $this->container->get("fos_user.user_manager");
+
+        //set default primary email value
+        $primaryEmail = false;
 
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
@@ -46,6 +48,18 @@ class MainController extends Controller
 
             // check valid
             if ($form->isValid()) {
+
+              $emailsInForm = $form->get('bl_multiple_email')->getData();
+
+                //get userEmail value in array
+                $emailsValue = array_map(function($item){ return $item['primary']; }, $emailsInForm);
+
+                //if remove email exist in array
+                if(($key = array_search('1', $emailsValue)) !== false) {
+
+                    //get primary email
+                    $primaryEmail = $emailsInForm[$key]['userEmails'];
+                }
 
                 // get current password in form
                 $currentPassword = $form->get('password')->getData();
@@ -68,12 +82,19 @@ class MainController extends Controller
                 //set custom error class
                 $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
 
+                //check if current password valid
                 if($userPassword == $encode_data_pass) {
+
+                    //check if primary email exist
+                    if($primaryEmail) {
+                        $user->setEmail($primaryEmail);
+                    }
 
                     //set new password
                     $user->setPlainPassword($newPassword);
                     $this->get('bl_service')->uploadFile($user);
 
+                    //update user
                     $fosManager->updateUser($user);
 
                     return $this->redirect($this->generateUrl('settings'));
