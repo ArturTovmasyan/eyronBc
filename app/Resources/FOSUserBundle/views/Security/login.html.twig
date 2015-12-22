@@ -29,13 +29,12 @@
 
         </form>
 
-        <a href="{{ path("fos_user_registration_register") }}">
+        <a href="{{ path("fos_user_registration_register") }}" class="sign-up">
             <span class="glyphicon glyphicon-plus-sign"></span>{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
         </a>
 
         <h4>{{ 'security.login.connect'|trans({}, 'FOSUserBundle') }}</h4>
         <ul class="social">
-
             {{ include('HWIOAuthBundle:Connect:login.html.twig' ) }}
         </ul>
     </div>
