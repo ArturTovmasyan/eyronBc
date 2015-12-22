@@ -26,8 +26,8 @@ fos_user:
 
 email_duplicate: The email address you have entered is already registered
 file:
-    width_extension: File width mast be min 400 px
-    height_extension: File height mast be min 400 px
+    width_extension: The minimum image size is 400x400 px
+    height_extension: The minimum image size is 400x400 px
     goal_image_width_extension: File width mast be min 640 px
     goal_image_height_extension: File height mast be min 640 px
     extension_error: Wrong format of file

@@ -6,17 +6,21 @@
             <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
-                    <div><span style="color:red">{{ form_errors(form) }}</span></div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
 
-                    <div class="form-group">
-                        {#<input type="file" class="hide"/>#}
-                        {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
-                        <img src="#" class="uploaded-image" width="200" height="140" style="display: none">
-                        <div class="hide">
-                            {{ form_widget(form.file, {attr: {"onchange": "showUploadedImage(this)" } }) }}
+                            <div class="registration-image">
+                                <img src="#" class="uploaded-image"  style="display: none">
+                            </div>
                         </div>
-                        {{ form_errors(form.file) }}
+
+                        <div class="hide">
+                            {{ form_widget(form.file, {'attr': {'onchange': "showUploadedImage(this)" } }) }}
+                        </div>
                     </div>
+
+                    <div class="error-message">{{ form_errors(form.file) }}</div>
 
                     <div class="form-group row no-padding">
                         <div class="col-sm-6">
@@ -31,6 +35,9 @@
                         <div class="col-sm-12">
                             {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
                         </div>
+
+                        <div class="error-message">{{ form_errors(form) }}</div>
+
                     </div>
 
                     {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
@@ -42,13 +49,13 @@
                         <div class="col-sm-6">
                             {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
                             {% if errorMessage != 'Error' %}
-                                <span class="text-center" style="color:red">{{ errorMessage }}</span>
+                                <div class="error-message">{{ errorMessage }}</div>
                             {% endif %}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <p {% if errorMessage == 'Error' %}class="text-danger"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                            <p><div {% if errorMessage == 'Error' %}class="error-message"{% endif %} class="text-gray">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div></p>
                         </div>
                     </div>
 
@@ -92,7 +99,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        {{ form_errors(form.birthDate) }}
+                        <div class="error-message">{{ form_errors(form.birthDate) }}</div>
 
                     </div>
 
@@ -132,6 +139,7 @@
                 $('.uploaded-image').show();
                 $('.uploaded-image')
                         .attr('src', e.target.result);
+                $('.upload').hide();
             };
 
             reader.readAsDataURL(input.files[0]);
