@@ -91,6 +91,11 @@ header{
   .navbar{
     min-height:80px;
   }
+
+  .navbar-brand{
+    padding:19px 15px;
+  }
+
   .navbar-default {
     background: #021523;
 
@@ -163,6 +168,8 @@ header{
     }
     .navbar-right{
       li{
+        width:275px;
+
         a{
           padding-top:22px;
           padding-bottom:23px;
@@ -232,6 +239,10 @@ header{
         }
         .popover-content{
           padding:0;
+
+          a{
+            font-size:14px;
+          }
         }
       }
     }
@@ -281,6 +292,7 @@ label{
       border-bottom:1px solid #021421;
       &:hover {
         background-color: transparent;
+
       }
       span{
         padding-right:10px;
@@ -291,11 +303,26 @@ label{
       a{
         padding:0 0 10px 0;
         border:0;
+        font-weight: 500;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+
+      .btn-purple{
+        font-weight:bold;
       }
     }
 
+    .sign-up{
+      &:hover{
+        color:#7724F6;
+      }
+    }
     h4{
       color:#ffffff;
+      font-size:14px;
     }
     .social{
         padding-left:50px;
@@ -685,14 +712,9 @@ ul li{list-style: none;}
     div{
       margin-bottom:5px;
     }
-    p{
-      color:#999999;
-    }
   }
+
   .registration-image{
-    //position: absolute;
-    //top:0;
-    //width: 85%;
     text-align: center;
 
     .uploaded-image{
