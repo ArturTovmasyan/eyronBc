@@ -114,12 +114,20 @@
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
                         <div class="email">
-                            <p>{{ 'register_text'|trans({'%XXX%': project_name}) }}</p>
-                            <p>{{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</p>
-                            <p>
-                                <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
-                                <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</a>
-                            </p>
+                            <div class="container">
+                                <div class="row no-gutter">
+                                    <div class="col-sm-9">
+                                        <span>
+                                            {{ 'register_text'|trans({'%XXX%': project_name}) }}
+                                            {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                        <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
                 {% endblock %}
