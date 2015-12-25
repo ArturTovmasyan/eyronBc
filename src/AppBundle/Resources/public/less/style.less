@@ -181,7 +181,7 @@ header{
         .user{
           display: block;
           padding: 18px 5px 15px 15px;
-          background: #2b2b2b;
+
           position: relative;
           figure{
             background-color: transparent;
@@ -202,7 +202,6 @@ header{
             width: 32px;
             position: absolute;
             right: 10px;
-            //margin: 6px 0 5px 15px;
             background: url('../images/images.png') no-repeat -6px -1054px;
           }
           .menu-up{
@@ -211,6 +210,10 @@ header{
             position: absolute;
             right: 10px;
             background: url('../images/images.png') no-repeat -6px -1088px;
+          }
+
+          &:focus,&:active{
+            background: #2b2b2b;
           }
         }
 
