@@ -76,7 +76,6 @@ input.form-control::-webkit-input-placeholder {
   color: #A4A4A4;
 }
 
-
 .error-message{
   color:#FF0000;
   font-size:12px;
@@ -84,6 +83,7 @@ input.form-control::-webkit-input-placeholder {
 }
 
 header{
+
   #line{
     height:4px;
     background: url('../images/line.jpg');
@@ -102,9 +102,16 @@ header{
     .navbar-nav{
       li{
         a{
-          padding-top:25px;
-          padding-bottom:23px;
           color: #E5E5E5;
+          font-weight: bold;
+
+          i{
+            display:inline-block;
+            width: 30px;
+            height: 35px;
+            vertical-align: middle;
+            margin-right: 7px;
+          }
 
           &:hover{
             background-color: #7724F6;
@@ -128,37 +135,29 @@ header{
         }
       }
 
-      .ideas-icon{
-        display:inline-block;
-        background: url('../images/ideas.png') no-repeat center center;
-        width: 30px;
-        height: 30px;
-        vertical-align: middle;
-        padding-right: 11px;
-        margin-right: 5px;
-      }
-      .join{
-        display:inline-block;
-        background: url('../images/join.png') no-repeat center center;
-        width: 30px;
-        height: 30px;
-        vertical-align: middle;
-        padding-right: 11px;
-        margin-right: 5px;
+      .activity-icon{
+        background: url('../images/images.png') no-repeat -3px -9px;
       }
 
+      .ideas-icon{
+        background: url('../images/images.png') no-repeat -3px -64px;
+      }
+
+      .join{
+        background: url('../images/images.png') no-repeat -3px -172px;
+      }
 
       li {
         border-left: 1px solid #4421AB;
       }
 
       .search{
-        width:240px;
-        form{
-          width:100%;
-        }
+        //width:240px;
+        //form{
+        //  width:100%;
+        //}
         input{
-          width:100%;
+          //width:100%;
           border:0;
           color:#A4A4A4;
           background: url('../images/search-icon.png') no-repeat 18px center transparent;
@@ -168,20 +167,22 @@ header{
     }
     .navbar-right{
       li{
-        width:235px;
+        width:234px;
 
         a{
           padding-top:22px;
           padding-bottom:23px;
 
           &:hover{
-            background-color: transparent;
+            background-color: #2b2b2b;
             color: #e3e3e3;
           }
         }
         .user{
           display: block;
-          padding: 15px 5px 15px 15px;
+          padding: 18px 5px 15px 15px;
+          background: #2b2b2b;
+          position: relative;
           figure{
             background-color: transparent;
             width:50px;
@@ -193,47 +194,79 @@ header{
           span{
             float:left;
             margin-top:6px;
-          }
-          span:last-child{
-            border: 2px solid;
-            padding: 4px;
             display: inline-block;
-            margin: 13px 0 5px 10px;
-            .rounded-corners;
           }
-          span.glyphicon-chevron-up{
-            margin-top:13px;
+
+          .menu-down{
+            height: 35px;
+            width: 32px;
+            position: absolute;
+            right: 10px;
+            //margin: 6px 0 5px 15px;
+            background: url('../images/images.png') no-repeat -6px -1054px;
           }
-          span.glyphicon-chevron-down{
-            padding: 3px 4px;
+          .menu-up{
+            height: 35px;
+            width: 32px;
+            position: absolute;
+            right: 10px;
+            background: url('../images/images.png') no-repeat -6px -1088px;
           }
         }
+
         .user-menu{
           background-color: #2b2b2b;
           padding-left:0;
           min-width: 150px;
           li{
-            padding:10px;
             border-left:0;
             a{
-              padding:10px 15px;
+              display: block;
+              padding:10px 20px;
               font-size:14px;
               font-weight:500;
               color:#ffffff;
 
               i{
                 margin-right:10px;
+                display: inline-block;
+                width:30px;
+                height:30px;
               }
 
               &:hover{
                 text-decoration: underline;
               }
             }
+
+            &:nth-child(2){
+              i{
+                background: url('../images/images.png') no-repeat -6px -1155px;
+              }
+            }
+
+            &:nth-child(4){
+              i{
+                background: url('../images/images.png') no-repeat -6px -450px;
+              }
+            }
+
+            &:nth-child(6){
+              i{
+                background: url('../images/images.png') no-repeat -6px -1190px;
+              }
+            }
+
+            &:nth-child(8){
+              i{
+                background: url('../images/images.png') no-repeat -6px -1230px;
+              }
+            }
           }
         }
 
         .join-class {
-          min-width:235px;
+          min-width:233px;
           background-color: #2b2b2b;
           color:#e3e3e3;
           &:hover{
@@ -296,7 +329,7 @@ label{
     text-align: center;
     min-width:235px;
     background-color: #2b2b2b;
-
+    padding-bottom: 10px;
 
     a{
       display: block;
@@ -697,6 +730,7 @@ ul.filter{
   color:#ffffff;
   padding:10px 35px;
   margin-right:20px;
+  font-weight: bold;
   .rounded-corners(10px);
 
   &:hover, &:focus{
@@ -1096,6 +1130,15 @@ footer{
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  .apps{
+    .app-store{
+      background: url('../images/images.png') no-repeat -7px -389px;
+    }
+    .google-play{
+      background: url('../images/images.png') no-repeat -153px -390px;
     }
   }
 
@@ -1506,8 +1549,8 @@ footer{
 
   .search{
     form{
-      width:100%;
-      padding:14px 0;
+      //width:100%;
+      padding:16px 0;
     }
   }
 
@@ -1521,7 +1564,7 @@ footer{
   }
 
   #signin{
-    min-width:235px;
+    min-width:234px;
     overflow: hidden;
     .social{
       //padding-left:20px;
@@ -1981,17 +2024,24 @@ footer{
         li{
           a{
             font-size:16px;
-            font-weight: bold;
+            padding: 25px 30px 23px;
           }
         }
         .search{
-          width:475px;
+          //width:475px;
+          form{
+            padding:16px 15px;
 
-          input{
-            font-size:16px;
-            font-weight: normal;
+            input{
+              font-size:16px;
+              font-weight: normal;
+            }
           }
+
         }
+      }
+      .navbar-right{
+        text-align: center;
       }
     }
   }
@@ -2146,3 +2196,22 @@ html {
 }
 
 
+@media (min-width: @screen-lg) {
+  header {
+    .navbar-default{
+      .navbar-nav{
+        li{
+          a{
+            padding: 25px 44px 23px;
+          }
+        }
+        .search{
+          //width:475px;
+          form{
+            padding:16px 15px;
+          }
+        }
+      }
+    }
+  }
+}

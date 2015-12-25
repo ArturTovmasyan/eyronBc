@@ -48,17 +48,19 @@
                                     {#<li class="active">#}
                                     <li>
                                         <a href="#">
-                                            <span class="ideas-icon"></span>{{ 'activity'|trans |upper }}
+                                            <i class="activity-icon"></i>
+                                            {{ 'activity'|trans |upper }}
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="{{ path('goals_list') }}">
-                                            <span class="ideas-icon"></span>{{ 'ideas'|trans |upper }}
+                                            <i class="ideas-icon"></i>
+                                            {{ 'ideas'|trans |upper }}
                                         </a>
                                     </li>
                                     <li class="search">
-                                        <form class="navbar-form navbar-left" role="search" action="{{ path("goals_list") }}">
+                                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
                                             <input type="text"
                                                name="search"
                                                class="form-control"
@@ -86,8 +88,8 @@
                                                         {% endif %}
                                                     </figure>
                                                     <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                    <span class="glyphicon glyphicon-chevron-up" data-ng-hide="joinToggle1"></span>
-                                                    <span class="glyphicon glyphicon-chevron-down" data-ng-show="joinToggle1"></span>
+                                                    <span class="menu-down" data-ng-hide="joinToggle1"></span>
+                                                    <span class="menu-up" data-ng-show="joinToggle1"></span>
                                             </a>
                                         {% else %}
                                             <a  href="javascript:void(0)"
@@ -99,7 +101,8 @@
                                                 data-content-template="{{ path("fos_user_security_login") }}"
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
-                                                    <span class="join"></span>{{ 'join'|trans }}
+                                                    <i class="join"></i>
+                                                    {{ 'join'|trans }}
                                             </a>
                                             {% if app.session.flashBag.peekAll|length %}
                                                 <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
