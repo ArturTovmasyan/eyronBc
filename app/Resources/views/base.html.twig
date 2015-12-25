@@ -84,7 +84,9 @@
                                                 data-bs-popover>
                                                     <figure class="img-circle">
                                                         {% if user.getPhotoLink %}
-                                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                            <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                        {% else %}
+                                                            <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive">
                                                         {% endif %}
                                                     </figure>
                                                     <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
