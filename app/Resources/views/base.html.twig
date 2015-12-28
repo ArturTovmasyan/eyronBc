@@ -70,10 +70,15 @@
                                         </form>
                                     </li>
                                 </ul>
+
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         {% if app.user %}
                                             {% set user = app.user %}
+                                            {% set lastName = user.lastName %}
+                                            {% set firstName = user.firstName %}
+                                            {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+
                                             <a  href="javascript:void(0)"
                                                 class="user clearfix"
                                                 data-placement="bottom-left"
@@ -82,16 +87,17 @@
                                                 data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
+                                                {% if user.getPhotoLink %}
                                                     <figure class="img-circle">
-                                                        {% if user.getPhotoLink %}
                                                             <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
-                                                        {% else %}
-                                                            <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive">
-                                                        {% endif %}
                                                     </figure>
-                                                    <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                    <span class="menu-down" data-ng-hide="joinToggle1"></span>
-                                                    <span class="menu-up" data-ng-show="joinToggle1"></span>
+                                                {% else %}
+                                                    <p class="user-no1"> {{ nameOnImage  }}</p>
+                                                {% endif %}
+
+                                                <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
+                                                <span class="menu-down" data-ng-hide="joinToggle1"></span>
+                                                <span class="menu-up" data-ng-show="joinToggle1"></span>
                                             </a>
                                         {% else %}
                                             <a  href="javascript:void(0)"
@@ -103,11 +109,12 @@
                                                 data-content-template="{{ path("fos_user_security_login") }}"
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
-                                                    <i class="join"></i>
-                                                    {{ 'join'|trans }}
+                                                <i class="join"></i>
+                                                {{ 'join'|trans }}
                                             </a>
                                             {% if app.session.flashBag.peekAll|length %}
                                                 <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+
                                             {% endif %}
                                         {% endif %}
                                     </li>

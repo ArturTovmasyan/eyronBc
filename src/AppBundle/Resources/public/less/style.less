@@ -174,14 +174,14 @@ header{
           padding-bottom:23px;
 
           &:hover{
-            background-color: #2b2b2b;
-            color: #e3e3e3;
+
+            //background-color: #2b2b2b;
+            //color: #e3e3e3;
           }
         }
         .user{
           display: block;
           padding: 18px 5px 15px 15px;
-
           position: relative;
           figure{
             background-color: transparent;
@@ -192,30 +192,28 @@ header{
             margin: 0 10px 0 0;
           }
 
+          p{
+            float: left;
+            width:46px;
+            height:45px;
+            line-height: 41px;
+            vertical-align: middle;
+            margin:5px 5px 0 5px;
+          }
           .user-no1{
-            width:43px;
-            height:43px;
             background: url('../images/user-no-image.png') no-repeat 0 0;
           }
           .user-no2{
-            width:43px;
-            height:43px;
-            background: url('../images/user-no-image.png') no-repeat 0 0;
+            background: url('../images/user-no-image.png') no-repeat -55px 0;
           }
           .user-no3{
-            width:43px;
-            height:43px;
-            background: url('../images/user-no-image.png') no-repeat 0 0;
+            background: url('../images/user-no-image.png') no-repeat -110px 0;
           }
           .user-no4{
-            width:43px;
-            height:43px;
-            background: url('../images/user-no-image.png') no-repeat 0 0;
+            background: url('../images/user-no-image.png') no-repeat -165px 0;
           }
           .user-no5{
-            width:43px;
-            height:43px;
-            background: url('../images/user-no-image.png') no-repeat 0 0;
+            background: url('../images/user-no-image.png') no-repeat -220px 0;
           }
           span{
             float:left;
@@ -238,7 +236,7 @@ header{
             background: url('../images/images.png') no-repeat -6px -1088px;
           }
 
-          &:focus,&:active{
+          &:active,&:focus {
             background: #2b2b2b;
           }
         }
@@ -265,6 +263,7 @@ header{
 
               &:hover{
                 text-decoration: underline;
+                background-color: transparent;
               }
             }
 
