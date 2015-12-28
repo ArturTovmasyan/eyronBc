@@ -200,7 +200,7 @@ header{
             vertical-align: middle;
             margin:5px 5px 0 5px;
             font-size:14px;
-            font-weight:600px;
+            font-weight:600;
           }
           .user-no0{
             background: url('../images/user-no-image.png') no-repeat 0 0;
@@ -665,15 +665,22 @@ ul.filter{
 //}
 
 .cover{
-  background: url('../images/cover.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
+  //background: url('../images/cover.jpg') no-repeat center center fixed;
+  //-webkit-background-size: cover;
+  //-moz-background-size: cover;
+  //-o-background-size: cover;
+  //background-size: cover;
+  //height: 100%;
+  //position:absolute;
+
+  img{
+    width: 100%;
+  }
 }
 .homepage{
+
+  position: absolute;
+  width: 100%;
 
   h1{
     color:#ffffff;
@@ -685,9 +692,34 @@ ul.filter{
     line-height:25px;
   }
 
-  .btn-purple{
-    margin:15px 0 10px;
+  .icon-scroll{
+    display: inline-block;
+    height: 29px;
+    width: 29px;
+    background: url('../images/images.png') no-repeat -5px -1128px;
+    margin: 93px 0 0;
   }
+}
+
+#homepage-ideas{
+  padding: 78px 0 40px;
+
+    figure{
+
+      h3{
+        position: absolute;
+        width: 100%;
+        color:#ffffff;
+        font-size:24px;
+        font-weight: bold;
+        padding-left: 20px;
+      }
+
+      a{
+        font-size:14px;
+      }
+    }
+
 }
 
 .btn-blue{
@@ -1553,7 +1585,8 @@ footer{
       height:140px;
       font-size:52px;
       font-weight:600;
-      line-height:100px;
+      line-height:130px;
+      color:#ffffff;
     }
 
     .profile-no0{
@@ -1699,9 +1732,7 @@ footer{
   }
   .homepage{
     padding-top:127px;
-    .btn-purple{
-      margin:33px 0 17px;
-    }
+
   }
   .goal-container{
     min-height:900px;
@@ -2154,14 +2185,16 @@ footer{
 
   }
   .homepage{
-    //top:177px;
-    //top:7.3%;
+
     h1{
+      font-size: 64px;
       padding-bottom:46px;
     }
 
-    .btn-purple{
-      margin:63px 0 34px;
+    h4{
+      padding:0 0 100px 0;
+      font-size:24px;
+      line-height: 32px;
     }
   }
 
