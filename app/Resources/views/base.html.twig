@@ -2,225 +2,222 @@
 {% block angularApp %} <html ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
-{% set user = app.user %}
 
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}BucketList{% endblock %}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}BucketList{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
 
-    {% block stylesheets %}
-        {% stylesheets output='css/base.css'
-        'bundles/app/less/style.less'
-        'bundles/app/less/news-feed.less'
-        filter='less,cssrewrite,?yui_css' %}
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
-        {% endstylesheets %}
+        {% block stylesheets %}
+            {% stylesheets output='css/base.css'
+            'bundles/app/less/style.less'
+            'bundles/app/less/news-feed.less'
+            filter='less,cssrewrite,?yui_css' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+            {% endstylesheets %}
 
-    {% endblock %}
+        {% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-</head>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    </head>
 
-<body>
-{% block body %}
-    <div id="mainframe">
-        <div id="wrap">
-            <header>
-                <nav class="navbar navbar-default navbar-fixed-top">
-                    <div id="line"></div>
-                    <div class="container">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                <span class="sr-only">{{ 'toogle_navigation'|trans }}</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="{{ path("activity") }}">
-                                <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive"/>
-                            </a>
-                        </div>
-                        <div id="navbar" class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-
-                                {% if user %}
+    <body>
+        {% block body %}
+        <div id="mainframe">
+            <div id="wrap">
+                <header>
+                    <nav class="navbar navbar-default navbar-fixed-top">
+                        <div id="line"></div>
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">{{ 'toogle_navigation'|trans }}</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="{{ path("activity") }}">
+                                    <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive"/>
+                                </a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    {#<li class="active">#}
                                     <li>
                                         <a href="{{ path('activity') }}">
                                             <i class="activity-icon"></i>
                                             {{ 'activity'|trans |upper }}
                                         </a>
                                     </li>
-                                {% endif %}
 
-                                <li>
-                                    <a href="{{ path('goals_list') }}">
-                                        <i class="ideas-icon"></i>
-                                        {{ 'ideas'|trans |upper }}
-                                    </a>
-                                </li>
-                                <li class="search">
-                                    <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
-                                        <input type="text"
+                                    <li>
+                                        <a href="{{ path('goals_list') }}">
+                                            <i class="ideas-icon"></i>
+                                            {{ 'ideas'|trans |upper }}
+                                        </a>
+                                    </li>
+                                    <li class="search">
+                                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
+                                            <input type="text"
                                                name="search"
                                                class="form-control"
                                                value="{{ app.request.get('search') }}"
                                                data-ng-enter-submit=".search form"
                                                placeholder="{{ 'search'|trans }}">
-                                    </form>
-                                </li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    {% if app.user %}
-                                        {% set user = app.user %}
-                                        <a  href="javascript:void(0)"
-                                            class="user clearfix"
-                                            data-placement="bottom-left"
-                                            data-ng-click="joinToggle1 = !joinToggle1"
-                                            data-html="true"
-                                            data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
-                                            data-animation="am-flip-x"
-                                            data-bs-popover>
-                                            <figure class="img-circle">
-                                                {% if user.getPhotoLink %}
-                                                    <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
-                                                {% else %}
-                                                    <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive">
-                                                {% endif %}
-                                            </figure>
-                                            <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                            <span class="menu-down" data-ng-hide="joinToggle1"></span>
-                                            <span class="menu-up" data-ng-show="joinToggle1"></span>
-                                        </a>
-                                    {% else %}
-                                        <a  href="javascript:void(0)"
-                                            data-ng-init="joinToggle2 = false"
-                                            class="sign-in-popover"
-                                            data-ng-class="{'join-class': joinToggle2}"
-                                            data-placement="bottom-left"
-                                            data-ng-click="joinToggle2 = !joinToggle2"
-                                            data-content-template="{{ path("fos_user_security_login") }}"
-                                            data-animation="am-flip-x"
-                                            data-bs-popover>
-                                            <i class="join"></i>
-                                            {{ 'join'|trans }}
-                                        </a>
-                                        {% if app.session.flashBag.peekAll|length %}
-                                            <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+                                        </form>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        {% if app.user %}
+                                            {% set user = app.user %}
+                                            <a  href="javascript:void(0)"
+                                                class="user clearfix"
+                                                data-placement="bottom-left"
+                                                data-ng-click="joinToggle1 = !joinToggle1"
+                                                data-html="true"
+                                                data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
+                                                data-animation="am-flip-x"
+                                                data-bs-popover>
+                                                    <figure class="img-circle">
+                                                        {% if user.getPhotoLink %}
+                                                            <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                        {% else %}
+                                                            <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive">
+                                                        {% endif %}
+                                                    </figure>
+                                                    <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
+                                                    <span class="menu-down" data-ng-hide="joinToggle1"></span>
+                                                    <span class="menu-up" data-ng-show="joinToggle1"></span>
+                                            </a>
+                                        {% else %}
+                                            <a  href="javascript:void(0)"
+                                                data-ng-init="joinToggle2 = false"
+                                                class="sign-in-popover"
+                                                data-ng-class="{'join-class': joinToggle2}"
+                                                data-placement="bottom-left"
+                                                data-ng-click="joinToggle2 = !joinToggle2"
+                                                data-content-template="{{ path("fos_user_security_login") }}"
+                                                data-animation="am-flip-x"
+                                                data-bs-popover>
+                                                    <i class="join"></i>
+                                                    {{ 'join'|trans }}
+                                            </a>
+                                            {% if app.session.flashBag.peekAll|length %}
+                                                <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+                                            {% endif %}
                                         {% endif %}
-                                    {% endif %}
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </nav>
-            </header>
-            {% block confirm_email %}
-                {% if app.user and app.user.getRegistrationToken is not null %}
-                    <div class="email">
-                        <div class="container">
-                            <div class="row no-gutter">
-                                <div class="col-sm-9">
+                    </nav>
+                </header>
+                {% block confirm_email %}
+                    {% if app.user and app.user.getRegistrationToken is not null %}
+                        <div class="email">
+                            <div class="container">
+                                <div class="row no-gutter">
+                                    <div class="col-sm-9">
                                         <span>
                                             {{ 'register_text'|trans({'%XXX%': project_name}) }}
                                             {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
                                         </span>
-                                </div>
-                                <div class="col-sm-3">
-                                    <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') | upper }}</a>
-                                    <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                        <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endblock %}
-            {% block content %}{% endblock %}
-        </div>
-        <footer>
-            <div class="container">
-
-                {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
-
-                <ul class="apps clearfix">
-                    <li>
-                        <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store"></a>
-                    </li>
-                    <li>
-                        <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play"></a>
-                    </li>
-                </ul>
-
+                    {% endif %}
+                {% endblock %}
+                {% block content %}{% endblock %}
             </div>
-
-            <div class="footer-bottom">
+            <footer>
                 <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <small>&copy; {{ 'copyright'|trans }}
-                                {#<a href="#">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>#}
-                            </small>
-                        </div>
-                        <div class="col-sm-8">
-                            {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+                    <ul class="apps clearfix">
+                        <li>
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store"></a>
+                        </li>
+                        <li>
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play"></a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <small>&copy; {{ 'copyright'|trans }}
+                                    {#<a href="#">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>#}
+                                </small>
+                            </div>
+                            <div class="col-sm-8">
+                                {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </footer>
-    </div>
+            </footer>
+        </div>
 
-{% endblock %}
+        {% endblock %}
 
-{% block javascripts %}
-    {#<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>#}
-    <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-sanitize/angular-sanitize.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}" type="text/javascript"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
-    <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
-    <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
-    <script src="{{ asset("bundles/app/js/angular/main.js") }}" type="text/javascript"></script>
+        {% block javascripts %}
+            {#<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>#}
+            <script src="{{ asset("app/bower_components/jquery/dist/jquery.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/bootstrap/dist/js/bootstrap.min.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/angular-sanitize/angular-sanitize.min.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}" type="text/javascript"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
+            <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
+            <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
+            <script src="{{ asset("bundles/app/js/angular/main.js") }}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5624b2123b6addeb" async="async"></script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5624b2123b6addeb" async="async"></script>
 
-    <script>
-        $(function () {
+            <script>
+                $(function () {
 
-            $('[data-toggle="popover"]').popover()
-        })
-    </script>
+                    $('[data-toggle="popover"]').popover()
+                })
+            </script>
 
-    <script>
-        function EmailValidation(textbox){
+            <script>
+                function EmailValidation(textbox){
 
-            if(textbox.value.indexOf('@') == -1){
-                textbox.setCustomValidity("{{ 'email.dogApsent'|trans({}, "FOSUserBundle") }}");
-            }
-            else if (textbox.value[0] == '@'){
-                textbox.setCustomValidity("{{ 'email.beforeDog'|trans({}, "FOSUserBundle") }}");
-            }
-            else if (!textbox.value.match(/@.+\..+/g)){
-                textbox.setCustomValidity("{{ 'email.afterDog'|trans({}, "FOSUserBundle") }}");
-            }
-            else {
-                textbox.setCustomValidity('');
-            }
+                    if(textbox.value.indexOf('@') == -1){
+                        textbox.setCustomValidity("{{ 'email.dogApsent'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (textbox.value[0] == '@'){
+                        textbox.setCustomValidity("{{ 'email.beforeDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else if (!textbox.value.match(/@.+\..+/g)){
+                        textbox.setCustomValidity("{{ 'email.afterDog'|trans({}, "FOSUserBundle") }}");
+                    }
+                    else {
+                        textbox.setCustomValidity('');
+                    }
 
-            return true;
-        }
-    </script>
+                    return true;
+                }
+            </script>
 
-{% endblock %}
-</body>
+        {% endblock %}
+    </body>
 </html>
