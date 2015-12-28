@@ -2,6 +2,7 @@
 {% block angularApp %} <html ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
+{% set user = app.user %}
 
     <head>
         <meta charset="UTF-8" />
@@ -46,6 +47,7 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
                                     {#<li class="active">#}
+                                    {% if user %}
                                     <li>
                                         <a href="{{ path('activity') }}">
                                             <i class="activity-icon"></i>
@@ -53,6 +55,7 @@
                                         </a>
                                     </li>
 
+                                    {% endif %}
                                     <li>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="ideas-icon"></i>
