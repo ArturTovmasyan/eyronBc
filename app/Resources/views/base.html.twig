@@ -79,8 +79,8 @@
                                         {% set user = app.user %}
                                         {% set lastName = user.lastName %}
                                         {% set firstName = user.firstName %}
-                                        {% set nameOnImage = lastName|slice(0,1) ~ firstName|slice(0,1) %}
-                                        
+                                        {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+
                                         <a  href="javascript:void(0)"
                                             class="user clearfix"
                                             data-placement="bottom-left"
