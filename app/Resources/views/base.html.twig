@@ -78,8 +78,9 @@
                                             {% set lastName = user.lastName %}
                                             {% set firstName = user.firstName %}
                                             {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+                                            {%  set className = "user-no" ~ random(4) %}
 
-                                            <a  href="javascript:void(0)"
+                                            <a href="javascript:void(0)"
                                                 class="user clearfix"
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle1 = !joinToggle1"
@@ -92,7 +93,7 @@
                                                             <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                     </figure>
                                                 {% else %}
-                                                    <p class="user-no1"> {{ nameOnImage  }}</p>
+                                                    <p class="{{ className }}">{{ nameOnImage  }}</p>
                                                 {% endif %}
 
                                                 <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
