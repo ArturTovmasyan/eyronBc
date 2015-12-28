@@ -706,6 +706,9 @@ ul.filter{
 
     figure{
 
+      background: transparent;
+      overflow: hidden;
+
       h3{
         position: absolute;
         width: 100%;
@@ -715,9 +718,36 @@ ul.filter{
         padding-left: 20px;
       }
 
-      a{
-        font-size:14px;
+      figcaption{
+        ul{
+          li{
+            a{
+              font-size:14px;
+              &:hover,&:focus{
+
+                text-decoration: none;
+              }
+
+            }
+            &:hover{
+              background-color: #7724F6;
+              color:#ffffff;
+
+              a{
+                color:#ffffff;
+              }
+            }
+
+            &:focus,&:active{
+              background-color: #6108EA;
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
       }
+
     }
 
 }
