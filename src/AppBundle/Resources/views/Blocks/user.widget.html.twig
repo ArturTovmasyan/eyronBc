@@ -1,24 +1,34 @@
 <ul class="user-menu">
+
+    <li class="divider"></li>
+
     <li>
         <a href="{{ path('user_profile') }}">
-            <i class="glyphicon glyphicon-pencil"></i>{{ 'my_bucketlist'|trans }}
+            <i></i>{{ 'my_bucketlist'|trans }}
         </a>
     </li>
+
+    <li class="divider"></li>
 
     <li>
         <a href="{{ path('add_goal') }}">
-            <i class="glyphicon glyphicon-pencil"></i>{{ 'create_goal'|trans }}
+            <i></i>{{ 'create_goal'|trans }}
         </a>
     </li>
 
+    <li class="divider"></li>
+
     <li>
         <a href="{{ path("settings") }}">
-            <i class="glyphicon glyphicon-cog"></i>{{ 'settings'|trans }}
+            <i></i>{{ 'settings'|trans }}
         </a>
     </li>
+
+    <li class="divider"></li>
+
     <li>
         <a href="{{ path("fos_user_security_logout") }}">
-           <i class="glyphicon glyphicon-off"></i>{{ 'logout'|trans }}
+           <i></i>{{ 'logout'|trans }}
         </a>
     </li>
 </ul>

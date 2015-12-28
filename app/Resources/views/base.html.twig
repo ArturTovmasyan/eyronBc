@@ -2,6 +2,7 @@
 {% block angularApp %} <html ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
+{% set user = app.user %}
 
     <head>
         <meta charset="UTF-8" />
@@ -39,24 +40,30 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="{{ path("homepage") }}" style="padding-top:30px;color:#ffffff">BUCKETLIST</a>
+                                <a class="navbar-brand" href="{% if user %}{{ path("activity") }}{% else %}{{ path("homepage") }}{% endif %}">
+                                    <img src="{{ asset('bundles/app/images/logo.png') }}" class="img-responsive"/>
+                                </a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
-                                    {#<li class="active">#}
+
+                                    {% if user %}
                                     <li>
-                                        <a href="#">
-                                            <span class="ideas-icon"></span>{{ 'activity'|trans |upper }}
+                                        <a href="{{ path('activity') }}">
+                                            <i class="activity-icon"></i>
+                                            {{ 'activity'|trans |upper }}
                                         </a>
                                     </li>
 
+                                    {% endif %}
                                     <li>
                                         <a href="{{ path('goals_list') }}">
-                                            <span class="ideas-icon"></span>{{ 'ideas'|trans |upper }}
+                                            <i class="ideas-icon"></i>
+                                            {{ 'ideas'|trans |upper }}
                                         </a>
                                     </li>
                                     <li class="search">
-                                        <form class="navbar-form navbar-left" role="search" action="{{ path("goals_list") }}">
+                                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
                                             <input type="text"
                                                name="search"
                                                class="form-control"
@@ -66,11 +73,17 @@
                                         </form>
                                     </li>
                                 </ul>
+
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         {% if app.user %}
                                             {% set user = app.user %}
-                                            <a  href="javascript:void(0)"
+                                            {% set lastName = user.lastName %}
+                                            {% set firstName = user.firstName %}
+                                            {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+                                            {%  set className = "user-no" ~ random(4) %}
+
+                                            <a href="javascript:void(0)"
                                                 class="user clearfix"
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle1 = !joinToggle1"
@@ -78,14 +91,17 @@
                                                 data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
+                                                {% if user.getPhotoLink %}
                                                     <figure class="img-circle">
-                                                        {% if user.getPhotoLink %}
-                                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
-                                                        {% endif %}
+                                                            <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                     </figure>
-                                                    <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                    <span class="glyphicon glyphicon-chevron-up" data-ng-hide="joinToggle1"></span>
-                                                    <span class="glyphicon glyphicon-chevron-down" data-ng-show="joinToggle1"></span>
+                                                {% else %}
+                                                    <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                {% endif %}
+
+                                                <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
+                                                <span class="menu-down" data-ng-hide="joinToggle1"></span>
+                                                <span class="menu-up" data-ng-show="joinToggle1"></span>
                                             </a>
                                         {% else %}
                                             <a  href="javascript:void(0)"
@@ -97,10 +113,12 @@
                                                 data-content-template="{{ path("fos_user_security_login") }}"
                                                 data-animation="am-flip-x"
                                                 data-bs-popover>
-                                                    <span class="join"></span>{{ 'join'|trans }}
+                                                <i class="join"></i>
+                                                {{ 'join'|trans }}
                                             </a>
                                             {% if app.session.flashBag.peekAll|length %}
                                                 <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
+
                                             {% endif %}
                                         {% endif %}
                                     </li>
@@ -112,12 +130,20 @@
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
                         <div class="email">
-                            <p>{{ 'register_text'|trans({'%XXX%': project_name}) }}</p>
-                            <p>{{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</p>
-                            <p>
-                                <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') }}</a>
-                                <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') }}</a>
-                            </p>
+                            <div class="container">
+                                <div class="row no-gutter">
+                                    <div class="col-sm-9">
+                                        <span>
+                                            {{ 'register_text'|trans({'%XXX%': project_name}) }}
+                                            {{ 'registration.check_email'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="{{ path('resend_message') }}">{{ 'email.resend'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                        <a href="{{ path('update_email') }}">{{ 'email.update'|trans({}, 'FOSUserBundle') | upper }}</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
                 {% endblock %}
@@ -130,10 +156,10 @@
 
                     <ul class="apps clearfix">
                         <li>
-                            <a href="#" class="app-store"></a>
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store"></a>
                         </li>
                         <li>
-                            <a href="#" class="google-play"></a>
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play"></a>
                         </li>
                     </ul>
 

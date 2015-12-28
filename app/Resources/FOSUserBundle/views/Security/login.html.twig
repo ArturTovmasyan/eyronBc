@@ -3,6 +3,7 @@
     <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
 
     <div id="signin">
+        <div class="divider"></div>
         <form action="{{ path("fos_user_security_check") }}" method="post">
 
             <div class="form-group">
@@ -15,7 +16,7 @@
 
             {% for type, messages in app.session.flashBag.all %}
                 {% for message in messages %}
-                    <div class="{{ type }} text-danger">
+                    <div class="{{ type }} error-message">
                         {{ message|trans({}, 'FOSUserBundle') }}
                     </div>
                 {% endfor %}
@@ -24,18 +25,20 @@
             <a href="{{ path("fos_user_resetting_check_email") }}">{{ 'security.login.forgot_password'|trans({}, 'FOSUserBundle') }}</a>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-purple">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                <button type="submit" class="btn btn-purple">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') | upper }}</button>
             </div>
 
         </form>
 
-        <a href="{{ path("fos_user_registration_register") }}">
-            <span class="glyphicon glyphicon-plus-sign"></span>{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
+        <div class="divider"></div>
+
+        <a href="{{ path("fos_user_registration_register") }}" class="sign-up">
+            <span></span>{{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') | upper}}
         </a>
+        <div class="divider"></div>
 
         <h4>{{ 'security.login.connect'|trans({}, 'FOSUserBundle') }}</h4>
         <ul class="social">
-
             {{ include('HWIOAuthBundle:Connect:login.html.twig' ) }}
         </ul>
     </div>
