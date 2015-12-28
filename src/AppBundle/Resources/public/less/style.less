@@ -845,6 +845,13 @@ ul li{list-style: none;}
 
   .nice-select{
     width: 100%;
+    border: 1px solid #ccc;
+    color: #A4A4A4;
+    font-family: 'Open Sans', sans-serif;
+
+    span{
+      color: #A4A4A4;
+    }
 
     .list{
       width:100%;
@@ -852,7 +859,7 @@ ul li{list-style: none;}
       overflow: auto;
     }
 
-    &:focus{
+    &:focus,&:active,.open{
       border-color: #7724F6;
     }
   }
