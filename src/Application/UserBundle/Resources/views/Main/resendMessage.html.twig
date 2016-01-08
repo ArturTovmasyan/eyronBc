@@ -5,12 +5,16 @@
 
 {% block content %}
 
-    <div style="position: relative; height: 500px;resize: vertical;overflow: auto;">
-        <div style="position: absolute;top:50%;width: 100%;transform: translateY(-50%);resize: vertical; overflow: auto;">
-            <div  class="text-center padding">
-                <h1>Resend Message</h1>
-                <p class="text-center">{{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</p>
-                <p class="text-center">{{ 'register_text'|trans({'%XXX%': project_name}) }}</p>
+    <div class="notice">
+        <div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+
+                    <h1 class="text-center">Resend Message</h1>
+                    <h4 class="text-center text-gray">{{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</h4>
+                    <h4 class="text-center text-gray">{{ 'register_text'|trans({'%XXX%': project_name}) }}</h4>
+
+                </div>
             </div>
         </div>
     </div>
