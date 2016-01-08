@@ -62,18 +62,22 @@ select.form-control{
 
 input.form-control::-webkit-input-placeholder {
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :-moz-placeholder { /* Firefox 18- */
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :-ms-input-placeholder {
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .error-message{
@@ -86,7 +90,11 @@ header{
 
   #line{
     height:4px;
-    background: url('../images/line.jpg');
+    background: red;
+    background: -webkit-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: -o-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: -moz-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: linear-gradient(to right,#ffa600,#de451b,#1b54cf,#00824c);
   }
   .navbar{
     min-height:80px;
@@ -1005,12 +1013,12 @@ figure{
 
         }
         &:hover{
-          background-color: #e3e3e3;
+          background-color: #7724F6;
           a{
-            color:#7d7d7d;
+            color:#ffffff;
 
             &:hover{
-              color:#7d7d7d;
+              color:#ffffff;
               text-decoration: none;
 
             }
@@ -1018,7 +1026,7 @@ figure{
         }
 
         &:focus,&:active{
-          background-color: #e3e3e3;
+          background-color: #6108EA;
           a{
             color:#ffffff;
           }
