@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <figure>
 
-                                <h3>title of the goal</h3>
+                                <h3>{{ goal.title }}</h3>
 
                                 {% set image = goal.getListPhoto %}
 
@@ -37,7 +37,7 @@
                 {% for goal in goals|slice(2, 1)  %}
                     <figure>
 
-                        <h3>title of the goal</h3>
+                        <h3>{{ goal.title }}</h3>
 
                         {% set image = goal.getListPhoto %}
 
@@ -64,7 +64,7 @@
                         <div class="col-sm-12">
                             <figure>
 
-                                <h3>title of the goal</h3>
+                                <h3>{{ goal.title }}</h3>
 
                                 {% set image = goal.getListPhoto %}
 
@@ -94,6 +94,9 @@
 
                 <div class="col-md-{{ loop.first ?  8 : 4 }}">
                     <figure>
+
+                        <h3>{{ goal.title }}</h3>
+
                         {% set image = goal.getListPhoto %}
 
                         {% if image %}
