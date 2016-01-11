@@ -10,7 +10,7 @@
                 <h3>{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h3>
                 <p>
                     {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
-                    <a href="#" class="purple">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
+                    <a href="{{ path('page', { 'slug': 'contact-us' }) }}" class="purple">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
                 </p>
             </div>
         </div>

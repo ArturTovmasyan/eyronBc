@@ -14,6 +14,6 @@
 
         <p>
             {{ 'resetting.email.message_second'|trans({}, 'FOSUserBundle')|raw }}
-            <a href="#">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
+            <a href="{{ path('page', { 'slug': 'contact-us' }) }}">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
         </p>
 {% endblock %}
