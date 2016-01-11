@@ -19,7 +19,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
-                                    <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                                 </a>
 
                                 <figcaption>
@@ -45,8 +45,8 @@
                             {% set image = goal.getListPhoto %}
                         {% endif %}
 
-                        <a href="{{ path('inner_goal', {'id': goal.id }) }}" class="height" id="main_goalTitle2">
-                            <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" alt="{{ goal.title }}"/>
+                        <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="603" alt="{{ goal.title }}"/>
                         </a>
 
                         <figcaption>
@@ -73,7 +73,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                    <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                                 </a>
 
                                 <figcaption>
@@ -103,7 +103,7 @@
                             {% set image = goal.getListPhoto %}
                         {% endif %}
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                            <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" alt="{{ goal.title }}"/>
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1') }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                         </a>
                         <figcaption>
                             {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}

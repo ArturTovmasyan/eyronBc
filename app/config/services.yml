@@ -7,3 +7,9 @@ services:
     hwi_oauth.user.provider.entity:
             class: Application\UserBundle\Provider\UserProvider
             arguments: [@fos_user.user_manager]
+
+    app.image_filter.twig_extension:
+        class: AppBundle\Twig\Extension\ImageFilterExtension
+        arguments: [ @service_container ]
+        tags:
+              - { name: twig.extension }

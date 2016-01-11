@@ -226,3 +226,27 @@ stfalcon_tinymce:
 a2lix_translation_form:
     locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
     default_required: false
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        goal_list_1:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 260 }
+        goal_list_2:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 581 }
+        goal_ideas_1:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 260 }
+        goal_ideas_2:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 603 }
