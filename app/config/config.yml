@@ -252,3 +252,8 @@ liip_imagine:
             filters:
                 upscale: { min: [1280, 1024] }
                 thumbnail: { size: [1280, 1024], mode: inset }
+        goal_activity:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: inset }
