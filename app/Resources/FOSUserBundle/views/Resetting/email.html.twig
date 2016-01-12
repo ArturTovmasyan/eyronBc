@@ -9,7 +9,9 @@
         <p>{{ 'resetting.email.message_first'|trans({'%username%': user.firstname, '%email%': user.email}, 'FOSUserBundle') |raw }}</p>
 
         <br />
-        <p><a href="{{ confirmationUrl}}" >{{ 'resetting.email.link'|trans({}, 'FOSUserBundle')|raw }} {{ confirmationUrl}}</a></p>
+        <p>
+            <a href="{{ confirmationUrl}}" >{{ 'resetting.email.link'|trans({}, 'FOSUserBundle')|raw }} {{ confirmationUrl}}</a>
+        </p>
         <br />
 
         <p>

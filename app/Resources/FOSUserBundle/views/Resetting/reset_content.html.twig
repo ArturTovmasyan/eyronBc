@@ -7,7 +7,9 @@
                 <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset form-horizontal">
 
                     {% set errorMessage = form.new.first.vars.errors[0] is defined ? form.new.first.vars.errors[0].message : '' %}
-                    <p class="text-center" {% if errorMessage == 'Error' %}style="color:red"{% endif %}>{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</p>
+                    <p class="text-center" {% if errorMessage == 'Error' %}style="color:red"{% endif %}>
+                        {{ 'password.validation'|trans({}, 'FOSUserBundle') }}
+                    </p>
 
                     <div class="form-group">
                         {{ form_widget(form.new.first, {'attr': {'class' : 'form-control', 'placeholder': 'resetting.password'|trans({}, 'FOSUserBundle') } }) }}
