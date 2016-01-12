@@ -1,3 +1,4 @@
+{% set helpUrl = 'bl.w3docs.com/page/contact-us' %}
 
 <h3>Hello, {{ name }}!</h3>
 
@@ -6,10 +7,10 @@
 <p>Confirming your account will give you full access to {{ project_name }}.</p>
 
 
-<p><a href="{{ url }}">Verify my email {{ url }}</a> </p>
+<p><a href={{ url }}>Verify my email {{ url }}</a> </p>
 
 <br /><br />
 <p>Thank you for choosing {{ project_name }}.</p>
 <p>Please do not reply to this message.</p>
 <p>If you have more questions, please visit our
-<a href="{{ path('page', { 'slug': 'contact-us' }) }}">Help Center</a></p>
+<a href="{{ helpUrl }}">Help Center</a></p>
