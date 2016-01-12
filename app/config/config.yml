@@ -241,7 +241,8 @@ liip_imagine:
         goal_list_2:
             quality: 100
             filters:
-                relative_resize: { heighten: 581 }
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: inset }
         goal_ideas_1:
             quality: 100
             filters:
@@ -249,4 +250,5 @@ liip_imagine:
         goal_ideas_2:
             quality: 100
             filters:
-                relative_resize: { heighten: 603 }
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: inset }
