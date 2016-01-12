@@ -35,7 +35,7 @@ class EmailSenderService
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')
-            ->setFrom('tigranparemuzian@gmail.com')
+            ->setFrom('confirmEmail@'. $projectName . '.com')
             ->setCc($email)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
