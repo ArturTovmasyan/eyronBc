@@ -5,13 +5,21 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center">
-                <h3>{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h3>
-                <p>
-                    {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
-                    <a href="{{ path('page', { 'slug': 'contact-us' }) }}" class="purple">{{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}</a>
-                </p>
+        <div  class="signup notice">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <h1 class="text-center">{{ 'verification.wrong'|trans({}, 'FOSUserBundle') }}</h1>
+                        <h4 class="text-center text-gray">
+
+                            {{ 'verification.wrong_content'|trans({}, 'FOSUserBundle') }}
+
+                            <a href="{{ path('page', { 'slug': 'contact-us' }) }}" class="purple">
+                                {{ 'verification.help_center'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
