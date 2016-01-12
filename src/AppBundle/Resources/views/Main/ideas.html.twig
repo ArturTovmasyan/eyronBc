@@ -19,7 +19,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
-                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
                                 <div class="absolute">
@@ -66,7 +66,7 @@
                         {% endif %}
 
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
-                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="603" alt="{{ goal.title }}"/>
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="583" alt="{{ goal.title }}"/>
                         </a>
 
                         <figcaption>
@@ -93,7 +93,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
                                 <figcaption>
