@@ -22,6 +22,26 @@
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                                 </a>
 
+                                <div class="absolute">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <a href="javascript:void(0)">
+                                                LISTED BY
+                                                <span>0</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-xs-6">
+                                            <a href="javascript:void(0)">
+                                                DONE BY
+                                                <span>2</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <figcaption>
                                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                                 </figcaption>
