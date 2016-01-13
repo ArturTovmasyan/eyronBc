@@ -123,7 +123,7 @@
                             {% set image = goal.getListPhoto %}
                         {% endif %}
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                            <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_2') }}{% else %}
+                            <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_3') }}{% else %}
                              {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
                         </a>
                         <figcaption>
