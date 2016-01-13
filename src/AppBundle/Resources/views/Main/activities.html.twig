@@ -90,7 +90,7 @@
             <figure>
                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
                     <h3>{{ goal.title }}</h3>
-                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_activity') : null }}" height="260" alt= "{{ goal.title }}" class="img-responsive" />
+                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_activity') : null }}" height="260" alt= "{{ goal.title }}" />
                 </a>
                 <figcaption>
                     {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
