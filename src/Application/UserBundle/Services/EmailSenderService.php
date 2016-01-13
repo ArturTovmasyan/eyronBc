@@ -27,11 +27,14 @@ class EmailSenderService
 
     public function sendConfirmEmail($email, $registrationToken, $name)
     {
-        $router = $this->container->get('router');
-        $request = $this->container->get('request_stack')->getCurrentRequest();
+        //get project name
         $projectName = $this->container->getParameter('project_name');
 
-        $url = $request->getHttpHost() . $router->generate("registration_confirm", array('token' => $registrationToken));
+        //get activate url
+        $url = $this->container->get('router')->generate('registration_confirm', array('token' => $registrationToken), true);
+
+        //get help center link
+        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')
@@ -40,7 +43,7 @@ class EmailSenderService
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:emailConfirm.html.twig',
-                array('name' => $name, 'url' => $url, 'email' => $email)
+                array('name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink)
             ), "text/html");
 
         $this->container->get('mailer')->send($message);
