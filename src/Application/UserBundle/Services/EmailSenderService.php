@@ -27,12 +27,11 @@ class EmailSenderService
 
     public function sendConfirmEmail($email, $registrationToken, $name)
     {
-        $router = $this->container->get('router');
-        $request = $this->container->get('request_stack')->getCurrentRequest();
+        //get project name
         $projectName = $this->container->getParameter('project_name');
 
         //get activate url
-        $url = $request->getHttpHost() . $router->generate("registration_confirm", array('token' => $registrationToken));
+        $url = $this->container->get('router')->generate('registration_confirm', array('token' => $registrationToken), true);
 
         //get help center link
         $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
