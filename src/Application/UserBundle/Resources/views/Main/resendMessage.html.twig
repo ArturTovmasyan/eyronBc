@@ -4,8 +4,19 @@
 {% endblock %}
 
 {% block content %}
-    <div  class="text-center padding"><br />
-        <p class="text-center">{{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</p>
-        <p class="text-center">{{ 'register_text'|trans({'%XXX%': project_name}) }}</p>
+
+    <div class="signup notice">
+        <div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+
+                    <h1 class="text-center">Resend Message</h1>
+                    <h4 class="text-center text-gray">{{ 'registration.resend_message'|trans({'%email%': app.user.email}, 'FOSUserBundle') }}</h4>
+                    <h4 class="text-center text-gray">{{ 'register_text'|trans({'%XXX%': project_name}) }}</h4>
+
+                </div>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

@@ -15,6 +15,7 @@
             {% stylesheets output='css/base.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
+            'bundles/app/less/notices.less'
             filter='less,cssrewrite,?yui_css' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -168,12 +169,10 @@
                 <div class="footer-bottom">
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-4">
-                                <small>&copy; {{ 'copyright'|trans }}
-                                    {#<a href="#">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>#}
-                                </small>
+                            <div class="col-xs-5 col-sm-4">
+                                <small>&copy; {{ 'copyright'|trans }}</small>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-xs-7 col-sm-8">
                                 {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
                             </div>
                         </div>

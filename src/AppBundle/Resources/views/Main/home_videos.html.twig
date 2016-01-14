@@ -6,17 +6,19 @@
     {#</video>#}
 {#</div>#}
 
-    {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />#}
 
-    <div class="homepage text-center">
-
+<div class="homepage text-center">
+    <div class="container">
         <h1>{{ 'homepage_title'|trans|raw }}</h1>
 
-        <h4 class="text-white">
-            {{ 'homepage_description'|trans }}
-        </h4>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h4 class="text-white">
+                    {{ 'homepage_description'|trans }}
+                </h4>
+            </div>
+        </div>
 
-        <a href="{{ path("add_goal") }}" class="btn btn-purple">{{ 'btn_start_now'|trans }}</a>
 
         <ul class="apps clearfix">
             <li>
@@ -27,5 +29,16 @@
             </li>
         </ul>
 
+        {#<a href="{{ path("add_goal") }}" class="btn btn-purple">{{ 'btn_start_now'|trans }}</a>#}
+        <a href="#homepage-ideas" class="icon-scroll"></a>
+
     </div>
+</div>
+
+<figure class="cover">
+    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-responsive" />
+</figure>
+
+
+
 

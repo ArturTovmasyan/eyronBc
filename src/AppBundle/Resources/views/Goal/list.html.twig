@@ -54,7 +54,7 @@
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>
 
@@ -77,7 +77,8 @@
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" >
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_list_1')  }}{% else %}
+                                 {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>
 
@@ -100,8 +101,8 @@
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
-                            <a href="{{ path('inner_goal', {'id': goal.id }) }}" class="height">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" width="{{ loop.first ?  713 : 346 }}" alt="{{ goal.title }}"/>
+                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" height="581" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>
 
@@ -118,7 +119,7 @@
             </p>
         {% endif %}
         {# display navigation #}
-        <div class="navigation">
+        <div class="navigation text-center">
             {{ knp_pagination_render(goals) }}
         </div>
     </div>

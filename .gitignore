@@ -21,4 +21,5 @@ composer.lock
 /web/css/
 /web/js/
 /web/uploads/*
+/web/media/
 /web/jquery_components/

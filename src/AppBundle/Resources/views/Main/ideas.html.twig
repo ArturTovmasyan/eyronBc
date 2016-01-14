@@ -1,102 +1,143 @@
-
+<div id="homepage-ideas">
     <div class="container">
-    <h2 class="text-center">{{ 'homepage_list_title'|trans }}</h2>
+        <h2 class="text-center text-dark">{{ 'homepage_list_title'|trans }}</h2>
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col-sm-6 col-md-4">
-            {% for goal in goals|slice(0, 2)  %}
-                <div class="row" id="main_row1">
-                    <div class="col-sm-12">
-                        <figure>
-                            {% set image = goal.getListPhoto %}
+            <div class="col-sm-6 col-md-4">
+                {% for goal in goals|slice(0, 2)  %}
+                    <div class="row" id="main_row1">
+                        <div class="col-sm-12">
+                            <figure>
 
-                            {% if image %}
+                                <h3>{{ goal.title }}</h3>
+
                                 {% set image = goal.getListPhoto %}
-                            {% endif %}
-                            <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
-                            </a>
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                            </figcaption>
-                        </figure>
+
+                                {% if image %}
+                                    {% set image = goal.getListPhoto %}
+                                {% endif %}
+
+                                <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                </a>
+
+                                <div class="absolute">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <a href="javascript:void(0)">
+                                                LISTED BY
+                                                <span>0</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-xs-6">
+                                            <a href="javascript:void(0)">
+                                                DONE BY
+                                                <span>2</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <figcaption>
+                                    {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                </figcaption>
+
+                            </figure>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
-        </div>
-
-        <div class="col-sm-6 col-md-4" id="main_row2">
-            {% for goal in goals|slice(2, 1)  %}
-                <figure>
-                    {% set image = goal.getListPhoto %}
-
-                    {% if image %}
-                        {% set image = goal.getListPhoto %}
-                    {% endif %}
-                    <a href="{{ path('inner_goal', {'id': goal.id }) }}" class="height" id="main_goalTitle2">
-                        <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="581" alt="{{ goal.title }}"/>
-                    </a>
-                    <figcaption>
-                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                    </figcaption>
-                </figure>
-            {% endfor %}
-
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-            {% for goal in goals|slice(3, 2)  %}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <figure>
-                            {% set image = goal.getListPhoto %}
-
-                            {% if image %}
-                                {% set image = goal.getListPhoto %}
-                            {% endif %}
-                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
-                            </a>
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-    </div>
-
-
-    <div class="row">
-        {% for goal in goals|slice(5, 2)  %}
-
-            <div class="col-md-{{ loop.first ?  8 : 4 }}">
-                <figure>
-                    {% set image = goal.getListPhoto %}
-
-                    {% if image %}
-                        {% set image = goal.getListPhoto %}
-                    {% endif %}
-                    <a href="{{ path('inner_goal', {'id': goal.id }) }}">
-                        <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
-                    </a>
-                    <figcaption>
-                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                    </figcaption>
-                </figure>
             </div>
-        {% endfor %}
-    </div>
 
-    <div class="row">
-      <div class="col-sm-12 text-center">
-          <a href="{{ path("goals_list") }}" class="btn btn-purple">{{ 'btn_discover_more'|trans }}</a>
-      </div>
+            <div class="col-sm-6 col-md-4" id="main_row2">
+                {% for goal in goals|slice(2, 1)  %}
+                    <figure>
+
+                        <h3>{{ goal.title }}</h3>
+
+                        {% set image = goal.getListPhoto %}
+
+                        {% if image %}
+                            {% set image = goal.getListPhoto %}
+                        {% endif %}
+
+                        <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="583" alt="{{ goal.title }}"/>
+                        </a>
+
+                        <figcaption>
+                            {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                        </figcaption>
+
+                    </figure>
+                {% endfor %}
+
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                {% for goal in goals|slice(3, 2)  %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <figure>
+
+                                <h3>{{ goal.title }}</h3>
+
+                                {% set image = goal.getListPhoto %}
+
+                                {% if image %}
+                                    {% set image = goal.getListPhoto %}
+                                {% endif %}
+
+                                <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                </a>
+
+                                <figcaption>
+                                    {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                </figcaption>
+
+                            </figure>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            {% for goal in goals|slice(5, 2)  %}
+
+                <div class="col-md-{{ loop.first ?  8 : 4 }}">
+                    <figure>
+
+                        <h3>{{ goal.title }}</h3>
+
+                        {% set image = goal.getListPhoto %}
+
+                        {% if image %}
+                            {% set image = goal.getListPhoto %}
+                        {% endif %}
+                        <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                            <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_3') }}{% else %}
+                             {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
+                        </a>
+                        <figcaption>
+                            {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                        </figcaption>
+                    </figure>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 text-center">
+              <a href="{{ path("goals_list") }}" class="btn btn-purple">{{ 'btn_discover_more'|trans }}</a>
+          </div>
+        </div>
     </div>
 </div>
-
-<br />

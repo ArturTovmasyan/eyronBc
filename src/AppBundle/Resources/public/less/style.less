@@ -1,5 +1,5 @@
+@import "../../../app/bower_components/bootstrap/less/variables.less";
 @import "function.less";
-@import "variables.less";
 
 body, html{
   height:100%;
@@ -32,6 +32,7 @@ a{
 
   &:hover{
     text-decoration: none;
+    color: #7724F6;
   }
 
   &:focus{
@@ -62,31 +63,35 @@ select.form-control{
 
 input.form-control::-webkit-input-placeholder {
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :-moz-placeholder { /* Firefox 18- */
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
   color: #A4A4A4;
+  font-family: 'Open Sans', sans-serif;
 }
 
 :-ms-input-placeholder {
   color: #A4A4A4;
-}
-
-.error-message{
-  color:#FF0000;
-  font-size:12px;
   font-family: 'Open Sans', sans-serif;
 }
+
+
 
 header{
 
   #line{
     height:4px;
-    background: url('../images/line.jpg');
+    background: red;
+    background: -webkit-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: -o-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: -moz-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
+    background: linear-gradient(to right,#ffa600,#de451b,#1b54cf,#00824c);
   }
   .navbar{
     min-height:80px;
@@ -199,6 +204,8 @@ header{
             line-height: 41px;
             vertical-align: middle;
             margin:5px 5px 0 5px;
+            font-size:14px;
+            font-weight:600;
           }
           .user-no0{
             background: url('../images/user-no-image.png') no-repeat 0 0;
@@ -644,6 +651,10 @@ ul.filter{
   color:#999999;
 }
 
+.text-dark{
+  color:#021523;
+}
+
 //.homepage{
 //  width:100%;
 //  position: absolute;
@@ -663,15 +674,22 @@ ul.filter{
 //}
 
 .cover{
-  background: url('../images/cover.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
+  //background: url('../images/cover.jpg') no-repeat center center fixed;
+  //-webkit-background-size: cover;
+  //-moz-background-size: cover;
+  //-o-background-size: cover;
+  //background-size: cover;
+  //height: 100%;
+  //position:absolute;
+
+  img{
+    width: 100%;
+  }
 }
 .homepage{
+
+  position: absolute;
+  width: 100%;
 
   h1{
     color:#ffffff;
@@ -683,9 +701,65 @@ ul.filter{
     line-height:25px;
   }
 
-  .btn-purple{
-    margin:15px 0 10px;
+  .icon-scroll{
+    display: inline-block;
+    height: 29px;
+    width: 29px;
+    background: url('../images/images.png') no-repeat -5px -1128px;
+    margin: 93px 0 0;
   }
+}
+
+#homepage-ideas{
+  padding: 78px 0 40px;
+
+    figure{
+
+      background: transparent;
+      overflow: hidden;
+      position: relative;
+
+      h3{
+        position: absolute;
+        width: 100%;
+        color:#ffffff;
+        font-size:24px;
+        font-weight: bold;
+        padding-left: 20px;
+      }
+
+      figcaption{
+        ul{
+          li{
+            a{
+              font-size:14px;
+              &:hover,&:focus{
+
+                text-decoration: none;
+              }
+
+            }
+            &:hover{
+              background-color: #7724F6;
+              color:#ffffff;
+
+              a{
+                color:#ffffff;
+              }
+            }
+
+            &:focus,&:active{
+              background-color: #6108EA;
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
 }
 
 .btn-blue{
@@ -761,7 +835,7 @@ ul.filter{
   background-color:#7724F6;
   color:#ffffff;
   padding:10px 35px;
-  margin-right:20px;
+  //margin-right:20px;
   font-weight: bold;
   .rounded-corners(10px);
 
@@ -820,6 +894,11 @@ ul li{list-style: none;}
 
   .form-group{
     margin-bottom:10px;
+
+    input{
+      height:40px;
+    }
+
     div{
       margin-bottom:5px;
     }
@@ -841,6 +920,28 @@ ul li{list-style: none;}
 
   select{
     cursor: pointer;
+  }
+
+  .nice-select{
+    width: 100%;
+    border: 1px solid #ccc;
+    color: #A4A4A4;
+    height:40px;
+    font-family: 'Open Sans', sans-serif;
+
+    span{
+      color: #A4A4A4;
+    }
+
+    .list{
+      width:100%;
+      height: 150px;
+      overflow: auto;
+    }
+
+    &:focus,&:active,.open{
+      border-color: #7724F6;
+    }
   }
 }
 
@@ -872,7 +973,7 @@ figure{
   background-color: #cfcfcf;
     &>a{
       display: block;
-      height:260px;
+      //height:260px;
       overflow: hidden;
 
       img{
@@ -902,7 +1003,7 @@ figure{
         text-align: center;
         border-right:1px solid #f0f0f0;
         a{
-          color:#7d7d7d;
+          color:#999999;
           display: block;
           padding: 10px 0;
           height:auto;
@@ -920,12 +1021,12 @@ figure{
 
         }
         &:hover{
-          background-color: #e3e3e3;
+          background-color: #7724F6;
           a{
-            color:#7d7d7d;
+            color:#ffffff;
 
             &:hover{
-              color:#7d7d7d;
+              color:#ffffff;
               text-decoration: none;
 
             }
@@ -933,7 +1034,7 @@ figure{
         }
 
         &:focus,&:active{
-          background-color: #e3e3e3;
+          background-color: #6108EA;
           a{
             color:#ffffff;
           }
@@ -1104,33 +1205,7 @@ figure{
   }
 }
 
-.email{
-  padding: 15px 5px 20px;
-  text-align:center;
-  position: relative;
-  background: #0057E7;
-  color:#ffffff;
 
-  span{
-    display: inline-block;
-    margin: 8px 0 0;
-    font-size:14px;
-  }
-  a{
-    margin: 5px 0 0 5px;
-    display: inline-block;
-    font-weight:bold;
-    padding:2px 5px;
-    color: #ffffff;
-    border:1px solid #ffffff;
-    font-size:12px;
-
-    &:hover{
-      color:#0057E7;
-      background-color: #ffffff;
-    }
-  }
-}
 
 footer{
   width:100%;
@@ -1144,6 +1219,7 @@ footer{
     padding: 24px 0 15px;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
+    font-size:11px;
   }
 
   ul{
@@ -1189,7 +1265,7 @@ footer{
       a{
         padding-top: 19px;
         display: inline-block;
-        font-size: 12px;
+        font-size: 11px;
         text-transform: capitalize;
         color:#D3D3D3;
         font-weight: 600;
@@ -1332,9 +1408,9 @@ footer{
   position: relative;
 }
 
-//.absolute{
-//  position: absolute;
-//}
+.absolute{
+  position: absolute;
+}
 
 .modal{
 
@@ -1518,11 +1594,38 @@ footer{
     padding:20px 0;
 
     div{
-      width:135px;
-      height:135px;
+      width:138px;
+      height:140px;
       margin:0 auto;
       overflow:hidden;
     }
+
+    span.profile-image{
+      display: block;
+      width:138px;
+      height:140px;
+      font-size:52px;
+      font-weight:600;
+      line-height:130px;
+      color:#ffffff;
+    }
+
+    .profile-no0{
+      background: url('../images/profile-no-image.png') no-repeat -2px 0;
+    }
+    .profile-no1{
+      background: url('../images/profile-no-image.png') no-repeat -165px 0;
+    }
+    .profile-no2{
+      background: url('../images/profile-no-image.png') no-repeat -329px 0;
+    }
+    .profile-no3{
+      background: url('../images/profile-no-image.png') no-repeat -493px 0;
+    }
+    .profile-no4{
+      background: url('../images/profile-no-image.png') no-repeat -657px 0;
+    }
+
     figcaption{
       margin-top:11px;
       background-color: transparent;
@@ -1650,9 +1753,7 @@ footer{
   }
   .homepage{
     padding-top:127px;
-    .btn-purple{
-      margin:33px 0 17px;
-    }
+
   }
   .goal-container{
     min-height:900px;
@@ -1713,8 +1814,16 @@ footer{
     }
     small{
       clear:both;
+      font-size: 12px;
       a{
         float:right;
+      }
+    }
+    .footer-bottom{
+      ul{
+        a{
+          font-size: 12px;
+        }
       }
     }
   }
@@ -1734,7 +1843,7 @@ footer{
       display: inline-block;
       padding:10px 15px;
       font-size:15px;
-      border-bottom: 1px solid transparent;
+      //border-bottom: 1px solid transparent;
       a{
         color:#666666;
         font-size:22px;
@@ -1746,9 +1855,9 @@ footer{
       }
 
       &:hover{
-        border-bottom:1px solid #7725f6;
+        border-bottom:1px solid #7724F6;
         a{
-          color:#7725f6;
+          color:#7724F6;
         }
       }
 
@@ -1765,7 +1874,7 @@ footer{
   }
 
   hr{
-    margin-top: 0px;
+    margin-top: -2px;
   }
 
   .mail{
@@ -2105,14 +2214,16 @@ footer{
 
   }
   .homepage{
-    //top:177px;
-    //top:7.3%;
+
     h1{
+      font-size: 64px;
       padding-bottom:46px;
     }
 
-    .btn-purple{
-      margin:63px 0 34px;
+    h4{
+      padding:0 0 100px 0;
+      font-size:24px;
+      line-height: 32px;
     }
   }
 

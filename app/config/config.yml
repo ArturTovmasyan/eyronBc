@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v9
+        assets_version: v16
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -226,3 +226,44 @@ stfalcon_tinymce:
 a2lix_translation_form:
     locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
     default_required: false
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        goal_list_1:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 260 }
+        goal_list_2:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: inset }
+        goal_list_3:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: outbound }
+        goal_ideas_1:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 260 }
+        goal_ideas_2:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: inset }
+        goal_ideas_3:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: outbound }
+        goal_activity:
+            quality: 100
+            filters:
+                upscale: { min: [1280, 1024] }
+                thumbnail: { size: [1280, 1024], mode: outbound }
