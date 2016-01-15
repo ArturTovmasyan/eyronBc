@@ -38,7 +38,7 @@ class MainController extends Controller
         $primaryEmail = false;
 
         // create goal form
-        $form = $this->createForm(new SettingsType(), $user);
+        $form = $this->createForm(new SettingsType($this->container), $user);
 
         // check request method
         if ($request->isMethod("POST")) {
