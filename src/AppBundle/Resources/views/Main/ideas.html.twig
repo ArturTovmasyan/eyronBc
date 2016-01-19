@@ -6,6 +6,9 @@
 
             <div class="col-sm-6 col-md-4">
                 {% for goal in goals|slice(0, 2)  %}
+
+                    {% set stats = goal.getStats %}
+
                     <div class="row" id="main_row1">
                         <div class="col-sm-12">
                             <figure>
@@ -27,14 +30,14 @@
                                         <li>
                                             <a href="javascript:void(0)">
                                                 LISTED BY
-                                                <span>0</span>
+                                                <span>{{ stats.listedBy }}</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0)">
                                                 COMPLETED BY
-                                                <span>2</span>
+                                                <span>{{ stats.doneBy }}</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
                                         </li>
@@ -54,6 +57,9 @@
 
             <div class="col-sm-6 col-md-4" id="main_row2">
                 {% for goal in goals|slice(2, 1)  %}
+
+                    {% set stats = goal.getStats %}
+
                     <figure>
 
                         <h3>{{ goal.title }}</h3>
@@ -73,14 +79,14 @@
                                 <li>
                                     <a href="javascript:void(0)">
                                         LISTED BY
-                                        <span>0</span>
+                                        <span>{{ stats.listedBy }}</span>
                                         <span class="glyphicon glyphicon-user"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">
                                         COMPLETED BY
-                                        <span>2</span>
+                                        <span>{{ stats.doneBy }}</span>
                                         <span class="glyphicon glyphicon-user"></span>
                                     </a>
                                 </li>
@@ -98,6 +104,9 @@
 
             <div class="col-sm-6 col-md-4">
                 {% for goal in goals|slice(3, 2)  %}
+
+                    {% set stats = goal.getStats %}
+
                     <div class="row">
                         <div class="col-sm-12">
                             <figure>
@@ -119,14 +128,14 @@
                                         <li>
                                             <a href="javascript:void(0)">
                                                 LISTED BY
-                                                <span>0</span>
+                                                <span>{{ stats.listedBy }}</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0)">
                                                 COMPLETED BY
-                                                <span>2</span>
+                                                <span>{{ stats.doneBy }}</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
                                         </li>
@@ -149,6 +158,8 @@
         <div class="row">
             {% for goal in goals|slice(5, 2)  %}
 
+                {% set stats = goal.getStats %}
+
                 <div class="col-md-{{ loop.first ?  8 : 4 }}">
                     <figure>
 
@@ -163,6 +174,24 @@
                             <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_3') }}{% else %}
                              {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
                         </a>
+                        <div class="absolute">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        LISTED BY
+                                        <span>{{ stats.listedBy }}</span>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        COMPLETED BY
+                                        <span>{{ stats.doneBy }}</span>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         <figcaption>
                             {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                         </figcaption>
