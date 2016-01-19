@@ -118,7 +118,7 @@ class MigrationCommand extends ContainerAwareCommand
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
             $userGoal->setUser($user);
-            $userGoal->setPrivacy(UserGoal::PUBLIC_PRIVACY);
+            $userGoal->setIsVisible(true);
             $userGoal->setDoDate(new \DateTime('+1 year'));
 
             $em->persist($goal);
