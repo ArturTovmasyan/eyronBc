@@ -55,11 +55,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-10 col-sm-offset-1">
-                            <p>
-                                <div {% if errorMessage == 'Error' %}class="error-message"{% endif %} class="text-gray">
+
+                                <p {% if errorMessage == 'Error' %}class="error-message"{% endif %} class="text-gray">
                                     {{ 'password.validation'|trans({}, 'FOSUserBundle') }}
-                                </div>
-                            </p>
+                                </p>
+
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
 
                     <div class="form-group row">
                         <p class="text-gray">{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
-                            <a href="{{ getPolicyLink() }}" class="text-blue">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
+                            <a href="{{ getPolicyLink() }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
                         </p>
                     </div>
 
@@ -125,7 +125,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center margin-top text-gray">{{ 'registration.have_account'|trans({}, 'FOSUserBundle') }}
-                    <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-blue">
+                    <a href="javascript:void(0)" data-ng-click="openSignInPopover()" class="text-purple">
                         {{ 'registration.sign_in_btn'|trans({}, 'FOSUserBundle') | capitalize}}
                     </a>
                 </p>
