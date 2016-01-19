@@ -26,8 +26,12 @@ class AphorismRepository extends EntityRepository
         // default value for tags ids
         $ids = array();
 
-        // get tags
-        $tags = $goal->getTags()->toArray();
+        $tags = array();
+
+        if ($goal->getTags()) {
+            // get tags
+            $tags = $goal->getTags()->toArray();
+        }
 
         // check tags
         if($tags){

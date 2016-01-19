@@ -1,11 +1,25 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
 
-    <link href="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.css') }}" rel="stylesheet">#}
+    <link href="{{ asset('bundles/app/less/jssor-slider.css') }}" rel="stylesheet"/>
+    <style>
+        .ticker {
+            width: 500px;
+            margin: 10px auto;
+        }
+        /* The HTML list gets replaced with a single div,
+           which contains the active ticker item, so you
+           can easily style that as well */
+        .ticker div {
+            display: inline-block;
+            word-wrap: break-word;
+        }
+    </style>
 {% endblock %}
 
 
@@ -50,7 +64,12 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app/bower_components/jssor-slider/js/jssor.slider.mini.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app/scripts/Ticker/jquery.ticker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jssor-inner-slider.js') }}" type="text/javascript"></script>
+
+    {#<script src="{{ asset('app/scripts/PgwSlideshow/pgwslideshow.min.js') }}" type="text/javascript"></script>#}
     <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
 
 {% endblock %}
