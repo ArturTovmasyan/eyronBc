@@ -167,7 +167,7 @@
                                         <input type="checkbox"
                                                name="{{ form.isVisible.vars.full_name }}"
                                                data-ng-model="switch_private"
-                                               data-ng-init="switch_private={{ data.isVisible }}"
+                                               data-ng-init="switch_private={{ data.isVisible ? 'true' : 'false' }}"
                                                class="onoffswitch-checkbox"
                                                data-ng-checked="[[ (switch_private && switch_private!='off')?true:false ]]"
                                                id="myonoffswitch-private{{ data.goal.id ? data.goal.id:0 }}">
