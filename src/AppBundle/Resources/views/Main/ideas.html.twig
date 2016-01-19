@@ -23,23 +23,22 @@
                                 </a>
 
                                 <div class="absolute">
-                                    <div class="row">
-                                        <div class="col-xs-6">
+                                    <ul>
+                                        <li>
                                             <a href="javascript:void(0)">
                                                 LISTED BY
                                                 <span>0</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
-                                        </div>
-
-                                        <div class="col-xs-6">
+                                        </li>
+                                        <li>
                                             <a href="javascript:void(0)">
-                                                DONE BY
+                                                COMPLETED BY
                                                 <span>2</span>
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </a>
-                                        </div>
-                                    </div>
+                                        </li>
+                                    </ul>
                                 </div>
 
                                 <figcaption>
@@ -69,6 +68,25 @@
                             <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="583" alt="{{ goal.title }}"/>
                         </a>
 
+                        <div class="absolute">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        LISTED BY
+                                        <span>0</span>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        COMPLETED BY
+                                        <span>2</span>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <figcaption>
                             {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
                         </figcaption>
@@ -95,6 +113,25 @@
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
+
+                                <div class="absolute">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                LISTED BY
+                                                <span>0</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                COMPLETED BY
+                                                <span>2</span>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
 
                                 <figcaption>
                                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
