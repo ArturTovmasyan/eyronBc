@@ -94,7 +94,11 @@ class MainController extends Controller
         }
 
         $referer = $request->headers->get('referer');
-        return new RedirectResponse($referer);
+        if ($referer){
+            return new RedirectResponse($referer);
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**
