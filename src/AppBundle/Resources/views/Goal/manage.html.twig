@@ -165,9 +165,9 @@
                                 <div class="col-sm-2">
                                     <div class="onoffswitch">
                                         <input type="checkbox"
-                                               name="switch-private"
+                                               name="{{ form.isVisible.vars.full_name }}"
                                                data-ng-model="switch_private"
-                                               data-ng-init="switch_private=true"
+                                               data-ng-init="switch_private={{ data.isVisible }}"
                                                class="onoffswitch-checkbox"
                                                data-ng-checked="[[ (switch_private && switch_private!='off')?true:false ]]"
                                                id="myonoffswitch-private{{ data.goal.id ? data.goal.id:0 }}">
@@ -188,7 +188,7 @@
 
 
 
-                            {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
+                            {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and not data.goal.publish %}
                                 <p class="text-gray">
                                     <strong class="text-dark-gray">
                                         <i class="glyphicon glyphicon-lock"></i>

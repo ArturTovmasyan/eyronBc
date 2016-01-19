@@ -11,6 +11,7 @@ namespace AppBundle\Entity\Repository;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\loggableEntityRepositoryInterface;
+use AppBundle\Model\PublishAware;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -139,8 +140,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
+                ->where('g.publish = :publish')
                 ->groupBy('g.id')
                 ->orderBy('cnt', 'desc')
+                ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
         if($category){
