@@ -46,6 +46,10 @@ class EmailSenderService
                 array('name' => $name, 'url' => $url, 'email' => $email, 'helpUrl' => $helpLink)
             ), "text/html");
 
+        $headers = $message->getHeaders();
+        $headers->addTextHeader("Message-ID: <".time()." TheSystem@".$_SERVER['SERVER_NAME'].">");
+        $headers->addTextHeader("X-Mailer: PHP v".phpversion()."");
+
         $this->container->get('mailer')->send($message);
     }
 }
