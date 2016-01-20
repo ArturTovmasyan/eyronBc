@@ -25,7 +25,23 @@ class MainController extends Controller
 
         if (!$this->getUser()){
             $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-            return array('goals' => $goals);
+
+            //set ids default value
+            $ids = null;
+
+            //check if goals exist
+            if($goals) {
+
+                foreach($goals as $goal)
+                {
+                    $ids[] = $goal->getId();
+                }
+            }
+
+            //get stats by goal ids
+            $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($ids);
+
+            return array('goals' => $goals, 'stats' => $stats);
         }
 
         // get current user

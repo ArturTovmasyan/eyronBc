@@ -678,42 +678,4 @@ class Goal implements MultipleFileInterface, PublishAware
         }
         return $result;
     }
-
-    /**
-     * This function is used to get count listedBy, Done in homepage for goal
-     *
-     * @return array
-     */
-    public function getStats()
-    {
-        //get active goal count
-        $active = $this->getAuthor()->getAuthorGoals()->count();
-
-        //set done goal default value
-        $doneBy = 0;
-
-        // get user goals
-        $userGoals = $this->getUserGoal();
-
-        // check user goals
-        if($userGoals){
-            // loop for user goals
-            foreach($userGoals as $userGoal){
-
-                if( $userGoal->getStatus() !== UserGoal::ACTIVE) {
-
-                    //count done goal
-                    $doneBy = ++$doneBy;
-                }
-            }
-        }
-
-        //get listed by count
-        $listedBy = $active + $doneBy;
-
-        //set data in result array
-        $result = array("listedBy" => $listedBy, "active" => $active, "doneBy" =>$doneBy);
-
-        return $result;
-    }
 }
