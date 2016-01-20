@@ -29,7 +29,7 @@
                              <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
                              {{ 'goal.public'|trans }}
                          </h3>
-                         <p>{{ 'goal.agree'|trans }}</p>
+                         <p class="text-gray">{{ 'goal.agree'|trans }}</p>
                      </div>
                      <div class="col-sm-6 text-right">
                          <div class="buttons">
@@ -63,7 +63,7 @@
                                          <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
-                                     <p>
+                                     <p class="text-gray">
                                          {{ 'goal.description_title'|trans|raw}}
                                      </p>
                                      {{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}
