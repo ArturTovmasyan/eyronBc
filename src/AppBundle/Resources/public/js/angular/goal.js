@@ -21,7 +21,7 @@ angular.module('goal', ['Interpolation',
             }
         }
 
-        $('.purple input').iCheck({
+        $('.text-purple input').iCheck({
             checkboxClass: 'iradio_square-grey',
             increaseArea: '20%'
         });

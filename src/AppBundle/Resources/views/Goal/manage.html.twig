@@ -22,7 +22,7 @@
                                 <div class="clearfix">
                                     <div class="form-group row no-marginb">
 
-                                        <label class="col-sm-10 control-label text-left purple">
+                                        <label class="col-sm-10 control-label text-left text-purple">
                                             <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                                             <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                                         </label>
@@ -75,7 +75,7 @@
 
                             {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") <  "now"|date("m/d/Y") %}
                                 <p class="text-gray text-center">
-                                    <i class="glyphicon glyphicon-exclamation-sign purple"></i>{{ "goal.missed_deadline"|trans }}
+                                    <i class="glyphicon glyphicon-exclamation-sign text-purple"></i>{{ "goal.missed_deadline"|trans }}
                                 </p>
                             {% endif %}
 
@@ -155,7 +155,7 @@
 
                             <div class="form-group row no-marginb">
 
-                                <label for="inputEmail3" class="col-sm-9 control-label purple text-left">{{ "goal.as_invisible"|trans }}</label>
+                                <label for="inputEmail3" class="col-sm-9 control-label text-purple text-left">{{ "goal.as_invisible"|trans }}</label>
 
                                 <label class="col-sm-1 control-label">
                                     <i data-ng-show="switch_private" class="glyphicon glyphicon-eye-open"></i>

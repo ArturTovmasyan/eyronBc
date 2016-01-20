@@ -40,9 +40,9 @@ a{
   }
 }
 
-*button{
-
+.btn{
   outline:0;
+  .rounded-corners(7px);
   &:hover,&:focus{
     outline:0;
   }
@@ -80,8 +80,6 @@ input.form-control::-webkit-input-placeholder {
   color: #A4A4A4;
   font-family: 'Open Sans', sans-serif;
 }
-
-
 
 header{
 
@@ -226,6 +224,7 @@ header{
             float:left;
             margin-top:6px;
             display: inline-block;
+            text-align: left;
           }
 
           .menu-down{
@@ -572,12 +571,13 @@ ul.filter{
   background-color: #ffffff;
 
   .title{
-    background-color: #e6e6e6;
+    border: 0;
+    border-bottom:1px solid  #e6e6e6;
     color:#afafaf;
     padding: 10px 20px;
-    border: 0;
     font-size: 20px;
     border-radius: 0;
+    box-shadow: none;
   }
 
   .form-group{
@@ -623,7 +623,7 @@ ul.filter{
     color:#3d3d3d;
   }
 
-  .purple{
+  .text-purple{
     font-size:18px;
   }
   form{
@@ -862,9 +862,9 @@ ul.filter{
   background-color:#7724F6;
   color:#ffffff;
   padding:10px 35px;
-  //margin-right:20px;
   font-weight: bold;
-  .rounded-corners(10px);
+  border:0;
+  .rounded-corners(7px);
 
   &:hover, &:focus{
     color:#ffffff;
@@ -1089,6 +1089,7 @@ figure{
     position: absolute;
     width: 100%;
     bottom: 35px;
+    text-align: left;
   }
 }
 .inner-container{
@@ -1820,7 +1821,7 @@ footer{
 
   .goals{
     .title{
-      padding:30px 40px;
+      padding:30px 40px 30px 0;
       font-size: 25px;
     }
     h3.title{
@@ -2285,7 +2286,7 @@ footer{
     margin-bottom:100px;
     padding-bottom:5px;
 
-    .purple{
+    .text-purple{
       font-size:24px;
       vertical-align:middle;
       span{
