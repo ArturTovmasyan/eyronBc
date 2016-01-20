@@ -196,14 +196,14 @@ class UserController extends FOSRestController
 //     *         204="There is no information to send back"
 //     *     },
 //     * requirements={
-//     *      {"name"="type", "dataType"="string", "requirement"=true, "description"="social type | twitter, facebook, instagram"},
+//     *      {"name"="type", "dataType"="string", "requirement"=true, "description"="social type | twitter, facebook, google"},
 //     *      {"name"="accessToken", "dataType"="string", "requirement"=true, "description"="User`s social access_token"},
 //     * }
 //     * )
 //     * @param $type
 //     * @param $accessToken
 //     * @return Response
-//     * @Rest\View(serializerGroups={"for_mobile"})
+//     * @Rest\View(serializerGroups={"user"})
 //     */
 //    public function getSocialLoginAction($type, $accessToken)
 //    {
@@ -222,9 +222,9 @@ class UserController extends FOSRestController
 //                    return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
 //                }
 //                break;
-//            case "instagram":
+//            case "google":
 //                try{
-//                    $data = file_get_contents("https://api.instagram.com/v1/users/self?access_token=" . $accessToken);
+//                    $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
 //                    $data = json_decode($data);
 //                    $id = $data->data->id;
 //                }
@@ -241,18 +241,54 @@ class UserController extends FOSRestController
 //                break;
 //        }
 //
-//        //get users list by action status
-//        $user = $em->getRepository('LBUserBundle:User')->findBySocial($type, $id);
-//        // check user
+//        $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
+//
 //        if(!$user){
+////            TODO: need to create a new user
 //            return new JsonResponse('We have not this user in our database', Response::HTTP_NOT_FOUND);
 //        }
-//        // login user and get session id
+//
 //        $sessionId = $this->loginAction($user);
-//        $result = array(
+//
+//        return  array(
 //            'sessionId' => $sessionId,
-//            'userInfo'=>$user);
-//        return $result;
+//            'userInfo'  => $user
+//        );
 //    }
+
+    /**
+     * This function is used to check is user with such email registered
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to check is user with such email registered",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @param $email
+     * @return array
+     */
+    public function getRegisteredAction($email)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('email' => $email));
+
+        if($user){
+
+            return array(
+                'registered' => true,
+                'image_path' => $user->getPhotoLink()
+            );
+        }
+
+        return array(
+            'registered' => false
+        );
+    }
 }
 
