@@ -35,7 +35,7 @@ class NewFeedRepository extends EntityRepository
      * @param $userId
      * @return array
      */
-    public function findNewFeedQuery($userId)
+    public function findNewFeed($userId)
     {
         $goalFriendsIds = $this->getEntityManager()
                                ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
@@ -47,12 +47,14 @@ class NewFeedRepository extends EntityRepository
             ->createQuery("SELECT nf, u, g, ss, cmt
                            FROM AppBundle:NewFeed nf
                            JOIN nf.user u
-                           JOIN nf.goal g
+                           JOIN nf.goal g WITH g.readinessStatus = true
+                           LEFT JOIN AppBundle:UserGoal ug WITH ug.user = u AND ug.goal = g
                            LEFT JOIN nf.successStory ss
                            LEFT JOIN nf.comment cmt
-                           WHERE u.id IN (:ids)
+                           WHERE u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)
                            ORDER BY nf.datetime DESC")
-            ->setParameter('ids', $goalFriendsIds);
+            ->setParameter('ids', $goalFriendsIds)
+            ->getResult();
     }
 
 

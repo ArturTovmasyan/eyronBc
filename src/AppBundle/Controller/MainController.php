@@ -113,11 +113,11 @@ class MainController extends Controller
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $query = $em->getRepository('AppBundle:NewFeed')->findNewFeedQuery($this->getUser()->getId());
+        $result = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $result,
             $request->query->getInt('page', 1)/*page number*/,
             5/*limit per page*/
         );
@@ -129,7 +129,6 @@ class MainController extends Controller
 
     /**
      * @Route("/register/confirmed", name="registration_confirmed")
-     * @Template()
      * @Security("has_role('ROLE_USER')")
      * @return array
      */

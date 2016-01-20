@@ -924,6 +924,9 @@ ul li{list-style: none;}
 
     input{
       height:40px;
+      &:hover{
+       border-color: #7724F6;
+      }
     }
 
     div{
@@ -966,7 +969,7 @@ ul li{list-style: none;}
       overflow: auto;
     }
 
-    &:focus,&:active,.open{
+    &:hover,&:focus,&:active,.open{
       border-color: #7724F6;
     }
   }
@@ -986,6 +989,11 @@ ul li{list-style: none;}
   margin-bottom:9px;
   font-size:12px;
   z-index: 10;
+
+  &:hover{
+    color: #ffffff;
+    background-color: #CCCCCC;
+  }
 }
 
 input{
@@ -1714,7 +1722,6 @@ footer{
 
   .search{
     form{
-      //width:100%;
       padding:16px 0;
     }
   }
@@ -1731,9 +1738,7 @@ footer{
   #signin{
     min-width:234px;
     overflow: hidden;
-    .social{
-      //padding-left:20px;
-    }
+
     .text-danger{
       margin-bottom:10px;
     }
@@ -1771,7 +1776,6 @@ footer{
     .form-group{
       margin-bottom: 4px;
       p{
-        //padding-top:13px;
         margin-bottom:30px;
       }
     }
