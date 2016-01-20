@@ -85,13 +85,13 @@ class User extends BaseUser
     /**
      * @Assert\Length(
      *      min = 6,
-     *      minMessage = "Error",
+     *      minMessage = "fos_user.password.validation",
      * )
      *
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
-     *     message="Error"
+     *     message = "fos_user.password.validation",
      * )
      */
     protected $plainPassword;

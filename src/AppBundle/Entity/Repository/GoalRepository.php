@@ -36,8 +36,12 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->from('AppBundle:Goal', 'g')
                 ->join('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.userGoal', 'ug')
+                ->where('g.publish = :publish')
                 ->addGroupBy('g.id')
-                ->orderBy('cnt', 'desc');
+                ->orderBy('cnt', 'desc')
+                ->setParameter('publish', PublishAware::PUBLISH)
+        ;
+
 
         // check count
         if($count){

@@ -54,6 +54,7 @@ class AppKernel extends Kernel
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

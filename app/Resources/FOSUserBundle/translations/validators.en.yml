@@ -11,6 +11,7 @@ fos_user:
         long: "[-Inf,Inf]The email is too long"
         invalid: The email is not valid
     password:
+        validation: Strong passwords include numbers, letters, and punctuation marks. It must be at least 6 characters long
         blank: Please enter a password
         short: "[-Inf,Inf]The password is too short"
         mismatch: Passwords do not match, please retype

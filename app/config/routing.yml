@@ -75,3 +75,11 @@ app_nwe_feed_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /api
+
+application_user_rest:
+    type:     rest
+    resource: @ApplicationUserBundle/Controller/Rest/UserController.php
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
