@@ -25,7 +25,7 @@ goal:
       agree: By checking you suggest your goal to be listed in the Ideas list
       preview: PREVIEW
       publish: Create
-      description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag
+      description_title: Place a hash character (#) in front of a word or unspaced phrase in <br /> title and description to convert it into hashtag
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
       location_ex: Location ex. Yerevan, Armenia:
