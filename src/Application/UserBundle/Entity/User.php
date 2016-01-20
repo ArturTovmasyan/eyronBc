@@ -768,7 +768,7 @@ class User extends BaseUser
         $listedBy = $active + $doneBy;
 
         //set data in result array
-        $result = array("listedBy" => $listedBy, "active" => $this->authorGoals->count(), "doneBy" =>$doneBy);
+        $result = array("listedBy" => $listedBy, "active" => $active, "doneBy" =>$doneBy);
 
         return $result;
     }

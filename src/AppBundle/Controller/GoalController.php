@@ -584,7 +584,12 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute("user_profile");
+                // generate url
+                $url = !is_null($request->get("btn_cancel"))
+                    ? 'remove_goal'
+                    : 'user_profile';
+
+                return $this->redirectToRoute($url, array('goal'=> $goal, 'user' => $user->getId()));
             }
         }
 
@@ -943,9 +948,16 @@ class GoalController extends Controller
         // remove from bd
         $em->remove($userGoal);
 
+        if ($goal->isAuthor($user) and $userGoal->getStatus() == UserGoal::ACTIVE) {
+            $em->remove($goal);
+            $url = 'user_profile';
+        } else {
+            $url = 'activity';
+        }
+
         $em->flush();
 
-        return $this->redirectToRoute("user_profile");
+        return $this->redirectToRoute($url);
     }
 
     /**

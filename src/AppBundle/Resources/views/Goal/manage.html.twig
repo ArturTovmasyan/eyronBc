@@ -22,7 +22,7 @@
                                 <div class="clearfix">
                                     <div class="form-group row no-marginb">
 
-                                        <label class="col-sm-10 control-label text-left purple">
+                                        <label class="col-sm-10 control-label text-left text-purple">
                                             <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                                             <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                                         </label>
@@ -75,7 +75,7 @@
 
                             {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") <  "now"|date("m/d/Y") %}
                                 <p class="text-gray text-center">
-                                    <i class="glyphicon glyphicon-exclamation-sign purple"></i>{{ "goal.missed_deadline"|trans }}
+                                    <i class="glyphicon glyphicon-exclamation-sign text-purple"></i>{{ "goal.missed_deadline"|trans }}
                                 </p>
                             {% endif %}
 
@@ -155,7 +155,7 @@
 
                             <div class="form-group row no-marginb">
 
-                                <label for="inputEmail3" class="col-sm-9 control-label purple text-left">{{ "goal.as_invisible"|trans }}</label>
+                                <label for="inputEmail3" class="col-sm-9 control-label text-purple text-left">{{ "goal.as_invisible"|trans }}</label>
 
                                 <label class="col-sm-1 control-label">
                                     <i data-ng-show="switch_private" class="glyphicon glyphicon-eye-open"></i>
@@ -165,9 +165,9 @@
                                 <div class="col-sm-2">
                                     <div class="onoffswitch">
                                         <input type="checkbox"
-                                               name="switch-private"
+                                               name="{{ form.isVisible.vars.full_name }}"
                                                data-ng-model="switch_private"
-                                               data-ng-init="switch_private=true"
+                                               data-ng-init="switch_private={{ data.isVisible ? 'true' : 'false' }}"
                                                class="onoffswitch-checkbox"
                                                data-ng-checked="[[ (switch_private && switch_private!='off')?true:false ]]"
                                                id="myonoffswitch-private{{ data.goal.id ? data.goal.id:0 }}">
@@ -188,7 +188,7 @@
 
 
 
-                            {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
+                            {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and not data.goal.publish %}
                                 <p class="text-gray">
                                     <strong class="text-dark-gray">
                                         <i class="glyphicon glyphicon-lock"></i>

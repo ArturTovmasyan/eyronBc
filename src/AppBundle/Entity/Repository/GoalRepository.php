@@ -11,6 +11,7 @@ namespace AppBundle\Entity\Repository;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\loggableEntityRepositoryInterface;
+use AppBundle\Model\PublishAware;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -36,8 +37,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->join('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.userGoal', 'ug')
                 ->addGroupBy('g.id')
-                ->orderBy('cnt', 'desc')
-        ;
+                ->orderBy('cnt', 'desc');
 
         // check count
         if($count){
@@ -47,6 +47,34 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         return $query->getQuery()->getResult();
     }
 
+
+    /**
+     * This function is used to get listedBy, doneBy counts for goal
+     *
+     * @param $ids
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findGoalStateCount($ids)
+    {
+        if (!count($ids)){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
+                          (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
+                           WHERE ug1.status != :status and ug1.goal = g) as doneBy
+                           FROM AppBundle:Goal g
+                           INDEX BY g.id
+                           LEFT JOIN g.userGoal ug
+                           WHERE g.id IN (:goalIds)
+                           GROUP BY g.id
+                          ")
+            ->setParameter('goalIds', $ids)
+            ->setParameter('status', UserGoal::ACTIVE)
+            ->getResult();
+    }
 
     /**
      * @param $count
@@ -139,8 +167,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
+                ->where('g.publish = :publish')
                 ->groupBy('g.id')
                 ->orderBy('cnt', 'desc')
+                ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
         if($category){

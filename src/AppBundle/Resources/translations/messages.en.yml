@@ -32,6 +32,7 @@ goal:
       note_p: Add a note
       add_step: Add a step
       to_do: To Do
+      type: Type in a youtube or vimeo link in the field
       done: Done
       as_private: Set as private
       as_invisible: Set as Invisible
@@ -49,6 +50,10 @@ goal:
       scheduled_date: Scheduled Date
       create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
       create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
+Title: Title
+Description: Description
+Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
+Done: Done
 
 # home
 homepage_title: Dreams come true, <br /> dream big!
@@ -138,6 +143,7 @@ my_bucket_list:
   year_old: y.o.
 
 done_by: Done by
+done_complete: Completed bY
 listed_by: Listed by
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
@@ -165,4 +171,5 @@ deadline:
 
 image_complete_text: Upload an image
 goalfriends: Goalfriends
+Add a note: Add a note
 

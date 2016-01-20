@@ -40,9 +40,9 @@ a{
   }
 }
 
-*button{
-
+.btn{
   outline:0;
+  .rounded-corners(7px);
   &:hover,&:focus{
     outline:0;
   }
@@ -80,8 +80,6 @@ input.form-control::-webkit-input-placeholder {
   color: #A4A4A4;
   font-family: 'Open Sans', sans-serif;
 }
-
-
 
 header{
 
@@ -226,6 +224,7 @@ header{
             float:left;
             margin-top:6px;
             display: inline-block;
+            text-align: left;
           }
 
           .menu-down{
@@ -572,12 +571,13 @@ ul.filter{
   background-color: #ffffff;
 
   .title{
-    background-color: #e6e6e6;
+    border: 0;
+    border-bottom:1px solid  #e6e6e6;
     color:#afafaf;
     padding: 10px 20px;
-    border: 0;
     font-size: 20px;
     border-radius: 0;
+    box-shadow: none;
   }
 
   .form-group{
@@ -623,7 +623,7 @@ ul.filter{
     color:#3d3d3d;
   }
 
-  .purple{
+  .text-purple{
     font-size:18px;
   }
   form{
@@ -758,6 +758,33 @@ ul.filter{
         }
       }
 
+      .absolute{
+        bottom:60px;
+        width: 100%;
+
+        ul{
+          padding-left:0;
+
+          li{
+            display: inline-block;
+            padding-left:20px;
+            a{
+              color:#E5E5E5;
+
+              &:hover{
+                text-decoration: underline;
+              }
+            }
+
+            &:last-child{
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
+
+      }
     }
 
 }
@@ -804,7 +831,7 @@ ul.filter{
   }
 }
 
-.purple{
+.text-purple{
   color:#7724F6 !important;
 }
 
@@ -835,9 +862,9 @@ ul.filter{
   background-color:#7724F6;
   color:#ffffff;
   padding:10px 35px;
-  //margin-right:20px;
   font-weight: bold;
-  .rounded-corners(10px);
+  border:0;
+  .rounded-corners(7px);
 
   &:hover, &:focus{
     color:#ffffff;
@@ -897,6 +924,9 @@ ul li{list-style: none;}
 
     input{
       height:40px;
+      &:hover{
+       border-color: #7724F6;
+      }
     }
 
     div{
@@ -939,7 +969,7 @@ ul li{list-style: none;}
       overflow: auto;
     }
 
-    &:focus,&:active,.open{
+    &:hover,&:focus,&:active,.open{
       border-color: #7724F6;
     }
   }
@@ -959,6 +989,11 @@ ul li{list-style: none;}
   margin-bottom:9px;
   font-size:12px;
   z-index: 10;
+
+  &:hover{
+    color: #ffffff;
+    background-color: #CCCCCC;
+  }
 }
 
 input{
@@ -1054,6 +1089,7 @@ figure{
     position: absolute;
     width: 100%;
     bottom: 35px;
+    text-align: left;
   }
 }
 .inner-container{
@@ -1152,8 +1188,11 @@ figure{
             .rounded-corners;
           }
         }
-        &:hover {
-          background-color: #e3e3e3;
+        &:hover{
+          background-color: #7724F6;
+          a{
+            color: #ffffff;
+          }
         }
         &:last-child{
           border-left:1px solid #a4a4a4;
@@ -1684,7 +1723,6 @@ footer{
 
   .search{
     form{
-      //width:100%;
       padding:16px 0;
     }
   }
@@ -1701,9 +1739,7 @@ footer{
   #signin{
     min-width:234px;
     overflow: hidden;
-    .social{
-      //padding-left:20px;
-    }
+
     .text-danger{
       margin-bottom:10px;
     }
@@ -1741,7 +1777,6 @@ footer{
     .form-group{
       margin-bottom: 4px;
       p{
-        //padding-top:13px;
         margin-bottom:30px;
       }
     }
@@ -1786,7 +1821,7 @@ footer{
 
   .goals{
     .title{
-      padding:30px 40px;
+      padding:30px 40px 30px 0;
       font-size: 25px;
     }
     h3.title{
@@ -1855,7 +1890,7 @@ footer{
       }
 
       &:hover{
-        border-bottom:1px solid #7724F6;
+        //border-bottom:1px solid #7724F6;
         a{
           color:#7724F6;
         }
@@ -2251,7 +2286,7 @@ footer{
     margin-bottom:100px;
     padding-bottom:5px;
 
-    .purple{
+    .text-purple{
       font-size:24px;
       vertical-align:middle;
       span{

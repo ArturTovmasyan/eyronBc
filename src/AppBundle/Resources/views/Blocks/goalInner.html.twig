@@ -78,9 +78,11 @@
                             {% endif %}
                         </ul>
 
-                        <div>
-                            <div data-simple-map-marker style="width: 99.8%; height: 298px"></div>
-                        </div>
+                        {% if page != view %}
+                            <div>
+                                <div data-simple-map-marker style="width: 99.8%; height: 298px"></div>
+                            </div>
+                        {% endif %}
                         {% if page == inner %}
                             <ul>
                                 <li>
@@ -136,11 +138,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="addthis_native_toolbox"></div>
+            {% if page != view %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="addthis_native_toolbox"></div>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
 
             <div class="inner">
                 <div class="row">
