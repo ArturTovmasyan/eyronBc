@@ -10,6 +10,7 @@ angular.module('goal', ['Interpolation',
     .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
 
         $scope.files = [];
+        $scope.videos = [{}];
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -139,6 +140,40 @@ angular.module('goal', ['Interpolation',
 
         angular.element('.ticker').ticker();
     }])
+    .directive('videos', [function(){
+        return {
+            restrict: 'EA',
+            scope: {
+                array: '=',
+                key: '='
+            },
+            templateUrl: '/bundles/app/htmls/addVideo.html',
+            link: function(scope){
+
+                scope.$watch('link',function(d){
+                    if(angular.isUndefined(d)){
+                        return;
+                    }
+
+                    if(d === ''){
+                        if(scope.key === 0){
+                            if(scope.array.length > 1){
+                                scope.array.splice(scope.key, 1);
+                            }
+                        }
+                        else {
+                            scope.array.splice(scope.key, 1);
+                        }
+                    }
+                    else {
+                        if(!scope.array[scope.key + 1]){
+                            scope.array[scope.key + 1] = {};
+                        }
+                    }
+                },true);
+            }
+        }
+    }])
     .directive('step',[function(){
         return {
             restrict: 'EA',
@@ -155,13 +190,13 @@ angular.module('goal', ['Interpolation',
                         }
 
                         if(d === ''){
-                            if(!scope.key){
+                            if(scope.key === 0){
                                 if(scope.array.length > 1){
                                     scope.array.splice(scope.key, 1);
                                 }
                             }
                             else {
-                                scope.array.splice(scope.key,1);
+                                scope.array.splice(scope.key, 1);
                             }
                         }
                         else {
