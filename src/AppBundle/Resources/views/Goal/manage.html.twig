@@ -104,6 +104,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ "Set a priority" }} <br/>
+
+                                    {# other filters #}
+                                    {% for id, name in filters %}
+                                        <label class="radio-inline">
+                                            <input name="test" type="radio" value="{{ id }}"> {{ name|trans }}
+                                        </label>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
                             {% if data.id is not null %}
                                 <h5 class="text-left">{{ "goal.complete_step"|trans }}</h5>
 

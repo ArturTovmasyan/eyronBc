@@ -617,6 +617,45 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
+        );
+
+        //get priority data in request
+        $priorityData = $request->request->get('test');
+
+        //set default data for urgent and important
+        $urgent = false;
+        $important = false;
+
+        //check if priorityData exist
+        if($priorityData) {
+            switch ($priorityData) {
+                case UserGoal::NOT_URGENT_IMPORTANT:
+                    $urgent = false;
+                    $important = true;
+                    break;
+                case UserGoal::URGENT_IMPORTANT:
+                    $urgent = true;
+                    $important = true;
+                    break;
+                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
+                    $urgent = false;
+                    $important = false;
+                    break;
+                case UserGoal::URGENT_NOT_IMPORTANT:
+                    $urgent = true;
+                    $important = false;
+                    break;
+                default:
+                    $urgent = false;
+                    $important = false;
+            }
+        }
         // empty data
         $steps = array();
 
@@ -704,6 +743,12 @@ class GoalController extends Controller
                 // set step
                 $userGoal->setSteps($steps);
 
+                //set urgent
+                $userGoal->setUrgent($urgent);
+
+                //set important
+                $userGoal->setImportant($important);
+
                 $doDate = $form->get('birthday')->getData();
 
                 // check date
@@ -722,7 +767,7 @@ class GoalController extends Controller
             }
         }
 
-        return  array('form' => $form->createView(), 'data' => $userGoal);
+        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters);
     }
 
 
