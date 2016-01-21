@@ -10,9 +10,9 @@
                 <div class="col-sm-6">
 
                     {% if 'travel' in app.request.get('category') %}
-                        <a href="javascript:void(0)" data-ng-click="showMap = !showMap"> MAP
-                            <span class="glyphicon glyphicon-chevron-up ng-hide" data-ng-show="showMap"></span>
-                            <span class="glyphicon glyphicon-chevron-down" data-ng-hide="showMap"></span>
+                        <a href="javascript:void(0)" data-ng-click="showMap = !showMap" class="text-gray"> MAP
+                            <span class="icon up-icon ng-hide" data-ng-show="showMap"></span>
+                            <span class="icon down-icon" data-ng-hide="showMap"></span>
                         </a>
                     {% endif %}
                 </div>
