@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                         <a href="#">
                             {{ 'listed_by'|trans | upper }}
-                            <span>{{ listedByUsers|length }}</span>
+                            <span>{{ goal.getUsedCount.listedBy }}</span>
                             <span class="glyphicon glyphicon-user"></span>
                         </a>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="col-md-6">
                         <a href="#">
                             {{ 'done_by'|trans | upper }}
-                            <span>{{ doneByUsers|length }}</span>
+                            <span>{{ goal.getUsedCount.doneBy }}</span>
                             <span class="glyphicon glyphicon-user"></span>
                         </a>
                     </div>
