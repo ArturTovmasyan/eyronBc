@@ -26,8 +26,8 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
                         Adveture
-                        <span class="glyphicon glyphicon-chevron-up" data-ng-hide="filter"></span>
-                        <span class="glyphicon glyphicon-chevron-down ng-hide" data-ng-show="filter"></span>
+                        <span class="icon up-icon" data-ng-hide="filter"></span>
+                        <span class="icon down-icon ng-hide" data-ng-show="filter"></span>
                     </button>
                 </div>
             </div>
