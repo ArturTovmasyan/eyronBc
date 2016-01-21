@@ -156,14 +156,7 @@ angular.module('goal', ['Interpolation',
                     }
 
                     if(d === ''){
-                        if(scope.key === 0){
-                            if(scope.array.length > 1){
-                                scope.array.splice(scope.key, 1);
-                            }
-                        }
-                        else {
-                            scope.array.splice(scope.key, 1);
-                        }
+                        scope.removeItem();
                     }
                     else {
                         if(!scope.array[scope.key + 1]){
@@ -171,6 +164,17 @@ angular.module('goal', ['Interpolation',
                         }
                     }
                 },true);
+
+                scope.removeItem = function(){
+                    if(scope.key === 0){
+                        if(scope.array.length > 1){
+                            scope.array.splice(scope.key, 1);
+                        }
+                    }
+                    else {
+                        scope.array.splice(scope.key, 1);
+                    }
+                }
             }
         }
     }])
