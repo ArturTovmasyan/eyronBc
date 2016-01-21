@@ -61,6 +61,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('ug.user', 'ugu')
                 ->where('ugu.id = :user ')
+                ->orderBy('ug.id', 'desc')
                 ->setParameter('user', $user)
         ;
 
