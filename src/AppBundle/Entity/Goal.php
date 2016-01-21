@@ -452,7 +452,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * Set status
      *
-     * @param integer $status
+     * @param boolean $status
      * @return Goal
      */
     public function setStatus($status = self::PRIVATE_PRIVACY)
