@@ -145,7 +145,8 @@ angular.module('goal', ['Interpolation',
             restrict: 'EA',
             scope: {
                 array: '=',
-                key: '='
+                key: '=',
+                link: '='
             },
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){
