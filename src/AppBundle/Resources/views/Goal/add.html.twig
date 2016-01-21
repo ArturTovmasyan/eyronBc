@@ -124,6 +124,12 @@
                                  <div class="form-group">
                                      <label class="text-dark-gray">Video</label>
                                      {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
+
+                                     <videos data-ng-repeat="(k, video) in videos"
+                                         data-key="k"
+                                         data-link="video.link"
+                                         data-array="videos">
+                                     </videos>
                                  </div>
 
                                  <iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
