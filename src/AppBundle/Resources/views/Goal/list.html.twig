@@ -39,12 +39,12 @@
         {% endif %}
     </div>
 
-    <div class="container">
+    <div class="container ideas-list">
         <h2 class="text-center text-dark"> {{ 'goal.list_title'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
 
-            <div class="row ideas-list" id="row">
+            <div class="row" id="row">
                 {% for goal in goals|slice(0, 3)  %}
 
                     {% set counts = stats[goal.id] %}
