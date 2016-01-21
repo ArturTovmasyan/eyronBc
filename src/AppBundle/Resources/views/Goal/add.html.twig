@@ -121,9 +121,18 @@
                                  </div>
                                  <br />
 
-                                 <div class="form-group">
+                                 {% set videoLink = [{'link':''}] %}
+
+                                 {% if form.vars.value.videoLink %}
+                                     {% set videoLink = [] %}
+                                     {% for vl in form.vars.value.videoLink %}
+                                        {% set videoLink = videoLink|merge([{'link': vl}]) %}
+                                     {% endfor %}
+                                 {% endif %}
+
+                                 <div class="form-group" ng-init="videos={{ videoLink|json_encode }}">
                                      <label class="text-dark-gray">Video</label>
-                                     {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
+                                     {#{{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}#}
 
                                      <videos data-ng-repeat="(k, video) in videos"
                                          data-key="k"
@@ -132,7 +141,7 @@
                                      </videos>
                                  </div>
 
-                                 <iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
+                                 {#<iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>#}
 
                                  {#<iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>#}
                                  {#<iframe width="100%" height="500" src="https://player.vimeo.com/video/142022401" width="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#}

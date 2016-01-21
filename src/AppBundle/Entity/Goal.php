@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
@@ -68,7 +69,8 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $title;
 
     /**
-     * @ORM\Column(name="video_link", type="string", nullable=true)
+     * @ORM\Column(name="video_link", type="json_array", nullable=true)
+     * @AppAssert\ValidLink(groups={"goal"})
      */
     protected $videoLink;
 

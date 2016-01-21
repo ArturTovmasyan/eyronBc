@@ -65,7 +65,6 @@ class GoalController extends Controller
             if(!$goal){
                 throw $this->createNotFoundException("Goal $id not found");
             }
-
         }
         else {
 
@@ -84,6 +83,15 @@ class GoalController extends Controller
 
             // check valid
             if($form->isValid()){
+
+                //Delete last empty link
+                if ($videoLinks = $goal->getVideoLink()){
+                    if (!$videoLinks[' ' . (count($videoLinks) - 1) . ' ']){
+                        unset($videoLinks[' ' . (count($videoLinks) - 1) . ' ']);
+                    }
+
+                    $goal->setVideoLink($videoLinks);
+                }
 
                 // get tags from form
                 $tags = $form->get('hashTags')->getData();
