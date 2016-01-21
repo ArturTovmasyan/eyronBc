@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
 
-                    {#{% set user = app.user %}#}
-                    {#{% set goal = data.goal %}#}
-                    {#{% include "AppBundle:Blocks:topBlock.html.twig" %}#}
+                    {% set user = app.user %}
+                    {% set goal = data.goal %}
+                    {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
                     {% set completed = false %}
                     <form class="form-horizontal" action="{{ path('manage_goal', {'id' : data.goal.id , 'userGoalId' : data.id}) }}" method="post"
