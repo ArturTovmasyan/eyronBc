@@ -85,3 +85,9 @@ app_emails_remove_rest:
     type:     rest
     resource: @AppBundle/Controller/Rest/UserEmailsController.php
     prefix:   /api
+
+application_user_rest:
+    type:     rest
+    resource: @ApplicationUserBundle/Controller/Rest/UserController.php
+
+

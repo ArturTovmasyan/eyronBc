@@ -36,8 +36,12 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->from('AppBundle:Goal', 'g')
                 ->join('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.userGoal', 'ug')
+                ->where('g.publish = :publish')
                 ->addGroupBy('g.id')
-                ->orderBy('cnt', 'desc');
+                ->orderBy('cnt', 'desc')
+                ->setParameter('publish', PublishAware::PUBLISH)
+        ;
+
 
         // check count
         if($count){
@@ -120,6 +124,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.author', 'a')
                 ->where('a.id = :user or ugu.id = :user ')
                 ->andWhere('g.readinessStatus = :status')
+                ->orderBy('g.id', 'desc')
                 ->setParameter('user', $user)
                 ->setParameter('status', Goal::DRAFT)
         ;

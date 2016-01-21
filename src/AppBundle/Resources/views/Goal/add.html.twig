@@ -29,13 +29,13 @@
                              <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
                              {{ 'goal.public'|trans }}
                          </h3>
-                         <p>{{ 'goal.agree'|trans }}</p>
+                         <p class="text-gray">{{ 'goal.agree'|trans }}</p>
                      </div>
                      <div class="col-sm-6 text-right">
                          <div class="buttons">
-                             <button type="submit" class="btn btn-default" name="btn_preview">{{ 'goal.preview'|trans }}</button>
+                             <button type="submit" class="btn btn-default" name="btn_preview"><span>{{ 'goal.preview'|trans }}</span></button>
                              <button type="submit" class="btn btn-purple" name="btn_publish">{{ 'goal.publish'|trans }}
-                                 <span class="glyphicon glyphicon-chevron-right"></span>
+                                 <span class="icon icon-right"></span>
                              </button>
                          </div>
                      </div>
@@ -49,66 +49,72 @@
                      <div class="goals">
                      {{ form_errors(form) }}
 
+                         <div class="row">
+                             <div class="col-md-offset-1 col-md-10">
 
-
-                             <div class="row">
-                                 <div class="col-md-offset-1 col-md-10">
-
-                                     <div class="form-group">
-                                         {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title' } }) }}
-                                     </div>
-
-                                     <div class="form-group">
-
-                                         {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "ng-model":"description", "ng-init":"description ='" ~ form.vars.value.description ~ "'", "value" : "[[ description ]]" } }) }}
-                                         <div class="tags">
-                                             <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
-                                         </div>
-
-                                         <p>
-                                             {{ 'goal.description_title'|trans }}
-                                         </p>
-                                         {{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}
-
-                                     </div>
-
-                                     <div class="text-center" data-ng-init="initDropzone('{{ path('add_images') }}')">
-                                         <div class="dropzone" id="goalDropzone">
-                                             <div class="dz-message">
-
-                                                <h3>
-                                                    <button class="btn-purple">BROWSE</button>
-                                                    {{ 'drag_drop'|trans }}</h3>
-                                                <p>{{ 'upload'|trans | raw}}</p>
-                                             </div>
-                                         </div>
-                                     </div>
-
-                                     {{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}
-
-                                     {% set images = form.vars.value.images %}
-
-                                     <div class="row">
-                                         {% for image in images %}
-                                                 <div class="col-md-2">
-                                                     <a href="{{ path("remove_image", {'filename' : image.filename }) }}"><span class="glyphicon glyphicon-remove"></span></a>
-                                                     <img src="{{ image.downloadLink }}" alt="{{ image.fileOriginalName }}" class="img-responsive"/>
-                                                 </div>
-                                         {% endfor %}
-                                     </div>
-                                     <br />
-
-                                     <div class="form-group">
-                                         <label>Video</label>
-                                         {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
-                                     </div>
-
-                                     <iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
-
-                                     {#<iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>#}
-                                     {#<iframe width="100%" height="500" src="https://player.vimeo.com/video/142022401" width="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#}
+                                 <div class="form-group">
+                                     {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title' } }) }}
                                  </div>
+
+                                 <div class="form-group">
+
+                                     {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "ng-model":"description", "ng-init":"description ='" ~ form.vars.value.description ~ "'", "value" : "[[ description ]]" } }) }}
+                                     <div class="tags">
+                                         <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
+                                     </div>
+
+                                     <p class="text-gray">
+                                         {{ 'goal.description_title'|trans|raw}}
+                                     </p>
+                                     {{ form_widget(form.hashTags, {'attr': { "value" : "[[ tags ]]" } }) }}
+
+                                 </div>
+
+                                 <div class="text-center" data-ng-init="initDropzone('{{ path('add_images') }}')">
+                                     <div class="dropzone" id="goalDropzone">
+                                         <div class="dz-message">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <button class="btn-purple">
+                                                        <i></i>BROWSE
+                                                    </button>
+
+                                                    <h3 class="text-dark-gray">
+                                                        {{ 'drag_drop'|trans }}
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-gray">{{ 'upload'|trans | raw}}</p>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                 {{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}
+
+                                 {% set images = form.vars.value.images %}
+
+                                 <div class="row">
+                                     {% for image in images %}
+                                             <div class="col-md-2">
+                                                 <a href="{{ path("remove_image", {'filename' : image.filename }) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                                                 <img src="{{ image.downloadLink }}" alt="{{ image.fileOriginalName }}" class="img-responsive"/>
+                                             </div>
+                                     {% endfor %}
+                                 </div>
+                                 <br />
+
+                                 <div class="form-group">
+                                     <label class="text-dark-gray">Video</label>
+                                     {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
+                                 </div>
+
+                                 <iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
+
+                                 {#<iframe width="100%" height="500" src="https://www.youtube.com/embed/O2EwhK28zYI" frameborder="0" allowfullscreen></iframe>#}
+                                 {#<iframe width="100%" height="500" src="https://player.vimeo.com/video/142022401" width="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#}
                              </div>
+                         </div>
 
                          {{ form_widget(form._token) }}
                      </div>

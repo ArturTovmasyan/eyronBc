@@ -103,4 +103,36 @@ class UserRepository extends EntityRepository
             ->setParameter('userId', $userId)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $type
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBySocial($type, $id)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('ApplicationUserBundle:User', 'u');
+
+        switch ($type) {
+            case 'facebook':
+                $query->andWhere('u.facebook_id =:id');
+                break;
+            case 'twitter':
+                $query->andWhere('u.twitterId =:id');
+                break;
+            case 'google':
+                $query->andWhere('u.googleId =:id');
+                break;
+        }
+
+        return $query
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
 }
