@@ -8,9 +8,28 @@
     display: block;
     font-size:18px;
     padding:20px 0 15px;
-    .glyphicon-chevron-down{
-      padding:3px 4px;
+    //.glyphicon-chevron-down{
+    //  padding:3px 4px;
+    //}
+  }
+
+  .map-top{
+    .down-icon{
+      background: url('../images/images.png') no-repeat -380px -273px;
     }
+
+    &:hover{
+      text-decoration: none;
+      .down-icon{
+        background: url('../images/images.png') no-repeat -380px -365px;
+      }
+    }
+
+    &:focus, &:active{
+      color:#999999;
+      text-decoration: none;
+    }
+
   }
 
   h3{
@@ -41,18 +60,20 @@
     font-size:18px;
     padding:20px 0 15px;
     outline:none;
+    box-shadow: none;
 
     &:hover,&:focus{
       outline:none;
       border:0;
       background-color: transparent;
+      box-shadow: none;
     }
   }
 
   .buttons{
     margin:40px 0;
     button,a{
-      //margin-left:10px;
+
       padding: 6px 25px;
       display: inline-block;
 
@@ -68,6 +89,12 @@
       &:hover{
         background-color: #6108EA;
         color:#ffffff;
+        box-shadow:none;
+      }
+
+      &:active,&:focus{
+        box-shadow:none;
+        outline:0;
       }
     }
   }
