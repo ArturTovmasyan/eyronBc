@@ -39,6 +39,20 @@ angular.module('Components',[])
             }
         }
     }])
+    .directive('lsScrollTo',[function(){
+        return {
+            restrict: 'EA',
+            scope: {
+                targetSelector: '@'
+            },
+            link: function(scope, el){
+                el.bind('click', function(){
+                    var target = angular.element(scope.targetSelector);
+                    angular.element(window).scrollTo(target, 700);
+                })
+            }
+        }
+    }])
     .animation('.slide', function() {
         var NG_HIDE_CLASS = 'ng-hide';
         return {
