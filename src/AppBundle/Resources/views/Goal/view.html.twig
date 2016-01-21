@@ -29,26 +29,49 @@
          <div class="container">
              <div class="row">
                  <div class="col-sm-6">
-                     <h3 class="text-purple">{{ 'goal.public'|trans }}
 
-                         {% if goal.status == constant("AppBundle\\Entity\\Goal::PUBLIC_PRIVACY") %}
-                             <span class="input-checked"></span>
-                         {% else %}
-                             <span class="input"></span>
-                         {% endif %}
+                     <div class="row">
+                         <div class="col-sm-1 suggest-input">
+                             {% if goal.status == constant("AppBundle\\Entity\\Goal::PUBLIC_PRIVACY") %}
+                                 <span class="input-checked"></span>
+                             {% else %}
+                                 <span class="input"></span>
+                             {% endif %}
+                         </div>
 
-                     </h3>
-                     <p>{{ 'goal.agree'|trans }}</p>
+                         <div class="col-sm-11">
+                             <h3 class="text-purple">
+                                 {{ 'goal.public'|trans }}
+                             </h3>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-sm-10 col-sm-offset-1">
+                             <p class="text-gray">{{ 'goal.agree'|trans }}</p>
+                         </div>
+                     </div>
+
+                     {#<h3 class="text-purple">{{ 'goal.public'|trans }}#}
+
+                         {#{% if goal.status == constant("AppBundle\\Entity\\Goal::PUBLIC_PRIVACY") %}#}
+                             {#<span class="input-checked"></span>#}
+                         {#{% else %}#}
+                             {#<span class="input"></span>#}
+                         {#{% endif %}#}
+
+                     {#</h3>#}
+
                  </div>
                  <div class="col-sm-6 text-right">
                      <div class="buttons">
                          <a href="{{ path('add_goal', {'id' : goal.id }) }}" type="button" class="btn btn-default">
-                             <span class="glyphicon glyphicon-chevron-left"></span>
+                             <span class="icon icon-left"></span>
                              {{ 'btn_back_and_edit'|trans }}
 
                          </a>
                          <a href="{{ path('add_to_me_goal', {'id' : goal.id }) }}"  type="button" class="btn btn-purple" name="btn_publish">{{ 'btn_publish'|trans }}
-                             <span class="glyphicon glyphicon-chevron-right"></span>
+                             <span class="icon icon-right"></span>
                          </a>
                      </div>
                  </div>

@@ -733,7 +733,7 @@ class GoalController extends Controller
      * @Template()
      * @return array
      */
-    public function listAction(Request $request, $category = null)
+        public function listAction(Request $request, $category = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -747,6 +747,22 @@ class GoalController extends Controller
         // find all goals
         $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search);
 
+        //set ids default value
+        $ids = null;
+
+        //check if goals exist
+        if($goals) {
+
+            foreach($goals as $goal)
+            {
+                $ids[] = $goal->getId();
+            }
+        }
+
+        //get stats by goal ids
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($ids);
+
+
         // get paginator
         $paginator  = $this->get('knp_paginator');
 
@@ -757,7 +773,7 @@ class GoalController extends Controller
             7/*limit per page*/
         );
 
-        return array('goals' => $pagination, 'categories' => $categories);
+        return array('goals' => $pagination, 'categories' => $categories, 'stats' => $stats);
     }
 
 
