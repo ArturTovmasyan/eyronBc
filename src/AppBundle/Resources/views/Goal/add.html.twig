@@ -25,15 +25,32 @@
              <div class="container">
                  <div class="row">
                      <div class="col-sm-6">
-                         <h3 class="text-purple">
-                             <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
-                             {{ 'goal.public'|trans }}
-                         </h3>
-                         <p class="text-gray">{{ 'goal.agree'|trans }}</p>
+
+                         <div class="row">
+                             <div class="col-sm-1 suggest-input">
+                                 <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
+                             </div>
+
+                             <div class="col-sm-11">
+                                 <h3 class="text-purple">
+                                     {{ 'goal.public'|trans }}
+                                 </h3>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             <div class="col-sm-10 col-sm-offset-1">
+                                 <p class="text-gray">{{ 'goal.agree'|trans }}</p>
+                             </div>
+                         </div>
+
                      </div>
+
                      <div class="col-sm-6 text-right">
                          <div class="buttons">
-                             <button type="submit" class="btn btn-default" name="btn_preview"><span>{{ 'goal.preview'|trans }}</span></button>
+                             <button type="submit" class="btn btn-transparent" name="btn_preview">
+                                 <span>{{ 'goal.preview'|trans }}</span>
+                             </button>
                              <button type="submit" class="btn btn-purple" name="btn_publish">{{ 'goal.publish'|trans }}
                                  <span class="icon icon-right"></span>
                              </button>
@@ -75,9 +92,9 @@
                                          <div class="dz-message">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <button class="btn-purple">
+                                                    <span class="btn-purple">
                                                         <i></i>BROWSE
-                                                    </button>
+                                                    </span>
 
                                                     <h3 class="text-dark-gray">
                                                         {{ 'drag_drop'|trans }}
