@@ -22,10 +22,10 @@ angular.module('goal', ['Interpolation',
         }
 
         $('.suggest-input input').iCheck({
-            checkboxClass: 'iradio_square-grey',
+            checkboxClass: 'icheckbox_square-blue',
             increaseArea: '20%'
         });
-
+        
         // file uploads
 
         Dropzone.options.goalDropzone = false;
@@ -108,7 +108,7 @@ angular.module('goal', ['Interpolation',
         });
 
         angular.element('input.private-checkbox').iCheck({
-            checkboxClass: 'iradio_square-grey',
+            checkboxClass: 'icheckbox_square-blue',
             increaseArea: '20%'
         });
 
