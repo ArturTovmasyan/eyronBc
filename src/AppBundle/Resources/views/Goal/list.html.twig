@@ -46,6 +46,9 @@
 
             <div class="row ideas-list" id="row">
                 {% for goal in goals|slice(0, 3)  %}
+
+                    {% set counts = stats[goal.id] %}
+
                     <div class="col-sm-6 col-md-4">
                         <figure>
 
@@ -65,14 +68,14 @@
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
-                                            <span>2</span>
+                                            <span>{{ counts.listedBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
-                                            <span>2</span>
+                                            <span>{{ counts.doneBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
@@ -89,6 +92,8 @@
 
             <div class="row">
                 {% for goal in goals|slice(3, 2)  %}
+
+                    {% set counts = stats[goal.id] %}
 
                     <div class="col-md-{{ loop.first ?  4 : 8 }}">
                         <figure>
@@ -111,14 +116,14 @@
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
-                                            <span>5</span>
+                                            <span>{{ counts.listedBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
-                                            <span>2</span>
+                                            <span>{{ counts.doneBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
@@ -136,6 +141,8 @@
 
             <div class="row">
                 {% for goal in goals|slice(5, 2)  %}
+
+                    {% set counts = stats[goal.id] %}
 
                     <div class="col-md-{{ loop.first ?  8 : 4 }}">
                         <figure>
@@ -156,14 +163,14 @@
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
-                                            <span>2</span>
+                                            <span>{{ counts.listedBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
-                                            <span>5</span>
+                                            <span>{{ counts.doneBy }}</span>
                                             <span class="icon user-icon"></span>
                                         </a>
                                     </li>
