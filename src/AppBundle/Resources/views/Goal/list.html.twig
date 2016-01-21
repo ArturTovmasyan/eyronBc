@@ -40,14 +40,17 @@
     </div>
 
     <div class="container">
-        <h2 class="text-center"> {{ 'goal.list_title'|trans }}</h2>
+        <h2 class="text-center text-dark"> {{ 'goal.list_title'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
 
-            <div class="row" id="row">
+            <div class="row ideas-list" id="row">
                 {% for goal in goals|slice(0, 3)  %}
                     <div class="col-sm-6 col-md-4">
                         <figure>
+
+                            <h3>{{ goal.title }}</h3>
+
                             {% set image = goal.getListPhoto %}
 
                             {% if image %}
@@ -56,10 +59,28 @@
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
                                 <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            <span>2</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            <span>2</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <figcaption>
-
                                 {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-
                             </figcaption>
                         </figure>
                     </div>
@@ -71,19 +92,41 @@
 
                     <div class="col-md-{{ loop.first ?  4 : 8 }}">
                         <figure>
+
+                            <h3>{{ goal.title }}</h3>
+
                             {% set image = goal.getListPhoto %}
 
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
+
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" >
                                 <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_list_1')  }}{% else %}
                                  {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            <span>5</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            <span>2</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <figcaption>
-
                                 {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-
                             </figcaption>
                         </figure>
                     </div>
@@ -96,6 +139,9 @@
 
                     <div class="col-md-{{ loop.first ?  8 : 4 }}">
                         <figure>
+
+                            <h3>{{ goal.title }}</h3>
+
                             {% set image = goal.getListPhoto %}
 
                             {% if image %}
@@ -104,10 +150,28 @@
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}">
                                 <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" height="581" alt="{{ goal.title }}"/>
                             </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            <span>2</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            <span>5</span>
+                                            <span class="icon user-icon"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <figcaption>
-
                                 {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-
                             </figcaption>
                         </figure>
                     </div>
