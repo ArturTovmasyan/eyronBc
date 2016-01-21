@@ -143,7 +143,9 @@ my_bucket_list:
   year_old: y.o.
 
 done_by: Done by
-done_complete: Completed bY
+home_complete: COMPLETED BY
+home_listed_by: LISTED BY
+
 listed_by: Listed by
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
