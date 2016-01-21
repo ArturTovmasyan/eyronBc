@@ -121,7 +121,7 @@
                                  </div>
                                  <br />
 
-                                 {% set videoLink = [{'link':''}] %}
+                                 {% set videoLink = [] %}
 
                                  {% if form.vars.value.videoLink %}
                                      {% set videoLink = [] %}
@@ -129,6 +129,8 @@
                                         {% set videoLink = videoLink|merge([{'link': vl}]) %}
                                      {% endfor %}
                                  {% endif %}
+
+                                 {% set videoLink = videoLink|merge([{'link':''}]) %}
 
                                  <div class="form-group" ng-init="videos={{ videoLink|json_encode }}">
                                      <label class="text-dark-gray">Video</label>
