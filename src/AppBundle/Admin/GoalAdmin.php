@@ -62,6 +62,7 @@ class GoalAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
+            ->add('publish')
             ->add('title')
             ->add('description')
             ->add('videoLink')
