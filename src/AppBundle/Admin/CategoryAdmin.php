@@ -34,6 +34,7 @@ class CategoryAdmin extends Admin
             ->add('id')
             ->add('title')
             ->add('tags')
+            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_show.html.twig', 'label' => 'icon'))
 
         ;
     }
@@ -41,12 +42,16 @@ class CategoryAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $formMapper
             ->add('title')
             ->add('tags')
+            ->add('file', 'file', array('required' => false))
         ;
     }
+
+    protected $formOptions = array(
+        'validation_groups' => array('logo')
+    );
 
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -65,6 +70,7 @@ class CategoryAdmin extends Admin
             ->add('id')
             ->add('title')
             ->add('tags')
+            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_list.html.twig', 'label' => 'icon'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -73,5 +79,17 @@ class CategoryAdmin extends Admin
                 )
             ))
         ;
+    }
+
+
+    public function prePersist($object)
+    {
+        $this->preUpdate($object);
+    }
+
+    public function preUpdate($object)
+    {
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
+        $bucketService->uploadFile($object);
     }
 }

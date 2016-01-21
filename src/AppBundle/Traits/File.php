@@ -26,6 +26,18 @@ trait File
      *     minHeightMessage = "file.height_extension",
      * )
      *
+     @Assert\Image(
+     *     groups={"logo"},
+     *     minWidth = 30,
+     *     minHeight = 30,
+     *     maxWidth = 50,
+     *     maxHeight = 50,
+     *     minWidthMessage = "file.category_logo_width_min_extension",
+     *     minHeightMessage = "file.category_logo_height_min_extension",
+     *     maxWidthMessage = "file.category_logo_width_max_extension",
+     *     maxHeightMessage = "file.category_logo_height_max_extension",
+     * )
+     *
      * @Assert\Image(
      *     groups={"goal", "success_story"},
      *     minWidth = 640,
