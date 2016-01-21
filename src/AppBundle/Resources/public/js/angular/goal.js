@@ -139,6 +139,11 @@ angular.module('goal', ['Interpolation',
         });
 
         angular.element('.ticker').ticker();
+
+        angular.element('.suggest-input input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            increaseArea: '20%'
+        });
     }])
     .directive('videos', [function(){
         return {
