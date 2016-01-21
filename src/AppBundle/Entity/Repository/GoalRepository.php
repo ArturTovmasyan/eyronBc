@@ -124,6 +124,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.author', 'a')
                 ->where('a.id = :user or ugu.id = :user ')
                 ->andWhere('g.readinessStatus = :status')
+                ->orderBy('g.id', 'desc')
                 ->setParameter('user', $user)
                 ->setParameter('status', Goal::DRAFT)
         ;
