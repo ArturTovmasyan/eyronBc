@@ -55,9 +55,10 @@ class MainController extends Controller
                 //get user emails values in emailsInForm data
                 $emailValue = array_map(function($item){ return $item['userEmails']; }, $emailsInForm);
 
-                //set custom error class
+//                //set custom error class
 //                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
 //
+//                //check if user email have duplicate in emailsInForm
 //                if(array_search($user->getEmail(), $emailValue)) {
 //
 //                    //set error in field
@@ -124,6 +125,8 @@ class MainController extends Controller
 
                     //set new password
                     $user->setPlainPassword($newPassword);
+
+                    //get uploadFile service
                     $this->get('bl_service')->uploadFile($user);
 
                     //update user

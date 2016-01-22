@@ -47,9 +47,10 @@
 
                             <div class="col-sm-6">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+
+                                <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
 
-                            <div class="error-message">{{ form_errors(form.email) }}</div>
 
                             <div class="col-sm-6">
                                 {{ form_widget(form.bl_multiple_email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
