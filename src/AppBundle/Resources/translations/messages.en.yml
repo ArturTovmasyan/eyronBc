@@ -34,6 +34,11 @@ goal:
       to_do: To Do
       type: Type in a youtube or vimeo link in the field
       done: Done
+      as_priority: Set a priority
+      critical_activities: Manage critical activities
+      avoid_interruptions: Avoid interruptions
+      focus_goal: Focus on goal
+      avoid_distractions: Avoid distractions
       as_private: Set as private
       as_invisible: Set as Invisible
       not_found: Goals not found
