@@ -46,7 +46,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"map", "goal"})
+     * @Groups({"goal"})
      */
     protected $id;
 
@@ -64,7 +64,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @ORM\Column(name="title", type="string", nullable=true)
-     * @Groups({"map", "goal"})
+     * @Groups({"goal"})
      */
     protected $title;
 
@@ -342,7 +342,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * @VirtualProperty
      * @return null
-     * @Groups({"map"})
+     * @Groups({"goal"})
      */
     public function getListPhotoDownloadLink()
     {

@@ -86,9 +86,8 @@ class GoalController extends Controller
 
                 //Delete last empty link
                 if ($videoLinks = $goal->getVideoLink()){
-                    if (!$videoLinks[' ' . (count($videoLinks) - 1) . ' ']){
-                        unset($videoLinks[' ' . (count($videoLinks) - 1) . ' ']);
-                    }
+                    $videoLinks = array_values($videoLinks);
+                    $videoLinks = array_filter($videoLinks);
 
                     $goal->setVideoLink($videoLinks);
                 }

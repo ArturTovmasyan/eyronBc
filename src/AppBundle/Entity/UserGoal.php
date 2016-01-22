@@ -42,14 +42,14 @@ class UserGoal
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"map"})
+     * @Groups({"userGoal"})
      */
     protected $id;
 
     /**
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
-     * @Groups({"map"})
+     * @Groups({"userGoal"})
      * @Gedmo\Versioned
      */
     protected $status;
@@ -57,55 +57,63 @@ class UserGoal
     /**
      * @var
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $isVisible;
 
     /**
      * @var
      * @ORM\Column(name="urgent", type="boolean", nullable=false)
+     * @Groups({"userGoal"})
      */
     protected $urgent = false;
 
     /**
      * @var
      * @ORM\Column(name="important", type="boolean", nullable=false)
+     * @Groups({"userGoal"})
      */
     protected $important = false;
 
     /**
      * @var
      * @ORM\Column(name="note", type="text", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $note;
 
     /**
      * @var
      * @ORM\Column(name="steps", type="array", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $steps;
 
     /**
      * @var
      * @ORM\Column(name="due_date", type="datetime", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $doDate;
 
     /**
      * @var
      * @ORM\Column(name="completion_date", type="datetime", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $completionDate;
 
     /**
      * @var
      * @ORM\Column(name="listed_date", type="datetime", nullable=true)
+     * @Groups({"userGoal"})
      */
     protected $listedDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
-     * @Groups({"map"})
+     * @Groups({"userGoal_goal"})
      * @Gedmo\Versioned
      **/
     protected $goal;
@@ -113,6 +121,7 @@ class UserGoal
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userGoal")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Groups({"user"})
      **/
     protected $user;
 

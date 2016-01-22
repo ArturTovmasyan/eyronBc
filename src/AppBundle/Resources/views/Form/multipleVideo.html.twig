@@ -1,0 +1,25 @@
+{% block bl_multiple_video_widget %}
+
+    {% set videoLink = [] %}
+
+    {% if form.vars.value %}
+        {% set videoLink = [] %}
+        {% for vl in form.vars.value %}
+            {% set videoLink = videoLink|merge([{'link': vl}]) %}
+        {% endfor %}
+    {% endif %}
+
+    {% set videoLink = videoLink|merge([{'link':''}]) %}
+
+    <div class="form-group" ng-init="videos={{ videoLink|json_encode }}">
+        <label class="text-dark-gray">Video</label>
+        {{ form_errors(form) }}
+
+        <videos data-ng-repeat="(k, video) in videos"
+                data-key="k"
+                data-link="video.link"
+                data-array="videos">
+        </videos>
+    </div>
+
+{% endblock %}

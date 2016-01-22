@@ -15,12 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Rest\RouteResource("NewFeed")
+ * @Rest\Prefix("/api/v1.0")
  * @Rest\NamePrefix("rest_")
  */
 class NewsFeedController extends FOSRestController
 {
     /**
-     * @Rest\Get("/news_feed_rest")
      * @Rest\View(serializerGroups={"new_feed", "goal", "images", "user", "success_story", "comment"})
      * @Security("has_role('ROLE_USER')")
      * @return Response
@@ -28,9 +28,10 @@ class NewsFeedController extends FOSRestController
     public function getAction()
     {
         $em = $this->getDoctrine()->getManager();
-//        $allLogs = $em->getRepository('AppBundle:Goal')->findNewsFeeds($this->getUser()->getUsername());
-        $allLogs = $em->getRepository('Gedmo\\Loggable\\Entity\\LogEntry')->findAll();
-        $newsFeed = $this->get('bl_news_feed_service')->getNewsFeed($allLogs);
+        $this->get('bl_news_feed_service')->updateNewsFeed();
+
+        //If user is logged in then show news feed
+        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
 
         return $newsFeed;
     }

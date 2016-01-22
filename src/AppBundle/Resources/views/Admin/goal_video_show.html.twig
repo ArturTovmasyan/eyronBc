@@ -1,5 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
 
 {% block field %}
-    <iframe width="420" height="315" src="{{ value }}" frameborder="0" allowfullscreen></iframe>
+    {% for videoLink in value %}
+        <iframe width="420" height="315" src="{{ videoLink }}" frameborder="0" allowfullscreen></iframe>
+    {% endfor %}
 {% endblock %}

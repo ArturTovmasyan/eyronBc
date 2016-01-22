@@ -52,7 +52,7 @@ class GoalAdmin extends Admin
         $formMapper
             ->add('title')
             ->add('description', 'textarea')
-            ->add('videoLink')
+            ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('tags')
             ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
     }
@@ -96,15 +96,8 @@ class GoalAdmin extends Admin
      */
     public function prePersist($object)
     {
-        // get current user
-        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
-
-        $object->setEditor($user);
         $object->setPublish(PublishAware::PUBLISH);
-        $object->setReadinessStatus(Goal::TO_PUBLISH);
-
-        $this->getAndAddTags($object);
-        $this->addImages($object);
+        $this->preUpdate($object);
     }
 
     /**
@@ -120,6 +113,13 @@ class GoalAdmin extends Admin
 
         $this->getAndAddTags($object);
         $this->addImages($object);
+
+        if ($videoLinks = $object->getVideoLink()){
+            $videoLinks = array_values($videoLinks);
+            $videoLinks = array_filter($videoLinks);
+
+            $object->setVideoLink($videoLinks);
+        }
     }
 
     /**
