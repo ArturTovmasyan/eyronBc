@@ -490,6 +490,46 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
+        );
+
+        //get priority data in request
+        $priorityData = $request->request->get('test');
+
+        //set default data for urgent and important
+        $urgent = false;
+        $important = false;
+
+        //check if priorityData exist
+        if($priorityData) {
+            switch ($priorityData) {
+                case UserGoal::NOT_URGENT_IMPORTANT:
+                    $urgent = false;
+                    $important = true;
+                    break;
+                case UserGoal::URGENT_IMPORTANT:
+                    $urgent = true;
+                    $important = true;
+                    break;
+                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
+                    $urgent = false;
+                    $important = false;
+                    break;
+                case UserGoal::URGENT_NOT_IMPORTANT:
+                    $urgent = true;
+                    $important = false;
+                    break;
+                default:
+                    $urgent = false;
+                    $important = false;
+            }
+        }
+
         // empty data
         $steps = array();
 
@@ -577,6 +617,12 @@ class GoalController extends Controller
                 // set step
                 $userGoal->setSteps($steps);
 
+                //set urgent
+                $userGoal->setUrgent($urgent);
+
+                //set important
+                $userGoal->setImportant($important);
+
                 $doDate = $form->get('birthday')->getData();
 
                 // check date
@@ -600,7 +646,7 @@ class GoalController extends Controller
             }
         }
 
-        return  array('form' => $form->createView(), 'data' => $userGoal);
+        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters);
     }
 
     /**
@@ -624,6 +670,45 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
+        );
+
+        //get priority data in request
+        $priorityData = $request->request->get('test');
+
+        //set default data for urgent and important
+        $urgent = false;
+        $important = false;
+
+        //check if priorityData exist
+        if($priorityData) {
+            switch ($priorityData) {
+                case UserGoal::NOT_URGENT_IMPORTANT:
+                    $urgent = false;
+                    $important = true;
+                    break;
+                case UserGoal::URGENT_IMPORTANT:
+                    $urgent = true;
+                    $important = true;
+                    break;
+                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
+                    $urgent = false;
+                    $important = false;
+                    break;
+                case UserGoal::URGENT_NOT_IMPORTANT:
+                    $urgent = true;
+                    $important = false;
+                    break;
+                default:
+                    $urgent = false;
+                    $important = false;
+            }
+        }
         // empty data
         $steps = array();
 
@@ -711,6 +796,12 @@ class GoalController extends Controller
                 // set step
                 $userGoal->setSteps($steps);
 
+                //set urgent
+                $userGoal->setUrgent($urgent);
+
+                //set important
+                $userGoal->setImportant($important);
+
                 $doDate = $form->get('birthday')->getData();
 
                 // check date
@@ -729,7 +820,7 @@ class GoalController extends Controller
             }
         }
 
-        return  array('form' => $form->createView(), 'data' => $userGoal);
+        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters);
     }
 
 
@@ -960,18 +1051,13 @@ class GoalController extends Controller
         // get user goal
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
 
-        // check user goal
-        if(!$userGoal){
-
-            // return Exception
-            throw $this->createNotFoundException("This goal is not in user bucketlist");
-
+        //check if user goal exist and 1
+        if(count($userGoal) == 1) {
+            // remove from bd
+            $em->remove($userGoal);
         }
 
-        // remove from bd
-        $em->remove($userGoal);
-
-        if ($goal->isAuthor($user) and $userGoal->getStatus() == UserGoal::ACTIVE) {
+        if ($goal->isAuthor($user)) {
             $em->remove($goal);
             $url = 'user_profile';
         } else {

@@ -104,6 +104,44 @@
                                 </div>
                             </div>
 
+                            {% set important = data.getImportant %}
+                            {% set urgent = data.getUrgent %}
+
+                            {% if important == true and urgent == true %}
+                                {% set priority = 1 %}
+                            {% elseif important == false and urgent == true %}
+                                {% set priority = 2 %}
+                            {% elseif important == true and urgent == false %}
+                                {% set priority = 3 %}
+                            {% elseif important == false and urgent == false %}
+                                {% set priority = 4 %}
+                            {% endif %}
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ 'goal.as_priority'|trans() }} <br/>
+
+                                    {# other filters #}
+                                    {% for id, name in filters %}
+                                    </br>
+                                         <label class="radio-inline">
+                                            <input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
+                                        </label>
+                                        </br>
+                                        {% if id == 1 %}
+                                            {{ 'goal.critical_activities'|trans }}
+                                        {% elseif id == 2 %}
+                                            {{ 'goal.avoid_interruptions'|trans }}
+                                        {% elseif id == 3 %}
+                                            {{ 'goal.focus_goal'|trans }}
+                                        {% elseif id == 4 %}
+                                            {{ 'goal.avoid_distractions'|trans }}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
                             {% if data.id is not null %}
                                 <h5 class="text-left">{{ "goal.complete_step"|trans }}</h5>
 
