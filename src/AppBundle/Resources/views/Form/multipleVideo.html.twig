@@ -16,6 +16,8 @@
         {{ form_errors(form) }}
 
         <videos data-ng-repeat="(k, video) in videos"
+                data-form-id="{{ form.vars.id }}"
+                data-form-name="{{ form.vars.full_name }}"
                 data-key="k"
                 data-link="video.link"
                 data-array="videos">

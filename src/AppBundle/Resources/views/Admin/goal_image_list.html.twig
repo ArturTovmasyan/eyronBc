@@ -1,3 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
-{%- block field %}<img src="{{ value.getImagePath() }}" height="150px" />{% endblock -%}
+{%- block field %}
+    {% if value %}
+        <img src="{{ value.getImagePath() }}" height="150px" />
+    {% endif %}
+{% endblock -%}

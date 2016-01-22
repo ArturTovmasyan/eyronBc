@@ -25,6 +25,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 class GoalAdmin extends Admin
 {
+    protected $formOptions = array(
+        'validation_groups' => array('goal')
+    );
+
     protected  $baseRouteName = 'admin-goal';
     protected  $baseRoutePattern = 'admin-goal';
 
@@ -50,8 +54,8 @@ class GoalAdmin extends Admin
     {
 
         $formMapper
-            ->add('title')
-            ->add('description', 'textarea')
+            ->add('title', null, array('required' => true))
+            ->add('description', 'textarea', array('required' => true))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('tags')
             ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
@@ -97,6 +101,7 @@ class GoalAdmin extends Admin
     public function prePersist($object)
     {
         $object->setPublish(PublishAware::PUBLISH);
+        $object->setStatus(Goal::PUBLIC_PRIVACY);
         $this->preUpdate($object);
     }
 

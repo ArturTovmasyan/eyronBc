@@ -151,7 +151,9 @@ angular.module('goal', ['Interpolation',
             scope: {
                 array: '=',
                 key: '=',
-                link: '='
+                link: '=',
+                formId: '@',
+                formName: '@'
             },
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){

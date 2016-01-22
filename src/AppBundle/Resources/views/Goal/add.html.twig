@@ -121,6 +121,7 @@
                                  </div>
                                  <br />
 
+                                 {{ dump(form.videoLink) }}
                                  {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
 
                                  {#<iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>#}
