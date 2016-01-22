@@ -100,6 +100,7 @@ class MigrationCommand extends ContainerAwareCommand
             $goal->setUpdated($update);
             $goal->setStatus(Goal::PUBLIC_PRIVACY);
             $goal->setPublish(PublishAware::PUBLISH);
+            $goal->setReadinessStatus(Goal::TO_PUBLISH);
             $goal->setAuthor($user);
 
             $goalImage = new GoalImage();

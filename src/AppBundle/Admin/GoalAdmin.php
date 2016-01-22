@@ -39,9 +39,9 @@ class GoalAdmin extends Admin
             ->add('id')
             ->add('title')
             ->add('description')
-            ->add('videoLink')
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
             ->add('tags')
-
+            ->add('images', null, array('template' => 'AppBundle:Admin:goal_image_show.html.twig'))
         ;
     }
 
@@ -61,6 +61,8 @@ class GoalAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
+            ->add('publish')
             ->add('title')
             ->add('description')
             ->add('videoLink')
@@ -73,9 +75,11 @@ class GoalAdmin extends Admin
     {
         $listMapper
             ->add('id')
+            ->add('publish', null, array('editable' => true))
             ->add('title')
             ->add('description')
-            ->add('videoLink')
+            ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig'))
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig'))
             ->add('tags')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -112,7 +116,6 @@ class GoalAdmin extends Admin
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
 
         $object->setEditor($user);
-        $object->setPublish(PublishAware::PUBLISH);
         $object->setReadinessStatus(Goal::TO_PUBLISH);
 
         $this->getAndAddTags($object);
@@ -242,5 +245,19 @@ class GoalAdmin extends Admin
                 $em->update($image);
             }
         }
+    }
+
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        if ($context == 'list'){
+            $query
+                ->andWhere($query->getRootAlias() . '.status = :publish_privacy')
+                ->setParameter('publish_privacy', Goal::PUBLIC_PRIVACY)
+            ;
+        }
+
+        return $query;
     }
 }

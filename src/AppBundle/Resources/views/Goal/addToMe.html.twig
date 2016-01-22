@@ -24,10 +24,20 @@
 
         <div class="goals-end">
             <div class="container">
+
+
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 form-modal" style="width: auto; margin-top: 80px;display: none">
-                        <span>{{ "goal.create_goal"|trans }}</span>
+                        <div class="email">{{ "goal.create_goal"|trans }}</div>
+
+
+                        {% set goal = data.goal %}
                         {% set completed = false %}
+                        {% set user = app.user %}
+
+                        {% include "AppBundle:Blocks:topBlock.html.twig" %}
+
+
                         <form class="form-horizontal" action="#" method="post"
                               data-ng-init="initSteps({{ data.getStepsJson }})">
 
@@ -123,6 +133,44 @@
                                     </div>
                                 </div>
 
+                                {% set important = data.getImportant %}
+                                {% set urgent = data.getUrgent %}
+
+                                {% if important == true and urgent == true %}
+                                    {% set priority = 1 %}
+                                {% elseif important == false and urgent == true %}
+                                    {% set priority = 2 %}
+                                {% elseif important == true and urgent == false %}
+                                    {% set priority = 3 %}
+                                {% elseif important == false and urgent == false %}
+                                    {% set priority = 4 %}
+                                {% endif %}
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        {{ 'goal.as_priority'|trans() }} <br/>
+
+                                        {# other filters #}
+                                        {% for id, name in filters %}
+                                        </br>
+                                             <label class="radio-inline">
+                                                <input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
+                                            </label>
+                                            </br>
+                                            {% if id == 1 %}
+                                                {{ 'goal.critical_activities'|trans }}
+                                            {% elseif id == 2 %}
+                                                {{ 'goal.avoid_interruptions'|trans }}
+                                            {% elseif id == 3 %}
+                                                {{ 'goal.focus_goal'|trans }}
+                                            {% elseif id == 4 %}
+                                                {{ 'goal.avoid_distractions'|trans }}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
                                 {% if data.id is not null %}
                                     <h4>{{ "goal.complete_step"|trans }}</h4>
 
@@ -173,7 +221,7 @@
                                 <div class="form-group row no-marginb">
 
                                     <label for="inputEmail3"
-                                           class="col-sm-10 control-label text-purple text-left">{{ "goal.as_private"|trans }}</label>
+                                           class="col-sm-10 control-label text-purple text-left">{{ "goal.as_invisible"|trans }}</label>
 
                                     <div class="col-sm-2">
                                         <input {% if not data.isVisible %} checked {% endif %}
@@ -197,7 +245,7 @@
                                 <div class="form-group text-center ">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                        <button type="submit" name="btn_cancel" class="btn btn-purple button-lg">{{ 'btn_cancel'|trans }}</button>
+                                        <button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>
                                     </div>
                                 </div>
 

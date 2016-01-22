@@ -155,8 +155,9 @@
                         </p>
 
                         {% if goal.videoLink %}
-
-                            <iframe width="100%" height="500" src="{{ goal.videoLink }}" frameborder="0" allowfullscreen></iframe>
+                            {% for videoLink in goal.videoLink %}
+                                <iframe width="100%" height="500" src="{{ videoLink }}" frameborder="0" allowfullscreen></iframe>
+                            {% endfor %}
                         {% endif %}
 
                         {% if page == inner %}
