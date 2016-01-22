@@ -142,6 +142,9 @@ fos_comment:
         model:
             comment: Application\CommentBundle\Entity\Comment
             thread: Application\CommentBundle\Entity\Thread
+    service:
+        sorting:
+            default: date_asc
 
 # fos rest bundle
 fos_rest:
