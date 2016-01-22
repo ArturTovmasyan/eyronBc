@@ -38,7 +38,7 @@ class MainController extends Controller
         $primaryEmail = false;
 
         // create goal form
-        $form = $this->createForm(new SettingsType($this->container), $user);
+        $form = $this->createForm(new SettingsType(), $user);
 
         // check request method
         if ($request->isMethod("POST")) {
@@ -49,16 +49,45 @@ class MainController extends Controller
             // check valid
             if ($form->isValid()) {
 
-              $emailsInForm = $form->get('bl_multiple_email')->getData();
+                //get userEmails in form
+                $emailsInForm = $form->get('bl_multiple_email')->getData();
 
-                //get userEmail value in array
-                $emailsValue = array_map(function($item){ return $item['primary']; }, $emailsInForm);
+                //get user emails values in emailsInForm data
+                $emailValue = array_map(function($item){ return $item['userEmails']; }, $emailsInForm);
+
+                //set custom error class
+//                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
+//
+//                if(array_search($user->getEmail(), $emailValue)) {
+//
+//                    //set error in field
+//                    $form->get('email')->addError($errors);
+//                }
+
+                //get primary values in emailsInForm data
+                $primaryValue = array_map(function($item){ return $item['primary']; }, $emailsInForm);
 
                 //if remove email exist in array
-                if(($key = array_search('1', $emailsValue)) !== false) {
+                if(($key = array_search('1', $primaryValue)) !== false) {
 
                     //get primary email
                     $primaryEmail = $emailsInForm[$key]['userEmails'];
+                }
+
+                //check if primary email exist in emailValue
+                if(($key = array_search($primaryEmail, $emailValue)) !== false) {
+
+                    unset($emailsInForm[$key]);
+                }
+
+                //check if set another primary email
+                if($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
+                  (array_search($user->getEmail(), $emailsInForm) == false)) {
+
+                    $emailsInForm[] = [
+                        "userEmails" => $user->getEmail(),
+                        "primary" => 0
+                    ];
                 }
 
                 // get current password in form
@@ -89,6 +118,9 @@ class MainController extends Controller
                     if($primaryEmail) {
                         $user->setEmail($primaryEmail);
                     }
+
+                    //set user emails
+                    $user->setUserEmails($emailsInForm);
 
                     //set new password
                     $user->setPlainPassword($newPassword);

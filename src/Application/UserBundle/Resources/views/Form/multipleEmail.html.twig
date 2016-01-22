@@ -18,11 +18,13 @@
                     <li>
                         <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
                                value="1"
-                                {% if child.primary.vars.value == 1 %} checked {% endif %}
+                                {#{% if child.primary.vars.value == 1 %} checked {% endif %}#}
                                 />
 
                         <a class="delete-link" href="{{ path('remove_email', {'email' : child.userEmails.vars.value } ) }}">{{ 'btn_delete'|trans }}</a>
                     </li>
+
+                    <div class="error-message">{{ form_errors(child.userEmails) }}</div>
 
                 {% endif %}
 
