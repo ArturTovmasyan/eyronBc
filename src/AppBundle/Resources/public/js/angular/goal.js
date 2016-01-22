@@ -10,7 +10,6 @@ angular.module('goal', ['Interpolation',
     .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
 
         $scope.files = [];
-        $scope.videos = [{}];
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();

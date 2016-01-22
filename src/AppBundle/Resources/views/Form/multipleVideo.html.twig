@@ -9,18 +9,18 @@
         {% endfor %}
     {% endif %}
 
-    {% set videoLink = videoLink|merge([{'link':''}]) %}
+    {% set videoLink = videoLink|merge([{'id': ''}]) %}
 
-    <div class="form-group" ng-init="videos={{ videoLink|json_encode }}">
+    <div class="form-group" data-ng-init="videos={{ videoLink|json_encode }}">
         <label class="text-dark-gray">Video</label>
         {{ form_errors(form) }}
 
         <videos data-ng-repeat="(k, video) in videos"
-                data-form-id="{{ form.vars.id }}"
-                data-form-name="{{ form.vars.full_name }}"
-                data-key="k"
-                data-link="video.link"
-                data-array="videos">
+            data-form-id="{{ form.vars.id }}"
+            data-form-name="{{ form.vars.full_name }}"
+            data-key="k"
+            data-link="video.link"
+            data-array="videos">
         </videos>
     </div>
 
