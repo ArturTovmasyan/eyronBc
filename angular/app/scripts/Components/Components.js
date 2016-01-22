@@ -11,7 +11,7 @@ angular.module('Components',[])
 
                 el.bind('keyup',function(ev){
 
-                    if(ev.which === 13){
+                    if(ev.which === 13 && !ev.shiftKey){
                         angular.element(scope.ngEnterSubmit).submit();
                     }
                 })
