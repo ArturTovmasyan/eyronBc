@@ -69,9 +69,12 @@
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
-                <ul class="right-block">
+                <ul class="right-block margin-top">
                     <li class="clearfix">
-                        <span>{{ 'right_menu.ideas'|trans }}</span>
+                        <span>
+                            <i class="icon top-icon"></i>
+                            {{ 'right_menu.ideas'|trans }}
+                        </span>
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
