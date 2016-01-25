@@ -140,6 +140,7 @@ class MainController extends Controller
             // get validator
             $validator = $this->get('validator');
 
+            //get errors
             $errors = $validator->validate($user, null, array('Register'));
 
             // returned value
@@ -152,14 +153,17 @@ class MainController extends Controller
                 foreach($errors as $error){
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
-            }
 
-            if($returnResult['email']) {
-                //set custom error class
-                $error = new FormError($returnResult['email']);
+                //check if email error exist
+                if($returnResult['email']) {
 
-                //set error in field
-                $form->get('email')->addError($error);
+                    //set custom error class
+//                    $error = new FormError($returnResult['email']);
+                    $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
+                    
+                    //set error in field
+                    $form->get('bl_multiple_email')->addError($error);
+                }
             }
 
             // check valid
