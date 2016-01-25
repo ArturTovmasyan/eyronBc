@@ -114,7 +114,9 @@
                                  <div class="row">
                                      {% for image in images %}
                                              <div class="col-md-2">
-                                                 <a href="{{ path("remove_image", {'filename' : image.filename }) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                                                 <a href="{{ path("remove_image", {'filename' : image.filename }) }}">
+                                                     <span class="glyphicon glyphicon-remove"></span>
+                                                 </a>
                                                  <img src="{{ image.downloadLink }}" alt="{{ image.fileOriginalName }}" class="img-responsive"/>
                                              </div>
                                      {% endfor %}
