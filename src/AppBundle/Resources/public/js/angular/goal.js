@@ -22,7 +22,7 @@ angular.module('goal', ['Interpolation',
         }
 
         $('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
         
@@ -108,7 +108,7 @@ angular.module('goal', ['Interpolation',
         });
 
         angular.element('input.private-checkbox').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
 
@@ -140,7 +140,7 @@ angular.module('goal', ['Interpolation',
         angular.element('.ticker').ticker();
 
         angular.element('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
     }])
