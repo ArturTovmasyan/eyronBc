@@ -16,16 +16,20 @@ class NewsFeedControllerTest extends BaseClass
      */
     public function testGet()
     {
-//        $url = sprintf('api/news_feed_rest');
-//
-//        // try to get news-feed
-//        $this->client->request('GET', $url);
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_OK, "can not get news-feed in getAction rest!");
-//
-//        $this->assertTrue(
-//            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-//            $this->client->getResponse()->headers
-//        );
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+
+        $url = sprintf('api/news_feed_rest');
+
+        // try to get news-feed
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_OK, "can not get news-feed in getAction rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
     }
 }
