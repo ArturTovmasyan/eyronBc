@@ -34,7 +34,7 @@
 
                         {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
-                        <form class="form-horizontal" action="#" method="post"
+                        <form class="form-horizontal" action="{{ app.request.requestUri }}" method="post"
                               data-ng-init="initSteps({{ data.getStepsJson }})">
 
                             <div class="goal-end">
@@ -241,7 +241,8 @@
                                 <div class="form-group text-center ">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                        <button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>
+                                        {#<button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>#}
+                                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                                     </div>
                                 </div>
 

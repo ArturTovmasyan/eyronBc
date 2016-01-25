@@ -64,6 +64,14 @@ angular.module('Google', [])
             compile: function(){
                 return function(scope, el){
 
+                    el.on('keydown', function(ev){
+                        if(ev.which == 13){
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                            return false;
+                        }
+                    });
+
                     var autocomplete = new google.maps.places.Autocomplete(el[0],{types: ['address']});
                     google.maps.event.addListener(autocomplete, 'place_changed', function(){
                         var result = autocomplete.getPlace();
