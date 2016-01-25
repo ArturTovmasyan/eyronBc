@@ -53,6 +53,19 @@ angular.module('Components',[])
             }
         }
     }])
+    .directive('lsJqueryModal',['$compile', '$http', function($compile, $http){
+        return {
+            restrict: 'EA',
+            scope: {
+                lsTemplate: '@',
+                lsUrl: '@',
+                lsIdentity: '@'
+            },
+            link: function(scope, el){
+
+            }
+        }
+    }])
     .animation('.slide', function() {
         var NG_HIDE_CLASS = 'ng-hide';
         return {
