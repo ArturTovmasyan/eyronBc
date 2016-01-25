@@ -12,7 +12,6 @@
                 {% if  child.vars.value.userEmails is not null %}
 
                     <li>
-                        {{ form_label(child.userEmails, 'Primary Email') }}
                         {{ form_widget(child.userEmails) }}
                     </li>
                     <li>
@@ -42,7 +41,6 @@
     {% set primaryId =  'primary_show_id' %}
     {% set primaryName =  'primary_show_name' %}
 
-    {{ form_label(form.userEmails, 'Primary Email') }}
     {{ form_widget(form.userEmails) }}
     <input onclick="toHiddenPrimary('{{ primaryHiddenId }}' )" class="bl-radio" type="radio" id="{{ primaryId }}" name="{{ primaryName }}"
            value="1"

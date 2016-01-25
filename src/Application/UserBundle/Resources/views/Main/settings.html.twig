@@ -39,6 +39,10 @@
 
                             {% set userEmails = form.vars.value.userEmails %}
 
+                            <div class="col-sm-2">
+                                {{ form_label(form.email, 'Primary Email') }}
+                            </div>
+
                             {% if userEmails|length != 0 %}
                                 <div class="col-sm-1">
                                     <input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>
@@ -134,6 +138,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-blue">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                        <button type="reset" class="btn btn-blue">{{ 'btn_cancel'|trans({}, 'messages') }}</button>
 
                         {{ form_widget(form._token) }}
 

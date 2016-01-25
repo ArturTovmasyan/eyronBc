@@ -74,13 +74,11 @@ class MainController extends Controller
                 $form->get('password')->addError($error);
             }
 
-            //get userEmails in form
+            //get userEmails in form data
             $emailsInForm = $form->get('bl_multiple_email')->getData();
 
             //get user emails values in emailsInForm data
-            $emailValue = array_map(function ($item) {
-                return $item['userEmails'];
-            }, $emailsInForm);
+            $emailValue = array_map(function ($item) { return $item['userEmails']; }, $emailsInForm);
 
             //check if user email have duplicate in emailsInForm
             if (array_search($user->getEmail(), $emailValue)) {
@@ -89,13 +87,11 @@ class MainController extends Controller
                 $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
 
                 //set error in field
-                $form->get('bl_multiple_email')->addError($errors);
+                $form->get('email')->addError($errors);
             }
 
             //get primary values in emailsInForm data
-            $primaryValue = array_map(function ($item) {
-                return $item['primary'];
-            }, $emailsInForm);
+            $primaryValue = array_map(function ($item) { return $item['primary']; }, $emailsInForm);
 
             //if remove email exist in array
             if (($key = array_search('1', $primaryValue)) !== false) {
@@ -112,15 +108,14 @@ class MainController extends Controller
 
             //check if set another primary email
             if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
-                (array_search($user->getEmail(), $emailsInForm) == false)
-            ) {
+               (array_search($user->getEmail(), $emailsInForm) == false)) {
 
+                //set user email in emailsInForm array
                 $emailsInForm[] = [
                     "userEmails" => $user->getEmail(),
                     "primary" => 0
                 ];
             }
-
 
             //check if primary email exist
             if($primaryEmail) {
@@ -135,7 +130,6 @@ class MainController extends Controller
 
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
-
 
             // get validator
             $validator = $this->get('validator');
@@ -160,7 +154,7 @@ class MainController extends Controller
                     //set custom error class
 //                    $error = new FormError($returnResult['email']);
                     $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
-                    
+
                     //set error in field
                     $form->get('bl_multiple_email')->addError($error);
                 }
