@@ -16,6 +16,10 @@ class NewsFeedControllerTest extends BaseClass
      */
     public function testGet()
     {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+
         $url = sprintf('api/news_feed_rest');
 
         // try to get news-feed

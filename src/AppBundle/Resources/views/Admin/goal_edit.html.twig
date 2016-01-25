@@ -1,7 +1,25 @@
 {% extends "SonataAdminBundle:CRUD:base_edit.html.twig" %}
 
+{% block form %}
+    <div data-ng-app="goal">
+        {{ block('parentForm') }}
+    </div>
+{% endblock %}
+
 {% block javascripts %}
 
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/app/js/images.js') }}"></script>
+
+    <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" ></script>
+    <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}" type="text/javascript"></script>
+    <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/angular-sanitize/angular-sanitize.min.js") }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}" type="text/javascript"></script>
+
+    <script src="{{ asset('bundles/app/js/images.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
+
 {% endblock %}

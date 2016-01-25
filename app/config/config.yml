@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v29
+        assets_version: v30
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -142,6 +142,9 @@ fos_comment:
         model:
             comment: Application\CommentBundle\Entity\Comment
             thread: Application\CommentBundle\Entity\Thread
+    service:
+        sorting:
+            default: date_asc
 
 # fos rest bundle
 fos_rest:

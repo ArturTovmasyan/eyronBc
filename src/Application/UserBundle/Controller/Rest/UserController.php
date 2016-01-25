@@ -32,7 +32,7 @@ class UserController extends FOSRestController
      *  description="This function is used to register a new user",
      *  statusCodes={
      *         400="Bad request",
-     *         204="There is no information to send back"
+     *         200="The user was registered"
      *     },
      * parameters={
      *      {"name"="email", "dataType"="email", "required"=true, "description"="User`s email"},
@@ -144,7 +144,7 @@ class UserController extends FOSRestController
      *  section="User",
      *  description="This function is used to login user",
      *  statusCodes={
-     *         200="Returned when status changed",
+     *         200="Returned when was login",
      *         404="User not found"
      *     },
      * parameters={

@@ -15,17 +15,17 @@
                     {#{{ form_errors(form) }}#}
                     {#{{ form_errors(form.body) }}#}
                     {#</div>#}
-                    {{ form_widget(form.body) }}
+                    {{ form_widget(form.body, {'attr': {'onkeyup': 'if(event.which === 13 && !event.shiftKey){$(this).parent("form.fos_comment_comment_new_form").submit()}'} }) }}
 
                     {{ form_rest(form) }}
                 {% endblock %}
 
                 <div class="fos_comment_submit">
                 {% block fos_comment_form_submit %}
-                {% if parent is not null %}
-                <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel" />
-                {% endif %}
-                <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />
+                    {% if parent is not null %}
+                        <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel" />
+                    {% endif %}
+                    {#<input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />#}
                 {% endblock %}
                 </div>
 

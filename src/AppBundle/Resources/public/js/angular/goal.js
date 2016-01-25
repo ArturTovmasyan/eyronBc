@@ -10,7 +10,6 @@ angular.module('goal', ['Interpolation',
     .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
 
         $scope.files = [];
-        $scope.videos = [{}];
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -23,7 +22,7 @@ angular.module('goal', ['Interpolation',
         }
 
         $('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
         
@@ -109,7 +108,7 @@ angular.module('goal', ['Interpolation',
         });
 
         angular.element('input.private-checkbox').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
 
@@ -141,7 +140,7 @@ angular.module('goal', ['Interpolation',
         angular.element('.ticker').ticker();
 
         angular.element('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
+            checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         });
     }])
@@ -151,7 +150,9 @@ angular.module('goal', ['Interpolation',
             scope: {
                 array: '=',
                 key: '=',
-                link: '='
+                link: '=',
+                formId: '@',
+                formName: '@'
             },
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){

@@ -12,9 +12,12 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
-        <!-- service for lead schema form -->
         <service id="bl.multiple.file" class="AppBundle\Form\Type\BlMultipleFileType">
             <tag name="form.type" alias="bl_multiple_file" />
+        </service>
+
+        <service id="bl.multiple.video" class="AppBundle\Form\Type\BlMultipleVideoType">
+            <tag name="form.type" alias="bl_multiple_video" />
         </service>
 
         <!-- service for twig extension replace in string -->

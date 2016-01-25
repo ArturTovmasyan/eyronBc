@@ -71,15 +71,15 @@ NelmioApiDocBundle:
     prefix:   /development/rest/
 
 # custom rests
-app_goal_rest:
+app_user_goal_rest:
     type:     rest
-    resource: AppBundle\Controller\Rest\GoalRestController
-    prefix:   /api
+    resource: AppBundle\Controller\Rest\UserGoalController
+    prefix:   /
 
 app_nwe_feed_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\NewsFeedController
-    prefix:   /api
+    prefix:   /
 
 app_emails_remove_rest:
     type:     rest
