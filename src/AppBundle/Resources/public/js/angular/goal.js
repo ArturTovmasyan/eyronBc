@@ -21,9 +21,11 @@ angular.module('goal', ['Interpolation',
             }
         }
 
-        $('.suggest-input input').iCheck({
+        $('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
+        }).on('ifChanged', function (event) {
+            $(event.target).trigger('change');
         });
         
         // file uploads
@@ -117,17 +119,11 @@ angular.module('goal', ['Interpolation',
             )
         });
 
-        angular.element('input.private-checkbox').iCheck({
+        angular.element('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
-        });
-
-        angular.element('.place-autocomplete').bind('keydown',function(ev){
-            if(ev.which === 13){
-                ev.preventDefault();
-                ev.stopPropagation();
-                return false;
-            }
+        }).on('ifChanged', function (event) {
+            angular.element(event.target).trigger('change');
         });
     }])
     .controller('goalInner',['$scope',function($scope){
