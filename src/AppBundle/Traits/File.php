@@ -19,7 +19,7 @@ trait File
 {
     /**
      * @Assert\Image(
-     *     groups={"Registration", "Profile", "Default"},
+     *     groups={"Registration", "Profile", "Default", "Register"},
      *     minWidth = 400,
      *     minHeight = 400,
      *     minWidthMessage = "file.width_extension",
