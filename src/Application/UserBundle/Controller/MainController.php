@@ -149,10 +149,10 @@ class MainController extends Controller
                 }
 
                 //check if email error exist
-                if($returnResult['email']) {
+                if(array_key_exists('email', $returnResult)) {
 
                     //set custom error class
-//                    $error = new FormError($returnResult['email']);
+                    //$error = new FormError($returnResult['email']);
                     $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
 
                     //set error in field

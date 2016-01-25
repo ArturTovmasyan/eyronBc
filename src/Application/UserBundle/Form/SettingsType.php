@@ -44,6 +44,7 @@ class SettingsType extends AbstractType
                 'mapped' => false
             ))
             ->add('plainPassword', 'repeated', array(
+                'required' => false,
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password'),
