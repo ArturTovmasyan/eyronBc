@@ -100,6 +100,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
+     * @Assert\Date
      */
     protected $birthDate;
 
@@ -155,6 +156,14 @@ class User extends BaseUser
         return $this->getDownloadLink();
     }
 
+    /**
+     * @VirtualProperty
+     * @Groups({"user"})
+     */
+    public function getIsConfirmed()
+    {
+        return $this->registrationToken ? false : true;
+    }
 
     /**
      * Constructor

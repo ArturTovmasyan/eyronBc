@@ -88,8 +88,7 @@ class UserController extends FOSRestController
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
-//        TODO: If need for mobile version
-//        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
+        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
         $sessionId = $this->loginAction($user);
 
@@ -289,6 +288,42 @@ class UserController extends FOSRestController
         return array(
             'registered' => false
         );
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to reset password",
+     *  statusCodes={
+     *         204="Returned when all ok",
+     *         404="User not found"
+     *     },
+     * )
+     *
+     * @Rest\View()
+     * @param $email
+     * @return array
+     */
+    public function getResetAction($email)
+    {
+        $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($email);
+
+        if (!$user){
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'user not found');
+        }
+
+        if (null === $user->getConfirmationToken()) {
+            /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $user->setConfirmationToken($tokenGenerator->generateToken());
+        }
+
+        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $user->setPasswordRequestedAt(new \DateTime());
+        $this->container->get('fos_user.user_manager')->updateUser($user);
+
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 }
 
