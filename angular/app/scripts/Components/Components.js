@@ -63,6 +63,34 @@ angular.module('Components',[])
             },
             link: function(scope, el){
 
+                console.log(scope, 'modal');
+
+                el.bind('click', function(){
+
+                });
+
+                scope.$on('openLsModal', function(event, dataId){
+                    if(dataId === scope.lsIdentity){
+                        scope.openModal();
+                    }
+                });
+
+                scope.openModal = function(){
+                    if(scope.lsTemplate){
+                        var tmp = $compile(scope.lsTemplate)(scope);
+                        angular.element('body').append(tmp);
+                        tmp.modal({
+                            fadeDuration: 500
+                        });
+                    }
+                    else if(scope.lsUrl){
+                        $http.get(scope.lsUrl)
+                            .success(function(res, header){
+                                console.log(res);
+                            })
+                    }
+                }
+
             }
         }
     }])

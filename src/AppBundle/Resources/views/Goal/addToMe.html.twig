@@ -1,42 +1,38 @@
-{% extends "AppBundle::layout.html.twig" %}
+{#{% extends "AppBundle::layout.html.twig" %}#}
 
-{% block angularApp %}
-    <html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}
+{#{% block angularApp %}#}
+    {#<html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}#}
 
-{% block stylesheets %}
-    {{ parent() }}
+{#{% block stylesheets %}#}
+    {#{{ parent() }}#}
 
-    <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
-          rel="stylesheet">
-    <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
-    <style>
-        html {
-            overflow-y: auto !important;
-        }
-    </style>
-{% endblock %}
+    {#<link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
+          {#rel="stylesheet">#}
+    {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
+    {#<style>#}
+        {#html {#}
+            {#overflow-y: auto !important;#}
+        {#}#}
+    {#</style>#}
+{#{% endblock %}#}
 
-{% block content %}
-    <div class="goal-container">
+{#{% block content %}#}
+    <div class="goal-container" data-ng-controller="goalEnd">
         <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>
 
         <div class="goals-end">
             <div class="container">
-
-
                 <div class="row">
-                    <div class="col-md-6 col-md-offset-3 form-modal" style="width: auto; margin-top: 80px;display: none">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="email">{{ "goal.create_goal"|trans }}</div>
-
 
                         {% set goal = data.goal %}
                         {% set completed = false %}
                         {% set user = app.user %}
 
                         {% include "AppBundle:Blocks:topBlock.html.twig" %}
-
 
                         <form class="form-horizontal" action="#" method="post"
                               data-ng-init="initSteps({{ data.getStepsJson }})">
@@ -257,28 +253,14 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{#{% endblock %}#}
 
-{% block javascripts %}
-    {{ parent() }}
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
 
-    <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
-
-    <script>
-        $(document).ready(function(){
-            setTimeout(function(){
-                $('.form-modal').show();
-                $('.form-modal').modal({
-                    fadeDuration: 500,
-                    showClose: false,
-                    escapeClose: false,
-                    clickClose: false
-                });
-            },500);
-        });
-    </script>
-{% endblock %}
+    {#<script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>#}
+    {#<script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>#}
+    {#<script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"#}
+            {#type="text/javascript"></script>#}
+    {#<script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>#}
+{#{% endblock %}#}

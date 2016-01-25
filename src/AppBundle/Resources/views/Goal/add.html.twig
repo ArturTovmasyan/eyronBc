@@ -8,6 +8,8 @@
     <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
+          rel="stylesheet">
     <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -51,7 +53,12 @@
                              <button type="submit" class="btn btn-transparent" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
-                             <button type="submit" class="btn btn-purple" name="btn_publish">{{ 'goal.publish'|trans }}
+                             <button type="submit"
+                                     data-ls-jquery-modal
+                                     data-ls-identity="goalSave"
+                                     data-ls-template="[[ goalSubmitTemplate ]]"
+                                     class="btn btn-purple"
+                                     name="btn_publish">{{ 'goal.publish'|trans }}
                                  <span class="icon icon-right"></span>
                              </button>
                          </div>
@@ -153,11 +160,6 @@
     <script>
         $(document).ready(function(){
 
-            $("#goal-create-form").ajaxForm({
-                success: function(res, text, header){
-                    console.log(header);
-                }
-            });
 
         })
     </script>
