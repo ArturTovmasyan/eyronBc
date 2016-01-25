@@ -996,7 +996,7 @@ class GoalController extends Controller
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
 
         //check if user goal exist and 1
-        if(count($userGoal) == 1) {
+        if(count($userGoal) == 1){
             // remove from bd
             $em->remove($userGoal);
         }
@@ -1015,7 +1015,7 @@ class GoalController extends Controller
         $em->remove($goalDraft);
         $em->flush();
 
-        return $this->redirectToRoute("user_profile");
+        return $this->redirectToRoute("goal_drafts");
     }
 
     /**
