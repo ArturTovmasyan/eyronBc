@@ -293,8 +293,18 @@ class RegistrationControllerTest extends WebTestCase
 
         // get form
         $form = $crawler->selectButton('Send')->form(array(
-            'username' => 'armen@armen.com',
+            'username' => 'armen1111@armen.com1111',
+        ));
 
+        // submit form
+        $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), "error during incorrect email in resetting page");
+
+
+        // get form
+        $form = $crawler->selectButton('Send')->form(array(
+            'username' => 'armen@armen.com',
         ));
 
         // submit form
@@ -311,12 +321,22 @@ class RegistrationControllerTest extends WebTestCase
         // Assert that the response status code is 2xx
         $this->assertTrue($this->client->getResponse()->isSuccessful(), "can not open password resetting-reset-confirmationToken page!");
 
+        $form = $crawler->selectButton('Done')->form(array(
+            'fos_user_resetting_form[new][first]' => 'test12',
+            'fos_user_resetting_form[new][second]' => 'test',
+        ));
+
+        // submit form
+        $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), "password validation error during password resetting");
+
         // get form
         $form = $crawler->selectButton('Done')->form(array(
             'fos_user_resetting_form[new][first]' => 'test12',
             'fos_user_resetting_form[new][second]' => 'test12',
-
         ));
+
 
         // submit form
         $this->client->submit($form);

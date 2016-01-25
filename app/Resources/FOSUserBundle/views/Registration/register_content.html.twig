@@ -25,9 +25,12 @@
                     <div class="form-group row no-padding">
                         <div class="col-sm-6">
                             {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                            <div class="error-message">{{ form_errors(form.firstName) }}</div>
                         </div>
+
                         <div class="col-sm-6">
                             {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                            <div class="error-message">{{ form_errors(form.lastName) }}</div>
                         </div>
                     </div>
 

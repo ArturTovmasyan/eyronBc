@@ -73,6 +73,7 @@ class User extends BaseUser
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      * @Groups({"user"})
+     * @Assert\NotBlank()
      */
     protected $firstName;
 
@@ -106,6 +107,7 @@ class User extends BaseUser
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      * @Groups({"user"})
+     * @Assert\NotBlank()
      */
     protected $lastName;
 
