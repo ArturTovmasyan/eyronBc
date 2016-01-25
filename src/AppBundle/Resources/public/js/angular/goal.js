@@ -73,9 +73,11 @@ angular.module('goal', ['Interpolation',
 
         $("#goal-create-form").ajaxForm({
             success: function(res, text, header){
-                $scope.goalSubmitTemplate = res;
-                $scope.$apply();
-                $scope.$broadcast('openLsModal', 'goalSave');
+                if(header.status === 200){
+                    $scope.goalSubmitTemplate = res;
+                    $scope.$apply();
+                    $scope.$broadcast('openLsModal', 'goalSave');
+                }
             }
         });
 

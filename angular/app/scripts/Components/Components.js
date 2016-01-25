@@ -58,7 +58,7 @@ angular.module('Components',[])
             restrict: 'EA',
             scope: {
                 lsTemplate: '@',
-                lsUrl: '@',
+                lsTemplateUrl: '@',
                 lsIdentity: '@'
             },
             link: function(scope, el){
@@ -66,29 +66,34 @@ angular.module('Components',[])
                 console.log(scope, 'modal');
 
                 el.bind('click', function(){
-
+                    scope.run();
                 });
 
                 scope.$on('openLsModal', function(event, dataId){
                     if(dataId === scope.lsIdentity){
-                        scope.openModal();
+                        scope.run();
                     }
                 });
 
-                scope.openModal = function(){
+                scope.run = function(){
                     if(scope.lsTemplate){
                         var tmp = $compile(scope.lsTemplate)(scope);
-                        angular.element('body').append(tmp);
-                        tmp.modal({
-                            fadeDuration: 500
-                        });
+                        scope.openModal(tmp);
                     }
-                    else if(scope.lsUrl){
-                        $http.get(scope.lsUrl)
-                            .success(function(res, header){
-                                console.log(res);
-                            })
+                    else if(scope.lsTemplateUrl){
+                        $http.get(scope.lsTemplateUrl)
+                            .success(function(res){
+                                var tmp = $compile(res)(scope);
+                                scope.openModal(tmp);
+                            });
                     }
+                }
+
+                scope.openModal = function(tmp){
+                    angular.element('body').append(tmp);
+                    tmp.modal({
+                        fadeDuration: 500
+                    });
                 }
 
             }
