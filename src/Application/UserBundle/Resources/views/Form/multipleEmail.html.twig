@@ -24,8 +24,6 @@
                         <a class="delete-link" href="{{ path('remove_email', {'email' : child.userEmails.vars.value } ) }}">{{ 'btn_delete'|trans }}</a>
                     </li>
 
-                    <div class="error-message">{{ form_errors(child.userEmails) }}</div>
-
                 {% endif %}
 
                 {{ form_widget(child.primary, {'attr': {'class' : 'bl_list_hidden'} } ) }}

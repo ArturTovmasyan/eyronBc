@@ -46,99 +46,129 @@ class MainController extends Controller
             // get data from request
             $form->handleRequest($request);
 
-            // check valid
-            if ($form->isValid()) {
+            // get current password in form
+            $currentPassword = $form->get('password')->getData();
 
-                //get userEmails in form
-                $emailsInForm = $form->get('bl_multiple_email')->getData();
+            //get new password in form
+            $newPassword = $form->get('plainPassword')->getData();
 
-                //get user emails values in emailsInForm data
-                $emailValue = array_map(function($item){ return $item['userEmails']; }, $emailsInForm);
+            //get current user password
+            $userPassword = $user->getPassword();
 
-//                //set custom error class
-//                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
-//
-//                //check if user email have duplicate in emailsInForm
-//                if(array_search($user->getEmail(), $emailValue)) {
-//
-//                    //set error in field
-//                    $form->get('email')->addError($errors);
-//                }
+            //get encoder service
+            $encoder_service = $this->get('security.encoder_factory');
 
-                //get primary values in emailsInForm data
-                $primaryValue = array_map(function($item){ return $item['primary']; }, $emailsInForm);
+            //encoder user
+            $encoder = $encoder_service->getEncoder($user);
 
-                //if remove email exist in array
-                if(($key = array_search('1', $primaryValue)) !== false) {
+            //encoder sent current password
+            $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
 
-                    //get primary email
-                    $primaryEmail = $emailsInForm[$key]['userEmails'];
-                }
-
-                //check if primary email exist in emailValue
-                if(($key = array_search($primaryEmail, $emailValue)) !== false) {
-
-                    unset($emailsInForm[$key]);
-                }
-
-                //check if set another primary email
-                if($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
-                  (array_search($user->getEmail(), $emailsInForm) == false)) {
-
-                    $emailsInForm[] = [
-                        "userEmails" => $user->getEmail(),
-                        "primary" => 0
-                    ];
-                }
-
-                // get current password in form
-                $currentPassword = $form->get('password')->getData();
-
-                //get new password in form
-                $newPassword = $form->get('plainPassword')->getData();
-
-                //get current user password
-                $userPassword = $user->getPassword();
-
-                //get encoder service
-                $encoder_service = $this->get('security.encoder_factory');
-
-                //encoder user
-                $encoder = $encoder_service->getEncoder($user);
-
-                //encoder sent current password
-                $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
+            //check if current password valid
+            if ($userPassword != $encode_data_pass) {
 
                 //set custom error class
                 $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
 
-                //check if current password valid
-                if($userPassword == $encode_data_pass) {
+                //set error in field
+                $form->get('password')->addError($error);
+            }
 
-                    //check if primary email exist
-                    if($primaryEmail) {
-                        $user->setEmail($primaryEmail);
-                    }
+            //get userEmails in form
+            $emailsInForm = $form->get('bl_multiple_email')->getData();
 
-                    //set user emails
-                    $user->setUserEmails($emailsInForm);
+            //get user emails values in emailsInForm data
+            $emailValue = array_map(function ($item) {
+                return $item['userEmails'];
+            }, $emailsInForm);
 
-                    //set new password
-                    $user->setPlainPassword($newPassword);
+            //check if user email have duplicate in emailsInForm
+            if (array_search($user->getEmail(), $emailValue)) {
 
-                    //get uploadFile service
-                    $this->get('bl_service')->uploadFile($user);
+                //set custom error class
+                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
 
-                    //update user
-                    $fosManager->updateUser($user);
+                //set error in field
+                $form->get('bl_multiple_email')->addError($errors);
+            }
 
-                    return $this->redirect($this->generateUrl('settings'));
+            //get primary values in emailsInForm data
+            $primaryValue = array_map(function ($item) {
+                return $item['primary'];
+            }, $emailsInForm);
 
+            //if remove email exist in array
+            if (($key = array_search('1', $primaryValue)) !== false) {
+
+                //get primary email
+                $primaryEmail = $emailsInForm[$key]['userEmails'];
+            }
+
+            //check if primary email exist in emailValue
+            if (($key = array_search($primaryEmail, $emailValue)) !== false) {
+
+                unset($emailsInForm[$key]);
+            }
+
+            //check if set another primary email
+            if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
+                (array_search($user->getEmail(), $emailsInForm) == false)
+            ) {
+
+                $emailsInForm[] = [
+                    "userEmails" => $user->getEmail(),
+                    "primary" => 0
+                ];
+            }
+
+
+            //check if primary email exist
+            if($primaryEmail) {
+                $user->setEmail($primaryEmail);
+            }
+
+            //set user emails
+            $user->setUserEmails($emailsInForm);
+
+            //set new password
+            $user->setPlainPassword($newPassword);
+
+            //get uploadFile service
+            $this->get('bl_service')->uploadFile($user);
+
+
+            // get validator
+            $validator = $this->get('validator');
+
+            $errors = $validator->validate($user, null, array('Register'));
+
+            // returned value
+            $returnResult = array();
+
+            // check count of errors
+            if(count($errors) > 0){
+
+                // loop for error
+                foreach($errors as $error){
+                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
-                else {
-                    //set error in field
-                    $form->get('password')->addError($error);
-                }
+            }
+
+            if($returnResult['email']) {
+                //set custom error class
+                $error = new FormError($returnResult['email']);
+
+                //set error in field
+                $form->get('email')->addError($error);
+            }
+
+            // check valid
+            if ($form->isValid()) {
+
+                //update user
+                $fosManager->updateUser($user);
+
+                return $this->redirect($this->generateUrl('settings'));
             }
         }
 
