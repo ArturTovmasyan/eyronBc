@@ -71,6 +71,11 @@ app_user_goal_rest:
     resource: AppBundle\Controller\Rest\UserGoalController
     prefix:   /
 
+app_goal_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\GoalController
+    prefix:   /
+
 app_nwe_feed_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\NewsFeedController

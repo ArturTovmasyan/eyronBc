@@ -33,7 +33,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
-                ->from('AppBundle:Goal', 'g')
+                ->from('AppBundle:Goal', 'g', 'g.id')
                 ->join('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
@@ -55,17 +55,17 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * This function is used to get listedBy, doneBy counts for goal
      *
-     * @param $ids
+     * @param $goals
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findGoalStateCount($ids)
+    public function findGoalStateCount(&$goals)
     {
-        if (!count($ids)){
+        if (!count($goals)){
             return null;
         }
 
-        return $this->getEntityManager()
+        $stats = $this->getEntityManager()
             ->createQuery("SELECT g.id as goalId, COUNT(ug) as listedBy,
                           (SELECT COUNT (ug1) from AppBundle:UserGoal ug1
                            WHERE ug1.status != :status and ug1.goal = g) as doneBy
@@ -75,9 +75,18 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            WHERE g.id IN (:goalIds)
                            GROUP BY g.id
                           ")
-            ->setParameter('goalIds', $ids)
+            ->setParameter('goalIds', array_keys($goals))
             ->setParameter('status', UserGoal::ACTIVE)
             ->getResult();
+
+        foreach($goals as &$goal){
+            $goal->setStats([
+                'listedBy' => $stats[$goal->getId()]['listedBy'],
+                'doneBy'   => $stats[$goal->getId()]['doneBy'],
+            ]);
+        }
+
+        return $goals;
     }
 
     /**
@@ -168,7 +177,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $this->getEntityManager()
                 ->createQueryBuilder()
                 ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
-                ->from('AppBundle:Goal', 'g')
+                ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')

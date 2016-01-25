@@ -23,7 +23,7 @@ class UserGoalController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="User",
+     *  section="UserGoal",
      *  description="This function is used to get userGoal",
      *  statusCodes={
      *         200="Returned when userGoal was returned",
@@ -51,7 +51,7 @@ class UserGoalController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="User",
+     *  section="UserGoal",
      *  description="This function is used to remove userGoal",
      *  statusCodes={
      *         200="Returned when userGoal was removed",

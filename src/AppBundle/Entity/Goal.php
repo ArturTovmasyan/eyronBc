@@ -148,6 +148,11 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $updated;
 
     /**
+     * @Groups({"goal"})
+     */
+    protected $stats;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -163,6 +168,22 @@ class Goal implements MultipleFileInterface, PublishAware
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStats()
+    {
+        return $this->stats;
+    }
+
+    /**
+     * @param mixed $stats
+     */
+    public function setStats($stats)
+    {
+        $this->stats = $stats;
     }
 
     /**
