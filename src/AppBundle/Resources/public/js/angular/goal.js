@@ -159,7 +159,7 @@ angular.module('goal', ['Interpolation',
             increaseArea: '20%'
         });
     }])
-    .directive('videos', [function(){
+    .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',
             scope: {
@@ -204,6 +204,10 @@ angular.module('goal', ['Interpolation',
                         scope.array.splice(scope.key, 1);
                     }
                 }
+
+                scope.trustedUrl = function(url){
+                    return $sce.trustAsResourceUrl(url);
+                };
             }
         }
     }])
