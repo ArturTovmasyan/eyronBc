@@ -33,8 +33,8 @@ file:
     goal_image_height_extension: File height must be min 640 px
     extension_error: Wrong format of file
     size_error: Wrong size of file
-    category_logo_width_min_extension: The minimum image size is 30x30 px
-    category_logo_height_min_extension: The minimum image size is 30x30 px
+    category_logo_width_min_extension: The minimum image size is 20x20 px
+    category_logo_height_min_extension: The minimum image size is 20x20 px
     category_logo_width_max_extension: The maximum image size is 50x50 px
     category_logo_height_max_extension: The maximum image size is 50x50 px
 Error: Error
