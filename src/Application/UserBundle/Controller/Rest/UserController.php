@@ -209,6 +209,8 @@ class UserController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
         $id = null;
+        $newUser = new User();
+
         // switch for type
         switch($type){
             case "facebook":
@@ -216,12 +218,15 @@ class UserController extends FOSRestController
                     $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
                     $data = json_decode($data);
                     $id = $data->id;
+                    $newUser->setFacebookId($id);
+                    $newUser->setEmail($id);
+                    $newUser->setUsername($id);
 
                     $fullName = explode(' ', $data->name);
-                    $firstName = $fullName[0];
-                    $lastName = $fullName[1];
+                    $newUser->setFirstName($fullName[0]);
+                    $newUser->setLastName($fullName[1]);
 
-                    file_put_contents("Tmpfile.zip", fopen("https://graph.facebook.com/" . $id . "/picture?type=large", 'r'));
+                    $photoPath = "https://graph.facebook.com/" . $id . "/picture?type=large";
                 }
                 catch(\Exception $e){
                     return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
@@ -232,6 +237,15 @@ class UserController extends FOSRestController
                     $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
                     $data = json_decode($data);
                     $id = $data->data->id;
+                    $newUser->setGoogleId($id);
+
+                    $newUser->setEmail($data->data->email);
+                    $newUser->setUsername($data->data->email);
+                    $newUser->setFirstName($data->data->given_name);
+                    $newUser->setLastName($data->data->family_name);
+                    $newUser->setGender($data->data->gender == "male" ? User::MALE : User::FEMALE);
+
+                    $photoPath  = $data->data->picture;
                 }
                 catch(\Exception $e){
                     return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
@@ -240,6 +254,19 @@ class UserController extends FOSRestController
             case "twitter":
                 $data = explode('-', $accessToken);
                 $id = is_array($data) ?  $data[0] : null;
+                $newUser->setTwitterId($id);
+
+                $data = file_get_contents("https://api.twitter.com/1.1/users/show.json?user_id=" . $id);
+                $data = json_decode($data);
+
+                $newUser->setEmail($data->screen_name);
+                $newUser->setUsername($data->screen_name);
+                $fullName = explode(' ', $data->name);
+                $newUser->setFirstName($fullName[0]);
+                $newUser->setLastName($fullName[1]);
+
+                $photoPath = $data->profile_image_url;
+
                 break;
             default:
                 return new JsonResponse("Wrong type, type must be 'facebook', 'twitter', 'instagram'", Response::HTTP_BAD_REQUEST);
@@ -249,8 +276,17 @@ class UserController extends FOSRestController
         $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
 
         if(!$user){
-//            TODO: need to create a new user
-            return new JsonResponse('We have not this user in our database', Response::HTTP_NOT_FOUND);
+            $fileName = md5(microtime()) . '.jpg';
+            file_put_contents($user->getAbsolutePath() . $fileName, fopen($photoPath, 'r'));
+            $newUser->setFileName($fileName);
+            $newUser->setFileSize(filesize($user->getAbsolutePath() . $fileName));
+            $newUser->setFileOriginalName($newUser->getFirstName() . '_photo');
+            $newUser->setPassword('');
+
+            $em->persist($newUser);
+            $em->flush();
+
+            $user = $newUser;
         }
 
         $sessionId = $this->loginAction($user);
