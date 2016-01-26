@@ -125,7 +125,7 @@ menu:
 right_menu:
   create: Create a Goal
   draft: Drafts
-  ideas: Popular Ideas
+  ideas: Top Ideas
   show: Show all
 
 active:
@@ -150,8 +150,10 @@ my_bucket_list:
 done_by: Done by
 home_complete: COMPLETED BY
 home_listed_by: LISTED BY
-
 listed_by: Listed by
+block_listed: Listed
+block_completed: Completed
+
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
 

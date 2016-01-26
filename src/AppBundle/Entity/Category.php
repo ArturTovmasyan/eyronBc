@@ -10,6 +10,8 @@ namespace AppBundle\Entity;
 
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -26,17 +28,20 @@ class Category
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups("category")
      */
     protected $id;
 
     /**
      * @ORM\Column(name="title", type="string")
+     * @Groups("category")
      */
     protected $title;
 
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", unique=true, nullable=false)
+     * @Groups("category")
      */
     protected $slug;
 
@@ -48,6 +53,16 @@ class Category
      *      )
      **/
     protected $tags;
+
+
+    /**
+     * @VirtualProperty()
+     * @Groups("category")
+     */
+    public function getImageDownloadLink()
+    {
+        return $this->getDownloadLink();
+    }
 
     /**
      * @return string

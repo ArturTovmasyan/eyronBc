@@ -1,5 +1,12 @@
 {% extends "SonataAdminBundle:CRUD:base_edit.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin-goal.css") }}">
+
+{% endblock %}
+
 {% block form %}
     <div data-ng-app="goal">
         {{ block('parentForm') }}
