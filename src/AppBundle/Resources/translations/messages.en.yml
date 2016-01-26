@@ -41,6 +41,7 @@ goal:
       avoid_distractions: Avoid distractions
       as_private: Set as private
       as_invisible: Set as Invisible
+      as_visible: Set as Visible
       not_found: Goals not found
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed

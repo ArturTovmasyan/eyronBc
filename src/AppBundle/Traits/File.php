@@ -28,8 +28,8 @@ trait File
      *
      @Assert\Image(
      *     groups={"logo"},
-     *     minWidth = 30,
-     *     minHeight = 30,
+     *     minWidth = 20,
+     *     minHeight = 20,
      *     maxWidth = 50,
      *     maxHeight = 50,
      *     minWidthMessage = "file.category_logo_width_min_extension",

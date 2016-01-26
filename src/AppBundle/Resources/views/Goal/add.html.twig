@@ -8,6 +8,8 @@
     <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
+          rel="stylesheet">
     <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -20,7 +22,7 @@
         </div>
     {% endif %}
 
-    <form method="post" class="main-form" action="#" enctype="multipart/form-data">
+    <form method="post" id="goal-create-form" class="main-form" action="#" enctype="multipart/form-data">
          <div class="content-top">
              <div class="container">
                  <div class="row">
@@ -51,7 +53,12 @@
                              <button type="submit" class="btn btn-transparent" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
-                             <button type="submit" class="btn btn-purple" name="btn_publish">{{ 'goal.publish'|trans }}
+                             <button type="submit"
+                                     data-ls-jquery-modal
+                                     data-ls-identity="goalSave"
+                                     data-ls-template="[[ goalSubmitTemplate ]]"
+                                     class="btn btn-purple"
+                                     name="btn_publish">{{ 'goal.publish'|trans }}
                                  <span class="icon icon-right"></span>
                              </button>
                          </div>
@@ -143,6 +150,7 @@
 
     <script src="{{ asset('bundles/app/js/images.js') }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/jquery-form/jquery.form.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
             type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
@@ -152,16 +160,6 @@
     <script>
         $(document).ready(function(){
 
-            var modal = $(".form-modal");
-            modal.show();
-            modal.modal({
-                fadeDuration: 500
-            });
-
-            modal.on($.modal.CLOSE, function(){
-                $('.main-form').after(modal);
-                modal.hide();
-            });
 
         })
     </script>

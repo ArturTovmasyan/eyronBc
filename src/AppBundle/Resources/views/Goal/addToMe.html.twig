@@ -1,35 +1,35 @@
-{% extends "AppBundle::layout.html.twig" %}
+{#{% extends "AppBundle::layout.html.twig" %}#}
 
-{% block angularApp %}
-    <html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}
+{#{% block angularApp %}#}
+    {#<html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}#}
 
-{% block stylesheets %}
-    {{ parent() }}
+{#{% block stylesheets %}#}
+    {#{{ parent() }}#}
 
-    <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
-          rel="stylesheet">
-    <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
-    <style>
-        html {
-            overflow-y: auto !important;
-        }
-    </style>
-{% endblock %}
+    {#<link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
+          {#rel="stylesheet">#}
+    {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
+    {#<style>#}
+        {#html {#}
+            {#overflow-y: auto !important;#}
+        {#}#}
+    {#</style>#}
+{#{% endblock %}#}
 
-{% block content %}
-    <div class="goal-container">
-        <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>
+{#{% block content %}#}
 
-        <div class="goals-end">
-            <div class="container">
+    <div class="modal" data-ng-controller="goalEnd" style="width:530px;padding:0;">
+        {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>#}
+        <div class="goal-container">
 
 
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3 form-modal" style="width: auto; margin-top: 80px;display: none">
+        {#<div class="goals-end">#}
+            {#<div class="container">#}
+                {#<div class="row">#}
+                    {#<div class="col-md-6 col-md-offset-3">#}
                         <div class="email">{{ "goal.create_goal"|trans }}</div>
-
 
                         {% set goal = data.goal %}
                         {% set completed = false %}
@@ -37,8 +37,7 @@
 
                         {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
-
-                        <form class="form-horizontal" action="#" method="post"
+                        <form class="form-horizontal" action="{{ app.request.requestUri }}" method="post"
                               data-ng-init="initSteps({{ data.getStepsJson }})">
 
                             <div class="goal-end">
@@ -221,14 +220,25 @@
                                 <div class="form-group row no-marginb">
 
                                     <label for="inputEmail3"
-                                           class="col-sm-10 control-label text-purple text-left">{{ "goal.as_invisible"|trans }}</label>
+                                           data-ng-hide="private_checkbox"
+                                           class="col-sm-10 control-label text-purple text-left">
+                                        {{ "goal.as_visible"|trans }}
+                                    </label>
+                                    <label for="inputEmail3"
+                                        data-ng-show="private_checkbox"
+                                        class="col-sm-10 control-label text-purple text-left">
+                                        {{ "goal.as_invisible"|trans }}
+                                    </label>
 
                                     <div class="col-sm-2">
                                         <input {% if not data.isVisible %} checked {% endif %}
-                                                type="checkbox" id="{{ form.isVisible.vars.id }}"
-                                                name="{{ form.isVisible.vars.full_name }}" class="private-checkbox"
-                                                value="1">
-
+                                            class="private-checkbox"
+                                            data-ng-init="private_checkbox={{ form.vars.value.isVisible|default('0') }}"
+                                            data-ng-model="private_checkbox"
+                                            type="checkbox"
+                                            id="{{ form.isVisible.vars.id }}"
+                                            name="{{ form.isVisible.vars.full_name }}"
+                                            value="1">
                                     </div>
 
                                 </div>
@@ -245,40 +255,28 @@
                                 <div class="form-group text-center ">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                        <button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>
+                                        {#<button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>#}
+                                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                                     </div>
                                 </div>
 
                                 {{ form_widget(form._token) }}
                             </div>
                         </form>
-                    </div>
+                    {#</div>#}
                 </div>
             </div>
-        </div>
-    </div>
-{% endblock %}
+        {#</div>#}
+    {#</div>#}
+    {#</div>#}
+{#{% endblock %}#}
 
-{% block javascripts %}
-    {{ parent() }}
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
 
-    <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
-
-    <script>
-        $(document).ready(function(){
-            setTimeout(function(){
-                $('.form-modal').show();
-                $('.form-modal').modal({
-                    fadeDuration: 500,
-                    showClose: false,
-                    escapeClose: false,
-                    clickClose: false
-                });
-            },500);
-        });
-    </script>
-{% endblock %}
+    {#<script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>#}
+    {#<script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>#}
+    {#<script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"#}
+            {#type="text/javascript"></script>#}
+    {#<script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>#}
+{#{% endblock %}#}
