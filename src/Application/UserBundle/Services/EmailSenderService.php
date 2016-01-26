@@ -60,7 +60,7 @@ class EmailSenderService
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')
             ->setFrom('confirmEmail@'. $projectName . '.com')
-            ->setCc('arthur.tovmasyan@rambler.ru')
+            ->setCc($newUserEmail)
             ->setContentType('text/html; charset=UTF-8')
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:userEmailsActivation.html.twig',
