@@ -117,9 +117,12 @@ angular.module('goal', ['Interpolation',
                 todayHighlight: true
             });
             angular.element("#datepicker").on("changeDate", function() {
+                $scope.datepicker_title = true;
                 angular.element(".hidden_date_value").val(
                     angular.element("#datepicker").datepicker('getFormattedDate')
-                )
+                );
+
+                $scope.$apply();
             });
 
             angular.element('input.private-checkbox').iCheck({
@@ -159,18 +162,21 @@ angular.module('goal', ['Interpolation',
             increaseArea: '20%'
         });
     }])
-    .directive('videos', [function(){
+    .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',
             scope: {
                 array: '=',
                 key: '=',
                 link: '=',
+                limit: '=',
                 formId: '@',
                 formName: '@'
             },
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){
+
+                scope.limit = scope.limit ? scope.limit : 3;
 
                 scope.$watch('link',function(d){
                     if(angular.isUndefined(d)){
@@ -181,13 +187,17 @@ angular.module('goal', ['Interpolation',
                         scope.removeItem();
                     }
                     else {
-                        if(!scope.array[scope.key + 1]){
+                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.limit){
                             scope.array[scope.key + 1] = {};
                         }
                     }
                 },true);
 
                 scope.removeItem = function(){
+                    if(scope.array[scope.array.length-1].link){
+                        scope.array[scope.array.length] = {};
+                    }
+
                     if(scope.key === 0){
                         if(scope.array.length > 1){
                             scope.array.splice(scope.key, 1);
@@ -197,6 +207,10 @@ angular.module('goal', ['Interpolation',
                         scope.array.splice(scope.key, 1);
                     }
                 }
+
+                scope.trustedUrl = function(url){
+                    return $sce.trustAsResourceUrl(url);
+                };
             }
         }
     }])

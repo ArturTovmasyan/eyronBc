@@ -91,11 +91,11 @@
 
                                 {% endif %}
 
-                                {% if data.id is null %}
-                                    <h4>{{ "goal.is_dream"|trans }}</h4>
-                                {% elseif data.doDate is null %}
-                                    <h4>{{ "dream"|trans }}</h4>
-                                {% endif %}
+                                {#{% if data.id is null %}#}
+                                    {#<h4>{{ "goal.is_dream"|trans }}</h4>#}
+                                {#{% elseif data.doDate is null %}#}
+                                    <h4 data-ng-hide="datepicker_title" style="text-align: center">{{ "dream"|trans }}</h4>
+                                {#{% endif %}#}
 
                                 <div id="datepicker" data-datepicker-disable="{{ completed }}"
                                      data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
