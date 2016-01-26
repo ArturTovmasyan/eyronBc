@@ -209,6 +209,14 @@ admin:
       images: Images
       publish: Publish
       getListPhoto: Get List Photo
+      email: Email
+      firstName: First Name
+      lastName: Last Name
+      first_name: password
+      password: Password
+      repeat_password: Repeat Password
+      employee_id: Employee ID
+      username: Username
 #
 #<trans-unit id="label_name_">
 #                <source>label_name_tag</source>
