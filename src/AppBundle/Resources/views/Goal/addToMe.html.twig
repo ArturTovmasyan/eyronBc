@@ -220,15 +220,25 @@
                                 <div class="form-group row no-marginb">
 
                                     <label for="inputEmail3"
-                                           class="col-sm-10 control-label text-purple text-left">{{ "goal.as_invisible"|trans }}</label>
+                                           data-ng-hide="private_checkbox"
+                                           class="col-sm-10 control-label text-purple text-left">
+                                        {{ "goal.as_visible"|trans }}
+                                    </label>
+                                    <label for="inputEmail3"
+                                        data-ng-show="private_checkbox"
+                                        class="col-sm-10 control-label text-purple text-left">
+                                        {{ "goal.as_invisible"|trans }}
+                                    </label>
 
                                     <div class="col-sm-2">
                                         <input {% if not data.isVisible %} checked {% endif %}
-                                                class="icheck-checkbox"
-                                                type="checkbox" id="{{ form.isVisible.vars.id }}"
-                                                name="{{ form.isVisible.vars.full_name }}" class="private-checkbox"
-                                                value="1">
-
+                                            class="private-checkbox"
+                                            data-ng-init="private_checkbox={{ form.vars.value.isVisible|default('0') }}"
+                                            data-ng-model="private_checkbox"
+                                            type="checkbox"
+                                            id="{{ form.isVisible.vars.id }}"
+                                            name="{{ form.isVisible.vars.full_name }}"
+                                            value="1">
                                     </div>
 
                                 </div>
