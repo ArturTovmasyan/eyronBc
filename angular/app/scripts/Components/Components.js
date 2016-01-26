@@ -63,8 +63,6 @@ angular.module('Components',[])
             },
             link: function(scope, el){
 
-                console.log(scope, 'modal');
-
                 el.bind('click', function(){
                     scope.run();
                 });
