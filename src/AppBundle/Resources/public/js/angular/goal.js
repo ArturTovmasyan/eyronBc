@@ -181,13 +181,17 @@ angular.module('goal', ['Interpolation',
                         scope.removeItem();
                     }
                     else {
-                        if(!scope.array[scope.key + 1]){
+                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < 3){
                             scope.array[scope.key + 1] = {};
                         }
                     }
                 },true);
 
                 scope.removeItem = function(){
+                    if(scope.array[scope.array.length-1].link){
+                        scope.array[scope.array.length] = {};
+                    }
+
                     if(scope.key === 0){
                         if(scope.array.length > 1){
                             scope.array.splice(scope.key, 1);
