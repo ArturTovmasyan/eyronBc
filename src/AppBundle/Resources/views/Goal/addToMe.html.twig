@@ -19,13 +19,16 @@
 {#{% endblock %}#}
 
 {#{% block content %}#}
-    <div class="goal-container modal" data-ng-controller="goalEnd">
-        <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>
+
+    <div class="modal" data-ng-controller="goalEnd" style="width:530px;padding:0;">
+        {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>#}
+        <div class="goal-container">
+
 
         <div class="goals-end">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
+            {#<div class="container">#}
+                {#<div class="row">#}
+                    {#<div class="col-md-6 col-md-offset-3">#}
                         <div class="email">{{ "goal.create_goal"|trans }}</div>
 
                         {% set goal = data.goal %}
@@ -252,8 +255,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {#</div>#}
+    {#</div>#}
+    {#</div>#}
 {#{% endblock %}#}
 
 {#{% block javascripts %}#}
