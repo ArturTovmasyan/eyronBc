@@ -303,7 +303,10 @@
                                                 {% if profileUser.id == app.user.id %}
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="javascript:void(0)" class="open-form-modal">
+                                                            <a href="javascript:void(0)"
+                                                               data-ls-jquery-modal
+                                                               data-ls-template-url="{{ path('manage_goal', {'id': goal.id }) }}"
+                                                               data-ls-identity="goalMenageModal{{ goal.id }}">
                                                                 <span class="glyphicon glyphicon-cog"></span>
                                                                 {{ 'manage'|trans }}
                                                             </a>
@@ -393,21 +396,6 @@
             }).on('ifChanged', function (event) {
                 $(event.target).trigger('change');
             });
-
-            $(".open-form-modal").click(function(){
-                var link = $(this);
-                var modal = $(this).next();
-
-                modal.show();
-                modal.modal({
-                    fadeDuration: 500
-                });
-
-                modal.on($.modal.CLOSE, function(){
-                    link.after(modal);
-                    modal.hide();
-                });
-            })
         });
     </script>
 {% endblock %}
