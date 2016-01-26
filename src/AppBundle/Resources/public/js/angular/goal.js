@@ -166,11 +166,14 @@ angular.module('goal', ['Interpolation',
                 array: '=',
                 key: '=',
                 link: '=',
+                limit: '=',
                 formId: '@',
                 formName: '@'
             },
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){
+
+                scope.limit = scope.limit ? scope.limit : 3;
 
                 scope.$watch('link',function(d){
                     if(angular.isUndefined(d)){
@@ -181,7 +184,7 @@ angular.module('goal', ['Interpolation',
                         scope.removeItem();
                     }
                     else {
-                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < 3){
+                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.limit){
                             scope.array[scope.key + 1] = {};
                         }
                     }
