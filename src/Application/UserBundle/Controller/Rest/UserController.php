@@ -310,11 +310,11 @@ class UserController extends FOSRestController
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($email);
 
         if (null === $user) {
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'user not found');
+            return new Response('user not found', Response::HTTP_NOT_FOUND);
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'The password for this user has already been requested within the last 24 hours.');
+            return new Response('The password for this user has already been requested within the last 24 hours.', Response::HTTP_BAD_REQUEST);
         }
 
         if (null === $user->getConfirmationToken()) {
