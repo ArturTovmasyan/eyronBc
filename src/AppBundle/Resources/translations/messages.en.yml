@@ -182,7 +182,7 @@ image_complete_text: Upload an image
 goalfriends: Goalfriends
 Add a note: Add a note
 
-# admin part
+# sonata admin lable
 admin:
   label:
     name:
@@ -218,6 +218,10 @@ admin:
       employee_id: Employee ID
       username: Username
 
+# end sonata admin lable
+
+# sonata admin breadcrumb and filter
+
 User List: User List
 Tag List: Tag List
 Category List: Category List
@@ -235,6 +239,9 @@ is not equal to: is not equal to
 >: >
 <: <
 <=: <=
+
+# end sonata admin breadcrumb and filter
+
 #
 #<trans-unit id="label_name_">
 #                <source>label_name_tag</source>
