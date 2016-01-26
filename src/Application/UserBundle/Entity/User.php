@@ -66,6 +66,8 @@ class User extends BaseUser
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
      * @Groups({"user"})
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     protected $username;
 
@@ -94,6 +96,8 @@ class User extends BaseUser
      *     match=true,
      *     message = "fos_user.password.validation",
      * )
+     *
+     * @Assert\NotBlank()
      */
     protected $plainPassword;
 
