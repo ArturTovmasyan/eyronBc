@@ -10,6 +10,7 @@ namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -86,12 +87,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(
+     * @Assert\Length(groups={"Register"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(
+     * @Assert\Regex(groups={"Register"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
@@ -150,6 +151,18 @@ class User extends BaseUser
      * @ORM\Column(name="registration_token", type="string", nullable=true, unique=true)
      */
     protected $registrationToken;
+
+    /**
+     * @var
+     * @ORM\Column(name="user_emails", type="array", nullable=true)
+     */
+    protected $userEmails;
+
+    /**
+     * @var
+     * @ORM\Column(name="activation_email_token", type="string", nullable=true, unique=true)
+     */
+    protected $activationEmailToken;
 
     /**
      * @VirtualProperty
@@ -772,5 +785,77 @@ class User extends BaseUser
             "active"    => $active,
             "doneBy"    => $doneBy
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function  getBlMultipleEmail()
+    {
+        // check images and return array
+        if($this->userEmails){
+
+            return $this->userEmails;
+        }
+        return array();
+    }
+
+    /**
+     * @param $userEmails
+     */
+
+    public function  setBlMultipleEmail($userEmails)
+    {
+        // check added userEmails
+        if(count($userEmails) > 0){
+
+            $this->userEmails = $userEmails;
+        }
+    }
+
+    /**
+     * Set userEmails
+     *
+     * @param array $userEmails
+     * @return User
+     */
+    public function setUserEmails($userEmails)
+    {
+        $this->userEmails = $userEmails;
+
+        return $this;
+    }
+
+    /**
+     * Get userEmails
+     *
+     * @return array 
+     */
+    public function getUserEmails()
+    {
+        return $this->userEmails;
+    }
+
+    /**
+     * Set activationEmailToken
+     *
+     * @param string $activationEmailToken
+     * @return User
+     */
+    public function setActivationEmailToken($activationEmailToken)
+    {
+        $this->activationEmailToken = $activationEmailToken;
+
+        return $this;
+    }
+
+    /**
+     * Get activationEmailToken
+     *
+     * @return string 
+     */
+    public function getActivationEmailToken()
+    {
+        return $this->activationEmailToken;
     }
 }

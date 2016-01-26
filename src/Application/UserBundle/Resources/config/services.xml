@@ -26,6 +26,11 @@
             <argument type="service" id="router" />
         </service>
 
+        <!-- service for user settings email field -->
+        <service id="bl.multiple.email" class="Application\UserBundle\Form\Type\BlMultipleEmailType">
+            <tag name="form.type" alias="bl_multiple_email" />
+        </service>
+
         <!-- Aphorism -->
         <service id="sonata.admin.app.usre" class="Application\UserBundle\Admin\UserAdmin">
             <tag name="sonata.admin" manager_type="orm" group="group_name_user" label="admin.label.name.user"/>
