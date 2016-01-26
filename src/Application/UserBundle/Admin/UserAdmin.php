@@ -29,10 +29,10 @@ class UserAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('email')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
+            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
         ;
     }
 
@@ -41,16 +41,16 @@ class UserAdmin extends Admin
     {
 
         $formMapper
-            ->add('email')
+            ->add('email', null, array('label'=>'admin.label.name.email'))
             ->add('plainPassword', 'repeated', array('first_name' => 'password',
                 'required' => true,
                 'second_name' => 'confirm',
                 'type' => 'password',
                 'invalid_message' => 'Passwords do not match',
-                'first_options' => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password')))
-            ->add('firstName')
-            ->add('lastName')
+                'first_options' => array('label' => 'admin.label.name.password'),
+                'second_options' => array('label' => 'admin.label.name.repeat_password')))
+            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
+            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
         ;
     }
 
@@ -58,10 +58,10 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('email')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
+            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ;
         ;
     }
@@ -70,10 +70,10 @@ class UserAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label' => 'Employee ID'))
-            ->add('username')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('id', null, array('label' => 'admin.label.name.employee_id'))
+            ->add('username', null, array('label'=>'admin.label.name.username'))
+            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
+            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

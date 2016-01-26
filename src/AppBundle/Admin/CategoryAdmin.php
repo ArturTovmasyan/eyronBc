@@ -31,10 +31,10 @@ class CategoryAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('title')
-            ->add('tags')
-            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_show.html.twig', 'label' => 'icon'))
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_show.html.twig', 'label'=>'admin.label.name.downloadLink'))
 
         ;
     }
@@ -43,9 +43,9 @@ class CategoryAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title')
-            ->add('tags')
-            ->add('file', 'file', array('required' => false))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('file', 'file', array('required' => false, 'label'=>'admin.label.name.file'))
         ;
     }
 
@@ -57,9 +57,9 @@ class CategoryAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('title')
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
 
@@ -67,10 +67,10 @@ class CategoryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('title')
-            ->add('tags')
-            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_list.html.twig', 'label' => 'icon'))
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('downloadLink', null, array('template' => 'AppBundle:Admin:image_list.html.twig', 'label'=>'admin.label.name.downloadLink'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

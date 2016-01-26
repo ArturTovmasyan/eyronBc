@@ -47,10 +47,10 @@ class PageAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('description')
-            ->add('position')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
 
         ;
     }
@@ -65,7 +65,7 @@ class PageAdmin extends Admin
                 'by_reference' => false,
                 'translatable_class' => 'AppBundle\Entity\Page',
             ))
-            ->add('position')
+            ->add('position', null, array('label'=>'admin.label.name.position'))
         ;
     }
 
@@ -73,10 +73,10 @@ class PageAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('description')
-            ->add('position')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
         ;
     }
 
@@ -84,10 +84,10 @@ class PageAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('name')
-            ->add('description')
-            ->add('position')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

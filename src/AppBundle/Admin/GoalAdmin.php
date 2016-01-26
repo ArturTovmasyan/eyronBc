@@ -40,12 +40,12 @@ class GoalAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('title')
-            ->add('description')
-            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
-            ->add('tags')
-            ->add('images', null, array('template' => 'AppBundle:Admin:goal_image_show.html.twig'))
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('images', null, array('template' => 'AppBundle:Admin:goal_image_show.html.twig', 'label'=>'admin.label.name.images'))
         ;
     }
 
@@ -54,23 +54,23 @@ class GoalAdmin extends Admin
     {
 
         $formMapper
-            ->add('title', null, array('required' => true))
-            ->add('description', 'textarea', array('required' => true))
+            ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
+            ->add('description', 'textarea', array('required' => true, 'label'=>'admin.label.name.description'))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
-            ->add('tags')
-            ->add('bl_multiple_file', 'bl_multiple_file', array('label' => 'Images', 'required' => false));
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('bl_multiple_file', 'bl_multiple_file', array('label'=>'admin.label.name.images', 'required' => false));
     }
 
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('publish')
-            ->add('title')
-            ->add('description')
-            ->add('videoLink')
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('publish', null, array('label'=>'admin.label.name.publish'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
 
@@ -78,13 +78,13 @@ class GoalAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('publish', null, array('editable' => true))
-            ->add('title')
-            ->add('description')
-            ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig'))
-            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig'))
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

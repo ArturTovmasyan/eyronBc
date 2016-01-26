@@ -32,10 +32,10 @@ class AphorismAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('author')
-            ->add('content')
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('author', null, array('label'=>'admin.label.name.author'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
 
@@ -44,9 +44,9 @@ class AphorismAdmin extends Admin
     {
 
         $formMapper
-            ->add('author')
-            ->add('content', 'textarea')
-            ->add('tags')
+            ->add('author', null, array('label'=>'admin.label.name.author'))
+            ->add('content', 'textarea', array('label'=>'admin.label.name.content'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
 
@@ -54,10 +54,10 @@ class AphorismAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('author')
-            ->add('content')
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('author', null, array('label'=>'admin.label.name.author'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
 
@@ -65,10 +65,10 @@ class AphorismAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('author')
-            ->add('content')
-            ->add('tags')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('author', null, array('label'=>'admin.label.name.author'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

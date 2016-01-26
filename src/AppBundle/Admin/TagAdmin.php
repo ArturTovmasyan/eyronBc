@@ -42,7 +42,7 @@ class TagAdmin extends Admin
     {
 
         $formMapper
-            ->add('tag')
+            ->add('tag', null, array('label'=>'admin.label.name.tag'))
         ;
     }
 
@@ -50,8 +50,8 @@ class TagAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('tag')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('tag', null, array('label'=>'admin.label.name.tag'))
         ;
     }
 
@@ -59,8 +59,8 @@ class TagAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('tag')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('tag', null, array('label'=>'admin.label.name.tag'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

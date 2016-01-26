@@ -150,8 +150,10 @@ my_bucket_list:
 done_by: Done by
 home_complete: COMPLETED BY
 home_listed_by: LISTED BY
-
 listed_by: Listed by
+block_listed: Listed
+block_completed: Completed
+
 forget: FORGET IT
 dream: No deadline, No goal! You are just dreaming
 
@@ -180,3 +182,89 @@ image_complete_text: Upload an image
 goalfriends: Goalfriends
 Add a note: Add a note
 
+# sonata admin lable
+admin:
+  label:
+    name:
+      user: User
+      tag: Tag
+      category: Category
+      aphorism: Aphorism
+      time_sentence: Time Sentence
+      page: Page
+      goal: Goal
+      id: Id
+      title: Title
+      tags: Tags
+      downloadLink: Icon
+      file: File
+      author: Author
+      content: Content
+      replaceString: Replace String
+      replaceWith: Replace With
+      name: Name
+      description: Description
+      position: Position
+      videoLink: Video Link
+      images: Images
+      publish: Publish
+      getListPhoto: Get List Photo
+      email: Email
+      firstName: First Name
+      lastName: Last Name
+      first_name: password
+      password: Password
+      repeat_password: Repeat Password
+      employee_id: Employee ID
+      username: Username
+
+# end sonata admin lable
+
+# sonata admin breadcrumb and filter
+
+User List: User List
+Tag List: Tag List
+Category List: Category List
+Aphorism List: Aphorism List
+Time Sentence List: Time Sentence List
+Page List: Page List
+Goal List: Goal List
+Action: Action
+contains: contains
+does not contain: does not contain
+is equal to: is equal to
+is not equal to: is not equal to
+=: =
+>=: >=
+>: >
+<: <
+<=: <=
+
+# end sonata admin breadcrumb and filter
+
+#
+#<trans-unit id="label_name_">
+#                <source>label_name_tag</source>
+#                <target></target>
+#            </trans-unit>
+#
+#            <trans-unit id="label_name_">
+#                <source>label_name_category</source>
+#                <target>Category</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_">
+#                <source>label_name_aphorism</source>
+#                <target>Aphorism</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_time_sentence">
+#                <source>label_name_time_sentence</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_page">
+#                <source>label_name_page</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_goal">
+#                <source>label_name_goal</source>
+#                <target></target>
+#            </trans-unit>
