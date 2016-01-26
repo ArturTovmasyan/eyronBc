@@ -44,6 +44,27 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * This function is used to get user by email token
+     *
+     * @param $emailToken
+     * @return array
+     */
+    public function findUserByEmailToken($emailToken)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.activationEmailToken = :emailToken
+                           ")
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->setParameter('emailToken',  $emailToken )
+            ->getOneOrNullResult();
+
+        return $result;
+
+    }
+
+    /**
      * @param $goal
      * @return array
      */

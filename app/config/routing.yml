@@ -65,6 +65,11 @@ fos_comment_api:
     prefix: /api
     defaults: { _format: html }
 
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /development/rest/
+
 # custom rests
 app_user_goal_rest:
     type:     rest
@@ -81,10 +86,13 @@ app_nwe_feed_rest:
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /
 
+app_emails_remove_rest:
+    type:     rest
+    resource: @AppBundle/Controller/Rest/UserEmailsController.php
+    prefix:   /api
+
 application_user_rest:
     type:     rest
     resource: @ApplicationUserBundle/Controller/Rest/UserController.php
 
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc
+
