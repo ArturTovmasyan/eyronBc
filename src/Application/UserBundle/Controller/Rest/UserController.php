@@ -327,7 +327,7 @@ class UserController extends FOSRestController
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        return new Response('', Response::HTTP_NO_CONTENT);
+        return new Response('', Response::HTTP_OK);
     }
 }
 
