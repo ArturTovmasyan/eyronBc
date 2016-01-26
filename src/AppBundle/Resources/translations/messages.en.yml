@@ -180,3 +180,56 @@ image_complete_text: Upload an image
 goalfriends: Goalfriends
 Add a note: Add a note
 
+# admin part
+admin:
+  label:
+    name:
+      user: User
+      tag: Tag
+      category: Category
+      aphorism: Aphorism
+      time_sentence: Time Sentence
+      page: Page
+      goal: Goal
+      id: Id
+      title: Title
+      tags: Tags
+      downloadLink: Icon
+      file: File
+      author: Author
+      content: Content
+      replaceString: Replace String
+      replaceWith: Replace With
+      name: Name
+      description: Description
+      position: Position
+      videoLink: Video Link
+      images: Images
+      publish: Publish
+      getListPhoto: Get List Photo
+#
+#<trans-unit id="label_name_">
+#                <source>label_name_tag</source>
+#                <target></target>
+#            </trans-unit>
+#
+#            <trans-unit id="label_name_">
+#                <source>label_name_category</source>
+#                <target>Category</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_">
+#                <source>label_name_aphorism</source>
+#                <target>Aphorism</target>
+#            </trans-unit>
+#            <trans-unit id="label_name_time_sentence">
+#                <source>label_name_time_sentence</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_page">
+#                <source>label_name_page</source>
+#                <target></target>
+#            </trans-unit>
+#            <trans-unit id="label_name_goal">
+#                <source>label_name_goal</source>
+#                <target></target>
+#            </trans-unit>

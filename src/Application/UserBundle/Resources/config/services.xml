@@ -28,7 +28,7 @@
 
         <!-- Aphorism -->
         <service id="sonata.admin.app.usre" class="Application\UserBundle\Admin\UserAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="User" label="User"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_user" label="admin.label.name.user"/>
             <argument/>
             <argument>Application\UserBundle\Entity\User</argument>
             <argument/>

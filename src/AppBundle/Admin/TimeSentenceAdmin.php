@@ -31,10 +31,10 @@ class TimeSentenceAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('content')
-            ->add('replaceString')
-            ->add('replaceWith')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
 
         ;
     }
@@ -44,9 +44,9 @@ class TimeSentenceAdmin extends Admin
     {
 
         $formMapper
-            ->add('content', 'textarea')
-            ->add('replaceString')
-            ->add('replaceWith')
+            ->add('content', 'textarea', array('label'=>'admin.label.name.content'))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
         ;
     }
 
@@ -54,10 +54,10 @@ class TimeSentenceAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('content')
-            ->add('replaceString')
-            ->add('replaceWith')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
         ;
     }
 
@@ -65,10 +65,10 @@ class TimeSentenceAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('content')
-            ->add('replaceString')
-            ->add('replaceWith')
+            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('content', null, array('label'=>'admin.label.name.content'))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

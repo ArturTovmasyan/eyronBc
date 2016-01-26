@@ -8,7 +8,7 @@
 
         <!-- Tag -->
         <service id="sonata.admin.app.tag" class="AppBundle\Admin\TagAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Tag"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.tag"/>
             <argument/>
             <argument>AppBundle\Entity\Tag</argument>
             <argument/>
@@ -16,7 +16,7 @@
 
         <!-- Category -->
         <service id="sonata.admin.app.category" class="AppBundle\Admin\CategoryAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Category"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.category"/>
             <argument/>
             <argument>AppBundle\Entity\Category</argument>
             <argument/>
@@ -24,7 +24,7 @@
 
         <!-- Aphorism -->
         <service id="sonata.admin.app.aphorism" class="AppBundle\Admin\AphorismAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Aphorism"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.aphorism"/>
             <argument/>
             <argument>AppBundle\Entity\Aphorism</argument>
             <argument/>
@@ -32,7 +32,7 @@
 
         <!-- Aphorism -->
         <service id="sonata.admin.app.time.sentence" class="AppBundle\Admin\TimeSentenceAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Time Sentence"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.time_sentence"/>
             <argument/>
             <argument>AppBundle\Entity\TimeSentence</argument>
             <argument/>
@@ -40,7 +40,7 @@
 
         <!-- page -->
         <service id="sonata.admin.app.page" class="AppBundle\Admin\PageAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Page"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.page"/>
             <argument/>
             <argument>AppBundle\Entity\Page</argument>
             <argument/>
@@ -52,7 +52,7 @@
 
         <!-- Goal -->
         <service id="sonata.admin.app.goal" class="AppBundle\Admin\GoalAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="General" label="Goal"/>
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.goal"/>
             <argument/>
             <argument>AppBundle\Entity\Goal</argument>
             <argument/>
