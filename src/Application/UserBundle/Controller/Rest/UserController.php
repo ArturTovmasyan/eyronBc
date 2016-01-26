@@ -183,77 +183,83 @@ class UserController extends FOSRestController
         return new JsonResponse('Bad credentials', Response::HTTP_NOT_FOUND);
     }
 
-//    /**
-//     * This function is used login by social data
-//     *
-//     * @ApiDoc(
-//     *  resource=true,
-//     *  section="User",
-//     *  description="This function is used login by social data",
-//     *  statusCodes={
-//     *         400="Returned when no such status code",
-//     *         204="There is no information to send back"
-//     *     },
-//     * requirements={
-//     *      {"name"="type", "dataType"="string", "requirement"=true, "description"="social type | twitter, facebook, google"},
-//     *      {"name"="accessToken", "dataType"="string", "requirement"=true, "description"="User`s social access_token"},
-//     * }
-//     * )
-//     * @param $type
-//     * @param $accessToken
-//     * @return Response
-//     * @Rest\View(serializerGroups={"user"})
-//     */
-//    public function getSocialLoginAction($type, $accessToken)
-//    {
-//        //get entity manager
-//        $em = $this->getDoctrine()->getManager();
-//        $id = null;
-//        // switch for type
-//        switch($type){
-//            case "facebook":
-//                try{
-//                    $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
-//                    $data = json_decode($data);
-//                    $id = $data->id;
-//                }
-//                catch(\Exception $e){
-//                    return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
-//                }
-//                break;
-//            case "google":
-//                try{
-//                    $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
-//                    $data = json_decode($data);
-//                    $id = $data->data->id;
-//                }
-//                catch(\Exception $e){
-//                    return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
-//                }
-//                break;
-//            case "twitter":
-//                $data = explode('-', $accessToken);
-//                $id = is_array($data) ?  $data[0] : null;
-//                break;
-//            default:
-//                return new JsonResponse("Wrong type, type must be 'facebook', 'twitter', 'instagram'", Response::HTTP_BAD_REQUEST);
-//                break;
-//        }
-//
-//        $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
-//
-//        if(!$user){
-////            TODO: need to create a new user
-//            return new JsonResponse('We have not this user in our database', Response::HTTP_NOT_FOUND);
-//        }
-//
-//        $sessionId = $this->loginAction($user);
-//
-//        return  array(
-//            'sessionId' => $sessionId,
-//            'userInfo'  => $user
-//        );
-//    }
+    /**
+     * This function is used login by social data
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used login by social data",
+     *  statusCodes={
+     *         400="Returned when no such status code",
+     *         204="There is no information to send back"
+     *     },
+     * requirements={
+     *      {"name"="type", "dataType"="string", "requirement"=true, "description"="social type | twitter, facebook, google"},
+     *      {"name"="accessToken", "dataType"="string", "requirement"=true, "description"="User`s social access_token"},
+     * }
+     * )
+     * @param $type
+     * @param $accessToken
+     * @return Response
+     * @Rest\View(serializerGroups={"user"})
+     */
+    public function getSocialLoginAction($type, $accessToken)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $id = null;
+        // switch for type
+        switch($type){
+            case "facebook":
+                try{
+                    $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
+                    $data = json_decode($data);
+                    $id = $data->id;
+
+                    $fullName = explode(' ', $data->name);
+                    $firstName = $fullName[0];
+                    $lastName = $fullName[1];
+
+                    file_put_contents("Tmpfile.zip", fopen("https://graph.facebook.com/" . $id . "/picture?type=large", 'r'));
+                }
+                catch(\Exception $e){
+                    return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
+                }
+                break;
+            case "google":
+                try{
+                    $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
+                    $data = json_decode($data);
+                    $id = $data->data->id;
+                }
+                catch(\Exception $e){
+                    return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
+                }
+                break;
+            case "twitter":
+                $data = explode('-', $accessToken);
+                $id = is_array($data) ?  $data[0] : null;
+                break;
+            default:
+                return new JsonResponse("Wrong type, type must be 'facebook', 'twitter', 'instagram'", Response::HTTP_BAD_REQUEST);
+                break;
+        }
+
+        $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
+
+        if(!$user){
+//            TODO: need to create a new user
+            return new JsonResponse('We have not this user in our database', Response::HTTP_NOT_FOUND);
+        }
+
+        $sessionId = $this->loginAction($user);
+
+        return  array(
+            'sessionId' => $sessionId,
+            'userInfo'  => $user
+        );
+    }
 
     /**
      * This function is used to check is user with such email registered

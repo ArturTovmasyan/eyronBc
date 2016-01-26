@@ -664,6 +664,8 @@ class GoalController extends Controller
      */
     public function manageAction(Request $request, Goal $goal, $userGoalId = null)
     {
+        dump('testr'); exit;
+        return $this->redirectToRoute('add_to_me_goal', array('id' => $goal->getId(), 'userGoalId' => $userGoalId));
         // get current user
         $user = $this->getUser();
 

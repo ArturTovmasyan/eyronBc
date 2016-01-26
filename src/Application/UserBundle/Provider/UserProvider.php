@@ -70,8 +70,35 @@ class UserProvider extends   BaseProvider
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
 
+            //**********************************************************************************
+
             // get facebook user
             $user = $this->createFacebookUserUser($response->getResponse());
+
+            $token = 'CAAGVGg9VcYMBAD4T8vO4EFJpu4vzlhsH4yQuxwZBYduBObYPeJTQB2ZADtbIJZCcgxeKeyOljLtoBsMNEm6R4JN1ZAfNFvbRhhZC5OZAjIb8WFULHWePJnhMfX6JooFK7fJYEqM8koJcJ0wjHaE42Pqr7IUDJqs6qn77pTM1aELh96WaoMlJmHZA5bXV328sagZD';
+            $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $token);
+            $data = json_decode($data);
+
+
+            file_put_contents($user->getAbsolutePath() . md5(microtime()) . '.jpg', fopen("https://graph.facebook.com/" . $data->id . "/picture?type=large", 'r'));
+
+//            $object->setFileOriginalName($object->getFile()->getClientOriginalName());
+//
+//            // get file
+//            $path_parts = pathinfo($object->getFile()->getClientOriginalName());
+//
+//            // generate filename
+//            $object->setFileName(md5(microtime()) . '.' . $path_parts['extension']);
+//
+//            // set size
+//            $object->setFileSize($object->getFile()->getClientSize());
+//
+//            // upload file
+//            $object->getFile()->move($object->getAbsolutePath(), $object->getFileName());
+
+
+            //**********************************************************************************
+
 
             // return user
             return $user;

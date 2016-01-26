@@ -305,15 +305,11 @@
                                                         <div class="col-sm-6">
                                                             <a href="javascript:void(0)"
                                                                data-ls-jquery-modal
-                                                               data-ls-template-url="{{ path('manage_goal', {'id': goal.id }) }}"
+                                                               data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
                                                                data-ls-identity="goalMenageModal{{ goal.id }}">
                                                                 <span class="glyphicon glyphicon-cog"></span>
                                                                 {{ 'manage'|trans }}
                                                             </a>
-
-                                                            <div class="form-modal" data-ng-controller="goalEnd" style="width: auto; margin-top: 80px;display: none">
-                                                                {{ render(controller("AppBundle:Goal:manage", {'id' : goal.id , 'userGoalId' : userGoal.id})) }}
-                                                            </div>
 
                                                         </div>
 
