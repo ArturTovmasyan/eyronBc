@@ -5,14 +5,18 @@
         <ul class="filter">
             <li>
                 <a href="{{ path('goals_list') }}">
-                    <span class="glyphicon glyphicon-plus-sign"></span>{{ 'most_popular'|trans }}
+                    {#<span class="glyphicon glyphicon-plus-sign"></span>#}
+                    {#<img src="{{ category.downloadLink }}"/>#}
+                    {{ 'most_popular'|trans }}
                 </a>
             </li>
 
             {% for category in categories %}
                 <li>
                     <a href="{{ path('goals_list', {'category' : category.slug}) }}">
-                        <span class="glyphicon glyphicon-plus-sign"></span>{{ category.title }}
+                        <img src="{{ category.downloadLink }}"/>
+                        {#<span class="glyphicon glyphicon-plus-sign"></span>#}
+                        {{ category.title }}
                     </a>
                 </li>
             {% endfor %}
