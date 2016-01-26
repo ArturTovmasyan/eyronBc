@@ -40,7 +40,7 @@
                 <div class="delete-message">
                     <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
                     <a href="{{ path('remove_goal', {'goal' : goal.getId , 'user': user.getId }) }}" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
-                    <a data-ng-click="showDetails = ! showDetails" href="#" class="btn bg-purple">{{ 'btn_cancel'|trans | upper }}</a>
+                    <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
                 </div>
             </div>
 
