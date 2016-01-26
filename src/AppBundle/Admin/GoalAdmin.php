@@ -71,6 +71,21 @@ class GoalAdmin extends Admin
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('created', 'doctrine_orm_callback', array(
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+
+                    $queryBuilder
+                        ->andWhere("DATE(" . $alias . ".created) = DATE(:value)")
+                        ->setParameter('value', $value['value'])
+                    ;
+
+                    return true;
+                },
+                'label'=>'admin.label.name.created'
+            ), 'date', array('widget' => 'single_text'))
         ;
     }
 
@@ -85,11 +100,13 @@ class GoalAdmin extends Admin
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('created', null, array('label'=>'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'goal_link' => array('template' => 'AppBundle:Admin:goal_link.html.twig'),
                 )
             ))
         ;

@@ -1,0 +1,6 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+    <a href="{{ path('inner_goal', {'id': object.id}) }}" class="btn btn-sm btn-default view_link" title="{{ 'admin.label.name.goal_link'|trans() }}">
+        <i class="glyphicon glyphicon-zoom-in"></i>
+        {{ 'admin.label.name.goal_link'|trans() }}
+    </a>
+{% endif %}

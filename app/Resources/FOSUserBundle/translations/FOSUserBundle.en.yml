@@ -76,6 +76,7 @@ resetting:
     password: New Password
     confirm_password: Confirm Password
     password_already_requested: The password for this user has already been requested within the last 24 hours.
+    user_not_found: User not found
     check_email:
         title: Check your email
         check_email_first_text: We've sent an email to %email%. Click the link in the email to reset your password.

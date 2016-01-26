@@ -308,13 +308,14 @@ class UserController extends FOSRestController
     public function getResetAction($email)
     {
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($email);
+        $trans = $this->get('translator');
 
         if (null === $user) {
-            return new Response('user not found', Response::HTTP_NOT_FOUND);
+            return new Response($trans->trans('resetting.user_not_found', [], 'FOSUserBundle'), Response::HTTP_NOT_FOUND);
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return new Response('The password for this user has already been requested within the last 24 hours.', Response::HTTP_BAD_REQUEST);
+            return new Response($trans->trans('resetting.password_already_requested', [], 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
         }
 
         if (null === $user->getConfirmationToken()) {
