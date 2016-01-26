@@ -117,9 +117,12 @@ angular.module('goal', ['Interpolation',
                 todayHighlight: true
             });
             angular.element("#datepicker").on("changeDate", function() {
+                $scope.datepicker_title = true;
                 angular.element(".hidden_date_value").val(
                     angular.element("#datepicker").datepicker('getFormattedDate')
-                )
+                );
+
+                $scope.$apply();
             });
 
             angular.element('input.private-checkbox').iCheck({
