@@ -86,6 +86,10 @@
                 <source>title_dashboard</source>
                 <target>Dashboard</target>
             </trans-unit>
+            <trans-unit id="Dashboard">
+                <source>Dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
             <trans-unit id="title_edit">
                 <source>title_edit</source>
                 <target>Edit "%name%"</target>

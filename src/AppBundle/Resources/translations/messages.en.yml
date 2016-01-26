@@ -217,6 +217,14 @@ admin:
       repeat_password: Repeat Password
       employee_id: Employee ID
       username: Username
+
+User List: User List
+Tag List: Tag List
+Category List: Category List
+Aphorism List: Aphorism List
+Time Sentence List: Time Sentence List
+Page List: Page List
+Goal List: Goal List
 #
 #<trans-unit id="label_name_">
 #                <source>label_name_tag</source>
