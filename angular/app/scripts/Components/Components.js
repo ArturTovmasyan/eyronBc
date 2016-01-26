@@ -53,6 +53,50 @@ angular.module('Components',[])
             }
         }
     }])
+    .directive('lsJqueryModal',['$compile', '$http', function($compile, $http){
+        return {
+            restrict: 'EA',
+            scope: {
+                lsTemplate: '@',
+                lsTemplateUrl: '@',
+                lsIdentity: '@'
+            },
+            link: function(scope, el){
+
+                el.bind('click', function(){
+                    scope.run();
+                });
+
+                scope.$on('openLsModal', function(event, dataId){
+                    if(dataId === scope.lsIdentity){
+                        scope.run();
+                    }
+                });
+
+                scope.run = function(){
+                    if(scope.lsTemplate){
+                        var tmp = $compile(scope.lsTemplate)(scope);
+                        scope.openModal(tmp);
+                    }
+                    else if(scope.lsTemplateUrl){
+                        $http.get(scope.lsTemplateUrl)
+                            .success(function(res){
+                                var tmp = $compile(res)(scope);
+                                scope.openModal(tmp);
+                            });
+                    }
+                }
+
+                scope.openModal = function(tmp){
+                    angular.element('body').append(tmp);
+                    tmp.modal({
+                        fadeDuration: 500
+                    });
+                }
+
+            }
+        }
+    }])
     .animation('.slide', function() {
         var NG_HIDE_CLASS = 'ng-hide';
         return {

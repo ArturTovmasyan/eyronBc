@@ -1,0 +1,175 @@
+@import "function.less";
+
+.modal{
+  top:90px;
+}
+
+.modal{
+
+  .modal-body{
+    padding:0;
+    height: 155px;
+
+    h4{
+      position: absolute;
+      z-index: 1;
+      color: #ffffff;
+      width: 100%;
+      padding:15px 10px;
+    }
+  }
+  .modal-dialog{
+    width:300px;
+    overflow: hidden;
+    margin:20% auto;
+
+    figure{
+      height: 155px;
+      overflow: hidden;
+
+      figcaption{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: transparent;
+      }
+    }
+  }
+
+  a{
+    color:#ffffff !important;
+    &:hover{
+      color:#ffffff;
+    }
+  }
+
+  button{
+    padding:3px 15px;
+
+    &:hover{
+      color:#ffffff;
+    }
+  }
+
+  i{
+    margin-right:10px;
+  }
+}
+
+a.close-modal{
+  display: none !important;
+}
+.modal-top{
+  position: relative;
+  overflow: hidden;
+  height:260px;
+
+
+  figure{
+    position: absolute;
+    width: 100%;
+    img{
+      width: 100%;
+    }
+  }
+
+  a{
+    color:#ffffff;
+    font-size:16px;
+
+    span{
+      margin-left:10px;
+    }
+
+    &:hover,&:focus{
+      text-decoration: none;
+    }
+  }
+
+  .delete-message{
+    text-align:center;
+    padding:55px 0 50px;
+    position: absolute;
+    display: block;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    h3{
+      color:#ffffff;
+      padding:0 0 40px 0;
+      font-size:25px;
+      line-height:40px;
+      margin:0;
+    }
+
+    .btn{
+      font-size:15px;
+      padding:6px 12px;
+      margin-right:20px;
+      &:hover{
+        border:1px solid #6108EA;
+      }
+    }
+    .btn-purple{
+      border:1px solid #7724F6;
+    }
+
+  }
+
+  .forget{
+    margin: 20px 30px 0 0;
+    color:#ffffff;
+    display: inline-block;
+    padding:5px 12px 0 0;
+    font-size:18px;
+
+    .trash-icon{
+      margin: 0 5px 0 0;
+    }
+
+    &:hover{
+      background-color: #7724F6;
+      color:#ffffff;
+      border:1px solid #6108EA;
+      .trash-icon{
+          background: url('../images/images.png') no-repeat -393px -1480px;
+      }
+
+      .delete-message{
+        display:block;
+      }
+    }
+  }
+
+
+
+  h2{
+    background-color: #021523;
+    color:#ffffff;
+    padding:10px 40px;
+    margin:110px 0 5px 30px;
+    font-size: 32px;
+  }
+
+  h1{
+    padding:10px 40px;
+    margin:25px 0 10px;
+  }
+
+
+  p{
+    background-color: #021523;
+    color:#ffffff;
+    font-size:14px;
+    padding:10px 40px;
+    display: inline-block;
+    margin:0 0 15px 30px;
+  }
+
+  ul{
+    padding: 0 0 0 30px;
+    li{
+      display: inline-block;
+      margin-right:30px;
+    }
+  }
+}

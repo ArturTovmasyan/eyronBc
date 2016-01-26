@@ -157,14 +157,14 @@
 
                         {# dream filter #}
                         <label class="radio-inline">
-                            <input {% if dream %} checked {% endif %} onclick="submit()" type="checkbox" name="d" value="1"> {{ 'filter.dream'|trans }}
+                            <input {% if dream %} checked {% endif %} onchange="submit()" type="checkbox" name="d" value="1"> {{ 'filter.dream'|trans }}
                         </label>
 
                         {# other filters #}
                         {% for id, name in filters %}
                             {% set queryParameterName = "f_" ~ id %}
                             <label class="radio-inline">
-                                <input {% if app.request.get(queryParameterName) %} checked {% endif %} onclick="submit()" type="checkbox" name="f_{{ id }}"> {{ name|trans }}
+                                <input {% if app.request.get(queryParameterName) %} checked {% endif %} onchange="submit()" type="checkbox" name="f_{{ id }}"> {{ name|trans }}
                             </label>
                         {% endfor %}
                     </form>
@@ -386,6 +386,14 @@
 
     <script>
         $(document).ready(function(){
+
+            $('input[type=checkbox]').iCheck({
+                checkboxClass: 'icheckbox_square-purple',
+                increaseArea: '20%'
+            }).on('ifChanged', function (event) {
+                $(event.target).trigger('change');
+            });
+
             $(".open-form-modal").click(function(){
                 var link = $(this);
                 var modal = $(this).next();

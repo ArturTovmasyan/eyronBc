@@ -21,9 +21,11 @@ angular.module('goal', ['Interpolation',
             }
         }
 
-        $('.suggest-input input').iCheck({
+        $('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
+        }).on('ifChanged', function (event) {
+            $(event.target).trigger('change');
         });
         
         // file uploads
@@ -71,8 +73,18 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
+        $("#goal-create-form").ajaxForm({
+            success: function(res, text, header){
+                if(header.status === 200){
+                    $scope.goalSubmitTemplate = res;
+                    $scope.$apply();
+                    $scope.$broadcast('openLsModal', 'goalSave');
+                }
+            }
+        });
+
     }])
-    .controller('goalEnd', ['$scope', function($scope){
+    .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){
 
         $scope.stepsArray = [{}];
         $scope.openSignInPopover = function(){
@@ -89,36 +101,39 @@ angular.module('goal', ['Interpolation',
             $scope.stepsArray = json;
         };
 
-        angular.element('#datepicker').datepicker({
-            beforeShowDay: function(){
-                var cond = angular.element('#datepicker').data('datepicker-disable');
-                if(cond){
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            },
-            todayHighlight: true
-        });
-        angular.element("#datepicker").on("changeDate", function() {
-            angular.element(".hidden_date_value").val(
-                angular.element("#datepicker").datepicker('getFormattedDate')
-            )
-        });
 
-        angular.element('input.private-checkbox').iCheck({
-            checkboxClass: 'icheckbox_square-purple',
-            increaseArea: '20%'
-        });
+        $timeout(function(){
 
-        angular.element('.place-autocomplete').bind('keydown',function(ev){
-            if(ev.which === 13){
-                ev.preventDefault();
-                ev.stopPropagation();
-                return false;
-            }
-        });
+            angular.element('#datepicker').datepicker({
+                beforeShowDay: function(){
+                    var cond = angular.element('#datepicker').data('datepicker-disable');
+                    if(cond){
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                },
+                todayHighlight: true
+            });
+            angular.element("#datepicker").on("changeDate", function() {
+                angular.element(".hidden_date_value").val(
+                    angular.element("#datepicker").datepicker('getFormattedDate')
+                )
+            });
+
+            angular.element('input.private-checkbox').iCheck({
+                checkboxClass: 'icheckbox_square-purple',
+                increaseArea: '20%'
+            }).on('ifChanged', function (event) {
+                var target = angular.element(event.target);
+                target.trigger('change');
+                $scope.private_checkbox = target.is(":checked");
+                $scope.$apply();
+            });
+
+        }, 500);
+
     }])
     .controller('goalInner',['$scope',function($scope){
 
