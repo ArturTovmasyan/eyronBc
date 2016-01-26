@@ -84,7 +84,7 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalEnd', ['$scope', function($scope){
+    .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){
 
         $scope.stepsArray = [{}];
         $scope.openSignInPopover = function(){
@@ -101,30 +101,36 @@ angular.module('goal', ['Interpolation',
             $scope.stepsArray = json;
         };
 
-        angular.element('#datepicker').datepicker({
-            beforeShowDay: function(){
-                var cond = angular.element('#datepicker').data('datepicker-disable');
-                if(cond){
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            },
-            todayHighlight: true
-        });
-        angular.element("#datepicker").on("changeDate", function() {
-            angular.element(".hidden_date_value").val(
-                angular.element("#datepicker").datepicker('getFormattedDate')
-            )
-        });
 
-        angular.element('input[type=checkbox]').iCheck({
-            checkboxClass: 'icheckbox_square-purple',
-            increaseArea: '20%'
-        }).on('ifChanged', function (event) {
-            angular.element(event.target).trigger('change');
-        });
+        $timeout(function(){
+
+            angular.element('#datepicker').datepicker({
+                beforeShowDay: function(){
+                    var cond = angular.element('#datepicker').data('datepicker-disable');
+                    if(cond){
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                },
+                todayHighlight: true
+            });
+            angular.element("#datepicker").on("changeDate", function() {
+                angular.element(".hidden_date_value").val(
+                    angular.element("#datepicker").datepicker('getFormattedDate')
+                )
+            });
+
+            angular.element('input.icheck-checkbox').iCheck({
+                checkboxClass: 'icheckbox_square-purple',
+                increaseArea: '20%'
+            }).on('ifChanged', function (event) {
+                angular.element(event.target).trigger('change');
+            });
+
+        }, 500);
+
     }])
     .controller('goalInner',['$scope',function($scope){
 
