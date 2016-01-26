@@ -103,7 +103,6 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
-
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
@@ -116,6 +115,7 @@ angular.module('goal', ['Interpolation',
                 },
                 todayHighlight: true
             });
+
             angular.element("#datepicker").on("changeDate", function() {
                 $scope.datepicker_title = true;
                 angular.element(".hidden_date_value").val(
