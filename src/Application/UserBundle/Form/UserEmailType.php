@@ -20,8 +20,8 @@ class UserEmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userEmails', 'email', array('attr'=>array('placeholder'=>'Add an email'),'label'=>false))
-            ->add('primary', 'hidden', array('label'=>false))
+            ->add('userEmails', 'email', array('attr' => array('placeholder' => 'Add an email'), 'label' => false))
+            ->add('primary', 'hidden', array('label' => false))
         ;
     }
 

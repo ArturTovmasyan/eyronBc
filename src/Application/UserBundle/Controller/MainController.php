@@ -31,6 +31,16 @@ class MainController extends Controller
         // get current user
         $user = $this->getUser();
 
+        //get user emails in db
+        $userEmails = $user->getUserEmails();
+
+        //check if userEmails exist
+        if($userEmails) {
+
+            //get user emails in db
+            $userEmails = array_map(function ($item) { return $item['userEmails']; },  $user->getUserEmails());
+        }
+
         //get fos user manager
         $fosManager = $this->container->get("fos_user.user_manager");
 
@@ -80,6 +90,19 @@ class MainController extends Controller
             //get user emails values in emailsInForm data
             $emailValue = array_map(function ($item) { return $item['userEmails']; }, $emailsInForm);
 
+            //check if userEmails exist
+            if($userEmails) {
+
+                //get new user email in form
+                $newUserEmail = array_diff($emailValue, $userEmails);
+                $newUserEmail = reset($newUserEmail);
+            }
+            else {
+
+                //get new user email in form
+                $newUserEmail = reset($emailValue);
+            }
+
             //check if user email have duplicate in emailsInForm
             if (array_search($user->getEmail(), $emailValue)) {
 
@@ -108,7 +131,7 @@ class MainController extends Controller
 
             //check if set another primary email
             if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
-               (array_search($user->getEmail(), $emailsInForm) == false)) {
+                (array_search($user->getEmail(), $emailsInForm) == false)) {
 
                 //set user email in emailsInForm array
                 $emailsInForm[] = [
@@ -119,6 +142,8 @@ class MainController extends Controller
 
             //check if primary email exist
             if($primaryEmail) {
+
+                //set email for user
                 $user->setEmail($primaryEmail);
             }
 
@@ -131,16 +156,16 @@ class MainController extends Controller
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
 
-            // get validator
+            //get validator
             $validator = $this->get('validator');
 
             //get errors
             $errors = $validator->validate($user, null, array('Register'));
 
-            // returned value
+            //returned value
             $returnResult = array();
 
-            // check count of errors
+            //check count of errors
             if(count($errors) > 0){
 
                 // loop for error
@@ -160,8 +185,24 @@ class MainController extends Controller
                 }
             }
 
-            // check valid
+            //check if form is valid
             if ($form->isValid()) {
+
+                //check if newUserEmail exist
+                if($newUserEmail) {
+
+                    //generate email activation  token
+                    $emailToken = md5(microtime());
+
+                    //set email activation token
+                    $user->setActivationEmailToken($emailToken);
+
+                    //get user full name
+                    $userName = $user->showName();
+
+                    //get send activation email service
+                    $this->get('bl.email.sender')->sendActivationUserEmail($newUserEmail, $emailToken, $userName);
+                }
 
                 //update user
                 $fosManager->updateUser($user);
@@ -199,7 +240,11 @@ class MainController extends Controller
             //if remove email exist in array
             if(($key = array_search($email, $emailsValue)) !== false) {
 
+                //remove email in userEmails
                 unset($userEmails[$key]);
+
+                //set activation email token null
+                $user->setActivationEmailToken(null);
             }
 
             //set changed email data
@@ -210,6 +255,33 @@ class MainController extends Controller
         }
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
+
+    }
+
+    /**
+     * @Route("/activation_email/{emailToken}", name="activation_user_email")
+     * @Secure(roles="ROLE_USER")
+     */
+    public function activationUserEmailsAction(Request $request, $emailToken)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $user = $em->getRepository('ApplicationUserBundle:User')->findUserByEmailToken($emailToken);
+
+        if(!$user) {
+            // return Exception
+            throw $this->createNotFoundException("User not found");
+        }
+
+            //set activation email null
+            $user->setActivationEmailToken(null);
+
+            $em->persist($user);
+            $em->flush($user);
+
+        return $this->redirectToRoute('settings');
 
     }
 

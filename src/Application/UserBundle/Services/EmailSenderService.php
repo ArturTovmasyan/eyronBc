@@ -48,4 +48,25 @@ class EmailSenderService
 
         $this->container->get('mailer')->send($message);
     }
+
+    public function sendActivationUserEmail($newUserEmail, $emailToken, $userName)
+    {
+        //get project name
+        $projectName = $this->container->getParameter('project_name');
+
+        //get email activate url
+        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken), true);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Please confirm your new email in ' . $projectName . ' account')
+            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setCc('arthur.tovmasyan@rambler.ru')
+            ->setContentType('text/html; charset=UTF-8')
+            ->setBody($this->container->get('templating')->render(
+                'ApplicationUserBundle:Registration:userEmailsActivation.html.twig',
+                array('name' => $userName, 'url' => $url, 'email' => $newUserEmail)
+            ), 'text/html');
+
+        $this->container->get('mailer')->send($message);
+    }
 }
