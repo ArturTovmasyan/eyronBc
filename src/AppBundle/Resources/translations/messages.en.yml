@@ -225,6 +225,16 @@ Aphorism List: Aphorism List
 Time Sentence List: Time Sentence List
 Page List: Page List
 Goal List: Goal List
+Action: Action
+contains: contains
+does not contain: does not contain
+is equal to: is equal to
+is not equal to: is not equal to
+=: =
+>=: >=
+>: >
+<: <
+<=: <=
 #
 #<trans-unit id="label_name_">
 #                <source>label_name_tag</source>
