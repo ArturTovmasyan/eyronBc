@@ -222,7 +222,7 @@ class UserProvider extends   BaseProvider
             $user->setFirstName($fullName[0]);
 
             // set last name
-            $user->setLastName($fullName[1]);
+            $user->setLastName($fullName[0]);
 
             // set photo link
             $user->setSocialPhotoLink($response['profile_image_url']);

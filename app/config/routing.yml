@@ -68,7 +68,7 @@ fos_comment_api:
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /development/rest/
+    prefix:   /api/doc/
 
 # custom rests
 app_user_goal_rest:
@@ -81,7 +81,7 @@ app_goal_rest:
     resource: AppBundle\Controller\Rest\GoalController
     prefix:   /
 
-app_nwe_feed_rest:
+app_new_feed_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /
