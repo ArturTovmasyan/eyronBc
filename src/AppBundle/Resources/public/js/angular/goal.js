@@ -160,6 +160,21 @@ angular.module('goal', ['Interpolation',
             increaseArea: '20%'
         });
     }])
+    .controller('goalList',['$scope', function($scope){
+
+        $scope.adventureText = function(slug, cJson){
+            var item = null;
+
+            angular.forEach(cJson, function(v){
+                if(v.slug === slug){
+                   item = v;
+                }
+            });
+
+            return item;
+        }
+
+    }])
     .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',

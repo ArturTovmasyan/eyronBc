@@ -50,7 +50,7 @@
                                     <div class="clearfix">
                                         <div class="form-group row no-marginb">
 
-                                            <label class="col-sm-10 control-label text-left text-purple">
+                                            <label class="col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch={{ completed|default("0") }}">
                                                 <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                                                 <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                                             </label>
@@ -81,23 +81,18 @@
 
                                     </div>
 
-                                    {% if completed %}
-                                        <div class="clearfix">
-                                            <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong> &nbsp;
-                                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
-                                        </div>
-                                    {% endif %}
+                                    <div class="clearfix" data-ng-show="complete.switch">
+                                        <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                                        <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                                    </div>
                                     <hr/>
 
                                 {% endif %}
 
-                                {#{% if data.id is null %}#}
-                                    {#<h4>{{ "goal.is_dream"|trans }}</h4>#}
-                                {#{% elseif data.doDate is null %}#}
-                                    <h4 data-ng-hide="datepicker_title" style="text-align: center">{{ "dream"|trans }}</h4>
-                                {#{% endif %}#}
+                                <h4 data-ng-hide="datepicker_title || complete.switch" style="text-align: center">{{ "dream"|trans }}</h4>
 
-                                <div id="datepicker" data-datepicker-disable="{{ completed }}"
+                                <div id="datepicker"
+                                     data-ng-hide="complete.switch"
                                      data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
                                      style="color: black"></div>
 
@@ -116,6 +111,7 @@
                                         <input {% if completed %} disabled {% endif %}
                                                 value="{{ data.address }}"
                                                 type="text"
+                                                data-ng-disabled="complete.switch"
                                                 data-google-places-autocomplete
                                                 data-hidden-storage=".location-hidden"
                                                 class="form-control place-autocomplete"
@@ -128,7 +124,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans } } ) }}
+                                        {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}
                                     </div>
                                 </div>
 
@@ -162,8 +158,13 @@
                                             {#</label>#}
 
                                             <label class="radio-inline">
-                                                <input name="test" class="important-radio" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
-
+                                                <input name="test"
+                                                       class="important-radio"
+                                                       type="radio"
+                                                       data-ng-disabled="complete.switch"
+                                                       {% if priority == id %}checked{% endif %}
+                                                       value="{{ id }}">
+                                                    {{ name|trans }}
                                             </label>
 
                                             <p class="text-gray">
@@ -206,6 +207,7 @@
                                                data-key="k"
                                                data-array="stepsArray"
                                                data-ng-model="step.text"
+                                               data-ng-disabled="complete.switch"
                                                name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
                                                placeholder="{{ "goal.add_step"|trans }}">
                                     </div>
@@ -220,6 +222,7 @@
                                             <input {% if completed %}disabled{% endif %} type="checkbox"
                                                    name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
                                                    data-ng-model="step.switch"
+                                                   data-ng-disabled="complete.switch"
                                                    class="onoffswitch-checkbox"
                                                    id="myonoffswitch[[k]]">
 
@@ -234,30 +237,30 @@
                                 <div class="form-group row no-marginb">
 
                                     <label for="inputEmail3"
-                                           data-ng-hide="private_checkbox"
+                                           data-ng-show="private_checkbox"
                                            class="col-sm-10 control-label text-purple text-left">
                                         {{ "goal.as_visible"|trans }}
                                     </label>
                                     <label for="inputEmail3"
-                                        data-ng-show="private_checkbox"
+                                        data-ng-hide="private_checkbox"
                                         class="col-sm-10 control-label text-purple text-left">
                                         {{ "goal.as_invisible"|trans }}
                                     </label>
 
-                                    <div class="col-sm-2">
-                                        <div class="onoffswitch">
-                                            <input {% if not data.isVisible %} checked {% endif %}
-                                                type="checkbox"
-                                                data-ng-model="private_checkbox"
-                                                class="onoffswitch-checkbox"
-                                                id="{{ form.isVisible.vars.id }}"
-                                                name="{{ form.isVisible.vars.full_name }}"
-                                                value="1">
-                                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
-                                                <span class="onoffswitch-inner"></span>
-                                                <span class="onoffswitch-switch"></span>
-                                            </label>
-                                        </div>
+                                    <div class="col-sm-2 onoffswitch">
+                                        <input {% if not data.isVisible %} checked {% endif %}
+                                            type="checkbox"
+                                            data-ng-model="private_checkbox"
+                                            class="onoffswitch-checkbox"
+                                            data-ng-disabled="complete.switch"
+                                            id="{{ form.isVisible.vars.id }}"
+                                            name="{{ form.isVisible.vars.full_name }}"
+                                            value="1">
+
+                                        <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
                                     </div>
 
                                 </div>
@@ -284,7 +287,6 @@
                                 <div class="form-group text-center">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                        {#<button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>#}
                                         <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                                     </div>
                                 </div>
