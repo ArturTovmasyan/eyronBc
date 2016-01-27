@@ -151,9 +151,9 @@
 
                                         {# other filters #}
                                         {% for id, name in filters %}
-                                        </br>
-                                             <label class="radio-inline">
-                                                <input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
+                                            </br>
+                                            <label class="radio-inline">
+                                                <input name="test" class="important-radio" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
                                             </label>
                                             </br>
                                             {% if id == 1 %}
