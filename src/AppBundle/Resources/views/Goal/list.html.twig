@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html data-ng-app="goal"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalList"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -27,6 +27,7 @@
                         </a>
                     {% endif %}
                 </div>
+
                 <div class="col-sm-6 text-right">
                     <button type="button"
                         class="btn btn-default text-purple no-bg"
@@ -36,7 +37,9 @@
                         data-content="hello"
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
-                        Adveture
+
+                        [[ adventureText('{{ app.request.get('category') }}') ? adventureText('{{ app.request.get('category') }}'):"Adventure" ]]
+
                         <span class="icon down-icon" data-ng-hide="filter"></span>
                         <span class="icon up-icon ng-hide" data-ng-show="filter"></span>
                     </button>

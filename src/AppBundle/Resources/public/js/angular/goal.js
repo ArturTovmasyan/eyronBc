@@ -160,6 +160,13 @@ angular.module('goal', ['Interpolation',
             increaseArea: '20%'
         });
     }])
+    .controller('goalList',['$scope', function($scope){
+
+        $scope.adventureText = function(slug){
+            console.log(slug, 'slug');
+        }
+
+    }])
     .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',
