@@ -1,7 +1,152 @@
 {% extends "::base.html.twig" %}
 
 {% block content %}
+    <div class="container">
+        <div  class="signup">
+            <div class=" row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
-    Settings
+                        <div class="form-group">
+                            {% if app.user %}
+                                {% set user = app.user %}
+                                {% set emailToken = user.getActivationEmailToken() %}
 
-{% endblock %}
+                                <figure class="img-circle">
+                                    {% if user.getPhotoLink %}
+                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="200" height="140">
+                                        {{ form_label(form.file, 'change profile pictures') }}
+                                    {% else %}
+                                        {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
+                                    {% endif %}
+                                    <div class="hide">
+                                        {{ form_widget(form.file) }}
+                                    </div>
+                                </figure>
+                            {% endif %}
+                        </div>
+
+                        <div class="error-message">{{ form_errors(form.file) }}</div>
+
+                        <div class="form-group row no-padding">
+                            <div class="col-sm-6">
+                                {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
+
+                            <div class="col-sm-2">
+                                {{ form_label(form.email, 'Primary Email') }}
+                            </div>
+
+                            {% if userEmails|length != 0 %}
+                                <div class="col-sm-1">
+                                    <input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>
+                                </div>
+                            {% endif %}
+
+                            <div class="col-sm-6">
+                                {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+
+                                <div class="error-message">{{ form_errors(form.email) }}</div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{ form_widget(form.bl_multiple_email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                            </div>
+                        </div>
+
+                        <div class="error-message">{{ form_errors(form) }}</div>
+
+                        {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                {{ form_widget(form.password, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
+                            </div>
+                        </div>
+
+                        <div class="error-message">{{ form_errors(form.password) }}</div>
+
+                        <div class="form-group row no-padding">
+                            <div class="col-sm-6">
+                                {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                                {% if errorMessage != 'Error' %}
+                                    <div class="error-message">{{ errorMessage }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if errorMessage == 'Error' %}
+
+                            <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
+                        {% endif %}
+                        {#<p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>#}
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+
+                                {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'} %}
+
+                                {% set months = form.birthDate.month.vars.choices %}
+
+                                <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]" class="form-control">
+
+                                    <option value=""  {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+
+                                    {% for month in months %}
+                                        <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                            <div class="col-sm-4">
+
+                                {% set days = form.birthDate.day.vars.choices %}
+
+                                <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]" class="form-control">
+
+                                    <option value="" {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+
+                                    {% for day in days %}
+                                        <option value="{{ day.value }}" {% if day.value == form.birthDate.day.vars.value %} selected {% endif %}>{{ day.value }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <div class="col-sm-4">
+
+                                {% set years = form.birthDate.year.vars.choices %}
+
+                                <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]" class="form-control">
+
+                                    <option value="" {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+
+                                    {% for year in years %}
+                                        <option value="{{ year.value }}" {% if year.value == form.birthDate.year.vars.value %} selected {% endif %}>{{ year.value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="error-message">{{ form_errors(form.birthDate) }}</div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-blue">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                        <button type="reset" class="btn btn-silver">{{ 'btn_cancel'|trans({}, 'messages') }}</button>
+
+                        {{ form_widget(form._token) }}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content%}

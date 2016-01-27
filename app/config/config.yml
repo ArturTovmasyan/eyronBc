@@ -52,7 +52,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig']
+        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'ApplicationUserBundle:Form:multipleEmail.html.twig', 'A2lixTranslationFormBundle::default.html.twig']
 
     globals:
         project_name: %project_name%
