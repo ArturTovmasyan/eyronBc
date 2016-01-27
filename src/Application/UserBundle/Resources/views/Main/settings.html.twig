@@ -14,13 +14,8 @@
 
                                 <figure>
                                     {% if user.getPhotoLink %}
-<<<<<<< HEAD
-                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="200" height="140">
-                                        {{ form_label(form.file, 'change_pictures'|trans({},'FOSUserBundle') ) }}
-=======
                                         <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
                                         {{ form_label(form.file, 'change profile pictures') }}
->>>>>>> e3c2e70f23c0deed7d200f1660eecf021439c7cb
                                     {% else %}
                                         {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
                                     {% endif %}
