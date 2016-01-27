@@ -247,22 +247,23 @@
                                         {{ "goal.as_invisible"|trans }}
                                     </label>
 
-                                    <div class="col-sm-2 onoffswitch">
-                                        <input {% if not data.isVisible %} checked {% endif %}
-                                            type="checkbox"
-                                            data-ng-model="private_checkbox"
-                                            class="onoffswitch-checkbox"
-                                            data-ng-disabled="complete.switch"
-                                            id="{{ form.isVisible.vars.id }}"
-                                            name="{{ form.isVisible.vars.full_name }}"
-                                            value="1">
+                                    <div class="col-sm-2">
+                                        <div class="onoffswitch">
+                                            <input {% if not data.isVisible %} checked {% endif %}
+                                                    type="checkbox"
+                                                    data-ng-model="private_checkbox"
+                                                    class="onoffswitch-checkbox"
+                                                    data-ng-disabled="complete.switch"
+                                                    id="{{ form.isVisible.vars.id }}"
+                                                    name="{{ form.isVisible.vars.full_name }}"
+                                                    value="1">
 
-                                        <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
-                                            <span class="onoffswitch-inner"></span>
-                                            <span class="onoffswitch-switch"></span>
-                                        </label>
+                                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
                                     </div>
-
                                 </div>
 
                                 <p class="text-gray">
