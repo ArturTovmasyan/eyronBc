@@ -81,18 +81,15 @@
 
                                     </div>
 
-                                    {% if completed %}
-                                        <div class="clearfix">
-                                            <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ data.completionDate|date('d M Y') | upper}}</strong> &nbsp;
-                                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
-                                        </div>
-                                    {% endif %}
+                                    <div class="clearfix" data-ng-show="complete.switch">
+                                        <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                                        <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                                    </div>
                                     <hr/>
 
                                 {% endif %}
 
                                 <h4 data-ng-hide="datepicker_title || complete.switch" style="text-align: center">{{ "dream"|trans }}</h4>
-                                <h4 data-ng-show="complete.switch" style="text-align: center">Planed: {{ data.doDate|date("m/d/Y") }} Completed: {{ "now"|date("m/d/Y") }}</h4>
 
                                 <div id="datepicker"
                                      data-ng-hide="complete.switch"
