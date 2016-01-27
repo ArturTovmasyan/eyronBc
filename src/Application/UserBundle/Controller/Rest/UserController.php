@@ -201,10 +201,12 @@ class UserController extends FOSRestController
      * )
      * @param $type
      * @param $accessToken
+     * @param $tokenSecret
      * @return Response
      * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get(defaults={"tokenSecret"=null})
      */
-    public function getSocialLoginAction($type, $accessToken)
+    public function getSocialLoginAction($type, $accessToken, $tokenSecret)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -218,8 +220,8 @@ class UserController extends FOSRestController
                     $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
                     $data = json_decode($data);
                     $id = $data->id;
-                    $newUser->setFacebookId($id);
-                    $newUser->setEmail($id);
+                    $newUser->setFacebookId($id . '@facebook.com');
+                    $newUser->setEmail($id . '_facebook');
                     $newUser->setUsername($id);
 
                     $fullName = explode(' ', $data->name);
@@ -236,16 +238,18 @@ class UserController extends FOSRestController
                 try{
                     $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
                     $data = json_decode($data);
-                    $id = $data->data->id;
+                    $id = $data->id;
                     $newUser->setGoogleId($id);
 
-                    $newUser->setEmail($data->data->email);
-                    $newUser->setUsername($data->data->email);
-                    $newUser->setFirstName($data->data->given_name);
-                    $newUser->setLastName($data->data->family_name);
-                    $newUser->setGender($data->data->gender == "male" ? User::MALE : User::FEMALE);
+                    $newUser->setEmail($id . '@google.com');
+                    $newUser->setUsername($id . '_google');
+                    $newUser->setFirstName($data->name->givenName);
+                    $newUser->setLastName($data->name->familyName);
+                    if (isset($data->gender)) {
+                        $newUser->setGender($data->gender == "male" ? User::MALE : User::FEMALE);
+                    }
 
-                    $photoPath  = $data->data->picture;
+                    $photoPath  = $data->image->url;
                 }
                 catch(\Exception $e){
                     return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
@@ -256,14 +260,13 @@ class UserController extends FOSRestController
                 $id = is_array($data) ?  $data[0] : null;
                 $newUser->setTwitterId($id);
 
-                $data = file_get_contents("https://api.twitter.com/1.1/users/show.json?user_id=" . $id);
-                $data = json_decode($data);
+                $data = $this->getTwitterData($id, $accessToken, $tokenSecret);
 
-                $newUser->setEmail($data->screen_name);
-                $newUser->setUsername($data->screen_name);
+                $newUser->setEmail($id . '@twitter.com');
+                $newUser->setUsername($id . '_twitter');
                 $fullName = explode(' ', $data->name);
                 $newUser->setFirstName($fullName[0]);
-                $newUser->setLastName($fullName[0]);
+                $newUser->setLastName("");
 
                 $photoPath = $data->profile_image_url;
 
@@ -277,9 +280,9 @@ class UserController extends FOSRestController
 
         if(!$user){
             $fileName = md5(microtime()) . '.jpg';
-            file_put_contents($user->getAbsolutePath() . $fileName, fopen($photoPath, 'r'));
+            file_put_contents($newUser->getAbsolutePath() . $fileName, fopen($photoPath, 'r'));
             $newUser->setFileName($fileName);
-            $newUser->setFileSize(filesize($user->getAbsolutePath() . $fileName));
+            $newUser->setFileSize(filesize($newUser->getAbsolutePath() . $fileName));
             $newUser->setFileOriginalName($newUser->getFirstName() . '_photo');
             $newUser->setPassword('');
 
@@ -297,10 +300,14 @@ class UserController extends FOSRestController
         );
     }
 
+    /**
+     * @param $id
+     * @param $token
+     * @param $token_secret
+     * @return mixed
+     */
     private function getTwitterData($id, $token, $token_secret)
     {
-//        $token = $response->getAccessToken();
-//        $token_secret = $response->getTokenSecret();
         $consumer_key = $this->getParameter('twitter_client_id'); //$response->getResourceOwner()->getOption('client_id');
         $consumer_secret = $this->getParameter('twitter_client_secret'); //$response->getResourceOwner()->getOption('client_secret');
 
@@ -329,39 +336,39 @@ class UserController extends FOSRestController
         asort($arr); // secondary sort (value)
         ksort($arr); // primary sort (key)
 
-// http_build_query automatically encodes, but our parameters
-// are already encoded, and must be by this point, so we undo
-// the encoding step
+        // http_build_query automatically encodes, but our parameters
+        // are already encoded, and must be by this point, so we undo
+        // the encoding step
         $querystring = urldecode(http_build_query($arr, '', '&'));
 
         $url = "https://$host$path";
 
-// mash everything together for the text to hash
+        // mash everything together for the text to hash
         $base_string = $method."&".rawurlencode($url)."&".rawurlencode($querystring);
 
-// same with the key
+        // same with the key
         $key = rawurlencode($consumer_secret)."&".rawurlencode($token_secret);
 
-// generate the hash
+        // generate the hash
         $signature = rawurlencode(base64_encode(hash_hmac('sha1', $base_string, $key, true)));
 
-// this time we're using a normal GET query, and we're only encoding the query params
-// (without the oauth params)
+        // this time we're using a normal GET query, and we're only encoding the query params
+        // (without the oauth params)
         $url .= "?".http_build_query($query);
         $url=str_replace("&amp;","&",$url); //Patch by @Frewuill
 
         $oauth['oauth_signature'] = $signature; // don't want to abandon all that work!
         ksort($oauth); // probably not necessary, but twitter's demo does it
 
-// also not necessary, but twitter's demo does this too
-//        function add_quotes($str) { return '"'.$str.'"'; }
+        // also not necessary, but twitter's demo does this too
+        // function add_quotes($str) { return '"'.$str.'"'; }
         $oauth = array_map(function ($str) { return '"'.$str.'"'; }, $oauth);
 
-// this is the full value of the Authorization line
+        // this is the full value of the Authorization line
         $auth = "OAuth " . urldecode(http_build_query($oauth, '', ', '));
 
-// if you're doing post, you need to skip the GET building above
-// and instead supply query parameters to CURLOPT_POSTFIELDS
+        // if you're doing post, you need to skip the GET building above
+        // and instead supply query parameters to CURLOPT_POSTFIELDS
         $options = array( CURLOPT_HTTPHEADER => array("Authorization: $auth"),
             //CURLOPT_POSTFIELDS => $postfields,
             CURLOPT_HEADER => false,
@@ -369,22 +376,13 @@ class UserController extends FOSRestController
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false);
 
-// do our business
+        // do our business
         $feed = curl_init();
         curl_setopt_array($feed, $options);
         $json = curl_exec($feed);
         curl_close($feed);
 
-        $twitter_data = json_decode($json);
-
-
-//        foreach ($twitter_data as &$value) {
-//            $tweetout .= preg_replace("/(http:\/\/|(www\.))(([^\s<]{4,68})[^\s<]*)/", '<a href="http://$2$3" target="_blank">$1$2$4</a>', $value->text);
-//            $tweetout = preg_replace("/@(\w+)/", "<a href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $tweetout);
-//            $tweetout = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $tweetout);
-//        }
-
-        dump($twitter_data);
+        return json_decode($json);
     }
 
     /**

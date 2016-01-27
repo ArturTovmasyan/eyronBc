@@ -124,7 +124,9 @@ class UserProvider extends   BaseProvider
             $user->setLastName($response['family_name']);
 
             // set gender
-            $user->setGender($response['gender'] == "male" ? User::MALE : User::FEMALE);
+            if ($response['gender']) {
+                $user->setGender($response['gender'] == "male" ? User::MALE : User::FEMALE);
+            }
 
             // set photo link
             $user->setSocialPhotoLink($response['picture']);
