@@ -147,15 +147,26 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        {{ 'goal.as_priority'|trans() }} <br/>
+                                        <h3>{{ 'goal.as_priority'|trans() }} </h3>
+
+                                        <div class="row">
+
+
 
                                         {# other filters #}
                                         {% for id, name in filters %}
-                                        </br>
-                                             <label class="radio-inline">
-                                                <input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
+
+                                            <div class="col-sm-6">
+                                             {#<label class="radio-inline">#}
+                                                {#<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}#}
+                                            {#</label>#}
+
+                                            <label class="radio-inline">
+                                                <input name="test" class="important-radio" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
+
                                             </label>
-                                            </br>
+
+                                            <p class="text-gray">
                                             {% if id == 1 %}
                                                 {{ 'goal.critical_activities'|trans }}
                                             {% elseif id == 2 %}
@@ -165,8 +176,11 @@
                                             {% elseif id == 4 %}
                                                 {{ 'goal.avoid_distractions'|trans }}
                                             {% endif %}
+                                            </p>
+                                            </div>
                                         {% endfor %}
 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -231,28 +245,43 @@
                                     </label>
 
                                     <div class="col-sm-2">
-                                        <input {% if not data.isVisible %} checked {% endif %}
-                                            class="private-checkbox"
-                                            data-ng-init="private_checkbox={{ form.vars.value.isVisible|default('0') }}"
-                                            data-ng-model="private_checkbox"
-                                            type="checkbox"
-                                            id="{{ form.isVisible.vars.id }}"
-                                            name="{{ form.isVisible.vars.full_name }}"
-                                            value="1">
+                                        <div class="onoffswitch">
+                                            <input {% if not data.isVisible %} checked {% endif %}
+                                                type="checkbox"
+                                                data-ng-model="private_checkbox"
+                                                class="onoffswitch-checkbox"
+                                                id="{{ form.isVisible.vars.id }}"
+                                                name="{{ form.isVisible.vars.full_name }}"
+                                                value="1">
+                                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
                                     </div>
 
                                 </div>
 
-                                <p>{{ "goal.invisible_text"|trans }}</p>
+                                <p class="text-gray">
+                                    <i class="icon eye-icon"></i>
+                                    {{ "goal.invisible_text"|trans }}
+                                </p>
 
 
                                 {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
-                                    <div style="color: black">
-                                        (Must be icon) Private {{ 'goal.private_text'|trans }}
-                                    </div>
+                                    <p class="text-gray clearfix">
+                                        <strong class="text-dark-gray pull-left">
+                                            <i class="icon lock-icon"></i>
+                                            {{ 'user_goal.private' |trans }}
+                                        </strong> &nbsp;
+                                        <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+                                    </p>
                                 {% endif %}
 
-                                <div class="form-group text-center ">
+                                <hr />
+
+
+                                <div class="form-group text-center">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
                                         {#<button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>#}
