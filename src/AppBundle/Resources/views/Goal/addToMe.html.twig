@@ -233,6 +233,7 @@
                                     <div class="col-sm-2 onoffswitch">
                                         <input {% if not data.isVisible %} checked {% endif %}
                                             type="checkbox"
+                                            data-ng-model="private_checkbox"
                                             class="onoffswitch-checkbox"
                                             id="{{ form.isVisible.vars.id }}"
                                             name="{{ form.isVisible.vars.full_name }}"
