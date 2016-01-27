@@ -92,6 +92,10 @@ angular.module('Components',[])
                     tmp.modal({
                         fadeDuration: 500
                     });
+
+                    tmp.on($.modal.CLOSE, function(){
+                        tmp.remove();
+                    })
                 }
 
             }

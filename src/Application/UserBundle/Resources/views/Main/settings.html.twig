@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <div  class="signup">
+        <div  class="settings">
             <div class=" row">
                 <div class="col-md-6 col-md-offset-3">
                     <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
@@ -12,10 +12,15 @@
                                 {% set user = app.user %}
                                 {% set emailToken = user.getActivationEmailToken() %}
 
-                                <figure class="img-circle">
+                                <figure>
                                     {% if user.getPhotoLink %}
+<<<<<<< HEAD
                                         <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="200" height="140">
                                         {{ form_label(form.file, 'change_pictures'|trans({},'FOSUserBundle') ) }}
+=======
+                                        <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
+                                        {{ form_label(form.file, 'change profile pictures') }}
+>>>>>>> e3c2e70f23c0deed7d200f1660eecf021439c7cb
                                     {% else %}
                                         {{ form_label(form.file, null,  {"label_attr" : {'class':'upload'} }) }}
                                     {% endif %}
@@ -41,9 +46,8 @@
 
                             {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-5">
                                 {{ form_label(form.email, 'primary_email'|trans({}, 'FOSUserBundle')) }}
-                            </div>
 
                             {% if userEmails|length != 0 %}
                                 <div class="col-sm-1">
@@ -51,7 +55,7 @@
                                 </div>
                             {% endif %}
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-7">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
@@ -139,8 +143,8 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-blue">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                        <button type="reset" class="btn btn-silver">{{ 'btn_cancel'|trans({}, 'messages') }}</button>
+                        <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                        <button type="reset" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</button>
 
                         {{ form_widget(form._token) }}
 
