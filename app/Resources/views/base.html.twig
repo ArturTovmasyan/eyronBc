@@ -88,6 +88,14 @@
                                             {%  set className = "user-no" ~ random(4) %}
 
                                             <a href="javascript:void(0)"
+                                               style="display: none"
+                                               class="settings-modal"
+                                               data-ls-identity="settingModal"
+                                               data-ls-template-url="{{ path("settings") }}"
+                                               data-ls-jquery-modal>
+                                            </a>
+
+                                            <a href="javascript:void(0)"
                                                 class="user clearfix"
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle1 = !joinToggle1"
@@ -211,6 +219,11 @@
 
                     $('[data-toggle="popover"]').popover()
                 })
+
+                function openSettingsModal(){
+                    console.log("hello");
+                    $('.settings-modal').trigger('openLsModal','settingModal');
+                }
             </script>
 
             <script>
