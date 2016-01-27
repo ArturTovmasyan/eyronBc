@@ -67,6 +67,15 @@ angular.module('Components',[])
                     scope.run();
                 });
 
+                // for non angular events
+                el.on('openLsModal', function(event, dataId){
+                    if(dataId === scope.lsIdentity){
+                        scope.run();
+                        scope.$apply();
+                    }
+                });
+
+                // for angular events
                 scope.$on('openLsModal', function(event, dataId){
                     if(dataId === scope.lsIdentity){
                         scope.run();

@@ -1,6 +1,6 @@
-{% extends "::base.html.twig" %}
+{#{% extends "::base.html.twig" %}#}
 
-{% block content %}
+{#{% block content %}#}
     <div class="container">
         <div  class="settings">
             <div class=" row">
@@ -140,7 +140,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                        <button type="reset" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</button>
+                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
 
                         {{ form_widget(form._token) }}
 
@@ -149,4 +149,4 @@
             </div>
         </div>
     </div>
-{% endblock content%}
+{#{% endblock content %}#}
