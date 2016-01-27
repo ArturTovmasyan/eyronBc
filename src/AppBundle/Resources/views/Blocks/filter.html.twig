@@ -5,8 +5,9 @@
         <ul class="filter">
             <li>
                 <a href="{{ path('goals_list') }}">
-                    {#<span class="glyphicon glyphicon-plus-sign"></span>#}
-                    <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
+                    <span>
+                        <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
+                    </span>
                     {{ 'most_popular'|trans }}
                 </a>
             </li>
@@ -14,8 +15,9 @@
             {% for category in categories %}
                 <li>
                     <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
-                        <img src="{{ category.downloadLink }}"/>
-                        {#<span class="glyphicon glyphicon-plus-sign"></span>#}
+                        <span>
+                            <img src="{{ category.downloadLink }}"/>
+                        </span>
                         {{ category.title }}
                     </a>
                 </li>
