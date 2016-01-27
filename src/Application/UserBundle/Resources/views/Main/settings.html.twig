@@ -26,7 +26,6 @@
                             {% endif %}
                         </div>
 
-                        
                         <div class="error-message">{{ form_errors(form.file) }}</div>
 
                         <div class="form-group row no-padding">
@@ -43,7 +42,8 @@
                             {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
 
                             <div class="col-sm-5">
-                                {{ form_label(form.email, 'primary_email'|trans({}, 'FOSUserBundle')) }}
+                                {{ form_label(form.email, 'Primary Email') }}
+                            </div>
 
                             {% if userEmails|length != 0 %}
                                 <div class="col-sm-1">
