@@ -28,7 +28,8 @@
                     {% endif %}
                 </div>
 
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-right"
+                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categories | serialize('json') }})">
                     <button type="button"
                         class="btn btn-default text-purple no-bg"
                         data-container="body"
@@ -38,7 +39,7 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        [[ adventureText('{{ app.request.get('category') }}') ? adventureText('{{ app.request.get('category') }}'):"Adventure" ]]
+                        [[ adventureTextItem ? adventureTextItem.title:"Adventure" ]]
 
                         <span class="icon down-icon" data-ng-hide="filter"></span>
                         <span class="icon up-icon ng-hide" data-ng-show="filter"></span>

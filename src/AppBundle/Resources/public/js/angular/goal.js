@@ -162,8 +162,16 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('goalList',['$scope', function($scope){
 
-        $scope.adventureText = function(slug){
-            console.log(slug, 'slug');
+        $scope.adventureText = function(slug, cJson){
+            var item = null;
+
+            angular.forEach(cJson, function(v){
+                if(v.slug === slug){
+                   item = v;
+                }
+            });
+
+            return item;
         }
 
     }])
