@@ -147,15 +147,16 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        {{ 'goal.as_priority'|trans() }} <br/>
+                                        <h3>{{ 'goal.as_priority'|trans() }} </h3>
 
                                         {# other filters #}
                                         {% for id, name in filters %}
-                                        </br>
+
                                              <label class="radio-inline">
                                                 <input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}
                                             </label>
                                             </br>
+                                            <p class="text-gray">
                                             {% if id == 1 %}
                                                 {{ 'goal.critical_activities'|trans }}
                                             {% elseif id == 2 %}
@@ -165,6 +166,7 @@
                                             {% elseif id == 4 %}
                                                 {{ 'goal.avoid_distractions'|trans }}
                                             {% endif %}
+                                            </p>
                                         {% endfor %}
 
                                     </div>
@@ -243,16 +245,29 @@
 
                                 </div>
 
-                                <p>{{ "goal.invisible_text"|trans }}</p>
+                                <p class="text-gray">
+                                    <i class="icon eye-icon"></i>
+                                    {{ "goal.invisible_text"|trans }}
+                                </p>
 
 
                                 {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
-                                    <div style="color: black">
-                                        (Must be icon) Private {{ 'goal.private_text'|trans }}
+                                    <div class="text-dark-gray">
+                                        <i class="icon lock-icon"></i> Private {{ 'goal.private_text'|trans }}
                                     </div>
                                 {% endif %}
 
-                                <div class="form-group text-center ">
+                                <hr />
+
+                                <p class="text-gray clearfix">
+                                    <strong class="text-dark-gray pull-left">
+                                        <i class="icon lock-icon"></i>
+                                        {{ 'user_goal.private' |trans }}
+                                    </strong> &nbsp;
+                                    <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+                                </p>
+
+                                <div class="form-group text-center">
                                     <div class="buttons">
                                         <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
                                         {#<button type="submit" name="btn_cancel" class="btn btn-transparent button-lg ">{{ 'btn_cancel'|trans }}</button>#}
