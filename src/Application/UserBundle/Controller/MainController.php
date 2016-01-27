@@ -218,6 +218,7 @@ class MainController extends Controller
      * This function is used to remove user emails by email name
      *
      * @Route("/settings/remove-email/{email}", name="remove_email")
+     * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function removeEmailInSettings($email)
