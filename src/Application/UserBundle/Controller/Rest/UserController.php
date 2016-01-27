@@ -257,11 +257,17 @@ class UserController extends FOSRestController
                 break;
             case "twitter":
                 $data = explode('-', $accessToken);
-                $id = is_array($data) ?  $data[0] : null;
+                $id = is_array($data) && isset($data[1]) ?  $data[0] : null;
                 $newUser->setTwitterId($id);
 
                 $data = $this->getTwitterData($id, $accessToken, $tokenSecret);
 
+                if (!isset($data->id)){
+                    $id = null;
+                    break;
+                }
+
+                $id = $data->id;
                 $newUser->setEmail($id . '@twitter.com');
                 $newUser->setUsername($id . '_twitter');
                 $fullName = explode(' ', $data->name);
