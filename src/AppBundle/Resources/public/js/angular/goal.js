@@ -124,17 +124,6 @@ angular.module('goal', ['Interpolation',
 
                 $scope.$apply();
             });
-
-            angular.element('input.private-checkbox').iCheck({
-                checkboxClass: 'icheckbox_square-purple',
-                increaseArea: '20%'
-            }).on('ifChanged', function (event) {
-                var target = angular.element(event.target);
-                target.trigger('change');
-                $scope.private_checkbox = target.is(":checked");
-                $scope.$apply();
-            });
-
         }, 500);
 
     }])

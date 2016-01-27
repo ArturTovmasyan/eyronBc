@@ -230,15 +230,17 @@
                                         {{ "goal.as_invisible"|trans }}
                                     </label>
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2 onoffswitch">
                                         <input {% if not data.isVisible %} checked {% endif %}
-                                            class="private-checkbox"
-                                            data-ng-init="private_checkbox={{ form.vars.value.isVisible|default('0') }}"
-                                            data-ng-model="private_checkbox"
                                             type="checkbox"
+                                            class="onoffswitch-checkbox"
                                             id="{{ form.isVisible.vars.id }}"
                                             name="{{ form.isVisible.vars.full_name }}"
                                             value="1">
+                                        <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
                                     </div>
 
                                 </div>
