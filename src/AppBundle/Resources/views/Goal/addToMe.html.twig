@@ -149,10 +149,14 @@
                                     <div class="col-sm-12">
                                         <h3>{{ 'goal.as_priority'|trans() }} </h3>
 
+                                        <div class="row">
+
+
+
                                         {# other filters #}
                                         {% for id, name in filters %}
 
-
+                                            <div class="col-sm-6">
                                              {#<label class="radio-inline">#}
                                                 {#<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}#}
                                             {#</label>#}
@@ -173,8 +177,10 @@
                                                 {{ 'goal.avoid_distractions'|trans }}
                                             {% endif %}
                                             </p>
+                                            </div>
                                         {% endfor %}
 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -263,20 +269,17 @@
 
 
                                 {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
-                                    <div class="text-dark-gray">
-                                        <i class="icon lock-icon"></i> Private {{ 'goal.private_text'|trans }}
-                                    </div>
+                                    <p class="text-gray clearfix">
+                                        <strong class="text-dark-gray pull-left">
+                                            <i class="icon lock-icon"></i>
+                                            {{ 'user_goal.private' |trans }}
+                                        </strong> &nbsp;
+                                        <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+                                    </p>
                                 {% endif %}
 
                                 <hr />
 
-                                <p class="text-gray clearfix">
-                                    <strong class="text-dark-gray pull-left">
-                                        <i class="icon lock-icon"></i>
-                                        {{ 'user_goal.private' |trans }}
-                                    </strong> &nbsp;
-                                    <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
-                                </p>
 
                                 <div class="form-group text-center">
                                     <div class="buttons">
