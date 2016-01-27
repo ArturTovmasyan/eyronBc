@@ -103,7 +103,6 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
-
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
@@ -116,6 +115,7 @@ angular.module('goal', ['Interpolation',
                 },
                 todayHighlight: true
             });
+
             angular.element("#datepicker").on("changeDate", function() {
                 $scope.datepicker_title = true;
                 angular.element(".hidden_date_value").val(
@@ -124,17 +124,6 @@ angular.module('goal', ['Interpolation',
 
                 $scope.$apply();
             });
-
-            angular.element('input.private-checkbox').iCheck({
-                checkboxClass: 'icheckbox_square-purple',
-                increaseArea: '20%'
-            }).on('ifChanged', function (event) {
-                var target = angular.element(event.target);
-                target.trigger('change');
-                $scope.private_checkbox = target.is(":checked");
-                $scope.$apply();
-            });
-
         }, 500);
 
     }])
