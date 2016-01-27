@@ -276,6 +276,10 @@ class UserController extends FOSRestController
                 break;
         }
 
+        if (!$id){
+            return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
+        }
+
         $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
 
         if(!$user){
