@@ -97,7 +97,8 @@
                                     <h4 data-ng-hide="datepicker_title" style="text-align: center">{{ "dream"|trans }}</h4>
                                 {#{% endif %}#}
 
-                                <div id="datepicker" data-datepicker-disable="{{ completed }}"
+                                <div id="datepicker"
+                                     data-ng-hide="complete.switch"
                                      data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
                                      style="color: black"></div>
 
