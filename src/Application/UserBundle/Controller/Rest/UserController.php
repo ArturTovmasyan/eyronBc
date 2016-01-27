@@ -204,7 +204,6 @@ class UserController extends FOSRestController
      * @param $tokenSecret
      * @return Response
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\Get(defaults={"tokenSecret"=null})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
     {
