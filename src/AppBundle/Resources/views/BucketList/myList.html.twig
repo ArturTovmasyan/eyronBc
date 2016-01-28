@@ -7,7 +7,6 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
           rel="stylesheet">
@@ -235,7 +234,7 @@
                                                             <a href="javascript:void(0)">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
-                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <span class="icon user-icon"></span>
                                                             </a>
                                                         </div>
 
@@ -243,7 +242,7 @@
                                                             <a href="javascript:void(0)">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
-                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <span class="icon user-icon"></span>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -267,8 +266,8 @@
                                                         {#{% if userGoal.note is not null %}#}
                                                             {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
                                                         {#{% endif %}#}
-                                                        <span title="{{ 'my_bucket_list.notes'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
-                                                        <span title="{{ 'my_bucket_list.steps'|trans }}"  class="glyphicon glyphicon-list-alt"></span>
+                                                        <span title="{{ 'my_bucket_list.notes'|trans }}"  class="icon list-icon"></span>
+                                                        <span title="{{ 'my_bucket_list.steps'|trans }}"  class="icon list-icon"></span>
                                                     </li>
                                                     <li>
                                                         <div class="progress">
@@ -281,14 +280,14 @@
 
                                                     {% if goal.author and goal.author.id == user.id %}
                                                         <li>
-                                                            <span title="{{ 'my_bucket_list.private'|trans }}" class="glyphicon glyphicon-pencil"></span>
+                                                            <span title="{{ 'my_bucket_list.private'|trans }}" class="icon pen-icon"></span>
                                                         </li>
                                                     {% endif %}
 
                                                     {# invisible #}
                                                     {% if not userGoal.isVisible %}
                                                         <li>
-                                                            <span title="{{ 'my_bucket_list.invisible'|trans }}" class="glyphicon glyphicon-eye-close"></span>
+                                                            <span title="{{ 'my_bucket_list.invisible'|trans }}" class="icon eye-icon"></span>
                                                         </li>
                                                     {% endif %}
 
@@ -307,7 +306,7 @@
                                                                data-ls-jquery-modal
                                                                data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
                                                                data-ls-identity="goalMenageModal{{ goal.id }}">
-                                                                <span class="glyphicon glyphicon-cog"></span>
+                                                                <span class="icon cog-icon"></span>
                                                                 {{ 'manage'|trans }}
                                                             </a>
 
@@ -375,9 +374,8 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+    {{ parent() }}
 
-    <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
             type="text/javascript"></script>
