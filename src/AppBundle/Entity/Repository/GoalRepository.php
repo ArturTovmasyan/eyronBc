@@ -168,15 +168,18 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * @param $category
      * @param $search
+     * @param $first
+     * @param $count
+     * @param $allIds
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('g.tags', 'gt')
@@ -205,6 +208,29 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->groupBy('g.id')
             ;
         }
+
+        if (is_numeric($first) && is_numeric($count)){
+
+            $idsQuery = clone $query;
+            $ids = $idsQuery
+                ->select('g.id', 'count(ug) as HIDDEN  cnt')
+                ->getQuery()
+                ->getResult()
+            ;
+
+            $allIds = $ids;
+            $ids = array_slice($ids, $first, $count);
+
+            if (count($ids) == 0){
+                return [];
+            }
+
+            $query
+                ->andWhere('g.id IN (:ids)')
+                ->setParameter('ids', $ids);
+            ;
+        }
+
 
         return $query->getQuery()->getResult();
     }

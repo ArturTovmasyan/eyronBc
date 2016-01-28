@@ -377,8 +377,6 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @return bool|mixed
-     * @VirtualProperty
-     * @Groups({"goal"})
      */
     public function getCoverPhoto()
     {

@@ -53,12 +53,12 @@ class GoalController extends FOSRestController
         $category = $request->get('category');
         $search = $request->get('search');
 
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, $first, $count);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
-        $returnGoals = array_slice($goals, $first, $count);
+        $goals = array_values($goals);
 
-        return  $returnGoals;
+        return  $goals;
     }
 
     /**

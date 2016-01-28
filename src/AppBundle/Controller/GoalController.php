@@ -650,183 +650,6 @@ class GoalController extends Controller
     }
 
     /**
-     * This function is duplicate of 'add to me action', and in future must be merge with it
-     *
-     * @Route("/manage/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="manage_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @param Goal $goal
-     * @param Request $request
-     * @param Request $userGoalId
-     * @return array
-     * @Secure(roles="ROLE_USER")
-     * @throws
-     */
-    public function manageAction(Request $request, Goal $goal, $userGoalId = null)
-    {
-        dump('testr'); exit;
-        return $this->redirectToRoute('add_to_me_goal', array('id' => $goal->getId(), 'userGoalId' => $userGoalId));
-        // get current user
-        $user = $this->getUser();
-
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // create filter
-        $filters = array(
-            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
-            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
-            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
-        );
-
-        //get priority data in request
-        $priorityData = $request->request->get('test');
-
-        //set default data for urgent and important
-        $urgent = false;
-        $important = false;
-
-        //check if priorityData exist
-        if($priorityData) {
-            switch ($priorityData) {
-                case UserGoal::NOT_URGENT_IMPORTANT:
-                    $urgent = false;
-                    $important = true;
-                    break;
-                case UserGoal::URGENT_IMPORTANT:
-                    $urgent = true;
-                    $important = true;
-                    break;
-                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
-                    $urgent = false;
-                    $important = false;
-                    break;
-                case UserGoal::URGENT_NOT_IMPORTANT:
-                    $urgent = true;
-                    $important = false;
-                    break;
-                default:
-                    $urgent = false;
-                    $important = false;
-            }
-        }
-        // empty data
-        $steps = array();
-
-        // check userGoalId
-        if($userGoalId){
-
-            $userGoal = $em->getRepository("AppBundle:UserGoal")->find($userGoalId);
-
-            // check user goal, and return not found exception
-            if(!$userGoal){
-                throw $this->createNotFoundException('usergoal not found');
-            }
-
-        }
-        else {
-            $userGoal = new UserGoal();
-
-            //set goal
-            $userGoal->setGoal($goal);
-        }
-
-        // create goal form
-        $form  = $this->createForm(new UserGoalType(), $userGoal);
-
-        // check method
-        if($request->isMethod("POST")){
-
-            // get data
-            $form->handleRequest($request);
-
-            // check form
-            if($form->isValid()){
-
-                // get step text
-                $stepTexts = $request->get('stepText');
-
-                // if step text
-                if($stepTexts){
-
-                    // get switch
-                    $switch = $request->get('switch');
-
-                    // loop for step text
-                    foreach($stepTexts as $key => $stepText){
-
-                        // check step text
-                        if(strlen($stepText) > 0 ){
-                            // get step
-                            $name = $stepText;
-
-                            // get status
-                            $status = is_array($switch) && array_key_exists($key, $switch) ? UserGoal::DONE : UserGoal::TO_DO;
-
-                            $steps[$name] = $status;
-                        }
-                    }
-                }
-
-                // get location
-                $location = json_decode($form->get('location')->getData());
-
-                if($location){
-                    $userGoal->setAddress($location->address);
-                    $userGoal->setLat($location->location->latitude);
-                    $userGoal->setLng($location->location->longitude);
-                }
-
-                // set status
-                $userGoal->setStatus(UserGoal::ACTIVE);
-
-                // if user is author, and goal is in draft
-                if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
-
-                    // set status to publish
-                    $goal->setReadinessStatus(Goal::TO_PUBLISH);
-                    $em->persist($goal);
-                }
-
-                // set date
-                $userGoal->setListedDate(new \DateTime());
-
-                // set user
-                $userGoal->setUser($user);
-
-                // set step
-                $userGoal->setSteps($steps);
-
-                //set urgent
-                $userGoal->setUrgent($urgent);
-
-                //set important
-                $userGoal->setImportant($important);
-
-                $doDate = $form->get('birthday')->getData();
-
-                // check date
-                if($doDate){
-
-                    $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
-
-                    // set do date
-                    $userGoal->setDoDate($doDate);
-                }
-
-                $em->persist($userGoal);
-                $em->flush();
-
-                return $this->redirectToRoute("user_profile");
-            }
-        }
-
-        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters);
-    }
-
-
-    /**
      * @Route("/list/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
@@ -844,8 +667,9 @@ class GoalController extends Controller
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->findAll();
 
+        $allIds = [];
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
         // get paginator
@@ -853,10 +677,12 @@ class GoalController extends Controller
 
         // paginate data
         $pagination = $paginator->paginate(
-            $goals,
+            $allIds,
             $request->query->getInt('page', 1)/*page number*/,
             7/*limit per page*/
         );
+
+        $pagination->setItems($goals);
 
         return array('goals' => $pagination, 'categories' => $categories);
     }
