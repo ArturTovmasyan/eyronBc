@@ -37,21 +37,23 @@ angular.module('goal', ['Interpolation',
                 return;
             }
 
-            $scope.goalDropzone = new Dropzone('#goalDropzone', {
-                url: url,
-                addRemoveLinks: true,
-                uploadMultiple: false,
-                maxThumbnailFilesize: 6,
-                maxFiles: 6,
-                complete: function(res){
-                    if(res.xhr.status !== 200){
-                        return;
-                    }
+            $timeout(function(){
+                $scope.goalDropzone = new Dropzone('#goalDropzone', {
+                    url: url,
+                    addRemoveLinks: true,
+                    uploadMultiple: false,
+                    maxThumbnailFilesize: 6,
+                    maxFiles: 6,
+                    complete: function(res){
+                        if(res.xhr.status !== 200){
+                            return;
+                        }
 
-                    $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
-                    $scope.$apply();
-                }
-            });
+                        $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
+                        $scope.$apply();
+                    }
+                });
+            },500);
         };
 
         // end file uploads
