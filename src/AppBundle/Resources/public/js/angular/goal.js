@@ -7,7 +7,7 @@ angular.module('goal', ['Interpolation',
         'ngSanitize',
         'Components'
     ])
-    .controller('goalAdd',['$scope', '$sce', function($scope, $sce){
+    .controller('goalAdd',['$scope', '$sce', '$timeout', function($scope, $sce, $timeout){
 
         $scope.files = [];
 

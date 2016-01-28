@@ -1,4 +1,4 @@
-{% extends "AppBundle::layout_top.html.twig" %}
+{#{% extends "AppBundle::layout_top.html.twig" %}#}
 
 
 {#{% block stylesheets %}#}
@@ -31,7 +31,7 @@
                             {{ form_widget(form.story, {'attr': {'class':'form-control', 'placeholder' : 'success_story.description', 'rows' :"4" } } ) }}
                         </div>
 
-                        <div class="text-center" ng-init="initDropzone('{{ path('add-story_images') }}')">
+                        <div class="text-center" data-ng-init="initDropzone('{{ path('add-story_images') }}')">
                             <div class="dropzone" id="goalDropzone">
                                 <div class="dz-message">
                                     <h3>{{ 'drag_drop_story'|trans }}</h3>

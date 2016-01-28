@@ -317,7 +317,12 @@
 
                                                             {% set status = userGoal.status %}
                                                             {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                                                                <a href="{{ path("add_story", { 'id' : goal.id }) }}" class="border" id="successtory">
+                                                                <a  href="javascript:void(0)"
+                                                                    data-ls-jquery-modal
+                                                                    data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
+                                                                    data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
+                                                                    class="border"
+                                                                    id="successtory">
                                                                     <span class="glyphicon glyphicon-ok-circle green-bg"></span>
                                                                     {{ 'successtory'|trans }}
                                                                 </a>
@@ -380,6 +385,7 @@
     <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
     <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
             type="text/javascript"></script>
+    <script src="{{ asset("app/bower_components/jquery-form/jquery.form.js") }}" type="text/javascript"></script>
     <script src="{{ asset('app/bower_components/dropzone/downloads/dropzone.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/app/js/storyImages.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
