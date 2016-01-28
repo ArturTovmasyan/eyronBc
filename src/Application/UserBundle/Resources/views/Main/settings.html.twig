@@ -2,7 +2,7 @@
 
 {#{% block content %}#}
     <div id="settings-modal">
-        <div  class="settings">
+        <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
                 <div class="form-group">
@@ -101,14 +101,11 @@
 
                                 {% set months = form.birthDate.month.vars.choices %}
 
-                                <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]" class="form-control">
-
-                                    <option value=""  {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
-
+                                <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]">
+                                    <option {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
                                     {% for month in months %}
                                         <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
                                     {% endfor %}
-
                                 </select>
 
                             </div>
@@ -116,7 +113,7 @@
 
                                 {% set days = form.birthDate.day.vars.choices %}
 
-                                <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]" class="form-control">
+                                <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]">
 
                                     <option value="" {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
 
@@ -130,7 +127,7 @@
 
                                 {% set years = form.birthDate.year.vars.choices %}
 
-                                <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]" class="form-control">
+                                <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]">
 
                                     <option value="" {% if user.birthDate is null %}selected{% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
 
