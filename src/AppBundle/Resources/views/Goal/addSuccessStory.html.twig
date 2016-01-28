@@ -50,7 +50,7 @@
 
                         <div class="form-group text-center bottom">
                             <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-purple button-lg">
-                            <a href="{{ path('goals_list') }}" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
+                            <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                         </div>
 
                         {{ form_widget(form._token) }}
