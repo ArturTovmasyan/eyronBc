@@ -62,7 +62,7 @@
                                                        data-ng-model="complete.switch"
                                                        class="onoffswitch-checkbox"
                                                        id="myonoffswitch"
-                                                       value="1">
+                                                       data-ng-init="complete.switch={{ data.status == constant('AppBundle\\Entity\\UserGoal::ACTIVE') ? 0 : 1 }}">
 
                                                     <label class="onoffswitch-label" for="myonoffswitch">
                                                         <span class="onoffswitch-inner"></span>

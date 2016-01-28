@@ -563,6 +563,10 @@ class GoalController extends Controller
             // check form
             if($form->isValid()){
 
+
+                $goalStatus = $request->get('goal_status');
+                $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+
                 // get step text
                 $stepTexts = $request->get('stepText');
 
@@ -596,9 +600,6 @@ class GoalController extends Controller
                     $userGoal->setLat($location->location->latitude);
                     $userGoal->setLng($location->location->longitude);
                 }
-
-                // set status
-                $userGoal->setStatus(UserGoal::ACTIVE);
 
                 // if user is author, and goal is in draft
                 if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
