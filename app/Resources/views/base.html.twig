@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/jquery-nice-select/css/nice-select.css") }}">
 
+
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
             'bundles/app/less/style.less'
@@ -25,6 +26,8 @@
             {% endstylesheets %}
 
         {% endblock %}
+
+        <link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -211,8 +214,9 @@
             <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
             <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}" type="text/javascript"></script>
             <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
-            <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
+            <script src="{{ asset("app/scripts/Google/Google.js") }}" type="text/javascript"></script>
             <script src="{{ asset("bundles/app/js/angular/main.js") }}" type="text/javascript"></script>
+            <script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>
 
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5624b2123b6addeb" async="async"></script>
 
