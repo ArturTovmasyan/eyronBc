@@ -204,6 +204,7 @@ class UserController extends FOSRestController
      * @param $tokenSecret
      * @return Response
      * @Rest\View(serializerGroups={"user"})
+     * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
     {
@@ -256,11 +257,17 @@ class UserController extends FOSRestController
                 break;
             case "twitter":
                 $data = explode('-', $accessToken);
-                $id = is_array($data) ?  $data[0] : null;
+                $id = is_array($data) && isset($data[1]) ?  $data[0] : null;
                 $newUser->setTwitterId($id);
 
                 $data = $this->getTwitterData($id, $accessToken, $tokenSecret);
 
+                if (!isset($data->id)){
+                    $id = null;
+                    break;
+                }
+
+                $id = $data->id;
                 $newUser->setEmail($id . '@twitter.com');
                 $newUser->setUsername($id . '_twitter');
                 $fullName = explode(' ', $data->name);
@@ -273,6 +280,10 @@ class UserController extends FOSRestController
             default:
                 return new JsonResponse("Wrong type, type must be 'facebook', 'twitter', 'instagram'", Response::HTTP_BAD_REQUEST);
                 break;
+        }
+
+        if (!$id){
+            return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
         }
 
         $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
