@@ -278,15 +278,18 @@
                                                         </div>
                                                     </li>
 
-                                                    <li>
-                                                        <i title="{{ 'my_bucket_list.steps'|trans }}"  class="icon lock-icon"></i>
-                                                    </li>
-
                                                     {% if goal.author and goal.author.id == user.id %}
                                                         <li>
-                                                            <i title="{{ 'my_bucket_list.private'|trans }}" class="icon pen-icon"></i>
+                                                            <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon pen-icon"></i>
                                                         </li>
                                                     {% endif %}
+
+                                                    {% if goal.author and goal.author.id == user.id and goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
+                                                        <li>
+                                                            <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon lock-icon"></i>
+                                                        </li>
+                                                    {% endif %}
+
 
                                                     {# invisible #}
                                                     {% if not userGoal.isVisible %}
