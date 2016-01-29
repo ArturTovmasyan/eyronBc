@@ -18,7 +18,7 @@
                                 {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
                             {% endif %}
                             <div class="hide">
-                                {{ form_widget(form.file) }}
+                                {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': ''} }) }}
                             </div>
 
                             <figcaption></figcaption>
