@@ -12,11 +12,11 @@
 
                         <figure>
 
-                            <div data-ng-show="imageUrl" style="position: absolute;width:103%;top:0;height:245px;overflow: hidden;z-index:1;">
-                                <img data-ng-src="[[ imageUrl ]]" alt="{{ user.fileOriginalName }}" style="width: 100%" class="img-responsive">
+                            <div data-ng-show="imageUrl" class="setting-bg">
+                                <img data-ng-src="[[ imageUrl ]]" alt="{{ user.fileOriginalName }}" class="img-responsive">
                             </div>
 
-                            <div style="position: relative;z-index: 2">
+                            <div class="relative">
                                 <div data-ng-show="imageUrl">
                                     <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
                                 </div>
