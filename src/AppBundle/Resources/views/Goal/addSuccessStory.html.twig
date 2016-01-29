@@ -15,11 +15,12 @@
 {#{% endblock %}#}
 
 {#{% block content_container %}#}
-    <div class="bg-white" data-ng-controller="goalAdd">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+    <div id="story-modal" data-ng-controller="goalAdd">
 
+        {#{% include "AppBundle:Blocks:topBlock.html.twig" %}#}
+
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
                 <h3 class="story-title">{{ 'success_story.title'|trans }}</h3>
 
                 <div>
@@ -27,8 +28,11 @@
 
                     <form action="{{ app.request.requestUri }}" method="post" enctype="multipart/form-data">
 
-                        <div class="form-group">
-                            {{ form_widget(form.story, {'attr': {'class':'form-control', 'placeholder' : 'success_story.description', 'rows' :"4" } } ) }}
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <i class="icon pen-icon"></i>
+                                {{ form_widget(form.story, {'attr': {'class':'form-control', 'placeholder' : 'success_story.description', 'rows' :"4" } } ) }}
+                            </div>
                         </div>
 
                         <div class="text-center" data-ng-init="initDropzone('{{ path('add-story_images') }}')">
@@ -43,6 +47,7 @@
                         {{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}
 
                         <div class="form-group">
+                            <label class="text-dark-gray">Video</label>
                             {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'success_story.url', 'ng-model': 'videolink' } }) }}
                         </div>
 
@@ -59,7 +64,6 @@
                 </div>
             </div>
          </div>
-    </div>
     </div>
 
 {#{% endblock %}#}

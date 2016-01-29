@@ -368,13 +368,19 @@
             <div class="col-md-4">
                 <ul class="right-block">
                     <li class="clearfix">
-                        <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
+                        <a href="{{ path('add_goal') }}">
+                            <i class="icon create-icon"></i>
+                            {{ 'right_menu.create'|trans }}
+                        </a>
                         <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
                             <span>{{ draftsCount }}</span>
                         </a>
                     </li>
                     <li class="clearfix">
-                        <span>{{ 'right_menu.suggested'|trans }}</span>
+                        <span>
+                            <i class="icon suggested-icon"></i>
+                            {{ 'right_menu.suggested'|trans }}
+                        </span>
                         <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                     </li>
                     <li>
