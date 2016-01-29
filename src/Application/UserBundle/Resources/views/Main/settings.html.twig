@@ -13,7 +13,6 @@
                         <figure>
                             <div data-ng-show="imageUrl">
                                 <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
-                                {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle')) }}
                             </div>
                             <div data-ng-hide="imageUrl">
                                 {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
@@ -22,7 +21,9 @@
                                 {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
                             </div>
 
-                            <figcaption></figcaption>
+                            <figcaption>
+                                {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle')) }}
+                            </figcaption>
                         </figure>
                     {% endif %}
                 </div>
