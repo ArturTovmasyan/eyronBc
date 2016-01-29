@@ -8,12 +8,14 @@
 namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\GoalImage;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -95,7 +97,6 @@ class GoalController extends FOSRestController
      *      {"name"="is_public", "dataType"="boolean", "required"=true, "description"="Goal's status"},
      *      {"name"="title", "dataType"="string", "required"=true, "description"="Goal's title"},
      *      {"name"="description", "dataType"="string", "required"=false, "description"="Goal's description"},
-     *      {"name"="goal_images[0]", "dataType"="file", "required"=false, "description"="Goal's images"},
      *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"}
      *  }
      * )
@@ -105,7 +106,7 @@ class GoalController extends FOSRestController
      * @Security("has_role('ROLE_USER')")
      * @Rest\View()
      */
-    public function postAction(Request $request)
+    public function putAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -119,19 +120,100 @@ class GoalController extends FOSRestController
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
-        $images = $request->files->get('goal_images');
+        $validator = $this->get('validator');
+        $error = $validator->validate($goal, null, array('goal'));
 
-//        if (!is_array($images)){
-//            $images = array($images);
-//        }
-//
-//        foreach($images as $image){
-//
-//        }
+        if(count($error) > 0){
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
 
         $em->persist($goal);
         $em->flush();
 
         return array('goalId' => $goal->getId());
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This action is used for upload image for a goal",
+     *  statusCodes={
+     *         200="Returned when image was uploaded",
+     *         400="Returned when there are validation error",
+     *         404="Returned when there aren't file, or goal not found",
+     *  },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=false, "description"="Goal's images"}
+     *  }
+     * )
+     *
+     * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
+     *
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
+     * @Rest\View()
+     */
+    public function addImagesAction($id = null, Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        if ($id){
+            $goal = $em->getRepository('AppBundle:Goal')->find($id);
+            if (!$goal){
+                return new JsonResponse('Goal not found', Response::HTTP_NOT_FOUND);
+            }
+        }
+
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if($file){
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new goal image object
+            $goalImage = new GoalImage();
+            $goalImage->setFile($file);
+
+            // validate goal image
+            $validator = $this->get('validator');
+            $error = $validator->validate($goalImage, null, array('goal'));
+
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+            else { // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($goalImage);
+
+                if (isset($goal)){
+                    $images = $goal->getImages();
+
+                    if($images->count() == 0) {
+                        $blService = $this->container->get('bl_service');
+                        $goalImage->setList(true);
+                        $goalImage->setCover(true);
+                        $blService->generateFileForCover($goalImage);
+                        $blService->generateFileForList($goalImage);
+                    }
+
+                    $goalImage->setGoal($goal);
+                    $goal->addImage($goalImage);
+                }
+
+                $em->persist($goalImage);
+                $em->flush();
+            }
+
+            return $goalImage->getId();
+        }
+
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
 }
