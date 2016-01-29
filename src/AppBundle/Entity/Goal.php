@@ -46,7 +46,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal"})
+     * @Groups({"goal", "goal_draft"})
      */
     protected $id;
 
@@ -65,7 +65,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", nullable=true)
-     * @Groups({"goal"})
+     * @Groups({"goal", "goal_draft"})
      */
     protected $title;
 
@@ -137,6 +137,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"goal", "goal_draft"})
      */
     protected $created;
 
