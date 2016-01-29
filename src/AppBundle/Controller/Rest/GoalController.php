@@ -7,11 +7,13 @@
  */
 namespace AppBundle\Controller\Rest;
 
+use AppBundle\Entity\Goal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -79,5 +81,57 @@ class GoalController extends FOSRestController
         $categories  = $em->getRepository('AppBundle:Category')->findAll();
 
         return $categories;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to create a goal",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     *  parameters={
+     *      {"name"="is_public", "dataType"="boolean", "required"=true, "description"="Goal's status"},
+     *      {"name"="title", "dataType"="string", "required"=true, "description"="Goal's title"},
+     *      {"name"="description", "dataType"="string", "required"=false, "description"="Goal's description"},
+     *      {"name"="goal_images[0]", "dataType"="file", "required"=false, "description"="Goal's images"},
+     *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"}
+     *  }
+     * )
+     *
+     * @param Request $request
+     * @return mixed
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\View()
+     */
+    public function postAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $request->request->all();
+
+        $goal = new Goal();
+        $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
+        $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
+        $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
+        $goal->setVideoLink(array_key_exists('video_links', $data) ? $data['video_links'] : null);
+        $goal->setReadinessStatus(Goal::DRAFT);
+        $goal->setAuthor($this->getUser());
+
+        $images = $request->files->get('goal_images');
+
+//        if (!is_array($images)){
+//            $images = array($images);
+//        }
+//
+//        foreach($images as $image){
+//
+//        }
+
+        $em->persist($goal);
+        $em->flush();
+
+        return array('goalId' => $goal->getId());
     }
 }
