@@ -8,7 +8,7 @@
 
             <div class="col-md-8">
 
-                <h2 {% if goal.title|length > 25 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
+                <h2 {% if goal.title|length > 40 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
                 {% if goal.author.showName is not defined %}
                      <p>{{ goal.author.showName }}</p>
                 {% endif %}
