@@ -60,6 +60,7 @@
                                                     <input type="checkbox"
                                                        name="goal_status"
                                                        data-ng-model="complete.switch"
+                                                       data-ls-checked="complete.switch"
                                                        class="onoffswitch-checkbox"
                                                        id="myonoffswitch"
                                                        data-ng-init="complete.switch={{ data.status == constant('AppBundle\\Entity\\UserGoal::ACTIVE') ? 0 : 1 }}">
@@ -220,9 +221,10 @@
 
                                     <div class="col-sm-2">
                                         <div class="onoffswitch">
-                                            <input {% if completed %}disabled{% endif %} type="checkbox"
+                                            <input type="checkbox"
                                                    name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
                                                    data-ng-model="step.switch"
+                                                   data-ls-checked="step.switch"
                                                    data-ng-disabled="complete.switch"
                                                    class="onoffswitch-checkbox"
                                                    id="myonoffswitch[[k]]">
@@ -253,11 +255,11 @@
                                             <input {% if not data.isVisible %} checked {% endif %}
                                                     type="checkbox"
                                                     data-ng-model="private_checkbox"
-                                                    class="onoffswitch-checkbox"
+                                                    data-ls-checked="private_checkbox"
                                                     data-ng-disabled="complete.switch"
+                                                    class="onoffswitch-checkbox"
                                                     id="{{ form.isVisible.vars.id }}"
-                                                    name="{{ form.isVisible.vars.full_name }}"
-                                                    value="1">
+                                                    name="{{ form.isVisible.vars.full_name }}">
 
                                             <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
                                                 <span class="onoffswitch-inner"></span>
