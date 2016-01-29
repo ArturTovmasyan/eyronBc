@@ -125,6 +125,7 @@ angular.module('Components',[])
 
                         reader.onload = function (e) {
                             scope.imageUrl = e.target.result;
+                            scope.$apply();
                         }
 
                         reader.readAsDataURL(input.files[0]);
@@ -132,8 +133,7 @@ angular.module('Components',[])
                 }
 
                 el.change(function(){
-                    scope.readURL(el);
-                    scope.$apply();
+                    scope.readURL(el[0]);
                 });
 
             }

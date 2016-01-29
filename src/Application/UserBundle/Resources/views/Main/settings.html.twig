@@ -11,14 +11,15 @@
                         {% set emailToken = user.getActivationEmailToken() %}
 
                         <figure>
-                            {% if user.getPhotoLink %}
-                                <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
+                            <div data-ng-show="imageUrl">
+                                <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl={{ user.getPhotoLink|default("''") }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
                                 {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle')) }}
-                            {% else %}
+                            </div>
+                            <div data-ng-hide="imageUrl">
                                 {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
-                            {% endif %}
+                            </div>
                             <div class="hide">
-                                {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': ''} }) }}
+                                {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
                             </div>
 
                             <figcaption></figcaption>
