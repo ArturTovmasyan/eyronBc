@@ -142,13 +142,19 @@ angular.module('Components',[])
     .directive('lsChecked',[function(){
         return {
             restrict: 'EA',
-            link: function(scope, el, attr){
+            require: '^ngModel',
+            link: function(scope, el, attr, ngModel){
 
                 scope.$watch(attr.lsChecked, function(){
                     var val = scope.$eval(attr.lsChecked);
                     el.prop('checked', val);
+                    el.val(val);
                 }, true);
 
+                el.change(function(){
+                    ngModel.$setViewValue(el.is(':checked') ? 1:0);
+                    scope.$apply();
+                });
             }
         }
     }])
