@@ -35,7 +35,7 @@ class GoalImage
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"images"})
+     * @Groups({"image"})
      */
     protected $id;
 
@@ -48,13 +48,13 @@ class GoalImage
 
     /**
      * @ORM\Column(type="boolean", name="list_image", nullable=true)
-     * @var
+     * @Groups({"image"})
      */
     protected $list;
 
     /**
      * @ORM\Column(type="boolean", name="cover_image", nullable=true)
-     * @var
+     * @Groups({"image"})
      */
     protected $cover;
 
@@ -77,7 +77,7 @@ class GoalImage
 
     /**
      * @VirtualProperty
-     * @Groups({"images"})
+     * @Groups({"image"})
      */
     public function getImagePath()
     {
