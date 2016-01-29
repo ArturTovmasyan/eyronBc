@@ -79,7 +79,7 @@
                     {% if profileUser.id == app.user.id %}
                         <div class="col-md-4">
                             <a href="{{ path("settings") }}" class="pull-right">
-                                <span class="glyphicon glyphicon-cog"></span>
+                                <i class="icon icon-cog"></i>
                             </a>
 
                             <div class="absolute clearfix" style="margin-top:170px;">
@@ -141,8 +141,8 @@
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
-                            <span class="glyphicon glyphicon-chevron-up" data-ng-hide="showMap"></span>
-                            <span class="glyphicon glyphicon-chevron-down ng-hide" data-ng-show="showMap"></span>
+                            <i class="icon up-icon" data-ng-hide="showMap"></i>
+                            <i class="icon down-icon ng-hide" data-ng-show="showMap"></i>
                         </a>
                     </li>
                 </ul>
@@ -172,10 +172,10 @@
 
                 <div class="col-md-2 mail-print">
                     <a href="javascript:void(0)">
-                        <span class="glyphicon glyphicon-print"></span>
+                        <i class="icon print-icon"></i>
                     </a>
                     <a href="javascript:void(0)">
-                        <span class="glyphicon glyphicon-envelope"></span>
+                        <i class="icon envelope-icon"></i>
                     </a>
                 </div>
             </div>
@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="col-sm-10 bg-white no-left">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 no-right">
                                             <figure>
                                                 <a href="{{ path('inner_goal', {'id' : goal.id }) }}">
                                                     <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
@@ -253,10 +253,10 @@
                                         <div class="col-md-6">
                                             <article class="information">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-7">
                                                         <h3><a href="{{ path('inner_goal', {'id' : goal.id }) }}">{{ goal.title }}</a></h3>
                                                     </div>
-                                                    <div class="col-sm-6 pull-right">
+                                                    <div class="col-sm-5 pull-right">
                                                         <div class="addthis_native_toolbox"></div>
                                                     </div>
                                                 </div>
@@ -267,8 +267,8 @@
                                                         {#{% if userGoal.note is not null %}#}
                                                             {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
                                                         {#{% endif %}#}
-                                                        <span title="{{ 'my_bucket_list.notes'|trans }}"  class="icon list-icon"></span>
-                                                        <span title="{{ 'my_bucket_list.steps'|trans }}"  class="icon list-icon"></span>
+                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon list-icon"></i>
+
                                                     </li>
                                                     <li>
                                                         <div class="progress">
@@ -278,24 +278,27 @@
                                                         </div>
                                                     </li>
 
+                                                    <li>
+                                                        <i title="{{ 'my_bucket_list.steps'|trans }}"  class="icon lock-icon"></i>
+                                                    </li>
 
                                                     {% if goal.author and goal.author.id == user.id %}
                                                         <li>
-                                                            <span title="{{ 'my_bucket_list.private'|trans }}" class="icon pen-icon"></span>
+                                                            <i title="{{ 'my_bucket_list.private'|trans }}" class="icon pen-icon"></i>
                                                         </li>
                                                     {% endif %}
 
                                                     {# invisible #}
                                                     {% if not userGoal.isVisible %}
                                                         <li>
-                                                            <span title="{{ 'my_bucket_list.invisible'|trans }}" class="icon eye-icon"></span>
+                                                            <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon eye-icon"></i>
                                                         </li>
                                                     {% endif %}
 
                                                     {# Missed deadline #}
                                                     {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                                                         <li>
-                                                            <span title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="glyphicon glyphicon-off"></span>
+                                                            <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon off-icon"></i>
                                                         </li>
                                                     {% endif %}
 
@@ -307,7 +310,7 @@
                                                                data-ls-jquery-modal
                                                                data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
                                                                data-ls-identity="goalMenageModal{{ goal.id }}">
-                                                                <span class="icon cog-icon"></span>
+                                                                <i class="icon cog-icon"></i>
                                                                 {{ 'manage'|trans }}
                                                             </a>
 
@@ -323,7 +326,7 @@
                                                                     data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
                                                                     class="border"
                                                                     id="successtory">
-                                                                    <span class="glyphicon glyphicon-ok-circle green-bg"></span>
+                                                                    <span class="icon ok-icon-green"></span>
                                                                     {{ 'successtory'|trans }}
                                                                 </a>
                                                             {% else %}
