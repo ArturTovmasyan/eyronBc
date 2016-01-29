@@ -12,7 +12,7 @@
 
                         <figure>
                             <div data-ng-show="imageUrl">
-                                <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl={{ user.getPhotoLink|default("''") }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
+                                <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
                                 {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle')) }}
                             </div>
                             <div data-ng-hide="imageUrl">
