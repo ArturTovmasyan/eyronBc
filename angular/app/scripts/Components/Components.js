@@ -139,6 +139,19 @@ angular.module('Components',[])
             }
         }
     }])
+    .directive('lsChecked',[function(){
+        return {
+            restrict: 'EA',
+            link: function(scope, el, attr){
+
+                scope.$watch(attr.lsChecked, function(){
+                    var val = scope.$eval(attr.lsChecked);
+                    el.prop('checked', val);
+                }, true);
+
+            }
+        }
+    }])
     .animation('.slide', function() {
         var NG_HIDE_CLASS = 'ng-hide';
         return {
