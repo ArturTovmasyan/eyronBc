@@ -179,61 +179,6 @@ class GoalController extends Controller
     }
 
     /**
-     * This action is used for upload images from drag and drop
-     *
-     * @Route("/add-images", name="add_images")
-     * @Method({"POST"})
-     * @param Request $request
-     * @return array
-     */
-    public function addImagesAction(Request $request)
-    {
-        // get all files form request
-        $file = $request->files->get('file');
-
-        // check file
-        if($file){
-
-            // get validator
-            $validator = $this->get('validator');
-
-            // get entity manager
-            $em = $this->getDoctrine()->getManager();
-
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new goal image object
-            $goalImage = new GoalImage();
-
-            // set file
-            $goalImage->setFile($file);
-
-            // validate goal image
-            $error = $validator->validate($goalImage, null, array('goal'));
-
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-
-            }
-            else{ // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($goalImage);
-
-                $em->persist($goalImage);
-                // flush data
-                $em->flush();
-            }
-
-            return new JsonResponse($goalImage->getId(), Response::HTTP_OK);
-
-        }
-
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
-    }
-
-    /**
      * @Route("/view/{id}", name="view_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
@@ -779,17 +724,10 @@ class GoalController extends Controller
      */
     public function draftAction(Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get current user
-        $currentUser = $this->getUser();
-
-        // get current user
-        $user = $currentUser;
-
         // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($user);
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
 
         // get paginator
         $paginator  = $this->get('knp_paginator');

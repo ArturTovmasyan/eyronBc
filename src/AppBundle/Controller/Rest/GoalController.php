@@ -8,16 +8,17 @@
 namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\GoalImage;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use FOS\RestBundle\View\View as RestView;
 
 /**
  * @Rest\RouteResource("Goal")
@@ -67,6 +68,27 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
+     *  description="This function is used to get goal by id",
+     *  statusCodes={
+     *         200="Returned when goal was found",
+     *         404="Returned when goal was not found",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal"})
+     */
+    public function getAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
      *  description="This function is used to get all categories",
      *  statusCodes={
      *         200="Returned when goals was returned",
@@ -90,28 +112,38 @@ class GoalController extends FOSRestController
      *  description="This function is used to create a goal",
      *  statusCodes={
      *         200="Returned when goals was returned",
+     *         404="Returned when goal was not found",
      *  },
      *  parameters={
      *      {"name"="is_public", "dataType"="boolean", "required"=true, "description"="Goal's status"},
      *      {"name"="title", "dataType"="string", "required"=true, "description"="Goal's title"},
      *      {"name"="description", "dataType"="string", "required"=false, "description"="Goal's description"},
-     *      {"name"="goal_images[0]", "dataType"="file", "required"=false, "description"="Goal's images"},
      *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"}
      *  }
      * )
      *
      * @param Request $request
+     * @param $id
      * @return mixed
      * @Security("has_role('ROLE_USER')")
+     * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
      * @Rest\View()
      */
-    public function postAction(Request $request)
+    public function putAction(Request $request, $id = null)
     {
         $em = $this->getDoctrine()->getManager();
-
         $data = $request->request->all();
 
-        $goal = new Goal();
+        if ($id){
+            $goal = $em->getRepository('AppBundle:Goal')->find($id);
+            if (!$goal){
+                return new Response("Goal wasn't found", Response::HTTP_NOT_FOUND);
+            }
+        }
+        else {
+            $goal = new Goal();
+        }
+
         $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
         $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
         $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
@@ -119,19 +151,138 @@ class GoalController extends FOSRestController
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
-        $images = $request->files->get('goal_images');
+        $validator = $this->get('validator');
+        $error = $validator->validate($goal, null, array('goal'));
 
-//        if (!is_array($images)){
-//            $images = array($images);
-//        }
-//
-//        foreach($images as $image){
-//
-//        }
+        if(count($error) > 0){
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
 
         $em->persist($goal);
         $em->flush();
 
         return array('goalId' => $goal->getId());
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This action is used for upload image for a goal",
+     *  statusCodes={
+     *         200="Returned when image was uploaded",
+     *         400="Returned when there are validation error",
+     *         403="Returned when adding image to goal which author isn't current user",
+     *         404="Returned when there aren't file, or goal not found",
+     *  },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=false, "description"="Goal's images"}
+     *  }
+     * )
+     *
+     * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Security("has_role('ROLE_USER')")
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
+     * @Rest\View()
+     */
+    public function addImagesAction($id = null, Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        if ($id){
+            $goal = $em->getRepository('AppBundle:Goal')->find($id);
+            if (!$goal){
+                return new JsonResponse('Goal not found', Response::HTTP_NOT_FOUND);
+            }
+
+            if ($this->getUser() != $goal->getAuthor()){
+                return new JsonResponse('Goal not found', Response::HTTP_FORBIDDEN);
+            }
+        }
+
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if($file){
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new goal image object
+            $goalImage = new GoalImage();
+            $goalImage->setFile($file);
+
+            // validate goal image
+            $validator = $this->get('validator');
+            $error = $validator->validate($goalImage, null, array('goal'));
+
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+            else { // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($goalImage);
+
+                if (isset($goal)){
+                    $images = $goal->getImages();
+
+                    if($images->count() == 0) {
+                        $blService = $this->container->get('bl_service');
+                        $goalImage->setList(true);
+                        $goalImage->setCover(true);
+                        $blService->generateFileForCover($goalImage);
+                        $blService->generateFileForList($goalImage);
+                    }
+
+                    $goalImage->setGoal($goal);
+                    $goal->addImage($goalImage);
+                }
+
+                $em->persist($goalImage);
+                $em->flush();
+            }
+
+            return $goalImage->getId();
+        }
+
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get user draft goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal_draft"})
+     *
+     * @Rest\Get("/goals/drafts/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function getDraftsAction($first, $count)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // find all drafts goal
+        $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $draftGoals = array_slice($draftGoals, $first, $count);
+        }
+
+        return $draftGoals;
     }
 }
