@@ -48,7 +48,7 @@ class GoalController extends FOSRestController
      * @param int $count
      * @param Request $request
      * @return mixed
-     * @Rest\View(serializerGroups={"goal"})
+     * @Rest\View(serializerGroups={"tiny_goal"})
      */
     public function getAllAction($first, $count, Request $request)
     {
@@ -75,14 +75,21 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal"})
+     * @Rest\View(serializerGroups={"goal", "goal_image", "image"})
+     *
+     * @param $id
+     * @return Goal|null|object|Response
      */
     public function getAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
 
+        if (!$goal){
+            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        }
 
-
+        return $goal;
     }
 
     /**

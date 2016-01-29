@@ -275,7 +275,7 @@
                                 </p>
 
 
-                                {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id %}
+                                {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and data.goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
                                     <p class="text-gray clearfix">
                                         <strong class="text-dark-gray pull-left">
                                             <i class="icon lock-icon"></i>
