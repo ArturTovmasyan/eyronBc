@@ -207,7 +207,7 @@ class MainController extends Controller
                 //update user
                 $fosManager->updateUser($user);
 
-                return $this->redirect($this->generateUrl('settings'));
+                return $this->redirect($this->generateUrl('homepage'));
             }
         }
 

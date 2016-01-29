@@ -514,17 +514,16 @@ class User extends BaseUser
      */
     public function getPhotoLink()
     {
-        // if social user, return social img
-        if(($this->getFacebookId() || $this->getGoogleId() || $this->getTwitterId()) && $this->getSocialPhotoLink() ){
-            return $this->getSocialPhotoLink();
-        }
         // if uses have photo
-        elseif($this->getFileName()){
+        if($this->getFileName()){
             return $this->getDownloadLink();
+        }
+        // if social user, return social img
+        elseif(($this->getFacebookId() || $this->getGoogleId() || $this->getTwitterId()) && $this->getSocialPhotoLink() ){
+            return $this->getSocialPhotoLink();
         }
 
         return null;
-
     }
 
     /**

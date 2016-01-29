@@ -52,33 +52,30 @@ class UserProvider extends   BaseProvider
 
         // check owner resource
         if($resourceOwner instanceof GoogleResourceOwner){
-
             // get google user
             $user = $this->createGoogleUser($response->getResponse());
-
-            // return user
-            return $user;
         }
         elseif($resourceOwner instanceof TwitterResourceOwner){
-
             // get twitter user
             $user = $this->createTwitterUser($response->getResponse());
-
-            // return user
-            return $user;
-
         }
         elseif($resourceOwner instanceof FacebookResourceOwner){
-
             // get facebook user
             $user = $this->createFacebookUserUser($response->getResponse());
-
-            // return user
-            return $user;
+        }
+        else {
+            // return exception if user not found,
+            throw new UnsupportedUserException(sprintf('User not found, please try again'));
         }
 
-        // return exception if user not found,
-        throw new UnsupportedUserException(sprintf('User not found, please try again'));
+        $fileName = md5(microtime()) . '.jpg';
+        file_put_contents($user->getAbsolutePath() . $fileName, fopen($user->getSocialPhotoLink(), 'r'));
+        $user->setFileName($fileName);
+        $user->setFileSize(filesize($user->getAbsolutePath() . $fileName));
+        $user->setFileOriginalName($user->getFirstName() . '_photo');
+
+        // return user
+        return $user;
     }
 
 
