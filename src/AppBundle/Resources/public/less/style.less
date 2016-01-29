@@ -890,17 +890,25 @@ ul li{list-style: none;}
   .registration-image{
     text-align: center;
 
-    .uploaded-image{
-      margin: 0 auto;
-      width: 90px;
-      height:90px;
-      text-align: center;
-      .rounded-corners;
-      border:3px solid #e5e5e5;
-    }
+    //.uploaded-image{
+    //  margin: 0 auto;
+    //  width: 90px;
+    //  height:90px;
+    //  text-align: center;
+    //  .rounded-corners;
+    //  border:3px solid #e5e5e5;
+    //}
 
   }
 
+  .uploaded-image{
+    margin: 0 auto;
+    width: 90px;
+    height:90px;
+    text-align: center;
+    .rounded-corners;
+    border:3px solid #e5e5e5;
+  }
   select{
     cursor: pointer;
   }
@@ -932,17 +940,52 @@ ul li{list-style: none;}
 .settings{
 
   figure{
-    padding:30px 0 12px;
+    background-color: #f0f0f0;
+    padding:30px 0 6px;
     margin-bottom: 15px;
+
+    figcaption{
+      margin-top:12px;
+      background-color: transparent;
+
+      label{
+        border:1px solid #cecece;
+        color: #cecece;
+        padding: 3px 15px;
+        font-size: 14px;
+        cursor:pointer;
+      }
+    }
   }
+
+  label{
+    padding:7px 0;
+  }
+
   .upload{
     //padding:30px 0 12px 0;
     width:145px;
     height:145px;
     padding: 45px 13px;
     font-size:18px;
+    text-align: center;
   }
+
+  .uploaded-image{
+    width:145px;
+    height:145px;
+  }
+
+  .primary{
+    label{
+      color:#666666;
+      display: block;
+      text-align:left !important;
+    }
+  }
+
 }
+
 .upload{
   width:90px;
   height:90px;

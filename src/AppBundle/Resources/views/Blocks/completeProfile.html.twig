@@ -43,7 +43,11 @@
 
         </li>
         <li>
-            <a href="{{ path('settings') }}"><strong>{{ 'image_complete_text'|trans }}</strong>
+            <a href="javascript:void(0)"
+               data-ls-jquery-modal
+               data-ls-template-url="{{ path('settings') }}"
+               data-ls-identity="goalSettingsInCompleteModal">
+                <strong>{{ 'image_complete_text'|trans }}</strong>
                 {% if user.socialPhotoLink or  user.fileName %}
                     <i class="icon icon-ok"></i>
                 {% else %}

@@ -110,6 +110,35 @@ angular.module('Components',[])
             }
         }
     }])
+    .directive('lsFileUploadPreview',[function(){
+        return {
+            restrict: 'EA',
+            scope: {
+                imageUrl: '='
+            },
+            link: function(scope, el){
+
+                scope.readURL = function(input) {
+
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            scope.imageUrl = e.target.result;
+                            scope.$apply();
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                el.change(function(){
+                    scope.readURL(el[0]);
+                });
+
+            }
+        }
+    }])
     .animation('.slide', function() {
         var NG_HIDE_CLASS = 'ng-hide';
         return {

@@ -2,6 +2,7 @@
 
 angular.module('main',['mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover',
     'ngAnimate',
+    'user',
     'Components',
     'Interpolation',
     'Google',
