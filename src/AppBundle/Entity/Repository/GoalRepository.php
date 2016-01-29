@@ -118,7 +118,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $user
-     * @param $getOnlyCount
      * @return array
      */
     public function findMyDrafts($user)
@@ -300,5 +299,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         }
 
         return $results;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findWithRelations($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
+                           WHERE g.id = :id")
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
     }
 }

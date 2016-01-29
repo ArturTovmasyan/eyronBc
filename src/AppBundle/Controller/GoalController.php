@@ -827,8 +827,11 @@ class GoalController extends Controller
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
      *   "mapping": {"filename": "fileName"},
      *   "repository_method" = "findOneByFileName" })
+     *
+     * @param GoalImage $goalImage
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public  function removeImage(GoalImage $goalImage)
+    public function removeImage(GoalImage $goalImage)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();

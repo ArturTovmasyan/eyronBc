@@ -46,12 +46,13 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="description", type="string", nullable=true)
+     * @Groups({"goal"})
      */
     protected $description;
 
@@ -65,25 +66,28 @@ class Goal implements MultipleFileInterface, PublishAware
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", nullable=true)
-     * @Groups({"goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
      * @AppAssert\ValidLink(groups={"goal"})
+     * @Groups({"goal"})
      */
     protected $videoLink;
 
     /**
      * @ORM\OneToMany(targetEntity="GoalImage", mappedBy="goal", cascade={"persist", "remove"})
      * @Assert\Valid()
+     * @Groups({"goal_image"})
      */
     protected $images;
 
     /**
      * @ORM\OneToMany(targetEntity="SuccessStory", mappedBy="goal", cascade={"persist", "remove"})
      * @Assert\Valid()
+     * @Groups({"goal_successStory"})
      */
     protected $successStories;
 
@@ -150,7 +154,7 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $updated;
 
     /**
-     * @Groups({"goal"})
+     * @Groups({"goal", "tiny_goal"})
      */
     protected $stats;
 

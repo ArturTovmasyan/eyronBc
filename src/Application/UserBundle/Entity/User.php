@@ -283,11 +283,7 @@ class User extends BaseUser
             // get year
             $now = new \DateTime();
 
-            // get different
-            $year = $now->format("Y");
-
-            return $year - $this->birthDate->format("Y");
-
+            return $birthDate->diff($now)->y;
         }
 
         return null;
