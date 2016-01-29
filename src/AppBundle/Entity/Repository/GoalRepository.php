@@ -118,20 +118,18 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $user
+     * @param $getOnlyCount
      * @return array
      */
     public function findMyDrafts($user)
     {
-        $query =
-            $this->getEntityManager()
+        $query = $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g')
+                ->select('g, i')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i')
-                ->leftJoin('g.userGoal', 'ug')
-                ->leftJoin('ug.user', 'ugu')
                 ->leftJoin('g.author', 'a')
-                ->where('a.id = :user or ugu.id = :user ')
+                ->where('a.id = :user')
                 ->andWhere('g.readinessStatus = :readinessStatus')
                 ->orderBy('g.id', 'desc')
                 ->setParameter('user', $user)
@@ -152,14 +150,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->createQueryBuilder()
                 ->addSelect('COUNT(g)')
                 ->from('AppBundle:Goal', 'g')
-                ->leftJoin('g.images', 'i')
-                ->leftJoin('g.userGoal', 'ug')
-                ->leftJoin('ug.user', 'ugu')
                 ->leftJoin('g.author', 'a')
-                ->where('a.id = :user or ugu.id = :user ')
-                ->andWhere('g.readinessStatus = :status')
+                ->where('a.id = :user')
+                ->andWhere('g.readinessStatus = :readinessStatus')
                 ->setParameter('user', $user)
-                ->setParameter('status', Goal::DRAFT)
+                ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
         return $query->getQuery()->getSingleScalarResult();

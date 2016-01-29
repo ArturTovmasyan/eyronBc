@@ -724,17 +724,10 @@ class GoalController extends Controller
      */
     public function draftAction(Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get current user
-        $currentUser = $this->getUser();
-
-        // get current user
-        $user = $currentUser;
-
         // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($user);
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
 
         // get paginator
         $paginator  = $this->get('knp_paginator');
