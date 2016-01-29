@@ -255,7 +255,7 @@ class MainController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        return $this->redirectToRoute('homepage');
 
     }
 
@@ -282,7 +282,7 @@ class MainController extends Controller
             $em->persist($user);
             $em->flush($user);
 
-        return $this->redirectToRoute('settings');
+        return $this->redirectToRoute('homepage');
 
     }
 
