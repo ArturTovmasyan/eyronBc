@@ -96,8 +96,9 @@
                                      data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
                                      style="color: black"></div>
 
-                                {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") > "now"|date("m/d/Y") %}
+                                {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                                     <h6 class="text-gray text-center" data-ng-show="!complete.switch">
+                                        <i class="icon info-icon"></i>
                                         {{ "goal.missed_deadline"|trans }}
                                     </h6>
                                 {% endif %}
