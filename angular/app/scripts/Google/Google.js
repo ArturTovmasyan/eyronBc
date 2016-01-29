@@ -1,5 +1,5 @@
 angular.module('Google', [])
-    .directive('simpleMapMarker',[function(){
+    .directive('simpleMapMarker',['$timeout', function($timeout){
 
         function Initialize(el){
             var m, data = {};
@@ -16,6 +16,7 @@ angular.module('Google', [])
             restrict: 'EA',
             scope: {
                 markers: '=',
+                refresh: '=',
                 onMarkerClick: '&'
             },
             compile: function compile(){
@@ -33,6 +34,12 @@ angular.module('Google', [])
 
                 return function(scope, el){
                     scope.map = Initialize(el[0]);
+
+                    scope.$watch('refresh', function(){
+                        $timeout(function(){
+                            google.maps.event.trigger(scope.map, 'resize');
+                        },500);
+                    }, true);
 
                     scope.$watch('markers',function(d){
                         if(!d){
