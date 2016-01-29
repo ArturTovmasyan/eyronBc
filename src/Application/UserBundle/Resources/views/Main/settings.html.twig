@@ -11,17 +11,27 @@
                         {% set emailToken = user.getActivationEmailToken() %}
 
                         <figure>
-                            {% if user.getPhotoLink %}
-                                <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}"  class="uploaded-image" width="145" height="145">
-                                {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle')) }}
-                            {% else %}
-                                {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
-                            {% endif %}
-                            <div class="hide">
-                                {{ form_widget(form.file) }}
+
+                            <div data-ng-show="imageUrl" class="setting-bg">
+                                <img data-ng-src="[[ imageUrl ]]" alt="{{ user.fileOriginalName }}" class="img-responsive">
                             </div>
 
-                            <figcaption></figcaption>
+                            <div class="relative">
+                                <div data-ng-show="imageUrl">
+                                    <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
+                                </div>
+                                <div data-ng-hide="imageUrl">
+                                    {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
+                                </div>
+                                <div class="hide">
+                                    {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
+                                </div>
+
+                                <figcaption data-ng-show="imageUrl">
+                                    {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle'|capitalize)) }}
+                                </figcaption>
+                            </div>
+
                         </figure>
                     {% endif %}
                 </div>
@@ -45,7 +55,7 @@
 
                             {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
 
-                            <div class="col-sm-5">
+                            <div class="col-sm-5 primary">
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 

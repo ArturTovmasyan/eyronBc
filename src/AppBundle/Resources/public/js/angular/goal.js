@@ -2,6 +2,7 @@
 
 angular.module('goal', ['Interpolation',
         'Google',
+        'user',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
