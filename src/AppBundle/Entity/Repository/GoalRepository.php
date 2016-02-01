@@ -316,4 +316,22 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('id', $id)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $goalId
+     * @param $type
+     * @return array
+     */
+    public function findGoalUsers($goalId, $type)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           JOIN u.userGoal ug
+                           JOIN ug.goal g WITH g.id = :goalId
+                           WHERE ug.status = :status")
+            ->setParameter('status', $type == "listed" ? UserGoal::ACTIVE : UserGoal::COMPLETED)
+            ->setParameter('goalId', $goalId)
+            ->getResult();
+    }
 }
