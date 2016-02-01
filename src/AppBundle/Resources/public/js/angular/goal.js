@@ -105,7 +105,9 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.removeLocation = function(){
-            return $(".location .place-autocomplete").val('');
+            angular.element(".location .location-hidden").val(null);
+            angular.element(".location .location-hidden").attr('value',null);
+            angular.element(".location .place-autocomplete").val('');
         }
 
 
