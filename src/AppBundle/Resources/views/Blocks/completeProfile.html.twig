@@ -10,8 +10,8 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped"
                          role="progressbar"
-                         style="width: {{ user.getCompletedPercent() }}%">
-                        {{ user.getCompletedPercent() }}% {{ 'account.complete'|trans }}
+                         style="width: {{ user.getCompletedPercent(|round(1, 'floor')) }}%">
+                        {{ user.getCompletedPercent()|round(1, 'floor') }}% {{ 'account.complete'|trans }}
                     </div>
                 </div>
 

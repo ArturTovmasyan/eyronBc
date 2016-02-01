@@ -460,7 +460,7 @@ class UserGoal
 
         if($steps){
             foreach($steps as $text => $switch){
-                $result[] = array('text' => $text, 'switch' => $switch == self::DONE ? "on" : 'off');
+                $result[] = array('text' => $text, 'switch' => $switch == self::DONE);
             }
         }
         else{
