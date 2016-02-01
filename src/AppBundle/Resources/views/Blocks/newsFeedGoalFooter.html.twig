@@ -1,10 +1,14 @@
 <ul class="row {% if inner is defined %} goal-links {% endif %} news-footer">
     {#{% if is_granted("ROLE_USER") %}#}
 
-        {% if not isMyGoal(goal, app.user, "add") %}
+        {#{% if not isMyGoal(goal, app.user, "add") %}#}
+        {% if goal.isMyGoal == 0 %}
             <li class="col-sm-4">
-                <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                    <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
+                <a href="javascript:void(0)"
+                   data-ls-jquery-modal
+                   data-ls-identity="activity{{ goal.id }}"
+                   data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                    <span class="icon plus-icon"></span>{{ 'add'|trans }}
                 </a>
             </li>
         {% else %}
@@ -17,7 +21,8 @@
 
         {% endif %}
 
-        {% if  not isMyGoal(goal, app.user, 'done') %}
+        {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
+        {% if  goal.isMyGoal != 2 %}
             <li class="col-sm-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}

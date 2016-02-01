@@ -159,6 +159,11 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $stats;
 
     /**
+     * @Groups({"goal", "tiny_goal"})
+     */
+    protected $isMyGoal;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -174,6 +179,22 @@ class Goal implements MultipleFileInterface, PublishAware
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsMyGoal()
+    {
+        return $this->isMyGoal;
+    }
+
+    /**
+     * @param mixed $isMyGoal
+     */
+    public function setIsMyGoal($isMyGoal)
+    {
+        $this->isMyGoal = $isMyGoal;
     }
 
     /**
@@ -369,7 +390,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * @VirtualProperty
      * @return null
-     * @Groups({"goal"})
+     * @Groups({"tiny_goal"})
      */
     public function getListPhotoDownloadLink()
     {

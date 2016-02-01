@@ -487,9 +487,15 @@ class GoalController extends Controller
             if(!$userGoal){
                 throw $this->createNotFoundException('usergoal not found');
             }
-
         }
         else{
+
+            $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+
+            if ($userGoal){
+                return new Response('This goal already added', Response::HTTP_BAD_REQUEST);
+            }
+
             $userGoal = new UserGoal();
 
             //set goal
@@ -835,9 +841,6 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        // remove goal image files
-        $goalImage->preRemove();
 
         // remove from bd
         $em->remove($goalImage);

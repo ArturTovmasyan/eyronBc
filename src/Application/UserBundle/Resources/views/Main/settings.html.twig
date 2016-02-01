@@ -18,7 +18,7 @@
 
                             <div class="relative">
                                 <div data-ng-show="imageUrl">
-                                    <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
+                                    <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
                                 </div>
                                 <div data-ng-hide="imageUrl">
                                     {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}

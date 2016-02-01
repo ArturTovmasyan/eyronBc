@@ -69,7 +69,13 @@
         <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
             <argument type="service" id="service_container" />
             <tag name="doctrine.event_listener" event = "onFlush"/>
+            <tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>
         </service>
+
+        <!--<service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">-->
+            <!--<argument type="service" id="service_container" />-->
+            <!--<tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>-->
+        <!--</service>-->
 
         <!-- NewsFeed service -->
         <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
