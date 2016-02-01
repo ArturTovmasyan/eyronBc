@@ -202,8 +202,8 @@
                                              aria-valuenow="45"
                                              aria-valuemin="0"
                                              aria-valuemax="100"
-                                             style="width:{{ data.getCompleted }}%">
-                                            {{ data.getCompleted }}% Complete
+                                             style="width:{{ data.getCompleted|round(1, 'floor') }}%">
+                                            {{ data.getCompleted|round(1, 'floor') }}% Complete
                                         </div>
                                     </div>
                                 {% endif %}
