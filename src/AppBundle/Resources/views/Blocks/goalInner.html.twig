@@ -94,7 +94,7 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             {{ 'done_by'|trans | upper }}
-                                            <p class="purple">{{ doneByUsers|length }}</p>
+                                            <p class="purple">{{ goal.stats.doneBy }}</p>
                                         </li>
                                         <li class="col-md-4">
                                             <ul class="users">
@@ -118,7 +118,7 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             {{ 'listed_by'|trans | upper }}
-                                            <p class="purple">{{ listedByUsers|length }}</p>
+                                            <p class="purple">{{ goal.stats.listedBy }}</p>
                                         </li>
                                         <li class="col-md-4">
                                             <ul class="users">
