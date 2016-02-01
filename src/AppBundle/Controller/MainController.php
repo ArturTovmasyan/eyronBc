@@ -90,7 +90,6 @@ class MainController extends Controller
     /**
      * @Route("/listed-users/{id}", name="listed_users")
      * @Route("/done-users/{id}", name="done_users")
-     * @Security("has_role('ROLE_USER')")
      * @Template()
      * @return array
      */
