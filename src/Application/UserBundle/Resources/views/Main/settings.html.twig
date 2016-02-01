@@ -1,7 +1,7 @@
 {#{% extends "::base.html.twig" %}#}
 
 {#{% block content %}#}
-    <div id="settings-modal">
+    <div id="settings-modal" data-ng-controller="SettingController">
         <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
