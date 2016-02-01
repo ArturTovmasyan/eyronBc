@@ -104,6 +104,12 @@ angular.module('goal', ['Interpolation',
             $scope.stepsArray = json;
         };
 
+        $scope.removeLocation = function(){
+            angular.element(".location .location-hidden").val(null);
+            angular.element(".location .location-hidden").attr('value',null);
+            angular.element(".location .place-autocomplete").val('');
+        }
+
 
         $timeout(function(){
             angular.element('#datepicker').datepicker({
