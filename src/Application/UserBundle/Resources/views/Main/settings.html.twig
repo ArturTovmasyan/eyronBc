@@ -8,7 +8,7 @@
                 <div class="form-group">
                     {% if app.user %}
                         {% set user = app.user %}
-                        {#{% set emailToken = user.getActivationEmailToken() %}#}
+                        {% set userEmails = user.getUserEmails %}
 
                         <figure>
 
@@ -52,34 +52,46 @@
 
                         <div class="form-group row no-padding">
 
-                            {#{% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}#}
-
                             <div class="col-sm-3 primary">
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 
-                            {#{% if userEmails|length != 0 %}#}
-                                {#<div class="col-sm-1">#}
-                                    {#<input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>#}
-                                {#</div>#}
-                            {#{% endif %}#}
+                            {#<div class="col-sm-1">#}
+                                {#<input name="primary" type="radio" checked/>#}
+                            {#</div>#}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
-                            </div>
                             <div class="error-message">{{ form_errors(form.file) }}</div>
 
-                            {#<div class="col-sm-6">#}
-                            {#{{ form_widget(form.userEmails, {'attr': {'class' : 'form-control', 'placeholder': 'form.user_email'|trans({}, 'FOSUserBundle') } }) }}#}
-                            {#{{ form_widget(form.primary, {'attr': {'class' : 'bl-radio', 'placeholder': 'form.primary'|trans({}, 'FOSUserBundle') } }) }}#}
-                            {#</div>#}
+                            {% if userEmails %}
+                                {% for key, userEmail in userEmails %}
 
+                                    {% if userEmail.token is null %}
+
+                                        <div class="col-sm-6">
+                                             <input name="primary" type="radio" value="{{ key }}"/>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
+                                            <a class="delete-link" href="{{ path('remove_email', {'email' : key } ) }}">{{ 'btn_delete'|trans }}</a>
+                                        </div>
+
+                                    {% endif %}
+
+                                {% endfor %}
+                            {% endif %}
+
+                            <div class="col-sm-6">
+                                {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
+                            </div>
+
+                            <div class="error-message">{{ form_errors(form.addEmail) }}</div>
                         </div>
 
                         <div class="error-message">{{ form_errors(form) }}</div>
@@ -110,8 +122,6 @@
                             <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
 
                         {% endif %}
-
-                        {#<p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>#}
 
                         <div class="form-group row">
                             <div class="col-sm-4">

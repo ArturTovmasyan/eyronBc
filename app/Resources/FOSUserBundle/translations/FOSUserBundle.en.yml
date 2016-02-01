@@ -4,7 +4,7 @@ email:
     afterDog:  please, enter a part followed by @
     resend:    Resend message
     update:    Update email address
-    error:     Dublicate emails
+    error:     This email already exist
     primary_error: This email has already been selected by another user, please choose a another  primary email field
 
     update: Update email address
