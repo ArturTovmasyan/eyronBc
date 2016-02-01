@@ -75,7 +75,7 @@ class SuccessStory
 
 
     /**
-     * @ORM\Column(name="video_link", type="array", nullable=true)
+     * @ORM\Column(name="video_link", type="json_array", nullable=true)
      */
     protected $videoLink;
 
