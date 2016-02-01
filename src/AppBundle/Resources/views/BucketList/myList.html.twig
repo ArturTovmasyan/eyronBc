@@ -102,16 +102,6 @@
                                         <a class="icon question-icon-circle"></a>
                                     </div>
                                 </div>
-                                {#<div class="progress">#}
-                                    {#<div class="progress-bar progress-bar-striped"#}
-                                         {#role="progressbar"#}
-                                         {#aria-valuenow="45"#}
-                                         {#aria-valuemin="0"#}
-                                         {#aria-valuemax="100"#}
-                                         {#style="width:{{ user.getCompletedPercent|round(1, 'floor') }}%">#}
-                                        {#{{ user.getCompletedPercent|round(1, 'floor') }}%#}
-                                    {#</div>#}
-                                {#</div>#}
                             </div>
                         </div>
                     {% endif %}
@@ -339,7 +329,7 @@
                                                 </ul>
                                                 {% if profileUser.id == app.user.id %}
                                                     <div class="row">
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-5">
                                                             <a href="javascript:void(0)"
                                                                data-ls-jquery-modal
                                                                data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
@@ -351,7 +341,7 @@
 
                                                         </div>
 
-                                                        <div class="col-sm-6 text-right">
+                                                        <div class="col-sm-7 text-right">
                                                             <div class="check_status">
                                                                 {% set status = userGoal.status %}
                                                                 {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
@@ -362,7 +352,7 @@
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
                                                                         <span class="icon ok-icon-green"></span>
-                                                                        {{ 'successtory'|trans }}
+                                                                        {{ 'successtory'|trans | upper }}
                                                                     </a>
                                                                 {% else %}
                                                                     <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
