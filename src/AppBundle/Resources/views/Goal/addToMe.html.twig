@@ -112,7 +112,7 @@
                                     <div class="col-sm-12">
                                         <div class="location">
                                             <i class="icon location-icon"></i>
-                                            <i class="icon remove-location-icon"></i>
+                                            <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
                                             <input {% if completed %} disabled {% endif %}
                                                     value="{{ data.address }}"
                                                     type="text"
@@ -207,23 +207,28 @@
 
                                 <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
 
-                                    <div class="col-sm-8">
-                                        <input type="text"
-                                               class="form-control"
-                                               data-step
-                                               {% if completed %}disabled{% endif %}
-                                               data-key="k"
-                                               data-array="stepsArray"
-                                               data-ng-model="step.text"
-                                               data-ng-disabled="complete.switch"
-                                               name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
-                                               placeholder="{{ "goal.add_step"|trans }}">
-                                    </div>
-
                                     <label class="col-sm-2 control-label">
-                                        <span data-ng-show="step.switch">{{ "goal.done"|trans }}</span>
+                                        <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
                                         <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
                                     </label>
+
+                                    <div class="col-sm-8">
+                                        <div class="to-do-list">
+                                            <i title="Notes" class="icon list-icon"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   data-step
+                                                   {% if completed %}disabled{% endif %}
+                                                   data-key="k"
+                                                   data-array="stepsArray"
+                                                   data-ng-model="step.text"
+                                                   data-ng-disabled="complete.switch"
+                                                   name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
+                                                   placeholder="{{ "goal.add_step"|trans }}">
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="col-sm-2">
                                         <div class="onoffswitch">

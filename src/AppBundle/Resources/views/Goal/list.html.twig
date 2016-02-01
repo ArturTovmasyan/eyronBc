@@ -30,6 +30,7 @@
                 <div class="col-sm-6 text-right"
                      data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categories | serialize('json') }})">
                     <button type="button"
+                        data-ng-cloak
                         class="btn btn-default text-purple no-bg"
                         data-container="body"
                         data-toggle="popover"
@@ -38,7 +39,7 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        [[ adventureTextItem ? adventureTextItem.title:"Adventure" ]]
+                        [[ adventureTextItem ? adventureTextItem.title:"MOST POPULAR" ]]
 
                         <span class="icon down-icon" data-ng-hide="filter"></span>
                         <span class="icon up-icon ng-hide" data-ng-show="filter"></span>
