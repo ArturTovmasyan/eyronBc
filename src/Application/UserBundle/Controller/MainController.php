@@ -36,12 +36,12 @@ class MainController extends Controller
         $userEmails = $user->getUserEmails();
 
         //check if userEmails exist
-        if($userEmails) {
-
-            //get user emails in db
-            $userEmails = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
-
-        }
+//        if($userEmails) {
+//
+//            //get user emails in db
+//            $userEmails = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
+//
+//        }
 
         //get fos user manager
         $fosManager = $this->container->get("fos_user.user_manager");
@@ -160,7 +160,9 @@ class MainController extends Controller
                 $emailToken = md5(microtime() . $addEmail);
 
                 //set user emails in array with token and primary value
-                $emailsInForm[] = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
+                $emailsInForm = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
+
+                $userEmails[] = $emailsInForm;
 
                 //get 8user full name
                 $userName = $user->showName();
@@ -170,7 +172,7 @@ class MainController extends Controller
             }
 
             //set user emails
-            $user->setUserEmails($emailsInForm);
+            $user->setUserEmails($userEmails);
 
             //set new password
             $user->setPlainPassword($newPassword);
