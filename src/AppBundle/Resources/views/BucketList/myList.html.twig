@@ -50,12 +50,12 @@
                             <figcaption>
                                 <ul>
                                     <li>
-                                        <span>{{ 'user_goal.active'|trans }}</span>
+                                        <span>{{ 'user_goal.active'|trans | capitalize }}</span>
                                         <span>{{ stats.active }}</span>
                                     </li>
 
                                     <li>
-                                        <span>{{ 'block_listed'|trans }}</span>
+                                        <span>{{ 'block_listed'|trans | capitalize }}</span>
                                         <span>{{ stats.listedBy }}</span>
                                     </li>
 
@@ -244,7 +244,7 @@
                                                             <a href="javascript:void(0)">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
-                                                                <span class="icon user-icon"></span>
+                                                                <i class="icon user-icon"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -255,7 +255,9 @@
                                             <article class="information">
                                                 <div class="row">
                                                     <div class="col-sm-7">
-                                                        <h3><a href="{{ path('inner_goal', {'id' : goal.id }) }}">{{ goal.title }}</a></h3>
+                                                        <h3>
+                                                            <a href="{{ path('inner_goal', {'id' : goal.id }) }}" class="text-dark-gray">{{ goal.title }}</a>
+                                                        </h3>
                                                     </div>
                                                     <div class="col-sm-5 pull-right">
                                                         <div class="addthis_native_toolbox"></div>
@@ -313,32 +315,34 @@
                                                             <a href="javascript:void(0)"
                                                                data-ls-jquery-modal
                                                                data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
-                                                               data-ls-identity="goalMenageModal{{ goal.id }}">
+                                                               data-ls-identity="goalMenageModal{{ goal.id }}"
+                                                               class="text-gray">
                                                                 <i class="icon cog-icon"></i>
                                                                 {{ 'manage'|trans }}
                                                             </a>
 
                                                         </div>
 
-                                                        <div class="col-sm-6 text-right" id="check_status">
-
-                                                            {% set status = userGoal.status %}
-                                                            {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                                                                <a  href="javascript:void(0)"
-                                                                    data-ls-jquery-modal
-                                                                    data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
-                                                                    data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
-                                                                    class="border"
-                                                                    id="successtory">
-                                                                    <span class="icon ok-icon-green"></span>
-                                                                    {{ 'successtory'|trans }}
-                                                                </a>
-                                                            {% else %}
-                                                                <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="border" id="done">
-                                                                    <i class="icon done-icon"></i>
-                                                                    {{ 'done'|trans }}
-                                                                </a>
-                                                            {% endif %}
+                                                        <div class="col-sm-6 text-right">
+                                                            <div id="check_status">
+                                                                {% set status = userGoal.status %}
+                                                                {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                                                                    <a  href="javascript:void(0)"
+                                                                        data-ls-jquery-modal
+                                                                        data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
+                                                                        data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
+                                                                        class="btn btn-transparent"
+                                                                        id="successtory">
+                                                                        <span class="icon ok-icon-green"></span>
+                                                                        {{ 'successtory'|trans }}
+                                                                    </a>
+                                                                {% else %}
+                                                                    <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
+                                                                        <i class="icon done-icon"></i>
+                                                                        {{ 'done'|trans }}
+                                                                    </a>
+                                                                {% endif %}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 {% endif %}
