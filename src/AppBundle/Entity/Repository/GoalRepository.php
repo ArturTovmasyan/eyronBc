@@ -61,6 +61,12 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      */
     public function findGoalStateCount(&$goals)
     {
+        $isSingleObject = 0;
+        if ($goals instanceof Goal){
+            $isSingleObject = $goals->getId();
+            $goals = [$goals->getId() => $goals];
+        }
+
         if (!count($goals)){
             return null;
         }
@@ -84,6 +90,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 'listedBy' => $stats[$goal->getId()]['listedBy'],
                 'doneBy'   => $stats[$goal->getId()]['doneBy'],
             ]);
+        }
+
+        if ($isSingleObject){
+            $goals = $goals[$isSingleObject];
+            return $goals;
         }
 
         return $goals;
@@ -315,5 +326,23 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $goalId
+     * @param $type
+     * @return array
+     */
+    public function findGoalUsers($goalId, $type)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           JOIN u.userGoal ug
+                           JOIN ug.goal g WITH g.id = :goalId
+                           WHERE ug.status = :status")
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->setParameter('status', $type == "listed" ? UserGoal::ACTIVE : UserGoal::COMPLETED)
+            ->setParameter('goalId', $goalId);
     }
 }

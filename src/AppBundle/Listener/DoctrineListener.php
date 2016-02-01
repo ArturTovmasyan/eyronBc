@@ -11,6 +11,7 @@ namespace AppBundle\Listener;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\DependencyInjection\Container;
@@ -40,7 +41,7 @@ class DoctrineListener
             $user = $token->getUser();
             $entity = $event->getObject();
 
-            if ($entity instanceof Goal){
+            if ($entity instanceof Goal and $user instanceof User){
                 $userGoals = $user->getUserGoal();
 
                 if($userGoals->count() > 0) {

@@ -20,30 +20,6 @@ use Doctrine\ORM\Query;
 class UserRepository extends EntityRepository
 {
     /**
-     * @param $goal
-     * @return array
-     */
-    public function findDoneBy($goal)
-    {
-
-        $result = $this->getEntityManager()
-            ->createQuery("SELECT u
-                           FROM ApplicationUserBundle:User u
-                           LEFT JOIN u.userGoal ug
-                           LEFT JOIN ug.goal g
-                           WHERE g.id = :goal and ug.status = :status
-                           ")
-            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
-            ->setParameter('goal',  $goal->getId())
-            ->setParameter('status',  UserGoal::COMPLETED)
-
-            ->getResult();
-
-        return $result;
-
-    }
-
-    /**
      * This function is used to get user by email token
      *
      * @param $emailToken
@@ -59,30 +35,6 @@ class UserRepository extends EntityRepository
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->setParameter('emailToken',  $emailToken )
             ->getOneOrNullResult();
-
-        return $result;
-
-    }
-
-    /**
-     * @param $goal
-     * @return array
-     */
-    public function findListedBy($goal)
-    {
-
-        $result = $this->getEntityManager()
-            ->createQuery("SELECT u
-                           FROM ApplicationUserBundle:User u
-                           LEFT JOIN u.userGoal ug
-                           LEFT JOIN ug.goal g
-                           WHERE g.id = :goal and ug.status = :status
-                           ")
-            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
-            ->setParameter('goal',  $goal->getId())
-            ->setParameter('status',  UserGoal::ACTIVE)
-
-            ->getResult();
 
         return $result;
 

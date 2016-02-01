@@ -1,0 +1,81 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="container" id="goal-friends">
+        <div class="row">
+            <div class="col-md-8">
+
+                {% set counter = 0 %}
+                {% for goalUser in pagination %}
+                    {% if counter is divisible by(2) %}
+                        <div class="row margin-top">
+                    {% endif %}
+
+                            <div class="col-sm-6">
+                                <div class="bg-white padding clearfix">
+                                     <a href="{{ path('user_profile', {'user': goalUser.id, 'status': 0}) }}" style="display:block;">
+                                        <div class="row no-gutter">
+                                            <div class="col-sm-3">
+                                                <figure class="image">
+                                                    <img src="{{ goalUser.getPhotoLink() ? goalUser.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
+                                                             alt= "Some image" class="img-circle img-responsive" />
+                                                </figure>
+                                            </div>
+
+                                            <div class="col-sm-9">
+                                                <div class="text-gray">
+                                                    <h4 class="text-dark-gray">
+                                                        {{ goalUser.firstname }} {{ goalUser.lastname }}
+                                                    </h4>
+                                                    {% set stats = goalUser.getStats %}
+                                                    <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
+                                                    <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                    {% if counter is not divisible by(2) %}
+                        </div>
+                    {% endif %}
+                    {% set counter = counter + 1 %}
+
+                {% endfor %}
+
+
+                {% if counter is not divisible by(2) and counter != 0  %}
+                    </div>
+                {% endif %}
+                    <br />
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+
+
+
+            {% if app.user %}
+                <div class="col-md-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+
+
+                    <ul class="right-block">
+                        <li class="clearfix">
+                            <span>{{ 'right_menu.ideas'|trans }}</span>
+                            <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                        </li>
+                        <li>
+                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
