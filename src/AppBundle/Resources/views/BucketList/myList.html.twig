@@ -78,7 +78,11 @@
                     {# TODO: need for design changes #}
                     {% if profileUser.id == app.user.id %}
                         <div class="col-md-4">
-                            <a href="{{ path("settings") }}" class="pull-right">
+                            <a href="javascript:void(0)"
+                               data-ls-identity="settingModalInMyBucketList"
+                               data-ls-template-url="{{ path("settings") }}"
+                               data-ls-jquery-modal
+                               class="pull-right">
                                 <i class="icon icon-cog"></i>
                             </a>
 
