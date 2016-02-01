@@ -39,8 +39,20 @@
                         <div class="text-center" data-ng-init="initDropzone('{{ path('add-story_images') }}')">
                             <div class="dropzone" id="goalDropzone">
                                 <div class="dz-message">
-                                    <h3>{{ 'drag_drop_story'|trans }}</h3>
-                                    <p>{{ 'upload'|trans | raw}}</p>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            {#<span class="btn-purple">#}
+                                                {#<i></i>BROWSE#}
+                                            {#</span>#}
+
+                                            <h3 class="text-dark-gray">
+                                                {{ 'drag_drop'|trans }}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-gray">{{ 'upload'|trans | raw}}</p>
                                 </div>
                             </div>
                         </div>

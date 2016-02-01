@@ -157,14 +157,14 @@
                     <form class="form-inline" action="#">
 
                         {# dream filter #}
-                        <label class="radio-inline">
+                        <label class="radio-inline {% if dream %}checked-label {% endif %}">
                             <input {% if dream %} checked {% endif %} onchange="submit()" type="checkbox" name="d" value="1"> {{ 'filter.dream'|trans }}
                         </label>
 
                         {# other filters #}
                         {% for id, name in filters %}
                             {% set queryParameterName = "f_" ~ id %}
-                            <label class="radio-inline">
+                            <label class="radio-inline {% if app.request.get(queryParameterName) %}checked-label {% endif %}">
                                 <input {% if app.request.get(queryParameterName) %} checked {% endif %} onchange="submit()" type="checkbox" name="f_{{ id }}"> {{ name|trans }}
                             </label>
                         {% endfor %}
@@ -324,7 +324,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6 text-right">
-                                                            <div id="check_status">
+                                                            <div class="check_status">
                                                                 {% set status = userGoal.status %}
                                                                 {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                                     <a  href="javascript:void(0)"
