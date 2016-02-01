@@ -1753,10 +1753,6 @@ footer{
     margin: -2px 0 7px;
   }
 
-  .mail{
-
-  }
-
   .mail-print{
     text-align:right;
     a{
@@ -1772,6 +1768,16 @@ footer{
     padding:20px 0 10px;
     label:first-child{
       padding-left:0;
+    }
+
+    .checked-label{
+      color: #6108EA;
+    }
+
+    label{
+      &:hover,&:active,&:focus{
+        color: #6108EA;
+      }
     }
 
     .icheckbox_square-purple{
@@ -1836,7 +1842,7 @@ footer{
 
 }
 
-#check_status{
+.check_status{
   padding-bottom:15px;
 }
 
@@ -2053,7 +2059,7 @@ footer{
     }
 
   }
-  #check_status{
+  .check_status{
     padding-bottom:5px;
   }
   footer{
