@@ -3,6 +3,13 @@
         <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
     </figure>
 
+    {% if doneByUsers is not null and listedByUsers is not null %}
+        {% set done =  doneByUsers %}
+        {% set listed =  listedByUsers %}
+    {% else %}
+        {% set done = goal.getUsedCount.doneBy %}
+        {% set listed = goal.getUsedCount.listedBy %}
+    {% endif %}
 
         <div class="row no-gutter">
 
