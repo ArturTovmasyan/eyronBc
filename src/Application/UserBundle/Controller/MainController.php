@@ -25,6 +25,7 @@ class MainController extends Controller
      */
     public function settingsAction(Request $request)
     {
+
         //get translator
         $tr = $this->get('translator');
 
@@ -38,7 +39,8 @@ class MainController extends Controller
         if($userEmails) {
 
             //get user emails in db
-            $userEmails = array_map(function ($item) { return $item['userEmails']; },  $user->getUserEmails());
+            $userEmails = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
+
         }
 
         //get fos user manager
@@ -84,67 +86,87 @@ class MainController extends Controller
                 $form->get('password')->addError($error);
             }
 
-            //get userEmails in form data
-            $emailsInForm = $form->get('bl_multiple_email')->getData();
+            //get add email in request
+            $addEmail = $request->request->get('bl_user_settings')['addEmail'];
 
-            //get user emails values in emailsInForm data
-            $emailValue = array_map(function ($item) { return $item['userEmails']; }, $emailsInForm);
-
-            //check if userEmails exist
-            if($userEmails) {
-
-                //get new user email in form
-                $newUserEmail = array_diff($emailValue, $userEmails);
-                $newUserEmail = reset($newUserEmail);
-            }
-            else {
-
-                //get new user email in form
-                $newUserEmail = reset($emailValue);
-            }
-
-            //check if user email have duplicate in emailsInForm
-            if (array_search($user->getEmail(), $emailValue)) {
-
-                //set custom error class
-                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
-
-                //set error in field
-                $form->get('email')->addError($errors);
-            }
-
-            //get primary values in emailsInForm data
-            $primaryValue = array_map(function ($item) { return $item['primary']; }, $emailsInForm);
-
-            //if remove email exist in array
-            if (($key = array_search('1', $primaryValue)) !== false) {
-
-                //get primary email
-                $primaryEmail = $emailsInForm[$key]['userEmails'];
-            }
-
-            //check if primary email exist in emailValue
-            if (($key = array_search($primaryEmail, $emailValue)) !== false) {
-
-                unset($emailsInForm[$key]);
-            }
-
-            //check if set another primary email
-            if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
-                (array_search($user->getEmail(), $emailsInForm) == false)) {
-
-                //set user email in emailsInForm array
-                $emailsInForm[] = [
-                    "userEmails" => $user->getEmail(),
-                    "primary" => 0
-                ];
-            }
+//            //get userEmails in form data
+//            $emailsInForm = $form->get('bl_multiple_email')->getData();
+//
+//            //get user emails values in emailsInForm data
+//            $emailValue = array_map(function ($item) { return $item['userEmails']; }, $emailsInForm);
+//
+//            //check if userEmails exist
+//            if($userEmails) {
+//
+//                //get new user email in form
+//                $newUserEmail = array_diff($emailValue, $userEmails);
+//                $newUserEmail = reset($newUserEmail);
+//            }
+//            else {
+//
+//                //get new user email in form
+//                $newUserEmail = reset($emailValue);
+//            }
+//
+//            //check if user email have duplicate in emailsInForm
+//            if (array_search($user->getEmail(), $emailValue)) {
+//
+//                //set custom error class
+//                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
+//
+//                //set error in field
+//                $form->get('email')->addError($errors);
+//            }
+//
+//            //get primary values in emailsInForm data
+//            $primaryValue = array_map(function ($item) { return $item['primary']; }, $emailsInForm);
+//
+//            //if remove email exist in array
+//            if (($key = array_search('1', $primaryValue)) !== false) {
+//
+//                //get primary email
+//                $primaryEmail = $emailsInForm[$key]['userEmails'];
+//            }
+//
+//            //check if primary email exist in emailValue
+//            if (($key = array_search($primaryEmail, $emailValue)) !== false) {
+//
+//                unset($emailsInForm[$key]);
+//            }
+//
+//            //check if set another primary email
+//            if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
+//                (array_search($user->getEmail(), $emailsInForm) == false)) {
+//
+//                //set user email in emailsInForm array
+//                $emailsInForm[] = [
+//                    "userEmails" => $user->getEmail(),
+//                    "primary" => 0
+//                ];
+//            }
 
             //check if primary email exist
             if($primaryEmail) {
 
                 //set email for user
                 $user->setEmail($primaryEmail);
+            }
+
+            $emailsInForm = null;
+
+            if($addEmail) {
+
+                //generate email activation  token
+                $emailToken = md5(microtime() . $addEmail);
+
+                //set user emails in array with token and primary value
+                $emailsInForm[] = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
+
+                //get 8user full name
+                $userName = $user->showName();
+
+                //get send activation email service
+                $this->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
             }
 
             //set user emails
@@ -181,28 +203,12 @@ class MainController extends Controller
                     $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
 
                     //set error in field
-                    $form->get('bl_multiple_email')->addError($error);
+                    $form->get('addEmail')->addError($error);
                 }
             }
 
             //check if form is valid
             if ($form->isValid()) {
-
-                //check if newUserEmail exist
-                if($newUserEmail) {
-
-                    //generate email activation  token
-                    $emailToken = md5(microtime());
-
-                    //set email activation token
-                    $user->setActivationEmailToken($emailToken);
-
-                    //get user full name
-                    $userName = $user->showName();
-
-                    //get send activation email service
-                    $this->get('bl.email.sender')->sendActivationUserEmail($newUserEmail, $emailToken, $userName);
-                }
 
                 //update user
                 $fosManager->updateUser($user);

@@ -1,3 +1,6 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
     <div id="settings-modal">
         <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
@@ -5,7 +8,7 @@
                 <div class="form-group">
                     {% if app.user %}
                         {% set user = app.user %}
-                        {% set emailToken = user.getActivationEmailToken() %}
+                        {#{% set emailToken = user.getActivationEmailToken() %}#}
 
                         <figure>
 
@@ -36,7 +39,6 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
 
-
                         <div class="error-message">{{ form_errors(form.file) }}</div>
 
                         <div class="form-group row no-padding">
@@ -48,29 +50,36 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row no-padding">
 
-                            {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
+                            {#{% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}#}
 
-                            <div class="col-sm-5 primary">
+                            <div class="col-sm-3 primary">
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 
-                            {% if userEmails|length != 0 %}
-                                <div class="col-sm-1">
-                                    <input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>
-                                </div>
-                            {% endif %}
+                            {#{% if userEmails|length != 0 %}#}
+                                {#<div class="col-sm-1">#}
+                                    {#<input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>#}
+                                {#</div>#}
+                            {#{% endif %}#}
 
-                            <div class="col-sm-7">
+                            <div class="col-sm-4">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
 
-                            <div class="col-sm-6">
-                                {{ form_widget(form.bl_multiple_email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                            <div class="col-sm-4">
+                                {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                             </div>
+                            <div class="error-message">{{ form_errors(form.file) }}</div>
+
+                            {#<div class="col-sm-6">#}
+                            {#{{ form_widget(form.userEmails, {'attr': {'class' : 'form-control', 'placeholder': 'form.user_email'|trans({}, 'FOSUserBundle') } }) }}#}
+                            {#{{ form_widget(form.primary, {'attr': {'class' : 'bl-radio', 'placeholder': 'form.primary'|trans({}, 'FOSUserBundle') } }) }}#}
+                            {#</div>#}
+
                         </div>
 
                         <div class="error-message">{{ form_errors(form) }}</div>
@@ -99,8 +108,11 @@
                         {% if errorMessage == 'Error' %}
 
                             <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
+
                         {% endif %}
+
                         {#<p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>#}
+
                         <div class="form-group row">
                             <div class="col-sm-4">
 
@@ -155,5 +167,5 @@
                 </div>
             </form>
         </div>
-        <script src="{{ asset("bundles/app/js/emails.js") }}" type="text/javascript"></script>
     </div>
+{% endblock %}
