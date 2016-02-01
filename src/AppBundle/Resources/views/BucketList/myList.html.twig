@@ -90,8 +90,8 @@
                                          aria-valuenow="45"
                                          aria-valuemin="0"
                                          aria-valuemax="100"
-                                         style="width:{{ user.getCompletedPercent }}%">
-                                        {{ user.getCompletedPercent }}%
+                                         style="width:{{ user.getCompletedPercent|round(1, 'floor') }}%">
+                                        {{ user.getCompletedPercent|round(1, 'floor') }}%
                                     </div>
                                 </div>
                             </div>
@@ -285,8 +285,8 @@
                                                                  aria-valuenow="45"
                                                                  aria-valuemin="0"
                                                                  aria-valuemax="100"
-                                                                 style="width: {{ userGoal.getCompleted }}%">
-                                                                {{ userGoal.getCompleted }}%
+                                                                 style="width: {{ userGoal.getCompleted|round(1, 'floor') }}%">
+                                                                {{ userGoal.getCompleted|round(1, 'floor') }}%
                                                             </div>
                                                         </div>
                                                     </li>
