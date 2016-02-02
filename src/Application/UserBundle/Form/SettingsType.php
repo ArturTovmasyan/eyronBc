@@ -11,6 +11,7 @@ namespace Application\UserBundle\Form;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -33,10 +34,8 @@ class SettingsType extends AbstractType
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', null, array('attr' => array('readonly' => true),'required' => true, 'label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('addEmail', null, array('required' => false, 'label' => 'form.add_email', 'mapped' => false))
-//            ->add('userEmails', 'text', array('required' => false, 'label' => 'form.user_emails', 'mapped' => false))
-//            ->add('primary', 'radio', array('required' => false, 'label' => 'form.primary', 'mapped' => false))
             ->add('password', 'password', array(
-                'required' => true,
+                'required' => false,
                 'label' => 'form.current_password',
                 'translation_domain' => 'FOSUserBundle',
                 'mapped' => false

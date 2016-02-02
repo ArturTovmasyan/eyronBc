@@ -83,10 +83,20 @@ class MainController extends Controller
             $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
 
             //check if current password valid
-            if ($userPassword != $encode_data_pass) {
+            if ($currentPassword && $userPassword !== $encode_data_pass) {
 
                 //set custom error class
                 $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
+
+                //set error in field
+                $form->get('password')->addError($error);
+            }
+
+            //check if current password not set
+            if ($newPassword && $currentPassword == null) {
+
+                //set custom error class
+                $error = new FormError($tr->trans('password.current', array(), 'FOSUserBundle'));
 
                 //set error in field
                 $form->get('password')->addError($error);
