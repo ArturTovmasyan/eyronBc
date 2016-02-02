@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends FOSRestController
 {
     /**
-     * @Rest\Get("/goals/{first}/{count}", defaults={"first"=0}, requirements={"first"="\d+", "count"="\d+"})
+     * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -374,6 +374,10 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         // check search data
         $search = $request->get('search') ? $request->get('search') : null;
         // get entity manager
