@@ -13,6 +13,7 @@ use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
@@ -389,6 +390,7 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @VirtualProperty
+     * @SerializedName("image_path")
      * @return null
      * @Groups({"tiny_goal"})
      */
