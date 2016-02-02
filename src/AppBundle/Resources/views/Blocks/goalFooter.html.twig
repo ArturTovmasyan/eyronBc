@@ -1,7 +1,8 @@
 <ul class="row {% if inner is defined %} goal-links {% endif %} ">
     {#{% if is_granted("ROLE_USER") %}#}
 
-        {% if not isMyGoal(goal, app.user, "add") %}
+        {#{% if not isMyGoal(goal, app.user, "add") %}#}
+        {% if goal.isMyGoal == 0 %}
             <li class="col-sm-4">
                 <a href="javascript:void(0)"
                    data-ls-jquery-modal
@@ -12,7 +13,8 @@
             </li>
         {% endif %}
 
-        {% if  not isMyGoal(goal, app.user, 'done') %}
+        {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
+        {% if  goal.isMyGoal != 2 %}
             <li class="col-sm-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <span class="icon ok-icon"></span>{{ 'done'|trans }}

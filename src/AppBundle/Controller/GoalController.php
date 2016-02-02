@@ -215,11 +215,14 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get users that done this goal
-        $doneByUsers = $em->getRepository("ApplicationUserBundle:User")->findDoneBy($goal);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        // get users that listed this goal
-        $listedByUsers = $em->getRepository("ApplicationUserBundle:User")->findListedBy($goal);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), 'completed');
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'listed');
+
+        $paginator  = $this->get('knp_paginator');
+        $doneByUsers = $paginator->paginate($doneByUsers, 1, 3);
+        $listedByUsers = $paginator->paginate($listedByUsers, 1, 3);
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
@@ -487,9 +490,15 @@ class GoalController extends Controller
             if(!$userGoal){
                 throw $this->createNotFoundException('usergoal not found');
             }
-
         }
         else{
+
+            $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+
+            if ($userGoal){
+                return new Response('This goal already added', Response::HTTP_BAD_REQUEST);
+            }
+
             $userGoal = new UserGoal();
 
             //set goal
@@ -835,9 +844,6 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        // remove goal image files
-        $goalImage->preRemove();
 
         // remove from bd
         $em->remove($goalImage);

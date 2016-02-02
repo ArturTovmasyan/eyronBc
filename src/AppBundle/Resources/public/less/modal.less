@@ -3,6 +3,11 @@
 .blocker{
   z-index: 10001 !important;
 }
+
+.pac-container{
+  z-index: 10005 !important;
+}
+
 .modal{
 
   .title-smaller{
@@ -33,6 +38,20 @@
     }
   }
 
+  .to-do-list{
+    position: relative;
+
+    i{
+      position: absolute;
+      top:7px;
+      left: 9px;
+      //margin-right: 0;
+    }
+
+    input{
+      padding:6px 30px 6px 40px;
+    }
+  }
   .modal-body{
     padding:0;
     height: 155px;
@@ -85,6 +104,16 @@
   i{
     margin-right:10px;
   }
+
+  .modal-bottom{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: #f0f0f0;
+    padding: 35px;
+    left: 0;
+    text-align: center;
+  }
 }
 
 a.close-modal{
@@ -101,7 +130,19 @@ a.close-modal{
   }
 }
 
-
+#story-modal{
+  .dropzone{
+    .dz-message{
+      h3{
+        font-size:22px;
+        margin: 10px 0;
+        i{
+          margin-right:0;
+        }
+      }
+    }
+  }
+}
 
 .modal-top{
   position: relative;
@@ -191,13 +232,14 @@ a.close-modal{
     padding:10px;
     margin:110px 0 5px 30px;
     font-size: 32px;
+    white-space: normal;
+    word-wrap: break-word;
   }
 
   h1{
     padding:10px 40px;
     margin:25px 0 10px;
   }
-
 
 
   p{

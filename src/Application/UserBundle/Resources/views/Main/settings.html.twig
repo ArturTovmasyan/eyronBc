@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block content %}
-    <div id="settings-modal">
+    <div id="settings-modal" data-ng-controller="SettingController">
         <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
@@ -18,7 +18,7 @@
 
                             <div class="relative">
                                 <div data-ng-show="imageUrl">
-                                    <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("''") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
+                                    <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|default("") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
                                 </div>
                                 <div data-ng-hide="imageUrl">
                                     {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
@@ -169,12 +169,16 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
+
 
                         {{ form_widget(form._token) }}
                     </div>
+                </div> <br />
+                <div class="modal-bottom">
+                    <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                    <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
                 </div>
+
             </form>
         </div>
     </div>

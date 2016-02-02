@@ -60,15 +60,20 @@
                     <div class="goal-information">
                         <ul class="row  goal-links ">
                             {% if page == inner %}
-                                {% if not isMyGoal(goal, app.user, "add") %}
+                                {#{% if not isMyGoal(goal, app.user, "add") %}#}
+                                {% if goal.isMyGoal == 0 %}
                                     <li class="col-sm-6">
-                                        <a href="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                                        <a href="javascript:void(0)"
+                                           data-ls-jquery-modal
+                                           data-ls-identity="idea{{ goal.id }}"
+                                           data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                                             <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
 
-                                {% if  not isMyGoal(goal, app.user, 'done') %}
+                                {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
+                                {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                             <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
@@ -89,7 +94,7 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             {{ 'done_by'|trans | upper }}
-                                            <p class="purple">{{ doneByUsers|length }}</p>
+                                            <p class="purple">{{ goal.stats.doneBy }}</p>
                                         </li>
                                         <li class="col-md-4">
                                             <ul class="users">
@@ -105,7 +110,11 @@
                                             </ul>
                                         </li>
                                         <li class="col-md-4">
-                                            <a href="#"></a>
+                                            {% if goal.stats.doneBy == 0 %}
+                                                <i></i>
+                                            {% else %}
+                                                <a href="{{ path('done_users', {'id': goal.id}) }}"></a>
+                                            {% endif %}
                                         </li>
                                     </ul>
                                 </li>
@@ -113,7 +122,7 @@
                                     <ul class="row">
                                         <li class="col-md-4">
                                             {{ 'listed_by'|trans | upper }}
-                                            <p class="purple">{{ listedByUsers|length }}</p>
+                                            <p class="purple">{{ goal.stats.listedBy }}</p>
                                         </li>
                                         <li class="col-md-4">
                                             <ul class="users">
@@ -129,7 +138,11 @@
                                             </ul>
                                         </li>
                                         <li class="col-md-4">
-                                            <a href="#"></a>
+                                            {% if goal.stats.listedBy == 0 %}
+                                                <i></i>
+                                            {% else %}
+                                                <a href="{{ path('listed_users', {'id': goal.id}) }}"></a>
+                                            {% endif %}
                                         </li>
                                     </ul>
                                 </li>

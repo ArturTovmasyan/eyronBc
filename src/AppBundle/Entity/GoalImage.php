@@ -21,6 +21,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalImageRepository")
  * @ORM\Table(name="goal_image")
+ * @ORM\HasLifecycleCallbacks()
  */
 class GoalImage
 {

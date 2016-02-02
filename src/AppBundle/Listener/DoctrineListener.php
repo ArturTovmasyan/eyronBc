@@ -10,6 +10,9 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Entity\User;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -27,6 +30,31 @@ class DoctrineListener
     function __construct(Container $container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * @param LifecycleEventArgs $event
+     */
+    public function postLoad(LifecycleEventArgs $event)
+    {
+        if ($token = $this->container->get('security.token_storage')->getToken()){
+            $user = $token->getUser();
+            $entity = $event->getObject();
+
+            if ($entity instanceof Goal and $user instanceof User){
+                $userGoals = $user->getUserGoal();
+
+                if($userGoals->count() > 0) {
+                    $userGoalsArray = $userGoals->toArray();
+                    if(array_key_exists($entity->getId(), $userGoalsArray)){
+                        $entity->setIsMyGoal($userGoalsArray[$entity->getId()]->getstatus() == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+                    }
+                    else {
+                        $entity->setIsMyGoal(0);
+                    }
+                }
+            }
+        }
     }
 
 

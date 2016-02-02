@@ -132,12 +132,15 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @param $id
      * @return mixed
-     * @Security("has_role('ROLE_USER')")
      * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
      * @Rest\View()
      */
     public function putAction(Request $request, $id = null)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $data = $request->request->all();
 
@@ -188,7 +191,6 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
-     * @Security("has_role('ROLE_USER')")
      * @param $id
      * @param Request $request
      * @return JsonResponse
@@ -199,14 +201,18 @@ class GoalController extends FOSRestController
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         if ($id){
             $goal = $em->getRepository('AppBundle:Goal')->find($id);
             if (!$goal){
-                return new JsonResponse('Goal not found', Response::HTTP_NOT_FOUND);
+                return new Response('Goal not found', Response::HTTP_NOT_FOUND);
             }
 
             if ($this->getUser() != $goal->getAuthor()){
-                return new JsonResponse('Goal not found', Response::HTTP_FORBIDDEN);
+                return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
             }
         }
 
@@ -257,7 +263,41 @@ class GoalController extends FOSRestController
             return $goalImage->getId();
         }
 
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
+        return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to remove goal image",
+     *  statusCodes={
+     *         200="Returned when image was removed",
+     *         400="Returned when image hasn't goal or it's goal isn't current user's goal",
+     *         404="Returned when goalImage not found",
+     *  },
+     * )
+     *
+     * @Rest\Post("/goals/remove-images/{id}", requirements={"id"="\d+"})
+     *
+     * @param GoalImage $goalImage
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeImage(GoalImage $goalImage)
+    {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+        if(!$goalImage->getGoal() || $this->getUser()->getId() != $goalImage->getGoal()->getAuthor()->getId()){
+            return new Response("Goal image hasn't goal or it isn't an image of current user", Response::HTTP_BAD_REQUEST);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($goalImage);
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
     }
 
     /**
@@ -273,7 +313,6 @@ class GoalController extends FOSRestController
      * @Rest\View(serializerGroups={"goal_draft"})
      *
      * @Rest\Get("/goals/drafts/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
-     * @Security("has_role('ROLE_USER')")
      *
      * @param $first
      * @param $count
@@ -281,6 +320,10 @@ class GoalController extends FOSRestController
      */
     public function getDraftsAction($first, $count)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         // find all drafts goal

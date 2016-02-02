@@ -88,6 +88,27 @@ class MainController extends Controller
     }
 
     /**
+     * @Route("/listed-users/{id}", name="listed_users")
+     * @Route("/done-users/{id}", name="done_users")
+     * @Template()
+     * @return array
+     */
+    public function goalUsersAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:Goal')->findGoalUsers($id, $t = $request->get('_route') == 'listed_users' ? 'listed' : 'completed');
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1)/*page number*/,
+            30/*limit per page*/
+        );
+
+        return array('pagination' => $pagination);
+    }
+
+    /**
      * @Route("/activity", name="activity")
      * @Template()
      * @Security("has_role('ROLE_USER')")

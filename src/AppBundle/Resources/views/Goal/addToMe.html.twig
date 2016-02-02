@@ -112,7 +112,7 @@
                                     <div class="col-sm-12">
                                         <div class="location">
                                             <i class="icon location-icon"></i>
-                                            <i class="icon remove-location-icon"></i>
+                                            <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
                                             <input {% if completed %} disabled {% endif %}
                                                     value="{{ data.address }}"
                                                     type="text"
@@ -197,33 +197,39 @@
                                     <h4>{{ "goal.complete_step"|trans }}</h4>
 
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped aktive" role="progressbar"
-                                             aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-                                             style="width:{{ data.getCompleted }}%">
-                                            <span class="sr-only">45% Complete</span>
+                                        <div class="progress-bar progress-bar-striped"
+                                             role="progressbar"
+                                             aria-valuenow="45"
+                                             aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             style="width:{{ data.getCompleted|round(1, 'floor') }}%">
+                                            {{ data.getCompleted|round(1, 'floor') }}% Complete
                                         </div>
                                     </div>
                                 {% endif %}
 
                                 <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
 
-                                    <div class="col-sm-8">
-                                        <input type="text"
-                                               class="form-control"
-                                               data-step
-                                               {% if completed %}disabled{% endif %}
-                                               data-key="k"
-                                               data-array="stepsArray"
-                                               data-ng-model="step.text"
-                                               data-ng-disabled="complete.switch"
-                                               name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
-                                               placeholder="{{ "goal.add_step"|trans }}">
-                                    </div>
-
                                     <label class="col-sm-2 control-label">
-                                        <span data-ng-show="step.switch">{{ "goal.done"|trans }}</span>
+                                        <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
                                         <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
                                     </label>
+
+                                    <div class="col-sm-8">
+                                        <div class="to-do-list">
+                                            <i title="Notes" class="icon list-icon"></i>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   data-step
+                                                   {% if completed %}disabled{% endif %}
+                                                   data-key="k"
+                                                   data-array="stepsArray"
+                                                   data-ng-model="step.text"
+                                                   data-ng-disabled="complete.switch"
+                                                   name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
+                                                   placeholder="{{ "goal.add_step"|trans }}">
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-2">
                                         <div class="onoffswitch">
@@ -293,12 +299,17 @@
 
                                 <hr />
 
+                                {#class="modal-bottom"#}
+                                {#<div class="form-group text-center">#}
+                                    {#<div class="buttons">#}
+                                        {#<button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>#}
+                                        {#<a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>#}
+                                    {#</div>#}
+                                {#</div>#}
 
-                                <div class="form-group text-center">
-                                    <div class="buttons">
-                                        <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
-                                    </div>
+                                <div class="modal-bottom">
+                                    <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
+                                    <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                                 </div>
 
                                 {{ form_widget(form._token) }}

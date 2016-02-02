@@ -5,11 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
-          rel="stylesheet">
-    <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -30,6 +26,7 @@
                 <div class="col-sm-6 text-right"
                      data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categories | serialize('json') }})">
                     <button type="button"
+                        data-ng-cloak
                         class="btn btn-default text-purple no-bg"
                         data-container="body"
                         data-toggle="popover"
@@ -38,7 +35,7 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        [[ adventureTextItem ? adventureTextItem.title:"Adventure" ]]
+                        [[ adventureTextItem ? adventureTextItem.title:"MOST POPULAR" ]]
 
                         <span class="icon down-icon" data-ng-hide="filter"></span>
                         <span class="icon up-icon ng-hide" data-ng-show="filter"></span>
@@ -202,16 +199,5 @@
             {{ knp_pagination_render(goals) }}
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"
-            type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
-
-
 {% endblock %}
 
