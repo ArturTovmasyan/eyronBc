@@ -356,7 +356,11 @@ class GoalController extends FOSRestController
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         // get goal friends
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $count, $search, false, $first);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $goalFriends = array_slice($goalFriends, $first, $count);
+        }
 
         return $goalFriends;
     }
