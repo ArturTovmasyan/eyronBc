@@ -25,7 +25,6 @@ class MainController extends Controller
      */
     public function settingsAction(Request $request)
     {
-
         //get translator
         $tr = $this->get('translator');
 
@@ -46,7 +45,7 @@ class MainController extends Controller
         $primaryEmail = null;
 
         //check if userEmails exist
-        if($userEmails) {
+        if ($userEmails) {
 
             //get user emails in db
             $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
@@ -105,7 +104,8 @@ class MainController extends Controller
             //get new email in request
             $addEmail = $form->get('addEmail')->getData();
 
-            if($addEmail == $currentEmail) {
+            //check if new email equal currentEmail
+            if ($addEmail == $currentEmail) {
 
                 //set custom error class
                 $error = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
@@ -135,14 +135,14 @@ class MainController extends Controller
             }
 
             //check if primary email exist
-            if($primaryEmail) {
+            if ($primaryEmail) {
 
                 //set email for user
                 $user->setEmail($primaryEmail);
             }
 
             //check if addEmail exist
-            if($addEmail) {
+            if ($addEmail) {
 
                 //generate email activation  token
                 $emailToken = md5(microtime() . $addEmail);
@@ -179,15 +179,15 @@ class MainController extends Controller
             $returnResult = array();
 
             //check count of errors
-            if(count($errors) > 0){
+            if (count($errors) > 0) {
 
                 // loop for error
-                foreach($errors as $error){
+                foreach ($errors as $error) {
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
 
                 //check if email error exist
-                if(array_key_exists('email', $returnResult)) {
+                if (array_key_exists('email', $returnResult)) {
 
                     //set custom error class
                     //$error = new FormError($returnResult['email']);
@@ -230,7 +230,7 @@ class MainController extends Controller
         $userEmails = $user->getUserEmails();
 
         //check if current user have userEmails
-        if($userEmails) {
+        if ($userEmails) {
 
             //remove email in userEmails
             unset($userEmails[$email]);
@@ -259,7 +259,7 @@ class MainController extends Controller
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         //check if user not exist
-        if(!$user) {
+        if (!$user) {
             // return Exception
             throw $this->createNotFoundException("User not found");
         }
@@ -274,7 +274,7 @@ class MainController extends Controller
         $currentEmailToken = $data['token'];
 
         //check if tokens is equal
-        if($currentEmailToken == $emailToken) {
+        if ($currentEmailToken == $emailToken) {
 
             //set token null in userEmails by key
             $userEmails[$email]['token'] = null;
@@ -306,7 +306,7 @@ class MainController extends Controller
         $user = $this->getUser();
 
         //check if user haven`t any goals
-        if($user && count($user->getUserGoal()) == 0) {
+        if ($user && count($user->getUserGoal()) == 0) {
             // generate url
             $url = $this->generateUrl('goals_list');
         }
@@ -322,6 +322,7 @@ class MainController extends Controller
         }
 
         $this->addFlash('', '');
+
         return $this->redirect($url);
     }
 
@@ -337,7 +338,7 @@ class MainController extends Controller
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
 
         // check user
-        if(!$user){
+        if (!$user) {
             throw new NotFoundHttpException('Invalid token');
         }
 
@@ -358,14 +359,14 @@ class MainController extends Controller
     public function resendMessageAction(Request $request)
     {
         $user = $this->getUser();
-        if ($user->getRegistrationToken()){
+        if ($user->getRegistrationToken()) {
             $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName());
 
             return array();
         }
 
         $referer = $request->headers->get('referer');
-        if ($referer){
+        if ($referer) {
             return new RedirectResponse($referer);
         }
 
