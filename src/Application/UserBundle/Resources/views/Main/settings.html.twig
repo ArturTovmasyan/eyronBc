@@ -1,14 +1,15 @@
 {#{% extends "::base.html.twig" %}#}
 
 {#{% block content %}#}
-    <div id="settings-modal">
+    <div id="settings-modal" data-ng-controller="SettingController">
         <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
                 <div class="form-group">
                     {% if app.user %}
+
                         {% set user = app.user %}
-                        {% set emailToken = user.getActivationEmailToken() %}
+                        {% set userEmails = user.getUserEmails %}
 
                         <figure>
 
@@ -39,7 +40,6 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
 
-
                         <div class="error-message">{{ form_errors(form.file) }}</div>
 
                         <div class="form-group row no-padding">
@@ -51,30 +51,64 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row no-padding">
 
-                            {% set userEmails = form.vars.value.userEmails ? form.vars.value.userEmails %}
-
-                            <div class="col-sm-5 primary">
+                            <div class="col-sm-3 primary">
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 
-                            {% if userEmails|length != 0 %}
-                                <div class="col-sm-1">
-                                    <input class="bl-radio" type="radio" value="1" checked name="primary_show_name"/>
-                                </div>
-                            {% endif %}
+                            <div class="col-sm-1">
+                                <input name="email" type="radio" checked/>
+                            </div>
 
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
 
-                            <div class="col-sm-6">
-                                {{ form_widget(form.bl_multiple_email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
-                            </div>
+                            <div class="error-message">{{ form_errors(form.file) }}</div>
                         </div>
+
+                            {% set token = false %}
+
+                            {% if userEmails %}
+
+                                {% for key, userEmail in userEmails %}
+
+                                    {% if userEmail.token is null %}
+
+                                        <div class="col-sm-4 text-right">
+                                             <input name="primary" type="radio" value="{{ key }}"/>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="delete-email">
+                                                <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
+                                                <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
+                                            </div>
+                                        </div>
+
+                                    {% else %}
+
+                                        {% set token = true %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% endif %}
+
+                            {% if token == false %}
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-8">
+                                    {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
+                                </div>
+
+                                <div class="error-message">{{ form_errors(form.addEmail) }}</div>
+
+                            {% endif %}
+
 
                         <div class="error-message">{{ form_errors(form) }}</div>
 
@@ -102,8 +136,9 @@
                         {% if errorMessage == 'Error' %}
 
                             <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
+
                         {% endif %}
-                        {#<p>{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>#}
+
                         <div class="form-group row">
                             <div class="col-sm-4">
 
@@ -150,13 +185,16 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
-
                         {{ form_widget(form._token) }}
+
                     </div>
+                </div> <br />
+                <div class="modal-bottom">
+                    <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                    <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
                 </div>
+
             </form>
         </div>
     </div>
-{#{% endblock content %}#}
+{#{% endblock %}#}

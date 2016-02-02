@@ -15,7 +15,7 @@
             <li class="col-sm-4">
                 {#<span class="label label-success">{{ 'added'|trans }}</span>#}
                 <strong>
-                    <span class="glyphicon glyphicon-plus-sign text-green"></span>{{ 'added'|trans |upper}}
+                    <span class="plus-icon-green"></span>{{ 'added'|trans |upper}}
                 </strong>
             </li>
 
@@ -25,14 +25,14 @@
         {% if  goal.isMyGoal != 2 %}
             <li class="col-sm-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                    <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
+                    <span class="icon ok-icon"></span>{{ 'done'|trans }}
                 </a>
             </li>
         {% else %}
             <li class="col-sm-4">
                 {#<span class="label label-success">{{ 'completed'|trans }}</span>#}
                 <strong>
-                    <span class="glyphicon glyphicon-ok-sign text-green"></span>{{ 'completed'|trans |upper}}
+                    <span class="ok-icon-green"></span>{{ 'completed'|trans |upper}}
                 </strong>
             </li>
         {% endif %}

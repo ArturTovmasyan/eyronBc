@@ -55,7 +55,7 @@ class EmailSenderService
         $projectName = $this->container->getParameter('project_name');
 
         //get email activate url
-        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken), true);
+        $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')

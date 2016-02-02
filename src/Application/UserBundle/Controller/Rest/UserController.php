@@ -220,13 +220,13 @@ class UserController extends FOSRestController
                     $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
                     $data = json_decode($data);
                     $id = $data->id;
-                    $newUser->setFacebookId($id . '@facebook.com');
-                    $newUser->setEmail($id . '_facebook');
-                    $newUser->setUsername($id);
+                    $newUser->setFacebookId($id);
+                    $newUser->setEmail($id . '@facebook.com');
+                    $newUser->setUsername($id . '_facebook');
 
                     $fullName = explode(' ', $data->name);
                     $newUser->setFirstName($fullName[0]);
-                    $newUser->setLastName($fullName[1]);
+                    $newUser->setLastName(isset($fullName[1]) ? $fullName[1] : '');
 
                     $photoPath = "https://graph.facebook.com/" . $id . "/picture?type=large";
                 }

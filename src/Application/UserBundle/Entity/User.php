@@ -159,12 +159,6 @@ class User extends BaseUser
     protected $userEmails;
 
     /**
-     * @var
-     * @ORM\Column(name="activation_email_token", type="string", nullable=true, unique=true)
-     */
-    protected $activationEmailToken;
-
-    /**
      * @VirtualProperty
      * @Groups({"user"})
      */
@@ -831,26 +825,4 @@ class User extends BaseUser
         return $this->userEmails;
     }
 
-    /**
-     * Set activationEmailToken
-     *
-     * @param string $activationEmailToken
-     * @return User
-     */
-    public function setActivationEmailToken($activationEmailToken)
-    {
-        $this->activationEmailToken = $activationEmailToken;
-
-        return $this;
-    }
-
-    /**
-     * Get activationEmailToken
-     *
-     * @return string 
-     */
-    public function getActivationEmailToken()
-    {
-        return $this->activationEmailToken;
-    }
 }

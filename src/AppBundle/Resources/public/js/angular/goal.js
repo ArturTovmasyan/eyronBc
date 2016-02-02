@@ -76,14 +76,20 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
-        $("#goal-create-form").ajaxForm({
-            success: function(res, text, header){
-                if(header.status === 200){
-                    $scope.goalSubmitTemplate = res;
-                    $scope.$apply();
-                    $scope.$broadcast('openLsModal', 'goalSave');
+        $(".goal-create-submit").click(function(){
+            $("#goal-create-form").ajaxForm({
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        $scope.goalSubmitTemplate = res;
+                        $scope.$apply();
+                        $scope.$broadcast('openLsModal', 'goalSave');
+                    }
                 }
-            }
+            });
+        });
+
+        $(".goal-view-submit").click(function(){
+            $("#goal-create-form").ajaxFormUnbind();
         });
 
     }])

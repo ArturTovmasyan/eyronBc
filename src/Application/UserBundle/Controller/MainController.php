@@ -31,21 +31,28 @@ class MainController extends Controller
         // get current user
         $user = $this->getUser();
 
+        //get current email
+        $currentEmail = $user->getEmail();
+
         //get user emails in db
         $userEmails = $user->getUserEmails();
 
+        //set default
+        // value for userEmailsInDb
+        $userEmailsInDb = null;
+
+        //set default primary email value
+        $primaryEmail = null;
+
         //check if userEmails exist
-        if($userEmails) {
+        if ($userEmails) {
 
             //get user emails in db
-            $userEmails = array_map(function ($item) { return $item['userEmails']; },  $user->getUserEmails());
+            $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
         }
 
         //get fos user manager
         $fosManager = $this->container->get("fos_user.user_manager");
-
-        //set default primary email value
-        $primaryEmail = false;
 
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
@@ -75,7 +82,7 @@ class MainController extends Controller
             $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
 
             //check if current password valid
-            if ($userPassword != $encode_data_pass) {
+            if ($currentPassword && $userPassword !== $encode_data_pass) {
 
                 //set custom error class
                 $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
@@ -84,71 +91,77 @@ class MainController extends Controller
                 $form->get('password')->addError($error);
             }
 
-            //get userEmails in form data
-            $emailsInForm = $form->get('bl_multiple_email')->getData();
-
-            //get user emails values in emailsInForm data
-            $emailValue = array_map(function ($item) { return $item['userEmails']; }, $emailsInForm);
-
-            //check if userEmails exist
-            if($userEmails) {
-
-                //get new user email in form
-                $newUserEmail = array_diff($emailValue, $userEmails);
-                $newUserEmail = reset($newUserEmail);
-            }
-            else {
-
-                //get new user email in form
-                $newUserEmail = reset($emailValue);
-            }
-
-            //check if user email have duplicate in emailsInForm
-            if (array_search($user->getEmail(), $emailValue)) {
+            //check if current password not set
+            if ($newPassword && $currentPassword == null) {
 
                 //set custom error class
-                $errors = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
+                $error = new FormError($tr->trans('password.current', array(), 'FOSUserBundle'));
 
                 //set error in field
-                $form->get('email')->addError($errors);
+                $form->get('password')->addError($error);
             }
 
-            //get primary values in emailsInForm data
-            $primaryValue = array_map(function ($item) { return $item['primary']; }, $emailsInForm);
+            //get new email in request
+            $addEmail = $form->get('addEmail')->getData();
 
-            //if remove email exist in array
-            if (($key = array_search('1', $primaryValue)) !== false) {
+            //check if new email equal currentEmail
+            if ($addEmail == $currentEmail) {
 
-                //get primary email
-                $primaryEmail = $emailsInForm[$key]['userEmails'];
+                //set custom error class
+                $error = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
+
+                //set error in field
+                $form->get('addEmail')->addError($error);
             }
 
-            //check if primary email exist in emailValue
-            if (($key = array_search($primaryEmail, $emailValue)) !== false) {
+            //get primary email
+            $primaryEmail = $request->request->get('primary');
 
-                unset($emailsInForm[$key]);
+            //check if primary email exist in $userEmailsInDb
+            if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
+
+                unset($userEmails[$key]);
             }
 
             //check if set another primary email
-            if ($primaryEmail != false && $user->getEmail() !== $primaryEmail &&
-                (array_search($user->getEmail(), $emailsInForm) == false)) {
+            if ($userEmailsInDb && $primaryEmail && $currentEmail !== $primaryEmail &&
+                (array_search($currentEmail, $userEmailsInDb) == false)) {
 
-                //set user email in emailsInForm array
-                $emailsInForm[] = [
-                    "userEmails" => $user->getEmail(),
-                    "primary" => 0
-                ];
+                //set user emails in array with token and primary value
+                $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
+
+                //set current email data in userEmails array
+                $userEmails[$currentEmail] = $currentEmailData;
             }
 
             //check if primary email exist
-            if($primaryEmail) {
+            if ($primaryEmail) {
 
                 //set email for user
                 $user->setEmail($primaryEmail);
             }
 
+            //check if addEmail exist
+            if ($addEmail) {
+
+                //generate email activation  token
+                $emailToken = md5(microtime() . $addEmail);
+
+                //set user emails in array with token and primary value
+                $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
+
+                //set new email data in userEmails array
+                $userEmails[$addEmail] = $newEmail;
+
+                //get 8user full name
+                $userName = $user->showName();
+
+                //get send activation email service
+                $this->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
+            }
+
             //set user emails
-            $user->setUserEmails($emailsInForm);
+            $user->setUserEmails($userEmails);
 
             //set new password
             $user->setPlainPassword($newPassword);
@@ -166,43 +179,27 @@ class MainController extends Controller
             $returnResult = array();
 
             //check count of errors
-            if(count($errors) > 0){
+            if (count($errors) > 0) {
 
                 // loop for error
-                foreach($errors as $error){
+                foreach ($errors as $error) {
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
 
                 //check if email error exist
-                if(array_key_exists('email', $returnResult)) {
+                if (array_key_exists('email', $returnResult)) {
 
                     //set custom error class
                     //$error = new FormError($returnResult['email']);
                     $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
 
                     //set error in field
-                    $form->get('bl_multiple_email')->addError($error);
+                    $form->get('addEmail')->addError($error);
                 }
             }
 
             //check if form is valid
             if ($form->isValid()) {
-
-                //check if newUserEmail exist
-                if($newUserEmail) {
-
-                    //generate email activation  token
-                    $emailToken = md5(microtime());
-
-                    //set email activation token
-                    $user->setActivationEmailToken($emailToken);
-
-                    //get user full name
-                    $userName = $user->showName();
-
-                    //get send activation email service
-                    $this->get('bl.email.sender')->sendActivationUserEmail($newUserEmail, $emailToken, $userName);
-                }
 
                 //update user
                 $fosManager->updateUser($user);
@@ -233,20 +230,10 @@ class MainController extends Controller
         $userEmails = $user->getUserEmails();
 
         //check if current user have userEmails
-        if($userEmails) {
+        if ($userEmails) {
 
-            //get userEmail value in array
-            $emailsValue = array_map(function($item){ return $item['userEmails']; }, $userEmails);
-
-            //if remove email exist in array
-            if(($key = array_search($email, $emailsValue)) !== false) {
-
-                //remove email in userEmails
-                unset($userEmails[$key]);
-
-                //set activation email token null
-                $user->setActivationEmailToken(null);
-            }
+            //remove email in userEmails
+            unset($userEmails[$email]);
 
             //set changed email data
             $user->setUserEmails($userEmails);
@@ -255,34 +242,55 @@ class MainController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        return $this->redirectToRoute('homepage');
 
     }
 
     /**
-     * @Route("/activation_email/{emailToken}", name="activation_user_email")
+     * @Route("/activation_email/{emailToken}/{email}", name="activation_user_email")
      * @Secure(roles="ROLE_USER")
      */
-    public function activationUserEmailsAction(Request $request, $emailToken)
+    public function activationUserEmailsAction(Request $request, $emailToken, $email)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
         //get current user
-        $user = $em->getRepository('ApplicationUserBundle:User')->findUserByEmailToken($emailToken);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        if(!$user) {
+        //check if user not exist
+        if (!$user) {
             // return Exception
             throw $this->createNotFoundException("User not found");
         }
 
-            //set activation email null
-            $user->setActivationEmailToken(null);
+        //get user emails
+        $userEmails = $user->getUserEmails();
+
+        //get current email data
+        $data = $userEmails[$email];
+
+        //get userEmail value in array
+        $currentEmailToken = $data['token'];
+
+        //check if tokens is equal
+        if ($currentEmailToken == $emailToken) {
+
+            //set token null in userEmails by key
+            $userEmails[$email]['token'] = null;
+
+            //set activation email token null
+            $user->setUserEmails($userEmails);
+        }
+        else {
+            // return Exception
+            throw $this->createNotFoundException("Invalid email token for this user");
+        }
 
             $em->persist($user);
             $em->flush($user);
 
-        return $this->redirectToRoute('settings');
+        return $this->redirectToRoute('homepage');
 
     }
 
@@ -298,7 +306,7 @@ class MainController extends Controller
         $user = $this->getUser();
 
         //check if user haven`t any goals
-        if($user && count($user->getUserGoal()) == 0) {
+        if ($user && count($user->getUserGoal()) == 0) {
             // generate url
             $url = $this->generateUrl('goals_list');
         }
@@ -314,6 +322,7 @@ class MainController extends Controller
         }
 
         $this->addFlash('', '');
+
         return $this->redirect($url);
     }
 
@@ -329,7 +338,7 @@ class MainController extends Controller
         $user = $em->getRepository("ApplicationUserBundle:User")->findOneBy(array('registrationToken' => $token));
 
         // check user
-        if(!$user){
+        if (!$user) {
             throw new NotFoundHttpException('Invalid token');
         }
 
@@ -350,14 +359,14 @@ class MainController extends Controller
     public function resendMessageAction(Request $request)
     {
         $user = $this->getUser();
-        if ($user->getRegistrationToken()){
+        if ($user->getRegistrationToken()) {
             $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName());
 
             return array();
         }
 
         $referer = $request->headers->get('referer');
-        if ($referer){
+        if ($referer) {
             return new RedirectResponse($referer);
         }
 

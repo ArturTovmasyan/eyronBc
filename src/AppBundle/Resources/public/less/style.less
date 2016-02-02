@@ -538,6 +538,7 @@ ul.filter{
 }
 
 .pen-icon{
+  width: 25px;
   background: url('../images/images.png') no-repeat -386px -642px;
 }
 
@@ -575,6 +576,15 @@ ul.filter{
   }
 }
 
+.plus-icon-green{
+  background: url('../images/images.png') no-repeat -7px -533px;
+
+  &:hover{
+    background: url('../images/images.png') no-repeat -7px -496px;
+  }
+}
+
+
 .remove-icon{
   background: url('../images/images.png') no-repeat -379px -222px;
 }
@@ -602,6 +612,15 @@ ul.filter{
     background: url('../images/images.png') no-repeat -7px -617px;
   }
 }
+
+.ok-icon-green{
+  background: url('../images/images.png') no-repeat -7px -660px;
+
+  &:hover{
+    background: url('../images/images.png') no-repeat -7px -617px;
+  }
+}
+
 .user-icon{
   background: url('../images/images.png') no-repeat -5px -1256px;
 }
@@ -927,6 +946,16 @@ ul li{list-style: none;}
     }
   }
 
+  .delete-email{
+    position: relative;
+
+    a{
+      position: absolute;
+      top: 7px;
+      right: 1px;
+      background: url('../images/images.png') no-repeat -8px -1294px;
+    }
+  }
   .setting-bg{
     position: absolute;
     width:103%;
@@ -1094,10 +1123,13 @@ figure{
 }
 
 .progress{
-  padding: 3px;
+  padding: 5px;
+  height: 30px;
+
   border-radius: 0;
-  height:25px;
+
   margin-bottom:10px;
+  background: #f4f4f4;
   .progress-bar-striped{
     background-size: 100%;
     background-image:
@@ -1174,7 +1206,7 @@ figure{
               }
               
               &:last-child{
-                a{
+                a,i{
                   background: url('../images/images.png') no-repeat -396px -1156px;
                   display: block;
                   width:40px;
@@ -1648,6 +1680,7 @@ footer{
   }
 
   .signup,.settings{
+
     padding-bottom:10px;
 
     h1{
@@ -1950,7 +1983,7 @@ footer{
             border:0;
 
             a{
-              font-size:11px;
+              font-size:14px;
               line-height:18px;
               color:#ffffff;
               span{
@@ -1958,11 +1991,7 @@ footer{
                 color:#ffffff;
 
               }
-              span.glyphicon{
-                border:1px solid #ffffff;
-                padding:2px 4px;
-                .rounded-corners;
-              }
+
             }
             &:nth-child(2){
               padding-top:0;
@@ -1973,6 +2002,15 @@ footer{
 
             &:hover{
               background: transparent;
+
+              .ok-icon{
+                background: url('../images/images.png') no-repeat -380px -40px;
+              }
+
+              .plus-icon{
+                background: url('../images/images.png') no-repeat -380px -98px;
+              }
+
             }
           }
         }
@@ -2029,6 +2067,10 @@ footer{
     }
 
 
+  }
+
+  .settings{
+    padding-bottom:130px;
   }
 
   .video{
