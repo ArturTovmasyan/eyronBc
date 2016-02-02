@@ -272,10 +272,11 @@
                 {% if userGoals %}
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
+                    {% set status = userGoal.status %}
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
-                            <div class="row">
+                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -295,7 +296,7 @@
 
                         {% else %}
 
-                            <div class="row">
+                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -413,7 +414,7 @@
 
                                                         <div class="col-sm-7 text-right">
                                                             <div class="check_status">
-                                                                {% set status = userGoal.status %}
+
                                                                 {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                                     <a  href="javascript:void(0)"
                                                                         data-ls-jquery-modal
