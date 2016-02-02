@@ -57,6 +57,8 @@
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 
+                            {#please set style and uncomment this div block#}
+
                             {#<div class="col-sm-1">#}
                                 {#<input name="primary" type="radio" checked/>#}
                             {#</div>#}
@@ -68,7 +70,7 @@
                             </div>
 
                             <div class="error-message">{{ form_errors(form.file) }}</div>
-                            
+
                             {% set token = false %}
 
                             {% if userEmails %}
