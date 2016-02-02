@@ -153,7 +153,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $user
      * @return array
      */
-    public function findMyDraftsCount($user)
+    public function findMyDraftsCount(&$user)
     {
         $query =
             $this->getEntityManager()
@@ -167,7 +167,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
-        return $query->getQuery()->getSingleScalarResult();
+        $draftCount = $query->getQuery()->getSingleScalarResult();
+        $user->setDraftCount($draftCount);
+
+        return $draftCount;
     }
 
     /**
@@ -287,10 +290,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            or u.email LIKE :search
                            or CONCAT(u.firstName, u.lastName) LIKE :search")
                 ->setParameter('search', '%' . $search . '%');
-        }
-
-        if ($count){
-            $query->setMaxResults($count);
         }
 
         if ($getOnlyQuery){

@@ -47,8 +47,11 @@ class NewsFeedController extends FOSRestController
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId(), $first, $count);
+        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId());
 
+        if (is_numeric($first) && is_numeric($count)) {
+            $newsFeed = array_slice($newsFeed, $first, $count);
+        }
         return $newsFeed;
     }
 }

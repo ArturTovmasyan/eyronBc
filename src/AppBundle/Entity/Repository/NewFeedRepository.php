@@ -59,11 +59,9 @@ class NewFeedRepository extends EntityRepository
 
     /**
      * @param $userId
-     * @param $first
-     * @param $count
      * @return array
      */
-    public function findNewFeedByCount($userId, $first = null, $count = null)
+    public function findNewFeedByCount($userId)
     {
         $goalFriendsIds = $this->getEntityManager()
                                ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
@@ -75,21 +73,7 @@ class NewFeedRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('nf, u, g, ss, cmt')
             ->from('AppBundle:NewFeed', 'nf')
-        ;
-
-        if($first)
-        {
-            $query
-                ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true AND g.id >= :gId')
-                ->setParameter('gId', $first)
-            ;
-        }
-        else {
-            $query
-                ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true');
-        }
-
-        $query
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
             ->join('nf.user', 'u')
             ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
             ->leftJoin('nf.successStory', 'ss')
@@ -97,11 +81,6 @@ class NewFeedRepository extends EntityRepository
             ->where('u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('ids', $goalFriendsIds);
-
-        if($count)
-        {
-            $query->setMaxResults($count);
-        }
 
         return $query->getQuery()->getResult();
     }

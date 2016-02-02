@@ -335,4 +335,33 @@ class GoalController extends FOSRestController
 
         return $draftGoals;
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get user goal friends",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function getFriendsAction(Request $request, $first, $count)
+    {
+        // check search data
+        $search = $request->get('search') ? $request->get('search') : null;
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+        // get goal friends
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $goalFriends = array_slice($goalFriends, $first, $count);
+        }
+
+        return $goalFriends;
+    }
 }

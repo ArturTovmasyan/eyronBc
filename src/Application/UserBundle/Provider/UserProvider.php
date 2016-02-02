@@ -68,11 +68,13 @@ class UserProvider extends   BaseProvider
             throw new UnsupportedUserException(sprintf('User not found, please try again'));
         }
 
-        $fileName = md5(microtime()) . '.jpg';
-        file_put_contents($user->getAbsolutePath() . $fileName, fopen($user->getSocialPhotoLink(), 'r'));
-        $user->setFileName($fileName);
-        $user->setFileSize(filesize($user->getAbsolutePath() . $fileName));
-        $user->setFileOriginalName($user->getFirstName() . '_photo');
+        if ($user->getSocialPhotoLink()) {
+            $fileName = md5(microtime()) . '.jpg';
+            file_put_contents($user->getAbsolutePath() . $fileName, fopen($user->getSocialPhotoLink(), 'r'));
+            $user->setFileName($fileName);
+            $user->setFileSize(filesize($user->getAbsolutePath() . $fileName));
+            $user->setFileOriginalName($user->getFirstName() . '_photo');
+        }
 
         // return user
         return $user;
@@ -126,7 +128,9 @@ class UserProvider extends   BaseProvider
             }
 
             // set photo link
-            $user->setSocialPhotoLink($response['picture']);
+            $photoPath = $response['picture'];
+            $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+            $user->setSocialPhotoLink($photoPath);
 
             // set password
             $user->setPassword('');
@@ -224,7 +228,7 @@ class UserProvider extends   BaseProvider
             $user->setLastName($fullName[0]);
 
             // set photo link
-            $user->setSocialPhotoLink($response['profile_image_url']);
+            $user->setSocialPhotoLink(str_replace('_normal', '', $response['profile_image_url']));
 
             // set password
             $user->setPassword('');
