@@ -57,8 +57,10 @@
                                 {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
                             </div>
 
+                            {% set email = user.getEmail() %}
+
                             <div class="col-sm-1">
-                                <input name="email" type="radio" checked/>
+                                <input name="primary" type="radio" value="{{ email }}" checked/>
                             </div>
 
                             <div class="col-sm-8">
