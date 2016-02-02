@@ -135,7 +135,7 @@ class MainController extends Controller
             }
 
             //check if primary email exist
-            if ($primaryEmail) {
+            if ($primaryEmail && $primaryEmail !== $currentEmail) {
 
                 //set email for user
                 $user->setEmail($primaryEmail);
