@@ -78,18 +78,18 @@
                                 {% for key, userEmail in userEmails %}
 
                                     {% if userEmail.token is null %}
-
+                                    <div class="form-group row no-padding">
                                         <div class="col-sm-4 text-right">
                                              <input name="primary" type="radio" value="{{ key }}"/>
                                         </div>
 
                                         <div class="col-sm-8">
                                             <div class="delete-email">
-                                                <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}">{{ 'btn_delete'|trans }}</a>
+                                                <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
                                                 <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
                                             </div>
                                         </div>
-
+                                    </div>
                                     {% else %}
 
                                         {% set token = true %}
@@ -101,7 +101,7 @@
                             {% endif %}
 
                             {% if token == false %}
-
+                                <div class="col-sm-4"></div>
                                 <div class="col-sm-8">
                                     {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                 </div>
