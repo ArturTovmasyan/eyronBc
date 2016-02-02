@@ -491,18 +491,14 @@ class GoalController extends Controller
                 throw $this->createNotFoundException('usergoal not found');
             }
         }
-        else{
+        else {
 
             $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
 
-            if ($userGoal){
-                return new Response('This goal already added', Response::HTTP_BAD_REQUEST);
+            if (!$userGoal) {
+                $userGoal = new UserGoal();
+                $userGoal->setGoal($goal);
             }
-
-            $userGoal = new UserGoal();
-
-            //set goal
-            $userGoal->setGoal($goal);
         }
 
         // create goal form

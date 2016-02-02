@@ -40,7 +40,7 @@ class LocationExtension extends \Twig_Extension
 
                 // is user goal
                 if($goal instanceof UserGoal){
-                    $result[$goal->getId()] = array(
+                    $result[$goal->getGoal()->getId()] = array(
                         'title' => $goal->getGoal()->getTitle(),
                         'latitude' => $goal->getLat(),
                         'longitude' => $goal->getLng(),
