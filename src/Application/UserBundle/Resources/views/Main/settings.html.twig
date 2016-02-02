@@ -59,11 +59,11 @@
 
                             {#please set style and uncomment this div block#}
 
-                            {#<div class="col-sm-1">#}
-                                {#<input name="primary" type="radio" checked/>#}
-                            {#</div>#}
+                            <div class="col-sm-1">
+                                <input name="primary" type="radio" checked/>
+                            </div>
 
-                            <div class="col-sm-5">
+                            <div class="col-sm-8">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
@@ -100,7 +100,7 @@
 
                             {% if token == false %}
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                 </div>
 
