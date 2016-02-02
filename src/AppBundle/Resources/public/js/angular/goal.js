@@ -190,6 +190,13 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
+    .controller('goalMyBucketList', ['$scope', function($scope){
+
+        $scope.onMarkerClick = function(goal){
+            console.log(goal);
+        }
+
+    }])
     .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',
