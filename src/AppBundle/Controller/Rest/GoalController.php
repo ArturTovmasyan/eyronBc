@@ -92,6 +92,19 @@ class GoalController extends FOSRestController
 
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 
+        if (!$goal->getLat() || !$goal->getLng()){
+            $userGoals = $this->getUser()->getUserGoal();
+
+            if($userGoals->count() > 0) {
+                $userGoalsArray = $userGoals->toArray();
+                if (array_key_exists($id, $userGoalsArray)) {
+                    $userGoal = $userGoalsArray[$id];
+                    $goal->setLat($userGoal->getLat());
+                    $goal->setLng($userGoal->getLng());
+                }
+            }
+        }
+
         if (!$goal){
             return new Response('Goal not found', Response::HTTP_NOT_FOUND);
         }

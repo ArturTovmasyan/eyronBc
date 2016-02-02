@@ -745,9 +745,26 @@ class Goal implements MultipleFileInterface, PublishAware
             // loop for user goals
             foreach($userGoals as $userGoal){
                 $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy'] ++;
-
-                }
+            }
         }
         return $result;
+    }
+
+    /**
+     * @return array
+     *
+     * @VirtualProperty()
+     * @Groups({"goal"})
+     */
+    public function getLocation()
+    {
+        if ($this->getLat() || $this->getLng()){
+            return [
+                'lat' => $this->getLat(),
+                'lng' => $this->getLng()
+            ];
+        }
+
+        return null;
     }
 }
