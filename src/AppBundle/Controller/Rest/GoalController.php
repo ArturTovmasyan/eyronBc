@@ -92,7 +92,7 @@ class GoalController extends FOSRestController
 
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 
-        if (!$goal->getLat() || !$goal->getLng()){
+        if ((!$goal->getLat() || !$goal->getLng()) && $this->getUser()){
             $userGoals = $this->getUser()->getUserGoal();
 
             if($userGoals->count() > 0) {
