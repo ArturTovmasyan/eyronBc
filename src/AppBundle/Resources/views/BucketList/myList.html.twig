@@ -276,7 +276,7 @@
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
-                            <div class="row {% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}active-idea{% endif %}">
+                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -296,7 +296,7 @@
 
                         {% else %}
 
-                            <div class="row {% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}active-idea{% endif %}">
+                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
