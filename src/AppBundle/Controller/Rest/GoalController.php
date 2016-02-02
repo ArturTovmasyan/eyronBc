@@ -75,7 +75,9 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal", "goal_image", "image"})
+     * @Rest\View(serializerGroups={"goal", "goal_image", "image", "goal_author", "tiny_user",
+     *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
+     *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author"})
      *
      * @param $id
      * @return Goal|null|object|Response
@@ -84,12 +86,20 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+        $shareLink = $this->generateUrl('inner_goal', array('id' => $id));
+        $goal->setShareLink($shareLink);
+
+        $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 
         if (!$goal){
             return new Response('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
-        return $goal;
+        return [
+            'goal'     => $goal,
+            'comments' => $goalComments
+        ];
     }
 
     /**

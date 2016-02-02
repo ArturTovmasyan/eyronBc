@@ -32,4 +32,18 @@ class CommentRepository extends EntityRepository implements loggableEntityReposi
             ->setParameter('commentIds', $ids)
             ->getResult();
     }
+
+    /**
+     * @param $threadId
+     * @return array
+     */
+    public function findThreadComments($threadId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT cmt
+                           FROM ApplicationCommentBundle:Comment cmt
+                           JOIN cmt.thread th WITH th.id = :threadId")
+            ->setParameter('threadId', $threadId)
+            ->getResult();
+    }
 }
