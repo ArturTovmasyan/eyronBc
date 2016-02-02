@@ -190,6 +190,31 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
+    .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
+
+        var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
+
+        $scope.onMarkerClick = function(goal){
+            console.log(goal);
+
+            $http.get(mapModalTemplateUrl)
+                .success(function(res){
+
+                    var newSc = $scope.$new();
+                    newSc.goal = goal;
+
+                    var tmp = $compile(res)(newSc);
+                    angular.element('body').append(tmp);
+                    tmp.modal({
+                        fadeDuration: 500
+                    });
+                    tmp.on($.modal.CLOSE, function(){
+                        tmp.remove();
+                    })
+                });
+        }
+
+    }])
     .directive('videos', ['$sce', function($sce){
         return {
             restrict: 'EA',

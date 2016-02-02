@@ -45,6 +45,7 @@ class LocationExtension extends \Twig_Extension
                         'latitude' => $goal->getLat(),
                         'longitude' => $goal->getLng(),
                         'image' => $goal->getGoal()->getListPhotoDownloadLink(),
+                        'status' => $goal->getGoal()->getIsMyGoal()
                     );
                 }
                 // is goal
@@ -54,6 +55,7 @@ class LocationExtension extends \Twig_Extension
                         'latitude' => $goal->getLat(),
                         'longitude' => $goal->getLng(),
                         'image' => $goal->getListPhotoDownloadLink(),
+                        'status' => $goal->getGoal()->getIsMyGoal()
                     );
                 }
             }

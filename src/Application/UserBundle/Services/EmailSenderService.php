@@ -57,6 +57,9 @@ class EmailSenderService
         //get email activate url
         $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
 
+        //get help center link
+        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')
             ->setFrom('confirmEmail@'. $projectName . '.com')
@@ -64,7 +67,7 @@ class EmailSenderService
             ->setContentType('text/html; charset=UTF-8')
             ->setBody($this->container->get('templating')->render(
                 'ApplicationUserBundle:Registration:userEmailsActivation.html.twig',
-                array('name' => $userName, 'url' => $url, 'email' => $newUserEmail)
+                array('name' => $userName, 'url' => $url, 'email' => $newUserEmail, 'helpUrl' => $helpLink)
             ), 'text/html');
 
         $this->container->get('mailer')->send($message);

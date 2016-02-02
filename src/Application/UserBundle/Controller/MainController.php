@@ -37,6 +37,9 @@ class MainController extends Controller
         //get user emails in db
         $userEmails = $user->getUserEmails();
 
+        //get last url for redirect
+        $lastUrl = $request->headers->get('referer');
+
         //set default
         // value for userEmailsInDb
         $userEmailsInDb = null;
@@ -204,7 +207,7 @@ class MainController extends Controller
                 //update user
                 $fosManager->updateUser($user);
 
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($lastUrl);
             }
         }
 
@@ -218,10 +221,13 @@ class MainController extends Controller
      * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function removeEmailInSettings($email)
+    public function removeEmailInSettings(Request $request, $email)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        //get last url for redirect
+        $lastUrl = $request->headers->get('referer');
 
         //get current user
         $user = $this->getUser();
@@ -242,7 +248,7 @@ class MainController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirect($lastUrl);
 
     }
 
