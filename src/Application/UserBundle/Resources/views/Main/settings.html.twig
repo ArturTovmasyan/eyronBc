@@ -10,7 +10,6 @@
 
                         {% set user = app.user %}
                         {% set userEmails = user.getUserEmails %}
-                        {% set token = false %}
 
                         <figure>
 
@@ -69,6 +68,8 @@
                             </div>
 
                             <div class="error-message">{{ form_errors(form.file) }}</div>
+                            
+                            {% set token = false %}
 
                             {% if userEmails %}
 
@@ -95,7 +96,7 @@
 
                             {% endif %}
 
-                            {% if token != true %}
+                            {% if token == false %}
 
                                 <div class="col-sm-6">
                                     {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
