@@ -124,7 +124,7 @@ class MainController extends Controller
             }
 
             //check if set another primary email
-            if ($primaryEmail != false && $currentEmail !== $primaryEmail &&
+            if ($userEmailsInDb && $primaryEmail && $currentEmail !== $primaryEmail &&
                 (array_search($currentEmail, $userEmailsInDb) == false)) {
 
                 //set user emails in array with token and primary value
