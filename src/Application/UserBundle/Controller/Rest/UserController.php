@@ -132,6 +132,9 @@ class UserController extends FOSRestController
             $phpSessionId = $session->getId();
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+
         return $phpSessionId;
     }
 
@@ -250,6 +253,7 @@ class UserController extends FOSRestController
                     }
 
                     $photoPath  = $data->image->url;
+                    $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
                 }
                 catch(\Exception $e){
                     return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
@@ -275,6 +279,7 @@ class UserController extends FOSRestController
                 $newUser->setLastName("");
 
                 $photoPath = $data->profile_image_url;
+                $photoPath = str_replace('_normal', '', $photoPath);
 
                 break;
             default:
@@ -296,6 +301,7 @@ class UserController extends FOSRestController
             $newUser->setFileOriginalName($newUser->getFirstName() . '_photo');
             $newUser->setPassword('');
 
+            $newUser->setSocialPhotoLink($photoPath);
             $em->persist($newUser);
             $em->flush();
 

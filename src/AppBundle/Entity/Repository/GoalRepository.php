@@ -153,7 +153,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $user
      * @return array
      */
-    public function findMyDraftsCount($user)
+    public function findMyDraftsCount(&$user)
     {
         $query =
             $this->getEntityManager()
@@ -167,7 +167,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
-        return $query->getQuery()->getSingleScalarResult();
+        $draftCount = $query->getQuery()->getSingleScalarResult();
+        $user->setDraftCount($draftCount);
+
+        return $draftCount;
     }
 
     /**
@@ -265,7 +268,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $userId
      * @return array
      */
-    public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
+    public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false, $firstUserId = false)
     {
         $search = str_replace(' ', '', $search);
 
@@ -280,6 +283,12 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                              AND u.id != :userId")
                     ->setParameter('userId', $userId)
                     ;
+
+        if($firstUserId)
+        {
+            $query->andWhere('u.id >= :userId')
+                ->setParameter('userId', $firstUserId);
+        }
 
         if ($search){
             $query->andWhere("u.firstName LIKE :search

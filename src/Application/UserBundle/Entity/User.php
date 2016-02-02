@@ -159,6 +159,27 @@ class User extends BaseUser
     protected $userEmails;
 
     /**
+     * @Groups({"user"})
+     */
+    protected $draftCount;
+
+    /**
+     * @return mixed
+     */
+    public function getDraftCount()
+    {
+        return $this->draftCount;
+    }
+
+    /**
+     * @param mixed $draftCount
+     */
+    public function setDraftCount($draftCount)
+    {
+        $this->draftCount = $draftCount;
+    }
+
+    /**
      * @VirtualProperty
      * @Groups({"user"})
      */
@@ -749,6 +770,9 @@ class User extends BaseUser
 
     /**
      * @return array
+     *
+     * @VirtualProperty()
+     * @Groups({"user"})
      */
     public function getStats()
     {
