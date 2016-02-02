@@ -150,6 +150,43 @@ a.close-modal{
   }
 }
 
+  table{
+    tbody{
+      tr:first-child{
+        td:first-child{
+          -webkit-transform: rotate(-90deg);
+
+          /* Firefox */
+          -moz-transform: rotate(-90deg);
+
+          /* IE */
+          -ms-transform: rotate(-90deg);
+
+          /* Opera */
+          -o-transform: rotate(-90deg);
+
+          /* Internet Explorer */
+          filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        }
+      }
+    }
+  }
+.priority{
+  background-color: #f4f4f4;
+
+  h5{
+    -webkit-transform: rotate(-89deg);
+    -moz-transform: rotate(-89deg);
+    -o-transform: rotate(-89deg);
+    writing-mode: lr-tb;
+  }
+
+  p{
+    border-top:1px dotted #999999;
+    padding:20px 0;
+  }
+}
+
 .modal-top{
   position: relative;
   overflow: hidden;

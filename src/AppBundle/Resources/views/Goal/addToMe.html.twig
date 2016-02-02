@@ -1,334 +1,315 @@
-{#{% extends "AppBundle::layout.html.twig" %}#}
+<div class="modal" id="goal-modal" data-ng-controller="goalEnd">
 
-{#{% block angularApp %}#}
-    {#<html data-ng-app="goal" data-ng-controller="goalEnd"> {% endblock %}#}
+    <div class="goal-container">
 
-{#{% block stylesheets %}#}
-    {#{{ parent() }}#}
+        <div class="email">{{ "goal.create_goal"|trans }}</div>
 
-    {#<link href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet">#}
-    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
-    {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
-          {#rel="stylesheet">#}
-    {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
-    {#<style>#}
-        {#html {#}
-            {#overflow-y: auto !important;#}
-        {#}#}
-    {#</style>#}
-{#{% endblock %}#}
+        {% set goal = data.goal %}
+        {% set completed = false %}
+        {% set user = app.user %}
 
-{#{% block content %}#}
+        {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
-    <div class="modal" id="goal-modal" data-ng-controller="goalEnd">
-        {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt="Some image" class="img-responsive"/>#}
-        <div class="goal-container">
+            <form class="form-horizontal" action="{{ app.request.requestUri }}" method="post"
+                  data-ng-init="initSteps({{ data.getStepsJson }})">
 
+                <div class="goal-end">
 
-        {#<div class="goals-end">#}
-            {#<div class="container">#}
-                {#<div class="row">#}
-                    {#<div class="col-md-6 col-md-offset-3">#}
-                        <div class="email">{{ "goal.create_goal"|trans }}</div>
+                    {# edit goal status #}
+                    {% if data.id is not null %}
 
-                        {% set goal = data.goal %}
-                        {% set completed = false %}
-                        {% set user = app.user %}
+                        {% set completed = data.status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
 
-                        {% include "AppBundle:Blocks:topBlock.html.twig" %}
+                        <div class="clearfix">
+                            <div class="form-group row no-marginb">
 
-                        <form class="form-horizontal" action="{{ app.request.requestUri }}" method="post"
-                              data-ng-init="initSteps({{ data.getStepsJson }})">
+                                <label class="col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch={{ completed|default("0") }}">
+                                    <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
+                                    <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
+                                </label>
 
-                            <div class="goal-end">
+                                <div class="col-sm-2">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox"
+                                           name="goal_status"
+                                           data-ng-model="complete.switch"
+                                           data-ls-checked="complete.switch"
+                                           class="onoffswitch-checkbox"
+                                           id="myonoffswitch"
+                                           data-ng-init="complete.switch={{ data.status == constant('AppBundle\\Entity\\UserGoal::ACTIVE') ? 0 : 1 }}">
 
-                                {# edit goal status #}
-                                {% if data.id is not null %}
-
-                                    {% set completed = data.status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-
-                                    <div class="clearfix">
-                                        <div class="form-group row no-marginb">
-
-                                            <label class="col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch={{ completed|default("0") }}">
-                                                <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
-                                                <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
-                                            </label>
-
-                                            <div class="col-sm-2">
-                                                <div class="onoffswitch">
-                                                    <input type="checkbox"
-                                                       name="goal_status"
-                                                       data-ng-model="complete.switch"
-                                                       data-ls-checked="complete.switch"
-                                                       class="onoffswitch-checkbox"
-                                                       id="myonoffswitch"
-                                                       data-ng-init="complete.switch={{ data.status == constant('AppBundle\\Entity\\UserGoal::ACTIVE') ? 0 : 1 }}">
-
-                                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                                        <span class="onoffswitch-inner"></span>
-                                                        <span class="onoffswitch-switch"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group">
-                                            <label class="col-sm-12 control-label text-left">
-                                                <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
-                                                <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
-                                            </label>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="clearfix" data-ng-show="complete.switch">
-                                        <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
-                                        <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
-                                    </div>
-                                    <hr/>
-
-                                {% endif %}
-
-                                <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
-
-                                <div id="datepicker"
-                                     data-ng-hide="complete.switch"
-                                     data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
-                                     style="color: black"></div>
-
-                                {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
-                                    <h6 class="text-gray text-center" data-ng-show="!complete.switch">
-                                        <i class="icon info-icon"></i>
-                                        {{ "goal.missed_deadline"|trans }}
-                                    </h6>
-                                {% endif %}
-
-                                <input id="{{ form.birthday.vars.id }}" type="hidden" class="hidden_date_value"
-                                       value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
-                                       name="{{ form.birthday.vars.full_name }}"/>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <div class="location">
-                                            <i class="icon location-icon"></i>
-                                            <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
-                                            <input {% if completed %} disabled {% endif %}
-                                                    value="{{ data.address }}"
-                                                    type="text"
-                                                    data-ng-disabled="complete.switch"
-                                                    data-google-places-autocomplete
-                                                    data-hidden-storage=".location-hidden"
-                                                    class="form-control place-autocomplete"
-                                                    placeholder="{{ "goal.location_ex"|trans }}"/>
-                                            <input id="{{ form.location.vars.id }}" value="{{ data.getLocations }}"
-                                                   type="hidden" class="location-hidden"
-                                                   name="{{ form.location.vars.full_name }}"/>
-                                        </div>
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
                                     </div>
                                 </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <i class="icon pen-icon"></i>
-                                        {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}
-                                    </div>
-                                </div>
-
-
-                                {% set important = data.getImportant %}
-                                {% set urgent = data.getUrgent %}
-
-                                {% if important == true and urgent == true %}
-                                    {% set priority = 1 %}
-                                {% elseif important == false and urgent == true %}
-                                    {% set priority = 2 %}
-                                {% elseif important == true and urgent == false %}
-                                    {% set priority = 3 %}
-                                {% elseif important == false and urgent == false %}
-                                    {% set priority = 4 %}
-                                {% endif %}
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <h3>{{ 'goal.as_priority'|trans() }} </h3>
-
-                                        <div class="row">
-
-
-
-                                        {# other filters #}
-                                        {% for id, name in filters %}
-
-                                            <div class="col-sm-6">
-                                             {#<label class="radio-inline">#}
-                                                {#<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}#}
-                                            {#</label>#}
-
-                                            <label class="radio-inline">
-                                                <input name="test"
-                                                       class="important-radio"
-                                                       type="radio"
-                                                       data-ng-disabled="complete.switch"
-                                                       {% if priority == id %}checked{% endif %}
-                                                       value="{{ id }}">
-                                                    {{ name|trans }}
-                                            </label>
-
-                                            <p class="text-gray">
-                                            {% if id == 1 %}
-                                                {{ 'goal.critical_activities'|trans }}
-                                            {% elseif id == 2 %}
-                                                {{ 'goal.avoid_interruptions'|trans }}
-                                            {% elseif id == 3 %}
-                                                {{ 'goal.focus_goal'|trans }}
-                                            {% elseif id == 4 %}
-                                                {{ 'goal.avoid_distractions'|trans }}
-                                            {% endif %}
-                                            </p>
-                                            </div>
-                                        {% endfor %}
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {% if data.id is not null %}
-                                    <h4>{{ "goal.complete_step"|trans }}</h4>
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped"
-                                             role="progressbar"
-                                             aria-valuenow="45"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                             style="width:{{ data.getCompleted|round(1, 'floor') }}%">
-                                            {{ data.getCompleted|round(1, 'floor') }}% Complete
-                                        </div>
-                                    </div>
-                                {% endif %}
-
-                                <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
-
-                                    <label class="col-sm-2 control-label">
-                                        <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
-                                        <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
-                                    </label>
-
-                                    <div class="col-sm-8">
-                                        <div class="to-do-list">
-                                            <i title="Notes" class="icon list-icon"></i>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   data-step
-                                                   {% if completed %}disabled{% endif %}
-                                                   data-key="k"
-                                                   data-array="stepsArray"
-                                                   data-ng-model="step.text"
-                                                   data-ng-disabled="complete.switch"
-                                                   name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
-                                                   placeholder="{{ "goal.add_step"|trans }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="onoffswitch">
-                                            <input type="checkbox"
-                                                   name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
-                                                   data-ng-model="step.switch"
-                                                   data-ls-checked="step.switch"
-                                                   data-ng-disabled="complete.switch"
-                                                   class="onoffswitch-checkbox"
-                                                   id="myonoffswitch[[k]]">
-
-                                            <label class="onoffswitch-label" for="myonoffswitch[[k]]">
-                                                <span class="onoffswitch-inner"></span>
-                                                <span class="onoffswitch-switch"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row no-marginb">
-
-                                    <label for="inputEmail3"
-                                           data-ng-show="private_checkbox"
-                                           class="col-sm-10 control-label text-purple text-left">
-                                        {{ "goal.as_visible"|trans }}
-                                    </label>
-                                    <label for="inputEmail3"
-                                        data-ng-hide="private_checkbox"
-                                        class="col-sm-10 control-label text-purple text-left">
-                                        {{ "goal.as_invisible"|trans }}
-                                    </label>
-
-                                    <div class="col-sm-2">
-                                        <div class="onoffswitch">
-                                            <input {% if not data.isVisible %} checked {% endif %}
-                                                    type="checkbox"
-                                                    data-ng-model="private_checkbox"
-                                                    data-ls-checked="private_checkbox"
-                                                    data-ng-disabled="complete.switch"
-                                                    class="onoffswitch-checkbox"
-                                                    id="{{ form.isVisible.vars.id }}"
-                                                    name="{{ form.isVisible.vars.full_name }}">
-
-                                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
-                                                <span class="onoffswitch-inner"></span>
-                                                <span class="onoffswitch-switch"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p class="text-gray">
-                                    <i class="icon eye-icon"></i>
-                                    {{ "goal.invisible_text"|trans }}
-                                </p>
-
-
-                                {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and data.goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
-                                    <p class="text-gray clearfix">
-                                        <strong class="text-dark-gray pull-left">
-                                            <i class="icon lock-icon"></i>
-                                            {{ 'user_goal.private' |trans }}
-                                        </strong> &nbsp;
-                                        <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
-                                    </p>
-                                {% endif %}
-
-                                <hr />
-
-                                {#class="modal-bottom"#}
-                                {#<div class="form-group text-center">#}
-                                    {#<div class="buttons">#}
-                                        {#<button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>#}
-                                        {#<a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>#}
-                                    {#</div>#}
-                                {#</div>#}
-
-                                <div class="modal-bottom">
-                                    <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
-                                    <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
-                                </div>
-
-                                {{ form_widget(form._token) }}
                             </div>
-                        </form>
-                    {#</div>#}
+
+                            <div class="row form-group">
+                                <label class="col-sm-12 control-label text-left">
+                                    <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
+                                    <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix" data-ng-show="complete.switch">
+                            <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                        </div>
+                        <hr/>
+
+                    {% endif %}
+
+                    <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
+
+                    <div id="datepicker"
+                         data-ng-hide="complete.switch"
+                         data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
+                         style="color: black"></div>
+
+                    {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
+                        <h6 class="text-gray text-center" data-ng-show="!complete.switch">
+                            <i class="icon info-icon"></i>
+                            {{ "goal.missed_deadline"|trans }}
+                        </h6>
+                    {% endif %}
+
+                    <input id="{{ form.birthday.vars.id }}" type="hidden" class="hidden_date_value"
+                           value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
+                           name="{{ form.birthday.vars.full_name }}"/>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <div class="location">
+                                <i class="icon location-icon"></i>
+                                <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
+                                <input {% if completed %} disabled {% endif %}
+                                        value="{{ data.address }}"
+                                        type="text"
+                                        data-ng-disabled="complete.switch"
+                                        data-google-places-autocomplete
+                                        data-hidden-storage=".location-hidden"
+                                        class="form-control place-autocomplete"
+                                        placeholder="{{ "goal.location_ex"|trans }}"/>
+                                <input id="{{ form.location.vars.id }}" value="{{ data.getLocations }}"
+                                       type="hidden" class="location-hidden"
+                                       name="{{ form.location.vars.full_name }}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <i class="icon pen-icon"></i>
+                            {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}
+                        </div>
+                    </div>
+
+
+                    {% set important = data.getImportant %}
+                    {% set urgent = data.getUrgent %}
+
+                    {% if important == true and urgent == true %}
+                        {% set priority = 1 %}
+                    {% elseif important == false and urgent == true %}
+                        {% set priority = 2 %}
+                    {% elseif important == true and urgent == false %}
+                        {% set priority = 3 %}
+                    {% elseif important == false and urgent == false %}
+                        {% set priority = 4 %}
+                    {% endif %}
+
+                    <div class="form-group row">
+                        <div class="col-sm-12" >
+                            <h3>{{ 'goal.as_priority'|trans() }} </h3>
+
+
+                            {#<table class="table table-condensed">#}
+                                {#<tbody>#}
+                                    {#<tr>#}
+                                        {#<td rowspan="2">Importance</td>#}
+                                        {#<td>sd</td>#}
+                                        {#<td>sd</td>#}
+                                    {#</tr>#}
+
+                                    {#<tr>#}
+                                        {#<td>sd</td>#}
+                                        {#<td>sd</td>#}
+                                    {#</tr>#}
+                                    {#<tr>#}
+                                        {#<td colspan="3" class="text-center">URGENCY</td>#}
+                                    {#</tr>#}
+                                {#<tbody>#}
+                            {#</table>#}
+
+                            {#<div class="priority">#}
+                                {#<div class="row">#}
+                                    {#<div class="col-sm-1">#}
+                                        {#<h5 class="text-gray">Importance</h5>#}
+                                    {#</div>#}
+                                    {#<div class="col-sm-1"></div>#}
+                                    {#<div class="col-sm-10"></div>#}
+                                {#</div>#}
+                                {#<p class="text-center text-gray">URGENCY</p>#}
+                            {#</div>#}
+
+
+                            <div class="row">
+
+                                {# other filters #}
+                                {% for id, name in filters %}
+
+                                    <div class="col-sm-6">
+                                     {#<label class="radio-inline">#}
+                                        {#<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}#}
+                                    {#</label>#}
+
+                                        <label class="radio-inline">
+                                            <input name="test"
+                                                   class="important-radio"
+                                                   type="radio"
+                                                   data-ng-disabled="complete.switch"
+                                                   {% if priority == id %}checked{% endif %}
+                                                   value="{{ id }}">
+                                                {{ name|trans }}
+                                        </label>
+
+                                        <p class="text-gray">
+                                        {% if id == 1 %}
+                                            {{ 'goal.critical_activities'|trans }}
+                                        {% elseif id == 2 %}
+                                            {{ 'goal.avoid_interruptions'|trans }}
+                                        {% elseif id == 3 %}
+                                            {{ 'goal.focus_goal'|trans }}
+                                        {% elseif id == 4 %}
+                                            {{ 'goal.avoid_distractions'|trans }}
+                                        {% endif %}
+                                        </p>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if data.id is not null %}
+                        <h4>{{ "goal.complete_step"|trans }}</h4>
+
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped"
+                                 role="progressbar"
+                                 aria-valuenow="45"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width:{{ data.getCompleted|round(1, 'floor') }}%">
+                                {{ data.getCompleted|round(1, 'floor') }}% Complete
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
+
+                        <label class="col-sm-2 control-label">
+                            <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
+                            <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
+                        </label>
+
+                        <div class="col-sm-8">
+                            <div class="to-do-list">
+                                <i title="Notes" class="icon list-icon"></i>
+                                <input type="text"
+                                       class="form-control"
+                                       data-step
+                                       {% if completed %}disabled{% endif %}
+                                       data-key="k"
+                                       data-array="stepsArray"
+                                       data-ng-model="step.text"
+                                       data-ng-disabled="complete.switch"
+                                       name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
+                                       placeholder="{{ "goal.add_step"|trans }}">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="onoffswitch">
+                                <input type="checkbox"
+                                       name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
+                                       data-ng-model="step.switch"
+                                       data-ls-checked="step.switch"
+                                       data-ng-disabled="complete.switch"
+                                       class="onoffswitch-checkbox"
+                                       id="myonoffswitch[[k]]">
+
+                                <label class="onoffswitch-label" for="myonoffswitch[[k]]">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row no-marginb">
+
+                        <label for="inputEmail3"
+                               data-ng-show="private_checkbox"
+                               class="col-sm-10 control-label text-purple text-left">
+                            {{ "goal.as_visible"|trans }}
+                        </label>
+                        <label for="inputEmail3"
+                            data-ng-hide="private_checkbox"
+                            class="col-sm-10 control-label text-purple text-left">
+                            {{ "goal.as_invisible"|trans }}
+                        </label>
+
+                        <div class="col-sm-2">
+                            <div class="onoffswitch">
+                                <input {% if not data.isVisible %} checked {% endif %}
+                                        type="checkbox"
+                                        data-ng-model="private_checkbox"
+                                        data-ls-checked="private_checkbox"
+                                        data-ng-disabled="complete.switch"
+                                        class="onoffswitch-checkbox"
+                                        id="{{ form.isVisible.vars.id }}"
+                                        name="{{ form.isVisible.vars.full_name }}">
+
+                                <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-gray">
+                        <i class="icon eye-icon"></i>
+                        {{ "goal.invisible_text"|trans }}
+                    </p>
+
+
+                    {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and data.goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
+                        <p class="text-gray clearfix">
+                            <strong class="text-dark-gray pull-left">
+                                <i class="icon lock-icon"></i>
+                                {{ 'user_goal.private' |trans }}
+                            </strong> &nbsp;
+                            <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+                        </p>
+                    {% endif %}
+
+                    <hr />
+
+                    <div class="modal-bottom">
+                        <button type="submit" name="btn_save" class="btn btn-purple button-lg">{{ "btn_save"|trans }}</button>
+                        <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
+                    </div>
+
+                    {{ form_widget(form._token) }}
                 </div>
-            </div>
-        {#</div>#}
-    {#</div>#}
-    {#</div>#}
-{#{% endblock %}#}
+            </form>
 
-{#{% block javascripts %}#}
-    {#{{ parent() }}#}
+    </div>
+</div>
 
-    {#<script src="{{ asset("app/bower_components/jquery-modal/jquery.modal.min.js") }}" type="text/javascript"></script>#}
-    {#<script src="{{ asset("app/bower_components/icheck/icheck.min.js") }}" type="text/javascript"></script>#}
-    {#<script src="{{ asset("app/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}"#}
-            {#type="text/javascript"></script>#}
-    {#<script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>#}
-{#{% endblock %}#}
