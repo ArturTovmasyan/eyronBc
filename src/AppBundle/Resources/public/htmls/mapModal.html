@@ -1,0 +1,11 @@
+<div>
+    <h1>[[ goal.title ]]</h1>
+    <img data-ng-src="[[ goal.image ]]" alt="[[ goal.title ]]" width="150"/>
+    <a href="javascript:void(0)">Manage</a>
+    <a href="/goal/done/[[ goal.id ]]" data-ng-show="goal.status==1">Done</a>
+    <a href="javascript:void(0)"
+        data-ls-jquery-modal
+        data-ls-template-url="/goal/add-story/[[ goal.id ]]"
+        data-ls-identity="goalAddSuccessStoryMapModal[[ goal.id ]]"
+        data-ng-show="goal.status==2">Success</a>
+</div>
