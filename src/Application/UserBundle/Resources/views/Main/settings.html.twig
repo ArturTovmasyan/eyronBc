@@ -1,14 +1,16 @@
-{% extends "::base.html.twig" %}
+{#{% extends "::base.html.twig" %}#}
 
-{% block content %}
+{#{% block content %}#}
     <div id="settings-modal" data-ng-controller="SettingController">
         <div class="settings">
             <form action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
                 <div class="form-group">
                     {% if app.user %}
+
                         {% set user = app.user %}
                         {% set userEmails = user.getUserEmails %}
+                        {% set token = false %}
 
                         <figure>
 
@@ -69,6 +71,7 @@
                             <div class="error-message">{{ form_errors(form.file) }}</div>
 
                             {% if userEmails %}
+
                                 {% for key, userEmail in userEmails %}
 
                                     {% if userEmail.token is null %}
@@ -82,16 +85,26 @@
                                             <a class="delete-link" href="{{ path('remove_email', {'email' : key } ) }}">{{ 'btn_delete'|trans }}</a>
                                         </div>
 
+                                    {% else %}
+
+                                        {% set token = true %}
+
                                     {% endif %}
 
                                 {% endfor %}
+
                             {% endif %}
 
-                            <div class="col-sm-6">
-                                {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
-                            </div>
+                            {% if token != true %}
 
-                            <div class="error-message">{{ form_errors(form.addEmail) }}</div>
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
+                                </div>
+
+                                <div class="error-message">{{ form_errors(form.addEmail) }}</div>
+
+                            {% endif %}
+
                         </div>
 
                         <div class="error-message">{{ form_errors(form) }}</div>
@@ -169,9 +182,8 @@
 
                         </div>
 
-
-
                         {{ form_widget(form._token) }}
+
                     </div>
                 </div> <br />
                 <div class="modal-bottom">
@@ -182,4 +194,4 @@
             </form>
         </div>
     </div>
-{% endblock %}
+{#{% endblock %}#}

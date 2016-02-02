@@ -204,7 +204,7 @@ class MainController extends Controller
                 //update user
                 $fosManager->updateUser($user);
 
-                return $this->redirect($this->generateUrl('settings'));
+                return $this->redirect($this->generateUrl('homepage'));
             }
         }
 
@@ -242,7 +242,7 @@ class MainController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('settings');
+        return $this->redirectToRoute('homepage');
 
     }
 
@@ -290,7 +290,7 @@ class MainController extends Controller
             $em->persist($user);
             $em->flush($user);
 
-        return $this->redirectToRoute('settings');
+        return $this->redirectToRoute('homepage');
 
     }
 
