@@ -292,10 +292,10 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // get users that done this goal
-        $doneByUsers = $em->getRepository("ApplicationUserBundle:User")->findDoneBy($goal);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'completed');
 
         // get users that listed this goal
-        $listedByUsers = $em->getRepository("ApplicationUserBundle:User")->findListedBy($goal);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'listed');
 
         // get current user
         $user = $this->getUser();
