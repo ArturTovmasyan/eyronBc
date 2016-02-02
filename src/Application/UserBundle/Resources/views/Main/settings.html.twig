@@ -77,7 +77,7 @@
                                 {% for key, userEmail in userEmails %}
 
                                     {% if userEmail.token is null %}
-                                    <div class="form-group row no-padding">
+
                                         <div class="col-sm-4 text-right">
                                              <input name="primary" type="radio" value="{{ key }}"/>
                                         </div>
@@ -88,7 +88,7 @@
                                                 <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
                                             </div>
                                         </div>
-                                    </div>
+
                                     {% else %}
 
                                         {% set token = true %}
