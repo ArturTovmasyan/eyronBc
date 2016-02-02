@@ -613,7 +613,7 @@ ul.filter{
   }
 }
 
-.ok-icon-green{
+.green-ok-icon{
   background: url('../images/images.png') no-repeat -7px -660px;
 
   &:hover{
@@ -946,14 +946,23 @@ ul li{list-style: none;}
     }
   }
 
+  input[type=radio]{
+    margin-top:0;
+  }
   .delete-email{
+
     position: relative;
+    //margin-bottom:15px;
 
     a{
       position: absolute;
-      top: 7px;
-      right: 1px;
+      top: 8px;
+      right: 0px;
       background: url('../images/images.png') no-repeat -8px -1294px;
+    }
+    input{
+      height: 40px;
+      width:100%;
     }
   }
   .setting-bg{
@@ -968,12 +977,19 @@ ul li{list-style: none;}
     }
   }
 
+  //.form-group{
+  //  div{
+  //    div{
+  //      margin-bottom:0 !important;
+  //    }
+  //  }
+  //}
   .relative{
     z-index: 2;
   }
 
   label{
-    padding:7px 0;
+    padding:9px 0;
   }
 
   .upload{
