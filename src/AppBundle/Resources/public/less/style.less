@@ -1095,10 +1095,13 @@ figure{
 }
 
 .progress{
-  padding: 3px;
+  padding: 5px;
+  height: 30px;
+
   border-radius: 0;
-  height:25px;
+
   margin-bottom:10px;
+  background: #f4f4f4;
   .progress-bar-striped{
     background-size: 100%;
     background-image:
@@ -1952,7 +1955,7 @@ footer{
             border:0;
 
             a{
-              font-size:11px;
+              font-size:14px;
               line-height:18px;
               color:#ffffff;
               span{
@@ -1960,11 +1963,7 @@ footer{
                 color:#ffffff;
 
               }
-              span.glyphicon{
-                border:1px solid #ffffff;
-                padding:2px 4px;
-                .rounded-corners;
-              }
+
             }
             &:nth-child(2){
               padding-top:0;
@@ -1975,6 +1974,15 @@ footer{
 
             &:hover{
               background: transparent;
+
+              .ok-icon{
+                background: url('../images/images.png') no-repeat -380px -40px;
+              }
+
+              .plus-icon{
+                background: url('../images/images.png') no-repeat -380px -98px;
+              }
+
             }
           }
         }
