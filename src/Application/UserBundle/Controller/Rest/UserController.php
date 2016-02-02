@@ -132,6 +132,9 @@ class UserController extends FOSRestController
             $phpSessionId = $session->getId();
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+
         return $phpSessionId;
     }
 
