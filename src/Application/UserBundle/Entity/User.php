@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Register", "update_email"})
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "Register", "update_email"})
  */
 class User extends BaseUser
 {
@@ -78,6 +78,7 @@ class User extends BaseUser
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Settings", "Register"})
      */
     protected $firstName;
 
@@ -88,12 +89,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(groups={"Register"},
+     * @Assert\Length(groups={"Settings", "Register"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(groups={"Register"},
+     * @Assert\Regex(groups={"Settings", "Register"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
@@ -117,6 +118,7 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Settings", "Register"})
      */
     protected $lastName;
 

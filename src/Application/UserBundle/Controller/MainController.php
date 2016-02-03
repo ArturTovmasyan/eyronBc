@@ -173,7 +173,7 @@ class MainController extends Controller
             $validator = $this->get('validator');
 
             //get errors
-            $errors = $validator->validate($user, null, array('Register'));
+            $errors = $validator->validate($user, null, array('Settings'));
 
             //returned value
             $returnResult = array();

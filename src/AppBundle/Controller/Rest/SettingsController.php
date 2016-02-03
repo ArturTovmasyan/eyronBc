@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Rest;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -122,20 +123,19 @@ class SettingsController extends FOSRestController
         //check if current password valid
         if ($currentPassword && !($encoder->isPasswordValid($userPassword, $currentPassword, $user->getSalt()))) {
 
-            return new Response($tr->trans('password.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($tr->trans('password.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
         }
 
         //check if current password not set
         if ($newPassword && $currentPassword == null) {
 
-            return new Response($tr->trans('password.current', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($tr->trans('password.current', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
         }
 
         //check if new email equal currentEmail
         if ($addEmail == $currentEmail) {
 
-            dump($addEmail);exit;
-            return new Response($tr->trans('email.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($tr->trans('email.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
         }
 
         //check if primary email exist in $userEmailsInDb
@@ -210,34 +210,30 @@ class SettingsController extends FOSRestController
         $this->container->get('bl_service')->uploadFile($user);
 
         //get validator
-//            $validator = $this->get('validator');
+        $validator = $this->get('validator');
 
         //get errors
-//            $errors = $validator->validate($user, null, array('Register'));
-
-        //returned value
-//            $errorResult = array();
+        $errors = $validator->validate($user, null, array('Settings'));
 
         //check count of errors
-//            if (count($errors) > 0) {
-//
-//                // loop for error
-//                foreach ($errors as $error) {
-//                    $errorResult[$error->getPropertyPath()] = $error->getMessage();
-//
-//                }
-//
-//                //check if email error exist
-//                if (array_key_exists('email', $errorResult)) {
-//
-//
-//                }
-//            }
+        if (count($errors) > 0) {
+
+            //returned value
+            $errorResult = array();
+
+            // loop for error
+            foreach ($errors as $error) {
+                $errorResult[$error->getPropertyPath()] = $error->getMessage();
+            }
+
+            return new JsonResponse($errorResult, Response::HTTP_BAD_REQUEST);
+
+        }
 
         //update user
         $fosManager->updateUser($user);
 
-        return new Response('SAX LAVA', Response::HTTP_OK);
+        return new Response('', Response::HTTP_OK);
 
     }
 
