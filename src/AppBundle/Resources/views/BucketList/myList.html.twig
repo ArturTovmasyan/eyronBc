@@ -188,6 +188,8 @@
         <div data-simple-map-marker
             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
             data-on-marker-click="onMarkerClick(goal)"
+            data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
+            data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
             data-refresh="showMap"
             class="google-map"
             style="width: 100%; height: 300px">

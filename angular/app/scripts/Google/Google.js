@@ -17,23 +17,32 @@ angular.module('Google', [])
             scope: {
                 markers: '=',
                 refresh: '=',
-                onMarkerClick: '&'
+                onMarkerClick: '&',
+                passiveMarkerIcon: '@',
+                activeMarkerIcon: '@'
             },
             compile: function compile(){
 
-                function addMarker(obj, map){
+                function addMarker(obj, icon, map){
                     if(!angular.isNumber(obj.latitude) || !angular.isNumber(obj.longitude)){
                         return;
                     }
 
-                    return new google.maps.Marker({
+                    var m = new google.maps.Marker({
                         position: new google.maps.LatLng(obj.latitude, obj.longitude),
                         map: map
                     });
+
+                    if(icon){
+                        m.setIcon(icon);
+                    }
+
+                    return m;
                 }
 
                 return function(scope, el){
                     scope.map = Initialize(el[0]);
+                    scope.mapMarkers = {};
 
                     scope.$watch('refresh', function(){
                         $timeout(function(){
@@ -49,15 +58,34 @@ angular.module('Google', [])
                         angular.forEach(d, function(v, k){
                             if(v.latitude && v.longitude) {
                                 v.id = k;
-                                var m = addMarker(v, scope.map);
+                                var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
+
+                                scope.mapMarkers[v.id] = m;
 
                                 m.addListener('click', function () {
+                                    scope.setMarkerActive(m);
                                     scope.onMarkerClick({goal: v});
                                     scope.$apply();
                                 });
                             }
                         });
                     },true);
+
+                    scope.setMarkerActive = function(m){
+
+                        angular.forEach(scope.mapMarkers, function(v){
+                            if(scope.passiveMarkerIcon){
+                                v.setIcon(scope.passiveMarkerIcon);
+                            }
+                            else {
+                                v.setIcon(null);
+                            }
+                        });
+
+                        if(scope.activeMarkerIcon){
+                            m.setIcon(scope.activeMarkerIcon);
+                        }
+                    }
                 };
             }
         };

@@ -195,8 +195,6 @@ angular.module('goal', ['Interpolation',
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
 
         $scope.onMarkerClick = function(goal){
-            console.log(goal);
-
             $http.get(mapModalTemplateUrl)
                 .success(function(res){
 
