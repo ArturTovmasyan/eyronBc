@@ -107,7 +107,7 @@ class User extends BaseUser
      * @var
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      * @Assert\Date
-     * @Groups("settings")
+     * @Groups({"settings"})
      * @Type("DateTime<'Y-m-d'>")
      */
     protected $birthDate;
@@ -158,7 +158,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
-     * @Groups("settings")
+     * @Groups({"settings"})
      */
     protected $userEmails;
 
@@ -215,7 +215,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -238,7 +238,7 @@ class User extends BaseUser
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -261,7 +261,7 @@ class User extends BaseUser
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -284,7 +284,7 @@ class User extends BaseUser
     /**
      * Get aboutMe
      *
-     * @return string 
+     * @return string
      */
     public function getAboutMe()
     {
@@ -378,7 +378,7 @@ class User extends BaseUser
     /**
      * Get userGoal
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUserGoal()
     {
@@ -401,7 +401,7 @@ class User extends BaseUser
     /**
      * Get facebookId
      *
-     * @return string 
+     * @return string
      */
     public function getFacebookId()
     {
@@ -424,7 +424,7 @@ class User extends BaseUser
     /**
      * Get googleId
      *
-     * @return string 
+     * @return string
      */
     public function getGoogleId()
     {
@@ -447,7 +447,7 @@ class User extends BaseUser
     /**
      * Get socialPhotoLink
      *
-     * @return string 
+     * @return string
      */
     public function getSocialPhotoLink()
     {
@@ -470,7 +470,7 @@ class User extends BaseUser
     /**
      * Get gender
      *
-     * @return integer 
+     * @return integer
      */
     public function getGender()
     {
@@ -493,7 +493,7 @@ class User extends BaseUser
     /**
      * Get twitterId
      *
-     * @return string 
+     * @return string
      */
     public function getTwitterId()
     {
@@ -516,7 +516,7 @@ class User extends BaseUser
     /**
      * Get birthDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBirthDate()
     {
@@ -526,6 +526,8 @@ class User extends BaseUser
 
     /**
      * @return string
+     * @VirtualProperty()
+     * @Groups({"settings"})
      */
     public function getPhotoLink()
     {
