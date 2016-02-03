@@ -56,10 +56,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * This function is used to get listedBy, doneBy counts for goal
      *
      * @param $goals
+     * @param $getStats
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findGoalStateCount(&$goals)
+    public function findGoalStateCount(&$goals, $getStats = false)
     {
         $isSingleObject = 0;
         if ($goals instanceof Goal){
@@ -84,6 +85,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('goalIds', array_keys($goals))
             ->setParameter('status', UserGoal::ACTIVE)
             ->getResult();
+
+        if ($getStats){
+            return $stats;
+        }
 
         foreach($goals as &$goal){
             $goal->setStats([
