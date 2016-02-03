@@ -120,6 +120,15 @@
                 'form.fos_comment_comment_new_form',
                 function(e) {
                     var that = $(this);
+                    var comm = that.find("#fos_comment_comment_body").val();
+
+                    var reg = /^\n+$/;
+
+                    if(!comm || reg.test(comm)){
+                        e.preventDefault();
+                        return false;
+                    }
+
                     var serializedData = FOS_COMMENT.serializeObject(this);
 
                     e.preventDefault();
