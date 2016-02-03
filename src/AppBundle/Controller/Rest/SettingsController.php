@@ -18,9 +18,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @Rest\RouteResource("Settings")
+ * @Rest\Prefix("/api/v1.0")
  * @Rest\NamePrefix("rest_")
  */
-class UserEmailsController extends FOSRestController
+class SettingsController extends FOSRestController
 {
     /**
      * @ApiDoc(
@@ -34,12 +35,12 @@ class UserEmailsController extends FOSRestController
      *         401="Unauthorized user",
      *     },
      *  parameters={
-     *      {"name"="email", "dataType"="string", "required"=false, "description"="User`s email"},
+     *      {"name"="email", "dataType"="string", "required"=false, "description"="User`s email remove"},
      * }
      * )
      * @Rest\View()
      */
-    public function deleteUserEmailsAction(Request $request)
+    public function deleteEmailAction(Request $request)
     {
         // get all data
         $data = $request->request->all();
