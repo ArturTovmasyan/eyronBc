@@ -25,7 +25,7 @@
 
     {% if inner is not defined %}
         <li class="col-xs-4">
-            <div class="addthis_native_toolbox"></div>
+            <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
         </li>
     {% endif %}
 </ul>

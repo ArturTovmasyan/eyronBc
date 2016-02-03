@@ -42,7 +42,7 @@
         <li class="col-sm-4">
             {#<a href="#">#}
                 {#<span class="glyphicon glyphicon-share-alt">#}
-                    <div class="addthis_native_toolbox"></div>
+                    <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
                 {#</span>#}
             {#</a>#}
         </li>
