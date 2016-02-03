@@ -22,21 +22,23 @@ use Doctrine\ORM\Query;
 class UserGoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
 {
     /**
-     * @param $user
-     * @param $goal
+     * @param $userId
+     * @param $goalId
      * @return array
      */
-    public function findByUserAndGoal($user, $goal)
+    public function findByUserAndGoal($userId, $goalId)
     {
         $query =  $this->getEntityManager()
-            ->createQuery("SELECT ug
+            ->createQuery("SELECT ug, u, g, a, i
                              FROM AppBundle:UserGoal ug
                              LEFT JOIN ug.user u
                              LEFT JOIN ug.goal g
+                             LEFT JOIn g.images i
+                             LEFT JOIN g.author a
                              WHERE u.id = :uid and g.id = :gid
                             ")
-            ->setParameter('uid', $user->getId())
-            ->setParameter('gid', $goal->getId())
+            ->setParameter('uid', $userId)
+            ->setParameter('gid', $goalId)
             ->getOneOrNullResult()
         ;
 

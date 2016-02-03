@@ -253,7 +253,7 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->gteId(), $goal->getId());
 
         // check user goal and create if noc exist
         if(!$userGoal){
@@ -493,7 +493,7 @@ class GoalController extends Controller
         }
         else {
 
-            $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+            $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
 
             if (!$userGoal) {
                 $userGoal = new UserGoal();
@@ -765,7 +765,7 @@ class GoalController extends Controller
         $user = $this->getUser();
 
         // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
         //check if user goal exist and 1
         if(count($userGoal) == 1){
@@ -806,7 +806,7 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user, $goal);
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {

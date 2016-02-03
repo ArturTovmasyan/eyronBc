@@ -59,7 +59,7 @@ class UserGoal
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $isVisible;
+    protected $isVisible = true;
 
     /**
      * @var
@@ -87,7 +87,7 @@ class UserGoal
      * @ORM\Column(name="steps", type="array", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $steps;
+    protected $steps = [];
 
     /**
      * @var
