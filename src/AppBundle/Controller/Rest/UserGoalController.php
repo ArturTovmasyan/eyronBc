@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Rest;
 
+use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -35,17 +36,23 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
-     * @param $id
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @param $goal Goal
      * @return Response
      */
-    public function getAction($id)
+    public function getAction(Goal $goal)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         $em = $this->getDoctrine()->getManager();
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->find($id);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
         if(!$userGoal){
-            return new Response('UserGoal not found', Response::HTTP_NOT_FOUND);
+            $userGoal = new UserGoal();
+            $userGoal->setGoal($goal);
         }
 
         return $userGoal;

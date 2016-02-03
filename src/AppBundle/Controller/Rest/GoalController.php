@@ -22,12 +22,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * @Rest\RouteResource("Goal")
  * @Rest\Prefix("/api/v1.0")
- * @Rest\NamePrefix("rest_")
  */
 class GoalController extends FOSRestController
 {
     /**
-     * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
+     * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getall", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -154,7 +153,7 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @param $id
      * @return mixed
-     * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_put", options={"method_prefix"=false})
      * @Rest\View()
      */
     public function putAction(Request $request, $id = null)
@@ -212,7 +211,7 @@ class GoalController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
      * @param $id
      * @param Request $request
      * @return JsonResponse
@@ -300,12 +299,12 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\Post("/goals/remove-images/{id}", requirements={"id"="\d+"})
+     * @Rest\Post("/goals/remove-images/{id}", requirements={"id"="\d+"}, name="app_rest_goal_removeimage", options={"method_prefix"=false})
      *
      * @param GoalImage $goalImage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function removeImage(GoalImage $goalImage)
+    public function removeImageAction(GoalImage $goalImage)
     {
         if (!$this->getUser()){
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
@@ -334,7 +333,7 @@ class GoalController extends FOSRestController
      *
      * @Rest\View(serializerGroups={"goal_draft"})
      *
-     * @Rest\Get("/goals/drafts/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
+     * @Rest\Get("/goals/drafts/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getdrafts", options={"method_prefix"=false})
      *
      * @param $first
      * @param $count

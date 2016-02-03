@@ -17,12 +17,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Rest\RouteResource("Activity")
  * @Rest\Prefix("/api/v1.0")
- * @Rest\NamePrefix("rest_")
  */
 class NewsFeedController extends FOSRestController
 {
     /**
-     * @Rest\Get("/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
+     * @Rest\Get("/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
