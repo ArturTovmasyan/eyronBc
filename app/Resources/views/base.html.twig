@@ -228,8 +228,15 @@
 
                 function openSettingsModal(){
                     $('.settings-modal').trigger('openLsModal','settingModal');
-
+                    console.log("hello")
                 }
+
+                {% set error = app.session.get('jsForm') %}
+
+                {% if error is not null  %}
+                    setTimeout(openSettingsModal, 500);
+                {% endif %}
+
             </script>
 
             <script>

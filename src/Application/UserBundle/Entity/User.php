@@ -170,6 +170,11 @@ class User extends BaseUser
     protected $draftCount;
 
     /**
+     * @var
+     */
+    public $addEmail;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -854,6 +859,68 @@ class User extends BaseUser
     public function getUserEmails()
     {
         return $this->userEmails;
+    }
+
+    /**
+     * Serializes the user.
+     *
+     * The serialized data have to contain the fields used by the equals method and the username.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->firstName,
+            $this->lastName,
+            $this->addEmail,
+            $this->userEmails,
+            $this->birthDate,
+            $this->email,
+            $this->plainPassword,
+
+        ));
+    }
+
+    /**
+     * Unserializes the user.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        // add a few extra elements in the array to ensure that we have enough keys when unserializing
+        // older data which does not include all properties.
+        $data = array_merge($data, array_fill(0, 2, null));
+
+        list(
+            $this->password,
+            $this->salt,
+            $this->usernameCanonical,
+            $this->username,
+            $this->expired,
+            $this->locked,
+            $this->credentialsExpired,
+            $this->enabled,
+            $this->id,
+            $this->firstName,
+            $this->lastName,
+            $this->addEmail,
+            $this->userEmails,
+            $this->birthDate,
+            $this->email,
+            $this->plainPassword,
+            ) = $data;
     }
 
 }
