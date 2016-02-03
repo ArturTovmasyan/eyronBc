@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends FOSRestController
 {
     /**
-     * @Rest\Get("/goals/{first}/{count}", defaults={"first"=0}, requirements={"first"="\d+", "count"="\d+"})
+     * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -75,7 +75,9 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @Rest\View(serializerGroups={"goal", "goal_image", "image"})
+     * @Rest\View(serializerGroups={"goal", "goal_image", "image", "goal_author", "tiny_user",
+     *                              "goal_successStory", "successStory", "successStory_user", "successStory_storyImage",
+     *                              "successStory_user", "tiny_user", "storyImage", "comment", "comment_author"})
      *
      * @param $id
      * @return Goal|null|object|Response
@@ -84,12 +86,33 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+        $shareLink = $this->generateUrl('inner_goal', array('id' => $id));
+        $goal->setShareLink($shareLink);
+
+        $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
+
+        if ((!$goal->getLat() || !$goal->getLng()) && $this->getUser()){
+            $userGoals = $this->getUser()->getUserGoal();
+
+            if($userGoals->count() > 0) {
+                $userGoalsArray = $userGoals->toArray();
+                if (array_key_exists($id, $userGoalsArray)) {
+                    $userGoal = $userGoalsArray[$id];
+                    $goal->setLat($userGoal->getLat());
+                    $goal->setLng($userGoal->getLng());
+                }
+            }
+        }
 
         if (!$goal){
             return new Response('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
-        return $goal;
+        return [
+            'goal'     => $goal,
+            'comments' => $goalComments
+        ];
     }
 
     /**
@@ -351,12 +374,20 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         // check search data
         $search = $request->get('search') ? $request->get('search') : null;
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         // get goal friends
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $count, $search, false, $first);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $goalFriends = array_slice($goalFriends, $first, $count);
+        }
 
         return $goalFriends;
     }

@@ -44,8 +44,14 @@ class Comment extends BaseComment implements SignedCommentInterface
      * Author of the comment
      *
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
+     * @Groups({"comment_author"})
      */
     protected $author;
+
+    /**
+     * @Groups({"comment"})
+     */
+    protected $createdAt;
 
     /**
      * @return string

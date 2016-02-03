@@ -300,10 +300,20 @@
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
-                                            {{ userGoal.doDate|date('d') }}
+                                            {% if userGoal.doDate is not null %}
+                                                {{ userGoal.doDate|date('d') }}
+                                            {% else %}
+                                                <i class="icon dreaming-icon"></i>
+                                            {% endif %}
                                         </div>
                                         <div class="elipse">
-                                            <div>{{ userGoal.doDate|date('M, Y') }}</div>
+                                            <div class="text-gray">
+                                                {% if userGoal.doDate is not null %}
+                                                    {{ userGoal.doDate|date('M, Y') }}
+                                                {% else %}
+                                                    Dreaming
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

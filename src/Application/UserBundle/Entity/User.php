@@ -44,7 +44,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      */
     protected $id;
 
@@ -75,7 +75,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      * @Assert\NotBlank()
      */
     protected $firstName;
@@ -112,7 +112,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      * @Assert\NotBlank()
      */
     protected $lastName;
@@ -181,7 +181,7 @@ class User extends BaseUser
 
     /**
      * @VirtualProperty
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      */
     public function getImagePath()
     {

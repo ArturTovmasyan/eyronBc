@@ -15,17 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Rest\RouteResource("NewFeed")
+ * @Rest\RouteResource("Activity")
  * @Rest\Prefix("/api/v1.0")
  * @Rest\NamePrefix("rest_")
  */
 class NewsFeedController extends FOSRestController
 {
     /**
-     *
+     * @Rest\Get("/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"})
      * @ApiDoc(
      *  resource=true,
-     *  section="NewFeed",
+     *  section="Activity",
      *  description="This function is used to get goal",
      *  statusCodes={
      *         200="Returned when goals was returned",
@@ -41,14 +41,21 @@ class NewsFeedController extends FOSRestController
      *
      * @return Response
      */
-    public function getActivityAction($first, $count)
+    public function getAction($first, $count)
     {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId(), $first, $count);
+        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId());
 
+        if (is_numeric($first) && is_numeric($count)) {
+            $newsFeed = array_slice($newsFeed, $first, $count);
+        }
         return $newsFeed;
     }
 }

@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -30,6 +31,7 @@ class StoryImage
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"storyImage"})
      */
     protected $id;
 
@@ -151,5 +153,16 @@ class StoryImage
     public function setUpdated($updated)
     {
         $this->updated = $updated;
+    }
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     * @Groups({"storyImage"})
+     */
+    public function getImagePath()
+    {
+        return $this->getDownloadLink();
     }
 }

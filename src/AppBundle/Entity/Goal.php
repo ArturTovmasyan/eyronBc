@@ -100,6 +100,7 @@ class Goal implements MultipleFileInterface, PublishAware
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="authorGoals")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @Groups({"goal_author"})
      **/
     protected $author;
 
@@ -165,6 +166,11 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $isMyGoal;
 
     /**
+     * @Groups({"goal"})
+     */
+    protected $shareLink;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -180,6 +186,22 @@ class Goal implements MultipleFileInterface, PublishAware
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShareLink()
+    {
+        return $this->shareLink;
+    }
+
+    /**
+     * @param mixed $shareLink
+     */
+    public function setShareLink($shareLink)
+    {
+        $this->shareLink = $shareLink;
     }
 
     /**
@@ -723,9 +745,26 @@ class Goal implements MultipleFileInterface, PublishAware
             // loop for user goals
             foreach($userGoals as $userGoal){
                 $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy'] ++;
-
-                }
+            }
         }
         return $result;
+    }
+
+    /**
+     * @return array
+     *
+     * @VirtualProperty()
+     * @Groups({"goal"})
+     */
+    public function getLocation()
+    {
+        if ($this->getLat() || $this->getLng()){
+            return [
+                'lat' => $this->getLat(),
+                'lng' => $this->getLng()
+            ];
+        }
+
+        return null;
     }
 }

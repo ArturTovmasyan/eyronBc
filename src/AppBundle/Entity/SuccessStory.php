@@ -29,7 +29,7 @@ class SuccessStory
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"success_story"})
+     * @Groups({"successStory"})
      */
     protected $id;
 
@@ -42,12 +42,14 @@ class SuccessStory
 
     /**
      * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"})
+     * @Groups({"successStory_storyImage"})
      * @Assert\Valid()
      */
     protected $files;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
+     * @Groups({"successStory_user"})
      **/
     protected $user;
 
@@ -56,6 +58,7 @@ class SuccessStory
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Groups({"successStory"})
      */
     protected $created;
 
@@ -69,13 +72,14 @@ class SuccessStory
 
     /**
      * @ORM\Column(name="story", type="text")
-     * @Groups({"success_story"})
+     * @Groups({"successStory"})
      */
     protected $story;
 
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
+     * @Groups({"successStory"})
      */
     protected $videoLink;
 
