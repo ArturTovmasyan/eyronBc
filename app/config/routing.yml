@@ -89,7 +89,7 @@ app_new_feed_rest:
 app_emails_remove_rest:
     type:     rest
     resource: @AppBundle/Controller/Rest/SettingsController.php
-    prefix:   /api
+    prefix:   /
 
 application_user_rest:
     type:     rest

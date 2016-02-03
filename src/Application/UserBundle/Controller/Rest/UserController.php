@@ -21,7 +21,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 /**
  * @Rest\RouteResource("User")
  * @Rest\Prefix("/api/v1.0")
- * @Rest\NamePrefix("rest_")
  */
 class UserController extends FOSRestController
 {
@@ -207,7 +206,7 @@ class UserController extends FOSRestController
      * @param $tokenSecret
      * @return Response
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null})
+     * @Rest\Get("/users/social-login/{type}/{accessToken}/{tokenSecret}", defaults={"tokenSecret"=null}, name="application_user_rest_user_getsociallogin", options={"method_prefix"=false})
      */
     public function getSocialLoginAction($type, $accessToken, $tokenSecret)
     {
