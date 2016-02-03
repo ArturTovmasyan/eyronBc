@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @Rest\RouteResource("Settings")
@@ -54,15 +52,18 @@ class SettingsController extends FOSRestController
         //get email in request data
         $email = array_key_exists('email', $data) ? $data['email'] : null;
 
+        //check if email is empty
         if (!$email) {
+
             // return 404 if email is empty
-            throw new HttpException(Response::HTTP_BAD_REQUEST, "Email data is empty");
+           return new Response( 'Email data is empty', Response::HTTP_BAD_REQUEST);
         }
 
         //check if user not found
         if (!is_object($user)) {
-            // return 404 if toUser not found
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, "User not found");
+
+            // return 404 if user not found
+          return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
         //get user all emails
@@ -71,15 +72,26 @@ class SettingsController extends FOSRestController
         //check if current user have userEmails
         if ($userEmails) {
 
-            unset($userEmails[$email ]);
+            //check if email exist in userEmails
+           if(!array_key_exists($email, $userEmails)) {
+
+               // return 404 if email is empty
+               return new Response('This user not have current email', Response::HTTP_BAD_REQUEST);
+           }
+
+            //remove email
+            unset($userEmails[$email]);
+
+            //set changed email data
+            $user->setUserEmails($userEmails);
+
+            $em->persist($user);
+            $em->flush();
+
+            return new Response('', Response::HTTP_OK);
         }
 
-        //set changed email data
-        $user->setUserEmails($userEmails);
-
-        $em->persist($user);
-        $em->flush();
-
-        return new Response('', Response::HTTP_OK);
+        // return 404 if email is empty
+        return new Response('User not have removable email', Response::HTTP_BAD_REQUEST);
     }
 }
