@@ -181,8 +181,10 @@
                                 <h4>{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% for key, story in stories %}
+
                                     {% set addedUser = story.user %}
-                                    {% set files = story.files%}
+                                    {% set files = story.files %}
+                                    {% set videos = story.videoLink %}
 
                                     <div style="height:350px;background-color: #cccccc; margin-bottom: 20px">
                                         <div class="row">
@@ -214,13 +216,47 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                    <div id="story-slider-image{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
                                                         <!-- Slides Container -->
                                                         <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
                                                             {% for file in files %}
                                                                 <div>
                                                                     <img u="image" src="{{ file.downloadLink }}"/>
                                                                 </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <!-- Arrow Left -->
+                                                        <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
+                                                        <!-- Arrow Right -->
+                                                        <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if videos and videos|length %}
+
+                                            {% if videos|length < 2 %}
+                                                {% set v = videos.first %}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <figure>
+                                                            <iframe src="{{ v }}" width="700" height="320"></iframe>
+                                                        </figure>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row">
+
+                                                    <div id="story-slider-video{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                        <!-- Slides Container -->
+                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
+                                                            {% for video in videos %}
+                                                                {% if video %}
+                                                                    <div>
+                                                                        <iframe u="image" src="{{ video }}"></iframe>
+                                                                    </div>
+                                                                {% endif %}
                                                             {% endfor %}
                                                         </div>
                                                         <!-- Arrow Left -->
