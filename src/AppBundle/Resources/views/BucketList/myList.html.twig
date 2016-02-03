@@ -188,6 +188,8 @@
         <div data-simple-map-marker
             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
             data-on-marker-click="onMarkerClick(goal)"
+            data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
+            data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
             data-refresh="showMap"
             class="google-map"
             style="width: 100%; height: 300px">
@@ -296,7 +298,7 @@
 
                         {% else %}
 
-                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
+                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">

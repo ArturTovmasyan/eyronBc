@@ -13,6 +13,7 @@ use AppBundle\Traits\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
@@ -21,7 +22,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Register", "update_email"})
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "Register", "update_email"})
  */
 class User extends BaseUser
 {
@@ -75,8 +76,9 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Settings", "Register"})
      */
     protected $firstName;
 
@@ -87,12 +89,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(groups={"Register"},
+     * @Assert\Length(groups={"Settings", "Register"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(groups={"Register"},
+     * @Assert\Regex(groups={"Settings", "Register"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
@@ -106,14 +108,17 @@ class User extends BaseUser
      * @var
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      * @Assert\Date
+     * @Groups({"settings"})
+     * @Type("DateTime<'Y-m-d'>")
      */
     protected $birthDate;
 
     /**
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Settings", "Register"})
      */
     protected $lastName;
 
@@ -155,6 +160,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups({"settings"})
      */
     protected $userEmails;
 
@@ -181,7 +187,7 @@ class User extends BaseUser
 
     /**
      * @VirtualProperty
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      */
     public function getImagePath()
     {
@@ -211,7 +217,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -234,7 +240,7 @@ class User extends BaseUser
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -257,7 +263,7 @@ class User extends BaseUser
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -280,7 +286,7 @@ class User extends BaseUser
     /**
      * Get aboutMe
      *
-     * @return string 
+     * @return string
      */
     public function getAboutMe()
     {
@@ -374,7 +380,7 @@ class User extends BaseUser
     /**
      * Get userGoal
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUserGoal()
     {
@@ -397,7 +403,7 @@ class User extends BaseUser
     /**
      * Get facebookId
      *
-     * @return string 
+     * @return string
      */
     public function getFacebookId()
     {
@@ -420,7 +426,7 @@ class User extends BaseUser
     /**
      * Get googleId
      *
-     * @return string 
+     * @return string
      */
     public function getGoogleId()
     {
@@ -443,7 +449,7 @@ class User extends BaseUser
     /**
      * Get socialPhotoLink
      *
-     * @return string 
+     * @return string
      */
     public function getSocialPhotoLink()
     {
@@ -466,7 +472,7 @@ class User extends BaseUser
     /**
      * Get gender
      *
-     * @return integer 
+     * @return integer
      */
     public function getGender()
     {
@@ -489,7 +495,7 @@ class User extends BaseUser
     /**
      * Get twitterId
      *
-     * @return string 
+     * @return string
      */
     public function getTwitterId()
     {
@@ -512,7 +518,7 @@ class User extends BaseUser
     /**
      * Get birthDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBirthDate()
     {
@@ -522,6 +528,7 @@ class User extends BaseUser
 
     /**
      * @return string
+     * @VirtualProperty()
      */
     public function getPhotoLink()
     {
