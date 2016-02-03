@@ -81,11 +81,8 @@ class MainController extends Controller
             //encoder user
             $encoder = $encoder_service->getEncoder($user);
 
-            //encoder sent current password
-            $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
-
             //check if current password valid
-            if ($currentPassword && $userPassword !== $encode_data_pass) {
+            if ($currentPassword && !($encoder->isPasswordValid($userPassword, $currentPassword, $user->getSalt()))) {
 
                 //set custom error class
                 $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
@@ -176,7 +173,7 @@ class MainController extends Controller
             $validator = $this->get('validator');
 
             //get errors
-            $errors = $validator->validate($user, null, array('Register'));
+            $errors = $validator->validate($user, null, array('Settings'));
 
             //returned value
             $returnResult = array();
