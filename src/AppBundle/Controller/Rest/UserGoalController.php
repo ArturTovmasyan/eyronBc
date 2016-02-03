@@ -221,7 +221,7 @@ class UserGoalController extends FOSRestController
             $completionDate = null;
         }
         // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
 
         // check user goal and create if noc exist
         if(!$userGoal){
