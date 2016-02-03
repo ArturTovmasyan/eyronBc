@@ -185,7 +185,7 @@ class User extends BaseUser
 
     /**
      * @VirtualProperty
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      */
     public function getImagePath()
     {
@@ -527,7 +527,6 @@ class User extends BaseUser
     /**
      * @return string
      * @VirtualProperty()
-     * @Groups({"settings"})
      */
     public function getPhotoLink()
     {
