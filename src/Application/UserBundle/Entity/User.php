@@ -13,6 +13,7 @@ use AppBundle\Traits\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
@@ -75,7 +76,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      */
     protected $firstName;
@@ -106,13 +107,15 @@ class User extends BaseUser
      * @var
      * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      * @Assert\Date
+     * @Groups("settings")
+     * @Type("DateTime<'Y-m-d'>")
      */
     protected $birthDate;
 
     /**
      * @var
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      */
     protected $lastName;
@@ -155,6 +158,7 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
+     * @Groups("settings")
      */
     protected $userEmails;
 

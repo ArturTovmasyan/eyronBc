@@ -21,6 +21,33 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SettingsController extends FOSRestController
 {
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to get settings data",
+     *  statusCodes={
+     *         401="Unauthorized user",
+     *     }
+     * )
+     * @Rest\View(serializerGroups={"settings"})
+     */
+    public function getSettingsAction()
+    {
+        //get current user
+        $user = $this->getUser();
+
+        //check if user not found
+        if (!is_object($user)) {
+
+            // return 404 if user not found
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $user;
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,
