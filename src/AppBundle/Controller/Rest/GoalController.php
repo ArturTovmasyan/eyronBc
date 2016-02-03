@@ -14,7 +14,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -369,7 +368,6 @@ class GoalController extends FOSRestController
      *  },
      * )
      * @Rest\View(serializerGroups={"user"})
-     * @Security("has_role('ROLE_USER')")
      * @return array
      */
     public function getFriendsAction(Request $request, $first, $count)
