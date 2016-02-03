@@ -34,7 +34,6 @@ class NewsFeedController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"new_feed", "goal", "images", "user", "success_story", "comment"})
-     * @Security("has_role('ROLE_USER')")
      *
      * @param $first
      * @param $count

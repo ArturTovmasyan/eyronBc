@@ -172,7 +172,7 @@ trait File
      */
     public function getDownloadLink()
     {
-        return '/' . $this->getUploadDir() . '/' . $this->getPath() . '/' . $this->fileName;
+        return $this->fileName ? '/' . $this->getUploadDir() . '/' . $this->getPath() . '/' . $this->fileName : null;
     }
 
     /**
