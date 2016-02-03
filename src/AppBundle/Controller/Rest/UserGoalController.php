@@ -184,4 +184,74 @@ class UserGoalController extends FOSRestController
         // return user goals
         return $userGoals;
     }
+
+    /**
+     *  @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to done or active userGoal",
+     *  statusCodes={
+     *         200="Returned when userGoal was done or activated",
+     *         404="UserGoal or Goal not found"
+     *     }
+     * )
+     *
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
+     *
+     * @param $goalId
+     * @param $isDone
+     * @return UserGoal|array|Response
+     */
+    public function getDoneAction($goalId, $isDone)
+    {
+
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+        // get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+
+        if(!$goal)
+        {
+            return new Response('Goal not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+
+        if($isDone == true)
+        {
+            $status = UserGoal::COMPLETED;
+            $completionDate = new \DateTime('now');
+        }
+        else
+        {
+            $status = UserGoal::ACTIVE;
+            $completionDate = null;
+        }
+        // get user goal
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+
+        // check user goal and create if noc exist
+        if(!$userGoal){
+            $userGoal = new UserGoal();
+            $userGoal->setGoal($goal);
+            $userGoal->setUser($user);
+        }
+
+        // set status to done
+        $userGoal->setStatus($status);
+
+        // set date
+        $userGoal->setCompletionDate($completionDate);
+
+        $em->persist($userGoal);
+        $em->flush();
+
+        return $userGoal;
+    }
 }
