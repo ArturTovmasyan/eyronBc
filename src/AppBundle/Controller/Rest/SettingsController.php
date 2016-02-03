@@ -54,13 +54,13 @@ class SettingsController extends FOSRestController
         //get email in request data
         $email = array_key_exists('email', $data) ? $data['email'] : null;
 
-        if(!$email) {
-            // return 404 if toUser not found
+        if (!$email) {
+            // return 404 if email is empty
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Email data is empty");
         }
 
         //check if user not found
-        if(!is_object($user)) {
+        if (!is_object($user)) {
             // return 404 if toUser not found
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "User not found");
         }
@@ -69,18 +69,9 @@ class SettingsController extends FOSRestController
         $userEmails = $user->getUserEmails();
 
         //check if current user have userEmails
-        if($userEmails) {
+        if ($userEmails) {
 
-            //get userEmail value in array
-            $emailsValue = array_map(function ($item) {
-                return $item['userEmails'];
-            }, $userEmails);
-
-            //if remove email exist in array
-            if (($key = array_search($email, $emailsValue)) !== false) {
-
-                unset($userEmails[$key]);
-            }
+            unset($userEmails[$email ]);
         }
 
         //set changed email data
