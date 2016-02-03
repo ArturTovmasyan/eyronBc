@@ -28,8 +28,30 @@ class MainController extends Controller
         //get translator
         $tr = $this->get('translator');
 
-        // get current user
-        $user = $this->getUser();
+        //set default value
+        $sessionVar = false;
+
+        //get session
+        $session = $request->getSession();
+
+        // if session is not empty
+        if($session->has('jsForm')){
+
+            //set session var true
+            $sessionVar = true;
+
+            //get user in session
+            $user = $session->get('jsForm');
+
+            //remove session
+            $session->remove('jsForm');
+
+        }
+        else {
+
+            //get user in db
+            $user = $this->getUser();
+        }
 
         //get current email
         $currentEmail = $user->getEmail();
@@ -38,9 +60,8 @@ class MainController extends Controller
         $userEmails = $user->getUserEmails();
 
         //get last url for redirect
-        $lastUrl = $request->headers->get('referer');
+        $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
-        //set default
         // value for userEmailsInDb
         $userEmailsInDb = null;
 
@@ -61,10 +82,14 @@ class MainController extends Controller
         $form = $this->createForm(new SettingsType(), $user);
 
         // check request method
-        if ($request->isMethod("POST")) {
+        if ($request->isMethod("POST") || $sessionVar) {
 
-            // get data from request
-            $form->handleRequest($request);
+            //check if sessionVar not exist
+            if(!$sessionVar) {
+
+                // get data from request
+                $form->handleRequest($request);
+            }
 
             // get current password in form
             $currentPassword = $form->get('password')->getData();
@@ -205,6 +230,22 @@ class MainController extends Controller
                 $fosManager->updateUser($user);
 
                 return $this->redirect($lastUrl);
+            }
+            else {
+
+                //check if sessionVar in not exist
+                if(!$sessionVar) {
+
+                    //set session
+                    $session->set('jsForm', $user);
+
+                    return $this->redirect($lastUrl);
+
+                }
+                else {
+
+                    return array('form' => $form->createView());
+                }
             }
         }
 
