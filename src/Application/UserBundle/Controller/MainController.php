@@ -197,16 +197,26 @@ class MainController extends Controller
 //                    $form->get('addEmail')->addError($error);
 //                }
 
-                return new JsonResponse(Response::HTTP_BAD_REQUEST, $returnResult);
+//                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
 
             //check if form is valid
-            if ($form->isValid()) {
+            if ($form->isValid() && count($returnResult) == 0) {
 
                 //update user
                 $fosManager->updateUser($user);
 
                 return $this->redirect($lastUrl);
+            }
+            else {
+
+                $formErrors = $form->getErrors(true);
+
+                foreach($formErrors as $formError)
+                {
+                    $returnResult[] = $formError->getMessage();
+                }
+                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
         }
 
