@@ -103,4 +103,42 @@ trait Location
         return $this->lng;
     }
 
+    /**
+     * @param $location
+     * @return $this
+     */
+    public function setRawLocation($location)
+    {
+        if (is_null($location)){
+            $this->setAddress(null);
+            $this->setLat(null);
+            $this->setLng(null);
+        }
+
+        $location = json_decode($location);
+        if (isset($location->address) && isset($location->location) && isset($location->location->latitude) && isset($location->location->longitude)){
+            $this->setAddress($location->address);
+            $this->setLat($location->location->latitude);
+            $this->setLng($location->location->longitude);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawLocation()
+    {
+        $location = [
+            'address' => $this->address,
+            'location' => [
+                'latitude' => $this->lat,
+                'longitude' => $this->lng
+            ]
+        ];
+
+        return json_encode($location);
+    }
+
 }
