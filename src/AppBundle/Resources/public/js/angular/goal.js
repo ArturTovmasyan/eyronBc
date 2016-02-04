@@ -76,8 +76,8 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
-        $(".goal-create-submit").click(function(){
-            $("#goal-create-form").ajaxForm({
+        angular.element(".goal-create-submit").click(function(){
+            angular.element("#goal-create-form").ajaxForm({
                 success: function(res, text, header){
                     if(header.status === 200){
                         $scope.goalSubmitTemplate = res;
@@ -88,8 +88,8 @@ angular.module('goal', ['Interpolation',
             });
         });
 
-        $(".goal-view-submit").click(function(){
-            $("#goal-create-form").ajaxFormUnbind();
+        angular.element(".goal-view-submit").click(function(){
+            angular.element("#goal-create-form").ajaxFormUnbind();
         });
 
     }])
@@ -141,7 +141,7 @@ angular.module('goal', ['Interpolation',
             });
 
             angular.element('input.important-radio').iCheck({
-                radioClass: 'iradio_square-purple',
+                radioClass: 'iradio_minimal-purple',
                 increaseArea: '20%'
             }).on('ifChanged', function (event) {
                 var target = angular.element(event.target);
