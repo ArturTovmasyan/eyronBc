@@ -30,12 +30,12 @@ class SettingsMobileType extends AbstractType
     {
 
         $builder
-            ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('addEmail', null, array('required' => false, 'label' => 'form.add_email'))
-            ->add('birthDate', 'date', array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
-            ->add('primary', null, array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle'))
-            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
+            ->add('firstName', null, array('required'=>true))
+            ->add('lastName', null, array('required'=>true))
+            ->add('addEmail', null, array('required' => false))
+            ->add('birthDate', 'date', array('required' => false))
+            ->add('primary', null, array('required' => false))
+            ->add('file', 'file', array('required' => false))
         ;
     }
 
@@ -43,7 +43,6 @@ class SettingsMobileType extends AbstractType
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
-
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
