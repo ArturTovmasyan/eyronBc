@@ -31,6 +31,7 @@ class UserGoalController extends FOSRestController
      *  description="This function is used to get userGoal",
      *  statusCodes={
      *         200="Returned when userGoal was returned",
+     *         401="Returned when user not found",
      *         404="UserGoal not found"
      *     },
      *
@@ -56,6 +57,82 @@ class UserGoalController extends FOSRestController
         }
 
         return $userGoal;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to create or update userGoal",
+     *  statusCodes={
+     *         200="Returned when userGoal was returned",
+     *         401="Returned when user not found",
+     *         404="Goal not found"
+     *     },
+     *  parameters={
+     *      {"name"="goal_status", "dataType"="boolean", "required"=false, "description"="ACTIVE:false or COMPLETED:true"},
+     *      {"name"="is_visible", "dataType"="boolean", "required"=false, "description"="true / false"},
+     *      {"name"="steps[done/to_do (1 / 0)]", "dataType"="string", "required"=false, "description"="steps"},
+     *      {"name"="location['address']", "dataType"="string", "required"=false, "description"="address"},
+     *      {"name"="location['latitude']", "dataType"="float", "required"=false, "description"="latitude"},
+     *      {"name"="location['longitude']", "dataType"="float", "required"=false, "description"="longitude"},
+     *      {"name"="urgent", "dataType"="boolean", "required"=false, "description"="Urgent boolean"},
+     *      {"name"="important", "dataType"="boolean", "required"=false, "description"="Important boolean"},
+     *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with m/d/Y format"},
+     * }
+     * )
+     *
+     * @param Goal $goal
+     * @param Request $request
+     * @return Response
+     */
+    public function putAction(Goal $goal, Request $request)
+    {
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
+
+        if (!$userGoal) {
+            $userGoal = new UserGoal();
+            $userGoal->setGoal($goal);
+            $userGoal->setUser($this->getUser());
+        }
+
+        $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+        $userGoal->setIsVisible($request->get('is_visible') ? true : false);
+        $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+
+        $location = $request->get('location');
+        if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
+            $userGoal->setAddress($location['address']);
+            $userGoal->setLat($location['latitude']);
+            $userGoal->setLng($location['longitude']);
+        }
+
+        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT ){
+            // set status to publish
+            $goal->setReadinessStatus(Goal::TO_PUBLISH);
+            $em->persist($goal);
+        }
+
+        $userGoal->setListedDate(new \DateTime());
+
+        $userGoal->setUrgent($request->get('urgent') ? true : false);
+        $userGoal->setImportant($request->get('important') ? true : false);
+
+        $doDate = $request->get('do_date');
+        if($doDate){
+            $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
+            $userGoal->setDoDate($doDate);
+        }
+
+        $em->persist($userGoal);
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
     }
 
     /**
@@ -98,7 +175,7 @@ class UserGoalController extends FOSRestController
      *         404="UserGoal not found"
      *     },
      *
-     *      parameters={
+     *  parameters={
      *      {"name"="condition", "dataType"="integer", "required"=false, "description"="ACTIVE:1 or COMPLETED:2"},
      *      {"name"="first", "dataType"="integer", "required"=false, "description"="first number of user Goal"},
      *      {"name"="count", "dataType"="integer", "required"=false, "description"="count of userGoals results"},
