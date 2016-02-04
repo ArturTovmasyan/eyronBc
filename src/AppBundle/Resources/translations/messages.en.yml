@@ -112,10 +112,22 @@ file:
 
 filter:
    dream: Dreams
-   import_urgent: Important,urgent
-   not_import_urgent: Not important,urgent
-   import_not_urgent: Important, not urgent
-   not_import_not_urgent: Not important, not urgent
+   import_urgent: |
+                   urgent <br />
+                   Important
+
+   not_import_urgent: |
+                      urgent <br />
+                      Not important
+
+   import_not_urgent: |
+                      not urgent <br />
+                      Important
+
+   not_import_not_urgent: |
+                          not urgent <br />
+                          Not important
+
 
 menu:
   bucket: My Bucketlist
