@@ -498,9 +498,11 @@
                             <i class="icon create-icon"></i>
                             {{ 'right_menu.create'|trans }}
                         </a>
-                        <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
-                            <span>{{ draftsCount }}</span>
-                        </a>
+                        {% if profileUser.id == app.user.id %}
+                            <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
+                                <span>{{ draftsCount }}</span>
+                            </a>
+                        {% endif %}
                     </li>
                     <li class="clearfix">
                         <span>

@@ -43,9 +43,12 @@
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['firstName']"></div>
                             </div>
+
                             <div class="col-sm-6">
                                 {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['lastName']"></div>
                             </div>
                         </div>
 
@@ -103,6 +106,7 @@
                                     <div class="col-sm-8">
                                         {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                     </div>
+                                    <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
                                 </div>
                             {% endif %}
 
@@ -110,15 +114,20 @@
                             <div class="col-sm-12">
                                 {{ form_widget(form.password, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
+                            <div class="error-message" data-ng-bind="errorMessages['password']"></div>
                         </div>
 
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['first']"></div>
                             </div>
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['second']"></div>
                             </div>
+
+
                         </div>
 
                         <div class="form-group row">
@@ -167,8 +176,6 @@
                         </div>
 
                         {{ form_widget(form._token) }}
-
-                        <div class="error-message" data-ng-repeat="error in errorMessages" data-ng-bind="error"></div>
 
                     </div>
                 </div> <br />
