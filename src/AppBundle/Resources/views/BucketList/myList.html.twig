@@ -118,7 +118,7 @@
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
                                     <i class="icon icon-ok"></i>
                                 </a>
-                                <span class="text-gray">You've already signed up!</span>
+                                <span class="text-gray">{{ 'my_list.signed_up'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">{{ 'account.complete_text'|trans }}
@@ -128,8 +128,8 @@
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">Verification link has been sent to your e-mail address.</span>
-                                <span class="text-gray">Please, confirm your account by clicking on the link.</span>
+                                <span class="text-gray">{{ 'my_list.verification'|trans({}, 'FOSUserBundle') }}</span>
+                                <span class="text-gray">{{ 'my_list.confirm'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"
@@ -143,7 +143,7 @@
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">Please, add an image to your profile from settings.</span>
+                                <span class="text-gray">{{ 'my_list.add_image'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 <a href="{{ path('add_goal') }}">
@@ -154,8 +154,8 @@
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">If you are here you want to control your life and make it interesting.</span>
-                                <span class="text-gray">So follow the link, explore great ideas and add your first goal.</span>
+                                <span class="text-gray">{{ 'my_list.want_control'|trans({}, 'FOSUserBundle') }}</span>
+                                <span class="text-gray">{{ 'my_list.follow_link'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                         </ol>
 
@@ -171,8 +171,7 @@
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">Your goals are just dreams if they are not tied to time. So set
-a deadline and make the first step in turning your dreams into reality.</span>
+                                <span class="text-gray">{{ 'my_list.dream_text'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">{{ 'goal.complete_text'|trans }}
@@ -182,7 +181,7 @@ a deadline and make the first step in turning your dreams into reality.</span>
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">You have a goal to complete, don't you? Then go ahead, just do it.</span>
+                                <span class="text-gray">{{ 'my_list.have_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
 
                             <li>
@@ -193,8 +192,7 @@ a deadline and make the first step in turning your dreams into reality.</span>
                                         <i class="icon question-icon"></i>
                                     {% endif %}
                                 </a>
-                                <span class="text-gray">You have a completed goal? Great, then write about it, share your
-story with people, inspire them.</span>
+                                <span class="text-gray">{{ 'my_list.complete_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                         </ol>
 
@@ -232,7 +230,6 @@ story with people, inspire them.</span>
                     {% if dream %}
                         <p>{{ 'dream'|trans }}</p>
                     {% endif %}
-
 
                     {% set my_router_params =  app.request.query.all %}
                     {% set userId = {} %}
