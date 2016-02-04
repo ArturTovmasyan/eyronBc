@@ -440,10 +440,10 @@ class GoalController extends Controller
 
         // create filter
         $filters = array(
-            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
-            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
-            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
+            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
         );
 
         //get priority data in request
