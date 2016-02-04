@@ -130,6 +130,12 @@ a.close-modal{
   }
 }
 
+#settings-modal{
+  .iradio_minimal-purple{
+    margin-top:9px;
+  }
+}
+
 #story-modal{
   .dropzone{
     .dz-message{
@@ -150,40 +156,94 @@ a.close-modal{
   }
 }
 
-  table{
-    tbody{
-      tr:first-child{
-        td:first-child{
-          -webkit-transform: rotate(-90deg);
+.priority{
+  background-color: #f4f4f4;
+  position: relative;
+  height:270px;
 
-          /* Firefox */
-          -moz-transform: rotate(-90deg);
+  .dotted{
+    border-left:1px dotted #999999;
+    border-bottom:1px dotted #666666;
+    margin: 20px 30px 0 0;
 
-          /* IE */
-          -ms-transform: rotate(-90deg);
+    .inputs-style{
+      height:90px;
+      margin: 0 5px 5px 0;
+      background-color: #ffffff;
+      padding:10px;
 
-          /* Opera */
-          -o-transform: rotate(-90deg);
+      label{
+        padding-left:0;
+        font-size: 12px;
+        color:#7724f6;
+      }
 
-          /* Internet Explorer */
-          filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+      span{
+        display: block;
+        font-size:14px;
+        font-weight: 600;
+        padding-top: 25px;
+      }
+
+      &:hover,&:focus,&:active{
+        background-color: #7724f6;
+        label{
+          color:#ffffff;
         }
       }
     }
   }
-.priority{
-  background-color: #f4f4f4;
 
   h5{
-    -webkit-transform: rotate(-89deg);
-    -moz-transform: rotate(-89deg);
-    -o-transform: rotate(-89deg);
-    writing-mode: lr-tb;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    position: absolute;
+    left: -10px;
+    top: 115px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 600;
   }
 
+  h6{
+    span{
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+      filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+      position: absolute;
+      width: auto;
+      white-space: nowrap;
+      color: #666666;
+      font-size:12px;
+      font-weight: 600;
+
+      &:first-child{
+        left:-17px;
+        top:37px;
+      }
+
+      &:last-child{
+        right: -12px;
+        top: 133px;
+      }
+    }
+
+  }
+
+  bdi{
+    font-size:12px;
+    font-weight: 600;
+  }
   p{
-    border-top:1px dotted #999999;
-    padding:20px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-size:14px;
   }
 }
 
