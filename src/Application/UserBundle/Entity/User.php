@@ -18,11 +18,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "Register", "update_email"})
+ * @Assert\Callback(methods={"validate"}, groups={"Settings"})
  */
 class User extends BaseUser
 {
@@ -173,6 +175,11 @@ class User extends BaseUser
      * @var
      */
     public $addEmail;
+
+    /**
+     * @var
+     */
+    public $primary;
 
     /**
      * @return mixed
@@ -590,7 +597,7 @@ class User extends BaseUser
     /**
      * Get registrationToken
      *
-     * @return string 
+     * @return string
      */
     public function getRegistrationToken()
     {
@@ -624,7 +631,7 @@ class User extends BaseUser
     /**
      * Get authorGoals
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAuthorGoals()
     {
@@ -658,7 +665,7 @@ class User extends BaseUser
     /**
      * Get editedGoals
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEditedGoals()
     {
@@ -854,7 +861,7 @@ class User extends BaseUser
     /**
      * Get userEmails
      *
-     * @return array 
+     * @return array
      */
     public function getUserEmails()
     {
@@ -923,4 +930,32 @@ class User extends BaseUser
             ) = $data;
     }
 
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        // generate password groups
+        $validGroups = array("Register","Settings");
+
+        // get groups
+        $groups = $context->getGroup();
+
+        if(in_array($groups, $validGroups)){
+
+            //get add email
+            $addEmail = $this->addEmail;
+
+            //get current email
+            $currentEmail = $this->getEmail();
+
+            // check if new email equal currentEmail
+            if ($addEmail == $currentEmail) {
+
+                $context->buildViolation('This email already exists')
+                    ->atPath('addEmail')
+                    ->addViolation();
+            }
+        }
+    }
 }

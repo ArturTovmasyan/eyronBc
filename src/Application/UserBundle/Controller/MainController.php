@@ -76,10 +76,10 @@ class MainController extends Controller
             $userPassword = $user->getPassword();
 
             //get encoder service
-            $encoder_service = $this->get('security.encoder_factory');
+            $encoderService = $this->get('security.encoder_factory');
 
             //encoder user
-            $encoder = $encoder_service->getEncoder($user);
+            $encoder = $encoderService->getEncoder($user);
 
             //check if current password valid
             if ($currentPassword && !($encoder->isPasswordValid($userPassword, $currentPassword, $user->getSalt()))) {
@@ -103,16 +103,6 @@ class MainController extends Controller
 
             //get new email in request
             $addEmail = $form->get('addEmail')->getData();
-
-            //check if new email equal currentEmail
-            if ($addEmail == $currentEmail) {
-
-                //set custom error class
-                $error = new FormError($tr->trans('email.error', array(), 'FOSUserBundle'));
-
-                //set error in field
-                $form->get('addEmail')->addError($error);
-            }
 
             //get primary email
             $primaryEmail = $request->request->get('primary');
@@ -163,8 +153,8 @@ class MainController extends Controller
             //set user emails
             $user->setUserEmails($userEmails);
 
-            //set new password
-            $user->setPlainPassword($newPassword);
+//            //set new password
+//            $user->setPlainPassword($newPassword);
 
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
