@@ -200,7 +200,7 @@ class MainController extends Controller
                 //get form errors
                 $formErrors = $form->getErrors(true);
 
-                foreach($formErrors as $key => $formError)
+                foreach($formErrors as $formError)
                 {
                     //get error field name
                     $name = $formError->getOrigin()->getConfig()->getName();
