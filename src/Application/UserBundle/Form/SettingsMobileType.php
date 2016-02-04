@@ -58,6 +58,6 @@ class SettingsMobileType extends AbstractType
      */
     public function getName()
     {
-        return 'bl_user_mobile_settings';
+        return 'bl_mobile_user_settings';
     }
 }

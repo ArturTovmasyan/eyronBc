@@ -36,7 +36,12 @@ class SettingsController extends FOSRestController
      *         401="Unauthorized user",
      *     },
      * parameters={
-     *      {"name"="data", "dataType"="array", "required"=true, "description"="User`s birthday | in this 01/12/2015 format"},
+     *      {"name"="bl_mobile_user_settings[file]", "dataType"="file", "required"=false, "description"="Users profile image file"},
+     *      {"name"="bl_mobile_user_settings[firstName]", "dataType"="string", "required"=true, "description"="User`s first name | min=3 / max=20 symbols"},
+     *      {"name"="bl_mobile_user_settings[lastName]", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
+     *      {"name"="bl_mobile_user_settings[primary]", "dataType"="string", "required"=false, "description"="User`s primary email"},
+     *      {"name"="bl_mobile_user_settings[addEmail]", "dataType"="string", "required"=false, "description"="Add email for user"},
+     *      {"name"="bl_mobile_user_settings[birthDate]", "dataType"="string", "required"=false, "description"="User`s birthday | in this 01/12/2015 format"},
      * }
      * )
      * @Rest\View(serializerGroups={"settings"})
@@ -46,17 +51,6 @@ class SettingsController extends FOSRestController
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        //get post data
-        $data = $request->request->get('data');
-
-        //check if data empty
-        if (is_null($data)) {
-
-            // return 404 if user not found
-            return new Response('Empty data', Response::HTTP_BAD_REQUEST);
-        }
-
 
         //get current user
         $user = $this->getUser();
@@ -77,7 +71,18 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
-            $data = $form->getData();
+            //get file in form
+            $file = $form->get('file')->getData();
+
+            //check if profile image exist
+            if ($file) {
+
+                //set user profile image
+                $user->setFile($file);
+
+                //get uploadFile service for load profile pictures
+                 $this->container->get('bl_service')->uploadFile($user);
+            }
 
             $em->persist($user);
             $em->flush();
