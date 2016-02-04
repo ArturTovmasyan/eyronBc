@@ -173,72 +173,54 @@ class UserGoalController extends FOSRestController
     }
 
     /**
-     *  @ApiDoc(
+     * @ApiDoc(
      *  resource=true,
      *  section="UserGoal",
-     *  description="This function is used to done or active userGoal",
+     *  description="This function is used to done or active userGoal (isDone = 1 for completed and 0 to set as active)",
      *  statusCodes={
      *         200="Returned when userGoal was done or activated",
-     *         404="UserGoal or Goal not found"
+     *         401="Returned when user not found",
+     *         404="Returned when goal not found"
      *     }
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
-     *
-     * @param $goalId
+     * @param Goal $goal
      * @param $isDone
-     * @return UserGoal|array|Response
+     * @return Response
      */
-    public function getDoneAction($goalId, $isDone)
+    public function getDoneAction(Goal $goal, $isDone)
     {
-
         if (!$this->getUser()){
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
-        // get current user
-        $user = $this->getUser();
-
-        //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-
-        if(!$goal)
-        {
-            return new Response('Goal not found', Response::HTTP_UNAUTHORIZED);
-        }
-
-
-        if($isDone == true)
-        {
+        if($isDone){
             $status = UserGoal::COMPLETED;
             $completionDate = new \DateTime('now');
         }
-        else
-        {
+        else {
             $status = UserGoal::ACTIVE;
             $completionDate = null;
         }
+
         // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
         // check user goal and create if noc exist
         if(!$userGoal){
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
-            $userGoal->setUser($user);
+            $userGoal->setUser($this->getUser());
         }
 
-        // set status to done
         $userGoal->setStatus($status);
-
-        // set date
         $userGoal->setCompletionDate($completionDate);
 
         $em->persist($userGoal);
         $em->flush();
 
-        return $userGoal;
+        return new Response('', Response::HTTP_OK);
     }
 }
