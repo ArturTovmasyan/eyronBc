@@ -9,6 +9,7 @@ namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\SuccessStory;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -485,5 +486,84 @@ class GoalController extends FOSRestController
 
                 return $comment;
             }
+    }
+
+    /**
+     * This function create success story.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function success story by goal",
+     *  statusCodes={
+     *         200="Returned when created",
+     *         400="Return when content not correct",
+     *         404="Return when user or goal by goalId not found",
+     *     },
+     *  parameters={
+     *      {"name"="goalId", "dataType"="integer", "required"=true, "description"="goal Id"},
+     *      {"name"="story", "dataType"="text", "required"=true, "description"="story body"},
+     *      {"name"="videoLink", "dataType"="string", "required"=false, "description"="video link"},
+     * }
+     * )
+     *
+     * @return SuccessStory
+     *
+     * @Rest\View(serializerGroups={"successStory_mobile", "successStory_storyImage", "successStory_user", "user"})
+     *
+     */
+    public function putSuccessStoryAction(Request $request)
+    {
+        // check user
+        if(!$this->getUser()) {
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+        // get validator
+        $validator = $this->container->get('validator');
+
+        // get date from request parameters
+        $story = $request->get('story');
+        $goalId = (int)$request->get('goalId');
+        $videoLink = (string)$request->get('videoLink');
+
+        // check goal by goal id
+        $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+
+        if(!$goal) {
+            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        }
+
+        // create new SuccessStory
+        $successStory = new SuccessStory();
+
+        // check video link
+        if($videoLink)
+        {
+            $successStory->setVideoLink($videoLink);
+        }
+        // set data in object
+        $successStory->setGoal($goal);
+        $successStory->setUser($this->getUser());
+        $successStory->setUpdated(new \DateTime('now'));
+        $successStory->setCreated(new \DateTime('now'));
+        $successStory->setStory($story);
+        // check validation
+        $errors = $validator->validate($successStory);
+
+        if(count($errors)>0) {
+            $errorsString = (string)$errors;
+
+            return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
+        }
+        else {
+            // persist and flush object
+            $em->persist($successStory);
+            $em->flush();
+            //return object
+            return $successStory;
+        }
+
     }
 }
