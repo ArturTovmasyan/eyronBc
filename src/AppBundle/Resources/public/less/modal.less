@@ -159,7 +159,7 @@ a.close-modal{
 .priority{
   background-color: #f4f4f4;
   position: relative;
-  height:320px;
+  height:270px;
 
   .dotted{
     border-left:1px dotted #999999;
@@ -167,19 +167,25 @@ a.close-modal{
     margin: 20px 30px 0 0;
 
     .inputs-style{
-      height:115px;
+      height:90px;
       margin: 0 5px 5px 0;
       background-color: #ffffff;
+      padding:10px;
+
       label{
-        font-size: 14px;
+        padding-left:0;
+        font-size: 12px;
+        color:#7724f6;
       }
 
       span{
         display: block;
-        font-size:16px;
+        font-size:14px;
+        font-weight: 600;
+        padding-top: 25px;
       }
 
-      &:hover{
+      &:hover,&:focus,&:active{
         background-color: #7724f6;
         label{
           color:#ffffff;
@@ -195,9 +201,11 @@ a.close-modal{
     -o-transform: rotate(-90deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     position: absolute;
-    left: -21px;
-    top: 130px;
+    left: -10px;
+    top: 115px;
     text-align: center;
+    font-size:14px;
+    font-weight: 600;
   }
 
   h6{
@@ -211,25 +219,31 @@ a.close-modal{
       width: auto;
       white-space: nowrap;
       color: #666666;
+      font-size:12px;
+      font-weight: 600;
 
       &:first-child{
-        left:-15px;
-        top:50px;
+        left:-17px;
+        top:37px;
       }
 
       &:last-child{
-        right: -15px;
-        top: 165px;
+        right: -12px;
+        top: 133px;
       }
     }
 
   }
 
+  bdi{
+    font-size:12px;
+    font-weight: 600;
+  }
   p{
-
     position: absolute;
     width: 100%;
     bottom: 0;
+    font-size:14px;
   }
 }
 
