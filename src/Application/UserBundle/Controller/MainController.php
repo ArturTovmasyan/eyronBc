@@ -185,19 +185,6 @@ class MainController extends Controller
                 foreach ($errors as $error) {
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
-
-//                //check if email error exist
-//                if (array_key_exists('email', $returnResult)) {
-//
-//                    //set custom error class
-//                    //$error = new FormError($returnResult['email']);
-//                    $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
-//
-//                    //set error in field
-//                    $form->get('addEmail')->addError($error);
-//                }
-
-//                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
 
             //check if form is valid
@@ -210,10 +197,12 @@ class MainController extends Controller
             }
             else {
 
+                //get form errors
                 $formErrors = $form->getErrors(true);
 
                 foreach($formErrors as $formError)
                 {
+                    //set for errors in array
                     $returnResult[] = $formError->getMessage();
                 }
                 return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
