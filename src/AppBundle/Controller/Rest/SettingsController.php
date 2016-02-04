@@ -40,8 +40,6 @@ class SettingsController extends FOSRestController
      *      {"name"="lastName", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
      *      {"name"="primary", "dataType"="string", "required"=false, "description"="User`s primary email"},
      *      {"name"="addEmail", "dataType"="string", "required"=false, "description"="Add email for user"},
-     *      {"name"="password", "dataType"="string", "required"=false, "description"="User`s current password"},
-     *      {"name"="plainPassword", "dataType"="string", "required"=false, "description"="User`s new password"},
      *      {"name"="birthDate", "dataType"="string", "required"=true, "description"="User`s birthday | in this 01/12/2015 format"},
      * }
      * )
@@ -99,38 +97,11 @@ class SettingsController extends FOSRestController
         // get user birthDay
         $birthDate = array_key_exists('birthDate', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthDate']) : null;
 
-        // get current password in request
-        $currentPassword = array_key_exists('password', $data) ? $data['password'] : null;
-
-        //get new password in form
-        $newPassword = array_key_exists('plainPassword', $data) ? $data['plainPassword'] : null;
-
         //get new email in request
         $addEmail = array_key_exists('addEmail', $data) ? $data['addEmail'] : null;
 
         //get primary email
         $primaryEmail = array_key_exists('primary', $data) ? $data['primary'] : null;
-
-        //get current user password
-        $userPassword = $user->getPassword();
-
-        //get encoder service
-        $encoder_service = $this->get('security.encoder_factory');
-
-        //encoder user
-        $encoder = $encoder_service->getEncoder($user);
-
-        //check if current password valid
-        if ($currentPassword && !($encoder->isPasswordValid($userPassword, $currentPassword, $user->getSalt()))) {
-
-            return new JsonResponse($tr->trans('password.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
-        }
-
-        //check if current password not set
-        if ($newPassword && $currentPassword == null) {
-
-            return new JsonResponse($tr->trans('password.current', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
-        }
 
         //check if new email equal currentEmail
         if ($addEmail == $currentEmail) {
@@ -196,9 +167,6 @@ class SettingsController extends FOSRestController
         //set user birthDate
         $user->setBirthDate($birthDate);
 
-        //set new password
-        $user->setPlainPassword($newPassword);
-
         //check if profile image exist
         if ($profileImage) {
 
@@ -236,6 +204,77 @@ class SettingsController extends FOSRestController
         return new Response('', Response::HTTP_OK);
 
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Settings",
+     *  description="This function is used to change user password",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad request",
+     *         401="Not authorized user",
+     *     },
+     * parameters={
+     *      {"name"="currentPassword", "dataType"="string", "required"=true, "description"="User`s current password"},
+     *      {"name"="changePassword", "dataType"="string", "required"=true, "description"="Users change password" },
+     * }
+     * )
+     * @param $request
+     * @return Response
+     * @Rest\View()
+     */
+    public function postChangePasswordAction(Request $request)
+    {
+        // get all data
+        $data = $request->request->all();
+
+        //get fos user manager
+        $fosManager = $this->container->get("fos_user.user_manager");
+
+        // get current user
+        $user = $this->getUser();
+
+        //check if not logged in user
+        if(!is_object($user)) {
+           return new Response("There is not any user logged in", (Response::HTTP_UNAUTHORIZED));
+        }
+
+        //get current password in post data
+        $currentPassword = array_key_exists('currentPassword', $data) ? $data['currentPassword'] : null;
+
+        //get change password in post data
+        $changePassword = array_key_exists('changePassword', $data) ? $data['changePassword'] : null;
+
+        if(!$currentPassword && (!$changePassword)) {
+            return new Response("Post data es empty", Response::HTTP_BAD_REQUEST);
+        }
+
+        //get current user password
+        $userPassword = $user->getPassword();
+
+        //get encoder service
+        $encoder_service = $this->get('security.encoder_factory');
+
+        //encoder user
+        $encoder = $encoder_service->getEncoder($user);
+
+        //encoder sent current password
+        $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
+
+        if($userPassword == $encode_data_pass) {
+
+            //set new password
+            $user->setPlainPassword($changePassword);
+            $fosManager->updateUser($user);
+
+            return New Response(Response::HTTP_NO_CONTENT);
+        }
+        else {
+            return new Response("Invalid current password", Response::HTTP_BAD_REQUEST);
+        }
+    }
+
 
     /**
      * @ApiDoc(

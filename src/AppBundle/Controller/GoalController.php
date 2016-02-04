@@ -253,7 +253,7 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->gteId(), $goal->getId());
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
 
         // check user goal and create if noc exist
         if(!$userGoal){

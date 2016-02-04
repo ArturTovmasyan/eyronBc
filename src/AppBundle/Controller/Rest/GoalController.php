@@ -503,13 +503,13 @@ class GoalController extends FOSRestController
      *  parameters={
      *      {"name"="goalId", "dataType"="integer", "required"=true, "description"="goal Id"},
      *      {"name"="story", "dataType"="text", "required"=true, "description"="story body"},
-     *      {"name"="videoLink", "dataType"="string", "required"=false, "description"="video link"},
+     *      {"name"="videoLink[0]", "dataType"="string", "required"=false, "description"="video link"},
      * }
      * )
      *
      * @return SuccessStory
      *
-     * @Rest\View(serializerGroups={"successStory_mobile", "successStory_storyImage", "successStory_user", "user"})
+     * @Rest\View(serializerGroups={"successStory", "successStory_storyImage", "successStory_user", "user"})
      *
      */
     public function putSuccessStoryAction(Request $request)
@@ -526,7 +526,7 @@ class GoalController extends FOSRestController
         // get date from request parameters
         $story = $request->get('story');
         $goalId = (int)$request->get('goalId');
-        $videoLink = (string)$request->get('videoLink');
+        $videoLink = $request->get('videoLink');
 
         // check goal by goal id
         $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
