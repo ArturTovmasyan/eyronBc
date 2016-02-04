@@ -72,7 +72,8 @@ class UserGoalController extends FOSRestController
      *  parameters={
      *      {"name"="goal_status", "dataType"="boolean", "required"=false, "description"="ACTIVE:false or COMPLETED:true"},
      *      {"name"="is_visible", "dataType"="boolean", "required"=false, "description"="true / false"},
-     *      {"name"="steps[done/to_do (1 / 0)]", "dataType"="string", "required"=false, "description"="steps"},
+     *      {"name"="note", "dataType"="string", "required"=false, "description"="note"},
+     *      {"name"="steps[write step text here]", "dataType"="boolean", "required"=false, "description"="steps"},
      *      {"name"="location['address']", "dataType"="string", "required"=false, "description"="address"},
      *      {"name"="location['latitude']", "dataType"="float", "required"=false, "description"="latitude"},
      *      {"name"="location['longitude']", "dataType"="float", "required"=false, "description"="longitude"},
@@ -104,6 +105,7 @@ class UserGoalController extends FOSRestController
         $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
         $userGoal->setIsVisible($request->get('is_visible') ? true : false);
         $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+        $userGoal->setNote($request->get('note') ? $request->get('note') : null);
 
         $location = $request->get('location');
         if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
@@ -125,7 +127,13 @@ class UserGoalController extends FOSRestController
 
         $doDate = $request->get('do_date');
         if($doDate){
-            $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
+            try {
+                $doDate= \DateTime::createFromFormat('d/m/Y', $doDate);
+            }
+            catch(\Exception $e){
+                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+
             $userGoal->setDoDate($doDate);
         }
 
