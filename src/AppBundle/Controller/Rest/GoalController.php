@@ -506,12 +506,14 @@ class GoalController extends FOSRestController
      * }
      * )
      *
-     * @return SuccessStory
+     * @param Goal $goal
+     * @param Request $request
+     * @return JsonResponse|Response
      *
      * @Rest\View(serializerGroups={"successStory", "successStory_storyImage", "successStory_user", "user"})
      *
      */
-    public function putSuccessStoryAction(Goal $goal, Request $request)
+    public function putSuccessstoryAction(Goal $goal, Request $request)
     {
         // check user
         if(!$this->getUser()) {
