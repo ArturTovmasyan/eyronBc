@@ -498,7 +498,8 @@ class GoalController extends FOSRestController
      *  statusCodes={
      *         200="Returned when created",
      *         400="Return when content not correct",
-     *         404="Return when user or goal by goalId not found",
+     *         401="Return when user not found",
+     *         404="Return when goal by goalId not found",
      *     },
      *  parameters={
      *      {"name"="story", "dataType"="text", "required"=true, "description"="story body"},
