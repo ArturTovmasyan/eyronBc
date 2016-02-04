@@ -200,10 +200,13 @@ class MainController extends Controller
                 //get form errors
                 $formErrors = $form->getErrors(true);
 
-                foreach($formErrors as $formError)
+                foreach($formErrors as $key => $formError)
                 {
+                    //get error field name
+                    $name = $formError->getOrigin()->getConfig()->getName();
+
                     //set for errors in array
-                    $returnResult[] = $formError->getMessage();
+                    $returnResult[$name] = $formError->getMessage();
                 }
                 return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
