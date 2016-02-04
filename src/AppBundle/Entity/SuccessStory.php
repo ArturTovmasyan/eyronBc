@@ -29,7 +29,7 @@ class SuccessStory
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"successStory", "successStory_mobile"})
+     * @Groups({"successStory"})
      */
     protected $id;
 
@@ -58,7 +58,7 @@ class SuccessStory
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @Groups({"successStory", "successStory_mobile"})
+     * @Groups({"successStory"})
      */
     protected $created;
 
@@ -72,7 +72,7 @@ class SuccessStory
 
     /**
      * @ORM\Column(name="story", type="text")
-     * @Groups({"successStory", "successStory_mobile"})
+     * @Groups({"successStory"})
      */
     protected $story;
 
