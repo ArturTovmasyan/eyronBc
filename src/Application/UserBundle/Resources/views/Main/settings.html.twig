@@ -40,8 +40,6 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
 
-                        <div class="error-message">{{ form_errors(form.file) }}</div>
-
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
@@ -66,10 +64,7 @@
                             <div class="col-sm-8">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
-                                <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
-
-                            <div class="error-message">{{ form_errors(form.file) }}</div>
                         </div>
 
 
@@ -108,15 +103,8 @@
                                     <div class="col-sm-8">
                                         {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                     </div>
-
-                                    <div class="error-message">{{ form_errors(form.addEmail) }}</div>
                                 </div>
                             {% endif %}
-
-
-                        <div class="error-message">{{ form_errors(form) }}</div>
-
-                        {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
 
                         <div class="form-group row">
                             <div class="col-sm-12">
@@ -124,24 +112,14 @@
                             </div>
                         </div>
 
-                        <div class="error-message">{{ form_errors(form.password) }}</div>
-
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
-                                {% if errorMessage != 'Error' %}
-                                    <div class="error-message">{{ errorMessage }}</div>
-                                {% endif %}
                             </div>
                         </div>
-                        {% if errorMessage == 'Error' %}
-
-                            <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
-
-                        {% endif %}
 
                         <div class="form-group row">
                             <div class="col-sm-4">
@@ -185,11 +163,12 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="error-message">{{ form_errors(form.birthDate) }}</div>
 
                         </div>
 
                         {{ form_widget(form._token) }}
+
+                        <div class="error-message" data-ng-repeat="error in errorMessages" data-ng-bind="error"></div>
 
                     </div>
                 </div> <br />
