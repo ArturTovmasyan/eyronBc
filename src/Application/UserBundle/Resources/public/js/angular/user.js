@@ -2,6 +2,9 @@
 
 angular.module('user', ['Components', 'Interpolation'])
     .controller('SettingController', ['$scope', '$timeout',function($scope, $timeout){
+
+        $scope.errorMessages = [];
+
         $timeout(function(){
             angular.element(".settings select").niceSelect();
 
@@ -12,10 +15,11 @@ angular.module('user', ['Components', 'Interpolation'])
 
             angular.element("#settings-form").ajaxForm({
                 success: function(res, text, header){
-                    console.log(res, text, header, 'SUCCESS');
+                    $.modal.close();
                 },
                 error: function(res, text, header){
-                    console.log(res, text, header, 'ERROR');
+                    $scope.errorMessages = angular.fromJson(res.responseText);
+                    $scope.$apply();
                 }
             });
 

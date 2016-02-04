@@ -13,16 +13,17 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                <div class="ticker">
-                    {% if aphorisms %}
-                        <ul>
-                            {% for aphorism in aphorisms %}
-                                <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                <div>
+                    <div class="ticker">
+                        {% if aphorisms %}
+                            <ul>
+                                {% for aphorism in aphorisms %}
+                                    <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
                 </div>
-
             </div>
         </div>
 
@@ -67,7 +68,7 @@
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
+                                            <span class="icon plus-icon"></span>{{ 'add'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -76,7 +77,7 @@
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                            <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
+                                            <span class="icon ok-icon"></span>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
