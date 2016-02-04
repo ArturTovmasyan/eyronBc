@@ -126,35 +126,67 @@
                         <div class="col-sm-12" >
                             <h3>{{ 'goal.as_priority'|trans() }} </h3>
 
+                            <div class="priority">
+                                <div class="row no-gutter">
+                                    <div class="col-sm-1">
+                                        <h5 class="text-gray">Importance</h5>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        <div class="row dotted">
+                                            <div class="col-sm-1">
+                                                <h6 class="text-gray">
+                                                    <span>important</span>
+                                                    <span>not important</span>
+                                                </h6>
+                                            </div>
+                                            <div class="col-sm-11">
+                                                <div class="row">
 
-                            {#<table class="table table-condensed">#}
-                                {#<tbody>#}
-                                    {#<tr>#}
-                                        {#<td rowspan="2">Importance</td>#}
-                                        {#<td>sd</td>#}
-                                        {#<td>sd</td>#}
-                                    {#</tr>#}
+                                                    {# other filters #}
+                                                    {% for id, name in filters %}
 
-                                    {#<tr>#}
-                                        {#<td>sd</td>#}
-                                        {#<td>sd</td>#}
-                                    {#</tr>#}
-                                    {#<tr>#}
-                                        {#<td colspan="3" class="text-center">URGENCY</td>#}
-                                    {#</tr>#}
-                                {#<tbody>#}
-                            {#</table>#}
+                                                        <div class="col-sm-6">
+                                                            {#<label class="radio-inline">#}
+                                                            {#<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}#}
+                                                            {#</label>#}
+                                                            <div class="inputs-style">
+                                                                <label class="radio-inline">
+                                                                    <input name="test"
+                                                                           class="important-radio"
+                                                                           type="radio"
+                                                                           data-ng-disabled="complete.switch"
+                                                                           {% if priority == id %}checked{% endif %}
+                                                                           value="{{ id }}">
+                                                                    {{ name|trans }}
+                                                                </label>
 
-                            {#<div class="priority">#}
-                                {#<div class="row">#}
-                                    {#<div class="col-sm-1">#}
-                                        {#<h5 class="text-gray">Importance</h5>#}
-                                    {#</div>#}
-                                    {#<div class="col-sm-1"></div>#}
-                                    {#<div class="col-sm-10"></div>#}
-                                {#</div>#}
-                                {#<p class="text-center text-gray">URGENCY</p>#}
-                            {#</div>#}
+                                                                <span class="text-gray">
+                                                                    {% if id == 1 %}
+                                                                        {{ 'goal.critical_activities'|trans }}
+                                                                    {% elseif id == 2 %}
+                                                                        {{ 'goal.avoid_interruptions'|trans }}
+                                                                    {% elseif id == 3 %}
+                                                                        {{ 'goal.focus_goal'|trans }}
+                                                                    {% elseif id == 4 %}
+                                                                        {{ 'goal.avoid_distractions'|trans }}
+                                                                    {% endif %}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 text-center text-gray">not urgent</div>
+                                                    <div class="col-sm-6 text-center text-gray">urgent</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <p class="text-center text-gray">URGENCY</p>
+                            </div>
 
 
                             <div class="row">
