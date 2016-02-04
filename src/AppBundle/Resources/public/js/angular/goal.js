@@ -76,8 +76,8 @@ angular.module('goal', ['Interpolation',
 
         // end description Tagging
 
-        $(".goal-create-submit").click(function(){
-            $("#goal-create-form").ajaxForm({
+        angular.element(".goal-create-submit").click(function(){
+            angular.element("#goal-create-form").ajaxForm({
                 success: function(res, text, header){
                     if(header.status === 200){
                         $scope.goalSubmitTemplate = res;
@@ -88,8 +88,8 @@ angular.module('goal', ['Interpolation',
             });
         });
 
-        $(".goal-view-submit").click(function(){
-            $("#goal-create-form").ajaxFormUnbind();
+        angular.element(".goal-view-submit").click(function(){
+            angular.element("#goal-create-form").ajaxFormUnbind();
         });
 
     }])
