@@ -92,12 +92,12 @@
                         {% if page == inner %}
                             <ul>
                                 <li>
-                                    <ul class="row">
-                                        <li class="col-md-4">
+                                    <ul class="row no-gutter">
+                                        <li class="col-sm-5">
                                             {{ 'done_by'|trans | upper }}
                                             <p class="purple">{{ goal.stats.doneBy }}</p>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for doneByUser in doneByUsers %}
@@ -110,7 +110,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-3">
                                             {% if goal.stats.doneBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -120,12 +120,12 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <ul class="row">
-                                        <li class="col-md-4">
+                                    <ul class="row no-gutter">
+                                        <li class="col-sm-5">
                                             {{ 'listed_by'|trans | upper }}
                                             <p class="purple">{{ goal.stats.listedBy }}</p>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
@@ -138,7 +138,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-3">
                                             {% if goal.stats.listedBy == 0 %}
                                                 <i></i>
                                             {% else %}
