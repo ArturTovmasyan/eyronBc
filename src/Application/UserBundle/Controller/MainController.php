@@ -200,7 +200,7 @@ class MainController extends Controller
                 //get form errors
                 $formErrors = $form->getErrors(true);
 
-                foreach($formErrors as $key => $formError)
+                foreach($formErrors as $formError)
                 {
                     //get error field name
                     $name = $formError->getOrigin()->getConfig()->getName();
@@ -228,7 +228,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //get last url for redirect
-        $lastUrl = $request->headers->get('referer');
+        $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
         //get current user
         $user = $this->getUser();
