@@ -228,7 +228,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //get last url for redirect
-        $lastUrl = $request->headers->get('referer');
+        $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
         //get current user
         $user = $this->getUser();
