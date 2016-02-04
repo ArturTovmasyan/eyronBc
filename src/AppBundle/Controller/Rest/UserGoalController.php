@@ -103,90 +103,70 @@ class UserGoalController extends FOSRestController
      *      {"name"="first", "dataType"="integer", "required"=false, "description"="first number of user Goal"},
      *      {"name"="count", "dataType"="integer", "required"=false, "description"="count of userGoals results"},
      *      {"name"="isDream", "dataType"="boolean", "required"=true, "description"="Status boolean"},
-     *      {"name"="isImportantUrgent", "dataType"="boolean", "required"=true, "description"="Status boolean"},
-     *      {"name"="isImportantNotUrgent", "dataType"="boolean", "required"=true, "description"="Status boolean"},
-     *      {"name"="isNotImportantUrgent", "dataType"="boolean", "required"=true, "description"="Status boolean"},
-     *      {"name"="isNotImportantNotUrgent", "dataType"="boolean", "required"=true, "description"="Status boolean"},
+     *      {"name"="urgentImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="urgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="notUrgentImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="notUrgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
      * }
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
      *
      * @return Response
      */
-    public function postAction(Request $request)
+    public function postBucketlistAction(Request $request)
     {
         if (!$this->getUser()){
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        $condition = null;
-        $dream = null;
-        $first = null;
-        $count = null;
-        $requestFilter = array();
-        // get user id
-        $userId = $this->getUser()->getId();
-
-
-
         // check conditions
-        if($request->get('condition') === UserGoal::ACTIVE)
-        {
-            $condition = UserGoal::ACTIVE;
+        switch($request->get('condition')){
+            case UserGoal::ACTIVE:
+                $condition = UserGoal::ACTIVE;
+                break;
+            case UserGoal::COMPLETED:
+                $condition = UserGoal::COMPLETED;
+                break;
+            default:
+                $condition = null;
         }
-        elseif($request->get('condition') === UserGoal::COMPLETED)
-        {
-            $condition = UserGoal::COMPLETED;
-        }
+
         //check isDream
-        if($request->get('isDream') == true)
-        {
-            $dream = true;
-        }
-        // check first
-        if($request->get('first'))
-        {
-            $first = (int)$request->get('first');
-        }
-        // check count of result
-        if($request->get('count'))
-        {
-            $count =(int)$request->get('count');
-        }
+        $dream = $request->get('isDream') == true ? true : false;
+        $first = $request->get('first');
+        $count = $request->get('count');
 
-        // check filter parameters
-        if($request->get('isImportantUrgent'))
-        {
-            $requestFilter['isImportantUrgent'] = UserGoal::URGENT_IMPORTANT;
-        }
+        $requestFilter = [];
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $request->get('urgentImportant')       ? true : false;
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $request->get('urgentNotImportant')    ? true : false;
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $request->get('notUrgentImportant')    ? true : false;
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
-        if($request->get('isNotImportantUrgent'))
-        {
-            $requestFilter['isNotImportantUrgent'] = UserGoal::URGENT_NOT_IMPORTANT;
-        }
-
-        if($request->get('isImportantNotUrgent'))
-        {
-            $requestFilter['isImportantNotUrgent'] = UserGoal::NOT_URGENT_IMPORTANT;
-        }
-
-        if($request->get('isNotImportantNotUrgent'))
-        {
-            $requestFilter['isImportantNotUrgent'] = UserGoal::NOT_URGENT_NOT_IMPORTANT;
-        }
-
-        // get user Goals by existing parameters
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($userId, $condition, $dream, $requestFilter);
+        $em = $this->getDoctrine()->getManager();
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
 
         // slice data
         if (is_numeric($first) && is_numeric($count)) {
             $userGoals = array_slice($userGoals, $first, $count);
         }
+
+        //This part is used to calculate goal stats
+        $goalIds = [];
+        foreach($userGoals as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($userGoals as $userGoal){
+            $userGoal->getGoal()->setStats([
+                    'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
+                    'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+                ]);
+        }
+
 
         // return user goals
         return $userGoals;
@@ -241,7 +221,7 @@ class UserGoalController extends FOSRestController
             $completionDate = null;
         }
         // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user, $goal);
+        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
 
         // check user goal and create if noc exist
         if(!$userGoal){

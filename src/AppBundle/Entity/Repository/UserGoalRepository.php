@@ -46,25 +46,25 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
     }
 
     /**
-     * @param $user
+     * @param $userId
      * @param $status
      * @param $dream
      * @param $requestFilters
      * @return array
      */
-    public function findAllByUser($user, $status, $dream, $requestFilters)
+    public function findAllByUser($userId, $status, $dream, $requestFilters)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug')
+                ->addSelect('ug, g, i')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->leftJoin('ug.goal', 'g')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('ug.user', 'ugu')
                 ->where('ugu.id = :user ')
                 ->orderBy('ug.id', 'desc')
-                ->setParameter('user', $user)
+                ->setParameter('user', $userId)
         ;
 
         // check status
