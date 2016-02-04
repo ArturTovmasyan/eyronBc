@@ -141,7 +141,7 @@ angular.module('goal', ['Interpolation',
             });
 
             angular.element('input.important-radio').iCheck({
-                radioClass: 'iradio_square-purple',
+                radioClass: 'iradio_minimal-purple',
                 increaseArea: '20%'
             }).on('ifChanged', function (event) {
                 var target = angular.element(event.target);
