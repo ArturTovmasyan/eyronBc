@@ -9,6 +9,8 @@ namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use Application\CommentBundle\Entity\Comment;
+use Application\CommentBundle\Entity\Thread;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
@@ -387,5 +389,101 @@ class GoalController extends FOSRestController
         }
 
         return $goalFriends;
+    }
+
+    /**
+     * This function create comment.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function create comment by goal",
+     *  statusCodes={
+     *         200="Returned when created",
+     *         400="Return when content not correct",
+     *         404="Return when user or goal by goalId not found",
+     *     },
+     *  parameters={
+     *      {"name"="goalId", "dataType"="integer", "required"=true, "description"="goal Id"},
+     *      {"name"="commentBody", "dataType"="text", "required"=true, "description"="comment body"},
+     * }
+     * )
+     * @return Comment
+     * @Rest\View(serializerGroups={"comment", "comment_author", "user"})
+     *
+     */
+    public function putCommentAction(Request $request)
+    {
+        // check user
+        if (!$this->getUser()){
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+        // get validator
+        $validator = $this->container->get('validator');
+        // get goal id from request params
+        $goalId = (int)$request->get('goalId');
+        // get comment body from request params
+        $commentBody = $request->get('commentBody');
+
+        // check goal id
+        if(!$goalId)
+        {
+            return new Response('Goal by id not found', Response::HTTP_NOT_FOUND);
+        }
+
+        // check thread by goal id
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($goalId);
+            // create thread for goal
+            if(!$thread)
+            {
+                // generate url by goal id for goal thread
+                $url = $this->container->get('router')->generate('inner_goal', array('id' => $goalId), true);
+
+                $thread = new Thread();
+                $thread->setPermalink($url);
+                $thread->setLastCommentAt(new \DateTime('now'));
+                $thread->setId($goalId);
+
+                // check validator
+                $errors = $validator->validate($thread);
+
+                if(count($errors)>0)
+                {
+                    $errorsString = (string)$errors;
+                    return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
+                }
+                else {
+                    // persist and flush thread
+                    $em->persist($thread);
+                }
+            }
+
+            // create comment
+            $comment= new Comment();
+            $comment->setAuthor($this->getUser());
+            $comment->setBody($commentBody);
+            $comment->setThread($thread);
+            $comment->setCreatedAt(new \DateTime('now'));
+            $comment->setState(0);
+
+            // validate new comment
+            $errors = $validator->validate($comment);
+
+            if(count($errors)>0)
+            {
+                $errorsString = (string)$errors;
+
+                return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
+            }
+            else
+            {
+                // persist new comment end flush objects
+                $em->persist($comment);
+                $em->flush();
+
+                return $comment;
+            }
     }
 }
