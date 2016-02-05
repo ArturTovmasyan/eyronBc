@@ -6,9 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BaseClass extends WebTestCase
 {
+    /**
+     * @deprecated Response::HTTP_STATUS_OK
+     */
     const HTTP_STATUS_OK = 200;
+
+    /**
+     * @deprecated Response::HTTP_STATUS_REDIRECT
+     */
     const HTTP_STATUS_REDIRECT = 302;
+
     // constants for status
+    /**
+     * @deprecated UserGoal::
+     */
     const ACTIVE = 1;
     const COMPLETED = 2;
 
@@ -78,27 +89,14 @@ class BaseClass extends WebTestCase
         ));
         $this->clientSecond->enableProfiler();
 
-        $filters = array(
-            array('f_' . BaseClass::URGENT_IMPORTANT => 'on',
-                    'd'=>true),
-            array('f_' . BaseClass::URGENT_IMPORTANT => 'on',
-                    'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on',
-                    'd'=>false),
-            array('f_' . BaseClass::URGENT_IMPORTANT => 'on',
-                    'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on',
-                    'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on',
-                    'd'=>true),
-            array('f_' . BaseClass::URGENT_IMPORTANT => 'on',
-                    'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on',
-                    'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on',
-                    'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on',
-                    'd'=>false),
-            array('f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on',
-                    'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on',
-                    'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on',
-                    'd'=>true)
+        $data = array(
+            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'd'=>true)),
+            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'd'=>false)),
+            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'd'=>true)),
+            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>false)),
+            array('filter' => array('f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>true))
         );
 
-        return array(array($filters));
+        return $data;
     }
 }
