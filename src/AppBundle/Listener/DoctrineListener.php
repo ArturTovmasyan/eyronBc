@@ -87,6 +87,7 @@ class DoctrineListener
         // for update
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
+            //check entity
             if($entity instanceof User) {
 
                 //get add email

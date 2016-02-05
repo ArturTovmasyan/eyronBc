@@ -1003,6 +1003,26 @@ class User extends BaseUser
             //get current email
             $currentEmail = $this->getEmail();
 
+            //get primary email
+            $primaryEmail = $this->primary;
+
+            //get user emails
+            $userEmails = $this->getUserEmails();
+
+            //check if primary email exist in user emails array
+            if ($primaryEmail && ($primaryEmail == $currentEmail)) {
+
+                $context->buildViolation('Set invalid primary email')
+                    ->atPath('primary')
+                    ->addViolation();
+            }
+
+            if($primaryEmail && !array_key_exists($primaryEmail, $userEmails)) {
+                $context->buildViolation('Set invalid primary email')
+                    ->atPath('primary')
+                    ->addViolation();
+            }
+
             // check if new email equal currentEmail
             if ($addEmail == $currentEmail) {
 

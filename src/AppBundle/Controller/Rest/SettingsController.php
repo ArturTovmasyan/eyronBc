@@ -55,13 +55,6 @@ class SettingsController extends FOSRestController
         //get current user
         $user = $this->getUser();
 
-        //check if user not found
-        if (!is_object($user)) {
-
-            // return 404 if user not found
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
