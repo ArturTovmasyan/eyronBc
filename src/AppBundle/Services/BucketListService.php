@@ -57,7 +57,7 @@ class BucketListService
             // get file path
             $path = $object->getAbsolutePath() . $object->getFileName();
             // check file
-            if(file_exists($path)){
+            if(file_exists($path) && is_file($path)){
                 // remove file
                 unlink($path);
             }
@@ -92,6 +92,9 @@ class BucketListService
         // get original file
         $file = $object->getAbsolutePath() . $object->getFileName() ;
 
+        if(!file_exists($file) && is_file($file)){
+            return;
+        }
         // create imagick for mobile image
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
@@ -136,7 +139,7 @@ class BucketListService
         $file = $object->getAbsolutePath() . $object->getFileName() ;
 
         // check file
-        if(file_exists($file)){
+        if(file_exists($file) && is_file($file)){
 
             // create imagick for mobile image
             $im = new \Imagick($file);
@@ -168,7 +171,7 @@ class BucketListService
         $file = $object->getAbsolutePath() . $object->getFileName() ;
 
         // check file
-        if(file_exists($file)){
+        if(file_exists($file) && is_file($file)){
 
             // create imagick for mobile image
             $im = new \Imagick($file);

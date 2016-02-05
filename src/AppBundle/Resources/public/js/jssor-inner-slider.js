@@ -34,6 +34,34 @@ $(document).ready(function(){
         $(window).bind("resize", ScaleSliderMain);
         $(window).bind("orientationchange", ScaleSliderMain);
     }
+
+    if($('#main-slider-video').length){
+        options.$SlideSpacing = 10;
+        options.$DisplayPieces = 2;
+        options.$SlideWidth = 350;
+        var mainVideo = new $JssorSlider$('main-slider-video', options);
+
+        var ScaleSliderMainVideo = function() {
+            var parentWidth = $("#main-slider-video").parent().width();
+
+            if (parentWidth) {
+                mainVideo.$ScaleWidth(parentWidth);
+            }
+            else {
+                window.setTimeout(ScaleSliderMainVideo, 30);  // Need to take attention on this
+            }
+        };
+
+        //Scale slider after document ready
+        ScaleSliderMainVideo();
+
+        //Scale slider while window load/resize/orientationchange.
+        $(window).bind("load", ScaleSliderMainVideo);
+        $(window).bind("resize", ScaleSliderMainVideo);
+        $(window).bind("orientationchange", ScaleSliderMainVideo);
+    }
+
+
     if($(".story-slider").length){
 
         options.$SlideSpacing = 10;

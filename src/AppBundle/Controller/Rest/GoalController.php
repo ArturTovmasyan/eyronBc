@@ -155,7 +155,7 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @param $id
      * @return mixed
-     * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_put", options={"method_prefix"=false})
+     * @Rest\Put("/goals/create/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_put", options={"method_prefix"=false})
      * @Rest\View()
      * @Security("has_role('ROLE_USER')")
      */
