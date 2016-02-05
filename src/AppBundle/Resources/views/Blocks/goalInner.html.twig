@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-sm-9">
-                <h2>{{ goal.title }}</h2>
+                <h2 {% if goal.title|length > 30 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
             <div class="col-sm-3"></div>
         </div>
