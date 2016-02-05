@@ -8,8 +8,11 @@
 
 namespace AppBundle\Controller\Rest;
 
+use Application\UserBundle\Entity\User;
 use Application\UserBundle\Form\SettingsMobileType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -45,6 +48,7 @@ class SettingsController extends FOSRestController
      * }
      * )
      * @Rest\View(serializerGroups={"settings"})
+     * @Secure("ROLE_USER")
      */
     public function postSettingsAction(Request $request)
     {
@@ -122,6 +126,7 @@ class SettingsController extends FOSRestController
      * @param $request
      * @return Response
      * @Rest\View()
+     * @Secure("ROLE_USER")
      */
     public function postChangePasswordAction(Request $request)
     {
@@ -179,24 +184,16 @@ class SettingsController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Settings",
-     *  description="This function is used to get settings data",
+     *  description="This function is used to get setting by user id",
      *  statusCodes={
-     *         401="Unauthorized user",
-     *     }
+     *         200="OK",
+     *     },
      * )
+     * @ParamConverter("user", class="ApplicationUserBundle:User")
      * @Rest\View(serializerGroups={"settings"})
      */
-    public function getSettingsAction()
+    public function getUserFromSettingsAction(User $user)
     {
-        //get current user
-        $user = $this->getUser();
-
-        //check if user not found
-        if (!is_object($user)) {
-
-            // return 404 if user not found
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
 
         return $user;
     }
@@ -217,6 +214,7 @@ class SettingsController extends FOSRestController
      * }
      * )
      * @Rest\View()
+     * @Secure("ROLE_USER")
      */
     public function deleteEmailAction(Request $request)
     {
@@ -237,13 +235,6 @@ class SettingsController extends FOSRestController
 
             // return 404 if email is empty
             return new Response( 'Email data is empty', Response::HTTP_BAD_REQUEST);
-        }
-
-        //check if user not found
-        if (!is_object($user)) {
-
-            // return 404 if user not found
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
         //get user all emails
