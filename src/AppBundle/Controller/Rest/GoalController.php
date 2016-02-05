@@ -14,9 +14,8 @@ use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\SerializerBuilder;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -158,13 +157,10 @@ class GoalController extends FOSRestController
      * @return mixed
      * @Rest\Put("/goals/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_put", options={"method_prefix"=false})
      * @Rest\View()
+     * @Security("has_role('ROLE_USER')")
      */
     public function putAction(Request $request, $id = null)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
         $data = $request->request->all();
 
@@ -219,15 +215,12 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
+     * @Security("has_role('ROLE_USER')")
      */
     public function addImagesAction($id = null, Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
 
         if ($id){
             $goal = $em->getRepository('AppBundle:Goal')->find($id);
@@ -303,16 +296,13 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/goals/remove-images/{id}", requirements={"id"="\d+"}, name="app_rest_goal_removeimage", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
      *
      * @param GoalImage $goalImage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function removeImageAction(GoalImage $goalImage)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         if(!$goalImage->getGoal() || $this->getUser()->getId() != $goalImage->getGoal()->getAuthor()->getId()){
             return new Response("Goal image hasn't goal or it isn't an image of current user", Response::HTTP_BAD_REQUEST);
         }
@@ -337,6 +327,7 @@ class GoalController extends FOSRestController
      * @Rest\View(serializerGroups={"goal_draft"})
      *
      * @Rest\Get("/goals/drafts/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getdrafts", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
      *
      * @param $first
      * @param $count
@@ -344,10 +335,6 @@ class GoalController extends FOSRestController
      */
     public function getDraftsAction($first, $count)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         // find all drafts goal
@@ -370,14 +357,11 @@ class GoalController extends FOSRestController
      *  },
      * )
      * @Rest\View(serializerGroups={"user"})
+     * @Security("has_role('ROLE_USER')")
      * @return array
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         // check search data
         $search = $request->get('search') ? $request->get('search') : null;
         // get entity manager
@@ -409,17 +393,15 @@ class GoalController extends FOSRestController
      *      {"name"="commentBody", "dataType"="text", "required"=true, "description"="comment body"},
      * }
      * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     *
      * @param Goal $goal
      * @param Request $request
      * @return Comment|JsonResponse|Response
      */
     public function putCommentAction(Goal $goal, Request $request)
     {
-        // check user
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
         $validator = $this->container->get('validator');
 
@@ -495,17 +477,14 @@ class GoalController extends FOSRestController
      * }
      * )
      *
+     * @Security("has_role('ROLE_USER')")
+     *
      * @param Goal $goal
      * @param Request $request
      * @return JsonResponse|Response
      */
     public function putSuccessstoryAction(Goal $goal, Request $request)
     {
-        // check user
-        if(!$this->getUser()) {
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         // get validator

@@ -33,6 +33,7 @@ class NewsFeedController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"new_feed", "goal", "images", "user", "success_story", "comment"})
+     * @Security("has_role('ROLE_USER')")
      *
      * @param $first
      * @param $count
@@ -41,10 +42,6 @@ class NewsFeedController extends FOSRestController
      */
     public function getAction($first, $count)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
         $this->get('bl_news_feed_service')->updateNewsFeed();
 

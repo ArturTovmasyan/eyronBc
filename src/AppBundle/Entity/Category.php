@@ -46,7 +46,7 @@ class Category
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="category")
      * @ORM\JoinTable(name="categories_tags",
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}

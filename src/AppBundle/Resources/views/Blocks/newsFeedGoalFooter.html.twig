@@ -3,7 +3,7 @@
 
         {#{% if not isMyGoal(goal, app.user, "add") %}#}
         {% if goal.isMyGoal == 0 %}
-            <li class="col-sm-4">
+            <li class="col-xs-4">
                 <a href="javascript:void(0)"
                    data-ls-jquery-modal
                    data-ls-identity="activity{{ goal.id }}"
@@ -12,7 +12,7 @@
                 </a>
             </li>
         {% else %}
-            <li class="col-sm-4">
+            <li class="col-xs-4">
                 {#<span class="label label-success">{{ 'added'|trans }}</span>#}
                 <strong>
                     <span class="icon plus-icon-green"></span>{{ 'added'|trans |upper}}
@@ -23,13 +23,13 @@
 
         {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
         {% if  goal.isMyGoal != 2 %}
-            <li class="col-sm-4">
+            <li class="col-xs-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <span class="icon ok-icon"></span>{{ 'done'|trans }}
                 </a>
             </li>
         {% else %}
-            <li class="col-sm-4">
+            <li class="col-xs-4">
                 {#<span class="label label-success">{{ 'completed'|trans }}</span>#}
                 <strong>
                     <span class="icon green-ok-icon"></span>{{ 'completed'|trans |upper}}
@@ -39,7 +39,7 @@
     {#{% endif %}#}
 
     {% if inner is not defined %}
-        <li class="col-sm-4">
+        <li class="col-xs-4">
             {#<a href="#">#}
                 {#<span class="glyphicon glyphicon-share-alt">#}
                     <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>

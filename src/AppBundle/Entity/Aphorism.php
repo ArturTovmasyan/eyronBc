@@ -38,7 +38,7 @@ class Aphorism
     protected $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="aphorism", cascade={"persist"})
      * @ORM\JoinTable(name="aphorisms_tags",
      *      joinColumns={@ORM\JoinColumn(name="aphorism_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}

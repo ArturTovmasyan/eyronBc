@@ -615,7 +615,7 @@ ul.filter{
 
 
 .remove-icon{
-  background: url('../images/images.png') no-repeat -379px -222px;
+  background: url('../images/images.png') no-repeat -379px -223px;
 }
 
 .up-icon{
@@ -834,6 +834,7 @@ ul.filter{
     }
     img{
       border:2px solid;
+      height:50px;
     }
   }
 }
@@ -883,6 +884,9 @@ ul li{list-style: none;}
   margin-top:10px;
 }
 
+.padding-top{
+  padding-top:20px;
+}
 .signup,.settings{
   padding-bottom:5px;
     h1{
@@ -1294,6 +1298,38 @@ figure{
     padding:10px 20px;
     p{
       padding:35px 0 0;
+    }
+
+    .comment-place{
+      padding:20px 0;
+      background-color: #cccccc;
+      margin-bottom: 20px;
+
+      p{
+        padding:0;
+        font-size:16px;
+        color:#666666;
+        margin:0;
+
+        &:first-child{
+          font-weight:600;
+        }
+      }
+
+      span{
+        font-size:13px;
+        color:#999999;
+      }
+
+      figure{
+        img{
+          width: 100%;
+        }
+      }
+
+      &>figure{
+        margin: 10px 0 10px 10px;
+      }
     }
   }
 
@@ -1972,33 +2008,57 @@ footer{
   background: #ffffff;
   padding:20px 30px;
 
-  li{
-    border-bottom:1px solid #cccccc;
-      a,span{
-        color:#666666;
-        font-size: 16px;
+  hr{
+    border-color:#cccccc;
+    margin-top: 0;
+  }
 
-        &:hover{
-          text-decoration:none;
-          color: #6108EA;
-        }
-      }
+  a,span{
+    color:#666666;
+    font-size: 16px;
 
-      a:first-child{
-        float:left;
-      }
-
-      a:last-child{
-        float:right;
-        //font-size: 16px;
-      }
-    &:nth-child(2){
-      padding-top:40px;
+    &:hover{
+      text-decoration:none;
+      color: #6108EA;
     }
-    &:last-child{
-      padding-top:20px;
-      border-bottom:0;
-    }
+  }
+
+  li {
+    //border-bottom:1px solid #cccccc;
+    //a,span{
+    //  color:#666666;
+    //  font-size: 16px;
+    //
+    //  &:hover{
+    //    text-decoration:none;
+    //    color: #6108EA;
+    //  }
+    //}
+
+    //&>ul{
+    //  padding-left:0;
+    //  li{
+    //    display: inline-block;
+    //    border-bottom:0;
+    //  }
+    //}
+
+    //a:first-child{
+    //  float:left;
+    //}
+    //
+    //a:last-child{
+    //  float:right;
+    //  //font-size: 16px;
+    //}
+    //&:nth-child(2) {
+    //  padding-top: 40px;
+    //}
+    //&:last-child {
+    //  padding-top: 20px;
+    //  border-bottom: 0;
+    //}
+  }
     h3{
       position: absolute;
       width:100%;
@@ -2009,10 +2069,12 @@ footer{
       position: relative;
       margin-bottom:15px;
 
+
       figcaption{
         position: absolute;
         bottom: -30px;
         width: 100%;
+        padding:0 5px;
         background: transparent;
 
         ul{
@@ -2057,7 +2119,7 @@ footer{
     }
 
 
-  }
+
 }
 
 @media (min-width: @screen-md) {

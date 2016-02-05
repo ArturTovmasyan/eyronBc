@@ -9,6 +9,7 @@
 
 namespace Application\UserBundle\Handler;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +18,13 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
 /**
  * Class AuthenticationHandler
  * @package AppBundle\Handler
  */
-class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
+class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface, AuthenticationEntryPointInterface
 {
     /**
      * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
@@ -106,6 +108,21 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new RedirectResponse($url);
         }
 
+    }
+
+    /**
+     * @param Request $request
+     * @param AuthenticationException|null $authException
+     * @return JsonResponse|RedirectResponse
+     */
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+        if ($request->get('_format') == "json"){
+            return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
+        }
+
+        $loginPath = $this->router->generate('homepage');
+        return new RedirectResponse($loginPath);
     }
 
 }

@@ -64,12 +64,12 @@
 
         <div class="container">
              <div class="row">
-                 <div class="col-md-12">
+                 <div class="col-sm-12">
                      <div class="goals">
                      {{ form_errors(form) }}
 
                          <div class="row">
-                             <div class="col-md-offset-1 col-md-10">
+                             <div class="col-sm-offset-1 col-sm-10">
 
                                  <div class="form-group">
                                      {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title' } }) }}
@@ -115,7 +115,7 @@
 
                                  <div class="row">
                                      {% for image in images %}
-                                             <div class="col-md-2">
+                                             <div class="col-sm-2">
                                                  <a href="{{ path("remove_image", {'filename' : image.filename }) }}">
                                                      <span class="icon remove-icon"></span>
                                                  </a>
