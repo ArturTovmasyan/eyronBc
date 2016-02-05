@@ -7,7 +7,7 @@
 
     <div class="container" id="news-feed">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8">
 
                 {% if pagination.getTotalItemCount() == 0 %}
                     <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
