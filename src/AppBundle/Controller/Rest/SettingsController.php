@@ -49,28 +49,8 @@ class SettingsController extends FOSRestController
     public function postSettingsAction(Request $request)
     {
 
-        $data = $request->request->all();
-
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
         //get current user
         $user = $this->getUser();
-
-        // value for userEmailsInDb
-        $userEmailsInDb = null;
-
-        //set default primary email value
-        $primaryEmail = null;
-
-//        $birthDate = $data['bl_mobile_user_settings']['birthDate'];
-
-        // get user birthDay
-//        $birthDate = $birthDate ? \DateTime::createFromFormat('d/m/Y', $birthDate) : null;
-
-//        $data['bl_mobile_user_settings']['birthDate'] = $birthDate;
-
-//        $request->request->set('bl_mobile_user_settings', $data);
 
         //check if user not found
         if (!is_object($user)) {
@@ -78,6 +58,15 @@ class SettingsController extends FOSRestController
             // return 404 if user not found
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // value for userEmailsInDb
+        $userEmailsInDb = null;
+
+        //set default primary email value
+        $primaryEmail = null;
 
         // create goal form
         $form = $this->createForm(new SettingsMobileType(), $user);
