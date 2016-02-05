@@ -6,6 +6,7 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
+        'youtube-embed',
         'Components'
     ])
     .controller('goalAdd',['$scope', '$sce', '$timeout', function($scope, $sce, $timeout){
