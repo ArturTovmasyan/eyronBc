@@ -15,7 +15,7 @@
                             </div>
                             <div  class="col-xs-2 col-sm-1">
                                 <a href="{{ path('goal_friends') }}" class="text-gray">
-                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                                    <i class="icon remove-icon"></i>
                                 </a>
                             </div>
                         </div>
@@ -81,15 +81,27 @@
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
 
-                <ul class="right-block">
-                    <li class="clearfix">
-                        <span>{{ 'right_menu.ideas'|trans }}</span>
-                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                    </li>
-                    <li>
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                    </li>
-                </ul>
+                <div class="right-block  margin-top">
+                    <div class="row">
+                        <div class="col-sm-6">
+                             <span>
+                                 <i class="icon top-icon"></i>
+                                 {{ 'right_menu.ideas'|trans }}
+                            </span>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
