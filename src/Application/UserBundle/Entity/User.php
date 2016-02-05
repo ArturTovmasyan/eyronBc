@@ -25,6 +25,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
  * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
+ * @ORM\EntityListeners({"AppBundle\Listener\SettingsListener"})
  */
 class User extends BaseUser
 {
