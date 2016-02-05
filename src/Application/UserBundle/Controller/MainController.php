@@ -153,9 +153,6 @@ class MainController extends Controller
             //set user emails
             $user->setUserEmails($userEmails);
 
-            //set new password
-            $user->setPlainPassword($newPassword);
-
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
 
