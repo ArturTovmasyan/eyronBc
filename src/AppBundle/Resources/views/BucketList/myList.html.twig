@@ -259,7 +259,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-10">
+                <div class="col-sm-10">
                     <form class="form-inline" action="#">
 
                         {# dream filter #}
@@ -277,7 +277,7 @@
                     </form>
                 </div>
 
-                <div class="col-md-2 mail-print">
+                <div class="col-sm-2 mail-print">
                     <a href="javascript:void(0)">
                         <i class="icon print-icon"></i>
                     </a>
@@ -291,7 +291,7 @@
 
     <div class="container goals-information">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8">
                 {% if userGoals %}
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
@@ -491,30 +491,79 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <ul class="right-block">
-                    <li class="clearfix">
-                        <a href="{{ path('add_goal') }}">
-                            <i class="icon create-icon"></i>
-                            {{ 'right_menu.create'|trans }}
-                        </a>
-                        {% if profileUser.id == app.user.id %}
-                            <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
-                                <span>{{ draftsCount }}</span>
+            <div class="col-sm-4">
+                <div class="right-block">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a href="{{ path('add_goal') }}">
+                                <i class="icon create-icon"></i>
+                                {{ 'right_menu.create'|trans }}
                             </a>
-                        {% endif %}
-                    </li>
-                    <li class="clearfix">
-                        <span>
-                            <i class="icon suggested-icon"></i>
-                            {{ 'right_menu.suggested'|trans }}
-                        </span>
-                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                    </li>
-                    <li>
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
-                    </li>
-                </ul>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            {% if profileUser.id == app.user.id %}
+                                <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
+                                    <span>{{ draftsCount }}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <div class="row padding-top">
+                        <div class="col-sm-9">
+                            <span>
+                                <i class="icon suggested-icon"></i>
+                                {{ 'right_menu.suggested'|trans }}
+                            </span>
+
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
+                        </div>
+                    </div>
+                </div>
+
+                {#<ul class="right-block">#}
+
+                    {#<li class="clearfix">#}
+                        {#<ul>#}
+                            {#<li>#}
+                                {#<a href="{{ path('add_goal') }}">#}
+                                    {#<i class="icon create-icon"></i>#}
+                                    {#{{ 'right_menu.create'|trans }}#}
+                                {#</a>#}
+                            {#</li>#}
+
+                            {#<li>#}
+                                {#{% if profileUser.id == app.user.id %}#}
+                                    {#<a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}#}
+                                        {#<span>{{ draftsCount }}</span>#}
+                                    {#</a>#}
+                                {#{% endif %}#}
+                            {#</li>#}
+                        {#</ul>#}
+
+                    {#</li>#}
+                    {#<li class="clearfix">#}
+                        {#<span>#}
+                            {#<i class="icon suggested-icon"></i>#}
+                            {#{{ 'right_menu.suggested'|trans }}#}
+                        {#</span>#}
+                        {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#{%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}#}
+                    {#</li>#}
+                {#</ul>#}
             </div>
         </div>
     </div>
