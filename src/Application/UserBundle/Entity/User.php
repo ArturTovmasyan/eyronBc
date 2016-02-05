@@ -25,7 +25,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
  * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
- * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -874,7 +873,6 @@ class User extends BaseUser
     /**
      * This function is used to set primary email and change username
      *
-     * @ORM\PreUpdate()
      */
     public function hasSettingsProcess()
     {
