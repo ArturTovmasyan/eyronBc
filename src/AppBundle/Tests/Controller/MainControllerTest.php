@@ -2,6 +2,8 @@
 
 namespace AppBundle\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class MainControllerTest extends BaseClass
 {
     /**
@@ -9,14 +11,10 @@ class MainControllerTest extends BaseClass
      */
     public function testIndex()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         // try to open homepage
         $crawler = $this->client->request('GET', '/');
 
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open homepage!');
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open homepage!');
 
         // get goal2
         $goal2 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
@@ -34,7 +32,7 @@ class MainControllerTest extends BaseClass
             $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->link();
             $this->client->click($link);
 
-            $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not click in goal2 link in homepage!');
+            $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not click in goal2 link in homepage!');
         }
     }
 
@@ -43,9 +41,7 @@ class MainControllerTest extends BaseClass
      */
     public function testPage()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+
         // get page
         $page = $this->em->getRepository('AppBundle:Page')->findOneByName('page');
         // get page slug
@@ -54,75 +50,69 @@ class MainControllerTest extends BaseClass
         // try to open page
         $this->client->request('GET', '/page/' . $slug);
 
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open page page!');
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open page page!');
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
     }
 
     /**
-     * This function is used to check news-feed page
-     */
-    public function testNewsFeed()
-    {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // try to open news-feed page
-        $crawler = $this->client->request('GET', '/news-feed');
-
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open news-feed page!');
-
-        // click in goal1 title link
-        $link = $crawler->selectLink('Show all')->link();
-        $this->client->click($link);
-
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not click link in news-feed page!');
-    }
-
-    /**
-     * This function is used to check goalFriends page
+     * This function is used to check goal friends page
      */
     public function testGoalFriends()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // get goal
-        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
-
-        // get goal id
-        $id = $goal->getId();
 
         // try to open goal add-to-me page
-        $crawler = $this->clientSecond->request('POST', '/goal/add-to-me/' . $id);
+        $this->clientSecond->request('GET', '/goal-friends', array('search'=>'goal3'));
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add-to-me page!');
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends page!');
 
-        // location array
-        $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
+    }
 
-        // get form
-        $form = $crawler->selectButton('DISCOVER MORE')->form(array(
-            'app_bundle_user_goal[birthday]' => '10/14/2015',
-            'app_bundle_user_goal[location]' => json_encode($location),
-            'app_bundle_user_goal[note]' => 'goal note2',
+    /**
+     * This function is used to check Goal Users page
+     *
+     * @dataProvider goalProvider
+     */
+    public function testGoalUsers($goalId)
+    {
 
-        ));
+        // try to open goal add-to-me page
+        $this->clientSecond->request('GET', '/listed-users/'.$goalId);
 
-        // submit form
-        $this->clientSecond->submit($form);
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal users page!');
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not create user2 goal in add-to-me page!');
+    }
 
-        // get user2
-        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByEmail('user@user.com');
+    /**
+     * This function is used to check goal Activities page
+     *
+     */
+    public function testActivities()
+    {
 
-        // try to search user2
-        $this->client->request('GET', '/goal-friends?search=' . $user->getFirstName());
+        // try to open goal add-to-me page
+        $this->clientSecond->request('GET', '/activity');
 
-        $this->assertEquals( $this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not find a user with this firstName in goal-friends page!');
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal activities page!');
 
-        // Assert that the response content contains a string user firstName
-        $this->assertContains($user->getFirstName(), $this->client->getResponse()->getContent(), 'can not search user in goal-friends page!');
+    }
+
+    /**
+     * This function is used to check goal Registration Confirmed page
+     *
+     */
+    public function testRegistrationConfirmed()
+    {
+
+        // try to open goal add-to-me page
+        $this->clientSecond->request('GET', '/register/confirmed');
+
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open Registration Confirmed page!');
+
     }
 }

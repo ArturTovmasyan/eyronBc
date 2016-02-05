@@ -126,4 +126,35 @@ class BaseClass extends WebTestCase
 
         return $fileNames;
     }
+
+    /**
+     *
+     */
+    public function goalProvider()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $goals = $this->em->getRepository('AppBundle:Goal')->findAll();
+
+        $goalIds = array();
+
+        for($i = 0; $i<count($goals); $i++)
+        {
+            $goalIds[] =
+                array(
+                    'file'.$i => $goals[$i]->getId()
+                );
+
+        }
+
+        return $goalIds;
+    }
 }

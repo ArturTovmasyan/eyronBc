@@ -81,12 +81,13 @@ class GoalControllerTest extends BaseClass
      */
     public function testAddToMe($goal)
     {
+        // try to open goal view page
         $crawler = $this->client->request('GET', '/goal/add-to-me/'.$goal->getId());
-
+        // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add to me!');
-
+        // create location
         $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
-        // get form
+        // get form and set data
         $form = $crawler->selectButton('btn_save')->form(array(
             'app_bundle_user_goal[birthday]' => '10/14/2015',
             'app_bundle_user_goal[location]' => json_encode($location),
@@ -98,11 +99,12 @@ class GoalControllerTest extends BaseClass
 
         // submit form
         $this->client->submit($form);
-
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        // check database request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+        // return goal Id
         return $goal->getId();
     }
 
@@ -114,13 +116,13 @@ class GoalControllerTest extends BaseClass
     {
         // try to open goal view page
         $this->client->request('GET', '/goal/view/' . $goalId);
-
+        // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
 
         return $goalId;
     }
@@ -134,14 +136,13 @@ class GoalControllerTest extends BaseClass
     {
         // try to open goal inner page
         $this->client->request('GET', '/goal/inner/' . $goalId);
-
+        // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
-
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
 
         return $goalId;
     }
@@ -151,20 +152,20 @@ class GoalControllerTest extends BaseClass
      */
     public function testDone($goalId)
     {
-
+        // open goal Done page
         $this->client->request('GET', '/goal/done/' . $goalId);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal inner page!');
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal done page!');
 
         $this->assertTrue(
 
             $this->client->getResponse()->isRedirect('/user-profile', 'can not create a goal!')
         );
-
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
         return $goalId;
 
     }
@@ -174,39 +175,44 @@ class GoalControllerTest extends BaseClass
      */
     public function testAddSuccessStory($goalId)
     {
+        // open Add Success Story page
         $this->client->request('GET', '/goal/add-story/' . $goalId);
 
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
-
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add story page!');
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
 
         return $goalId;
     }
 
     /**
+     * test remove goal
+     *
      * @depends testAddSuccessStory
      */
     public function testRemoveGoal($goalId)
     {
+        // get user id
         $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
-
+        // open remove goal page
         $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
 
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
-
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
 
     }
+
     /**
-     *
+     * test add success story image
      */
     public function testAddSuccessStoryImage()
     {
@@ -238,10 +244,10 @@ class GoalControllerTest extends BaseClass
     {
         $this->client->request('GET', '/goal/remove-image/' . $fileName);
 
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
     /**
      * This function test draftAction
@@ -255,9 +261,9 @@ class GoalControllerTest extends BaseClass
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
-//           if ($profile = $this->client->getProfile()) {
-//                // check the number of requests
-//               $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//           }
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+           $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 }
