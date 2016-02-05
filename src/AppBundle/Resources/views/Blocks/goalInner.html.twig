@@ -249,9 +249,9 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider-image{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                    <div id="story-slider-image{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
+                                                        <div u="slides">
                                                             {% for file in files %}
                                                                 <div>
                                                                     <img u="image" src="{{ file.downloadLink }}"/>
@@ -281,9 +281,9 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider-video{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                    <div id="story-slider-video{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
+                                                        <div u="slides">
                                                             {% for video in videos %}
                                                                 {% if video %}
                                                                     <div>
