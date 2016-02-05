@@ -11,26 +11,30 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-6">
-                <div class="ticker">
-                    {% if aphorisms %}
-                        <ul>
-                            {% for aphorism in aphorisms %}
-                                <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <div class="quote">
 
+                    <div class="ticker">
+                        <i class="icon quotel-icon"></i>
+                        <i class="icon quoter-icon"></i>
+                        {% if aphorisms %}
+                            <ul>
+                                {% for aphorism in aphorisms %}
+                                    <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 <h2>{{ goal.title }}</h2>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-sm-3"></div>
         </div>
 
         <div class="inner-content">
@@ -67,7 +71,7 @@
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <span class="glyphicon glyphicon-plus"></span>{{ 'add'|trans }}
+                                            <span class="icon plus-icon"></span>{{ 'add'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -76,7 +80,7 @@
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                            <span class="glyphicon glyphicon glyphicon-ok"></span>{{ 'done'|trans }}
+                                            <span class="icon ok-icon"></span>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -85,18 +89,18 @@
 
                         {% if page != view %}
                             <div>
-                                <div data-simple-map-marker style="width: 99.8%; height: 298px"></div>
+                                <div data-simple-map-marker style="width: 99.8%; height: 204px"></div>
                             </div>
                         {% endif %}
                         {% if page == inner %}
                             <ul>
                                 <li>
-                                    <ul class="row">
-                                        <li class="col-md-4">
+                                    <ul class="row no-gutter">
+                                        <li class="col-sm-5">
                                             {{ 'done_by'|trans | upper }}
                                             <p class="purple">{{ goal.stats.doneBy }}</p>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for doneByUser in doneByUsers %}
@@ -109,7 +113,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-3">
                                             {% if goal.stats.doneBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -119,12 +123,12 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <ul class="row">
-                                        <li class="col-md-4">
+                                    <ul class="row no-gutter">
+                                        <li class="col-sm-5">
                                             {{ 'listed_by'|trans | upper }}
                                             <p class="purple">{{ goal.stats.listedBy }}</p>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
@@ -137,7 +141,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-md-4">
+                                        <li class="col-sm-3">
                                             {% if goal.stats.listedBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -153,7 +157,7 @@
             </div>
             {% if page != view %}
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
                     </div>
                 </div>
@@ -161,11 +165,10 @@
 
             <div class="inner">
                 <div class="row">
-                    <div class="col-md-9">
 
-                        <p>
-                            {{ goal.description }}
-                        </p>
+                    <div class="col-sm-9">
+                        <hr/>
+                        <p class="text-gray">{{ goal.description }}</p>
 
                         {% if goal.videoLink %}
                             {% for videoLink in goal.videoLink %}
@@ -178,7 +181,7 @@
                             {% set stories = goal.getSuccessStories %}
 
                             {% if stories|length > 0 %}
-                                <h4>{{ 'success_stories'|trans }}</h4><hr />
+                                <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% for key, story in stories %}
 
@@ -277,6 +280,7 @@
                             {% endif %}
                         {% endif %}
                     </div>
+                    <div class="col-sm-3"></div>
                 </div>
             </div>
         </div>

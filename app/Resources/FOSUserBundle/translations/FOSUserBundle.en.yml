@@ -4,7 +4,7 @@ email:
     afterDog:  please, enter a part followed by @
     resend:    Resend message
     update:    Update email address
-    error:     This email already exist
+    error:     This email already exists
     primary_error: This email has already been selected by another user, please choose a another  primary email field
 
     update: Update email address
@@ -142,6 +142,18 @@ verification:
     wrong: Something went wrong
     wrong_content: This link is invalid. For more information, please visit our
     help_center: Help Center
+my_list:
+    signed_up: You've already signed up!
+    verification: Verification link has been sent to your e-mail address.
+    confirm: Please, confirm your account by clicking on the link.
+    add_image: Please, add an image to your profile from settings.
+    want_control: If you are here you want to control your life and make it interesting.
+    follow_link: So follow the link, explore great ideas and add your first goal.
+    dream_text: Your goals are just dreams if they are not tied to time. So set a deadline and make the first step in turning your dreams into reality.
+    have_goal: You have a goal to complete, don't you? Then go ahead, just do it.
+    complete_goal: You have a completed goal? Great, then write about it, share your story with people, inspire them.
+
+
 
 First name: First name
 Last name: Last name

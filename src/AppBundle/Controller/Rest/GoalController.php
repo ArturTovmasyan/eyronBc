@@ -402,63 +402,54 @@ class GoalController extends FOSRestController
      *  statusCodes={
      *         200="Returned when created",
      *         400="Return when content not correct",
-     *         404="Return when user or goal by goalId not found",
+     *         401="Return when user not found",
+     *         404="Return when goal not found",
      *     },
      *  parameters={
-     *      {"name"="goalId", "dataType"="integer", "required"=true, "description"="goal Id"},
      *      {"name"="commentBody", "dataType"="text", "required"=true, "description"="comment body"},
      * }
      * )
-     * @return Comment
-     * @Rest\View(serializerGroups={"comment", "comment_author", "user"})
-     *
+     * @param Goal $goal
+     * @param Request $request
+     * @return Comment|JsonResponse|Response
      */
-    public function putCommentAction(Request $request)
+    public function putCommentAction(Goal $goal, Request $request)
     {
         // check user
         if (!$this->getUser()){
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
-        // get entity manager
+
         $em = $this->getDoctrine()->getManager();
-        // get validator
         $validator = $this->container->get('validator');
-        // get goal id from request params
-        $goalId = (int)$request->get('goalId');
-        // get comment body from request params
+
         $commentBody = $request->get('commentBody');
 
-        // check goal id
-        if(!$goalId)
-        {
-            return new Response('Goal by id not found', Response::HTTP_NOT_FOUND);
-        }
 
         // check thread by goal id
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($goalId);
+        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($goal->getId());
             // create thread for goal
             if(!$thread)
             {
                 // generate url by goal id for goal thread
-                $url = $this->container->get('router')->generate('inner_goal', array('id' => $goalId), true);
+                $url = $this->container->get('router')->generate('inner_goal', array('id' => $goal->getId()), true);
 
                 $thread = new Thread();
                 $thread->setPermalink($url);
                 $thread->setLastCommentAt(new \DateTime('now'));
-                $thread->setId($goalId);
+                $thread->setId($goal->getId());
 
                 // check validator
                 $errors = $validator->validate($thread);
 
-                if(count($errors)>0)
+                if(count($errors) > 0)
                 {
                     $errorsString = (string)$errors;
                     return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
                 }
-                else {
-                    // persist and flush thread
-                    $em->persist($thread);
-                }
+
+                // persist and flush thread
+                $em->persist($thread);
             }
 
             // create comment
@@ -472,20 +463,17 @@ class GoalController extends FOSRestController
             // validate new comment
             $errors = $validator->validate($comment);
 
-            if(count($errors)>0)
-            {
+            if(count($errors) > 0){
                 $errorsString = (string)$errors;
 
                 return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
             }
-            else
-            {
-                // persist new comment end flush objects
-                $em->persist($comment);
-                $em->flush();
 
-                return $comment;
-            }
+            // persist new comment end flush objects
+            $em->persist($comment);
+            $em->flush();
+
+        return new Response('', Response::HTTP_OK);
     }
 
     /**
@@ -498,26 +486,26 @@ class GoalController extends FOSRestController
      *  statusCodes={
      *         200="Returned when created",
      *         400="Return when content not correct",
-     *         404="Return when user or goal by goalId not found",
+     *         401="Return when user not found",
+     *         404="Return when goal by goalId not found",
      *     },
      *  parameters={
-     *      {"name"="goalId", "dataType"="integer", "required"=true, "description"="goal Id"},
      *      {"name"="story", "dataType"="text", "required"=true, "description"="story body"},
-     *      {"name"="videoLink", "dataType"="string", "required"=false, "description"="video link"},
+     *      {"name"="videoLink[0]", "dataType"="string", "required"=false, "description"="video link"},
      * }
      * )
      *
-     * @return SuccessStory
-     *
-     * @Rest\View(serializerGroups={"successStory_mobile", "successStory_storyImage", "successStory_user", "user"})
-     *
+     * @param Goal $goal
+     * @param Request $request
+     * @return JsonResponse|Response
      */
-    public function putSuccessStoryAction(Request $request)
+    public function putSuccessstoryAction(Goal $goal, Request $request)
     {
         // check user
         if(!$this->getUser()) {
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         // get validator
@@ -525,45 +513,29 @@ class GoalController extends FOSRestController
 
         // get date from request parameters
         $story = $request->get('story');
-        $goalId = (int)$request->get('goalId');
-        $videoLink = (string)$request->get('videoLink');
-
-        // check goal by goal id
-        $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-
-        if(!$goal) {
-            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
-        }
+        $videoLink = $request->get('videoLink');
 
         // create new SuccessStory
         $successStory = new SuccessStory();
-
-        // check video link
-        if($videoLink)
-        {
-            $successStory->setVideoLink($videoLink);
-        }
-        // set data in object
+        $successStory->setVideoLink($videoLink);
         $successStory->setGoal($goal);
         $successStory->setUser($this->getUser());
-        $successStory->setUpdated(new \DateTime('now'));
-        $successStory->setCreated(new \DateTime('now'));
         $successStory->setStory($story);
+
         // check validation
         $errors = $validator->validate($successStory);
 
-        if(count($errors)>0) {
+        if(count($errors) > 0) {
             $errorsString = (string)$errors;
 
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
-        else {
-            // persist and flush object
-            $em->persist($successStory);
-            $em->flush();
-            //return object
-            return $successStory;
-        }
 
+        // persist and flush object
+        $em->persist($successStory);
+        $em->flush();
+
+
+        return new Response('', Response::HTTP_OK);
     }
 }

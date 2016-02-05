@@ -40,14 +40,15 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
 
-                        <div class="error-message">{{ form_errors(form.file) }}</div>
-
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['firstName']"></div>
                             </div>
+
                             <div class="col-sm-6">
                                 {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['lastName']"></div>
                             </div>
                         </div>
 
@@ -66,10 +67,7 @@
                             <div class="col-sm-8">
                                 {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
 
-                                <div class="error-message">{{ form_errors(form.email) }}</div>
                             </div>
-
-                            <div class="error-message">{{ form_errors(form.file) }}</div>
                         </div>
 
 
@@ -108,40 +106,29 @@
                                     <div class="col-sm-8">
                                         {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                     </div>
-
-                                    <div class="error-message">{{ form_errors(form.addEmail) }}</div>
+                                    <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
                                 </div>
                             {% endif %}
-
-
-                        <div class="error-message">{{ form_errors(form) }}</div>
-
-                        {% set errorMessage = form.plainPassword.first.vars.errors[0] is defined ? form.plainPassword.first.vars.errors[0].message : '' %}
 
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 {{ form_widget(form.password, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
                             </div>
+                            <div class="error-message" data-ng-bind="errorMessages['password']"></div>
                         </div>
-
-                        <div class="error-message">{{ form_errors(form.password) }}</div>
 
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="error-message" data-ng-bind="errorMessages['first']"></div>
                             </div>
                             <div class="col-sm-6">
                                 {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
-                                {% if errorMessage != 'Error' %}
-                                    <div class="error-message">{{ errorMessage }}</div>
-                                {% endif %}
+                                <div class="error-message" data-ng-bind="errorMessages['second']"></div>
                             </div>
+
+
                         </div>
-                        {% if errorMessage == 'Error' %}
-
-                            <div class="error-message">{{ 'password.validation'|trans({}, 'FOSUserBundle') }}</div>
-
-                        {% endif %}
 
                         <div class="form-group row">
                             <div class="col-sm-4">
@@ -185,7 +172,6 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="error-message">{{ form_errors(form.birthDate) }}</div>
 
                         </div>
 

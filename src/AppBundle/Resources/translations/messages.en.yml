@@ -100,6 +100,24 @@ success_story:
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
+filters:
+   import_urgent: |
+                   urgent <br />
+                   <span>Important<span/>
+
+   not_import_urgent: |
+                      urgent <br />
+                      <span>Not important<span/>
+
+   import_not_urgent: |
+                      not urgent <br />
+                      <span>Important<span/>
+
+   not_import_not_urgent: |
+                          not urgent <br />
+                          <span>Not important<span/>
+
+
 account:
   complete_text: Confirm your account
   complete: Complete

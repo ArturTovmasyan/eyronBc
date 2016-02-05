@@ -157,10 +157,10 @@
                                                                            data-ng-disabled="complete.switch"
                                                                            {% if priority == id %}checked{% endif %}
                                                                            value="{{ id }}">
-                                                                    {{ name|trans }}
+                                                                    {{ name|trans|raw }}
                                                                 </label>
 
-                                                                <span class="text-gray">
+                                                                <p class="text-gray">
                                                                     {% if id == 1 %}
                                                                         {{ 'goal.critical_activities'|trans }}
                                                                     {% elseif id == 2 %}
@@ -170,7 +170,7 @@
                                                                     {% elseif id == 4 %}
                                                                         {{ 'goal.avoid_distractions'|trans }}
                                                                     {% endif %}
-                                                                </span>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     {% endfor %}

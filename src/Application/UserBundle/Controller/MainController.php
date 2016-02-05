@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,30 +29,8 @@ class MainController extends Controller
         //get translator
         $tr = $this->get('translator');
 
-        //set default value
-        $sessionVar = false;
-
-        //get session
-        $session = $request->getSession();
-
-        // if session is not empty
-        if($session->has('jsForm')){
-
-            //set session var true
-            $sessionVar = true;
-
-            //get user in session
-            $user = $session->get('jsForm');
-
-            //remove session
-            $session->remove('jsForm');
-
-        }
-        else {
-
-            //get user in db
-            $user = $this->getUser();
-        }
+        //get user in db
+        $user = $this->getUser();
 
         //get current email
         $currentEmail = $user->getEmail();
@@ -82,14 +61,10 @@ class MainController extends Controller
         $form = $this->createForm(new SettingsType(), $user);
 
         // check request method
-        if ($request->isMethod("POST") || $sessionVar) {
+        if ($request->isMethod("POST")) {
 
-            //check if sessionVar not exist
-            if(!$sessionVar) {
-
-                // get data from request
-                $form->handleRequest($request);
-            }
+            // get data from request
+            $form->handleRequest($request);
 
             // get current password in form
             $currentPassword = $form->get('password')->getData();
@@ -210,21 +185,10 @@ class MainController extends Controller
                 foreach ($errors as $error) {
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
-
-                //check if email error exist
-                if (array_key_exists('email', $returnResult)) {
-
-                    //set custom error class
-                    //$error = new FormError($returnResult['email']);
-                    $error = new FormError($tr->trans('email.primary_error', array(), 'FOSUserBundle'));
-
-                    //set error in field
-                    $form->get('addEmail')->addError($error);
-                }
             }
 
             //check if form is valid
-            if ($form->isValid()) {
+            if ($form->isValid() && count($returnResult) == 0) {
 
                 //update user
                 $fosManager->updateUser($user);
@@ -233,19 +197,18 @@ class MainController extends Controller
             }
             else {
 
-                //check if sessionVar in not exist
-                if(!$sessionVar) {
+                //get form errors
+                $formErrors = $form->getErrors(true);
 
-                    //set session
-                    $session->set('jsForm', $user);
+                foreach($formErrors as $formError)
+                {
+                    //get error field name
+                    $name = $formError->getOrigin()->getConfig()->getName();
 
-                    return $this->redirect($lastUrl);
-
+                    //set for errors in array
+                    $returnResult[$name] = $formError->getMessage();
                 }
-                else {
-
-                    return array('form' => $form->createView());
-                }
+                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
         }
 
@@ -265,7 +228,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //get last url for redirect
-        $lastUrl = $request->headers->get('referer');
+        $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
         //get current user
         $user = $this->getUser();
