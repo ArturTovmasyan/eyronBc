@@ -875,7 +875,7 @@ class User extends BaseUser
      * This function is used to set primary email and change username
      *
      */
-    public function hasSettingsProcess()
+    public function calculationSettingsProcess()
     {
         //set default array
         $userEmailsInDb = array();
@@ -900,7 +900,13 @@ class User extends BaseUser
         if ($userEmails) {
 
             //get user emails in db
-            $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
+            $userEmailsInDb = array_map(
+                function ($item)
+                {
+                 return $item['userEmails'] ;
+                },
+                $userEmails
+            );
         }
 
         //check if primary email exist in $userEmailsInDb
@@ -950,8 +956,8 @@ class User extends BaseUser
 
             //check if primary email equal currentEmail
             if ($primaryEmail && (!$userEmails ||
-                !array_key_exists($primaryEmail, $userEmails) ||
-                ($primaryEmail == $currentEmail))) {
+               !array_key_exists($primaryEmail, $userEmails) ||
+               ($primaryEmail == $currentEmail))) {
 
                 $context->buildViolation('Set invalid primary email')
                     ->atPath('primary')

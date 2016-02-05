@@ -87,38 +87,6 @@ class DoctrineListener
         // for update
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
-            //check entity
-            if($entity instanceof User) {
-
-                //get add email
-                $addEmail = $entity->addEmail;
-
-                //get user emails
-                $userEmails = $entity->getUserEmails();
-
-                //check if addEmail exist
-                if ($addEmail) {
-
-                    //generate email activation  token
-                    $emailToken = md5(microtime() . $addEmail);
-
-                    //set user emails in array with token and primary value
-                    $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
-
-                    //set new email data in userEmails array
-                    $userEmails[$addEmail] = $newEmail;
-
-                    //get 8user full name
-                    $userName = $entity->showName();
-
-                    //get send activation email service
-                    $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
-                }
-
-                //set user emails
-                $entity->setUserEmails($userEmails);
-            }
-
             // check entity
             if($entity instanceof GoalImage){
                 $this->setList($entity);

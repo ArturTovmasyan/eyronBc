@@ -67,8 +67,9 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
+            //TODO must be change in postLoad entity
             //get function in user object
-            $user->hasSettingsProcess();
+            $user->calculationSettingsProcess();
 
             //get uploadFile service for load profile pictures
             $this->container->get('bl_service')->uploadFile($user);

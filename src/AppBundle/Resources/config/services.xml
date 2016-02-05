@@ -77,10 +77,10 @@
         </service>
 
         <!-- service doctrine listener -->
-        <service id="bl.settings.listener" class="AppBundle\Listener\SettingListener">
+        <service id="bl.settings.listener" class="AppBundle\Listener\SettingsListener">
             <argument type="service" id="service_container" />
             <tag name="doctrine.event_listener" event = "onFlush"/>
-            <tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>
+            <!--<tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>-->
         </service>
 
         <!--<service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">-->

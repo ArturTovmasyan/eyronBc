@@ -8,11 +8,7 @@
 
 namespace AppBundle\Listener;
 
-use AppBundle\Entity\Goal;
-use AppBundle\Entity\GoalImage;
-use AppBundle\Entity\UserGoal;
 use Application\UserBundle\Entity\User;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -23,7 +19,6 @@ class SettingsListener
      */
     public $container;
 
-
     /**
      * @param Container $container
      */
@@ -32,70 +27,42 @@ class SettingsListener
         $this->container = $container;
     }
 
-
     /**
      * @param OnFlushEventArgs $args
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-        // get entity manager
-        $em = $args->getEntityManager();
 
-        // get unit work
-        $uow = $em->getUnitOfWork();
+        //get user
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-//        // for insert
-//        foreach ($uow->getScheduledEntityInsertions() as $entity) {
-//
-//            // check entity
-//            if($entity instanceof Goal){
-//                $this->setList($entity);
-//                $this->setCover($entity);
-//            }
-//            // check entity
-//            if($entity instanceof GoalImage){
-//                $this->setList($entity);
-//                $this->setCover($entity);
-//            }
-//        }
+        //get add email
+        $addEmail = $user->addEmail;
 
-        // for update
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+        //get user emails
+        $userEmails = $user->getUserEmails();
 
-            //check entity
-            if($entity instanceof User) {
+        //check if addEmail exist
+        if ($addEmail) {
 
-                //get add email
-                $addEmail = $entity->addEmail;
+            //generate email activation  token
+            $emailToken = md5(microtime() . $addEmail);
 
-                //get user emails
-                $userEmails = $entity->getUserEmails();
+            //set user emails in array with token and primary value
+            $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
 
-                //check if addEmail exist
-                if ($addEmail) {
+            //set new email data in userEmails array
+            $userEmails[$addEmail] = $newEmail;
 
-                    //generate email activation  token
-                    $emailToken = md5(microtime() . $addEmail);
+            //get 8user full name
+            $userName = $user->showName();
 
-                    //set user emails in array with token and primary value
-                    $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
-
-                    //set new email data in userEmails array
-                    $userEmails[$addEmail] = $newEmail;
-
-                    //get 8user full name
-                    $userName = $entity->showName();
-
-                    //get send activation email service
-                    $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
-                }
-
-                //set user emails
-                $entity->setUserEmails($userEmails);
-            }
-
+            //get send activation email service
+            $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
         }
-    }
 
+        //set user emails
+        $user->setUserEmails($userEmails);
+    }
 
 }
