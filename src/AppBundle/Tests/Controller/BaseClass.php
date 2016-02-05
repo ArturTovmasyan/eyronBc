@@ -2,6 +2,7 @@
 
 namespace AppBundle\Tests\Controller;
 
+use AppBundle\Entity\UserGoal;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BaseClass extends WebTestCase
@@ -24,10 +25,10 @@ class BaseClass extends WebTestCase
     const COMPLETED = 2;
 
     // constants for filter in twig
-    const URGENT_IMPORTANT = 1;
-    const URGENT_NOT_IMPORTANT = 2;
-    const NOT_URGENT_IMPORTANT = 3;
-    const NOT_URGENT_NOT_IMPORTANT = 4;
+//    const URGENT_IMPORTANT = 1;
+//    const URGENT_NOT_IMPORTANT = 2;
+//    const NOT_URGENT_IMPORTANT = 3;
+//    const NOT_URGENT_NOT_IMPORTANT = 4;
 
     // constants for steps
     const TO_DO = 0;
@@ -83,20 +84,46 @@ class BaseClass extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client->enableProfiler();
-        $this->clientSecond = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'user@user.com',
-            'PHP_AUTH_PW'   => 'Test1234',
-        ));
-        $this->clientSecond->enableProfiler();
 
         $data = array(
-            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'd'=>true)),
-            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'd'=>false)),
-            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'd'=>true)),
-            array('filter' => array('f_' . BaseClass::URGENT_IMPORTANT => 'on', 'f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>false)),
-            array('filter' => array('f_' . BaseClass::URGENT_NOT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_IMPORTANT => 'on', 'f_' . BaseClass::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>true))
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>true)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'd'=>false)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'd'=>true)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>false)),
+            array('filter' => array('f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>true))
         );
 
         return $data;
+    }
+
+    /**
+     *
+     */
+    public function fileProvider()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $files = $this->em->getRepository('AppBundle:GoalImage')->findAll();
+
+        $fileNames = array();
+
+        for($i = 0; $i<count($files); $i++)
+        {
+            $fileNames[] =
+                array(
+                    'file'.$i => $files[$i]->getFileName()
+                );
+
+        }
+
+        return $fileNames;
     }
 }

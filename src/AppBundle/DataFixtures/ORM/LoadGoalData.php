@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -8,6 +9,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Goal;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -60,6 +64,27 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal1->setNote('aaaaa');
         $manager->persist($userGoal1);
 
+        $oldPhotoPath = __DIR__ . '/old_photo.jpg';
+        $photoPath = __DIR__ . '/photo.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath, $photoPath);
+
+        // new uploaded file
+        $photo = new UploadedFile(
+            $photoPath,
+            'photo.jpg',
+            'image/jpeg',
+            123
+        );
+        $goalImage = new GoalImage();
+        $goalImage->setGoal($goal1);
+        $goalImage->setFile($photo);
+        $goalImage->setFileName($photo->getClientOriginalName());
+        $goalImage->setFileSize($photo->getSize());
+        $goalImage->setFileOriginalName($photo->getFilename());
+        $manager->persist($goalImage);
+
 
 
         $manager->flush();
@@ -67,6 +92,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('goal1', $goal1);
         $this->addReference('goal2', $goal2);
         $this->addReference('userGoal1', $userGoal1);
+        $this->addReference('goalImage', $goalImage);
     }
 
     /**

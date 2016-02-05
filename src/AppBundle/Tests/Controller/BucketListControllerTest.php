@@ -15,7 +15,7 @@ class BucketListControllerTest extends BaseClass
     public function testMyList($filter)
     {
         // try to open goal view page
-        $this->client->request('GET', '/user-profile/1/' . UserGoal::ACTIVE, $filter);
+        $this->client->request('GET', '/user-profile/1', $filter);
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
