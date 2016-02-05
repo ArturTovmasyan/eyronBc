@@ -153,8 +153,8 @@ class MainController extends Controller
             //set user emails
             $user->setUserEmails($userEmails);
 
-//            //set new password
-//            $user->setPlainPassword($newPassword);
+            //set new password
+            $user->setPlainPassword($newPassword);
 
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
@@ -253,7 +253,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //get current user
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         //check if user not exist
         if (!$user) {

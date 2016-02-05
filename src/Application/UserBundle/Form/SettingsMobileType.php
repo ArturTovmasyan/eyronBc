@@ -30,11 +30,11 @@ class SettingsMobileType extends AbstractType
     {
 
         $builder
-            ->add('firstName', null, array('required'=>true))
-            ->add('lastName', null, array('required'=>true))
-            ->add('addEmail', null, array('required' => false))
+            ->add('firstName', 'text', array('required'=>true))
+            ->add('lastName', 'text', array('required'=>true))
+            ->add('addEmail', 'email', array('required' => false))
             ->add('birthDate', 'date', array('required' => false))
-            ->add('primary', null, array('required' => false))
+            ->add('primary', 'email', array('required' => false))
             ->add('file', 'file', array('required' => false))
         ;
     }
@@ -46,7 +46,7 @@ class SettingsMobileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
-            'validation_groups' => 'Settings',
+            'validation_groups' => 'MobileSettings',
             'csrf_protection' => false,
 
         ));

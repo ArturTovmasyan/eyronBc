@@ -23,8 +23,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "Register", "update_email"})
- * @Assert\Callback(methods={"validate"}, groups={"Settings"})
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
+ * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
  */
 class User extends BaseUser
 {
@@ -80,7 +80,7 @@ class User extends BaseUser
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
-     * @Assert\NotBlank(groups={"Settings", "Register"})
+     * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      */
     protected $firstName;
 
@@ -91,12 +91,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(groups={"Settings", "Register"},
+     * @Assert\Length(groups={"Settings", "Register", "MobileSettings"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(groups={"Settings", "Register"},
+     * @Assert\Regex(groups={"Settings", "Register", "MobileSettings"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
@@ -120,7 +120,7 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
-     * @Assert\NotBlank(groups={"Settings", "Register"})
+     * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      */
     protected $lastName;
 
@@ -173,11 +173,13 @@ class User extends BaseUser
 
     /**
      * @var
+     * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
     public $addEmail;
 
     /**
      * @var
+     * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
     public $primary;
 
@@ -936,7 +938,7 @@ class User extends BaseUser
     public function validate(ExecutionContextInterface $context)
     {
         // generate password groups
-        $validGroups = array("Register","Settings");
+        $validGroups = array("MobileSettings","Settings");
 
         // get groups
         $groups = $context->getGroup();

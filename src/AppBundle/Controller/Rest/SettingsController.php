@@ -39,8 +39,8 @@ class SettingsController extends FOSRestController
      *      {"name"="bl_mobile_user_settings[file]", "dataType"="file", "required"=false, "description"="Users profile image file"},
      *      {"name"="bl_mobile_user_settings[firstName]", "dataType"="string", "required"=true, "description"="User`s first name | min=3 / max=20 symbols"},
      *      {"name"="bl_mobile_user_settings[lastName]", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
-     *      {"name"="bl_mobile_user_settings[primary]", "dataType"="string", "required"=false, "description"="User`s primary email"},
-     *      {"name"="bl_mobile_user_settings[addEmail]", "dataType"="string", "required"=false, "description"="Add email for user"},
+     *      {"name"="bl_mobile_user_settings[primary]", "dataType"="email", "required"=false, "description"="User`s primary email"},
+     *      {"name"="bl_mobile_user_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
      *      {"name"="bl_mobile_user_settings[birthDate]", "dataType"="string", "required"=false, "description"="User`s birthday | in this 01/12/2015 format"},
      * }
      * )
@@ -49,11 +49,28 @@ class SettingsController extends FOSRestController
     public function postSettingsAction(Request $request)
     {
 
+        $data = $request->request->all();
+
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
         //get current user
         $user = $this->getUser();
+
+        // value for userEmailsInDb
+        $userEmailsInDb = null;
+
+        //set default primary email value
+        $primaryEmail = null;
+
+//        $birthDate = $data['bl_mobile_user_settings']['birthDate'];
+
+        // get user birthDay
+//        $birthDate = $birthDate ? \DateTime::createFromFormat('d/m/Y', $birthDate) : null;
+
+//        $data['bl_mobile_user_settings']['birthDate'] = $birthDate;
+
+//        $request->request->set('bl_mobile_user_settings', $data);
 
         //check if user not found
         if (!is_object($user)) {
@@ -71,18 +88,73 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
-            //get file in form
-            $file = $form->get('file')->getData();
+            //get primary email
+            $primaryEmail = $form->get('primary')->getData();
 
-            //check if profile image exist
-            if ($file) {
+            //get addEmail in form
+            $addEmail = $form->get('addEmail')->getData();
 
-                //set user profile image
-                $user->setFile($file);
+            //get current email
+            $currentEmail = $user->getEmail();
 
-                //get uploadFile service for load profile pictures
-                 $this->container->get('bl_service')->uploadFile($user);
+            //get user emails in db
+            $userEmails = $user->getUserEmails();
+
+            //check if primary email exist
+            if ($primaryEmail && $primaryEmail !== $currentEmail) {
+
+                //set primary email
+                $user->setEmail($primaryEmail);
             }
+
+            //check if userEmails exist
+            if ($userEmails) {
+
+                //get user emails in db
+                $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
+            }
+
+            //check if primary email exist in $userEmailsInDb
+            if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
+
+                unset($userEmails[$key]);
+            }
+
+            //check if set another primary email
+            if ($userEmailsInDb && $primaryEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+
+                //set user emails in array with token and primary value
+                $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
+
+                //set current email data in userEmails array
+                $userEmails[$currentEmail] = $currentEmailData;
+            }
+
+
+            //check if addEmail exist
+            if ($addEmail) {
+
+                //generate email activation  token
+                $emailToken = md5(microtime() . $addEmail);
+
+                //set user emails in array with token and primary value
+                $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
+
+                //set new email data in userEmails array
+                $userEmails[$addEmail] = $newEmail;
+
+                //get 8user full name
+                $userName = $user->showName();
+
+                //get send activation email service
+                $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
+            }
+
+            //set user emails
+            $user->setUserEmails($userEmails);
+
+            //get uploadFile service for load profile pictures
+            $this->container->get('bl_service')->uploadFile($user);
 
             $em->persist($user);
             $em->flush();
@@ -92,146 +164,24 @@ class SettingsController extends FOSRestController
         }
         else{
 
-            return new Response('BAD REQUEST', Response::HTTP_BAD_REQUEST);
+            //get form errors
+            $formErrors = $form->getErrors(true);
+
+            //set default array
+            $returnResult = array();
+
+            foreach($formErrors as $formError)
+            {
+                //get error field name
+                $name = $formError->getOrigin()->getConfig()->getName();
+
+                //set for errors in array
+                $returnResult[$name] = $formError->getMessage();
+            }
+
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
 
         }
-
-
-//        //get current email
-//        $currentEmail = $user->getEmail();
-//
-//        //get user emails in db
-//        $userEmails = $user->getUserEmails();
-//
-//        // value for userEmailsInDb
-//        $userEmailsInDb = null;
-//
-//        //set default primary email value
-//        $primaryEmail = null;
-//
-//        //check if userEmails exist
-//        if ($userEmails) {
-//
-//            //get user emails in db
-//            $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
-//        }
-//
-//        //get fos user manager
-//        $fosManager = $this->container->get("fos_user.user_manager");
-//
-//        //get user profileImage
-//        $profileImage = $request->files->get('profileImage');
-//
-//        // get user firstName
-//        $firstName = array_key_exists('firstName', $data) ? $data['firstName'] : null;
-//
-//        // get user lastName
-//        $lastName = array_key_exists('lastName', $data) ? $data['lastName'] : null;
-//
-//        // get user birthDay
-//        $birthDate = array_key_exists('birthDate', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthDate']) : null;
-//
-//        //get new email in request
-//        $addEmail = array_key_exists('addEmail', $data) ? $data['addEmail'] : null;
-//
-//        //get primary email
-//        $primaryEmail = array_key_exists('primary', $data) ? $data['primary'] : null;
-//
-//        //check if new email equal currentEmail
-//        if ($addEmail == $currentEmail) {
-//
-//            return new JsonResponse($tr->trans('email.error', array(), 'FOSUserBundle'), Response::HTTP_BAD_REQUEST);
-//        }
-//
-//        //check if primary email exist in $userEmailsInDb
-//        if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
-//
-//            unset($userEmails[$key]);
-//        }
-//
-//        //check if set another primary email
-//        if ($userEmailsInDb && $primaryEmail && $currentEmail !== $primaryEmail &&
-//            (array_search($currentEmail, $userEmailsInDb) == false)) {
-//
-//            //set user emails in array with token and primary value
-//            $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
-//
-//            //set current email data in userEmails array
-//            $userEmails[$currentEmail] = $currentEmailData;
-//        }
-//
-//        //check if primary email exist
-//        if ($primaryEmail && $primaryEmail !== $currentEmail) {
-//
-//            //set email for user
-//            $user->setEmail($primaryEmail);
-//        }
-//
-//        //check if addEmail exist
-//        if ($addEmail) {
-//
-//            //generate email activation  token
-//            $emailToken = md5(microtime() . $addEmail);
-//
-//            //set user emails in array with token and primary value
-//            $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
-//
-//            //set new email data in userEmails array
-//            $userEmails[$addEmail] = $newEmail;
-//
-//            //get 8user full name
-//            $userName = $user->showName();
-//
-//            //get send activation email service
-//            $this->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
-//        }
-//
-//        //set user emails
-//        $user->setUserEmails($userEmails);
-//
-//        //set user profile image
-//        $user->setUserEmails($userEmails);
-//
-//        //set user lastName
-//        $user->setLastName($lastName);
-//
-//        //set user firstName
-//        $user->setFirstName($firstName);
-//
-//        //set user birthDate
-//        $user->setBirthDate($birthDate);
-//
-//        //check if profile image exist
-//        if ($profileImage) {
-//
-//            //set user profile image
-//            $user->setFile($profileImage);
-//        }
-//
-//        //get uploadFile service for load profile pictures
-//        $this->container->get('bl_service')->uploadFile($user);
-//
-//        //get validator
-//        $validator = $this->get('validator');
-//
-//        //get errors
-//        $errors = $validator->validate($user, null, array('Settings'));
-//
-//        //check count of errors
-//        if (count($errors) > 0) {
-//
-//            //returned value
-//            $errorResult = array();
-//
-//            // loop for error
-//            foreach ($errors as $error) {
-//                $errorResult[$error->getPropertyPath()] = $error->getMessage();
-//            }
-//
-//            return new JsonResponse($errorResult, Response::HTTP_BAD_REQUEST);
-//
-//        }
-
     }
 
     /**
@@ -266,7 +216,7 @@ class SettingsController extends FOSRestController
 
         //check if not logged in user
         if(!is_object($user)) {
-           return new Response("There is not any user logged in", (Response::HTTP_UNAUTHORIZED));
+            return new Response("There is not any user logged in", (Response::HTTP_UNAUTHORIZED));
         }
 
         //get current password in post data
@@ -366,14 +316,14 @@ class SettingsController extends FOSRestController
         if (!$email) {
 
             // return 404 if email is empty
-           return new Response( 'Email data is empty', Response::HTTP_BAD_REQUEST);
+            return new Response( 'Email data is empty', Response::HTTP_BAD_REQUEST);
         }
 
         //check if user not found
         if (!is_object($user)) {
 
             // return 404 if user not found
-          return new Response('User not found', Response::HTTP_UNAUTHORIZED);
+            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
         //get user all emails
@@ -383,11 +333,11 @@ class SettingsController extends FOSRestController
         if ($userEmails) {
 
             //check if email exist in userEmails
-           if(!array_key_exists($email, $userEmails)) {
+            if(!array_key_exists($email, $userEmails)) {
 
-               // return 404 if email is empty
-               return new Response('This user not have current email', Response::HTTP_BAD_REQUEST);
-           }
+                // return 404 if email is empty
+                return new Response('This user not have current email', Response::HTTP_BAD_REQUEST);
+            }
 
             //remove email
             unset($userEmails[$email]);
