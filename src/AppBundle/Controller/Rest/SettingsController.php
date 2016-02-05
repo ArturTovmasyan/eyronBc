@@ -48,7 +48,6 @@ class SettingsController extends FOSRestController
      */
     public function postSettingsAction(Request $request)
     {
-
         //get current user
         $user = $this->getUser();
 
@@ -62,12 +61,6 @@ class SettingsController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // value for userEmailsInDb
-        $userEmailsInDb = null;
-
-        //set default primary email value
-        $primaryEmail = null;
-
         // create goal form
         $form = $this->createForm(new SettingsMobileType(), $user);
 
@@ -77,70 +70,8 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
-            //get primary email
-            $primaryEmail = $form->get('primary')->getData();
-
-            //get addEmail in form
-            $addEmail = $form->get('addEmail')->getData();
-
-            //get current email
-            $currentEmail = $user->getEmail();
-
-            //get user emails in db
-            $userEmails = $user->getUserEmails();
-
-            //check if primary email exist
-            if ($primaryEmail && $primaryEmail !== $currentEmail) {
-
-                //set primary email
-                $user->setEmail($primaryEmail);
-            }
-
-            //check if userEmails exist
-            if ($userEmails) {
-
-                //get user emails in db
-                $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
-            }
-
-            //check if primary email exist in $userEmailsInDb
-            if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
-
-                unset($userEmails[$key]);
-            }
-
-            //check if set another primary email
-            if ($userEmailsInDb && $primaryEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
-
-                //set user emails in array with token and primary value
-                $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
-
-                //set current email data in userEmails array
-                $userEmails[$currentEmail] = $currentEmailData;
-            }
-
-
-            //check if addEmail exist
-            if ($addEmail) {
-
-                //generate email activation  token
-                $emailToken = md5(microtime() . $addEmail);
-
-                //set user emails in array with token and primary value
-                $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
-
-                //set new email data in userEmails array
-                $userEmails[$addEmail] = $newEmail;
-
-                //get 8user full name
-                $userName = $user->showName();
-
-                //get send activation email service
-                $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
-            }
-
-            //set user emails
-            $user->setUserEmails($userEmails);
+            //get function in user object
+            $user->hasSettingsProcess();
 
             //get uploadFile service for load profile pictures
             $this->container->get('bl_service')->uploadFile($user);

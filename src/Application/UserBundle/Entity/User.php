@@ -933,6 +933,58 @@ class User extends BaseUser
     }
 
     /**
+     * This function is used to set primary email and change username
+     *
+     */
+    public function hasSettingsProcess()
+    {
+        //set default array
+        $userEmailsInDb = array();
+
+        //get primary email
+        $primaryEmail = $this->primary;
+
+        //get current email
+        $currentEmail = $this->getEmail();
+
+        //get user emails
+        $userEmails = $this->getUserEmails();
+
+        //check if primary email exist
+        if ($primaryEmail && $primaryEmail !== $currentEmail) {
+
+            //set primary email
+            $this->setEmail($primaryEmail);
+        }
+
+        //check if userEmails exist
+        if ($userEmails) {
+
+            //get user emails in db
+            $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
+        }
+
+        //check if primary email exist in $userEmailsInDb
+        if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
+
+            unset($userEmails[$key]);
+        }
+
+        //check if set another primary email
+        if ($userEmailsInDb && $primaryEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+
+            //set user emails in array with token and primary value
+            $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
+
+            //set current email data in userEmails array
+            $userEmails[$currentEmail] = $currentEmailData;
+        }
+
+        //set user emails
+        $this->setUserEmails($userEmails);
+    }
+
+    /**
      * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context)
