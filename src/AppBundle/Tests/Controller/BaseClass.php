@@ -40,6 +40,11 @@ class BaseClass extends WebTestCase
     protected $em;
 
     /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $container;
+
+    /**
      * @var null
      */
     protected $client = null;
@@ -55,6 +60,7 @@ class BaseClass extends WebTestCase
     public function setUp()
     {
         self::bootKernel();
+        $this->container = static::$kernel->getContainer();
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -102,6 +108,7 @@ class BaseClass extends WebTestCase
     public function fileProvider()
     {
         self::bootKernel();
+        $this->container = static::$kernel->getContainer();
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -120,6 +127,38 @@ class BaseClass extends WebTestCase
             $fileNames[] =
                 array(
                     'file'.$i => $files[$i]->getFileName()
+                );
+
+        }
+
+        return $fileNames;
+    }
+
+    /**
+     *
+     */
+    public function allFileProvider()
+    {
+        self::bootKernel();
+        $this->container = static::$kernel->getContainer();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $files = $this->em->getRepository('AppBundle:GoalImage')->findAll();
+
+        $fileNames = array();
+
+        for($i = 0; $i<count($files); $i++)
+        {
+            $fileNames[] =
+                array(
+                    'file'.$i => $files[$i]->getId()
                 );
 
         }

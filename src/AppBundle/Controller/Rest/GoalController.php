@@ -222,6 +222,7 @@ class GoalController extends FOSRestController
      */
     public function addImagesAction($id = null, Request $request)
     {
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
@@ -242,10 +243,8 @@ class GoalController extends FOSRestController
 
         // get all files form request
         $file = $request->files->get('file');
-
         // check file
         if($file){
-
             // get bucket list service
             $bucketService = $this->get('bl_service');
 
@@ -283,6 +282,7 @@ class GoalController extends FOSRestController
                 $em->persist($goalImage);
                 $em->flush();
             }
+
 
             return $goalImage->getId();
         }
@@ -499,7 +499,7 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @return JsonResponse|Response
      */
-    public function putSuccessStoryAction(Goal $goal, Request $request)
+    public function putSuccessstoryAction(Goal $goal, Request $request)
     {
         // check user
         if(!$this->getUser()) {
