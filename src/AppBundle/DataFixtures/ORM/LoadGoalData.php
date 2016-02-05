@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\UserGoal;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -32,26 +33,40 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $user = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('admin@admin.com');
 
         // create goal
-        $goal = new Goal();
-        $goal->setDescription('goal1 goal1');
-        $goal->setTitle('goal1');
-        $goal->setStatus(1);
-        $goal->setVideoLink('www.google.com');
-        $goal->setAuthor($user);
-        $manager->persist($goal);
+        $goal1 = new Goal();
+        $goal1->setDescription('goal1 goal1');
+        $goal1->setTitle('goal1');
+        $goal1->setStatus(1);
+        $goal1->setVideoLink('www.google.com');
+        $goal1->setAuthor($user);
+        $goal1->setPublish(true);
+        $manager->persist($goal1);
 
         // create goal
-        $goal = new Goal();
-        $goal->setDescription('goal3 goal3');
-        $goal->setTitle('goal3');
-        $goal->setStatus(1);
-        $goal->setVideoLink('www.google.com');
-        $goal->setAuthor($user);
-        $manager->persist($goal);
+        $goal2 = new Goal();
+        $goal2->setDescription('goal3 goal3');
+        $goal2->setTitle('goal3');
+        $goal2->setStatus(1);
+        $goal2->setVideoLink('www.google.com');
+        $goal2->setAuthor($user);
+        $goal2->setPublish(true);
+        $manager->persist($goal2);
+
+        // create goal
+        $userGoal1 = new UserGoal();
+        $userGoal1->setUser($user);
+        $userGoal1->setGoal($goal1);
+        $userGoal1->setIsVisible(true);
+        $userGoal1->setNote('aaaaa');
+        $manager->persist($userGoal1);
+
+
 
         $manager->flush();
 
-        $this->addReference('goal', $goal);
+        $this->addReference('goal1', $goal1);
+        $this->addReference('goal2', $goal2);
+        $this->addReference('userGoal1', $userGoal1);
     }
 
     /**

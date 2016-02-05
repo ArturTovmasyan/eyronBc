@@ -38,4 +38,39 @@ class GoalRestControllerTest extends BaseClass
             $this->client->getResponse()->headers
         );
     }
+
+    /**
+     * This function is used to check goal image
+     */
+    public function testAddImages()
+    {
+//        $this->markTestIncomplete(
+//            'This test has not been implemented yet.'
+//        );
+
+        $oldPhotoPath = __DIR__ . '/old_photo.jpg';
+        $photoPath = __DIR__ . '/photo.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath, $photoPath);
+
+        // new uploaded file
+        $photo = new UploadedFile(
+            $photoPath,
+            'photo.jpg',
+            'image/jpeg',
+            123
+        );
+
+        // try to open goal add images page
+        $this->client->request(
+            'POST',
+            '/api/v1.0/goals/add-images/5',
+            array(),
+            array('file' => $photo)
+        );
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not add goal image!');
+    }
+
 }
