@@ -185,6 +185,9 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
+            img{
+              height:50px;
+            }
           }
 
           p{
@@ -1308,6 +1311,7 @@ figure{
 
       figure:first-child{
         margin: 5px 0 10px 10px;
+        background-color: transparent;
       }
 
       p{
@@ -1334,11 +1338,30 @@ figure{
 
 
     }
+
+    .story-slider{
+      position: relative;
+      margin: auto;
+      width: 710px;
+      height: 250px;
+      margin-bottom:30px;
+
+      &>div{
+        cursor: move;
+        position: absolute;
+        overflow: hidden;
+        left: 0;
+        top: 0;
+        width: 710px;
+        height: 250px;
+      }
+    }
   }
 
-  //h4{
-  //  color:#a4a4a4;
-  //}
+  h4{
+    padding-top:40px;
+    color:#666666;
+  }
 }
 
 .navigation{
@@ -1639,6 +1662,10 @@ footer{
       font-weight:600;
       line-height:130px;
       color:#ffffff;
+    }
+
+    img{
+      height:140px;
     }
 
     .profile-no0{
