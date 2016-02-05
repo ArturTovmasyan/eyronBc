@@ -41,17 +41,17 @@ class Tag
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="tags", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="tags")
      */
     protected $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Goal", mappedBy="tags", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="Goal", mappedBy="tags")
      */
     protected $goal;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Aphorism", mappedBy="tags", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Aphorism", mappedBy="tags")
      */
     protected $aphorism;
 
