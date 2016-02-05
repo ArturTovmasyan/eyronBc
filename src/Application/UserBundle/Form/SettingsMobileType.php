@@ -33,7 +33,7 @@ class SettingsMobileType extends AbstractType
             ->add('firstName', 'text', array('required'=>true))
             ->add('lastName', 'text', array('required'=>true))
             ->add('addEmail', 'email', array('required' => false))
-            ->add('birthDate', 'date', array('required' => false))
+            ->add('birthDate', 'date', array('required' => false,  'widget' => 'single_text', 'format' => 'yyyy-MM-dd'))
             ->add('primary', 'email', array('required' => false))
             ->add('file', 'file', array('required' => false))
         ;
