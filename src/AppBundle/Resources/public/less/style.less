@@ -330,15 +330,15 @@ label{
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right:10px solid #eeeeee;
+  border-right:10px solid #f4f4f4;
 }
 
 .fos_comment_comment_authorname,.fos_comment_comment_new_form{
   position:relative;
-  background-color:#eeeeee;
+  background-color:#f4f4f4;
   padding: 15px 15px 20px;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   i{
     position:absolute;
@@ -1483,6 +1483,32 @@ footer{
       }
     }
   }
+
+  .fos_comment_comment_form_holder{
+    .fos_comment_comment_new_form{
+      background-color: #f4f4f4;
+      padding: 0;
+      i{
+        top:7px;
+      }
+
+      textarea{
+        padding: 8px 15px 0;
+
+        &:focus{
+          //border:1px solid #7724f6;
+          outline: 0;
+        }
+      }
+
+      //&:hover{
+      //  i{
+      //    border-right-color: #7724f6 !important;
+      //  }
+      //}
+    }
+  }
+
 }
 
 
@@ -2026,6 +2052,15 @@ footer{
     }
   }
 
+  .ok-icon{
+      background: url('../images/images.png') no-repeat -7px -618px;
+  }
+
+  .plus-icon{
+      background: url('../images/images.png') no-repeat -7px -495px;
+  }
+
+
   li {
     //border-bottom:1px solid #cccccc;
     //a,span{
@@ -2067,6 +2102,7 @@ footer{
       width:100%;
       text-align: center;
       color:#ffffff;
+      padding: 0 5px;
     }
     figure{
       position: relative;
