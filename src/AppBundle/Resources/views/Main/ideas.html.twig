@@ -20,6 +20,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
+                                    <span class="overlay"></span>
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
@@ -67,7 +68,8 @@
                         {% endif %}
 
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
-                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="583" alt="{{ goal.title }}"/>
+                            <span class="overlay height"></span>
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="588" alt="{{ goal.title }}"/>
                         </a>
 
                         <div class="absolute">
@@ -114,6 +116,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                    <span class="overlay"></span>
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
@@ -153,7 +156,7 @@
 
                 <div class="col-md-{{ loop.first ?  8 : 4 }}">
                     <figure>
-
+                        <div class="overlay"></div>
                         <h3>{{ goal.title }}</h3>
 
                         {% set image = goal.getListPhoto %}

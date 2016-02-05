@@ -1081,6 +1081,22 @@ input{
   height:auto !important;
 }
 
+.overlay{
+  display: block;
+  width: 100%;
+  height: 260px;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+
+  &:hover{
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.overlay.height{
+  height:588px;
+}
+
 figure{
   background-color: #cfcfcf;
     &>a{
@@ -1100,7 +1116,7 @@ figure{
     }
 
     .height{
-      height:580px;
+      height:583px;
     }
 
   figcaption{
@@ -1310,8 +1326,15 @@ figure{
       margin-bottom: 20px;
 
       figure:first-child{
-        margin: 5px 0 10px 10px;
+        margin: 5px 0 10px 15px;
         background-color: transparent;
+        width:40px;
+        height:40px;
+
+        img{
+          height:40px;
+          border:2px solid #cecece;
+        }
       }
 
       p{
@@ -1341,10 +1364,9 @@ figure{
 
     .story-slider{
       position: relative;
-      margin: auto;
+      margin: 10px auto 30px;
       width: 710px;
-      height: 250px;
-      margin-bottom:30px;
+      height: 230px;
 
       &>div{
         cursor: move;
@@ -1353,7 +1375,7 @@ figure{
         left: 0;
         top: 0;
         width: 710px;
-        height: 250px;
+        height: 230px;
       }
     }
   }
@@ -1471,6 +1493,10 @@ footer{
 }
 
 #fos_comment_thread{
+
+  img{
+    height:40px;
+  }
 
   #fos_comment_comment_body{
     background-color: #f4f4f4;
@@ -2134,6 +2160,8 @@ footer{
     figure{
       position: relative;
       margin-bottom:15px;
+      height:155px;
+      overflow: hidden;
 
 
       figcaption{

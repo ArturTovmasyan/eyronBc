@@ -116,7 +116,9 @@
     <div class="row">
         <div class="col-sm-12">
             <figure>
+
                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
+                    <span class="overlay"></span>
                     <h3>{{ goal.title }}</h3>
                     <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_activity') : null }}" height="260" alt= "{{ goal.title }}" class="img-responsive" />
                 </a>
