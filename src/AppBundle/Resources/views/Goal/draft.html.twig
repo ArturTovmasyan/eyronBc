@@ -10,13 +10,14 @@
             <div class="row">
                 {% for goal in goals %}
                     <div class="col-sm-6 col-md-4">
-                        <figure>
+                        <figure class="relative">
                             {% set image = goal.getListPhoto %}
 
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
                             <a href="#">
+                                <span class="overlay"></span>
                                 <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>
