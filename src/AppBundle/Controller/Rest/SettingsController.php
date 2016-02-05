@@ -67,6 +67,8 @@ class SettingsController extends FOSRestController
         //check if from valid
         if ($form->isValid()) {
 
+//            $user->hasSettingsProcess();
+
             //get uploadFile service for load profile pictures
             $this->container->get('bl_service')->uploadFile($user);
 
