@@ -146,7 +146,8 @@ class GoalController extends Controller
 
 
     /**
-     *  This function is used to remove files and goal images from db
+     * This function is used to remove files and goal images from db
+     * @deprecated must be removed
      */
     private function removeAllOldImages()
     {
@@ -197,6 +198,8 @@ class GoalController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
      * @return array
+     *
+     * //todo must be renamed to showAction
      */
     public function innerAction(Goal $goal)
     {
@@ -755,8 +758,10 @@ class GoalController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
+     *
+     * @deprecated must be checked and removed
      */
-    public  function removeDraftGoal(Goal $goal)
+    public function removeDraftGoal(Goal $goal)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -799,6 +804,8 @@ class GoalController extends Controller
      * @ParamConverter("user", class="ApplicationUserBundle:User")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
+     *
+     * @deprecated TODO must be checked and removed
      */
     public  function removeGoal(Goal $goal, User $user)
     {
@@ -835,6 +842,8 @@ class GoalController extends Controller
      *
      * @param GoalImage $goalImage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @deprecated todo must be checked and removed
      */
     public function removeImage(GoalImage $goalImage)
     {
@@ -846,6 +855,7 @@ class GoalController extends Controller
 
         $em->flush();
 
+        //todo CLI does not have HTTP_REFERER so must be checked!!
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }

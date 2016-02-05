@@ -23,5 +23,7 @@ class BucketListControllerTest extends BaseClass
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
+
+        //TODO check results on page based on filter values
     }
 }

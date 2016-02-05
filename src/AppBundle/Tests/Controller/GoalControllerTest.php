@@ -5,6 +5,13 @@ namespace AppBundle\Tests\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class GoalControllerTest
+ * @package AppBundle\Tests\Controller
+ *
+ * todo must be added actions
+ *  innerContentAction
+ */
 class GoalControllerTest extends BaseClass
 {
     /**
@@ -143,6 +150,8 @@ class GoalControllerTest extends BaseClass
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
+
+        //todo check some data
 
         return $goalId;
     }
