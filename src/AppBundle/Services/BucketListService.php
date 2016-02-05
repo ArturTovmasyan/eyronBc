@@ -92,6 +92,9 @@ class BucketListService
         // get original file
         $file = $object->getAbsolutePath() . $object->getFileName() ;
 
+        if(!file_exists($file)){
+            return;
+        }
         // create imagick for mobile image
         $im = new \Imagick($file);
         $im->setImageCompressionQuality(100);
