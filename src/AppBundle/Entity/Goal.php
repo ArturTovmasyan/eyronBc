@@ -52,7 +52,14 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $id;
 
     /**
-     * @ORM\Column(name="description", type="string", nullable=true)
+     * @Assert\Length(
+     *      groups={"goal"},
+     *      min = 3,
+     *      max = 600,
+     *      minMessage = "Your description be at least {{ limit }} characters long",
+     *      maxMessage = "Your description cannot be longer than {{ limit }} characters"
+     * )
+     * @ORM\Column(name="description", type="string", length=2000, nullable=true)
      * @Groups({"goal"})
      */
     protected $description;
@@ -112,7 +119,7 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $editor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="goal", cascade={"persist"})
      * @ORM\JoinTable(name="goals_tags",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
@@ -255,7 +262,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *
      * @param \AppBundle\Entity\GoalImage $images
      */
-    public function removeImage(\AppBundle\Entity\GoalImage $images)
+    public function removeImage($images)
     {
         $this->images->removeElement($images);
     }
