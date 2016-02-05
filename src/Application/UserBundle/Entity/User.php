@@ -25,6 +25,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
  * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -871,70 +872,9 @@ class User extends BaseUser
     }
 
     /**
-     * Serializes the user.
-     *
-     * The serialized data have to contain the fields used by the equals method and the username.
-     *
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->password,
-            $this->salt,
-            $this->usernameCanonical,
-            $this->username,
-            $this->expired,
-            $this->locked,
-            $this->credentialsExpired,
-            $this->enabled,
-            $this->id,
-            $this->firstName,
-            $this->lastName,
-            $this->addEmail,
-            $this->userEmails,
-            $this->birthDate,
-            $this->email,
-            $this->plainPassword,
-
-        ));
-    }
-
-    /**
-     * Unserializes the user.
-     *
-     * @param string $serialized
-     */
-    public function unserialize($serialized)
-    {
-        $data = unserialize($serialized);
-        // add a few extra elements in the array to ensure that we have enough keys when unserializing
-        // older data which does not include all properties.
-        $data = array_merge($data, array_fill(0, 2, null));
-
-        list(
-            $this->password,
-            $this->salt,
-            $this->usernameCanonical,
-            $this->username,
-            $this->expired,
-            $this->locked,
-            $this->credentialsExpired,
-            $this->enabled,
-            $this->id,
-            $this->firstName,
-            $this->lastName,
-            $this->addEmail,
-            $this->userEmails,
-            $this->birthDate,
-            $this->email,
-            $this->plainPassword,
-            ) = $data;
-    }
-
-    /**
      * This function is used to set primary email and change username
      *
+     * @ORM\PreUpdate()
      */
     public function hasSettingsProcess()
     {
