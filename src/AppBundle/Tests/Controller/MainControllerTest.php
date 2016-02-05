@@ -34,6 +34,8 @@ class MainControllerTest extends BaseClass
 
             $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not click in goal2 link in homepage!');
         }
+
+        // todo number of queries is missing
     }
 
     /**
@@ -71,6 +73,8 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends page!');
 
+        //todo number of queries is missing
+
     }
 
     /**
@@ -86,6 +90,7 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal users page!');
 
+        //todo number of queries is missing
     }
 
     /**
@@ -100,6 +105,7 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal activities page!');
 
+        //todo number of queries is missing
     }
 
     /**
@@ -114,5 +120,6 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open Registration Confirmed page!');
 
+        //todo number of queries is missing
     }
 }
