@@ -42,104 +42,89 @@ class GoalControllerTest extends BaseClass
     }
 
 
-//    /**
-//     * This function is used to check goal add page
-//     */
-//    public function testAdd()
+    /**
+     * This function is used to check goal add page
+     */
+    public function testAdd()
+    {
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/add');
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add page!');
+
+        // get form
+        $form = $crawler->selectButton('btn_publish')->form(array(
+            'app_bundle_goal[title]' => 'goal2',
+            'app_bundle_goal[description]' => 'goalDescription',
+            'app_bundle_goal[files]' => '',
+            'app_bundle_goal[status]' => 1,
+            'app_bundle_goal[hashTags]' => null,
+
+        ));
+
+        // submit form
+        $this->client->submit($form);
+
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
+
+        // get goal id
+        $id = $goal->getId();
+
+        // Assert that the response is a redirect to goal add-to-me page
+        $this->assertTrue(
+            $this->client->getResponse()->isRedirect('/goal/add-to-me/' . $id, 'can not create a goal!')
+        );
+    }
+
+    /**
+     * This function is used to check goal view page
+     */
+    public function testView()
+    {
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal1');
+
+        // get goal id
+        $id = $goal->getId();
+
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/view/' . $id);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal view page!');
+
+        $count = $crawler->filter('html:contains("goal1")');
+
+        $this->assertCount(1, $count, 'can not find goal1 in goal view page!');
+    }
+
+    /**
+     * This function is used to check goal inner page
+     */
+    public function testInner()
+    {
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
+
+        // get goal id
+        $id = $goal->getId();
+
+        // try to open goal inner page
+        $crawler = $this->client->request('GET', '/goal/inner/' . $id);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal inner page!');
+
+        $count = $crawler->filter('html:contains("goal3")');
+
+        $this->assertCount(1, $count, 'can not find goal3 in goal inner page!');
+
+        // ADD GOAL
+        // click in add link
+
+    }
+
+//    public function innerAdd()
 //    {
-////        $this->markTestIncomplete(
-////            'This test has not been implemented yet.'
-////        );
-//
-//        // try to open goal view page
-//        $crawler = $this->client->request('GET', '/goal/add');
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add page!');
-//
-//        // get file
-////        $file = $this->em->getRepository('AppBundle:GoalImage')->findOneByFileOriginalName('photo.jpg');
-////        // get file id
-////        $fileId = $file->getId();
-////        // file ids array
-////        $images = array($fileId);
-//
-//        // get form
-//        $form = $crawler->selectButton('PUBLISH')->form(array(
-//            'app_bundle_goal[title]' => 'goal2',
-//            'app_bundle_goal[description]' => 'goalDescription',
-//            'app_bundle_goal[files]' => '',
-//            'app_bundle_goal[videoLink][0]' => 'www.google.com',
-//            'app_bundle_goal[status]' => 1,
-//            'app_bundle_goal[hashTags]' => null,
-//
-//        ));
-//
-//        // submit form
-//        $this->client->submit($form);
-//
-//        // get goal
-//        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
-//
-//        // get goal id
-//        $id = $goal->getId();
-//
-//        // Assert that the response is a redirect to goal add-to-me page
-//        $this->assertTrue(
-//            $this->client->getResponse()->isRedirect('/goal/add-to-me/' . $id, 'can not create a goal!')
-//        );
-//    }
-//
-//    /**
-//     * This function is used to check goal view page
-//     */
-//    public function testView()
-//    {
-//        $this->markTestIncomplete(
-//            'This test has not been implemented yet.'
-//        );
-//
-//        // get goal
-//        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal1');
-//
-//        // get goal id
-//        $id = $goal->getId();
-//
-//        // try to open goal view page
-//        $crawler = $this->client->request('GET', '/goal/view/' . $id);
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal view page!');
-//
-//        $count = $crawler->filter('html:contains("goal1")');
-//
-//        $this->assertCount(1, $count, 'can not find goal1 in goal view page!');
-//    }
-//
-//    /**
-//     * This function is used to check goal inner page
-//     */
-//    public function testInner()
-//    {
-//        $this->markTestIncomplete(
-//            'This test has not been implemented yet.'
-//        );
-//
-//        // get goal
-//        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
-//
-//        // get goal id
-//        $id = $goal->getId();
-//
-//        // try to open goal inner page
-//        $crawler = $this->client->request('GET', '/goal/inner/' . $id);
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal inner page!');
-//
-//        $count = $crawler->filter('html:contains("goal3")');
-//
-//        $this->assertCount(1, $count, 'can not find goal3 in goal inner page!');
-//
-//// ADD GOAL
-//        // click in add link
 //        $link = $crawler->selectLink('ADD')->link();
 //        $this->client->click($link);
 //
