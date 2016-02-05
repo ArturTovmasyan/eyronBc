@@ -38,15 +38,13 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Security("has_role('ROLE_USER')")
+     *
      * @param $goal Goal
      * @return Response
      */
     public function getAction(Goal $goal)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
@@ -83,16 +81,14 @@ class UserGoalController extends FOSRestController
      * }
      * )
      *
+     * @Security("has_role('ROLE_USER')")
+     *
      * @param Goal $goal
      * @param Request $request
      * @return Response
      */
     public function putAction(Goal $goal, Request $request)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
@@ -150,23 +146,23 @@ class UserGoalController extends FOSRestController
      *  description="This function is used to remove userGoal",
      *  statusCodes={
      *         200="Returned when userGoal was removed",
+     *         401="User not found else it isn't users userGoal",
      *         404="UserGoal not found"
      *     },
      *
      * )
      *
-     * @param $id
+     * @Security("has_role('ROLE_USER')")
+     * @param $userGoal
      * @return Response
      */
-    public function deleteAction($id)
+    public function deleteAction(UserGoal $userGoal)
     {
-        $em = $this->getDoctrine()->getManager();
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->find($id);
-
-        if(!$userGoal){
-            return new Response('UserGoal not found', Response::HTTP_NOT_FOUND);
+        if ($userGoal->getUser()->getId() != $this->getUser()->getId()){
+            return new Response("It isn't current user's userGoal", Response::HTTP_BAD_REQUEST);
         }
 
+        $em = $this->getDoctrine()->getManager();
         $em->remove($userGoal);
         $em->flush();
 
@@ -180,6 +176,7 @@ class UserGoalController extends FOSRestController
      *  description="This function is used to remove userGoal",
      *  statusCodes={
      *         200="Returned when userGoal was removed",
+     *         401="User not found",
      *         404="UserGoal not found"
      *     },
      *
@@ -197,15 +194,12 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
+     * @Security("has_role('ROLE_USER')")
      *
      * @return Response
      */
     public function postBucketlistAction(Request $request)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         // check conditions
         switch($request->get('condition')){
             case UserGoal::ACTIVE:
@@ -269,16 +263,14 @@ class UserGoalController extends FOSRestController
      *     }
      * )
      *
+     * @Security("has_role('ROLE_USER')")
+     *
      * @param Goal $goal
      * @param $isDone
      * @return Response
      */
     public function getDoneAction(Goal $goal, $isDone)
     {
-        if (!$this->getUser()){
-            return new Response('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         if($isDone){

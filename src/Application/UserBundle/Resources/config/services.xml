@@ -21,6 +21,10 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="authentication_entry_point" class="Application\UserBundle\Handler\AuthenticationHandler">
+            <argument type="service" id="router" />
+        </service>
+
         <!--  service for authentication   -->
         <service id="authentication_handler" class="Application\UserBundle\Handler\AuthenticationHandler">
             <argument type="service" id="router" />

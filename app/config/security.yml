@@ -16,6 +16,7 @@ security:
 
     firewalls:
         main:
+            entry_point: authentication_entry_point
             pattern: ^/
             form_login:
                 provider: fos_userbundle
