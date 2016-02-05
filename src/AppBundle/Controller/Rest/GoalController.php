@@ -499,7 +499,7 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @return JsonResponse|Response
      */
-    public function putSuccessstoryAction(Goal $goal, Request $request)
+    public function putSuccessStoryAction(Goal $goal, Request $request)
     {
         // check user
         if(!$this->getUser()) {

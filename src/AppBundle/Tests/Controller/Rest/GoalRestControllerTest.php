@@ -8,69 +8,96 @@
 namespace AppBundle\Tests\Controller\Rest;
 
 use AppBundle\Tests\Controller\BaseClass;
+use Symfony\Component\HttpFoundation\Response;
 
 class GoalRestControllerTest extends BaseClass
 {
     /**
-     * This function is used to check Gets function in rest
      */
-    public function testGets()
+    public function testGetAll()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // get goal
-        $goal3 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
-
         // get user goal
-        $userGoal =  $this->em->getRepository('AppBundle:UserGoal')->findOneByGoal($goal3);
-
-        $url = sprintf('api/goals/get-by-id/%s', $userGoal->getId());
+        $url = sprintf('/api/v1.0/goals/%s/%s', 1, 2);
 
         // try to get goal by id
         $this->client->request('GET', $url);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_OK, "can not get goal by id in getsAction rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getsAction rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
-     * This function is used to check goal image
+     * @dataProvider goalProvider
      */
-    public function testAddImages()
+    public function testGet($goalId)
     {
-//        $this->markTestIncomplete(
-//            'This test has not been implemented yet.'
-//        );
+        // get user goal
+        $url = sprintf('/api/v1.0/goals/%s', $goalId);
+        // try to get goal by id
+        $this->client->request('GET', $url);
 
-        $oldPhotoPath = __DIR__ . '/old_photo.jpg';
-        $photoPath = __DIR__ . '/photo.jpg';
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getsAction rest!");
 
-        // copy photo path
-        copy($oldPhotoPath, $photoPath);
-
-        // new uploaded file
-        $photo = new UploadedFile(
-            $photoPath,
-            'photo.jpg',
-            'image/jpeg',
-            123
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
         );
 
-        // try to open goal add images page
-        $this->client->request(
-            'POST',
-            '/api/v1.0/goals/add-images/5',
-            array(),
-            array('file' => $photo)
-        );
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not add goal image!');
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
+
+    /**
+     *
+     */
+    public function testGetCategories()
+    {
+
+    }
+
+//    /**
+//     * This function is used to check goal image
+//     */
+//    public function testAddImages()
+//    {
+////        $this->markTestIncomplete(
+////            'This test has not been implemented yet.'
+////        );
+//
+//        $oldPhotoPath = __DIR__ . '/old_photo.jpg';
+//        $photoPath = __DIR__ . '/photo.jpg';
+//
+//        // copy photo path
+//        copy($oldPhotoPath, $photoPath);
+//
+//        // new uploaded file
+//        $photo = new UploadedFile(
+//            $photoPath,
+//            'photo.jpg',
+//            'image/jpeg',
+//            123
+//        );
+//
+//        // try to open goal add images page
+//        $this->client->request(
+//            'POST',
+//            '/api/v1.0/goals/add-images/5',
+//            array(),
+//            array('file' => $photo)
+//        );
+//
+//        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not add goal image!');
+//    }
 
 }
