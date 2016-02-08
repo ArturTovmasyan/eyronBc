@@ -194,7 +194,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->createQueryBuilder()
                 ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
-                ->leftJoin('g.images', 'i')
+                ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
