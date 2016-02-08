@@ -17,9 +17,9 @@
                 <div class="quote">
 
                     <div class="ticker">
-                        <i class="icon quotel-icon"></i>
-                        <i class="icon quoter-icon"></i>
                         {% if aphorisms %}
+                            <i class="icon quotel-icon"></i>
+                            <i class="icon quoter-icon"></i>
                             <ul>
                                 {% for aphorism in aphorisms %}
                                     <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
