@@ -53,7 +53,7 @@ angular.module('Components',[])
             }
         }
     }])
-    .directive('lsJqueryModal',['$compile', '$http', function($compile, $http){
+    .directive('lsJqueryModal',['$compile', '$http', '$rootScope', function($compile, $http, $rootScope){
         return {
             restrict: 'EA',
             scope: {
@@ -101,9 +101,11 @@ angular.module('Components',[])
                     tmp.modal({
                         fadeDuration: 500
                     });
+                    $rootScope.$broadcast('lsJqueryModalOpened'+scope.lsIdentity);
 
                     tmp.on($.modal.CLOSE, function(){
                         tmp.remove();
+                        $rootScope.$broadcast('lsJqueryModalClosed'+scope.lsIdentity);
                     })
                 }
 

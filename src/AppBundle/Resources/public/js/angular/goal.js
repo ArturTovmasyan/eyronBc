@@ -101,6 +101,11 @@ angular.module('goal', ['Interpolation',
             angular.element("#goal-create-form").ajaxFormUnbind();
         });
 
+        $scope.$on('lsJqueryModalClosedgoalSave', function(){
+            $scope.goalSubmitTemplate = '';
+            $scope.$apply();
+        })
+
     }])
     .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){
 
