@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: aram
+ * User: Artur
  * Date: 9/8/15
  * Time: 2:16 PM
  */
@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
  * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
  * @ORM\EntityListeners({"AppBundle\Listener\SettingsListener"})
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -183,6 +184,13 @@ class User extends BaseUser
      * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
     public $primary;
+
+    /**
+     * @var date $created
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
 
     /**
      * @return mixed
@@ -872,8 +880,28 @@ class User extends BaseUser
     }
 
     /**
-     * This function is used to set primary email and change username
+     * @return $this
+     */
+    public function setCreated($created)
+    {
+        $this->created =  $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
      *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * This function is used to set primary email and change username
+     * @ORM\PreUpdate()
      */
     public function calculationSettingsProcess()
     {
@@ -916,7 +944,7 @@ class User extends BaseUser
         }
 
         //check if set another primary email
-        if ($userEmailsInDb && $primaryEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
 
             //set user emails in array with token and primary value
             $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];

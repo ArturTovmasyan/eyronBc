@@ -9,10 +9,14 @@
 namespace AppBundle\Listener;
 
 use Application\UserBundle\Entity\User;
-use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping\PreFlush;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class SettingsListener
+class SettingsListener implements ContainerAwareInterface
 {
     /**
      * @var
@@ -20,30 +24,29 @@ class SettingsListener
     public $container;
 
     /**
-     * @param Container $container
+     * @param ContainerInterface|null $container
      */
-    function __construct(Container $container)
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
     /**
-     * @param OnFlushEventArgs $args
+     * @param User $user
+     * @param PreFlushEventArgs $event
+     * @PreFlush()
      */
-    public function onFlush(OnFlushEventArgs $args)
+    public function preFlush(User $user, PreFlushEventArgs $event)
     {
-
-        //get user
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         //get add email
         $addEmail = $user->addEmail;
 
-        //get user emails
-        $userEmails = $user->getUserEmails();
-
         //check if addEmail exist
         if ($addEmail) {
+
+            //get user emails
+            $userEmails = $user->getUserEmails();
 
             //generate email activation  token
             $emailToken = md5(microtime() . $addEmail);
@@ -59,10 +62,10 @@ class SettingsListener
 
             //get send activation email service
             $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
+
+            //set user emails
+            $user->setUserEmails($userEmails);
         }
-
-        //set user emails
-        $user->setUserEmails($userEmails);
     }
-
 }
+

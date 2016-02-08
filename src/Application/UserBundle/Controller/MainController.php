@@ -32,27 +32,8 @@ class MainController extends Controller
         //get user in db
         $user = $this->getUser();
 
-        //get current email
-        $currentEmail = $user->getEmail();
-
-        //get user emails in db
-        $userEmails = $user->getUserEmails();
-
         //get last url for redirect
         $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
-
-        // value for userEmailsInDb
-        $userEmailsInDb = null;
-
-        //set default primary email value
-        $primaryEmail = null;
-
-        //check if userEmails exist
-        if ($userEmails) {
-
-            //get user emails in db
-            $userEmailsInDb = array_map(function ($item) { return $item['userEmails'] ; },  $userEmails);
-        }
 
         //get fos user manager
         $fosManager = $this->container->get("fos_user.user_manager");
@@ -101,57 +82,23 @@ class MainController extends Controller
                 $form->get('password')->addError($error);
             }
 
-            //get new email in request
-            $addEmail = $form->get('addEmail')->getData();
-
             //get primary email
             $primaryEmail = $request->request->get('primary');
 
-            //check if primary email exist in $userEmailsInDb
-            if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
 
-                unset($userEmails[$key]);
+            //check if primary email equal current email
+            if($primaryEmail == $user->getEmail()) {
+                $primaryEmail = null;
+            }
+            else {
+               $user->primary = $primaryEmail;
             }
 
-            //check if set another primary email
-            if ($userEmailsInDb && $primaryEmail && $currentEmail !== $primaryEmail &&
-                (array_search($currentEmail, $userEmailsInDb) == false)) {
+            //set primary value in entity
+            $user->primary = $primaryEmail;
 
-                //set user emails in array with token and primary value
-                $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
-
-                //set current email data in userEmails array
-                $userEmails[$currentEmail] = $currentEmailData;
-            }
-
-            //check if primary email exist
-            if ($primaryEmail && $primaryEmail !== $currentEmail) {
-
-                //set email for user
-                $user->setEmail($primaryEmail);
-            }
-
-            //check if addEmail exist
-            if ($addEmail) {
-
-                //generate email activation  token
-                $emailToken = md5(microtime() . $addEmail);
-
-                //set user emails in array with token and primary value
-                $newEmail = ['userEmails' => $addEmail, 'token' => $emailToken, 'primary' => false];
-
-                //set new email data in userEmails array
-                $userEmails[$addEmail] = $newEmail;
-
-                //get 8user full name
-                $userName = $user->showName();
-
-                //get send activation email service
-                $this->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
-            }
-
-            //set user emails
-            $user->setUserEmails($userEmails);
+            //set created for preUpdate event
+            $user->setCreated(new \DateTime());
 
             //get uploadFile service
             $this->get('bl_service')->uploadFile($user);
