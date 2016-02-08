@@ -269,7 +269,7 @@ class UserGoalController extends FOSRestController
      * @param $isDone
      * @return Response
      */
-    public function getDoneAction(Goal $goal, $isDone)
+    public function getDoneAction(Goal $goal, $isDone = null)
     {
         $em = $this->getDoctrine()->getManager();
 
