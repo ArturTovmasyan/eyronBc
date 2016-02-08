@@ -18,7 +18,7 @@
                     {#{{ form_errors(form) }}#}
                     {#{{ form_errors(form.body) }}#}
                     {#</div>#}
-                    {{ form_widget(form.body, {'attr': {'placeholder': 'Leave comment...','onkeyup': 'if(event.which === 13 && !event.shiftKey){$(this).parent("form.fos_comment_comment_new_form").submit()}'} }) }}
+                    {{ form_widget(form.body, {'attr': {'placeholder': 'Leave a comment...','onkeyup': 'if(event.which === 13 && !event.shiftKey){$(this).parent("form.fos_comment_comment_new_form").submit()}'} }) }}
 
                     {{ form_rest(form) }}
                 {% endblock %}
