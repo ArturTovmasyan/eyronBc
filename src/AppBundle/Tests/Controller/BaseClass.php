@@ -55,6 +55,8 @@ class BaseClass extends WebTestCase
     protected $clientSecond = null;
 
     /**
+     * this function create default client for testes
+     *
      * {@inheritDoc}
      */
     public function setUp()
@@ -77,7 +79,7 @@ class BaseClass extends WebTestCase
     }
 
     /**
-     *
+     * this function create filter Provider data , client for testes
      */
     public function filterProvider()
     {
@@ -102,7 +104,7 @@ class BaseClass extends WebTestCase
     }
 
     /**
-     *
+     * this function create file Provider data , client for testes
      */
     public function fileProvider()
     {
@@ -134,7 +136,7 @@ class BaseClass extends WebTestCase
     }
 
     /**
-     *
+     * this function create all file Provider data , client for testes
      */
     public function allFileProvider()
     {
@@ -166,7 +168,7 @@ class BaseClass extends WebTestCase
     }
 
     /**
-     *
+     * this function create goal data provider , client for testes
      */
     public function goalProvider()
     {
@@ -197,7 +199,7 @@ class BaseClass extends WebTestCase
     }
 
     /**
-     *
+     * this function create user goal data provider , client for testes
      */
     public function userGoalProvider()
     {
