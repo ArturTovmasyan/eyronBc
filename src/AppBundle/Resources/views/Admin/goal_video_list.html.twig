@@ -1,7 +1,5 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {%- block field %}
-    {% if value is not null and value is not empty %}
-        <iframe height="150" src="{{ value[0] }}"></iframe>
-    {% endif %}
+    {{ value|length|default(0) }}
 {% endblock -%}
