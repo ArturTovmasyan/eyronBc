@@ -6,6 +6,7 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
+        'youtube-embed',
         'Components'
     ])
     .controller('goalAdd',['$scope', '$sce', '$timeout', function($scope, $sce, $timeout){
@@ -227,7 +228,7 @@ angular.module('goal', ['Interpolation',
             templateUrl: '/bundles/app/htmls/addVideo.html',
             link: function(scope){
 
-                scope.limit = scope.limit ? scope.limit : 3;
+                scope.lm = scope.limit ? scope.limit : 3;
 
                 scope.$watch('link',function(d){
                     if(angular.isUndefined(d)){
@@ -238,7 +239,7 @@ angular.module('goal', ['Interpolation',
                         scope.removeItem();
                     }
                     else {
-                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.limit){
+                        if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.lm){
                             scope.array[scope.key + 1] = {};
                         }
                     }

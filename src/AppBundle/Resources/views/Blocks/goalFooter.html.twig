@@ -8,7 +8,7 @@
                    data-ls-jquery-modal
                    data-ls-identity="idea{{ goal.id }}"
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                    <span class="icon plus-icon"></span>{{ 'add'|trans }}
+                    <i class="icon plus-icon"></i>{{ 'add'|trans }}
                 </a>
             </li>
         {% endif %}
@@ -17,7 +17,7 @@
         {% if  goal.isMyGoal != 2 %}
             <li class="col-xs-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                    <span class="icon ok-icon"></span>{{ 'done'|trans }}
+                    <i class="icon ok-icon"></i>{{ 'done'|trans }}
                 </a>
             </li>
         {% endif %}

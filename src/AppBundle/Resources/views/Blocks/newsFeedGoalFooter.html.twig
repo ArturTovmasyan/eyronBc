@@ -8,14 +8,14 @@
                    data-ls-jquery-modal
                    data-ls-identity="activity{{ goal.id }}"
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                    <span class="icon plus-icon"></span>{{ 'add'|trans }}
+                    <i class="icon plus-icon"></i>{{ 'add'|trans }}
                 </a>
             </li>
         {% else %}
             <li class="col-xs-4">
                 {#<span class="label label-success">{{ 'added'|trans }}</span>#}
                 <strong>
-                    <span class="icon plus-icon-green"></span>{{ 'added'|trans |upper}}
+                    <i class="icon plus-icon-green"></i>{{ 'added'|trans |upper}}
                 </strong>
             </li>
 
@@ -25,14 +25,14 @@
         {% if  goal.isMyGoal != 2 %}
             <li class="col-xs-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                    <span class="icon ok-icon"></span>{{ 'done'|trans }}
+                    <i class="icon ok-icon"></i>{{ 'done'|trans }}
                 </a>
             </li>
         {% else %}
             <li class="col-xs-4">
                 {#<span class="label label-success">{{ 'completed'|trans }}</span>#}
                 <strong>
-                    <span class="icon green-ok-icon"></span>{{ 'completed'|trans |upper}}
+                    <i class="icon green-ok-icon"></i>{{ 'completed'|trans |upper}}
                 </strong>
             </li>
         {% endif %}
@@ -40,11 +40,7 @@
 
     {% if inner is not defined %}
         <li class="col-xs-4">
-            {#<a href="#">#}
-                {#<span class="glyphicon glyphicon-share-alt">#}
-                    <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
-                {#</span>#}
-            {#</a>#}
+            <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
         </li>
     {% endif %}
 </ul>

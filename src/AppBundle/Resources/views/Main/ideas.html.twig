@@ -20,6 +20,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
+                                    <span class="overlay"></span>
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
@@ -29,14 +30,14 @@
                                             <a href="javascript:void(0)">
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 <span>{{ goal.stats.listedBy }}</span>
-                                                <span class="icon user-icon"></span>
+                                                <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0)">
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 <span>{{ goal.stats.doneBy }}</span>
-                                                <span class="icon user-icon"></span>
+                                                <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -67,7 +68,8 @@
                         {% endif %}
 
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
-                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="583" alt="{{ goal.title }}"/>
+                            <span class="overlay height"></span>
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="588" alt="{{ goal.title }}"/>
                         </a>
 
                         <div class="absolute">
@@ -76,14 +78,14 @@
                                     <a href="javascript:void(0)">
                                         {{ 'home_listed_by'|trans({},'messages') }}
                                         <span>{{ goal.stats.listedBy }}</span>
-                                        <span class="icon user-icon"></span>
+                                        <i class="icon user-icon"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">
                                         {{ 'home_complete'|trans({},'messages') }}
                                         <span>{{ goal.stats.doneBy }}</span>
-                                        <span class="icon user-icon"></span>
+                                        <i class="icon user-icon"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -114,6 +116,7 @@
                                 {% endif %}
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                                    <span class="overlay"></span>
                                     <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
                                 </a>
 
@@ -123,14 +126,14 @@
                                             <a href="javascript:void(0)">
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 <span>{{ goal.stats.listedBy }}</span>
-                                                <span class="icon user-icon"></span>
+                                                <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0)">
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 <span>{{ goal.stats.doneBy }}</span>
-                                                <span class="icon user-icon"></span>
+                                                <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -162,6 +165,7 @@
                             {% set image = goal.getListPhoto %}
                         {% endif %}
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                            <span class="overlay"></span>
                             <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_3') }}{% else %}
                              {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
                         </a>
@@ -172,14 +176,14 @@
                                     <a href="javascript:void(0)">
                                         {{ 'home_listed_by'|trans({},'messages') }}
                                         <span>{{ goal.stats.listedBy }}</span>
-                                        <span class="icon user-icon"></span>
+                                        <i class="icon user-icon"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">
                                         {{ 'home_complete'|trans({},'messages') }}
                                         <span>{{ goal.stats.doneBy }}</span>
-                                        <span class="icon user-icon"></span>
+                                        <i class="icon user-icon"></i>
                                     </a>
                                 </li>
                             </ul>

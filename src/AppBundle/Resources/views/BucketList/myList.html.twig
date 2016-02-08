@@ -344,7 +344,9 @@
                                     <div class="row">
                                         <div class="col-md-6 no-right">
                                             <figure>
+
                                                 <a href="{{ path('inner_goal', {'id' : goal.id }) }}">
+                                                    <span class="overlay"></span>
                                                     <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
                                                 </a>
                                                 <figcaption>
@@ -353,7 +355,7 @@
                                                             <a href="javascript:void(0)">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
-                                                                <span class="icon user-icon"></span>
+                                                                <i class="icon user-icon"></i>
                                                             </a>
                                                         </div>
 
@@ -455,7 +457,7 @@
                                                                         data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
-                                                                        <span class="icon ok-icon-green"></span>
+                                                                        <i class="icon ok-icon-green"></i>
                                                                         {{ 'successtory'|trans | upper }}
                                                                     </a>
                                                                 {% else %}

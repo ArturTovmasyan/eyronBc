@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-sm-9">
-                <h2>{{ goal.title }}</h2>
+                <h2 {% if goal.title|length > 30 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -43,9 +43,9 @@
                 <div class="col-sm-7 col-md-9">
                     {% set images = goal.images %}
                     {% if images and images | length %}
-                        <div id="main-slider" style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;">
+                        <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 300px;">
                             <!-- Slides Container -->
-                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 300px;">
+                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 300px;">
                                 {% for image in images %}
                                     <div>
                                         <img u="image" src="{{ image.downloadLink }}" alt="{{ goal.title }}"/>
@@ -71,7 +71,7 @@
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <span class="icon plus-icon"></span>{{ 'add'|trans }}
+                                            <i class="icon plus-icon"></i>{{ 'add'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -80,7 +80,7 @@
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                            <span class="icon ok-icon"></span>{{ 'done'|trans }}
+                                            <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -171,9 +171,39 @@
                         <p class="text-gray">{{ goal.description }}</p>
 
                         {% if goal.videoLink %}
-                            {% for videoLink in goal.videoLink %}
-                                <iframe width="100%" height="500" src="{{ videoLink }}" frameborder="0" allowfullscreen></iframe>
-                            {% endfor %}
+                            {% if goal.videoLink and goal.videoLink|length %}
+
+                                {% if goal.videoLink|length < 2 %}
+                                    {% set v = goal.videoLink.first %}
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <figure>
+                                                <iframe src="{{ v }}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="row">
+
+                                        <div id="main-slider-video" style="position: relative; top: 0; left: 0; width: 710px; height: 300px;">
+                                            <!-- Slides Container -->
+                                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 300px;">
+                                                {% for video in goal.videoLink %}
+                                                    {% if video %}
+                                                        <div>
+                                                            <iframe u="image" src="{{ video }}"></iframe>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <!-- Arrow Left -->
+                                            <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
+                                            <!-- Arrow Right -->
+                                            <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
 
                         {% if page == inner %}
@@ -191,13 +221,13 @@
 
                                     <div class="comment-place">
                                         <div class="row">
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-1">
                                                 <figure>
                                                     <img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
                                                 </figure>
                                             </div>
 
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-11">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span>{{ story.updated|date }} </span>
                                                 <p>{{ story.story }} </p>
@@ -219,9 +249,9 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider-image{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                    <div id="story-slider-image{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
+                                                        <div u="slides">
                                                             {% for file in files %}
                                                                 <div>
                                                                     <img u="image" src="{{ file.downloadLink }}"/>
@@ -244,16 +274,16 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <figure>
-                                                            <iframe src="{{ v }}" width="700" height="320"></iframe>
+                                                            <iframe src="{{ v }}" width="700" height="360"></iframe>
                                                         </figure>
                                                     </div>
                                                 </div>
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider-video{{ key }}" class="story-slider" style="position: relative; margin: auto;width: 710px">
+                                                    <div id="story-slider-video{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
-                                                        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 200px">
+                                                        <div u="slides">
                                                             {% for video in videos %}
                                                                 {% if video %}
                                                                     <div>

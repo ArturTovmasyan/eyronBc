@@ -117,7 +117,7 @@
                                      {% for image in images %}
                                              <div class="col-sm-2">
                                                  <a href="{{ path("remove_image", {'filename' : image.filename }) }}">
-                                                     <span class="icon remove-icon"></span>
+                                                     <i class="icon remove-icon"></i>
                                                  </a>
                                                  <img src="{{ image.downloadLink }}" alt="{{ image.fileOriginalName }}" class="img-responsive"/>
                                              </div>

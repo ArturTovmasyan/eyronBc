@@ -1,5 +1,7 @@
 <div class="modal-top">
+
     <figure>
+
         <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
     </figure>
 
@@ -10,7 +12,7 @@
         {% set done = goal.getUsedCount.doneBy %}
         {% set listed = goal.getUsedCount.listedBy %}
     {% endif %}
-
+    <span class="overlay"></span>
         <div class="row no-gutter">
 
             <div class="col-sm-8">
@@ -25,14 +27,14 @@
                         <a href="#">
                             {{ 'block_listed'|trans | upper }}
                             <span>{{ goal.getUsedCount.listedBy }}</span>
-                            <span class="icon user-icon"></span>
+                            <i class="icon user-icon"></i>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             {{ 'block_completed'|trans | upper }}
                             <span>{{ goal.getUsedCount.doneBy }}</span>
-                            <span class="icon user-icon"></span>
+                            <i class="icon user-icon"></i>
                         </a>
                     </li>
                 </ul>
@@ -54,4 +56,5 @@
             </div>
 
         </div>
+
 </div>

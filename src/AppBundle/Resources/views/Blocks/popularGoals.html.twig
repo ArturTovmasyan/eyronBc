@@ -7,6 +7,7 @@
                 <h3>{{ popularGoal.title }}</h3>
 
                 <a href="{{ path('inner_goal', {'id': popularGoal.id }) }}" id="goalTitle">
+                    <span class="overlay"></span>
                     <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
                 </a>
                 <figcaption>
