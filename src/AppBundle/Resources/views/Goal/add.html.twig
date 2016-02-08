@@ -21,6 +21,7 @@
         {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" style="z-index: 10000"/>#}
     {#</div>#}
     <form method="post" id="goal-create-form" class="main-form" action="#" enctype="multipart/form-data">
+        <img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" class="loading"/>
          <div class="content-top">
              <div class="container">
                  <div class="row">
@@ -48,7 +49,7 @@
 
                      <div class="col-sm-6 text-right">
                          <div class="buttons">
-                             <img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading"/>
+                             {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading"/>#}
                              <button type="submit" class="btn btn-transparent goal-view-submit" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
