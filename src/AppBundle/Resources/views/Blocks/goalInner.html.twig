@@ -105,10 +105,17 @@
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for doneByUser in doneByUsers %}
+                                                    {% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}
+                                                    {% set className = "user-no" ~ random(4) %}
                                                     <li style="right: {{ left }}px">
-                                                        <figure>
-                                                            <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                                        </figure>
+                                                        {% if doneByUser.getPhotoLink  %}
+                                                            <figure>
+                                                                <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                            </figure>
+                                                        {% else %}
+                                                            <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                        {% endif %}
+
                                                     </li>
                                                     {% set left = left + 20 %}
                                                 {% endfor %}
@@ -133,10 +140,16 @@
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
+                                                    {% set nameOnImage = 'AH' %}
+                                                    {% set className = "user-no" ~ random(4) %}
                                                     <li style="right: {{ left }}px">
-                                                        <figure>
-                                                            <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
-                                                        </figure>
+                                                        {% if listedByUser.getPhotoLink  %}
+                                                            <figure>
+                                                                <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                            </figure>
+                                                        {% else %}
+                                                            <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                        {% endif %}
                                                     </li>
                                                     {% set left = left + 20 %}
                                                 {% endfor %}
