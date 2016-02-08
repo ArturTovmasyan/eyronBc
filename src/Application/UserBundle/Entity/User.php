@@ -983,8 +983,7 @@ class User extends BaseUser
             $userEmails = $this->getUserEmails();
 
             //check if primary email equal currentEmail
-            if ($primaryEmail && (!$userEmails ||
-               !array_key_exists($primaryEmail, $userEmails) ||
+            if ($primaryEmail && (!$userEmails || !array_key_exists($primaryEmail, $userEmails) ||
                ($primaryEmail == $currentEmail))) {
 
                 $context->buildViolation('Set invalid primary email')

@@ -85,17 +85,15 @@ class MainController extends Controller
             //get primary email
             $primaryEmail = $request->request->get('primary');
 
-
             //check if primary email equal current email
-            if($primaryEmail == $user->getEmail()) {
+            if ($primaryEmail == $user->getEmail()) {
+                //set primary email
                 $primaryEmail = null;
             }
             else {
+                //set primary value in entity
                $user->primary = $primaryEmail;
             }
-
-            //set primary value in entity
-            $user->primary = $primaryEmail;
 
             //set created for preUpdate event
             $user->setCreated(new \DateTime());
