@@ -173,7 +173,7 @@
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}
 
-                                {% if goal.videoLink|length < 2 %}
+                                {% if goal.videoLink|length == 1 %}
                                     {% set v = goal.videoLink.first %}
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -249,7 +249,7 @@
 
                                         {% if files and files|length %}
 
-                                            {% if files|length < 2 %}
+                                            {% if files|length == 1 %}
                                                 {% set file = files.first %}
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -281,7 +281,7 @@
 
                                         {% if videos and videos|length %}
 
-                                            {% if videos|length < 2 %}
+                                            {% if videos|length == 1 %}
                                                 {% set v = videos.first %}
                                                 <div class="row">
                                                     <div class="col-md-12">
