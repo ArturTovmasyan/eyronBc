@@ -12,28 +12,9 @@ class MainControllerTest extends BaseClass
     public function testIndex()
     {
         // try to open homepage
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open homepage!');
-
-//        // get goal2
-//        $goal2 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
-//
-//        // check is exist goal 2
-//        if ($goal2) {
-//            // count goals
-//            $countGoals = count($crawler->filter('#main_row1 a[id="main_goalTitle1"]'));
-//            $this->assertEquals(1, $countGoals, 'can not find goal2 in homepage!');
-//        }
-//
-//        // check is exist goal 2
-//        if ($goal2) {
-//            // click in goal1 title link
-//            $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->link();
-//            $this->client->click($link);
-//
-//            $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not click in goal2 link in homepage!');
-//        }
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
@@ -76,8 +57,11 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends page!');
 
-        //todo number of queries is missing
-
+        // check db request count
+        if ($profile = $this->clientSecond->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
@@ -93,7 +77,11 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal users page!');
 
-        //todo number of queries is missing
+        // check db request count
+        if ($profile = $this->clientSecond->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
@@ -108,7 +96,11 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal activities page!');
 
-        //todo number of queries is missing
+        // check db request count
+        if ($profile = $this->clientSecond->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
@@ -123,6 +115,10 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open Registration Confirmed page!');
 
-        //todo number of queries is missing
+        // check db request count
+        if ($profile = $this->clientSecond->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 }
