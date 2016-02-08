@@ -63,7 +63,7 @@
                         </figure>
                     </div>
                     <div class="col-md-4">
-                        <h1 class="bg-blue">{{ profileUser.showName }}</h1>
+                        <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
                         {% if  profileUser.getAge  %}
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
