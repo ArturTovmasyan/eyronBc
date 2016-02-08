@@ -17,7 +17,6 @@ class NewsFeedControllerTest extends BaseClass
      */
     public function testGet()
     {
-        // GET /api/v1.0/activities/{first}/{count}
         $url = sprintf('/api/v1.0/activities/%s/%s', 1, 2);
 
         // try to get news-feed
