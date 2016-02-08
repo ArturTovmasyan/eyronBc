@@ -5,9 +5,15 @@
     <div class="row">
 
         <div class="col-sm-1">
-            <figure class="img-circle">
-                <img src="{{ comment.author.getDownloadLink }}" class="img-responsive img-circle"/>
-            </figure>
+            {% if comment.author.getDownloadLink  %}
+                <figure class="img-circle">
+                    <img src="{{ comment.author.getDownloadLink }}" class="img-responsive img-circle"/>
+                </figure>
+            {% else %}
+                {% set nameOnImage = comment.author.firstName|slice(0,1) ~ comment.author.lastName|slice(0,1) %}
+                {% set className = "user-no" ~ random(4) %}
+                <p class="{{ className }}">{{ nameOnImage  }}</p>
+            {% endif %}
         </div>
 
         <div class="col-sm-11">
@@ -18,7 +24,7 @@
                     {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
                 {% else %}
                     <p>{{ comment.author.showName }}</p>
-                    <span>{{ comment.createdAt|date }}</span>
+                    <span>{{ comment.createdAt|date('F d \\a\\t\\ h:i a') }}</span>
                     {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
                         {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
                     {% else %}

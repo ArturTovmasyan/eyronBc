@@ -579,6 +579,10 @@ class User extends BaseUser
      */
     public function showName()
     {
+        if (!$this->getFirstName() && !$this->getLastName()){
+            return null;
+        }
+
         return $this->getFirstName() .  ' ' . $this->getLastName();
     }
 

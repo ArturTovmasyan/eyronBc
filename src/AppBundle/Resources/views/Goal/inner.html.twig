@@ -13,6 +13,29 @@
     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
 {% endblock %}
 
+{% block title %}
+    {{ goal.title }}
+{% endblock %}
+
+
+{% block meta_description %}
+    {# TODO: will be better to move this code to twig extension #}
+    {% if goal.description %}
+        {% set descriptionSentences = goal.description|split('.') %}
+        {% set description = '' %}
+
+        {% for descriptionSentence in descriptionSentences if description|length < 160 %}
+            {% if descriptionSentence|length <= (200 - description|length) %}
+                {% set description = description ~ descriptionSentence ~ '.' %}
+            {% endif %}
+        {% endfor %}
+        {{ description }}
+
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
 

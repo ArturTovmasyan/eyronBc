@@ -37,6 +37,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setPlainPassword('Test1234');
         $user->setBirthDate(new \DateTime('now'));
         $user->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1gad');
+        $user->setCreated(new \DateTime('now'));
         $manager->persist($user);
 
         // create user
@@ -48,6 +49,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setPlainPassword('Test1234');
         $user->setBirthDate(new \DateTime('now'));
         $user->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dag');
+        $user->setCreated(new \DateTime('now'));
         $manager->persist($user);
 
         $manager->flush();
