@@ -13,6 +13,19 @@
     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
 {% endblock %}
 
+{% block title %}
+    {{ goal.title }}
+{% endblock %}
+
+
+{% block meta_description %}
+    {% if goal.description %}
+        {{ goal.description }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
 
