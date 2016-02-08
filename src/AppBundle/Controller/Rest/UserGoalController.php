@@ -273,7 +273,7 @@ class UserGoalController extends FOSRestController
      * @param $isDone
      * @return Response
      */
-    public function getDoneAction(Goal $goal, $isDone)
+    public function getDoneAction(Goal $goal, $isDone = null)
     {
         if (!$this->getUser()){
             return new Response('User not found', Response::HTTP_UNAUTHORIZED);

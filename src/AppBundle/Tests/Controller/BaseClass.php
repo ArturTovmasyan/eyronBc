@@ -121,7 +121,7 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        for($i = 0; $i<count($files); $i++)
+        for($i = 1; $i<count($files); $i++)
         {
             $fileNames[] =
                 array(
@@ -194,5 +194,36 @@ class BaseClass extends WebTestCase
         }
 
         return $goalIds;
+    }
+
+    /**
+     *
+     */
+    public function userGoalProvider()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $userGoals = $this->em->getRepository('AppBundle:UserGoal')->findAll();
+
+        $userGoalIds = array();
+
+        for($i = 0; $i<count($userGoals); $i++)
+        {
+            $userGoalIds[] =
+                array(
+                    'file'.$i => $userGoals[$i]->getId()
+                );
+
+        }
+
+        return $userGoalIds;
     }
 }

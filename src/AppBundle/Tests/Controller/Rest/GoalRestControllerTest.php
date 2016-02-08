@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class GoalRestControllerTest extends BaseClass
 {
     /**
+     * This function get all goals test
      */
     public function testGetAll()
     {
