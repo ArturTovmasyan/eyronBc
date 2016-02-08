@@ -18,7 +18,7 @@
                     {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
                 {% else %}
                     <p>{{ comment.author.showName }}</p>
-                    <span>{{ comment.createdAt|date }}</span>
+                    <span>{{ comment.createdAt|date('F d \\a\\t\\ h:i a') }}</span>
                     {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
                         {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
                     {% else %}
