@@ -18,6 +18,7 @@ use AppBundle\Form\GoalType;
 use AppBundle\Form\SuccessStoryType;
 use AppBundle\Form\UserGoalType;
 use Application\UserBundle\Entity\User;
+use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -617,6 +618,8 @@ class GoalController extends Controller
 
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->findAll();
+        $serializer = $this->get('serializer');
+        $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
 
         $allIds = [];
         // find all goals
@@ -635,7 +638,7 @@ class GoalController extends Controller
 
         $pagination->setItems($goals);
 
-        return array('goals' => $pagination, 'categories' => $categories);
+        return array('goals' => $pagination, 'categories' => $categories, 'categoriesJson' => $categoriesJson);
     }
 
 
