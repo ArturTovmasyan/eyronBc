@@ -92,11 +92,10 @@ class BaseClass extends WebTestCase
         $this->client->enableProfiler();
 
         $data = array(
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>true)),
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'd'=>true)),
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'd'=>true)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>false)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'd'=>false)),
+            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'd'=>false)),
             array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>false)),
-            array('filter' => array('f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>true))
         );
 
         return $data;
