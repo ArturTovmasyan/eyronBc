@@ -32,11 +32,10 @@ class SettingsType extends AbstractType
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', null, array('attr' => array('readonly' => true),'required' => true, 'label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('password', 'password', array(
+            ->add('currentPassword', 'password', array(
                 'required' => false,
                 'label' => 'form.current_password',
                 'translation_domain' => 'FOSUserBundle',
-                'mapped' => false
             ))
             ->add('plainPassword', 'repeated', array(
                 'required' => false,

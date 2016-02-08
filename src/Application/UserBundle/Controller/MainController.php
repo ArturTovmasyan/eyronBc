@@ -26,9 +26,6 @@ class MainController extends Controller
      */
     public function settingsAction(Request $request)
     {
-        //get translator
-        $tr = $this->get('translator');
-
         //get user in db
         $user = $this->getUser();
 
@@ -36,7 +33,7 @@ class MainController extends Controller
         $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
         //get fos user manager
-        $fosManager = $this->container->get("fos_user.user_manager");
+        $fosManager = $this->container->get('fos_user.user_manager');
 
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
@@ -46,60 +43,6 @@ class MainController extends Controller
 
             // get data from request
             $form->handleRequest($request);
-
-            // get current password in form
-            $currentPassword = $form->get('password')->getData();
-
-            //get new password in form
-            $newPassword = $form->get('plainPassword')->getData();
-
-            //get current user password
-            $userPassword = $user->getPassword();
-
-            //get encoder service
-            $encoderService = $this->get('security.encoder_factory');
-
-            //encoder user
-            $encoder = $encoderService->getEncoder($user);
-
-            //check if current password valid
-            if ($currentPassword && !($encoder->isPasswordValid($userPassword, $currentPassword, $user->getSalt()))) {
-
-                //set custom error class
-                $error = new FormError($tr->trans('password.error', array(), 'FOSUserBundle'));
-
-                //set error in field
-                $form->get('password')->addError($error);
-            }
-
-            //check if current password not set
-            if ($newPassword && $currentPassword == null) {
-
-                //set custom error class
-                $error = new FormError($tr->trans('password.current', array(), 'FOSUserBundle'));
-
-                //set error in field
-                $form->get('password')->addError($error);
-            }
-
-            //get primary email
-            $primaryEmail = $request->request->get('primary');
-
-            //check if primary email equal current email
-            if ($primaryEmail == $user->getEmail()) {
-                //set primary email
-                $primaryEmail = null;
-            }
-            else {
-                //set primary value in entity
-               $user->primary = $primaryEmail;
-            }
-
-            //set created for preUpdate event
-            $user->setCreated(new \DateTime());
-
-            //get uploadFile service
-            $this->get('bl_service')->uploadFile($user);
 
             //get validator
             $validator = $this->get('validator');
@@ -122,10 +65,32 @@ class MainController extends Controller
             //check if form is valid
             if ($form->isValid() && count($returnResult) == 0) {
 
+                //get primary email
+                $primaryEmail = $request->request->get('primary');
+
+                //check if primary email equal current email
+                if ($primaryEmail == $user->getEmail()) {
+
+                    //set primary email
+                    $primaryEmail = null;
+                }
+                else {
+
+                    //set primary value in entity
+                    $user->primary = $primaryEmail;
+                }
+
+                //set created for preUpdate event
+                $user->setCreated(new \DateTime());
+
+                //get uploadFile service
+                $this->get('bl_service')->uploadFile($user);
+
                 //update user
                 $fosManager->updateUser($user);
 
                 return $this->redirect($lastUrl);
+
             }
             else {
 
@@ -140,6 +105,7 @@ class MainController extends Controller
                     //set for errors in array
                     $returnResult[$name] = $formError->getMessage();
                 }
+
                 return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
             }
         }

@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
- * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
+ * @Assert\Callback(methods={"validate"}, groups={"Settings", "MobileSettings"})
  * @ORM\EntityListeners({"AppBundle\Listener\SettingsListener"})
  * @ORM\HasLifecycleCallbacks()
  */
@@ -114,7 +114,7 @@ class User extends BaseUser
      * @var
      * @Assert\NotBlank(groups={"MobileChangePassword"})
      * @SecurityAssert\UserPassword(
-     *     message = "Wrong value for your current password", groups={"MobileChangePassword"}
+     *     message = "Invalid current password", groups={"MobileChangePassword", "Settings"}
      * )
      */
     public $currentPassword;
@@ -916,6 +916,7 @@ class User extends BaseUser
 
     /**
      * This function is used to set primary email and change username
+     *
      * @ORM\PreUpdate()
      */
     public function calculationSettingsProcess()
@@ -978,7 +979,7 @@ class User extends BaseUser
     public function validate(ExecutionContextInterface $context)
     {
         // generate password groups
-        $validGroups = array("MobileChangePassword", "MobileSettings","Settings");
+        $validGroups = array("MobileSettings", "Settings");
 
         // get groups
         $groups = $context->getGroup();
