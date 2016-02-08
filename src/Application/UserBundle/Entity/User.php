@@ -93,20 +93,27 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(groups={"Settings", "Register", "MobileSettings"},
+     * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(groups={"Settings", "Register", "MobileSettings"},
+     * @Assert\Regex(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
      * )
      *
      * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"MobileChangePassword"})
      */
     protected $plainPassword;
+
+    /**
+     * @var
+     * @Assert\NotBlank(groups={"MobileChangePassword"})
+     */
+    public $currentPassword;
 
     /**
      * @var
@@ -188,7 +195,7 @@ class User extends BaseUser
     /**
      * @var date $created
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created", type="datetime", nullable=true)
      */
     private $created;
 
@@ -963,7 +970,7 @@ class User extends BaseUser
     public function validate(ExecutionContextInterface $context)
     {
         // generate password groups
-        $validGroups = array("MobileSettings","Settings");
+        $validGroups = array("MobileChangePassword", "MobileSettings","Settings");
 
         // get groups
         $groups = $context->getGroup();

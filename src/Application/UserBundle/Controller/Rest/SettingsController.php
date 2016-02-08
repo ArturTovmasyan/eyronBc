@@ -6,9 +6,10 @@
  * Time: 12:15 PM
  */
 
-namespace AppBundle\Controller\Rest;
+namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\User;
+use Application\UserBundle\Form\ChangePasswordMobileType;
 use Application\UserBundle\Form\SettingsMobileType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -109,8 +110,9 @@ class SettingsController extends FOSRestController
      *         401="Not authorized user",
      *     },
      * parameters={
-     *      {"name"="currentPassword", "dataType"="string", "required"=true, "description"="User`s current password"},
-     *      {"name"="changePassword", "dataType"="string", "required"=true, "description"="Users change password" },
+     *      {"name"="bl_mobile_change_password[currentPassword]", "dataType"="password", "required"=true, "description"="User current password"},
+     *      {"name"="bl_mobile_change_password[plainPassword][first]", "dataType"="string", "required"=true, "description"="User new password"},
+     *      {"name"="bl_mobile_change_password[plainPassword][second]", "dataType"="string", "required"=true, "description"="User new password"},
      * }
      * )
      * @param $request
@@ -120,52 +122,70 @@ class SettingsController extends FOSRestController
      */
     public function postChangePasswordAction(Request $request)
     {
-        // get all data
-        $data = $request->request->all();
-
-        //get fos user manager
-        $fosManager = $this->container->get("fos_user.user_manager");
-
-        // get current user
+        //get current user
         $user = $this->getUser();
 
-        //check if not logged in user
-        if(!is_object($user)) {
-            return new Response("There is not any user logged in", (Response::HTTP_UNAUTHORIZED));
+        // create goal form
+        $form = $this->createForm(new ChangePasswordMobileType(), $user);
+
+        // get data from request
+        $form->handleRequest($request);
+
+        //check if from valid
+        if ($form->isValid()) {
+
+            //get fos user manager
+            $fosManager = $this->container->get("fos_user.user_manager");
+
+            //get current password
+            $currentPassword = $form->get('currentPassword')->getData();
+
+            //get encoder service
+            $encodeService = $this->get('security.encoder_factory');
+
+            //encode user
+            $encoder = $encodeService->getEncoder($user);
+
+            //get encode password
+            $encodedPass = $encoder->encodePassword($currentPassword, $user->getSalt());
+
+            //get user current pasword
+            $userPassword = $user->getPassword();
+
+            //check if current password valid
+            if($userPassword == $encodedPass) {
+
+                //update user
+                $fosManager->updateUser($user);
+
+                return new Response('', Response::HTTP_OK);
+
+            }
+            else {
+
+                return new JsonResponse('Invalid current password', Response::HTTP_BAD_REQUEST);
+            }
+
         }
+        else{
 
-        //get current password in post data
-        $currentPassword = array_key_exists('currentPassword', $data) ? $data['currentPassword'] : null;
+            //get form errors
+            $formErrors = $form->getErrors(true);
 
-        //get change password in post data
-        $changePassword = array_key_exists('changePassword', $data) ? $data['changePassword'] : null;
+            //set default array
+            $returnResult = array();
 
-        if(!$currentPassword && (!$changePassword)) {
-            return new Response("Post data es empty", Response::HTTP_BAD_REQUEST);
-        }
+            foreach($formErrors as $formError)
+            {
+                //get error field name
+                $name = $formError->getOrigin()->getConfig()->getName();
 
-        //get current user password
-        $userPassword = $user->getPassword();
+                //set for errors in array
+                $returnResult[$name] = $formError->getMessage();
+            }
 
-        //get encoder service
-        $encoder_service = $this->get('security.encoder_factory');
+            return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
 
-        //encoder user
-        $encoder = $encoder_service->getEncoder($user);
-
-        //encoder sent current password
-        $encode_data_pass = $encoder->encodePassword($currentPassword, $user->getSalt());
-
-        if($userPassword == $encode_data_pass) {
-
-            //set new password
-            $user->setPlainPassword($changePassword);
-            $fosManager->updateUser($user);
-
-            return New Response(Response::HTTP_NO_CONTENT);
-        }
-        else {
-            return new Response("Invalid current password", Response::HTTP_BAD_REQUEST);
         }
     }
 

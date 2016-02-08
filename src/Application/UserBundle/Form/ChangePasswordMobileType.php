@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: aram
+ * User: Artur
  * Date: 10/2/15
  * Time: 10:29 AM
  */
@@ -11,13 +11,14 @@ namespace Application\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
- * Class SettingsType
- * @package Application\UserBundle\Form\Type
+ * Class ChangePasswordMobileType
+ * @package Application\UserBundle\Form
  */
 
-class SettingsType extends AbstractType
+class ChangePasswordMobileType extends AbstractType
 {
 
     /**
@@ -28,26 +29,19 @@ class SettingsType extends AbstractType
     {
 
         $builder
-            ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('email', null, array('attr' => array('readonly' => true),'required' => true, 'label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-            ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('password', 'password', array(
-                'required' => false,
+            ->add('currentPassword', 'password', array(
+                'required' => true,
                 'label' => 'form.current_password',
                 'translation_domain' => 'FOSUserBundle',
-                'mapped' => false
             ))
             ->add('plainPassword', 'repeated', array(
-                'required' => false,
+                'required' => true,
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
                 'first_options' => array('label' => 'form.password'),
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
-            ->add('birthDate', 'date', array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
-            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
@@ -59,8 +53,8 @@ class SettingsType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
-            'validation_groups' => 'Settings',
-            'error_bubbling' => true
+            'validation_groups' => 'MobileChangePassword',
+            'csrf_protection' => false,
         ));
     }
 
@@ -69,6 +63,6 @@ class SettingsType extends AbstractType
      */
     public function getName()
     {
-        return 'bl_user_settings';
+        return 'bl_mobile_change_password';
     }
 }

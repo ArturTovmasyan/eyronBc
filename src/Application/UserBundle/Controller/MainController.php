@@ -186,7 +186,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/activation_email/{emailToken}/{email}", name="activation_user_email")
+     * @Route("/activation-email/{emailToken}/{email}", name="activation_user_email")
      * @Secure(roles="ROLE_USER")
      */
     public function activationUserEmailsAction(Request $request, $emailToken, $email)

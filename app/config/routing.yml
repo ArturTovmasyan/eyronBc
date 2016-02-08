@@ -88,7 +88,7 @@ app_new_feed_rest:
 
 app_emails_remove_rest:
     type:     rest
-    resource: @AppBundle/Controller/Rest/SettingsController.php
+    resource: @ApplicationUserBundle/Controller/Rest/SettingsController.php
     prefix:   /
 
 application_user_rest:
