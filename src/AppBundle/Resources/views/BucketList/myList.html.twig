@@ -63,7 +63,7 @@
                         </figure>
                     </div>
                     <div class="col-md-4">
-                        <h1 class="bg-blue">{{ profileUser.showName }}</h1>
+                        <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
                         {% if  profileUser.getAge  %}
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
@@ -355,7 +355,7 @@
                                                             <a href="javascript:void(0)">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
-                                                                <span class="icon user-icon"></span>
+                                                                <i class="icon user-icon"></i>
                                                             </a>
                                                         </div>
 
@@ -457,7 +457,7 @@
                                                                         data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
-                                                                        <span class="icon ok-icon-green"></span>
+                                                                        <i class="icon ok-icon-green"></i>
                                                                         {{ 'successtory'|trans | upper }}
                                                                     </a>
                                                                 {% else %}

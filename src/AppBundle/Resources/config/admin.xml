@@ -60,6 +60,10 @@
                 <argument>edit</argument>
                 <argument>AppBundle:Admin:goal_edit.html.twig</argument>
             </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:goal_show.html.twig</argument>
+            </call>
         </service>
 
     </services>

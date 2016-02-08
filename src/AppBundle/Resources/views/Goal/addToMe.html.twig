@@ -153,7 +153,6 @@
                                                                            class="important-radio"
                                                                            type="radio"
                                                                            data-ng-disabled="complete.switch"
-                                                                           {% if priority == id %}checked{% endif %}
                                                                            value="{{ id }}">
                                                                     {{ name|trans|raw }}
                                                                 </label>
@@ -190,42 +189,6 @@
                                 <p class="text-center text-dark-gray">Urgency</p>
                             </div>
 
-
-                            {#<div class="row">#}
-
-                                {#&#123;&#35; other filters &#35;&#125;#}
-                                {#{% for id, name in filters %}#}
-
-                                    {#<div class="col-sm-6">#}
-                                     {#&#123;&#35;<label class="radio-inline">&#35;&#125;#}
-                                        {#&#123;&#35;<input name="test" {% if priority == id %}checked{% endif %} type="radio" value="{{ id }}"> {{ name|trans }}&#35;&#125;#}
-                                    {#&#123;&#35;</label>&#35;&#125;#}
-
-                                        {#<label class="radio-inline">#}
-                                            {#<input name="test"#}
-                                                   {#class="important-radio"#}
-                                                   {#type="radio"#}
-                                                   {#data-ng-disabled="complete.switch"#}
-                                                   {#{% if priority == id %}checked{% endif %}#}
-                                                   {#value="{{ id }}">#}
-                                                {#{{ name|trans }}#}
-                                        {#</label>#}
-
-                                        {#<p class="text-gray">#}
-                                        {#{% if id == 1 %}#}
-                                            {#{{ 'goal.critical_activities'|trans }}#}
-                                        {#{% elseif id == 2 %}#}
-                                            {#{{ 'goal.avoid_interruptions'|trans }}#}
-                                        {#{% elseif id == 3 %}#}
-                                            {#{{ 'goal.focus_goal'|trans }}#}
-                                        {#{% elseif id == 4 %}#}
-                                            {#{{ 'goal.avoid_distractions'|trans }}#}
-                                        {#{% endif %}#}
-                                        {#</p>#}
-                                    {#</div>#}
-                                {#{% endfor %}#}
-
-                            {#</div>#}
                         </div>
                     </div>
 

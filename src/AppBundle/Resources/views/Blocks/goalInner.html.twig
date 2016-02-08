@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-sm-9">
-                <h2>{{ goal.title }}</h2>
+                <h2 {% if goal.title|length > 30 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -71,7 +71,7 @@
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <span class="icon plus-icon"></span>{{ 'add'|trans }}
+                                            <i class="icon plus-icon"></i>{{ 'add'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -80,7 +80,7 @@
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                            <span class="icon ok-icon"></span>{{ 'done'|trans }}
+                                            <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}
@@ -173,12 +173,18 @@
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}
 
-                                {% if goal.videoLink|length < 2 %}
-                                    {% set v = goal.videoLink.first %}
+                                {% if goal.videoLink|length == 1 %}
+                                    {% set v = goal.videoLink[0] %}
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <figure>
-                                                <iframe src="{{ v }}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+                                                {#<iframe src="{{ v }}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>#}
+                                                <youtube-video
+                                                    data-ng-init="mainSliderVideo='{{ v }}'"
+                                                    video-url="mainSliderVideo"
+                                                    player-height="'360px'"
+                                                    player-width="'100%'">
+                                                </youtube-video>
                                             </figure>
                                         </div>
                                     </div>
@@ -188,10 +194,16 @@
                                         <div id="main-slider-video" style="position: relative; top: 0; left: 0; width: 710px; height: 300px;">
                                             <!-- Slides Container -->
                                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 300px;">
-                                                {% for video in goal.videoLink %}
+                                                {% for k, video in goal.videoLink %}
                                                     {% if video %}
                                                         <div>
-                                                            <iframe u="image" src="{{ video }}"></iframe>
+                                                            {#<iframe u="image" src="{{ video }}"></iframe>#}
+                                                            <youtube-video u="image"
+                                                               player-width="'100%'"
+                                                               player-height="'200px'"
+                                                               data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
+                                                               video-url="mainSliderVideo[{{ k }}]">
+                                                            </youtube-video>
                                                         </div>
                                                     {% endif %}
                                                 {% endfor %}
@@ -229,7 +241,7 @@
 
                                             <div class="col-sm-11">
                                                 <p>{{ addedUser.showName }} </p>
-                                                <span>{{ story.updated|date }} </span>
+                                                <span>{{ story.updated|date('F d \\a\\t\\ h:i a') }} </span>
                                                 <p>{{ story.story }} </p>
                                             </div>
 
@@ -237,7 +249,7 @@
 
                                         {% if files and files|length %}
 
-                                            {% if files|length < 2 %}
+                                            {% if files|length == 1 %}
                                                 {% set file = files.first %}
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -269,12 +281,18 @@
 
                                         {% if videos and videos|length %}
 
-                                            {% if videos|length < 2 %}
-                                                {% set v = videos.first %}
+                                            {% if videos|length == 1 %}
+                                                {% set v = videos[0] %}
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <figure>
-                                                            <iframe src="{{ v }}" width="700" height="360"></iframe>
+                                                            {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
+                                                            <youtube-video
+                                                                video-url="storySliderVideo[{{ key }}]"
+                                                                data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
+                                                                player-height="'360px'"
+                                                                player-width="'700px'">
+                                                            </youtube-video>
                                                         </figure>
                                                     </div>
                                                 </div>
@@ -284,10 +302,17 @@
                                                     <div id="story-slider-video{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
                                                         <div u="slides">
-                                                            {% for video in videos %}
+                                                            {% for k,video in videos %}
                                                                 {% if video %}
                                                                     <div>
-                                                                        <iframe u="image" src="{{ video }}"></iframe>
+                                                                        {#<iframe u="image" src="{{ video }}"></iframe>#}
+                                                                        <youtube-video
+                                                                            u="image"
+                                                                            data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                            player-width="'100%'"
+                                                                            player-height="'200px'"
+                                                                            video-url="storySliderVideo[{{ key }}][{{ k }}]">
+                                                                        </youtube-video>
                                                                     </div>
                                                                 {% endif %}
                                                             {% endfor %}

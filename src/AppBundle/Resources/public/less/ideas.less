@@ -8,8 +8,6 @@
     overflow: hidden;
     position: relative;
 
-
-
     h3{
       position: absolute;
       width: 100%;
@@ -17,6 +15,7 @@
       font-size:24px;
       font-weight: bold;
       padding-left: 25px;
+      z-index: 1;
     }
 
     figcaption{
@@ -72,6 +71,242 @@
         }
       }
 
+    }
+  }
+}
+
+.inner-content{
+  background-color: #ffffff;
+  overflow: hidden;
+
+  .goal-information{
+    width: 277px;
+    overflow: hidden;
+    margin-left: -15px;
+    background-color: #ffffff;
+    ul:last-child{
+      padding-left:15px;
+      &>li{
+        border-bottom:1px solid #a4a4a4;
+        padding-top:10px;
+        padding-bottom:10px;
+        color:#a4a4a4;
+        ul{
+          li{
+            display: inline-block;
+            border-bottom:0;
+            padding-bottom:0;
+
+            &first-child{
+              span{
+                display: block;
+                font-size: 15px;
+              }
+            }
+
+            &:last-child{
+              a,i{
+                background: url('../images/images.png') no-repeat -396px -1156px;
+                display: block;
+                width:40px;
+                height:40px;
+
+                &:hover{
+                  background: url('../images/images.png') no-repeat -396px -1203px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .goal-links {
+    padding-left:0;
+    margin-bottom:0;
+
+    li {
+      text-align: center;
+      a {
+        display: block;
+        color: #a4a4a4;
+        padding: 10px 0;
+      }
+      &:hover{
+        background-color: #7724F6;
+        a{
+          color: #ffffff;
+        }
+      }
+      &:last-child{
+        border-left:1px solid #a4a4a4;
+      }
+    }
+  }
+}
+
+.inner-container{
+  background-color: #d8d8d8;
+  padding-bottom: 30px;
+
+  q{
+    display: block;
+    padding:25px 0;
+    color:#ffffff;
+    font-size:17px;
+    text-align: justify;
+    word-break: break-all;
+  }
+  cite{
+    display:block;
+    margin-bottom:10px;
+    color:#ffffff;
+  }
+  .quote{
+    position: relative;
+    height:150px;
+    padding:35px 0 25px;
+    i{
+      height:30px;
+      width:33px;
+      position: absolute;
+    }
+  }
+
+  .ticker {
+    font-size:16px;
+    color:#ffffff;
+    position: relative;
+
+    div {
+      display: inline-block;
+      word-wrap: break-word;
+      padding-left:40px;
+    }
+  }
+
+
+  .goal-image{
+    position: absolute;
+    width:100%;
+    img{
+      width:100%;
+    }
+  }
+
+  h2{
+    background-color: #021523;
+    color:#ffffff;
+    padding:10px 40px;
+    margin-bottom:20px;
+    overflow: hidden;
+  }
+
+
+
+  .inner{
+    padding:10px 20px;
+    p{
+      padding:35px 0 0;
+      font-size:16px;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .comment-place{
+      padding:20px 0 30px;
+      background-color: #f4f4f4;
+      margin-bottom: 20px;
+
+
+      figure:first-child{
+        margin: 0 0 10px 15px;
+        background-color: transparent;
+        width:40px;
+        height:40px;
+
+        img{
+          height:40px;
+          border:2px solid #cecece;
+        }
+      }
+
+      p{
+        padding:0;
+        font-size:16px;
+        color:#666666;
+        margin:0;
+        white-space: normal;
+        word-break: break-word;
+
+        &:first-child{
+          font-weight:600;
+        }
+      }
+
+      span{
+        font-size:13px;
+        color:#999999;
+      }
+
+      figure{
+        img{
+          width: 100%;
+        }
+      }
+
+    }
+
+    .story-slider{
+      position: relative;
+      margin: 10px auto 30px;
+      width: 710px;
+      height: 230px;
+
+      &>div{
+        cursor: move;
+        position: absolute;
+        overflow: hidden;
+        left: 0;
+        top: 0;
+        width: 710px;
+        height: 230px;
+      }
+    }
+  }
+
+  h4{
+    padding-top:40px;
+    color:#666666;
+  }
+}
+
+.view-content{
+  margin: 50px 0 20px 0;
+  min-height:800px;
+  padding:125px 10px 10px;
+  overflow: hidden;
+
+  .inner-container{
+
+    .goal-image{
+      img{
+        height:auto;
+      }
+    }
+  }
+  div{
+    overflow-x: hidden;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .inner-container{
+    .goal-image{
+      img{
+        height:671px;
+      }
     }
   }
 }

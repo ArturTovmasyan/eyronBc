@@ -17,14 +17,14 @@
 
                     {% if 'travel' in app.request.get('category') %}
                         <a href="javascript:void(0)" data-ng-click="showMap = !showMap" class="text-gray map-top"> MAP
-                            <span class="icon down-icon" data-ng-show="showMap"></span>
-                            <span class="icon up-icon" data-ng-hide="showMap"></span>
+                            <i class="icon down-icon" data-ng-show="showMap"></i>
+                            <i class="icon up-icon" data-ng-hide="showMap"></i>
                         </a>
                     {% endif %}
                 </div>
 
                 <div class="col-sm-6 text-right"
-                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categories | serialize('json') }})">
+                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categoriesJson }})">
                     <button type="button"
                         data-ng-cloak
                         class="btn btn-default text-purple no-bg"
@@ -37,8 +37,8 @@
 
                         [[ adventureTextItem ? adventureTextItem.title:"MOST POPULAR" ]]
 
-                        <span class="icon down-icon" data-ng-hide="filter"></span>
-                        <span class="icon up-icon ng-hide" data-ng-show="filter"></span>
+                        <i class="icon down-icon" data-ng-hide="filter"></i>
+                        <i class="icon up-icon ng-hide" data-ng-show="filter"></i>
                     </button>
                 </div>
             </div>
@@ -79,14 +79,14 @@
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
                                             <span>{{ goal.stats.listedBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
                                             <span>{{ goal.stats.doneBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -126,14 +126,14 @@
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
                                             <span>{{ goal.stats.listedBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
                                             <span>{{ goal.stats.doneBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -172,14 +172,14 @@
                                         <a href="javascript:void(0)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
                                             <span>{{ goal.stats.listedBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
                                             {{ 'home_complete'|trans({},'messages') }}
                                             <span>{{ goal.stats.doneBy }}</span>
-                                            <span class="icon user-icon"></span>
+                                            <i class="icon user-icon"></i>
                                         </a>
                                     </li>
                                 </ul>
