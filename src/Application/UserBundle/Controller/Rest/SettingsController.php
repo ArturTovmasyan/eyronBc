@@ -34,9 +34,8 @@ class SettingsController extends FOSRestController
      *  section="Settings",
      *  description="This function is used to set settings data",
      *  statusCodes={
-     *         200="Return when successful",
+     *         204="No content",
      *         400="Bad request",
-     *         404="Return when user not found",
      *         401="Unauthorized user",
      *     },
      * parameters={
@@ -74,7 +73,7 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            return new Response('', Response::HTTP_OK);
+            return new Response('', Response::HTTP_NO_CONTENT);
 
         }
         else{
@@ -137,36 +136,12 @@ class SettingsController extends FOSRestController
             //get fos user manager
             $fosManager = $this->container->get("fos_user.user_manager");
 
-            //get current password
-            $currentPassword = $form->get('currentPassword')->getData();
+            //update user
+            $fosManager->updateUser($user);
 
-            //get encoder service
-            $encodeService = $this->get('security.encoder_factory');
-
-            //encode user
-            $encoder = $encodeService->getEncoder($user);
-
-            //get encode password
-            $encodedPass = $encoder->encodePassword($currentPassword, $user->getSalt());
-
-            //get user current pasword
-            $userPassword = $user->getPassword();
-
-            //check if current password valid
-            if($userPassword == $encodedPass) {
-
-                //update user
-                $fosManager->updateUser($user);
-
-                return new Response('', Response::HTTP_OK);
-
-            }
-            else {
-
-                return new JsonResponse('Invalid current password', Response::HTTP_BAD_REQUEST);
-            }
-
+            return new Response('', Response::HTTP_OK);
         }
+
         else{
 
             //get form errors

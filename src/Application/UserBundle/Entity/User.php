@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
@@ -112,6 +113,9 @@ class User extends BaseUser
     /**
      * @var
      * @Assert\NotBlank(groups={"MobileChangePassword"})
+     * @SecurityAssert\UserPassword(
+     *     message = "Wrong value for your current password", groups={"MobileChangePassword"}
+     * )
      */
     public $currentPassword;
 
