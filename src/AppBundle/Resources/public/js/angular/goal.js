@@ -78,20 +78,33 @@ angular.module('goal', ['Interpolation',
         // end description Tagging
 
         angular.element(".goal-create-submit").click(function(){
+            $scope.loading = true;
+
             angular.element("#goal-create-form").ajaxForm({
                 success: function(res, text, header){
                     if(header.status === 200){
                         $scope.goalSubmitTemplate = res;
+                        $scope.loading = false;
                         $scope.$apply();
                         $scope.$broadcast('openLsModal', 'goalSave');
                     }
                 }
             });
+
+            if(!$scope.$$phase){
+                $scope.$apply()
+            }
+
         });
 
         angular.element(".goal-view-submit").click(function(){
             angular.element("#goal-create-form").ajaxFormUnbind();
         });
+
+        $scope.$on('lsJqueryModalClosedgoalSave', function(){
+            $scope.goalSubmitTemplate = '';
+            $scope.$apply();
+        })
 
     }])
     .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){

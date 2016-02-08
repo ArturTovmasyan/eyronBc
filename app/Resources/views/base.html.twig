@@ -106,7 +106,7 @@
                                                 data-ng-click="joinToggle1 = !joinToggle1"
                                                 data-html="true"
                                                 data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
-                                                data-animation="am-flip-x"
+                                                data-animation="am-fade-and-scale"
                                                 data-bs-popover>
                                                 {% if user.getPhotoLink %}
                                                     <figure class="img-circle">
@@ -128,7 +128,7 @@
                                                 data-placement="bottom-left"
                                                 data-ng-click="joinToggle2 = !joinToggle2"
                                                 data-content-template="{{ path("fos_user_security_login") }}"
-                                                data-animation="am-flip-x"
+                                                data-animation="am-fade-and-scale"
                                                 data-bs-popover>
                                                 <i class="join"></i>
                                                 {{ 'join'|trans }}

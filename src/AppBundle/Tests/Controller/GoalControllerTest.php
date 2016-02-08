@@ -3,7 +3,15 @@
 namespace AppBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class GoalControllerTest
+ * @package AppBundle\Tests\Controller
+ *
+ * todo must be added actions : This action not have a route because i'm can't create UI tests .
+ *  innerContentAction
+ */
 class GoalControllerTest extends BaseClass
 {
     /**
@@ -11,14 +19,11 @@ class GoalControllerTest extends BaseClass
      */
     public function testList()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
 
         // try to open goal list page
         $crawler = $this->client->request('GET', '/goal/list');
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal list page!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
 
         // Assert that the response content contains a string goal1
         $this->assertContains('goal1', $this->client->getResponse()->getContent(), 'can not find goal1!');
@@ -27,9 +32,9 @@ class GoalControllerTest extends BaseClass
         $link = $crawler->filter('#row a[id="goalTitle"]')->link();
         $this->client->click($link);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal inner page!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
-//search
+        //search
         // get goal1
         $goal1 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal1');
         // get goal1 Title
@@ -38,21 +43,223 @@ class GoalControllerTest extends BaseClass
         // try to search goal1
         $this->client->request('GET', '/goal/list?search=' . $goal1Title);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not find a goal with this title!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not find a goal with this title!');
 
         // Assert that the response content contains a string goal1
         $this->assertContains('goal1', $this->client->getResponse()->getContent(), 'can not search goal1!');
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+    }
+
+
+    /**
+     * This function is used to check goal add page
+     */
+    public function testAdd()
+    {
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/add');
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add page!');
+
+        // get form
+        $form = $crawler->selectButton('btn_publish')->form(array(
+            'app_bundle_goal[title]' => 'goal2',
+            'app_bundle_goal[description]' => 'goalDescription',
+            'app_bundle_goal[files]' => '',
+            'app_bundle_goal[status]' => 1,
+            'app_bundle_goal[hashTags]' => null,
+
+        ));
+
+        // submit form
+        $this->client->submit($form);
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+        // get goal id
+       return $goal;
     }
 
     /**
-     * This function is used to check goal image
+     * @depends testAdd
      */
-    public function testAddImages()
+    public function testAddToMe($goal)
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/add-to-me/'.$goal->getId());
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add to me!');
+        // create location
+        $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
+        // get form and set data
+        $form = $crawler->selectButton('btn_save')->form(array(
+            'app_bundle_user_goal[birthday]' => '10/14/2015',
+            'app_bundle_user_goal[location]' => json_encode($location),
+            'app_bundle_user_goal[note]' => 1,
+            'test' => true,
+            'app_bundle_user_goal[isVisible]' => true
 
+        ));
+
+        // submit form
+        $this->client->submit($form);
+        // check database request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+        // return goal Id
+        return $goal->getId();
+    }
+
+    /**
+     * This function is used to check goal view page
+     * @depends testAddToMe
+     */
+    public function testView($goalId)
+    {
+        // try to open goal view page
+        $crawler = $this->client->request('GET', '/goal/view/' . $goalId);
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+
+        $this->assertEquals(1, $crawler->filter('.inner-content')->count());
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+    }
+
+
+    /**
+     * This function is used to check goal inner page
+     * @depends testView
+     */
+    public function testInner($goalId)
+    {
+        // try to open goal inner page
+        $crawler = $this->client->request('GET', '/goal/inner/' . $goalId);
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
+
+        //todo check some data
+        // check data in page
+        $this->assertEquals(1, $crawler->filter('.inner-content')->count());
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+    }
+
+    /**
+     * @depends testInner
+     */
+    public function testDone($goalId)
+    {
+        // open goal Done page
+        $this->client->request('GET', '/goal/done/' . $goalId);
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal done page!');
+
+        $this->assertTrue(
+            $this->client->getResponse()->isRedirect('/user-profile', 'can not create a goal!')
+        );
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+
+    }
+
+    /**
+     * This function test draftAction
+     * @depends testDone
+     */
+    public function testDraft($goalId)
+    {
+        // try to open draft page
+        $crawler = $this->client->request('GET', '/goal/drafts');
+
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
+
+        $this->assertEquals(0, $crawler->filter('.col-sm-6 col-md-4')->count());
+
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+    }
+
+    /**
+     * @depends testDraft
+     */
+    public function testAddSuccessStory($goalId)
+    {
+        // open Add Success Story page
+        $this->client->request('GET', '/goal/add-story/' . $goalId);
+
+        // check response status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add story page!');
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+    }
+
+
+    /**
+     * test remove goal
+     *
+     * @depends testAddSuccessStory
+     */
+    public function testRemoveGoal($goalId)
+    {
+        // get user id
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
+        // open remove goal page
+        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
+
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+    }
+
+
+    /**
+     * @depends testAddSuccessStory
+     * test add success story image
+     */
+    public function testAddSuccessStoryImage()
+    {
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
 
@@ -67,223 +274,34 @@ class GoalControllerTest extends BaseClass
             123
         );
 
-        // try to open goal add images page
-        $this->client->request(
-            'POST',
-            '/goal/add-images',
-            array(),
-            array('file' => $photo)
-        );
+        $this->client->request('POST', '/goal/add-story-images' , array(), array('file' => $photo));
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not add goal image!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
-    /**
-     * This function is used to check goal add page
-     */
-    public function testAdd()
-    {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // try to open goal view page
-        $crawler = $this->client->request('GET', '/goal/add');
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add page!');
-
-        // get file
-        $file = $this->em->getRepository('AppBundle:GoalImage')->findOneByFileOriginalName('photo.jpg');
-        // get file id
-        $fileId = $file->getId();
-        // file ids array
-        $images = array($fileId);
-
-        // get form
-        $form = $crawler->selectButton('PUBLISH')->form(array(
-            'app_bundle_goal[title]' => 'goal2',
-            'app_bundle_goal[description]' => 'goalDescription',
-            'app_bundle_goal[files]' => json_encode($images),
-            'app_bundle_goal[videoLink]' => 'www.google.com',
-            'app_bundle_goal[status]' => 1,
-
-        ));
-
-        // submit form
-        $this->client->submit($form);
-
-        // get goal
-        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
-
-        // get goal id
-        $id = $goal->getId();
-
-        // Assert that the response is a redirect to goal add-to-me page
-        $this->assertTrue(
-            $this->client->getResponse()->isRedirect('/goal/add-to-me/' . $id, 'can not create a goal!')
-        );
-    }
-
-    /**
-     * This function is used to check goal view page
-     */
-    public function testView()
-    {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // get goal
-        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal1');
-
-        // get goal id
-        $id = $goal->getId();
-
-        // try to open goal view page
-        $crawler = $this->client->request('GET', '/goal/view/' . $id);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal view page!');
-
-        $count = $crawler->filter('html:contains("goal1")');
-
-        $this->assertCount(1, $count, 'can not find goal1 in goal view page!');
-    }
-
-    /**
-     * This function is used to check goal inner page
-     */
-    public function testInner()
-    {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        // get goal
-        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal3');
-
-        // get goal id
-        $id = $goal->getId();
-
-        // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/inner/' . $id);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal inner page!');
-
-        $count = $crawler->filter('html:contains("goal3")');
-
-        $this->assertCount(1, $count, 'can not find goal3 in goal inner page!');
-
-// ADD GOAL
-        // click in add link
-        $link = $crawler->selectLink('ADD')->link();
-        $this->client->click($link);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not click in ADD link in goal inner page!');
-
-        // try to open goal add-to-me page
-        $crawler = $this->client->request('POST', '/goal/add-to-me/' . $id);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal add-to-me page!');
-
-        // location array
-        $location = array('location' => array('latitude' => 40.1773312, 'longitude' => 44.52747790000001), 'address' => 'Charents St, Yerevan, Armenia');
-
-        // get form
-        $form = $crawler->selectButton('DISCOVER MORE')->form(array(
-            'app_bundle_user_goal[birthday]' => '10/14/2015',
-            'app_bundle_user_goal[location]' => json_encode($location),
-            'app_bundle_user_goal[note]' => 'goal note',
-
-        ));
-
-        // submit form
-        $this->client->submit($form);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not create user goal in add-to-me page!');
-// check user page
-        // get user goal
-        $userGoal = $this->em->getRepository('AppBundle:UserGoal')->findOneByNote('goal note');
-
-        // check user goal status
-        $this->assertEquals($userGoal->getStatus(), BaseClass::ACTIVE, 'user goal status is not active!');
-
-        // try to open goal profile page
-        $crawler = $this->client->request('GET', '/user-profile');
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open goal profile page!');
-
-        // get user
-        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
-
-        // Assert that the response content contains a user first_name
-        $this->assertContains($user->getfirstName(), $this->client->getResponse()->getContent(), 'can not find user first name in profile page!');
-
-        // Assert that the response content contains a goal title
-        $this->assertContains($goal->getTitle(), $this->client->getResponse()->getContent(), 'can not find goal title in profile page!');
-// check done
-        // click in done link
-        $link = $crawler->filter('#check_status a[id="done"]')->link();
-        $this->client->click($link);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not click in DONE link in profile page!');
-
-        $this->em->clear();
-
-        // get user goal
-        $userGoal = $this->em->getRepository('AppBundle:UserGoal')->findOneByNote('goal note');
-
-        // check user goal status
-        $this->assertEquals($userGoal->getStatus(), BaseClass::COMPLETED, 'user goal status is not COMPLETED!');
-// check manage
-        // get user goal id
-        $userGoalId = $userGoal->getId();
-
-        // try to manage user goal
-        $crawler = $this->client->request('GET', '/goal/manage/' . $id . '/' . $userGoalId);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open user goal manage page!');
-
-        // get form
-        $form = $crawler->selectButton('Save')->form(array(
-            'goal_status' => '1',
-            'app_bundle_user_goal[note]' => 'goal note edited',
-
-        ));
-
-        // submit form
-        $this->client->submit($form);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not manage user goal!');
-// check success story
-        // try to open user goal list page
-        $crawler = $this->client->request('GET', '/user-profile');
-
-        // click in done link
-        $link = $crawler->filter('#check_status a[id="done"]')->link();
-        $this->client->click($link);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not click in DONE link in profile page!');
-
-        // try to open user goal list page
-        $crawler = $this->client->request('GET', '/user-profile');
-
-        // Assert that the response content contains a 'Success story'
-        $this->assertContains('Success story', $this->client->getResponse()->getContent(), 'can not find Success story link in profile page!');
-
-        // click in success story link
-        $link = $crawler->filter('#check_status a[id="successtory"]')->link();
-        $crawler = $this->client->click($link);
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_OK, 'can not open Success story page!');
-
-        // get form
-        $form = $crawler->selectButton('Save')->form(array(
-            'app_bundle_success_story_type[story]' => 'about success story',
-            'app_bundle_success_story_type[files]' => null,
-        ));
-
-        // submit form
-        $this->client->submit($form);
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), BaseClass::HTTP_STATUS_REDIRECT, 'can not create Success story!');
-    }
+//    /**
+//     * todo HTTP_REFERER problem
+//     * @dataProvider fileProvider
+//     */
+//    public function testRemoveImage($fileName)
+//    {
+//        if($fileName)
+//        {
+//            $this->client->request('GET', '/goal/remove-image/' . $fileName);
+//
+//            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
+//
+////            if ($profile = $this->client->getProfile()) {
+////                // check the number of requests
+////                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+////            }
+//        }
+//
+//    }
 }

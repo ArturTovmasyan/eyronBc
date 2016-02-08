@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: aram
+ * User: Artur
  * Date: 9/8/15
  * Time: 2:16 PM
  */
@@ -18,11 +18,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "Register", "update_email"})
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
+ * @Assert\Callback(methods={"validate"}, groups={"Settings","MobileSettings"})
+ * @ORM\EntityListeners({"AppBundle\Listener\SettingsListener"})
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -78,7 +82,7 @@ class User extends BaseUser
      * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
-     * @Assert\NotBlank(groups={"Settings", "Register"})
+     * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      */
     protected $firstName;
 
@@ -89,12 +93,12 @@ class User extends BaseUser
     protected $gender;
 
     /**
-     * @Assert\Length(groups={"Settings", "Register"},
+     * @Assert\Length(groups={"Settings", "Register", "MobileSettings"},
      *      min = 6,
      *      minMessage = "fos_user.password.validation",
      * )
      *
-     * @Assert\Regex(groups={"Settings", "Register"},
+     * @Assert\Regex(groups={"Settings", "Register", "MobileSettings"},
      *     pattern="/^[a-zA-Z\d\.]+$/i",
      *     match=true,
      *     message = "fos_user.password.validation",
@@ -118,7 +122,7 @@ class User extends BaseUser
      * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
-     * @Assert\NotBlank(groups={"Settings", "Register"})
+     * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      */
     protected $lastName;
 
@@ -171,8 +175,22 @@ class User extends BaseUser
 
     /**
      * @var
+     * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
     public $addEmail;
+
+    /**
+     * @var
+     * @Assert\Email(groups={"Settings", "MobileSettings"})
+     */
+    public $primary;
+
+    /**
+     * @var date $created
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
 
     /**
      * @return mixed
@@ -590,7 +608,7 @@ class User extends BaseUser
     /**
      * Get registrationToken
      *
-     * @return string 
+     * @return string
      */
     public function getRegistrationToken()
     {
@@ -624,7 +642,7 @@ class User extends BaseUser
     /**
      * Get authorGoals
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAuthorGoals()
     {
@@ -658,7 +676,7 @@ class User extends BaseUser
     /**
      * Get editedGoals
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEditedGoals()
     {
@@ -854,7 +872,7 @@ class User extends BaseUser
     /**
      * Get userEmails
      *
-     * @return array 
+     * @return array
      */
     public function getUserEmails()
     {
@@ -862,65 +880,124 @@ class User extends BaseUser
     }
 
     /**
-     * Serializes the user.
-     *
-     * The serialized data have to contain the fields used by the equals method and the username.
-     *
-     * @return string
+     * @return $this
      */
-    public function serialize()
+    public function setCreated($created)
     {
-        return serialize(array(
-            $this->password,
-            $this->salt,
-            $this->usernameCanonical,
-            $this->username,
-            $this->expired,
-            $this->locked,
-            $this->credentialsExpired,
-            $this->enabled,
-            $this->id,
-            $this->firstName,
-            $this->lastName,
-            $this->addEmail,
-            $this->userEmails,
-            $this->birthDate,
-            $this->email,
-            $this->plainPassword,
+        $this->created =  $created;
 
-        ));
+        return $this;
     }
 
     /**
-     * Unserializes the user.
+     * Get created
      *
-     * @param string $serialized
+     * @return \DateTime
      */
-    public function unserialize($serialized)
+    public function getCreated()
     {
-        $data = unserialize($serialized);
-        // add a few extra elements in the array to ensure that we have enough keys when unserializing
-        // older data which does not include all properties.
-        $data = array_merge($data, array_fill(0, 2, null));
-
-        list(
-            $this->password,
-            $this->salt,
-            $this->usernameCanonical,
-            $this->username,
-            $this->expired,
-            $this->locked,
-            $this->credentialsExpired,
-            $this->enabled,
-            $this->id,
-            $this->firstName,
-            $this->lastName,
-            $this->addEmail,
-            $this->userEmails,
-            $this->birthDate,
-            $this->email,
-            $this->plainPassword,
-            ) = $data;
+        return $this->created;
     }
 
+    /**
+     * This function is used to set primary email and change username
+     * @ORM\PreUpdate()
+     */
+    public function calculationSettingsProcess()
+    {
+        //set default array
+        $userEmailsInDb = array();
+
+        //get primary email
+        $primaryEmail = $this->primary;
+
+        //get current email
+        $currentEmail = $this->getEmail();
+
+        //get user emails
+        $userEmails = $this->getUserEmails();
+
+        //check if primary email exist
+        if ($primaryEmail && $primaryEmail !== $currentEmail) {
+
+            //set primary email
+            $this->setEmail($primaryEmail);
+        }
+
+        //check if userEmails exist
+        if ($userEmails) {
+
+            //get user emails in db
+            $userEmailsInDb = array_map(
+                function ($item)
+                {
+                 return $item['userEmails'] ;
+                },
+                $userEmails
+            );
+        }
+
+        //check if primary email exist in $userEmailsInDb
+        if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
+
+            unset($userEmails[$key]);
+        }
+
+        //check if set another primary email
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+
+            //set user emails in array with token and primary value
+            $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
+
+            //set current email data in userEmails array
+            $userEmails[$currentEmail] = $currentEmailData;
+        }
+
+        //set user emails
+        $this->setUserEmails($userEmails);
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        // generate password groups
+        $validGroups = array("MobileSettings","Settings");
+
+        // get groups
+        $groups = $context->getGroup();
+
+        if(in_array($groups, $validGroups)){
+
+            //get add email
+            $addEmail = $this->addEmail;
+
+            //get current email
+            $currentEmail = $this->getEmail();
+
+            //get primary email
+            $primaryEmail = $this->primary;
+
+            //get user emails
+            $userEmails = $this->getUserEmails();
+
+            //check if primary email equal currentEmail
+            if ($primaryEmail && (!$userEmails || !array_key_exists($primaryEmail, $userEmails) ||
+               ($primaryEmail == $currentEmail))) {
+
+                $context->buildViolation('Set invalid primary email')
+                    ->atPath('primary')
+                    ->addViolation();
+            }
+
+            // check if new email equal currentEmail
+            if ($addEmail == $currentEmail) {
+
+                $context->buildViolation('This email already exists')
+                    ->atPath('addEmail')
+                    ->addViolation();
+            }
+        }
+    }
 }
