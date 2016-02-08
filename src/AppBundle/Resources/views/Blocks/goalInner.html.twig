@@ -174,7 +174,7 @@
                             {% if goal.videoLink and goal.videoLink|length %}
 
                                 {% if goal.videoLink|length == 1 %}
-                                    {% set v = goal.videoLink.first %}
+                                    {% set v = goal.videoLink[0] %}
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <figure>
@@ -282,7 +282,7 @@
                                         {% if videos and videos|length %}
 
                                             {% if videos|length == 1 %}
-                                                {% set v = videos.first %}
+                                                {% set v = videos[0] %}
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <figure>
