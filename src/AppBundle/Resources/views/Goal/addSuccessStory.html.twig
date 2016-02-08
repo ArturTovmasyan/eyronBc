@@ -59,7 +59,8 @@
                             {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
                         </div>
 
-                        <iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>
+                        {#<iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>#}
+                        <youtube-video data-ng-show="videolink" video-url="videolink" player-height="'500px'" player-width="'100%'"></youtube-video>
 
                         <div class="form-group text-center bottom">
                             <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-purple button-lg">
