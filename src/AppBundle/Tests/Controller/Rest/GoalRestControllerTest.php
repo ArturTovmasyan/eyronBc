@@ -117,7 +117,7 @@ class GoalRestControllerTest extends BaseClass
 
         $oldPhotoPath = $maidir.'/../src/AppBundle/Tests/Controller/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
-//        // copy photo path
+        // copy photo path
         copy($oldPhotoPath, $photoPath);
 
         // new uploaded file
@@ -145,25 +145,28 @@ class GoalRestControllerTest extends BaseClass
 
     /**
      * @dataProvider allFileProvider
+     * @depends testAddImages
      */
     public function testRemoveImage($goalImageId)
     {
-        // POST /api/v1.0/goals/remove-images/{id}
-        $url = sprintf('/api/v1.0/goals/remove-images/%s', $goalImageId);
-        // try to get goal by id
+        if($goalImageId) {
 
-        $this->client->request('POST', $url);
+            $url = sprintf('/api/v1.0/goals/remove-images/%s', $goalImageId);
+            // try to get goal by id
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getsAction rest!");
+            $this->client->request('POST', $url);
 
-        $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
-        );
+            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getsAction rest!");
 
-        if ($profile = $this->client->getProfile()) {
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertTrue(
+                $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+                $this->client->getResponse()->headers
+            );
+
+            if ($profile = $this->client->getProfile()) {
+                // check the number of requests
+                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            }
         }
     }
 

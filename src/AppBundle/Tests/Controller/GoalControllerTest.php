@@ -47,6 +47,11 @@ class GoalControllerTest extends BaseClass
 
         // Assert that the response content contains a string goal1
         $this->assertContains('goal1', $this->client->getResponse()->getContent(), 'can not search goal1!');
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
 
@@ -212,12 +217,12 @@ class GoalControllerTest extends BaseClass
 
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
+
         // check db request count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
-
     }
 
     /**
@@ -243,6 +248,11 @@ class GoalControllerTest extends BaseClass
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
 
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
@@ -251,12 +261,16 @@ class GoalControllerTest extends BaseClass
      */
     public function testRemoveImage($fileName)
     {
-        $this->client->request('GET', '/goal/remove-image/' . $fileName);
+        if($fileName)
+        {
+            $this->client->request('GET', '/goal/remove-image/' . $fileName);
 
-        if ($profile = $this->client->getProfile()) {
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            if ($profile = $this->client->getProfile()) {
+                // check the number of requests
+                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            }
         }
+
     }
     /**
      * This function test draftAction
@@ -266,7 +280,6 @@ class GoalControllerTest extends BaseClass
     {
         // try to open draft page
         $this->client->request('GET', '/goal/drafts');
-
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 

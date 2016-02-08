@@ -16,26 +16,29 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open homepage!');
 
-        // get goal2
-        $goal2 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
+//        // get goal2
+//        $goal2 = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
+//
+//        // check is exist goal 2
+//        if ($goal2) {
+//            // count goals
+//            $countGoals = count($crawler->filter('#main_row1 a[id="main_goalTitle1"]'));
+//            $this->assertEquals(1, $countGoals, 'can not find goal2 in homepage!');
+//        }
+//
+//        // check is exist goal 2
+//        if ($goal2) {
+//            // click in goal1 title link
+//            $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->link();
+//            $this->client->click($link);
+//
+//            $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not click in goal2 link in homepage!');
+//        }
 
-        // check is exist goal 2
-        if ($goal2) {
-            // count goals
-            $countGoals = count($crawler->filter('#main_row1 a[id="main_goalTitle1"]'));
-            $this->assertEquals(1, $countGoals, 'can not find goal2 in homepage!');
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
-
-        // check is exist goal 2
-        if ($goal2) {
-            // click in goal1 title link
-            $link = $crawler->filter('#main_row1 a[id="main_goalTitle1"]')->link();
-            $this->client->click($link);
-
-            $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not click in goal2 link in homepage!');
-        }
-
-        // todo number of queries is missing
     }
 
     /**
