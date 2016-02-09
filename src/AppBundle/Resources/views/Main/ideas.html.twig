@@ -21,7 +21,7 @@
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle1">
                                     <span class="overlay"></span>
-                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}"  alt="{{ goal.title }}"/>
                                 </a>
 
                                 <div class="absolute">
@@ -67,9 +67,9 @@
                             {% set image = goal.getListPhoto %}
                         {% endif %}
 
-                        <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2">
+                        <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="main_goalTitle2" class="height">
                             <span class="overlay height"></span>
-                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" height="588" alt="{{ goal.title }}"/>
+                            <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_2')  }} {% endif %}" alt="{{ goal.title }}"/>
                         </a>
 
                         <div class="absolute">
@@ -117,7 +117,7 @@
 
                                 <a href="{{ path('inner_goal', {'id': goal.id }) }}">
                                     <span class="overlay"></span>
-                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                    <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_ideas_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                                 </a>
 
                                 <div class="absolute">
@@ -167,7 +167,7 @@
                         <a href="{{ path('inner_goal', {'id': goal.id }) }}">
                             <span class="overlay"></span>
                             <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_ideas_3') }}{% else %}
-                             {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
+                             {{ image.downloadLink|blImageFilter('goal_ideas_1') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                         </a>
 
                         <div class="absolute">
