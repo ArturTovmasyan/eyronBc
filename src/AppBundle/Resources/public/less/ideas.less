@@ -87,7 +87,7 @@
   overflow: hidden;
 
   .goal-information{
-    width: 277px;
+    width: 375px;
     overflow: hidden;
     //margin-left: -15px;
     background-color: #ffffff;
@@ -142,12 +142,25 @@
         display: block;
         color: #a4a4a4;
         padding: 10px 0;
+
+        &:focus{
+          text-decoration: none;
+        }
       }
+
       &:hover{
         background-color: #7724F6;
         a{
           color: #ffffff;
+
+          i.plus-icon{
+            background: url('../images/images.png') no-repeat -7px -496px;
+          }
+          i.ok-icon{
+            background: url('../images/images.png') no-repeat -7px -617px;
+          }
         }
+
       }
       &:last-child{
         border-left:1px solid #a4a4a4;
