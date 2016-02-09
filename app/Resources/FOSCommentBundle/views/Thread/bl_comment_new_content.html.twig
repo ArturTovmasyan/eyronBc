@@ -6,9 +6,17 @@
 {% block fos_comment_comment_new_form %}
     <div class="row">
         <div class="col-sm-1">
-            <figure class="img-circle">
-                <img src="{{ app.user.getDownloadLink }}" class="img-responsive img-circle"/>
-            </figure>
+
+
+            {% if app.user.getDownloadLink  %}
+                <figure class="img-circle">
+                    <img src="{{ app.user.getDownloadLink }}" class="img-responsive img-circle"/>
+                </figure>
+            {% else %}
+                {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                {% set className = "user-no" ~ random(4) %}
+                <bdi class="{{ className }}">{{ nameOnImage  |upper}}</bdi>
+            {% endif %}
         </div>
         <div class="col-sm-11">
             <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
