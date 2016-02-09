@@ -12,7 +12,7 @@
             {% set coverId =  'cover_show_id' %}
             {% set coverName =  'cover_show_name' %}
 
-            {% if child.vars.value.filename is not null %}
+            {% if child.vars.value is not null and child.vars.value.filename is not null %}
 
                 <li>
                     <a href="{{ child.vars.value.downloadLink }}"
