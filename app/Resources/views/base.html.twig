@@ -2,8 +2,9 @@
 {% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
-{% set user = app.user %}
 {% set host = app.request.getSchemeAndHttpHost() %}
+{% set user = app.user %}
+
     <head>
         <meta charset="UTF-8" />
 
