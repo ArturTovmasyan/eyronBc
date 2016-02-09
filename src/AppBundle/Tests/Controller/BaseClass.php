@@ -67,11 +67,43 @@ class BaseClass extends WebTestCase
         ));
         $this->client->enableProfiler();
 
+//        $data = array(
+//            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>false)),
+//            array()),
+//            array()),
+//            array()),
+//        );
+
         $data = array(
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>false)),
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'd'=>false)),
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'd'=>false)),
-            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on', 'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on', 'd'=>false)),
+            array( array('request'=> array(
+                                'filterData'=>array('filter' => array(
+                                                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                                                    'd'=>false)),
+                                'urlPart'=>'/1'),
+                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
+
+            array( array('request'=> array(
+                                'filterData'=>array('filter' => array(
+                                                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                                                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
+                                                    'd'=>true),
+                                ), 'urlPart'=>'/2'),
+                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>null, 'resultCount'=>0))),
+
+            array( array('request'=> array(
+                                'filterData'=>array('f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                                                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
+                                                    'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
+                                                    'd'=>true),
+                                'urlPart'=>null),
+                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
+
+            array( array('request'=> array(
+                                'filterData'=>array('f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
+                                                    'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on',
+                                                    'd'=>true),
+                                'urlPart'=>null),
+                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal3', 'resultCount'=>1)))
         );
 
         return $data;

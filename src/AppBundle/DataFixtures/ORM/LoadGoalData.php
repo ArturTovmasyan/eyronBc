@@ -64,6 +64,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal1->setNote('aaaaa');
         $userGoal1->setImportant(true);
         $userGoal1->setUrgent(true);
+        $userGoal1->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal1);
 
         // create goal
