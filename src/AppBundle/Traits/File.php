@@ -254,7 +254,7 @@ trait File
         $filePath = $this->getAbsolutePath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($filePath)){
+        if (file_exists($filePath) && is_file($filePath)){
             unlink($filePath);
         }
 
@@ -262,7 +262,7 @@ trait File
         $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($mobileFilePath)){
+        if (file_exists($mobileFilePath) && is_file($mobileFilePath)){
             unlink($mobileFilePath);
         }
 
@@ -270,7 +270,7 @@ trait File
         $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($tabletFilePath)){
+        if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
             unlink($tabletFilePath);
         }
     }

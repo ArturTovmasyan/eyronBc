@@ -254,7 +254,7 @@ class GoalImage
                 $listFile = $image->getAbsoluteListPath() . $image->getFileName();
 
                 // check list file, and remove it
-                if(file_exists($listFile)){
+                if(file_exists($listFile) && is_file($listFile)){
                     unlink($listFile);
                 }
             }
@@ -289,7 +289,7 @@ class GoalImage
                 $coverFile = $image->getAbsoluteCoverPath() . $image->getFileName();
 
                 // check cover file, and remove it
-                if(file_exists($coverFile)){
+                if(file_exists($coverFile) && is_file($coverFile)){
                     unlink($coverFile);
                 }
             }
@@ -306,7 +306,7 @@ class GoalImage
         $filePath = $this->getAbsolutePath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($filePath)){
+        if (file_exists($filePath) && is_file($filePath)){
             unlink($filePath);
         }
 
@@ -314,7 +314,7 @@ class GoalImage
         $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($mobileFilePath)){
+        if (file_exists($mobileFilePath) && is_file($mobileFilePath)){
             unlink($mobileFilePath);
         }
 
@@ -322,7 +322,7 @@ class GoalImage
         $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($tabletFilePath)){
+        if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
             unlink($tabletFilePath);
         }
 
@@ -330,7 +330,7 @@ class GoalImage
         $coverFilePath = $this->getAbsoluteCoverPath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($coverFilePath)){
+        if (file_exists($coverFilePath) && is_file($coverFilePath)){
             unlink($coverFilePath);
         }
 
@@ -338,7 +338,7 @@ class GoalImage
         $listFilePath = $this->getAbsoluteListPath() . $this->getFileName();
 
         // check file and remove
-        if (file_exists($listFilePath)){
+        if (file_exists($listFilePath) && is_file($listFilePath)){
             unlink($listFilePath);
         }
     }
