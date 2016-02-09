@@ -10,6 +10,7 @@ namespace Application\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -58,8 +59,22 @@ class SettingsType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
-            'validation_groups' => 'Settings',
-            'error_bubbling' => true
+            'error_bubbling' => true,
+            'validation_groups' => function(FormInterface $form) {
+
+                //get form data
+                $data = $form->getData();
+
+                //get plain password
+                $plainPassword = $data->getPlainPassword();
+
+                //check if plainPassword exist
+                if ($plainPassword) {
+                    return array('Settings', 'MobileChangePassword');
+                } else {
+                    return 'Settings';
+                }
+            },
         ));
     }
 
