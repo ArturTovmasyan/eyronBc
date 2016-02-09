@@ -1645,20 +1645,29 @@ footer{
               font-size:14px;
               line-height:18px;
               color:#ffffff;
-              span{
+              i{
                 margin-right:8px;
                 color:#ffffff;
               }
-              &:hover{
+              &:hover,&:focus{
                 color:#ffffff;
+                text-decoration: none;
               }
             }
-            &:nth-child(2){
-              padding-top:0;
+            bdi{
+              font-size:14px;
+              line-height:18px;
+              color:#ffffff;
+              display: block;
+              padding: 10px 0;
+              height: auto;
             }
-            &:last-child{
-              padding-top:0;
-            }
+            //&:nth-child(2){
+            //  padding-top:0;
+            //}
+            //&:last-child{
+            //  padding-top:0;
+            //}
 
             &:hover{
               background: transparent;
