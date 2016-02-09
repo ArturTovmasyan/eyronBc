@@ -119,7 +119,7 @@
 
 {%- block og_image -%}
     {% set images = goal.images %}
-    {%- if images -%}
+    {%- if images.first -%}
         {{- host ~ images.first.getImagePath() -}}
     {% else %}
         {{ parent() }}
