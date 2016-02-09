@@ -141,7 +141,6 @@ class SettingsController extends FOSRestController
 
             return new Response('', Response::HTTP_OK);
         }
-
         else{
 
             //get form errors
@@ -191,11 +190,10 @@ class SettingsController extends FOSRestController
      *  statusCodes={
      *         200="Return when successful",
      *         400="Bad request",
-     *         404="Return when user not found",
      *         401="Unauthorized user",
      *     },
      *  parameters={
-     *      {"name"="email", "dataType"="string", "required"=false, "description"="User`s email remove"},
+     *      {"name"="email", "dataType"="string", "required"=true, "description"="User`s email"},
      * }
      * )
      * @Rest\View()

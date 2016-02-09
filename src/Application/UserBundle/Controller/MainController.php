@@ -39,7 +39,7 @@ class MainController extends Controller
         $form = $this->createForm(new SettingsType(), $user);
 
         // check request method
-        if ($request->isMethod("POST")) {
+        if ($request->isMethod('POST')) {
 
             // get data from request
             $form->handleRequest($request);
