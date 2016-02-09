@@ -15,14 +15,17 @@ class BucketListControllerTest extends BaseClass
     public function testMyList($filter)
     {
         // try to open goal view page
-        $crawler = $this->client->request('GET', '/user-profile', $filter);
+        $crawler = $this->client->request('GET', '/user-profile'.$filter['request']['urlPart'] , $filter['request']['filterData']);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), $filter['response']['statusCode'], 'can not open goal view page!');
 
          // Assert that the response content contains a string goal1
-        $this->assertContains('goal1', $this->client->getResponse()->getContent(), 'can not find goal1!');
+        if($filter['response']['goalName'] != null)
+        {
+            $this->assertContains( $filter['response']['goalName'], $this->client->getResponse()->getContent(), 'can not find goal1!');
+        }
 
-        $this->assertGreaterThan(0, $crawler->filter('article')->count());
+        $this->assertEquals($filter['response']['resultCount'], $crawler->filter('article')->count());
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
