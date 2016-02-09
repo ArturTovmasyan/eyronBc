@@ -17,24 +17,38 @@
     {{ goal.title }}
 {% endblock %}
 
+{% block og_title %}
+    {{ goal.title }}
+{% endblock %}
 
-{% block meta_description %}
-    {# TODO: will be better to move this code to twig extension #}
+{% block og_description %}
     {% if goal.description %}
-        {% set descriptionSentences = goal.description|split('.') %}
-        {% set description = '' %}
-
-        {% for descriptionSentence in descriptionSentences if description|length < 160 %}
-            {% if descriptionSentence|length <= (200 - description|length) %}
-                {% set description = description ~ descriptionSentence ~ '.' %}
-            {% endif %}
-        {% endfor %}
-        {{ description }}
-
+        {{ sliceString(goal.description) }}
     {% else %}
-        {{ parent() }}
+        {{ 'goal.view_description'|trans }}
     {% endif %}
 {% endblock %}
+
+{% block og_image %}
+    {% set images = goal.images %}
+        {% if images %}
+            {{ host ~ images.first.getImagePath() }}
+        {% else %}
+            {{ parent() }}
+        {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    {% if goal.description %}
+        {{ sliceString(goal.description) }}
+    {% else %}
+        {{ 'goal.view_description'|trans }}
+    {% endif %}
+{% endblock %}
+
+{%- block og_url -%}
+    {{- app.request.uri }}
+{%- endblock -%}
 
 {% block javascripts %}
     {{ parent() }}

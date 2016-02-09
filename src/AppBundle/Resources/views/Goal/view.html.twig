@@ -100,3 +100,40 @@
 
 {% endblock %}
 
+
+{% block title %}
+    {{ goal.title }}
+{% endblock %}
+
+{% block og_title %}
+    {{ goal.title }}
+{% endblock %}
+
+{% block og_description %}
+    {% if goal.description %}
+        {{ sliceString(goal.description) }}
+    {% else %}
+        {{ 'goal.view_description'|trans }}
+    {% endif %}
+{% endblock %}
+
+{% block og_image %}
+    {% set images = goal.images %}
+    {% if images %}
+        {{ host ~ images.first.getImagePath() }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    {% if goal.description %}
+        {{ sliceString(goal.description) }}
+    {% else %}
+        {{ 'goal.view_description'|trans }}
+    {% endif %}
+{% endblock %}
+
+{%- block og_url -%}
+{{- app.request.uri }}
+{%- endblock -%}

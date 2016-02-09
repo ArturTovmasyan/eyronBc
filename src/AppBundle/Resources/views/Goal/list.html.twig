@@ -205,3 +205,22 @@
     </div>
 {% endblock %}
 
+{% block title %}
+    {{ 'goal.list_title'|trans }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'goal.list_title'|trans }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'goal.list_description'|trans }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'goal.list_description'|trans }}
+{% endblock %}
+
+{%- block og_url -%}
+{{- app.request.uri }}
+{%- endblock -%}

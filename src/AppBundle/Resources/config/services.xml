@@ -69,6 +69,11 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension is slice string -->
+        <service id="bl.string_slice" class="AppBundle\Twig\Extension\StringSliceExtension">
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service doctrine listener -->
         <service id="bl.doctrine.listener" class="AppBundle\Listener\DoctrineListener">
             <argument type="service" id="service_container" />

@@ -106,3 +106,24 @@
         </div>
     </div>
 {% endblock %}
+
+{% block title %}
+    {{ 'goal.friends_title'|trans }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'goal.friends_title'|trans }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'goal.friends_description'|trans }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'goal.friends_description'|trans }}
+{% endblock %}
+
+{%- block og_url -%}
+    {{- app.request.uri }}
+{%- endblock -%}
+

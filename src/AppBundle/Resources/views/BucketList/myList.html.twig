@@ -15,6 +15,35 @@
     </style>
 {% endblock %}
 
+{% block title %}
+    {{ 'my_bucket_list.title'|trans }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'my_bucket_list.title'|trans }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'my_bucket_list.description'|trans }}
+{% endblock %}
+
+{% block og_image %}
+    {% set images = profileUser.getPhotoLink %}
+    {% if images %}
+        {{ host ~ images }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'my_bucket_list.description'|trans }}
+{% endblock %}
+
+{%- block og_url -%}
+    {{- app.request.uri }}
+{%- endblock -%}
+
 {% block content_header %}
 
     {% set stats = profileUser.getStats %}

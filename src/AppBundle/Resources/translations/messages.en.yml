@@ -20,6 +20,13 @@ my_bucketlist: My Bucketlist
 
 # goal
 goal:
+      user_description: User goal description
+      user_title: User goal title
+      friends_title: Goal friends
+      friends_description: Goald friends description
+      view_description: Goal view description
+      list_title: Goal list
+      list_description: Goal description
       complete_text: Complete a goal
       public: Suggest as public
       agree: By checking you suggest your goal to be listed in the Ideas list
@@ -56,6 +63,10 @@ goal:
       scheduled_date: Scheduled Date
       create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
       create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
+activities:
+      title: Activities
+      description: Description for activities
+
 Title: Title
 Description: Description
 Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
@@ -152,9 +163,18 @@ active:
   not_have: You have no goals, please, start
 manage: MANAGE
 
+ideas:
+  title: Ideas title
+  description: Ideas description
+
+page:
+  title: Page
+  description: Page description
 
 # my bucket list
 my_bucket_list:
+  title: My Bucketlist
+  description: This is myBucketlist description
   add_goal: add a goal
   doing_here: What are you doing here? Come on,
   need_goal: Your life needs goals,
@@ -166,6 +186,10 @@ my_bucket_list:
   steps: Steps
   missed_deadline: Missed deadline
   year_old: y.o.
+
+draft:
+  title: Draft
+  description: Draft Description
 
 done_by: Completed by
 home_complete: COMPLETED BY
