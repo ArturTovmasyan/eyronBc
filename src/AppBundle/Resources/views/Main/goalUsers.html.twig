@@ -18,10 +18,21 @@
                                      <a href="{{ path('user_profile', {'user': goalUser.id, 'status': 0}) }}" style="display:block;">
                                         <div class="row no-gutter">
                                             <div class="col-sm-3">
-                                                <figure class="image">
-                                                    <img src="{{ goalUser.getPhotoLink() ? goalUser.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
-                                                             alt= "Some image" class="img-circle img-responsive" />
-                                                </figure>
+
+                                                {% if goalUser.getDownloadLink  %}
+                                                    <figure class="image img-circle">
+                                                        <img src="{{ goalUser.getDownloadLink }}" class="img-responsive img-circle"/>
+                                                    </figure>
+                                                {% else %}
+                                                    {% set nameOnImage = goalUser.firstName|slice(0,1) ~ goalUser.lastName|slice(0,1) %}
+                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <bdi class="{{ className }}">{{ nameOnImage  |upper}}</bdi>
+                                                {% endif %}
+
+                                                {#<figure class="image">#}
+                                                    {#<img src="{{ goalUser.getPhotoLink() ? goalUser.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"#}
+                                                             {#alt= "Some image" class="img-circle img-responsive" />#}
+                                                {#</figure>#}
                                             </div>
 
                                             <div class="col-sm-9">

@@ -205,6 +205,11 @@ class User extends BaseUser
     private $created;
 
     /**
+     * @var
+     */
+    private $stats;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -822,6 +827,11 @@ class User extends BaseUser
      */
     public function getStats()
     {
+        if ($this->stats){
+            return $this->stats;
+        }
+
+
         $active = 0;
         $doneBy = 0;
 
@@ -844,6 +854,17 @@ class User extends BaseUser
             "active"    => $active,
             "doneBy"    => $doneBy
         ];
+    }
+
+    /**
+     * @param $stats
+     * @return $this
+     */
+    public function setStats($stats)
+    {
+        $this->stats = $stats;
+
+        return $this;
     }
 
     /**

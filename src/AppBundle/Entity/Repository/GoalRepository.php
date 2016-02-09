@@ -343,10 +343,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->createQuery("SELECT u
                            FROM ApplicationUserBundle:User u
                            JOIN u.userGoal ug
-                           JOIN ug.goal g WITH g.id = :goalId
-                           WHERE ug.status = :status")
-            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+                           JOIN ug.goal g
+                           WHERE ug.status = :status AND g.id = :goalId")
             ->setParameter('status', $type == "listed" ? UserGoal::ACTIVE : UserGoal::COMPLETED)
-            ->setParameter('goalId', $goalId);
+            ->setParameter('goalId', $goalId)
+            ->getResult();
     }
 }

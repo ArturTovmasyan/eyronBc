@@ -54,6 +54,17 @@ class DoctrineListener
                     }
                 }
             }
+            if ($entity instanceof User){
+                $em = $this->container->get('doctrine')->getManager();
+                $stats = $em->getRepository('ApplicationUserBundle:User')->findUserStats($entity->getId());
+
+                $entity->setStats([
+                    "listedBy"  => $stats['listedBy'] + $stats['doneBy'],
+                    "active"    => $stats['listedBy'],
+                    "doneBy"    => $stats['doneBy']
+                ]);
+
+            }
         }
     }
 

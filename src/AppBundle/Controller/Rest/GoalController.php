@@ -191,7 +191,7 @@ class GoalController extends FOSRestController
         $em->persist($goal);
         $em->flush();
 
-        return array('goalId' => $goal->getId());
+        return array('id' => $goal->getId());
     }
 
     /**

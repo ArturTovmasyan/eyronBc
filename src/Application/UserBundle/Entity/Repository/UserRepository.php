@@ -9,6 +9,7 @@
 
 namespace Application\UserBundle\Entity\Repository;
 
+use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
@@ -107,5 +108,28 @@ class UserRepository extends EntityRepository
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findUserStats($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT COUNT(ug) as listedBy,
+                            (SELECT COUNT(ug1)
+                             FROM ApplicationUserBundle:User u1
+                             LEFT JOIN u1.userGoal ug1 WITH ug1.status = :completed
+                             WHERE u1.id = :userId) as doneBy
+                           FROM ApplicationUserBundle:User u
+                           LEFT JOIN u.userGoal ug WITH ug.status = :active
+                           WHERE u.id = :userId")
+            ->setParameter('completed', UserGoal::COMPLETED)
+            ->setParameter('active', UserGoal::ACTIVE)
+            ->setParameter('userId', $userId)
+            ->getOneOrNullResult();
+
     }
 }

@@ -194,7 +194,7 @@ class GoalController extends Controller
 
 
     /**
-     * @Route("/inner/{id}", name="inner_goal")
+     * @Route("/{id}", name="inner_goal", requirements={"id"="\d+"})
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal

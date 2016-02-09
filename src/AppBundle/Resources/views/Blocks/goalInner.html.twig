@@ -140,7 +140,7 @@
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
-                                                    {% set nameOnImage = 'AH' %}
+                                                    {% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}
                                                     {% set className = "user-no" ~ random(4) %}
                                                     <li style="right: {{ left }}px">
                                                         {% if listedByUser.getPhotoLink  %}
