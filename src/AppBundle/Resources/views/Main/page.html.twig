@@ -14,3 +14,32 @@
 
 {% endblock %}
 
+
+{%- block title -%}
+    {{ page.name }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ page.name }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {% if page.description %}
+        {{- sliceString(page.description)|raw -}}
+    {% else %}
+        {{ 'page.description'|trans }}
+    {% endif %}
+{%- endblock -%}
+
+
+{%- block meta_description -%}
+    {% if page.description %}
+        {{- sliceString(page.description|raw) -}}
+    {% else %}
+        {{ 'page.description'|trans }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

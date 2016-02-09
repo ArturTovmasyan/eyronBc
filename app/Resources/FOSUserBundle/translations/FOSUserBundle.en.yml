@@ -153,6 +153,15 @@ my_list:
     have_goal: You have a goal to complete, don't you? Then go ahead, just do it.
     complete_goal: You have a completed goal? Great, then write about it, share your story with people, inspire them.
 
+user:
+    update_email_title: Update email address
+    update_email_description: Description for update email address
+    resend_email_title: Resend Message
+    resend_email_description: Description for Resend Message page
+    account_verified_title: Account verified
+    account_verified_description: Description for account verified page
+    register_title: Registration
+    register_description: Description for registration
 
 
 First name: First name

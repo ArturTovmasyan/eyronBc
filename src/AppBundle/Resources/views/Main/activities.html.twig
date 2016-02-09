@@ -117,3 +117,23 @@
         </div>
     </div>
 {% endmacro %}
+
+{%- block title -%}
+    {{ 'activities.title'|trans }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ 'activities.title'|trans }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{ 'activities.description'|trans }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'activities.description'|trans }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

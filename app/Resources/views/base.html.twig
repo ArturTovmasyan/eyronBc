@@ -2,13 +2,21 @@
 {% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
+{% set host = app.request.getSchemeAndHttpHost() %}
 {% set user = app.user %}
 
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}BucketList{% endblock %}</title>
+        <title>{%- block title -%}BucketList{%- endblock -%}</title>
+        <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
+        <meta property="og:title" content="{%- block og_title -%}BucketList{%- endblock -%}" />
+        <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
+        <meta property="og:description" content="{%- block og_description -%}BucketList {%- endblock -%}" />
+        <meta property="og:site_name" content="BucketList" />
+        <meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />
+        <meta property="og:type" content="article">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{% block meta_description %}BucketList{% endblock %}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/angular-motion/dist/angular-motion.min.css") }}">
         <link rel="stylesheet" href="{{ asset("app/bower_components/jquery-nice-select/css/nice-select.css") }}">

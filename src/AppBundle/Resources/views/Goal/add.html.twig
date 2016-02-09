@@ -154,3 +154,23 @@
     {% endjavascripts %}
 
 {% endblock %}
+
+{%- block title -%}
+    {{ 'goal.add_title'|trans() }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ 'goal.add_title'|trans() }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{ 'goal.add_description'|trans() }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'goal.add_description'|trans() }}
+{%- endblock -%}
+
+{%- block og_url -%}
+{{- app.request.uri -}}
+{%- endblock -%}
