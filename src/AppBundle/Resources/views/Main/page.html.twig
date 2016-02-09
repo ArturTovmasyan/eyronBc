@@ -15,31 +15,31 @@
 {% endblock %}
 
 
-{% block title %}
+{%- block title -%}
     {{ page.name }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_title %}
+{%- block og_title -%}
     {{ page.name }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {% if page.description %}
-        {{ sliceString(page.description)|raw }}
+        {{- sliceString(page.description)|raw -}}
     {% else %}
         {{ 'page.description'|trans }}
     {% endif %}
-{% endblock %}
+{%- endblock -%}
 
 
-{% block meta_description %}
+{%- block meta_description -%}
     {% if page.description %}
-        {{ sliceString(page.description|raw) }}
+        {{- sliceString(page.description|raw) -}}
     {% else %}
         {{ 'page.description'|trans }}
     {% endif %}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
-    {{- app.request.uri }}
+    {{- app.request.uri -}}
 {%- endblock -%}

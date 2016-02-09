@@ -15,30 +15,30 @@
     </style>
 {% endblock %}
 
-{% block title %}
+{%- block title -%}
     {{ 'my_bucket_list.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_title %}
+{%- block og_title -%}
     {{ 'my_bucket_list.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {{ 'my_bucket_list.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_image %}
+{%- block og_image -%}
     {% set images = profileUser.getPhotoLink %}
-    {% if images %}
-        {{ host ~ images }}
+    {%- if images -%}
+        {{- host ~ images -}}
     {% else %}
         {{ parent() }}
-    {% endif %}
-{% endblock %}
+    {%- endif -%}
+{%- endblock -%}
 
-{% block meta_description %}
+{%- block meta_description -%}
     {{ 'my_bucket_list.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
     {{- app.request.uri }}

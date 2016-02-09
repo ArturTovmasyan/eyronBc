@@ -36,22 +36,22 @@
 
 {% endblock %}
 
-{% block title %}
+{%- block title -%}
     {{ 'user.update_email_title'|trans({}, 'FOSUserBundle') }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_title %}
+{%- block og_title -%}
     {{ 'user.update_email_title'|trans({}, 'FOSUserBundle') }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {{ 'user.update_email_description'|trans({}, 'FOSUserBundle') }}
-{% endblock %}
+{%- endblock -%}
 
-{% block meta_description %}
+{%- block meta_description -%}
     {{ 'user.update_email_description'|trans({}, 'FOSUserBundle') }}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
-    {{- app.request.uri }}
+    {{- app.request.uri -}}
 {%- endblock -%}

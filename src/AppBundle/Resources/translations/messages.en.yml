@@ -21,7 +21,7 @@ my_bucketlist: My Bucketlist
 # goal
 goal:
       user_description: User goal description
-      user_title: User goal title
+      user_title: User goal
       friends_title: Goal friends
       friends_description: Goald friends description
       view_description: Goal view description
@@ -166,7 +166,7 @@ active:
 manage: MANAGE
 
 ideas:
-  title: Ideas title
+  title: Ideas
   description: Ideas description
 
 page:

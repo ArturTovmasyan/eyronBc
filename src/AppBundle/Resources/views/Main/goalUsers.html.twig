@@ -81,22 +81,22 @@
 {% endblock %}
 
 
-{% block title %}
-    {{ 'goal.users_title'|trans }}
-{% endblock %}
+{%- block title -%}
+    {{ 'goal.user_title'|trans }}
+{%- endblock -%}
 
-{% block og_title %}
-    {{ 'goal.users_title'|trans }}
-{% endblock %}
+{%- block og_title -%}
+    {{ 'goal.user_title'|trans }}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {{ 'goal.user_description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block meta_description %}
+{%- block meta_description -%}
     {{ 'goal.user_description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
-    {{- app.request.uri }}
+    {{- app.request.uri -}}
 {%- endblock -%}

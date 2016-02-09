@@ -118,22 +118,22 @@
     </div>
 {% endmacro %}
 
-{% block title %}
+{%- block title -%}
     {{ 'activities.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_title %}
+{%- block og_title -%}
     {{ 'activities.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {{ 'activities.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block meta_description %}
+{%- block meta_description -%}
     {{ 'activities.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
-    {{- app.request.uri }}
+    {{- app.request.uri -}}
 {%- endblock -%}

@@ -205,22 +205,22 @@
     </div>
 </div>
 
-{% block title %}
+{%- block title -%}
     {{ 'ideas.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_title %}
+{%- block og_title -%}
     {{ 'ideas.title'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block og_description %}
+{%- block og_description -%}
     {{ 'ideas.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
-{% block meta_description %}
+{%- block meta_description -%}
     {{ 'ideas.description'|trans }}
-{% endblock %}
+{%- endblock -%}
 
 {%- block og_url -%}
-    {{- app.request.uri }}
+    {{- app.request.uri -}}
 {%- endblock -%}
