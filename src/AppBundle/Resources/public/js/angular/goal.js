@@ -184,10 +184,12 @@ angular.module('goal', ['Interpolation',
 
         angular.element('.ticker').ticker();
 
-        angular.element('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-purple',
-            increaseArea: '20%'
-        });
+        if(angular.element('.suggest-input input')) {
+            angular.element('.suggest-input input').iCheck({
+                checkboxClass: 'icheckbox_square-purple',
+                increaseArea: '20%'
+            });
+        }
     }])
     .controller('goalList',['$scope', function($scope){
 
