@@ -171,9 +171,10 @@
             </div>
             {% if page != view %}
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-8 text-right">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
                     </div>
+                    <div class="col-sm-4"></div>
                 </div>
             {% endif %}
 
