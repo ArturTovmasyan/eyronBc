@@ -17,3 +17,23 @@
         </div>
     </div>
 {% endblock %}
+
+{% block title %}
+    {{ 'user.account_verified_title'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'user.account_verified_title'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'user.account_verified_description'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'user.account_verified_description'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{%- block og_url -%}
+    {{- app.request.uri }}
+{%- endblock -%}

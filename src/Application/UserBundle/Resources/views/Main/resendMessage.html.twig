@@ -20,3 +20,23 @@
     </div>
 
 {% endblock %}
+
+{% block title %}
+    {{ 'user.resend_email_title'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'user.resend_email_title'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'user.resend_email_description'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'user.resend_email_description'|trans({}, 'FOSUserBundle') }}
+{% endblock %}
+
+{%- block og_url -%}
+    {{- app.request.uri }}
+{%- endblock -%}
