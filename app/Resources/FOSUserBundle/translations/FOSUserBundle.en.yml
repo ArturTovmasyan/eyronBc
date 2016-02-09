@@ -160,6 +160,9 @@ user:
     resend_email_description: Description for Resend Message page
     account_verified_title: Account verified
     account_verified_description: Description for account verified page
+    register_title: Registration
+    register_description: Description for registration
+
 
 First name: First name
 Last name: Last name
