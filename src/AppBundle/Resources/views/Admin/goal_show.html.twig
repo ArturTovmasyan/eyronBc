@@ -10,6 +10,10 @@
     {{ parent() }}
 
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset('app/bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js') }}" type="text/javascript"></script>
+    {% javascripts output='js/app_admin_goal_show.js'
+        'app/bower_components/angular/angular.min.js'
+        'app/bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
