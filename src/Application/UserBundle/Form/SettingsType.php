@@ -10,6 +10,7 @@ namespace Application\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -32,11 +33,10 @@ class SettingsType extends AbstractType
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', null, array('attr' => array('readonly' => true),'required' => true, 'label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('password', 'password', array(
+            ->add('currentPassword', 'password', array(
                 'required' => false,
                 'label' => 'form.current_password',
                 'translation_domain' => 'FOSUserBundle',
-                'mapped' => false
             ))
             ->add('plainPassword', 'repeated', array(
                 'required' => false,
@@ -59,8 +59,22 @@ class SettingsType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
-            'validation_groups' => 'Settings',
-            'error_bubbling' => true
+            'error_bubbling' => true,
+            'validation_groups' => function(FormInterface $form) {
+
+                //get form data
+                $data = $form->getData();
+
+                //get plain password
+                $plainPassword = $data->getPlainPassword();
+
+                //check if plainPassword exist
+                if ($plainPassword) {
+                    return array('Settings', 'MobileChangePassword');
+                } else {
+                    return 'Settings';
+                }
+            },
         ));
     }
 
