@@ -30,8 +30,29 @@ class StringSliceExtension extends \Twig_Extension
      */
     public function sliceString($text)
     {
-        //cut string
-        $content = substr($text, 0, 160);
+        //clear html tag
+        $text = strip_tags($text);
+
+        //check if text less then 160 symbol
+        if(strlen($text) > 160) {
+
+            //cut string
+            $content = substr($text, 0, 160);
+
+            //get last dot position
+            $pos = strrpos($content, '.');
+
+            //check if dot not exist
+            if(!$pos) {
+                $pos = strrpos($content, ',');
+            }
+
+            //cut text with dot position
+            $content = substr($content, 0, $pos + 1);
+        }
+        else {
+            $content = $text;
+        }
 
         return $content;
     }
