@@ -9,11 +9,11 @@
 namespace Application\UserBundle\Tests\Controller\Rest;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
-    const HTTP_STATUS_BAD_REQUEST = 400;
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -66,7 +66,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "can not register new user with blank email in postAction rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "can not register new user with blank email in postAction rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -92,7 +92,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with blank password in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with blank password in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -118,7 +118,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with invalid password min length in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with invalid password min length in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -144,7 +144,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with blank firstName in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with blank firstName in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -170,7 +170,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with blank lastName in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with blank lastName in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -196,7 +196,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with blank birthday in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with blank birthday in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -225,7 +225,7 @@ class UserControllerTest extends WebTestCase
             )
         );
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), self::HTTP_STATUS_BAD_REQUEST, "form submit with already registered email in postAction(user registration) rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_BAD_REQUEST, "form submit with already registered email in postAction(user registration) rest!");
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
