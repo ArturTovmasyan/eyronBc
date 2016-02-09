@@ -150,3 +150,23 @@
     <script src="{{ asset('app/bower_components/dropzone/downloads/dropzone.min.js') }}" type="text/javascript"></script>
 
 {% endblock %}
+
+{% block title %}
+    {{ 'goal.add_title'|trans() }}
+{% endblock %}
+
+{% block og_title %}
+    {{ 'goal.add_title'|trans() }}
+{% endblock %}
+
+{% block og_description %}
+    {{ 'goal.add_description'|trans() }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ 'goal.add_description'|trans() }}
+{% endblock %}
+
+{%- block og_url -%}
+{{- app.request.uri }}
+{%- endblock -%}

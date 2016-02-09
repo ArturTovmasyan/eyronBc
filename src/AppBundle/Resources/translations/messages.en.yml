@@ -38,6 +38,8 @@ goal:
       location_ex: Location ex. Yerevan, Armenia:
       note_p: Add a note
       add_step: Add a step
+      add_title: Create goal
+      add_description: Description for create goal page
       to_do: To Do
       type: Type in a youtube or vimeo link in the field
       done: Done
