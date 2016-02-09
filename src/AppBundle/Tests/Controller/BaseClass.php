@@ -8,33 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class BaseClass extends WebTestCase
 {
     /**
-     * @deprecated Response::HTTP_STATUS_OK
-     */
-    const HTTP_STATUS_OK = 200;
-
-    /**
-     * @deprecated Response::HTTP_STATUS_REDIRECT
-     */
-    const HTTP_STATUS_REDIRECT = 302;
-
-    // constants for status
-    /**
-     * @deprecated UserGoal::
-     */
-    const ACTIVE = 1;
-    const COMPLETED = 2;
-
-    // constants for filter in twig
-//    const URGENT_IMPORTANT = 1;
-//    const URGENT_NOT_IMPORTANT = 2;
-//    const NOT_URGENT_IMPORTANT = 3;
-//    const NOT_URGENT_NOT_IMPORTANT = 4;
-
-    // constants for steps
-    const TO_DO = 0;
-    const DONE = 1;
-
-    /**
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
