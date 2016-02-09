@@ -113,7 +113,7 @@
                                                                 <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
                                                             </figure>
                                                         {% else %}
-                                                            <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                            <p class="{{ className }}">{{ nameOnImage | upper }}</p>
                                                         {% endif %}
 
                                                     </li>
@@ -148,7 +148,7 @@
                                                                 <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
                                                             </figure>
                                                         {% else %}
-                                                            <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                            <p class="{{ className }}">{{ nameOnImage | upper}}</p>
                                                         {% endif %}
                                                     </li>
                                                     {% set left = left + 20 %}
@@ -248,9 +248,21 @@
                                     <div class="comment-place">
                                         <div class="row">
                                             <div class="col-sm-1">
-                                                <figure>
-                                                    <img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
-                                                </figure>
+                                                {#<figure>#}
+                                                    {#<img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>#}
+                                                {#</figure>#}
+                                                {##}
+                                                {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                {% set className = "user-no" ~ random(4) %}
+
+                                                {% if addedUser.getPhotoLink  %}
+                                                    <figure>
+                                                        <img src="{{ addedUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                    </figure>
+                                                {% else %}
+                                                    <bdi class="{{ className }}">{{ nameOnImage | upper}}</bdi>
+                                                {% endif %}
+
                                             </div>
 
                                             <div class="col-sm-11">
