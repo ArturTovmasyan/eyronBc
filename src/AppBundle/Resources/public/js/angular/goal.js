@@ -12,6 +12,7 @@ angular.module('goal', ['Interpolation',
     .controller('goalAdd',['$scope', '$sce', '$timeout', function($scope, $sce, $timeout){
 
         $scope.files = [];
+        $scope.disablePreview = false;
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -23,7 +24,7 @@ angular.module('goal', ['Interpolation',
             }
         }
 
-        $('input[type=checkbox]').iCheck({
+        angular.element('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
         }).on('ifChanged', function (event) {
@@ -46,6 +47,16 @@ angular.module('goal', ['Interpolation',
                     uploadMultiple: false,
                     maxThumbnailFilesize: 6,
                     maxFiles: 6,
+                    removedfile: function(d){
+                        angular.element(d.previewElement).remove();
+                        var id = JSON.parse(d.xhr.responseText);
+                        var index = $scope.files.indexOf(id);
+                        if(index !== -1){
+                            $scope.files.splice(index, 1);
+                        }
+
+                        $scope.$apply();
+                    },
                     complete: function(res){
                         if(res.xhr.status !== 200){
                             return;
@@ -55,6 +66,16 @@ angular.module('goal', ['Interpolation',
                         $scope.$apply();
                     }
                 });
+
+                $scope.goalDropzone.on('addedfile', function(){
+                    $scope.disablePreview = true;
+                    $scope.$apply();
+                });
+
+                $scope.goalDropzone.on('queuecomplete', function(){
+                    $scope.disablePreview = false;
+                    $scope.$apply();
+                })
             },500);
         };
 
@@ -184,10 +205,12 @@ angular.module('goal', ['Interpolation',
 
         angular.element('.ticker').ticker();
 
-        angular.element('.suggest-input input').iCheck({
-            checkboxClass: 'icheckbox_square-purple',
-            increaseArea: '20%'
-        });
+        if(angular.element('.suggest-input input')) {
+            angular.element('.suggest-input input').iCheck({
+                checkboxClass: 'icheckbox_square-purple',
+                increaseArea: '20%'
+            });
+        }
     }])
     .controller('goalList',['$scope', function($scope){
 

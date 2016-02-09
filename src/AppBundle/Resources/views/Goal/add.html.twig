@@ -50,7 +50,7 @@
                      <div class="col-sm-6 text-right">
                          <div class="buttons">
                              {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading"/>#}
-                             <button type="submit" class="btn btn-transparent goal-view-submit" name="btn_preview">
+                             <button type="submit" data-ng-disabled="disablePreview" class="btn btn-transparent goal-view-submit" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
                              <button type="submit"
@@ -146,7 +146,11 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('bundles/app/js/images.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('app/bower_components/dropzone/downloads/dropzone.min.js') }}" type="text/javascript"></script>
+    {% javascripts output='js/app_goal_add.js'
+        'bundles/app/js/images.js'
+        'app/bower_components/dropzone/downloads/dropzone.min.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 {% endblock %}

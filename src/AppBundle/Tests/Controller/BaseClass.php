@@ -4,6 +4,7 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\UserGoal;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class BaseClass extends WebTestCase
 {
@@ -201,4 +202,91 @@ class BaseClass extends WebTestCase
 
         return $userGoalIds;
     }
+
+    /**
+     * This data provider create data for user-settings create
+     * @return array
+     */
+    public function userSettingsProvider()
+    {
+        self::bootKernel();
+        $this->container = static::$kernel->getContainer();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $data = array(
+            array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'Poxos',
+                'lastName'=>'',
+                'primary'=>'',
+                'addEmail'=>'test@test.ru',
+                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST))),
+            array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'',
+                'lastName'=>'Poxosyan',
+                'primary'=>'',
+                'addEmail'=>'test@test.ru',
+                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST))),
+            array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'Poxos',
+                'lastName'=>'Poxosyan',
+                'primary'=>'',
+                'addEmail'=>'test@test.ru',
+                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_NO_CONTENT)))
+        );
+
+        return $data;
+
+    }
+
+
+    /**
+     * This data provider create data for user-settings create
+     * @return array
+     */
+    public function userChangePasswordProvider()
+    {
+        self::bootKernel();
+        $this->container = static::$kernel->getContainer();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $this->clientSecond = static::createClient(array(), array(
+                    'PHP_AUTH_USER' => 'user@user.com',
+                    'PHP_AUTH_PW'   => 'Test4321',
+                ));
+        $this->clientSecond->enableProfiler();
+
+        $data = array(
+            array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
+                'plainPassword'=>array('first'=>'Test1234', 'second'=>'Test1234'))),
+                'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST), 'client'=>$this->client)),
+
+            array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test1234',
+                'plainPassword'=>array('first'=>'Test4321', 'second'=>'Test4321'))),
+                'response'=>array('statusCode'=>Response::HTTP_OK), 'client'=>$this->client)),
+
+             array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
+                'plainPassword'=>array('first'=>'Test1234', 'second'=>''))),
+                 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST), 'client'=>$this->clientSecond)),
+
+            array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
+                            'plainPassword'=>array('first'=>'Test1234', 'second'=>'Test1234'))),
+                'response'=>array('statusCode'=>Response::HTTP_OK), 'client'=>$this->clientSecond))
+        );
+        return $data;
+    }
+
+
+
+
 }

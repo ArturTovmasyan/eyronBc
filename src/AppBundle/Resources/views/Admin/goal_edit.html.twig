@@ -19,18 +19,22 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="{{ asset("app/bower_components/angular/angular.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/scripts/Interpolation/Interpolation.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/scripts/Components/Components.js") }}" type="text/javascript"></script>
-    <script src="{{ asset('app/scripts/Google/Google.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('app/bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-animate/angular-animate.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-sanitize/angular-sanitize.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.min.js") }}" type="text/javascript"></script>
-    <script src="{{ asset("app/bower_components/angular-strap/dist/angular-strap.tpl.min.js") }}" type="text/javascript"></script>
 
-    <script src="{{ asset('bundles/app/js/images.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/app/js/angular/goal.js') }}" type="text/javascript"></script>
-    <script src="{{ asset("bundles/applicationuser/js/angular/user.js") }}" type="text/javascript"></script>
+    {% javascripts output='js/app_admin_goal_edit.js'
+        'app/bower_components/angular/angular.min.js'
+        'app/scripts/Interpolation/Interpolation.js'
+        'app/scripts/Components/Components.js'
+        'app/scripts/Google/Google.js'
+        'app/bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js'
+        'app/bower_components/angular-animate/angular-animate.min.js'
+        'app/bower_components/angular-sanitize/angular-sanitize.min.js'
+        'app/bower_components/angular-strap/dist/angular-strap.min.js'
+        'app/bower_components/angular-strap/dist/angular-strap.tpl.min.js'
+        'bundles/app/js/images.js'
+        'bundles/app/js/angular/goal.js'
+        'bundles/applicationuser/js/angular/user.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 {% endblock %}
