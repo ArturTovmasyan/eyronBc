@@ -71,7 +71,7 @@
                             {% endif %}
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" id="goalTitle">
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" height="260" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -118,7 +118,7 @@
                             <a href="{{ path('inner_goal', {'id': goal.id }) }}" >
                                 <span class="overlay"></span>
                                 <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_list_1')  }}{% else %}
-                                 {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" height="260" alt="{{ goal.title }}"/>
+                                 {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -162,9 +162,9 @@
                             {% if image %}
                                 {% set image = goal.getListPhoto %}
                             {% endif %}
-                            <a href="{{ path('inner_goal', {'id': goal.id }) }}">
+                            <a href="{{ path('inner_goal', {'id': goal.id }) }}" class="height">
                                 <span class="overlay height"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" height="588" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">

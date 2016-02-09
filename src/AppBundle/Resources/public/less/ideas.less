@@ -3,10 +3,17 @@
 
 .ideas-list{
   figure{
-
     background: transparent;
     overflow: hidden;
     position: relative;
+
+    &>a{
+      height:260px;
+    }
+
+    &>a.height{
+      height:588px;
+    }
 
     h3{
       position: absolute;
@@ -218,8 +225,17 @@
       word-break: break-word;
     }
 
+    bdi{
+      display: block;
+      width:43px;
+      height:43px;
+      color:#ffffff;
+      line-height: 40px;
+      text-align: center;
+    }
+
     .comment-place{
-      padding:20px 0 30px;
+      padding:20px 15px 30px;
       background-color: #f4f4f4;
       margin-bottom: 20px;
 
