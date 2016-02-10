@@ -320,6 +320,13 @@ class GoalController extends Controller
             // check data
             if($form->isValid()){
 
+                if ($videoLinks = $story->getVideoLink()){
+                    $videoLinks = array_values($videoLinks);
+                    $videoLinks = array_filter($videoLinks);
+
+                    $story->setVideoLink($videoLinks);
+                }
+
                 // get images ids
                 $images = $form->get('files')->getData();
 
