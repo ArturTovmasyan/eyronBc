@@ -25,7 +25,7 @@ goal:
       friends_title: Goal friends
       friends_description: Goald friends description
       view_description: Goal view description
-      list_title: Goal list
+      og_title: Goal list
       list_description: Goal description
       complete_text: Complete a goal
       public: Suggest as public
