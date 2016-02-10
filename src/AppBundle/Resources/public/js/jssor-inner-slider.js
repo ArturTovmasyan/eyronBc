@@ -4,6 +4,10 @@ $(document).ready(function(){
     var options = {
         $AutoPlay: true,
         $ArrowKeyNavigation: false,
+        $BulletNavigatorOptions: {
+            $Class: $JssorBulletNavigator$,
+            $ChanceToShow: 2
+        },
         $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
             $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
             $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
