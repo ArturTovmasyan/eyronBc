@@ -10,9 +10,6 @@
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                     <i class="icon plus-icon"></i>{{ 'add'|trans }}
                 </a>
-                {#<bdi>#}
-                    {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
-                {#</bdi>#}
             </li>
         {% else %}
             <li class="col-xs-4 transparent">
@@ -28,10 +25,6 @@
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <i class="icon ok-icon"></i>{{ 'done'|trans }}
                 </a>
-
-                {#<bdi>#}
-                    {#<i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}#}
-                {#</bdi>#}
             </li>
         {% else %}
             <li class="col-xs-6 transparent">
