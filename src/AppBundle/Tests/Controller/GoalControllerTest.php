@@ -291,16 +291,20 @@ class GoalControllerTest extends BaseClass
 //     */
 //    public function testRemoveImage($fileName)
 //    {
+//        $this->markTestIncomplete(
+//            'This test has not been implemented yet.'
+//        );
+//
 //        if($fileName)
 //        {
 //            $this->client->request('GET', '/goal/remove-image/' . $fileName);
 //
 //            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
 //
-////            if ($profile = $this->client->getProfile()) {
-////                // check the number of requests
-////                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-////            }
+//            if ($profile = $this->client->getProfile()) {
+//                // check the number of requests
+//                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+//            }
 //        }
 //
 //    }
