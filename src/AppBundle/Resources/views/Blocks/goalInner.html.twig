@@ -64,21 +64,22 @@
                 <div class="col-sm-5 col-md-4">
                     <div class="goal-information">
                         <ul class="row  goal-links">
-                            {# need to add 'finished' class to the ul above if user added or completed goal#}
+
                             {% if page == inner %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-sm-6">
-                                        <a href="javascript:void(0)"
-                                           data-ls-jquery-modal
-                                           data-ls-identity="idea{{ goal.id }}"
-                                           data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <i class="icon plus-icon"></i>{{ 'add'|trans }}
-                                        </a>
+                                    <li class="col-sm-6 transparent">
+                                        {# need to add 'finished' class to the li above if user added or completed goal#}
+                                        {#<a href="javascript:void(0)"#}
+                                           {#data-ls-jquery-modal#}
+                                           {#data-ls-identity="idea{{ goal.id }}"#}
+                                           {#data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">#}
+                                            {#<i class="icon plus-icon"></i>{{ 'add'|trans }}#}
+                                        {#</a>#}
                                         {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        {#<bdi>#}
-                                            {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
-                                        {#</bdi>#}
+                                        <bdi>
+                                            <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
+                                        </bdi>
                                     </li>
                                 {% endif %}
 
