@@ -68,18 +68,18 @@
                             {% if page == inner %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-sm-6 transparent">
-                                        {# need to add 'finished' class to the li above if user added or completed goal#}
-                                        {#<a href="javascript:void(0)"#}
-                                           {#data-ls-jquery-modal#}
-                                           {#data-ls-identity="idea{{ goal.id }}"#}
-                                           {#data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">#}
-                                            {#<i class="icon plus-icon"></i>{{ 'add'|trans }}#}
-                                        {#</a>#}
+                                    <li class="col-sm-6">
+                                        {# need to add 'transparent' class to the li above if user added or completed goal#}
+                                        <a href="javascript:void(0)"
+                                           data-ls-jquery-modal
+                                           data-ls-identity="idea{{ goal.id }}"
+                                           data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
+                                            <i class="icon plus-icon"></i>{{ 'add'|trans }}
+                                        </a>
                                         {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        <bdi>
-                                            <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
-                                        </bdi>
+                                        {#<bdi>#}
+                                            {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
+                                        {#</bdi>#}
                                     </li>
                                 {% endif %}
 
