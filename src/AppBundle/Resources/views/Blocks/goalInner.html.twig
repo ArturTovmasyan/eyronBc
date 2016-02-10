@@ -69,30 +69,33 @@
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-sm-6">
-                                        {# need to add 'transparent' class to the li above if user added or completed goal#}
                                         <a href="javascript:void(0)"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                                             <i class="icon plus-icon"></i>{{ 'add'|trans }}
                                         </a>
-                                        {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        {#<bdi>#}
-                                            {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
-                                        {#</bdi>#}
+                                    </li>
+                                {% else %}
+                                    <li class="col-sm-6 transparent">
+                                        <bdi>
+                                            <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
+                                        </bdi>
                                     </li>
                                 {% endif %}
 
-                                {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
+                            {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                             <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
-                                        {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        {#<bdi>#}
-                                            {#<i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}#}
-                                        {#</bdi>#}
+                                    </li>
+                                {% else %}
+                                    <li class="col-sm-6 transparent">
+                                        <bdi>
+                                            <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
+                                        </bdi>
                                     </li>
                                 {% endif %}
                             {% endif %}

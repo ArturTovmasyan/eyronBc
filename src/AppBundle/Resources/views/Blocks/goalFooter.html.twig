@@ -14,6 +14,12 @@
                     {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
                 {#</bdi>#}
             </li>
+        {% else %}
+            <li class="col-xs-4 transparent">
+                <bdi>
+                    <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
+                </bdi>
+            </li>
         {% endif %}
 
         {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
@@ -26,6 +32,12 @@
                 {#<bdi>#}
                     {#<i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}#}
                 {#</bdi>#}
+            </li>
+        {% else %}
+            <li class="col-xs-6 transparent">
+                <bdi>
+                    <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
+                </bdi>
             </li>
         {% endif %}
     {#{% endif %}#}
