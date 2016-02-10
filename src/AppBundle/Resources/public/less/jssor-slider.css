@@ -1,3 +1,4 @@
+/*--Arrow style--*/
 .jssora13l, .jssora13r, .jssora13ldn, .jssora13rdn {
     position: absolute;
     cursor: pointer;
@@ -37,6 +38,29 @@
 .jssora13rdn {
     background-position: -310px -35px;
 }
+
+/*--Bullet style--*/
+
+.jssorb21 {
+    position: absolute;
+}
+.jssorb21 div, .jssorb21 div:hover, .jssorb21 .av {
+    position: absolute;
+    /* size of bullet elment */
+    width: 21px;
+    height: 21px;
+    text-align: center;
+    line-height: 21px;
+    color: white;
+    font-size: 12px;
+    background: url(/app/bower_components/jssor-slider/img/b21.png) no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+.jssorb21 div { background-position: -5px -4px; }
+.jssorb21 div:hover, .jssorb21 .av:hover { background-position: -35px -4px; }
+.jssorb21 .av { background-position: -65px -4px; }
+.jssorb21 .dn, .jssorb21 .dn:hover { background-position: -95px -4px; }
 
 .story-slider-arrow {
     top: 80px !important;
