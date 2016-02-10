@@ -47,6 +47,6 @@ class ChangeGoalSlugsCommand extends ContainerAwareCommand
         }
 
         $em->flush();
-        $output->writeln("<info>\nSuccess: aaa </info>");
+        $output->writeln("<info>\nSuccess </info>");
     }
 }
