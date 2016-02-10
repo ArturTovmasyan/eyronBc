@@ -35,9 +35,9 @@
                                      <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}" style="display:block;">
                                         <div class="row no-gutter">
                                             <div class="col-sm-3">
-                                                <figure class="image">
+                                                <figure>
                                                     <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
-                                                             alt= "Some image" class="img-circle img-responsive" />
+                                                             alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
                                                 </figure>
                                             </div>
 
