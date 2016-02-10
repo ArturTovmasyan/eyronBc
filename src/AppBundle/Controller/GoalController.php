@@ -135,10 +135,12 @@ class GoalController extends Controller
                 $em->flush();
 
                 // generate url
-                $url = !is_null($request->get("btn_publish")) ? "add_to_me_goal" : "view_goal";
+                if (!is_null($request->get("btn_publish"))){
+                    return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
+                }
 
                 // redirect to view
-                return $this->redirectToRoute($url, array('id'=> $goal->getId()));
+                return $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));
             }
         }
 
@@ -181,9 +183,11 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/view/{id}", name="view_goal")
+     * @Route("/view/{slug}", name="view_goal")
      * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findOneBySlug" })
      * @param Goal $goal
      * @return array
      */
@@ -193,7 +197,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/show/{slug}", name="inner_goal", requirements={"id"="/^(?=.*[A-Z])(?=.*\d)(?=.*[^\w]).*$/"})
+     * @Route("/show/{slug}", name="inner_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
