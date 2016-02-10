@@ -32,8 +32,7 @@ class StringSliceExtension extends \Twig_Extension
     {
         //clear html tag and spaces
         $text = strip_tags($text);
-        $text = htmlspecialchars($text);
-        $text = trim(($text));
+        $text = htmlspecialchars(trim($text));
 
         //check if text less then 160 symbol
         if(strlen($text) > 160) {
