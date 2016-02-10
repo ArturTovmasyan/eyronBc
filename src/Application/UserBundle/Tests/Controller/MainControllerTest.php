@@ -32,7 +32,6 @@ class MainControllerTest extends BaseClass
         $email = 'test@test.com';
         // test form submit
         $form = $crawler->selectButton('Save')->form(array(
-            'bl_user_settings[addEmail]' => $email,
             'bl_user_settings[currentPassword]' => 'Test1234',
             'bl_user_settings[plainPassword][first]' => 'Test1234',
             'bl_user_settings[plainPassword][second]' => 'Test1234',
@@ -73,50 +72,44 @@ class MainControllerTest extends BaseClass
 
     /**
      * This function use to test activationUserEmailsAction
+     * @depends testSettings
      */
     public function testActivationUserEmails()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
 
-        $emailToken = '';
-        $email = '';
-        $crawler = $this->client->request('GET', '/activation_email/' . $emailToken . '/'. $email);
+        $user =  $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user@user.com');
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+        $emails = $user->getUserEmails();
 
-        // Assert that the response content contains a string goal1
-        $this->assertContains('user1', $this->client->getResponse()->getContent(), 'can not find goal1!');
+        $email = $emails['test1@test.ru']['userEmails'];
+        $emailToken = $emails['test1@test.ru']['token'];
 
-        $this->assertGreaterThan(0, $crawler->filter('article')->count());
+        $url = "/activation-email/{$emailToken}/{$email}";
 
-        if ($profile = $this->client->getProfile()) {
+        $this->clientSecond->request('GET', $url);
+
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal view page!');
+
+        if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
+
+        return $user->getRegistrationToken();
     }
 
     /**
      * This function use to test confirmAction
+     * @depends testActivationUserEmails
      */
-    public function testConfirm()
+    public function testConfirm($token)
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
 
-        $token = '';
-        $crawler = $this->client->request('GET', '/registration-confirm/' . $token);
+        $crawler = $this->clientSecond->request('GET', '/registration-confirm/' . $token);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
-        // Assert that the response content contains a string goal1
-        $this->assertContains('user1', $this->client->getResponse()->getContent(), 'can not find goal1!');
-
-        $this->assertGreaterThan(0, $crawler->filter('article')->count());
-
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
@@ -127,11 +120,11 @@ class MainControllerTest extends BaseClass
      */
     public function testCheckLogin()
     {
-        $this->clientSecond->request('GET', '/check-login');
+        $this->client->request('GET', '/check-login');
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal view page!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal view page!');
 
-        if ($profile = $this->clientSecond->getProfile()) {
+        if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
@@ -159,11 +152,11 @@ class MainControllerTest extends BaseClass
      */
     public function testUpdateEmail()
     {
-        $crawler = $this->clientSecond->request('GET', '/update-email');
+        $crawler = $this->client->request('GET', '/update-email');
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
-        $email = 'test@test.com';
+        $email = 'admin11@admin.com';
         // test form submit
         $form = $crawler->selectButton('Done')->form(array(
             'form[email]' => $email
@@ -174,7 +167,7 @@ class MainControllerTest extends BaseClass
 
         // Assert that the response content contains a string goal1
 
-        if ($profile = $this->clientSecond->getProfile()) {
+        if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
@@ -185,21 +178,21 @@ class MainControllerTest extends BaseClass
      */
     public function testUpdateEmail2()
     {
-        $crawler = $this->clientSecond->request('GET', '/update-email');
+        $crawler = $this->client2->request('GET', '/update-email');
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
-        $email = 'user@user.com';
+        $email = 'admin@admin.com';
         // test form submit
         $form = $crawler->selectButton('Done')->form(array(
             'form[email]' => $email
         ));
 
         // submit form
-        $this->client->submit($form);
+        $this->client2->submit($form);
         // Assert that the response content contains a string goal1
 
-        if ($profile = $this->clientSecond->getProfile()) {
+        if ($profile = $this->client2->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }

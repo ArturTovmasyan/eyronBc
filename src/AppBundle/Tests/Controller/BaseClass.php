@@ -26,6 +26,11 @@ class BaseClass extends WebTestCase
     /**
      * @var null
      */
+    protected $client2 = null;
+
+    /**
+     * @var null
+     */
     protected $clientSecond = null;
 
     /**
@@ -45,6 +50,11 @@ class BaseClass extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client->enableProfiler();
+        $this->client2 = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin11@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client2->enableProfiler();
         $this->clientSecond = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'user@user.com',
             'PHP_AUTH_PW'   => 'Test1234',
@@ -247,17 +257,17 @@ class BaseClass extends WebTestCase
         $data = array(
             array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'Poxos',
                 'lastName'=>'',
-                'primary'=>'',
+                'primary'=>false,
                 'addEmail'=>'test@test.ru',
                 'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST))),
             array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'',
                 'lastName'=>'Poxosyan',
-                'primary'=>'',
+                'primary'=>false,
                 'addEmail'=>'test@test.ru',
                 'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST))),
             array( array('request'=>array('bl_mobile_user_settings'=>array('firstName'=>'Poxos',
                 'lastName'=>'Poxosyan',
-                'primary'=>'',
+                'primary'=>false,
                 'addEmail'=>'test@test.ru',
                 'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_NO_CONTENT)))
         );

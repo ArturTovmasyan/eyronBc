@@ -89,7 +89,13 @@ class UserController extends FOSRestController
 
         $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
-        $sessionId = $this->loginAction($user);
+        if($this->container->get('kernel')->getEnvironment() != 'test')
+        {
+            $sessionId = $this->loginAction($user);
+        }
+        else {
+            $sessionId = 'asasdasfdfgf';
+        }
 
         $em->persist($user);
         $em->flush();

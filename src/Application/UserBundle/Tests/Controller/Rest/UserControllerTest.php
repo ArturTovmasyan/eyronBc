@@ -242,10 +242,6 @@ class UserControllerTest extends WebTestCase
      */
     public function testPost()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         $url = '/api/v1.0/users';
 
         $brochuresDir = str_replace('app', 'src', $this->container->getParameter('kernel.root_dir')).'/AppBundle/DataFixtures/ORM/';

@@ -143,17 +143,16 @@ class GoalControllerTest extends BaseClass
 
 
     /**
-     * This function is used to check goal inner page
+     * This function is used to check goal showAction page
      * @depends testView
      */
-    public function testInner($goalId)
+    public function testShow($goalId)
     {
         // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/inner/' . $goalId);
+        $crawler = $this->client->request('GET', '/goal/' . $goalId);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
-        //todo check some data
         // check data in page
         $this->assertEquals(1, $crawler->filter('.inner-content')->count());
 
@@ -166,7 +165,7 @@ class GoalControllerTest extends BaseClass
     }
 
     /**
-     * @depends testInner
+     * @depends testShow
      */
     public function testDone($goalId)
     {
@@ -201,7 +200,6 @@ class GoalControllerTest extends BaseClass
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
         $this->assertEquals(0, $crawler->filter('.col-sm-6 col-md-4')->count());
-
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
