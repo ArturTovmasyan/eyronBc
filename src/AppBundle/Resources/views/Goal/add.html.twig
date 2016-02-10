@@ -21,7 +21,7 @@
         {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" style="z-index: 10000"/>#}
     {#</div>#}
     <form method="post" id="goal-create-form" class="main-form" action="#" enctype="multipart/form-data">
-        <img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" class="loading"/>
+        <img data-ng-cloak data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" class="loading"/>
          <div class="content-top">
              <div class="container">
                  <div class="row">
@@ -83,7 +83,7 @@
                                  <div class="form-group">
 
                                      {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "ng-model":"description", "ng-init":"description ='" ~ form.vars.value.description ~ "'", "value" : "[[ description ]]" } }) }}
-                                     <div class="tags">
+                                     <div class="tags" data-ng-cloak>
                                          <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
