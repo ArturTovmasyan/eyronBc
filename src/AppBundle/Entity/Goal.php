@@ -73,7 +73,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
-     * @ORM\Column(name="title", type="string", nullable=true)
+     * @ORM\Column(name="title", type="string", nullable=false)
      * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
