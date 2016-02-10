@@ -860,6 +860,6 @@ class GoalController extends Controller
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
-        return $this->redirectToRoute('homepage');
+        return new Response('', Response::HTTP_OK);
     }
 }
