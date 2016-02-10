@@ -845,8 +845,6 @@ class GoalController extends Controller
      *
      * @param GoalImage $goalImage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @deprecated todo must be checked and removed
      */
     public function removeImage(GoalImage $goalImage)
     {
@@ -858,7 +856,10 @@ class GoalController extends Controller
 
         $em->flush();
 
-        //todo CLI does not have HTTP_REFERER so must be checked!!
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        if (isset($_SERVER['HTTP_REFERER'])){
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 }

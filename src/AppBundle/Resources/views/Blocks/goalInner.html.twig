@@ -1,6 +1,8 @@
 {% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}
 {% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
 
+<div id="fb-root"></div>
+
 <div class="inner-container">
     {% set cover = goal.getCoverPhoto %}
     {% if cover %}
@@ -8,9 +10,7 @@
             <img  src="{{ cover.downloadLink }}" alt="{{ goal.title }}" />
         </figure>
     {% endif %}
-
     <div class="container">
-
         <div class="row">
             <div class="col-sm-6"></div>
             <div class="col-sm-6">
@@ -53,6 +53,13 @@
                                     </div>
                                 {% endfor %}
                             </div>
+
+                            {% if images|length > 1 %}
+                                <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px;left: 50%">
+                                    <!-- bullet navigator item prototype -->
+                                    <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                </div>
+                            {% endif %}
 
                             <!-- Arrow Left -->
                             <span u="arrowleft" class="jssora13l"></span>
@@ -189,10 +196,18 @@
             </div>
             {% if page != view %}
                 <div class="row">
-                    <div class="col-sm-8 text-right">
+                    <div class="col-sm-4">
+                        <div class="fb-like"
+                             data-href="{{ app.request.uri }}"
+                             data-layout="button"
+                             data-action="like"
+                             data-show-faces="false"
+                             data-share="false">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-right">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
                     </div>
-                    <div class="col-sm-4"></div>
                 </div>
             {% endif %}
 
@@ -233,7 +248,7 @@
                                                             {#<iframe u="image" src="{{ video }}"></iframe>#}
                                                             <youtube-video u="image"
                                                                player-width="'100%'"
-                                                               player-height="'200px'"
+                                                               player-height="'300px'"
                                                                data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
                                                                video-url="mainSliderVideo[{{ k }}]">
                                                             </youtube-video>
@@ -241,10 +256,16 @@
                                                     {% endif %}
                                                 {% endfor %}
                                             </div>
+
+                                            <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px;left: 50%">
+                                                <!-- bullet navigator item prototype -->
+                                                <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                            </div>
+
                                             <!-- Arrow Left -->
-                                            <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
+                                            <span u="arrowleft" class="jssora13l"></span>
                                             <!-- Arrow Right -->
-                                            <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                            <span u="arrowright" class="jssora13r"></span>
                                         </div>
                                     </div>
                                 {% endif %}
@@ -315,6 +336,12 @@
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
+
+                                                        <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px;left: 50%">
+                                                            <!-- bullet navigator item prototype -->
+                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                        </div>
+
                                                         <!-- Arrow Left -->
                                                         <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
                                                         <!-- Arrow Right -->
@@ -362,10 +389,16 @@
                                                                 {% endif %}
                                                             {% endfor %}
                                                         </div>
+
+                                                        <div u="navigator" class="jssorb21" style="position: absolute; bottom: 26px;left: 50%">
+                                                            <!-- bullet navigator item prototype -->
+                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                        </div>
+
                                                         <!-- Arrow Left -->
-                                                        <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
+                                                        <span u="arrowleft" class="jssora13l"></span>
                                                         <!-- Arrow Right -->
-                                                        <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                                        <span u="arrowright" class="jssora13r"></span>
                                                     </div>
                                                 </div>
                                             {% endif %}
