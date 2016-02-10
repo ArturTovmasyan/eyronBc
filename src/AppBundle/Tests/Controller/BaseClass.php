@@ -67,13 +67,6 @@ class BaseClass extends WebTestCase
         ));
         $this->client->enableProfiler();
 
-//        $data = array(
-//            array('filter' => array('f_' . UserGoal::URGENT_IMPORTANT => 'on', 'd'=>false)),
-//            array()),
-//            array()),
-//            array()),
-//        );
-
         $data = array(
             array( array('request'=> array(
                                 'filterData'=>array('filter' => array(
@@ -135,7 +128,6 @@ class BaseClass extends WebTestCase
                 array(
                     'file'.$i => $files[$i]->getFileName()
                 );
-
         }
 
         return $fileNames;
