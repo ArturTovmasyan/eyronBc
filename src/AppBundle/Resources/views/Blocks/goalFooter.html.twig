@@ -1,4 +1,4 @@
-<ul class="row {% if inner is defined %} goal-links{% endif %} ">
+<ul class="row no-gutter{% if inner is defined %} goal-links{% endif %} ">
     {#{% if is_granted("ROLE_USER") %}#}
 
         {#{% if not isMyGoal(goal, app.user, "add") %}#}
@@ -21,13 +21,13 @@
 
         {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
         {% if  goal.isMyGoal != 2 %}
-            <li class="col-xs-6">
+            <li class="col-xs-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <i class="icon ok-icon"></i>{{ 'done'|trans }}
                 </a>
             </li>
         {% else %}
-            <li class="col-xs-6 transparent">
+            <li class="col-xs-4 transparent">
                 <bdi>
                     <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
                 </bdi>
@@ -36,7 +36,7 @@
     {#{% endif %}#}
 
     {% if inner is not defined %}
-        <li class="col-xs-2">
+        <li class="col-xs-4">
             <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
         </li>
     {% endif %}
