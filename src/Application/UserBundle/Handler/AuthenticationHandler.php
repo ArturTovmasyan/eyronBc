@@ -9,6 +9,7 @@
 
 namespace Application\UserBundle\Handler;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,9 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     /**
      * @param Router $router
      */
-    public function __construct(Router $router)
+    public function __construct(Router $router, Container $container = null)
     {
+        $this->container = $container;
         $this->router = $router;
     }
 
@@ -117,9 +119,13 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
+        //check if request format is json
         if ($request->get('_format') == "json"){
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
+
+        //set flash messages for open login by js
+        $this->container->get('session')->getFlashBag()->add('', '');
 
         $loginPath = $this->router->generate('homepage');
         return new RedirectResponse($loginPath);
