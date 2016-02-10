@@ -563,38 +563,6 @@
                     </div>
                 </div>
 
-                {#<ul class="right-block">#}
-
-                    {#<li class="clearfix">#}
-                        {#<ul>#}
-                            {#<li>#}
-                                {#<a href="{{ path('add_goal') }}">#}
-                                    {#<i class="icon create-icon"></i>#}
-                                    {#{{ 'right_menu.create'|trans }}#}
-                                {#</a>#}
-                            {#</li>#}
-
-                            {#<li>#}
-                                {#{% if profileUser.id == app.user.id %}#}
-                                    {#<a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}#}
-                                        {#<span>{{ draftsCount }}</span>#}
-                                    {#</a>#}
-                                {#{% endif %}#}
-                            {#</li>#}
-                        {#</ul>#}
-
-                    {#</li>#}
-                    {#<li class="clearfix">#}
-                        {#<span>#}
-                            {#<i class="icon suggested-icon"></i>#}
-                            {#{{ 'right_menu.suggested'|trans }}#}
-                        {#</span>#}
-                        {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                    {#</li>#}
-                    {#<li>#}
-                        {#{%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}#}
-                    {#</li>#}
-                {#</ul>#}
             </div>
         </div>
     </div>

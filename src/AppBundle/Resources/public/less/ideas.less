@@ -147,16 +147,16 @@
     }
   }
 
-  .goal-links {
+  .goal-links{
     padding-left:0;
     margin-bottom:0;
     height: 50px;
-    li {
+    li{
       text-align: center;
-      a {
+      a,bdi {
         display: block;
         color: #a4a4a4;
-        padding: 10px 0;
+        padding: 11px 0;
 
         &:focus{
           text-decoration: none;
@@ -165,12 +165,13 @@
 
       &:hover{
         background-color: #7724F6;
-        a{
+        a,bdi{
           color: #ffffff;
 
           i.plus-icon{
             background: url('../images/images.png') no-repeat -7px -496px;
           }
+
           i.ok-icon{
             background: url('../images/images.png') no-repeat -7px -617px;
           }
@@ -182,7 +183,16 @@
       }
     }
   }
+  .finished{
+    li:hover{
+      background-color: transparent;
+      a,bdi {
+        color: #a4a4a4;
+      }
+    }
+  }
 }
+
 
 .inner-container{
   background-color: #d8d8d8;
