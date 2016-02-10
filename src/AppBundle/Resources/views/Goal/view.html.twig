@@ -123,7 +123,7 @@
     {%- if images.first -%}
         {{- host ~ images.first.getImagePath() -}}
     {% else %}
-        {{ parent() }}
+        {{- parent() -}}
     {%- endif -%}
 {%- endblock -%}
 
