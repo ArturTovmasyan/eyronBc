@@ -36,7 +36,7 @@
     {#{% endif %}#}
 
     {% if inner is not defined %}
-        <li class="col-xs-4">
+        <li class="col-xs-2">
             <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
         </li>
     {% endif %}
