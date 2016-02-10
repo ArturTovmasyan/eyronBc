@@ -87,7 +87,7 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-        $shareLink = $this->generateUrl('inner_goal', array('id' => $id));
+        $shareLink = $this->generateUrl('inner_goal', array('slug' => $goal->getSlug()));
         $goal->setShareLink($shareLink);
 
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
@@ -414,7 +414,7 @@ class GoalController extends FOSRestController
             if(!$thread)
             {
                 // generate url by goal id for goal thread
-                $url = $this->container->get('router')->generate('inner_goal', array('id' => $goal->getId()), true);
+                $url = $this->container->get('router')->generate('inner_goal', array('slug' => $goal->getSlug()), true);
 
                 $thread = new Thread();
                 $thread->setPermalink($url);
