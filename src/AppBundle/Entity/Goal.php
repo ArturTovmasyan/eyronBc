@@ -178,6 +178,12 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $shareLink;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true, nullable=false)
+     */
+    protected $slug;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -773,5 +779,28 @@ class Goal implements MultipleFileInterface, PublishAware
         }
 
         return null;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Goal
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

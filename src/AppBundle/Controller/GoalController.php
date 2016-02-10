@@ -192,17 +192,17 @@ class GoalController extends Controller
         return array('goal' => $goal);
     }
 
-
     /**
-     * @Route("/{id}", name="inner_goal", requirements={"id"="\d+"})
+     * @Route("/show/{slug}", name="inner_goal", requirements={"id"="/^(?=.*[A-Z])(?=.*\d)(?=.*[^\w]).*$/"})
      * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findOneBySlug" })
      * @param Goal $goal
      * @return array
      *
-     * //todo must be renamed to showAction
      */
-    public function innerAction(Goal $goal)
+    public function showAction(Goal $goal)
     {
         return array('goal' => $goal);
     }

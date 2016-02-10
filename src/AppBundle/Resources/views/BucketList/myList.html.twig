@@ -373,7 +373,7 @@
                                         <div class="col-md-6 no-right">
                                             <figure>
 
-                                                <a href="{{ path('inner_goal', {'id' : goal.id }) }}">
+                                                <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}">
                                                     <span class="overlay"></span>
                                                     <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
                                                 </a>
@@ -403,11 +403,11 @@
                                                 <div class="row">
                                                     <div class="col-sm-7">
                                                         <h3>
-                                                            <a href="{{ path('inner_goal', {'id' : goal.id }) }}" class="text-dark-gray">{{ goal.title }}</a>
+                                                            <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}" class="text-dark-gray">{{ goal.title }}</a>
                                                         </h3>
                                                     </div>
                                                     <div class="col-sm-5 pull-right">
-                                                        <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'id': goal.id}) }}"></div>
+                                                        <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
                                                     </div>
                                                 </div>
 
