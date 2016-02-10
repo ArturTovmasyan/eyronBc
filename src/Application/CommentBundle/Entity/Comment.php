@@ -49,11 +49,6 @@ class Comment extends BaseComment implements SignedCommentInterface
     protected $author;
 
     /**
-     * @Groups({"comment"})
-     */
-    protected $createdAt;
-
-    /**
      * @return string
      *
      * @VirtualProperty()
@@ -62,6 +57,17 @@ class Comment extends BaseComment implements SignedCommentInterface
     public function getCommentBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @return string
+     *
+     * @VirtualProperty()
+     * @Groups({"comment"})
+     */
+    public function getCreated()
+    {
+        return $this->createdAt;
     }
 
     /**
