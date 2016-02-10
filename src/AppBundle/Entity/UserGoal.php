@@ -134,6 +134,27 @@ class UserGoal
     }
 
     /**
+     * @return int|null
+     */
+    public function getUrgentImportantStatus()
+    {
+        if ($this->urgent == true && $this->important == true){
+            return UserGoal::URGENT_IMPORTANT;
+        }
+        elseif ($this->urgent == true && $this->important == false){
+            return UserGoal::URGENT_NOT_IMPORTANT;
+        }
+        elseif ($this->urgent == false && $this->important == true){
+            return UserGoal::NOT_URGENT_IMPORTANT;
+        }
+        elseif ($this->urgent == false && $this->important == false){
+            return UserGoal::NOT_URGENT_NOT_IMPORTANT;
+        }
+
+        return null;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
