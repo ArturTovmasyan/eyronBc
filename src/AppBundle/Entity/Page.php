@@ -69,35 +69,18 @@ class Page
      */
     protected $locale;
 
-
+    public function __toString()
+    {
+        return $this->name ? $this->name : '';
+    }
 
     /**
-     *
+     * Constructor
      */
     public function __construct()
     {
         $this->translations = new ArrayCollection();
     }
-
-//    /**
-//     * @return mixed
-//     */
-//    public function getTranslations()
-//    {
-//        return $this->translations;
-//    }
-//
-//
-//    /**
-//     * @param PageTranslation $pageTranslation
-//     */
-//    public function addTranslation($pageTranslation)
-//    {
-//        if (!$this->translations->contains($pageTranslation)) {
-//            $this->translations[] = $pageTranslation;
-//            $pageTranslation->setObject($this);
-//        }
-//    }
 
     /**
      * Get id
