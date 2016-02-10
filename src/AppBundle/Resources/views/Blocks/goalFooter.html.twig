@@ -1,4 +1,4 @@
-<ul class="row {% if inner is defined %} goal-links {% endif %} ">
+<ul class="row {% if inner is defined %} goal-links{% endif %} ">
     {#{% if is_granted("ROLE_USER") %}#}
 
         {#{% if not isMyGoal(goal, app.user, "add") %}#}
@@ -10,18 +10,27 @@
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                     <i class="icon plus-icon"></i>{{ 'add'|trans }}
                 </a>
-                {#<bdi>#}
-                    {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
-                {#</bdi>#}
+            </li>
+        {% else %}
+            <li class="col-xs-4 transparent">
+                <bdi>
+                    <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
+                </bdi>
             </li>
         {% endif %}
 
         {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
         {% if  goal.isMyGoal != 2 %}
-            <li class="col-xs-4">
+            <li class="col-xs-6">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <i class="icon ok-icon"></i>{{ 'done'|trans }}
                 </a>
+            </li>
+        {% else %}
+            <li class="col-xs-6 transparent">
+                <bdi>
+                    <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
+                </bdi>
             </li>
         {% endif %}
     {#{% endif %}#}

@@ -64,7 +64,7 @@
                 <div class="col-sm-5 col-md-4">
                     <div class="goal-information">
                         <ul class="row  goal-links">
-                            {# need to add 'finished' class to the ul above if user added or completed goal#}
+
                             {% if page == inner %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
@@ -75,33 +75,42 @@
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                                             <i class="icon plus-icon"></i>{{ 'add'|trans }}
                                         </a>
-                                        {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        {#<bdi>#}
-                                            {#<i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}#}
-                                        {#</bdi>#}
+                                    </li>
+                                {% else %}
+                                    <li class="col-sm-6 transparent">
+                                        <bdi>
+                                            <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
+                                        </bdi>
                                     </li>
                                 {% endif %}
 
-                                {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
+                            {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-sm-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                             <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
-                                        {# If user added goal, please, replace above a tag with the bdi tag below#}
-                                        {#<bdi>#}
-                                            {#<i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}#}
-                                        {#</bdi>#}
+                                    </li>
+                                {% else %}
+                                    <li class="col-sm-6 transparent">
+                                        <bdi>
+                                            <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
+                                        </bdi>
                                     </li>
                                 {% endif %}
                             {% endif %}
                         </ul>
 
-                        {% if page != view %}
-                            <div>
-                                <div data-simple-map-marker style="width: 99.8%; height: 221px"></div>
+                        {#{% if page != view %}#}
+                            <div data-ng-init="location=[{latitude: 40.2, longitude: 44.4, id: 'deed'}]">
+                                <div data-ng-show="location"
+                                     data-simple-map-marker
+                                     data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                                     data-markers="location"
+                                     style="width: 99.8%; height: 221px">
+                                </div>
                             </div>
-                        {% endif %}
+                        {#{% endif %}#}
                         {% if page == inner %}
                             <ul>
                                 <li>
