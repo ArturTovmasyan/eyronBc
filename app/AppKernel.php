@@ -49,6 +49,7 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
 
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Application\CommentBundle\ApplicationCommentBundle(),
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
