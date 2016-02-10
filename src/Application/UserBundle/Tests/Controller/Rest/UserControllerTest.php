@@ -9,11 +9,14 @@
 namespace Application\UserBundle\Tests\Controller\Rest;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
+
+    protected $container;
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -36,6 +39,7 @@ class UserControllerTest extends WebTestCase
     public function setUp()
     {
         self::bootKernel();
+        $this->container = static::$kernel->getContainer();
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -244,15 +248,30 @@ class UserControllerTest extends WebTestCase
 
         $url = '/api/v1.0/users';
 
+        $brochuresDir = str_replace('app', 'src', $this->container->getParameter('kernel.root_dir')).'/AppBundle/DataFixtures/ORM/';
+        $oldPhotoPath = $brochuresDir . 'old_photo.jpg';
+        $photoPath = $brochuresDir . 'photo.jpg';
+
+        copy($oldPhotoPath, $photoPath);
+
+        // new uploaded file
+        $photo = new UploadedFile(
+            $photoPath,
+            'photo.jpg',
+            'image/jpeg',
+            123
+        );
+
         // try to register new user
         $this->client->request('POST', $url,
             array(
-                'email' => 'test@test.com',
+                'email' => 'test@test.ko',
                 'plainPassword' => 'Test1234',
                 'firstName' => 'Test',
                 'lastName' => 'Testyan',
                 'birthday' => '01/12/1990',
-            )
+            ),
+            array('profile_image' => $photo)
         );
 
         // Assert that the response status code is 2xx

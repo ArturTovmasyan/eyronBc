@@ -16,29 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 class MainControllerTest extends BaseClass
 {
 
-//    /**
-//     * @var \Doctrine\ORM\EntityManager
-//     */
-//    protected $em;
-//
-//    /**
-//     * @var null
-//     */
-//    protected $client = null;
-//
-//    /**
-//     * {@inheritDoc}
-//     */
-//    public function setUp()
-//    {
-//        self::bootKernel();
-//        $this->em = static::$kernel->getContainer()
-//            ->get('doctrine')
-//            ->getManager();
-//        $this->client = static::createClient();
-//        $this->client->enableProfiler();
-//    }
-
     /**
      * This function use to test settingsAction
      */
@@ -104,6 +81,7 @@ class MainControllerTest extends BaseClass
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+
         $emailToken = '';
         $email = '';
         $crawler = $this->client->request('GET', '/activation_email/' . $emailToken . '/'. $email);
