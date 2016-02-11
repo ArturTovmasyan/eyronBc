@@ -26,7 +26,7 @@
                         {% if aphorisms %}
                             <i class="icon quotel-icon"></i>
                             <i class="icon quoter-icon"></i>
-                            <ul>
+                            <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
                                     <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
                                 {% endfor %}
