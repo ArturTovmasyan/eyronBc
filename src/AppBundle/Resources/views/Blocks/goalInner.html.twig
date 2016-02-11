@@ -173,7 +173,7 @@
                                                                 <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
                                                             </figure>
                                                         {% else %}
-                                                            <p class="{{ className }}">{{ nameOnImage | upper}}</p>
+                                                            <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
                                                         {% endif %}
                                                     </li>
                                                     {% set left = left + 20 %}
