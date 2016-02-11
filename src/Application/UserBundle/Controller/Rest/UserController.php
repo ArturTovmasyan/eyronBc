@@ -249,8 +249,13 @@ class UserController extends FOSRestController
                     $id = $data->id;
                     $newUser->setGoogleId($id);
 
-                    $newUser->setEmail($id . '@google.com');
-                    $newUser->setUsername($id . '_google');
+                    $email = $id . '@google.com';
+                    if (isset($data->emails) && isset($data->emails[0]) && isset($data->emails[0]->value)){
+                        $email = $data->emails[0]->value;
+                    }
+
+                    $newUser->setEmail($email);
+                    $newUser->setUsername($email);
                     $newUser->setFirstName($data->name->givenName);
                     $newUser->setLastName($data->name->familyName);
                     if (isset($data->gender)) {

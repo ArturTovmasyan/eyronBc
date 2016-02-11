@@ -173,7 +173,7 @@ class Goal implements MultipleFileInterface, PublishAware
     protected $isMyGoal;
 
     /**
-     * @Groups({"goal"})
+     * @Groups({"goal", "tiny_goal"})
      */
     protected $shareLink;
 

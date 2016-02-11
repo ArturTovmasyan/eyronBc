@@ -87,8 +87,6 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-        $shareLink = $this->generateUrl('inner_goal', array('slug' => $goal->getSlug()));
-        $goal->setShareLink($shareLink);
 
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 

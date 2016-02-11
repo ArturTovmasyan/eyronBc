@@ -41,16 +41,21 @@ class DoctrineListener
             $user = $token->getUser();
             $entity = $event->getObject();
 
-            if ($entity instanceof Goal and $user instanceof User){
-                $userGoals = $user->getUserGoal();
+            if ($entity instanceof Goal){
+                $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
+                $entity->setShareLink($shareLink);
 
-                if($userGoals->count() > 0) {
-                    $userGoalsArray = $userGoals->toArray();
-                    if(array_key_exists($entity->getId(), $userGoalsArray)){
-                        $entity->setIsMyGoal($userGoalsArray[$entity->getId()]->getstatus() == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
-                    }
-                    else {
-                        $entity->setIsMyGoal(0);
+                if ($user instanceof User) {
+
+                    $userGoals = $user->getUserGoal();
+
+                    if ($userGoals->count() > 0) {
+                        $userGoalsArray = $userGoals->toArray();
+                        if (array_key_exists($entity->getId(), $userGoalsArray)) {
+                            $entity->setIsMyGoal($userGoalsArray[$entity->getId()]->getstatus() == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+                        } else {
+                            $entity->setIsMyGoal(0);
+                        }
                     }
                 }
             }
