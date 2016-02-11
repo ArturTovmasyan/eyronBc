@@ -108,8 +108,8 @@
                             {% endif %}
                         </ul>
 
-                        {#{% if page != view %}#}
-                            <div data-ng-init="location=[{latitude: 40.2, longitude: 44.4, id: 'deed'}]">
+                        {% if goal.lat is not null and goal.lng is not null %}
+                            <div data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, id: 'deed'}]">
                                 <div data-ng-show="location"
                                      data-simple-map-marker
                                      data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
@@ -117,7 +117,7 @@
                                      style="width: 99.8%; height: 221px">
                                 </div>
                             </div>
-                        {#{% endif %}#}
+                        {% endif %}
                         {% if page == inner %}
                             <ul>
                                 <li>

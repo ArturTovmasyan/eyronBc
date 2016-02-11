@@ -464,9 +464,7 @@ class GoalController extends Controller
         //get priority data in request
         $priorityData = $request->request->get('test');
 
-        //set default data for urgent and important
-        $urgent = false;
-        $important = false;
+
 
         //check if priorityData exist
         if($priorityData) {
@@ -487,9 +485,6 @@ class GoalController extends Controller
                     $urgent = true;
                     $important = false;
                     break;
-                default:
-                    $urgent = false;
-                    $important = false;
             }
         }
 
@@ -681,6 +676,9 @@ class GoalController extends Controller
 
             // get array
             $tags = json_decode($tags);
+            if (!is_array($tags)){
+                $tags = [];
+            }
 
             // get tags from db
             $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
