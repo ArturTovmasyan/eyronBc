@@ -13,14 +13,14 @@
                             {{ form_start(form) }}
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    {{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name'|trans({}, 'AppBundle') } }) }}
+                                    {{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name' } }) }}
                                 </div>
                                 <div class="error-message">{{ form_errors(form.fullName) }}</div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email'|trans({}, 'AppBundle') } }) }}
+                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email' } }) }}
                                 </div>
                                 <div class="error-message">{{ form_errors(form.email) }}</div>
 
@@ -28,20 +28,20 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    {{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject'|trans({}, 'AppBundle') } }) }}
+                                    {{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject' } }) }}
                                 </div>
                                 <div class="error-message">{{ form_errors(form.subject) }}</div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    {{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message'|trans({}, 'AppBundle') } }) }}
+                                    {{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message' } }) }}
                                 </div>
                                 <div class="error-message">{{ form_errors(form.message) }}</div>
                             </div>
 
                             <div class="form-group row text-center">
-                                {{ form_widget(form.send, {'attr': {'class' : 'btn btn-purple', 'placeholder': 'page.contacr_us.form.send'|trans({}, 'AppBundle') } }) }}
+                                {{ form_widget(form.send, {'attr': {'class' : 'btn btn-purple', 'placeholder': 'page.contacr_us.form.send' } }) }}
                             </div>
                             {{ form_end(form) }}
                         </div>
