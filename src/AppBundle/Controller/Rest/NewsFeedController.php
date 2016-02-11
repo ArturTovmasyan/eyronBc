@@ -32,7 +32,7 @@ class NewsFeedController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"new_feed", "goal", "images", "user", "success_story", "comment"})
+     * @Rest\View(serializerGroups={"new_feed", "tiny_goal", "images", "tiny_user", "success_story", "comment"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $first
@@ -46,11 +46,26 @@ class NewsFeedController extends FOSRestController
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $newsFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId());
+        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId());
+
+        $goalIds = [];
+        foreach($newsFeeds as $newsFeed){
+            $goalIds[$newsFeed->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($newsFeeds as $newsFeed){
+            $newsFeed->getGoal()->setStats([
+                'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
+            ]);
+        }
+
 
         if (is_numeric($first) && is_numeric($count)) {
-            $newsFeed = array_slice($newsFeed, $first, $count);
+            $newsFeeds = array_slice($newsFeeds, $first, $count);
         }
-        return $newsFeed;
+        return $newsFeeds;
     }
 }
