@@ -64,16 +64,18 @@ class UserGoal
     /**
      * @var
      * @ORM\Column(name="urgent", type="boolean", nullable=false)
+     * @Assert\NotBlank()
      * @Groups({"userGoal"})
      */
-    protected $urgent = false;
+    protected $urgent;
 
     /**
      * @var
      * @ORM\Column(name="important", type="boolean", nullable=false)
+     * @Assert\NotBlank()
      * @Groups({"userGoal"})
      */
-    protected $important = false;
+    protected $important;
 
     /**
      * @var
@@ -138,16 +140,16 @@ class UserGoal
      */
     public function getUrgentImportantStatus()
     {
-        if ($this->urgent == true && $this->important == true){
+        if ($this->urgent === true && $this->important === true){
             return UserGoal::URGENT_IMPORTANT;
         }
-        elseif ($this->urgent == true && $this->important == false){
+        elseif ($this->urgent === true && $this->important === false){
             return UserGoal::URGENT_NOT_IMPORTANT;
         }
-        elseif ($this->urgent == false && $this->important == true){
+        elseif ($this->urgent === false && $this->important === true){
             return UserGoal::NOT_URGENT_IMPORTANT;
         }
-        elseif ($this->urgent == false && $this->important == false){
+        elseif ($this->urgent === false && $this->important === false){
             return UserGoal::NOT_URGENT_NOT_IMPORTANT;
         }
 

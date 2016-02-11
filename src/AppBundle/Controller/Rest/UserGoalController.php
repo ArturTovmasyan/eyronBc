@@ -173,7 +173,7 @@ class UserGoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="UserGoal",
-     *  description="This function is used to remove userGoal",
+     *  description="This function is used to get my bucketlist",
      *  statusCodes={
      *         200="Returned when userGoal was removed",
      *         401="User not found",
