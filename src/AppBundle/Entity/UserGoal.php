@@ -63,16 +63,14 @@ class UserGoal
 
     /**
      * @var
-     * @ORM\Column(name="urgent", type="boolean", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="urgent", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
     protected $urgent;
 
     /**
      * @var
-     * @ORM\Column(name="important", type="boolean", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="important", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
     protected $important;

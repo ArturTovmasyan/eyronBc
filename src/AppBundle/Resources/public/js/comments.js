@@ -547,6 +547,22 @@
 
     FOS_COMMENT.initializeListeners();
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;
+
+    FOS_COMMENT.thread_container.on('fos_comment_load_thread', function(){
+        $(".convert-to-local").each(function(iter, item){
+            var date = $(item).text();
+            var formatedDate = $.format.date(new Date(date), 'MMMM dd At h:mm p');
+
+            $(item).text(capitalizeFirstLetter(formatedDate));
+            $(item).removeClass('ng-hide');
+        });
+    });
+
+
 })(window, window.jQuery, window.easyXDM);

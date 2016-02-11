@@ -461,10 +461,12 @@ class GoalController extends Controller
             UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
         );
 
+        //set default value
+        $urgent = null;
+        $important = null;
+
         //get priority data in request
         $priorityData = $request->request->get('test');
-
-
 
         //check if priorityData exist
         if($priorityData) {
@@ -485,6 +487,9 @@ class GoalController extends Controller
                     $urgent = true;
                     $important = false;
                     break;
+                default:
+                    $urgent = null;
+                    $important = null;
             }
         }
 
@@ -522,7 +527,6 @@ class GoalController extends Controller
 
             // check form
             if($form->isValid()){
-
 
                 $goalStatus = $request->get('goal_status');
                 $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
@@ -676,9 +680,6 @@ class GoalController extends Controller
 
             // get array
             $tags = json_decode($tags);
-            if (!is_array($tags)){
-                $tags = [];
-            }
 
             // get tags from db
             $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();

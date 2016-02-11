@@ -10,6 +10,7 @@
     "jquery-modal": "0.6.*",
     "jquery-form": "3.46.*",
     "jquery-nice-select": "*",
+    "jquery-dateFormat": "1.0.2",
     "angular-motion": "0.4.3",
     "angular-strap": "2.3.*",
     "angular-animate": "^1.3.0",

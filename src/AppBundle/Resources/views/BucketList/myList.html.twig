@@ -52,12 +52,17 @@
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
     {% set className = "profile-image profile-no" ~ random(4) %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
     <div class="content-header">
         <figure>
-            <img src="{{ profileUser.getPhotoLink }}" alt="Profile Cover Photo" class="img-responsive" />
-            {# If user have no profile image we need to put the following image#}
-            {#<img src="{{ asset('bundles/app/images/cover2.png')}}" alt="Profile Cover Photo" class="img-responsive" />#}
+            <img src="
+            {% if profileUser.getPhotoLink %}
+                {{ profileUser.getPhotoLink }}
+            {% else %}
+                {{ asset(imgPath) }}
+            {% endif %}"
+                 alt="Profile Cover Photo" class="img-responsive" />
         </figure>
 
         <div class="profile">
@@ -322,7 +327,7 @@
     <div class="container goals-information">
         <div class="row">
             <div class="col-sm-8">
-                {% if userGoals %}
+                {% if userGoals.items %}
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
@@ -340,6 +345,9 @@
                                         <div class="img-circle">
                                             {#{{ userGoal.doDate|date('d') }}#}
                                         </div>
+                                        {% if userGoals[lastIndex].id == userGoal.id %}
+                                            <span></span>
+                                        {% endif %}
                                         <div class="elipse">
                                             {#<div>{{ userGoal.doDate|date('M, Y') }}</div>#}
                                         </div>
@@ -347,7 +355,7 @@
                                 </div>
                                 <div class="col-sm-10 bg-white no-left">
                                     <div class="row">
-                                        <div class="col-md-12 bg-white" style="height: 150px"></div>
+                                        <div class="col-sm-12 bg-white" style="height: 150px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -364,6 +372,9 @@
                                                 <i class="icon dreaming-icon"></i>
                                             {% endif %}
                                         </div>
+                                        {% if userGoals[lastIndex].id == userGoal.id %}
+                                            <span></span>
+                                        {% endif %}
                                         <div class="elipse">
                                             <div class="text-gray">
                                                 {% if userGoal.doDate is not null %}
@@ -373,6 +384,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-10 bg-white no-left">
