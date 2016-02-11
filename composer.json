@@ -42,7 +42,7 @@
         "oro/doctrine-extensions": "1.0.*",
         "friendsofsymfony/comment-bundle": "2.0.*",
         "knplabs/knp-paginator-bundle": "2.4.*",
-        "stfalcon/tinymce-bundle": "0.3.*",
+        "stfalcon/tinymce-bundle": "^0.4.0",
         "a2lix/translation-form-bundle": "1.*",
         "gedmo/doctrine-extensions": "^2.4",
 
