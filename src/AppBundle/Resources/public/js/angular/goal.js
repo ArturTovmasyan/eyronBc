@@ -190,7 +190,7 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner',['$scope',function($scope){
+    .controller('goalInner',['$scope', '$filter', function($scope, $filter){
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -200,6 +200,14 @@ angular.module('goal', ['Interpolation',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
+        };
+
+        $scope.capitalizeFirstLetter = function (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        };
+
+        $scope.dateToLocal = function(date){
+            return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
         angular.element('.goal-information').scrollToFixed({
