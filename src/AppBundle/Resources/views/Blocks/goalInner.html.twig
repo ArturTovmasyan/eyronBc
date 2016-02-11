@@ -5,11 +5,11 @@
 
 <div class="inner-container">
     {% set cover = goal.getCoverPhoto %}
-    {% if cover %}
-        <figure class="goal-image">
-            <img  src="{{ cover.downloadLink }}" alt="{{ goal.title }}" />
-        </figure>
-    {% endif %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    <figure class="goal-image">
+        <img src="{% if cover %}{{ cover.downloadLink }}{% else %}{{ asset(imgPath)}}{% endif %}" alt="{{ goal.title }}" />
+    </figure>
+
     <div class="container">
         <div class="row">
             <div class="col-sm-6"></div>
