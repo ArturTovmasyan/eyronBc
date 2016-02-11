@@ -36,8 +36,15 @@
                                         <div class="row no-gutter">
                                             <div class="col-sm-3">
                                                 <figure class="image-goalfrinds">
-                                                    <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
-                                                             alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+                                                {% if goalFriend.getPhotoLink() %}
+
+                                                        <img src="{{ goalFriend.getPhotoLink() }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+
+                                                {% else %}
+                                                    {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
+                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
+                                                {% endif %}
                                                 </figure>
                                             </div>
 
