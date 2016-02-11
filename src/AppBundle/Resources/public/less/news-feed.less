@@ -18,6 +18,15 @@
 
   }
 
+  .image-goalfrinds{
+    width:45px;
+    height:45px;
+    img{
+      width:45px;
+      height:45px;
+    }
+  }
+
   em{
     padding: 0 0 5px 15px;
     display: block;
@@ -161,6 +170,10 @@
         margin:0 20px;
       }
 
+      .image{
+        float:left;
+      }
+
       h4{
         padding-top:0;
         margin-top:5px;
@@ -185,6 +198,15 @@
       margin-right:10px;
       font-size:20px;
       vertical-align: top;
+    }
+  }
+
+  .transparent{
+    &:hover{
+      background-color: transparent;
+      a,bdi {
+        color: #a4a4a4;
+      }
     }
   }
 }
