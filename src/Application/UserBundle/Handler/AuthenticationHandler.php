@@ -56,9 +56,19 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     {
         // get roles
         $user = $token->getUser();
+
+//        //get session
+//        $session = $request->getSession();
+
+
         if($user && $user->isAdmin()){
             $url = $this->router->generate('sonata_admin_dashboard');
         }
+//        elseif($user && $session->has('url')){
+//            $url = $session->get('url');
+//            $session->remove('url');
+//        }
+
         else{
             // generate url
             $url = $this->router->generate('check-login');
@@ -131,6 +141,9 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
         //set flash messages for open login by js
         $this->container->get('session')->getFlashBag()->add('', '');
+
+//        $url = $request->getUri();
+//        $request->getSession()->set('url', $url);
 
         $loginPath = $this->router->generate('homepage');
         return new RedirectResponse($loginPath);
