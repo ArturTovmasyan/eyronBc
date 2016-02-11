@@ -72,4 +72,32 @@ class EmailSenderService
 
         $this->container->get('mailer')->send($message);
     }
+
+    /**
+     * This function send contact us message to admins
+     *
+     * @param $email
+     * @param $name
+     * @param $data
+     * @throws \Twig_Error
+     */
+    public function sendContactUsEmail($email, $name, $data)
+    {
+        //get project name
+        $projectName = $this->container->getParameter('project_name');
+        // generate url
+        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        // calculate message
+        $message = \Swift_Message::newInstance()
+            ->setSubject('You have a message from ' . $projectName )
+            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setCc($email)
+            ->setContentType("text/html; charset=UTF-8")
+            ->setBody($this->container->get('templating')->render(
+                'AppBundle:Main:contactUsEmail.html.twig',
+                array('name' => $name, 'data' => $data, 'link'=>$helpLink)
+            ), "text/html");
+        // send email
+        $this->container->get('mailer')->send($message);
+    }
 }

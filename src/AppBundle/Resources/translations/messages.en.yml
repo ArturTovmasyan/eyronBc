@@ -172,6 +172,15 @@ ideas:
 page:
   title: Page
   description: Page description
+  contacr_us:
+    form:
+      full_name: Full Name
+      email: Email
+      subject: Subject
+      message: Message
+      send: Send
+    message_title: Thank you, your message has been sent.
+    message_content: We will get in touch with you as soon as possible.
 
 # my bucket list
 my_bucket_list:
