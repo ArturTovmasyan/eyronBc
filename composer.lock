@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b1ce25da7be8edcea36d23f1c42bb02",
-    "content-hash": "8055f9988289bca619d87af732942edb",
+    "hash": "75f9dc49d8ecd98002155a2159908dca",
+    "content-hash": "d4f433faf2360e17d44a4ff6feaadbab",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -3863,17 +3863,17 @@
         },
         {
             "name": "stfalcon/tinymce-bundle",
-            "version": "v0.3.9",
+            "version": "v0.4.0",
             "target-dir": "Stfalcon/Bundle/TinymceBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stfalcon/TinymceBundle.git",
-                "reference": "435c855f546fda9e4a05a1558f843f1712416ecb"
+                "reference": "5f8ed022dd6a606c8f0b4da97f524b9864cd0e29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/435c855f546fda9e4a05a1558f843f1712416ecb",
-                "reference": "435c855f546fda9e4a05a1558f843f1712416ecb",
+                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/5f8ed022dd6a606c8f0b4da97f524b9864cd0e29",
+                "reference": "5f8ed022dd6a606c8f0b4da97f524b9864cd0e29",
                 "shasum": ""
             },
             "require": {
@@ -3917,7 +3917,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2015-12-08 12:12:45"
+            "time": "2015-12-15 15:50:30"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
