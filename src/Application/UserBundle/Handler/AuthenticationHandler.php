@@ -33,6 +33,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     private $router;
 
     /**
+     * @var Container
+     */
+    private $container;
+
+    /**
      * @param Router $router
      */
     public function __construct(Router $router, Container $container = null)
