@@ -345,6 +345,9 @@
                                         <div class="img-circle">
                                             {#{{ userGoal.doDate|date('d') }}#}
                                         </div>
+                                        {% if userGoals[lastIndex].id == userGoal.id %}
+                                            <span></span>
+                                        {% endif %}
                                         <div class="elipse">
                                             {#<div>{{ userGoal.doDate|date('M, Y') }}</div>#}
                                         </div>
@@ -352,7 +355,7 @@
                                 </div>
                                 <div class="col-sm-10 bg-white no-left">
                                     <div class="row">
-                                        <div class="col-md-12 bg-white" style="height: 150px"></div>
+                                        <div class="col-sm-12 bg-white" style="height: 150px"></div>
                                     </div>
                                 </div>
                             </div>
@@ -369,6 +372,9 @@
                                                 <i class="icon dreaming-icon"></i>
                                             {% endif %}
                                         </div>
+                                        {% if userGoals[lastIndex].id == userGoal.id %}
+                                            <span></span>
+                                        {% endif %}
                                         <div class="elipse">
                                             <div class="text-gray">
                                                 {% if userGoal.doDate is not null %}
@@ -378,6 +384,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-10 bg-white no-left">
