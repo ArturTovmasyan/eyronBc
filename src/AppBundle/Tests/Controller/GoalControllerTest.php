@@ -21,7 +21,7 @@ class GoalControllerTest extends BaseClass
     {
 
         // try to open goal list page
-        $crawler = $this->client->request('GET', '/goal/list');
+        $crawler = $this->client->request('GET', '/goal');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
 
