@@ -551,18 +551,24 @@
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
+    function convertDateToLocal(){
+        $(".convert-to-local").each(function(iter, item){
+            if(!$(item).hasClass('done-convert')) {
+                var date = $(item).text();
+                var formatedDate = $.format.date(new Date(date), 'MMMM dd At h:mm p');
+
+                $(item).text(capitalizeFirstLetter(formatedDate));
+                $(item).removeClass('ng-hide');
+                $(item).addClass('done-convert');
+            }
+        });
+    }
+
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;
 
-    FOS_COMMENT.thread_container.on('fos_comment_load_thread', function(){
-        $(".convert-to-local").each(function(iter, item){
-            var date = $(item).text();
-            var formatedDate = $.format.date(new Date(date), 'MMMM dd At h:mm p');
-
-            $(item).text(capitalizeFirstLetter(formatedDate));
-            $(item).removeClass('ng-hide');
-        });
-    });
+    FOS_COMMENT.thread_container.on('fos_comment_load_thread', convertDateToLocal);
+    FOS_COMMENT.thread_container.on('fos_comment_new_comment', convertDateToLocal);
 
 
 })(window, window.jQuery, window.easyXDM);
