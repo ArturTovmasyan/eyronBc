@@ -36,28 +36,29 @@ class LocationExtension extends \Twig_Extension
         if($goals && is_array($goals)){
 
             // loop for goals
-            foreach($goals as $goal){
+            foreach($goals as $item){
 
                 // is user goal
-                if($goal instanceof UserGoal){
-                    $result[$goal->getGoal()->getId()] = array(
-                        'title' => $goal->getGoal()->getTitle(),
-                        'latitude' => $goal->getLat(),
-                        'longitude' => $goal->getLng(),
-                        'image' => $goal->getGoal()->getListPhotoDownloadLink(),
-                        'status' => $goal->getGoal()->getIsMyGoal()
-                    );
+                if($item instanceof UserGoal){
+                    $id = $item->getGoal()->getId();
+                    $goal = $item->getGoal();
                 }
                 // is goal
-                else{
-                    $result[$goal->getId()] = array(
-                        'title' => $goal->getTitle(),
-                        'latitude' => $goal->getLat(),
-                        'longitude' => $goal->getLng(),
-                        'image' => $goal->getListPhotoDownloadLink(),
-                        'status' => $goal->getGoal()->getIsMyGoal()
-                    );
+                elseif ($item instanceof Goal){
+                    $id = $item->getId();
+                    $goal = $item;
                 }
+                else {
+                    throw new \Exception("Error");
+                }
+
+                $result[$id] = array(
+                    'title' => $goal->getTitle(),
+                    'latitude' => $goal->getLat(),
+                    'longitude' => $goal->getLng(),
+                    'image' => $goal->getListPhotoDownloadLink(),
+                    'status' => $goal->getIsMyGoal()
+                );
             }
         }
 

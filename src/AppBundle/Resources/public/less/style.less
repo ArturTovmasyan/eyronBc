@@ -183,6 +183,7 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
+            border: 2px solid #cecece;
             img{
               height:50px;
             }
@@ -197,6 +198,8 @@ header{
             margin:5px 5px 0 5px;
             font-size:14px;
             font-weight:600;
+            //.rounded-corners;
+            //border:2px solid #cecece;
           }
 
           span{
@@ -352,20 +355,57 @@ label{
   }
 }
 
+.no-image{
+  border:2px solid #cecece;
+  text-align: center;
+  .rounded-corners;
+  color:#ffffff;
+}
+
 .user-no0{
-  background: url('../images/user-no-image.png') no-repeat 0 0;
+  //background: url('../images/user-no-image.png') no-repeat 0 0;
+
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, red, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, red, yellow); /* Standard syntax */
 }
 .user-no1{
-  background: url('../images/user-no-image.png') no-repeat -55px 0;
+  //background: url('../images/user-no-image.png') no-repeat -55px 0;
+
+  background: #FF3300; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, #FF3300, #33CCCC); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #FF3300, #33CCCC); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #FF3300, #33CCCC); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #FF3300, #33CCCC); /* Standard syntax */
 }
 .user-no2{
-  background: url('../images/user-no-image.png') no-repeat -110px 0;
+  //background: url('../images/user-no-image.png') no-repeat -110px 0;
+
+  background: #bfff00; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, #bfff00, #e60000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #bfff00, #e60000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #bfff00, #e60000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #bfff00, #e60000); /* Standard syntax */
 }
 .user-no3{
-  background: url('../images/user-no-image.png') no-repeat -165px 0;
+  //background: url('../images/user-no-image.png') no-repeat -165px 0;
+
+  background: #ffff1a; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, #ffff1a, #1ac6ff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #ffff1a, #1ac6ff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #ffff1a, #1ac6ff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #ffff1a, #1ac6ff); /* Standard syntax */
 }
 .user-no4{
-  background: url('../images/user-no-image.png') no-repeat -220px 0;
+  //background: url('../images/user-no-image.png') no-repeat -220px 0;
+
+  background: #7724F6; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(-90deg, #7724F6, #66ffff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #7724F6, #66ffff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #7724F6, #66ffff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #7724F6, #66ffff); /* Standard syntax */
 }
 
 #signin{
@@ -798,6 +838,7 @@ ul.filter{
   h1{
     color:#ffffff;
     margin-top:0;
+    font-weight: 300;
   }
 
   h4{
@@ -857,25 +898,28 @@ ul.filter{
     position: absolute;
     top:0;
     figure{
-      width:43px;
-      height:43px;
+      width:38px;
+      height:38px;
       background-color: transparent;
     }
     img{
       border:2px solid;
-      height:43px;
+      height:38px;
+      width:38px;
     }
 
     p{
       float: left;
-      width:43px;
-      height:43px;
-      line-height: 41px;
+      width:37px;
+      height:37px;
+      line-height: 32px;
       vertical-align: middle;
-      font-size:14px;
+      font-size:14px !important;
       font-weight:600;
-      text-align: center;
-      color:#ffffff;
+      //text-align: center;
+      //color:#ffffff;
+      //border:2px solid #cecece;
+      //.rounded-corners;
     }
   }
 }
@@ -1337,6 +1381,7 @@ footer{
   figure{
     height:43px;
     width:43px;
+    border: 2px solid #cecece;
 
     img{
       height:40px;

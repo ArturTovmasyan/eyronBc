@@ -6,28 +6,34 @@
     <div class="container" id="goal-friends">
         <div class="row">
             <div class="col-sm-8">
-                <div class="bg-white padding">
-                    <form role="search" action="#" method="GET">
-                        <div class="form-group row">
 
-                            <div class="col-xs-10 col-sm-11">
-                                <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
+                {% if app.request.get('_route') == 'goal_friends' %}
+
+                    <div class="bg-white padding">
+
+                        <form role="search" action="#" method="GET">
+                            <div class="form-group row">
+
+                                <div class="col-xs-10 col-sm-11">
+                                    <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
+                                </div>
+                                <div  class="col-xs-2 col-sm-1">
+                                    <a href="{{ path('goal_friends') }}" class="text-gray">
+                                        <i class="icon remove-icon"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div  class="col-xs-2 col-sm-1">
-                                <a href="{{ path('goal_friends') }}" class="text-gray">
-                                    <i class="icon remove-icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
+                {% endif %}
 
 
-                </div>
 
                 {% set counter = 0 %}
                 {% for goalFriend in pagination %}
                     {% if counter is divisible by(2) %}
-                        <div class="row margin-top">
+                        <div class="row {% if app.request.get('_route') == 'goal_friends' %} margin-top{% endif %}" >
                     {% endif %}
 
                             <div class="col-sm-6">
@@ -36,8 +42,15 @@
                                         <div class="row no-gutter">
                                             <div class="col-sm-3">
                                                 <figure class="image-goalfrinds">
-                                                    <img src="{{ goalFriend.getPhotoLink() ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}"
-                                                             alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+                                                {% if goalFriend.getPhotoLink() %}
+
+                                                        <img src="{{ goalFriend.getPhotoLink() }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+
+                                                {% else %}
+                                                    {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
+                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
+                                                {% endif %}
                                                 </figure>
                                             </div>
 
@@ -76,33 +89,37 @@
 
 
 
-            <div class="col-sm-4">
-                {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+            {% if app.user %}
+                <div class="col-sm-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
 
-                <div class="right-block  margin-top">
-                    <div class="row">
-                        <div class="col-sm-6">
-                             <span>
-                                 <i class="icon top-icon"></i>
-                                 {{ 'right_menu.ideas'|trans }}
-                            </span>
+                    <div class="right-block  margin-top">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                 <span>
+                                     <i class="icon top-icon"></i>
+                                     {{ 'right_menu.ideas'|trans }}
+                                </span>
+                            </div>
+                            {% if app.request.get('_route') == 'goal_friends' %}
+                                <div class="col-sm-6 text-right">
+                                    <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                                </div>
+                            {% endif %}
                         </div>
-                        <div class="col-sm-6 text-right">
-                            <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                        </div>
-                    </div>
-                    <hr/>
+                        <hr/>
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                            </div>
                         </div>
                     </div>
                 </div>
+            {% endif %}
 
-            </div>
         </div>
     </div>
 {% endblock %}
