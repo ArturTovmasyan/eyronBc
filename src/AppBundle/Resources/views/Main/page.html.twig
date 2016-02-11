@@ -1,16 +1,83 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block content %}
+    {% set slug = app.request.attributes.get('_route_params').slug %}
+    {% if slug == 'contact-us' %}
+        {% if isSend == false %}
+            <div class="container">
+                <div  class="signup">
+                    <div class=" row">
+                        <h1 class="text-center">{{ page.name }}</h1>
+                        {{ page.description|raw }}
+                        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                            {{ form_start(form) }}
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.fullName , {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.full_name'|trans({}, 'AppBundle') } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.fullName) }}</div>
+                            </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1 class="text-center"> {{ page.name }} </h1>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.email'|trans({}, 'AppBundle') } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.email) }}</div>
 
-                {{ page.description|raw }}
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.subject, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.subject'|trans({}, 'AppBundle') } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.subject) }}</div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.message, {'attr': {'class' : 'form-control', 'placeholder': 'page.contacr_us.form.message'|trans({}, 'AppBundle') } }) }}
+                                </div>
+                                <div class="error-message">{{ form_errors(form.message) }}</div>
+                            </div>
+
+                            <div class="form-group row text-center">
+                                {{ form_widget(form.send, {'attr': {'class' : 'btn btn-purple', 'placeholder': 'page.contacr_us.form.send'|trans({}, 'AppBundle') } }) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+            <div class="container">
+                <div  class="signup notice">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <h1 class="text-center">{{ 'page.contacr_us.message_title'|trans }}</h1>
+                                <h4 class="text-center text-gray">{{ 'page.contacr_us.message_content'|trans }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="text-center"> {{ page.name }} </h1>
+
+                    {{ page.description|raw }}
+                </div>
             </div>
         </div>
-    </div>
+
+    {% endif %}
+
 
 {% endblock %}
 
