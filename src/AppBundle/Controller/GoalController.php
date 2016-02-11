@@ -225,8 +225,8 @@ class GoalController extends Controller
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), 'completed');
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'listed');
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
 
         $paginator  = $this->get('knp_paginator');
         $doneByUsers = $paginator->paginate($doneByUsers, 1, 3);
@@ -300,10 +300,10 @@ class GoalController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // get users that done this goal
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'completed');
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::COMPLETED);
 
         // get users that listed this goal
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, 'listed');
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
 
         // get current user
         $user = $this->getUser();
