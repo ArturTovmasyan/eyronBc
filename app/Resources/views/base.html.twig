@@ -129,7 +129,7 @@
                                                             <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
                                                     </figure>
                                                 {% else %}
-                                                    <p class="{{ className }}">{{ nameOnImage  }}</p>
+                                                    <p class="no-image {{ className }}">{{ nameOnImage  }}</p>
                                                 {% endif %}
 
                                                 <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
