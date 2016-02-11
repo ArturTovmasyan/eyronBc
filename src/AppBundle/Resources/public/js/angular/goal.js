@@ -215,8 +215,6 @@ angular.module('goal', ['Interpolation',
             limit: angular.element('footer').offset().top
         });
 
-        angular.element('.ticker').ticker();
-
         if(angular.element('.suggest-input input')) {
             angular.element('.suggest-input input').iCheck({
                 checkboxClass: 'icheckbox_square-purple',
@@ -261,6 +259,43 @@ angular.module('goal', ['Interpolation',
                 });
         }
 
+    }])
+    .directive('delayAddClass',['$interval', function($interval){
+        return {
+            restrict: 'EA',
+            scope: {
+                delay: '=',
+                className: '@'
+            },
+            link: function(scope, el){
+                var dl = scope.delay ? scope.delay : 3000;
+                var cl = scope.className ? scope.className: 'active';
+                var items = el.children();
+                var activeIndex = 0;
+
+                if(items.length) {
+                    angular.element(items[0]).addClass(cl);
+
+                    if (items.length > 1) {
+                        $interval(function () {
+                            items.removeClass(cl);
+
+                            if(activeIndex === items.length - 1){
+                                activeIndex = 0;
+                            }
+                            else {
+                                activeIndex++;
+                            }
+
+                            angular.element(items[activeIndex]).addClass(cl);
+
+                        }, dl);
+                    }
+                }
+
+
+            }
+        }
     }])
     .directive('videos', ['$sce', function($sce){
         return {

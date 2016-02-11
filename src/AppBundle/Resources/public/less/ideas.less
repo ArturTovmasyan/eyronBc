@@ -245,6 +245,19 @@
       word-wrap: break-word;
       padding-left:40px;
     }
+    .aphorism {
+      li {
+        transition: opacity 0.5s linear;
+        -webkit-transition: opacity 0.5s linear;
+        -moz-transition: opacity 0.5s linear;
+        -o-transition: opacity 0.5s linear;
+        position: absolute;
+        opacity: 0;
+      }
+      li.active {
+        opacity: 1;
+      }
+    }
   }
 
 
