@@ -322,7 +322,7 @@
     <div class="container goals-information">
         <div class="row">
             <div class="col-sm-8">
-                {% if userGoals %}
+                {% if userGoals.items %}
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}

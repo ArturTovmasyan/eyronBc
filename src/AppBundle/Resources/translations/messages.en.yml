@@ -51,7 +51,7 @@ goal:
       as_private: Set as private
       as_invisible: Set as Invisible
       as_visible: Set as Visible
-      not_found: Goals not found
+      not_found: Sorry, we couldn't find anything, please, try something else
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active
@@ -177,11 +177,11 @@ page:
 my_bucket_list:
   title: My Bucketlist
   description: This is myBucketlist description
-  add_goal: add a goal
+  add_goal: add some goals.
   doing_here: What are you doing here? Come on,
   need_goal: Your life needs goals,
-  add_some: add some more
-  complete: It’s time to act and complete some goals
+  add_some: add some more.
+  complete: It’s time to act and complete some goals.
   private: Private
   invisible: Invisible
   notes: Notes
