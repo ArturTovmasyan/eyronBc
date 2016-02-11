@@ -534,15 +534,17 @@
                 {% else %}
 
                     {% if dream %}
-                        <p>{{ 'dream'|trans }}</p>
+                        <p class="empty-text">{{ 'dream'|trans }}</p>
                     {% else %}
-                        {% if status ==  completed %}
-                            {{ 'my_bucket_list.complete'|trans }}
-                        {% elseif status == active %}
-                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_some'|trans }}</a>
-                        {% else %}
-                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_goal'|trans }}</a>
-                        {% endif %}
+                        <p class="empty-text">
+                            {% if status ==  completed %}
+                                {{ 'my_bucket_list.complete'|trans }}
+                            {% elseif status == active %}
+                                {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
+                            {% else %}
+                                {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                            {% endif %}
+                        </p>
                     {% endif %}
 
                 {% endif %}
