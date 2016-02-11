@@ -262,9 +262,9 @@
                     {% set all = 0 %}
                     {% set dream = app.request.get('d') %}
 
-                    {% if dream %}
-                        <p>{{ 'dream'|trans }}</p>
-                    {% endif %}
+                    {#{% if dream %}#}
+                        {#<p>{{ 'dream'|trans }}</p>#}
+                    {#{% endif %}#}
 
                     {% set my_router_params =  app.request.query.all %}
                     {% set userId = {} %}
@@ -328,6 +328,10 @@
         <div class="row">
             <div class="col-sm-8">
                 {% if userGoals.items %}
+                    {% if dream %}
+                        <p>{{ 'dream'|trans }}</p>
+                    {% endif %}
+
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
@@ -529,13 +533,18 @@
                     {% endfor %}
                 {% else %}
 
-                    {% if status ==  completed %}
-                        {{ 'my_bucket_list.complete'|trans }}
-                    {% elseif status == active %}
-                        {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('goals_list') }}">{{ 'my_bucket_list.add_some'|trans }}</a>
+                    {% if dream %}
+                        <p>{{ 'dream'|trans }}</p>
                     {% else %}
-                        {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                        {% if status ==  completed %}
+                            {{ 'my_bucket_list.complete'|trans }}
+                        {% elseif status == active %}
+                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_some'|trans }}</a>
+                        {% else %}
+                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                        {% endif %}
                     {% endif %}
+
                 {% endif %}
 
                 <div class="navigation">
