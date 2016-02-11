@@ -314,8 +314,8 @@
 
                                             <div class="col-sm-11">
                                                 <p>{{ addedUser.showName }} </p>
-                                                <span data-ng-cloak data-ng-init="successStoryDates[{{ story.id }}]='{{ story.updated | date('m/d/Y H:i O') }}'">
-                                                    [[ dateToLocal(successStoryDates[{{ story.id }}]) ]]
+                                                <span data-ng-cloak>
+                                                    [[ dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                 </span>
                                                 <p>{{ story.story }}</p>
                                             </div>
