@@ -55,7 +55,9 @@
 
     <div class="content-header">
         <figure>
-            <img src="{{ profileUser.getPhotoLink }}" alt="Some image" class="img-responsive" />
+            <img src="{{ profileUser.getPhotoLink }}" alt="Profile Cover Photo" class="img-responsive" />
+            {# If user have no profile image we need to put the following image#}
+            {#<img src="{{ asset('bundles/app/images/cover2.png')}}" alt="Profile Cover Photo" class="img-responsive" />#}
         </figure>
 
         <div class="profile">
@@ -65,7 +67,7 @@
                         <figure>
                             <div>
                                 {% if profileUser.getPhotoLink %}
-                                     <img src="{{ profileUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>
+                                     <img src="{{ profileUser.getPhotoLink }}" alt="Profile image" class="img-responsive img-circle"/>
                                 {% else %}
                                      <span class="{{ className }}">{{ nameOnImage }}</span>
                                 {% endif %}
