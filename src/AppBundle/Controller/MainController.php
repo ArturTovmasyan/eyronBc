@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
+use AppBundle\Entity\UserGoal;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -88,15 +91,22 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/listed-users/{id}", name="listed_users")
-     * @Route("/done-users/{id}", name="done_users")
+     * @Route("/listed-users/{slug}", name="listed_users")
+     * @Route("/done-users/{slug}", name="done_users")
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findOneBySlug" })
      * @Template()
+     *
+     * @param Goal $goal
+     * @param Request $request
      * @return array
      */
-    public function goalUsersAction($id, Request $request)
+    public function goalUsersAction(Goal $goal, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:Goal')->findGoalUsers($id, $t = $request->get('_route') == 'listed_users' ? 'listed' : 'completed');
+        $users = $em->getRepository('AppBundle:Goal')
+            ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

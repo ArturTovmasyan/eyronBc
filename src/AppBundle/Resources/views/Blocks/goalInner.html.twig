@@ -150,7 +150,7 @@
                                             {% if goal.stats.doneBy == 0 %}
                                                 <i></i>
                                             {% else %}
-                                                <a href="{{ path('done_users', {'id': goal.id}) }}"></a>
+                                                <a href="{{ path('done_users', {'slug': goal.slug}) }}"></a>
                                             {% endif %}
                                         </li>
                                     </ul>
@@ -184,7 +184,7 @@
                                             {% if goal.stats.listedBy == 0 %}
                                                 <i></i>
                                             {% else %}
-                                                <a href="{{ path('listed_users', {'id': goal.id}) }}"></a>
+                                                <a href="{{ path('listed_users', {'slug': goal.slug}) }}"></a>
                                             {% endif %}
                                         </li>
                                     </ul>
