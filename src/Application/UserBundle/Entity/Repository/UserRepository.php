@@ -132,4 +132,15 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
 
     }
+
+    public function findAdmins($role)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstName, ''), ' ', COALESCE(u.lastName, '')) as fullName
+                            FROM ApplicationUserBundle:User u
+                            WHERE u.roles LIKE :role ")
+            ->setParameter('role', '%' . 'ROLE_SUPER_ADMIN' . '%')
+            ->getResult()
+            ;
+    }
 }
