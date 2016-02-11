@@ -327,6 +327,11 @@
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
 
+                        {% set lastIndex = userGoals|length - 1 %}
+                        {% if userGoals[lastIndex].id == userGoal.id %}
+                            {# TODO: #}
+                        {% endif %}
+
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
                             <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">

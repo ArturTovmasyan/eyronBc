@@ -13,8 +13,15 @@
             {% for goalFriend in goalFriends|slice(0,2) %}
                 <li class="clearfix">
                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}">
+
                         <figure class="image">
-                            <img src="{{ goalFriend.getPhotoLink ? goalFriend.getPhotoLink() : asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="img-circle img-responsive"/>
+                            {% if goalFriend.getPhotoLink() %}
+                                <img src="{{ goalFriend.getPhotoLink() }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive"/>
+                            {% else %}
+                                {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
+                                {% set className = "user-no" ~ random(4) %}
+                                <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
+                            {% endif %}
                         </figure>
 
                         <div class="pull-left text-gray">
