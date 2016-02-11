@@ -52,12 +52,17 @@
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
     {% set className = "profile-image profile-no" ~ random(4) %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
     <div class="content-header">
         <figure>
-            <img src="{{ profileUser.getPhotoLink }}" alt="Profile Cover Photo" class="img-responsive" />
-            {# If user have no profile image we need to put the following image#}
-            {#<img src="{{ asset('bundles/app/images/cover2.png')}}" alt="Profile Cover Photo" class="img-responsive" />#}
+            <img src="
+            {% if profileUser.getPhotoLink %}
+                {{ profileUser.getPhotoLink }}
+            {% else %}
+                {{ asset(imgPath) }}
+            {% endif %}"
+                 alt="Profile Cover Photo" class="img-responsive" />
         </figure>
 
         <div class="profile">
