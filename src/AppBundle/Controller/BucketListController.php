@@ -76,7 +76,6 @@ class BucketListController extends Controller
             $status = 2;
         }
         else {
-
             $status = 0;
         }
 

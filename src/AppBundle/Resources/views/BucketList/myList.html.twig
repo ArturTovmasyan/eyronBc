@@ -68,6 +68,7 @@
 
         <div class="profile">
             <div class="container">
+
                 <div class="row">
                     <div class="col-md-4">
                         <figure>
@@ -145,10 +146,9 @@
                     {% endif %}
                 </div>
 
-                <div class="row">
-
+                <div class="row slide ng-hide" data-ng-cloak data-ng-show="completeProfileMyBucketList" style="display: none">
                     <div class="col-sm-6">
-                        <ol class="slide" data-ng-show="completeProfileMyBucketList" style="position: relative;">
+                        <ol style="position: relative;">
                             <li>
                                 <a href="javascript:void(0)">
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
@@ -198,7 +198,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <ol class="slide" data-ng-show="completeProfileMyBucketList" style="position: relative" start="5">
+                        <ol style="position: relative" start="5">
                             <li>
                                 <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
                                     {% if user.checkDeadLines() %}
@@ -234,7 +234,6 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -242,7 +241,7 @@
 {% endblock %}
 
 {% block content_container %}
-    <div class="slide" data-ng-hide="!showMap">
+    <div class="slide ng-hide" data-ng-cloak data-ng-hide="!showMap">
         <div data-simple-map-marker
             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
             data-on-marker-click="onMarkerClick(goal)"
