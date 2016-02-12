@@ -4,3 +4,23 @@
      {% include 'AppBundle:Main:home_videos.html.twig' %}
      {% include 'AppBundle:Main:ideas.html.twig' %}
  {% endblock %}
+
+{%- block title -%}
+    {{ 'ideas.title'|trans }}
+{%- endblock -%}
+
+{%- block og_title -%}
+    {{ 'ideas.title'|trans }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{ 'ideas.description'|trans }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'ideas.description'|trans }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}
