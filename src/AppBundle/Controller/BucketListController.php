@@ -52,7 +52,6 @@ class BucketListController extends Controller
             $user = $this->getUser();
         }
 
-        $status = 0;
         if($status === 'active-goals')
         {
             $status = 1;
@@ -60,6 +59,9 @@ class BucketListController extends Controller
         elseif ($status === 'completed-goals')
         {
             $status = 2;
+        }
+        else {
+            $status = 0;
         }
 
         // find all goals
