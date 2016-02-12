@@ -165,7 +165,7 @@ active:
   not_have: You have no goals, please, start
 manage: MANAGE
 
-ideas:
+home_ideas:
   title: Ideas
   description: Ideas description
 
@@ -191,6 +191,7 @@ my_bucket_list:
   need_goal: Your life needs goals,
   add_some: add some more.
   complete: It’s time to act and complete some goals.
+  filter: Please, check one or more priority subfilters
   private: Private
   invisible: Invisible
   notes: Notes

@@ -86,8 +86,12 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
-        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
+        if (!$goal){
+            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 
         if ((!$goal->getLat() || !$goal->getLng()) && $this->getUser()){
@@ -101,10 +105,6 @@ class GoalController extends FOSRestController
                     $goal->setLng($userGoal->getLng());
                 }
             }
-        }
-
-        if (!$goal){
-            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
         return [
