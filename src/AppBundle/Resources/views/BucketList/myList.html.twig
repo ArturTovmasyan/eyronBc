@@ -51,7 +51,7 @@
     {% set lastName = profileUser.lastName %}
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
-    {% set className = "profile-image profile-no" ~ random(4) %}
+    {% set className = "profile-image user-no" ~ random(4) %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
     <div class="content-header">
@@ -74,7 +74,7 @@
                                 {% if profileUser.getPhotoLink %}
                                      <img src="{{ profileUser.getPhotoLink }}" alt="Profile image" class="img-responsive img-circle"/>
                                 {% else %}
-                                     <span class="{{ className }}">{{ nameOnImage }}</span>
+                                     <span class="no-image {{ className }}">{{ nameOnImage }}</span>
                                 {% endif %}
                             </div>
 
@@ -329,7 +329,7 @@
             <div class="col-sm-8">
                 {% if userGoals.items %}
                     {% if dream %}
-                        <p>{{ 'dream'|trans }}</p>
+                        <p class="empty-text">{{ 'dream'|trans }}</p><br />
                     {% endif %}
 
                     {% for userGoal in userGoals %}

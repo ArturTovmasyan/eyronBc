@@ -173,11 +173,13 @@ class SettingsController extends FOSRestController
      *         200="OK",
      *     },
      * )
-     * @ParamConverter("user", class="ApplicationUserBundle:User")
      * @Rest\View(serializerGroups={"settings"})
+     * @Secure("ROLE_USER")
      */
-    public function getUserFromSettingsAction(User $user)
+    public function getUserFromSettingsAction()
     {
+        //get current user
+        $user = $this->getUser();
 
         return $user;
     }
