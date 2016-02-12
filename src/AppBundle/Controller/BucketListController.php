@@ -52,6 +52,7 @@ class BucketListController extends Controller
             $user = $this->getUser();
         }
 
+        $status = 0;
         if($status === 'active-goals')
         {
             $status = 1;
