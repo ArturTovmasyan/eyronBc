@@ -870,6 +870,7 @@ class GoalController extends Controller
         $em->flush();
 
         if (isset($_SERVER['HTTP_REFERER'])){
+
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
