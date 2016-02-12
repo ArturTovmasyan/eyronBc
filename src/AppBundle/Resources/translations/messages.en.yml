@@ -165,7 +165,7 @@ active:
   not_have: You have no goals, please, start
 manage: MANAGE
 
-ideas:
+home_ideas:
   title: Ideas
   description: Ideas description
 
