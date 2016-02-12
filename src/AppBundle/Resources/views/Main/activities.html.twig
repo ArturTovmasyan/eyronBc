@@ -7,7 +7,7 @@
 
     <div class="container" id="news-feed">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-8">
 
                 {% if pagination.getTotalItemCount() == 0 %}
                     <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
@@ -68,20 +68,20 @@
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                 {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                 {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
                 <div class="right-block  margin-top">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                              <span>
                                  <i class="icon top-icon"></i>
                                  {{ 'right_menu.ideas'|trans }}
                             </span>
                         </div>
-                        <div class="col-sm-6 text-right">
+                        <div class="col-xs-6 text-right">
                             <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                         </div>
                     </div>
