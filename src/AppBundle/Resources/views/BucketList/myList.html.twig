@@ -403,7 +403,7 @@
                                                 <figcaption>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="javascript:void(0)">
+                                                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
                                                                 <i class="icon user-icon"></i>
@@ -411,7 +411,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6">
-                                                            <a href="javascript:void(0)">
+                                                            <a href="{{ path('listed_users', {'slug': goal.slug} ) }}">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
                                                                 <i class="icon user-icon"></i>
