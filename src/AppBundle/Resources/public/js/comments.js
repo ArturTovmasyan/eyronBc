@@ -569,6 +569,7 @@
 
         var comments = $(".user-comment");
         var showStepCount = 5;
+        var forEnd = 0;
 
         if(!comments.length){
             return;
@@ -578,39 +579,20 @@
             window.VIEW_INDEX = $(this).data('last-index') - 2;
         }
 
-        var forEnd = 0;
         var startElIndex = window.VIEW_INDEX;
 
-        if((window.VIEW_INDEX + 1) < showStepCount){
-            //var startEl = $(".user-comment.user-comment"+window.VIEW_INDEX);
-            //startEl.show();
-            //var tmp = startEl;
-            //
-            //for(var i = 1; i < window.VIEW_INDEX; i++){
-            //    tmp = tmp.prev();
-            //    tmp.show();
-            //}
-
+        if((window.VIEW_INDEX + 1) <= showStepCount){
             forEnd = window.VIEW_INDEX + 1;
             window.VIEW_INDEX = 0;
         }
         else {
-            //var startEl = $(".user-comment.user-comment"+window.VIEW_INDEX);
-            //startEl.show();
-            //var tmp = startEl;
-            //
-            //for(var i = 1; i < showStepCount; i++){
-            //    var tmp = tmp.prev();
-            //    tmp.show();
-            //}
-
             forEnd = showStepCount;
             window.VIEW_INDEX -= showStepCount;
         }
 
         var startEl = $(".user-comment.user-comment" + startElIndex);
-        startEl.fadeIn();
         var tmp = startEl;
+        startEl.fadeIn();
 
         for(var i = 1; i < forEnd; i++){
             tmp = tmp.prev();
