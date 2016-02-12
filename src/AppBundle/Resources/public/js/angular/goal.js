@@ -268,7 +268,7 @@ angular.module('goal', ['Interpolation',
                 className: '@'
             },
             link: function(scope, el){
-                var dl = scope.delay ? scope.delay : 3000;
+                var dl = scope.delay ? scope.delay : 8000;
                 var cl = scope.className ? scope.className: 'active';
                 var items = el.children();
                 var activeIndex = 0;
