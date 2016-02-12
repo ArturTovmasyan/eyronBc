@@ -122,12 +122,12 @@ class GoalControllerTest extends BaseClass
 
     /**
      * This function is used to check goal view page
-     * @depends testAddToMe
+     * @dataProvider goalProvider
      */
-    public function testView($goalId)
+    public function testView($goalSlug)
     {
         // try to open goal view page
-        $crawler = $this->client->request('GET', '/goal/view/' . $goalId);
+        $crawler = $this->client->request('GET', '/goal/view/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
@@ -138,18 +138,18 @@ class GoalControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
-        return $goalId;
+        return $goalSlug;
     }
 
 
     /**
      * This function is used to check goal showAction page
-     * @depends testView
+     * @dataProvider goalProvider
      */
-    public function testShow($goalId)
+    public function testShow($goalSlug)
     {
         // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/' . $goalId);
+        $crawler = $this->client->request('GET', '/goal/show/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
@@ -161,14 +161,15 @@ class GoalControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
-        return $goalId;
+        return $goalSlug;
     }
 
     /**
-     * @depends testShow
+     * @depends testAddToMe
      */
     public function testDone($goalId)
     {
+
         // open goal Done page
         $this->client->request('GET', '/goal/done/' . $goalId);
         // check response status code

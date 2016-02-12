@@ -212,7 +212,10 @@ angular.module('goal', ['Interpolation',
 
         angular.element('.goal-information').scrollToFixed({
             marginTop: 85,
-            limit: angular.element('footer').offset().top
+            limit: function() {
+                var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 10;
+                return limit;
+            }
         });
 
         if(angular.element('.suggest-input input')) {
@@ -268,7 +271,7 @@ angular.module('goal', ['Interpolation',
                 className: '@'
             },
             link: function(scope, el){
-                var dl = scope.delay ? scope.delay : 3000;
+                var dl = scope.delay ? scope.delay : 8000;
                 var cl = scope.className ? scope.className: 'active';
                 var items = el.children();
                 var activeIndex = 0;

@@ -23,7 +23,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/user-profile/{status}/{user}", defaults={"user" = null, "status" = 0},  name="user_profile")
+     * @Route("/user-profile/{user}/{status}", defaults={"status" = null}, requirements={"status"="active-goals|completed-goals|all|", "user"="\d+"}, name="user_profile")
+     * @Route("/user-profile/{status}", name="user_profile_single")
      * @Template()
      * @param User $user
      * @param $status
@@ -31,10 +32,23 @@ class BucketListController extends Controller
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function myListAction(User $user = null, $status, Request $request)
+    public function myListAction($user = null , $status = null , Request $request)
     {
+        // check route status
+        if(is_numeric($status) )
+        {
+            $user = $status;
+            $status = 'all';
+        }
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        // get user by id
+        if($user)
+        {
+            $user = $em->getRepository('ApplicationUserBundle:User')->find($user);
+        }
 
         // get dream
         $dream = $request->get('d');
@@ -50,6 +64,19 @@ class BucketListController extends Controller
         if (!$user) {
             // get current user
             $user = $this->getUser();
+        }
+
+        // check statuses
+        if($status === 'active-goals')
+        {
+            $status = 1;
+        }
+        elseif ($status === 'completed-goals')
+        {
+            $status = 2;
+        }
+        else {
+            $status = 0;
         }
 
         // find all goals

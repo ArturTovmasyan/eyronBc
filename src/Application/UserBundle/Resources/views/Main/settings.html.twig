@@ -49,51 +49,53 @@
                             </div>
                         </div>
 
-                        <div class="form-group row no-padding">
+                        {% if form.email is defined %}
+                            <div class="form-group row no-padding">
 
-                            <div class="col-sm-3 primary">
-                                {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
+                                <div class="col-sm-3 primary">
+                                    {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
+                                </div>
+
+                                {% set email = user.getEmail() %}
+
+                                <div class="col-sm-1">
+                                    <input name="primary" type="radio" value="{{ email }}" checked/>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['email']"></div>
+                                </div>
                             </div>
-
-                            {% set email = user.getEmail() %}
-
-                            <div class="col-sm-1">
-                                <input name="primary" type="radio" value="{{ email }}" checked/>
-                            </div>
-
-                            <div class="col-sm-8">
-                                {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['email']"></div>
-                            </div>
-                        </div>
+                        {% endif %}
 
 
-                            {% set token = false %}
+                        {% set token = false %}
 
-                            {% if userEmails %}
+                        {% if userEmails %}
 
-                                {% for key, userEmail in userEmails %}
-                                    <div class="form-group row">
-                                        {% if userEmail.token is null %}
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-1 text-right">
-                                                 <input name="primary" type="radio" value="{{ key }}"/>
+                            {% for key, userEmail in userEmails %}
+                                <div class="form-group row">
+                                    {% if userEmail.token is null %}
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-1 text-right">
+                                             <input name="primary" type="radio" value="{{ key }}"/>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="delete-email">
+                                                <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
+                                                <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
                                             </div>
+                                        </div>
 
-                                            <div class="col-sm-8">
-                                                <div class="delete-email">
-                                                    <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
-                                                    <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
-                                                </div>
-                                            </div>
+                                    {% else %}
 
-                                        {% else %}
+                                        {% set token = true %}
 
-                                            {% set token = true %}
-
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
 
                             {% endif %}
 
@@ -107,25 +109,27 @@
                                 </div>
                             {% endif %}
 
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
-                            </div>
-                            <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
-                        </div>
+                        {% if form.currentPassword is defined %}
 
-                        <div class="form-group row no-padding">
-                            <div class="col-sm-6">
-                                {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['first']"></div>
-                            </div>
-                            <div class="col-sm-6">
-                                {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
+                                </div>
+                                <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
                             </div>
 
+                            <div class="form-group row no-padding">
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['first']"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                                </div>
+                            </div>
 
-                        </div>
+                        {% endif %}
 
                         <div class="form-group row">
                             <div class="col-sm-4">

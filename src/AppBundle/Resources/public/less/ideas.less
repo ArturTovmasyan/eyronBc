@@ -253,6 +253,11 @@
         -o-transition: opacity 0.5s linear;
         position: absolute;
         opacity: 0;
+
+        span{
+          display: block;
+          margin:5px 10px 0;
+        }
       }
       li.active {
         opacity: 1;
@@ -264,6 +269,17 @@
   .goal-image{
     position: absolute;
     width:100%;
+    overflow: hidden;
+
+    .overlay{
+      background: rgba(0, 0, 0, 0.6);
+      height:680px;
+
+      &:hover{
+        background: rgba(0, 0, 0, 0.8);
+      }
+    }
+
     img{
       width:100%;
       .blur;
@@ -392,7 +408,7 @@
   .inner-container{
     .goal-image{
       img{
-        height:685px;
+        height:680px;
       }
     }
   }

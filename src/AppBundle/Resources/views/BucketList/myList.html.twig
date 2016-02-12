@@ -59,6 +59,7 @@
 
     <div class="content-header">
         <figure>
+            <span class="overlay"></span>
             <img src="
             {% if profileUser.getPhotoLink %}
                 {{ profileUser.getPhotoLink }}
@@ -70,6 +71,7 @@
 
         <div class="profile">
             <div class="container">
+
                 <div class="row">
                     <div class="col-md-4">
                         <figure>
@@ -147,10 +149,9 @@
                     {% endif %}
                 </div>
 
-                <div class="row">
-
+                <div class="row slide ng-hide" data-ng-cloak data-ng-show="completeProfileMyBucketList" style="display: none">
                     <div class="col-sm-6">
-                        <ol class="slide" data-ng-show="completeProfileMyBucketList" style="position: relative;">
+                        <ol style="position: relative;">
                             <li>
                                 <a href="javascript:void(0)">
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
@@ -200,7 +201,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <ol class="slide" data-ng-show="completeProfileMyBucketList" style="position: relative" start="5">
+                        <ol style="position: relative" start="5">
                             <li>
                                 <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
                                     {% if user.checkDeadLines() %}
@@ -236,7 +237,6 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -244,7 +244,7 @@
 {% endblock %}
 
 {% block content_container %}
-    <div class="slide" data-ng-hide="!showMap">
+    <div class="slide ng-hide" data-ng-cloak data-ng-hide="!showMap">
         <div data-simple-map-marker
             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
             data-on-marker-click="onMarkerClick(goal)"
@@ -260,29 +260,27 @@
             <div class="row">
                 <ul class="menu">
                     {% set status = app.request.get('status') %}
-                    {% set active = constant("AppBundle\\Entity\\UserGoal::ACTIVE") %}
-                    {% set completed = constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                    {% set all = 0 %}
+                    {% set active = 'active-goals' %}
+                    {% set completed = 'completed-goals' %}
+                    {% set all = null %}
                     {% set dream = app.request.get('d') %}
-
-                    {#{% if dream %}#}
-                        {#<p>{{ 'dream'|trans }}</p>#}
-                    {#{% endif %}#}
 
                     {% set my_router_params =  app.request.query.all %}
                     {% set userId = {} %}
+                    {% set routeName = 'user_profile_single' %}
                     {% if profileUser.id != app.user.id %}
                         {% set userId = {'user' : profileUser.id} %}
+                        {% set routeName = 'user_profile' %}
                     {% endif %}
 
                     <li {% if status == all %} class="active" {% endif %} >
-                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : all})|merge(userId)) }}">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
                     </li>
                     <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : active})|merge(userId)) }}">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
                     </li>
                     <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path('user_profile', my_router_params|merge({'status' : completed })|merge(userId)) }}">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
@@ -297,7 +295,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-10">
+                <div class="col-sm-9 col-md-10">
                     <form class="form-inline" action="#">
 
                         {# dream filter #}
@@ -315,7 +313,7 @@
                     </form>
                 </div>
 
-                <div class="col-sm-2 mail-print">
+                <div class="col-sm-3 col-md-2 mail-print">
                     <a href="javascript:void(0)">
                         <i class="icon print-icon"></i>
                     </a>
@@ -329,24 +327,18 @@
 
     <div class="container goals-information">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 {% if userGoals.items %}
-                    {% if dream %}
-                        <p class="empty-text">{{ 'dream'|trans }}</p><br />
-                    {% endif %}
 
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
 
                         {% set lastIndex = userGoals|length - 1 %}
-                        {% if userGoals[lastIndex].id == userGoal.id %}
-                            {# TODO: #}
-                        {% endif %}
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
-                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
+                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -369,7 +361,7 @@
 
                         {% else %}
 
-                            <div class="row{% if status != constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %}">
+                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -406,7 +398,7 @@
                                                 <figcaption>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="javascript:void(0)">
+                                                            <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
                                                                 <i class="icon user-icon"></i>
@@ -414,7 +406,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6">
-                                                            <a href="javascript:void(0)">
+                                                            <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
                                                                 <i class="icon user-icon"></i>
@@ -507,7 +499,7 @@
                                                         <div class="col-sm-7 text-right">
                                                             <div class="check_status">
 
-                                                                {% if status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                                                                {% if status ==  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                                     <a  href="javascript:void(0)"
                                                                         data-ls-jquery-modal
                                                                         data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
@@ -536,19 +528,19 @@
                     {% endfor %}
                 {% else %}
 
-                    {% if dream %}
-                        <p class="empty-text">{{ 'dream'|trans }}</p>
-                    {% else %}
-                        <p class="empty-text">
-                            {% if status ==  completed %}
-                                {{ 'my_bucket_list.complete'|trans }}
-                            {% elseif status == active %}
-                                {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
-                            {% else %}
-                                {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
-                            {% endif %}
-                        </p>
-                    {% endif %}
+                    <p class="empty-text">
+                        {% if dream %}
+                            {{ 'dream'|trans }}
+                        {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
+                            {{ 'my_bucket_list.filter'|trans }}
+                        {% elseif status == completed %}
+                            {{ 'my_bucket_list.complete'|trans }}
+                        {% elseif status == active %}
+                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
+                        {% else %}
+                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                        {% endif %}
+                    </p>
 
                 {% endif %}
 
@@ -557,16 +549,16 @@
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <div class="right-block">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-8">
                             <a href="{{ path('add_goal') }}">
                                 <i class="icon create-icon"></i>
                                 {{ 'right_menu.create'|trans }}
                             </a>
                         </div>
-                        <div class="col-sm-6 text-right">
+                        <div class="col-xs-4 text-right">
                             {% if profileUser.id == app.user.id %}
                                 <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
                                     <span>{{ draftsCount }}</span>
@@ -577,14 +569,14 @@
                     <hr/>
 
                     <div class="row padding-top">
-                        <div class="col-sm-9">
+                        <div class="col-xs-9">
                             <span>
                                 <i class="icon suggested-icon"></i>
                                 {{ 'right_menu.suggested'|trans }}
                             </span>
 
                         </div>
-                        <div class="col-sm-3 text-right">
+                        <div class="col-xs-3 text-right">
                             <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                         </div>
                     </div>

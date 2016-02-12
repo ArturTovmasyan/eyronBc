@@ -40,7 +40,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function test get goal
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testGet($goalId)
     {
@@ -112,7 +112,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function test goal AddImagesAction
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      * @depends testPut
      */
     public function testAddImages($golId)
@@ -227,7 +227,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function try to test PutCommentAction of rest
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testPutComment($goalId)
     {
@@ -252,7 +252,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function use to test PutSuccessStoryAction rest
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testPutSuccessStory($goalId)
     {

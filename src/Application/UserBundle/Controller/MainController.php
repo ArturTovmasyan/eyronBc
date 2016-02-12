@@ -41,6 +41,13 @@ class MainController extends Controller
         // check request method
         if ($request->isMethod('POST')) {
 
+            $formData = $request->request->get('bl_user_settings');
+            if ($user->getEmail() == $user->getSocialFakeEmail() && $formData['addEmail']){
+                $user->setEmail($formData['addEmail']);
+                $formData['addEmail'] = "";
+                $request->request->set('bl_user_settings', $formData);
+            }
+
             // get data from request
             $form->handleRequest($request);
 
@@ -186,6 +193,10 @@ class MainController extends Controller
 
             //set activation email token null
             $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
         }
         else {
             // return Exception
