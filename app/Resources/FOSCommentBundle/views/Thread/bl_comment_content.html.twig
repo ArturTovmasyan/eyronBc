@@ -2,8 +2,20 @@
 
 {% block fos_comment_comment %}
 
-    <div class="row">
+    {% if _key is defined and _key == 0 %}
+        <a href="javascript:void(0)" class="view-more-comments" data-last-index="{{ comments|length - 1 }}">View More</a>
+    {% endif %}
 
+    <div {% if _key is defined %}
+            class="row user-comment user-comment{{ _key }}"
+
+            {% if _key < comments|length - 2 %}
+                style="display: none"
+            {% endif %}
+
+          {% else %}
+            class="row"
+          {% endif %}>
         <div class="col-sm-1">
             {% if comment.author.getDownloadLink  %}
                 <figure class="img-circle">
@@ -15,9 +27,7 @@
                 <bdi class="no-image {{ className }}">{{ nameOnImage  |upper}}</bdi>
             {% endif %}
         </div>
-
         <div class="col-sm-11">
-
             <span class="fos_comment_comment_authorname">
                 <i class="arrow-left"></i>
                 {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
@@ -40,7 +50,5 @@
             </span>
         </div>
     </div>
-
-
 
 {% endblock fos_comment_comment %}
