@@ -329,18 +329,12 @@
         <div class="row">
             <div class="col-md-8">
                 {% if userGoals.items %}
-                    {% if dream %}
-                        <p class="empty-text">{{ 'dream'|trans }}</p><br />
-                    {% endif %}
 
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
 
                         {% set lastIndex = userGoals|length - 1 %}
-                        {% if userGoals[lastIndex].id == userGoal.id %}
-                            {# TODO: #}
-                        {% endif %}
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
@@ -534,19 +528,19 @@
                     {% endfor %}
                 {% else %}
 
-                    {% if dream %}
-                        <p class="empty-text">{{ 'dream'|trans }}</p>
-                    {% else %}
-                        <p class="empty-text">
-                            {% if status ==  completed %}
-                                {{ 'my_bucket_list.complete'|trans }}
-                            {% elseif status == active %}
-                                {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
-                            {% else %}
-                                {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
-                            {% endif %}
-                        </p>
-                    {% endif %}
+                    <p class="empty-text">
+                        {% if dream %}
+                            {{ 'dream'|trans }}
+                        {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
+                            {{ 'my_bucket_list.filter'|trans }}
+                        {% elseif status == completed %}
+                            {{ 'my_bucket_list.complete'|trans }}
+                        {% elseif status == active %}
+                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
+                        {% else %}
+                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                        {% endif %}
+                    </p>
 
                 {% endif %}
 
