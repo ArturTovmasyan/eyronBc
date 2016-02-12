@@ -79,6 +79,7 @@ class MainController extends Controller
                     $formData = $form->getData();
                     // get admins
                     $admins = $em->getRepository('ApplicationUserBundle:User')->findAdmins('ROLE_SUPER_ADMIN');
+
                     // calculate data form form
                     $contactUsData = array();
 

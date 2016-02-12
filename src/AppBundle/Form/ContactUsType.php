@@ -14,7 +14,7 @@ class ContactUsType extends AbstractType
         $builder
             ->add('fullName', 'text', array('required' => true, 'label'=>'page.contacr_us.form.full_name'))
             ->add('email', 'email', array('required' => true, 'label'=>'page.contacr_us.form.email'))
-            ->add('subject', 'text', array('required' => true, 'label'=>'page.contacr_us.form.subject', 'data' => 'My Bucket List'))
+            ->add('subject', 'text', array('required' => true, 'label'=>'page.contacr_us.form.subject'))
             ->add('message', 'textarea', array('required' => true, 'label'=>'page.contacr_us.form.message', 'attr'=>array('rows'=>'5')))
             ->add('send', 'submit', array('label'=>'page.contacr_us.form.send'))
         ;
