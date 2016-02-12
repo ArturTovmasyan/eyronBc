@@ -990,7 +990,8 @@ class User extends BaseUser
         }
 
         //check if set another primary email
-        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)
+                && $currentEmail != $this->getSocialFakeEmail()) {
 
             //set user emails in array with token and primary value
             $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
@@ -1045,5 +1046,23 @@ class User extends BaseUser
                     ->addViolation();
             }
         }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSocialFakeEmail()
+    {
+        if ($this->getFacebookId()){
+            return $this->getFacebookId() . '@facebook.com';
+        }
+        elseif($this->getGoogleId()){
+            return $this->getGoogleId() . '@google.com';
+        }
+        elseif($this->getTwitterId()){
+            return $this->getTwitterId() . '@twitter.com';
+        }
+
+        return null;
     }
 }

@@ -76,7 +76,7 @@
                                     <li>
                                         <a href="{{ path('activity') }}">
                                             <i class="activity-icon"></i>
-                                            {{ 'activity'|trans |upper }}
+                                            <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
                                         </a>
                                     </li>
 
@@ -84,7 +84,7 @@
                                     <li>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="ideas-icon"></i>
-                                            {{ 'ideas'|trans |upper }}
+                                            <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
                                     </li>
                                     <li class="search">
@@ -201,10 +201,10 @@
                 <div class="footer-bottom">
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-5 col-sm-4">
+                            <div class="col-sm-4">
                                 <small>&copy; {{ 'copyright'|trans }}</small>
                             </div>
-                            <div class="col-xs-7 col-sm-8">
+                            <div class="col-sm-8">
                                 {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
                             </div>
                         </div>

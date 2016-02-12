@@ -294,7 +294,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-10">
+                <div class="col-sm-9 col-md-10">
                     <form class="form-inline" action="#">
 
                         {# dream filter #}
@@ -312,7 +312,7 @@
                     </form>
                 </div>
 
-                <div class="col-sm-2 mail-print">
+                <div class="col-sm-3 col-md-2 mail-print">
                     <a href="javascript:void(0)">
                         <i class="icon print-icon"></i>
                     </a>
@@ -326,7 +326,7 @@
 
     <div class="container goals-information">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 {% if userGoals.items %}
                     {% if dream %}
                         <p class="empty-text">{{ 'dream'|trans }}</p><br />
@@ -554,16 +554,16 @@
                 </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <div class="right-block">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-8">
                             <a href="{{ path('add_goal') }}">
                                 <i class="icon create-icon"></i>
                                 {{ 'right_menu.create'|trans }}
                             </a>
                         </div>
-                        <div class="col-sm-6 text-right">
+                        <div class="col-xs-4 text-right">
                             {% if profileUser.id == app.user.id %}
                                 <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
                                     <span>{{ draftsCount }}</span>
@@ -574,14 +574,14 @@
                     <hr/>
 
                     <div class="row padding-top">
-                        <div class="col-sm-9">
+                        <div class="col-xs-9">
                             <span>
                                 <i class="icon suggested-icon"></i>
                                 {{ 'right_menu.suggested'|trans }}
                             </span>
 
                         </div>
-                        <div class="col-sm-3 text-right">
+                        <div class="col-xs-3 text-right">
                             <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
                         </div>
                     </div>

@@ -33,19 +33,26 @@ class SettingsType extends AbstractType
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', null, array('attr' => array('readonly' => true),'required' => true, 'label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('currentPassword', 'password', array(
-                'required' => false,
-                'label' => 'form.current_password',
-                'translation_domain' => 'FOSUserBundle',
-            ))
-            ->add('plainPassword', 'repeated', array(
-                'required' => false,
-                'type' => 'password',
-                'options' => array('translation_domain' => 'FOSUserBundle'),
-                'first_options' => array('label' => 'form.password'),
-                'second_options' => array('label' => 'form.password_confirmation'),
-                'invalid_message' => 'fos_user.password.mismatch',
-            ))
+        ;
+
+        if (!$builder->getData()->getSocialFakeEmail()) {
+            $builder
+                ->add('currentPassword', 'password', array(
+                    'required' => false,
+                    'label' => 'form.current_password',
+                    'translation_domain' => 'FOSUserBundle',
+                ))
+                ->add('plainPassword', 'repeated', array(
+                    'required' => false,
+                    'type' => 'password',
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'form.password'),
+                    'second_options' => array('label' => 'form.password_confirmation'),
+                    'invalid_message' => 'fos_user.password.mismatch',
+                ));
+        }
+
+        $builder
             ->add('birthDate', 'date', array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
             ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
