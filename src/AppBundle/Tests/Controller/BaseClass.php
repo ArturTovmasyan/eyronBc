@@ -198,7 +198,7 @@ class BaseClass extends WebTestCase
         {
             $goalIds[] =
                 array(
-                    'file'.$i => $goals[$i]->getId()
+                    'file'.$i => $goals[$i]->getSlug()
                 );
 
         }

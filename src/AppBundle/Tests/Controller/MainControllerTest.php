@@ -69,11 +69,11 @@ class MainControllerTest extends BaseClass
      *
      * @dataProvider goalProvider
      */
-    public function testGoalUsers($goalId)
+    public function testGoalUsers($goalSlug)
     {
 
         // try to open goal add-to-me page
-        $this->clientSecond->request('GET', '/listed-users/'.$goalId);
+        $this->clientSecond->request('GET', '/listed-users/' . $goalSlug);
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal users page!');
 
