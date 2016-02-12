@@ -45,6 +45,13 @@ class MainController extends Controller
         // check request method
         if ($request->isMethod('POST')) {
 
+
+            $formData = $request->request->get('bl_user_settings');
+            if (!$formData['email']){
+                $formData['email'] = $user->getSocialFakeEmail();
+                $request->request->set('bl_user_settings', $formData);
+            }
+
             // get data from request
             $form->handleRequest($request);
 
