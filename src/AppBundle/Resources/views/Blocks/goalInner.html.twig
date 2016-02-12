@@ -28,7 +28,8 @@
                             <i class="icon quoter-icon"></i>
                             <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                                    <li>{{ aphorism.content }}</li>
+                                    <li class="text-right">{{ aphorism.author }}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
