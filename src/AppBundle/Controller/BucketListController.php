@@ -23,7 +23,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/user-profile/{status}/{user}", defaults={"user" = null, "status" = 0},  name="user_profile")
+     * @Route("/user-profile/{status}/{user}", defaults={"user" = null, "status" = "all"}, requirements={"status"="active-goals|completed-goals|all"}, name="user_profile")
      * @Template()
      * @param User $user
      * @param $status
