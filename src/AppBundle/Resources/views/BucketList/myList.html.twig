@@ -1,5 +1,8 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
+{# set current user to user with joined relation #}
+{% set user = currentUser %}
+
 {% block angularApp %}
     <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
 {% endblock %}
