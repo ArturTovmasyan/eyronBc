@@ -57,9 +57,11 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug, g, i')
+                ->addSelect('ug, g, i, ss, gug')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->leftJoin('ug.goal', 'g')
+                ->leftJoin('g.userGoal', 'gug')
+                ->leftJoin('g.successStories', 'ss')
                 ->leftJoin('g.images', 'i')
                 ->leftJoin('ug.user', 'ugu')
                 ->where('ugu.id = :user ')
