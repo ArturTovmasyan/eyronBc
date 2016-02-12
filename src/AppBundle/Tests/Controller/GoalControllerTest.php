@@ -21,7 +21,7 @@ class GoalControllerTest extends BaseClass
     {
 
         // try to open goal list page
-        $crawler = $this->client->request('GET', '/goal/list');
+        $crawler = $this->client->request('GET', '/goals');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
 
@@ -41,7 +41,7 @@ class GoalControllerTest extends BaseClass
         $goal1Title = $goal1->getTitle();
 
         // try to search goal1
-        $this->client->request('GET', '/goal/list?search=' . $goal1Title);
+        $this->client->request('GET', '/goals?search=' . $goal1Title);
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not find a goal with this title!');
 

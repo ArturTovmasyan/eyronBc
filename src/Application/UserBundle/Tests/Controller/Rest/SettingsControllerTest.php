@@ -61,7 +61,8 @@ class SettingsControllerTest extends BaseClass
         // get user
         $userId = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user@user.com')->getId();
         // calculate url by user4
-        $url = sprintf('/api/v1.0/settings/%s/user/from/settings', $userId);
+//        $url = sprintf('/api/v1.0/settings/%s/user/from/settings', $userId);
+        $url = '/api/v1.0/settings/user/from/settings';
 
         // try to get user-settings
         $this->clientSecond->request('GET', $url, array());

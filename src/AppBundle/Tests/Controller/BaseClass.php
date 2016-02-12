@@ -82,7 +82,7 @@ class BaseClass extends WebTestCase
                                 'filterData'=>array('filter' => array(
                                                     'f_' . UserGoal::URGENT_IMPORTANT => 'on',
                                                     'd'=>false)),
-                                'urlPart'=>'/1'),
+                                'urlPart'=>'/active-goals'),
                         'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
 
             array( array('request'=> array(
@@ -90,7 +90,7 @@ class BaseClass extends WebTestCase
                                                     'f_' . UserGoal::URGENT_IMPORTANT => 'on',
                                                     'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
                                                     'd'=>true),
-                                ), 'urlPart'=>'/2'),
+                                ), 'urlPart'=>'/completed-goals'),
                         'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>null, 'resultCount'=>0))),
 
             array( array('request'=> array(
