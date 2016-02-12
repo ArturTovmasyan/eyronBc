@@ -213,7 +213,7 @@ angular.module('goal', ['Interpolation',
         angular.element('.goal-information').scrollToFixed({
             marginTop: 85,
             limit: function() {
-                var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 10;
+                var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
                 return limit;
             }
         });
