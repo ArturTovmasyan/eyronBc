@@ -197,6 +197,10 @@ class MainController extends Controller
 
             //set activation email token null
             $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
         }
         else {
             // return Exception

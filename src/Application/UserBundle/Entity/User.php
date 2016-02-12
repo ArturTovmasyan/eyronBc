@@ -990,7 +990,8 @@ class User extends BaseUser
         }
 
         //check if set another primary email
-        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)
+                && $currentEmail != $this->getSocialFakeEmail()) {
 
             //set user emails in array with token and primary value
             $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
