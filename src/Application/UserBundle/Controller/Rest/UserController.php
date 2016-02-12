@@ -94,7 +94,7 @@ class UserController extends FOSRestController
             $sessionId = $this->loginAction($user);
         }
         else {
-            $sessionId = 'asasdasfdfgf';
+            $sessionId = 'test';
         }
 
         $em->persist($user);
@@ -225,16 +225,15 @@ class UserController extends FOSRestController
         switch($type){
             case "facebook":
                 try{
-                    $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken);
+                    $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken . '&fields=id,email,first_name,last_name,gender,birthday,picture');
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setFacebookId($id);
-                    $newUser->setEmail($id . '@facebook.com');
-                    $newUser->setUsername($id . '_facebook');
+                    $newUser->setEmail($data->email);
+                    $newUser->setUsername($data->email);
 
-                    $fullName = explode(' ', $data->name);
-                    $newUser->setFirstName($fullName[0]);
-                    $newUser->setLastName(isset($fullName[1]) ? $fullName[1] : '');
+                    $newUser->setFirstName($data->first_name);
+                    $newUser->setLastName(isset($data->last_name) ? $data->last_name : '');
 
                     $photoPath = "https://graph.facebook.com/" . $id . "/picture?type=large";
                 }
@@ -248,14 +247,8 @@ class UserController extends FOSRestController
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setGoogleId($id);
-
-                    $email = $id . '@google.com';
-                    if (isset($data->emails) && isset($data->emails[0]) && isset($data->emails[0]->value)){
-                        $email = $data->emails[0]->value;
-                    }
-
-                    $newUser->setEmail($email);
-                    $newUser->setUsername($email);
+                    $newUser->setEmail($data->emails[0]->value);
+                    $newUser->setUsername($data->emails[0]->value);
                     $newUser->setFirstName($data->name->givenName);
                     $newUser->setLastName($data->name->familyName);
                     if (isset($data->gender)) {
@@ -282,8 +275,8 @@ class UserController extends FOSRestController
                 }
 
                 $id = $data->id;
-                $newUser->setEmail($id . '@twitter.com');
-                $newUser->setUsername($id . '_twitter');
+                $newUser->setEmail($newUser->getSocialFakeEmail());
+                $newUser->setUsername($newUser->getSocialFakeEmail());
                 $fullName = explode(' ', $data->name);
                 $newUser->setFirstName($fullName[0]);
                 $newUser->setLastName("");

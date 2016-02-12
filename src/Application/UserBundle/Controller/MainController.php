@@ -35,11 +35,22 @@ class MainController extends Controller
         //get fos user manager
         $fosManager = $this->container->get('fos_user.user_manager');
 
+        if ($user->getSocialFakeEmail() == $user->getEmail()){
+            $user->setEmail('');
+        }
+
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
 
         // check request method
         if ($request->isMethod('POST')) {
+
+
+            $formData = $request->request->get('bl_user_settings');
+            if (!$formData['email']){
+                $formData['email'] = $user->getSocialFakeEmail();
+                $request->request->set('bl_user_settings', $formData);
+            }
 
             // get data from request
             $form->handleRequest($request);
@@ -186,6 +197,10 @@ class MainController extends Controller
 
             //set activation email token null
             $user->setUserEmails($userEmails);
+
+            if ($user->getSocialFakeEmail() == $user->getEmail()){
+                $user->primary = $email;
+            }
         }
         else {
             // return Exception

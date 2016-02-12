@@ -264,6 +264,17 @@
   .goal-image{
     position: absolute;
     width:100%;
+    overflow: hidden;
+
+    .overlay{
+      background: rgba(0, 0, 0, 0.6);
+      height:680px;
+
+      &:hover{
+        background: rgba(0, 0, 0, 0.8);
+      }
+    }
+
     img{
       width:100%;
       .blur;
@@ -392,7 +403,7 @@
   .inner-container{
     .goal-image{
       img{
-        height:685px;
+        height:680px;
       }
     }
   }

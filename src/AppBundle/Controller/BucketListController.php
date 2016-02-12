@@ -52,6 +52,15 @@ class BucketListController extends Controller
             $user = $this->getUser();
         }
 
+        if($status === 'active-goals')
+        {
+            $status = 1;
+        }
+        elseif ($status === 'completed-goals')
+        {
+            $status = 2;
+        }
+
         // find all goals
         $userGoals = $em->getRepository("AppBundle:UserGoal")
             ->findAllByUser($user, $status, $dream, $requestFilters);

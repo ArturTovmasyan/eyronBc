@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v136
+        assets_version: v140
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -170,7 +170,8 @@ hwi_oauth:
                 type:                facebook
                 client_id:           "%facebook_client_id%"
                 client_secret:       "%facebook_client_secret%"
-                scope:              "public_profile user_friends email"
+                scope:               "public_profile user_friends email"
+                infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday,picture"
             google:
                 type:                google
                 client_id:           "%google_client_id%"

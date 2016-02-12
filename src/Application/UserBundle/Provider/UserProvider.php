@@ -165,19 +165,16 @@ class UserProvider extends   BaseProvider
             $user->setFacebookId($response['id']);
 
             // set email
-            $user->setEmail($response['id']);
+            $user->setEmail($response['email']);
 
             // set email
-            $user->setUsername($response['id']);
-
-            // get fullName
-            $fullName = explode(' ', $response['name']);
+            $user->setUsername($response['email']);
 
             // set first name
-            $user->setFirstName($fullName[0]);
+            $user->setFirstName($response['first_name']);
 
             // set last name
-            $user->setLastName($fullName[1]);
+            $user->setLastName($response['last_name']);
 
             // set password
             $user->setPassword('');
@@ -213,10 +210,10 @@ class UserProvider extends   BaseProvider
             $user->setTwitterId($response['id']);
 
             // set email
-            $user->setEmail($response['screen_name'] . '@mail.com');
+            $user->setEmail($user->getSocialFakeEmail());
 
             // set email
-            $user->setUsername($response['screen_name']);
+            $user->setUsername($user->getSocialFakeEmail());
 
             // get fullName
             $fullName = explode(' ', $response['name']);

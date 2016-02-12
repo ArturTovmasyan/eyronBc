@@ -107,25 +107,27 @@
                                 </div>
                             {% endif %}
 
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
-                            </div>
-                            <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
-                        </div>
+                        {% if form.currentPassword is defined %}
 
-                        <div class="form-group row no-padding">
-                            <div class="col-sm-6">
-                                {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['first']"></div>
-                            </div>
-                            <div class="col-sm-6">
-                                {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
+                                </div>
+                                <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
                             </div>
 
+                            <div class="form-group row no-padding">
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['first']"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                                </div>
+                            </div>
 
-                        </div>
+                        {% endif %}
 
                         <div class="form-group row">
                             <div class="col-sm-4">
