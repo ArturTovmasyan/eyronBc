@@ -7,6 +7,7 @@
     {% set cover = goal.getCoverPhoto %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
     <figure class="goal-image">
+        <span class="overlay"></span>
         <img src="
         {% if cover %}
              {{ cover.downloadLink }}
@@ -28,8 +29,9 @@
                             <i class="icon quoter-icon"></i>
                             <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content }}</li>
-                                    <li class="text-right">{{ aphorism.author }}</li>
+                                    <li>{{ aphorism.content }}
+                                        <span class="text-right">{{ aphorism.author }}</span>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
