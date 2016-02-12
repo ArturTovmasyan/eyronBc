@@ -259,27 +259,25 @@
                     {% set status = app.request.get('status') %}
                     {% set active = 'active-goals' %}
                     {% set completed = 'completed-goals' %}
-                    {% set all = 'all' %}
+                    {% set all = null %}
                     {% set dream = app.request.get('d') %}
-
-                    {#{% if dream %}#}
-                        {#<p>{{ 'dream'|trans }}</p>#}
-                    {#{% endif %}#}
 
                     {% set my_router_params =  app.request.query.all %}
                     {% set userId = {} %}
+                    {% set routeName = 'user_profile_single' %}
                     {% if profileUser.id != app.user.id %}
                         {% set userId = {'user' : profileUser.id} %}
+                        {% set routeName = 'user_profile' %}
                     {% endif %}
 
                     <li {% if status == all %} class="active" {% endif %} >
-                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : all})|merge(userId)) }}">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
                     </li>
                     <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path('user_profile', my_router_params|merge({'status' : active})|merge(userId)) }}">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
                     </li>
                     <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path('user_profile', my_router_params|merge({'status' : completed })|merge(userId)) }}">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
@@ -337,7 +335,7 @@
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
-                            <div class="row{% if status != 'completed-goals' %} active-idea{% endif %}">
+                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -360,7 +358,7 @@
 
                         {% else %}
 
-                            <div class="row{% if status != 'completed-goals' and userGoal.doDate is not null %} active-idea{% endif %}">
+                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %}">
                                 <div class="col-sm-2 no-right">
                                     <div class="date-left hidden-xs">
                                         <div class="img-circle">
@@ -397,7 +395,7 @@
                                                 <figcaption>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}">
+                                                            <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
                                                                 <i class="icon user-icon"></i>
@@ -405,7 +403,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6">
-                                                            <a href="{{ path('listed_users', {'slug': goal.slug} ) }}">
+                                                            <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
                                                                 <i class="icon user-icon"></i>
@@ -498,7 +496,7 @@
                                                         <div class="col-sm-7 text-right">
                                                             <div class="check_status">
 
-                                                                {% if status == 'completed-goals' %}
+                                                                {% if status ==  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                                     <a  href="javascript:void(0)"
                                                                         data-ls-jquery-modal
                                                                         data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
