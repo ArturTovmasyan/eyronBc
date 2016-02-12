@@ -32,7 +32,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /**
- * @Route("/goal")
+ * @Route("/")
  *
  * Class GoalController
  * @package AppBundle\Controller
@@ -40,7 +40,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends Controller
 {
     /**
-     * @Route("/add/{id}", defaults={"id" = null}, name="add_goal")
+     * @Route("goal/add/{id}", defaults={"id" = null}, name="add_goal")
      * @Template()
      * @param Request $request
      * @param $id
@@ -186,7 +186,34 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/view/{slug}", name="view_goal")
+     * @Route("goal/drafts", name="goal_drafts")
+     * @Template()
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function draftAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // find all drafts goal
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+
+        // get paginator
+        $paginator  = $this->get('knp_paginator');
+
+        // paginate data
+        $pagination = $paginator->paginate(
+            $goals,
+            $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/
+        );
+
+        return array('goals' => $pagination);
+
+    }
+
+    /**
+     * @Route("goal/view/{slug}", name="view_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
@@ -200,7 +227,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/show/{slug}", name="inner_goal")
+     * @Route("goal/{slug}", name="inner_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
@@ -248,7 +275,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/done/{id}", name="done_goal")
+     * @Route("goal/done/{id}", name="done_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -286,7 +313,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/add-story/{id}", name="add_story")
+     * @Route("goal/add-story/{id}", name="add_story")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -383,7 +410,7 @@ class GoalController extends Controller
     /**
      * This action is used for upload images from drag and drop
      *
-     * @Route("/add-story-images", name="add-story_images")
+     * @Route("goal/add-story-images", name="add-story_images")
      * @Method({"POST"})
      * @param Request $request
      * @return array
@@ -438,7 +465,7 @@ class GoalController extends Controller
 
 
     /**
-     * @Route("/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
+     * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -618,7 +645,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/list/{category}", defaults={"category" = null}, name="goals_list")
+     * @Route("goals/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
      * @Template()
@@ -741,34 +768,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/drafts", name="goal_drafts")
-     * @Template()
-     * @return array
-     * @Secure(roles="ROLE_USER")
-     */
-    public function draftAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-
-        // get paginator
-        $paginator  = $this->get('knp_paginator');
-
-        // paginate data
-        $pagination = $paginator->paginate(
-            $goals,
-            $request->query->getInt('page', 1)/*page number*/,
-            9/*limit per page*/
-        );
-
-        return array('goals' => $pagination);
-
-    }
-
-    /**
-     * @Route("/remove-draft/{goal}", name="remove_draft_goal")
+     * @Route("goal/remove-draft/{goal}", name="remove_draft_goal")
      *
      * @param Goal $goal
      * @ParamConverter("goal", class="AppBundle:Goal")
@@ -812,7 +812,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/remove-goal/{goal}/{user}", name="remove_goal")
+     * @Route("goal/remove-goal/{goal}/{user}", name="remove_goal")
      *
      * @param Goal $goal
      * @param User $user
@@ -850,7 +850,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/remove-image/{filename}", name="remove_image")
+     * @Route("goal/remove-image/{filename}", name="remove_image")
      * @Secure(roles="ROLE_USER")
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
      *   "mapping": {"filename": "fileName"},
