@@ -35,6 +35,10 @@ class MainController extends Controller
         //get fos user manager
         $fosManager = $this->container->get('fos_user.user_manager');
 
+        if ($user->getSocialFakeEmail() == $user->getEmail()){
+            $user->setEmail('');
+        }
+
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
 

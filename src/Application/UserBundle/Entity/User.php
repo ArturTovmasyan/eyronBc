@@ -1046,4 +1046,22 @@ class User extends BaseUser
             }
         }
     }
+
+    /**
+     * @return null|string
+     */
+    public function getSocialFakeEmail()
+    {
+        if ($this->getFacebookId()){
+            return $this->getFacebookId() . '@facebook.com';
+        }
+        elseif($this->getGoogleId()){
+            return $this->getGoogleId() . '@google.com';
+        }
+        elseif($this->getTwitterId()){
+            return $this->getTwitterId() . '@twitter.com';
+        }
+
+        return null;
+    }
 }
