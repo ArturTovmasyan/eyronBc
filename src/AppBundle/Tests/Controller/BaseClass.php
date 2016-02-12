@@ -207,6 +207,37 @@ class BaseClass extends WebTestCase
     }
 
     /**
+     * this function create goal data provider , client for testes
+     */
+    public function goalByIdProvider()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $goals = $this->em->getRepository('AppBundle:Goal')->findAll();
+
+        $goalIds = array();
+
+        for($i = 0; $i<count($goals); $i++)
+        {
+            $goalIds[] =
+                array(
+                    'file'.$i => $goals[$i]->getId()
+                );
+
+        }
+
+        return $goalIds;
+    }
+
+    /**
      * this function create user goal data provider , client for testes
      */
     public function userGoalProvider()

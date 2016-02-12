@@ -27,14 +27,14 @@
                                 <div class="absolute">
                                     <ul>
                                         <li>
-                                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}">
+                                            <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 <span>{{ goal.stats.listedBy }}</span>
                                                 <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a  href="{{ path('listed_users', {'slug': goal.slug} ) }}">
+                                            <a  href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 <span>{{ goal.stats.doneBy }}</span>
                                                 <i class="icon user-icon"></i>
@@ -75,14 +75,14 @@
                         <div class="absolute">
                             <ul>
                                 <li>
-                                    <a href="{{ path('inner_goal', {'slug': goal.slug }) }}">
+                                    <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                         {{ 'home_listed_by'|trans({},'messages') }}
                                         <span>{{ goal.stats.listedBy }}</span>
                                         <i class="icon user-icon"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a  href="{{ path('listed_users', {'slug': goal.slug} ) }}">
+                                    <a  href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                         {{ 'home_complete'|trans({},'messages') }}
                                         <span>{{ goal.stats.doneBy }}</span>
                                         <i class="icon user-icon"></i>
@@ -123,14 +123,14 @@
                                 <div class="absolute">
                                     <ul>
                                         <li>
-                                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}">
+                                            <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 <span>{{ goal.stats.listedBy }}</span>
                                                 <i class="icon user-icon"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a  href="{{ path('listed_users', {'slug': goal.slug} ) }}">
+                                            <a  href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 <span>{{ goal.stats.doneBy }}</span>
                                                 <i class="icon user-icon"></i>
