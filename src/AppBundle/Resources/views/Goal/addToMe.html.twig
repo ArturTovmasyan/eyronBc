@@ -144,7 +144,7 @@
                                                 {% for id, name in filters %}
 
                                                     <div class="col-sm-6">
-                                                        <div class="inputs-style priority-radio">
+                                                        <div class="inputs-style priority-radio {% if data.getUrgentImportantStatus() == id %}active-important{% endif %}">
                                                             <label class="radio-inline">
                                                                 <input name="test"
                                                                        class="important-radio"
