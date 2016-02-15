@@ -100,7 +100,7 @@ class Page
      */
     public function setName($name)
     {
-        $this->name = strip_tags($name);
+        $this->name = $name;
 
         return $this;
     }
@@ -169,7 +169,7 @@ class Page
      */
     public function setDescription($description)
     {
-        $this->description = strip_tags($description);
+        $this->description = $description;
 
         return $this;
     }
