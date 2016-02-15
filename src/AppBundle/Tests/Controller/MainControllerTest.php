@@ -38,6 +38,21 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open page page!');
 
+        $crawler = $this->client->request('GET', '/page/contact-us');
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open page page!');
+
+        $form = $crawler->selectButton('Send')->form(array(
+            'app_bundle_contact_us[fullName]' => '10/14/2015',
+            'app_bundle_contact_us[email]' => 'koko@ko.com',
+            'app_bundle_contact_us[subject]' => 'Bl test',
+            'app_bundle_contact_us[message]' => 'Bl Test message description.'
+
+        ));
+
+        // submit form
+        $this->client->submit($form);
+
         // check db request count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests

@@ -36,9 +36,17 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface, C
         $page->setPosition(1);
         $manager->persist($page);
 
+        $page2 = new Page();
+        $page2->setDescription('<p>Contact us</p>');
+        $page2->setName('Contact Us');
+        $page2->setSlug('contact-us');
+        $page2->setPosition(3);
+        $manager->persist($page2);
+
         $manager->flush();
 
         $this->addReference('page', $page);
+        $this->addReference('page2', $page2);
     }
 
     /**
