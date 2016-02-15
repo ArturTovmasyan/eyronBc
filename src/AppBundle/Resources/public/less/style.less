@@ -121,6 +121,8 @@ header{
             width: 30px;
             height: 35px;
             vertical-align: middle;
+            font-size: 30px;
+            //border:1px solid;
           }
 
           span{
@@ -262,7 +264,12 @@ header{
                 display: inline-block;
                 width:30px;
                 height:30px;
+                font-size:30px;
               }
+
+              //span{
+              //  padding-left:0;
+              //}
 
               &:hover{
                 text-decoration: underline;
@@ -270,29 +277,30 @@ header{
               }
             }
 
-            &:nth-child(2){
-              i{
-                background: url('../images/images.png') no-repeat -6px -1155px;
-              }
-            }
 
-            &:nth-child(4){
-              i{
-                background: url('../images/images.png') no-repeat -6px -450px;
-              }
-            }
+            //&:nth-child(2){
+            //  i{
+            //    background: url('../images/images.png') no-repeat -6px -1155px;
+            //  }
+            //}
 
-            &:nth-child(6){
-              i{
-                background: url('../images/images.png') no-repeat -6px -1190px;
-              }
-            }
+            //&:nth-child(4){
+            //  i{
+            //    background: url('../images/images.png') no-repeat -6px -450px;
+            //  }
+            //}
 
-            &:nth-child(8){
-              i{
-                background: url('../images/images.png') no-repeat -6px -1224px;
-              }
-            }
+            //&:nth-child(6){
+            //  i{
+            //    background: url('../images/images.png') no-repeat -6px -1190px;
+            //  }
+            //}
+
+            //&:nth-child(8){
+            //  i{
+            //    background: url('../images/images.png') no-repeat -6px -1224px;
+            //  }
+            //}
           }
         }
 
@@ -582,10 +590,17 @@ ul.filter{
   right: -32px;
 }
 
-.dreaming-icon{
-  background: url('../images/images.png') no-repeat -21px -1563px;
-  width:40px;
+.icon-dreaming{
+  font-size: 50px;
+  color: #a3a3a3;
+  position: absolute;
 }
+
+.icon-user-small{
+  font-size: 28px;
+  vertical-align: middle;
+}
+
 
 .drag-icon{
   width: 40px;
@@ -628,8 +643,11 @@ ul.filter{
   width:18px;
   background: url('../images/images.png') no-repeat -386px -512px;
 }
-.eye-icon{
-  background: url('../images/images.png') no-repeat -386px -678px;
+
+.icon-eye{
+  font-size: 40px;
+  margin-top: -3px;
+  display: block;
 }
 
 .pen-icon{
@@ -641,9 +659,9 @@ ul.filter{
   background: url('../images/images.png') no-repeat -386px -603px;
 }
 
-.off-icon{
-  background: url('../images/images.png') no-repeat -386px -720px;
-}
+//.off-icon{
+//  background: url('../images/images.png') no-repeat -386px -720px;
+//}
 
 .cog-icon{
   background: url('../images/images.png') no-repeat -386px -458px;
@@ -1529,9 +1547,17 @@ footer{
     color:#666666;
     font-size: 16px;
 
+    i{
+      font-size:30px;
+      vertical-align: middle;
+      color: #a3a3a3;
+    }
     &:hover{
       text-decoration:none;
       color: #7724F6;
+      i{
+        color: #a3a3a3;
+      }
     }
   }
 
@@ -1550,6 +1576,8 @@ footer{
     color:#ffffff;
     padding: 0 10px 0 20px;
     margin-top:15px;
+    font-size:16px;
+    line-height:24px;
     z-index: 1;
   }
   figure{
@@ -1684,6 +1712,10 @@ footer{
                 i{
                   margin-right:10px;
                 }
+
+                //span{
+                //  padding-left:0;
+                //}
 
               }
             }

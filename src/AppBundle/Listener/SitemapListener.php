@@ -2,6 +2,7 @@
 
 namespace AppBundle\Listener;
 
+use AppBundle\Entity\Goal;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -41,20 +42,17 @@ class SitemapListener implements SitemapListenerInterface
             $this->createSitemapEntry($url, new \DateTime(), UrlConcrete::CHANGEFREQ_YEARLY, 1);
 
             // get all tag
-            $goals = $this->em->getRepository('AppBundle:Goal')->findBy(array('status'=>true));
+            $goals = $this->em->getRepository('AppBundle:Goal')->findBy(array('publish' => Goal::PUBLISH));
 
             foreach ($goals as $goal) {
 
                 $slug = $goal->getSlug();
-
                 $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
-
                 $tagUpdatedDate = $goal->getUpdated()->format("Y-m-d H:i:s");
 
                 //add homepage url to the urlset named default
                 $this->createSitemapEntry($url, new \DateTime($tagUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.8);
             }
-
         }
     }
 
