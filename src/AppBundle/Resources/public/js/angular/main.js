@@ -1,13 +1,26 @@
 'use strict';
 
-angular.module('main',['mgcrea.ngStrap.modal', 'mgcrea.ngStrap.popover',
+angular.module('main',['mgcrea.ngStrap.modal',
+    'mgcrea.ngStrap.popover',
+    'ng.deviceDetector',
     'ngAnimate',
     'user',
     'Components',
     'Interpolation',
     'Google',
     'ngSanitize'])
-    .controller('MainController',['$scope', '$modal', '$timeout', function($scope, $modal, $timeout){
+    .controller('MainController',['$scope',
+        '$modal',
+        '$timeout',
+        'deviceDetector',
+        function($scope, $modal, $timeout, deviceDetector){
+
+        if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
+            // open modal
+            $timeout(function(){
+                $scope.$broadcast('openLsModal', 'mobileDetectModal');
+            }, 500);
+        }
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
