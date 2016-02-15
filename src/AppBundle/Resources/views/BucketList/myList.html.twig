@@ -365,7 +365,9 @@
                                             {% if userGoal.doDate is not null %}
                                                 {{ userGoal.doDate|date('d') }}
                                             {% else %}
-                                                <i class="icon dreaming-icon"></i>
+                                                <bdi class="dreaming">
+                                                    <i class="icon-dreaming"></i>
+                                                </bdi>
                                             {% endif %}
                                         </div>
                                         {% if userGoals[lastIndex].id == userGoal.id %}
@@ -398,7 +400,7 @@
                                                             <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
                                                                 {{ 'block_listed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.listedBy }}</span>
-                                                                <i class="icon user-icon"></i>
+                                                                <i class="icon-user-small"></i>
                                                             </a>
                                                         </div>
 
@@ -406,7 +408,7 @@
                                                             <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                                 {{ 'block_completed'|trans | upper }}
                                                                 <span>{{ goal.getUsedCount.doneBy }}</span>
-                                                                <i class="icon user-icon"></i>
+                                                                <i class="icon-user-small"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -432,7 +434,7 @@
                                                         {#{% if userGoal.note is not null %}#}
                                                             {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
                                                         {#{% endif %}#}
-                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon list-icon"></i>
+                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
 
                                                     </li>
 
@@ -453,13 +455,13 @@
 
                                                     {% if goal.author and goal.author.id == user.id %}
                                                         <li>
-                                                            <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon pen-icon"></i>
+                                                            <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon-pencil"></i>
                                                         </li>
                                                     {% endif %}
 
                                                     {% if goal.author and goal.author.id == user.id and goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
                                                         <li>
-                                                            <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon lock-icon"></i>
+                                                            <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
                                                         </li>
                                                     {% endif %}
 
@@ -467,14 +469,14 @@
                                                     {# invisible #}
                                                     {% if not userGoal.isVisible %}
                                                         <li>
-                                                            <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon eye-icon"></i>
+                                                            <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
                                                         </li>
                                                     {% endif %}
 
                                                     {# Missed deadline #}
                                                     {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                                                         <li>
-                                                            <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon off-icon"></i>
+                                                            <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info"></i>
                                                         </li>
                                                     {% endif %}
 
@@ -487,7 +489,7 @@
                                                                data-ls-template-url="{{ path('add_to_me_goal', {'id': goal.id, 'userGoalId': userGoal.id }) }}"
                                                                data-ls-identity="goalManageModal{{ goal.id }}"
                                                                class="text-gray">
-                                                                <i class="icon cog-icon"></i>
+                                                                <i class="icon-manage"></i>
                                                                 {{ 'manage'|trans }}
                                                             </a>
 
@@ -509,6 +511,13 @@
                                                                 {% else %}
                                                                     <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
+
+                                                                           {#<span class="icon-green-ok">#}
+                                                                               {#<span class="path1"></span>#}
+                                                                               {#<span class="path2"></span>#}
+                                                                               {#<span class="path3"></span>#}
+                                                                           {#</span>#}
+
                                                                         {{ 'done'|trans }}
                                                                     </a>
                                                                 {% endif %}
@@ -551,7 +560,7 @@
                     <div class="row">
                         <div class="col-xs-8">
                             <a href="{{ path('add_goal') }}">
-                                <i class="icon create-icon"></i>
+                                <i class="icon-creat-icon"></i>
                                 {{ 'right_menu.create'|trans }}
                             </a>
                         </div>
@@ -568,7 +577,7 @@
                     <div class="row padding-top">
                         <div class="col-xs-9">
                             <span>
-                                <i class="icon suggested-icon"></i>
+                                <i class="icon-suggest-icon"></i>
                                 {{ 'right_menu.suggested'|trans }}
                             </span>
 
