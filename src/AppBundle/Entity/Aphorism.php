@@ -64,7 +64,7 @@ class Aphorism
      */
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->content = strip_tags($content);
 
         return $this;
     }
@@ -136,7 +136,7 @@ class Aphorism
      */
     public function setAuthor($author)
     {
-        $this->author = $author;
+        $this->author = strip_tags($author);
 
         return $this;
     }

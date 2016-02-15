@@ -29,7 +29,7 @@
                             <i class="icon quoter-icon"></i>
                             <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content }}
+                                    <li>{{ aphorism.content|markdown }}
                                         <span class="text-right">{{ aphorism.author }}</span>
                                     </li>
                                 {% endfor %}
