@@ -1,4 +1,4 @@
-<div id="mobile-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="mobile-modal" data-ng-controller="mobileModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,11 +9,13 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <h5>Bucketlist is available everywhere!
+                    <h5>
+                        Bucketlist is available everywhere!
                         download our app today and connect with
-                        someone wherever your adventures take you!</h5>
+                        someone wherever your adventures take you!
+                    </h5>
 
-                    <a data-ng-show="deviceDetector.raw.os.ios" href="javascript:void(0)" class="app-store-icon" title="Coming soon"></a>
+                    <a data-ng-show="deviceDetector.raw.os.ios" href="javascript:void(0)" class="app-store-icon"></a>
 
                     <a data-ng-show="deviceDetector.raw.os.android" href="javascript:void(0)" class="google-play-icon"></a>
                 </div>

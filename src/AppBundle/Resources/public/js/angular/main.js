@@ -47,4 +47,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
             $scope.mapPopup = goal;
             $modal({scope: $scope, templateUrl: '/bundles/app/htmls/mapPopup.html',show: true});
         }
+    }])
+    .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
+        $scope.deviceDetector = deviceDetector;
     }]);
