@@ -3,10 +3,11 @@
 {% block fos_comment_comment %}
 
     {% if _key is defined and _key == 0 %}
-        <a href="javascript:void(0)"
-           class="view-more-comments"
-           style="float: right"
-           data-last-index="{{ comments|length - 1 }}">Show More +5</a>
+        <div class="text-right">
+            <a href="javascript:void(0)"
+               class="view-more-comments text-purple"
+               data-last-index="{{ comments|length - 1 }}">Show More +5</a>
+        </div>
     {% endif %}
 
     <div {% if _key is defined %}
