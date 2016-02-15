@@ -735,7 +735,7 @@ class Goal implements MultipleFileInterface, PublishAware
         $author = $this->getAuthor();
 
         // check author
-        if(is_null($author) && $author == $user){
+        if(!is_null($author) && $author == $user){
             return true;
         }
         return false;
