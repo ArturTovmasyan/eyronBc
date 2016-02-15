@@ -65,6 +65,7 @@ goal:
       scheduled_date: Scheduled Date
       create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
       create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
+      empty_draft: Currently there are no draft goals in your draft list
 activities:
       title: Activities
       description: Description for activities
@@ -191,7 +192,7 @@ my_bucket_list:
   need_goal: Your life needs goals,
   add_some: add some more.
   complete: It’s time to act and complete some goals.
-  filter: Please, check one or more priority subfilters
+  filter: There are no goals to correspond to this priority combination
   private: Private
   invisible: Invisible
   notes: Notes
