@@ -131,7 +131,6 @@ class GoalController extends Controller
                 // set author
                 $goal->setAuthor($currentUser);
                 $description = $goal->getDescription();
-                $description = str_replace('#', '', $description);
                 $goal->setDescription($description);
 
                 $em->persist($goal);
