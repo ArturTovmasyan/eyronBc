@@ -289,10 +289,6 @@ class GoalControllerTest extends BaseClass
      */
     public function testRemoveImage($fileName)
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         if($fileName)
         {
             $this->client->request('GET', '/goal/remove-image/' . $fileName);

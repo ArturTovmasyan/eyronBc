@@ -132,13 +132,12 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        for($i = 1; $i<count($files); $i++)
-        {
-            $fileNames[] =
-                array(
-                    'file'.$i => $files[$i]->getFileName()
-                );
-        }
+        $file = reset($files);
+
+        $fileNames[] =
+            array(
+                'file'. 0 => $file->getFileName()
+            );
 
         return $fileNames;
     }
@@ -163,14 +162,13 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        for($i = 0; $i<count($files); $i++)
-        {
-            $fileNames[] =
-                array(
-                    'file'.$i => $files[$i]->getId()
-                );
+        $file = end($files);
 
-        }
+        $fileNames[] =
+            array(
+                'file'. 1 => $file->getId()
+            );
+
 
         return $fileNames;
     }
