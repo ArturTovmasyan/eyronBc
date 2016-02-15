@@ -94,6 +94,7 @@ angular.module('Google', [])
         return {
             restrict: 'EA',
             scope: {
+                types: '=',
                 hiddenStorage: '@'
             },
             compile: function(){
@@ -107,7 +108,7 @@ angular.module('Google', [])
                         }
                     });
 
-                    var autocomplete = new google.maps.places.Autocomplete(el[0],{types: ['address']});
+                    var autocomplete = new google.maps.places.Autocomplete(el[0],{types: scope.types ? scope.types:['address']});
                     google.maps.event.addListener(autocomplete, 'place_changed', function(){
                         var result = autocomplete.getPlace();
 
