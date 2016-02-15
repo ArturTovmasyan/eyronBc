@@ -1,6 +1,11 @@
 {% block bl_location_widget %}
 
-    <input type="text" data-google-places-autocomplete data-hidden-storage="#{{ form.vars.id }}" class="form-control" value="[[ goal_location['address'] ]]"/>
+    <input type="text"
+           data-google-places-autocomplete
+           data-types="['(cities)']"
+           data-hidden-storage="#{{ form.vars.id }}"
+           class="form-control"
+           value="[[ goal_location['address'] ]]"/>
     <input type="hidden"
            name="{{ form.vars.full_name }}"
            id="{{ form.vars.id }}"
