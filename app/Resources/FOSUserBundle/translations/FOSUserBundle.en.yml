@@ -134,6 +134,7 @@ form:
     birth_date_year: "Year"
     file: "Upload a photo"
     choose: Choose
+    language: Choose language
 
 verification:
     verified: Account verified

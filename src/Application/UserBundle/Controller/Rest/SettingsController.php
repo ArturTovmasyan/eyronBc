@@ -45,6 +45,7 @@ class SettingsController extends FOSRestController
      *      {"name"="bl_mobile_user_settings[primary]", "dataType"="email", "required"=false, "description"="User`s primary email"},
      *      {"name"="bl_mobile_user_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
      *      {"name"="bl_mobile_user_settings[birthDate]", "dataType"="string", "required"=false, "description"="User`s birthday | in this 2015/01/22 format"},
+     *      {"name"="bl_mobile_user_settings[language]", "dataType"="string", "required"=false, "description"="User`s language | en|ru"},
      * }
      * )
      * @Rest\View(serializerGroups={"settings"})

@@ -95,6 +95,13 @@ class User extends BaseUser
      */
     protected $gender;
 
+
+    /**
+     * @ORM\Column(name="language", type="string", nullable=true)
+     * @var
+     */
+    protected $language;
+
     /**
      * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
      *      min = 6,
@@ -1065,4 +1072,22 @@ class User extends BaseUser
 
         return null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
 }

@@ -183,6 +183,14 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     protected $slug;
 
+
+    /**
+     * @ORM\Column(name="language", type="string", nullable=true)
+     * @var
+     */
+    protected $language;
+
+
     /**
      * Get id
      *
@@ -803,4 +811,22 @@ class Goal implements MultipleFileInterface, PublishAware
     {
         return $this->slug;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
 }
