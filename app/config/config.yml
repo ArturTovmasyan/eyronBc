@@ -276,3 +276,9 @@ liip_imagine:
             filters:
                 upscale: { min: [1280, 1024] }
                 thumbnail: { size: [1280, 1024], mode: outbound }
+
+mobile_detect:
+    redirect:
+        mobile: ~
+        tablet: ~
+    switch_device_view: ~

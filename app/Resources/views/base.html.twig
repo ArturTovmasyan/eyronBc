@@ -242,6 +242,14 @@
             </footer>
         </div>
 
+    {% if is_ios() %}
+        ios
+    {% endif %}
+
+    {% if is_android_os() %}
+        android
+    {% endif %}
+
         {% endblock %}
 
         {% block javascripts %}
