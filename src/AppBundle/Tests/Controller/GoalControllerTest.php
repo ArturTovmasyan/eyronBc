@@ -257,7 +257,7 @@ class GoalControllerTest extends BaseClass
      * @depends testAddSuccessStory
      * test add success story image
      */
-    public function testAddSuccessStoryImage()
+    public function testAddSuccessStoryImage($goalId)
     {
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
@@ -273,7 +273,7 @@ class GoalControllerTest extends BaseClass
             123
         );
 
-        $this->client->request('POST', '/goal/add-story-images' , array(), array('file' => $photo));
+        $this->client->request('POST', 'goal/add-story/' . $goalId , array(), array('file' => $photo));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
 
