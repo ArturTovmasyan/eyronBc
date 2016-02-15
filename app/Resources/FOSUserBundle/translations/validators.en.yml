@@ -33,8 +33,8 @@ file:
     goal_image_height_extension: File height must be min 540 px
     goal_image_min_width_extension: File width must be min 770 px
     goal_image_min_height_extension: File height must be min 540 px
-    goal_image_max_width_extension: File width must be min 1280 px
-    goal_image_max_height_extension: File height must be min 1280 px
+    goal_image_max_width_extension: File width must be max 1280 px
+    goal_image_max_height_extension: File height must be max 1280 px
     extension_error: Wrong format of file
     size_error: Wrong size of file
     category_logo_width_min_extension: The minimum image size is 20x20 px
