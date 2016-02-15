@@ -149,7 +149,7 @@ class GoalControllerTest extends BaseClass
     public function testShow($goalSlug)
     {
         // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/show/' . $goalSlug);
+        $crawler = $this->client->request('GET', '/goal/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 

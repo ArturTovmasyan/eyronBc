@@ -330,6 +330,25 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * This is actual only for param converter repository method
+     *
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBySlugWithRelations($slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i, t
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.tags t
+                           LEFT JOIN g.images i
+                           WHERE g.slug = :slug")
+            ->setParameter('slug', $slug['slug'])
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param $goalId
      * @param $status
      * @return array
