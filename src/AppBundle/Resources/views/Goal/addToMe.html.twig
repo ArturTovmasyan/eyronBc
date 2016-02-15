@@ -261,7 +261,10 @@
 
                     <div class="col-sm-2">
                         <div class="onoffswitch">
-                            <input {% if not data.isVisible %} checked {% endif %}
+                            <input {% if data.isVisible %}
+                                    checked
+                                    data-ng-init="private_checkbox=true"
+                                    {% endif %}
                                     type="checkbox"
                                     data-ng-model="private_checkbox"
                                     data-ls-checked="private_checkbox"
