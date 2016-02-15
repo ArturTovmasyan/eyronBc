@@ -68,12 +68,12 @@ class Goal implements MultipleFileInterface, PublishAware
      * @Assert\Length(
      *      groups={"goal"},
      *      min = 3,
-     *      max = 255,
+     *      max = 64,
      *      minMessage = "Your title must be at least {{ limit }} characters long",
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
-     * @ORM\Column(name="title", type="string", nullable=false)
+     * @ORM\Column(name="title", type="string", length=64, nullable=false)
      * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
