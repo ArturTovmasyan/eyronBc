@@ -106,6 +106,7 @@
                                     <div class="col-sm-8">
                                         {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                     </div>
+                                    <div class="error-message" data-ng-bind="errorMessages['email']"></div>
                                     <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
                                 </div>
                             {% endif %}
