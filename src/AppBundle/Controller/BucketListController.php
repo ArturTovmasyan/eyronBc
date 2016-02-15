@@ -99,6 +99,8 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
         );
 
+        // get current user with relations, for db optimization
+        $currentUser = $em->getRepository("ApplicationUserBundle:User")->findWithRelationsById($this->getUser()->getId());
 
         // get drafts
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
@@ -107,7 +109,8 @@ class BucketListController extends Controller
             'profileUser' => $user,
             'userGoals' => $pagination,
             'draftsCount' => $draftsCount,
-            'filters' => $filters
+            'filters' => $filters,
+            'currentUser' => $currentUser
             );
     }
 }

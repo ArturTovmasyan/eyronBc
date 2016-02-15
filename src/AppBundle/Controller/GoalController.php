@@ -217,7 +217,7 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findOneBySlug" })
+     *   "repository_method" = "findBySlugWithRelations" })
      * @param Goal $goal
      * @return array
      */
@@ -231,7 +231,7 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findOneBySlug" })
+     *   "repository_method" = "findBySlugWithRelations" })
      * @param Goal $goal
      * @return array
      *

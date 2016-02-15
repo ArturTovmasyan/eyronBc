@@ -55,11 +55,11 @@ class Goal implements MultipleFileInterface, PublishAware
      * @Assert\Length(
      *      groups={"goal"},
      *      min = 3,
-     *      max = 600,
+     *      max = 10000,
      *      minMessage = "Your description be at least {{ limit }} characters long",
      *      maxMessage = "Your description cannot be longer than {{ limit }} characters"
      * )
-     * @ORM\Column(name="description", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="description", type="text", length=10000, nullable=true)
      * @Groups({"goal"})
      */
     protected $description;
@@ -735,7 +735,7 @@ class Goal implements MultipleFileInterface, PublishAware
         $author = $this->getAuthor();
 
         // check author
-        if($author && $author->getId() == $user->getId()){
+        if(is_null($author) && $author == $user){
             return true;
         }
         return false;
