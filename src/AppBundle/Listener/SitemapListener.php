@@ -41,7 +41,7 @@ class SitemapListener implements SitemapListenerInterface
             $this->createSitemapEntry($url, new \DateTime(), UrlConcrete::CHANGEFREQ_YEARLY, 1);
 
             // get all tag
-            $goals = $this->em->getRepository('AppBundle:Goal')->findBy(array(), array('id'=>'ASC'));;
+            $goals = $this->em->getRepository('AppBundle:Goal')->findBy(array('status'=>true));
 
             foreach ($goals as $goal) {
 
