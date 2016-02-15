@@ -184,6 +184,9 @@ angular.module('goal', ['Interpolation',
                 increaseArea: '20%'
             }).on('ifChanged', function (event) {
                 var target = angular.element(event.target);
+                angular.element(".priority-radio").removeClass('active-important');
+                target.parents().closest('.priority-radio').addClass('active-important');
+
                 target.trigger('change');
             });
 
