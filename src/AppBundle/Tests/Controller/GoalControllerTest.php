@@ -21,7 +21,7 @@ class GoalControllerTest extends BaseClass
     {
 
         // try to open goal list page
-        $crawler = $this->client->request('GET', '/goal/list');
+        $crawler = $this->client->request('GET', '/goals');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
 
@@ -41,7 +41,7 @@ class GoalControllerTest extends BaseClass
         $goal1Title = $goal1->getTitle();
 
         // try to search goal1
-        $this->client->request('GET', '/goal/list?search=' . $goal1Title);
+        $this->client->request('GET', '/goals?search=' . $goal1Title);
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not find a goal with this title!');
 
@@ -149,7 +149,7 @@ class GoalControllerTest extends BaseClass
     public function testShow($goalSlug)
     {
         // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/show/' . $goalSlug);
+        $crawler = $this->client->request('GET', '/goal/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
@@ -257,7 +257,7 @@ class GoalControllerTest extends BaseClass
      * @depends testAddSuccessStory
      * test add success story image
      */
-    public function testAddSuccessStoryImage()
+    public function testAddSuccessStoryImage($goalId)
     {
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
@@ -273,7 +273,7 @@ class GoalControllerTest extends BaseClass
             123
         );
 
-        $this->client->request('POST', '/goal/add-story-images' , array(), array('file' => $photo));
+        $this->client->request('POST', 'goal/add-story/' . $goalId , array(), array('file' => $photo));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
 
@@ -289,10 +289,6 @@ class GoalControllerTest extends BaseClass
      */
     public function testRemoveImage($fileName)
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         if($fileName)
         {
             $this->client->request('GET', '/goal/remove-image/' . $fileName);

@@ -128,7 +128,7 @@ class UserGoalControllerTest extends BaseClass
     /**
      * this function use to test user-goal delete action
      *
-     * @dataProvider usergoalByIdProvider
+     * @dataProvider userGoalProvider
      * @depends testPostBucketlist
      */
     public function testDelete($userGoalId)
