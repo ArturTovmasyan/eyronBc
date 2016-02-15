@@ -271,6 +271,13 @@
     }
   }
 
+  .dreaming{
+    display: block;
+    position: relative;
+    left: -50px;
+    top: -5px;
+  }
+
   .elipse{
     border-top: 1px solid #c2c2c2;
     height: 175px;
@@ -377,15 +384,28 @@
       color:#7a7a7a;
     }
 
+    i{
+      font-size: 30px;
+      color:#a3a3a3;
+      vertical-align: middle;
+    }
 
+    .icon-eye{
+      width:32px;
+      font-size: 40px;
+      margin: -3px 0 0 -5px;
+      display: block;
+    }
     a{
       &:hover,&:focus{
         text-decoration:none;
 
-        .cog-icon{
-          background: url('../images/images.png') no-repeat -386px -484px;
+        //.cog-icon{
+        //  background: url('../images/images.png') no-repeat -386px -484px;
+        //}
+        .icon-manage{
+          color:#7724F6;
         }
-
       }
     }
 
@@ -411,6 +431,8 @@
       li{
         float:left;
         margin-right: 1px;
+        height:30px;
+        overflow: hidden;
         span{
           color:#666666;
         }
