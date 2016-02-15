@@ -8,7 +8,13 @@
                    data-ls-jquery-modal
                    data-ls-identity="idea{{ goal.id }}"
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                    <i class="icon plus-icon"></i>{{ 'add'|trans }}
+                    <i class="icon plus-icon"></i>
+                    {#<span class="icon-plus-icon">#}
+                        {#<span class="path1"></span>#}
+                        {#<span class="path2"></span>#}
+                        {#<span class="path3"></span>#}
+                    {#</span>#}
+                    {{ 'add'|trans }}
                 </a>
             </li>
         {% else %}
