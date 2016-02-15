@@ -17,8 +17,8 @@ parameters:
         with: 480
         height: 320
     list:
-        with: 320
-        height: 320
+        with: 770
+        height: 540
     cover:
         with: 1280
         height: 720

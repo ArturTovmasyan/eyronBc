@@ -165,6 +165,13 @@ class GoalImage
         return $this->getPath() . '/' .self::F_LIST;
     }
 
+    /**
+     * @return string
+     */
+    public function getListDownloadLink()
+    {
+        return  $this->fileName ? '/' . $this->getUploadDir() . '/' . $this->getListPath() . '/' . $this->fileName : null;
+    }
 
     /**
      * @return string
@@ -172,6 +179,14 @@ class GoalImage
     public function getAbsoluteCoverPath()
     {
         return $this->getUploadRootDir() . '/' . $this->getCoverPath() .'/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverDownloadLink()
+    {
+        return $this->fileName ? '/' . $this->getUploadDir() . '/' . $this->getCoverPath() . '/' . $this->fileName : null;
     }
 
     /**

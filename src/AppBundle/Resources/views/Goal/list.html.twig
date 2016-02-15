@@ -71,7 +71,7 @@
                             {% endif %}
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.listDownloadLink|blImageFilter('goal_list_1')  }} {% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -117,8 +117,8 @@
 
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" >
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_list_1')  }}{% else %}
-                                 {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{% if loop.first %}{{ image.listDownloadLink|blImageFilter('goal_list_1')  }}{% else %}
+                                 {{ image.listDownloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -164,8 +164,9 @@
                             {% endif %}
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" class="height">
                                 <span class="overlay height"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.listDownloadLink|blImageFilter('goal_list_2')  }} {% endif %}" alt="{{ goal.title }}"/>
                             </a>
+                            {{ dump(image.listDownloadLink) }}
 
                             <div class="absolute">
                                 <ul>

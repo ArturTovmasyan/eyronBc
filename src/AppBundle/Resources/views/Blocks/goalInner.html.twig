@@ -4,13 +4,13 @@
 <div id="fb-root"></div>
 
 <div class="inner-container">
-    {% set cover = goal.getCoverPhoto %}
+    {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
     <figure class="goal-image">
         <span class="overlay"></span>
         <img src="
         {% if cover %}
-             {{ cover.downloadLink }}
+             {{ cover }}
         {% else %}
              {{ asset(imgPath)}}
         {% endif %}"
@@ -58,7 +58,7 @@
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
                                 {% for image in images %}
                                     <div>
-                                        <img u="image" src="{{ image.downloadLink }}" alt="{{ goal.title }}"/>
+                                        <img u="image" src="{{ image.getListDownloadLink }}" alt="{{ goal.title }}"/>
                                     </div>
                                 {% endfor %}
                             </div>

@@ -435,7 +435,7 @@ class Goal implements MultipleFileInterface, PublishAware
         $image = $this->getListPhoto();
 
         // return download link
-        return $image ? $image->getDownloadLink() : null;
+        return $image ? $image->getListDownloadLink() : null;
     }
 
 
@@ -461,6 +461,18 @@ class Goal implements MultipleFileInterface, PublishAware
         }
 
         return null;
+    }
+
+    /**
+     * @return null
+     */
+    public function getCoverPhotoDownloadLink()
+    {
+        // get list image
+        $image = $this->getCoverPhoto();
+
+        // return download link
+        return $image ? $image->getCoverDownloadLink() : null;
     }
 
     /**
