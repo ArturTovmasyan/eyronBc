@@ -82,6 +82,17 @@
                                 </button>
                                 <a class="navbar-brand" href="{% if user %}{{ path("activity") }}{% else %}{{ path("homepage") }}{% endif %}">
                                     <img src="{{ asset('bundles/app/images/logo.png') }}" alt="logo" class="img-responsive"/>
+                                    {#<span class="icon-logo">#}
+                                        {#<span class="path1"></span>#}
+                                        {#<span class="path2"></span>#}
+                                        {#<span class="path3"></span>#}
+                                        {#<span class="path4"></span>#}
+                                        {#<span class="path5"></span>#}
+                                        {#<span class="path6"></span>#}
+                                        {#<span class="path7"></span>#}
+                                        {#<span class="path8"></span>#}
+                                        {#<span class="path9"></span>#}
+                                    {#</span>#}
                                 </a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
@@ -90,7 +101,8 @@
                                     {% if user %}
                                     <li>
                                         <a href="{{ path('activity') }}">
-                                            <i class="activity-icon"></i>
+                                            {#<i class="activity-icon"></i>#}
+                                            <i class="icon-activity-icon"></i>
                                             <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
                                         </a>
                                     </li>
@@ -98,7 +110,8 @@
                                     {% endif %}
                                     <li>
                                         <a href="{{ path('goals_list') }}">
-                                            <i class="ideas-icon"></i>
+                                            {#<i class="ideas-icon"></i>#}
+                                            <i class="icon-ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
                                     </li>
@@ -141,7 +154,7 @@
                                                 data-bs-popover>
                                                 {% if user.getPhotoLink %}
                                                     <figure class="img-circle">
-                                                            <img src="{{ user.getPhotoLink }}" alt="{{ user.fileOriginalName  }}" class="img-responsive">
+                                                            <img src="{{ user.getPhotoLink }}" alt="{{ user.filename  }}" class="img-responsive">
                                                     </figure>
                                                 {% else %}
                                                     <p class="no-image {{ className }}">{{ nameOnImage  }}</p>

@@ -144,7 +144,7 @@
                                                 {% for id, name in filters %}
 
                                                     <div class="col-sm-6">
-                                                        <div class="inputs-style">
+                                                        <div class="inputs-style priority-radio {% if data.getUrgentImportantStatus() == id %}active-important{% endif %}">
                                                             <label class="radio-inline">
                                                                 <input name="test"
                                                                        class="important-radio"
@@ -261,7 +261,10 @@
 
                     <div class="col-sm-2">
                         <div class="onoffswitch">
-                            <input {% if not data.isVisible %} checked {% endif %}
+                            <input {% if data.isVisible %}
+                                    checked
+                                    data-ng-init="private_checkbox=true"
+                                    {% endif %}
                                     type="checkbox"
                                     data-ng-model="private_checkbox"
                                     data-ls-checked="private_checkbox"

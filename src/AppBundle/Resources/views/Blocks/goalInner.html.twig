@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col-sm-9">
-                <h2 {% if goal.title|length > 30 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
+                <h2 {% if goal.title|length > 25 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -226,7 +226,7 @@
 
                     <div class="col-sm-8">
                         <hr/>
-                        <p class="text-gray">{{ goal.description }}</p>
+                        <p class="text-gray">{{ goal.description|markdown }}</p>
                         <br />
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}

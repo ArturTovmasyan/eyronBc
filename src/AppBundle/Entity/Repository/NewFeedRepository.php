@@ -17,17 +17,21 @@ class NewFeedRepository extends EntityRepository
      */
     public function findUnconvertedLogs()
     {
-        $lastConvertedLogId = $this->getEntityManager()
-            ->createQuery("SELECT MAX(l.id)
-                           FROM AppBundle:NewFeed nf
-                           JOIN nf.log l")
-            ->getSingleScalarResult();
+//        $lastConvertedLogId = $this->getEntityManager()
+//            ->createQuery("SELECT MAX(l.id)
+//                           FROM AppBundle:NewFeed nf
+//                           JOIN nf.log l")
+//            ->getSingleScalarResult();
 
         return $this->getEntityManager()
             ->createQuery("SELECT le
                            FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                           WHERE le.id > :lastConvertedId OR :lastConvertedId IS NULL")
-            ->setParameter('lastConvertedId', $lastConvertedLogId)
+                           WHERE le.id > (SELECT MAX(l1.id)
+                              FROM AppBundle:NewFeed nf1
+                              JOIN nf1.log l1) OR (SELECT COALESCE(MAX(l.id), 0)
+                           FROM AppBundle:NewFeed nf
+                           JOIN nf.log l) = 0")
+//            ->setParameter('lastConvertedId', $lastConvertedLogId)
             ->getResult();
     }
 

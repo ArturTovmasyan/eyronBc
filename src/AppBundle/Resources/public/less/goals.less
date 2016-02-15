@@ -113,7 +113,7 @@
 }
 
 .title-smaller{
-  font-size: 27px;
+  font-size: 23px;
   line-height: 57px;
 }
 
@@ -271,6 +271,13 @@
     }
   }
 
+  .dreaming{
+    display: block;
+    position: relative;
+    left: -50px;
+    top: -5px;
+  }
+
   .elipse{
     border-top: 1px solid #c2c2c2;
     height: 175px;
@@ -289,7 +296,7 @@
 
   span{
     width: 10px;
-    height: 84px;
+    height: 115px;
     display: block;
     position: absolute;
     margin-top: 65px;
@@ -302,10 +309,16 @@
 .goals-information{
 
   figure{
-    height:155px;
+    height:180px;
     overflow:hidden;
     position:relative;
 
+    .addthis_native_toolbox{
+      position: absolute;
+      right: 0;
+      top: 5px;
+      z-index: 10;
+    }
     figcaption{
       position:absolute;
       bottom: -20px;
@@ -341,6 +354,9 @@
 
   .right-block{
     figure{
+      .addthis_native_toolbox{
+        position: static;
+      }
       figcaption{
         padding: 0 5px;
         background-color: transparent;
@@ -363,10 +379,13 @@
       font-size:18px;
       line-height: 25px;
       margin:15px 0 0;
-      white-space: nowrap;
+      white-space: normal;
+      height: 50px;
       overflow: hidden;
-      width: 100%;
-      text-overflow: ellipsis;
+      //white-space: nowrap;
+      //overflow: hidden;
+      //width: 100%;
+      //text-overflow: ellipsis;
     }
 
     .addthis_native_toolbox{
@@ -377,15 +396,28 @@
       color:#7a7a7a;
     }
 
+    i{
+      font-size: 30px;
+      color:#a3a3a3;
+      vertical-align: middle;
+    }
 
+    .icon-eye{
+      width:32px;
+      font-size: 40px;
+      margin: -3px 0 0 -5px;
+      display: block;
+    }
     a{
       &:hover,&:focus{
         text-decoration:none;
 
-        .cog-icon{
-          background: url('../images/images.png') no-repeat -386px -484px;
+        //.cog-icon{
+        //  background: url('../images/images.png') no-repeat -386px -484px;
+        //}
+        .icon-manage{
+          color:#7724F6;
         }
-
       }
     }
 
@@ -411,6 +443,8 @@
       li{
         float:left;
         margin-right: 1px;
+        height:30px;
+        overflow: hidden;
         span{
           color:#666666;
         }
@@ -584,7 +618,7 @@
   }
 
   .date-left{
-    height: 150px;
+    height: 180px;
     //margin-left:14px;
     &>div:nth-child(1){
 

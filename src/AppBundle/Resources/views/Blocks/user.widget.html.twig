@@ -4,7 +4,7 @@
 
     <li>
         <a href="{{ path('user_profile') }}">
-            <i></i>{{ 'my_bucketlist'|trans }}
+            <i class="icon-list-icon"></i>{{ 'my_bucketlist'|trans }}
         </a>
     </li>
 
@@ -12,7 +12,13 @@
 
     <li>
         <a href="{{ path('add_goal') }}">
-            <i></i>{{ 'create_goal'|trans }}
+            <i class="icon-creat-icon"></i>
+            {#<i class="icon-plus-icon">#}
+                {#<span class="path1"></span>#}
+                {#<span class="path2"></span>#}
+                {#<span class="path3"></span>#}
+            {#</i>#}
+            {{ 'create_goal'|trans }}
         </a>
     </li>
 
@@ -20,7 +26,7 @@
 
     <li>
         <a onclick="openSettingsModal()" href="javascript:void(0)" data-url="{{ path("settings") }}">
-            <i></i>{{ 'settings'|trans }}
+            <i class="icon-settings-icon"></i>{{ 'settings'|trans }}
         </a>
     </li>
 
@@ -28,7 +34,7 @@
 
     <li>
         <a href="{{ path("fos_user_security_logout") }}">
-           <i></i>{{ 'logout'|trans }}
+            <i class="icon-logout"></i>{{ 'logout'|trans }}
         </a>
     </li>
 </ul>

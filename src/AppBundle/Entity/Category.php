@@ -90,7 +90,7 @@ class Category
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = strip_tags($title);
 
         return $this;
     }
