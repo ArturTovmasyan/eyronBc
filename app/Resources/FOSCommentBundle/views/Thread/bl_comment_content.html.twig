@@ -23,7 +23,7 @@
         <div class="col-sm-1">
             {% if comment.author.getDownloadLink  %}
                 <figure class="img-circle">
-                    <img src="{{ comment.author.getDownloadLink }}" class="img-responsive img-circle"/>
+                    <img src="{{ comment.author.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
                 </figure>
             {% else %}
                 {% set nameOnImage = comment.author.firstName|slice(0,1) ~ comment.author.lastName|slice(0,1) %}

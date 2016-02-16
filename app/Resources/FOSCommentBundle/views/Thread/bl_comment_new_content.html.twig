@@ -10,7 +10,7 @@
 
             {% if app.user.getDownloadLink  %}
                 <figure class="img-circle">
-                    <img src="{{ app.user.getDownloadLink }}" class="img-responsive img-circle"/>
+                    <img src="{{ app.user.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
                 </figure>
             {% else %}
                 {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
