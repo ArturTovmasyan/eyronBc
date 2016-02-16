@@ -280,8 +280,11 @@ class GoalControllerTest extends BaseClass
 
         // check db request count
         if ($profile = $this->client->getProfile()) {
+
+            // count is 20, because calculated redirected route too
+
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(20, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
     }
 
