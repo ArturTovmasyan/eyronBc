@@ -97,7 +97,7 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\Column(name="language", type="string", nullable=true)
+     * @ORM\Column(name="language", type="string", length=3, nullable=true)
      * @var
      */
     protected $language;
