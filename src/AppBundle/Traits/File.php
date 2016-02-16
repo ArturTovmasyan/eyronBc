@@ -42,8 +42,6 @@ trait File
      *     groups={"goal", "success_story"},
      *     minWidth = 770,
      *     minHeight = 540,
-     *     maxWidth = 1280,
-     *     maxHeight = 1280,
      *     maxSize="4000000",
      *     mimeTypes = {
      *         "image/png",
@@ -56,8 +54,6 @@ trait File
      *          },
      *     minWidthMessage = "file.goal_image_min_width_extension",
      *     minHeightMessage = "file.goal_image_min_height_extension",
-     *     maxWidthMessage = "file.goal_image_max_width_extension",
-     *     maxHeightMessage = "file.goal_image_max_height_extension",
      *     mimeTypesMessage = "file.extension_error",
      * )
      */
