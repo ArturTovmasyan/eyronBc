@@ -882,4 +882,29 @@ class GoalController extends Controller
     {
         return array('goal' => $goal);
     }
+
+    /**
+     * @Route("clone/{slug}", name="clone_goal")
+     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findBySlugWithRelations" })
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function cloneAction(Goal $goal)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+        // clone goal
+        $object = clone $goal;
+        // persist goal
+        $em->persist($object);
+        $em->flush();
+
+        // redirect to goal add
+        return $this->redirectToRoute('add_goal', array('id'=>$object->getId()));
+
+    }
 }

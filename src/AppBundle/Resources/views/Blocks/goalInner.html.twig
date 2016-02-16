@@ -82,6 +82,13 @@
                         <ul class="row goal-links">
 
                             {% if page == inner %}
+                                {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
+                                    <li class="col-sm-6">
+                                        <a href="{{ path('clone_goal', {'slug': goal.slug}) }}">
+                                            <span class="icon glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-xs-6">
