@@ -38,7 +38,7 @@ class LocaleListener implements EventSubscriberInterface
     {
         // get request
         $request = $event->getRequest();
-        
+
         if (!$request->hasPreviousSession()) {
             return;
         }

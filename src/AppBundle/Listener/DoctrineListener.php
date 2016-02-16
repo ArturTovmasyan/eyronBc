@@ -98,6 +98,11 @@ class DoctrineListener
                 $this->setList($entity);
                 $this->setCover($entity);
             }
+
+            // check entity
+            if($entity instanceof User){
+                $this->setLocale($entity);
+            }
         }
 
         // for update
@@ -108,7 +113,38 @@ class DoctrineListener
                 $this->setList($entity);
                 $this->setCover($entity);
             }
+
+            // check entity
+            if($entity instanceof User){
+                $this->setLocale($entity);
+            }
         }
+    }
+
+    /**
+     * @param $entity
+     */
+    private  function setLocale($entity)
+    {
+        // get request
+        $request = $this->container->get('request');
+
+        // get session
+        $session = $request->getSession();
+
+        // get locale
+        $locale = $session->get("_locale");
+
+        // get language
+        $userLocale = $entity->getLanguage();
+
+        // check user local with default locale
+        if($userLocale && $userLocale != $locale){
+
+            // set session locale
+            $session->set('_locale', $userLocale);
+        }
+
     }
 
 
