@@ -229,30 +229,6 @@ class GoalControllerTest extends BaseClass
         return $goalId;
     }
 
-
-    /**
-     * test remove goal
-     *
-     * @depends testAddSuccessStory
-     */
-    public function testRemoveGoal($goalId)
-    {
-        // get user id
-        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
-        // open remove goal page
-        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
-
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
-
-        // check db request count
-        if ($profile = $this->client->getProfile()) {
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-        }
-    }
-
-
     /**
      * @depends testAddSuccessStory
      * test add success story image
@@ -276,6 +252,31 @@ class GoalControllerTest extends BaseClass
         $this->client->request('POST', 'goal/add-story/' . $goalId , array(), array('file' => $photo));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        return $goalId;
+    }
+
+
+    /**
+     * test remove goal
+     *
+     * @depends testAddSuccessStoryImage
+     */
+    public function testRemoveGoal($goalId)
+    {
+        // get user id
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
+        // open remove goal page
+        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
+
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
 
         // check db request count
         if ($profile = $this->client->getProfile()) {
