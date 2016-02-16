@@ -94,7 +94,7 @@ class GoalRestControllerTest extends BaseClass
     {
         $url = sprintf('/api/v1.0/goals/create');
         // try to get goal by id
-        $this->client->request('PUT', $url, array('is_public'=>true, 'title'=>'from rest', 'description'=>'from rest description', 'video_links[0]'=>'www.google.com'));
+        $this->client->request('PUT', $url, array('is_public'=>true, 'title'=>'from rest', 'description'=>'from rest description', 'video_links[0]'=>'www.google.com', 'language' => 'en'));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal putAction rest!");
 

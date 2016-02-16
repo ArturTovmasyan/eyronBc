@@ -72,6 +72,7 @@ class GoalControllerTest extends BaseClass
             'app_bundle_goal[files]' => '',
             'app_bundle_goal[status]' => 1,
             'app_bundle_goal[hashTags]' => null,
+            'app_bundle_goal[language]' => 'en',
 
         ));
 

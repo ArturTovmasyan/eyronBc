@@ -35,7 +35,7 @@ class SettingsMobileType extends AbstractType
             ->add('addEmail', 'email', array('required' => false))
             ->add('birthDate', 'date', array('required' => false,  'widget' => 'single_text', 'format' => 'yyyy/MM/dd'))
             ->add('primary', 'email', array('required' => false))
-            ->add('language', 'lng', array('required' => false, 'label' => 'form.language'))
+            ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
             ->add('file', 'file', array('required' => false))
         ;
     }
