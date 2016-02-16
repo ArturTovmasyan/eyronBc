@@ -250,14 +250,14 @@ liip_imagine:
                 upscale: { min: [360, 260] }
                 central_crop: { size: [360, 260] }
 
-        goal_list_vertical:
+        goal_list_horizontal:
             quality: 100
             filters:
                 thumbnail: { size: [750, 260], mode: outbound }
                 upscale: { min: [750, 260] }
                 central_crop: { size: [750, 260] }
 
-        goal_list_horizontal:
+        goal_list_vertical:
             quality: 100
             filters:
                 thumbnail: { size: [360, 588], mode: outbound }

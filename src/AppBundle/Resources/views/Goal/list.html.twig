@@ -121,7 +121,7 @@
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" >
                                 <span class="overlay"></span>
                                 <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }}{% else %}
-                                 {{ imageDownloadLink|blImageFilter('goal_list_vertical') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                 {{ imageDownloadLink|blImageFilter('goal_list_horizontal') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -170,7 +170,7 @@
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" class="height">
                                 <span class="overlay height"></span>
                                 <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_big')  }}{% else %}
-                                 {{ imageDownloadLink|blImageFilter('goal_list_horizontal') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                 {{ imageDownloadLink|blImageFilter('goal_list_vertical') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
