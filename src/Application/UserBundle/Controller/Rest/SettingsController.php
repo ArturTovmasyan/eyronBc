@@ -74,8 +74,7 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            //get current user after update
-            $user = $this->getUser();
+            $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
             return $user;
 
