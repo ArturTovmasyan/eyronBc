@@ -1,0 +1,16 @@
+.story-fade-in.ng-hide {
+    opacity: 0;
+}
+
+.story-fade-in.ng-hide-remove,
+.story-fade-in.ng-hide-add {
+    display: block !important;
+}
+
+.story-fade-in.ng-hide-remove {
+    transition: all linear 1000ms;
+}
+
+.story-fade-in.ng-hide-add {
+    transition: all linear 500ms;
+}

@@ -107,5 +107,6 @@ $(document).ready(function(){
         $(window).bind("load", ScaleSliderStory);
         $(window).bind("resize", ScaleSliderStory);
         $(window).bind("orientationchange", ScaleSliderStory);
+        storySliderEls.on("showMoreStories", ScaleSliderStory);
     }
 });
