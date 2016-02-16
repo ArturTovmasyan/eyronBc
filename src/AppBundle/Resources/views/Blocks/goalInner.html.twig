@@ -291,13 +291,21 @@
                             {% if stories|length > 0 %}
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
+                                <a href="javascript:void(0)"
+                                   data-ng-show="successStoryActiveIndex !== 0"
+                                   data-ng-click="showMoreSuccessStory({{ stories|length }})">
+                                    Show More +5
+                                </a>
+
                                 {% for key, story in stories %}
 
                                     {% set addedUser = story.user %}
                                     {% set files = story.files %}
                                     {% set videos = story.videoLink %}
 
-                                    <div class="comment-place">
+                                    <div class="comment-place story-fade-in ng-hide"
+                                         data-ng-show="successStoryShow[{{ key }}]"
+                                         data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 4 ? 'true':'false' }}">
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 {#<figure>#}
@@ -423,6 +431,7 @@
                                         {% endif %}
                                     </div>
                                 {% endfor %}
+
                             {% endif %}
 
                             {% if app.user %}
