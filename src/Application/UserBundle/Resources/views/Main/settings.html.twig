@@ -180,9 +180,8 @@
 
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                {{ form_widget(form.language, {'attr': {'class' : 'form-control' } }) }}
+                                {{ form_widget(form.language) }}
                             </div>
-                            <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
                         </div>
 
                         {{ form_widget(form._token) }}
