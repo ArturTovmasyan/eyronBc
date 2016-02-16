@@ -104,6 +104,10 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <!-- custom liip filter-->
+        <service id="app.filter.central_crop" class="AppBundle\LiipFilters\CentralCropFilterLoader">
+            <tag name="liip_imagine.filter.loader" loader="central_crop" />
+        </service>
 
     </services>
 

@@ -97,8 +97,8 @@ class DoctrineListener
             if($entity instanceof GoalImage){
                 $this->setList($entity);
                 $this->setCover($entity);
-                $blService = $this->container->get('bl_service');
-                $blService->generateFileForList($entity);
+//                $blService = $this->container->get('bl_service');
+//                $blService->generateFileForList($entity);
             }
 
             // check entity
@@ -197,7 +197,7 @@ class DoctrineListener
     private function setCover($entity)
     {
         // get bl service
-        $blService = $this->container->get('bl_service');
+//        $blService = $this->container->get('bl_service');
 
         // get goal
         $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
@@ -214,18 +214,18 @@ class DoctrineListener
 
                     // if cover is selected return
                     if($image->getCover() == true){
-                        $blService->generateFileForCover($image);
+//                        $blService->generateFileForCover($image);
                         return;
                     }
                 }
 
                 // else set cover first
                 $images->first()->setCover(true);
-                $blService->generateFileForCover($images->first());
+//                $blService->generateFileForCover($images->first());
             }
         }
-        elseif($entity->getCover() == true){
-            $blService->generateFileForCover($entity);
-        }
+//        elseif($entity->getCover() == true){
+//            $blService->generateFileForCover($entity);
+//        }
     }
 }

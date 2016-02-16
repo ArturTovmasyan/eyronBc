@@ -243,39 +243,54 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        goal_list_1:
+        goal_list_small:
             quality: 100
             filters:
-                relative_resize: { heighten: 260 }
-        goal_list_2:
+                thumbnail: { size: [360, 260], mode: outbound }
+                upscale: { min: [360, 260] }
+                central_crop: { size: [360, 260] }
+
+        goal_list_vertical:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: inset }
-        goal_list_3:
+                thumbnail: { size: [750, 260], mode: outbound }
+                upscale: { min: [750, 260] }
+                central_crop: { size: [750, 260] }
+
+        goal_list_horizontal:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
-        goal_ideas_1:
+                thumbnail: { size: [360, 588], mode: outbound }
+                upscale: { min: [360, 588] }
+                central_crop: { size: [360, 588] }
+
+        goal_list_big:
             quality: 100
             filters:
-                relative_resize: { heighten: 260 }
-        goal_ideas_2:
-            quality: 100
-            filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: inset }
-        goal_ideas_3:
-            quality: 100
-            filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
-        goal_activity:
-            quality: 100
-            filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
+                thumbnail: { size: [750, 588], mode: outbound }
+                upscale: { min: [750, 588] }
+                central_crop: { size: [750, 588] }
+
+
+
+#                relative_resize: { heighten: 847 }
+#
+#        goal_list_2:
+#            quality: 100
+#            filters:
+#                upscale: { min: [1280, 1024] }
+#                thumbnail: { size: [1280, 1024], mode: inset }
+#        goal_list_3:
+#            quality: 100
+#            filters:
+#                upscale: { min: [1280, 1024] }
+#                thumbnail: { size: [1280, 1024], mode: outbound }
+#
+#        goal_activity:
+#            quality: 100
+#            filters:
+#                upscale: { min: [1280, 1024] }
+#                thumbnail: { size: [1280, 1024], mode: outbound }
 
 knp_markdown:
     parser:
