@@ -20,7 +20,7 @@
           {% else %}
             class="row"
           {% endif %}>
-        <div class="col-sm-1">
+        <div class="col-xs-2 col-sm-1">
             {% if comment.author.getDownloadLink  %}
                 <figure class="img-circle">
                     <img src="{{ comment.author.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
@@ -31,7 +31,7 @@
                 <bdi class="no-image {{ className }}">{{ nameOnImage  |upper}}</bdi>
             {% endif %}
         </div>
-        <div class="col-sm-11">
+        <div class="col-xs-10 col-sm-11">
             <span class="fos_comment_comment_authorname">
                 <i class="arrow-left"></i>
                 {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}

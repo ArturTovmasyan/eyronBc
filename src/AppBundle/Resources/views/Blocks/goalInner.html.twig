@@ -320,7 +320,7 @@
                                          data-ng-show="successStoryShow[{{ key }}]"
                                          data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 4 ? 'true':'false' }}">
                                         <div class="row">
-                                            <div class="col-sm-1">
+                                            <div class="col-xs-2 col-md-1">
                                                 {#<figure>#}
                                                     {#<img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>#}
                                                 {#</figure>#}
@@ -338,7 +338,7 @@
 
                                             </div>
 
-                                            <div class="col-sm-11">
+                                            <div class="col-xs-10 col-md-11">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
