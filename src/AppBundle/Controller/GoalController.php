@@ -227,18 +227,59 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/{slug}", name="inner_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal",  options={
-     *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findBySlugWithRelations" })
-     * @param Goal $goal
-     * @return array
+     * This action is used for upload images from drag and drop
      *
+     * @Route("goal/story/add-images", name="add_story_images")
+     * @Method({"POST"})
+     * @param Request $request
+     * @return array
      */
-    public function showAction(Goal $goal)
+    public function addSuccessStoryImage(Request $request)
     {
-        return array('goal' => $goal);
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if($file){
+
+            // get validator
+            $validator = $this->get('validator');
+
+            // get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new story image object
+            $storyImage = new StoryImage();
+
+            // set file
+            $storyImage->setFile($file);
+
+            // validate goal image
+            $error = $validator->validate($storyImage);
+
+            // check in error
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            }
+            else{ // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($storyImage);
+
+                $em->persist($storyImage);
+            }
+
+            // flush data
+            $em->flush();
+            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
+
+        }
+
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -406,63 +447,6 @@ class GoalController extends Controller
             'listedByUsers' => $listedByUsers,
         );
     }
-
-    /**
-     * This action is used for upload images from drag and drop
-     *
-     * @Route("goal/add-story-images", name="add-story_images")
-     * @Method({"POST"})
-     * @param Request $request
-     * @return array
-     */
-    public function addSuccessStoryImage(Request $request)
-    {
-        // get all files form request
-        $file = $request->files->get('file');
-
-        // check file
-        if($file){
-
-            // get validator
-            $validator = $this->get('validator');
-
-            // get entity manager
-            $em = $this->getDoctrine()->getManager();
-
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new story image object
-            $storyImage = new StoryImage();
-
-            // set file
-            $storyImage->setFile($file);
-
-            // validate goal image
-            $error = $validator->validate($storyImage);
-
-            // check in error
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-
-            }
-            else{ // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($storyImage);
-
-                $em->persist($storyImage);
-            }
-
-            // flush data
-            $em->flush();
-            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
-
-        }
-
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
-    }
-
 
     /**
      * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
@@ -882,5 +866,20 @@ class GoalController extends Controller
         }
 
         return new Response('', Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("goal/{slug}", name="inner_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findBySlugWithRelations" })
+     * @param Goal $goal
+     * @return array
+     *
+     */
+    public function showAction(Goal $goal)
+    {
+        return array('goal' => $goal);
     }
 }

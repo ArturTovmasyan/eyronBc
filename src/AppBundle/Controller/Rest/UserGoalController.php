@@ -193,7 +193,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      * @Security("has_role('ROLE_USER')")
      *
      * @return Response
