@@ -187,11 +187,11 @@ class Goal implements MultipleFileInterface, PublishAware
 
 
     /**
+     * @Assert\NotBlank(groups={"goal"}, message = "Language can't be blank")
      * @ORM\Column(name="language", type="string", nullable=true)
      * @var
      */
-    protected $language;
-
+    protected $language = "en";
 
     /**
      * Get id

@@ -32,7 +32,7 @@ class SettingsType extends AbstractType
             ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
             ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('language', 'lng', array('required' => false, 'label' => 'form.language'))
+            ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
         ;
 
         if ($builder->getData()->getSocialFakeEmail() != $builder->getData()->getEmail()) {

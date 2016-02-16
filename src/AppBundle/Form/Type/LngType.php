@@ -53,8 +53,7 @@ class LngType extends AbstractType
 
         $resolver->setDefaults(array(
             'choices' => $languages,
-            'empty_value' => 'form.language',
-            'translation_domain' => 'FOSUserBundle'
+            'translation_domain' => 'FOSUserBundle',
         ));
     }
 

@@ -146,7 +146,8 @@ class GoalController extends FOSRestController
      *      {"name"="is_public", "dataType"="boolean", "required"=true, "description"="Goal's status"},
      *      {"name"="title", "dataType"="string", "required"=true, "description"="Goal's title"},
      *      {"name"="description", "dataType"="string", "required"=false, "description"="Goal's description"},
-     *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"}
+     *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"},
+     *      {"name"="language", "dataType"="string", "required"=false, "description"="Goal's language"}
      *  }
      * )
      *
@@ -176,6 +177,7 @@ class GoalController extends FOSRestController
         $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
         $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
         $goal->setVideoLink(array_key_exists('video_links', $data) ? $data['video_links'] : null);
+        $goal->setLanguage(array_key_exists('language', $data) ? $data['language'] : "en");
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
