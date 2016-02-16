@@ -84,7 +84,7 @@
                             {% if page == inner %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-sm-6">
+                                    <li class="col-xs-6">
                                         <a href="javascript:void(0)"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
@@ -93,7 +93,7 @@
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="col-sm-6 transparent">
+                                    <li class="col-xs-6 transparent">
                                         <bdi>
                                             <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
                                         </bdi>
@@ -102,13 +102,13 @@
 
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
-                                    <li class="col-sm-6">
+                                    <li class="col-xs-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                             <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="col-sm-6 transparent">
+                                    <li class="col-xs-6 transparent">
                                         <bdi>
                                             <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
                                         </bdi>
@@ -131,11 +131,11 @@
                             <ul>
                                 <li>
                                     <ul class="row no-gutter">
-                                        <li class="col-sm-5">
+                                        <li class="col-xs-5">
                                             {{ 'done_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.doneBy }}</p>
                                         </li>
-                                        <li class="col-sm-4">
+                                        <li class="col-xs-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for doneByUser in doneByUsers %}
@@ -155,7 +155,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-sm-3">
+                                        <li class="col-xs-3">
                                             {% if goal.stats.doneBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -166,11 +166,11 @@
                                 </li>
                                 <li>
                                     <ul class="row no-gutter">
-                                        <li class="col-sm-5">
+                                        <li class="col-xs-5">
                                             {{ 'listed_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.listedBy }}</p>
                                         </li>
-                                        <li class="col-sm-4">
+                                        <li class="col-xs-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
@@ -189,7 +189,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-sm-3">
+                                        <li class="col-xs-3">
                                             {% if goal.stats.listedBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -291,12 +291,14 @@
                             {% if stories|length > 0 %}
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
-                                <a href="javascript:void(0)"
-                                   data-ng-show="successStoryActiveIndex !== 0"
-                                   data-ng-click="showMoreSuccessStory({{ stories|length }})">
-                                    Show More +5
-                                </a>
-
+                                <div class="text-right">
+                                    <a href="javascript:void(0)"
+                                       data-ng-show="successStoryActiveIndex !== 0"
+                                       data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                       class="text-purple">
+                                        Show More +5
+                                    </a>
+                                </div>
                                 {% for key, story in stories %}
 
                                     {% set addedUser = story.user %}
