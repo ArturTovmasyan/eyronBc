@@ -298,7 +298,7 @@ class BaseClass extends WebTestCase
                 'lastName'=>'Poxosyan',
                 'primary'=>false,
                 'addEmail'=>'test@test.ru',
-                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_NO_CONTENT)))
+                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_OK)))
         );
 
         return $data;
