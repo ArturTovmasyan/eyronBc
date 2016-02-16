@@ -22,7 +22,9 @@ use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
- * @ORM\Table(name="goal")
+ * @ORM\Table(name="goal", indexes={
+ *          @ORM\Index(name="search", columns={"language", "publish", "title"})
+ * })
  * @Gedmo\Loggable
  */
 class Goal implements MultipleFileInterface, PublishAware
