@@ -56,6 +56,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     {
         // get roles
         $user = $token->getUser();
+
+        // set session locale
+        $request->getSession()->set('_locale', $user->getLanguage() ? $user->getLanguage(): 'en');
+
         if($user && $user->isAdmin()){
             $url = $this->router->generate('sonata_admin_dashboard');
         }

@@ -57,7 +57,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"}, fetch="EAGER")
      **/
     protected $userGoal;
 
@@ -94,6 +94,13 @@ class User extends BaseUser
      * @var
      */
     protected $gender;
+
+
+    /**
+     * @ORM\Column(name="language", type="string", length=3, nullable=true)
+     * @var
+     */
+    protected $language;
 
     /**
      * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
@@ -1065,4 +1072,22 @@ class User extends BaseUser
 
         return null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
 }

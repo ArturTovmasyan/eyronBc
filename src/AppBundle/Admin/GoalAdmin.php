@@ -60,6 +60,7 @@ class GoalAdmin extends Admin
             ->add('rawLocation', 'bl_location', array('label' => false))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('language', 'lng', array('required' => true))
             ->add('bl_multiple_file', 'bl_multiple_file', array('label'=>'admin.label.name.images', 'required' => false));
     }
 
