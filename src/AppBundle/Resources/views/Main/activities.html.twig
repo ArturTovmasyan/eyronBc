@@ -27,7 +27,7 @@
                         <div class="clearfix">
                             <figure class="image">
                                 <img src="{{ convertedNew.user.getImagePath() ? convertedNew.user.getImagePath()|blImageFilter('user_icon') : asset('bundles/app/images/cover.jpg') }}"
-                                     alt= "Some image" class="img-circle img-responsive" />
+                                     alt="{{ convertedNew.user.firstName }}" class="img-circle img-responsive" />
                             </figure>
 
                             <div class="pull-left text-gray">
@@ -110,7 +110,7 @@
                 <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
                     <span class="overlay"></span>
                     <h3>{{ goal.title }}</h3>
-                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_list_horizontal') : null }}" height="230" alt= "{{ goal.title }}" class="img-responsive" />
+                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_list_horizontal') : null }}" alt= "{{ goal.title }}" />
                 </a>
                 <figcaption>
                     {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
