@@ -165,7 +165,7 @@ header{
 
       .search{
         form{
-          padding:16px 0 16px 30px;
+          padding:10px 0 10px 30px;
           input{
             border:0;
             color:#A4A4A4;
@@ -182,12 +182,12 @@ header{
     }
 
     .navbar-right{
-      text-align: center;
+      text-align:left;
       li{
-        width:210px;
+        width:320px;
         a{
-          padding-top:24px;
-          padding-bottom:24px;
+          padding-top:10px;
+          padding-bottom:10px;
         }
         .user{
           display: block;
@@ -305,7 +305,7 @@ header{
         }
 
         .join-class {
-          min-width:210px;
+          min-width:320px;
           background-color: #2b2b2b;
           color:#e3e3e3;
           &:hover{
@@ -336,7 +336,7 @@ label{
 
 .divider{
   height: 2px;
-  width: 235px;
+  //width: 235px;
   background: url('../images/divider.png') no-repeat center top;
 }
 .arrow-left{
@@ -438,7 +438,7 @@ label{
 
 #signin{
     text-align: center;
-    max-width:210px;
+    width:320px;
     background-color: #2b2b2b;
     padding-bottom: 10px;
 
@@ -855,6 +855,7 @@ ul.filter{
 
   img{
     width: 100%;
+    height:400px;
   }
 }
 
@@ -863,25 +864,26 @@ ul.filter{
   vertical-align: middle;
   line-height: 100%;
   text-align: center;
-  top: 38%;
+  //top: 38%;
+  top: 480px;
   left: 48%;
   z-index: 10;
 }
 
 .homepage{
-
   position: absolute;
   width: 100%;
 
   h1{
     color:#ffffff;
-    margin-top:0;
+    margin-top:30px;
     font-weight: 300;
   }
 
   h4{
-    padding:0 20px;
+    padding:0 10px;
     line-height:25px;
+    font-size:15px;
   }
 
   .icon-scroll{
@@ -889,18 +891,22 @@ ul.filter{
     height: 29px;
     width: 29px;
     background: url('../images/images.png') no-repeat -5px -1128px;
-    margin: 93px 0 0;
+    margin: 50px 0 0;
   }
 }
 
 #homepage-ideas{
-  padding: 78px 0 40px;
+  padding: 75px 0 40px;
+
+  h2{
+    font-size:18px;
+  }
 }
 
 .apps{
   padding-left:0;
   width:300px;
-  margin: 0 auto;
+  margin: 35px auto 0;
   li{
     float:left;
     padding:5px;
@@ -1202,7 +1208,7 @@ input{
 .overlay{
   display: block;
   width: 100%;
-  height: 260px;
+  height: 230px;
   background: rgba(0, 0, 0, 0.2);
   position: absolute;
 
@@ -1212,7 +1218,7 @@ input{
 }
 
 .overlay.height{
-  height:588px;
+  height:540px;
 }
 
 figure{
@@ -1229,7 +1235,7 @@ figure{
   figcaption{
     background-color: #ffffff;
     overflow-x: hidden;
-    margin-bottom:20px;
+    //margin-bottom:20px;
 
     ul{
       padding-left:0;
@@ -1314,6 +1320,9 @@ figure{
   text-align: center;
   margin:25px 0 40px;
   a{
+    width:40px;
+    height:40px;
+    display: inline-block;
     color:#b3b3b3;
     .rounded-corners;
     &:hover,&:focus{
@@ -1321,8 +1330,6 @@ figure{
     }
   }
   span{
-    width:40px;
-    height:40px;
     line-height:40px;
     display: inline-block;
     margin: 0 5px 0 0;
@@ -1333,10 +1340,14 @@ figure{
     font-size:13px;
   }
   span.current{
+    width:40px;
+    height:40px;
     background-color: #7724F6;
     color:#ffffff;
   }
   .next,.previous{
+    width:40px;
+    height:40px;
     background-color: #e3e3e3;
     color:#999999;
     a{
@@ -1357,10 +1368,10 @@ footer{
 
   small{
     display: block;
-    padding: 24px 0 15px;
+    padding: 24px 0 9px;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
-    font-size:11px;
+    font-size:10px;
   }
 
   ul{
@@ -1383,6 +1394,7 @@ footer{
   }
 
   .apps{
+    margin:0 auto;
     .app-store{
       background: url('../images/images.png') no-repeat -7px -389px;
     }
@@ -1401,7 +1413,7 @@ footer{
       padding:0;
       text-align: right;
       li{
-        padding:5px 2px 5px 25px;
+        padding:5px 2px 5px 10px;
       }
       a{
         padding-top: 19px;
@@ -1537,6 +1549,7 @@ footer{
 .right-block{
   background: #ffffff;
   padding:10px;
+  margin-bottom:20px;
 
   hr{
     border-color:#cccccc;
@@ -1667,12 +1680,12 @@ footer{
       }
 
       .navbar-right{
-        text-align: center;
+
         li{
-          //width:234px;
+          width:210px;
           a{
-            //padding-top:24px;
-            //padding-bottom:23px;
+            padding-top:24px;
+            padding-bottom:24px;
           }
           .user{
             padding: 18px 5px 15px 15px;
@@ -1722,7 +1735,7 @@ footer{
           }
 
           .join-class {
-            min-width:235px;
+            min-width:210px;
           }
 
           .popover-content{
@@ -1735,10 +1748,30 @@ footer{
     }
   }
 
+  #signin{
+    width:210px;
+  }
+
+  .divider{
+    width:210px;
+  }
+
+  .cover{
+    img{
+      height:auto;
+    }
+  }
   h1,h2{
     font-size:36px;
   }
 
+  #homepage-ideas{
+    padding: 78px 0 40px;
+
+    h2{
+      font-size:36px;
+    }
+  }
 
 
   h2{
@@ -1798,7 +1831,16 @@ footer{
   }
 
   .homepage{
-    padding-top:127px;
+    padding-top:45px;
+
+    h4{
+      padding:0 20px;
+      font-size:18px;
+    }
+
+    .icon-scroll{
+      margin: 60px 0 0;
+    }
   }
 
   .right-block{
@@ -1817,15 +1859,19 @@ footer{
     }
     small{
       clear:both;
+      padding: 24px 0 15px;
       font-size: 12px;
-      a{
-        float:right;
-      }
+      //a{
+      //  float:right;
+      //}
     }
     .footer-bottom{
       ul{
-        a{
-          font-size: 12px;
+        li{
+          padding:5px 2px 5px 25px;
+          a{
+            font-size: 12px;
+          }
         }
       }
     }
@@ -1859,6 +1905,10 @@ footer{
 
 .padding{
   padding:20px 20px 5px;
+}
+
+.padding-no{
+  padding-bottom:0
 }
 
 .margin-top{
@@ -1981,12 +2031,16 @@ footer{
   }
 
   #signin{
-    min-width:234px;
+    min-width:235px;
     overflow: hidden;
 
     .text-danger{
       margin-bottom:10px;
     }
+  }
+
+  .divider{
+    width:235px;
   }
 
   .signup,.settings{
@@ -2008,7 +2062,7 @@ footer{
 
   }
   .homepage{
-
+    padding-top:127px;
     h1{
       font-size: 64px;
       padding-bottom:46px;
@@ -2018,6 +2072,10 @@ footer{
       padding:0 0 100px 0;
       font-size:24px;
       line-height: 32px;
+    }
+
+    .icon-scroll{
+      margin: 93px 0 0;
     }
   }
 
