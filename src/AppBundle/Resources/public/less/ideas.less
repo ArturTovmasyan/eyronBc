@@ -111,106 +111,107 @@
     }
   }
 
-  .goal-information{
-    width: 375px;
-    overflow: hidden;
-    //margin-left: -15px;
-    background-color: #ffffff;
-    ul:last-child{
-      padding-left:15px;
-      &>li{
-        border-bottom:1px solid #a4a4a4;
-        padding-top:10px;
-        padding-bottom:10px;
-        color:#a4a4a4;
-        ul{
-          li{
-            display: inline-block;
-            border-bottom:0;
-            padding-bottom:0;
 
-            &first-child{
-              span{
-                display: block;
-                font-size: 15px;
+
+}
+.goal-information{
+  //width: 375px;
+  overflow: hidden;
+  //margin-left: -15px;
+  background-color: #ffffff;
+  ul:last-child{
+    padding-left:15px;
+    &>li{
+      border-bottom:1px solid #a4a4a4;
+      padding-top:10px;
+      padding-bottom:10px;
+      color:#a4a4a4;
+      ul{
+        li{
+          display: inline-block;
+          border-bottom:0;
+          padding-bottom:0;
+
+          &first-child{
+            span{
+              display: block;
+              font-size: 15px;
+            }
+          }
+
+          &:last-child{
+            a,i{
+              background: url('../images/images.png') no-repeat -396px -1156px;
+              display: block;
+              width:40px;
+              height:40px;
+            }
+
+            a{
+              &:hover{
+                background: url('../images/images.png') no-repeat -396px -1203px;
               }
             }
 
-            &:last-child{
-              a,i{
-                background: url('../images/images.png') no-repeat -396px -1156px;
-                display: block;
-                width:40px;
-                height:40px;
-              }
-
-              a{
-                &:hover{
-                  background: url('../images/images.png') no-repeat -396px -1203px;
-                }
-              }
-
-            }
           }
         }
       }
     }
-
-    p{
-      font-size:20px;
-      margin-bottom:0;
-    }
-
-
   }
 
-  .goal-links{
-    padding-left:0;
+  p{
+    font-size:20px;
     margin-bottom:0;
-    height: 50px;
-    li{
-      text-align: center;
-      a,bdi {
-        display: block;
-        color: #a4a4a4;
-        padding: 11px 0;
-
-        &:focus{
-          text-decoration: none;
-        }
-      }
-
-      &:hover{
-        background-color: #7724F6;
-        a,bdi{
-          color: #ffffff;
-
-          i.plus-icon{
-            background: url('../images/images.png') no-repeat -7px -496px;
-          }
-
-          i.ok-icon{
-            background: url('../images/images.png') no-repeat -7px -617px;
-          }
-        }
-
-      }
-      &:last-child{
-        border-left:1px solid #a4a4a4;
-      }
-    }
-    .transparent{
-      &:hover{
-        background-color: transparent;
-        a,bdi {
-          color: #a4a4a4;
-        }
-      }
-    }
   }
+
 
 }
 
+.goal-links{
+  padding-left:0;
+  margin-bottom:0;
+  height: 50px;
+  li{
+    text-align: center;
+    a,bdi {
+      display: block;
+      color: #a4a4a4;
+      padding: 11px 0;
+      font-size:12px;
+
+      &:focus{
+        text-decoration: none;
+      }
+    }
+
+    &:hover{
+      background-color: #7724F6;
+      a,bdi{
+        color: #ffffff;
+
+        i.plus-icon{
+          background: url('../images/images.png') no-repeat -7px -496px;
+        }
+
+        i.ok-icon{
+          background: url('../images/images.png') no-repeat -7px -617px;
+        }
+      }
+
+    }
+    &:last-child{
+      border-left:1px solid #a4a4a4;
+    }
+  }
+  .transparent{
+    &:hover{
+      background-color: transparent;
+      a,bdi {
+        color: #a4a4a4;
+      }
+    }
+  }
+}
 
 .inner-container{
   background-color: #d8d8d8;
@@ -456,4 +457,50 @@
       }
     }
   }
+  .goal-information{
+    width: 375px;
+    overflow: hidden;
+    //margin-left: -15px;
+    background-color: #ffffff;
+    ul:last-child{
+      padding-left:15px;
+      &>li{
+        border-bottom:1px solid #a4a4a4;
+        padding-top:10px;
+        padding-bottom:10px;
+
+        ul{
+          li{
+            display: inline-block;
+
+            &:first-child{
+              span{
+                font-size: 15px;
+              }
+            }
+
+
+          }
+        }
+      }
+    }
+
+    p{
+      font-size:20px;
+      margin-bottom:0;
+    }
+
+  }
+
+  .goal-links{
+    li{
+      a,bdi {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+
 }
