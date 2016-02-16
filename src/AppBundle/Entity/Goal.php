@@ -292,6 +292,29 @@ class Goal implements MultipleFileInterface, PublishAware
     }
 
     /**
+     * This function clone goal
+     */
+    public function __clone() {
+
+        $this->id = null;
+        $this->userGoal = null;
+        $this->successStories = null;
+        $this->author = null;
+        $this->editor = null;
+
+        $imagenes = $this->getImages();
+        $this->images = new ArrayCollection();
+        if(count($imagenes) > 0){
+            foreach ($imagenes as $imagen) {
+                $cloneImages = clone $imagen;
+                $this->images->add($cloneImages);
+                $cloneImages->setGoal($this);
+            }
+        }
+    }
+
+
+    /**
      * Add userGoal
      *
      * @param \AppBundle\Entity\UserGoal $userGoal
