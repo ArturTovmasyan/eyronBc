@@ -656,6 +656,13 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        // default locale
+        $locale = null;
+
+        if($user = $this->getUser()){
+            $locale = $user->getLanguage();
+        }
+
         // get search key
         $search = $request->get('search');
 
@@ -666,7 +673,7 @@ class GoalController extends Controller
 
         $allIds = [];
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
         // get paginator

@@ -182,9 +182,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $count
      * @param $allIds
      * @return mixed
+     * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
@@ -217,6 +218,13 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%')
                 ->groupBy('g.id')
             ;
+        }
+
+        // show for corresponding language
+        if(!$search && $locale){
+            $query
+                ->andWhere('g.language  = :lng OR g.language is null')
+                ->setParameter('lng', $locale);
         }
 
         if (is_numeric($first) && is_numeric($count)){
