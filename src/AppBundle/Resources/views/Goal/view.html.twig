@@ -67,12 +67,17 @@
                  <div class="col-sm-6 text-right">
                      <div class="buttons">
                          <a href="{{ path('add_goal', {'id' : goal.id }) }}" type="button" class="btn btn-default">
-                             <i class="icon icon-left"></i>
+                             {#<i class="icon icon-left"></i>#}
+                             <span class="icon-arrow-left">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                             </span>
                              {{ 'btn_back_and_edit'|trans }}
 
                          </a>
                          <a href="{{ path('add_to_me_goal', {'id' : goal.id }) }}"  type="button" class="btn btn-purple" name="btn_publish">{{ 'btn_publish'|trans }}
-                             <i class="icon icon-right"></i>
+                             {#<i class="icon icon-right"></i>#}
+                             <span class="icon-arrow-right"></span>
                          </a>
                      </div>
                  </div>
