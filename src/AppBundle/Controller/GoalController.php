@@ -895,7 +895,7 @@ class GoalController extends Controller
         // persist goal
         $em->persist($object);
         $em->flush();
-        
+
         // redirect to goal add
         return $this->redirectToRoute('add_goal', array('id'=>$object->getId()));
 
