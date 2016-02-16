@@ -341,20 +341,20 @@ class GoalImage
             unlink($tabletFilePath);
         }
 
-        // get cover file path
-        $coverFilePath = $this->getAbsoluteCoverPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($coverFilePath) && is_file($coverFilePath)){
-            unlink($coverFilePath);
-        }
-
-        // get list file path
-        $listFilePath = $this->getAbsoluteListPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($listFilePath) && is_file($listFilePath)){
-            unlink($listFilePath);
-        }
+//        // get cover file path
+//        $coverFilePath = $this->getAbsoluteCoverPath() . $this->getFileName();
+//
+//        // check file and remove
+//        if (file_exists($coverFilePath) && is_file($coverFilePath)){
+//            unlink($coverFilePath);
+//        }
+//
+//        // get list file path
+//        $listFilePath = $this->getAbsoluteListPath() . $this->getFileName();
+//
+//        // check file and remove
+//        if (file_exists($listFilePath) && is_file($listFilePath)){
+//            unlink($listFilePath);
+//        }
     }
 }

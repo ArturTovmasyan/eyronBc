@@ -259,16 +259,6 @@ class GoalController extends FOSRestController
                 $bucketService->uploadFile($goalImage);
 
                 if (isset($goal)){
-                    $images = $goal->getImages();
-
-                    if($images->count() == 0) {
-                        $blService = $this->container->get('bl_service');
-                        $goalImage->setList(true);
-                        $goalImage->setCover(true);
-                        $blService->generateFileForCover($goalImage);
-                        $blService->generateFileForList($goalImage);
-                    }
-
                     $goalImage->setGoal($goal);
                     $goal->addImage($goalImage);
                 }

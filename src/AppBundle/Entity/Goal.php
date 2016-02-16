@@ -270,6 +270,26 @@ class Goal implements MultipleFileInterface, PublishAware
         $this->images[] = $images;
         $images->setGoal($this);
 
+        $hasListPhoto = false;
+        $hasCoverPhoto = false;
+
+        foreach($this->images as $image){
+            if ($image->getList() == true){
+                $hasListPhoto = true;
+            }
+            if ($image->getCover() == true){
+                $hasCoverPhoto = true;
+            }
+        }
+
+        if (!$hasListPhoto){
+            $this->images->first()->setList(true);
+        }
+
+        if (!$hasCoverPhoto){
+            $this->images->first()->setCover(true);
+        }
+
         return $this;
     }
 

@@ -87,20 +87,6 @@ class DoctrineListener
 
         // for insert
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-
-            // check entity
-            if($entity instanceof Goal){
-                $this->setList($entity);
-                $this->setCover($entity);
-            }
-            // check entity
-            if($entity instanceof GoalImage){
-                $this->setList($entity);
-                $this->setCover($entity);
-//                $blService = $this->container->get('bl_service');
-//                $blService->generateFileForList($entity);
-            }
-
             // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
@@ -109,13 +95,6 @@ class DoctrineListener
 
         // for update
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
-
-            // check entity
-            if($entity instanceof GoalImage){
-                $this->setList($entity);
-                $this->setCover($entity);
-            }
-
             // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
@@ -150,82 +129,5 @@ class DoctrineListener
                 $session->set('_locale', $userLocale);
             }
         }
-    }
-
-
-    /**
-     * @param $entity
-     */
-    private function setList($entity)
-    {
-        // get bl service
-//        $blService = $this->container->get('bl_service');
-
-        // get goal
-        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
-
-        if($goal){
-            // get all images
-            $images = $goal->getImages();
-
-            // check images
-            if($images->count() > 0){
-
-                // loop for images
-                foreach($images as $image){
-
-                    // if cover is selected return
-                    if($image->getList() == true){
-//                        $blService->generateFileForList($image);
-                        return;
-                    }
-                }
-
-                // else set cover first
-                $images->first()->setList(true);
-//                $blService->generateFileForList($images->first());
-            }
-        }
-//        elseif($entity->getList() == true){
-//            $blService->generateFileForList($entity);
-//        }
-    }
-
-    /**
-     * @param $entity
-     */
-    private function setCover($entity)
-    {
-        // get bl service
-//        $blService = $this->container->get('bl_service');
-
-        // get goal
-        $goal = $entity instanceof Goal ? $entity : $entity->getGoal();
-
-        if($goal){
-            // get all images
-            $images = $goal->getImages();
-
-            // check images
-            if($images->count() > 0){
-
-                // loop for images
-                foreach($images as $image){
-
-                    // if cover is selected return
-                    if($image->getCover() == true){
-//                        $blService->generateFileForCover($image);
-                        return;
-                    }
-                }
-
-                // else set cover first
-                $images->first()->setCover(true);
-//                $blService->generateFileForCover($images->first());
-            }
-        }
-//        elseif($entity->getCover() == true){
-//            $blService->generateFileForCover($entity);
-//        }
     }
 }
