@@ -274,9 +274,9 @@ liip_imagine:
         goal_bucketlist:
             quality: 100
             filters:
-                thumbnail: { size: [310, 180], mode: outbound }
-                upscale: { min: [310, 180] }
-                central_crop: { size: [310, 180] }
+                thumbnail: { size: [320, 180], mode: outbound }
+                upscale: { min: [320, 180] }
+                central_crop: { size: [320, 180] }
 
         goal_cover:
             quality: 100
