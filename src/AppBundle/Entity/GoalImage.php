@@ -148,55 +148,6 @@ class GoalImage
         return $this->getPath() . '/tablet';
     }
 
-//    /**
-//     * @return string
-//     */
-//    protected function getCoverPath()
-//    {
-//        return $this->getPath() . '/' .self::COVER;
-//    }
-//
-//
-//    /**
-//     * @return string
-//     */
-//    protected function getListPath()
-//    {
-//        return $this->getPath() . '/' .self::F_LIST;
-//    }
-
-//    /**
-//     * @return string
-//     */
-//    public function getListDownloadLink()
-//    {
-//        return  $this->fileName ? '/' . $this->getUploadDir() . '/' . $this->getListPath() . '/' . $this->fileName : null;
-//    }
-
-//    /**
-//     * @return string
-//     */
-//    public function getAbsoluteCoverPath()
-//    {
-//        return $this->getUploadRootDir() . '/' . $this->getCoverPath() .'/';
-//    }
-
-//    /**
-//     * @return string
-//     */
-//    public function getCoverDownloadLink()
-//    {
-//        return $this->fileName ? '/' . $this->getUploadDir() . '/' . $this->getCoverPath() . '/' . $this->fileName : null;
-//    }
-
-//    /**
-//     * @return string
-//     */
-//    public function getAbsoluteListPath()
-//    {
-//        return $this->getUploadRootDir() . '/' . $this->getListPath() .'/';
-//    }
-
     /**
      * Set created
      *
