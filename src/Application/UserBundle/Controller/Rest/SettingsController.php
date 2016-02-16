@@ -48,7 +48,7 @@ class SettingsController extends FOSRestController
      *      {"name"="bl_mobile_user_settings[language]", "dataType"="string", "required"=false, "description"="User`s language | en|ru"},
      * }
      * )
-     * @Rest\View(serializerGroups={"settings"})
+     * @Rest\View(serializerGroups={"user"})
      * @Secure("ROLE_USER")
      */
     public function postSettingsAction(Request $request)
@@ -74,7 +74,10 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            return new Response('', Response::HTTP_NO_CONTENT);
+            //get current user after update
+            $user = $this->getUser();
+
+            return $user;
 
         }
         else{
