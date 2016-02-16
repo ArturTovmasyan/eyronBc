@@ -22,7 +22,9 @@ use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
- * @ORM\Table(name="goal")
+ * @ORM\Table(name="goal", indexes={
+ *          @ORM\Index(name="search", columns={"language", "publish", "title"})
+ * })
  * @Gedmo\Loggable
  */
 class Goal implements MultipleFileInterface, PublishAware
@@ -182,6 +184,14 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Column(length=128, unique=true, nullable=false)
      */
     protected $slug;
+
+
+    /**
+     * @ORM\Column(name="language", type="string", nullable=true)
+     * @var
+     */
+    protected $language;
+
 
     /**
      * Get id
@@ -803,4 +813,22 @@ class Goal implements MultipleFileInterface, PublishAware
     {
         return $this->slug;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
 }

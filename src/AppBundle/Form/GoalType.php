@@ -33,6 +33,7 @@ class GoalType extends AbstractType
             ->add('files', 'hidden', array('mapped' => false))
             ->add('hashTags', 'hidden', array('mapped' => false))
             ->add('videoLink', 'bl_multiple_video', array('required' => false))
+            ->add('language', 'lng', array('required' => false, 'label' => 'language'))
         ;
     }
 

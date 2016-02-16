@@ -82,6 +82,13 @@
         </service>
 
 
+        <!-- service locale listener -->
+        <service id="bl.locale.listener" class="AppBundle\Listener\LocaleListener">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+
         <service id="bl.settings.listener.resolver" class="AppBundle\Listener\MyEntityListenerResolver">
             <argument type="service" id="service_container" />
         </service>
@@ -90,6 +97,13 @@
         <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
             <argument type="service" id="service_container" />
         </service>
+
+        <!--  form for languages -->
+        <service id="app.form.lng" class="AppBundle\Form\Type\LngType">
+            <tag name="form.type" alias="lng" />
+            <argument type="service" id="service_container" />
+        </service>
+
 
     </services>
 
