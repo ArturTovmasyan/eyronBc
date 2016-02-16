@@ -184,7 +184,6 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
-     * @Groups({"settings"})
      */
     protected $userEmails;
 
@@ -883,32 +882,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return array
-     */
-    public function  getBlMultipleEmail()
-    {
-        // check images and return array
-        if($this->userEmails){
-
-            return $this->userEmails;
-        }
-        return array();
-    }
-
-    /**
-     * @param $userEmails
-     */
-
-    public function  setBlMultipleEmail($userEmails)
-    {
-        // check added userEmails
-        if(count($userEmails) > 0){
-
-            $this->userEmails = $userEmails;
-        }
-    }
-
-    /**
      * Set userEmails
      *
      * @param array $userEmails
@@ -1090,4 +1063,21 @@ class User extends BaseUser
     }
 
 
+    /**
+     * This function is used to get last email in userEmails array
+     *
+     * @VirtualProperty()
+     * @SerializedName("lastUserEmail")
+     * @Groups({"settings"})
+     */
+    public function getLastInUserEmails()
+    {
+        //get userEmails
+        $userEmails = $this->getUserEmails();
+
+        //get last userEmails in array
+        $userEmail = end($userEmails);
+
+        return $userEmail;
+    }
 }
