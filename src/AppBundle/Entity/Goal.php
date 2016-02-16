@@ -333,7 +333,7 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = strip_tags($description);
 
         return $this;
     }
@@ -496,7 +496,7 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = strip_tags($title);
 
         return $this;
     }
@@ -735,7 +735,7 @@ class Goal implements MultipleFileInterface, PublishAware
         $author = $this->getAuthor();
 
         // check author
-        if(is_null($author) && $author == $user){
+        if(!is_null($author) && $author == $user){
             return true;
         }
         return false;

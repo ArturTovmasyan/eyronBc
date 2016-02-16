@@ -276,3 +276,8 @@ liip_imagine:
             filters:
                 upscale: { min: [1280, 1024] }
                 thumbnail: { size: [1280, 1024], mode: outbound }
+
+knp_markdown:
+    parser:
+        service: markdown.parser.max
+
