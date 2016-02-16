@@ -126,25 +126,28 @@ class DoctrineListener
      */
     private  function setLocale($entity)
     {
-        // get request
-        $request = $this->container->get('request');
+        // get environment
+        $env = $this->container->get('kernel')->getEnvironment();
+        if($env != "test"){
+            // get request
+            $request = $this->container->get('request');
 
-        // get session
-        $session = $request->getSession();
+            // get session
+            $session = $request->getSession();
 
-        // get locale
-        $locale = $session->get("_locale");
+            // get locale
+            $locale = $session->get("_locale");
 
-        // get language
-        $userLocale = $entity->getLanguage();
+            // get language
+            $userLocale = $entity->getLanguage();
 
-        // check user local with default locale
-        if($userLocale && $userLocale != $locale){
+            // check user local with default locale
+            if($userLocale && $userLocale != $locale){
 
-            // set session locale
-            $session->set('_locale', $userLocale);
+                // set session locale
+                $session->set('_locale', $userLocale);
+            }
         }
-
     }
 
 
