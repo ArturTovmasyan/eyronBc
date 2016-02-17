@@ -94,12 +94,9 @@
     {{ parent() }}
 
     {% javascripts output='js/app_goal_view.js'
+        'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
         'app/bower_components/jssor-slider/js/jssor.slider.mini.js'
-        'app/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js'
-        'app/scripts/Ticker/jquery.ticker.min.js'
-        'app/bower_components/icheck/icheck.min.js'
         'bundles/app/js/jssor-inner-slider.js'
-        'bundles/app/js/angular/goal.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
