@@ -122,9 +122,6 @@ class GoalAdmin extends Admin
     {
         $description = $object->getDescription();
 
-        $description = str_replace('#', '', $description);
-        $description = strip_tags($description);
-
         $object->setDescription($description);
 
         $object->setPublish(PublishAware::PUBLISH);
@@ -140,8 +137,6 @@ class GoalAdmin extends Admin
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $description = $object->getDescription();
-        $description = str_replace('#', '', $description);
-        $description = strip_tags($description);
         $object->setDescription($description);
 
         $object->setEditor($user);
