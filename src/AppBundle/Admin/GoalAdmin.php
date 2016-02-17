@@ -120,6 +120,13 @@ class GoalAdmin extends Admin
      */
     public function prePersist($object)
     {
+        $description = $object->getDescription();
+
+        $description = str_replace('#', '', $description);
+        $description = strip_tags($description);
+
+        $object->setDescription($description);
+
         $object->setPublish(PublishAware::PUBLISH);
         $object->setStatus(Goal::PUBLIC_PRIVACY);
         $this->preUpdate($object);
@@ -132,6 +139,10 @@ class GoalAdmin extends Admin
     {
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $description = $object->getDescription();
+        $description = str_replace('#', '', $description);
+        $description = strip_tags($description);
+        $object->setDescription($description);
 
         $object->setEditor($user);
         $object->setReadinessStatus(Goal::TO_PUBLISH);
