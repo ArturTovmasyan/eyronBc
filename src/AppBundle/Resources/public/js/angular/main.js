@@ -15,7 +15,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
         'deviceDetector',
         function($scope, $modal, $timeout, deviceDetector){
 
-        if (!deviceDetector.raw.os.android || !deviceDetector.raw.os.ios) {
+        if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
             // open modal
             $timeout(function(){
                 $scope.$broadcast('openLsModal', 'mobileDetectModal');
