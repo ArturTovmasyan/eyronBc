@@ -82,16 +82,18 @@
                         <ul class="row goal-links">
 
                             {% if page == inner %}
+                                {% set xs = 6 %}
                                 {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
-                                    <li class="col-sm-6">
+                                    {% set xs = 3 %}
+                                    <li class="col-xs-3">
                                         <a href="{{ path('clone_goal', {'slug': goal.slug}) }}">
                                             <span class="icon glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
                                         </a>
                                     </li>
-                                    {% endif %}
+                                {% endif %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-xs-6">
+                                    <li class="col-xs-{{ xs }}">
                                         <a href="javascript:void(0)"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
@@ -100,7 +102,7 @@
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="col-xs-6 transparent">
+                                    <li class="col-xs-{{ xs }} transparent">
                                         <bdi>
                                             <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
                                         </bdi>
@@ -133,6 +135,8 @@
                                      style="width: 99.8%; height: 221px">
                                 </div>
                             </div>
+                        {% else %}
+                            <hr />
                         {% endif %}
                         {% if page == inner %}
                             <ul>
@@ -316,7 +320,7 @@
                                          data-ng-show="successStoryShow[{{ key }}]"
                                          data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 4 ? 'true':'false' }}">
                                         <div class="row">
-                                            <div class="col-sm-1">
+                                            <div class="col-xs-2 col-md-1">
                                                 {#<figure>#}
                                                     {#<img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>#}
                                                 {#</figure>#}
@@ -334,7 +338,7 @@
 
                                             </div>
 
-                                            <div class="col-sm-11">
+                                            <div class="col-xs-10 col-md-11">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
