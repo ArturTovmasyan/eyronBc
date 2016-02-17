@@ -64,6 +64,11 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension is replace # in goal description -->
+        <service id="bl_replace_description_extension" class="AppBundle\Twig\Extension\ReplaceInDescriptionExtension">
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service for twig extension location -->
         <service id="bl.location" class="AppBundle\Twig\Extension\LocationExtension">
             <tag name="twig.extension"/>

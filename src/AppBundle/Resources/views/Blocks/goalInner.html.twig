@@ -64,7 +64,7 @@
                             </div>
 
                             {% if images|length > 1 %}
-                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
+                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">
                                     <!-- bullet navigator item prototype -->
                                     <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                 </div>
@@ -237,7 +237,7 @@
 
                     <div class="col-sm-8">
                         <hr/>
-                        <p class="text-gray">{{ goal.description|markdown }}</p>
+                        <p class="text-gray">{{ replaceDescription(goal.description)|markdown }}</p>
                         <br />
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}
@@ -279,7 +279,7 @@
                                             </div>
 
                                             {% if goal.videoLink|length > 2 %}
-                                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
+                                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">
                                                     <!-- bullet navigator item prototype -->
                                                     <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                                 </div>
@@ -373,7 +373,7 @@
                                                         </div>
 
                                                         {% if files|length > 2 %}
-                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
+                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
                                                                 <!-- bullet navigator item prototype -->
                                                                 <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                                             </div>
@@ -428,7 +428,7 @@
                                                         </div>
 
                                                         {% if videos|length > 2 %}
-                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
+                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
                                                                 <!-- bullet navigator item prototype -->
                                                                 <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                                             </div>

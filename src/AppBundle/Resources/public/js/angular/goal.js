@@ -245,13 +245,15 @@ angular.module('goal', ['Interpolation',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        angular.element('.goal-information').scrollToFixed({
-            marginTop: 85,
-            limit: function() {
-                var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
-                return limit;
-            }
-        });
+        if(angular.element('.goal-information') && screen.width >= 992) {
+            angular.element('.goal-information').scrollToFixed({
+                marginTop: 85,
+                limit: function () {
+                    var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
+                    return limit;
+                }
+            });
+        }
 
         if(angular.element('.suggest-input input')) {
             angular.element('.suggest-input input').iCheck({
