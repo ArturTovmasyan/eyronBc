@@ -245,7 +245,7 @@ angular.module('goal', ['Interpolation',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        if(angular.element('.goal-information')) {
+        if(angular.element('.goal-information') && screen.width >= 992) {
             angular.element('.goal-information').scrollToFixed({
                 marginTop: 85,
                 limit: function () {
