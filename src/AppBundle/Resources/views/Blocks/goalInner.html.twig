@@ -58,7 +58,7 @@
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
                                 {% for image in images %}
                                     <div>
-                                        <img u="image" src="{{ image.downloadLink|blImageFilter('goal_list_big') }}" alt="{{ goal.title }}"/>
+                                        <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
                                     </div>
                                 {% endfor %}
                             </div>

@@ -271,6 +271,12 @@ liip_imagine:
                 upscale: { min: [770, 540] }
                 central_crop: { size: [770, 540] }
 
+        goal_slider_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [770, 540], mode: inset}
+                upscale: { min: [770, 540] }
+
         goal_bucketlist:
             quality: 100
             filters:
