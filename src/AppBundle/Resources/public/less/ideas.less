@@ -124,6 +124,11 @@
   overflow: hidden;
   //margin-left: -15px;
   background-color: #ffffff;
+
+  hr{
+    margin:0 !important;
+    border-color:#A4A4A4;
+  }
   ul:last-child{
     padding-left:15px;
     &>li{
@@ -222,6 +227,10 @@
   background-color: #d8d8d8;
   padding-bottom: 30px;
 
+  hr{
+    margin:5px 0;
+  }
+
   q{
     display: block;
     padding:25px 0;
@@ -277,7 +286,6 @@
     }
   }
 
-
   .goal-image{
     position: absolute;
     width:100%;
@@ -301,20 +309,20 @@
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding: 5px 40px 10px;
-    margin-bottom:20px;
+    padding: 5px 10px 10px;
+    margin-bottom:10px;
     overflow: hidden;
-    line-height:60px;
+    line-height:25px;
+    font-size:18px;
   }
 
-
-
   .inner{
-    padding:0 20px 10px 20px;
+    padding:0 10px 10px;
     p{
-      padding:35px 0 0;
-      font-size:16px;
+      padding:10px 0 0;
+      font-size:12px;
       white-space: normal;
+      text-align: justify;
       word-break: break-word;
     }
 
@@ -330,26 +338,25 @@
     }
 
     .comment-place{
-      padding:20px 15px 30px;
+      padding:10px 10px 20px;
       background-color: #f4f4f4;
-      margin-bottom: 20px;
-
+      margin-bottom: 10px;
 
       figure:first-child{
-        margin: 0 0 10px 15px;
+        margin: 0 0 10px 0;
         background-color: transparent;
-        width:40px;
-        height:40px;
+        width:35px;
+        height:35px;
 
         img{
-          height:40px;
+          height:35px;
           border:2px solid #cecece;
         }
       }
 
       p{
         padding:0;
-        font-size:16px;
+        font-size:12px;
         color:#666666;
         margin:0;
         white-space: normal;
@@ -361,7 +368,7 @@
       }
 
       span{
-        font-size:13px;
+        font-size:12px;
         color:#999999;
       }
 
@@ -392,8 +399,9 @@
   }
 
   h4{
-    padding-top:40px;
+    padding-top:10px;
     color:#666666;
+    font-size:14px;
   }
 }
 
@@ -455,13 +463,128 @@
 
     }
   }
+
   .inner-container{
+    padding-bottom: 20px;
+
+    hr{
+      margin:10px 0;
+    }
+
+    q{
+      padding:15px 0;
+      font-size:15px;
+    }
+
+    cite{
+      margin-bottom:5px;
+    }
+
+    .quote{
+      height:100px;
+      padding:20px 0 15px;
+      i{
+        height:30px;
+        width:33px;
+        font-size:30px;
+      }
+    }
+
+    .ticker {
+      font-size:16px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
     .goal-image{
+
+      .overlay{
+        height:680px;
+      }
+
       img{
         height:680px;
       }
     }
+
+    h2{
+      padding: 5px 20px 10px;
+      margin-bottom:10px;
+      line-height:40px;
+      font-size: 30px;
+    }
+
+    .inner{
+      padding:0 15px 5px 15px;
+      p{
+        padding:25px 0 0;
+        font-size:14px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:15px 10px 25px;
+        margin-bottom: 10px;
+
+        figure:first-child{
+          margin: 0 0 10px 5px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:14px;
+        }
+
+        span{
+          font-size:12px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:20px;
+      font-size:16px;
+    }
   }
+
   .goal-information{
     width: 375px;
     overflow: hidden;
@@ -507,5 +630,124 @@
 }
 
 @media (min-width: @screen-md) {
+  .inner-container{
+    padding-bottom: 30px;
 
+    hr{
+      margin:20px 0;
+    }
+
+    q{
+      padding:25px 0;
+      font-size:17px;
+    }
+
+    cite{
+      margin-bottom:10px;
+    }
+
+    .quote{
+      height:150px;
+      padding:35px 0 25px;
+      i{
+        height:30px;
+        width:33px;
+        font-size:30px;
+      }
+    }
+
+    .ticker {
+      font-size:16px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
+    .goal-image{
+
+      .overlay{
+        height:680px;
+      }
+
+      img{
+        height:680px;
+      }
+    }
+
+    h2{
+      padding: 5px 40px 10px;
+      margin-bottom:20px;
+      line-height:60px;
+      font-size: 52px;
+    }
+
+    .inner{
+      padding:0 20px 10px 20px;
+      p{
+        padding:35px 0 0;
+        font-size:16px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:20px 15px 30px;
+        margin-bottom: 20px;
+
+        figure:first-child{
+          margin: 0 0 10px 15px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:16px;
+        }
+
+        span{
+          font-size:13px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:40px;
+      font-size:18px;
+    }
+  }
 }
