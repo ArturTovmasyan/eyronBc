@@ -22,7 +22,7 @@
           {% endif %}>
         <div class="col-xs-2 col-sm-1">
             {% if comment.author.getDownloadLink  %}
-                <figure class="img-circle">
+                <figure>
                     <img src="{{ comment.author.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
                 </figure>
             {% else %}
