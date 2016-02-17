@@ -29,14 +29,14 @@
                     <a href="#">
                         {{ 'block_listed'|trans | upper }}
                         <span>{{ goal.getUsedCount.listedBy }}</span>
-                        <i class="icon user-icon"></i>
+                        <i class="icon-user-small"></i>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         {{ 'block_completed'|trans | upper }}
                         <span>{{ goal.getUsedCount.doneBy }}</span>
-                        <i class="icon user-icon"></i>
+                        <i class="icon-user-small"></i>
                     </a>
                 </li>
             </ul>
@@ -44,7 +44,8 @@
 
         <div class="col-sm-4 text-right">
             <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
-                <i class="icon trash-icon"></i>
+                {#<i class="icon trash-icon"></i>#}
+                <i class="icon-trash"></i>
                 {{ 'forget'|trans | upper }}
             </a>
         </div>

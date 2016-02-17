@@ -32,6 +32,11 @@
     margin-right:0;
   }
 
+  .icon-user-small{
+    color: #ffffff;
+    margin-top: -4px;
+  }
+
   textarea{
     padding: 10px 10px 10px 40px;
   }
@@ -312,19 +317,21 @@ a.close-modal{
     margin: 20px 30px 0 0;
     color:#cecece;
     display: inline-block;
-    padding:5px 12px 0 0;
+    padding:1px 12px 3px 0;
     font-size:18px;
 
-    .trash-icon{
+    .icon-trash{
       margin: 0 5px 0 0;
+      vertical-align: bottom;
+      color:#cecece;
     }
 
     &:hover{
       background-color: #7724F6;
       color:#ffffff;
       border:1px solid #6108EA;
-      .trash-icon{
-          background: url('../images/images.png') no-repeat -393px -1480px;
+      .icon-trash{
+          color:#ffffff;
       }
 
       .delete-message{
