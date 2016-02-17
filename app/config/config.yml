@@ -288,7 +288,6 @@ liip_imagine:
         user_cover:
             quality: 100
             filters:
-<<<<<<< HEAD
                 thumbnail: { size: [1280, 274], mode: outbound }
                 upscale: { min: [1280, 274] }
                 central_crop: { size: [1280, 274] }
@@ -311,13 +310,3 @@ knp_markdown:
     parser:
         service: markdown.parser.max
 
-=======
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
-
-mobile_detect:
-    redirect:
-        mobile: ~
-        tablet: ~
-    switch_device_view: ~
->>>>>>> mobileDetection
