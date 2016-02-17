@@ -83,6 +83,8 @@
                     <div class="col-sm-12">
                         <div class="location">
                             <i class="icon location-icon"></i>
+                            {#<span class="icon-remove-email"></span>#}
+                            <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
                             <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
                             <input {% if completed %} disabled {% endif %}
                                     value="{{ data.address }}"
