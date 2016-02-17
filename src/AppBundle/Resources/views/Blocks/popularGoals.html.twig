@@ -8,7 +8,7 @@
 
                 <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">
                     <span class="overlay"></span>
-                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
+                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ popularGoal.title }}" class="img-responsive" />
                 </a>
                 <figcaption>
                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}

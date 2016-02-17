@@ -38,13 +38,13 @@
 
                             <div class="col-sm-6">
                                 <div class="bg-white padding clearfix">
-                                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}" style="display:block;">
+                                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}" style="display:block;">
                                         <div class="row no-gutter">
                                             <div class="col-sm-3">
                                                 <figure class="image-goalfrinds">
                                                 {% if goalFriend.getPhotoLink() %}
 
-                                                        <img src="{{ goalFriend.getPhotoLink() }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+                                                        <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
 
                                                 {% else %}
                                                     {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
@@ -125,22 +125,37 @@
 {% endblock %}
 
 {%- block title -%}
-    {{ 'goal.friends_title'|trans }}
+    {% if app.request.get('_route') == 'goal_friends' %}
+        {{ 'goal.friends_title'|trans }}
+    {% else %}
+        {{ 'goal.user_title'|trans }}
+    {% endif %}
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ 'goal.friends_title'|trans }}
+    {% if app.request.get('_route') == 'goal_friends' %}
+        {{ 'goal.friends_title'|trans }}
+    {% else %}
+        {{ 'goal.user_title'|trans }}
+    {% endif %}
 {%- endblock -%}
 
 {%- block og_description -%}
-    {{ 'goal.friends_description'|trans }}
+    {% if app.request.get('_route') == 'goal_friends' %}
+        {{ 'goal.friends_description'|trans }}
+    {% else %}
+        {{ 'goal.user_description'|trans }}
+    {% endif %}
 {%- endblock -%}
 
 {%- block meta_description -%}
-    {{ 'goal.friends_description'|trans }}
+    {% if app.request.get('_route') == 'goal_friends' %}
+        {{ 'goal.friends_description'|trans }}
+    {% else %}
+        {{ 'goal.user_description'|trans }}
+    {% endif %}
 {%- endblock -%}
 
 {%- block og_url -%}
     {{- app.request.uri -}}
 {%- endblock -%}
-

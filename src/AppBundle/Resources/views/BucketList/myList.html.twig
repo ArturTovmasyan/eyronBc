@@ -62,7 +62,7 @@
             <span class="overlay"></span>
             <img src="
             {% if profileUser.getPhotoLink %}
-                {{ profileUser.getPhotoLink }}
+                {{ profileUser.getPhotoLink|blImageFilter('user_cover') }}
             {% else %}
                 {{ asset(imgPath) }}
             {% endif %}"
@@ -77,7 +77,7 @@
                         <figure>
                             <div>
                                 {% if profileUser.getPhotoLink %}
-                                     <img src="{{ profileUser.getPhotoLink }}" alt="Profile image" class="img-responsive img-circle"/>
+                                     <img src="{{ profileUser.getPhotoLink|blImageFilter('user_image') }}" alt="Profile image" class="img-responsive img-circle"/>
                                 {% else %}
                                      <span class="no-image {{ className }}">{{ nameOnImage }}</span>
                                 {% endif %}
@@ -397,7 +397,7 @@
 
                                                 <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}">
                                                     <span class="overlay"></span>
-                                                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+                                                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ goal.title }}" class="img-responsive" />
                                                 </a>
                                                 <figcaption>
                                                     <div class="row">

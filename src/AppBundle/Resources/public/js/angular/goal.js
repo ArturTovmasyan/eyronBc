@@ -193,7 +193,10 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner',['$scope', '$filter', function($scope, $filter){
+    .controller('goalInner',['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
+
+        $scope.successStoryShow = [];
+        $scope.successStoryActiveIndex = null;
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -203,6 +206,35 @@ angular.module('goal', ['Interpolation',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
+        };
+
+        $scope.showMoreSuccessStory = function(storiesLength){
+            if($scope.successStoryActiveIndex === 0){
+                return;
+            }
+
+            var startIndex = storiesLength - 3;
+
+            if($scope.successStoryActiveIndex === null){
+                $scope.successStoryActiveIndex = storiesLength - 3;
+            }
+
+            if($scope.successStoryActiveIndex > 2){
+                startIndex = $scope.successStoryActiveIndex;
+                $scope.successStoryActiveIndex -= 3;
+            }
+            else {
+                startIndex = $scope.successStoryActiveIndex;
+                $scope.successStoryActiveIndex = 0;
+            }
+
+            for(var i = startIndex - 1; i >= $scope.successStoryActiveIndex; i--){
+                $scope.successStoryShow[i] = true;
+            }
+
+            $timeout(function(){
+                $(".story-slider").trigger('showMoreStories');
+            }, 50);
         };
 
         $scope.capitalizeFirstLetter = function (string) {

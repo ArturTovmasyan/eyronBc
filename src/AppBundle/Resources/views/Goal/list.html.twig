@@ -64,14 +64,15 @@
 
                             <h3>{{ goal.title }}</h3>
 
-                            {% set image = goal.getListPhoto %}
+                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
 
-                            {% if image %}
-                                {% set image = goal.getListPhoto %}
-                            {% endif %}
+                            {#{% if image %}#}
+                                {#{% set image = goal.getListPhoto %}#}
+                            {#{% endif %}#}
+
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_1')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if imageDownloadLink %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }} {% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -109,16 +110,18 @@
 
                             <h3>{{ goal.title }}</h3>
 
-                            {% set image = goal.getListPhoto %}
+                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
 
-                            {% if image %}
-                                {% set image = goal.getListPhoto %}
-                            {% endif %}
+                            {#{% set image = goal.getListPhoto %}#}
+
+                            {#{% if image %}#}
+                                {#{% set image = goal.getListPhoto %}#}
+                            {#{% endif %}#}
 
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" >
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{% if loop.first %}{{ image.downloadLink|blImageFilter('goal_list_1')  }}{% else %}
-                                 {{ image.downloadLink|blImageFilter('goal_list_3')  }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }}{% else %}
+                                 {{ imageDownloadLink|blImageFilter('goal_list_horizontal') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">
@@ -157,14 +160,17 @@
 
                             <h3>{{ goal.title }}</h3>
 
-                            {% set image = goal.getListPhoto %}
+                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
 
-                            {% if image %}
-                                {% set image = goal.getListPhoto %}
-                            {% endif %}
+                            {#{% set image = goal.getListPhoto %}#}
+
+                            {#{% if image %}#}
+                                {#{% set image = goal.getListPhoto %}#}
+                            {#{% endif %}#}
                             <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" class="height">
                                 <span class="overlay height"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_2')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_big')  }}{% else %}
+                                 {{ imageDownloadLink|blImageFilter('goal_list_vertical') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
                             </a>
 
                             <div class="absolute">

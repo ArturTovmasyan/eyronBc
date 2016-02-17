@@ -2,7 +2,7 @@
 
     <figure>
 
-        <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+        <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ goal.title }}" class="img-responsive" />
     </figure>
 
     {% if doneByUsers is defined and listedByUsers is defined %}

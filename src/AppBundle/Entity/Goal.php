@@ -270,6 +270,26 @@ class Goal implements MultipleFileInterface, PublishAware
         $this->images[] = $images;
         $images->setGoal($this);
 
+        $hasListPhoto = false;
+        $hasCoverPhoto = false;
+
+        foreach($this->images as $image){
+            if ($image->getList() == true){
+                $hasListPhoto = true;
+            }
+            if ($image->getCover() == true){
+                $hasCoverPhoto = true;
+            }
+        }
+
+        if (!$hasListPhoto){
+            $this->images->first()->setList(true);
+        }
+
+        if (!$hasCoverPhoto){
+            $this->images->first()->setCover(true);
+        }
+
         return $this;
     }
 
@@ -300,6 +320,29 @@ class Goal implements MultipleFileInterface, PublishAware
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userGoal = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * This function clone goal
+     */
+    public function __clone() {
+
+        $this->id = null;
+        $this->userGoal = null;
+        $this->successStories = null;
+        $this->author = null;
+        $this->editor = null;
+
+        $imagenes = $this->getImages();
+        $this->images = new ArrayCollection();
+        if(count($imagenes) > 0){
+            foreach ($imagenes as $imagen) {
+                $cloneImages = clone $imagen;
+                $this->images->add($cloneImages);
+                $cloneImages->setGoal($this);
+            }
+        }
+    }
+
 
     /**
      * Add userGoal
@@ -471,6 +514,18 @@ class Goal implements MultipleFileInterface, PublishAware
         }
 
         return null;
+    }
+
+    /**
+     * @return null
+     */
+    public function getCoverPhotoDownloadLink()
+    {
+        // get list image
+        $image = $this->getCoverPhoto();
+
+        // return download link
+        return $image ? $image->getDownloadLink() : null;
     }
 
     /**

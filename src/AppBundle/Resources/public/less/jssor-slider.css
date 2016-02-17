@@ -2,7 +2,7 @@
 .jssora13l, .jssora13r, .jssora13ldn, .jssora13rdn {
     position: absolute;
     cursor: pointer;
-    display: block;
+    display: block !important;
     background: url(/app/bower_components/jssor-slider/img/a10.png) no-repeat;
     overflow: hidden;
 }

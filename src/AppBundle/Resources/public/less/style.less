@@ -164,6 +164,7 @@ header{
       }
 
       .search{
+        overflow: hidden;
         form{
           padding:10px 0 10px 30px;
           input{
@@ -200,7 +201,7 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
-            border: 2px solid #cecece;
+            border: 3px solid #cecece;
             img{
               height:50px;
             }
@@ -249,7 +250,7 @@ header{
         .user-menu{
           background-color: #2b2b2b;
           padding-left:0;
-          min-width: 150px;
+          width: 320px;
           li{
             border-left:0;
             a{
@@ -267,9 +268,13 @@ header{
                 font-size:30px;
               }
 
-              //span{
-              //  padding-left:0;
-              //}
+              span{
+                padding-left:0;
+              }
+              .icon-plus-icon{
+                font-size:30px;
+
+              }
 
               &:hover{
                 text-decoration: underline;
@@ -337,7 +342,7 @@ label{
 .divider{
   height: 2px;
   //width: 235px;
-  background: url('../images/divider.png') no-repeat center top;
+  background: url('../images/divider.png') center top;
 }
 .arrow-left{
   width: 0;
@@ -580,14 +585,18 @@ ul.filter{
   margin-right: 2px;
 }
 
-.quotel-icon{
-  background: url('../images/images.png') no-repeat -403px -1253px;
-}
+//.quotel-icon{
+//  background: url('../images/images.png') no-repeat -403px -1253px;
+//}
+//
+//.quoter-icon{
+//  background: url('../images/images.png') no-repeat -402px -1292px;
+//  bottom:-30px;
+//  right: -32px;
+//}
 
-.quoter-icon{
-  background: url('../images/images.png') no-repeat -402px -1292px;
-  bottom:-30px;
-  right: -32px;
+.icon-quote-right{
+  right: 0;
 }
 
 .icon-dreaming{
@@ -1368,7 +1377,7 @@ footer{
 
   small{
     display: block;
-    padding: 24px 0 9px;
+    padding: 24px 0 0;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
     font-size:10px;
@@ -1413,17 +1422,17 @@ footer{
       padding:0;
       text-align: right;
       li{
-        padding:5px 2px 5px 10px;
-      }
-      a{
-        padding-top: 19px;
-        display: inline-block;
-        font-size: 11px;
-        text-transform: capitalize;
-        color:#D3D3D3;
-        font-weight: 600;
-        &:hover{
-          text-decoration: underline;
+        padding:5px 2px 5px 5px;
+        a{
+          padding-top: 19px;
+          display: inline-block;
+          font-size: 10px;
+          text-transform: capitalize;
+          color:#D3D3D3;
+          font-weight: 600;
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -1589,7 +1598,7 @@ footer{
     color:#ffffff;
     padding: 0 10px 0 20px;
     margin-top:15px;
-    font-size:16px;
+    font-size:16px !important;
     line-height:24px;
     z-index: 1;
   }
@@ -1715,7 +1724,7 @@ footer{
           }
 
           .user-menu{
-            min-width: 150px;
+            min-width: 210px;
             li{
               a{
                 padding:10px 20px;
@@ -1938,6 +1947,7 @@ footer{
           }
         }
         .search{
+
           form{
             padding:17px 15px 16px 30px;
 
@@ -1992,7 +2002,7 @@ footer{
           }
 
           .user-menu{
-            min-width: 150px;
+            width: 234px;
             li{
               a{
                 padding:10px 20px;
