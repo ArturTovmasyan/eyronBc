@@ -79,13 +79,12 @@
                              <span>
                                  {#<i class="icon top-icon"></i>#}
                                  <i class="icon-top-idea"></i>
-
-                                 {{ 'right_menu.ideas'|trans }}
+                                 <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
                             </span>
                         </div>
-                        <div class="col-xs-6 text-right">
-                            <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                        </div>
+                        {#<div class="col-xs-6 text-right">#}
+                            {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                        {#</div>#}
                     </div>
                     <hr/>
 
