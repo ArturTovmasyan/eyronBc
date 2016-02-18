@@ -372,7 +372,7 @@
                                                         <div u="slides">
                                                             {% for k,file in files %}
                                                                 <div>
-                                                                    <a href="{{ file.downloadLink|blImageFilter('goal_list_small') }}" data-lightbox="story{{ key }}-{{ k }}">
+                                                                    <a href="{{ file.downloadLink }}" data-lightbox="story{{ key }}-{{ k }}">
                                                                         <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
                                                                     </a>
                                                                 </div>
