@@ -274,8 +274,7 @@ liip_imagine:
         goal_slider_image:
             quality: 100
             filters:
-                thumbnail: { size: [770, 540], mode: inset}
-                upscale: { min: [770, 540] }
+                thumbnail: { size: [780, 435], mode: inset }
 
         goal_bucketlist:
             quality: 100
