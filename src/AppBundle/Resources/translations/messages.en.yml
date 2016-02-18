@@ -33,7 +33,7 @@ goal:
       agree: By checking you suggest your goal to be listed in the Ideas list
       preview: PREVIEW
       publish: Create
-      description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag: <br /> You can use simple Markdown elements for emphasizing a snippet of text with a heavier font-weight and italics: **bold**, *italics*
+      description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a heavier font-weight and italics: **bold**, *italics*
 
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
@@ -222,7 +222,7 @@ drag_drop_story: Select photos for your story
 
 upload: |
   An image must have minimum dimensions 640x640px with recommended dimensions of 1280x720px. <br />
-   The maximum size of an image must not exceed 4MB:
+   The maximum size of an image must not exceed 4MB.
 
 delete_message: |
   You are about to delete your goal. <br />
