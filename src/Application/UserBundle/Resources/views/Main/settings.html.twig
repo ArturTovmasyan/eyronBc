@@ -122,11 +122,11 @@
 
                             <div class="form-group row no-padding">
                                 <div class="col-sm-6">
-                                    {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.password'|trans({}, 'FOSUserBundle') } }) }}
+                                    {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.new_password'|trans({}, 'FOSUserBundle') } }) }}
                                     <div class="error-message" data-ng-bind="errorMessages['first']"></div>
                                 </div>
                                 <div class="col-sm-6">
-                                    {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_password'|trans({}, 'FOSUserBundle') } }) }}
+                                    {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_new_password'|trans({}, 'FOSUserBundle') } }) }}
                                     <div class="error-message" data-ng-bind="errorMessages['second']"></div>
                                 </div>
                             </div>
