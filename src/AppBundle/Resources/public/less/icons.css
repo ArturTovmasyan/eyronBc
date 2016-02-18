@@ -499,14 +499,12 @@
 }
 .icon-plus-icon .path2:before {
     content: "\e968";
-    /*margin-left: -0.93359375em;*/
-    margin-left: -1.13359375em;
+    margin-left: -0.93359375em;
     color: rgb(176, 176, 176);
 }
 .icon-plus-icon .path3:before {
     content: "\e969";
-    /*margin-left: -0.93359375em;*/
-    margin-left: -1.67359375em;
+    margin-left: -0.93359375em;
     color: rgb(227, 227, 227);
 }
 .icon-print .path1:before {
