@@ -19,8 +19,8 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+            <div class="col-md-5"></div>
+            <div class="col-md-7">
                 <div class="quote">
 
                     <div class="ticker">
@@ -53,7 +53,7 @@
                 <div class="col-md-8">
                     {% set images = goal.images %}
                     {% if images and images | length %}
-                        <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;margin-bottom: 20px;">
+                        <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;">
                             <!-- Slides Container -->
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
                                 {% for key, image in images %}
@@ -218,8 +218,8 @@
             </div>
 
             {% if page != view %}
-                <div class="row">
-                    <div class="col-xs-4">
+                <div class="row padding-top">
+                    <div class="col-xs-6 col-md-4">
                         <div class="fb-like"
                              data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
                              data-layout="button_count"
@@ -228,7 +228,7 @@
                              data-share="false">
                         </div>
                     </div>
-                    <div class="col-sm-4 text-right">
+                    <div class="col-xs-6 col-md-4 text-right">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
                     </div>
                 </div>
@@ -240,16 +240,15 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="text-gray">
-                                {{ replaceDescription(goal.description)|markdown }}
-                            </div>
+                            <div class="text-gray">{{ replaceDescription(goal.description)|markdown }}</div>
                         {% endif %}
-                        <br />
+
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}
 
                                 {% if goal.videoLink|length == 1 %}
                                     {% set v = goal.videoLink[0] %}
+                                    <br />
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <figure>

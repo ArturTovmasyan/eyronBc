@@ -2,6 +2,12 @@
 @import "function.less";
 
 .ideas-list{
+
+  h2{
+    font-size:18px;
+    line-height:30px;
+  }
+
   figure{
     background: transparent;
     overflow: hidden;
@@ -32,7 +38,7 @@
     figcaption{
       ul{
         li{
-          a{
+          a,bdi{
             font-size:11px;
             &:hover,&:focus{
               text-decoration: none;
@@ -103,7 +109,7 @@
   overflow: hidden;
 
   .fb-like{
-    margin: 7px 0 0 30px;
+    margin: 7px 0 0 15px;
   }
   .addthis_counter a.atc_s{
     //margin-top:10px;
@@ -115,9 +121,6 @@
       background: url('../images/images.png') no-repeat -15px -1733px !important;
     }
   }
-
-
-
 }
 .goal-information{
   //width: 375px;
@@ -127,27 +130,28 @@
 
   hr{
     margin:0 !important;
-    border-color:#A4A4A4;
+    border-color:#eee;
   }
   ul:last-child{
-    padding-left:15px;
+    padding-left:20px;
     &>li{
-      border-bottom:1px solid #a4a4a4;
-      padding-top:10px;
-      padding-bottom:10px;
+      border-bottom:1px solid #eee;
+      padding-top:5px;
+      padding-bottom:5px;
       color:#a4a4a4;
       ul{
         li{
           display: inline-block;
           border-bottom:0;
           padding-bottom:0;
+          font-size: 12px;
 
-          &first-child{
-            span{
-              display: block;
-              font-size: 15px;
-            }
-          }
+          //&:first-child{
+          //  span{
+          //    display: block;
+          //    font-size: 14px;
+          //  }
+          //}
 
           &:last-child{
             a,i{
@@ -170,7 +174,7 @@
   }
 
   p{
-    font-size:20px;
+    font-size:14px;
     margin-bottom:0;
   }
 
@@ -183,6 +187,7 @@
   height: 50px;
   li{
     text-align: center;
+    border-right:1px solid #eee;
     a,bdi {
       display: block;
       color: #a4a4a4;
@@ -210,7 +215,7 @@
 
     }
     &:last-child{
-      border-left:1px solid #a4a4a4;
+      border-right:0;
     }
   }
   .transparent{
@@ -228,45 +233,48 @@
   padding-bottom: 30px;
 
   hr{
-    margin:5px 0;
+    margin:5px 0 10px;
   }
 
-  q{
-    display: block;
-    padding:25px 0;
-    color:#ffffff;
-    font-size:17px;
-    text-align: justify;
-    word-break: break-all;
-  }
-  cite{
-    display:block;
-    margin-bottom:10px;
-    color:#ffffff;
-  }
+  //q{
+  //  display: block;
+  //  padding:25px 0;
+  //  color:#ffffff;
+  //  font-size:17px;
+  //  text-align: justify;
+  //  word-break: break-all;
+  //}
+  //cite{
+  //  display:block;
+  //  margin-bottom:10px;
+  //  color:#ffffff;
+  //}
   .quote{
     position: relative;
-    height:150px;
-    padding:35px 0 25px;
+    height:170px;
+    padding:5px 0;
     i{
       height:30px;
       width:33px;
-      font-size:30px;
+      font-size:16px;
       position: absolute;
     }
   }
 
   .ticker {
-    font-size:16px;
+    font-size:12px;
+    line-height:18px;
     color:#ffffff;
     position: relative;
 
     div {
       display: inline-block;
       word-wrap: break-word;
-      padding-left:40px;
+      padding:0 10px;
     }
-    .aphorism {
+    .aphorism{
+      padding:0 20px;
+      text-align: justify;
       li {
         transition: opacity 0.5s linear;
         -webkit-transition: opacity 0.5s linear;
@@ -274,7 +282,7 @@
         -o-transition: opacity 0.5s linear;
         position: absolute;
         opacity: 0;
-
+        padding: 0 40px 0 5px;
         span{
           display: block;
           margin:5px 10px 0;
@@ -314,10 +322,11 @@
     overflow: hidden;
     line-height:25px;
     font-size:18px;
+    margin-top:10px;
   }
   h2.title-smaller{
     font-size: 15px;
-    line-height: 35px;
+    line-height: 22px;
   }
 
   .inner{
@@ -342,7 +351,7 @@
     }
 
     .comment-place{
-      padding:10px 10px 20px;
+      padding:10px 10px 0;
       background-color: #f4f4f4;
       margin-bottom: 10px;
 
@@ -431,6 +440,11 @@
 @media (min-width: @screen-sm) {
 
   .ideas-list{
+    h2{
+      font-size:18px;
+      line-height:30px;
+    }
+
     figure{
       text-align: left;
       h3{
@@ -443,7 +457,7 @@
       figcaption{
         ul{
           li{
-            a{
+            a,bdi{
               font-size:14px;
             }
           }
@@ -475,33 +489,33 @@
       margin:10px 0;
     }
 
-    q{
-      padding:15px 0;
-      font-size:15px;
-    }
-
-    cite{
-      margin-bottom:5px;
-    }
+    //q{
+    //  padding:15px 0;
+    //  font-size:15px;
+    //}
+    //
+    //cite{
+    //  margin-bottom:5px;
+    //}
 
     .quote{
-      height:100px;
-      padding:20px 0 15px;
+      height: 145px;
+      padding: 15px 0 0;
       i{
-        height:30px;
-        width:33px;
-        font-size:30px;
+        font-size:23px;
       }
     }
 
     .ticker {
-      font-size:16px;
+      font-size:14px;
+      line-height:25px;
 
       div {
         padding-left:40px;
       }
       .aphorism {
         li {
+          padding: 0 40px 0 10px;
           span{
             margin:5px 10px 0;
           }
@@ -512,19 +526,24 @@
     .goal-image{
 
       .overlay{
-        height:680px;
+        height:630px;
       }
 
       img{
-        height:680px;
+        height:630px;
       }
     }
 
     h2{
       padding: 5px 20px 10px;
-      margin-bottom:10px;
+      margin:0 0 10px 0;
       line-height:40px;
       font-size: 30px;
+
+    }
+    h2.title-smaller{
+      font-size:23px;
+      line-height:35px;
     }
 
     .inner{
@@ -542,7 +561,7 @@
       }
 
       .comment-place{
-        padding:15px 10px 25px;
+        padding:15px 10px 5px;
         margin-bottom: 10px;
 
         figure:first-child{
@@ -589,27 +608,34 @@
     }
   }
 
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 20px;
+    }
+  }
+
   .goal-information{
-    width: 375px;
-    overflow: hidden;
+    //width: 375px;
+    //overflow: hidden;
     //margin-left: -15px;
-    background-color: #ffffff;
+    //background-color: #ffffff;
     ul:last-child{
-      padding-left:15px;
+      padding-left:25px;
       &>li{
-        border-bottom:1px solid #a4a4a4;
-        padding-top:10px;
-        padding-bottom:10px;
+        //border-bottom:1px solid #a4a4a4;
+        padding-top:7px;
+        padding-bottom:7px;
 
         ul{
           li{
-            display: inline-block;
-
-            &:first-child{
-              span{
-                font-size: 15px;
-              }
-            }
+            //display: inline-block;
+            font-size: 14px;
+            //&:first-child{
+            //  span{
+            //    font-size: 15px;
+            //  }
+            //}
 
 
           }
@@ -618,8 +644,7 @@
     }
 
     p{
-      font-size:20px;
-      margin-bottom:0;
+      font-size:17px;
     }
 
   }
@@ -634,6 +659,14 @@
 }
 
 @media (min-width: @screen-md) {
+
+  .ideas-list{
+    h2{
+      padding: 60px 0 65px;
+      font-size: 52px;
+      line-height: 64px
+    }
+  }
   .inner-container{
     padding-bottom: 30px;
 
@@ -641,21 +674,19 @@
       margin:20px 0;
     }
 
-    q{
-      padding:25px 0;
-      font-size:17px;
-    }
-
-    cite{
-      margin-bottom:10px;
-    }
+    //q{
+    //  padding:25px 0;
+    //  font-size:17px;
+    //}
+    //
+    //cite{
+    //  margin-bottom:10px;
+    //}
 
     .quote{
       height:150px;
-      padding:35px 0 25px;
+      //padding:35px 0 25px;
       i{
-        height:30px;
-        width:33px;
         font-size:30px;
       }
     }
@@ -668,6 +699,7 @@
       }
       .aphorism {
         li {
+          padding:0 40px 0 20px;
           span{
             margin:5px 10px 0;
           }
@@ -688,7 +720,7 @@
 
     h2{
       padding: 5px 40px 10px;
-      margin-bottom:20px;
+      margin:0 0 20px 0;
       line-height:60px;
       font-size: 52px;
     }
@@ -757,5 +789,45 @@
       padding-top:40px;
       font-size:18px;
     }
+  }
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 30px;
+    }
+  }
+
+  .goal-information{
+    width: 375px;
+    //overflow: hidden;
+    //margin-left: -15px;
+    //background-color: #ffffff;
+    ul:last-child{
+      padding-left:20px;
+      &>li{
+        //border-bottom:1px solid #a4a4a4;
+        padding-top:10px;
+        padding-bottom:10px;
+
+        //ul{
+        //  li{
+        //    //display: inline-block;
+        //
+        //    //&:first-child{
+        //    //  span{
+        //    //    font-size: 15px;
+        //    //  }
+        //    //}
+        //
+        //
+        //  }
+        //}
+      }
+    }
+
+    p{
+      font-size:20px;
+    }
+
   }
 }
