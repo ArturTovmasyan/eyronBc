@@ -56,9 +56,11 @@
                         <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;margin-bottom: 20px;">
                             <!-- Slides Container -->
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
-                                {% for image in images %}
+                                {% for key, image in images %}
                                     <div>
-                                        <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
+                                        <a href="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" data-lightbox="main-slider-{{ key }}" data-title="{{ goal.title }}">
+                                            <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
+                                        </a>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -369,9 +371,11 @@
                                                     <div id="story-slider-image{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
                                                         <div u="slides">
-                                                            {% for file in files %}
+                                                            {% for k,file in files %}
                                                                 <div>
-                                                                    <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
+                                                                    <a href="{{ file.downloadLink|blImageFilter('goal_list_small') }}" data-lightbox="story{{ key }}-{{ k }}">
+                                                                        <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
+                                                                    </a>
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
