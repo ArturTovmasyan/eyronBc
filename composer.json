@@ -48,7 +48,6 @@
         "liip/imagine-bundle" : "1.3.*",
         "presta/sitemap-bundle": "^1.4",
         "knplabs/knp-markdown-bundle": "~1.3"
-
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

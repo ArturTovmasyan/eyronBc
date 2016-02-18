@@ -31,6 +31,7 @@
             'bundles/app/less/ideas.less'
             'bundles/app/less/modal.less'
             'bundles/app/less/profile.less'
+            'bundles/app/less/comments.less'
             'bundles/app/less/icons.css'
             filter='less,cssrewrite,?yui_css' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
@@ -65,6 +66,12 @@
 
         </script>
     {% endif %}
+
+        <div data-ls-jquery-modal
+             style="display: none"
+             data-ls-identity="mobileDetectModal"
+             data-ls-template-url="{{ asset('bundles/app/htmls/mobileModal.html') }}">
+        </div>
 
         {% block body %}
         <div id="mainframe">
@@ -253,6 +260,8 @@
                 'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
                 'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
                 'app/bower_components/angular/angular.min.js'
+                'app/bower_components/re-tree/re-tree.min.js'
+                'app/bower_components/ng-device-detector/ng-device-detector.min.js'
                 'app/bower_components/angular-animate/angular-animate.min.js'
                 'app/bower_components/angular-sanitize/angular-sanitize.min.js'
                 'app/bower_components/angular-strap/dist/angular-strap.min.js'

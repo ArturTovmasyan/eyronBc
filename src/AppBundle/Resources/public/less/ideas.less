@@ -2,6 +2,12 @@
 @import "function.less";
 
 .ideas-list{
+
+  h2{
+    font-size:18px;
+    line-height:30px;
+  }
+
   figure{
     background: transparent;
     overflow: hidden;
@@ -32,7 +38,7 @@
     figcaption{
       ul{
         li{
-          a{
+          a,bdi{
             font-size:11px;
             &:hover,&:focus{
               text-decoration: none;
@@ -78,7 +84,9 @@
             font-size:12px;
 
             &:hover{
-              text-decoration: underline;
+              span{
+                text-decoration: underline;
+              }
             }
           }
 
@@ -98,10 +106,9 @@
   overflow: hidden;
 
   .fb-like{
-    margin: 7px 0 0 30px;
+    margin: 7px 0 0 15px;
   }
   .addthis_counter a.atc_s{
-    //margin-top:10px;
     width:120px !important;
     height:35px !important;
     background: url('../images/images.png') no-repeat -15px -1688px !important;
@@ -110,34 +117,28 @@
       background: url('../images/images.png') no-repeat -15px -1733px !important;
     }
   }
-
-
-
 }
 .goal-information{
-  //width: 375px;
   overflow: hidden;
-  //margin-left: -15px;
   background-color: #ffffff;
+
+  hr{
+    margin:0 !important;
+    border-color:#eee;
+  }
   ul:last-child{
-    padding-left:15px;
+    padding-left:20px;
     &>li{
-      border-bottom:1px solid #a4a4a4;
-      padding-top:10px;
-      padding-bottom:10px;
+      border-bottom:1px solid #eee;
+      padding-top:5px;
+      padding-bottom:5px;
       color:#a4a4a4;
       ul{
         li{
           display: inline-block;
           border-bottom:0;
           padding-bottom:0;
-
-          &first-child{
-            span{
-              display: block;
-              font-size: 15px;
-            }
-          }
+          font-size: 12px;
 
           &:last-child{
             a,i{
@@ -160,11 +161,9 @@
   }
 
   p{
-    font-size:20px;
+    font-size:14px;
     margin-bottom:0;
   }
-
-
 }
 
 .goal-links{
@@ -173,6 +172,7 @@
   height: 50px;
   li{
     text-align: center;
+    border-right:1px solid #eee;
     a,bdi {
       display: block;
       color: #a4a4a4;
@@ -200,7 +200,7 @@
 
     }
     &:last-child{
-      border-left:1px solid #a4a4a4;
+      border-right:0;
     }
   }
   .transparent{
@@ -217,42 +217,36 @@
   background-color: #d8d8d8;
   padding-bottom: 30px;
 
-  q{
-    display: block;
-    padding:25px 0;
-    color:#ffffff;
-    font-size:17px;
-    text-align: justify;
-    word-break: break-all;
+  hr{
+    margin:5px 0 10px;
   }
-  cite{
-    display:block;
-    margin-bottom:10px;
-    color:#ffffff;
-  }
+
   .quote{
     position: relative;
-    height:150px;
-    padding:35px 0 25px;
+    height:170px;
+    padding:5px 0;
     i{
       height:30px;
       width:33px;
-      font-size:30px;
+      font-size:16px;
       position: absolute;
     }
   }
 
   .ticker {
-    font-size:16px;
+    font-size:12px;
+    line-height:18px;
     color:#ffffff;
     position: relative;
 
     div {
       display: inline-block;
       word-wrap: break-word;
-      padding-left:40px;
+      padding:0 10px;
     }
-    .aphorism {
+    .aphorism{
+      padding:0 20px;
+      text-align: justify;
       li {
         transition: opacity 0.5s linear;
         -webkit-transition: opacity 0.5s linear;
@@ -260,7 +254,7 @@
         -o-transition: opacity 0.5s linear;
         position: absolute;
         opacity: 0;
-
+        padding: 0 40px 0 5px;
         span{
           display: block;
           margin:5px 10px 0;
@@ -271,7 +265,6 @@
       }
     }
   }
-
 
   .goal-image{
     position: absolute;
@@ -296,20 +289,25 @@
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding: 5px 40px 10px;
-    margin-bottom:20px;
+    padding: 5px 10px 10px;
+    margin-bottom:10px;
     overflow: hidden;
-    line-height:60px;
+    line-height:25px;
+    font-size:18px;
+    margin-top:10px;
+  }
+  h2.title-smaller{
+    font-size: 15px;
+    line-height: 22px;
   }
 
-
-
   .inner{
-    padding:0 20px 10px 20px;
+    padding:0 10px 10px;
     p{
-      padding:35px 0 0;
-      font-size:16px;
+      padding:10px 0 0;
+      font-size:12px;
       white-space: normal;
+      text-align: justify;
       word-break: break-word;
     }
 
@@ -325,26 +323,25 @@
     }
 
     .comment-place{
-      padding:20px 15px 30px;
+      padding:10px 10px 0;
       background-color: #f4f4f4;
-      margin-bottom: 20px;
-
+      margin-bottom: 10px;
 
       figure:first-child{
-        margin: 0 0 10px 15px;
+        margin: 0 0 10px 0;
         background-color: transparent;
-        width:40px;
-        height:40px;
+        width:35px;
+        height:35px;
 
         img{
-          height:40px;
+          height:35px;
           border:2px solid #cecece;
         }
       }
 
       p{
         padding:0;
-        font-size:16px;
+        font-size:12px;
         color:#666666;
         margin:0;
         white-space: normal;
@@ -356,7 +353,7 @@
       }
 
       span{
-        font-size:13px;
+        font-size:12px;
         color:#999999;
       }
 
@@ -387,8 +384,9 @@
   }
 
   h4{
-    padding-top:40px;
+    padding-top:10px;
     color:#666666;
+    font-size:14px;
   }
 }
 
@@ -414,6 +412,11 @@
 @media (min-width: @screen-sm) {
 
   .ideas-list{
+    h2{
+      font-size:18px;
+      line-height:30px;
+    }
+
     figure{
       text-align: left;
       h3{
@@ -426,7 +429,7 @@
       figcaption{
         ul{
           li{
-            a{
+            a,bdi{
               font-size:14px;
             }
           }
@@ -434,8 +437,6 @@
       }
 
       .absolute{
-        //bottom:60px;
-
         ul{
           li{
             padding-left:20px;
@@ -447,47 +448,150 @@
           }
         }
       }
-
     }
   }
+
   .inner-container{
-    .goal-image{
-      img{
-        height:680px;
+    padding-bottom: 20px;
+
+    hr{
+      margin:10px 0;
+    }
+
+    .quote{
+      height: 145px;
+      padding: 15px 0 0;
+      i{
+        font-size:23px;
       }
     }
+
+    .ticker {
+      font-size:14px;
+      line-height:25px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          padding: 0 40px 0 10px;
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
+    .goal-image{
+
+      .overlay{
+        height:630px;
+      }
+
+      img{
+        height:630px;
+      }
+    }
+
+    h2{
+      padding: 5px 20px 10px;
+      margin:0 0 10px 0;
+      line-height:40px;
+      font-size: 30px;
+
+    }
+    h2.title-smaller{
+      font-size:23px;
+      line-height:35px;
+    }
+
+    .inner{
+      padding:0 15px 5px 15px;
+      p{
+        padding:25px 0 0;
+        font-size:14px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:15px 10px 5px;
+        margin-bottom: 10px;
+
+        figure:first-child{
+          margin: 0 0 10px 5px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:14px;
+        }
+
+        span{
+          font-size:12px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:20px;
+      font-size:16px;
+    }
   }
+
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 20px;
+    }
+  }
+
   .goal-information{
-    width: 375px;
-    overflow: hidden;
-    //margin-left: -15px;
-    background-color: #ffffff;
     ul:last-child{
-      padding-left:15px;
+      padding-left:25px;
       &>li{
-        border-bottom:1px solid #a4a4a4;
-        padding-top:10px;
-        padding-bottom:10px;
+        padding-top:7px;
+        padding-bottom:7px;
 
         ul{
           li{
-            display: inline-block;
-
-            &:first-child{
-              span{
-                font-size: 15px;
-              }
-            }
-
-
+            font-size: 14px;
           }
         }
       }
     }
 
     p{
-      font-size:20px;
-      margin-bottom:0;
+      font-size:17px;
     }
 
   }
@@ -503,4 +607,147 @@
 
 @media (min-width: @screen-md) {
 
+  .ideas-list{
+    h2{
+      padding: 60px 0 65px;
+      font-size: 52px;
+      line-height: 64px
+    }
+  }
+  .inner-container{
+    padding-bottom: 30px;
+
+    hr{
+      margin:20px 0;
+    }
+
+    .quote{
+      height:150px;
+      i{
+        font-size:30px;
+      }
+    }
+
+    .ticker {
+      font-size:16px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          padding:0 40px 0 20px;
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
+    .goal-image{
+
+      .overlay{
+        height:680px;
+      }
+
+      img{
+        height:680px;
+      }
+    }
+
+    h2{
+      padding: 5px 40px 10px;
+      margin:0 0 20px 0;
+      line-height:60px;
+      font-size: 52px;
+    }
+    h2.title-smaller{
+      font-size: 23px;
+      line-height: 57px;
+    }
+
+    .inner{
+      padding:0 20px 10px 20px;
+      p{
+        padding:35px 0 0;
+        font-size:16px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:20px 15px 30px;
+        margin-bottom: 20px;
+
+        figure:first-child{
+          margin: 0 0 10px 15px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:16px;
+        }
+
+        span{
+          font-size:13px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:40px;
+      font-size:18px;
+    }
+  }
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 30px;
+    }
+  }
+
+  .goal-information{
+    width: 374px;
+
+    ul:last-child{
+      padding-left:20px;
+      &>li{
+        padding-top:10px;
+        padding-bottom:10px;
+      }
+    }
+
+    p{
+      font-size:20px;
+    }
+
+  }
 }

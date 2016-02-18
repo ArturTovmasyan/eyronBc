@@ -1,3 +1,4 @@
+@import "../../../app/bower_components/bootstrap/less/variables.less";
 @import "function.less";
 
 .blocker{
@@ -21,10 +22,19 @@
       height: auto;
     }
   }
-  .pen-icon{
+  .icon-pencil{
     position: absolute;
-    top:10px;
+    top:5px;
     left:25px;
+  }
+  .icon-eye{
+    font-size:35px;
+    margin-right:0;
+  }
+
+  .icon-user-small{
+    color: #ffffff;
+    margin-top: -4px;
   }
 
   textarea{
@@ -36,7 +46,7 @@
     z-index: 100005;
     i{
       position: absolute;
-      top:4px;
+      top:2px;
       margin-right: 0;
     }
 
@@ -50,7 +60,7 @@
 
     i{
       position: absolute;
-      top:7px;
+      top:2px;
       left: 9px;
       //margin-right: 0;
     }
@@ -65,11 +75,21 @@
   }
 
   i{
+    font-size: 30px;
     margin-right:10px;
     display: inline-block;
     vertical-align: middle;
+    color:#a3a3a3;
   }
 
+  .icon-remove-email{
+    right:0;
+    cursor: pointer;
+  }
+
+  .icon-location-icon{
+    left:5px;
+  }
   .modal-bottom{
     position: absolute;
     width: 100%;
@@ -297,19 +317,21 @@ a.close-modal{
     margin: 20px 30px 0 0;
     color:#cecece;
     display: inline-block;
-    padding:5px 12px 0 0;
+    padding:1px 12px 3px 0;
     font-size:18px;
 
-    .trash-icon{
+    .icon-trash{
       margin: 0 5px 0 0;
+      vertical-align: bottom;
+      color:#cecece;
     }
 
     &:hover{
       background-color: #7724F6;
       color:#ffffff;
       border:1px solid #6108EA;
-      .trash-icon{
-          background: url('../images/images.png') no-repeat -393px -1480px;
+      .icon-trash{
+          color:#ffffff;
       }
 
       .delete-message{
@@ -401,6 +423,77 @@ a.close-modal{
         border:1px solid #7724F6;
         color:#ffffff;
       }
+    }
+  }
+}
+
+#mobile-modal{
+  max-width: 280px;
+  padding:0;
+
+  .modal-dialog{
+    padding: 0;
+    margin: 0;
+  }
+
+  .modal-content{
+    height:300px;
+    margin:0 auto;
+    background-color: #7724F6;
+    border:0;
+
+    a{
+      display: block;
+    }
+
+    .modal-header{
+      border-bottom:0;
+    }
+
+    .modal-body{
+      padding: 15px 0;
+
+      h5{
+        margin:0 0 30px;
+        line-height: 25px;
+        color:#ffffff;
+        text-align: center;
+        padding: 5px 10px;
+      }
+
+      a{
+        display: inline-block !important;
+        margin: 0 0 0 5px;
+        height:46px;
+        width:123px;
+      }
+
+      .app-store-icon{
+        width:140px;
+        background: url('../images/images.png') no-repeat -7px -309px;
+      }
+
+      .google-play-icon{
+        background: url('../images/images.png') no-repeat -153px -309px;
+      }
+
+    }
+  }
+
+  a.icon-remove-email{
+    display: block;
+    font-size: 20px;
+    color:#ffffff;
+    text-align: right;
+  }
+}
+
+
+@media (min-width: @screen-sm) {
+  #mobile-modal{
+    width:auto;
+    .modal-dialog{
+      width:auto;
     }
   }
 }

@@ -9,7 +9,7 @@
 
 
             {% if app.user.getDownloadLink  %}
-                <figure class="img-circle">
+                <figure>
                     <img src="{{ app.user.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
                 </figure>
             {% else %}

@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v161
+        assets_version: v171
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -270,6 +270,11 @@ liip_imagine:
                 thumbnail: { size: [770, 540], mode: outbound }
                 upscale: { min: [770, 540] }
                 central_crop: { size: [770, 540] }
+
+        goal_slider_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [780, 435], mode: inset }
 
         goal_bucketlist:
             quality: 100
