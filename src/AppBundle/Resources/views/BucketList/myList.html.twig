@@ -511,17 +511,13 @@
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
                                                                         <i class="icon ok-icon-green"></i>
+                                                                        {#<i class="icon-success"><span class="path1"></span><span class="path2"></span></i>#}
                                                                         {{ 'successtory'|trans | upper }}
                                                                     </a>
                                                                 {% else %}
                                                                     <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
-
-                                                                           {#<span class="icon-green-ok">#}
-                                                                               {#<span class="path1"></span>#}
-                                                                               {#<span class="path2"></span>#}
-                                                                               {#<span class="path3"></span>#}
-                                                                           {#</span>#}
+                                                                        {#<i class="icon-done-icon"><span class="path1"></span><span class="path2"></span></i>#}
 
                                                                         {{ 'done'|trans }}
                                                                     </a>
