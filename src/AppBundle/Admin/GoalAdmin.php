@@ -56,7 +56,8 @@ class GoalAdmin extends Admin
 
         $formMapper
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
-            ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description', 'attr' => array('class' => 'tinymce')))
+            ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description'))
+//            , 'attr' => array('class' => 'tinymce')
             ->add('rawLocation', 'bl_location', array('label' => false))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
