@@ -175,6 +175,21 @@
   figure{
     margin:0 0 20px 0;
   }
+
+  .remove-icon{
+    position: absolute;
+    right: 3px;
+    top: 2px;
+    background-color: #ffffff;
+    padding:0 0 0 3px;
+    .icon-remove-video-link{
+      font-size: 25px;
+    }
+
+    &:hover,:focus{
+      text-decoration: none;
+    }
+  }
 }
 
 .goal-container{
@@ -356,6 +371,7 @@
           color: #021523;
         }
       }
+
     }
   }
 
@@ -414,6 +430,10 @@
       font-size: 40px;
       margin: -3px 0 0 -5px;
       display: block;
+    }
+    .icon-success,.icon-done-icon{
+      font-size:30px;
+      vertical-align: middle;
     }
     a{
       &:hover,&:focus{
@@ -621,10 +641,7 @@
     }
     
     .remove-icon{
-      position: absolute;
       right: 10px;
-      top: 1px;
-      height: 34px;
     }
   }
 
@@ -765,12 +782,11 @@
       margin-bottom:5px;
     }
 
-    //.remove-icon{
-    //  position: absolute;
-    //  right: 10px;
-    //  top: 0;
-    //  height: 34px;
-    //}
+    .remove-icon{
+      .icon-remove-video-link{
+        font-size: 27px;
+      }
+    }
   }
 
   .dropzone{

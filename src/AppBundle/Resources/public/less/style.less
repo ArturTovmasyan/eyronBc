@@ -735,7 +735,7 @@ ul.filter{
   background: url('../images/images.png') no-repeat -7px -706px !important;
   display: inline-block;
   width: 28px !important;
-  height:25px !important;
+  height:28px !important;
   vertical-align: middle;
   margin-right: 2px;
 
@@ -1202,7 +1202,7 @@ figure{
 
   figcaption{
     background-color: #ffffff;
-    overflow-x: hidden;
+    //overflow-x: hidden;
     //margin-bottom:20px;
 
     ul{
@@ -1216,6 +1216,11 @@ figure{
           display: block;
           padding: 10px 0;
           height:auto;
+        }
+
+        i{
+          font-size: 30px;
+          vertical-align: middle;
         }
         &:last-child{
           border-right:0;
@@ -1463,15 +1468,24 @@ footer{
     margin-top: 0;
   }
 
+  i{
+    font-size:30px;
+    vertical-align: middle;
+    color: #a3a3a3;
+    span{
+      font-size:30px;
+    }
+  }
+
   a,span{
     color:#666666;
     font-size: 16px;
 
-    i{
-      font-size:30px;
-      vertical-align: middle;
-      color: #a3a3a3;
-    }
+    //i{
+    //  font-size:30px;
+    //  vertical-align: middle;
+    //  color: #a3a3a3;
+    //}
     &:hover{
       text-decoration:none;
       color: #7724F6;
@@ -1799,6 +1813,8 @@ footer{
 
 .check_status{
   padding-bottom:15px;
+
+
 }
 
 .green-bg{
