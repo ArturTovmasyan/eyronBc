@@ -4,6 +4,10 @@
 .content-top{
   background-color: #ffffff;
 
+  p{
+    font-size: 12px;
+  }
+
   a{
     display: block;
     font-size:18px;
@@ -27,6 +31,7 @@
       color:#999999;
       text-decoration: none;
     }
+
     &:active{
       color:#999999;
       text-decoration: none;
@@ -35,7 +40,8 @@
   }
 
   h3{
-    padding-top: 12px;
+    font-size:17px;
+    //padding-top: 12px;
   }
 
   h3{
@@ -49,7 +55,7 @@
   }
 
   .suggest-input{
-    padding: 35px 0 0 22px;
+    padding: 21px 0 0 16px;
     .icheckbox_square-purple{
       background: url('../images/checkbox.png') no-repeat 0 0;
 
@@ -78,18 +84,18 @@
   }
 
   .buttons{
-    margin:40px 0;
+    margin:0 0 15px 0;
     button,a{
-
-      padding: 6px 25px;
       display: inline-block;
-      margin-left:12px;
+      padding: 5px 15px;
+      margin-left: 5px;
 
       span{
-        line-height: 27px;
+        line-height: 25px;
       }
+
       span.icon-arrow-right,span.icon-arrow-left{
-        font-size: 30px;
+        font-size: 25px;
         vertical-align: middle;
       }
 
@@ -126,19 +132,24 @@
   margin:30px 0;
   background-color: #ffffff;
 
+  .margin-top{
+    margin-top:5px;
+  }
+
   .title{
     border: 0;
     border-bottom:1px solid  #e6e6e6;
     color:#afafaf;
-    padding: 10px 20px;
-    font-size: 20px;
+    //padding: 10px 20px;
+    font-size: 12px;
     border-radius: 0;
     box-shadow: none;
   }
 
   .form-group{
     p{
-      font-size: 14px;
+      font-size: 12px;
+      text-align: justify;
     }
   }
   .tags{
@@ -199,48 +210,36 @@
 
 .dropzone{
   min-height:170px !important;
-  margin:40px 0;
+  margin:5px 0;
 
   .dz-message{
     opacity: 1 !important;
-    //position: absolute;
-    //width: 95%;
-    //bottom: 35px;
     text-align: left;
-    padding: 0 15px;
-    //top:150px;
+    padding: 0;
 
     h3{
-      float:left;
       cursor:pointer;
-      margin:10px 30px;
+      margin:15px 0 0;
+      font-size:17px;
     }
 
     .btn-purple{
-      font-size:14px;
+      font-size:12px;
       cursor:pointer;
-      float:left;
 
       i{
         display: inline-block;
         vertical-align: middle;
-        width:40px;
-        height:28px;
-        background: url('../images/images.png') no-repeat -380px -8px;
+        font-size: 22px;
+        margin-right:5px;
       }
     }
 
     p{
       margin:10px 0 0 0;
-      font-size:14px;
+      font-size:12px;
     }
-
   }
-
-  //.dz-preview{
-  //  margin: 15px 15px 150px !important;
-  //}
-
 }
 
 .form-modal{
@@ -522,6 +521,45 @@
   }
 }
 @media (min-width: @screen-sm) {
+  .content-top{
+    a{
+      font-size:18px;
+      padding:20px 0 15px;
+    }
+
+    p{
+      font-size: 13px;
+    }
+
+    h3{
+      font-size: 20px;
+    }
+
+
+    .suggest-input{
+      padding: 22px 0 0 22px;
+    }
+
+    //.no-bg{
+    //  font-size:18px;
+    //  padding:20px 0 15px;
+    //}
+
+    .buttons{
+      margin:22px 0 20px;
+
+      button,a{
+        span{
+          line-height: 27px;
+        }
+        span.icon-arrow-right,span.icon-arrow-left{
+          font-size: 30px;
+        }
+
+      }
+    }
+  }
+
   .goal-container{
     min-height:900px;
     height:auto !important;
@@ -552,6 +590,9 @@
   }
 
   .goals{
+    .margin-top{
+      margin-top:15px;
+    }
     .title{
       font-size: 52px;
       height: 75px;
@@ -566,6 +607,11 @@
 
     }
 
+    .form-group{
+      p{
+        font-size: 13px;
+      }
+    }
     .relative{
       margin-bottom:5px;
     }
@@ -573,13 +619,79 @@
     .remove-icon{
       position: absolute;
       right: 10px;
-      top: 0;
+      top: 1px;
       height: 34px;
+    }
+  }
+
+  .dropzone{
+    min-height:170px !important;
+    margin:30px 0;
+
+    .dz-message{
+      padding: 0 15px;
+
+      h3{
+        float:left;
+        margin: 10px 20px;
+        font-size: 20px;
+      }
+
+      .btn-purple{
+        font-size:14px;
+        float:left;
+
+        i{
+          font-size: 30px;
+        }
+      }
+
+      p{
+        font-size:13px;
+      }
     }
   }
 }
 
 @media (min-width: @screen-md) {
+  .content-top{
+    a{
+      font-size:18px;
+      padding:20px 0 15px;
+    }
+
+    p{
+      font-size:14px;
+    }
+    h3{
+      font-size: 24px;
+      padding-top: 12px;
+    }
+
+    h3{
+      span{
+        width:35px;
+        height:35px;
+      }
+    }
+
+    .suggest-input{
+      padding: 35px 0 0 22px;
+    }
+
+    //.no-bg{
+    //  font-size:18px;
+    //  padding:20px 0 15px;
+    //}
+
+    .buttons{
+      margin:40px 0;
+      button,a{
+        padding: 6px 25px;
+        margin-left:12px;
+      }
+    }
+  }
 
   .goal-container{
     min-height:1025px;
@@ -616,11 +728,58 @@
   }
 
   .goals{
+
     .margin-top{
       margin-top:30px;
     }
+
+    .form-group{
+      p{
+        font-size: 14px;
+      }
+    }
+
+    .title{
+      font-size: 52px;
+      height: 75px;
+      line-height: 70px;
+      padding-left: 0;
+    }
+    h3.title{
+      padding: 17px 40px;
+      font-size: 25px;
+      line-height:35px;
+      height:auto;
+
+    }
+
+    .relative{
+      margin-bottom:5px;
+    }
+
+    //.remove-icon{
+    //  position: absolute;
+    //  right: 10px;
+    //  top: 0;
+    //  height: 34px;
+    //}
   }
 
+  .dropzone{
+    min-height:170px !important;
+    margin:40px 0;
+
+    .dz-message{
+
+      h3{
+        margin:10px 30px;
+        font-size: 24px;
+      }
+      p{
+        font-size:14px;
+      }
+    }
+  }
   .date-left{
     height: 180px;
     //margin-left:14px;
