@@ -169,8 +169,7 @@
 }
 .icon-arrow-left .path2:before {
     content: "\e91e";
-    /*margin-left: -1em; */
-    margin-left: -1.5em;
+    margin-left: -1em;
     color: rgb(227, 227, 227);
 }
 .icon-arrow-right:before {
