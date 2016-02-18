@@ -37,6 +37,8 @@ angular.module('Google', [])
                         m.setIcon(icon);
                     }
 
+                    map.setCenter(m.getPosition());
+
                     return m;
                 }
 
