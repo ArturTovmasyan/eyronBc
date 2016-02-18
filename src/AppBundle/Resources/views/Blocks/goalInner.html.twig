@@ -307,14 +307,17 @@
                             {% if stories|length > 0 %}
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
-                                <div class="text-right">
-                                    <a href="javascript:void(0)"
-                                       data-ng-show="successStoryActiveIndex !== 0"
-                                       data-ng-click="showMoreSuccessStory({{ stories|length }})"
-                                       class="text-purple view-more-comments">
-                                        Show More +5
-                                    </a>
-                                </div>
+                                {% if stories|length > 3 %}
+                                    <div class="text-right">
+                                        <a href="javascript:void(0)"
+                                           data-ng-show="successStoryActiveIndex !== 0"
+                                           data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                           class="text-purple view-more-comments">
+                                            Show More +5
+                                        </a>
+                                    </div>
+                                {% endif %}
+
                                 {% for key, story in stories %}
 
                                     {% set addedUser = story.user %}
