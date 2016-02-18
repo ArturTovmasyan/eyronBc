@@ -40,7 +40,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function test get goal
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testGet($goalId)
     {
@@ -94,7 +94,7 @@ class GoalRestControllerTest extends BaseClass
     {
         $url = sprintf('/api/v1.0/goals/create');
         // try to get goal by id
-        $this->client->request('PUT', $url, array('is_public'=>true, 'title'=>'from rest', 'description'=>'from rest description', 'video_links[0]'=>'www.google.com'));
+        $this->client->request('PUT', $url, array('is_public'=>true, 'title'=>'from rest', 'description'=>'from rest description', 'video_links[0]'=>'www.google.com', 'language' => 'en'));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal putAction rest!");
 
@@ -112,7 +112,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function test goal AddImagesAction
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      * @depends testPut
      */
     public function testAddImages($golId)
@@ -227,7 +227,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function try to test PutCommentAction of rest
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testPutComment($goalId)
     {
@@ -244,7 +244,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest!");
+            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest!");
         }
 
     }
@@ -252,7 +252,7 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function use to test PutSuccessStoryAction rest
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testPutSuccessStory($goalId)
     {

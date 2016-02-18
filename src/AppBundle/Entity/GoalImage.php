@@ -149,40 +149,6 @@ class GoalImage
     }
 
     /**
-     * @return string
-     */
-    protected function getCoverPath()
-    {
-        return $this->getPath() . '/' .self::COVER;
-    }
-
-
-    /**
-     * @return string
-     */
-    protected function getListPath()
-    {
-        return $this->getPath() . '/' .self::F_LIST;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getAbsoluteCoverPath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getCoverPath() .'/';
-    }
-
-    /**
-     * @return string
-     */
-    public function getAbsoluteListPath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getListPath() .'/';
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -241,25 +207,6 @@ class GoalImage
      */
     public function setList($list = 0)
     {
-        // get all images
-        $images = $this->getGoal() ? $this->getGoal()->getImages() : array();
-
-        // loop for images
-        foreach($images as $image){
-
-            // if list is changed
-            if($image->getList() == true && $list != true) {
-
-                // get old image list file
-                $listFile = $image->getAbsoluteListPath() . $image->getFileName();
-
-                // check list file, and remove it
-                if(file_exists($listFile) && is_file($listFile)){
-                    unlink($listFile);
-                }
-            }
-        }
-
         $this->list = $list;
     }
 
@@ -276,24 +223,6 @@ class GoalImage
      */
     public function setCover($cover = 0)
     {
-        // get all images
-        $images = $this->getGoal() ? $this->getGoal()->getImages() : array();
-
-        // loop for images
-        foreach($images as $image){
-
-            // if cover is changed
-            if($image->getCover() == true && $cover != true) {
-
-                // get old image cover file
-                $coverFile = $image->getAbsoluteCoverPath() . $image->getFileName();
-
-                // check cover file, and remove it
-                if(file_exists($coverFile) && is_file($coverFile)){
-                    unlink($coverFile);
-                }
-            }
-        }
         $this->cover = $cover;
     }
 
@@ -324,22 +253,6 @@ class GoalImage
         // check file and remove
         if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
             unlink($tabletFilePath);
-        }
-
-        // get cover file path
-        $coverFilePath = $this->getAbsoluteCoverPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($coverFilePath) && is_file($coverFilePath)){
-            unlink($coverFilePath);
-        }
-
-        // get list file path
-        $listFilePath = $this->getAbsoluteListPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($listFilePath) && is_file($listFilePath)){
-            unlink($listFilePath);
         }
     }
 }

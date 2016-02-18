@@ -115,7 +115,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN  cnt')
+                ->addSelect('g', 'i', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->andWhere('not exists (SELECT ug1 FROM AppBundle:UserGoal ug1 WHERE ug1.goal = g AND ug1.user = :user)')
@@ -182,9 +182,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $count
      * @param $allIds
      * @return mixed
+     * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
@@ -217,6 +218,13 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%')
                 ->groupBy('g.id')
             ;
+        }
+
+        // show for corresponding language
+        if(!$search && $locale){
+            $query
+                ->andWhere('g.language  = :lng OR g.language is null')
+                ->setParameter('lng', $locale);
         }
 
         if (is_numeric($first) && is_numeric($count)){
@@ -326,6 +334,25 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            LEFT JOIN g.images i
                            WHERE g.id = :id")
             ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * This is actual only for param converter repository method
+     *
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBySlugWithRelations($slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i, t
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.tags t
+                           LEFT JOIN g.images i
+                           WHERE g.slug = :slug")
+            ->setParameter('slug', $slug['slug'])
             ->getOneOrNullResult();
     }
 

@@ -57,7 +57,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"}, fetch="EAGER")
      **/
     protected $userGoal;
 
@@ -94,6 +94,13 @@ class User extends BaseUser
      * @var
      */
     protected $gender;
+
+
+    /**
+     * @ORM\Column(name="language", type="string", length=3, nullable=true)
+     * @var
+     */
+    protected $language;
 
     /**
      * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
@@ -177,7 +184,6 @@ class User extends BaseUser
     /**
      * @var
      * @ORM\Column(name="user_emails", type="array", nullable=true)
-     * @Groups({"settings"})
      */
     protected $userEmails;
 
@@ -876,32 +882,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return array
-     */
-    public function  getBlMultipleEmail()
-    {
-        // check images and return array
-        if($this->userEmails){
-
-            return $this->userEmails;
-        }
-        return array();
-    }
-
-    /**
-     * @param $userEmails
-     */
-
-    public function  setBlMultipleEmail($userEmails)
-    {
-        // check added userEmails
-        if(count($userEmails) > 0){
-
-            $this->userEmails = $userEmails;
-        }
-    }
-
-    /**
      * Set userEmails
      *
      * @param array $userEmails
@@ -990,7 +970,8 @@ class User extends BaseUser
         }
 
         //check if set another primary email
-        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)) {
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)
+                && $currentEmail != $this->getSocialFakeEmail()) {
 
             //set user emails in array with token and primary value
             $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
@@ -1045,5 +1026,58 @@ class User extends BaseUser
                     ->addViolation();
             }
         }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSocialFakeEmail()
+    {
+        if ($this->getFacebookId()){
+            return $this->getFacebookId() . '@facebook.com';
+        }
+        elseif($this->getGoogleId()){
+            return $this->getGoogleId() . '@google.com';
+        }
+        elseif($this->getTwitterId()){
+            return $this->getTwitterId() . '@twitter.com';
+        }
+
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
+    /**
+     * This function is used to get last email in userEmails array
+     *
+     * @VirtualProperty()
+     * @SerializedName("lastUserEmail")
+     * @Groups({"settings"})
+     */
+    public function getLastInUserEmails()
+    {
+        //get userEmails
+        $userEmails = $this->getUserEmails();
+
+        //get last userEmails in array
+        $userEmail = end($userEmails);
+
+        return $userEmail;
     }
 }

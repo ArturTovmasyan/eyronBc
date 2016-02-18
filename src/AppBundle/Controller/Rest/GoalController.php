@@ -86,8 +86,12 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
-        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
+        if (!$goal){
+            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
         $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
 
         if ((!$goal->getLat() || !$goal->getLng()) && $this->getUser()){
@@ -101,10 +105,6 @@ class GoalController extends FOSRestController
                     $goal->setLng($userGoal->getLng());
                 }
             }
-        }
-
-        if (!$goal){
-            return new Response('Goal not found', Response::HTTP_NOT_FOUND);
         }
 
         return [
@@ -146,7 +146,8 @@ class GoalController extends FOSRestController
      *      {"name"="is_public", "dataType"="boolean", "required"=true, "description"="Goal's status"},
      *      {"name"="title", "dataType"="string", "required"=true, "description"="Goal's title"},
      *      {"name"="description", "dataType"="string", "required"=false, "description"="Goal's description"},
-     *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"}
+     *      {"name"="video_links[0]", "dataType"="string", "required"=false, "description"="Goal's video links"},
+     *      {"name"="language", "dataType"="string", "required"=false, "description"="Goal's language"}
      *  }
      * )
      *
@@ -176,6 +177,7 @@ class GoalController extends FOSRestController
         $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
         $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
         $goal->setVideoLink(array_key_exists('video_links', $data) ? $data['video_links'] : null);
+        $goal->setLanguage(array_key_exists('language', $data) ? $data['language'] : "en");
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
@@ -247,6 +249,7 @@ class GoalController extends FOSRestController
             $validator = $this->get('validator');
             $error = $validator->validate($goalImage, null, array('goal'));
 
+
             if(count($error) > 0){
                 return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
             }
@@ -256,16 +259,6 @@ class GoalController extends FOSRestController
                 $bucketService->uploadFile($goalImage);
 
                 if (isset($goal)){
-                    $images = $goal->getImages();
-
-                    if($images->count() == 0) {
-                        $blService = $this->container->get('bl_service');
-                        $goalImage->setList(true);
-                        $goalImage->setCover(true);
-                        $blService->generateFileForCover($goalImage);
-                        $blService->generateFileForList($goalImage);
-                    }
-
                     $goalImage->setGoal($goal);
                     $goal->addImage($goalImage);
                 }

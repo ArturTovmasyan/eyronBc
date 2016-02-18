@@ -82,7 +82,7 @@ class BaseClass extends WebTestCase
                                 'filterData'=>array('filter' => array(
                                                     'f_' . UserGoal::URGENT_IMPORTANT => 'on',
                                                     'd'=>false)),
-                                'urlPart'=>'/1'),
+                                'urlPart'=>'/active-goals'),
                         'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
 
             array( array('request'=> array(
@@ -90,7 +90,7 @@ class BaseClass extends WebTestCase
                                                     'f_' . UserGoal::URGENT_IMPORTANT => 'on',
                                                     'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
                                                     'd'=>true),
-                                ), 'urlPart'=>'/2'),
+                                ), 'urlPart'=>'/completed-goals'),
                         'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>null, 'resultCount'=>0))),
 
             array( array('request'=> array(
@@ -132,13 +132,12 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        for($i = 1; $i<count($files); $i++)
-        {
-            $fileNames[] =
-                array(
-                    'file'.$i => $files[$i]->getFileName()
-                );
-        }
+        $file = reset($files);
+
+        $fileNames[] =
+            array(
+                'file'. 0 => $file->getFileName()
+            );
 
         return $fileNames;
     }
@@ -163,14 +162,13 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        for($i = 0; $i<count($files); $i++)
-        {
-            $fileNames[] =
-                array(
-                    'file'.$i => $files[$i]->getId()
-                );
+        $file = end($files);
 
-        }
+        $fileNames[] =
+            array(
+                'file'. 1 => $file->getId()
+            );
+
 
         return $fileNames;
     }
@@ -179,6 +177,37 @@ class BaseClass extends WebTestCase
      * this function create goal data provider , client for testes
      */
     public function goalProvider()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin@admin.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client->enableProfiler();
+
+        $goals = $this->em->getRepository('AppBundle:Goal')->findAll();
+
+        $goalIds = array();
+
+        for($i = 0; $i<count($goals); $i++)
+        {
+            $goalIds[] =
+                array(
+                    'file'.$i => $goals[$i]->getSlug()
+                );
+
+        }
+
+        return $goalIds;
+    }
+
+    /**
+     * this function create goal data provider , client for testes
+     */
+    public function goalByIdProvider()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()
@@ -269,7 +298,7 @@ class BaseClass extends WebTestCase
                 'lastName'=>'Poxosyan',
                 'primary'=>false,
                 'addEmail'=>'test@test.ru',
-                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_NO_CONTENT)))
+                'birthDate'=>'2015/01/22')), 'response'=>array('statusCode'=> Response::HTTP_OK)))
         );
 
         return $data;

@@ -17,7 +17,7 @@ class UserGoalControllerTest extends BaseClass
     /**
      * This function test getAction
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testGet($goalId)
     {
@@ -43,7 +43,7 @@ class UserGoalControllerTest extends BaseClass
     /**
      * this function try to test putAction
      *
-     * @dataProvider goalProvider
+     * @dataProvider goalByIdProvider
      */
     public function testPut($goalId)
     {
@@ -73,7 +73,7 @@ class UserGoalControllerTest extends BaseClass
     /**
      * This function use to test getDoneAction
      *
-     *  @dataProvider goalProvider
+     *  @dataProvider goalByIdProvider
      */
     public function testGetDone($goalId)
     {

@@ -184,13 +184,19 @@ angular.module('goal', ['Interpolation',
                 increaseArea: '20%'
             }).on('ifChanged', function (event) {
                 var target = angular.element(event.target);
+                angular.element(".priority-radio").removeClass('active-important');
+                target.parents().closest('.priority-radio').addClass('active-important');
+
                 target.trigger('change');
             });
 
         }, 500);
 
     }])
-    .controller('goalInner',['$scope', '$filter', function($scope, $filter){
+    .controller('goalInner',['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
+
+        $scope.successStoryShow = [];
+        $scope.successStoryActiveIndex = null;
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -202,6 +208,35 @@ angular.module('goal', ['Interpolation',
             }
         };
 
+        $scope.showMoreSuccessStory = function(storiesLength){
+            if($scope.successStoryActiveIndex === 0){
+                return;
+            }
+
+            var startIndex = storiesLength - 3;
+
+            if($scope.successStoryActiveIndex === null){
+                $scope.successStoryActiveIndex = storiesLength - 3;
+            }
+
+            if($scope.successStoryActiveIndex > 2){
+                startIndex = $scope.successStoryActiveIndex;
+                $scope.successStoryActiveIndex -= 3;
+            }
+            else {
+                startIndex = $scope.successStoryActiveIndex;
+                $scope.successStoryActiveIndex = 0;
+            }
+
+            for(var i = startIndex - 1; i >= $scope.successStoryActiveIndex; i--){
+                $scope.successStoryShow[i] = true;
+            }
+
+            $timeout(function(){
+                $(".story-slider").trigger('showMoreStories');
+            }, 50);
+        };
+
         $scope.capitalizeFirstLetter = function (string) {
             return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
         };
@@ -210,10 +245,15 @@ angular.module('goal', ['Interpolation',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        angular.element('.goal-information').scrollToFixed({
-            marginTop: 85,
-            limit: angular.element('footer').offset().top
-        });
+        if(angular.element('.goal-information') && screen.width >= 992) {
+            angular.element('.goal-information').scrollToFixed({
+                marginTop: 85,
+                limit: function () {
+                    var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
+                    return limit;
+                }
+            });
+        }
 
         if(angular.element('.suggest-input input')) {
             angular.element('.suggest-input input').iCheck({
@@ -268,7 +308,7 @@ angular.module('goal', ['Interpolation',
                 className: '@'
             },
             link: function(scope, el){
-                var dl = scope.delay ? scope.delay : 3000;
+                var dl = scope.delay ? scope.delay : 8000;
                 var cl = scope.className ? scope.className: 'active';
                 var items = el.children();
                 var activeIndex = 0;

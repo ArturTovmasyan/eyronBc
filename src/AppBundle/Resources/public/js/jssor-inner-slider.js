@@ -3,6 +3,7 @@
 $(document).ready(function(){
     var options = {
         $AutoPlay: true,
+        $FillMode: 1,
         $ArrowKeyNavigation: false,
         $BulletNavigatorOptions: {
             $Class: $JssorBulletNavigator$,
@@ -17,7 +18,11 @@ $(document).ready(function(){
     };
 
     if($('#main-slider').length){
-        var main = new $JssorSlider$('main-slider', options);
+        var optMainSlider = {};
+
+        $.extend(optMainSlider, options);
+
+        var main = new $JssorSlider$('main-slider', optMainSlider);
 
         var ScaleSliderMain = function() {
             var parentWidth = $("#main-slider").parent().width();
@@ -40,10 +45,14 @@ $(document).ready(function(){
     }
 
     if($('#main-slider-video').length){
-        options.$SlideSpacing = 10;
-        options.$DisplayPieces = 2;
-        options.$SlideWidth = 350;
-        var mainVideo = new $JssorSlider$('main-slider-video', options);
+        var optMainVideo = {};
+
+        $.extend(optMainVideo, options);
+
+        optMainVideo.$SlideSpacing = 10;
+        optMainVideo.$DisplayPieces = 2;
+        optMainVideo.$SlideWidth = 350;
+        var mainVideo = new $JssorSlider$('main-slider-video', optMainVideo);
 
         var ScaleSliderMainVideo = function() {
             var parentWidth = $("#main-slider-video").parent().width();
@@ -67,23 +76,26 @@ $(document).ready(function(){
 
 
     if($(".story-slider").length){
+        var optStory = {};
 
-        options.$SlideSpacing = 10;
-        options.$DisplayPieces = 2;
-        options.$SlideWidth = 350;
+        $.extend(optStory, options);
+
+        optStory.$SlideSpacing = 10;
+        optStory.$DisplayPieces = 2;
+        optStory.$SlideWidth = 350;
 
         var storySliderEls = $(".story-slider");
         var storySliders = [];
 
         for(var i = 0; i < storySliderEls.length; i++){
-            storySliders.push(new $JssorSlider$($(storySliderEls[i]).attr('id'), options));
+            storySliders.push(new $JssorSlider$($(storySliderEls[i]).attr('id'), optStory));
         }
 
         var ScaleSliderStory = function() {
             for(var i = 0; i < storySliders.length; i++){
                 var refSize = storySliders[i].$Elmt.parentNode.clientWidth;
-                var vl = Math.min(refSize - 50, options.$DisplayPieces * options.$SlideWidth +
-                    options.$DisplayPieces * options.$SlideSpacing);
+                var vl = Math.min(refSize - 50, optStory.$DisplayPieces * optStory.$SlideWidth +
+                    optStory.$DisplayPieces * optStory.$SlideSpacing);
 
                 storySliders[i].$ScaleWidth(vl);
             }
@@ -96,5 +108,6 @@ $(document).ready(function(){
         $(window).bind("load", ScaleSliderStory);
         $(window).bind("resize", ScaleSliderStory);
         $(window).bind("orientationchange", ScaleSliderStory);
+        storySliderEls.on("showMoreStories", ScaleSliderStory);
     }
 });

@@ -56,6 +56,11 @@ class AppKernel extends Kernel
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
+            // Sitemap Bundle include
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
+
+            //Enable markdown bundle
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

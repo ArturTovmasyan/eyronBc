@@ -22,7 +22,9 @@ use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
- * @ORM\Table(name="goal")
+ * @ORM\Table(name="goal", indexes={
+ *          @ORM\Index(name="search", columns={"language", "publish", "title"})
+ * })
  * @Gedmo\Loggable
  */
 class Goal implements MultipleFileInterface, PublishAware
@@ -55,11 +57,11 @@ class Goal implements MultipleFileInterface, PublishAware
      * @Assert\Length(
      *      groups={"goal"},
      *      min = 3,
-     *      max = 600,
+     *      max = 10000,
      *      minMessage = "Your description be at least {{ limit }} characters long",
      *      maxMessage = "Your description cannot be longer than {{ limit }} characters"
      * )
-     * @ORM\Column(name="description", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="description", type="text", length=10000, nullable=true)
      * @Groups({"goal"})
      */
     protected $description;
@@ -68,12 +70,12 @@ class Goal implements MultipleFileInterface, PublishAware
      * @Assert\Length(
      *      groups={"goal"},
      *      min = 3,
-     *      max = 255,
+     *      max = 64,
      *      minMessage = "Your title must be at least {{ limit }} characters long",
      *      maxMessage = "Your title name cannot be longer than {{ limit }} characters"
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
-     * @ORM\Column(name="title", type="string", nullable=false)
+     * @ORM\Column(name="title", type="string", length=64, nullable=false)
      * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
@@ -183,6 +185,14 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     protected $slug;
 
+
+    /**
+     * @Assert\NotBlank(groups={"goal"}, message = "Language can't be blank")
+     * @ORM\Column(name="language", type="string", length=3, nullable=true)
+     * @var
+     */
+    protected $language = "en";
+
     /**
      * Get id
      *
@@ -260,6 +270,26 @@ class Goal implements MultipleFileInterface, PublishAware
         $this->images[] = $images;
         $images->setGoal($this);
 
+        $hasListPhoto = false;
+        $hasCoverPhoto = false;
+
+        foreach($this->images as $image){
+            if ($image->getList() == true){
+                $hasListPhoto = true;
+            }
+            if ($image->getCover() == true){
+                $hasCoverPhoto = true;
+            }
+        }
+
+        if (!$hasListPhoto){
+            $this->images->first()->setList(true);
+        }
+
+        if (!$hasCoverPhoto){
+            $this->images->first()->setCover(true);
+        }
+
         return $this;
     }
 
@@ -290,6 +320,29 @@ class Goal implements MultipleFileInterface, PublishAware
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userGoal = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * This function clone goal
+     */
+    public function __clone() {
+
+        $this->id = null;
+        $this->userGoal = null;
+        $this->successStories = null;
+        $this->author = null;
+        $this->editor = null;
+
+        $imagenes = $this->getImages();
+        $this->images = new ArrayCollection();
+        if(count($imagenes) > 0){
+            foreach ($imagenes as $imagen) {
+                $cloneImages = clone $imagen;
+                $this->images->add($cloneImages);
+                $cloneImages->setGoal($this);
+            }
+        }
+    }
+
 
     /**
      * Add userGoal
@@ -333,7 +386,7 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = strip_tags($description);
 
         return $this;
     }
@@ -464,6 +517,18 @@ class Goal implements MultipleFileInterface, PublishAware
     }
 
     /**
+     * @return null
+     */
+    public function getCoverPhotoDownloadLink()
+    {
+        // get list image
+        $image = $this->getCoverPhoto();
+
+        // return download link
+        return $image ? $image->getDownloadLink() : null;
+    }
+
+    /**
      * @return array
      */
     public function  getBlMultipleFile()
@@ -496,7 +561,7 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title = strip_tags($title);
 
         return $this;
     }
@@ -735,7 +800,7 @@ class Goal implements MultipleFileInterface, PublishAware
         $author = $this->getAuthor();
 
         // check author
-        if($author && $author->getId() == $user->getId()){
+        if(!is_null($author) && $author == $user){
             return true;
         }
         return false;
@@ -803,4 +868,22 @@ class Goal implements MultipleFileInterface, PublishAware
     {
         return $this->slug;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param mixed $language
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
+
+
 }

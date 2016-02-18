@@ -86,7 +86,8 @@ class EmailSenderService
         //get project name
         $projectName = $this->container->getParameter('project_name');
         // generate url
-        $helpLink = $this->container->get('router')->generate('page', array('slug' => 'contact-us'), true);
+        $helpLink = $this->container->get('router')->generate('homepage', array(), true);
+
         // calculate message
         $message = \Swift_Message::newInstance()
             ->setSubject('You have a message from ' . $projectName )

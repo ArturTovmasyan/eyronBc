@@ -547,6 +547,7 @@
 
     FOS_COMMENT.initializeListeners();
 
+    /*------Custom------*/
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
@@ -563,6 +564,46 @@
             }
         });
     }
+
+    $(document).on('click', '.view-more-comments', function(){
+
+        var comments = $(".user-comment");
+        var showStepCount = 5;
+        var forEnd = 0;
+
+        if(!comments.length){
+            return;
+        }
+
+        if(typeof window.VIEW_INDEX == 'undefined'){
+            window.VIEW_INDEX = $(this).data('last-index') - 2;
+        }
+
+        var startElIndex = window.VIEW_INDEX;
+
+        if((window.VIEW_INDEX + 1) <= showStepCount){
+            forEnd = window.VIEW_INDEX + 1;
+            window.VIEW_INDEX = 0;
+        }
+        else {
+            forEnd = showStepCount;
+            window.VIEW_INDEX -= showStepCount;
+        }
+
+        var startEl = $(".user-comment.user-comment" + startElIndex);
+        var tmp = startEl;
+        startEl.fadeIn();
+
+        for(var i = 1; i < forEnd; i++){
+            tmp = tmp.prev();
+            tmp.fadeIn();
+        }
+
+        if(window.VIEW_INDEX === 0){
+            return $(this).hide();
+        }
+
+    });
 
     window.fos = window.fos || {};
     window.fos.Comment = FOS_COMMENT;

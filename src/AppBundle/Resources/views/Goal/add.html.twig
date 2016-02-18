@@ -25,14 +25,14 @@
          <div class="content-top">
              <div class="container">
                  <div class="row">
-                     <div class="col-sm-6">
+                     <div class="col-sm-8">
 
                          <div class="row">
-                             <div class="col-sm-1 suggest-input">
+                             <div class="col-xs-1 suggest-input">
                                  <input id="{{ form.status.vars.id }}" name="{{ form.status.vars.full_name}}" type="checkbox" {% if form.status.vars.data == 1 %} checked {% endif %}value="1" >
                              </div>
 
-                             <div class="col-sm-11">
+                             <div class="col-xs-11">
                                  <h3 class="text-purple">
                                      {{ 'goal.public'|trans }}
                                  </h3>
@@ -47,7 +47,7 @@
 
                      </div>
 
-                     <div class="col-sm-6 text-right">
+                     <div class="col-sm-4 text-right">
                          <div class="buttons">
                              {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading"/>#}
                              <button type="submit" data-ng-disabled="disablePreview" class="btn btn-transparent goal-view-submit" name="btn_preview">
@@ -59,7 +59,7 @@
                                  data-ls-template="[[ goalSubmitTemplate ]]"
                                  class="btn btn-purple goal-create-submit"
                                  name="btn_publish">{{ 'goal.publish'|trans }}
-                                 <span class="icon icon-right"></span>
+                                 <i class="icon-arrow-right"></i>
                              </button>
                          </div>
                      </div>
@@ -74,7 +74,7 @@
                      {{ form_errors(form) }}
 
                          <div class="row">
-                             <div class="col-sm-offset-1 col-sm-10">
+                             <div class="col-xs-10 col-xs-offset-1 ">
 
                                  <div class="form-group">
                                      {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title' } }) }}
@@ -100,7 +100,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <span class="btn-purple">
-                                                        <i></i>BROWSE
+                                                        <i class="icon-cloud"></i>BROWSE
                                                     </span>
 
                                                     <h3 class="text-dark-gray">
@@ -122,14 +122,18 @@
                                      {% for image in images %}
                                              <div class="col-sm-2">
                                                  <a href="{{ path("remove_image", {'filename' : image.filename }) }}">
-                                                     <i class="icon remove-icon"></i>
+                                                     {#<i class="icon remove-icon"></i>#}
+                                                     <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                  </a>
-                                                 <img src="{{ image.downloadLink }}" alt="{{ image.fileOriginalName }}" class="img-responsive"/>
+                                                 <img src="{{ image.downloadLink }}" alt="{{ image.filename }}" class="img-responsive"/>
                                              </div>
                                      {% endfor %}
                                  </div>
                                  <br />
 
+                                 {{ form_widget(form.language, {'attr': {'class':'form-control' } }) }}
+
+                                 <br />
                                  {{ form_widget(form.videoLink, {'attr': {'class':'form-control', 'placeholder' : 'Type in a youtube or vimeo link in the field', 'ng-model': 'videolink' } }) }}
 
                              </div>

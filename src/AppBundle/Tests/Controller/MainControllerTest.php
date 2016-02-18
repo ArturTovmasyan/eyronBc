@@ -38,6 +38,21 @@ class MainControllerTest extends BaseClass
 
         $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open page page!');
 
+        $crawler = $this->client->request('GET', '/page/contact-us');
+
+        $this->assertEquals( $this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open page page!');
+
+        $form = $crawler->selectButton('Send')->form(array(
+            'app_bundle_contact_us[fullName]' => '10/14/2015',
+            'app_bundle_contact_us[email]' => 'koko@ko.com',
+            'app_bundle_contact_us[subject]' => 'Bl test',
+            'app_bundle_contact_us[message]' => 'Bl Test message description.'
+
+        ));
+
+        // submit form
+        $this->client->submit($form);
+
         // check db request count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
@@ -69,11 +84,11 @@ class MainControllerTest extends BaseClass
      *
      * @dataProvider goalProvider
      */
-    public function testGoalUsers($goalId)
+    public function testGoalUsers($goalSlug)
     {
 
         // try to open goal add-to-me page
-        $this->clientSecond->request('GET', '/listed-users/'.$goalId);
+        $this->clientSecond->request('GET', '/listed-users/' . $goalSlug);
 
         $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal users page!');
 
@@ -99,7 +114,7 @@ class MainControllerTest extends BaseClass
         // check db request count
         if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(17, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
     }
 

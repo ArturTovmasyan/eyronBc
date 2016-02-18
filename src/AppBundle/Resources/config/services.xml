@@ -64,6 +64,11 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension is replace # in goal description -->
+        <service id="bl_replace_description_extension" class="AppBundle\Twig\Extension\ReplaceInDescriptionExtension">
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service for twig extension location -->
         <service id="bl.location" class="AppBundle\Twig\Extension\LocationExtension">
             <tag name="twig.extension"/>
@@ -82,6 +87,13 @@
         </service>
 
 
+        <!-- service locale listener -->
+        <service id="bl.locale.listener" class="AppBundle\Listener\LocaleListener">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+
         <service id="bl.settings.listener.resolver" class="AppBundle\Listener\MyEntityListenerResolver">
             <argument type="service" id="service_container" />
         </service>
@@ -89,6 +101,17 @@
         <!-- NewsFeed service -->
         <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
             <argument type="service" id="service_container" />
+        </service>
+
+        <!--  form for languages -->
+        <service id="app.form.lng" class="AppBundle\Form\Type\LngType">
+            <tag name="form.type" alias="lng" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <!-- custom liip filter-->
+        <service id="app.filter.central_crop" class="AppBundle\LiipFilters\CentralCropFilterLoader">
+            <tag name="liip_imagine.filter.loader" loader="central_crop" />
         </service>
 
     </services>

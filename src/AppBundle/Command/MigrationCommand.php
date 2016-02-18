@@ -109,11 +109,6 @@ class MigrationCommand extends ContainerAwareCommand
 
             file_put_contents($goalImage->getAbsolutePath() . $goalImage->getFileName() , file_get_contents($imagePath));
 
-            $blService->generateFileForCover($goalImage);
-            $goalImage->setCover(true);
-            $blService->generateFileForList($goalImage);
-            $goalImage->setList(true);
-
             $goal->addImage($goalImage);
 
             $userGoal = new UserGoal();

@@ -82,13 +82,17 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <div class="location">
-                            <i class="icon location-icon"></i>
-                            <i class="icon remove-location-icon" data-ng-click="removeLocation()"></i>
+                            {#<i class="icon location-icon"></i>#}
+                            {#<span class="icon-remove-email"></span>#}
+                            {#<span class="icon-location-icon"></span>#}
+                            <i class="icon-location-icon"></i>
+                            <i class="icon-remove-email" data-ng-click="removeLocation()"></i>
                             <input {% if completed %} disabled {% endif %}
                                     value="{{ data.address }}"
                                     type="text"
                                     data-ng-disabled="complete.switch"
                                     data-google-places-autocomplete
+                                    data-types="['(cities)']"
                                     data-hidden-storage=".location-hidden"
                                     class="form-control place-autocomplete"
                                     placeholder="{{ "goal.location_ex"|trans }}"/>
@@ -101,7 +105,7 @@
 
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <i class="icon pen-icon"></i>
+                        <i class="icon-pencil"></i>
                         {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}
                     </div>
                 </div>
@@ -144,7 +148,7 @@
                                                 {% for id, name in filters %}
 
                                                     <div class="col-sm-6">
-                                                        <div class="inputs-style">
+                                                        <div class="inputs-style priority-radio {% if data.getUrgentImportantStatus() == id %}active-important{% endif %}">
                                                             <label class="radio-inline">
                                                                 <input name="test"
                                                                        class="important-radio"
@@ -214,7 +218,7 @@
 
                     <div class="col-sm-8">
                         <div class="to-do-list">
-                            <i title="Notes" class="icon list-icon"></i>
+                            <i title="Notes" class="icon-step-list"></i>
                             <input type="text"
                                    class="form-control"
                                    data-step
@@ -261,7 +265,10 @@
 
                     <div class="col-sm-2">
                         <div class="onoffswitch">
-                            <input {% if not data.isVisible %} checked {% endif %}
+                            <input {% if data.isVisible %}
+                                    checked
+                                    data-ng-init="private_checkbox=true"
+                                    {% endif %}
                                     type="checkbox"
                                     data-ng-model="private_checkbox"
                                     data-ls-checked="private_checkbox"
@@ -279,7 +286,7 @@
                 </div>
 
                 <p class="text-gray">
-                    <i class="icon eye-icon"></i>
+                    <i class="icon-eye"></i>
                     {{ "goal.invisible_text"|trans }}
                 </p>
 

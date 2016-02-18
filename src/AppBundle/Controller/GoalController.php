@@ -32,7 +32,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /**
- * @Route("/goal")
+ * @Route("/")
  *
  * Class GoalController
  * @package AppBundle\Controller
@@ -40,7 +40,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends Controller
 {
     /**
-     * @Route("/add/{id}", defaults={"id" = null}, name="add_goal")
+     * @Route("goal/add/{id}", defaults={"id" = null}, name="add_goal")
      * @Template()
      * @param Request $request
      * @param $id
@@ -130,6 +130,9 @@ class GoalController extends Controller
 
                 // set author
                 $goal->setAuthor($currentUser);
+                $description = $goal->getDescription();
+                $description = str_replace('#', '', $description);
+                $goal->setDescription($description);
 
                 $em->persist($goal);
                 $em->flush();
@@ -183,11 +186,38 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/view/{slug}", name="view_goal")
+     * @Route("goal/drafts", name="goal_drafts")
+     * @Template()
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function draftAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // find all drafts goal
+        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+
+        // get paginator
+        $paginator  = $this->get('knp_paginator');
+
+        // paginate data
+        $pagination = $paginator->paginate(
+            $goals,
+            $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/
+        );
+
+        return array('goals' => $pagination);
+
+    }
+
+    /**
+     * @Route("goal/view/{slug}", name="view_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findOneBySlug" })
+     *   "repository_method" = "findBySlugWithRelations" })
      * @param Goal $goal
      * @return array
      */
@@ -197,18 +227,59 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/show/{slug}", name="inner_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal",  options={
-     *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findOneBySlug" })
-     * @param Goal $goal
-     * @return array
+     * This action is used for upload images from drag and drop
      *
+     * @Route("goal/story/add-images", name="add_story_images")
+     * @Method({"POST"})
+     * @param Request $request
+     * @return array
      */
-    public function showAction(Goal $goal)
+    public function addSuccessStoryImage(Request $request)
     {
-        return array('goal' => $goal);
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if($file){
+
+            // get validator
+            $validator = $this->get('validator');
+
+            // get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new story image object
+            $storyImage = new StoryImage();
+
+            // set file
+            $storyImage->setFile($file);
+
+            // validate goal image
+            $error = $validator->validate($storyImage);
+
+            // check in error
+            if(count($error) > 0){
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            }
+            else{ // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($storyImage);
+
+                $em->persist($storyImage);
+            }
+
+            // flush data
+            $em->flush();
+            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
+
+        }
+
+        return new JsonResponse('', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -245,7 +316,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/done/{id}", name="done_goal")
+     * @Route("goal/done/{id}", name="done_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -283,7 +354,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/add-story/{id}", name="add_story")
+     * @Route("goal/add-story/{id}", name="add_story")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -378,64 +449,7 @@ class GoalController extends Controller
     }
 
     /**
-     * This action is used for upload images from drag and drop
-     *
-     * @Route("/add-story-images", name="add-story_images")
-     * @Method({"POST"})
-     * @param Request $request
-     * @return array
-     */
-    public function addSuccessStoryImage(Request $request)
-    {
-        // get all files form request
-        $file = $request->files->get('file');
-
-        // check file
-        if($file){
-
-            // get validator
-            $validator = $this->get('validator');
-
-            // get entity manager
-            $em = $this->getDoctrine()->getManager();
-
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new story image object
-            $storyImage = new StoryImage();
-
-            // set file
-            $storyImage->setFile($file);
-
-            // validate goal image
-            $error = $validator->validate($storyImage);
-
-            // check in error
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-
-            }
-            else{ // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($storyImage);
-
-                $em->persist($storyImage);
-            }
-
-            // flush data
-            $em->flush();
-            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
-
-        }
-
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
-    }
-
-
-    /**
-     * @Route("/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
+     * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
@@ -615,7 +629,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/list/{category}", defaults={"category" = null}, name="goals_list")
+     * @Route("goals/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
      * @Template()
@@ -625,6 +639,13 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        // default locale
+        $locale = null;
+
+        if($user = $this->getUser()){
+            $locale = $user->getLanguage();
+        }
 
         // get search key
         $search = $request->get('search');
@@ -636,7 +657,7 @@ class GoalController extends Controller
 
         $allIds = [];
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
         // get paginator
@@ -738,34 +759,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/drafts", name="goal_drafts")
-     * @Template()
-     * @return array
-     * @Secure(roles="ROLE_USER")
-     */
-    public function draftAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-
-        // get paginator
-        $paginator  = $this->get('knp_paginator');
-
-        // paginate data
-        $pagination = $paginator->paginate(
-            $goals,
-            $request->query->getInt('page', 1)/*page number*/,
-            9/*limit per page*/
-        );
-
-        return array('goals' => $pagination);
-
-    }
-
-    /**
-     * @Route("/remove-draft/{goal}", name="remove_draft_goal")
+     * @Route("goal/remove-draft/{goal}", name="remove_draft_goal")
      *
      * @param Goal $goal
      * @ParamConverter("goal", class="AppBundle:Goal")
@@ -809,7 +803,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/remove-goal/{goal}/{user}", name="remove_goal")
+     * @Route("goal/remove-goal/{goal}/{user}", name="remove_goal")
      *
      * @param Goal $goal
      * @param User $user
@@ -847,7 +841,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("/remove-image/{filename}", name="remove_image")
+     * @Route("goal/remove-image/{filename}", name="remove_image")
      * @Secure(roles="ROLE_USER")
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
      *   "mapping": {"filename": "fileName"},
@@ -867,9 +861,50 @@ class GoalController extends Controller
         $em->flush();
 
         if (isset($_SERVER['HTTP_REFERER'])){
+
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
         return new Response('', Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("goal/{slug}", name="inner_goal")
+     * @Template()
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findBySlugWithRelations" })
+     * @param Goal $goal
+     * @return array
+     *
+     */
+    public function showAction(Goal $goal)
+    {
+        return array('goal' => $goal);
+    }
+
+    /**
+     * @Route("clone/{slug}", name="clone_goal")
+     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @ParamConverter("goal", class="AppBundle:Goal",  options={
+     *   "mapping": {"slug": "slug"},
+     *   "repository_method" = "findBySlugWithRelations" })
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function cloneAction(Goal $goal)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+        // clone goal
+        $object = clone $goal;
+        // persist goal
+        $em->persist($object);
+        $em->flush();
+
+        // redirect to goal add
+        return $this->redirectToRoute('add_goal', array('id'=>$object->getId()));
+
     }
 }

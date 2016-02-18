@@ -4,12 +4,13 @@
 <div id="fb-root"></div>
 
 <div class="inner-container">
-    {% set cover = goal.getCoverPhoto %}
+    {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
     <figure class="goal-image">
+        <span class="overlay"></span>
         <img src="
         {% if cover %}
-             {{ cover.downloadLink }}
+             {{ cover|blImageFilter('goal_cover') }}
         {% else %}
              {{ asset(imgPath)}}
         {% endif %}"
@@ -18,17 +19,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+            <div class="col-md-5"></div>
+            <div class="col-md-7">
                 <div class="quote">
 
                     <div class="ticker">
                         {% if aphorisms %}
-                            <i class="icon quotel-icon"></i>
-                            <i class="icon quoter-icon"></i>
+                            <i class="icon-quote-left"></i>
+                            <i class="icon-quote-right"></i>
                             <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content }} ({{ aphorism.author }})</li>
+                                    <li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230) ~ '...' : aphorism.content }}
+                                        <span class="text-right">{{ aphorism.author }}</span>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
@@ -38,50 +41,61 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-9">
-                <h2 {% if goal.title|length > 30 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
+            <div class="col-md-9">
+                <h2 {% if goal.title|length > 25 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-md-3"></div>
         </div>
 
         <div class="inner-content">
 
             <div class="row no-gutter">
-                <div class="col-sm-7 col-md-8">
+                <div class="col-md-8 overflow">
                     {% set images = goal.images %}
                     {% if images and images | length %}
-                        <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;margin-bottom: 20px;">
+                        <div id="main-slider" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;">
                             <!-- Slides Container -->
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
-                                {% for image in images %}
+                                {% for key, image in images %}
                                     <div>
-                                        <img u="image" src="{{ image.downloadLink }}" alt="{{ goal.title }}"/>
+                                        <a href="{{ image.downloadLink }}" data-lightbox="main-slider-{{ key }}" data-title="{{ goal.title }}">
+                                            <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
+                                        </a>
                                     </div>
                                 {% endfor %}
                             </div>
 
                             {% if images|length > 1 %}
-                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
+                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">
                                     <!-- bullet navigator item prototype -->
                                     <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                 </div>
-                            {% endif %}
 
-                            <!-- Arrow Left -->
-                            <span u="arrowleft" class="jssora13l"></span>
-                            <!-- Arrow Right -->
-                            <span u="arrowright" class="jssora13r"></span>
+                                <!-- Arrow Left -->
+                                <span u="arrowleft" class="jssora13l"></span>
+                                <!-- Arrow Right -->
+                                <span u="arrowright" class="jssora13r"></span>
+                            {% endif %}
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-sm-5 col-md-4">
+                <div class="col-md-4">
                     <div class="goal-information">
-                        <ul class="row  goal-links">
+                        <ul class="row goal-links">
 
                             {% if page == inner %}
+                                {% set xs = 6 %}
+                                {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
+                                    {% set xs = 3 %}
+                                    <li class="col-xs-3">
+                                        <a href="{{ path('clone_goal', {'slug': goal.slug}) }}">
+                                            <span class="icon glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-sm-6">
+                                    <li class="col-xs-{{ xs }}">
                                         <a href="javascript:void(0)"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
@@ -90,7 +104,7 @@
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="col-sm-6 transparent">
+                                    <li class="col-xs-{{ xs }} transparent">
                                         <bdi>
                                             <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
                                         </bdi>
@@ -99,13 +113,13 @@
 
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
-                                    <li class="col-sm-6">
+                                    <li class="col-xs-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                                             <i class="icon ok-icon"></i>{{ 'done'|trans }}
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="col-sm-6 transparent">
+                                    <li class="col-xs-6 transparent">
                                         <bdi>
                                             <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
                                         </bdi>
@@ -123,16 +137,18 @@
                                      style="width: 99.8%; height: 221px">
                                 </div>
                             </div>
+                        {% else %}
+                            <hr />
                         {% endif %}
                         {% if page == inner %}
                             <ul>
                                 <li>
                                     <ul class="row no-gutter">
-                                        <li class="col-sm-5">
+                                        <li class="col-xs-5">
                                             {{ 'done_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.doneBy }}</p>
                                         </li>
-                                        <li class="col-sm-4">
+                                        <li class="col-xs-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for doneByUser in doneByUsers %}
@@ -141,7 +157,7 @@
                                                     <li style="right: {{ left }}px">
                                                         {% if doneByUser.getPhotoLink  %}
                                                             <figure>
-                                                                <img src="{{ doneByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                                <img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive">
                                                             </figure>
                                                         {% else %}
                                                             <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
@@ -152,7 +168,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-sm-3">
+                                        <li class="col-xs-3">
                                             {% if goal.stats.doneBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -163,11 +179,11 @@
                                 </li>
                                 <li>
                                     <ul class="row no-gutter">
-                                        <li class="col-sm-5">
+                                        <li class="col-xs-5">
                                             {{ 'listed_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.listedBy }}</p>
                                         </li>
-                                        <li class="col-sm-4">
+                                        <li class="col-xs-4">
                                             <ul class="users">
                                                 {% set left = 0 %}
                                                 {% for listedByUser in listedByUsers %}
@@ -176,7 +192,7 @@
                                                     <li style="right: {{ left }}px">
                                                         {% if listedByUser.getPhotoLink  %}
                                                             <figure>
-                                                                <img src="{{ listedByUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                                <img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive">
                                                             </figure>
                                                         {% else %}
                                                             <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
@@ -186,7 +202,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                        <li class="col-sm-3">
+                                        <li class="col-xs-3">
                                             {% if goal.stats.listedBy == 0 %}
                                                 <i></i>
                                             {% else %}
@@ -202,8 +218,8 @@
             </div>
 
             {% if page != view %}
-                <div class="row">
-                    <div class="col-sm-4">
+                <div class="row padding-top">
+                    <div class="col-xs-6 col-md-4">
                         <div class="fb-like"
                              data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
                              data-layout="button_count"
@@ -212,7 +228,7 @@
                              data-share="false">
                         </div>
                     </div>
-                    <div class="col-sm-4 text-right">
+                    <div class="col-xs-6 col-md-4 text-right">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
                     </div>
                 </div>
@@ -221,15 +237,18 @@
             <div class="inner">
                 <div class="row">
 
-                    <div class="col-sm-8">
+                    <div class="col-md-8">
                         <hr/>
-                        <p class="text-gray">{{ goal.description }}</p>
-                        <br />
+                        {% if goal.description and not goal.description == '' %}
+                            <div class="text-gray">{{ replaceDescription(goal.description)|markdown }}</div>
+                        {% endif %}
+
                         {% if goal.videoLink %}
                             {% if goal.videoLink and goal.videoLink|length %}
 
                                 {% if goal.videoLink|length == 1 %}
                                     {% set v = goal.videoLink[0] %}
+                                    <br />
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <figure>
@@ -264,15 +283,17 @@
                                                 {% endfor %}
                                             </div>
 
-                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
-                                                <!-- bullet navigator item prototype -->
-                                                <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
-                                            </div>
+                                            {% if goal.videoLink|length > 2 %}
+                                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">
+                                                    <!-- bullet navigator item prototype -->
+                                                    <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                </div>
 
-                                            <!-- Arrow Left -->
-                                            <span u="arrowleft" class="jssora13l"></span>
-                                            <!-- Arrow Right -->
-                                            <span u="arrowright" class="jssora13r"></span>
+                                                <!-- Arrow Left -->
+                                                <span u="arrowleft" class="jssora13l"></span>
+                                                <!-- Arrow Right -->
+                                                <span u="arrowright" class="jssora13r"></span>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 {% endif %}
@@ -286,15 +307,28 @@
                             {% if stories|length > 0 %}
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
+                                {% if stories|length > 3 %}
+                                    <div class="text-right">
+                                        <a href="javascript:void(0)"
+                                           data-ng-show="successStoryActiveIndex !== 0"
+                                           data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                           class="text-purple view-more-comments">
+                                            Show More +5
+                                        </a>
+                                    </div>
+                                {% endif %}
+
                                 {% for key, story in stories %}
 
                                     {% set addedUser = story.user %}
                                     {% set files = story.files %}
                                     {% set videos = story.videoLink %}
 
-                                    <div class="comment-place">
+                                    <div class="comment-place story-fade-in ng-hide"
+                                         data-ng-show="successStoryShow[{{ key }}]"
+                                         data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 4 ? 'true':'false' }}">
                                         <div class="row">
-                                            <div class="col-sm-1">
+                                            <div class="col-xs-2 col-sm-1">
                                                 {#<figure>#}
                                                     {#<img src="{{ addedUser.getPhotoLink }}" alt="" class="img-responsive img-circle"/>#}
                                                 {#</figure>#}
@@ -304,7 +338,7 @@
 
                                                 {% if addedUser.getPhotoLink  %}
                                                     <figure>
-                                                        <img src="{{ addedUser.getPhotoLink }}" class="img-circle img-responsive">
+                                                        <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive">
                                                     </figure>
                                                 {% else %}
                                                     <bdi class="{{ className }}">{{ nameOnImage | upper}}</bdi>
@@ -312,7 +346,7 @@
 
                                             </div>
 
-                                            <div class="col-sm-11">
+                                            <div class="col-xs-10 col-sm-11">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
@@ -327,9 +361,9 @@
                                             {% if files|length == 1 %}
                                                 {% set file = files.first %}
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-sm-12">
                                                         <figure>
-                                                            <img src="{{ file.getDownloadLink }}" alt="Image" height="360"/>
+                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}" alt="Image" height="360"/>
                                                         </figure>
                                                     </div>
                                                 </div>
@@ -339,22 +373,26 @@
                                                     <div id="story-slider-image{{ key }}" class="story-slider">
                                                         <!-- Slides Container -->
                                                         <div u="slides">
-                                                            {% for file in files %}
+                                                            {% for k,file in files %}
                                                                 <div>
-                                                                    <img u="image" src="{{ file.downloadLink }}"/>
+                                                                    <a href="{{ file.downloadLink }}" data-lightbox="story{{ key }}-{{ k }}">
+                                                                        <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
+                                                                    </a>
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
 
-                                                        <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
-                                                            <!-- bullet navigator item prototype -->
-                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
-                                                        </div>
+                                                        {% if files|length > 2 %}
+                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
+                                                                <!-- bullet navigator item prototype -->
+                                                                <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                            </div>
 
-                                                        <!-- Arrow Left -->
-                                                        <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
-                                                        <!-- Arrow Right -->
-                                                        <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                                            <!-- Arrow Left -->
+                                                            <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
+                                                            <!-- Arrow Right -->
+                                                            <span u="arrowright" class="story-slider-arrow jssora13r"></span>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             {% endif %}
@@ -365,7 +403,7 @@
                                             {% if videos|length == 1 %}
                                                 {% set v = videos[0] %}
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-sm-12">
                                                         <figure>
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
                                                             <youtube-video
@@ -399,21 +437,24 @@
                                                             {% endfor %}
                                                         </div>
 
-                                                        <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 50%">
-                                                            <!-- bullet navigator item prototype -->
-                                                            <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
-                                                        </div>
+                                                        {% if videos|length > 2 %}
+                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
+                                                                <!-- bullet navigator item prototype -->
+                                                                <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                            </div>
 
-                                                        <!-- Arrow Left -->
-                                                        <span u="arrowleft" class="jssora13l"></span>
-                                                        <!-- Arrow Right -->
-                                                        <span u="arrowright" class="jssora13r"></span>
+                                                            <!-- Arrow Left -->
+                                                            <span u="arrowleft" class="jssora13l"></span>
+                                                            <!-- Arrow Right -->
+                                                            <span u="arrowright" class="jssora13r"></span>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             {% endif %}
                                         {% endif %}
                                     </div>
                                 {% endfor %}
+
                             {% endif %}
 
                             {% if app.user %}
@@ -422,7 +463,7 @@
                             {% endif %}
                         {% endif %}
                     </div>
-                    <div class="col-sm-4"></div>
+                    <div class="col-md-4"></div>
                 </div>
             </div>
         </div>

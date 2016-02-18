@@ -45,9 +45,10 @@ class SettingsController extends FOSRestController
      *      {"name"="bl_mobile_user_settings[primary]", "dataType"="email", "required"=false, "description"="User`s primary email"},
      *      {"name"="bl_mobile_user_settings[addEmail]", "dataType"="email", "required"=false, "description"="Add email for user"},
      *      {"name"="bl_mobile_user_settings[birthDate]", "dataType"="string", "required"=false, "description"="User`s birthday | in this 2015/01/22 format"},
+     *      {"name"="bl_mobile_user_settings[language]", "dataType"="string", "required"=false, "description"="User`s language | en|ru"},
      * }
      * )
-     * @Rest\View(serializerGroups={"settings"})
+     * @Rest\View(serializerGroups={"user"})
      * @Secure("ROLE_USER")
      */
     public function postSettingsAction(Request $request)
@@ -73,7 +74,9 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            return new Response('', Response::HTTP_NO_CONTENT);
+            $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+
+            return $user;
 
         }
         else{
@@ -173,11 +176,13 @@ class SettingsController extends FOSRestController
      *         200="OK",
      *     },
      * )
-     * @ParamConverter("user", class="ApplicationUserBundle:User")
      * @Rest\View(serializerGroups={"settings"})
+     * @Secure("ROLE_USER")
      */
-    public function getUserFromSettingsAction(User $user)
+    public function getUserFromSettingsAction()
     {
+        //get current user
+        $user = $this->getUser();
 
         return $user;
     }

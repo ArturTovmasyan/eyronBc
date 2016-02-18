@@ -121,8 +121,9 @@ form:
     username: "Username"
     email: "Email"
     current_password: "Current password"
-    password: "New password"
-    re_password: "Repeat new password"
+    password: "Password"
+    re_password: "Repeat password"
+    re_new_password: "Repeat new password"
     password_confirmation: "Verification"
     new_password: "New password"
     new_password_confirmation: "Verification"
@@ -134,6 +135,7 @@ form:
     birth_date_year: "Year"
     file: "Upload a photo"
     choose: Choose
+    language: Choose language
 
 verification:
     verified: Account verified

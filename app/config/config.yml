@@ -17,8 +17,8 @@ parameters:
         with: 480
         height: 320
     list:
-        with: 320
-        height: 320
+        with: 770
+        height: 540
     cover:
         with: 1280
         height: 720
@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v136
+        assets_version: v172
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -44,6 +44,8 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
+        gc_probability: 0
+        save_path: ~
     fragments:       ~
     http_method_override: true
 
@@ -170,7 +172,8 @@ hwi_oauth:
                 type:                facebook
                 client_id:           "%facebook_client_id%"
                 client_secret:       "%facebook_client_secret%"
-                scope:              "public_profile user_friends email"
+                scope:               "public_profile user_friends email"
+                infos_url:           "https://graph.facebook.com/me?fields=id,email,first_name,last_name,gender,birthday,picture"
             google:
                 type:                google
                 client_id:           "%google_client_id%"
@@ -240,36 +243,75 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        goal_list_1:
+        goal_list_small:
             quality: 100
             filters:
-                relative_resize: { heighten: 260 }
-        goal_list_2:
+                thumbnail: { size: [370, 230], mode: outbound }
+                upscale: { min: [370, 230] }
+                central_crop: { size: [370, 230] }
+
+        goal_list_horizontal:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: inset }
-        goal_list_3:
+                thumbnail: { size: [770, 230], mode: outbound }
+                upscale: { min: [770, 230] }
+                central_crop: { size: [770, 230] }
+
+        goal_list_vertical:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
-        goal_ideas_1:
+                thumbnail: { size: [370, 540], mode: outbound }
+                upscale: { min: [370, 540] }
+                central_crop: { size: [370, 540] }
+
+        goal_list_big:
             quality: 100
             filters:
-                relative_resize: { heighten: 260 }
-        goal_ideas_2:
+                thumbnail: { size: [770, 540], mode: outbound }
+                upscale: { min: [770, 540] }
+                central_crop: { size: [770, 540] }
+
+        goal_slider_image:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: inset }
-        goal_ideas_3:
+                thumbnail: { size: [780, 435], mode: inset }
+
+        goal_bucketlist:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
-        goal_activity:
+                thumbnail: { size: [320, 180], mode: outbound }
+                upscale: { min: [320, 180] }
+                central_crop: { size: [320, 180] }
+
+        goal_cover:
             quality: 100
             filters:
-                upscale: { min: [1280, 1024] }
-                thumbnail: { size: [1280, 1024], mode: outbound }
+                thumbnail: { size: [1280, 680], mode: outbound }
+                upscale: { min: [1280, 680] }
+                central_crop: { size: [1280, 680] }
+
+        user_cover:
+            quality: 100
+            filters:
+                thumbnail: { size: [1280, 274], mode: outbound }
+                upscale: { min: [1280, 274] }
+                central_crop: { size: [1280, 274] }
+
+        user_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [140, 140], mode: outbound }
+                upscale: { min: [140, 140] }
+                central_crop: { size: [140, 140] }
+
+        user_icon:
+            quality: 100
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }
+                upscale: { min: [50, 50] }
+                central_crop: { size: [50, 50] }
+
+knp_markdown:
+    parser:
+        service: markdown.parser.max
+

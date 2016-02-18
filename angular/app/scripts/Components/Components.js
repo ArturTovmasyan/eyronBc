@@ -149,8 +149,10 @@ angular.module('Components',[])
 
                 scope.$watch(attr.lsChecked, function(){
                     var val = scope.$eval(attr.lsChecked);
-                    el.prop('checked', val);
-                    el.val(val);
+                    if(val) {
+                        el.prop('checked', val);
+                        el.val(val);
+                    }
                 }, true);
 
                 el.change(function(){

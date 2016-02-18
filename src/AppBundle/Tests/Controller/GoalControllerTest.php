@@ -21,7 +21,7 @@ class GoalControllerTest extends BaseClass
     {
 
         // try to open goal list page
-        $crawler = $this->client->request('GET', '/goal/list');
+        $crawler = $this->client->request('GET', '/goals');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal list page!');
 
@@ -41,7 +41,7 @@ class GoalControllerTest extends BaseClass
         $goal1Title = $goal1->getTitle();
 
         // try to search goal1
-        $this->client->request('GET', '/goal/list?search=' . $goal1Title);
+        $this->client->request('GET', '/goals?search=' . $goal1Title);
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not find a goal with this title!');
 
@@ -72,6 +72,7 @@ class GoalControllerTest extends BaseClass
             'app_bundle_goal[files]' => '',
             'app_bundle_goal[status]' => 1,
             'app_bundle_goal[hashTags]' => null,
+            'app_bundle_goal[language]' => 'en',
 
         ));
 
@@ -122,12 +123,12 @@ class GoalControllerTest extends BaseClass
 
     /**
      * This function is used to check goal view page
-     * @depends testAddToMe
+     * @dataProvider goalProvider
      */
-    public function testView($goalId)
+    public function testView($goalSlug)
     {
         // try to open goal view page
-        $crawler = $this->client->request('GET', '/goal/view/' . $goalId);
+        $crawler = $this->client->request('GET', '/goal/view/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal view page!');
 
@@ -138,18 +139,18 @@ class GoalControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
-        return $goalId;
+        return $goalSlug;
     }
 
 
     /**
      * This function is used to check goal showAction page
-     * @depends testView
+     * @dataProvider goalProvider
      */
-    public function testShow($goalId)
+    public function testShow($goalSlug)
     {
         // try to open goal inner page
-        $crawler = $this->client->request('GET', '/goal/' . $goalId);
+        $crawler = $this->client->request('GET', '/goal/' . $goalSlug);
         // check response status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal inner page!');
 
@@ -161,14 +162,15 @@ class GoalControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
-        return $goalId;
+        return $goalSlug;
     }
 
     /**
-     * @depends testShow
+     * @depends testAddToMe
      */
     public function testDone($goalId)
     {
+
         // open goal Done page
         $this->client->request('GET', '/goal/done/' . $goalId);
         // check response status code
@@ -228,35 +230,11 @@ class GoalControllerTest extends BaseClass
         return $goalId;
     }
 
-
-    /**
-     * test remove goal
-     *
-     * @depends testAddSuccessStory
-     */
-    public function testRemoveGoal($goalId)
-    {
-        // get user id
-        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
-        // open remove goal page
-        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
-
-
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
-
-        // check db request count
-        if ($profile = $this->client->getProfile()) {
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-        }
-    }
-
-
     /**
      * @depends testAddSuccessStory
      * test add success story image
      */
-    public function testAddSuccessStoryImage()
+    public function testAddSuccessStoryImage($goalId)
     {
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
@@ -272,7 +250,7 @@ class GoalControllerTest extends BaseClass
             123
         );
 
-        $this->client->request('POST', '/goal/add-story-images' , array(), array('file' => $photo));
+        $this->client->request('POST', 'goal/add-story/' . $goalId , array(), array('file' => $photo));
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not add goal image!');
 
@@ -281,6 +259,34 @@ class GoalControllerTest extends BaseClass
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
+
+        return $goalId;
+    }
+
+
+    /**
+     * test remove goal
+     *
+     * @depends testAddSuccessStoryImage
+     */
+    public function testRemoveGoal($goalId)
+    {
+        // get user id
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
+        // open remove goal page
+        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
+
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+
+            // count is 20, because calculated redirected route too
+
+            // check the number of requests
+            $this->assertLessThan(20, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
     }
 
     /**
@@ -288,10 +294,6 @@ class GoalControllerTest extends BaseClass
      */
     public function testRemoveImage($fileName)
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
         if($fileName)
         {
             $this->client->request('GET', '/goal/remove-image/' . $fileName);

@@ -2,36 +2,45 @@
 @import "function.less";
 
 .ideas-list{
+
+  h2{
+    font-size:18px;
+    line-height:30px;
+  }
+
   figure{
     background: transparent;
     overflow: hidden;
     position: relative;
+    margin-bottom:32px;
+    text-align: center;
 
     &>a{
-      height:260px;
+      height:230px;
     }
 
     &>a.height{
-      height:588px;
+      height:540px;
     }
 
     h3{
       position: absolute;
       width: 100%;
       color:#ffffff;
-      font-size:24px;
+      font-size:16px;
       font-weight: bold;
-      padding-left: 25px;
+      padding: 0 13px;
+      line-height: 20px;
       z-index: 1;
+      margin-top:13px;
     }
 
     figcaption{
       ul{
         li{
-          a{
-            font-size:14px;
+          a,bdi{
+            font-size:11px;
             &:hover,&:focus{
-
               text-decoration: none;
             }
 
@@ -61,7 +70,7 @@
     }
 
     .absolute{
-      bottom:60px;
+      bottom:40px;
       width: 100%;
 
       ul{
@@ -69,12 +78,15 @@
 
         li{
           display: inline-block;
-          padding-left:20px;
+          padding-left:10px;
           a{
             color:#E5E5E5;
+            font-size:12px;
 
             &:hover{
-              text-decoration: underline;
+              span{
+                text-decoration: underline;
+              }
             }
           }
 
@@ -85,7 +97,6 @@
           }
         }
       }
-
     }
   }
 }
@@ -95,10 +106,9 @@
   overflow: hidden;
 
   .fb-like{
-    margin: 7px 0 0 30px;
+    margin: 7px 0 0 15px;
   }
   .addthis_counter a.atc_s{
-    //margin-top:10px;
     width:120px !important;
     height:35px !important;
     background: url('../images/images.png') no-repeat -15px -1688px !important;
@@ -107,145 +117,136 @@
       background: url('../images/images.png') no-repeat -15px -1733px !important;
     }
   }
+}
+.goal-information{
+  overflow: hidden;
+  background-color: #ffffff;
 
-  .goal-information{
-    width: 375px;
-    overflow: hidden;
-    //margin-left: -15px;
-    background-color: #ffffff;
-    ul:last-child{
-      padding-left:15px;
-      &>li{
-        border-bottom:1px solid #a4a4a4;
-        padding-top:10px;
-        padding-bottom:10px;
-        color:#a4a4a4;
-        ul{
-          li{
-            display: inline-block;
-            border-bottom:0;
-            padding-bottom:0;
+  hr{
+    margin:0 !important;
+    border-color:#eee;
+  }
+  ul:last-child{
+    padding-left:20px;
+    &>li{
+      border-bottom:1px solid #eee;
+      padding-top:5px;
+      padding-bottom:5px;
+      color:#a4a4a4;
+      ul{
+        li{
+          display: inline-block;
+          border-bottom:0;
+          padding-bottom:0;
+          font-size: 12px;
 
-            &first-child{
-              span{
-                display: block;
-                font-size: 15px;
+          &:last-child{
+            a,i{
+              background: url('../images/images.png') no-repeat -396px -1156px;
+              display: block;
+              width:40px;
+              height:40px;
+            }
+
+            a{
+              &:hover{
+                background: url('../images/images.png') no-repeat -396px -1203px;
               }
             }
 
-            &:last-child{
-              a,i{
-                background: url('../images/images.png') no-repeat -396px -1156px;
-                display: block;
-                width:40px;
-                height:40px;
-              }
-
-              a{
-                &:hover{
-                  background: url('../images/images.png') no-repeat -396px -1203px;
-                }
-              }
-
-            }
           }
         }
       }
     }
-
-    p{
-      font-size:20px;
-      margin-bottom:0;
-    }
   }
 
-  .goal-links{
-    padding-left:0;
+  p{
+    font-size:14px;
     margin-bottom:0;
-    height: 50px;
-    li{
-      text-align: center;
-      a,bdi {
-        display: block;
-        color: #a4a4a4;
-        padding: 11px 0;
-
-        &:focus{
-          text-decoration: none;
-        }
-      }
-
-      &:hover{
-        background-color: #7724F6;
-        a,bdi{
-          color: #ffffff;
-
-          i.plus-icon{
-            background: url('../images/images.png') no-repeat -7px -496px;
-          }
-
-          i.ok-icon{
-            background: url('../images/images.png') no-repeat -7px -617px;
-          }
-        }
-
-      }
-      &:last-child{
-        border-left:1px solid #a4a4a4;
-      }
-    }
-    .transparent{
-      &:hover{
-        background-color: transparent;
-        a,bdi {
-          color: #a4a4a4;
-        }
-      }
-    }
   }
-
 }
 
+.goal-links{
+  padding-left:0;
+  margin-bottom:0;
+  height: 50px;
+  li{
+    text-align: center;
+    border-right:1px solid #eee;
+    a,bdi {
+      display: block;
+      color: #a4a4a4;
+      padding: 11px 0;
+      font-size:12px;
+
+      &:focus{
+        text-decoration: none;
+      }
+    }
+
+    &:hover{
+      background-color: #7724F6;
+      a,bdi{
+        color: #ffffff;
+
+        i.plus-icon{
+          background: url('../images/images.png') no-repeat -7px -496px;
+        }
+
+        i.ok-icon{
+          background: url('../images/images.png') no-repeat -7px -617px;
+        }
+      }
+
+    }
+    &:last-child{
+      border-right:0;
+    }
+  }
+  .transparent{
+    &:hover{
+      background-color: transparent;
+      a,bdi {
+        color: #a4a4a4;
+      }
+    }
+  }
+}
 
 .inner-container{
   background-color: #d8d8d8;
   padding-bottom: 30px;
 
-  q{
-    display: block;
-    padding:25px 0;
-    color:#ffffff;
-    font-size:17px;
-    text-align: justify;
-    word-break: break-all;
+  hr{
+    margin:5px 0 10px;
   }
-  cite{
-    display:block;
-    margin-bottom:10px;
-    color:#ffffff;
-  }
+
   .quote{
     position: relative;
-    height:150px;
-    padding:35px 0 25px;
+    height:170px;
+    padding:5px 0;
     i{
       height:30px;
       width:33px;
+      font-size:16px;
       position: absolute;
     }
   }
 
   .ticker {
-    font-size:16px;
+    font-size:12px;
+    line-height:18px;
     color:#ffffff;
     position: relative;
 
     div {
       display: inline-block;
       word-wrap: break-word;
-      padding-left:40px;
+      padding:0 10px;
     }
-    .aphorism {
+    .aphorism{
+      padding:0 20px;
+      text-align: justify;
       li {
         transition: opacity 0.5s linear;
         -webkit-transition: opacity 0.5s linear;
@@ -253,6 +254,11 @@
         -o-transition: opacity 0.5s linear;
         position: absolute;
         opacity: 0;
+        padding: 0 40px 0 5px;
+        span{
+          display: block;
+          margin:5px 10px 0;
+        }
       }
       li.active {
         opacity: 1;
@@ -260,10 +266,20 @@
     }
   }
 
-
   .goal-image{
     position: absolute;
     width:100%;
+    overflow: hidden;
+
+    .overlay{
+      background: rgba(0, 0, 0, 0.6);
+      height:680px;
+
+      &:hover{
+        background: rgba(0, 0, 0, 0.8);
+      }
+    }
+
     img{
       width:100%;
       .blur;
@@ -273,20 +289,25 @@
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding: 5px 40px 10px;
-    margin-bottom:20px;
+    padding: 5px 10px 10px;
+    margin-bottom:10px;
     overflow: hidden;
-    line-height:60px;
+    line-height:25px;
+    font-size:18px;
+    margin-top:10px;
+  }
+  h2.title-smaller{
+    font-size: 15px;
+    line-height: 22px;
   }
 
-
-
   .inner{
-    padding:0 20px 10px 20px;
+    padding:0 10px 10px;
     p{
-      padding:35px 0 0;
-      font-size:16px;
+      padding:10px 0 0;
+      font-size:12px;
       white-space: normal;
+      text-align: justify;
       word-break: break-word;
     }
 
@@ -302,26 +323,25 @@
     }
 
     .comment-place{
-      padding:20px 15px 30px;
+      padding:10px 10px 0;
       background-color: #f4f4f4;
-      margin-bottom: 20px;
-
+      margin-bottom: 10px;
 
       figure:first-child{
-        margin: 0 0 10px 15px;
+        margin: 0 0 10px 0;
         background-color: transparent;
-        width:40px;
-        height:40px;
+        width:35px;
+        height:35px;
 
         img{
-          height:40px;
+          height:35px;
           border:2px solid #cecece;
         }
       }
 
       p{
         padding:0;
-        font-size:16px;
+        font-size:12px;
         color:#666666;
         margin:0;
         white-space: normal;
@@ -333,7 +353,7 @@
       }
 
       span{
-        font-size:13px;
+        font-size:12px;
         color:#999999;
       }
 
@@ -364,8 +384,9 @@
   }
 
   h4{
-    padding-top:40px;
+    padding-top:10px;
     color:#666666;
+    font-size:14px;
   }
 }
 
@@ -389,11 +410,344 @@
 }
 
 @media (min-width: @screen-sm) {
-  .inner-container{
-    .goal-image{
-      img{
-        height:685px;
+
+  .ideas-list{
+    h2{
+      font-size:18px;
+      line-height:30px;
+    }
+
+    figure{
+      text-align: left;
+      h3{
+        font-size:24px;
+        padding: 0 25px;
+        line-height: 30px;
+        margin-top:15px;
+      }
+
+      figcaption{
+        ul{
+          li{
+            a,bdi{
+              font-size:14px;
+            }
+          }
+        }
+      }
+
+      .absolute{
+        ul{
+          li{
+            padding-left:20px;
+            a{
+              color:#E5E5E5;
+              font-size:14px;
+            }
+
+          }
+        }
       }
     }
+  }
+
+  .inner-container{
+    padding-bottom: 20px;
+
+    hr{
+      margin:10px 0;
+    }
+
+    .quote{
+      height: 145px;
+      padding: 15px 0 0;
+      i{
+        font-size:23px;
+      }
+    }
+
+    .ticker {
+      font-size:14px;
+      line-height:25px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          padding: 0 40px 0 10px;
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
+    .goal-image{
+
+      .overlay{
+        height:630px;
+      }
+
+      img{
+        height:630px;
+      }
+    }
+
+    h2{
+      padding: 5px 20px 10px;
+      margin:0 0 10px 0;
+      line-height:40px;
+      font-size: 30px;
+
+    }
+    h2.title-smaller{
+      font-size:23px;
+      line-height:35px;
+    }
+
+    .inner{
+      padding:0 15px 5px 15px;
+      p{
+        padding:25px 0 0;
+        font-size:14px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:15px 10px 5px;
+        margin-bottom: 10px;
+
+        figure:first-child{
+          margin: 0 0 10px 5px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:14px;
+        }
+
+        span{
+          font-size:12px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:20px;
+      font-size:16px;
+    }
+  }
+
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 20px;
+    }
+  }
+
+  .goal-information{
+    ul:last-child{
+      padding-left:25px;
+      &>li{
+        padding-top:7px;
+        padding-bottom:7px;
+
+        ul{
+          li{
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    p{
+      font-size:17px;
+    }
+
+  }
+
+  .goal-links{
+    li{
+      a,bdi {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+
+  .ideas-list{
+    h2{
+      padding: 60px 0 65px;
+      font-size: 52px;
+      line-height: 64px
+    }
+  }
+  .inner-container{
+    padding-bottom: 30px;
+
+    hr{
+      margin:20px 0;
+    }
+
+    .quote{
+      height:150px;
+      i{
+        font-size:30px;
+      }
+    }
+
+    .ticker {
+      font-size:16px;
+
+      div {
+        padding-left:40px;
+      }
+      .aphorism {
+        li {
+          padding:0 40px 0 20px;
+          span{
+            margin:5px 10px 0;
+          }
+        }
+      }
+    }
+
+    .goal-image{
+
+      .overlay{
+        height:680px;
+      }
+
+      img{
+        height:680px;
+      }
+    }
+
+    h2{
+      padding: 5px 40px 10px;
+      margin:0 0 20px 0;
+      line-height:60px;
+      font-size: 52px;
+    }
+    h2.title-smaller{
+      font-size: 23px;
+      line-height: 57px;
+    }
+
+    .inner{
+      padding:0 20px 10px 20px;
+      p{
+        padding:35px 0 0;
+        font-size:16px;
+      }
+
+      bdi{
+        width:43px;
+        height:43px;
+        color:#ffffff;
+        line-height: 40px;
+      }
+
+      .comment-place{
+        padding:20px 15px 30px;
+        margin-bottom: 20px;
+
+        figure:first-child{
+          margin: 0 0 10px 15px;
+          width:40px;
+          height:40px;
+
+          img{
+            height:40px;
+          }
+        }
+
+        p{
+          font-size:16px;
+        }
+
+        span{
+          font-size:13px;
+        }
+
+      }
+
+      .story-slider{
+        position: relative;
+        margin: 10px auto 30px;
+        width: 710px;
+        height: 230px;
+
+        &>div{
+          cursor: move;
+          position: absolute;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+          width: 710px;
+          height: 230px;
+        }
+      }
+    }
+
+    h4{
+      padding-top:40px;
+      font-size:18px;
+    }
+  }
+
+  .inner-content{
+    .fb-like{
+      margin: 7px 0 0 30px;
+    }
+  }
+
+  .goal-information{
+    width: 374px;
+
+    ul:last-child{
+      padding-left:20px;
+      &>li{
+        padding-top:10px;
+        padding-bottom:10px;
+      }
+    }
+
+    p{
+      font-size:20px;
+    }
+
   }
 }

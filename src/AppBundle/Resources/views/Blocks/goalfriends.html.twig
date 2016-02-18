@@ -4,6 +4,12 @@
 
         <a href="{{ path('goal_friends') }}" class="heading text-gray">
             <i class="goalfriends-icon"></i>
+            {#<i class="icon-goalfrined-icon">#}
+                {#<span class="path1"></span>#}
+                {#<span class="path2"></span>#}
+                {#<span class="path3"></span>#}
+                {#<span class="path4"></span>#}
+            {#</i>#}
             {{ 'goalfriends'|trans }} {{ goalFriends|length }}
         </a>
 
@@ -12,11 +18,11 @@
 
             {% for goalFriend in goalFriends|slice(0,2) %}
                 <li class="clearfix">
-                    <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 0}) }}">
+                    <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}">
 
                         <figure class="image">
                             {% if goalFriend.getPhotoLink() %}
-                                <img src="{{ goalFriend.getPhotoLink() }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive"/>
+                                <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive"/>
                             {% else %}
                                 {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
                                 {% set className = "user-no" ~ random(4) %}
