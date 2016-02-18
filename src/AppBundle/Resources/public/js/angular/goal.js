@@ -219,9 +219,9 @@ angular.module('goal', ['Interpolation',
                 $scope.successStoryActiveIndex = storiesLength - 2;
             }
 
-            if($scope.successStoryActiveIndex > 1){
+            if($scope.successStoryActiveIndex > 4){
                 startIndex = $scope.successStoryActiveIndex;
-                $scope.successStoryActiveIndex -= 2;
+                $scope.successStoryActiveIndex -= 5;
             }
             else {
                 startIndex = $scope.successStoryActiveIndex;
