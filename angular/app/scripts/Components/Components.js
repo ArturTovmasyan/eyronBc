@@ -3,14 +3,26 @@
 angular.module('Components',[])
     .service('loginPopoverService', ['$timeout', function($timeout){
 
-        function openLoginPopover(selector){
+        function openLoginPopover(){
             $timeout(function(){
-                var middleScope = angular.element(selector).scope();
-                var popoverScope = middleScope.$$childHead;
+                var logged = angular.element(".user");
+                var notLogged = angular.element('.sign-in-popover');
 
-                if(!popoverScope.$isShown){
-                    popoverScope.$show();
-                    middleScope.joinToggle2 = !middleScope.joinToggle2;
+                if(logged.length){
+                    logged.hide();
+                }
+
+                if(notLogged) {
+
+                    notLogged.fadeIn();
+
+                    var middleScope = notLogged.scope();
+                    var popoverScope = middleScope.$$childHead;
+
+                    if (!popoverScope.$isShown) {
+                        popoverScope.$show();
+                        middleScope.joinToggle2 = !middleScope.joinToggle2;
+                    }
                 }
             }, 500);
         }
@@ -39,12 +51,10 @@ angular.module('Components',[])
     .directive('openPopover',['$timeout', 'loginPopoverService', function($timeout, loginPopoverService){
         return {
             restrict: 'EA',
-            scope: {
-                selector: '@'
-            },
+            scope: {},
             compile: function(){
-                return function(scope){
-                    loginPopoverService.openLoginPopover(scope.selector);
+                return function(){
+                    loginPopoverService.openLoginPopover();
                 }
             }
         }
@@ -104,12 +114,12 @@ angular.module('Components',[])
                     else if(scope.lsTemplateUrl){
                         $http.get(scope.lsTemplateUrl)
                             .success(function(res){
-                                if(res.indexOf('<head>') !== -1 || res.indexOf('</html>') !== -1){
-                                    loginPopoverService.openLoginPopover('.sign-in-popover');
-                                }
-                                else {
-                                    var tmp = $compile(res)(scope);
-                                    scope.openModal(tmp);
+                                var tmp = $compile(res)(scope);
+                                scope.openModal(tmp);
+                            })
+                            .error(function(res, status){
+                                if(status === 401) {
+                                    loginPopoverService.openLoginPopover();
                                 }
                             });
                     }
