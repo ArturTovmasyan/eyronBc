@@ -213,15 +213,15 @@ angular.module('goal', ['Interpolation',
                 return;
             }
 
-            var startIndex = storiesLength - 3;
+            var startIndex = storiesLength - 2;
 
             if($scope.successStoryActiveIndex === null){
-                $scope.successStoryActiveIndex = storiesLength - 3;
+                $scope.successStoryActiveIndex = storiesLength - 2;
             }
 
-            if($scope.successStoryActiveIndex > 2){
+            if($scope.successStoryActiveIndex > 4){
                 startIndex = $scope.successStoryActiveIndex;
-                $scope.successStoryActiveIndex -= 3;
+                $scope.successStoryActiveIndex -= 5;
             }
             else {
                 startIndex = $scope.successStoryActiveIndex;
