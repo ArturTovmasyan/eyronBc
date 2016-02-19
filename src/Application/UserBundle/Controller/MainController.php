@@ -237,7 +237,7 @@ class MainController extends Controller
                 $this->generateUrl('homepage');
         }
 
-        $this->addFlash('', '');
+        $this->addFlash('error', '');
 
         return $this->redirect($url);
     }

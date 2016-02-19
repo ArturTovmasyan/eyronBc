@@ -60,7 +60,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         //get session
         $session = $request->getSession();
 
-
+        //check if user and session url exist
         if ($user && $session->has('url') && !$user->isAdmin()) {
 
             //get url is session
@@ -145,7 +145,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         }
 
         //set flash messages for open login by js
-        $this->container->get('session')->getFlashBag()->add('', '');
+        $this->container->get('session')->getFlashBag()->add('error', '');
 
         //get current route name
         $routeName = $request->get('_route');
