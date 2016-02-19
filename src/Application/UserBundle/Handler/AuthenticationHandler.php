@@ -173,7 +173,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
 
         }
-        elseif($routeName == "settings") {
+        elseif($routeName == "settings" || $routeName == "add_story") {
 
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
