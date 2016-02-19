@@ -464,6 +464,14 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
+        //get session
+        $session = $request->getSession();
+
+        //check if user and session url exist
+        if ($session->has('addUrl')) {
+            $session->remove('addUrl');
+        }
+
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 

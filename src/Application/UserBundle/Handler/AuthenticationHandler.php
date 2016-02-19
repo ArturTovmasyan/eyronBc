@@ -168,7 +168,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             $request->getSession()->set('url', $redirectUrl);
 
             //set flash messages for open login by js
-            $this->container->get('session')->getFlashBag()->add('addUrl', $url);
+//            $this->container->get('session')->getFlashBag()->add('addUrl', $url);
+
+            //set url in session
+            $request->getSession()->set('addUrl', $url);
         }
 
 
