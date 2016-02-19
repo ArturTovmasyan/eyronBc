@@ -73,12 +73,14 @@
              data-ls-template-url="{{ asset('bundles/app/htmls/mobileModal.html') }}">
         </div>
 
-        {% if app.session.get('addUrl') is not null %}
+        {% set addUrl =  getSession('addUrl') %}
+        
+        {% if app.user and addUrl is not null %}
             <div data-ls-jquery-modal
                  style="display: none"
                  class="not-login-modal"
                  data-ls-identity="notLoginModal"
-                 data-ls-template-url="{{ app.session.get('addUrl') }}">
+                 data-ls-template-url="{{ addUrl }}">
             </div>
         {% endif %}
 
@@ -306,7 +308,7 @@
                 {% endif %}
 
                 $(document).ready(function(){
-                    {% if app.session.get('addUrl') is not null %}
+                    {% if addUrl is not null %}
                         setTimeout(function(){
                             $(".not-login-modal").trigger('openLsModal', 'notLoginModal');
                         }, 1000);

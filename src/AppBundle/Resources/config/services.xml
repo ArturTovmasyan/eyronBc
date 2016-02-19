@@ -69,6 +69,12 @@
             <tag name="twig.extension"/>
         </service>
 
+        <!-- service for twig extension is get session in twig and cleare session -->
+        <service id="bl_get_session_extension" class="AppBundle\Twig\Extension\GetSessionExtension">
+            <argument type="service" id="session" />
+            <tag name="twig.extension"/>
+        </service>
+
         <!-- service for twig extension location -->
         <service id="bl.location" class="AppBundle\Twig\Extension\LocationExtension">
             <tag name="twig.extension"/>
