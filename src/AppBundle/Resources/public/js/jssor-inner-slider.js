@@ -3,7 +3,7 @@
 $(document).ready(function(){
     var options = {
         $AutoPlay: true,
-        $FillMode: 1,
+        $FillMode: 4,
         $ArrowKeyNavigation: false,
         $BulletNavigatorOptions: {
             $Class: $JssorBulletNavigator$,
