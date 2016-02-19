@@ -1,6 +1,24 @@
 'use strict';
 
 angular.module('Components',[])
+    .service('loginPopoverService', ['$timeout', function($timeout){
+
+        function openLoginPopover(selector){
+            $timeout(function(){
+                var middleScope = angular.element(selector).scope();
+                var popoverScope = middleScope.$$childHead;
+
+                if(!popoverScope.$isShown){
+                    popoverScope.$show();
+                    middleScope.joinToggle2 = !middleScope.joinToggle2;
+                }
+            }, 500);
+        }
+
+        return {
+            openLoginPopover: openLoginPopover
+        }
+    }])
     .directive('ngEnterSubmit',[function(){
         return {
             restrict: 'EA',
@@ -18,7 +36,7 @@ angular.module('Components',[])
             }
         }
     }])
-    .directive('openPopover',['$timeout',function($timeout){
+    .directive('openPopover',['$timeout', 'loginPopoverService', function($timeout, loginPopoverService){
         return {
             restrict: 'EA',
             scope: {
@@ -26,15 +44,7 @@ angular.module('Components',[])
             },
             compile: function(){
                 return function(scope){
-                    var middleScope = angular.element(scope.selector).scope();
-                    var popoverScope = middleScope.$$childHead;
-
-                    if(!popoverScope.$isShown){
-                        $timeout(function(){
-                            popoverScope.$show();
-                            middleScope.joinToggle2 = !middleScope.joinToggle2;
-                        },400);
-                    }
+                    loginPopoverService.openLoginPopover(scope.selector);
                 }
             }
         }
@@ -53,7 +63,11 @@ angular.module('Components',[])
             }
         }
     }])
-    .directive('lsJqueryModal',['$compile', '$http', '$rootScope', function($compile, $http, $rootScope){
+    .directive('lsJqueryModal',['$compile',
+        '$http',
+        '$rootScope',
+        'loginPopoverService',
+        function($compile, $http, $rootScope, loginPopoverService){
         return {
             restrict: 'EA',
             scope: {
@@ -90,8 +104,13 @@ angular.module('Components',[])
                     else if(scope.lsTemplateUrl){
                         $http.get(scope.lsTemplateUrl)
                             .success(function(res){
-                                var tmp = $compile(res)(scope);
-                                scope.openModal(tmp);
+                                if(res.indexOf('<head>') !== -1 || res.indexOf('</html>') !== -1){
+                                    loginPopoverService.openLoginPopover('.sign-in-popover');
+                                }
+                                else {
+                                    var tmp = $compile(res)(scope);
+                                    scope.openModal(tmp);
+                                }
                             });
                     }
                 }
