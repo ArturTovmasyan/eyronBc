@@ -333,7 +333,6 @@
                     {% for userGoal in userGoals %}
                     {% set goal = userGoal.goal %}
                     {% set status = userGoal.status %}
-                    {% set goalStatus = goal.status %}
 
                         {% set lastIndex = userGoals|length - 1 %}
 
@@ -393,9 +392,7 @@
                                     <div class="row">
                                         <div class="col-md-6 no-right">
                                             <figure>
-                                                {% if goalStatus == false %}
-                                                    <i class="icon-lock-white"></i>
-                                                {% endif %}
+
                                                 <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
 
                                                 <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}">

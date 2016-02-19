@@ -3,7 +3,6 @@
     {% if popularGoals %}
         {% for popularGoal in popularGoals %}
             <figure>
-
                 <h3>{{ popularGoal.title }}</h3>
 
                 <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">

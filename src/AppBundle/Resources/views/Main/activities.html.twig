@@ -105,6 +105,11 @@
     <div class="row">
         <div class="col-sm-12">
             <figure>
+                {% set goalStatus = goal.status %}
+
+                {% if goalStatus == false %}
+                    <i class="icon-lock-white"></i>
+                {% endif %}
 
                 <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
                     <span class="overlay"></span>
