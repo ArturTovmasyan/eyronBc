@@ -21,6 +21,9 @@
                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}">
 
                         <figure class="image">
+                            {#{% if goalStatus == false %}#}
+                                {#<i class="icon-lock-white"></i>#}
+                            {#{% endif %}#}
                             {% if goalFriend.getPhotoLink() %}
                                 <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive"/>
                             {% else %}
