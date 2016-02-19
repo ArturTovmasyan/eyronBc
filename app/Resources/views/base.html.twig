@@ -76,6 +76,7 @@
         {% set addUrl =  getSession('addUrl') %}
         
         {% if app.user and addUrl is not null %}
+            <img src="{{ asset('bundles/app/images/loading.gif') }}" style="position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="not-login-modal-loading"/>
             <div data-ls-jquery-modal
                  style="display: none"
                  class="not-login-modal"
@@ -311,6 +312,10 @@
                     {% if addUrl is not null %}
                         setTimeout(function(){
                             $(".not-login-modal").trigger('openLsModal', 'notLoginModal');
+
+                            $(".not-login-modal").on('lsJqueryModalOpenednotLoginModal', function(){
+                                $(".not-login-modal-loading").hide();
+                            })
                         }, 1000);
                     {% endif %}
                 });

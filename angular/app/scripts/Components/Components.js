@@ -131,10 +131,12 @@ angular.module('Components',[])
                         fadeDuration: 500
                     });
                     $rootScope.$broadcast('lsJqueryModalOpened'+scope.lsIdentity);
+                    el.trigger('lsJqueryModalOpened' + scope.lsIdentity);
 
                     tmp.on($.modal.CLOSE, function(){
                         tmp.remove();
-                        $rootScope.$broadcast('lsJqueryModalClosed'+scope.lsIdentity);
+                        $rootScope.$broadcast('lsJqueryModalClosed' + scope.lsIdentity);
+                        el.trigger('lsJqueryModalClosed' + scope.lsIdentity);
                     })
                 }
 
