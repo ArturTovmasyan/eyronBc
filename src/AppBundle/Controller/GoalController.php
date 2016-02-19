@@ -364,6 +364,14 @@ class GoalController extends Controller
      */
     public function addSuccessStoryAction(Goal $goal, Request $request)
     {
+        //get session
+        $session = $request->getSession();
+
+        //check if user and session url exist
+        if ($session->has('addUrl')) {
+            $session->remove('addUrl');
+        }
+        
         // create new success story object
         $story = new SuccessStory();
 

@@ -29,6 +29,14 @@ class MainController extends Controller
         //get user in db
         $user = $this->getUser();
 
+        //get session
+        $session = $request->getSession();
+
+        //check if user and session url exist
+        if ($session->has('addUrl')) {
+            $session->remove('addUrl');
+        }
+
         //get last url for redirect
         $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
 
