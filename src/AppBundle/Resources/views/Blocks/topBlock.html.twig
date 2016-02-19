@@ -1,7 +1,6 @@
 <div class="modal-top">
 
     <figure>
-
         <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ goal.title }}" class="img-responsive" />
     </figure>
 
@@ -13,6 +12,22 @@
         {% set listed = goal.getUsedCount.listedBy %}
     {% endif %}
     <span class="overlay"></span>
+    {#<div class="text-right">#}
+
+            {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">#}
+                {#<i class="icon-trash"></i>#}
+                {#{{ 'forget'|trans | upper }}#}
+            {#</a>#}
+
+
+        {#<div data-ng-show="showDetails" class="relative">#}
+            {#<div class="delete-message">#}
+                {#<h3>{{ 'delete_message'|trans|upper|raw }}</h3>#}
+                {#<a href="{{ path('remove_goal', {'goal' : goal.getId , 'user': user.getId }) }}" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>#}
+                {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
     <div class="row no-gutter">
 
         <div class="col-sm-8">
@@ -22,7 +37,6 @@
             {% if goal.author.showName is defined and goal.author.showName %}
                 <p>{{ goal.author.showName }}</p>
             {% endif %}
-
 
             <ul>
                 <li>
