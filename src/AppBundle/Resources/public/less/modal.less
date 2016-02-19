@@ -12,8 +12,12 @@
 .modal{
 
   .title-smaller{
-    font-size:18px;
-    line-height: 23px;
+    font-size:12px;
+    line-height: 28px;
+    height: 30px;
+    width:260px;
+    overflow: hidden;
+
   }
 
   .language{
@@ -363,11 +367,15 @@ a.close-modal{
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding:5px;
+    padding:0 5px;
     margin:10px 25px 5px;
     font-size: 18px;
     white-space: normal;
     word-wrap: break-word;
+    line-height: 28px;
+    height: 30px;
+    width:260px;
+    overflow: hidden;
   }
 
   h1{
@@ -513,6 +521,13 @@ a.close-modal{
 
 
 @media (min-width: @screen-sm) {
+  .modal{
+    .title-smaller{
+      width:auto;
+      font-size:18px;
+      line-height: 23px;
+    }
+  }
   #mobile-modal{
     width:auto;
     .modal-dialog{
@@ -601,9 +616,11 @@ a.close-modal{
     }
 
     h2{
+      width: auto;
+      height: auto;
       padding:10px;
-      margin:110px 0 5px 30px;
-      font-size: 27px;
+      margin:100px 0 5px 30px;
+      font-size: 25px;
     }
 
     h1{
@@ -660,6 +677,16 @@ a.close-modal{
 
     p{
       font-size:14px;
+    }
+  }
+}
+
+
+@media (min-width: @screen-md) {
+  .modal-top{
+    h2{
+      margin:110px 0 5px 30px;
+      font-size: 27px;
     }
   }
 }
