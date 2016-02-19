@@ -386,9 +386,7 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setDescription($description)
     {
-        $this->description = str_replace('/r','',$description);
-        $this->description = strip_tags($description, '<br>');
-        $this->description = nl2br($description);
+        $this->description = strip_tags($description);
 
 
         return $this;
