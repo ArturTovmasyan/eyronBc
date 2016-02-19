@@ -19,7 +19,10 @@ angular.module('user', ['Components', 'Interpolation'])
                 },
                 error: function(res, text, header){
                     $scope.errorMessages = angular.fromJson(res.responseText);
-                    loginPopoverService.openLoginPopover();
+                    if(res.status === 401) {
+                        $.modal.close();
+                        loginPopoverService.openLoginPopover();
+                    }
                     $scope.$apply();
                 }
             });

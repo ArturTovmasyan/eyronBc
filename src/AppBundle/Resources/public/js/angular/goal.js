@@ -105,8 +105,9 @@ angular.module('goal', ['Interpolation',
                     $scope.$apply();
                 },
                 error: function(res, text, header){
-                    console.log(res, text, header);
-                    loginPopoverService.openLoginPopover();
+                    if(res.status === 401) {
+                        loginPopoverService.openLoginPopover();
+                    }
                 },
                 success: function(res, text, header){
                     if(header.status === 200){
