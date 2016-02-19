@@ -813,7 +813,6 @@ class GoalController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
-     * @deprecated TODO must be checked and removed
      */
     public  function removeGoal(Goal $goal, User $user)
     {
