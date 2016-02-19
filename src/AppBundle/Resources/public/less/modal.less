@@ -12,10 +12,13 @@
 .modal{
 
   .title-smaller{
-    font-size:18px;
-    line-height: 23px;
-  }
+    font-size:12px;
+    line-height: 28px;
+    height: 30px;
+    width:260px;
+    overflow: hidden;
 
+  }
 
   .language{
     .list{
@@ -105,13 +108,35 @@ a.close-modal{
   display: none !important;
 }
 
+
+.story-title{
+  color:#7724F6;
+  margin: 10px 0px 15px;
+  font-size: 18px;
+}
+
 #goal-modal,#settings-modal,#story-modal{
-  top:45px;
-  width:530px;
+  //top:25px;
+  width:280px;
   padding:0;
+  position: relative;
 
   .button-lg{
     margin-right:15px;
+    margin-bottom:10px;
+  }
+
+  .modal-container{
+    padding:0;
+    margin:0 0 15px 0;
+    min-height:705px;
+
+    .form-group{
+      margin-bottom:5px;
+    }
+  }
+  .modal-bottom{
+    padding: 12px 0 0;
   }
 }
 
@@ -119,21 +144,18 @@ a.close-modal{
   .iradio_minimal-purple{
     margin-top:9px;
   }
+  .modal-top{
+    height:230px;
+    margin-bottom: 15px;
+
+    .overlay{
+      height:230px;
+      z-index: 2;
+    }
+  }
 }
 
 #story-modal{
-  .dropzone{
-    .dz-message{
-      h3{
-        font-size:22px;
-        margin: 10px 0;
-        i{
-          margin-right:0;
-        }
-      }
-    }
-  }
-
   .remove-icon{
     position: absolute;
     top:0;
@@ -144,18 +166,18 @@ a.close-modal{
 .priority{
   background-color: #f4f4f4;
   position: relative;
-  height:270px;
+  //height:270px;
 
   .dotted{
-    border-left:1px dotted #999999;
-    border-bottom:1px dotted #666666;
+    //border-left:1px dotted #999999;
+    //border-bottom:1px dotted #666666;
     margin: 20px 30px 0 0;
 
     .inputs-style{
       height:90px;
-      margin: 0 5px 5px 0;
+      margin: 0 5px 5px 11px;
       background-color: #ffffff;
-      padding:10px;
+      padding:5px 10px;
 
       label{
         padding-left:0;
@@ -252,7 +274,7 @@ a.close-modal{
 .modal-top{
   position: relative;
   overflow: hidden;
-  height:260px;
+  height: 158px;
 
   .overlay{
     height:260px;
@@ -273,7 +295,7 @@ a.close-modal{
 
   a{
     color:#ffffff;
-    font-size:16px;
+    font-size:12px;
 
     span{
       margin-left:10px;
@@ -285,23 +307,24 @@ a.close-modal{
   }
 
   .delete-message{
+    top:-155px;
     text-align:center;
-    padding:55px 0 50px;
+    padding:40px 0 50px;
     position: absolute;
     display: block;
     width:100%;
     background-color: rgba(0, 0, 0, 0.85);
     h3{
       color:#ffffff;
-      padding:0 0 40px 0;
-      font-size:25px;
-      line-height:40px;
+      padding:0 0 23px 0;
+      font-size:13px;
+      line-height:24px;
       margin:0;
     }
 
     .btn{
-      font-size:15px;
-      padding:6px 12px;
+      font-size:13px;
+      padding:5px 12px;
       margin-right:20px;
       &:hover{
         border:1px solid #6108EA;
@@ -314,14 +337,15 @@ a.close-modal{
   }
 
   .forget{
-    margin: 20px 30px 0 0;
+    margin: 0 25px 0 0;
     color:#cecece;
     display: inline-block;
     padding:1px 12px 3px 0;
-    font-size:18px;
+    font-size:13px;
 
     .icon-trash{
-      margin: 0 5px 0 0;
+      margin: 0;
+      font-size:22px;
       vertical-align: bottom;
       color:#cecece;
     }
@@ -343,11 +367,15 @@ a.close-modal{
   h2{
     background-color: #021523;
     color:#ffffff;
-    padding:10px;
-    margin:110px 0 5px 30px;
-    font-size: 27px;
+    padding:0 5px;
+    margin:10px 25px 5px;
+    font-size: 18px;
     white-space: normal;
     word-wrap: break-word;
+    line-height: 28px;
+    height: 30px;
+    width:260px;
+    overflow: hidden;
   }
 
   h1{
@@ -358,17 +386,20 @@ a.close-modal{
   p{
     background-color: #021523;
     color:#ffffff;
-    font-size:14px;
-    padding:10px 40px;
+    font-size:12px;
+    padding:5px 20px;
     display: inline-block;
-    margin:0 0 15px 30px;
+    margin:0 0 10px 25px;
   }
 
   ul{
-    padding: 0 0 0 30px;
+    padding: 0 0 0 35px;
     li{
       display: inline-block;
-      margin-right:20px;
+      //margin-right:20px;
+      //a{
+      //  font-size:12px;
+      //}
     }
   }
 }
@@ -490,10 +521,172 @@ a.close-modal{
 
 
 @media (min-width: @screen-sm) {
+  .modal{
+    .title-smaller{
+      width:auto;
+      font-size:18px;
+      line-height: 23px;
+    }
+  }
   #mobile-modal{
     width:auto;
     .modal-dialog{
       width:auto;
+    }
+  }
+
+  .story-title{
+    margin:30px 0 25px;
+    font-size:28px;
+  }
+
+  #goal-modal,#settings-modal,#story-modal{
+    top:25px;
+    width:530px;
+
+    .modal-container{
+      min-height:500px;
+
+      label{
+        padding:7px 0 0;
+      }
+
+      .form-group.emails{
+        div{
+          margin-bottom:0;
+          &:first-child{
+            margin-bottom:5px;
+          }
+        }
+      }
+    }
+    .modal-bottom{
+      padding: 35px 0 ;
+    }
+
+  }
+
+  #story-modal{
+    .dropzone {
+      .dz-message{
+        h3{
+          font-size:20px;
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+
+  .modal-top{
+    height:260px;
+    a{
+      font-size:16px;
+
+      span{
+        margin-left:10px;
+      }
+
+    }
+
+    .delete-message{
+      top:0;
+      padding:55px 0 50px;
+      h3{
+        padding:0 0 40px 0;
+        font-size:25px;
+        line-height:40px;
+      }
+
+      .btn{
+        font-size:15px;
+        padding:6px 12px;
+        margin-right:20px;
+      }
+    }
+
+    .forget{
+      margin: 20px 30px 0 0;
+      padding:1px 12px 3px 0;
+      font-size:18px;
+
+      .icon-trash{
+        margin:0 5px 0 0;
+        font-size:30px;
+      }
+    }
+
+    h2{
+      width: auto;
+      height: auto;
+      padding:10px;
+      margin:100px 0 5px 30px;
+      font-size: 25px;
+    }
+
+    h1{
+      padding:10px 40px;
+      margin:25px 0 10px;
+    }
+
+    p{
+      font-size:14px;
+      padding:10px 30px;
+      margin:0 0 15px 30px;
+    }
+
+    ul{
+      padding: 0 0 0 30px;
+      li{
+        margin-right:20px;
+      }
+    }
+  }
+
+  .priority{
+
+    height:270px;
+
+    .dotted{
+      border-left:1px dotted #999999;
+      border-bottom:1px dotted #666666;
+      margin: 20px 30px 0 0;
+
+      .inputs-style{
+        height:90px;
+        margin: 0 5px 5px 0;
+        padding:10px;
+
+        label{
+          div{
+            margin-right:5px;
+          }
+
+          span{
+            padding-left: 26px;
+          }
+        }
+
+        p{
+          font-size:14px;
+          font-weight: 600;
+          padding-top: 15px;
+        }
+
+      }
+    }
+
+    p{
+      font-size:14px;
+    }
+  }
+}
+
+
+@media (min-width: @screen-md) {
+  .modal-top{
+    h2{
+      margin:110px 0 5px 30px;
+      font-size: 27px;
     }
   }
 }

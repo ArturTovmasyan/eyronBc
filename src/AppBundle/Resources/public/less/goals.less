@@ -205,12 +205,17 @@
 
 .goal-end{
   background-color: #ffffff;
-  padding:10px 20px 0;
+  padding:10px 10px 40px;
   .rounded-corners(6px);
   margin-bottom: 50px;
 
+  h3{
+    font-size:17px;
+    margin-top: 5px;
+  }
 
   h4{
+    font-size:14px;
     color:#3d3d3d;
   }
 
@@ -224,6 +229,10 @@
     button.button-lg{
       padding:6px 15px;
     }
+  }
+
+  p{
+    font-size:12px;
   }
 }
 
@@ -525,8 +534,8 @@
           border: 1px solid #ffffff;
           border-spacing: 10px;
           color:#a3a3a3;
-          font-size:18px;
-          padding:6px 23px;
+          font-size:12px;
+          padding:6px 10px;
 
         }
 
@@ -591,9 +600,22 @@
   }
 
   .goal-end{
+    padding:10px 20px 0;
     margin-bottom:60px;
     textarea{
       resize: none;
+    }
+
+    h3{
+      font-size:24px;
+      margin-top: 20px;
+    }
+
+    h4{
+      font-size:18px;
+    }
+    p{
+      font-size:14px;
     }
 
     label{
@@ -672,6 +694,38 @@
       }
     }
   }
+
+  #datepicker{
+    margin-bottom:15px;
+    .datepicker-inline{
+      .table-condensed{
+        thead{
+          tr{
+            &:nth-child(2){
+              th{
+                font-size:16px;
+                padding:10px;
+                border-bottom:3px solid #ffffff;
+              }
+            }
+          }
+
+        }
+        tbody{
+          td{
+            border-spacing: 10px;
+            font-size:18px;
+            padding:6px 23px;
+          }
+
+          .today{
+            border:2px solid #7627f5;
+          }
+        }
+      }
+    }
+  }
+
 }
 
 @media (min-width: @screen-md) {
