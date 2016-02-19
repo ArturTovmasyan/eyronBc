@@ -2,13 +2,21 @@
 
 namespace AppBundle\Features\Context;
 
-use Behat\Behat\Context\Context;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Behat\Symfony2Extension\Context\KernelDictionary;
 
-class FeatureContext implements Context
+use Behat\Behat\Context\ClosuredContextInterface;
+use Behat\Behat\Context\TranslatedContextInterface;
+use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
+
+use Behat\MinkExtension\Context\MinkContext;
+
+class FeatureContext extends MinkContext implements SnippetAcceptingContext
 {
+    use KernelDictionary;
+
     public function __construct(Session $session, $simpleArg)
     {
-        // $session is your Symfony2 @session
     }
 }

@@ -1,16 +1,25 @@
 default:
+    suites:
+        default:
+            contexts:
+                - AppBundle\Features\Context\FeatureContext:
+                    simpleArg: 'string'
+                    session:   '@session'
+        my_suite:
+            type: symfony_bundle
+            bundle: AppBundle
+            mink_session: symfony2
+            contexts:
+                - AppBundle\Features\Context\FeatureContext:
+                    simpleArg: 'string'
+                    session:   '@session'
     # ...
     extensions:
         Behat\Symfony2Extension: ~
         Behat\MinkExtension:
+            base_url: http://bucketlist.loc/app_dev.php
+            browser_name: firefox
             sessions:
-                my_session:
+                symfony2:
                     symfony2: ~
-    suites:
-        my_suite:
-            type: symfony_bundle
-            bundle: AppBundle
-            contexts:
-                - FeatureContext:
-                    simpleArg: 'string'
-                    session:   '@session'
+
