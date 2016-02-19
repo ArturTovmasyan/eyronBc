@@ -11,7 +11,7 @@
         </div>
 
         {% for type, messages in app.session.flashBag.all %}
-            {% for message in messages %}
+            {% for message in messages if type != 'addUrl' %}
                 <div class="{{ type }} error-message">
                     {{ message|trans({}, 'FOSUserBundle') }}
                 </div>

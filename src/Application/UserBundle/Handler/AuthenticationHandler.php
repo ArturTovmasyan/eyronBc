@@ -57,22 +57,27 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         // get roles
         $user = $token->getUser();
 
-//        //get session
-//        $session = $request->getSession();
+        //get session
+        $session = $request->getSession();
 
 
-        if($user && $user->isAdmin()){
+        if ($user && $session->has('url') && !$user->isAdmin()) {
+
+            //get url is session
+            $url = $session->get('url');
+
+            //remove url
+            $session->remove('url');
+
+        }
+        elseif ($user && $user->isAdmin()) {
             $url = $this->router->generate('sonata_admin_dashboard');
         }
-//        elseif($user && $session->has('url')){
-//            $url = $session->get('url');
-//            $session->remove('url');
-//        }
-
-        else{
+        else {
             // generate url
             $url = $this->router->generate('check-login');
         }
+
         // check request method
         if ($request->isXmlHttpRequest()) {
 
@@ -142,8 +147,30 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         //set flash messages for open login by js
         $this->container->get('session')->getFlashBag()->add('', '');
 
-//        $url = $request->getUri();
-//        $request->getSession()->set('url', $url);
+        //get current route name
+        $routeName = $request->get('_route');
+
+        //get url
+        $url = $request->getUri();
+
+        if($routeName == "done_goal") {
+
+            //set url in session
+            $request->getSession()->set('url', $url);
+
+        }
+        elseif($routeName == "add_to_me_goal") {
+
+            //get last url
+            $redirectUrl = $request->headers->get('referer');
+
+            //set url in session
+            $request->getSession()->set('url', $redirectUrl);
+
+            //set flash messages for open login by js
+            $this->container->get('session')->getFlashBag()->add('addUrl', $url);
+        }
+
 
         $loginPath = $this->router->generate('homepage');
         return new RedirectResponse($loginPath);
