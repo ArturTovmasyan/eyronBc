@@ -73,12 +73,14 @@
              data-ls-template-url="{{ asset('bundles/app/htmls/mobileModal.html') }}">
         </div>
 
-        {% if app.session.get('addUrl') is not null %}
+        {% set addUrl =  getSession('addUrl') %}
+        
+        {% if addUrl is not null %}
             <div data-ls-jquery-modal
                  style="display: none"
                  class="not-login-modal"
                  data-ls-identity="notLoginModal"
-                 data-ls-template-url="{{ app.session.get('addUrl') }}">
+                 data-ls-template-url="{{ addUrl }}">
             </div>
         {% endif %}
 
