@@ -40,15 +40,14 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends Controller
 {
     /**
-     * @Route("goal/add/{id}", defaults={"id" = null}, name="add_goal")
+     * @Route("goal/add", name="add_goal")
      * @Template()
      * @param Request $request
-     * @param $id
      * @return array
      * @Secure(roles="ROLE_USER")
      * @throws
      */
-    public function addAction(Request $request, $id = null)
+    public function addAction(Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -56,22 +55,8 @@ class GoalController extends Controller
         // get current user
         $currentUser = $this->getUser();
 
-        // check id
-        if($id){
-
-            // get goal
-            $goal = $em->getRepository("AppBundle:Goal")->find($id);
-
-            // check goal and return not found
-            if(!$goal){
-                throw $this->createNotFoundException("Goal $id not found");
-            }
-        }
-        else {
-
-            // create new object
-            $goal = new Goal();
-        }
+        // create new object
+        $goal = new Goal();
 
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
@@ -371,7 +356,7 @@ class GoalController extends Controller
         if ($session->has('addUrl')) {
             $session->remove('addUrl');
         }
-        
+
         // create new success story object
         $story = new SuccessStory();
 

@@ -173,6 +173,10 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
 
         }
+        elseif($routeName == "add_goal") {
+
+            return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
+        }
 
         $loginPath = $this->router->generate('homepage');
         return new RedirectResponse($loginPath);
