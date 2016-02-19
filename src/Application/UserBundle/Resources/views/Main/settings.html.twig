@@ -2,12 +2,13 @@
         <div class="settings">
             <form id="settings-form" action="{{ path('settings') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
 
-                <div class="form-group">
+                <div class="modal-top">
+
                     {% if app.user %}
 
                         {% set user = app.user %}
                         {% set userEmails = user.getUserEmails %}
-
+                        <span class="overlay"></span>
                         <figure>
 
                             <div data-ng-show="imageUrl" class="setting-bg">
@@ -15,6 +16,7 @@
                             </div>
 
                             <div class="relative">
+
                                 <div data-ng-show="imageUrl">
                                     <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|blImageFilter('user_image')|default("") }}'" alt="{{ user.fileOriginalName }}"  class="uploaded-image" width="145" height="145">
                                 </div>
@@ -34,160 +36,173 @@
                     {% endif %}
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
+                <div class="modal-container">
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1">
 
-                        <div class="form-group row no-padding">
-                            <div class="col-sm-6">
-                                {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['firstName']"></div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
-                                <div class="error-message" data-ng-bind="errorMessages['lastName']"></div>
-                            </div>
-                        </div>
-
-                        {% if form.email is defined %}
                             <div class="form-group row no-padding">
-
-                                <div class="col-sm-3 primary">
-                                    {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['firstName']"></div>
                                 </div>
 
-                                {% set email = user.getEmail() %}
-
-                                <div class="col-sm-1">
-                                    <input name="primary" type="radio" value="{{ email }}" checked/>
-                                </div>
-
-                                <div class="col-sm-8">
-                                    {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
-                                    <div class="error-message" data-ng-bind="errorMessages['email']"></div>
-                                    <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.lastName, {'attr': {'class' : 'form-control', 'placeholder': 'form.lastName'|trans({}, 'FOSUserBundle') } }) }}
+                                    <div class="error-message" data-ng-bind="errorMessages['lastName']"></div>
                                 </div>
                             </div>
-                        {% endif %}
 
+                            {% if form.email is defined %}
+                                <div class="form-group row no-padding emails">
 
-                        {% set token = false %}
+                                    <div class="col-sm-3 primary">
+                                        {{ form_label(form.email, 'Primary Email'|trans({}, 'FOSUserBundle')) }}
+                                    </div>
 
-                        {% if userEmails %}
+                                    {% set email = user.getEmail() %}
 
-                            {% for key, userEmail in userEmails %}
-                                <div class="form-group row">
-                                    {% if userEmail.token is null %}
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 text-right">
-                                             <input name="primary" type="radio" value="{{ key }}"/>
-                                        </div>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <input name="primary" type="radio" value="{{ email }}" checked/>
+                                            </div>
 
-                                        <div class="col-sm-8">
-                                            <div class="delete-email">
-                                                <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
-                                                <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
+                                            <div class="col-xs-10">
+                                                {{ form_widget(form.email, {'attr': {'class' : 'form-control', 'placeholder': 'form.email'|trans({}, 'FOSUserBundle') } }) }}
+                                                <div class="error-message" data-ng-bind="errorMessages['email']"></div>
+                                                <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
                                             </div>
                                         </div>
-
-                                    {% else %}
-
-                                        {% set token = true %}
-
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-
-                            {% endif %}
-
-                            {% if token == false %}
-                                <div class="form-group row">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-8">
-                                        {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
                                     </div>
-                                    <div class="error-message" data-ng-bind="errorMessages['email']"></div>
-                                    <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
+
                                 </div>
                             {% endif %}
 
-                        {% if form.currentPassword is defined %}
+
+                            {% set token = false %}
+
+                            {% if userEmails %}
+
+                                {% for key, userEmail in userEmails %}
+                                    <div class="form-group row emails">
+                                        {% if userEmail.token is null %}
+                                            <div class="col-sm-3"></div>
+
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-xs-2 text-right">
+                                                        <input name="primary" type="radio" value="{{ key }}"/>
+                                                    </div>
+
+                                                    <div class="col-xs-10">
+                                                        <div class="delete-email">
+                                                            <a class="delete-link icon" href="{{ path('remove_email', {'email' : key } ) }}"></a>
+                                                            <input name="userEmail"  class="form-control" type="text" value="{{ userEmail.userEmails }}" readonly />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        {% else %}
+
+                                            {% set token = true %}
+
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                {% endif %}
+
+                                {% if token == false %}
+                                    <div class="form-group row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+                                            {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
+                                        </div>
+                                        <div class="error-message" data-ng-bind="errorMessages['email']"></div>
+                                        <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
+                                    </div>
+                                {% endif %}
+
+                            {% if form.currentPassword is defined %}
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
+                                    </div>
+                                    <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
+                                </div>
+
+                                <div class="form-group row no-padding">
+                                    <div class="col-sm-6">
+                                        {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.new_password'|trans({}, 'FOSUserBundle') } }) }}
+                                        <div class="error-message" data-ng-bind="errorMessages['first']"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_new_password'|trans({}, 'FOSUserBundle') } }) }}
+                                        <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                                    </div>
+                                </div>
+
+                            {% endif %}
 
                             <div class="form-group row">
-                                <div class="col-sm-12">
-                                    {{ form_widget(form.currentPassword, {'attr': {'class' : 'form-control', 'placeholder': 'form.current_password'|trans({}, 'FOSUserBundle') } }) }}
+                                <div class="col-sm-4">
+
+                                    {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'} %}
+
+                                    {% set months = form.birthDate.month.vars.choices %}
+
+                                    <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]">
+                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                        {% for month in months %}
+                                            <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
+                                        {% endfor %}
+                                    </select>
+
                                 </div>
-                                <div class="error-message" data-ng-bind="errorMessages['currentPassword']"></div>
-                            </div>
+                                <div class="col-sm-4">
 
-                            <div class="form-group row no-padding">
-                                <div class="col-sm-6">
-                                    {{ form_widget(form.plainPassword.first, {'attr': {'class' : 'form-control', 'placeholder': 'form.new_password'|trans({}, 'FOSUserBundle') } }) }}
-                                    <div class="error-message" data-ng-bind="errorMessages['first']"></div>
+                                    {% set days = form.birthDate.day.vars.choices %}
+
+                                    <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]">
+
+                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+
+                                        {% for day in days %}
+                                            <option value="{{ day.value }}" {% if day.value == form.birthDate.day.vars.value %} selected {% endif %}>{{ day.value }}</option>
+                                        {% endfor %}
+                                    </select>
+
                                 </div>
-                                <div class="col-sm-6">
-                                    {{ form_widget(form.plainPassword.second, {'attr': {'class' : 'form-control', 'placeholder': 'form.re_new_password'|trans({}, 'FOSUserBundle') } }) }}
-                                    <div class="error-message" data-ng-bind="errorMessages['second']"></div>
+                                <div class="col-sm-4">
+
+                                    {% set years = form.birthDate.year.vars.choices %}
+
+                                    <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]">
+
+                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+
+                                        {% for year in years %}
+                                            <option value="{{ year.value }}" {% if year.value == form.birthDate.year.vars.value %} selected {% endif %}>{{ year.value }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 language">
+                                    {{ form_widget(form.language) }}
                                 </div>
                             </div>
 
-                        {% endif %}
-
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-
-                                {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'} %}
-
-                                {% set months = form.birthDate.month.vars.choices %}
-
-                                <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]">
-                                    <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
-                                    {% for month in months %}
-                                        <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
-                                    {% endfor %}
-                                </select>
-
-                            </div>
-                            <div class="col-sm-4">
-
-                                {% set days = form.birthDate.day.vars.choices %}
-
-                                <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]">
-
-                                    <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
-
-                                    {% for day in days %}
-                                        <option value="{{ day.value }}" {% if day.value == form.birthDate.day.vars.value %} selected {% endif %}>{{ day.value }}</option>
-                                    {% endfor %}
-                                </select>
-
-                            </div>
-                            <div class="col-sm-4">
-
-                                {% set years = form.birthDate.year.vars.choices %}
-
-                                <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]">
-
-                                    <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
-
-                                    {% for year in years %}
-                                        <option value="{{ year.value }}" {% if year.value == form.birthDate.year.vars.value %} selected {% endif %}>{{ year.value }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                            {{ form_widget(form._token) }}
 
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12 language">
-                                {{ form_widget(form.language) }}
-                            </div>
-                        </div>
-
-                        {{ form_widget(form._token) }}
-
                     </div>
-                </div> <br />
+                </div>
+
                 <div class="modal-bottom">
                     <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
                     <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>

@@ -106,12 +106,37 @@ a.close-modal{
 }
 
 #goal-modal,#settings-modal,#story-modal{
-  top:45px;
-  width:530px;
+  //top:25px;
+  width:280px;
   padding:0;
+  position: relative;
 
   .button-lg{
     margin-right:15px;
+    margin-bottom:10px;
+  }
+
+  .modal-top{
+    height:230px;
+    margin-bottom: 15px;
+
+    .overlay{
+      height:230px;
+      z-index: 2;
+    }
+  }
+
+  .modal-container{
+    padding:0;
+    margin:0 0 15px 0;
+    min-height:705px;
+
+    .form-group{
+      margin-bottom:5px;
+    }
+  }
+  .modal-bottom{
+    padding: 12px 0 0;
   }
 }
 
@@ -495,5 +520,36 @@ a.close-modal{
     .modal-dialog{
       width:auto;
     }
+  }
+
+  #goal-modal,#settings-modal,#story-modal{
+    top:25px;
+    width:530px;
+
+    .modal-container{
+      min-height:500px;
+
+      label{
+        padding:7px 0 0;
+      }
+
+      .form-group.emails{
+        div{
+          margin-bottom:0;
+          &:first-child{
+            margin-bottom:5px;
+          }
+        }
+      }
+      //.form-group{
+      //  div{
+      //    margin-bottom:10px;
+      //  }
+      //}
+    }
+    .modal-bottom{
+      padding: 35px 0 ;
+    }
+
   }
 }
