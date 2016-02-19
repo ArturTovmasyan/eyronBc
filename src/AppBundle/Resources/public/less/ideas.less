@@ -102,6 +102,13 @@
   }
 }
 
+.drafts{
+  figure{
+    margin-bottom:10px;
+    overflow: hidden;
+  }
+}
+
 .inner-content{
   background-color: #ffffff;
   overflow: hidden;
@@ -412,12 +419,20 @@
 
 @media (min-width: @screen-sm) {
 
+  .drafts{
+    figure{
+      margin-bottom:15px;
+    }
+  }
+
   .ideas-list{
     padding-bottom:0;
 
     h2{
-      font-size:22px;
-      line-height:30px;
+      //font-size:22px;
+      //line-height:30px;
+      font-size: 27px;
+      line-height: 35px;
     }
 
     figure{
@@ -609,6 +624,12 @@
 }
 
 @media (min-width: @screen-md) {
+
+  .drafts{
+    figure{
+      margin-bottom:25px;
+    }
+  }
 
   .ideas-list{
     h2{
