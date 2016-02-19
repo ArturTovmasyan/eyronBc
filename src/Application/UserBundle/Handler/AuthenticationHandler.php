@@ -171,8 +171,12 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             $request->getSession()->set('addUrl', $url);
 
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
-        }
 
+        }
+        elseif($routeName == "settings") {
+
+            return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
+        }
 
         $loginPath = $this->router->generate('homepage');
         return new RedirectResponse($loginPath);
