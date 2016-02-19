@@ -75,7 +75,7 @@
 
         {% set addUrl =  getSession('addUrl') %}
         
-        {% if addUrl is not null %}
+        {% if app.user and addUrl is not null %}
             <div data-ls-jquery-modal
                  style="display: none"
                  class="not-login-modal"
