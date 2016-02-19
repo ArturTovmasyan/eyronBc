@@ -179,8 +179,11 @@
                                                 <span class="menu-down" data-ng-hide="joinToggle1"></span>
                                                 <span class="menu-up" data-ng-show="joinToggle1"></span>
                                             </a>
-                                        {% else %}
+                                        {% endif %}
                                             <a  href="javascript:void(0)"
+                                                {% if app.user %}
+                                                    style="display: none"
+                                                {% endif %}
                                                 data-ng-init="joinToggle2 = false"
                                                 class="sign-in-popover"
                                                 data-ng-class="{'join-class': joinToggle2}"
@@ -192,11 +195,12 @@
                                                 <i class="join"></i>
                                                 {{ 'join'|trans }}
                                             </a>
-                                            {% if app.session.flashBag.peekAll|length %}
-                                                <div data-open-popover data-selector=".sign-in-popover" data-variable="joinToggle2"></div>
-
+                                            {% if not app.user and
+                                            app.session.flashBag.peekAll|length and
+                                            app.session.flashBag.peekAll['error'] and
+                                            app.session.flashBag.peekAll['error'][0] is not empty %}
+                                                <div data-open-popover></div>
                                             {% endif %}
-                                        {% endif %}
                                     </li>
                                 </ul>
                             </div>
