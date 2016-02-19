@@ -9,7 +9,7 @@ angular.module('goal', ['Interpolation',
         'youtube-embed',
         'Components'
     ])
-    .controller('goalAdd',['$scope', '$sce', '$timeout', function($scope, $sce, $timeout){
+    .controller('goalAdd',['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
 
         $scope.files = [];
         $scope.disablePreview = false;
@@ -103,6 +103,10 @@ angular.module('goal', ['Interpolation',
                 beforeSubmit: function(){
                     $scope.loading = true;
                     $scope.$apply();
+                },
+                error: function(res, text, header){
+                    console.log(res, text, header);
+                    loginPopoverService.openLoginPopover();
                 },
                 success: function(res, text, header){
                     if(header.status === 200){

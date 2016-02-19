@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('user', ['Components', 'Interpolation'])
-    .controller('SettingController', ['$scope', '$timeout',function($scope, $timeout){
+    .controller('SettingController', ['$scope', '$timeout', 'loginPopoverService', function($scope, $timeout, loginPopoverService){
 
         $scope.errorMessages = [];
 
@@ -19,6 +19,7 @@ angular.module('user', ['Components', 'Interpolation'])
                 },
                 error: function(res, text, header){
                     $scope.errorMessages = angular.fromJson(res.responseText);
+                    loginPopoverService.openLoginPopover();
                     $scope.$apply();
                 }
             });
