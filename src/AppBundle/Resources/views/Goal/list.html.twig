@@ -55,11 +55,14 @@
         <h2 class="text-center text-dark"> {{ 'goal.list_title'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+
 
             <div class="row" id="row">
                 {% for goal in goals|slice(0, 3)  %}
 
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-md-4">
                         <figure>
 
                             <h3>{{ goal.title }}</h3>
@@ -210,6 +213,9 @@
                         </figure>
                     </div>
                 {% endfor %}
+            </div>
+
+                </div>
             </div>
         {% else %}
             <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>

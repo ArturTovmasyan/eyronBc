@@ -735,7 +735,7 @@ ul.filter{
   background: url('../images/images.png') no-repeat -7px -706px !important;
   display: inline-block;
   width: 28px !important;
-  height:28px !important;
+  height:20px !important;
   vertical-align: middle;
   margin-right: 2px;
 
@@ -1194,20 +1194,17 @@ input{
 }
 
 figure{
-  //background-color: #cfcfcf;
     &>a{
       display: block;
       overflow: hidden;
     }
 
     .height{
-      height:588px;
+      height:540px;
     }
 
   figcaption{
     background-color: #ffffff;
-    //overflow-x: hidden;
-    //margin-bottom:20px;
 
     ul{
       padding-left:0;
@@ -1218,14 +1215,15 @@ figure{
         a,bdi{
           color:#999999;
           display: block;
-          padding: 10px 0;
+          padding: 7px 0;
           height:auto;
         }
 
         i{
-          font-size: 30px;
+          font-size: 23px;
           vertical-align: middle;
         }
+
         &:last-child{
           border-right:0;
           padding-top: 3px;
@@ -1240,21 +1238,24 @@ figure{
               color:#ffffff;
               text-decoration: none;
 
+              i{
+                color:#ffffff;
+              }
             }
           }
 
-          a{
-            .plus-icon{
-              background: url('../images/images.png') no-repeat -7px -496px;
-            }
-          }
-
-
-          a{
-            .ok-icon{
-              background: url('../images/images.png') no-repeat -7px -617px;
-            }
-          }
+          //a{
+          //  .plus-icon{
+          //    background: url('../images/images.png') no-repeat -7px -496px;
+          //  }
+          //}
+          //
+          //
+          //a{
+          //  .ok-icon{
+          //    background: url('../images/images.png') no-repeat -7px -617px;
+          //  }
+          //}
 
           a.addthis_counter .atc_s{
             background: url('../images/images.png') no-repeat -7px -742px !important;
@@ -1299,6 +1300,11 @@ figure{
 .navigation{
   text-align: center;
   margin:0;
+
+  .pagination{
+    margin:0 0 5px 0;
+  }
+
   a{
     width:30px;
     height:30px;
@@ -1773,6 +1779,28 @@ footer{
     padding:20px 30px;
   }
 
+  figure{
+
+    figcaption{
+
+      ul{
+        li{
+          a,bdi{
+            padding: 10px 0;
+          }
+
+          i{
+            font-size: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .addthis_counter .atc_s{
+    height:27px !important;
+  }
+
   footer{
     ul{
       padding:60px 0 0;
@@ -1804,21 +1832,26 @@ footer{
   }
 
   .navigation{
-    margin:25px 0 40px;
+    margin:0;
+
+    .pagination{
+      margin:10px 0;
+    }
+
     a{
-      width:40px;
-      height:40px;
+      width:35px;
+      height:35px;
     }
     span{
-      line-height:40px;
+      line-height:35px;
     }
     span.current{
-      width:40px;
-      height:40px;
+      width:35px;
+      height:35px;
     }
     .next,.previous{
-      width:40px;
-      height:40px;
+      width:35px;
+      height:35px;
     }
   }
 }
@@ -2038,6 +2071,29 @@ footer{
     padding:15px 0 25px;
   }
 
+  .navigation{
+    margin:25px 0 40px;
+
+    .pagination{
+      margin:20px 0;
+    }
+
+    a{
+      width:40px;
+      height:40px;
+    }
+    span{
+      line-height:40px;
+    }
+    span.current{
+      width:40px;
+      height:40px;
+    }
+    .next,.previous{
+      width:40px;
+      height:40px;
+    }
+  }
 
   .check_status{
     padding-bottom:5px;
