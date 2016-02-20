@@ -3,6 +3,12 @@
 
 #news-feed,#goal-friends{
 
+  .users-list{
+    background-color: #ffffff;
+    padding:15px 10px 15px 15px;
+    margin-bottom:10px;
+  }
+
   .icon-lock-white{
     position: absolute;
     right: 15px;
@@ -49,6 +55,7 @@
   }
 
   .image-goalfrinds{
+    margin-top:5px;
     width:35px;
     height:35px;
     img{
@@ -59,7 +66,7 @@
 
     .no-image{
       height: 35px;
-      line-height: 40px;
+      line-height: 32px;
     }
 
   }
@@ -297,6 +304,12 @@
 
 @media (min-width: @screen-sm) {
   #news-feed,#goal-friends{
+
+    .users-list{
+      padding:20px 10px 20px 20px;
+      margin-bottom:15px;
+    }
+
     padding:20px 0;
     margin-top:10px;
 
@@ -451,6 +464,16 @@
 @media (min-width: @screen-md) {
   #news-feed,#goal-friends{
     padding:30px 0;
+
+
+    .users-list{
+      padding:30px 20px 30px;
+      margin-bottom:25px;
+    }
+
+    .image-goalfrinds{
+      margin-top:0;
+    }
 
     .right-block{
       padding:20px 30px;

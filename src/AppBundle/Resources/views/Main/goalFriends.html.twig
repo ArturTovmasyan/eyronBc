@@ -5,7 +5,7 @@
 
     <div class="container" id="goal-friends">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-8">
 
                 {% if app.request.get('_route') == 'goal_friends' %}
 
@@ -37,10 +37,10 @@
                     {% endif %}
 
                             <div class="col-sm-6">
-                                <div class="bg-white padding clearfix">
+                                <div class="users-list clearfix">
                                      <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}" style="display:block;">
                                         <div class="row no-gutter">
-                                            <div class="col-sm-3">
+                                            <div class="col-xs-3">
                                                 <figure class="image-goalfrinds">
                                                 {% if goalFriend.getPhotoLink() %}
 
@@ -54,7 +54,7 @@
                                                 </figure>
                                             </div>
 
-                                            <div class="col-sm-9">
+                                            <div class="col-xs-9">
                                                 <div class="text-gray">
                                                     <h4 class="text-dark-gray">
                                                         {{ goalFriend.firstname }} {{ goalFriend.lastname }}
@@ -90,7 +90,7 @@
 
 
             {% if app.user %}
-                <div class="col-sm-4">
+                <div class="col-md-4">
                     {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
                     {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
@@ -112,9 +112,9 @@
                         <hr/>
 
                         <div class="row">
-                            <div class="col-sm-12">
+                            {#<div class="col-sm-12">#}
                                 {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                            </div>
+                            {#</div>#}
                         </div>
                     </div>
                 </div>
