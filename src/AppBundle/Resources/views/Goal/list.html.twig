@@ -58,162 +58,161 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
 
+                    <div class="row" id="row">
+                        {% for goal in goals|slice(0, 3)  %}
 
-            <div class="row" id="row">
-                {% for goal in goals|slice(0, 3)  %}
+                            <div class="col-md-4">
+                                <figure>
 
-                    <div class="col-md-4">
-                        <figure>
+                                    <h3>{{ goal.title }}</h3>
 
-                            <h3>{{ goal.title }}</h3>
+                                    {% set imageDownloadLink = goal.listPhotoDownloadLink %}
 
-                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
+                                    {#{% if image %}#}
+                                        {#{% set image = goal.getListPhoto %}#}
+                                    {#{% endif %}#}
 
-                            {#{% if image %}#}
-                                {#{% set image = goal.getListPhoto %}#}
-                            {#{% endif %}#}
+                                    <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
+                                        <span class="overlay"></span>
+                                        <img src="{% if imageDownloadLink %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }} {% endif %}" alt="{{ goal.title }}"/>
+                                    </a>
 
-                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
-                                <span class="overlay"></span>
-                                <img src="{% if imageDownloadLink %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }} {% endif %}" alt="{{ goal.title }}"/>
-                            </a>
+                                    <div class="absolute">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                                        {{ goal.stats.listedBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') }}
+                                                        {{ goal.stats.doneBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                            <div class="absolute">
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                            <span>
-                                                {{ 'home_listed_by'|trans({},'messages') }}
-                                                {{ goal.stats.listedBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                            <span>
-                                                {{ 'home_complete'|trans({},'messages') }}
-                                                {{ goal.stats.doneBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                    </figcaption>
+                                </figure>
                             </div>
-
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                            </figcaption>
-                        </figure>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="row">
-                {% for goal in goals|slice(3, 2)  %}
-
-                    <div class="col-md-{{ loop.first ?  4 : 8 }}">
-                        <figure>
-
-                            <h3>{{ goal.title }}</h3>
-
-                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
-
-                            {#{% set image = goal.getListPhoto %}#}
-
-                            {#{% if image %}#}
-                                {#{% set image = goal.getListPhoto %}#}
-                            {#{% endif %}#}
-
-                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" >
-                                <span class="overlay"></span>
-                                <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }}{% else %}
-                                 {{ imageDownloadLink|blImageFilter('goal_list_horizontal') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
-                            </a>
-
-                            <div class="absolute">
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                            <span>
-                                                {{ 'home_listed_by'|trans({},'messages') }}
-                                                {{ goal.stats.listedBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('done_users', {'slug': goal.slug})}}">
-                                            <span>
-                                                {{ 'home_complete'|trans({},'messages') }}
-                                                {{ goal.stats.doneBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                            </figcaption>
-                        </figure>
+                        {% endfor %}
                     </div>
 
-                {% endfor %}
-            </div>
+                    <div class="row">
+                        {% for goal in goals|slice(3, 2)  %}
 
-            <div class="row">
-                {% for goal in goals|slice(5, 2)  %}
+                            <div class="col-md-{{ loop.first ?  4 : 8 }}">
+                                <figure>
 
-                    <div class="col-md-{{ loop.first ?  8 : 4 }}">
-                        <figure>
+                                    <h3>{{ goal.title }}</h3>
 
-                            <h3>{{ goal.title }}</h3>
+                                    {% set imageDownloadLink = goal.listPhotoDownloadLink %}
 
-                            {% set imageDownloadLink = goal.listPhotoDownloadLink %}
+                                    {#{% set image = goal.getListPhoto %}#}
 
-                            {#{% set image = goal.getListPhoto %}#}
+                                    {#{% if image %}#}
+                                        {#{% set image = goal.getListPhoto %}#}
+                                    {#{% endif %}#}
 
-                            {#{% if image %}#}
-                                {#{% set image = goal.getListPhoto %}#}
-                            {#{% endif %}#}
-                            <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" class="height">
-                                <span class="overlay height"></span>
-                                <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_big')  }}{% else %}
-                                 {{ imageDownloadLink|blImageFilter('goal_list_vertical') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
-                            </a>
+                                    <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" >
+                                        <span class="overlay"></span>
+                                        <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }}{% else %}
+                                         {{ imageDownloadLink|blImageFilter('goal_list_horizontal') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                    </a>
 
-                            <div class="absolute">
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                            <span>
-                                                {{ 'home_listed_by'|trans({},'messages') }}
-                                                {{ goal.stats.listedBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                            <span>
-                                                {{ 'home_complete'|trans({},'messages') }}
-                                                {{ goal.stats.doneBy }}
-                                            </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                    <div class="absolute">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                                        {{ goal.stats.listedBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('done_users', {'slug': goal.slug})}}">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') }}
+                                                        {{ goal.stats.doneBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                    </figcaption>
+                                </figure>
                             </div>
 
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
-                            </figcaption>
-                        </figure>
+                        {% endfor %}
                     </div>
-                {% endfor %}
-            </div>
+
+                    <div class="row">
+                        {% for goal in goals|slice(5, 2)  %}
+
+                            <div class="col-md-{{ loop.first ?  8 : 4 }}">
+                                <figure>
+
+                                    <h3>{{ goal.title }}</h3>
+
+                                    {% set imageDownloadLink = goal.listPhotoDownloadLink %}
+
+                                    {#{% set image = goal.getListPhoto %}#}
+
+                                    {#{% if image %}#}
+                                        {#{% set image = goal.getListPhoto %}#}
+                                    {#{% endif %}#}
+                                    <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" class="height">
+                                        <span class="overlay height"></span>
+                                        <img src="{% if imageDownloadLink %}{% if loop.first %}{{ imageDownloadLink|blImageFilter('goal_list_big')  }}{% else %}
+                                         {{ imageDownloadLink|blImageFilter('goal_list_vertical') }}{% endif %}{% endif %}" alt="{{ goal.title }}"/>
+                                    </a>
+
+                                    <div class="absolute">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                                        {{ goal.stats.listedBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') }}
+                                                        {{ goal.stats.doneBy }}
+                                                    </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : goal }  %}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        {% endfor %}
+                    </div>
 
                 </div>
             </div>
