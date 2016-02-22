@@ -40,7 +40,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends Controller
 {
     /**
-     * @Route("goal/add", name="add_goal")
+     * @Route("goal/create", name="add_goal")
      * @Template()
      * @param Request $request
      * @return array
@@ -57,6 +57,9 @@ class GoalController extends Controller
 
         // create new object
         $goal = new Goal();
+
+        // set goal language from user
+        $goal->setLanguage($currentUser->getLanguage());
 
         // create goal form
         $form  = $this->createForm(new GoalType(), $goal);
@@ -132,7 +135,7 @@ class GoalController extends Controller
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'currentUser' => $currentUser);
     }
 
 

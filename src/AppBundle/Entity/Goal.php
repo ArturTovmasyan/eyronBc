@@ -133,7 +133,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @var
      * @ORM\Column(name="status", type="boolean", nullable=true)
      */
-    protected $status = self::PRIVATE_PRIVACY;
+    protected $status = self::PUBLIC_PRIVACY;
 
     /**
      * @var
