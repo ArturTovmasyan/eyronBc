@@ -37,8 +37,11 @@ class MainController extends Controller
             $session->remove('addUrl');
         }
 
+        //get http referer
+        $referer = $request->headers->get('referer');
+
         //get last url for redirect
-        $lastUrl = $request->headers->get('referer') ? $request->headers->get('referer') : $this->generateUrl('homepage');
+        $lastUrl = $referer ? $referer : $this->generateUrl('homepage');
 
         //get fos user manager
         $fosManager = $this->container->get('fos_user.user_manager');

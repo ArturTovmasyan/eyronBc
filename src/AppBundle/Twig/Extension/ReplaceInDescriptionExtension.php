@@ -33,6 +33,7 @@ class ReplaceInDescriptionExtension extends \Twig_Extension
     public function replaceDescription($text)
     {
         $content = str_replace('#', '',  $text);
+//        $content = str_replace("\r\n", "<br>", $content);
 
         return $content;
     }

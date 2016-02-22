@@ -147,14 +147,17 @@
                             {% endif %}
 
                             <div class="form-group row">
+
                                 <div class="col-sm-4">
 
                                     {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'} %}
 
                                     {% set months = form.birthDate.month.vars.choices %}
 
-                                    <select id="bl_user_settings_birthDate_month" name="bl_user_settings[birthDate][month]">
-                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                    <select id="{{ form.birthDate.month.vars.id }}" name="{{ form.birthDate.month.vars.full_name }}">
+
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+
                                         {% for month in months %}
                                             <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
                                         {% endfor %}
@@ -165,9 +168,9 @@
 
                                     {% set days = form.birthDate.day.vars.choices %}
 
-                                    <select id="bl_user_settings_birthDate_day" name="bl_user_settings[birthDate][day]">
+                                    <select id="{{ form.birthDate.day.vars.id }}" name="{{ form.birthDate.day.vars.full_name }}">
 
-                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
 
                                         {% for day in days %}
                                             <option value="{{ day.value }}" {% if day.value == form.birthDate.day.vars.value %} selected {% endif %}>{{ day.value }}</option>
@@ -179,9 +182,9 @@
 
                                     {% set years = form.birthDate.year.vars.choices %}
 
-                                    <select id="bl_user_settings_birthDate_year" name="bl_user_settings[birthDate][year]">
+                                    <select id="{{ form.birthDate.year.vars.id }}" name="{{ form.birthDate.year.vars.full_name }}">
 
-                                        <option {% if user.birthDate is null %} value="" selected{% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
 
                                         {% for year in years %}
                                             <option value="{{ year.value }}" {% if year.value == form.birthDate.year.vars.value %} selected {% endif %}>{{ year.value }}</option>
