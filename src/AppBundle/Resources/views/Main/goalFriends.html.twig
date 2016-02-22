@@ -3,126 +3,122 @@
 {% block content %}
     {{ parent() }}
 
-    <div class="container" id="goal-friends">
-        <div class="row">
-            <div class="col-md-8">
+    <div id="goal-friends">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
 
-                {% if app.request.get('_route') == 'goal_friends' %}
+                    {% if app.request.get('_route') == 'goal_friends' %}
 
-                    <div class="bg-white padding">
+                        <div class="bg-white padding">
 
-                        <form role="search" action="#" method="GET">
-                            <div class="form-group row">
+                            <form role="search" action="#" method="GET">
+                                <div class="form-group row">
 
-                                <div class="col-xs-10 col-sm-11">
-                                    <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
+                                    <div class="col-xs-10 col-sm-11">
+                                        <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
+                                    </div>
+                                    <div  class="col-xs-2 col-sm-1">
+                                        <a href="{{ path('goal_friends') }}" class="text-gray">
+                                            {#<i class="icon remove-icon"></i>#}
+                                            <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div  class="col-xs-2 col-sm-1">
-                                    <a href="{{ path('goal_friends') }}" class="text-gray">
-                                        {#<i class="icon remove-icon"></i>#}
-                                        <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                {% endif %}
-
-
-
-                {% set counter = 0 %}
-                {% for goalFriend in pagination %}
-                    {% if counter is divisible by(2) %}
-                        <div class="row {% if app.request.get('_route') == 'goal_friends' %} margin-top{% endif %}" >
                     {% endif %}
 
-                            <div class="col-sm-6">
-                                <div class="users-list clearfix">
-                                     <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}" style="display:block;">
-                                        <div class="row no-gutter">
-                                            <div class="col-xs-3">
-                                                <figure class="image-goalfrinds">
-                                                {% if goalFriend.getPhotoLink() %}
+                    {% set counter = 0 %}
+                    {% for goalFriend in pagination %}
+                        {% if counter is divisible by(2) %}
+                            <div class="row {% if app.request.get('_route') == 'goal_friends' %} margin-top{% endif %}" >
+                        {% endif %}
 
-                                                        <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
+                                <div class="col-sm-6">
+                                    <div class="users-list clearfix">
+                                         <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}" style="display:block;">
+                                            <div class="row no-gutter">
+                                                <div class="col-xs-3">
+                                                    <figure class="image-goalfrinds">
+                                                    {% if goalFriend.getPhotoLink() %}
 
-                                                {% else %}
-                                                    {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
-                                                    {% set className = "user-no" ~ random(4) %}
-                                                    <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
-                                                {% endif %}
-                                                </figure>
-                                            </div>
+                                                            <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
 
-                                            <div class="col-xs-9">
-                                                <div class="text-gray">
-                                                    <h4 class="text-dark-gray">
-                                                        {{ goalFriend.firstname }} {{ goalFriend.lastname }}
-                                                    </h4>
-                                                    {% set stats = goalFriend.getStats %}
-                                                    <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
-                                                    <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                                                    {% else %}
+                                                        {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
+                                                        {% set className = "user-no" ~ random(4) %}
+                                                        <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
+                                                    {% endif %}
+                                                    </figure>
+                                                </div>
+
+                                                <div class="col-xs-9">
+                                                    <div class="text-gray">
+                                                        <h4 class="text-dark-gray">
+                                                            {{ goalFriend.firstname }} {{ goalFriend.lastname }}
+                                                        </h4>
+                                                        {% set stats = goalFriend.getStats %}
+                                                        <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
+                                                        <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
 
-                    {% if counter is not divisible by(2) %}
+                        {% if counter is not divisible by(2) %}
+                            </div>
+                        {% endif %}
+                        {% set counter = counter + 1 %}
+
+                    {% endfor %}
+
+                    {% if counter is not divisible by(2) and counter != 0  %}
                         </div>
                     {% endif %}
-                    {% set counter = counter + 1 %}
+                        <br />
 
-                {% endfor %}
+                        <div class="navigation">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                    </div>
+
+                {% if app.user %}
+                    <div class="col-md-4">
+                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
 
-                {% if counter is not divisible by(2) and counter != 0  %}
+                        <div class="right-block  margin-top">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                     <span>
+                                         <i class="icon-top-idea"></i>
+                                         {{ 'right_menu.ideas'|trans }}
+                                    </span>
+                                </div>
+                                {% if app.request.get('_route') == 'goal_friends' %}
+                                    <div class="col-xs-6 text-right">
+                                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <hr/>
+
+                            <div class="row">
+                                {#<div class="col-sm-12">#}
+                                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                                {#</div>#}
+                            </div>
+                        </div>
                     </div>
                 {% endif %}
-                    <br />
-
-                    <div class="navigation">
-                        {{ knp_pagination_render(pagination) }}
-                    </div>
-                </div>
-
-
-
-            {% if app.user %}
-                <div class="col-md-4">
-                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-
-
-                    <div class="right-block  margin-top">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                 <span>
-                                     <i class="icon-top-idea"></i>
-                                     {{ 'right_menu.ideas'|trans }}
-                                </span>
-                            </div>
-                            {% if app.request.get('_route') == 'goal_friends' %}
-                                <div class="col-xs-6 text-right">
-                                    <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <hr/>
-
-                        <div class="row">
-                            {#<div class="col-sm-12">#}
-                                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                            {#</div>#}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-
+            </div>
         </div>
-    </div>
+   </div>
 {% endblock %}
 
 {%- block title -%}

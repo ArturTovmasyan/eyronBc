@@ -5,96 +5,98 @@
 {% block content %}
     {{ parent() }}
 
-    <div class="container" id="news-feed">
-        <div class="row">
-            <div class="col-md-8">
+    <div id="news-feed">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
 
-                {% if pagination.getTotalItemCount() == 0 %}
-                    <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
-                        <a href="{{ path('add_goal') }}" class="text-purple">adding</a>
-                    </h3>
-                {% endif %}
-
-                {% for convertedNew in pagination %}
-
-                    {% if convertedNew.comment is not null or convertedNew.successStory is not null %}
-                        {{ _self.goal(convertedNew.goal) }}
+                    {% if pagination.getTotalItemCount() == 0 %}
+                        <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
+                            <a href="{{ path('add_goal') }}" class="text-purple">adding</a>
+                        </h3>
                     {% endif %}
 
-                    <div class="line"></div>
-                    <div class="bg-white padding padding-no">
+                    {% for convertedNew in pagination %}
 
-                        <div class="clearfix">
-                            <figure class="image">
-                                <img src="{{ convertedNew.user.getImagePath() ? convertedNew.user.getImagePath()|blImageFilter('user_icon') : asset('bundles/app/images/cover.jpg') }}"
-                                     alt="{{ convertedNew.user.firstName }}" class="img-circle img-responsive" />
-                            </figure>
-
-                            <div class="pull-left text-gray">
-                                <h4>
-                                    <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 0}) }}" class="text-dark-gray">
-                                        {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }}
-                                    </a>
-                                    <span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>
-                                </h4>
-                                <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
-                            </div>
-                        </div>
-
-                        {% if convertedNew.comment is not null %}
-                            <div class="comment-place">
-                                <span class="arrow-up"></span>
-                                {{ convertedNew.comment.body }}
-                            </div>
-                        {% endif %}
-
-                        {% if convertedNew.successStory is not null %}
-                            <div class="comment-place">
-                                <span class="arrow-up"></span>
-                                {{ convertedNew.successStory.story }}
-                            </div>
-                        {% endif %}
-
-                        {% if convertedNew.comment is null and convertedNew.successStory is null %}
+                        {% if convertedNew.comment is not null or convertedNew.successStory is not null %}
                             {{ _self.goal(convertedNew.goal) }}
                         {% endif %}
 
-                    </div>
-                    <br/>
-                {% endfor %}
+                        <div class="line"></div>
+                        <div class="bg-white padding padding-no">
 
-                <div class="navigation">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
-            </div>
+                            <div class="clearfix">
+                                <figure class="image">
+                                    <img src="{{ convertedNew.user.getImagePath() ? convertedNew.user.getImagePath()|blImageFilter('user_icon') : asset('bundles/app/images/cover.jpg') }}"
+                                         alt="{{ convertedNew.user.firstName }}" class="img-circle img-responsive" />
+                                </figure>
 
-            <div class="col-md-4">
-                {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
-                {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+                                <div class="pull-left text-gray">
+                                    <h4>
+                                        <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 0}) }}" class="text-dark-gray">
+                                            {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }}
+                                        </a>
+                                        <span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>
+                                    </h4>
+                                    <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
+                                </div>
+                            </div>
 
-                <div class="right-block  margin-top">
-                    <div class="row">
-                        <div class="col-xs-6">
-                             <span>
-                                 {#<i class="icon top-icon"></i>#}
-                                 <i class="icon-top-idea"></i>
-                                 <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
-                            </span>
+                            {% if convertedNew.comment is not null %}
+                                <div class="comment-place">
+                                    <span class="arrow-up"></span>
+                                    {{ convertedNew.comment.body }}
+                                </div>
+                            {% endif %}
+
+                            {% if convertedNew.successStory is not null %}
+                                <div class="comment-place">
+                                    <span class="arrow-up"></span>
+                                    {{ convertedNew.successStory.story }}
+                                </div>
+                            {% endif %}
+
+                            {% if convertedNew.comment is null and convertedNew.successStory is null %}
+                                {{ _self.goal(convertedNew.goal) }}
+                            {% endif %}
+
                         </div>
-                        {#<div class="col-xs-6 text-right">#}
-                            {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                        {#</div>#}
-                    </div>
-                    <hr/>
+                        <br/>
+                    {% endfor %}
 
-                    <div class="row">
-                        {#<div class="col-sm-6 col-md-12">#}
-                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                        {#</div>#}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
                     </div>
                 </div>
 
+                <div class="col-md-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+
+                    <div class="right-block  margin-top">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                 <span>
+                                     {#<i class="icon top-icon"></i>#}
+                                     <i class="icon-top-idea"></i>
+                                     <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
+                                </span>
+                            </div>
+                            {#<div class="col-xs-6 text-right">#}
+                                {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                            {#</div>#}
+                        </div>
+                        <hr/>
+
+                        <div class="row">
+                            {#<div class="col-sm-6 col-md-12">#}
+                                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                            {#</div>#}
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
