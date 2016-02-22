@@ -55,8 +55,28 @@ class GoalController extends Controller
         // get current user
         $currentUser = $this->getUser();
 
-        // create new object
-        $goal = new Goal();
+        // get clone id?
+        $cloneGoalId = $request->get('id');
+
+        // check is clones
+        if($cloneGoalId){
+
+            // get goal for clone
+            $cloneGoal = $em->getRepository("AppBundle:Goal")->find($cloneGoalId);
+
+            // check clone goal
+            if(!$cloneGoal){
+                throw $this->createNotFoundException("Goal fro clone not found");
+            }
+
+            // clone goal
+            $goal = clone $cloneGoal;
+
+        }
+        else{
+            // create new object
+            $goal = new Goal();
+        }
 
         // set goal language from user
         $goal->setLanguage($currentUser->getLanguage());
