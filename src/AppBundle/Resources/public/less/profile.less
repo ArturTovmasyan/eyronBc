@@ -203,7 +203,7 @@
 }
 
 .bucketlist{
-  padding:20px 0 10px;
+  padding:5px 0;
   background-color: #ffffff;
 
   ul{
@@ -212,18 +212,21 @@
 
     li{
       display: inline-block;
-      padding:10px 15px;
-      font-size:15px;
+      padding:8px;
+      font-size:13px;
       a{
         color:#666666;
-        font-size:22px;
-        line-height: 33px;
+        font-size:13px;
+        line-height: 23px;
 
         &:hover,&:focus{
           text-decoration: none;
           color:#7725f6;
         }
 
+        i{
+          height:19px;
+        }
       }
 
       &:hover{
@@ -260,18 +263,23 @@
   }
 
   form{
-    padding:20px 0 10px;
-    label:first-child{
-      padding-left:0;
-    }
+    padding:5px 0;
 
     .checked-label{
       color: #6108EA;
     }
 
     label{
+      display: block;
+      font-size:13px;
+      margin-bottom:5px;
+
       &:hover,&:active,&:focus{
         color: #6108EA;
+      }
+
+      &:first-child{
+        padding-left:30px;
       }
     }
 
@@ -318,6 +326,7 @@
   .icon-settings{
     font-size: 60px;
   }
+
   .profile{
     margin-top:10px;
     padding:20px 0 0 0;
@@ -400,6 +409,48 @@
       margin-top:85px;
     }
 
+  }
+
+  .bucketlist{
+    padding:20px 0 10px;
+
+    ul{
+      padding-left:0;
+      margin-bottom:1px;
+
+      li{
+        padding:10px 15px;
+        font-size:15px;
+        a{
+          font-size:22px;
+          line-height: 33px;
+
+          i{
+            height: 27px;
+          }
+        }
+
+      }
+    }
+
+    hr{
+      margin: -2px 0 7px;
+    }
+
+    form{
+      padding:10px 0;
+
+      label{
+        display: inline-block;
+        font-size:12px;
+        padding-left:0;
+
+        &:first-child{
+          padding-left: 0;
+        }
+      }
+
+    }
   }
 }
 
@@ -507,5 +558,45 @@
       margin-top:110px;
     }
 
+  }
+
+  .bucketlist{
+    padding:20px 0 10px;
+
+    ul{
+      padding-left:0;
+      margin-bottom:1px;
+
+      li{
+        padding:10px 15px;
+        font-size:15px;
+        a{
+          font-size:22px;
+          line-height: 33px;
+
+          i{
+            height: 27px;
+          }
+        }
+
+      }
+    }
+
+    hr{
+      margin: -2px 0 7px;
+    }
+
+    form{
+      padding:20px 0 10px;
+
+      label{
+        font-size:14px;
+        padding-left:20px;
+      }
+
+      //label:first-child{
+      //  padding-left:0;
+      //}
+    }
   }
 }
