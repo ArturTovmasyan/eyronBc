@@ -2,6 +2,8 @@
     {% set popularGoals = popularGoals(user, count) %}
     {% if popularGoals %}
         {% for popularGoal in popularGoals %}
+
+        <div class="col-sm-6 col-md-12">
             <figure>
                 <h3>{{ popularGoal.title }}</h3>
 
@@ -14,6 +16,8 @@
                 </figcaption>
             </figure>
             <br />
+        </div>
+
         {% endfor %}
     {% endif %}
 {% endif %}

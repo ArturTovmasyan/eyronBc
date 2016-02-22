@@ -31,15 +31,15 @@
         <li>
             <a href="javascript:void(0)">
                 {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
-                <i class="icon icon-ok"></i>
+                <i class="icon-ok-only"></i>
             </a>
         </li>
         <li>
             <a href="javascript:void(0)">{{ 'account.complete_text'|trans }}
                 {% if user.registrationToken is null %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
 
@@ -51,36 +51,36 @@
                data-ls-identity="goalSettingsInCompleteModal">
                 <strong>{{ 'image_complete_text'|trans }}</strong>
                 {% if user.socialPhotoLink or  user.fileName %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
         </li>
         <li>
             <a href="{{ path('add_goal') }}"><strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
                 {% if user.userGoal|length > 0 %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
         </li>
         <li>
             <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
                 {% if user.checkDeadLines() %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
         </li>
         <li>
             <a href="javascript:void(0)">{{ 'goal.complete_text'|trans }}
                 {% if user.checkCompletedGoals() %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
         </li>
@@ -88,9 +88,9 @@
         <li>
             <a href="javascript:void(0)">{{ 'success_story.complete_text'|trans }}
                 {% if user.checkSuccessStory() %}
-                    <i class="icon icon-ok"></i>
+                    <i class="icon-ok-only"></i>
                 {% else %}
-                    <i class="icon question-icon"></i>
+                    <i class="icon-question-only"></i>
                 {% endif %}
             </a>
         </li>
