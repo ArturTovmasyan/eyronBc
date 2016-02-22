@@ -653,7 +653,7 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goals/{category}", defaults={"category" = null}, name="goals_list")
+     * @Route("ideas/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
      * @Template()
