@@ -98,6 +98,9 @@ header{
   .navbar-brand{
     padding:21px 15px 21px 15px;
     height:83px;
+    width: 140px;
+    background: url('../images/logo.png') no-repeat center center;
+    background-size: 100%;
   }
 
   .navbar-toggle{
@@ -151,13 +154,13 @@ header{
         }
       }
 
-      .activity-icon{
-        background: url('../images/images.png') no-repeat -3px -9px;
-      }
+      //.activity-icon{
+      //  background: url('../images/images.png') no-repeat -3px -9px;
+      //}
 
-      .ideas-icon{
-        background: url('../images/images.png') no-repeat -3px -64px;
-      }
+      //.ideas-icon{
+      //  background: url('../images/images.png') no-repeat -3px -64px;
+      //}
 
       .join{
         background: url('../images/images.png') no-repeat -3px -172px;
@@ -167,11 +170,20 @@ header{
         overflow: hidden;
         form{
           padding:10px 0 10px 30px;
+          .icon-search-icon{
+            color:#ffffff;
+            font-size: 30px;
+            vertical-align: middle;
+          }
+
           input{
             border:0;
             color:#A4A4A4;
-            background: url('../images/images.png') no-repeat -13px -1510px;
-            padding-left:40px;
+            background-color: transparent;
+            //background: url('../images/images.png') no-repeat -13px -1510px;
+            //background: url('../images/search-icon.svg') no-repeat left center;
+
+            //padding-left:40px;
           }
         }
       }
@@ -1621,7 +1633,7 @@ footer{
 
         .search{
           form{
-            padding:16px 2px 16px 15px;
+            padding:14px 2px 19px 15px;
           }
         }
       }
@@ -1945,12 +1957,12 @@ footer{
         .search{
 
           form{
-            padding:17px 15px 16px 30px;
+            padding:15px 15px 16px 30px;
 
             input{
               font-size:16px;
               font-weight: normal;
-              padding-left:43px;
+              //padding-left:43px;
             }
           }
 
@@ -2070,20 +2082,18 @@ footer{
   }
 
   .homepage{
-    padding-top:127px;
+    padding-top:110px;
+
     h1{
-      font-size: 64px;
-      padding-bottom:46px;
+      padding-bottom:30px;
     }
 
     h4{
-      padding:0 0 100px 0;
-      font-size:24px;
-      line-height: 32px;
+      padding:0 0 90px 0;
     }
 
     .icon-scroll{
-      margin: 93px 0 0;
+      margin: 90px 0 0;
     }
   }
 
@@ -2146,21 +2156,22 @@ html {
 }
 
 
-//@media (min-width: @screen-lg) {
-//  header {
-//    .navbar-default{
-//      .navbar-nav{
-//        li{
-//          a{
-//            padding: 25px 44px 23px;
-//          }
-//        }
-//        .search{
-//          form{
-//            padding:16px 15px;
-//          }
-//        }
-//      }
-//    }
-//  }
-//}
+@media (min-width: @screen-lg) {
+  .homepage{
+    padding-top:127px;
+    h1{
+      font-size: 64px;
+      padding-bottom:46px;
+    }
+
+    h4{
+      padding:0 0 100px 0;
+      font-size:24px;
+      line-height: 32px;
+    }
+
+    .icon-scroll{
+      margin: 93px 0 0;
+    }
+  }
+}
