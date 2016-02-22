@@ -16,7 +16,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    project_name: Bucketlist
+    project_name: bucketlist127
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
