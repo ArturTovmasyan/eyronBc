@@ -100,7 +100,7 @@
                                     <span class="icon-bar"></span>
                                 </button>
                                 <a class="navbar-brand" href="{% if user %}{{ path("activity") }}{% else %}{{ path("homepage") }}{% endif %}">
-                                    <img src="{{ asset('bundles/app/images/logo.png') }}" alt="logo" class="img-responsive"/>
+                                    {#<img src="{{ asset('bundles/app/images/logo.png') }}" alt="logo" class="img-responsive"/>#}
                                     {#<span class="icon-logo">#}
                                         {#<span class="path1"></span>#}
                                         {#<span class="path2"></span>#}
@@ -135,6 +135,7 @@
                                     </li>
                                     <li class="search">
                                         <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
+                                            <span class="icon-search-icon"></span>
                                             <input type="text"
                                                name="search"
                                                class="form-control"
