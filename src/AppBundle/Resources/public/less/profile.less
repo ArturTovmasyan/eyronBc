@@ -1,3 +1,4 @@
+@import "../../../app/bower_components/bootstrap/less/variables.less";
 @import "function.less";
 
 .content-header{
@@ -7,7 +8,7 @@
   &>figure{
     position: absolute;
     width: 100%;
-    height:274px;
+    height:270px;
     overflow:hidden;
 
     img{
@@ -18,7 +19,7 @@
 
   .overlay{
     background: rgba(0, 0, 0, 0.6);
-    height:275px;
+    height:270px;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
@@ -27,10 +28,6 @@
 
   a{
     color:#ffffff;
-
-    span{
-      margin-left:10px;
-    }
 
     &:hover,&:focus{
       text-decoration: none;
@@ -50,25 +47,29 @@
   }
 
 
-  p{
-    background-color: #021523;
-    color:#ffffff;
-    padding:10px 40px;
-    display: inline-block;
-    margin-bottom:15px;
-  }
+  //p{
+  //  background-color: #021523;
+  //  color:#ffffff;
+  //  padding:10px 40px;
+  //  display: inline-block;
+  //  margin-bottom:15px;
+  //}
+}
+
+.icon-settings{
+  font-size: 50px;
 }
 
 .profile{
-  margin-top:10px;
-  padding:20px 0 0 0;
+  //margin-top:10px;
+  padding:10px 0 0 0;
   background-color: #f4f4f4;
 
   figure{
-    background-color: rgba(207, 207, 207, 0.54);
+    background-color: rgba(207, 207, 207, 0.34);
     text-align: center;
     position:relative;
-    padding:20px 0;
+    padding:10px 0;
 
     div{
       width:140px;
@@ -119,9 +120,10 @@
         span{
           display:block;
           color:#999999;
+          font-size:12px;
 
           &:last-child{
-            font-size:18px;
+            font-size:15px;
             color:#666666;
           }
         }
@@ -137,43 +139,71 @@
   }
 
   ol{
-    padding:40px 40px 30px;
-    font-size:16px;
+    padding:20px 20px 10px;
+    font-size:13px;
 
     li{
-      margin-bottom:15px;
+      margin-bottom:5px;
 
       a{
         color:#666666;
-        font-size:16px;
+        font-size:13px;
+
+        &:hover{
+         i{
+           color:#7724f6;
+         }
+        }
       }
 
       span{
         display: block;
-        font-size:14px;
+        font-size:12px;
         font-weight: 600;
+      }
+
+      i{
+        font-size: 30px;
+        vertical-align: middle;
       }
     }
 
   }
 
   h1{
-    font-size:45px;
-    padding:10px 25px;
+    font-size:25px;
+    padding:5px 10px;
+    margin:7px 0 10px;
+
   }
 
   h1.title-smaller{
-    font-size:27px;
+    font-size:20px;
+    line-height:30px;
   }
 
-  i{
+  p{
+    background-color: #021523;
     color:#ffffff;
+    padding:5px 10px;
+    display: inline-block;
+    margin-bottom:5px;
   }
 
+  em{
+    display: block;
+    color:#ffffff;
+    padding-bottom: 5px;
+    text-shadow: 2px 2px 5px #666666;
+  }
+
+  .profile-information{
+    margin-top:5px;
+  }
 }
 
 .bucketlist{
-  padding:20px 0 10px;
+  padding:5px 0;
   background-color: #ffffff;
 
   ul{
@@ -182,18 +212,21 @@
 
     li{
       display: inline-block;
-      padding:10px 15px;
-      font-size:15px;
+      padding:8px;
+      font-size:13px;
       a{
         color:#666666;
-        font-size:22px;
-        line-height: 33px;
+        font-size:13px;
+        line-height: 23px;
 
         &:hover,&:focus{
           text-decoration: none;
           color:#7725f6;
         }
 
+        i{
+          height:19px;
+        }
       }
 
       &:hover{
@@ -230,18 +263,23 @@
   }
 
   form{
-    padding:20px 0 10px;
-    label:first-child{
-      padding-left:0;
-    }
+    padding:5px 0;
 
     .checked-label{
       color: #6108EA;
     }
 
     label{
+      display: block;
+      font-size:13px;
+      margin-bottom:5px;
+
       &:hover,&:active,&:focus{
         color: #6108EA;
+      }
+
+      &:first-child{
+        padding-left:30px;
       }
     }
 
@@ -254,6 +292,311 @@
     }
     .checked{
       background: url('../images/checkbox.png') no-repeat -52px 0 !important;
+    }
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .content-header{
+
+    &>figure{
+      height:260px;
+    }
+
+    .overlay{
+      height:260px;
+    }
+
+    //h2{
+    //  padding:10px 40px;
+    //  margin:100px 0 5px;
+    //}
+    //
+    //h1{
+    //  padding:10px 40px;
+    //  margin:25px 0 10px;
+    //}
+    //
+    //p{
+    //  padding:10px 40px;
+    //  margin-bottom:15px;
+    //}
+  }
+
+  .icon-settings{
+    font-size: 60px;
+  }
+
+  .profile{
+    margin-top:10px;
+    padding:20px 0 0 0;
+
+    figure{
+      padding:20px 0;
+
+      div{
+        width:120px;
+        height:120px;
+      }
+
+      span.profile-image{
+        width:120px;
+        height:120px;
+        font-size:44px;
+        line-height:110px;
+      }
+
+      img{
+        height:120px;
+      }
+
+      figcaption{
+        margin-top:11px;
+
+        li{
+          padding:0 8px;
+
+          span{
+            font-size:13px;
+            &:last-child{
+              font-size:16px;
+            }
+          }
+        }
+      }
+
+    }
+
+    ol{
+      padding:30px 30px 20px;
+      font-size:14px;
+
+      li{
+        margin-bottom:10px;
+
+        a{
+          font-size:15px;
+        }
+
+        span{
+          font-size:13px;
+        }
+      }
+
+    }
+
+    h1{
+      font-size:30px;
+      padding:5px 15px;
+      margin:25px 0 10px;
+    }
+
+    h1.title-smaller{
+      font-size:23px;
+      line-height:35px;
+    }
+
+    p{
+      padding:5px 15px;
+      margin-bottom:10px;
+    }
+
+    em{
+      text-shadow: none;
+    }
+
+    .profile-information{
+      margin-top:85px;
+    }
+
+  }
+
+  .bucketlist{
+    padding:20px 0 10px;
+
+    ul{
+      padding-left:0;
+      margin-bottom:1px;
+
+      li{
+        padding:10px 15px;
+        font-size:15px;
+        a{
+          font-size:22px;
+          line-height: 33px;
+
+          i{
+            height: 27px;
+          }
+        }
+
+      }
+    }
+
+    hr{
+      margin: -2px 0 7px;
+    }
+
+    form{
+      padding:10px 0;
+
+      label{
+        display: inline-block;
+        font-size:12px;
+        padding-left:0;
+
+        &:first-child{
+          padding-left: 0;
+        }
+      }
+
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  .content-header{
+
+    &>figure{
+      height:269px;
+    }
+
+    .overlay{
+      height:269px;
+    }
+
+    //h2{
+    //  padding:10px 40px;
+    //  margin:100px 0 5px;
+    //}
+    //
+    //h1{
+    //  padding:10px 40px;
+    //  margin:25px 0 10px;
+    //}
+    //
+    //p{
+    //  padding:10px 40px;
+    //  margin-bottom:15px;
+    //}
+  }
+
+  .profile{
+    margin-top:10px;
+    padding:20px 0 0 0;
+
+    figure{
+      padding:20px 0;
+
+      div{
+        width:140px;
+        height:140px;
+      }
+
+      span.profile-image{
+        width:140px;
+        height:140px;
+        font-size:52px;
+        line-height:130px;
+      }
+
+      img{
+        height:140px;
+      }
+
+      figcaption{
+        margin-top:11px;
+
+        li{
+          padding:0 20px;
+
+          span{
+            font-size:14px;
+
+            &:last-child{
+              font-size:18px;
+            }
+          }
+        }
+      }
+
+    }
+
+    ol{
+      padding:40px 40px 30px;
+      font-size:16px;
+
+      li{
+        margin-bottom:15px;
+
+        a{
+          font-size:16px;
+        }
+
+        span{
+          font-size:14px;
+        }
+      }
+
+    }
+
+    h1{
+      font-size:45px;
+      padding:10px 25px;
+    }
+
+    h1.title-smaller{
+      font-size:27px;
+    }
+
+    p{
+      padding:10px 40px;
+      margin-bottom:15px;
+    }
+
+    .profile-information{
+      margin-top:110px;
+    }
+
+  }
+
+  .bucketlist{
+    padding:20px 0 10px;
+
+    ul{
+      padding-left:0;
+      margin-bottom:1px;
+
+      li{
+        padding:10px 15px;
+        font-size:15px;
+        a{
+          font-size:22px;
+          line-height: 33px;
+
+          i{
+            height: 27px;
+          }
+        }
+
+      }
+    }
+
+    hr{
+      margin: -2px 0 7px;
+    }
+
+    form{
+      padding:20px 0 10px;
+
+      label{
+        font-size:14px;
+        padding-left:20px;
+      }
+
+      //label:first-child{
+      //  padding-left:0;
+      //}
     }
   }
 }

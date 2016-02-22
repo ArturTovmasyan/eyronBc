@@ -1477,6 +1477,7 @@ footer{
   hr{
     border-color:#cccccc;
     margin-top: 0;
+    margin-bottom: 10px
   }
 
   i{
@@ -1490,14 +1491,14 @@ footer{
 
   a,span{
     color:#666666;
-    font-size: 16px;
+    font-size: 14px;
 
     //i{
     //  font-size:30px;
     //  vertical-align: middle;
     //  color: #a3a3a3;
     //}
-    &:hover{
+    &:hover,&:focus{
       text-decoration:none;
       color: #7724F6;
       i{
@@ -1590,6 +1591,20 @@ footer{
   }
 }
 
+//#lightbox{
+//  .lb-outerContainer{
+//    position: relative;
+//  }
+//  .lb-data{
+//    .lb-close{
+//      position: absolute;
+//      top: -14px;
+//      right: 0;
+//      float: none;
+//      text-align: left;
+//    }
+//  }
+//}
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1709,7 +1724,6 @@ footer{
     }
   }
 
-
   h2{
     padding: 31px 0 34px;
     margin: 0;
@@ -1782,13 +1796,19 @@ footer{
   .right-block{
     padding:20px 30px;
 
+    hr{
+      margin-bottom: 20px
+    }
+
     figure{
       margin-bottom:15px;
+    }
+    a,span{
+      font-size:16px;
     }
   }
 
   figure{
-
     figcaption{
 
       ul{
@@ -1875,8 +1895,6 @@ footer{
 
 .check_status{
   padding-bottom:15px;
-
-
 }
 
 .green-bg{
@@ -1908,8 +1926,6 @@ footer{
   height:1px;
   border-top:1px solid #e6e6e6;
 }
-
-
 
 @media (min-width: @screen-md) {
   header{
@@ -2047,16 +2063,12 @@ footer{
     }
   }
 
-  //.settings{
-  //  padding-bottom:130px;
-  //}
-
   .video{
     video{
       margin-top:-164px;
     }
-
   }
+
   .homepage{
     padding-top:127px;
     h1{
