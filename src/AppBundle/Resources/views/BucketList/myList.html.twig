@@ -73,7 +73,7 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <figure>
                             <div>
                                 {% if profileUser.getPhotoLink %}
@@ -103,7 +103,7 @@
                             </figcaption>
                         </figure>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
                         {% if  profileUser.getAge  %}
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
@@ -111,20 +111,22 @@
                     </div>
 
                     {% if profileUser.id == app.user.id %}
-                        <div class="col-md-4">
-                            <a href="javascript:void(0)"
-                               data-ls-identity="settingModalInMyBucketList"
-                               data-ls-template-url="{{ path("settings") }}"
-                               data-ls-jquery-modal
-                               class="pull-right">
-                                <i class="icon icon-cog"></i>
-                            </a>
+                        <div class="col-sm-4">
+                            <div class="text-right">
+                                <a href="javascript:void(0)"
+                                   data-ls-identity="settingModalInMyBucketList"
+                                   data-ls-template-url="{{ path("settings") }}"
+                                   data-ls-jquery-modal>
+                                    <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
+                                </a>
+                            </div>
 
-                            <div class="absolute clearfix" style="margin-top:170px;width: 100%">
-                                <i>{{ 'complete_message'|trans }}</i>
+
+                            <div class="profile-information">
+                                <em>{{ 'complete_message'|trans }}</em>
 
                                 <div class="row">
-                                    <div class="col-xs-9">
+                                    <div class="col-xs-10">
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped"
                                                  role="progressbar"
@@ -155,16 +157,16 @@
                             <li>
                                 <a href="javascript:void(0)">
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
-                                    <i class="icon icon-ok"></i>
+                                    <i class="icon-ok-only"></i>
                                 </a>
                                 <span class="text-gray">{{ 'my_list.signed_up'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">{{ 'account.complete_text'|trans }}
                                     {% if user.registrationToken is null %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.verification'|trans({}, 'FOSUserBundle') }}</span>
@@ -177,9 +179,9 @@
                                    data-ls-identity="goalSettingsInCompleteModal">
                                     <strong>{{ 'image_complete_text'|trans }}</strong>
                                     {% if user.socialPhotoLink or  user.fileName %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.add_image'|trans({}, 'FOSUserBundle') }}</span>
@@ -188,9 +190,9 @@
                                 <a href="{{ path('add_goal') }}">
                                     <strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
                                     {% if user.userGoal|length > 0 %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.want_control'|trans({}, 'FOSUserBundle') }}</span>
@@ -205,9 +207,9 @@
                             <li>
                                 <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
                                     {% if user.checkDeadLines() %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.dream_text'|trans({}, 'FOSUserBundle') }}</span>
@@ -215,9 +217,9 @@
                             <li>
                                 <a href="javascript:void(0)">{{ 'goal.complete_text'|trans }}
                                     {% if user.checkCompletedGoals() %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.have_goal'|trans({}, 'FOSUserBundle') }}</span>
@@ -226,9 +228,9 @@
                             <li>
                                 <a href="javascript:void(0)">{{ 'success_story.complete_text'|trans }}
                                     {% if user.checkSuccessStory() %}
-                                        <i class="icon icon-ok"></i>
+                                        <i class="icon-ok-only"></i>
                                     {% else %}
-                                        <i class="icon question-icon"></i>
+                                        <i class="icon-question-only"></i>
                                     {% endif %}
                                 </a>
                                 <span class="text-gray">{{ 'my_list.complete_goal'|trans({}, 'FOSUserBundle') }}</span>
