@@ -97,12 +97,12 @@ header{
 
   .navbar-brand{
     padding:21px 15px 21px 15px;
-    height:83px;
+    //height:83px;
     //width: 140px;
     //background: url('../images/logo.png') no-repeat center center;
     //background-size: 100%;
     img{
-      height: 40px;
+      height:40px;
     }
   }
 
@@ -567,10 +567,6 @@ ul.filter{
   vertical-align: middle;
 }
 
-.icon-scroll-down{
-  font-size:30px;
-  vertical-align: middle;
-}
 
 .drag-icon{
   width: 40px;
@@ -863,15 +859,11 @@ ul.filter{
     font-size:15px;
   }
 
-  //.icon-scroll{
-  //  display: inline-block;
-  //  height: 29px;
-  //  width: 29px;
-  //  background: url('../images/images.png') no-repeat -5px -1128px;
-  //  margin: 50px 0 0;
-  //}
-  .icon-scroll-down{
-    display: block;
+  .icon-scroll{
+    display: inline-block;
+    height: 29px;
+    width: 29px;
+    background: url('../images/images.png') no-repeat -5px -1128px;
     margin: 50px 0 0;
   }
 }
@@ -911,18 +903,16 @@ ul.filter{
     padding:5px;
     a{
       width:138px;
-      height:40px;
+      height:44px;
       display: block;
     }
   }
   .app-store{
-    background: url('../images/appstore.png') no-repeat center center;
-    background-size: 100%;
+    background: url('../images/images.png') no-repeat -7px -309px;
   }
 
   .google-play{
-    background: url('../images/googleplay.png') no-repeat center center;
-    background-size: 100%;
+    background: url('../images/images.png') no-repeat -153px -309px;
   }
 }
 
@@ -1253,6 +1243,10 @@ figure{
           }
         }
 
+        bdi{
+          padding: 0;
+        }
+
         &:last-child{
           border-right:0;
           padding-top: 3px;
@@ -1410,17 +1404,17 @@ footer{
 
   .apps{
     margin:0 auto;
-    //.app-store{
-    //  //background: url('../images/images.png') no-repeat -7px -389px;
-    //  background: url('../images/appstore.png') no-repeat center center;
-    //  background-size: 100%;
-    //}
-    //.google-play{
-    //  //background: url('../images/images.png') no-repeat -153px -390px;
-    //  background: url('../images/googleplay.png') no-repeat center center;
-    //  background-size: 100%;
-    //
-    //}
+    .app-store{
+      //background: url('../images/images.png') no-repeat -7px -389px;
+      background: url('../images/app-store.png') no-repeat center center;
+      background-size: 100%;
+    }
+    .google-play{
+      //background: url('../images/images.png') no-repeat -153px -390px;
+      background: url('../images/google-play.png') no-repeat center center;
+      background-size: 100%;
+
+    }
   }
 
   .footer-bottom{
@@ -1588,7 +1582,7 @@ footer{
             line-height:18px;
             color:#ffffff;
             display: block;
-            padding: 10px 0;
+            //padding: 10px 0;
             height: auto;
           }
           //&:nth-child(2){
@@ -1813,7 +1807,7 @@ footer{
       font-size:18px;
     }
 
-    .icon-scroll-down{
+    .icon-scroll{
       margin: 60px 0 0;
     }
   }
@@ -1838,14 +1832,23 @@ footer{
 
       ul{
         li{
-          a,bdi{
+          a{
             padding: 10px 0;
             font-size:14px;
+
+            i{
+              font-size: 30px;
+            }
           }
 
-          i{
-            font-size: 30px;
+          bdi{
+            font-size:14px;
+            i.icon-green-plus,i.icon-green-ok{
+              font-size:49px;
+            }
           }
+
+
         }
       }
     }
@@ -2105,7 +2108,7 @@ footer{
       padding:0 0 90px 0;
     }
 
-    .icon-scroll-down{
+    .icon-scroll{
       margin: 90px 0 0;
     }
   }
@@ -2183,7 +2186,7 @@ html {
       line-height: 32px;
     }
 
-    .icon-scroll-down{
+    .icon-scroll{
       margin: 93px 0 0;
     }
   }

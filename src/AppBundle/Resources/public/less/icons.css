@@ -728,13 +728,3 @@
 .icon-user-small:before {
     content: "\e99b";
 }
-
-.icon-icon-up .path1:before {
-    content: "\e900";
-    color: #e3e3e3;
-}
-.icon-icon-up .path2:before {
-    content: "\e901";
-    color: #b0b0b0;
-    margin-left: -1em;
-}
