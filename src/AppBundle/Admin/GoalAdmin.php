@@ -277,17 +277,4 @@ class GoalAdmin extends Admin
         }
     }
 
-    public function createQuery($context = 'list')
-    {
-        $query = parent::createQuery($context);
-
-        if ($context == 'list'){
-            $query
-                ->andWhere($query->getRootAlias() . '.status = :publish_privacy')
-                ->setParameter('publish_privacy', Goal::PUBLIC_PRIVACY)
-            ;
-        }
-
-        return $query;
-    }
 }
