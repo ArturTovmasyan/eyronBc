@@ -61,7 +61,7 @@ class GoalControllerTest extends BaseClass
     public function testAdd()
     {
         // try to open goal view page
-        $crawler = $this->client->request('GET', '/goal/add');
+        $crawler = $this->client->request('GET', '/goal/create');
 
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add page!');
 
