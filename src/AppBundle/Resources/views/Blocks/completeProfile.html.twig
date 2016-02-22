@@ -18,9 +18,11 @@
             </div>
 
             <div class="col-xs-2">
-                <a class="icon question-icon-circle text-gray"
-                   data-ng-class="{'question-icon-circle': !completeProfileProperties, 'up-icon': completeProfileProperties}"
+                <a class="text-gray"
+                   {#data-ng-class="{'question-icon-circle': !completeProfileProperties, 'up-icon': completeProfileProperties}"#}
                    data-ng-click="completeProfileProperties=!completeProfileProperties">
+                    <i class="icon-question-icon" data-ng-hide="completeProfileProperties"><span class="path1"></span><span class="path2"></span></i>
+                    <i class="icon up-icon ng-hide" data-ng-show="completeProfileProperties"><span class="path1"></span><span class="path2"></span></i>
                 </a>
             </div>
         </div>
