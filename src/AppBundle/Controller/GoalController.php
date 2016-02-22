@@ -664,6 +664,13 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+//        if (!$this->getUser()){
+//            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
+//            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+//
+//            return array('goals' => $goals);
+//        }
+
         // default locale
         $locale = null;
 
@@ -680,8 +687,15 @@ class GoalController extends Controller
         $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
 
         $allIds = [];
+
         // find all goals
         $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale);
+
+        //check if search goal count is 0
+        if(count($goals) == 0) {
+            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
+        }
+
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
         // get paginator
