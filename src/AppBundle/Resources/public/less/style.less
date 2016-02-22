@@ -98,9 +98,12 @@ header{
   .navbar-brand{
     padding:21px 15px 21px 15px;
     height:83px;
-    width: 140px;
-    background: url('../images/logo.png') no-repeat center center;
-    background-size: 100%;
+    //width: 140px;
+    //background: url('../images/logo.png') no-repeat center center;
+    //background-size: 100%;
+    img{
+      height: 40px;
+    }
   }
 
   .navbar-toggle{
@@ -564,6 +567,10 @@ ul.filter{
   vertical-align: middle;
 }
 
+.icon-scroll-down{
+  font-size:30px;
+  vertical-align: middle;
+}
 
 .drag-icon{
   width: 40px;
@@ -775,7 +782,7 @@ ul.filter{
 }
 
 .question-icon-circle{
-  background: url('../images/images.png') no-repeat -6px -778px;
+  //background: url('../images/images.png') no-repeat -6px -778px;
   cursor:pointer;
 }
 
@@ -856,11 +863,15 @@ ul.filter{
     font-size:15px;
   }
 
-  .icon-scroll{
-    display: inline-block;
-    height: 29px;
-    width: 29px;
-    background: url('../images/images.png') no-repeat -5px -1128px;
+  //.icon-scroll{
+  //  display: inline-block;
+  //  height: 29px;
+  //  width: 29px;
+  //  background: url('../images/images.png') no-repeat -5px -1128px;
+  //  margin: 50px 0 0;
+  //}
+  .icon-scroll-down{
+    display: block;
     margin: 50px 0 0;
   }
 }
@@ -900,16 +911,18 @@ ul.filter{
     padding:5px;
     a{
       width:138px;
-      height:44px;
+      height:40px;
       display: block;
     }
   }
   .app-store{
-    background: url('../images/images.png') no-repeat -7px -309px;
+    background: url('../images/appstore.png') no-repeat center center;
+    background-size: 100%;
   }
 
   .google-play{
-    background: url('../images/images.png') no-repeat -153px -309px;
+    background: url('../images/googleplay.png') no-repeat center center;
+    background-size: 100%;
   }
 }
 
@@ -1397,17 +1410,17 @@ footer{
 
   .apps{
     margin:0 auto;
-    .app-store{
-      //background: url('../images/images.png') no-repeat -7px -389px;
-      background: url('../images/app-store.png') no-repeat center center;
-      background-size: 100%;
-    }
-    .google-play{
-      //background: url('../images/images.png') no-repeat -153px -390px;
-      background: url('../images/google-play.png') no-repeat center center;
-      background-size: 100%;
-
-    }
+    //.app-store{
+    //  //background: url('../images/images.png') no-repeat -7px -389px;
+    //  background: url('../images/appstore.png') no-repeat center center;
+    //  background-size: 100%;
+    //}
+    //.google-play{
+    //  //background: url('../images/images.png') no-repeat -153px -390px;
+    //  background: url('../images/googleplay.png') no-repeat center center;
+    //  background-size: 100%;
+    //
+    //}
   }
 
   .footer-bottom{
@@ -1800,7 +1813,7 @@ footer{
       font-size:18px;
     }
 
-    .icon-scroll{
+    .icon-scroll-down{
       margin: 60px 0 0;
     }
   }
@@ -2092,7 +2105,7 @@ footer{
       padding:0 0 90px 0;
     }
 
-    .icon-scroll{
+    .icon-scroll-down{
       margin: 90px 0 0;
     }
   }
@@ -2170,7 +2183,7 @@ html {
       line-height: 32px;
     }
 
-    .icon-scroll{
+    .icon-scroll-down{
       margin: 93px 0 0;
     }
   }
