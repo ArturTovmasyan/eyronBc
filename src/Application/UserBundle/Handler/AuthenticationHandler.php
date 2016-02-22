@@ -160,6 +160,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             $request->getSession()->set('url', $url);
         }
 
+        //check if route nam is current list
         if ($routeName == "add_to_me_goal" ||
             $routeName == "settings"       ||
             $routeName == "add_story"      ||
