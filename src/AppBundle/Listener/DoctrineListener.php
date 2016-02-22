@@ -110,24 +110,32 @@ class DoctrineListener
         // get environment
         $env = $this->container->get('kernel')->getEnvironment();
         if($env != "test"){
-            // get request
-            $request = $this->container->get('request');
 
-            // get session
-            $session = $request->getSession();
+            try{
+                // get request
+                $request = $this->container->get('request');
 
-            // get locale
-            $locale = $session->get("_locale");
+                // get session
+                $session = $request->getSession();
 
-            // get language
-            $userLocale = $entity->getLanguage();
+                // get locale
+                $locale = $session->get("_locale");
 
-            // check user local with default locale
-            if($userLocale && $userLocale != $locale){
+                // get language
+                $userLocale = $entity->getLanguage();
 
-                // set session locale
-                $session->set('_locale', $userLocale);
+                // check user local with default locale
+                if($userLocale && $userLocale != $locale){
+
+                    // set session locale
+                    $session->set('_locale', $userLocale);
+                }
             }
+            catch(\Exception $e){
+                // this try is used cli/ in cli request object is inactive scope
+            }
+
+
         }
     }
 }
