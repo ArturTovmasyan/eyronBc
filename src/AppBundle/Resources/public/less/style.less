@@ -1611,19 +1611,31 @@ footer{
 }
 
 //#lightbox{
-//  .lb-outerContainer{
-//    position: relative;
-//  }
 //  .lb-data{
 //    .lb-close{
 //      position: absolute;
 //      top: -14px;
 //      right: 0;
-//      float: none;
-//      text-align: left;
+//      float:none;
+//      z-index: 10050;
 //    }
 //  }
 //}
+
+.page{
+  padding-bottom:5px;
+
+  h1{
+    color:#021523;
+  }
+
+  p{
+    font-size:12px;
+    text-align: justify;
+    color:#666666;
+  }
+}
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1796,6 +1808,19 @@ footer{
     .btn-blue{
       padding:13px 51px;
       .rounded-corners(10px);
+    }
+  }
+
+  .page{
+    padding-bottom:10px;
+
+    h1{
+      font-size:36px;
+      margin:20px 20px 30px;
+    }
+
+    p{
+      font-size:14px;
     }
   }
 
@@ -2088,6 +2113,19 @@ footer{
     h1{
       font-size:52px;
       margin:60px 0 35px;
+    }
+  }
+
+  .page{
+    padding-bottom:30px;
+
+    h1{
+      font-size:52px;
+      margin:60px 0 35px;
+    }
+
+    p{
+      font-size:15px;
     }
   }
 
