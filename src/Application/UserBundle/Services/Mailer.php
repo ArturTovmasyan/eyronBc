@@ -30,6 +30,8 @@ class Mailer extends BaseMailer
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($body);
 
+        $message->getHeaders()->addTextHeader('mailed-by', 'bucketlist127.com');
+
         $this->mailer->send($message);
     }
 }
