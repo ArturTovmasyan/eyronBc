@@ -251,40 +251,40 @@ liip_imagine:
         goal_list_small:
             quality: 100
             filters:
-                thumbnail: { size: [370, 230], mode: inset }
+                thumbnail: { size: [370, 230], mode: outbound }
                 upscale: { min: [370, 230] }
                 central_crop: { size: [370, 230] }
 
         goal_list_horizontal:
             quality: 100
             filters:
-                thumbnail: { size: [770, 230], mode: inset }
+                thumbnail: { size: [770, 230], mode: outbound }
                 upscale: { min: [770, 230] }
                 central_crop: { size: [770, 230] }
 
         goal_list_vertical:
             quality: 100
             filters:
-                thumbnail: { size: [370, 540], mode: inset }
+                thumbnail: { size: [370, 540], mode: outbound }
                 upscale: { min: [370, 540] }
                 central_crop: { size: [370, 540] }
 
         goal_list_big:
             quality: 100
             filters:
-                thumbnail: { size: [770, 540], mode: inset }
+                thumbnail: { size: [770, 540], mode: outbound }
                 upscale: { min: [770, 540] }
                 central_crop: { size: [770, 540] }
 
         goal_slider_image:
             quality: 100
             filters:
-                thumbnail: { size: [780, 435], mode: inset }
+                thumbnail: { size: [780, 435], mode: outbound }
 
         goal_bucketlist:
             quality: 100
             filters:
-                thumbnail: { size: [320, 180], mode: inset }
+                thumbnail: { size: [320, 180], mode: outbound }
                 upscale: { min: [320, 180] }
                 central_crop: { size: [320, 180] }
 
