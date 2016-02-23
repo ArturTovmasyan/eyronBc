@@ -65,8 +65,8 @@ goal:
       invisible_text: You can make the Goal invisible for other users
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
-      create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
-      create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
+      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
+      create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
 activities:
       title: Activities
@@ -169,8 +169,8 @@ active:
 manage: MANAGE
 
 home_ideas:
-  title: Ideas
-  description: Ideas description
+  title: BUCKETLIST127 - The goal is to die with memories, not dreams!
+  description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
 
 page:
   title: Page
