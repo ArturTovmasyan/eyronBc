@@ -57,7 +57,9 @@
 
                     <div class="clearfix" data-ng-show="complete.switch">
                         <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
-                        <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                        {% if data.doDate %}
+                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
+                        {% endif %}
                     </div>
                     <hr/>
 
