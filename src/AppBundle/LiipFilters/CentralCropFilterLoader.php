@@ -26,7 +26,7 @@ class CentralCropFilterLoader implements LoaderInterface
         list($width, $height) = $options['size'];
 
         $x = ($size->getWidth() - $width) / 2;
-        $y = ($size->getHeight() - $height) / 2;
+        $y = 0; //($size->getHeight() - $height) / 2;
         $filter = new Crop(new Point($x, $y), new Box($width, $height));
         $image = $filter->apply($image);
 
