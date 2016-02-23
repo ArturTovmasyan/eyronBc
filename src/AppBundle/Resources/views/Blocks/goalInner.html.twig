@@ -88,7 +88,7 @@
                                 {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
                                     {% set xs = 3 %}
                                     <li class="col-xs-3">
-                                        <a href="{{ path('add_goal', {'id': goal.id}) }}">
+                                        <a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">
                                             <span class="icon glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
                                         </a>
                                     </li>

@@ -58,6 +58,9 @@ class GoalController extends Controller
         // get clone id?
         $cloneGoalId = $request->get('id');
 
+        //get clone param in get request
+        $cloneTrue = $request->get('clone');
+
         // check is clones
         if($cloneGoalId){
 
@@ -66,11 +69,11 @@ class GoalController extends Controller
 
             // check clone goal
             if(!$cloneGoal){
-                throw $this->createNotFoundException("Goal fro clone not found");
+                throw $this->createNotFoundException("Goal from clone not found");
             }
 
-            // clone goal
-            $goal = clone $cloneGoal;
+            // if clone, clone from object, elsi edit exist object
+            $goal = $cloneTrue ? clone $cloneGoal : $cloneGoal;
 
         }
         else{
@@ -138,20 +141,30 @@ class GoalController extends Controller
 
                 // set author
                 $goal->setAuthor($currentUser);
-                $description = $goal->getDescription();
-                $description = str_replace('#', '', $description);
-                $goal->setDescription($description);
+
+                //generate url
+                if (!is_null($request->get("btn_publish"))) {
+
+                    //get goal description
+                    $description = $goal->getDescription();
+
+                    //cleare # tag in description
+                    $description = str_replace('#', '', $description);
+
+                    //set description
+                    $goal->setDescription($description);
+
+                    $em->persist($goal);
+                    $em->flush();
+
+                    return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
+                }
 
                 $em->persist($goal);
                 $em->flush();
 
-                // generate url
-                if (!is_null($request->get("btn_publish"))){
-                    return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
-                }
-
                 // redirect to view
-                return $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));
+                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));;
             }
         }
 
@@ -929,6 +942,7 @@ class GoalController extends Controller
      *
      * @param Goal $goal
      * @return array
+     * @deprecated
      */
     public function cloneAction(Goal $goal)
     {
