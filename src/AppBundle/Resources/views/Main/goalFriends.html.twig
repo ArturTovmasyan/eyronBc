@@ -97,14 +97,9 @@
                                 <div class="col-xs-6">
                                      <span>
                                          <i class="icon-top-idea"></i>
-                                         {{ 'right_menu.ideas'|trans }}
+                                         <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
                                     </span>
                                 </div>
-                                {% if app.request.get('_route') == 'goal_friends' %}
-                                    <div class="col-xs-6 text-right">
-                                        <a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>
-                                    </div>
-                                {% endif %}
                             </div>
                             <hr/>
 
