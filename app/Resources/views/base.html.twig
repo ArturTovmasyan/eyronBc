@@ -101,17 +101,6 @@
                                 </button>
                                 <a class="navbar-brand" href="{% if user %}{{ path("activity") }}{% else %}{{ path("homepage") }}{% endif %}">
                                     <img src="{{ asset('bundles/app/images/logo.png') }}" alt="logo" class="img-responsive"/>
-                                    {#<span class="icon-logo">#}
-                                        {#<span class="path1"></span>#}
-                                        {#<span class="path2"></span>#}
-                                        {#<span class="path3"></span>#}
-                                        {#<span class="path4"></span>#}
-                                        {#<span class="path5"></span>#}
-                                        {#<span class="path6"></span>#}
-                                        {#<span class="path7"></span>#}
-                                        {#<span class="path8"></span>#}
-                                        {#<span class="path9"></span>#}
-                                    {#</span>#}
                                 </a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
@@ -135,6 +124,7 @@
                                     </li>
                                     <li class="search">
                                         <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
+                                            <span class="icon-search-icon"></span>
                                             <input type="text"
                                                name="search"
                                                class="form-control"
@@ -239,10 +229,14 @@
 
                     <ul class="apps clearfix">
                         <li>
-                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store"></a>
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store">
+                                <img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
+                            </a>
                         </li>
                         <li>
-                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play"></a>
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play">
+                                <img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
+                            </a>
                         </li>
                     </ul>
 

@@ -52,7 +52,7 @@
     </div>
 
     <div class="container ideas-list">
-        <h2 class="text-center text-dark"> {{ 'goal.list_title'|trans }}</h2>
+        {#<h2 class="text-center text-dark"> {{ 'goal.list_title'|trans }}</h2>#}
 
         {% if goals.getTotalItemCount > 0 %}
             <div class="row">
@@ -218,6 +218,8 @@
             </div>
         {% else %}
             <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
+            {% include 'AppBundle:Main:ideas.html.twig' %}
+
         {% endif %}
         {# display navigation #}
         <div class="navigation text-center">

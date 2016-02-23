@@ -23,7 +23,7 @@
                         {% endif %}
 
                         <div class="line"></div>
-                        <div class="bg-white padding padding-no">
+                        <div class="bg-white padding {% if convertedNew.comment is null and convertedNew.successStory is null %}padding-no{% endif %}">
 
                             <div class="clearfix">
                                 <figure class="image">

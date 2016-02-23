@@ -139,7 +139,7 @@
   }
 
   ol{
-    padding:20px 20px 10px;
+    padding:20px 20px 0;
     font-size:13px;
 
     li{
@@ -168,6 +168,9 @@
       }
     }
 
+    &:last-child{
+      padding:0 20px 0;
+    }
   }
 
   h1{
@@ -199,6 +202,10 @@
 
   .profile-information{
     margin-top:5px;
+    i{
+      font-size:30px;
+      cursor: pointer;
+    }
   }
 }
 
@@ -225,7 +232,7 @@
         }
 
         i{
-          height:19px;
+          font-size:20px;
         }
       }
 
@@ -383,6 +390,9 @@
         }
       }
 
+      &:last-child{
+        padding:30px 30px 20px;
+      }
     }
 
     h1{
@@ -422,14 +432,17 @@
         padding:10px 15px;
         font-size:15px;
         a{
-          font-size:22px;
-          line-height: 33px;
+          font-size:18px;
+          line-height: 26px;
 
           i{
-            height: 27px;
+            font-size: 22px;
           }
         }
 
+        &:last-child{
+          padding: 9px 15px 8px;
+        }
       }
     }
 
@@ -575,7 +588,7 @@
           line-height: 33px;
 
           i{
-            height: 27px;
+            font-size: 28px;
           }
         }
 
