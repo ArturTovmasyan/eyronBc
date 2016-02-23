@@ -533,6 +533,7 @@ class GoalController extends Controller
 
         // empty data
         $steps = array();
+        $newAdded = false;
 
         // check userGoalId
         if($userGoalId){
@@ -551,6 +552,7 @@ class GoalController extends Controller
             if (!$userGoal) {
                 $userGoal = new UserGoal();
                 $userGoal->setGoal($goal);
+                $newAdded = true;
             }
         }
 
@@ -649,7 +651,7 @@ class GoalController extends Controller
             }
         }
 
-        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters);
+        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
     }
 
     /**
