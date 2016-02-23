@@ -118,20 +118,20 @@ register_text:  Confirm your email address to access all of %XXX%'s features.
 
 filters:
    import_urgent: |
-                   urgent <br />
-                   <span>Important<span/>
+                   Important, <br />
+                   <span>urgent<span/>
 
    not_import_urgent: |
-                      urgent <br />
-                      <span>Not important<span/>
+                      Not important, <br />
+                      <span>urgent<span/>
 
    import_not_urgent: |
-                      not urgent <br />
-                      <span>Important<span/>
+                     Important, <br />
+                      <span> not urgent<span/>
 
    not_import_not_urgent: |
-                          not urgent <br />
-                          <span>Not important<span/>
+                          Not important, <br />
+                          <span>not urgent<span/>
 
 
 account:
