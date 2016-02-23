@@ -9,15 +9,15 @@
                    data-ls-identity="activity{{ goal.id }}"
                    data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
                     <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                    {{ 'add'|trans }}
+                    <bdi>{{ 'add'|trans }}</bdi>
                 </a>
             </li>
         {% else %}
             <li class="col-xs-4 transparent">
-                <bdi>
+
                     <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                    {{ 'added'|trans |upper}}
-                </bdi>
+                    <bdi>{{ 'added'|trans |upper}}</bdi>
+
             </li>
 
         {% endif %}
@@ -27,15 +27,15 @@
             <li class="col-xs-4">
                 <a href="{{ path('done_goal', {'id' : goal.id}) }}">
                     <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                    {{ 'done'|trans }}
+                    <bdi>{{ 'done'|trans }}</bdi>
                 </a>
             </li>
         {% else %}
             <li class="col-xs-4 transparent">
-                <bdi>
+
                     <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                    {{ 'completed'|trans |upper}}
-                </bdi>
+                    <bdi>{{ 'completed'|trans |upper}}</bdi>
+
             </li>
         {% endif %}
     {#{% endif %}#}
