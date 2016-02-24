@@ -100,14 +100,14 @@
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                                            <i class="icon plus-icon"></i>{{ 'add'|trans }}
+                                            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            <bdi>{{ 'add'|trans }}</bdi>
                                         </a>
                                     </li>
                                 {% else %}
                                     <li class="col-xs-{{ xs }} transparent">
-                                        <bdi>
-                                            <i class="icon plus-icon-green"></i>{{ 'added'|trans | upper}}
-                                        </bdi>
+                                        <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                        <bdi>{{ 'added'|trans | upper}}</bdi>
                                     </li>
                                 {% endif %}
 
@@ -115,14 +115,14 @@
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-xs-6">
                                         <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                                            <i class="icon ok-icon"></i>{{ 'done'|trans }}
+                                            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                            <bdi>{{ 'done'|trans }}</bdi>
                                         </a>
                                     </li>
                                 {% else %}
                                     <li class="col-xs-6 transparent">
-                                        <bdi>
-                                            <i class="icon green-ok-icon"></i>{{ 'completed'|trans | upper}}
-                                        </bdi>
+                                        <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        <bdi>{{ 'completed'|trans | upper}}</bdi>
                                     </li>
                                 {% endif %}
                             {% endif %}
