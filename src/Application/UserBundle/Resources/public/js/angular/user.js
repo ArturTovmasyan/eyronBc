@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('user', ['Components', 'Interpolation'])
-    .controller('SettingController', ['$scope', '$timeout', 'loginPopoverService', function($scope, $timeout, loginPopoverService){
+    .controller('SettingController', ['$scope', '$timeout', 'loginPopoverService', '$window', function($scope, $timeout, loginPopoverService, $window){
 
         $scope.errorMessages = [];
 
@@ -14,10 +14,10 @@ angular.module('user', ['Components', 'Interpolation'])
             });
 
             angular.element("#settings-form").ajaxForm({
-                success: function(res, text, header){
-                    $.modal.close();
+                success: function(){
+                    $window.location.reload();
                 },
-                error: function(res, text, header){
+                error: function(res){
                     $scope.errorMessages = angular.fromJson(res.responseText);
                     if(res.status === 401) {
                         $.modal.close();

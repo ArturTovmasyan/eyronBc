@@ -4,6 +4,7 @@
 .ideas-list{
   padding-bottom:20px;
 
+
   h2{
     font-size:18px;
     line-height:30px;
@@ -39,13 +40,19 @@
     figcaption{
       ul{
         li{
-          a,bdi{
+          a{
             //font-size:11px;
             &:hover,&:focus{
               text-decoration: none;
             }
 
           }
+
+          //bdi{
+          //  font-size:11px;
+          //  color:#999999;
+          //  vertical-align: middle;
+          //}
           &:hover{
             background-color: #7724F6;
             color:#ffffff;
@@ -62,6 +69,14 @@
           //i{
           //  font-size:21px;
           //}
+
+          &:hover{
+            a{
+              bdi{
+                color:#ffffff;
+              }
+            }
+          }
         }
         .transparent{
           &:hover{
@@ -122,11 +137,15 @@
   }
   .addthis_counter a.atc_s{
     width:120px !important;
-    height:35px !important;
-    background: url('../images/images.png') no-repeat -15px -1688px !important;
-
+    //height:35px !important;
+    height:31px !important;
+    //background: url('../images/images.png') no-repeat -15px -1688px !important;
+    background: url('../images/share-new.png') no-repeat center center !important;
+    background-size: 100% !important;
     &:hover{
-      background: url('../images/images.png') no-repeat -15px -1733px !important;
+      //background: url('../images/images.png') no-repeat -15px -1733px !important;
+      background: url('../images/share-purple.png') no-repeat center center !important;
+      background-size: 100% !important;
     }
   }
 }
@@ -155,15 +174,23 @@
 
           &:last-child{
             a,i{
-              background: url('../images/images.png') no-repeat -396px -1156px;
+              //background: url('../images/images.png') no-repeat -396px -1156px;
+              background: url('../images/listed-arrow.png') no-repeat center center;
+              background-size: 100% ;
               display: block;
-              width:40px;
-              height:40px;
+              width:37px;
+              height:37px;
+              margin-left:3px;
             }
 
             a{
               &:hover{
-                background: url('../images/images.png') no-repeat -396px -1203px;
+                //background: url('../images/images.png') no-repeat -396px -1203px;
+                background: url('../images/listed-arrow-purple.png') no-repeat center center;
+                background-size: 100% ;
+
+                //background: url('../images/listed-arrow-purple.svg') no-repeat center center;
+
               }
             }
 
@@ -186,29 +213,50 @@
   li{
     text-align: center;
     border-right:1px solid #eee;
-    a,bdi {
+    a{
       display: block;
       color: #a4a4a4;
       padding: 11px 0;
       font-size:12px;
+
 
       &:focus{
         text-decoration: none;
       }
     }
 
+    i{
+      font-size: 30px;
+      vertical-align: middle;
+    }
+
+    i.icon-green-ok,.icon-green-plus{
+      font-size: 49px;
+      margin-right:0;
+    }
+
+    bdi{
+      display: inline-block;
+      color: #a4a4a4;
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
     &:hover{
       background-color: #7724F6;
-      a,bdi{
+      a{
         color: #ffffff;
 
-        i.plus-icon{
-          background: url('../images/images.png') no-repeat -7px -496px;
+        bdi{
+          color: #ffffff;
         }
-
-        i.ok-icon{
-          background: url('../images/images.png') no-repeat -7px -617px;
-        }
+        //i.plus-icon{
+        //  background: url('../images/images.png') no-repeat -7px -496px;
+        //}
+        //
+        //i.ok-icon{
+        //  background: url('../images/images.png') no-repeat -7px -617px;
+        //}
       }
 
     }
@@ -621,7 +669,7 @@
 
   .goal-links{
     li{
-      a,bdi {
+      a{
         font-size: 14px;
       }
     }
@@ -637,6 +685,7 @@
   }
 
   .ideas-list{
+
     h2{
       padding: 60px 0 65px;
       font-size: 52px;
