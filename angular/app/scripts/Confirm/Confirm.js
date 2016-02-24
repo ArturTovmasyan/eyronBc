@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('Confirm',['Interpolation'])
-    .directive('lsConfirm',['$location', '$http', '$compile', function($location, $http, $compile){
+    .directive('lsConfirm',['$window', '$http', '$compile', function($window, $http, $compile){
         return {
             restrict: 'EA',
             scope: {
@@ -12,11 +12,11 @@ angular.module('Confirm',['Interpolation'])
             link: function(scope, el){
 
                 scope.yes = function(){
-                    if(scope.href){
-                        $location.path(scope.href);
+                    if(scope.lsHref){
+                        $window.location.href = scope.lsHref;
                     }
-                    else if(scope.confirm){
-                        scope.$eval(scope.confirm);
+                    else if(scope.lsConfirm){
+                        scope.$eval(scope.lsConfirm);
                     }
                 };
 
