@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('Confirm',['mgcrea.ngStrap.modal', 'ngAnimate'])
-    .directive('lsConfirm',['$modal', '$location', function($modal,  $location){
+angular.module('Confirm',['Interpolation'])
+    .directive('lsConfirm',['$window', '$http', '$compile', function($window, $http, $compile){
         return {
             restrict: 'EA',
             scope: {
@@ -12,20 +12,28 @@ angular.module('Confirm',['mgcrea.ngStrap.modal', 'ngAnimate'])
             link: function(scope, el){
 
                 scope.yes = function(){
-                    if(scope.href){
-                        $location.path(scope.href);
+                    if(scope.lsHref){
+                        $window.location.href = scope.lsHref;
                     }
-                    else if(scope.confirm){
-                        scope.$eval(scope.confirm);
+                    else if(scope.lsConfirm){
+                        scope.$eval(scope.lsConfirm);
                     }
                 };
 
                 el.bind('click',function(){
-                    $modal({
-                        scope: scope,
-                        title: scope.modalTitle ? scope.modalTitle : 'Confirm',
-                        templateUrl: '/app/scripts/Confirm/confirm.html'
-                    });
+                    $http.get('/app/scripts/Confirm/confirm.html')
+                        .success(function(res){
+                            var tmp = $compile(res)(scope);
+
+                            angular.element('body').append(tmp);
+                            tmp.modal({
+                                fadeDuration: 500
+                            });
+
+                            tmp.on($.modal.CLOSE, function(){
+                                tmp.remove();
+                            })
+                        });
                 })
             }
         }
