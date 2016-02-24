@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class MainController
@@ -193,5 +194,296 @@ class MainController extends Controller
     public function registrationConfirmedAction()
     {
         return $this->redirectToRoute('activity');
+    }
+
+    /**
+     * This function is view statistic
+     *
+     * @Route("/moderator/statistic", name="statistic_view")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function statisticAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $createLimit = new \DateTime('now');
+
+        $createLimit->modify('-30 days');
+
+        $createLimit = date_format($createLimit,'Y-m-d');
+
+        $results = $em->getRepository('AppBundle:Goal')->findGoalGroupByCreationDate($createLimit);
+
+        $crawlerResult = array();
+
+        $crawlerCount = 0;
+
+        if($results) {
+
+            $count = 0;
+
+            foreach($results as $n => $result){
+
+                $time1 = new \DateTime($result['dates']);
+
+                $crawlerResult[$count]['dates'] = $result['dates'];
+
+                $crawlerResult[$count]['counts'] = $result['counts'];
+
+                $count++;
+
+                $crawlerCount +=$result['counts'];
+
+                if(isset($results[$n + 1])){
+
+                    $time2 = new \DateTime($results[$n+1]['dates']);
+
+                    for($i =$count;$i < 30 ; $i++){
+
+                        if(date_diff($time1,$time2)->d > 1){
+                            $crawlerResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
+                            $crawlerResult[$count]['counts'] = 0;
+                            $count++;
+                        }
+                    }
+                }
+            };
+
+        }
+        else {
+            $create = new \DateTime('now');
+
+            $create = date_format($create,'Y-m-d');
+
+            $crawlerResult[0]['dates'] = $create;
+
+            $crawlerResult[0]['counts'] = 0;
+        }
+
+        //set published limit in 30 days
+        $publishLimit = new \DateTime('now');
+
+        $publishLimit->modify('-30 days');
+
+        $publishLimit = date_format($publishLimit,'Y-m-d');
+
+        //get publish dates
+        $published = $em->getRepository('AppBundle:Goal')->findPublishedGoalGroupByDate($publishLimit);
+
+        //for calculate total count
+        $publishCount = 0;
+
+        $perUser = array();
+
+        //create publish results for oll users
+        $publishResult = array();
+
+        if($published) {
+
+            //get oll userNames
+            foreach($published as $publish)
+            {
+                $userNames[] = $publish['publishedBy'];
+
+                if ($publish['publishedBy'] != null) {
+
+                    $kayNames[] = $publish['publishedBy'];//when name is null it will be exist
+                }
+            }
+
+            $kayNames[] = 'total';
+
+            $userNames = array_unique($userNames);
+
+            $kayNames = array_unique($kayNames);
+
+            //set publishResult
+            foreach($published as $n => $publish)
+            {
+                $time1 = new \DateTime($publish['dates']);
+
+                $day = $time1->format('M d');
+
+                $ollDates[] = $day;//for view oll days in graph
+
+                foreach($userNames as $userName)
+                {
+                    if ($userName == $publish['publishedBy']) {
+
+                        //when username is null move count in wiki userName
+                        if ($userName == null) {
+
+                            $userName = 'admin@admin.com';
+
+                            if (isset($publishResult[$day][$userName]['counts'] )) {
+
+                                $publishResult[$day][$userName]['counts'] += $publish['counts'];
+
+                                $publishResult[$day]['total']['counts'] += $publish['counts'];
+
+                                $perUser[$userName] += $publish['counts'];
+
+                            }
+                            else
+                            {
+                                if (isset($publishResult[$day]['total']['counts'] )) {
+                                    $publishResult[$day]['total']['counts'] += $publish['counts'];
+                                }
+                                else
+                                {
+                                    $publishResult[$day]['total']['counts'] = $publish['counts'];
+                                }
+
+                                if (isset($perUser[$userName])) {
+
+                                    $perUser[$userName] += $publish['counts'];
+                                }
+                                else
+                                {
+                                    $perUser[$userName] = $publish['counts'];
+                                }
+
+                                $publishResult[$day][$userName]['counts'] = $publish['counts'];
+                            }
+                        }else
+                        {
+                            //if userName is wiki and it isset
+                            if (isset($publishResult[$day][$userName]['counts'] )) {
+
+                                $publishResult[$day]['total']['counts'] += $publish['counts'];
+
+                                $publishResult[$day][$userName]['counts'] += $publish['counts'];
+
+                                $perUser[$userName] += $publish['counts'];
+
+                            }
+                            else
+                            {
+                                if (isset($publishResult[$day]['total']['counts'] )) {
+
+                                    $publishResult[$day]['total']['counts'] += $publish['counts'];
+                                }
+                                else
+                                 {
+                                    $publishResult[$day]['total']['counts'] = $publish['counts'];
+                                }
+
+                                if (isset($perUser[$userName])) {
+
+                                    $perUser[$userName] += $publish['counts'];
+                                }
+                                else
+                                {
+                                    $perUser[$userName] = $publish['counts'];
+                                }
+
+                                $publishResult[$day][$userName]['counts'] = $publish['counts'];
+                            }
+                        }
+
+                        $publishCount += $publish['counts'];//for total
+
+                    }
+                    elseif (!isset($publishResult[$day][$userName]['counts']) and $userName != null)
+                    {
+                        if (!isset($publishResult[$day]['total']['counts'] )) {
+
+                            $publishResult[$day]['total']['counts'] = 0;
+                        }
+
+                        if (!isset($perUser[$userName] )) {
+                            $perUser[$userName]= 0;
+                        }
+
+                        $publishResult[$day][$userName]['counts'] = 0;//if in this day user not publish
+                    }
+                }
+                if(isset($published[$n + 1]) ) {
+
+                    $time2 = new \DateTime($published[$n+1]['dates']);
+
+                    for($i =0;$i < 30 ; $i++) {
+
+                        //if have day when no one not publish
+                        if(date_diff($time1,$time2)->d > 1) {
+
+                            $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
+
+                            $ollDates[] = $day;
+
+                            $publishResult[$day]['total']['counts'] = 0;
+
+                            foreach($kayNames as $userName) {
+
+                                $publishResult[$day][$userName]['counts'] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            //if not publish date
+            $update = new \DateTime('now');
+
+            $update = date_format($update,'M d');
+
+            $kayNames[] = 'NO ONE';
+
+            $publishResult[$update]['NO ONE']['counts'] = 0;
+
+            $ollDates[] = $update;
+
+            $perUser['NO ONE'] = 0;
+        }
+
+        $different = $em->getRepository('AppBundle:Goal')->getLastGoalCreationDate();
+
+
+        if(!$different) {
+
+            throw new NotFoundHttpException('result of published status not found');
+        }
+
+        $perUser['Total'] = $publishCount;
+
+        $publishAverage = (int) floor($publishCount/30);
+
+        $crawlerAverage = (int) floor($crawlerCount/30);
+
+        $time = new \DateTime();
+
+        $time = $time->format('U');
+
+        $ollDates = array_unique($ollDates);
+
+        $different = (int) floor(($time - $different[0]['created']->format('U')) / 60);//timestamp in nod js is 60 minutes ago
+
+        $diffHour = (int) floor($different / 60);
+
+        $diffMinute = $different - $diffHour * 60;
+
+        $diffDay = (int) floor($diffHour / 24);
+
+        $diffHour = $diffHour - $diffDay * 24 ;
+
+        return array(
+            'ollDates'       => $ollDates,
+            'userNames'      => $kayNames,
+            'result' 	     => $crawlerResult,
+            'published'	     => $publishResult,
+            'different'    	 => $different ,
+            'perUser'		 => $perUser,
+            'diffDay' 	     => $diffDay,
+            'diffHour'	     => $diffHour,
+            'diffMinute'	 => $diffMinute,
+            'publishCount'	 => $publishCount,
+            'publishAverage' => $publishAverage,
+            'crawlerCount'	 => $crawlerCount,
+            'crawlerAverage' => $crawlerAverage
+        );
     }
 }

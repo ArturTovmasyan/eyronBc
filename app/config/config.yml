@@ -219,6 +219,7 @@ stof_doctrine_extensions:
             sluggable: true
             translatable: true
             loggable: true
+            blameable: true
 
 # tinumce
 stfalcon_tinymce:
