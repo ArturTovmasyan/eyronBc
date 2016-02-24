@@ -18,6 +18,7 @@ create_goal: Create Goal
 settings: Settings
 logout: Logout
 my_bucketlist: My Bucketlist
+statistic_view: Statistic
 
 # goal
 goal:

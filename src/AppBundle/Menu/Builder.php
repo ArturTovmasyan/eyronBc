@@ -63,9 +63,22 @@ class Builder extends ContainerAware
         // get e
         $menu = $factory->createItem('root');
 
+        //get translator
+        $tr = $this->container->get('translator');
+
+        //get security
+        $security = $this->container->get('security.authorization_checker');
 
         // check pages
         if($this->otherMenu){
+
+            //check if current user role is admin
+            if($security->isGranted('ROLE_ADMIN')) {
+
+                //add statistic view menu
+                $menu->addChild($tr->trans('statistic_view'), array('route' => 'statistic_view'));
+            }
+
             // loop for all pages
             foreach($this->otherMenu as $page){
 
