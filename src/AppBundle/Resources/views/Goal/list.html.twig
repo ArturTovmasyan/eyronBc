@@ -18,8 +18,10 @@
 
                     {% if 'travel' in app.request.get('category') %}
                         <a href="javascript:void(0)" data-ng-click="showMap = !showMap" class="text-gray map-top"> MAP
-                            <i class="icon down-icon" data-ng-show="showMap"></i>
-                            <i class="icon up-icon" data-ng-hide="showMap"></i>
+                            {#<i class="icon down-icon" data-ng-show="showMap"></i>#}
+                            <i class="icon-arrow-down"  data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
+                            {#<i class="icon up-icon" data-ng-hide="showMap"></i>#}
                         </a>
                     {% endif %}
                 </div>
@@ -38,8 +40,10 @@
 
                         [[ adventureTextItem ? adventureTextItem.title:"MOST POPULAR" ]]
 
-                        <i class="icon down-icon" data-ng-hide="filter"></i>
-                        <i class="icon up-icon ng-hide" data-ng-show="filter"></i>
+                        {#<i class="icon down-icon" data-ng-hide="filter"></i>#}
+                        <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
+                        {#<i class="icon up-icon ng-hide" data-ng-show="filter"></i>#}
+                        <i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>
                     </button>
                 </div>
             </div>
