@@ -399,14 +399,15 @@ class MainController extends Controller
                         $publishResult[$day][$userName]['counts'] = 0;//if in this day user not publish
                     }
                 }
-                if(isset($published[$n + 1]) ) {
+
+                if (isset($published[$n + 1]) ) {
 
                     $time2 = new \DateTime($published[$n+1]['dates']);
 
                     for($i =0;$i < 30 ; $i++) {
 
                         //if have day when no one not publish
-                        if(date_diff($time1,$time2)->d > 1) {
+                        if (date_diff($time1,$time2)->d > 1) {
 
                             $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
 
@@ -414,8 +415,8 @@ class MainController extends Controller
 
                             $publishResult[$day]['total']['counts'] = 0;
 
-                            foreach($kayNames as $userName) {
-
+                            foreach($kayNames as $userName)
+                            {
                                 $publishResult[$day][$userName]['counts'] = 0;
                             }
                         }
