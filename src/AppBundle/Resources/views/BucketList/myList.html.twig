@@ -143,7 +143,8 @@
                                            {#data-ng-class="{'icon-question-icon': !completeProfileMyBucketList, 'icon-icon-up': completeProfileMyBucketList}"#}
                                            data-ng-click="completeProfileMyBucketList=!completeProfileMyBucketList">
                                             <i class="icon-question-icon" data-ng-hide="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
-                                            <i class="icon up-icon ng-hide" data-ng-show="completeProfileMyBucketList"></i>
+                                            {#<i class="icon up-icon ng-hide" data-ng-show="completeProfileMyBucketList"></i>#}
+                                            <i class="icon-icon-up ng-hide" data-ng-show="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
                                             {#<i class="icon-icon-up"><span class="path1"></span><span class="path2"></span></i>#}
                                         </a>
                                     </div>
@@ -289,7 +290,8 @@
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
-                            <i class="icon up-icon" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
+                            {#<i class="icon up-icon" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>#}
+                            <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                             <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
                         </a>
                     </li>
@@ -567,13 +569,14 @@
                         <div class="col-xs-8">
                             <a href="{{ path('add_goal') }}">
                                 <i class="icon-creat-icon"></i>
-                                {{ 'right_menu.create'|trans }}
+                                <bdi>{{ 'right_menu.create'|trans }}</bdi>
                             </a>
                         </div>
                         <div class="col-xs-4 text-right">
                             {% if profileUser.id == app.user.id %}
-                                <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }}
-                                    <span>{{ draftsCount }}</span>
+                                <a href="{{ path('goal_drafts') }}">
+                                    <bdi>{{ 'right_menu.draft'|trans }} {{ draftsCount }}</bdi>
+
                                 </a>
                             {% endif %}
                         </div>
