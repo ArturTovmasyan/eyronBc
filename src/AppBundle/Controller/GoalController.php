@@ -944,7 +944,7 @@ class GoalController extends Controller
      *
      * @param Goal $goal
      * @return array
-     * @deprecated
+     * @deprecated must be removed
      */
     public function cloneAction(Goal $goal)
     {
