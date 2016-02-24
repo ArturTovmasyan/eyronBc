@@ -755,10 +755,9 @@ ul.filter{
   background: url('../images/images.png') no-repeat -7px -706px !important;
   display: inline-block;
   width: 28px !important;
-  height:20px !important;
+  height:28px !important;
   vertical-align: middle;
-  margin-right: 2px;
-
+  margin: 5px 2px 0 0 ;
   &:hover{
     background: url('../images/images.png') no-repeat -7px -742px !important;
   }
@@ -1226,26 +1225,11 @@ figure{
       li{
         text-align: center;
         border-right:1px solid #f0f0f0;
-        //a,bdi{
-        //  color:#999999;
-        //  display: block;
-        //  padding: 7px 0;
-        //  height:auto;
-        //  font-size: 11px;
-        //  i{
-        //    font-size: 23px;
-        //    vertical-align: middle;
-        //    margin-right: 5px;
-        //  }
-        //}
 
-        //bdi{
-        //  padding: 0;
-        //}
         a{
           color:#999999;
           display: block;
-          padding: 7px 0;
+          //padding: 7px 0;
           height:auto;
           font-size: 11px;
           i{
@@ -1254,11 +1238,15 @@ figure{
             margin-right: 5px;
           }
           bdi{
+            display: inline-block;
             vertical-align: middle;
             color:#999999;
+            font-size:11px;
           }
         }
-
+        bdi{
+          color:#999999;
+        }
         &:last-child{
           border-right:0;
           padding-top: 3px;
@@ -1577,6 +1565,7 @@ footer{
           border:0;
 
           a{
+            padding: 7px 0;
             font-size:14px;
             line-height:18px;
             color:#ffffff;
@@ -1584,13 +1573,18 @@ footer{
               margin-right:8px;
               color:#ffffff;
             }
+
+            bdi{
+              font-size:13px;
+            }
+
             &:hover,&:focus{
               color:#ffffff;
               text-decoration: none;
             }
           }
           bdi{
-            font-size:14px;
+            font-size:12px;
             line-height:18px;
             color:#ffffff;
             display: inline-block;
@@ -1671,6 +1665,10 @@ footer{
             padding:14px 2px 19px 15px;
           }
         }
+      }
+
+      .navbar-brand{
+        padding:21px 20px 21px 15px;
       }
 
       .navbar-right{
@@ -1880,16 +1878,13 @@ footer{
             i{
               font-size: 30px;
             }
+            bdi{
+              font-size:13px;
+            }
           }
 
           bdi{
             font-size:13px;
-            color:#999999;
-            vertical-align: middle;
-            //i.icon-green-plus,i.icon-green-ok{
-            //  font-size:49px;
-            //  margin-right: -8px;
-            //}
           }
 
           i.icon-green-plus,i.icon-green-ok{
@@ -1904,7 +1899,8 @@ footer{
   }
 
   .addthis_counter .atc_s{
-    height:27px !important;
+    height:25px !important;
+    margin-top:2px;
   }
 
   footer{

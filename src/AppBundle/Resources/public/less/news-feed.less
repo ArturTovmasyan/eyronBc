@@ -45,13 +45,9 @@
   }
 
   i{
-    font-size: 30px;
+    font-size: 25px;
     vertical-align: middle;
     cursor:pointer;
-  }
-
-  i.icon-green-plus,i.icon-green-ok{
-    font-size:49px;
   }
 
   p{
@@ -233,6 +229,30 @@
 }
 
 .news-footer{
+
+  li{
+    i.icon-green-plus,i.icon-green-ok{
+      font-size:30px;
+      vertical-align: middle;
+      margin-right: -6px;
+    }
+
+    bdi{
+      display: inline-block;
+      padding: 9px 0;
+      color:#999999;
+      font-size:11px;
+      line-height:18px;
+      vertical-align: middle;
+    }
+
+    &:hover{
+      bdi{
+        color:#ffffff;
+      }
+    }
+  }
+
   strong{
     display: block;
     padding:11px;
@@ -278,16 +298,16 @@
 }
 
 .horizontal-menu{
-  padding:0 10px 0 0;
+  padding:0 5px 0 0;
   li{
     display: inline-block;
     border-right:1px solid #666666;
-    padding:0 20px 0 10px;
+    padding:0 15px 0 10px;
 
     strong{
       display:block;
       color:#666666;
-      font-size:14px;
+      font-size:13px;
     }
 
     span{
@@ -295,7 +315,7 @@
       color:#7d7d7d;
 
       &:last-child{
-        font-size:22px;
+        font-size:18px;
       }
     }
     &:last-child{
@@ -404,6 +424,58 @@
     //.mylist{
     //  background: url('../images/images.png') no-repeat -6px -910px;
     //}
+
+    .horizontal-menu{
+      padding:0 10px 0 0;
+      li{
+        padding:0 20px 0 10px;
+        strong{
+          font-size:14px;
+        }
+
+        span{
+
+          &:last-child{
+            font-size:22px;
+          }
+        }
+
+      }
+    }
+    .news-footer{
+
+      li{
+
+        i.icon-green-plus,i.icon-green-ok{
+          font-size:49px;
+        }
+
+        bdi{
+          font-size:13px;
+          padding:0;
+        }
+      }
+
+      strong{
+        padding:11px;
+        font-size:14px;
+
+        span{
+          margin-right:10px;
+          font-size:20px;
+          vertical-align: top;
+        }
+      }
+
+      .transparent{
+        &:hover{
+          background-color: transparent;
+          a,bdi {
+            color: #a4a4a4;
+          }
+        }
+      }
+    }
 
     #goalTitle{
 
