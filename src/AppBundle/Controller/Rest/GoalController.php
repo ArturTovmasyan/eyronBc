@@ -68,6 +68,36 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
+     *  description="This function is used to get suggested goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     *
+     *
+     * )
+     *
+     * @param int $count
+     * @param Request $request
+     * @return mixed
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getSuggestAction($count, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $goals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+        $goals = array_values($goals);
+
+        return  $goals;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
      *  description="This function is used to get goal by id",
      *  statusCodes={
      *         200="Returned when goal was found",

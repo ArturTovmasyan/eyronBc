@@ -116,7 +116,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $this->getEntityManager()
                 ->createQueryBuilder()
                 ->addSelect('g', 'i', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN  cnt')
-                ->from('AppBundle:Goal', 'g')
+                ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->andWhere('g.publish = true and not exists (SELECT ug1 FROM AppBundle:UserGoal ug1 WHERE ug1.goal = g AND ug1.user = :user)')
                 ->orderBy('cnt', 'desc')
