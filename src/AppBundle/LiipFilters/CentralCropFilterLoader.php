@@ -24,21 +24,22 @@ class CentralCropFilterLoader implements LoaderInterface
     public function load(ImageInterface $image, array $options = array())
     {
         list($width, $height) = $options['size'];
+        $size = $image->getSize();
 
-        $filter = new RelativeResize('widen', $width);
-        $newImage = $filter->apply($image);
-        $size = $newImage->getSize();
-        if ($size->getHeight() < $height){
+        if ($width / $height < $size->getWidth() / $size->getHeight()){
             $filter = new RelativeResize('heighten', $height);
-            $newImage = $filter->apply($image);
-            $size = $newImage->getSize();
         }
+        else {
+            $filter = new RelativeResize('widen', $width);
+        }
+
+        $filter->apply($image);
+        $size = $image->getSize();
 
         $x = ($size->getWidth() - $width) / 2;
         $filter = new Crop(new Point($x, 0), new Box($width, $height));
-        $image = $filter->apply($newImage);
 
-        return $image;
+        return $filter->apply($image);
     }
 
 }
