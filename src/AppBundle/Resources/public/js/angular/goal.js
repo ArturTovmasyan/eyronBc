@@ -6,6 +6,7 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
+        'Confirm',
         'youtube-embed',
         'Components'
     ])
