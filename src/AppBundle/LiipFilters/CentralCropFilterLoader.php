@@ -12,6 +12,7 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
+use Liip\ImagineBundle\Imagine\Filter\RelativeResize;
 
 class CentralCropFilterLoader implements LoaderInterface
 {
@@ -22,13 +23,20 @@ class CentralCropFilterLoader implements LoaderInterface
      */
     public function load(ImageInterface $image, array $options = array())
     {
-        $size = $image->getSize();
         list($width, $height) = $options['size'];
 
+        $filter = new RelativeResize('widen', $width);
+        $newImage = $filter->apply($image);
+        $size = $newImage->getSize();
+        if ($size->getHeight() < $height){
+            $filter = new RelativeResize('heighten', $height);
+            $newImage = $filter->apply($image);
+            $size = $newImage->getSize();
+        }
+
         $x = ($size->getWidth() - $width) / 2;
-        $y = 0; //($size->getHeight() - $height) / 2;
-        $filter = new Crop(new Point($x, $y), new Box($width, $height));
-        $image = $filter->apply($image);
+        $filter = new Crop(new Point($x, 0), new Box($width, $height));
+        $image = $filter->apply($newImage);
 
         return $image;
     }
