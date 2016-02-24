@@ -97,9 +97,9 @@ header{
 
   .navbar-brand{
     padding:21px 30px 21px 15px;
-    //height:83px;
+    height:83px;
     //width: 140px;
-    //background: url('../images/logo.png') no-repeat center center;
+    //background: url('../images/logo.svg') no-repeat center center;
     //background-size: 100%;
     img{
       height:40px;
@@ -1066,8 +1066,8 @@ ul li{list-style: none;}
 
     .list{
       width:100%;
-      height: 150px;
-      overflow: auto;
+      height: 160px;
+      overflow: auto !important;
     }
 
     &:hover,&:focus,&:active,.open{
@@ -1226,7 +1226,23 @@ figure{
       li{
         text-align: center;
         border-right:1px solid #f0f0f0;
-        a,bdi{
+        //a,bdi{
+        //  color:#999999;
+        //  display: block;
+        //  padding: 7px 0;
+        //  height:auto;
+        //  font-size: 11px;
+        //  i{
+        //    font-size: 23px;
+        //    vertical-align: middle;
+        //    margin-right: 5px;
+        //  }
+        //}
+
+        //bdi{
+        //  padding: 0;
+        //}
+        a{
           color:#999999;
           display: block;
           padding: 7px 0;
@@ -1237,10 +1253,10 @@ figure{
             vertical-align: middle;
             margin-right: 5px;
           }
-        }
-
-        bdi{
-          padding: 0;
+          bdi{
+            vertical-align: middle;
+            color:#999999;
+          }
         }
 
         &:last-child{
@@ -1577,7 +1593,7 @@ footer{
             font-size:14px;
             line-height:18px;
             color:#ffffff;
-            display: block;
+            display: inline-block;
             //padding: 10px 0;
             height: auto;
           }
@@ -1864,12 +1880,19 @@ footer{
 
           bdi{
             font-size:13px;
-            i.icon-green-plus,i.icon-green-ok{
-              font-size:49px;
-              margin-right: -8px;
-            }
+            color:#999999;
+            vertical-align: middle;
+            //i.icon-green-plus,i.icon-green-ok{
+            //  font-size:49px;
+            //  margin-right: -8px;
+            //}
           }
 
+          i.icon-green-plus,i.icon-green-ok{
+            font-size:49px;
+            margin-right: -8px;
+            vertical-align: middle;
+          }
 
         }
       }
