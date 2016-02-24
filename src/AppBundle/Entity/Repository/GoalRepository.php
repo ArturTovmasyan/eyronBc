@@ -373,4 +373,52 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('goalId', $goalId)
             ->getResult();
     }
+
+    /**
+     * @param $limit
+     * @return array
+     */
+    public function findGoalGroupByCreationDate($limit)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
+						   FROM AppBundle:Goal g
+						   WHERE g.created > :limit
+						   GROUP BY dates
+						   ORDER BY dates')
+            ->setParameter('limit', $limit)
+            ->getResult();
+    }
+
+    /**
+     * @param $limit
+     * @return array
+     */
+    public function findPublishedGoalGroupByDate($limit)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DATE(g.updated) as dates,COUNT(g.updated) as counts, g.publishedBy
+								   FROM AppBundle:Goal g
+								   WHERE g.publish = :publish
+								   AND g.updated > :limit
+								   GROUP BY g.publishedBy, dates
+								   ORDER BY dates')
+            ->setParameter('publish', Goal::PUBLISH)
+            ->setParameter('limit', $limit)
+            ->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function getLastGoalCreationDate()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT g.created
+						   FROM AppBundle:Goal g
+						   ORDER BY g.created DESC')
+            ->setMaxResults(1)
+            ->getResult();
+    }
+
 }

@@ -19,11 +19,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use AppBundle\Validator\Constraints as AppAssert;
+use Gedmo\Mapping\Annotation\Blameable;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal", indexes={
- *          @ORM\Index(name="search", columns={"language", "publish", "title"})
+ *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"})
  * })
  * @Gedmo\Loggable
  */
@@ -160,6 +161,7 @@ class Goal implements MultipleFileInterface, PublishAware
      * @var
      *
      * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     protected $updated;
@@ -192,6 +194,14 @@ class Goal implements MultipleFileInterface, PublishAware
      * @var
      */
     protected $language = "en";
+
+    /**
+     * @var string $publishedBy
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Blameable(on="change", field="publish", value="1")
+     */
+    private $publishedBy;
 
     /**
      * Get id
@@ -887,4 +897,27 @@ class Goal implements MultipleFileInterface, PublishAware
     }
 
 
+
+    /**
+     * Set publishedBy
+     *
+     * @param string $publishedBy
+     * @return Goal
+     */
+    public function setPublishedBy($publishedBy)
+    {
+        $this->publishedBy = $publishedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedBy
+     *
+     * @return string 
+     */
+    public function getPublishedBy()
+    {
+        return $this->publishedBy;
+    }
 }
