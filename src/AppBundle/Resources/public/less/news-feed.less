@@ -50,6 +50,9 @@
     cursor:pointer;
   }
 
+  bdi{
+    vertical-align: middle;
+  }
   p{
     font-size:12px;
   }
@@ -147,6 +150,16 @@
     }
     figcaption{
       margin-bottom:0;
+      ul{
+        li{
+          i.icon-green-plus,i.icon-green-ok{
+            font-size: 30px;
+          }
+          i{
+            font-size:20px;
+          }
+        }
+      }
     }
   }
 
@@ -235,6 +248,16 @@
       font-size:30px;
       vertical-align: middle;
       margin-right: -6px;
+    }
+
+    a{
+      i{
+        font-size:20px;
+      }
+
+      &:hover{
+        text-decoration: none;
+      }
     }
 
     bdi{
@@ -450,6 +473,9 @@
           font-size:49px;
         }
 
+        i{
+          font-size:30px;
+        }
         bdi{
           font-size:13px;
           padding:0;
@@ -550,6 +576,26 @@
 
     .image-goalfrinds{
       margin-top:0;
+    }
+
+    figure{
+
+      &>a{
+        display: block;
+      }
+      figcaption{
+
+        ul{
+          li{
+            i.icon-green-plus,i.icon-green-ok{
+              font-size: 49px;
+            }
+            i{
+              font-size:30px;
+            }
+          }
+        }
+      }
     }
 
     .right-block{

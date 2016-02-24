@@ -169,9 +169,11 @@
                                                     <p class="no-image {{ className }}">{{ nameOnImage  }}</p>
                                                 {% endif %}
 
-                                                <span>{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                <span class="menu-down" data-ng-hide="joinToggle1"></span>
-                                                <span class="menu-up" data-ng-show="joinToggle1"></span>
+                                                <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
+                                                {#<span class="menu-down" data-ng-hide="joinToggle1"></span>#}
+                                                <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+                                                {#<span class="menu-up" data-ng-show="joinToggle1"></span>#}
+                                                <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
                                             </a>
                                         {% endif %}
                                             <a  href="javascript:void(0)"
@@ -186,7 +188,8 @@
                                                 data-content-template="{{ path("fos_user_security_login") }}"
                                                 data-animation="am-fade-and-scale"
                                                 data-bs-popover>
-                                                <i class="join"></i>
+                                                {#<i class="join"></i>#}
+                                                <i class="icon-join-icon"></i>
                                                 {{ 'join'|trans }}
                                             </a>
                                             {% if not app.user and
