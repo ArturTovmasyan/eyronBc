@@ -10,6 +10,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -85,7 +87,6 @@ class UserGoal
     /**
      * @var
      * @ORM\Column(name="steps", type="array", nullable=true)
-     * @Groups({"userGoal"})
      */
     protected $steps = [];
 
@@ -131,6 +132,21 @@ class UserGoal
     public function __construct()
     {
         $this->status = self::ACTIVE;
+    }
+
+    /**
+     * @VirtualProperty()
+     * @SerializedName("steps")
+     * @Groups({"userGoal"})
+     */
+    public function getFormattedSteps()
+    {
+        $formattedSteps = [];
+        foreach($this->steps as $key => $value){
+            $formattedSteps[] = ['step' => $key, 'is_done' => $value];
+        }
+
+        return $formattedSteps;
     }
 
     /**
