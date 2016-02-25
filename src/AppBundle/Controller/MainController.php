@@ -39,10 +39,10 @@ class MainController extends Controller
         $currentUser = $this->getUser();
 
         // check user is have a goal
-        if (count($currentUser->getUserGoal()) > 0) {
-            $url = 'activity';
-        } else {
+        if (count($currentUser->getUserGoal()) == 0) {
             $url = 'goals_list';
+        } else {
+            $url = 'activity';
         }
 
         return $this->redirectToRoute($url);
