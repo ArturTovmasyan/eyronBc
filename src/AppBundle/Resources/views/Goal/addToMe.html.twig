@@ -290,10 +290,8 @@
                 </div>
 
                 <p class="text-gray">
-                    <i class="icon-eye-icon"></i>
-                   {# Hazo here is the icon
-                    <i class="icon-eye"></i>
-                    #}
+                    <i class="icon-eye-icon ng-hide" data-ng-hide="private_checkbox"></i>
+                    <i class="icon-eye" data-ng-show="private_checkbox"></i>
                     {{ "goal.invisible_text"|trans }}
                 </p>
 

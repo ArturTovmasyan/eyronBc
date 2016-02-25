@@ -50,8 +50,9 @@ $(document).ready(function(){
         $.extend(optMainVideo, options);
 
         optMainVideo.$SlideSpacing = 10;
-        optMainVideo.$DisplayPieces = 2;
-        optMainVideo.$SlideWidth = 350;
+        optMainVideo.$DisplayPieces = 1;
+        //optMainVideo.$SlideWidth = 350;
+
         var mainVideo = new $JssorSlider$('main-slider-video', optMainVideo);
 
         var ScaleSliderMainVideo = function() {
@@ -76,26 +77,43 @@ $(document).ready(function(){
 
 
     if($(".story-slider").length){
-        var optStory = {};
+        var optStoryImage = {};
+        var optStoryVideo = {};
 
-        $.extend(optStory, options);
+        $.extend(optStoryImage, options);
+        $.extend(optStoryVideo, options);
 
-        optStory.$SlideSpacing = 10;
-        optStory.$DisplayPieces = 2;
-        optStory.$SlideWidth = 350;
+        optStoryImage.$SlideSpacing = 10;
+        optStoryImage.$DisplayPieces = 2;
+        optStoryImage.$SlideWidth = 350;
+
+        //optStoryVideo.$SlideSpacing = 10;
+        //optStoryVideo.$SlideWidth = 350;
 
         var storySliderEls = $(".story-slider");
         var storySliders = [];
 
         for(var i = 0; i < storySliderEls.length; i++){
-            storySliders.push(new $JssorSlider$($(storySliderEls[i]).attr('id'), optStory));
+            if($(storySliderEls[i]).hasClass('video-slider')) {
+                storySliders.push(new $JssorSlider$($(storySliderEls[i]).attr('id'), optStoryVideo));
+                storySliders[i].isVideoSlider = true;
+            }
+            else {
+                storySliders.push(new $JssorSlider$($(storySliderEls[i]).attr('id'), optStoryImage));
+            }
         }
 
         var ScaleSliderStory = function() {
             for(var i = 0; i < storySliders.length; i++){
                 var refSize = storySliders[i].$Elmt.parentNode.clientWidth;
-                var vl = Math.min(refSize - 50, optStory.$DisplayPieces * optStory.$SlideWidth +
-                    optStory.$DisplayPieces * optStory.$SlideSpacing);
+                var vl;
+                if(storySliders[i].isVideoSlider) {
+                    vl = Math.min(refSize - 50);
+                }
+                else {
+                    vl = Math.min(refSize - 50, optStoryImage.$DisplayPieces * optStoryImage.$SlideWidth +
+                        optStoryImage.$DisplayPieces * optStoryImage.$SlideSpacing);
+                }
 
                 storySliders[i].$ScaleWidth(vl);
             }
