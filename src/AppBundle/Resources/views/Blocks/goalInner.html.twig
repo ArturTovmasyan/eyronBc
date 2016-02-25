@@ -58,7 +58,7 @@
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
                                 {% for key, image in images %}
                                     <div>
-                                        <a href="{{ image.downloadLink }}" data-lightbox="main-slider-{{ key }}" data-title="{{ goal.title }}">
+                                        <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
                                             <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
                                         </a>
                                     </div>
@@ -375,7 +375,7 @@
                                                         <div u="slides">
                                                             {% for k,file in files %}
                                                                 <div>
-                                                                    <a href="{{ file.downloadLink }}" data-lightbox="story{{ key }}-{{ k }}">
+                                                                    <a href="{{ file.downloadLink }}" class="swipebox">
                                                                         <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
                                                                     </a>
                                                                 </div>
@@ -385,7 +385,7 @@
                                                         {% if files|length > 2 %}
                                                             <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
                                                                 <!-- bullet navigator item prototype -->
-                                                                <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+                                                                <div u="prototype" style="position: absolute; width: 19px; height: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
                                                             </div>
 
                                                             <!-- Arrow Left -->

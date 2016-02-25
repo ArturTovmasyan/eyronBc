@@ -267,6 +267,8 @@ angular.module('goal', ['Interpolation',
                 increaseArea: '20%'
             });
         }
+
+        $( '.swipebox' ).swipebox();
     }])
     .controller('goalList',['$scope', function($scope){
 
