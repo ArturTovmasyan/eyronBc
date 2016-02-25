@@ -194,7 +194,8 @@ my_bucket_list:
   doing_here: What are you doing here? Come on,
   need_goal: Your life needs goals,
   add_some: add some more.
-  complete: It’s time to act and complete some goals.
+  some_goal: some goals.
+  complete: It’s time to act and complete
   filter: There are no goals to correspond to this priority combination
   private: Private
   invisible: Invisible
