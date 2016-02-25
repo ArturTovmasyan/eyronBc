@@ -161,10 +161,16 @@ class Goal implements MultipleFileInterface, PublishAware
      * @var
      *
      * @Gedmo\Timestampable(on="update")
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     protected $updated;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $publishedDate;
 
     /**
      * @Groups({"goal", "tiny_goal"})
@@ -186,7 +192,6 @@ class Goal implements MultipleFileInterface, PublishAware
      * @ORM\Column(length=128, unique=true, nullable=false)
      */
     protected $slug;
-
 
     /**
      * @Assert\NotBlank(groups={"goal"}, message = "Language can't be blank")
@@ -687,6 +692,11 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     public function setPublish($publish)
     {
+        //set published date
+        if(isset($this->publish) && $publish == self::PUBLISH && $this->publish != self::PUBLISH){
+            $this->setPublishedDate(new \DateTime('now'));
+        }
+
         $this->publish = $publish;
 
         return $this;
@@ -919,5 +929,28 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getPublishedBy()
     {
         return $this->publishedBy;
+    }
+
+    /**
+     * Set publishedDate
+     *
+     * @param \DateTime $publishedDate
+     * @return Goal
+     */
+    public function setPublishedDate($publishedDate)
+    {
+        $this->publishedDate = $publishedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedDate
+     *
+     * @return \DateTime 
+     */
+    public function getPublishedDate()
+    {
+        return $this->publishedDate;
     }
 }
