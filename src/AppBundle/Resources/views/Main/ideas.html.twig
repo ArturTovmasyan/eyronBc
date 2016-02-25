@@ -1,7 +1,9 @@
 <div id="scroll-button"></div>
 <div id="homepage-ideas" class="ideas-list">
     <div class="container">
+        {% if search != 0 %}
         <h2 class="text-center text-dark">{{ 'homepage_list_title'|trans }}</h2>
+        {% endif %}
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
                 <div class="row">

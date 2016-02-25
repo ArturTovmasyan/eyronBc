@@ -56,9 +56,9 @@
     </div>
 
     <div class="container ideas-list">
-        <h2 class="text-center text-dark">{{ 'homepage_list_title'|trans }}</h2>
 
         {% if goals.getTotalItemCount > 0 %}
+            <h2 class="text-center text-dark">{{ 'homepage_list_title'|trans }}</h2>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
 
@@ -221,8 +221,8 @@
                 </div>
             </div>
         {% else %}
-            <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
-            {% include 'AppBundle:Main:ideas.html.twig' %}
+            <h2 class="empty-text text-center">{{ 'goal.not_found'|trans }}</h2>
+            {% include "AppBundle:Main:ideas.html.twig" with {'search' : 0 }  %}
 
         {% endif %}
         {# display navigation #}

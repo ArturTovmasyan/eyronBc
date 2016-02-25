@@ -44,8 +44,8 @@ class GoalAdmin extends Admin
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('images', null, array('template' => 'AppBundle:Admin:goal_image_show.html.twig', 'label'=>'admin.label.name.images'))
         ;
     }
@@ -56,11 +56,11 @@ class GoalAdmin extends Admin
 
         $formMapper
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
-            ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description'))
+            ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
 //            , 'attr' => array('class' => 'tinymce')
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('rawLocation', 'bl_location', array('label' => false))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('language', 'lng', array('required' => true))
             ->add('bl_multiple_file', 'bl_multiple_file', array('label'=>'admin.label.name.images', 'required' => false));
     }
@@ -73,8 +73,8 @@ class GoalAdmin extends Admin
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('created', 'doctrine_orm_callback', array(
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
@@ -101,9 +101,9 @@ class GoalAdmin extends Admin
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('created', null, array('label'=>'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
