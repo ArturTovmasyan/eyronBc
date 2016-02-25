@@ -4,18 +4,61 @@
         {% for popularGoal in popularGoals %}
 
         <div class="col-sm-6 col-md-12">
+            {#<figure>#}
+                {#<h3>{{ popularGoal.title }}</h3>#}
+
+                {#<a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">#}
+                    {#<span class="overlay"></span>#}
+                    {#<img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ popularGoal.title }}" />#}
+                {#</a>#}
+                {#<figcaption>#}
+                    {#{%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}#}
+                {#</figcaption>#}
+            {#</figure>#}
+            <br />
+
             <figure>
+
                 <h3>{{ popularGoal.title }}</h3>
+
+                {% set imageDownloadLink = popularGoal.listPhotoDownloadLink %}
+
+                {#{% if image %}#}
+                {#{% set image = popularGoal.getListPhoto %}#}
+                {#{% endif %}#}
 
                 <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">
                     <span class="overlay"></span>
-                    <img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ popularGoal.title }}" />
+                    <img src="{% if imageDownloadLink %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }} {% endif %}" alt="{{ popularGoal.title }}"/>
                 </a>
+
+                <div class="absolute">
+                    <ul>
+                        <li>
+                            <a href="{{ path('listed_users', {'slug': popularGoal.slug }) }}">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                                        {{ popularGoal.stats.listedBy }}
+                                                    </span>
+                                <i class="icon-user-small"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('done_users', {'slug': popularGoal.slug} ) }}">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') }}
+                                                        {{ popularGoal.stats.doneBy }}
+                                                    </span>
+                                <i class="icon-user-small"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
                 <figcaption>
                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
                 </figcaption>
             </figure>
-            <br />
         </div>
 
         {% endfor %}
