@@ -38,7 +38,7 @@ goal:
 
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
-      location_ex: Location ex. Yerevan, Armenia:
+      location_ex: Location
       note_p: Add a note
       add_step: Add a step
       add_title: Create goal
