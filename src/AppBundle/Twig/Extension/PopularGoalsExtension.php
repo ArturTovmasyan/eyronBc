@@ -46,6 +46,7 @@ class PopularGoalsExtension extends \Twig_Extension
     public function popularGoals($user, $count)
     {
         $popularGoals = $this->entityManager->getRepository("AppBundle:Goal")->findPopular($user, $count);
+        $this->entityManager->getRepository("AppBundle:Goal")->findGoalStateCount($popularGoals);
         return $popularGoals;
     }
 
