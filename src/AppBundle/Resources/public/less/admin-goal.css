@@ -23,6 +23,7 @@
 }
 
 .relative>iframe {
+    margin: 20px;
     width: 33%;
     height: 33%;
 }
