@@ -8,8 +8,8 @@ imports:
 parameters:
     locale: en
     languages:
-        en: en
-        ru: ru
+       en: English
+       ru: Русский
     tablet:
         with: 640
         height: 640
