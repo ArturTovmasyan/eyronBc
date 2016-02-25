@@ -41,6 +41,7 @@
       ul{
         li{
           a{
+            padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
@@ -62,12 +63,27 @@
           //  font-size:21px;
           //}
 
+          i{
+            font-size:25px;
+          }
+
+          i.icon-green-ok,.icon-green-plus{
+            font-size: 36px;
+            margin-right:-8px;
+            vertical-align: middle;
+          }
+
           &:hover{
             a{
               bdi{
                 color:#ffffff;
+
               }
             }
+          }
+          bdi{
+            font-size:11px;
+            vertical-align: middle;
           }
         }
         .transparent{
@@ -130,7 +146,7 @@
 
           &:hover{
             bdi{
-              color:#ffffff;
+             color:#ffffff;
             }
           }
         }
@@ -493,6 +509,10 @@
             a{
               padding:10px 0;
             }
+
+            bdi{
+              font-size:13px;
+            }
           }
         }
       }
@@ -519,15 +539,28 @@
         margin-top:15px;
       }
 
-      //figcaption{
-      //  ul{
-      //    li{
-      //      a,bdi{
-      //        font-size:14px;
-      //      }
-      //    }
-      //  }
-      //}
+
+      figcaption{
+        ul{
+          li{
+            a{
+              padding:10px 0;
+            }
+
+            i.icon-green-ok,.icon-green-plus{
+              font-size: 49px;
+            }
+
+            i{
+              font-size:30px;
+            }
+
+            bdi{
+              font-size:13px;
+            }
+          }
+        }
+      }
 
       .absolute{
         ul{
