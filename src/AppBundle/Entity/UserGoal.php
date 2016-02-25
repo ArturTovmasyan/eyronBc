@@ -459,6 +459,25 @@ class UserGoal
     }
 
     /**
+     * @VirtualProperty()
+     * @Groups({"userGoal"})
+     */
+    public function getLocation()
+    {
+        if($this->getLng() && $this->getLat() && $this->getAddress()){
+            $result = array(
+                "latitude" => $this->getLng(),
+                "longitude" => $this->getLat(),
+                "address" => $this->getAddress()
+            );
+
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
      * This function is used to return json location for twig
      *
      * @return string
@@ -479,8 +498,6 @@ class UserGoal
         }
 
         return null;
-
-
     }
 
     /**
