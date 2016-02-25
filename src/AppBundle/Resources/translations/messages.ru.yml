@@ -1,296 +1,299 @@
 # base
-toogle_navigation: вГАСДГАСДГА
-activity: СДАСДГАСДГ
-ideas: IDEAАСДГАДСГS
-search: АСДГАСДГ
-join: СДГАСДГАСДГ
-copyright: АСДГАСДГАСДГ
+toogle_navigation: Навигация с функцией переключения
+activity: Лента
+ideas: Идеи
+search: Поиск
+join: Присоединиться
+copyright: 2015 BUCKET LIST 127
 
 #blocks
-most_popular: АСДГАСДГАСДГ
-add: АСДГАСДГ
-done: АСДАСДГАСДГ
-success_stories: СДГ сдф
-successtory: сдф
-comments: сдф
-create_goal: сдф
-settings: сдф
-logout: сдф
-my_bucketlist: сдф сдф
+most_popular: Самое популярное
+add: Добавить
+done: Достигнута
+clone: Копия
+success_stories: Истории успеха
+successtory: История успеха
+comments: Комментарии
+create_goal: Поставить цель
+settings: Настройки
+logout: Выход
+my_bucketlist: Мой список целей
 
 # goal
 goal:
-      user_description: User goal description
-      user_title: User goal
-      friends_title: Goal friends
-      friends_description: Goald friends description
-      view_description: Goal view description
-      og_title: Goal list
-      list_description: Goal description
-      complete_text: Complete a goal
-      public: Suggest as public
-      agree: By checking you suggest your goal to be listed in the Ideas list
-      preview: PREVIEW
-      publish: Create
-      description_title: Place a hash character (#) in front of a word or unspaced phrase in <br /> title and description to convert it into hashtag
-      successfully_add: Your idea has been added successfully.
-      is_dream: A goal without target date is a dream ...
-      location_ex: Location ex. Yerevan, Armenia:
-      note_p: Add a note
-      add_step: Add a step
-      add_title: Create goal
-      add_description: Description for create goal page
-      to_do: To Do
-      type: Type in a youtube or vimeo link in the field
-      done: Done
-      as_priority: Set a priority
-      critical_activities: Manage critical activities
-      avoid_interruptions: Avoid interruptions
-      focus_goal: Focus on goal
-      avoid_distractions: Avoid distractions
-      as_private: Set as private
-      as_invisible: Set as Invisible
-      as_visible: Set as Visible
-      not_found: Sorry, we couldn't find anything, please, try something else
-      list_title: Discover ideas that inspire you
-      is_completed: Goal is completed
-      is_active: Goal is active
-      completed_text: If you believe your Goal is still Active, you can undo it
-      active_text: If you accomplished your Goal, just mark it
-      completion_date: Completion date :
-      complete_step: Take steps - Complete your Goal !
-      private_text: You created this Goal only for your Bucketlist
-      invisible_text: You can make the Goal invisible for other users
-      missed_deadline: You missed your deadline, please set new one
-      scheduled_date: Scheduled Date
-      create_goal: CONGRADULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
-      create_idea: CONGRADULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
-activities:
-      title: Activities
-      description: Description for activities
+      user_description: Описание цели пользователя
+      user_title: Цель пользователя
+      friends_title: Единомышленники
+      friends_description: Описание единомышленников
+      view_description: Описание просмотра цели
+      og_title: Список целей
+      list_description: Описание цели
+      complete_text: Достичь цели
+      public: Предложить для открытого доступа
+      agree: Отметьте флажком, если хотите разместить вашу цель в общий список идей
+      preview: Предпросмотр
+      publish: Опубликовать
+      description_title: Поместите символ “решетка” (#) перед словом или словосочетанием без пробела в заглавии или описании, чтобы превратить его в хэштег. <br /> Вы можете использовать простые элементы языка разметки, чтобы выделить часть текста либо  <strong>более насыщенным начертанием</strong>, либо <em>курсивом</em>: **жирный шрифт**, *курсив*
 
-Title: Title
-Description: Description
-Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
-Done: Done
+      successfully_add: Ваша идея была успешно добавлена.
+      is_dream: Цель без срока, всего лишь мечта ...
+      location_ex: Местоположение
+      note_p: Добавить заметку
+      add_step: Добавить шаг
+      add_title: Поставить цель
+      add_description: Описание для страницы “поставить цель”
+      to_do: Выполнить
+      type: Вставьте ссылку на видеоролик с YouTube или Vimeo
+      done: Готово
+      as_priority: Определить приоритеты
+      critical_activities: Управляйте критическими задачами
+      avoid_interruptions: Не прерывайтесь
+      focus_goal: Концентрируйтесь на цели
+      avoid_distractions: Не отвлекайтесь
+      as_private: Отметьте цель как личную
+      as_invisible: Установить статус “Невидимый”
+      as_visible: Установить статус “Видимый”
+      not_found: К сожалению, не найдено ни одной цели по заданным критериям, однако вы можете просмотреть другие цели.
+      list_title: Откройте для себя вдохновляющие идеи
+      is_completed: Цель достигнута
+      is_active: Цель активна
+      completed_text: Если вы считаете, что Цель еще не достигнута, вы можете изменить статус цели вновь на активную.
+      active_text: Если ваша Цель достигнута, просто отметьте ее
+      completion_date: Дата завершения :
+      complete_step: Делайте что-нибудь – достигайте ваших целей!
+      private_text: Вы добавили эту цель только для вашего списка
+      invisible_text: Вы можете скрыть Цель от других пользователей
+      missed_deadline: Вы не успели к сроку, пожалуйста, установите новый
+      scheduled_date: Планируемая дата
+      create_goal: Поздравляем, ваша цель была успешно добавлена
+      create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
+      empty_draft: На данный момент у вас нет черновиков.
+activities:
+      title: Действия
+      description: Описание действий
+
+Title: Заглавие
+Description: Описание
+Type in a youtube or vimeo link in the field: Вставьте ссылку на видеоролик с YouTube или Vimeo
+Done: Выполнить
 
 # home
-homepage_title: Dreams come true, <br /> dream big!
-homepage_list_title: Explore over thousand great ideas
-homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
+homepage_title: Конец жизни надо встретить с воспоминаниями, а не с мечтами!
+homepage_list_title: Откройте для себя множество вдохновляющих идей
+homepage_description: Подготовьте список целей на жизнь, и вы поймете, насколько больше вы можете, чего вы даже себе и не представляли.
 
 # buttons
-btn_delete: Delete
-btn_publish: PUBLISH
-btn_back_and_edit: GO BACK TO EDIT
-btn_discover_more: DISCOVER MORE
-btn_start_now: START NOW
-btn_cancel: Cancel
-btn_save: Save
-btn_edit: EDIT
-btn_remove: DELETE
+btn_delete: Удалить
+btn_publish: Опубликовать
+btn_back_and_edit: Редактировать
+btn_discover_more: Еще
+btn_start_now: Начните сейчас
+btn_cancel: Отменить
+btn_save: Сохранить
+btn_edit: Редактировать
+btn_remove: Удалить
 
 # user goal form
 user_goal:
-      public: Public
-      private: Private
-      privacy: Privacy
-      quality: Quality
-      important: Important
-      not_important: Not Important
-      urgent: Urgent
-      not_urgent: Not Urgent
-      active: Active
-      completed: Completed
+      public: Общедоступная
+      private: Личная
+      privacy: Конфиденциальность
+      quality: Качество
+      important: Важно
+      not_important: Не важно
+      urgent: Срочно
+      not_urgent: Не срочно
+      active: Активные
+      completed: Достигнутые
 
 # success story form
 success_story:
-      complete_text: Write a success story
-      title: Write a success story , please !
-      description: Success story ...
-      files: Files
-      url: Video URL: https://www...
+      complete_text: Разместите историю успеха
+      title: Пожалуйста, разместите историю успеха!
+      description: История успеха ...
+      files: Файлы
+      url: Адрес видеоролика: https://www...
 
-register_text:  Confirm your email address to access all of %XXX%'s features.
+register_text:  Подтвердите адрес вашей электронной почты для доступа ко всем возможностям %XXX%.
 
 filters:
    import_urgent: |
-                   urgent <br />
-                   <span>Important<span/>
+                   Срочно <br />
+                   <span>важно<span/>
 
    not_import_urgent: |
-                      urgent <br />
-                      <span>Not important<span/>
+                      Срочно <br />
+                      <span>не важно<span/>
 
    import_not_urgent: |
-                      not urgent <br />
-                      <span>Important<span/>
+                      Не срочно <br />
+                      <span>важно<span/>
 
    not_import_not_urgent: |
-                          not urgent <br />
-                          <span>Not important<span/>
+                          Не срочно <br />
+                          <span>не важно<span/>
 
 
 account:
-  complete_text: Confirm your account
-  complete: Complete
+  complete_text: Подтвердите свою учетную запись
+  complete: Завершить
 
 file:
-    width_extension: The minimum image size is 400x400 px
-    heigh_extension: The minimum image size is 400x400 px
-    extension_error: Wrong format of file
-    size_error: Wrong size of file
+    width_extension: Минимальный размер изображения составляет 400x400 пикселей
+    heigh_extension: Минимальный размер изображения составляет 400x400 пикселей
+    extension_error: Неправильный формат файла
+    size_error: Неправильный размер файла
 
 filter:
-   dream: Dreams
-   import_urgent: Important,urgent
-   not_import_urgent: Not important,urgent
-   import_not_urgent: Important, not urgent
-   not_import_not_urgent: Not important, not urgent
+   dream: Мечты
+   import_urgent: Важно, срочно
+   not_import_urgent: Не важно, срочно
+   import_not_urgent: Важно, не срочно
+   not_import_not_urgent: Не важно, не срочно
 
 menu:
-  bucket: My Bucketlist
-  active: Active
-  completed: Completed
-  map: Map
+  bucket: Мой список целей
+  active: Активные
+  completed: Достигнутые
+  map: Карта
 
 right_menu:
-  create: Create a Goal
-  draft: Drafts
-  ideas: Top Ideas
-  suggested: Suggested Ideas
-  show: All
+  create: Поставить Цель
+  draft: Черновики
+  ideas: Популярные Идеи
+  suggested: Рекомендованные Идеи
+  show: Все
 
 active:
-  not_have: You have no goals, please, start
-manage: MANAGE
+  not_have: У вас нет целей, пожалуйста, начните добавлять
+manage: Настройки
 
 home_ideas:
-  title: Ideas
-  description: Ideas description
+  title: Идеи
+  description: Описание Идей
 
 page:
-  title: Page
-  description: Page description
+  title: Страница
+  description: Описание страницы
   contacr_us:
     form:
-      full_name: Full Name
-      email: Email
-      subject: Subject
-      message: Message
-      send: Send
-    message_title: Thank you, your message has been sent.
-    message_content: We will get in touch with you as soon as possible.
+      full_name: Полное имя
+      email: Электронная почта
+      subject: Тема
+      message: Сообщение
+      send: Отправить
+    message_title: Спасибо, ваше сообщение отправлено.
+    message_content: Мы свяжемся с вами в ближайшее время.
 
 # my bucket list
 my_bucket_list:
-  title: My Bucketlist
-  description: This is myBucketlist description
-  add_goal: add some goals.
-  doing_here: What are you doing here? Come on,
-  need_goal: Your life needs goals,
-  add_some: add some more.
-  complete: It’s time to act and complete some goals.
-  filter: Please, check one or more priority subfilters
-  private: Private
-  invisible: Invisible
-  notes: Notes
-  steps: Steps
-  missed_deadline: Missed deadline
-  year_old: y.o.
+  title: Мой список целей
+  description: Это описание Моего списка целей
+  add_goal: Добавьте несколько целей.
+  doing_here: Что вы здесь делаете? Ну же,
+  need_goal: Нужны цели для вашей жизни,
+  add_some: добавьте еще несколько целей.
+  complete: Пора действовать и достичь своих целей.
+  filter: Нет целей, соответствующих данной комбинации приоритетов
+  private: Личные
+  invisible: Невидимый
+  notes: Заметки
+  steps: Шаги
+  missed_deadline: Срок достижения цели нарушен
+  year_old: -летний
 
 draft:
-  title: Draft
-  description: Draft Description
+  title: Черновик
+  description: Описание Черновика
 
-done_by: Completed by
-home_complete: COMPLETED BY
-home_listed_by: LISTED BY
-listed_by: Listed by
-block_listed: Listed
-block_completed: Completed
-Add an email : Add an email
+done_by: Достигнуто
+home_complete: Достигнуто
+home_listed_by: Добавлено
+listed_by: Добавлено
+block_listed: Добавлено
+block_completed: Достигнуто
+Add an email : Добавить адрес электронной почты
 
-forget: FORGET IT
-dream: No deadline, No goal! You are just dreaming
+forget: Удалить
+dream: Нет сроков, нет цели! Вы просто мечтаете.
 
-drag_drop: You can upload up to 6 images
-drag_drop_story: Select photos for your story
+drag_drop: Вы можете загрузить до 6-и изображений
+drag_drop_story: Выберите фотографии для вашей истории
 
 upload: |
-  An image must have minimum dimensions 640x640px with recommended dimensions of 1280x720px. <br />
-   The maximum size of an image must not exceed 4MB
+  Минимальные размеры изображения должны составлять 640x640 пикселей, а рекомендованные – 1280x720 пикселей. <br />
+   Максимальный размер изображения не должен превышать 4Мбит.
 
 delete_message: |
-  You are about to delete your goal. <br />
-  Are you sure?
+  Вы собираетесь удалить свою цель. <br />
+  Вы уверены?
 
-complete_message: Complete your profile
+complete_message: Дополните ваш профиль
 
-added: Added
-completed: Completed
-submit: Submit
-search_placeholder: Search for Goalfriends
+added: Добавлено
+completed: Достигнуто
+submit: Отправить
+search_placeholder: Искать Единомышленников
 
 deadline:
-  complete_text: Set a deadline
+  complete_text: Установите крайний срок достижения цели
 
-image_complete_text: Upload an image
-goalfriends: Goalfriends
-Add a note: Add a note
+image_complete_text: Загрузите изображение
+goalfriends: Единомышленники
+Add a note: Добавить заметку
 
 # sonata admin lable
 admin:
   label:
     name:
-      user: User
-      tag: Tag
-      category: Category
-      aphorism: Aphorism
+      user: Пользователь
+      tag: Ярлык
+      category: Категория
+      aphorism: Афоризм
       time_sentence: Time Sentence
-      page: Page
-      goal: Goal
-      id: Id
-      title: Title
-      tags: Tags
-      downloadLink: Icon
-      file: File
-      author: Author
-      content: Content
-      replaceString: Replace String
-      replaceWith: Replace With
-      name: Name
-      description: Description
-      position: Position
-      videoLink: Video Link
-      images: Images
-      publish: Publish
+      page: Страница
+      goal: Цель
+      id: Идентификатор
+      title: Заглавие
+      tags: Ярлыки
+      downloadLink: Иконка
+      file: Файл
+      author: Автор
+      content: Содержание
+      replaceString: Строка замены
+      replaceWith: Заменить
+      name: Имя
+      description: Описание
+      position: Позиция
+      videoLink: Ссылка на видеоролик
+      images: Изображения
+      publish: Опубликовать
       getListPhoto: Get List Photo
-      email: Email
-      firstName: First Name
-      lastName: Last Name
-      first_name: password
-      password: Password
-      repeat_password: Repeat Password
+      email: Электронная почта
+      firstName: Имя
+      lastName: Фамилия
+      first_name: пароль
+      password: Пароль
+      repeat_password: Повторить пароль
       employee_id: Employee ID
-      username: Username
-      created: Created
-      goal_link: Link
+      username: Имя пользователя
+      created: Поставлена
+      goal_link: Ссылка
 
 # end sonata admin lable
 
 # sonata admin breadcrumb and filter
 
-User List: User List
-Tag List: Tag List
-Category List: Category List
-Aphorism List: Aphorism List
+User List: Список пользователей
+Tag List: Список ярлыков
+Category List: Список категорий
+Aphorism List: Список афоризмов
 Time Sentence List: Time Sentence List
-Page List: Page List
-Goal List: Goal List
+Page List: Список страниц
+Goal List: Список целей
 Action: Action
-contains: contains
-does not contain: does not contain
+contains: содержит
+does not contain: не содержит
 is equal to: is equal to
 is not equal to: is not equal to
 =: =
