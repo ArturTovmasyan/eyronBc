@@ -1,12 +1,12 @@
 <ul class="row {% if inner is defined %} goal-links {% endif %} ">
-        <li class="col-sm-6">
-            <a href="{{ path('add_goal', {'id': goal.id }) }}" class="open-form-modal">
+        <li class="col-xs-6">
+            <a href="{{ path('add_goal', {'id': goal.id }) }}">
                 <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
                 <bdi>{{ 'btn_edit'|trans }}</bdi>
             </a>
         </li>
 
-        <li class="col-sm-6">
+        <li class="col-xs-6">
             <a href="javascript:void(0)" data-ls-confirm data-ls-href="{{ path('remove_draft_goal', {'goal' : goal.id}) }}">
 
                 <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
