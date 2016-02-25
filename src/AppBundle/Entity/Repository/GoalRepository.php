@@ -375,6 +375,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * This function is used to get goal group by created date
+     *
      * @param $limit
      * @return array
      */
@@ -391,16 +393,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * This function is used to get published goal group by publishedDate
+     *
      * @param $limit
      * @return array
      */
     public function findPublishedGoalGroupByDate($limit)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT DATE(g.updated) as dates,COUNT(g.updated) as counts, g.publishedBy
+            ->createQuery('SELECT DATE(g.publishedDate) as dates,COUNT(g.publishedDate) as counts, g.publishedBy
 								   FROM AppBundle:Goal g
 								   WHERE g.publish = :publish
-								   AND g.updated > :limit
+                                   AND g.publishedDate is NOT NULL
+								   AND g.publishedDate > :limit
 								   GROUP BY g.publishedBy, dates
 								   ORDER BY dates')
             ->setParameter('publish', Goal::PUBLISH)
@@ -409,16 +414,20 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * This function is used to get goal group by updated dates
+     *
+     * @param $limit
      * @return array
      */
-    public function getLastGoalCreationDate()
+    public function findGoalGroupByUpdateDate($limit)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT g.created
-						   FROM AppBundle:Goal g
-						   ORDER BY g.created DESC')
-            ->setMaxResults(1)
+            ->createQuery('SELECT DATE(g.updated ) as dates, COUNT(g.updated) as counts
+								   FROM AppBundle:Goal g
+								   WHERE g.updated > :limit
+								   GROUP BY dates
+								   ORDER BY dates')
+            ->setParameter('limit', $limit)
             ->getResult();
     }
-
 }

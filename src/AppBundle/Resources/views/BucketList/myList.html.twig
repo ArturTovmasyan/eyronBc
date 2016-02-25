@@ -4,7 +4,7 @@
 {% set user = currentUser %}
 
 {% block angularApp %}
-    <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
+<html data-ng-app="goal" data-ng-controller="goalMyBucketList">
 {% endblock %}
 
 {% block stylesheets %}
@@ -77,9 +77,9 @@
                         <figure>
                             <div>
                                 {% if profileUser.getPhotoLink %}
-                                     <img src="{{ profileUser.getPhotoLink|blImageFilter('user_image') }}" alt="Profile image" class="img-responsive img-circle"/>
+                                    <img src="{{ profileUser.getPhotoLink|blImageFilter('user_image') }}" alt="Profile image" class="img-responsive img-circle"/>
                                 {% else %}
-                                     <span class="no-image {{ className }}">{{ nameOnImage }}</span>
+                                    <span class="no-image {{ className }}">{{ nameOnImage }}</span>
                                 {% endif %}
                             </div>
 
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="col-xs-2">
                                         <a class="text-gray"
-                                           {#data-ng-class="{'icon-question-icon': !completeProfileMyBucketList, 'icon-icon-up': completeProfileMyBucketList}"#}
+                                                {#data-ng-class="{'icon-question-icon': !completeProfileMyBucketList, 'icon-icon-up': completeProfileMyBucketList}"#}
                                            data-ng-click="completeProfileMyBucketList=!completeProfileMyBucketList">
                                             <i class="icon-question-icon" data-ng-hide="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
                                             {#<i class="icon up-icon ng-hide" data-ng-show="completeProfileMyBucketList"></i>#}
@@ -252,13 +252,13 @@
 {% block content_container %}
     <div class="slide ng-hide" data-ng-cloak data-ng-hide="!showMap">
         <div data-simple-map-marker
-            data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
-            data-on-marker-click="onMarkerClick(goal)"
-            data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
-            data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
-            data-refresh="showMap"
-            class="google-map"
-            style="width: 100%; height: 300px">
+             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
+             data-on-marker-click="onMarkerClick(goal)"
+             data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
+             data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+             data-refresh="showMap"
+             class="google-map"
+             style="width: 100%; height: 300px">
         </div>
     </div>
     <div class="bucketlist">
@@ -270,7 +270,7 @@
                     {% set completed = 'completed-goals' %}
                     {% set all = null %}
                     {% set dream = app.request.get('d') %}
-
+                    {% set activeGoals = profileUser.getStats.active %}
                     {% set my_router_params =  app.request.query.all %}
                     {% set userId = {} %}
                     {% set routeName = 'user_profile_single' %}
@@ -319,14 +319,6 @@
                     </form>
                 </div>
 
-                {#<div class="col-sm-3 col-md-2 mail-print">#}
-                    {#<a href="javascript:void(0)">#}
-                        {#<i class="icon print-icon"></i>#}
-                    {#</a>#}
-                    {#<a href="javascript:void(0)">#}
-                        {#<i class="icon envelope-icon"></i>#}
-                    {#</a>#}
-                {#</div>#}
             </div>
         </div>
     </div> <br/>
@@ -337,8 +329,8 @@
                 {% if userGoals.items %}
 
                     {% for userGoal in userGoals %}
-                    {% set goal = userGoal.goal %}
-                    {% set status = userGoal.status %}
+                        {% set goal = userGoal.goal %}
+                        {% set status = userGoal.status %}
 
                         {% set lastIndex = userGoals|length - 1 %}
 
@@ -435,19 +427,12 @@
                                                             <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}" class="text-dark-gray">{{ goal.title }}</a>
                                                         </h3>
                                                     </div>
-                                                    {#<div class="col-sm-5 pull-right">#}
-                                                        {#<div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>#}
-                                                    {#</div>#}
                                                 </div>
 
                                                 <p>{{ goal.author.showName|default(null)  }}</p>
                                                 <ul class="clearfix">
                                                     <li>
-                                                        {#{% if userGoal.note is not null %}#}
-                                                            {#&#123;&#35;{% set to passiv %}&#35;&#125;#}
-                                                        {#{% endif %}#}
                                                         <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-
                                                     </li>
 
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
@@ -518,13 +503,11 @@
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
                                                                         <i class="icon ok-icon-green"></i>
-                                                                        {#<i class="icon-success"><span class="path1"></span><span class="path2"></span></i>#}
                                                                         {{ 'successtory'|trans | upper }}
                                                                     </a>
                                                                 {% else %}
                                                                     <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
-                                                                        {#<i class="icon-done-icon"><span class="path1"></span><span class="path2"></span></i>#}
 
                                                                         {{ 'done'|trans }}
                                                                     </a>
@@ -543,16 +526,23 @@
                 {% else %}
 
                     <p class="empty-text">
+
+                        {% if activeGoals == 0 %}
+                            {% set link = path('goals_list') %}
+                        {% else %}
+                            {% set link = path('user_profile_single', {'status': active }) %}
+                        {% endif %}
+
                         {% if dream %}
                             {{ 'dream'|trans }}
                         {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
                             {{ 'my_bucket_list.filter'|trans }}
                         {% elseif status == completed %}
-                            {{ 'my_bucket_list.complete'|trans }}
+                            {{ 'my_bucket_list.complete'|trans }} <a href="{{ link }}" class="text-purple">{{ 'my_bucket_list.some_goal'|trans }}</a>
                         {% elseif status == active %}
-                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
+                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
                         {% else %}
-                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('add_goal') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
                         {% endif %}
                     </p>
 
@@ -610,24 +600,24 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
+{{ parent() }}
 
-    {% javascripts output='js/app_mybucketlist.js'
-        'app/bower_components/dropzone/downloads/dropzone.min.js'
-        'bundles/app/js/storyImages.js'
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+{% javascripts output='js/app_mybucketlist.js'
+'app/bower_components/dropzone/downloads/dropzone.min.js'
+'bundles/app/js/storyImages.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
-    <script>
-        $(document).ready(function(){
+<script>
+    $(document).ready(function(){
 
-            $('input[type=checkbox]').iCheck({
-                checkboxClass: 'icheckbox_square-purple',
-                increaseArea: '20%'
-            }).on('ifChanged', function (event) {
-                $(event.target).trigger('change');
-            });
+        $('input[type=checkbox]').iCheck({
+            checkboxClass: 'icheckbox_square-purple',
+            increaseArea: '20%'
+        }).on('ifChanged', function (event) {
+            $(event.target).trigger('change');
         });
-    </script>
+    });
+</script>
 {% endblock %}
