@@ -221,7 +221,10 @@
                 </div>
             </div>
         {% else %}
-            <h2 class="empty-text text-center">{{ 'goal.not_found'|trans }}</h2>
+            <h2>
+                <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
+            </h2>
+
             {% include "AppBundle:Main:ideas.html.twig" with {'search' : 0 }  %}
 
         {% endif %}
