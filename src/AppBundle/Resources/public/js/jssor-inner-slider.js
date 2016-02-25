@@ -108,7 +108,7 @@ $(document).ready(function(){
                 var refSize = storySliders[i].$Elmt.parentNode.clientWidth;
                 var vl;
                 if(storySliders[i].isVideoSlider) {
-                    vl = Math.min(refSize - 50);
+                    vl = refSize - 50;
                 }
                 else {
                     vl = Math.min(refSize - 50, optStoryImage.$DisplayPieces * optStoryImage.$SlideWidth +
