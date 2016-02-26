@@ -141,4 +141,27 @@ trait Location
         return json_encode($location);
     }
 
+    /**
+     * This function is used to return json location for twig
+     *
+     * @return string
+     */
+    public function getLocations()
+    {
+        // check data
+        if($this->getLng() && $this->getLat() && $this->getAddress()){
+            $result = array(
+                "location" =>
+                    array(
+                        "latitude" => $this->getLng(),
+                        "longitude" => $this->getLat()
+                    ),
+                "address" => $this->getAddress() );
+
+            return json_encode($result);
+        }
+
+        return null;
+    }
+
 }

@@ -91,16 +91,15 @@
                             {#<span class="icon-location-icon"></span>#}
                             <i class="icon-location-icon"></i>
                             <i class="icon-remove-email" data-ng-click="removeLocation()"></i>
-                            <input {% if completed %} disabled {% endif %}
-                                    value="{{ data.address }}"
+                            <input  value="{{ data.goal.address ? data.goal.address : data.address }}"
                                     type="text"
-                                    data-ng-disabled="complete.switch"
+                                    data-ng-disabled="{% if completed or data.goal.address is not null %} true {% else %} false {% endif %}"
                                     data-google-places-autocomplete
                                     data-types="['(cities)']"
                                     data-hidden-storage=".location-hidden"
                                     class="form-control place-autocomplete"
                                     placeholder="{{ "goal.location_ex"|trans }}"/>
-                            <input id="{{ form.location.vars.id }}" value="{{ data.getLocations }}"
+                            <input id="{{ form.location.vars.id }}" value="{{ data.goal.getLocations ? data.goal.getLocations : data.getLocations }}"
                                    type="hidden" class="location-hidden"
                                    name="{{ form.location.vars.full_name }}"/>
                         </div>
