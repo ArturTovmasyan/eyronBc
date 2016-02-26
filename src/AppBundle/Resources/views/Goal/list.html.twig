@@ -62,7 +62,7 @@
                     <div class="row" id="row">
                         {#{% for goal in goals|slice(0, 3)  %}#}
 
-                            <div class="col-md-4" data-test="[[ goal ]]" data-ng-repeat="goal in Ideas.items">
+                            <div class="col-md-4" data-ng-cloak data-ng-repeat="goal in Ideas.items">
                                 <figure>
 
                                     <h3>[[ goal.title ]]</h3>
@@ -73,7 +73,7 @@
                                         {#{% set image = goal.getListPhoto %}#}
                                     {#{% endif %}#}
 
-                                    <a data-ng-href="/goal/[[ goal.slug ]]" id="goalTitle">
+                                    <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
                                         <span class="overlay"></span>
                                         <img data-ng-src="[[ goal.image_path ]]" alt="[[ goal.title ]]"/>
                                     </a>
@@ -81,7 +81,7 @@
                                     <div class="absolute">
                                         <ul>
                                             <li>
-                                                <a data-ng-href="/listed-users/[[ goal.slug ]]">
+                                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]">
                                                     <span>
                                                         {{ 'home_listed_by'|trans({},'messages') }}
                                                         [[ goal.stats.listedBy ]]
@@ -90,7 +90,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a data-ng-href="/done-users/[[ goal.slug ]]">
+                                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]">
                                                     <span>
                                                         {{ 'home_complete'|trans({},'messages') }}
                                                         [[ goal.stats.doneBy ]]

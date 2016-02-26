@@ -1,10 +1,10 @@
 <ul class="row no-gutter{% if inner is defined %} goal-links{% endif %}">
 
-    <li class="col-xs-4" data-test="[[ goal.is_my_goal ]]" data-ng-show="goal.is_my_goal === 0">
+    <li class="col-xs-4" data-ng-show="goal.is_my_goal === 0">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
            data-ls-identity="idea[[ goal.id ]]"
-           data-ls-template-url="/goal/add-to-me/[[ goal.id ]]">
+           data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ goal.id ]]">
            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
            <bdi>{{ 'add'|trans }}</bdi>
         </a>
@@ -16,7 +16,7 @@
 
 
     <li class="col-xs-4" data-ng-show="goal.is_my_goal !== 2">
-        <a href="/goal/done/[[ goal.id ]]">
+        <a href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ goal.id ]]">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <bdi>{{ 'done'|trans }}</bdi>
         </a>
