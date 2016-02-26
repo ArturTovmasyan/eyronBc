@@ -866,7 +866,7 @@ class GoalController extends Controller
      * @Secure(roles="ROLE_USER")
      *
      */
-    public  function removeGoal(Goal $goal, User $user)
+    public  function removeGoal(Request $request, Goal $goal, User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -884,7 +884,7 @@ class GoalController extends Controller
             $em->remove($goal);
             $url = 'user_profile';
         } else {
-            $url = 'activity';
+            $url = 'homepage';
         }
 
         $em->flush();

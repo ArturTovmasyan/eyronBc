@@ -26,8 +26,10 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
+        //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //check if user not exist
         if (!$this->getUser()){
             $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
             $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
@@ -35,15 +37,31 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
-        // get current user
-        $currentUser = $this->getUser();
+        // get current user id
+        $currentUserId = $this->getUser()->getId();
 
-        // check user is have a goal
-        if (count($currentUser->getUserGoal()) == 0) {
+        //get new feed is log service
+        $this->get('bl_news_feed_service')->updateNewsFeed();
+
+        //If user is logged in then show news feed
+        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($currentUserId);
+
+        // check user is not have a new feed
+        if ($feedCount == 0) {
             $url = 'goals_list';
         } else {
             $url = 'activity';
         }
+
+        //get session
+        $session = $request->getSession();
+
+        if($session->has('newFeed')) {
+            $session->remove('newFeed');
+        }
+
+        //set url in session
+        $session->set('newFeed', $feedCount);
 
         return $this->redirectToRoute($url);
     }
