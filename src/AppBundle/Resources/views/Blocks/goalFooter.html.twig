@@ -26,13 +26,12 @@
         <bdi>{{ 'completed'|trans | upper}}</bdi>
     </li>
 
-    {#{% if inner is not defined %}#}
-
-        {#<li class="col-xs-4">#}
-            {#<div class="addthis_native_toolbox"#}
-                 {#data-url="{{ app.request.getSchemeAndHttpHost }}{{ path('inner_goal', {'slug': goal.slug}) }}"#}
-                 {#data-title="{{ goal.title }}"#}
-                 {#data-description="{%- if goal.description -%}{{- sliceString(goal.description) -}}{% else %}{{ 'goal.view_description'|trans }}{%- endif -%}"></div>#}
-        {#</li>#}
-    {#{% endif %}#}
+    {% if inner is not defined %}
+        <li class="col-xs-4">
+            <div class="addthis_native_toolbox"
+                 data-url="{{ app.request.getSchemeAndHttpHost }}{{ app.debug ? '/app_dev.php' : '' }}/goal/[[ goal.slug ]]"
+                 data-title="[[ goal.title ]]"
+                 data-description="[[ goal.description ? goal.description: '{{ 'goal.view_description'|trans }}' ]]"></div>
+        </li>
+    {% endif %}
 </ul>

@@ -64,14 +64,7 @@
 
                             <div class="col-md-4" data-ng-cloak data-ng-repeat="goal in Ideas.items">
                                 <figure>
-
                                     <h3>[[ goal.title ]]</h3>
-
-                                    {#{% set imageDownloadLink = goal.listPhotoDownloadLink %}#}
-
-                                    {#{% if image %}#}
-                                        {#{% set image = goal.getListPhoto %}#}
-                                    {#{% endif %}#}
 
                                     <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
                                         <span class="overlay"></span>
