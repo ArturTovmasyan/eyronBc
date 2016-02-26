@@ -57,7 +57,7 @@
                             <!-- Slides Container -->
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">
                                 {% for key, image in images %}
-                                    <div>
+                                    <div class="overlay-white">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
                                             <img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
                                         </a>
