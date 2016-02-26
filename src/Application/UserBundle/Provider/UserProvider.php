@@ -123,13 +123,15 @@ class UserProvider extends   BaseProvider
             $user->setLastName($response['family_name']);
 
             // set gender
-            if ($response['gender']) {
+            if (isset($response['gender'])) {
                 $user->setGender($response['gender'] == "male" ? User::MALE : User::FEMALE);
             }
 
             // set photo link
             $photoPath = $response['picture'];
-            $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+            if (strpos($photoPath, "?")){
+                $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+            }
             $user->setSocialPhotoLink($photoPath);
 
             // set password
