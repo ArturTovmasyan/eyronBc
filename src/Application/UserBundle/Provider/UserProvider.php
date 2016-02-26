@@ -111,10 +111,10 @@ class UserProvider extends   BaseProvider
             $user->setGoogleId($response['id']);
 
             // set email
-            $user->setEmail($response['email']);
+            $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set email
-            $user->setUsername($response['email']);
+            $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set first name
             $user->setFirstName($response['given_name']);
@@ -167,10 +167,10 @@ class UserProvider extends   BaseProvider
             $user->setFacebookId($response['id']);
 
             // set email
-            $user->setEmail($response['email']);
+            $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set email
-            $user->setUsername($response['email']);
+            $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set first name
             $user->setFirstName($response['first_name']);
