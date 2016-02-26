@@ -13,7 +13,8 @@
         <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
         <meta property="og:description" content="{%- block og_description -%}BucketList {%- endblock -%}" />
         <meta property="og:site_name" content="BucketList" />
-        <meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />
+        {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
+        <meta property="og:image" content="{%- block ogImage -%}http://www.bucketlist127.com/bundles/app/images/bucketlist.png{%- endblock -%}" />
         <meta property="og:type" content="article">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -234,12 +235,12 @@
 
                     <ul class="apps clearfix">
                         <li>
-                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store">
+                            <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
                                 <img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
                             </a>
                         </li>
                         <li>
-                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play">
+                            <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
                                 <img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
                             </a>
                         </li>

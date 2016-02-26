@@ -101,6 +101,18 @@ class UserProvider extends   BaseProvider
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('googleId'=>$response['id']));
 
+        if (!$user && isset($response['email'])){
+            $user = $this->userManager->findUserBy(array('email' => $response['email']));
+
+            if ($user && !$user->getFileName() && isset($response['picture'])){
+                $photoPath = $response['picture'];
+                if (strpos($photoPath, "?")){
+                    $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+                }
+                $user->setSocialPhotoLink($photoPath);
+            }
+        }
+
         // if user not found in bd, create
         if(!$user) {
 
@@ -111,10 +123,10 @@ class UserProvider extends   BaseProvider
             $user->setGoogleId($response['id']);
 
             // set email
-            $user->setEmail($response['email']);
+            $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set email
-            $user->setUsername($response['email']);
+            $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set first name
             $user->setFirstName($response['given_name']);
@@ -123,13 +135,15 @@ class UserProvider extends   BaseProvider
             $user->setLastName($response['family_name']);
 
             // set gender
-            if ($response['gender']) {
+            if (isset($response['gender'])) {
                 $user->setGender($response['gender'] == "male" ? User::MALE : User::FEMALE);
             }
 
             // set photo link
             $photoPath = $response['picture'];
-            $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+            if (strpos($photoPath, "?")){
+                $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+            }
             $user->setSocialPhotoLink($photoPath);
 
             // set password
@@ -153,7 +167,15 @@ class UserProvider extends   BaseProvider
     private function createFacebookUserUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('facebookId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('facebookId' => $response['id']));
+
+        if (!$user && isset($response['email'])){
+            $user = $this->userManager->findUserBy(array('email' => $response['email']));
+
+            if ($user && !$user->getFileName()){
+                $user->setSocialPhotoLink("https://graph.facebook.com/" . $response['id'] . "/picture?type=large");
+            }
+        }
 
         // if user not found in bd, create
         if(!$user) {
@@ -165,10 +187,10 @@ class UserProvider extends   BaseProvider
             $user->setFacebookId($response['id']);
 
             // set email
-            $user->setEmail($response['email']);
+            $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set email
-            $user->setUsername($response['email']);
+            $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
 
             // set first name
             $user->setFirstName($response['first_name']);

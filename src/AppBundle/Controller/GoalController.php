@@ -565,7 +565,13 @@ class GoalController extends Controller
             if (!$userGoal) {
                 $userGoal = new UserGoal();
                 $userGoal->setGoal($goal);
+                $userGoal->setStatus(UserGoal::ACTIVE);
+                $userGoal->setListedDate(new \DateTime());
+                $userGoal->setUser($user);
                 $newAdded = true;
+
+                $em->persist($userGoal);
+                $em->flush();
             }
         }
 
@@ -627,10 +633,10 @@ class GoalController extends Controller
                 }
 
                 // set date
-                $userGoal->setListedDate(new \DateTime());
+//                $userGoal->setListedDate(new \DateTime());
 
                 // set user
-                $userGoal->setUser($user);
+//                $userGoal->setUser($user);
 
                 // set step
                 $userGoal->setSteps($steps);
