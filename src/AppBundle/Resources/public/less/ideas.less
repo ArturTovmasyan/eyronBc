@@ -41,6 +41,7 @@
       ul{
         li{
           a{
+            padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
@@ -62,12 +63,27 @@
           //  font-size:21px;
           //}
 
+          i{
+            font-size:25px;
+          }
+
+          i.icon-green-ok,.icon-green-plus{
+            font-size: 36px;
+            margin-right:-8px;
+            vertical-align: middle;
+          }
+
           &:hover{
             a{
               bdi{
                 color:#ffffff;
+
               }
             }
+          }
+          bdi{
+            font-size:11px;
+            vertical-align: middle;
           }
         }
         .transparent{
@@ -117,6 +133,25 @@
   figure{
     margin-bottom:10px;
     overflow: hidden;
+    &>a{
+      height:230px;
+    }
+
+    figcaption{
+      ul{
+        li{
+          a{
+            padding:5px 0;
+          }
+
+          &:hover{
+            bdi{
+             color:#ffffff;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -422,7 +457,7 @@
       position: relative;
       margin: 10px auto 30px;
       width: 710px;
-      height: 350px;
+      height: 230px;
 
       &>div{
         cursor: move;
@@ -431,6 +466,13 @@
         left: 0;
         top: 0;
         width: 710px;
+        height: 230px;
+      }
+    }
+    .video-slider {
+      height: 350px;
+
+      &>div{
         height: 350px;
       }
     }
@@ -467,6 +509,21 @@
   .drafts{
     figure{
       margin-bottom:15px;
+
+      figcaption{
+        ul{
+          li{
+            a{
+              padding:10px 0;
+            }
+
+            bdi{
+              font-size:13px;
+            }
+          }
+        }
+      }
+
     }
   }
 
@@ -489,15 +546,28 @@
         margin-top:15px;
       }
 
-      //figcaption{
-      //  ul{
-      //    li{
-      //      a,bdi{
-      //        font-size:14px;
-      //      }
-      //    }
-      //  }
-      //}
+
+      figcaption{
+        ul{
+          li{
+            a{
+              padding:10px 0;
+            }
+
+            i.icon-green-ok,.icon-green-plus{
+              font-size: 49px;
+            }
+
+            i{
+              font-size:30px;
+            }
+
+            bdi{
+              font-size:13px;
+            }
+          }
+        }
+      }
 
       .absolute{
         ul{
@@ -611,7 +681,7 @@
         position: relative;
         margin: 10px auto 30px;
         width: 710px;
-        height: 350px;
+        height: 230px;
 
         &>div{
           cursor: move;
@@ -620,6 +690,13 @@
           left: 0;
           top: 0;
           width: 710px;
+          height: 230px;
+        }
+      }
+      .video-slider {
+        height: 350px;
+
+        &>div{
           height: 350px;
         }
       }
@@ -777,7 +854,7 @@
         position: relative;
         margin: 10px auto 30px;
         width: 710px;
-        height: 350px;
+        height: 230px;
 
         &>div{
           cursor: move;
@@ -786,6 +863,13 @@
           left: 0;
           top: 0;
           width: 710px;
+          height: 230px;
+        }
+      }
+      .video-slider {
+        height: 350px;
+
+        &>div{
           height: 350px;
         }
       }
