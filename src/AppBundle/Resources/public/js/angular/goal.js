@@ -27,7 +27,7 @@ angular.module('goal', ['Interpolation',
             $http.get(url).success(function(data) {
                 this.items = this.items.concat(data);
                 this.start += this.count;
-                this.busy = false;
+                this.busy = data.length ? false : true;
             }.bind(this));
         };
 
