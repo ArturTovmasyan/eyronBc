@@ -101,6 +101,18 @@ class UserProvider extends   BaseProvider
         // check is user in our bd
         $user = $this->userManager->findUserBy(array('googleId'=>$response['id']));
 
+        if (!$user && isset($response['email'])){
+            $user = $this->userManager->findUserBy(array('email' => $response['email']));
+
+            if ($user && !$user->getFileName() && isset($response['picture'])){
+                $photoPath = $response['picture'];
+                if (strpos($photoPath, "?")){
+                    $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
+                }
+                $user->setSocialPhotoLink($photoPath);
+            }
+        }
+
         // if user not found in bd, create
         if(!$user) {
 
@@ -155,7 +167,15 @@ class UserProvider extends   BaseProvider
     private function createFacebookUserUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('facebookId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('facebookId' => $response['id']));
+
+        if (!$user && isset($response['email'])){
+            $user = $this->userManager->findUserBy(array('email' => $response['email']));
+
+            if ($user && !$user->getFileName()){
+                $user->setSocialPhotoLink("https://graph.facebook.com/" . $response['id'] . "/picture?type=large");
+            }
+        }
 
         // if user not found in bd, create
         if(!$user) {
