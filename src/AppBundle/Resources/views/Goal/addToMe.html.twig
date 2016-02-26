@@ -101,7 +101,7 @@
                                     data-hidden-storage=".location-hidden"
                                     class="form-control place-autocomplete"
                                     placeholder="{{ "goal.location_ex"|trans }}"/>
-                            <input id="{{ form.location.vars.id }}" value="{{ data.goal.getLocations ? data.goal.getLocations : data.getLocations }}"
+                            <input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"
                                    type="hidden" class="location-hidden"
                                    name="{{ form.location.vars.full_name }}"/>
                         </div>

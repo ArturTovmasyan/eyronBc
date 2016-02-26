@@ -44,7 +44,7 @@ class UserGoal
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"userGoal"})
+     * @Groups({"userGoal", "tiny_user"})
      */
     protected $id;
 
@@ -460,21 +460,23 @@ class UserGoal
 
     /**
      * @VirtualProperty()
-     * @Groups({"userGoal"})
+     * @SerializedName("location")
+     * @Groups({"userGoal_location"})
      */
-    public function getLocation()
+    public function getUserGoalLocation()
     {
-        if($this->getLng() && $this->getLat() && $this->getAddress()){
-            $result = array(
-                "latitude" => $this->getLng(),
-                "longitude" => $this->getLat(),
-                "address" => $this->getAddress()
-            );
-
-            return $result;
+        $location = $this->getGoal()->getLocation();
+        if(!$location){
+            $location = $this->getLocation();
+            if ($location){
+                $location['editable'] = true;
+            }
+        }
+        else {
+            $location['editable'] = false;
         }
 
-        return null;
+        return $location;
     }
 
     /**

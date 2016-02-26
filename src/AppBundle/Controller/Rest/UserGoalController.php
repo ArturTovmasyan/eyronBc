@@ -37,7 +37,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $goal Goal
@@ -175,9 +175,7 @@ class UserGoalController extends FOSRestController
      *  section="UserGoal",
      *  description="This function is used to get my bucketlist",
      *  statusCodes={
-     *         200="Returned when userGoal was removed",
-     *         401="User not found",
-     *         404="UserGoal not found"
+     *         200="Returned when all ok"
      *     },
      *
      *  parameters={
@@ -255,11 +253,9 @@ class UserGoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="UserGoal",
-     *  description="This function is used to get my bucketlist",
+     *  description="This function is used to get bucketlist goals locations",
      *  statusCodes={
-     *         200="Returned when userGoal was removed",
-     *         401="User not found",
-     *         404="UserGoal not found"
+     *         200="Returned when all ok"
      *     },
      *
      *  parameters={
@@ -274,7 +270,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Rest\View(serializerGroups={"userGoal_location", "tiny_user", "userGoal_goal", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
      * @return Response
@@ -295,7 +291,6 @@ class UserGoalController extends FOSRestController
 
         //check isDream
         $dream = $request->get('isDream') == true ? true : false;
-        $first = $request->get('first');
         $count = $request->get('count');
 
         $requestFilter = [];
@@ -308,8 +303,8 @@ class UserGoalController extends FOSRestController
         $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
 
         // slice data
-        if (is_numeric($first) && is_numeric($count)) {
-            $userGoals = array_slice($userGoals, $first, $count);
+        if (is_numeric($count)) {
+            $userGoals = array_slice($userGoals, 0, $count);
         }
 
         //This part is used to calculate goal stats
