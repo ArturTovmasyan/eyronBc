@@ -54,7 +54,10 @@
         {% if goals.getTotalItemCount > 0 %}
             <h2 class="text-center text-dark">{{ 'homepage_list_title'|trans }}</h2>
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0"
+                     infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")'
+                     infinite-scroll-disabled='Ideas.busy'
+                     infinite-scroll-distance='1'>
 
                     <div class="row" id="row">
                         {% for goal in goals|slice(0, 3)  %}

@@ -6,10 +6,33 @@ angular.module('goal', ['Interpolation',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
+        'infinite-scroll',
         'Confirm',
         'youtube-embed',
         'Components'
     ])
+    .factory('lsInfiniteItems', ['$http', function($http) {
+        var lsInfiniteItems = function() {
+            this.items = [];
+            this.busy = false;
+            this.start = 0;
+            this.count = 5;
+        };
+
+        lsInfiniteItems.prototype.nextPage = function(url) {
+            if (this.busy) return;
+            this.busy = true;
+
+            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            $http.get(url).success(function(data) {
+                this.items.push(data);
+                this.start += this.count;
+                this.busy = false;
+            }.bind(this));
+        };
+
+        return lsInfiniteItems;
+    }])
     .controller('goalAdd',['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
 
         $scope.files = [];
@@ -270,7 +293,9 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox' ).swipebox();
     }])
-    .controller('goalList',['$scope', function($scope){
+    .controller('goalList',['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+
+        $scope.Ideas = new lsInfiniteItems();
 
         $scope.adventureText = function(slug, cJson){
             var item = null;
