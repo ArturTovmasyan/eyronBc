@@ -61,48 +61,47 @@
 
                 <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
                     <div class="row" id="row">
-                        {#{% for goal in goals|slice(0, 3)  %}#}
+                        <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8   ]]"
+                             data-ng-cloak
+                             data-index="[[ $index+1 ]]"
+                             data-ng-repeat="goal in Ideas.items">
+                            <figure>
+                                <h3>[[ goal.title ]]</h3>
 
-                            <div class="col-md-4" data-ng-cloak data-ng-repeat="goal in Ideas.items">
-                                <figure>
-                                    <h3>[[ goal.title ]]</h3>
+                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
+                                    <span class="overlay"></span>
+                                    <img data-ng-src="[[ goal.image_path ]]" alt="[[ goal.title ]]"/>
+                                </a>
 
-                                    <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
-                                        <span class="overlay"></span>
-                                        <img data-ng-src="[[ goal.image_path ]]" alt="[[ goal.title ]]"/>
-                                    </a>
+                                <div class="absolute">
+                                    <ul>
+                                        <li>
+                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]">
+                                                <span>
+                                                    {{ 'home_listed_by'|trans({},'messages') }}
+                                                    [[ goal.stats.listedBy ]]
+                                                </span>
+                                                <i class="icon-user-small"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]">
+                                                <span>
+                                                    {{ 'home_complete'|trans({},'messages') }}
+                                                    [[ goal.stats.doneBy ]]
+                                                </span>
+                                                <i class="icon-user-small"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                    <div class="absolute">
-                                        <ul>
-                                            <li>
-                                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]">
-                                                    <span>
-                                                        {{ 'home_listed_by'|trans({},'messages') }}
-                                                        [[ goal.stats.listedBy ]]
-                                                    </span>
-                                                    <i class="icon-user-small"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]">
-                                                    <span>
-                                                        {{ 'home_complete'|trans({},'messages') }}
-                                                        [[ goal.stats.doneBy ]]
-                                                    </span>
-                                                    <i class="icon-user-small"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <figcaption>
-                                        {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        {#{% endfor %}#}
+                                <figcaption>
+                                    {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                                </figcaption>
+                            </figure>
+                        </div>
                     </div>
-
                 </div>
             </div>
         {% else %}
