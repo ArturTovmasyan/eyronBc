@@ -21,12 +21,14 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Settings", "MobileSettings", "Register", "update_email"})
+ * @UniqueEntity(fields={"username"}, errorPath="email", message="fos_user.email.already_used" , groups={"Register", "update_email"})
+ * @UniqueEntity(fields={"email"}, errorPath="primary_error", message="fos_user.email.primary_error" , groups={"Settings", "MobileSettings"})
  * @Assert\Callback(methods={"validate"}, groups={"Settings", "MobileSettings"})
  * @ORM\EntityListeners({"AppBundle\Listener\SettingsListener"})
  * @ORM\HasLifecycleCallbacks()
@@ -207,9 +209,18 @@ class User extends BaseUser
     /**
      * @var date $created
      *
-     * @ORM\Column(name="created", type="datetime", nullable=true)
+     * @ORM\Column(name="created", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
 
     /**
      * @var
@@ -1019,7 +1030,7 @@ class User extends BaseUser
             }
 
             // check if new email equal currentEmail
-            if ($addEmail == $currentEmail) {
+            if ($addEmail == $currentEmail || ($userEmails && array_key_exists($addEmail, $userEmails))) {
 
                 $context->buildViolation('This email already exists')
                     ->atPath('addEmail')
@@ -1079,5 +1090,28 @@ class User extends BaseUser
         $userEmail = end($userEmails);
 
         return $userEmail;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

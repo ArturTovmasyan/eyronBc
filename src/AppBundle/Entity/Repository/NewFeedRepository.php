@@ -62,6 +62,34 @@ class NewFeedRepository extends EntityRepository
     }
 
     /**
+     * This function is used to get new feed by user id
+     *
+     * @param $userId
+     * @return array
+     */
+    public function findNewFeedCounts($userId)
+    {
+        $goalFriendsIds = $this->getEntityManager()
+            ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
+        if (!count($goalFriendsIds)){
+            $goalFriendsIds[] = 0;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT count(nf) as counts
+                           FROM AppBundle:NewFeed nf
+                           JOIN nf.user u
+                           JOIN nf.goal g WITH g.readinessStatus = true
+                           LEFT JOIN AppBundle:UserGoal ug WITH ug.user = u AND ug.goal = g
+                           LEFT JOIN nf.successStory ss
+                           LEFT JOIN nf.comment cmt
+                           WHERE u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)
+                           ORDER BY nf.datetime DESC")
+            ->setParameter('ids', $goalFriendsIds)
+            ->getSingleScalarResult();
+    }
+
+    /**
      * @param $userId
      * @return array
      */
@@ -88,6 +116,5 @@ class NewFeedRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
-
 
 }

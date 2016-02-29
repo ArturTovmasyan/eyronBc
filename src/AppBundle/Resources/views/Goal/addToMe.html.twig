@@ -90,15 +90,18 @@
                             {#<span class="icon-remove-email"></span>#}
                             {#<span class="icon-location-icon"></span>#}
                             <i class="icon-location-icon"></i>
-                            <i class="icon-remove-email" data-ng-click="removeLocation()"></i>
+                            {% if not completed and data.goal.address is null %}
+                                <i class="icon-remove-email" data-ng-click="removeLocation()"></i>
+                            {% endif %}
+
                             <input  value="{{ data.goal.address ? data.goal.address : data.address }}"
                                     type="text"
-                                    data-ng-disabled="{% if completed or data.goal.address is not null %} true {% else %} false {% endif %}"
+                                    data-ng-disabled="complete.switch || {% if data.goal.address is not null %} true {% else %} false {% endif %}"
                                     data-google-places-autocomplete
                                     data-hidden-storage=".location-hidden"
                                     class="form-control place-autocomplete"
                                     placeholder="{{ "goal.location_ex"|trans }}"/>
-                            <input id="{{ form.location.vars.id }}" value="{{ data.goal.getLocations ? data.goal.getLocations : data.getLocations }}"
+                            <input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"
                                    type="hidden" class="location-hidden"
                                    name="{{ form.location.vars.full_name }}"/>
                         </div>

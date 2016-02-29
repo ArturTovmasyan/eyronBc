@@ -565,7 +565,13 @@ class GoalController extends Controller
             if (!$userGoal) {
                 $userGoal = new UserGoal();
                 $userGoal->setGoal($goal);
+                $userGoal->setStatus(UserGoal::ACTIVE);
+                $userGoal->setListedDate(new \DateTime());
+                $userGoal->setUser($user);
                 $newAdded = true;
+
+                $em->persist($userGoal);
+                $em->flush();
             }
         }
 
@@ -627,10 +633,10 @@ class GoalController extends Controller
                 }
 
                 // set date
-                $userGoal->setListedDate(new \DateTime());
+//                $userGoal->setListedDate(new \DateTime());
 
                 // set user
-                $userGoal->setUser($user);
+//                $userGoal->setUser($user);
 
                 // set step
                 $userGoal->setSteps($steps);
@@ -866,7 +872,7 @@ class GoalController extends Controller
      * @Secure(roles="ROLE_USER")
      *
      */
-    public  function removeGoal(Goal $goal, User $user)
+    public  function removeGoal(Request $request, Goal $goal, User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -884,7 +890,7 @@ class GoalController extends Controller
             $em->remove($goal);
             $url = 'user_profile';
         } else {
-            $url = 'activity';
+            $url = 'homepage';
         }
 
         $em->flush();

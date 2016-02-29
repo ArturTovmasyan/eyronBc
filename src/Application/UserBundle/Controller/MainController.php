@@ -43,8 +43,8 @@ class MainController extends Controller
         //get last url for redirect
         $lastUrl = $referer ? $referer : $this->generateUrl('homepage');
 
-        //get fos user manager
-        $fosManager = $this->container->get('fos_user.user_manager');
+        //get current email
+        $currentEmail = $user->getEmail();
 
         // create goal form
         $form = $this->createForm(new SettingsType(), $user);
@@ -52,15 +52,26 @@ class MainController extends Controller
         // check request method
         if ($request->isMethod('POST')) {
 
+            //get form data in request
             $formData = $request->request->get('bl_user_settings');
-            if ($user->getEmail() == $user->getSocialFakeEmail() && $formData['addEmail']){
-                $user->setEmail($formData['addEmail']);
-                $formData['addEmail'] = "";
-                $request->request->set('bl_user_settings', $formData);
-            }
 
             // get data from request
             $form->handleRequest($request);
+
+            //get primary email
+            $primaryEmail = $request->request->get('primary');
+
+            //check if primary email equal current email
+            if ($primaryEmail != null && $primaryEmail == $currentEmail) {
+
+                //set primary email
+                $primaryEmail = null;
+            }
+            else {
+
+                //set for check user duplicate error
+                $user->setEmail($primaryEmail);
+            }
 
             //get validator
             $validator = $this->get('validator');
@@ -79,27 +90,29 @@ class MainController extends Controller
                     $returnResult[$error->getPropertyPath()] = $error->getMessage();
                 }
             }
+            else{
+
+                //set current email
+                $user->setEmail($currentEmail);
+
+                if ($currentEmail == $user->getSocialFakeEmail() && $formData['addEmail']){
+                    $user->setEmail($formData['addEmail']);
+                    $formData['addEmail'] = "";
+                    $request->request->set('bl_user_settings', $formData);
+                }
+            }
 
             //check if form is valid
             if ($form->isValid() && count($returnResult) == 0) {
 
-                //get primary email
-                $primaryEmail = $request->request->get('primary');
+                //set primary value in entity
+                $user->primary = $primaryEmail;
 
-                //check if primary email equal current email
-                if ($primaryEmail == $user->getEmail()) {
+                //set updated for preUpdate event
+                $user->setUpdated(new \DateTime());
 
-                    //set primary email
-                    $primaryEmail = null;
-                }
-                else {
-
-                    //set primary value in entity
-                    $user->primary = $primaryEmail;
-                }
-
-                //set created for preUpdate event
-                $user->setCreated(new \DateTime());
+                //get fos user manager
+                $fosManager = $this->container->get('fos_user.user_manager');
 
                 //get uploadFile service
                 $this->get('bl_service')->uploadFile($user);

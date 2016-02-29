@@ -5,6 +5,7 @@ fos_user:
         short: "[-Inf,Inf]The username is too short"
         long: "[-Inf,Inf]The username is too long"
     email:
+        primary_error: Account with this email already exists, please, set another primary email.
         already_used: Account with this email already exists, please, sign in.
         blank: Please enter an email
         short: "[-Inf,Inf]The email is too short"

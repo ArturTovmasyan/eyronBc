@@ -854,18 +854,12 @@ class Goal implements MultipleFileInterface, PublishAware
      * @return array
      *
      * @VirtualProperty()
+     * @SerializedName("location")
      * @Groups({"goal"})
      */
-    public function getLocation()
+    public function getGoalLocation()
     {
-        if ($this->getLat() || $this->getLng()){
-            return [
-                'lat' => $this->getLat(),
-                'lng' => $this->getLng()
-            ];
-        }
-
-        return null;
+        return $this->getLocation();
     }
 
     /**

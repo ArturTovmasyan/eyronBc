@@ -146,7 +146,7 @@ trait Location
      *
      * @return string
      */
-    public function getLocations()
+    public function getJsonLocations()
     {
         // check data
         if($this->getLng() && $this->getLat() && $this->getAddress()){
@@ -159,6 +159,24 @@ trait Location
                 "address" => $this->getAddress() );
 
             return json_encode($result);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getLocation()
+    {
+        if($this->getLng() && $this->getLat() && $this->getAddress()){
+            $result = array(
+                "latitude" => $this->getLng(),
+                "longitude" => $this->getLat(),
+                "address" => $this->getAddress()
+            );
+
+            return $result;
         }
 
         return null;

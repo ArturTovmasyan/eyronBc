@@ -37,7 +37,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $goal Goal
@@ -175,9 +175,7 @@ class UserGoalController extends FOSRestController
      *  section="UserGoal",
      *  description="This function is used to get my bucketlist",
      *  statusCodes={
-     *         200="Returned when userGoal was removed",
-     *         401="User not found",
-     *         404="UserGoal not found"
+     *         200="Returned when all ok"
      *     },
      *
      *  parameters={
@@ -244,6 +242,84 @@ class UserGoalController extends FOSRestController
                     'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
                     'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
                 ]);
+        }
+
+
+        // return user goals
+        return $userGoals;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to get bucketlist goals locations",
+     *  statusCodes={
+     *         200="Returned when all ok"
+     *     },
+     *
+     *  parameters={
+     *      {"name"="condition", "dataType"="integer", "required"=false, "description"="ACTIVE:1 or COMPLETED:2"},
+     *      {"name"="count", "dataType"="integer", "required"=false, "description"="count of userGoals results"},
+     *      {"name"="isDream", "dataType"="boolean", "required"=true, "description"="Status boolean"},
+     *      {"name"="urgentImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="urgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="notUrgentImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="notUrgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     * }
+     *
+     * )
+     *
+     * @Rest\View(serializerGroups={"userGoal_location", "tiny_user", "userGoal_goal", "tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @return Response
+     */
+    public function postLocationsAction(Request $request)
+    {
+        // check conditions
+        switch($request->get('condition')){
+            case UserGoal::ACTIVE:
+                $condition = UserGoal::ACTIVE;
+                break;
+            case UserGoal::COMPLETED:
+                $condition = UserGoal::COMPLETED;
+                break;
+            default:
+                $condition = null;
+        }
+
+        //check isDream
+        $dream = $request->get('isDream') == true ? true : false;
+        $count = $request->get('count');
+
+        $requestFilter = [];
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $request->get('urgentImportant')       ? true : false;
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $request->get('urgentNotImportant')    ? true : false;
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $request->get('notUrgentImportant')    ? true : false;
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
+
+        $em = $this->getDoctrine()->getManager();
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
+
+        // slice data
+        if (is_numeric($count)) {
+            $userGoals = array_slice($userGoals, 0, $count);
+        }
+
+        //This part is used to calculate goal stats
+        $goalIds = [];
+        foreach($userGoals as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($userGoals as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
         }
 
 
