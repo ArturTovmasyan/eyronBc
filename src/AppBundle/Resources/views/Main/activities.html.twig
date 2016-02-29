@@ -21,17 +21,15 @@
                         </h3>
                     {% endif %}
 
-                    {#{% for convertedNew in pagination %}#}
+                    <div data-ng-cloak
+                         data-ng-repeat="activity in Activities.items">
 
-                        {#{% if convertedNew.comment is not null or convertedNew.successStory is not null %}#}
-                            {#{{ _self.goal(convertedNew.goal) }}#}
-                        {#{% endif %}#}
+                        <div data-ng-show="activity.comment || activity.success_story">
+                            {{ _self.goal() }}
+                        </div>
 
                         <div class="line"></div>
-                        <div class="bg-white padding"
-                             data-ng-cloak
-                            data-ng-repeat="activity in Activities.items">
-
+                        <div class="bg-white padding">
                             <div class="clearfix">
                                 <figure class="image">
                                     <img data-ng-src="[[ activity.user.image_path ]]"
@@ -49,27 +47,23 @@
                                 </div>
                             </div>
 
-                            {#{% if convertedNew.comment is not null %}#}
-                                <div class="comment-place" data-ng-show="activity.comment">
-                                    <span class="arrow-up"></span>
-                                    [[ activity.comment.comment_body ]]
-                                </div>
-                            {#{% endif %}#}
+                            <div class="comment-place ng-hide" data-ng-show="activity.comment">
+                                <span class="arrow-up"></span>
+                                [[ activity.comment.comment_body ]]
+                            </div>
 
-                            {#{% if convertedNew.successStory is not null %}#}
-                                {#<div class="comment-place">#}
-                                    {#<span class="arrow-up"></span>#}
-                                    {#{{ convertedNew.successStory.story }}#}
-                                {#</div>#}
-                            {#{% endif %}#}
+                            <div class="comment-place ng-hide" data-ng-show="activity.success_story">
+                                <span class="arrow-up"></span>
+                                [[ activity.success_story.story ]]
+                            </div>
 
-                            {#{% if convertedNew.comment is null and convertedNew.successStory is null %}#}
-                                {#{{ _self.goal(convertedNew.goal) }}#}
-                            {#{% endif %}#}
+                            <div data-ng-show="!activity.comment && !activity.success_story">
+                                {{ _self.goal() }}
+                            </div>
 
                         </div>
                         <br/>
-                    {#{% endfor %}#}
+                    </div>
 
                     <div class="navigation">
                         {{ knp_pagination_render(pagination) }}
@@ -114,11 +108,11 @@
     <div class="row">
         <div class="col-sm-12">
             <figure>
-                {% set goalStatus = goal.status %}
+                {#{% set goalStatus = goal.status %}#}
 
-                {% if goalStatus == false %}
-                    <i class="icon-lock-white"></i>
-                {% endif %}
+                {#{% if goalStatus == false %}#}
+                    {#<i class="icon-lock-white"></i>#}
+                {#{% endif %}#}
 
                 <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
                     <span class="overlay"></span>
@@ -126,7 +120,7 @@
                     <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_list_horizontal') : null }}" alt= "{{ goal.title }}" />
                 </a>
                 <figcaption>
-                    {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
+                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
                 </figcaption>
             </figure>
         </div>
