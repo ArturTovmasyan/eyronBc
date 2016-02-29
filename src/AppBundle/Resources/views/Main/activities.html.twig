@@ -121,7 +121,7 @@
                     <img data-ng-src="[[ activity.goal.image_path ]]" alt="[[ activity.goal.title ]]"/>
                 </a>
                 <figcaption>
-                    {#{% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}#}
+                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
                 </figcaption>
             </figure>
         </div>

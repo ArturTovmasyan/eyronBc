@@ -18,7 +18,7 @@
 
 
     <li class="col-xs-4 ng-hide" data-ng-show="goal.is_my_goal !== 2">
-        <a href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ goal.id ]]">
+        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ goal.id ]]">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <bdi>{{ 'done'|trans }}</bdi>
         </a>
