@@ -66,7 +66,12 @@
                     </div>
 
                     <div class="navigation">
-                        {{ knp_pagination_render(pagination) }}
+                        <a href="javascript:void(0)"
+                           data-ng-show="!Activities.busy && Activities.request >= 2"
+                           data-ng-click='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
+                           class="show-more ng-hide">
+                            Show More
+                        </a>
                     </div>
                 </div>
 
@@ -108,19 +113,15 @@
     <div class="row">
         <div class="col-sm-12">
             <figure>
-                {#{% set goalStatus = goal.status %}#}
+                <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
-                {#{% if goalStatus == false %}#}
-                    {#<i class="icon-lock-white"></i>#}
-                {#{% endif %}#}
-
-                <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
+                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" id="goalTitle">
                     <span class="overlay"></span>
-                    <h3>{{ goal.title }}</h3>
-                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_list_horizontal') : null }}" alt= "{{ goal.title }}" />
+                    <h3>[[ activity.goal.title ]]</h3>
+                    <img data-ng-src="[[ activity.goal.image_path ]]" alt="[[ activity.goal.title ]]"/>
                 </a>
                 <figcaption>
-                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
+                    {#{% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}#}
                 </figcaption>
             </figure>
         </div>

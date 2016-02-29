@@ -132,6 +132,7 @@ class Goal implements MultipleFileInterface, PublishAware
 
     /**
      * @var
+     * @Groups({"goal", "tiny_goal"})
      * @ORM\Column(name="status", type="boolean", nullable=true)
      */
     protected $status = self::PUBLIC_PRIVACY;
