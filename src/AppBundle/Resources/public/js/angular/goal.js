@@ -15,8 +15,9 @@ angular.module('goal', ['Interpolation',
         var lsInfiniteItems = function() {
             this.items = [];
             this.busy = false;
+            this.request = 0;
             this.start = 0;
-            this.count = 5;
+            this.count = 7;
         };
 
         lsInfiniteItems.prototype.nextPage = function(url) {
@@ -27,13 +28,14 @@ angular.module('goal', ['Interpolation',
             $http.get(url).success(function(data) {
                 this.items = this.items.concat(data);
                 this.start += this.count;
+                this.request++;
                 this.busy = data.length ? false : true;
             }.bind(this));
         };
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd',['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
+    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
 
         $scope.files = [];
         $scope.disablePreview = false;
@@ -222,7 +224,7 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner',['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -293,7 +295,7 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox' ).swipebox();
     }])
-    .controller('goalList',['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
 
         $scope.Ideas = new lsInfiniteItems();
 
