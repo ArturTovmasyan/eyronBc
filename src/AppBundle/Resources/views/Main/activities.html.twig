@@ -14,20 +14,18 @@
                      infinite-scroll-distance='2'
                 {% endif %}>
                 <div class="col-md-8">
-
                     {% if pagination.getTotalItemCount() == 0 %}
                         <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
                         </h3>
                     {% endif %}
-
-                    <div data-ng-cloak
+                    <div class="goals-animate"
+                         data-ng-cloak
                          data-ng-repeat="activity in Activities.items">
 
                         <div data-ng-show="activity.comment || activity.success_story">
                             {{ _self.goal() }}
                         </div>
-
                         <div class="line"></div>
                         <div class="bg-white padding">
                             <div class="clearfix">
