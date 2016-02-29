@@ -20,6 +20,15 @@ angular.module('goal', ['Interpolation',
             this.count = 7;
         };
 
+        lsInfiniteItems.prototype.loadAddthis = function(){
+            var olds = $('script[src="http://s7.addthis.com/js/300/addthis_widget.js#domready=1"]');
+            olds.remove();
+
+            var addthisScript = document.createElement('script');
+            addthisScript.setAttribute('src', 'http://s7.addthis.com/js/300/addthis_widget.js#domready=1');
+            return document.body.appendChild(addthisScript);
+        };
+
         lsInfiniteItems.prototype.nextPage = function(url) {
             if (this.busy) return;
             this.busy = true;
@@ -30,6 +39,10 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
+
+                setTimeout(function(){
+                    this.loadAddthis();
+                }.bind(this), 500);
             }.bind(this));
         };
 
