@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html data-ng-app="goal"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="activities"> {% endblock %}
 
 {% block content %}
     {{ parent() }}
@@ -74,7 +74,7 @@
                     {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
-                    <div class="right-block  margin-top">
+                    <div class="right-block margin-top">
                         <div class="row">
                             <div class="col-xs-6">
                                  <span>

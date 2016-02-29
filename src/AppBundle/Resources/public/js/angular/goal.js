@@ -325,6 +325,11 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
+    .controller('activities', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+
+        $scope.Activities = new lsInfiniteItems();
+
+    }])
     .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
 
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
