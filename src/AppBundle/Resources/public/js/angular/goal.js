@@ -12,12 +12,12 @@ angular.module('goal', ['Interpolation',
         'Components'
     ])
     .factory('lsInfiniteItems', ['$http', function($http) {
-        var lsInfiniteItems = function() {
+        var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
             this.request = 0;
             this.start = 0;
-            this.count = 7;
+            this.count = loadCount ? loadCount : 7;
         };
 
         lsInfiniteItems.prototype.loadAddthis = function(){
@@ -327,7 +327,7 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('activities', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
 
-        $scope.Activities = new lsInfiniteItems();
+        $scope.Activities = new lsInfiniteItems(3);
 
     }])
     .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
