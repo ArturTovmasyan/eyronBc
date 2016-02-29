@@ -196,7 +196,7 @@
                                             </a>
                                             {% if not app.user and
                                             app.session.flashBag.peekAll|length and
-                                            app.session.flashBag.peekAll['error'] and
+                                            app.session.flashBag.peekAll['error'] is defined and
                                             app.session.flashBag.peekAll['error'][0] is not null %}
                                                 <div data-open-popover></div>
                                             {% endif %}
