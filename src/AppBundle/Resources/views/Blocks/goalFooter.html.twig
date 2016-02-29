@@ -1,7 +1,7 @@
 <ul class="row no-gutter{% if inner is defined %} goal-links{% endif %}"
         {% if goal is defined %} data-ng-init="goal.is_my_goal={{ goal.isMyGoal }}" {% endif %} data-ng-cloak>
 
-    <li class="col-xs-4 ng-hide" data-ng-show="goal.is_my_goal === 0">
+    <li class="col-xs-4 ng-hide" data-ng-show="!goal.is_my_goal">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
            data-ls-identity="idea[[ goal.id ]]"
@@ -10,7 +10,7 @@
            <bdi>{{ 'add'|trans }}</bdi>
         </a>
     </li>
-    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal !== 0">
+    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal && goal.is_my_goal !== 0">
         <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
         <bdi>{{ 'added'|trans | upper}}</bdi>
     </li>
@@ -22,7 +22,7 @@
             <bdi>{{ 'done'|trans }}</bdi>
         </a>
     </li>
-    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal === 2">
+    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal && goal.is_my_goal === 2">
         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
         <bdi>{{ 'completed'|trans | upper}}</bdi>
     </li>
