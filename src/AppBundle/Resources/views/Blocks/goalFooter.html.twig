@@ -1,51 +1,39 @@
-<ul class="row no-gutter{% if inner is defined %} goal-links{% endif %} ">
-    {#{% if is_granted("ROLE_USER") %}#}
+<ul class="row no-gutter{% if inner is defined %} goal-links{% endif %}"
+        {% if goal is defined %} data-ng-init="goal.is_my_goal={{ goal.isMyGoal }}" {% endif %} data-ng-cloak>
 
-        {#{% if not isMyGoal(goal, app.user, "add") %}#}
-        {% if goal.isMyGoal == 0 %}
-            <li class="col-xs-4">
-                <a href="javascript:void(0)"
-                   data-ls-jquery-modal
-                   data-ls-identity="idea{{ goal.id }}"
-                   data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
-                   <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                   <bdi>{{ 'add'|trans }}</bdi>
-                </a>
-            </li>
-        {% else %}
-            <li class="col-xs-4 transparent">
+    <li class="col-xs-4 ng-hide" data-ng-show="goal.is_my_goal === 0">
+        <a href="javascript:void(0)"
+           data-ls-jquery-modal
+           data-ls-identity="idea[[ goal.id ]]"
+           data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ goal.id ]]">
+           <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+           <bdi>{{ 'add'|trans }}</bdi>
+        </a>
+    </li>
+    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal !== 0">
+        <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+        <bdi>{{ 'added'|trans | upper}}</bdi>
+    </li>
 
-                <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                <bdi>{{ 'added'|trans | upper}}</bdi>
 
-            </li>
-        {% endif %}
+    <li class="col-xs-4 ng-hide" data-ng-show="goal.is_my_goal !== 2">
+        <a href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ goal.id ]]">
+            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+            <bdi>{{ 'done'|trans }}</bdi>
+        </a>
+    </li>
+    <li class="col-xs-4 transparent ng-hide" data-ng-show="goal.is_my_goal === 2">
+        <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        <bdi>{{ 'completed'|trans | upper}}</bdi>
+    </li>
 
-        {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
-        {% if  goal.isMyGoal != 2 %}
-            <li class="col-xs-4">
-                <a href="{{ path('done_goal', {'id' : goal.id}) }}">
-                    <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                    <bdi>{{ 'done'|trans }}</bdi>
-                </a>
-            </li>
-        {% else %}
-            <li class="col-xs-4 transparent">
-
-                <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                <bdi>{{ 'completed'|trans | upper}}</bdi>
-
-            </li>
-        {% endif %}
-    {#{% endif %}#}
-
-    {% if inner is not defined %}
+    {#{% if inner is not defined %}#}
 
         <li class="col-xs-4">
             <div class="addthis_native_toolbox"
-                 data-url="{{ app.request.getSchemeAndHttpHost }}{{ path('inner_goal', {'slug': goal.slug}) }}"
-                 data-title="{{ goal.title }}"
-                 data-description="{%- if goal.description -%}{{- sliceString(goal.description) -}}{% else %}{{ 'goal.view_description'|trans }}{%- endif -%}"></div>
+                 data-url="{{ app.request.getSchemeAndHttpHost }}{{ app.debug ? '/app_dev.php' : '' }}/goal/[[ goal.slug ]]"
+                 data-title="[[ goal.title ]]"
+                 data-description="[[ goal.description ? goal.description: '{{ 'goal.view_description'|trans }}' ]]"></div>
         </li>
-    {% endif %}
+    {#{% endif %}#}
 </ul>

@@ -4,6 +4,7 @@
     {{ parent() }}
 
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/app/less/animation.css') }}" rel="stylesheet"/>
     <link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"
           rel="stylesheet">
     <link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">
@@ -16,6 +17,7 @@
 
     {% javascripts output='js/app_layout.js'
         'app/bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js'
+        'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
         'app/bower_components/icheck/icheck.min.js'
         'app/scripts/Ticker/jquery.ticker.min.js'
         'app/bower_components/ScrollToFixed/jquery-scrolltofixed-min.js'
