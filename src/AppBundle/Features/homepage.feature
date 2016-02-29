@@ -1,5 +1,5 @@
 Feature: Homepage
-  In order to use bucketlist hopepage
+  In order to use bucketlist homepage
   As a user
   I need to be able to open the page
 
