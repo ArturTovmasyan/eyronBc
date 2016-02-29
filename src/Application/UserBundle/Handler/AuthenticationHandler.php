@@ -66,6 +66,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             //get url is session
             $url = $session->get('url');
 
+            dump($url);exit;
             //remove url
             $session->remove('url');
 

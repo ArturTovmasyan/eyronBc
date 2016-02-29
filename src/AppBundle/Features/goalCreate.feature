@@ -4,7 +4,8 @@ Feature: Goal create
   I need to be able to check goal create page
 
   Scenario: Open goal create page
-    Given I am on "/goal/create"
+    Given I am logged in as "test@test.am"
+    And I am on "/goal/create"
     Then the response status code should be 200
 
 
