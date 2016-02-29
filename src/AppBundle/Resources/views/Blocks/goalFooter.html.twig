@@ -1,5 +1,5 @@
 <ul class="row no-gutter{% if inner is defined %} goal-links{% endif %}"
-        {% if goal is defined %} data-ng-init="goal.is_my_goal={{ goal.isMyGoal }}" {% endif %} data-ng-cloak>
+    {% if goal is defined %} data-ng-init="goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" {% endif %} data-ng-cloak>
 
     <li class="col-xs-4 ng-hide" data-ng-show="!goal.is_my_goal">
         <a href="javascript:void(0)"
