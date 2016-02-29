@@ -189,6 +189,8 @@ page:
 # my bucket list
 my_bucket_list:
   title: My Bucketlist
+  active_goals: My Bucketlist - Active Goals
+  completed_goals: My Bucketlist - Competed Goals
   description: This is myBucketlist description
   add_goal: add some goals.
   doing_here: What are you doing here? Come on,
