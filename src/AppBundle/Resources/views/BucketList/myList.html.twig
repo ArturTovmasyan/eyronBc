@@ -2,6 +2,10 @@
 
 {# set current user to user with joined relation #}
 {% set user = currentUser %}
+{% set status = app.request.get('status') %}
+{% set all = null %}
+{% set active = 'active-goals' %}
+{% set completed = 'completed-goals' %}
 
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
@@ -19,7 +23,15 @@
 {% endblock %}
 
 {%- block title -%}
-    {{ 'my_bucket_list.title'|trans }}
+
+    {% if status == completed %}
+        {{ 'my_bucket_list.completed_goals'|trans }}
+    {% elseif status == active %}
+        {{ 'my_bucket_list.active_goals'|trans }}
+    {% elseif status == all %}
+        {{ 'my_bucket_list.title'|trans }}
+    {% endif %}
+
 {%- endblock -%}
 
 {%- block og_title -%}
@@ -265,10 +277,6 @@
         <div class="container">
             <div class="row">
                 <ul class="menu">
-                    {% set status = app.request.get('status') %}
-                    {% set active = 'active-goals' %}
-                    {% set completed = 'completed-goals' %}
-                    {% set all = null %}
                     {% set dream = app.request.get('d') %}
                     {% set activeGoals = profileUser.getStats.active %}
                     {% set my_router_params =  app.request.query.all %}

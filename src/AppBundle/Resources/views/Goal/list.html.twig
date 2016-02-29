@@ -114,7 +114,11 @@
         {# display navigation #}
         <div class="navigation text-center">
             {#{{ knp_pagination_render(goals) }}#}
-            <a href="javascript:void(0)" data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")'>Show More</a>
+            <a href="javascript:void(0)" data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")' class="show-more">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
         </div>
     </div>
 {% endblock %}
