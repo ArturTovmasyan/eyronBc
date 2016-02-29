@@ -33,7 +33,7 @@
 
                                 <div class="pull-left text-gray">
                                     <h4>
-                                        <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 0}) }}" class="text-dark-gray">
+                                        <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 'all'}) }}" class="text-dark-gray">
                                             {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }}
                                         </a>
                                         <span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>

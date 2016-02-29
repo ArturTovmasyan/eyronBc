@@ -68,7 +68,7 @@ class UserProvider extends   BaseProvider
             throw new UnsupportedUserException(sprintf('User not found, please try again'));
         }
 
-        if ($user->getSocialPhotoLink()) {
+        if ($user->getSocialPhotoLink() && !$user->getFileName()) {
             $fileName = md5(microtime()) . '.jpg';
             file_put_contents($user->getAbsolutePath() . $fileName, fopen($user->getSocialPhotoLink(), 'r'));
             $user->setFileName($fileName);
