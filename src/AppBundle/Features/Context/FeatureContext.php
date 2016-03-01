@@ -43,7 +43,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iFillInTheSearchBoxWith($searchTerm)
     {
-        $ele = $this->getPage()->findField('search');
+        $ele = $this->getPage()->find('css', 'input[name="search"]');
+        dump($ele);exit;
         $ele->setValue($searchTerm);
     }
 
