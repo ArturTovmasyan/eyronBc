@@ -1,20 +1,31 @@
-Feature: Registration
+Feature: Search
   In order to use registration user
-  As a visitor
+  As an anonymous user
   I need to be able to register user
 
-  Scenario: Registration
-    Given I am on "/register"
-    When I fill in "fos_user_registration_form[firstName]" with "Art"
-    When I fill in "fos_user_registration_form[lastName]" with "Tovmasyan"
-    When I fill in "fos_user_registration_form[email]" with "test5@test.am"
-    When I fill in "fos_user_registration_form[plainPassword][first]" with "test1234"
-    When I fill in "fos_user_registration_form[plainPassword][second]" with "test1234"
-    When I press "register"
-    Then I should be on "/ideas"
-    Then I should see "Hi, Foo"
-    When I follow "Logout"
-    Then I should be on "/login"
-    Then the response status code should be 200
+#  @javascript
+#  Scenario: Registration
+#    Given I am on "/register/"
+#    When I fill in the following:
+#      | fos_user_registration_form[firstName]             | Art |
+#      | fos_user_registration_form[lastName]              | Tovmasyan |
+#      | fos_user_registration_form[email]                 | test5@test.am |
+#      | fos_user_registration_form[plainPassword][first]  | test1234 |
+#      | fos_user_registration_form[plainPassword][second] | test1234 |
+#    When I press the search button
+#    Then I should see "Passwords do not match, please retype"
+#    Then I should be redirect on "/ideas"
+#    And the response status code should be 200
 
+  Background:
+    Given I am on "/wiki/Main_Page"
 
+  Scenario Outline: Searching for a specific page
+    When I fill in the search box with "<search>"
+    And I press the search button
+    Then I should see "<expectation>"
+
+    Examples:
+      | search             | expectation                      |
+      | Velociraptor       | an enlarged sickle-shaped claw   |
+      | Tyrannosaurus Bill | Search results                   |

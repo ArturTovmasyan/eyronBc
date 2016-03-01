@@ -1,6 +1,6 @@
 Feature: Ideas
   In order to use ideas page and check it
-  As a user
+  As an anonymous user
   I need to be able to check ideas page
 
   Scenario: Open the ideas page
