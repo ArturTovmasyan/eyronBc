@@ -63,14 +63,17 @@
                         <br/>
                     </div>
 
-                    <div class="navigation">
+                    <div class="navigation text-center">
                         <a href="javascript:void(0)"
                            data-ng-show="!Activities.busy && Activities.request >= 2"
                            data-ng-click='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
                            class="show-more ng-hide">
-                            Show More
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </a>
                     </div>
+
                 </div>
 
                 <div class="col-md-4">
