@@ -1,72 +1,80 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html data-ng-app="goal"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="activities"> {% endblock %}
 
 {% block content %}
     {{ parent() }}
 
     <div id="news-feed">
         <div class="container">
-            <div class="row">
+            <div class="row"
+                {% if pagination.getTotalItemCount() != 0 %}
+                     infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
+                     infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
+                     infinite-scroll-distance='2'
+                {% endif %}>
                 <div class="col-md-8">
-
                     {% if pagination.getTotalItemCount() == 0 %}
                         <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
                         </h3>
                     {% endif %}
+                    <div class="goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="activity in Activities.items">
 
-                    {% for convertedNew in pagination %}
-
-                        {% if convertedNew.comment is not null or convertedNew.successStory is not null %}
-                            {{ _self.goal(convertedNew.goal) }}
-                        {% endif %}
-
+                        <div data-ng-show="activity.comment || activity.success_story">
+                            {{ _self.goal() }}
+                        </div>
                         <div class="line"></div>
-                        <div class="bg-white padding {% if convertedNew.comment is null and convertedNew.successStory is null %}padding-no{% endif %}">
-
+                        <div class="bg-white padding">
                             <div class="clearfix">
                                 <figure class="image">
-                                    <img src="{{ convertedNew.user.getImagePath() ? convertedNew.user.getImagePath()|blImageFilter('user_icon') : asset('bundles/app/images/cover.jpg') }}"
-                                         alt="{{ convertedNew.user.firstName }}" class="img-circle img-responsive" />
+                                    <img data-ng-src="[[ activity.user.image_path ]]"
+                                         alt="[[ activity.user.first_name ]]" class="img-circle img-responsive"/>
                                 </figure>
 
                                 <div class="pull-left text-gray">
                                     <h4>
-                                        <a href="{{ path('user_profile', {'user': convertedNew.user.id, 'status': 'all'}) }}" class="text-dark-gray">
-                                            {{ convertedNew.user.firstname }} {{ convertedNew.user.lastname }}
+                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/user-profile/[[ activity.user.id ]]/all" class="text-dark-gray">
+                                            [[ activity.user.first_name ]] [[ activity.user.last_name ]]
                                         </a>
-                                        <span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>
+                                        {#<span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>#}
                                     </h4>
-                                    <p>{{ convertedNew.datetime|date('d M Y H:i') }}</p>
+                                    <p>[[ activity.datetime | date:'dd MMM yyyy HH:mm' ]]</p>
                                 </div>
                             </div>
 
-                            {% if convertedNew.comment is not null %}
-                                <div class="comment-place">
-                                    <span class="arrow-up"></span>
-                                    {{ convertedNew.comment.body }}
-                                </div>
-                            {% endif %}
+                            <div class="comment-place ng-hide" data-ng-show="activity.comment">
+                                <span class="arrow-up"></span>
+                                [[ activity.comment.comment_body ]]
+                            </div>
 
-                            {% if convertedNew.successStory is not null %}
-                                <div class="comment-place">
-                                    <span class="arrow-up"></span>
-                                    {{ convertedNew.successStory.story }}
-                                </div>
-                            {% endif %}
+                            <div class="comment-place ng-hide" data-ng-show="activity.success_story">
+                                <span class="arrow-up"></span>
+                                [[ activity.success_story.story ]]
+                            </div>
 
-                            {% if convertedNew.comment is null and convertedNew.successStory is null %}
-                                {{ _self.goal(convertedNew.goal) }}
-                            {% endif %}
+                            <div data-ng-show="!activity.comment && !activity.success_story">
+                                {{ _self.goal() }}
+                            </div>
 
                         </div>
                         <br/>
-                    {% endfor %}
-
-                    <div class="navigation">
-                        {{ knp_pagination_render(pagination) }}
                     </div>
+
+                    <div class="navigation text-center">
+                        <a href="javascript:void(0)"
+                           data-ng-cloak
+                           data-ng-show="!Activities.busy && Activities.request >= 1"
+                           data-ng-click='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
+                           class="show-more ng-hide">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </div>
+
                 </div>
 
                 <div class="col-md-4">
@@ -74,7 +82,7 @@
                     {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
-                    <div class="right-block  margin-top">
+                    <div class="right-block margin-top">
                         <div class="row">
                             <div class="col-xs-6">
                                  <span>
@@ -107,19 +115,15 @@
     <div class="row">
         <div class="col-sm-12">
             <figure>
-                {% set goalStatus = goal.status %}
+                <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
-                {% if goalStatus == false %}
-                    <i class="icon-lock-white"></i>
-                {% endif %}
-
-                <a href="{{ path('inner_goal', {'slug': goal.slug }) }}" id="goalTitle">
+                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" id="goalTitle">
                     <span class="overlay"></span>
-                    <h3>{{ goal.title }}</h3>
-                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_list_horizontal') : null }}" alt= "{{ goal.title }}" />
+                    <h3>[[ activity.goal.title ]]</h3>
+                    <img data-ng-src="[[ activity.goal.image_path ]]" alt="[[ activity.goal.title ]]"/>
                 </a>
                 <figcaption>
-                    {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
+                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
                 </figcaption>
             </figure>
         </div>
