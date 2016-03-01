@@ -297,7 +297,7 @@
                         <a href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
-                        <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
+                        <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
                             {#<i class="icon up-icon" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>#}
                             <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                             <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
