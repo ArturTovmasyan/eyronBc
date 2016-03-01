@@ -1501,6 +1501,26 @@ footer{
   }
 }
 
+.show-more{
+  padding:5px 15px 8px;
+  .rounded-corners(6px);
+  background: #7724F6;
+  display: inline-block;
+
+  span{
+    display: inline-block;
+    height: 6px;
+    width:6px;
+    margin:0 2px;
+    .rounded-corners(50%);
+    background-color: #ffffff;
+  }
+
+  &:hover{
+    background: #6108EA;
+  }
+}
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1800,6 +1820,14 @@ footer{
     //  width:35px;
     //  height:35px;
     //}
+  }
+
+  .show-more{
+    padding:10px 25px 13px;
+    span{
+      height: 9px;
+      width:9px;
+    }
   }
 }
 
