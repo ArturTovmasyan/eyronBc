@@ -25,6 +25,7 @@
     "ScrollToFixed": "1.0.6",
     "angular-dropzone": "0.1.2",
     "highcharts": "4.1.*",
+    "font-awesome": "4.5.*",
     "swipebox": "1.4.*"
   },
   "devDependencies": {
