@@ -65,7 +65,8 @@
 
                     <div class="navigation text-center">
                         <a href="javascript:void(0)"
-                           data-ng-show="!Activities.busy && Activities.request >= 2"
+                           data-ng-cloak
+                           data-ng-show="!Activities.busy && Activities.request >= 1"
                            data-ng-click='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
                            class="show-more ng-hide">
                             <span></span>

@@ -5,6 +5,7 @@
     <li class="col-xs-4 ng-hide" data-ng-show="!goal.is_my_goal">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
+           data-ng-click="goal.is_my_goal = 1"
            data-ls-identity="idea[[ goal.id ]]"
            data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ goal.id ]]">
            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
