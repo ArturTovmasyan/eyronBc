@@ -1,10 +1,10 @@
 angular.module('Google', [])
     .directive('simpleMapMarker',['$timeout', function($timeout){
 
-        function Initialize(el){
+        function Initialize(el, zoom){
             var m, data = {};
             data.center = new google.maps.LatLng(40.177037, 44.514841);
-            data.zoom = 10;
+            data.zoom = zoom ? zoom : 10;
             data.scrollwheel = false;
             data.mapTypeId = google.maps.MapTypeId.ROADMAP;
             m = new google.maps.Map(el,data);
@@ -15,6 +15,7 @@ angular.module('Google', [])
         return {
             restrict: 'EA',
             scope: {
+                zoom: '=',
                 markers: '=',
                 refresh: '=',
                 onMarkerClick: '&',
@@ -43,7 +44,7 @@ angular.module('Google', [])
                 }
 
                 return function(scope, el){
-                    scope.map = Initialize(el[0]);
+                    scope.map = Initialize(el[0], scope.zoom);
                     scope.mapMarkers = {};
 
                     scope.$watch('refresh', function(){
