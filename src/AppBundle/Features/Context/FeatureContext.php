@@ -19,28 +19,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @Then the list of products should be:
-     */
-    public function theListOfProductsShouldBe(TableNode $table)
-    {
-        $this->iWaitForAngular();
-    }
-
-    /**
      * @When I wait for angular
      */
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(1000, "typeof angular != 'undefined'");
-        // Wait for angular to be testable
-        $this->getSession()->getDriver()->evaluateScript(
-            'angular.getTestability(document.body).whenStable(function() {
-                window.__testable = true;
-            })'
-        );
-        $this->getSession()->wait(1000, 'window.__testable == true');
+        $this->getSession()->wait(6000);
     }
-
 
 }

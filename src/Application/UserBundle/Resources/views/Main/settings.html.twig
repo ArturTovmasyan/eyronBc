@@ -115,7 +115,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-8">
-                                            {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'add email' } }) }}
+                                            {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'form.add_email'|trans({}, 'FOSUserBundle') } }) }}
                                         </div>
                                         <div class="error-message" data-ng-bind="errorMessages['addEmail']"></div>
                                     </div>
@@ -148,7 +148,19 @@
 
                                 <div class="col-sm-4">
 
-                                    {% set arrayMonth = {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'} %}
+                                    {% set arrayMonth = {
+                                    1:'form.month_january'|trans({}, 'FOSUserBundle'),
+                                    2:'form.month_february'|trans({}, 'FOSUserBundle'),
+                                    3:'form.month_march'|trans({}, 'FOSUserBundle'),
+                                    4:'form.month_april'|trans({}, 'FOSUserBundle'),
+                                    5:'form.month_may'|trans({}, 'FOSUserBundle'),
+                                    6:'form.month_june'|trans({}, 'FOSUserBundle'),
+                                    7:'form.month_july'|trans({}, 'FOSUserBundle'),
+                                    8:'form.month_august'|trans({}, 'FOSUserBundle'),
+                                    9:'form.month_september'|trans({}, 'FOSUserBundle'),
+                                    10:'form.month_october'|trans({}, 'FOSUserBundle'),
+                                    11:'form.month_november'|trans({}, 'FOSUserBundle'),
+                                    12:'form.month_december'|trans({}, 'FOSUserBundle') } %}
 
                                     {% set months = form.birthDate.month.vars.choices %}
 
