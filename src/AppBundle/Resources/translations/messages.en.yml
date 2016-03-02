@@ -208,6 +208,15 @@ my_bucket_list:
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
   active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
 
+  iu_title: - important, urgent
+  iu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are both important and urgent.
+  noiu_title: - not important, urgent
+  noiu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are not important, but urgent.
+  inou_title: - important, not urgent
+  inou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are important but not urgent.
+  noinou_title: - not important, not urgent
+  noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
+
 draft:
   title: Drafts
   description: If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published.

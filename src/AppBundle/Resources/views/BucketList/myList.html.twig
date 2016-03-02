@@ -7,6 +7,31 @@
 {% set active = 'active-goals' %}
 {% set completed = 'completed-goals' %}
 
+{% set importantUrgent = app.request.get('f_1') %}
+{% set notImportantUrgent = app.request.get('f_2') %}
+{% set importantNotUrgent = app.request.get('f_3') %}
+{% set notImportantNotUrgent = app.request.get('f_4') %}
+
+    {% if importantUrgent == "on" %}
+         {% set iuTitle = 'my_bucket_list.iu_title'|trans %}
+         {% set iuDescription = 'my_bucket_list.iu_description'|trans %}
+    {% endif %}
+
+    {% if notImportantUrgent == "on" %}
+         {% set noIUTitle = 'my_bucket_list.noiu_title'|trans %}
+         {% set noIUDescription = 'my_bucket_list.noiu_description'|trans %}
+    {% endif %}
+
+    {% if importantNotUrgent == "on" %}
+         {% set iNoUTitle = 'my_bucket_list.inou_title'|trans %}
+         {% set iNoUDescription = 'my_bucket_list.inou_description'|trans %}
+    {% endif %}
+
+    {% if notImportantNotUrgent == "on" %}
+         {% set noInoUTitle = 'my_bucket_list.noinou_title'|trans %}
+         {% set noInoUDescription = 'my_bucket_list.noinou_description'|trans %}
+    {% endif %}
+
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
 {% endblock %}
@@ -24,37 +49,37 @@
 
 {%- block title -%}
 
-    {% if status == completed %}
-        {{ 'my_bucket_list.completed_goals'|trans }}
-    {% elseif status == active %}
-        {{ 'my_bucket_list.active_goals'|trans }}
-    {% elseif status == all %}
-        {{ 'my_bucket_list.title'|trans }}
-    {% endif %}
+        {% if status == completed %}
+            {{- 'my_bucket_list.completed_goals'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% elseif status == active %}
+            {{- 'my_bucket_list.active_goals'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% elseif status == all %}
+            {{- 'my_bucket_list.title'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% endif %}
 
 {%- endblock -%}
 
 {%- block og_title -%}
 
-    {% if status == completed %}
-        {{ 'my_bucket_list.completed_goals'|trans }}
-    {% elseif status == active %}
-        {{ 'my_bucket_list.active_goals'|trans }}
-    {% elseif status == all %}
-        {{ 'my_bucket_list.title'|trans }}
-    {% endif %}
+        {% if status == completed %}
+            {{- 'my_bucket_list.completed_goals'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% elseif status == active %}
+            {{- 'my_bucket_list.active_goals'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% elseif status == all %}
+            {{- 'my_bucket_list.title'|trans ~ iuTitle|default('') ~  noIUTitle|default('') ~  iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+        {% endif %}
 
 {%- endblock -%}
 
 {%- block og_description -%}
 
-    {% if status == completed %}
-        {{ 'my_bucket_list.completed_description'|trans }}
-    {% elseif status == active %}
-        {{ 'my_bucket_list.active_description'|trans }}
-    {% elseif status == all %}
-        {{ 'my_bucket_list.description'|trans }}
-    {% endif %}
+        {% if status == completed %}
+            {{- 'my_bucket_list.completed_description'|trans ~ iuDescription|default('') ~  noIUDescription|default('') ~  iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+        {% elseif status == active %}
+            {{- 'my_bucket_list.active_description'|trans ~ iuDescription|default('') ~  noIUDescription|default('') ~  iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+        {% elseif status == all %}
+            {{- 'my_bucket_list.description'|trans ~ iuDescription|default('') ~  noIUDescription|default('') ~  iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+        {% endif %}
 
 {%- endblock -%}
 
