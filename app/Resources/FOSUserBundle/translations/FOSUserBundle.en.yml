@@ -133,6 +133,19 @@ form:
     birth_date_month: "Month"
     birth_date_day: "Day"
     birth_date_year: "Year"
+    add_email: "add email"
+    month_january: January
+    month_february: February
+    month_march: March
+    month_april: April
+    month_may: May
+    month_june: June
+    month_july: July
+    month_august: August
+    month_september: September
+    month_october: October
+    month_november: November
+    month_december: December
     file: "Upload a photo"
     choose: Choose
     language: Choose language
