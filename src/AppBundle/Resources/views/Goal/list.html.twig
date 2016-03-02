@@ -14,7 +14,7 @@
 
             <div class="row">
                 <div class="col-xs-4 col-sm-6">
-                    <a href="javascript:void(0)" data-ng-click="showMap = !showMap" class="text-gray map-top"> MAP
+                    <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap = !showMap" class="text-gray map-top"> MAP
                         {#<i class="icon down-icon" data-ng-show="showMap"></i>#}
                         <i class="icon-arrow-down"  data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
@@ -72,7 +72,7 @@
 
                                 <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
                                     <span class="overlay"></span>
-                                    <img data-ng-src="[[ goal.image_path ]]" alt="[[ goal.title ]]"/>
+                                    <img data-ng-src="[[ goal.cached_image ]]" alt="[[ goal.title ]]"/>
                                 </a>
 
                                 <div class="absolute">
@@ -111,8 +111,6 @@
                 <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
             </h2>
 
-            {% include "AppBundle:Main:ideas.html.twig" with {'search' : 0 }  %}
-
         {% endif %}
         {# display navigation #}
         <div class="navigation text-center">
@@ -130,11 +128,11 @@
 {% endblock %}
 
 {%- block title -%}
-    {{ 'goal.og_title'|trans }}
+    {{ 'goal.og_title'|trans }}{% if app.request.get('search') %} / {{ app.request.get('search') }}{% endif %}
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ 'goal.og_title'|trans }}
+    {{ 'goal.og_title'|trans }}{% if app.request.get('search') %} / {{ app.request.get('search') }}{% endif %}
 {%- endblock -%}
 
 {%- block og_description -%}

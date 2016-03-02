@@ -35,11 +35,27 @@
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ 'my_bucket_list.title'|trans }}
+
+    {% if status == completed %}
+        {{ 'my_bucket_list.completed_goals'|trans }}
+    {% elseif status == active %}
+        {{ 'my_bucket_list.active_goals'|trans }}
+    {% elseif status == all %}
+        {{ 'my_bucket_list.title'|trans }}
+    {% endif %}
+
 {%- endblock -%}
 
 {%- block og_description -%}
-    {{ 'my_bucket_list.description'|trans }}
+
+    {% if status == completed %}
+        {{ 'my_bucket_list.completed_description'|trans }}
+    {% elseif status == active %}
+        {{ 'my_bucket_list.active_description'|trans }}
+    {% elseif status == all %}
+        {{ 'my_bucket_list.description'|trans }}
+    {% endif %}
+
 {%- endblock -%}
 
 {%- block og_image -%}
@@ -297,7 +313,7 @@
                         <a href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
-                        <a href="javascript:void(0)" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
+                        <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
                             {#<i class="icon up-icon" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>#}
                             <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                             <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>

@@ -19,4 +19,5 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     public function __construct(Session $session, $simpleArg)
     {
     }
+
 }

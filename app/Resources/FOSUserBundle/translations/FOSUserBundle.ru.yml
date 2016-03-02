@@ -133,6 +133,19 @@ form:
     birth_date_month: "Месяц"
     birth_date_day: "День"
     birth_date_year: "Год"
+    add_email: "Добавить эл. почту"
+    month_january: Январь
+    month_february: Февраль
+    month_march: Март
+    month_april: Апрель
+    month_may: Май
+    month_june: Июнь
+    month_july: Июль
+    month_august: Август
+    month_september: Сентябрь
+    month_october: Октябрь
+    month_november: Ноябрь
+    month_december: Декабрь
     file: "Добавить фотографию"
     choose: Выбрать
     language: Выбрать язык

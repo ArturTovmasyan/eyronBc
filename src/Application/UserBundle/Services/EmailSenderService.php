@@ -30,6 +30,9 @@ class EmailSenderService
         //get project name
         $projectName = $this->container->getParameter('project_name');
 
+        //get set from email in parameters
+        $setFrom =  $this->container->getParameter('no_reply');
+
         //get activate url
         $url = $this->container->get('router')->generate('registration_confirm', array('token' => $registrationToken), true);
 
@@ -38,7 +41,7 @@ class EmailSenderService
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your ' . $projectName . ' account')
-            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setFrom($setFrom, $projectName)
             ->setCc($email)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
@@ -54,6 +57,9 @@ class EmailSenderService
         //get project name
         $projectName = $this->container->getParameter('project_name');
 
+        //get set from email in parameters
+        $setFrom =  $this->container->getParameter('no_reply');
+
         //get email activate url
         $url = $this->container->get('router')->generate('activation_user_email', array('emailToken' => $emailToken, 'email' => $newUserEmail), true);
 
@@ -62,7 +68,7 @@ class EmailSenderService
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Please confirm your new email in ' . $projectName . ' account')
-            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setFrom($setFrom, $projectName)
             ->setCc($newUserEmail)
             ->setContentType('text/html; charset=UTF-8')
             ->setBody($this->container->get('templating')->render(

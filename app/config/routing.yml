@@ -99,4 +99,7 @@ application_user_rest:
     type:     rest
     resource: @ApplicationUserBundle/Controller/Rest/UserController.php
 
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
 
