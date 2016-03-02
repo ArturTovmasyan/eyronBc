@@ -14,7 +14,7 @@
         <meta property="og:description" content="{%- block og_description -%}BucketList {%- endblock -%}" />
         <meta property="og:site_name" content="BucketList" />
         {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
-        <meta property="og:image" content="{%- block ogImage -%}http://www.bucketlist127.com/bundles/app/images/bucketlist.png{%- endblock -%}" />
+        <meta property="og:image" content="{%- block ogImage -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist.jpg{%- endblock -%}" />
         <meta property="og:type" content="article">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
