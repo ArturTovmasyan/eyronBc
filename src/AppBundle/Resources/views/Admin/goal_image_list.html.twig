@@ -2,6 +2,6 @@
 
 {%- block field %}
     {% if value %}
-        <img src="{{ value.getImagePath() }}" height="150px" />
+        <img src="{{ value.getImagePath()|blImageFilter('goal_admin_list') }}" />
     {% endif %}
 {% endblock -%}
