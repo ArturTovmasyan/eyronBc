@@ -1,27 +1,20 @@
 default:
-    suites:
-#        default:
-#            contexts:
-#                - AppBundle\Features\Context\FeatureContext:
-#                    simpleArg: 'string'
-#                    session:   '@session'
-        my_suite:
-            type: symfony_bundle
-            bundle: AppBundle
-            mink_session: symfony2
-            contexts:
-                - AppBundle\Features\Context\FeatureContext:
-                    simpleArg: 'string'
-                    session:   '@session'
-    extensions:
-        Behat\Symfony2Extension: ~
-        Behat\MinkExtension:
-            goutte: ~
-            selenium2: ~
-            base_url: http://en.wikipedia.org/
-#            base_url: http://bucketlist.loc/app_dev.php/
-            sessions:
-                symfony2:
-                    symfony2: ~
-                javascript:
-                    selenium2: ~
+  suites:
+      my_suite:
+          type: symfony_bundle
+          bundle: AppBundle
+          mink_session: symfony2
+          contexts:
+              - AppBundle\Features\Context\FeatureContext:
+                  simpleArg: 'string'
+                  session:   '@session'
+  extensions:
+      Behat\Symfony2Extension: ~
+      Behat\MinkExtension:
+          goutte: ~
+          selenium2: ~
+#          base_url: http://en.wikipedia.org/
+          base_url: http://bucketlist.loc/app_dev.php/
+          sessions:
+              symfony2:
+                  symfony2:

@@ -1,4 +1,4 @@
-Feature: Search
+Feature: Login user
   In order to use registration user
   As an anonymous user
   I need to be able to register user
@@ -12,20 +12,34 @@ Feature: Search
 #      | fos_user_registration_form[email]                 | test5@test.am |
 #      | fos_user_registration_form[plainPassword][first]  | test1234 |
 #      | fos_user_registration_form[plainPassword][second] | test1234 |
-#    When I press the search button
-#    Then I should see "Passwords do not match, please retype"
-#    Then I should be redirect on "/ideas"
+#    And And I wait for the suggestion box to appear
+#    Then I should see "Explore over thousand great ideas"
+##    Then I should be on "/ideas"
 #    And the response status code should be 200
 
-  Background:
-    Given I am on "/wiki/Main_Page"
 
-  Scenario Outline: Searching for a specific page
-    When I fill in the search box with "<search>"
-    And I press the search button
-    Then I should see "<expectation>"
+  @javascript
+  Scenario: Login user
+    Given I am on "/"
+    When I follow "JOIN"
+    And I wait for angular
+    And I fill in "_username" with "test@test.am"
+    And I fill in "_password" with "test1234"
+    And I press "SIGN IN"
+    Then I should be on "/ideas"
 
-    Examples:
-      | search             | expectation                      |
-      | Velociraptor       | an enlarged sickle-shaped claw   |
-      | Tyrannosaurus Bill | Search results                   |
+
+
+#  Background:
+#    Given I am on "/wiki/Main_Page"
+
+#  @javascript
+#  Scenario Outline: Searching for a specific page
+#    When I fill in "search" with "<search>"
+#    And I press "searchButton"
+#    Then I should see "<expectation>"
+#
+#    Examples:
+#      | search             | expectation                      |
+#      | Velociraptor       | an enlarged sickle-shaped claw   |
+#      | PHP PROGRAMMER | Search results                   |

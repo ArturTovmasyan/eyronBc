@@ -2,17 +2,11 @@
 
 namespace AppBundle\Features\Context;
 
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Behat\Context\Context;
-use Behat\Mink\Exception\Exception;
+use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Behat\Symfony2Extension\Context\KernelDictionary;
-
-use Behat\Behat\Context\ClosuredContextInterface;
-use Behat\Behat\Context\TranslatedContextInterface;
-use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\MinkExtension\Context\MinkContext;
 
@@ -24,36 +18,29 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     {
     }
 
-//    /** @BeforeScenario */
-//    public function beforeScenario()
-//    {
-//        var_dump($this->getMinkParameter('base_url'));
-//    }
-
     /**
-     * @return \Behat\Mink\Element\DocumentElement
+     * @Then the list of products should be:
      */
-    protected function getPage()
+    public function theListOfProductsShouldBe(TableNode $table)
     {
-        return $this->getSession()->getPage();
+        $this->iWaitForAngular();
     }
 
     /**
-     * @When I fill in the search box with :arg1
+     * @When I wait for angular
      */
-    public function iFillInTheSearchBoxWith($searchTerm)
+    public function iWaitForAngular()
     {
-        $ele = $this->getPage()->find('css', 'input[name="search"]');
-        dump($ele);exit;
-        $ele->setValue($searchTerm);
+        // Wait for angular to load
+        $this->getSession()->wait(1000, "typeof angular != 'undefined'");
+        // Wait for angular to be testable
+        $this->getSession()->getDriver()->evaluateScript(
+            'angular.getTestability(document.body).whenStable(function() {
+                window.__testable = true;
+            })'
+        );
+        $this->getSession()->wait(1000, 'window.__testable == true');
     }
 
-    /**
-     * @When I press the search button
-     */
-    public function iPressTheSearchButton()
-    {
-        $this->getPage()->findButton('searchButton')->press();
-    }
 
 }
