@@ -262,6 +262,9 @@ class GoalAdmin extends Admin
         // check images
         if($images) {
 
+            $hasListPhoto = false;
+            $hasCoverPhoto = false;
+
             // loop for images
             foreach($images as $image) {
                 if (!($image instanceof GoalImage)){
@@ -269,10 +272,25 @@ class GoalAdmin extends Admin
                     continue;
                 }
 
+                if ($image->getList() == true){
+                    $hasListPhoto = true;
+                }
+                if ($image->getCover() == true){
+                    $hasCoverPhoto = true;
+                }
+
                 // upload file
 
                 $bucketService->uploadFile($image);
                 $image->setGoal($object);
+            }
+
+            if (!$hasListPhoto){
+                $images->first()->setList(true);
+            }
+
+            if (!$hasCoverPhoto){
+                $images->first()->setCover(true);
             }
         }
     }
