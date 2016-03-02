@@ -211,6 +211,11 @@ class Goal implements MultipleFileInterface, PublishAware
     private $publishedBy;
 
     /**
+     * @Groups({"tiny_goal"})
+     */
+    private $cachedImage;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -218,6 +223,22 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCachedImage()
+    {
+        return $this->cachedImage;
+    }
+
+    /**
+     * @param mixed $cachedImage
+     */
+    public function setCachedImage($cachedImage)
+    {
+        $this->cachedImage = $cachedImage;
     }
 
     /**
