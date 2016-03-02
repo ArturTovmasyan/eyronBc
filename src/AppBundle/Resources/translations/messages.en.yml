@@ -64,6 +64,7 @@ goal:
       complete_step: Take steps - Complete your Goal !
       private_text: You created this Goal only for your Bucketlist
       invisible_text: You can make the Goal invisible for other users
+      visible_text: You can make the Goal visible for other users
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
       create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED

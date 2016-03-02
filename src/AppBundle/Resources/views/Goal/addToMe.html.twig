@@ -293,7 +293,8 @@
                 <p class="text-gray">
                     <i class="icon-eye-icon ng-hide" data-ng-hide="private_checkbox"></i>
                     <i class="icon-eye" data-ng-show="private_checkbox"></i>
-                    {{ "goal.invisible_text"|trans }}
+                    <span data-ng-show="private_checkbox">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-hide="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
                 </p>
 
 
