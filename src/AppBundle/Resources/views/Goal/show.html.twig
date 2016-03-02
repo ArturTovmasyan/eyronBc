@@ -31,9 +31,8 @@
 {%- endblock -%}
 
 {%- block og_image -%}
-    {% set images = goal.images %}
-        {%- if images.first -%}
-            {{- host ~ images.first.getImagePath() -}}
+        {%- if goal.getListPhoto -%}
+            {{- host ~ goal.getListPhoto.getImagePath() -}}
         {% else %}
             {{ parent() }}
         {%- endif -%}
