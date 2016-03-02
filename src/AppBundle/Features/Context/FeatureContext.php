@@ -20,13 +20,4 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     {
     }
 
-    /**
-     * @When I wait for angular
-     */
-    public function iWaitForAngular()
-    {
-        // Wait for angular to load
-        $this->getSession()->wait(6000);
-    }
-
 }
