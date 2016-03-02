@@ -22,6 +22,7 @@
                     {% endif %}
                     <div class="goals-animate"
                          data-ng-cloak
+                         data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"
                          data-ng-repeat="activity in Activities.items">
 
                         <div data-ng-show="activity.comment || activity.success_story">
