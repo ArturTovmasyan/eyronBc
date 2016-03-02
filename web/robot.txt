@@ -1,0 +1,3 @@
+User-agent: *
+Host: www.bucketlist127.com
+Sitemap: http://www.bucketlist127.com/sitemap.xml
