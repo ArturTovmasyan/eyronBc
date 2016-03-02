@@ -29,17 +29,3 @@ Feature: Login user
     Then I should be on "/ideas"
 
 
-
-#  Background:
-#    Given I am on "/wiki/Main_Page"
-
-#  @javascript
-#  Scenario Outline: Searching for a specific page
-#    When I fill in "search" with "<search>"
-#    And I press "searchButton"
-#    Then I should see "<expectation>"
-#
-#    Examples:
-#      | search             | expectation                      |
-#      | Velociraptor       | an enlarged sickle-shaped claw   |
-#      | PHP PROGRAMMER | Search results                   |
