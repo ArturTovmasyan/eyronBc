@@ -3,8 +3,10 @@ Feature: Goal create
   As a user
   I need to be able to check goal create page
 
+  @javascript
   Scenario: Open goal create page
-    And I am on "/goal/create"
-    Then the response status code should be 401
+    When I am logged in
+    Given I am on "/goal/create"
+    Then I should see "Suggest as public"
 
 
