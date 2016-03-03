@@ -90,11 +90,11 @@
                                                 <i class="icon-user-small"></i>
                                             </a>
 
-                                            <span class="ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                            <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 [[ goal.stats.listedBy ]]
-                                                </span>
-                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                                <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                            </span>
                                         </li>
                                         <li>
                                             <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
@@ -105,11 +105,11 @@
                                                 <i class="icon-user-small"></i>
                                             </a>
 
-                                            <span class="ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                            <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 [[ goal.stats.doneBy ]]
-                                                </span>
-                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                                <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
