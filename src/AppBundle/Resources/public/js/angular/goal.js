@@ -312,6 +312,10 @@ angular.module('goal', ['Interpolation',
 
         $scope.Ideas = new lsInfiniteItems();
 
+        $scope.castInt = function(value){
+            return parseInt(value);
+        };
+
         $scope.adventureText = function(slug, cJson){
             var item = null;
 
