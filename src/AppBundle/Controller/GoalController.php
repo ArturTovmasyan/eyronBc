@@ -490,19 +490,32 @@ class GoalController extends Controller
      */
     public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
     {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
         // get current user
         $user = $this->getUser();
 
         //get session
         $session = $request->getSession();
 
+        //get new feed is log service
+        $this->get('bl_news_feed_service')->updateNewsFeed();
+
+        //If user is logged in then show news feed
+        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+
+        if($session->has('newFeed')) {
+            $session->remove('newFeed');
+        }
+
+        //set url in session
+        $session->set('newFeed', $feedCount);
+
         //check if user and session url exist
         if ($session->has('addUrl')) {
             $session->remove('addUrl');
         }
-
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
 
         // create filter
         $filters = array(
@@ -684,13 +697,6 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-//        if (!$this->getUser()){
-//            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-//            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
-//
-//            return array('goals' => $goals);
-//        }
 
         // default locale
         $locale = null;
@@ -879,6 +885,22 @@ class GoalController extends Controller
 
         // get user goal
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
+
+        //get session
+        $session = $request->getSession();
+
+        //get new feed is log service
+        $this->get('bl_news_feed_service')->updateNewsFeed();
+
+        //If user is logged in then show news feed
+        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+
+        if($session->has('newFeed')) {
+            $session->remove('newFeed');
+        }
+
+        //set url in session
+        $session->set('newFeed', $feedCount);
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {

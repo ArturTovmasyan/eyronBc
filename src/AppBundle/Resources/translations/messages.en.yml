@@ -24,10 +24,12 @@ statistic_view: Statistic
 goal:
       user_description: User goal description
       user_title: User goal
-      friends_title: Bucketlist-Goalfriends
+      friend_inner_title: Bucket List 127- Goalfriend inner page
+      friend_inner_description: Description:If you are interested in your goalfriends' interests and want to see their activities and goals, visit their page and get aware of the action he/she takes up.
+      friends_title: Bucket List 127-Goalfriends
       friends_description: Start over and see the list of your goalfriends with whom you have common goals. Be active and see the people that have the same taste and interest.
       view_description: See what the idea/goal contains in its inner page. It may have a list of pictures, videos, success stories and comments. Success stories inform you of the experience people have had about it. Leave you own comment and express your thought!
-      og_title: Bucketlist-Goal list
+      og_title: Bucket List 127-Ideas
       list_description: The list of ideas that will help you to research awesome goals to add to your own Bucketlist page. You may combine any idea with your own goals to make your bucketlist creative and imaginative.
       complete_text: Complete a goal
       public: Suggest as public
@@ -35,7 +37,8 @@ goal:
       preview: PREVIEW
       publish: Create
       description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*
-
+      search_title: Bucket List 127-search result-
+      search_description:  Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
       location_ex: Location
@@ -71,7 +74,7 @@ goal:
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
 activities:
-      title: Bucketlist-Activity
+      title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
 
 Title: Title
@@ -189,9 +192,9 @@ page:
 
 # my bucket list
 my_bucket_list:
-  title: Bucketlist-My Bucketlist
-  active_goals: My Bucketlist - Active Goals
-  completed_goals: My Bucketlist - Competed Goals
+  title: Bucket List 127-My Bucketlist
+  active_goals: My Bucket List 127-Active Goals
+  completed_goals: My Bucket List 127-Competed Goals
   description: Look at the things you did and the things you are about to do. See the list of your own goals, manage and share your own 'bucketlist'.
   add_goal: add some goals.
   doing_here: What are you doing here? Come on,
@@ -209,8 +212,20 @@ my_bucket_list:
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
   active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
 
+
+  dream_title: - dreams
+  dream_description: If you have created a goal but haven't set a deadline it automatically becomes a dream. No completion date, no scheduled date! You are just dreaming.
+  iu_title: - important, urgent
+  iu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are both important and urgent.
+  noiu_title: - not important, urgent
+  noiu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are not important, but urgent.
+  inou_title: - important, not urgent
+  inou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are important but not urgent.
+  noinou_title: - not important, not urgent
+  noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
+
 draft:
-  title: Drafts
+  title: Bucket List 127-Drafts
   description: If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published.
 
 done_by: Completed by
