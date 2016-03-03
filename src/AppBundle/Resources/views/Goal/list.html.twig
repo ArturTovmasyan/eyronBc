@@ -68,12 +68,13 @@
                     <div class="row" id="row">
                         <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
                              data-ng-cloak
-                             data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
                              data-ng-repeat="goal in Ideas.items">
                             <figure>
                                 <h3><a>[[ goal.title ]]</a></h3>
 
-                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
+                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]"
+                                   data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
+                                   id="goalTitle">
                                     <span class="overlay"></span>
                                     <img data-ng-src="[[ goal.cached_image ]]" alt="[[ goal.title ]]"/>
                                 </a>
