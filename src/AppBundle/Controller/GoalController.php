@@ -685,13 +685,6 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-//        if (!$this->getUser()){
-//            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-//            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
-//
-//            return array('goals' => $goals);
-//        }
-
         // default locale
         $locale = null;
 

@@ -24,6 +24,8 @@ statistic_view: Statistic
 goal:
       user_description: User goal description
       user_title: User goal
+      friend_inner_title: Bucketlist- Goalfriend inner page
+      friend_inner_description: Description:If you are interested in your goalfriends' interests and want to see their activities and goals, visit their page and get aware of the action he/she takes up.
       friends_title: Bucketlist-Goalfriends
       friends_description: Start over and see the list of your goalfriends with whom you have common goals. Be active and see the people that have the same taste and interest.
       view_description: See what the idea/goal contains in its inner page. It may have a list of pictures, videos, success stories and comments. Success stories inform you of the experience people have had about it. Leave you own comment and express your thought!
@@ -35,7 +37,8 @@ goal:
       preview: PREVIEW
       publish: Create
       description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*
-
+      search_title: Bucketlist-search result-
+      search_description:  Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
       location_ex: Location
@@ -208,6 +211,18 @@ my_bucket_list:
   year_old: y.o.
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
   active_description: See the list of your active goals. Be aware of the deadline and completion date of your goals and do your best to meet the scheduled date.
+
+
+  dream_title: - dreams
+  dream_description: If you have created a goal but haven't set a deadline it automatically becomes a dream. No completion date, no scheduled date! You are just dreaming.
+  iu_title: - important, urgent
+  iu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are both important and urgent.
+  noiu_title: - not important, urgent
+  noiu_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are not important, but urgent.
+  inou_title: - important, not urgent
+  inou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are important but not urgent.
+  noinou_title: - not important, not urgent
+  noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
 
 draft:
   title: Drafts
