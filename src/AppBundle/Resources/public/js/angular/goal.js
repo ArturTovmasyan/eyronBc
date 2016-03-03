@@ -318,19 +318,34 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
 
-        $scope.search = '';
-
         $scope.Ideas = new lsInfiniteItems();
 
         $scope.castInt = function(value){
             return parseInt(value);
         };
 
+        $scope.getParameterByName = function(name, href){
+            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( href );
+            if(results == null){
+                return "";
+            }
+            else {
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+        };
+
+        $scope.search = $scope.getParameterByName('search',window.location.href);
+
         $scope.doSearch = function(ev){
             if(ev.which == 13){
                 ev.preventDefault();
                 ev.stopPropagation();
 
+                var ptName = window.location.pathname;
+                window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
                 $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
             }
