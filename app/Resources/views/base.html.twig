@@ -132,8 +132,13 @@
                                             <input type="text"
                                                name="search"
                                                class="form-control"
-                                               value="{{ app.request.get('search') }}"
-                                               data-ng-enter-submit=".search form"
+                                               autocomplete="off"
+                                               {% if app.request.get('_route') == 'goals_list' %}
+                                                   data-ng-model="search"
+                                                   data-ng-keypress="doSearch($event)"
+                                               {% else %}
+                                                   data-ng-enter-submit=".search form"
+                                               {% endif %}
                                                placeholder="{{ 'search'|trans }}">
                                         </form>
                                     </li>
@@ -257,6 +262,12 @@
                                 <i class="fa fa-twitter-square"></i>
                             </a>
                         </li>
+
+                        {#<li>#}
+                            {#<a href="https://www.pinterest.com/bucketlist127/" target="_blank">#}
+                                {#<i class="fa fa-pinterest-square"></i>#}
+                            {#</a>#}
+                        {#</li>#}
 
                         <li>
                             <a href="https://www.instagram.com/bucketlist127/" target="_blank">

@@ -29,11 +29,19 @@ angular.module('goal', ['Interpolation',
             return document.body.appendChild(addthisScript);
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url) {
+        lsInfiniteItems.prototype.reset = function(){
+            this.items = [];
+            this.busy = false;
+            this.request = 0;
+            this.start = 0;
+        };
+
+        lsInfiniteItems.prototype.nextPage = function(url, search) {
             if (this.busy) return;
             this.busy = true;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
+            url += '?search=' + search;
             $http.get(url).success(function(data) {
                 this.items = this.items.concat(data);
                 this.start += this.count;
@@ -314,6 +322,33 @@ angular.module('goal', ['Interpolation',
 
         $scope.castInt = function(value){
             return parseInt(value);
+        };
+
+        $scope.getParameterByName = function(name, href){
+            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( href );
+            if(results == null){
+                return "";
+            }
+            else {
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+        };
+
+        $scope.search = $scope.getParameterByName('search',window.location.href);
+
+        $scope.doSearch = function(ev){
+            if(ev.which == 13){
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                var ptName = window.location.pathname;
+                window.history.pushState("", "", ptName + "?search=" + $scope.search);
+                $scope.Ideas.reset();
+                $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
+            }
         };
 
         $scope.adventureText = function(slug, cJson){

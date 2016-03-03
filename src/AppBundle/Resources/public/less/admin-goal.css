@@ -14,14 +14,27 @@
     margin-right: 2px;
 }
 
-.remove-icon{
-    background: url('../images/images.png') no-repeat -379px -222px;
-    position: absolute;
-    right: 10px;
-    top: 0;
-    height: 34px;
-}
+/*.remove-icon{*/
+    /*background: url('../images/images.png') no-repeat -379px -222px;*/
+    /*position: absolute;*/
+    /*right: 10px;*/
+    /*top: 0;*/
+    /*height: 34px;*/
+/*}*/
 
+.remove-icon{
+    position: absolute;
+    right: 3px;
+    top: 2px;
+    background-color: #ffffff;
+    padding:0 0 0 3px;
+}
+.remove-icon:hover,:focus{
+      text-decoration: none;
+  }
+.remove-icon.icon-remove-video-link{
+    font-size: 25px;
+}
 .relative>iframe {
     margin: 20px;
     width: 33%;
