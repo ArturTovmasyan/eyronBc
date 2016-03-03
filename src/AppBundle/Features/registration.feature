@@ -20,12 +20,20 @@ Feature: Login user
 
   @javascript
   Scenario: Login user
-    Given I am on "/"
-    When I follow "JOIN"
-    And I wait for angular
+    Given I am on "/login"
     And I fill in "_username" with "test@test.am"
     And I fill in "_password" with "test1234"
-    And I press "SIGN IN"
-    Then I should be on "/ideas"
+#    When I follow "JOIN"
+    And I wait for angular
 
+    And I press "SIGN IN"
+    Then I should be on "/login"
+
+#  @javascript
+#  Scenario: Login user
+#    Given I am on "http://drupal.org/"
+#    When I search for "behat"
+#    And I press "submit"
+##    And I wait for angular
+#    Then I should see "Behat Drupal Extension"
 

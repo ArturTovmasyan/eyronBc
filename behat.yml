@@ -17,4 +17,4 @@ default:
           base_url: http://bucketlist.loc/app_dev.php/
           sessions:
               symfony2:
-                  symfony2:
+                  symfony2: ~

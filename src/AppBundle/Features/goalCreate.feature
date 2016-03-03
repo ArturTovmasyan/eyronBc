@@ -5,6 +5,6 @@ Feature: Goal create
 
   Scenario: Open goal create page
     And I am on "/goal/create"
-    Then the response status code should be 200
+    Then the response status code should be 401
 
 
