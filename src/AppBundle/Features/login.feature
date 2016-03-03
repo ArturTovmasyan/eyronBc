@@ -37,3 +37,12 @@ Feature: Login user
     Then I should be on "/login"
     And I should see "The email and password you entered did not match our records. Please try again."
 
+  @javascript
+  Scenario: Log in admin user
+    Given I am on "/login"
+    When I fill in the following:
+      | _username | admin@admin.com|
+      | _password | admin1234         |
+    And I press "SIGN IN"
+    Then I should be on "/admin/dashboard"
+    And I should see "Homepage"
