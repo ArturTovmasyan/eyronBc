@@ -470,9 +470,11 @@
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
+                                                                <span class="text-white">
                                                                     {{ 'block_listed'|trans | upper }}
                                                                     <span>{{ goal.getUsedCount.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
+                                                                </span>
                                                             {% endif %}
                                                         </div>
 
@@ -484,9 +486,11 @@
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
-                                                                {{ 'block_completed'|trans | upper }}
-                                                                <span>{{ goal.getUsedCount.doneBy }}</span>
-                                                                <i class="icon-user-small"></i>
+                                                                <span class="text-white">
+                                                                    {{ 'block_completed'|trans | upper }}
+                                                                    <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                                    <i class="icon-user-small"></i>
+                                                                </span>
                                                             {% endif %}
                                                         </div>
                                                     </div>
