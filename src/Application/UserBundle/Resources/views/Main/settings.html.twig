@@ -166,7 +166,7 @@
 
                                     <select id="{{ form.birthDate.month.vars.id }}" name="{{ form.birthDate.month.vars.full_name }}">
 
-                                        <option {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
 
                                         {% for month in months %}
                                             <option value="{{ month.value }}" {% if month.value == form.birthDate.month.vars.value %} selected {% endif %}>{{ arrayMonth[month.value] }}</option>
@@ -180,7 +180,7 @@
 
                                     <select id="{{ form.birthDate.day.vars.id }}" name="{{ form.birthDate.day.vars.full_name }}">
 
-                                        <option {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
 
                                         {% for day in days %}
                                             <option value="{{ day.value }}" {% if day.value == form.birthDate.day.vars.value %} selected {% endif %}>{{ day.value }}</option>
@@ -193,7 +193,7 @@
 
                                     <select id="{{ form.birthDate.year.vars.id }}" name="{{ form.birthDate.year.vars.full_name }}">
 
-                                        <option {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                                        <option value="" {% if user.birthDate is null %} selected {% endif %}>{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
 
                                         {% for year in years %}
                                             <option value="{{ year.value }}" {% if year.value == form.birthDate.year.vars.value %} selected {% endif %}>{{ year.value }}</option>
