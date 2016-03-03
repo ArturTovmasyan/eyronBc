@@ -24,6 +24,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(10000);
+        $this->getSession()->wait(30000);
     }
 }
