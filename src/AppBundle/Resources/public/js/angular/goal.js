@@ -29,11 +29,19 @@ angular.module('goal', ['Interpolation',
             return document.body.appendChild(addthisScript);
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url) {
+        lsInfiniteItems.prototype.reset = function(){
+            this.items = [];
+            this.busy = false;
+            this.request = 0;
+            this.start = 0;
+        };
+
+        lsInfiniteItems.prototype.nextPage = function(url, search) {
             if (this.busy) return;
             this.busy = true;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
+            url += '?search=' + search;
             $http.get(url).success(function(data) {
                 this.items = this.items.concat(data);
                 this.start += this.count;
@@ -310,10 +318,22 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
 
+        $scope.search = '';
+
         $scope.Ideas = new lsInfiniteItems();
 
         $scope.castInt = function(value){
             return parseInt(value);
+        };
+
+        $scope.doSearch = function(ev){
+            if(ev.which == 13){
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                $scope.Ideas.reset();
+                $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
+            }
         };
 
         $scope.adventureText = function(slug, cJson){
