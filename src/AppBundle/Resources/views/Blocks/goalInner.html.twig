@@ -132,6 +132,7 @@
                             <div data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, id: 'deed'}]">
                                 <div data-ng-show="location"
                                      data-simple-map-marker
+                                     data-zoom="16"
                                      data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                                      data-markers="location"
                                      style="width: 99.8%; height: 221px">
@@ -236,7 +237,6 @@
 
             <div class="inner">
                 <div class="row">
-
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
@@ -251,7 +251,7 @@
                                     <br />
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <figure>
+                                            {#<figure>#}
                                                 {#<iframe src="{{ v }}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>#}
                                                 <youtube-video
                                                     data-ng-init="mainSliderVideo='{{ v }}'"
@@ -259,7 +259,7 @@
                                                     player-height="'360px'"
                                                     player-width="'100%'">
                                                 </youtube-video>
-                                            </figure>
+                                            {#</figure>#}
                                         </div>
                                     </div>
                                 {% else %}
@@ -404,7 +404,7 @@
                                                 {% set v = videos[0] %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <figure>
+                                                        {#<figure>#}
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
                                                             <youtube-video
                                                                 video-url="storySliderVideo[{{ key }}]"
@@ -412,7 +412,7 @@
                                                                 player-height="'360px'"
                                                                 player-width="'700px'">
                                                             </youtube-video>
-                                                        </figure>
+                                                        {#</figure>#}
                                                     </div>
                                                 </div>
                                             {% else %}

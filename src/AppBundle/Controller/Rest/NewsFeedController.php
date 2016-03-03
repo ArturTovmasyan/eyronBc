@@ -66,6 +66,12 @@ class NewsFeedController extends FOSRestController
         if (is_numeric($first) && is_numeric($count)) {
             $newsFeeds = array_slice($newsFeeds, $first, $count);
         }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($newsFeeds as $newsFeed){
+            $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+        }
+
         return $newsFeeds;
     }
 }

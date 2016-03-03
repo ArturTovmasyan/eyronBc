@@ -7,6 +7,37 @@
 {% set active = 'active-goals' %}
 {% set completed = 'completed-goals' %}
 
+{% set importantUrgent = app.request.get('f_1') %}
+{% set notImportantUrgent = app.request.get('f_2') %}
+{% set importantNotUrgent = app.request.get('f_3') %}
+{% set notImportantNotUrgent = app.request.get('f_4') %}
+{% set dreamFilter = app.request.get('d') %}
+
+    {% if importantUrgent == "on" %}
+        {% set iuTitle = 'my_bucket_list.iu_title'|trans %}
+        {% set iuDescription = 'my_bucket_list.iu_description'|trans %}
+    {% endif %}
+
+    {% if notImportantUrgent == "on" %}
+        {% set noIUTitle = 'my_bucket_list.noiu_title'|trans %}
+        {% set noIUDescription = 'my_bucket_list.noiu_description'|trans %}
+    {% endif %}
+
+    {% if importantNotUrgent == "on" %}
+        {% set iNoUTitle = 'my_bucket_list.inou_title'|trans %}
+        {% set iNoUDescription = 'my_bucket_list.inou_description'|trans %}
+    {% endif %}
+
+    {% if notImportantNotUrgent == "on" %}
+        {% set noInoUTitle = 'my_bucket_list.noinou_title'|trans %}
+        {% set noInoUDescription = 'my_bucket_list.noinou_description'|trans %}
+    {% endif %}
+
+  {% if dreamFilter == "1" %}
+      {% set dreamTitle = 'my_bucket_list.dream_title'|trans %}
+      {% set dreamDescription = 'my_bucket_list.dream_description'|trans %}
+  {% endif %}
+
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
 {% endblock %}
@@ -25,21 +56,43 @@
 {%- block title -%}
 
     {% if status == completed %}
-        {{ 'my_bucket_list.completed_goals'|trans }}
+        {{- 'my_bucket_list.completed_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
     {% elseif status == active %}
-        {{ 'my_bucket_list.active_goals'|trans }}
+        {{- 'my_bucket_list.active_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
     {% elseif status == all %}
-        {{ 'my_bucket_list.title'|trans }}
+        {{- 'my_bucket_list.title'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+    {% elseif status  == 'all' %}
+        {{- 'goal.friend_inner_title'|trans -}}
     {% endif %}
 
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ 'my_bucket_list.title'|trans }}
+
+    {% if status == completed %}
+        {{- 'my_bucket_list.completed_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+    {% elseif status == active %}
+        {{- 'my_bucket_list.active_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+    {% elseif status == all %}
+        {{- 'my_bucket_list.title'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
+    {% elseif status  == 'all' %}
+        {{- 'goal.friend_inner_title'|trans -}}
+    {% endif %}
+
 {%- endblock -%}
 
 {%- block og_description -%}
-    {{ 'my_bucket_list.description'|trans }}
+
+    {% if status == completed %}
+        {{- 'my_bucket_list.completed_description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+    {% elseif status == active %}
+        {{- 'my_bucket_list.active_description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+    {% elseif status == all %}
+        {{- 'my_bucket_list.description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
+    {% elseif status  == 'all' %}
+        {{- 'goal.friend_inner_description'|trans -}}
+    {% endif %}
+
 {%- endblock -%}
 
 {%- block og_image -%}
@@ -47,7 +100,7 @@
     {%- if images -%}
         {{- host ~ images -}}
     {% else %}
-        {{ parent() }}
+        {{- parent() -}}
     {%- endif -%}
 {%- endblock -%}
 
@@ -62,7 +115,6 @@
 {% block content_header %}
 
     {% set stats = profileUser.getStats %}
-
     {% set lastName = profileUser.lastName %}
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
@@ -116,10 +168,12 @@
                         </figure>
                     </div>
                     <div class="col-sm-4">
-                        <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
-                        {% if  profileUser.getAge  %}
-                            <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                        {% if profileUser.showName %}
+                             <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
                         {% endif %}
+                    {% if  profileUser.getAge  %}
+                    <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                    {% endif %}
                     </div>
 
                     {% if profileUser.id == app.user.id %}
@@ -409,19 +463,35 @@
                                                 <figcaption>
                                                     <div class="row">
                                                         <div class="col-xs-6">
-                                                            <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                                                {{ 'block_listed'|trans | upper }}
-                                                                <span>{{ goal.getUsedCount.listedBy }}</span>
-                                                                <i class="icon-user-small"></i>
-                                                            </a>
+                                                            {% if goal.getUsedCount.listedBy > 0 %}
+                                                                <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
+                                                                    {{ 'block_listed'|trans | upper }}
+                                                                    <span>{{ goal.getUsedCount.listedBy }}</span>
+                                                                    <i class="icon-user-small"></i>
+                                                                </a>
+                                                            {% else %}
+                                                                <span class="text-white">
+                                                                    {{ 'block_listed'|trans | upper }}
+                                                                    <span>{{ goal.getUsedCount.listedBy }}</span>
+                                                                    <i class="icon-user-small"></i>
+                                                                </span>
+                                                            {% endif %}
                                                         </div>
 
                                                         <div class="col-xs-6">
-                                                            <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                                                {{ 'block_completed'|trans | upper }}
-                                                                <span>{{ goal.getUsedCount.doneBy }}</span>
-                                                                <i class="icon-user-small"></i>
-                                                            </a>
+                                                            {% if goal.getUsedCount.doneBy > 0 %}
+                                                                <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
+                                                                    {{ 'block_completed'|trans | upper }}
+                                                                    <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                                    <i class="icon-user-small"></i>
+                                                                </a>
+                                                            {% else %}
+                                                                <span class="text-white">
+                                                                    {{ 'block_completed'|trans | upper }}
+                                                                    <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                                    <i class="icon-user-small"></i>
+                                                                </span>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </figcaption>
@@ -591,7 +661,7 @@
 
                         </div>
                         {#<div class="col-xs-3 text-right">#}
-                            {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                        {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
                         {#</div>#}
                     </div>
 

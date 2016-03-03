@@ -8,6 +8,8 @@
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% set goalCount = goals.getTotalItemCount %}
+
 {% block content %}
     <div class="content-top">
         <div class="container">
@@ -55,9 +57,9 @@
          infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          infinite-scroll-distance='2'>
 
-        {% if goals.getTotalItemCount > 0 %}
+        {% if goalCount > 0 %}
 
-            {% set searchResult = app.request.get('search')  %}
+            {% set searchResult = app.request.get('search') %}
 
             <h2 class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
             <div class="row">
@@ -70,9 +72,11 @@
                             <figure>
                                 <h3><a>[[ goal.title ]]</a></h3>
 
-                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]" id="goalTitle">
+                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]"
+                                   data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
+                                   id="goalTitle">
                                     <span class="overlay"></span>
-                                    <img data-ng-src="[[ goal.image_path ]]" alt="[[ goal.title ]]"/>
+                                    <img data-ng-src="[[ goal.cached_image ]]" alt="[[ goal.title ]]"/>
                                 </a>
 
                                 <div class="absolute">
@@ -111,8 +115,6 @@
                 <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
             </h2>
 
-            {% include "AppBundle:Main:ideas.html.twig" with {'search' : 0 }  %}
-
         {% endif %}
         {# display navigation #}
         <div class="navigation text-center">
@@ -130,15 +132,25 @@
 {% endblock %}
 
 {%- block title -%}
-    {{ 'goal.og_title'|trans }}
+
+    {% if goalCount > 0 %}
+        {% set goalTitle = goals.items|first.title %}
+    {% endif %}
+
+   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ 'goal.og_title'|trans }}
+
+    {% if goalCount > 0 %}
+        {% set goalTitle = goals.items|first.title %}
+    {% endif %}
+
+   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
 {%- endblock -%}
 
 {%- block og_description -%}
-    {{ 'goal.list_description'|trans }}
+    {% if app.request.get('search') %}{{- 'goal.search_description'|trans -}}{% else %}{{- 'goal.list_description'|trans -}}{% endif %}
 {%- endblock -%}
 
 {%- block meta_description -%}
