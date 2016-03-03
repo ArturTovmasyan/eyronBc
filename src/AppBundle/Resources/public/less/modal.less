@@ -3,6 +3,7 @@
 
 .blocker{
   z-index: 10001 !important;
+  overflow: hidden;
 }
 
 .pac-container{
@@ -521,6 +522,10 @@ a.close-modal{
 
 
 @media (min-width: @screen-sm) {
+
+  .blocker{
+    overflow: visible;
+  }
   .modal{
     .title-smaller{
       width:auto;
