@@ -285,11 +285,11 @@ class GoalAdmin extends Admin
                 $image->setGoal($object);
             }
 
-            if (!$hasListPhoto){
+            if (!$hasListPhoto && $images->first()){
                 $images->first()->setList(true);
             }
 
-            if (!$hasCoverPhoto){
+            if (!$hasCoverPhoto && $images->first()){
                 $images->first()->setCover(true);
             }
         }
