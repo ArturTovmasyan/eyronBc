@@ -35,22 +35,38 @@
                 <div class="absolute">
                     <ul>
                         <li>
-                            <a href="{{ path('listed_users', {'slug': popularGoal.slug }) }}">
-                                                    <span>
-                                                        {{ 'home_listed_by'|trans({},'messages') }}
-                                                        {{ popularGoal.stats.listedBy }}
-                                                    </span>
+                            {% if popularGoal.stats.listedBy > 0 %}
+                                <a href="{{ path('listed_users', {'slug': popularGoal.slug }) }}">
+                                    <span>
+                                        {{ 'home_listed_by'|trans({},'messages') }}
+                                        {{ popularGoal.stats.listedBy }}
+                                    </span>
+                                    <i class="icon-user-small"></i>
+                                </a>
+                            {% else %}
+                                <span>
+                                    {{ 'home_listed_by'|trans({},'messages') }}
+                                    {{ popularGoal.stats.listedBy }}
+                                </span>
                                 <i class="icon-user-small"></i>
-                            </a>
+                            {% endif %}
                         </li>
                         <li>
-                            <a href="{{ path('done_users', {'slug': popularGoal.slug} ) }}">
-                                                    <span>
-                                                        {{ 'home_complete'|trans({},'messages') }}
-                                                        {{ popularGoal.stats.doneBy }}
-                                                    </span>
+                            {% if popularGoal.stats.doneBy > 0 %}
+                                <a href="{{ path('done_users', {'slug': popularGoal.slug} ) }}">
+                                    <span>
+                                        {{ 'home_complete'|trans({},'messages') }}
+                                        {{ popularGoal.stats.doneBy }}
+                                    </span>
+                                    <i class="icon-user-small"></i>
+                                </a>
+                            {% else %}
+                                <span>
+                                    {{ 'home_complete'|trans({},'messages') }}
+                                    {{ popularGoal.stats.doneBy }}
+                                </span>
                                 <i class="icon-user-small"></i>
-                            </a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
