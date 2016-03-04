@@ -89,20 +89,21 @@
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
                     <div class="right-block margin-top">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                 <span>
-                                     {#<i class="icon top-icon"></i>#}
-                                     <i class="icon-top-idea"></i>
-                                     <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
-                                </span>
+                        <div class="right-menu">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                     <span>
+                                         {#<i class="icon top-icon"></i>#}
+                                         <i class="icon-top-idea"></i>
+                                         <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
+                                    </span>
+                                </div>
+                                {#<div class="col-xs-6 text-right">#}
+                                    {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                                {#</div>#}
                             </div>
-                            {#<div class="col-xs-6 text-right">#}
-                                {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                            {#</div>#}
+                            <hr/>
                         </div>
-                        <hr/>
-
                         <div class="row">
                             {#<div class="col-sm-6 col-md-12">#}
                                 {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
