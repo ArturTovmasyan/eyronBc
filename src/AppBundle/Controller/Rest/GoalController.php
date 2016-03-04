@@ -61,7 +61,7 @@ class GoalController extends FOSRestController
 
         $goals = array_values($goals);
 
-        if (count($goals) == 7){
+        if ($count == 7){
             $liipManager = $this->get('liip_imagine.cache.manager');
             for($i = 0; $i < 4; $i++){
                 $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), 'goal_list_small'));
