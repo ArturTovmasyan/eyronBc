@@ -4,22 +4,13 @@
         {% for popularGoal in popularGoals %}
 
         <div class="col-sm-6 col-md-12">
-            {#<figure>#}
-                {#<h3>{{ popularGoal.title }}</h3>#}
-
-                {#<a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">#}
-                    {#<span class="overlay"></span>#}
-                    {#<img src="{{ popularGoal.getListPhoto ? popularGoal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ popularGoal.title }}" />#}
-                {#</a>#}
-                {#<figcaption>#}
-                    {#{%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}#}
-                {#</figcaption>#}
-            {#</figure>#}
-            <br />
+            <div class="ideas">
 
             <figure>
 
-                <h3>{{ popularGoal.title }}</h3>
+                <h3>
+                    <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}">{{ popularGoal.title }}</a>
+                </h3>
 
                 {% set imageDownloadLink = popularGoal.listPhotoDownloadLink %}
 
@@ -75,6 +66,7 @@
                     {%  include "AppBundle:Blocks:goalFooter.html.twig" with {'goal' : popularGoal }  %}
                 </figcaption>
             </figure>
+            </div>
         </div>
 
         {% endfor %}

@@ -16,9 +16,9 @@
 
             <div class="row">
                 <div class="col-xs-4 col-sm-6">
-                    <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap = !showMap" class="text-gray map-top">
+                    <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap" class="text-gray map-top">
                         <bdi>MAP</bdi>
-                        <i class="icon-arrow-down"  data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="icon-arrow-down" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
 
     <div class="container ideas-list"
          data-ng-cloak
-         infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")'
+         infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search)'
          infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          infinite-scroll-distance='2'>
 
@@ -129,7 +129,7 @@
             <a href="javascript:void(0)"
                data-ng-cloak
                data-ng-show="!Ideas.busy && Ideas.request >= 2"
-               data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")'
+               data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search)'
                class="show-more ng-hide">
                 <span></span>
                 <span></span>

@@ -301,6 +301,7 @@ admin:
       username: Username
       created: Created
       goal_link: Link
+      goal_status: Goal Status
 
 # end sonata admin lable
 
