@@ -371,7 +371,7 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return $this->redirectToRoute("user_profile");
+        return $this->redirectToRoute("user_profile_single", array('status' => 'completed-goals'));
     }
 
     /**

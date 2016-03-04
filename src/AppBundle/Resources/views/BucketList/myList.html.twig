@@ -629,38 +629,39 @@
 
             <div class="col-md-4">
                 <div class="right-block">
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <a href="{{ path('add_goal') }}">
-                                <i class="icon-creat-icon"></i>
-                                <bdi>{{ 'right_menu.create'|trans }}</bdi>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 text-right">
-                            {% if profileUser.id == app.user.id %}
-                                <a href="{{ path('goal_drafts') }}">
-                                    <bdi>{{ 'right_menu.draft'|trans }} {{ draftsCount }}</bdi>
-
+                    <div class="right-menu">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <a href="{{ path('add_goal') }}">
+                                    <i class="icon-creat-icon"></i>
+                                    <bdi>{{ 'right_menu.create'|trans }}</bdi>
                                 </a>
-                            {% endif %}
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                {% if profileUser.id == app.user.id %}
+                                    <a href="{{ path('goal_drafts') }}">
+                                        <bdi>{{ 'right_menu.draft'|trans }} {{ draftsCount }}</bdi>
+
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    <hr/>
+                        <hr/>
 
-                    <div class="row padding-top">
-                        <div class="col-xs-9">
-                            <span>
-                                <i class="icon-suggest-icon"></i>
-                                <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
-                            </span>
+                        <div class="row padding-top">
+                            <div class="col-xs-9">
+                                <span>
+                                    <i class="icon-suggest-icon"></i>
+                                    <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
+                                </span>
+                            </div>
+                            {#<div class="col-xs-3 text-right">#}
+                            {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                            {#</div>#}
                         </div>
-                        {#<div class="col-xs-3 text-right">#}
-                        {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                        {#</div>#}
+
+                        <hr/>
                     </div>
-
-                    <hr/>
-
                     <div class="row">
                         {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
                     </div>
