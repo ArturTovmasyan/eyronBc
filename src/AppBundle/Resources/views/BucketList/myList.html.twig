@@ -465,14 +465,12 @@
                                                         <div class="col-xs-6">
                                                             {% if goal.getUsedCount.listedBy > 0 %}
                                                                 <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                                                    {{ 'block_listed'|trans | upper }}
-                                                                    <span>{{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | upper }} {{ goal.getUsedCount.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    {{ 'block_listed'|trans | upper }}
-                                                                    <span>{{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | upper }} {{ goal.getUsedCount.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}
@@ -481,14 +479,12 @@
                                                         <div class="col-xs-6">
                                                             {% if goal.getUsedCount.doneBy > 0 %}
                                                                 <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                                                    {{ 'block_completed'|trans | upper }}
-                                                                    <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | upper }} {{ goal.getUsedCount.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    {{ 'block_completed'|trans | upper }}
-                                                                    <span>{{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | upper }} {{ goal.getUsedCount.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}
@@ -656,9 +652,7 @@
                             <span>
                                 <i class="icon-suggest-icon"></i>
                                 <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
-
                             </span>
-
                         </div>
                         {#<div class="col-xs-3 text-right">#}
                         {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
