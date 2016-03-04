@@ -17,32 +17,32 @@ $(document).ready(function(){
         }
     };
 
-    if($('#main-slider').length){
-        var optMainSlider = {};
-
-        $.extend(optMainSlider, options);
-
-        var main = new $JssorSlider$('main-slider', optMainSlider);
-
-        var ScaleSliderMain = function() {
-            var parentWidth = $("#main-slider").parent().width();
-
-            if (parentWidth) {
-                main.$ScaleWidth(parentWidth);
-            }
-            else {
-                window.setTimeout(ScaleSliderMain, 30);  // Need to take attention on this
-            }
-        };
-
-        //Scale slider after document ready
-        ScaleSliderMain();
-
-        //Scale slider while window load/resize/orientationchange.
-        $(window).bind("load", ScaleSliderMain);
-        $(window).bind("resize", ScaleSliderMain);
-        $(window).bind("orientationchange", ScaleSliderMain);
-    }
+    //if($('#main-slider').length){
+    //    var optMainSlider = {};
+    //
+    //    $.extend(optMainSlider, options);
+    //
+    //    var main = new $JssorSlider$('main-slider', optMainSlider);
+    //
+    //    var ScaleSliderMain = function() {
+    //        var parentWidth = $("#main-slider").parent().width();
+    //
+    //        if (parentWidth) {
+    //            main.$ScaleWidth(parentWidth);
+    //        }
+    //        else {
+    //            window.setTimeout(ScaleSliderMain, 30);  // Need to take attention on this
+    //        }
+    //    };
+    //
+    //    //Scale slider after document ready
+    //    ScaleSliderMain();
+    //
+    //    //Scale slider while window load/resize/orientationchange.
+    //    $(window).bind("load", ScaleSliderMain);
+    //    $(window).bind("resize", ScaleSliderMain);
+    //    $(window).bind("orientationchange", ScaleSliderMain);
+    //}
 
     if($('#main-slider-video').length){
         var optMainVideo = {};

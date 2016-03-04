@@ -8,6 +8,7 @@
     <link href="{{ asset('bundles/app/less/jssor-slider.css') }}" rel="stylesheet"/>
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
     <link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -56,8 +57,10 @@
     {% javascripts output='js/app_goal_inner.js'
         'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
         'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
+        'app/bower_components/swiper/dist/js/swiper.min.js'
         'app/bower_components/jssor-slider/js/jssor.slider.mini.js'
         'bundles/app/js/jssor-inner-slider.js'
+        'bundles/app/js/swiper-inner.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
