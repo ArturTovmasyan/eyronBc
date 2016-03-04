@@ -1,0 +1,27 @@
+<div id="mobile-modal" data-ng-controller="mobileModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" aria-label="Close" rel="modal:close">-->
+                <!--<span aria-hidden="true" class="icon-remove-email" rel="modal:close"></span>-->
+                <!--&lt;!&ndash;<span class="icon-remove-email"></span>&ndash;&gt;-->
+                <!--</button>-->
+                <a href="#" rel="modal:close" class="icon-remove-email"></a>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+                <h5>
+                    Bucketlist is available everywhere!
+                    download our app today and connect with
+                    someone wherever your adventures take you!
+                </h5>
+
+                <a data-ng-show="deviceDetector.raw.os.ios" href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store-icon"></a>
+
+                <a data-ng-show="deviceDetector.raw.os.android" href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play-icon"></a>
+
+            </div>
+        </div>
+    </div>
+</div>

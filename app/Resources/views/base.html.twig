@@ -72,7 +72,7 @@
         <div data-ls-jquery-modal
              style="display: none"
              data-ls-identity="mobileDetectModal"
-             data-ls-template-url="{{ asset('bundles/app/htmls/mobileModal.html') }}">
+             data-ls-template='{{ include('AppBundle:Blocks:mobileModal.html.twig') }}'>
         </div>
 
         {% set addUrl = getSession('addUrl') %}
