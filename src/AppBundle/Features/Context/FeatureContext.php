@@ -40,10 +40,10 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
     }
 
-    /** @BeforeSuite */
-    public static function setupFeature(BeforeSuiteScope $scope)
-    {
-        $scope->output = shell_exec('./behat.sh');
-    }
+//    /** @BeforeSuite */
+//    public static function setupFeature(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./behat.sh');
+//    }
 
 }
