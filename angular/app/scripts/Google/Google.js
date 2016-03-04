@@ -18,6 +18,7 @@ angular.module('Google', [])
                 zoom: '=',
                 markers: '=',
                 refresh: '=',
+                isBounded: '=',
                 onMarkerClick: '&',
                 passiveMarkerIcon: '@',
                 activeMarkerIcon: '@'
@@ -50,7 +51,9 @@ angular.module('Google', [])
                     scope.$watch('refresh', function(){
                         $timeout(function(){
                             google.maps.event.trigger(scope.map, 'resize');
-                            scope.map.fitBounds(scope.bounds);
+                            if(scope.isBounded) {
+                                scope.map.fitBounds(scope.bounds);
+                            }
                         },500);
                     }, true);
 
@@ -59,7 +62,9 @@ angular.module('Google', [])
                             return;
                         }
 
-                        scope.bounds = new google.maps.LatLngBounds(null);
+                        if(scope.isBounded) {
+                            scope.bounds = new google.maps.LatLngBounds(null);
+                        }
 
                         angular.forEach(d, function(v, k){
                             if(v.latitude && v.longitude) {
@@ -77,11 +82,15 @@ angular.module('Google', [])
 
                                 }
 
-                                scope.bounds.extend(scope.mapMarkers[v.id].getPosition());
+                                if(scope.isBounded) {
+                                    scope.bounds.extend(scope.mapMarkers[v.id].getPosition());
+                                }
                             }
                         });
 
-                        scope.map.fitBounds(scope.bounds);
+                        if(scope.isBounded) {
+                            scope.map.fitBounds(scope.bounds);
+                        }
                     },true);
 
                     scope.setMarkerActive = function(m){
