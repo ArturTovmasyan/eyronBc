@@ -246,7 +246,7 @@ drag_drop: You can upload up to 6 images
 drag_drop_story: Select photos for your story
 
 upload: |
-  An image must have minimum dimensions <span>800x600px</span> with recommended dimensions of 1280x720px. <br />
+  An image must have minimum dimensions 800x600px with recommended dimensions of 1280x720px. <br />
    The maximum size of an image must not exceed 4MB.
 
 delete_message: |
