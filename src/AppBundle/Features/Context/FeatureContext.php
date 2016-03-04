@@ -2,12 +2,9 @@
 
 namespace AppBundle\Features\Context;
 
-use Behat\Behat\Definition\Call\Given;
-use Behat\Behat\Definition\Call\Then;
-use Behat\Behat\Definition\Call\When;
-use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Behat\Behat\Context\SnippetAcceptingContext;
@@ -27,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(4000);
+        $this->getSession()->wait(5000);
     }
 
     /**
@@ -36,11 +33,17 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iAmLoggedIn()
     {
         $this->visit('/login');
-        $this->fillField('_username', 'test@test.am');
-        $this->fillField('_password', 'test1234');
+        $this->fillField('_username', 'user@user.com');
+        $this->fillField('_password', 'Test1234');
         $this->pressButton('SIGN IN');
         $this->assertSession()->pageTextContains('MOST POPULAR');
 
+    }
+
+    /** @BeforeSuite */
+    public static function setupFeature(BeforeSuiteScope $scope)
+    {
+        $scope->output = shell_exec('./behat.sh');
     }
 
 }
