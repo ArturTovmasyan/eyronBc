@@ -44,36 +44,36 @@ $(document).ready(function(){
     //    $(window).bind("orientationchange", ScaleSliderMain);
     //}
 
-    if($('#main-slider-video').length){
-        var optMainVideo = {};
-
-        $.extend(optMainVideo, options);
-
-        optMainVideo.$SlideSpacing = 10;
-        optMainVideo.$DisplayPieces = 1;
-        //optMainVideo.$SlideWidth = 350;
-
-        var mainVideo = new $JssorSlider$('main-slider-video', optMainVideo);
-
-        var ScaleSliderMainVideo = function() {
-            var parentWidth = $("#main-slider-video").parent().width();
-
-            if (parentWidth) {
-                mainVideo.$ScaleWidth(parentWidth);
-            }
-            else {
-                window.setTimeout(ScaleSliderMainVideo, 30);  // Need to take attention on this
-            }
-        };
-
-        //Scale slider after document ready
-        ScaleSliderMainVideo();
-
-        //Scale slider while window load/resize/orientationchange.
-        $(window).bind("load", ScaleSliderMainVideo);
-        $(window).bind("resize", ScaleSliderMainVideo);
-        $(window).bind("orientationchange", ScaleSliderMainVideo);
-    }
+    //if($('#main-slider-video').length){
+    //    var optMainVideo = {};
+    //
+    //    $.extend(optMainVideo, options);
+    //
+    //    optMainVideo.$SlideSpacing = 10;
+    //    optMainVideo.$DisplayPieces = 1;
+    //    //optMainVideo.$SlideWidth = 350;
+    //
+    //    var mainVideo = new $JssorSlider$('main-slider-video', optMainVideo);
+    //
+    //    var ScaleSliderMainVideo = function() {
+    //        var parentWidth = $("#main-slider-video").parent().width();
+    //
+    //        if (parentWidth) {
+    //            mainVideo.$ScaleWidth(parentWidth);
+    //        }
+    //        else {
+    //            window.setTimeout(ScaleSliderMainVideo, 30);  // Need to take attention on this
+    //        }
+    //    };
+    //
+    //    //Scale slider after document ready
+    //    ScaleSliderMainVideo();
+    //
+    //    //Scale slider while window load/resize/orientationchange.
+    //    $(window).bind("load", ScaleSliderMainVideo);
+    //    $(window).bind("resize", ScaleSliderMainVideo);
+    //    $(window).bind("orientationchange", ScaleSliderMainVideo);
+    //}
 
 
     if($(".story-slider").length){

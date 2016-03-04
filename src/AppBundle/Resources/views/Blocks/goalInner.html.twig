@@ -55,28 +55,6 @@
                     {% if images and images | length %}
                         <div id="main-slider" class="swiper-container" style="position: relative; top: 0; left: 0;">
                             <!-- Slides Container -->
-                            {#<div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">#}
-                                {#{% for key, image in images %}#}
-                                    {#<div class="overlay">#}
-                                        {#<a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">#}
-                                            {#<img u="image" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>#}
-                                        {#</a>#}
-                                    {#</div>#}
-                                {#{% endfor %}#}
-                            {#</div>#}
-
-                            {#{% if images|length > 1 %}#}
-                                {#<div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">#}
-                                    {#<!-- bullet navigator item prototype -->#}
-                                    {#<div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>#}
-                                {#</div>#}
-
-                                {#<!-- Arrow Left -->#}
-                                {#<span u="arrowleft" class="jssora13l"></span>#}
-                                {#<!-- Arrow Right -->#}
-                                {#<span u="arrowright" class="jssora13r"></span>#}
-                            {#{% endif %}#}
-
                             <div class="swiper-wrapper">
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
@@ -280,14 +258,12 @@
                                     </div>
                                 {% else %}
                                     <div class="row">
-
-                                        <div id="main-slider-video" style="position: relative; top: 0; left: 0; width: 710px; height: 300px;">
+                                        <div id="main-slider-video" class="swiper-container" style="position: relative; top: 0; left: 0">
                                             <!-- Slides Container -->
-                                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 710px; height: 300px;">
+                                            <div class="swiper-wrapper">
                                                 {% for k, video in goal.videoLink %}
                                                     {% if video %}
-                                                        <div>
-                                                            {#<iframe u="image" src="{{ video }}"></iframe>#}
+                                                        <div class="swiper-slide">
                                                             <youtube-video u="image"
                                                                player-width="'100%'"
                                                                player-height="'300px'"
@@ -299,17 +275,10 @@
                                                 {% endfor %}
                                             </div>
 
-                                            {% if goal.videoLink|length > 1 %}
-                                                <div u="navigator" class="jssorb14" style="position: absolute; bottom: 26px;left: 47%;top: initial;">
-                                                    <!-- bullet navigator item prototype -->
-                                                    <div u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
-                                                </div>
-
-                                                <!-- Arrow Left -->
-                                                <span u="arrowleft" class="jssora13l"></span>
-                                                <!-- Arrow Right -->
-                                                <span u="arrowright" class="jssora13r"></span>
-                                            {% endif %}
+                                            <div class="swiper-pagination"></div>
+                                            <!-- Add Arrows -->
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
                                         </div>
                                     </div>
                                 {% endif %}
