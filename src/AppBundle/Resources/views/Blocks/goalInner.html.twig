@@ -355,29 +355,22 @@
                                             {% else %}
                                                 <div class="row">
 
-                                                    <div id="story-slider-image{{ key }}" class="story-slider image-slider">
+                                                    <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
                                                         <!-- Slides Container -->
-                                                        <div u="slides">
+                                                        <div class="swiper-wrapper">
                                                             {% for k,file in files %}
-                                                                <div>
+                                                                <div class="swiper-slide">
                                                                     <a href="{{ file.downloadLink }}" class="swipebox">
-                                                                        <img u="image" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
+                                                                        <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
                                                                     </a>
                                                                 </div>
                                                             {% endfor %}
                                                         </div>
 
-                                                        {% if files|length > 2 %}
-                                                            <div u="navigator" class="jssorb14" style="position: absolute; bottom: 36px;left: 47%;top: initial;">
-                                                                <!-- bullet navigator item prototype -->
-                                                                <div u="prototype" style="position: absolute; width: 19px; height: 19px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
-                                                            </div>
-
-                                                            <!-- Arrow Left -->
-                                                            <span u="arrowleft" class="story-slider-arrow jssora13l"></span>
-                                                            <!-- Arrow Right -->
-                                                            <span u="arrowright" class="story-slider-arrow jssora13r"></span>
-                                                        {% endif %}
+                                                        <div class="swiper-pagination"></div>
+                                                        <!-- Add Arrows -->
+                                                        <div class="swiper-button-next"></div>
+                                                        <div class="swiper-button-prev"></div>
                                                     </div>
                                                 </div>
                                             {% endif %}
