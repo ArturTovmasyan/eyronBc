@@ -1,15 +1,7 @@
 @import "../../../app/bower_components/bootstrap/less/variables.less";
 @import "function.less";
 
-.ideas-list{
-  padding-bottom:20px;
-
-  h2{
-    font-size:18px;
-    line-height:30px;
-    font-weight: 300;
-  }
-
+.idea-item{
   figure{
     background: transparent;
     overflow: hidden;
@@ -34,7 +26,7 @@
       width: 100%;
       color:#ffffff;
       font-size:16px;
-      font-weight: 400;
+      font-weight: 700;
       padding: 0 13px;
       line-height: 20px;
       z-index: 1;
@@ -44,10 +36,14 @@
         color:#ffffff;
         cursor: pointer;
 
-        //&:hover{
-        //  text-decoration: underline;
-        //}
+        &:hover{
+          color:#ffffff;
+        }
       }
+    }
+
+    span,i{
+      color:#ffffff;
     }
 
     figcaption{
@@ -94,6 +90,7 @@
             font-size:11px;
             vertical-align: middle;
           }
+
         }
         .transparent{
           &:hover{
@@ -106,6 +103,113 @@
       }
     }
   }
+}
+
+.ideas-list{
+  padding-bottom:20px;
+
+  h2{
+    font-size:18px;
+    line-height:30px;
+    font-weight: 300;
+  }
+
+  //figure{
+  //  background: transparent;
+  //  overflow: hidden;
+  //  position: relative;
+  //  margin-bottom:32px;
+  //  text-align: center;
+  //
+  //  &>a{
+  //    height:230px;
+  //  }
+  //
+  //  &>a.height{
+  //    height:540px;
+  //
+  //    .overlay{
+  //      height:540px;
+  //    }
+  //  }
+  //
+  //  h3{
+  //    position: absolute;
+  //    width: 100%;
+  //    color:#ffffff;
+  //    font-size:16px;
+  //    font-weight: 700;
+  //    padding: 0 13px;
+  //    line-height: 20px;
+  //    z-index: 1;
+  //    margin-top:13px;
+  //
+  //    a{
+  //      color:#ffffff;
+  //      cursor: pointer;
+  //
+  //      //&:hover{
+  //      //  text-decoration: underline;
+  //      //}
+  //    }
+  //  }
+  //
+  //  figcaption{
+  //    ul{
+  //      li{
+  //        a{
+  //          padding:5px 0;
+  //          &:hover,&:focus{
+  //            text-decoration: none;
+  //          }
+  //        }
+  //
+  //        &:hover{
+  //          background-color: #7724F6;
+  //          color:#ffffff;
+  //        }
+  //
+  //        &:focus,&:active{
+  //          background-color: #6108EA;
+  //          a{
+  //            color:#ffffff;
+  //          }
+  //        }
+  //
+  //        i{
+  //          font-size:25px;
+  //        }
+  //
+  //        i.icon-green-ok,.icon-green-plus{
+  //          font-size: 36px;
+  //          margin-right:-8px;
+  //          vertical-align: middle;
+  //        }
+  //
+  //        &:hover{
+  //          a{
+  //            bdi{
+  //              color:#ffffff;
+  //
+  //            }
+  //          }
+  //        }
+  //        bdi{
+  //          font-size:11px;
+  //          vertical-align: middle;
+  //        }
+  //      }
+  //      .transparent{
+  //        &:hover{
+  //          background-color: transparent;
+  //          a,bdi {
+  //            color: #a4a4a4;
+  //          }
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 
   //.show-more{
   //  padding:5px 15px 8px;
@@ -128,31 +232,31 @@
   //}
 }
 
-.drafts{
-  figure{
-    margin-bottom:10px;
-    overflow: hidden;
-    &>a{
-      height:230px;
-    }
-
-    figcaption{
-      ul{
-        li{
-          a{
-            padding:5px 0;
-          }
-
-          &:hover{
-            bdi{
-             color:#ffffff;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+//.drafts{
+//  figure{
+//    margin-bottom:10px;
+//    overflow: hidden;
+//    &>a{
+//      height:230px;
+//    }
+//
+//    figcaption{
+//      ul{
+//        li{
+//          a{
+//            padding:5px 0;
+//          }
+//
+//          &:hover{
+//            bdi{
+//             color:#ffffff;
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
 
 .inner-content{
   background-color: #ffffff;
@@ -493,35 +597,29 @@
 
 @media (min-width: @screen-sm) {
 
-  .drafts{
-    figure{
-      margin-bottom:15px;
+  //.drafts{
+  //  figure{
+  //    margin-bottom:15px;
+  //
+  //    figcaption{
+  //      ul{
+  //        li{
+  //          a{
+  //            padding:10px 0;
+  //          }
+  //
+  //          bdi{
+  //            font-size:13px;
+  //          }
+  //        }
+  //      }
+  //    }
+  //
+  //  }
+  //}
 
-      figcaption{
-        ul{
-          li{
-            a{
-              padding:10px 0;
-            }
 
-            bdi{
-              font-size:13px;
-            }
-          }
-        }
-      }
-
-    }
-  }
-
-  .ideas-list{
-    padding-bottom:0;
-
-    h2{
-      font-size: 27px;
-      line-height: 35px;
-    }
-
+  .idea-item{
     figure{
       text-align: left;
       h3{
@@ -567,6 +665,61 @@
         }
       }
     }
+  }
+
+  .ideas-list{
+    padding-bottom:0;
+
+    h2{
+      font-size: 27px;
+      line-height: 35px;
+    }
+
+    //figure{
+    //  text-align: left;
+    //  h3{
+    //    font-size:24px;
+    //    padding: 0 25px;
+    //    line-height: 30px;
+    //    margin-top:15px;
+    //  }
+    //
+    //
+    //  figcaption{
+    //    ul{
+    //      li{
+    //        a{
+    //          padding:10px 0;
+    //        }
+    //
+    //        i.icon-green-ok,.icon-green-plus{
+    //          font-size: 49px;
+    //        }
+    //
+    //        i{
+    //          font-size:30px;
+    //        }
+    //
+    //        bdi{
+    //          font-size:13px;
+    //        }
+    //      }
+    //    }
+    //  }
+    //
+    //  .absolute{
+    //    ul{
+    //      li{
+    //        padding-left:20px;
+    //        a{
+    //          color:#E5E5E5;
+    //          font-size:14px;
+    //        }
+    //
+    //      }
+    //    }
+    //  }
+    //}
 
     //.show-more{
     //  padding:10px 25px 13px;
@@ -740,11 +893,11 @@
 
 @media (min-width: @screen-md) {
 
-  .drafts{
-    figure{
-      margin-bottom:25px;
-    }
-  }
+  //.drafts{
+  //  figure{
+  //    margin-bottom:25px;
+  //  }
+  //}
 
   .ideas-list{
 
@@ -814,9 +967,9 @@
 
     .inner{
       padding:0 20px 10px 20px;
-      p{
-        font-size:16px;
-      }
+      //p{
+      //  font-size:16px;
+      //}
 
       bdi{
         width:43px;

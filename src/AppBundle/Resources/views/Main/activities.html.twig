@@ -28,16 +28,11 @@
                         <div data-ng-show="activity.comment || activity.success_story">
                             {{ _self.goal() }}
                         </div>
-                        <div
-                             data-ng-class="{'line': activity.comment || activity.success_story}"
-                                ></div>
-                        <div class="bg-white padding"
-                             data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"
-                                >
+                        <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
+                        <div class="bg-white padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
                             <div class="clearfix">
                                 <figure class="image">
-                                    <img data-ng-src="[[ activity.user.image_path ]]"
-                                         alt="[[ activity.user.first_name ]]" class="img-circle img-responsive"/>
+                                    <img data-ng-src="[[ activity.user.image_path ]]" alt="[[ activity.user.first_name ]]" class="img-circle img-responsive"/>
                                 </figure>
 
                                 <div class="pull-left text-gray">
@@ -89,24 +84,23 @@
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
                     <div class="right-block margin-top">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                 <span>
-                                     {#<i class="icon top-icon"></i>#}
-                                     <i class="icon-top-idea"></i>
-                                     <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
-                                </span>
+                        <div class="right-menu">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                     <span>
+                                         {#<i class="icon top-icon"></i>#}
+                                         <i class="icon-top-idea"></i>
+                                         <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
+                                    </span>
+                                </div>
+                                {#<div class="col-xs-6 text-right">#}
+                                    {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
+                                {#</div>#}
                             </div>
-                            {#<div class="col-xs-6 text-right">#}
-                                {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                            {#</div>#}
+                            <hr/>
                         </div>
-                        <hr/>
-
                         <div class="row">
-                            {#<div class="col-sm-6 col-md-12">#}
-                                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                            {#</div>#}
+                            {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
                         </div>
                     </div>
 
@@ -119,7 +113,7 @@
 
 {% macro goal(goal) %}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 idea-item">
             <figure>
                 <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 

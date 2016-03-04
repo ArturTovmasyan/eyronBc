@@ -114,7 +114,7 @@
 
 {%- block og_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description) -}}
+        {{- replaceDescription(sliceString(goal.description)) -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
@@ -131,7 +131,7 @@
 
 {%- block meta_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description) -}}
+        {{- replaceDescription(sliceString(goal.description)) -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
