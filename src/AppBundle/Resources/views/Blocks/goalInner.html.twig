@@ -53,7 +53,7 @@
                 <div class="col-md-8 overflow">
                     {% set images = goal.images %}
                     {% if images and images | length %}
-                        <div id="main-slider" class="swiper-container" style="position: relative; top: 0; left: 0; width: 600px; height: 335px;">
+                        <div id="main-slider" class="swiper-container" style="position: relative; top: 0; left: 0;">
                             <!-- Slides Container -->
                             {#<div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0; top: 0; width: 600px; height: 335px;">#}
                                 {#{% for key, image in images %}#}
@@ -81,7 +81,7 @@
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
-                                            <img src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
+                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_slider_image') }}" alt="{{ goal.title }}"/>
                                         </a>
                                     </div>
                                 {% endfor %}
