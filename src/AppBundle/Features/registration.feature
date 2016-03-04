@@ -6,7 +6,6 @@ Feature: Registration
    @register
   Scenario: Registration
     Given I am on "/register/"
-#    When I run "./test.sh"
 #    And I wait for angular
     When I fill in the following:
       | fos_user_registration_form[firstName]             | Art |
@@ -16,5 +15,5 @@ Feature: Registration
       | fos_user_registration_form[plainPassword][second] | test1234 |
     And I press "register"
     Then I should be on "/ideas"
-     And the response status code should be 200
+    And the response status code should be 200
 
