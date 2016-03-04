@@ -23,20 +23,30 @@ $(document).ready(function(){
 
     // Story
     var story_image_slider = [];
-    $(".story-slider").each(function(k, v){
-        var id = $(v).attr('id');
+    //$(".story-slider").each(function(k, v){
+    //    var id = $(v).attr('id');
+    //
+    //    var tmp = new Swiper('#'+id, {
+    //        pagination: '.swiper-pagination',
+    //        paginationClickable: true,
+    //        slidesPerView: 2,
+    //        freeMode: true,
+    //        nextButton: '.swiper-button-next',
+    //        prevButton: '.swiper-button-prev',
+    //        spaceBetween: 30
+    //    });
+    //
+    //    story_image_slider.push(tmp);
+    //});
 
-        var tmp = new Swiper('#'+id, {
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
-            slidesPerView: 2,
-            freeMode: true,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            spaceBetween: 30
-        });
-
-        story_image_slider.push(tmp);
+    var tmp = new Swiper('.story-slider', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        slidesPerView: 2,
+        freeMode: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 30
     });
 
 
