@@ -44,11 +44,11 @@ $(document).ready(function(){
 
     $(".story-slider").on('showMoreStories', function(){
         for(var i = 0; i < story_image_slider.length; i++){
-            story_image_slider[i].update();
+            story_image_slider[i].update(true);
         }
 
         for(var i = 0; i < story_video_slider.length; i++){
-            story_video_slider[i].update();
+            story_video_slider[i].update(true);
         }
     });
 
