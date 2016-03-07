@@ -43,15 +43,14 @@ framework:
     trusted_proxies: ~
     session:
         # handler_id set to null will use default session handler from php.ini
+        cookie_lifetime: 86400
+        gc_maxlifetime: 1800
         handler_id:  ~
         gc_probability: 0
         save_path: ~
     fragments:       ~
     http_method_override: true
 
-    session:
-        cookie_lifetime: 86400
-        gc_maxlifetime: 1800
 #        gc_maxlifetime: 50 #50 seconds - only needed for testing. Dont use this in a production environment
 #        gc_probability: 1 #only needed for testing. Dont use this in a production environment
 #        gc_divisor: 1 #only needed for testing. Dont use this in a production environment
