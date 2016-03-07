@@ -54,4 +54,6 @@ angular.module('main',['mgcrea.ngStrap.modal',
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
         $scope.deviceDetector = deviceDetector;
+
+        $scope.isRuLanguage = (window.navigator.language.toLowerCase() == 'ru');
     }]);
