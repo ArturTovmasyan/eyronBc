@@ -6,6 +6,7 @@ $(document).ready(function(){
     var main_swiper = new Swiper('#main-slider', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
+        autoHeight: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         spaceBetween: 30,

@@ -51,10 +51,11 @@
         <div class="inner-content">
 
             <div class="row no-gutter">
-                <div class="col-md-8 overflow">
+                <div class="col-md-8">
+
                     {% set images = goal.images %}
                     {% if images and images | length %}
-                        <div id="main-slider" class="swiper-container" style="position: relative; top: 0; left: 0;">
+                        <div id="main-slider" class="swiper-container">
                             <!-- Slides Container -->
                             <div class="swiper-wrapper">
                                 {% for key, image in images %}
@@ -316,7 +317,7 @@
                                                 {% set className = "user-no" ~ random(4) %}
 
                                                 {% if addedUser.getPhotoLink  %}
-                                                    <figure>
+                                                    <figure class="user-image">
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive">
                                                     </figure>
                                                 {% else %}
@@ -348,22 +349,24 @@
                                                 </div>
                                             {% else %}
                                                 <div class="row">
-                                                    <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
-                                                        <!-- Slides Container -->
-                                                        <div class="swiper-wrapper">
-                                                            {% for k,file in files %}
-                                                                <div class="swiper-slide">
-                                                                    <a href="{{ file.downloadLink }}" class="swipebox">
-                                                                        <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
-                                                                    </a>
-                                                                </div>
-                                                            {% endfor %}
-                                                        </div>
+                                                    <div class="col-sm-12">
+                                                        <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
+                                                            <!-- Slides Container -->
+                                                            <div class="swiper-wrapper">
+                                                                {% for k,file in files %}
+                                                                    <div class="swiper-slide">
+                                                                        <a href="{{ file.downloadLink }}" class="swipebox">
+                                                                            <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"/>
+                                                                        </a>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </div>
 
-                                                        <div class="swiper-pagination"></div>
-                                                        <!-- Add Arrows -->
-                                                        <div class="swiper-button-next"></div>
-                                                        <div class="swiper-button-prev"></div>
+                                                            <div class="swiper-pagination"></div>
+                                                            <!-- Add Arrows -->
+                                                            <div class="swiper-button-next"></div>
+                                                            <div class="swiper-button-prev"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             {% endif %}
@@ -388,28 +391,30 @@
                                                 </div>
                                             {% else %}
                                                 <div class="row">
-                                                    <div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">
-                                                        <!-- Slides Container -->
-                                                        <div class="swiper-wrapper">
-                                                            {% for k,video in videos %}
-                                                                {% if video %}
-                                                                    <div class="swiper-slide">
-                                                                        <youtube-video
-                                                                            u="image"
-                                                                            data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                            player-width="'100%'"
-                                                                            player-height="'350px'"
-                                                                            video-url="storySliderVideo[{{ key }}][{{ k }}]">
-                                                                        </youtube-video>
-                                                                    </div>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </div>
+                                                    <div class="col-sm-12">
+                                                        <div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">
+                                                            <!-- Slides Container -->
+                                                            <div class="swiper-wrapper">
+                                                                {% for k,video in videos %}
+                                                                    {% if video %}
+                                                                        <div class="swiper-slide">
+                                                                            <youtube-video
+                                                                                u="image"
+                                                                                data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                                player-width="'100%'"
+                                                                                player-height="'350px'"
+                                                                                video-url="storySliderVideo[{{ key }}][{{ k }}]">
+                                                                            </youtube-video>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </div>
 
-                                                        <div class="swiper-pagination"></div>
-                                                        <!-- Add Arrows -->
-                                                        <div class="swiper-button-next"></div>
-                                                        <div class="swiper-button-prev"></div>
+                                                            <div class="swiper-pagination"></div>
+                                                            <!-- Add Arrows -->
+                                                            <div class="swiper-button-next"></div>
+                                                            <div class="swiper-button-prev"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             {% endif %}
