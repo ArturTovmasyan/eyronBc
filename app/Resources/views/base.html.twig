@@ -182,6 +182,8 @@
                                                 {% if not isMobile() %}
                                                     <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
                                                     <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+                                                {% else %}
+                                                    <div data-open-popover data-dir="true"></div>
                                                 {% endif %}
 
                                             </a>
@@ -198,11 +200,10 @@
                                                 data-content-template="{{ path("fos_user_security_login") }}"
                                                 data-animation="am-fade-and-scale"
                                                 data-bs-popover>
-                                                {#<i class="join"></i>#}
                                                 <i class="icon-join-icon"></i>
                                                 {{ 'join'|trans }}
                                             </a>
-                                            {% if not app.user and
+                                             {% if (isMobile() and not app.user) or not app.user and
                                             app.session.flashBag.peekAll|length and
                                             app.session.flashBag.peekAll['error'] is defined and
                                             app.session.flashBag.peekAll['error'][0] is not null %}
