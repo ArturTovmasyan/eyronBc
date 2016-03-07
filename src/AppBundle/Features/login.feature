@@ -3,14 +3,12 @@ Feature: Login
   As an anonymous user
   I need to be able to check login functionality
 
-  @login
+  @login @javascript
   Scenario: Login user
-    Given I am on "/login"
-#    When I follow "JOIN"
-#    When I wait for angular
-    When I fill in the following:
-      | _username | user@user.com |
-      |_password  | Test1234 |
+    Given I am on "/"
+    When I follow "JOIN"
+    When I wait for angular
+    And I set fields data
     And I press "SIGN IN"
     Then I should see "MOST POPULAR"
 

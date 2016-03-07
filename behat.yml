@@ -18,7 +18,7 @@ default:
           javascript_session: selenium2
           browser_name: chrome
           selenium2:
-            capabilities: { "browserName": "chrome", "browser": "chrome", "version":  "29", 'chrome': {'switches':['--disable-popup-blocking', '--start-maximized']}}
+            capabilities: { "browserName": "chrome", "browser": "chrome", "version":  "49", 'chrome': {'switches':['--disable-popup-blocking', '--start-maximized']}}
           goutte: ~
           base_url: http://bucketlist.loc/app_dev.php/
           sessions:

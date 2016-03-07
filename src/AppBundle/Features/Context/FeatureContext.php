@@ -40,10 +40,59 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
     }
 
-    /** @BeforeSuite */
-    public static function setupFeature(BeforeSuiteScope $scope)
+    /**
+     * @When I set fields data
+     */
+    public function iSetFieldsData()
     {
-        $scope->output = shell_exec('./behat.sh');
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get login block
+        $loginBlock = $page->find('css', '.popover-content');
+
+        if (null === $loginBlock) {
+            throw new \LogicException('Could not find the element');
+        }
+
+        //check if login block is visible
+        if ($loginBlock->isVisible()) {
+
+            //find username and set data
+            $loginBlock->fillField('_username', 'test@test.am');
+
+            //find password and set data
+            $loginBlock->fillField('_password', 'test1234');
+
+            //find submit button
+            $button = $loginBlock->findById('buttons');
+
+            //press button
+            $button->press();
+
+        }
+        else{
+            throw new \LogicException('Element is not visible...');
+        }
     }
+
+    /**
+     * @When I find password
+     */
+    public function iFindPassword()
+    {
+    }
+
+
+
+
+//    /** @BeforeSuite */
+//    public static function setupFeature(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./behat.sh');
+//    }
 
 }
