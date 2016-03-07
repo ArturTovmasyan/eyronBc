@@ -22,32 +22,31 @@ $(document).ready(function(){
     });
 
     // Story
-    var story_image_slider = [];
-    //$(".story-slider").each(function(k, v){
-    //    var id = $(v).attr('id');
-    //
-    //    var tmp = new Swiper('#'+id, {
-    //        pagination: '.swiper-pagination',
-    //        paginationClickable: true,
-    //        slidesPerView: 2,
-    //        freeMode: true,
-    //        nextButton: '.swiper-button-next',
-    //        prevButton: '.swiper-button-prev',
-    //        spaceBetween: 30
-    //    });
-    //
-    //    story_image_slider.push(tmp);
-    //});
 
-    var tmp = new Swiper('.story-slider', {
+    var story_image_slider = new Swiper('.story-slider.image-slider', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         slidesPerView: 2,
         freeMode: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        spaceBetween: 30
+        spaceBetween: 30,
+        autoplay: 3000
     });
 
+    var story_video_slider = new Swiper('.story-slider.video-slider', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 30,
+        autoplay: 3000
+    });
+
+    //setTimeout(function(){
+    //    for(var i = 0; i < story_image_slider.length; i++){
+    //        story_image_slider[i].update();
+    //    }
+    //}, 5000)
 
 });
