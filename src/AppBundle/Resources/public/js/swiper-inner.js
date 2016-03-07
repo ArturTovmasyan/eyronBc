@@ -21,8 +21,7 @@ $(document).ready(function(){
         autoplay: 3000
     });
 
-    // Story
-
+    // Story Slider
     var story_image_slider = new Swiper('.story-slider.image-slider', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
@@ -43,10 +42,14 @@ $(document).ready(function(){
         autoplay: 3000
     });
 
-    //setTimeout(function(){
-    //    for(var i = 0; i < story_image_slider.length; i++){
-    //        story_image_slider[i].update();
-    //    }
-    //}, 5000)
+    $(".story-slider").on('showMoreStories', function(){
+        for(var i = 0; i < story_image_slider.length; i++){
+            story_image_slider[i].update();
+        }
+
+        for(var i = 0; i < story_video_slider.length; i++){
+            story_video_slider[i].update();
+        }
+    });
 
 });
