@@ -315,3 +315,8 @@ knp_markdown:
     parser:
         service: markdown.parser.max
 
+mobile_detect:
+    redirect:
+        mobile: ~
+        tablet: ~
+    switch_device_view: ~

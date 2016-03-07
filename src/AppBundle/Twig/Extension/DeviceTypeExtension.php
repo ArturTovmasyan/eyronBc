@@ -31,16 +31,25 @@ class DeviceTypeExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('getDeviceType', array($this, 'getDeviceType'))
+            new \Twig_SimpleFunction('isMobile', array($this, 'isMobile')),
+            new \Twig_SimpleFunction('isTablet', array($this, 'isTablet'))
         );
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getDeviceType()
+    public function isMobile()
     {
-        return $this->container->get('liip_theme.active_theme')->getDeviceType();
+        return $this->container->get('mobile_detect.mobile_detector')->isMobile();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTablet()
+    {
+        return $this->container->get('mobile_detect.mobile_detector')->isTablet();
     }
 
     /**

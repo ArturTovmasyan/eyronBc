@@ -144,10 +144,6 @@
                                     </li>
                                 </ul>
 
-                                {% if 'phone' == getDeviceType() %}
-
-                                {% endif %}
-                                
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         {% if app.user %}
@@ -178,14 +174,16 @@
                                                             <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
                                                     </figure>
                                                 {% else %}
-                                                    <p class="no-image {{ className }}">{{ nameOnImage  }}</p>
+                                                    <p class="no-image {{ className }}">{{ nameOnImage }}</p>
                                                 {% endif %}
 
                                                 <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
-                                                {#<span class="menu-down" data-ng-hide="joinToggle1"></span>#}
-                                                <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
-                                                {#<span class="menu-up" data-ng-show="joinToggle1"></span>#}
-                                                <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+
+                                                {% if not isMobile() %}
+                                                    <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+                                                    <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+                                                {% endif %}
+
                                             </a>
                                         {% endif %}
                                             <a  href="javascript:void(0)"
