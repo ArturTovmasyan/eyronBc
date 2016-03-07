@@ -17,7 +17,8 @@
              alt="{{ goal.title }}" />
     </figure>
 
-    <div class="container">
+    <div class="goal-content">
+        <div class="container">
         <div class="row">
             <div class="col-md-5"></div>
             <div class="col-md-7">
@@ -213,7 +214,7 @@
             </div>
 
             {% if page != view %}
-                <div class="row padding-top">
+                <div class="row padding-top bg-white">
                     <div class="col-xs-6 col-md-4">
                         <div class="fb-like"
                              data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
@@ -229,7 +230,7 @@
                 </div>
             {% endif %}
 
-            <div class="inner">
+            <div class="inner bg-white">
                 <div class="row">
                     <div class="col-md-8">
                         <hr/>
@@ -445,5 +446,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
