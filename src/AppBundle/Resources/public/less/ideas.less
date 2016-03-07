@@ -280,6 +280,20 @@
       background-size: 100% !important;
     }
   }
+
+  #main-slider{
+    //height:435px;
+    position: relative; top: 0; left: 0;
+    img{
+      margin: 0 auto;
+    }
+    .swiper-button-prev{
+      left:25px;
+    }
+    .swiper-button-next{
+      right:20px;
+    }
+  }
 }
 
 .goal-information{
@@ -515,7 +529,14 @@
       background-color: #f4f4f4;
       margin-bottom: 10px;
 
-      figure:first-child{
+      figure{
+        margin-top:10px;
+        img{
+          width: 100%;
+        }
+      }
+
+      figure.user-image{
         margin: 0 0 10px 0;
         background-color: transparent;
         width:35px;
@@ -545,12 +566,14 @@
         color:#999999;
       }
 
-      figure{
-        img{
-          width: 100%;
+
+
+
+      .swiper-container-free-mode{
+        .swiper-wrapper{
+          margin: 20px auto;
         }
       }
-
     }
 
     //.story-slider{
@@ -812,7 +835,7 @@
         padding:15px 10px 5px;
         margin-bottom: 10px;
 
-        figure:first-child{
+        figure.user-image{
           margin: 0 0 10px 5px;
           width:40px;
           height:40px;
@@ -831,6 +854,8 @@
         }
 
       }
+
+
 
       //.story-slider{
       //  position: relative;
@@ -867,6 +892,14 @@
   .inner-content{
     .fb-like{
       margin: 7px 0 0 20px;
+    }
+
+    #main-slider{
+      height:414px;
+
+      .swiper-slide{
+        height:414px;
+      }
     }
   }
 
@@ -993,8 +1026,8 @@
         padding:20px 15px 30px;
         margin-bottom: 20px;
 
-        figure:first-child{
-          margin: 0 0 10px 15px;
+        figure.user-image{
+          //margin: 0 0 10px 15px;
           width:40px;
           height:40px;
 
@@ -1047,6 +1080,18 @@
   .inner-content{
     .fb-like{
       margin: 7px 0 0 30px;
+    }
+
+    #main-slider{
+      height:435px;
+
+      .swiper-slide{
+        height:435px;
+      }
+
+      .swiper-button-next{
+        right:10px;
+      }
     }
   }
 
