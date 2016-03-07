@@ -3,18 +3,15 @@ Feature: Login
   As an anonymous user
   I need to be able to check login functionality
 
-  @login @javascript
+  @login
   Scenario: Login user
-    Given I am on "/"
-    When I follow "JOIN"
-    When I wait for angular
-    And The display should be block
-#    Given I switch to popup
+    Given I am on "/login"
+#    When I follow "JOIN"
+#    When I wait for angular
     When I fill in the following:
-      | _username | test@test.am |
-      |_password  | test1234 |
+      | _username | user@user.com |
+      |_password  | Test1234 |
     And I press "SIGN IN"
-    And I switch back to original window
     Then I should see "MOST POPULAR"
 
   Scenario: Login with bad credentials
