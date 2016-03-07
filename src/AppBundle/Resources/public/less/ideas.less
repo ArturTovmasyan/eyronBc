@@ -259,7 +259,7 @@
 //}
 
 .inner-content{
-  background-color: #ffffff;
+  //background-color: #ffffff;
   overflow: hidden;
 
   .overlay{
@@ -452,16 +452,25 @@
     position: absolute;
     width:100%;
     overflow: hidden;
-    .blur;
+
     .overlay{
       background: rgba(0, 0, 0, 0.2);
       height:680px;
+      z-index:1;
     }
 
     img{
-      width:100%;
-      //.blur;
+      //width:100%;
+      width:105%;
+      .blur;
+      margin: -25px;
+      height:215px;
     }
+  }
+
+  .goal-content{
+    position: relative;
+    z-index: 5;
   }
 
   h2{
@@ -763,13 +772,13 @@
     }
 
     .goal-image{
-        height:630px;
+        height:626px;
       .overlay{
-        height:630px;
+        height:626px;
       }
 
       img{
-        height:630px;
+        height:656px;
       }
     }
 
@@ -947,11 +956,12 @@
       height:680px;
 
       .overlay{
-        height:677px;
+        height:680px;
       }
 
       img{
-        height:677px;
+        //height:677px;
+        height:710px;
       }
     }
 
