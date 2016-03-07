@@ -171,7 +171,7 @@
                                                 data-bs-popover>
                                                 {% if user.getPhotoLink %}
                                                     <figure class="img-circle">
-                                                            <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+                                                        <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
                                                     </figure>
                                                 {% else %}
                                                     <p class="no-image {{ className }}">{{ nameOnImage }}</p>

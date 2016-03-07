@@ -17,7 +17,7 @@ angular.module('Components',[])
                     }
                 }
 
-                if(notLogged) {
+                if(notLogged.length) {
 
                     if(!dir) {
                         notLogged.fadeIn();
@@ -30,8 +30,10 @@ angular.module('Components',[])
                         var middleScopeSignIn = notLogged.scope();
                         var popoverScopeSignIn = middleScopeSignIn.$$childTail;
 
-                        var middleScopeSigned = logged.scope();
-                        var popoverScopeSigned = middleScopeSigned.$$childTail;
+                        if(logged.length) {
+                            var middleScopeSigned = logged.scope();
+                            var popoverScopeSigned = middleScopeSigned.$$childTail;
+                        }
 
                         if(!dir) {
                             if (!popoverScopeSignIn.$isShown) {
@@ -39,13 +41,13 @@ angular.module('Components',[])
                                 middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
                             }
 
-                            if (popoverScopeSigned.$isShown) {
+                            if (popoverScopeSigned && popoverScopeSigned.$isShown) {
                                 popoverScopeSigned.$hide();
                                 middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
                             }
                         }
                         else {
-                            if (!popoverScopeSigned.$isShown) {
+                            if (popoverScopeSigned && !popoverScopeSigned.$isShown) {
                                 popoverScopeSigned.$show();
                                 middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
                             }
