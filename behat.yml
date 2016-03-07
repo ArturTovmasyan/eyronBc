@@ -20,7 +20,7 @@ default:
           selenium2:
             capabilities: { "browserName": "chrome", "browser": "chrome", "version":  "49", 'chrome': {'switches':['--disable-popup-blocking', '--start-maximized']}}
           goutte: ~
-          base_url: http://bucketlist.loc/app_dev.php/
+          base_url: http://bucketlist.loc/app_behat.php/
           sessions:
               symfony2:
                   symfony2: ~

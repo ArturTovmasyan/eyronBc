@@ -3,8 +3,13 @@ Feature: My Bucket list
   As a user
   I need to be able to check my bucket list page
 
+  Background:
+    Given I am logged in
+
+  @javascript @mylist
   Scenario: Open my bucket list page
-    Given I am on "/user-profile"
-    Then the response status code should be 200
+    When I follow "user2"
+    And I follow "My Bucketlist"
+    Then I should be on "/user-profile"
 
 

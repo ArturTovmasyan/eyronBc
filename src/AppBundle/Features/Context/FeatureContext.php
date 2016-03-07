@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(4000);
+        $this->getSession()->wait(6000);
     }
 
     /**
@@ -41,9 +41,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I set fields data
+     * @When I find :field and set :fieldData
      */
-    public function iSetFieldsData()
+    public function iFindAndSet($field, $fieldData)
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -62,16 +62,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         if ($loginBlock->isVisible()) {
 
             //find username and set data
-            $loginBlock->fillField('_username', 'test@test.am');
-
-            //find password and set data
-            $loginBlock->fillField('_password', 'test1234');
-
-            //find submit button
-            $button = $loginBlock->findById('buttons');
-
-            //press button
-            $button->press();
+            $loginBlock->fillField($field, $fieldData);
 
         }
         else{
@@ -80,19 +71,74 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I find password
+     * @When I find and press button in login
      */
-    public function iFindPassword()
+    public function iFindAndPressButtonInLogin()
     {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get login block
+        $loginBlock = $page->find('css', '.popover-content');
+
+        //find submit button
+        $button = $loginBlock->findById('buttons');
+
+        //press button
+        $button->press();
+
+    }
+
+    /**
+     * @Then I click on goal create
+     */
+    public function iClickOnGoalCreate()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get login block
+//        $createBlock = $page->find('css', '.button');
+
+        //find submit button
+        $button = $page->findButton('btn_publish');
+
+        $button->press();
+
+    }
+
+    /**
+     * @Then I click on goal save
+     */
+    public function iClickOnGoalSave()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get login block
+//        $saveButton = $page->find('css', '.modal-bottom');
+
+        //find submit button
+        $button = $page->findButton('btn_save');
+
+        $button->press();
     }
 
 
 
-
-//    /** @BeforeSuite */
-//    public static function setupFeature(BeforeSuiteScope $scope)
-//    {
-//        $scope->output = shell_exec('./behat.sh');
-//    }
+    /** @BeforeSuite */
+    public static function setupFeature(BeforeSuiteScope $scope)
+    {
+        $scope->output = shell_exec('./behat.sh');
+    }
 
 }
