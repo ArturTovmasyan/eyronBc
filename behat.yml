@@ -16,9 +16,9 @@ default:
       Behat\MinkExtension:
           default_session: selenium2
           javascript_session: selenium2
-          browser_name: chrome
+#          browser_name: chrome
           selenium2:
-            capabilities: { "browserName": "chrome", "browser": "chrome", "version":  "49", 'chrome': {'switches':['--disable-popup-blocking', '--start-maximized']}}
+            capabilities: { "browserName": "firefox", "browser": "firefox", "version": "44"}
           goutte: ~
           base_url: http://bucketlist.loc/app_behat.php/
           sessions:

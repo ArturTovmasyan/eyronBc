@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(6000);
+        $this->getSession()->wait(4000);
     }
 
     /**
@@ -103,9 +103,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        //get login block
-//        $createBlock = $page->find('css', '.button');
-
         //find submit button
         $button = $page->findButton('btn_publish');
 
@@ -125,14 +122,29 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get login block
-//        $saveButton = $page->find('css', '.modal-bottom');
+        $saveBlock = $page->findById('goal-modal');
 
-        //find submit button
-        $button = $page->findButton('btn_save');
+        if ($saveBlock->isVisible()) {
 
-        $button->press();
+            //find submit button
+            $saveButton = $saveBlock->findButton('btn_save');
+
+            //find username and set data
+            $saveButton->press();
+
+        }
+        else{
+            throw new \LogicException('Element is not visible...');
+        }
     }
 
+    /**
+     * @BeforeStep
+     */
+    public function beforeStep()
+    {
+        $this->getSession()->getDriver()->maximizeWindow();
+    }
 
 
     /** @BeforeSuite */

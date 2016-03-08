@@ -12,6 +12,8 @@ Feature: Settings page
     And I follow "Settings"
     And I wait for angular
     Then I should see "Save"
+    And I press "Save"
+    Then I should be on "/ideas"
 
 
 

@@ -3,7 +3,7 @@ Feature: Login
   As an anonymous user
   I need to be able to check login functionality
 
-  @javascript
+  @javascript @login
   Scenario: Login user
     Given I am on "/"
     When I wait for angular
