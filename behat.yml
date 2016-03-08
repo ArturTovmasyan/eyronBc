@@ -24,3 +24,7 @@ default:
           sessions:
               symfony2:
                   symfony2: ~
+
+paths:
+    features: %behat.paths.base%/src
+    bootstrap: %behat.paths.features%/Context

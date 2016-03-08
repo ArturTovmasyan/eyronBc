@@ -12,6 +12,7 @@ Feature: Settings page
     And I follow "Settings"
     And I wait for angular
     Then I should see "Save"
+    When I select settings date fields
     And I press "Save"
     Then I should be on "/ideas"
 

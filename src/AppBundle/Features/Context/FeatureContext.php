@@ -2,11 +2,8 @@
 
 namespace AppBundle\Features\Context;
 
-use Behat\Behat\Hook\Call\AfterFeature;
-use Behat\Behat\Hook\Scope\AfterFeatureScope;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Behat\Symfony2Extension\Context\KernelDictionary;
@@ -28,6 +25,20 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     {
         // Wait for angular to load
         $this->getSession()->wait(4000);
+    }
+
+    /**
+     * @BeforeStep
+     */
+    public function beforeStep()
+    {
+        $this->getSession()->getDriver()->maximizeWindow();
+    }
+
+    /** @BeforeSuite */
+    public static function callFixturesCommand(BeforeSuiteScope $scope)
+    {
+        $scope->output = shell_exec('./behat.sh');
     }
 
     /**
@@ -66,8 +77,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             //find username and set data
             $loginBlock->fillField($field, $fieldData);
 
-        }
-        else{
+        } else {
             throw new \LogicException('Element is not visible...');
         }
     }
@@ -131,24 +141,116 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
             //find username and set data
             $saveButton->press();
-        }
-        else{
+        } else {
 
             throw new \LogicException('Element is not visible...');
         }
     }
 
     /**
-     * @BeforeStep
+     * @When I select register date fields
      */
-    public function beforeStep()
+    public function iSelectRegisterDateFields()
     {
-        $this->getSession()->getDriver()->maximizeWindow();
+       //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        $page = $session->getPage();
+
+        $monthElements = $page->findAll('css', '.current');
+
+        foreach($monthElements as $key => $monthElement)
+        {
+            $monthElement->click();
+
+            $options = $page->findAll('css', '.list');
+//
+//            dump(count($options[0]));exit;
+
+            if($key == 0) {
+                $month = $options[0]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
+                );
+                $month->click();
+
+            }
+            elseif($key == 1)
+            {
+                $day = $options[1]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
+                );
+                $day->click();
+            }
+            elseif($key == 2)
+            {
+                $year = $options[2]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
+                );
+                $year->click();
+            }
+
+            if (null === $key) {
+                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'blooo'));
+            }
+
+        }
+
     }
 
-    /** @BeforeSuite */
-    public static function callFixturesCommand(BeforeSuiteScope $scope)
+
+    /**
+     * @When I select settings date fields
+     */
+    public function iSelectSettingsDateFields()
     {
-        $scope->output = shell_exec('./behat.sh');
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        $page = $session->getPage();
+
+        $dateElements = $page->findAll('css', '.col-sm-4');
+
+        foreach($dateElements as $key => $dateElement)
+        {
+            if (null === $key) {
+                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'blooo'));
+            }
+
+            $dateElement->click();
+
+            $options = $page->findAll('css', '.list');
+
+            if($key == 0) {
+                $month = $options[0]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
+                );
+                $month->click();
+
+            }
+            elseif($key == 1)
+            {
+                $day = $options[1]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
+                );
+                $day->click();
+            }
+            elseif($key == 2)
+            {
+                $year = $options[2]->find(
+                    'xpath',
+                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
+                );
+                $year->click();
+            }
+
+
+        }
+//        $this->iWaitForAngular();
+
     }
 }

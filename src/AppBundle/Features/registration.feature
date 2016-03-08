@@ -12,6 +12,7 @@ Feature: Registration
       | fos_user_registration_form[email]                 | test6@test.am |
       | fos_user_registration_form[plainPassword][first]  | test1234 |
       | fos_user_registration_form[plainPassword][second] | test1234 |
+    And I select register date fields
      And I press "register"
      Then I should be on "/ideas"
 
