@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('Components',[])
-    .service('loginPopoverService', ['$timeout', function($timeout){
+    .service('loginPopoverService', ['$timeout', '$rootScope', function($timeout, $rootScope){
 
         function openLoginPopover(dir){
             $timeout(function(){
@@ -26,7 +26,7 @@ angular.module('Components',[])
                         notLogged.hide();
                     }
 
-                    $timeout(function(){
+                    $rootScope.$on('openClosePopover', function(){
                         var middleScopeSignIn = notLogged.scope();
                         var popoverScopeSignIn = middleScopeSignIn.$$childTail;
 
@@ -57,7 +57,7 @@ angular.module('Components',[])
                                 middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
                             }
                         }
-                    }, 1000);
+                    });
                 }
             }, 300);
         }
@@ -225,6 +225,27 @@ angular.module('Components',[])
 
                 el.change(function(){
                     ngModel.$setViewValue(el.is(':checked') ? 1:0);
+                    scope.$apply();
+                });
+            }
+        }
+    }])
+    .directive('lsMobileOnMenuClick',['$timeout', function($timeout){
+        return {
+            restrict: 'EA',
+            scope: {
+                lsOpen: '=',
+                lsTrigger: '='
+            },
+            link: function(scope, el){
+                el.bind('click',function(){
+                    if(!scope.lsTrigger){
+                        //$timeout(function(){
+                            scope.$emit('openClosePopover');
+                        //}, 10);
+                    }
+
+                    scope.lsTrigger = !scope.lsTrigger;
                     scope.$apply();
                 });
             }
