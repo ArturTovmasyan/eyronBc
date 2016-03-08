@@ -2,8 +2,11 @@
 
 namespace AppBundle\Features\Context;
 
+use Behat\Behat\Hook\Call\AfterFeature;
+use Behat\Behat\Hook\Scope\AfterFeatureScope;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Behat\Symfony2Extension\Context\KernelDictionary;
@@ -37,7 +40,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->fillField('_password', 'Test1234');
         $this->pressButton('SIGN IN');
         $this->assertSession()->pageTextContains('MOST POPULAR');
-
     }
 
     /**
@@ -89,7 +91,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //press button
         $button->press();
-
     }
 
     /**
@@ -107,7 +108,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $button = $page->findButton('btn_publish');
 
         $button->press();
-
     }
 
     /**
@@ -131,9 +131,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
             //find username and set data
             $saveButton->press();
-
         }
         else{
+
             throw new \LogicException('Element is not visible...');
         }
     }
@@ -146,11 +146,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->getDriver()->maximizeWindow();
     }
 
-
     /** @BeforeSuite */
-    public static function setupFeature(BeforeSuiteScope $scope)
+    public static function callFixturesCommand(BeforeSuiteScope $scope)
     {
         $scope->output = shell_exec('./behat.sh');
     }
-
 }
