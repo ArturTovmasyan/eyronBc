@@ -239,7 +239,7 @@ angular.module('Components',[])
             },
             link: function(scope, el){
                 el.bind('click',function(){
-                    if(scope.lsOpen){
+                    if(!scope.lsTrigger){
                         //$timeout(function(){
                             scope.$emit('openClosePopover');
                         //}, 10);
