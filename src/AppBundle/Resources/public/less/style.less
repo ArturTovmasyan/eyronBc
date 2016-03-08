@@ -103,14 +103,37 @@ header{
     }
   }
 
-  .navbar-toggle{
-    margin-top:19px;
-  }
+
 
   .navbar-default {
     background: #021523;
     z-index: 10000;
     border:0;
+
+    .navbar-toggle{
+      margin-top:19px;
+      background-color: transparent;
+      border:0;
+
+      .icon-bar{
+        background-color: #ffffff;
+      }
+
+      a{
+        display: inline-block;
+        font-size:36px;
+        margin-top:-11px;
+        color:#ffffff;
+        background-color: transparent;
+        &:hover,&:focus,&:active{
+          text-decoration: none;
+        }
+      }
+
+      &:hover,&:focus,&:active{
+        background: transparent;
+      }
+    }
 
     .navbar-nav{
       li{
@@ -176,7 +199,7 @@ header{
     }
 
     .navbar-right{
-      text-align:left;
+      text-align: center;
       li{
         width:320px;
         a{
@@ -226,9 +249,13 @@ header{
               }
           }
 
-          &:active,&:focus {
-            background: #2b2b2b;
-          }
+          //&:active,&:focus {
+          //  background: #2b2b2b;
+          //}
+        }
+
+        .user+div.popover{
+          position: relative;
         }
 
         .user-menu{
@@ -1612,6 +1639,10 @@ footer{
             }
           }
 
+          .user+div.popover{
+            position: absolute;
+          }
+
           .user-menu{
             min-width: 210px;
             li{
@@ -1970,7 +2001,7 @@ footer{
       }
 
       .navbar-right{
-        text-align: center;
+        //text-align: center;
         li{
           width:235px;
           a{
