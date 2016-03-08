@@ -57,7 +57,7 @@ angular.module('Components',[])
                                 middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
                             }
                         }
-                    }, 1000);
+                    }, 1500);
                 }
             }, 300);
         }
