@@ -278,4 +278,25 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 JS;
             $session->executeScript($function);
     }
+
+    /**
+     * @When I press key :key
+     */
+    public function iPressKey($key)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        $searchField = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//input[@name="search"]'));
+
+        $searchField->focus();
+
+//        http://stackoverflow.com/questions/17333842/can-i-send-raw-keyboard-input-using-mink-and-selenium2
+//        $this->getSession()->getDriver()->keyDown($searchField,$key);
+
+    }
+
 }
