@@ -5,3 +5,6 @@ doctrine:
     dbal:
         dbname: "%test_database_name%"
 
+web_profiler:
+    toolbar: false
+    intercept_redirects: false

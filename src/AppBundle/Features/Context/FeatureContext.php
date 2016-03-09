@@ -33,6 +33,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function beforeStep()
     {
         $this->getSession()->getDriver()->maximizeWindow();
+//        $this->getSession()->resizeWindow(1920, 1080, 'current');
     }
 
     /** @BeforeSuite */
@@ -266,7 +267,15 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iScrollPageDown($size)
     {
-        $this->getSession()->executeScript("javascript:window.scrollBy(0,".$size.")");
-    }
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
 
+        $function = <<<JS
+        (function(){
+          var elem = document.getElementById("scroll-button");
+          elem.scrollIntoView(true);
+        })()
+JS;
+            $session->executeScript($function);
+    }
 }
