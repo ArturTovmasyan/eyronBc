@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(4000);
+        $this->getSession()->wait(5000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
     }
 
     /**
@@ -157,15 +157,13 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $page = $session->getPage();
 
-        $monthElements = $page->findAll('css', '.current');
+        $dateElements = $page->findAll('css', '.current');
 
-        foreach($monthElements as $key => $monthElement)
+        foreach($dateElements as $key => $dateElement)
         {
-            $monthElement->click();
+            $dateElement->click();
 
             $options = $page->findAll('css', '.list');
-//
-//            dump(count($options[0]));exit;
 
             if($key == 0) {
                 $month = $options[0]->find(
@@ -195,11 +193,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             if (null === $key) {
                 throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'blooo'));
             }
-
         }
-
     }
-
 
     /**
      * @When I select settings date fields
@@ -250,7 +245,5 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
 
         }
-//        $this->iWaitForAngular();
-
     }
 }
