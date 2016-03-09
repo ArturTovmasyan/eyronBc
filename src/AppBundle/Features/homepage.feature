@@ -16,6 +16,7 @@ Feature:Homepage
     And I follow "ADD"
     And I wait for angular
     Then I should see "SIGN IN"
+    When I follow "JOIN"
     And I follow "DONE"
     And I wait for angular
     And I follow "JOIN"
