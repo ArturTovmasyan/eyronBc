@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(5000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
+        $this->getSession()->wait(8000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
     }
 
     /**
@@ -152,7 +152,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iSelectRegisterDateFields()
     {
-       //get session
+        //get session
         $session = $this->getSession(); // assume extends RawMinkContext
 
         $page = $session->getPage();
@@ -211,7 +211,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         foreach($dateElements as $key => $dateElement)
         {
             if (null === $key) {
-                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'blooo'));
+                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'invalid xpath'));
             }
 
             $dateElement->click();
@@ -242,8 +242,31 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
                 );
                 $year->click();
             }
-
-
         }
     }
+
+    /**
+     * @When I click on the scroll icon
+     */
+    public function iClickOnTheScrollIcon()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        $scrollIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="ng-isolate-scope"]'));
+
+        $scrollIcon->click();
+    }
+
+    /**
+     * @Then I scroll page down :size
+     */
+    public function iScrollPageDown($size)
+    {
+        $this->getSession()->executeScript("javascript:window.scrollBy(0,".$size.")");
+    }
+
 }

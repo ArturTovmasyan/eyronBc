@@ -1,7 +1,7 @@
-Feature: Login
-  In order to use login functionality
-  As an anonymous user
-  I need to be able to check login functionality
+Feature: Sign in
+  In order I log in
+  As a user
+  I should be able to enter Bucket List and see what's going on there
 
   @javascript @login
   Scenario: Login user
