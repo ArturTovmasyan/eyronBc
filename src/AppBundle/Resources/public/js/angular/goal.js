@@ -29,6 +29,10 @@ angular.module('goal', ['Interpolation',
             return document.body.appendChild(addthisScript);
         };
 
+        lsInfiniteItems.prototype.loadRandomItems = function(count){
+
+        };
+
         lsInfiniteItems.prototype.reset = function(){
             this.items = [];
             this.busy = false;
@@ -47,6 +51,10 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
+
+                if(!this.items.length){
+                    this.loadRandomItems(this.count);
+                }
 
                 setTimeout(function(){
                     this.loadAddthis();
