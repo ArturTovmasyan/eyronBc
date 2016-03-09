@@ -18,6 +18,7 @@ angular.module('Google', [])
                 zoom: '=',
                 markers: '=',
                 refresh: '=',
+                isBounded: '=',
                 onMarkerClick: '&',
                 passiveMarkerIcon: '@',
                 activeMarkerIcon: '@'
@@ -50,6 +51,9 @@ angular.module('Google', [])
                     scope.$watch('refresh', function(){
                         $timeout(function(){
                             google.maps.event.trigger(scope.map, 'resize');
+                            if(scope.isBounded) {
+                                scope.map.fitBounds(scope.bounds);
+                            }
                         },500);
                     }, true);
 
@@ -58,20 +62,35 @@ angular.module('Google', [])
                             return;
                         }
 
+                        if(scope.isBounded) {
+                            scope.bounds = new google.maps.LatLngBounds(null);
+                        }
+
                         angular.forEach(d, function(v, k){
                             if(v.latitude && v.longitude) {
                                 v.id = k;
-                                var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
+                                if(!scope.mapMarkers[v.id]) {
+                                    var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
 
-                                scope.mapMarkers[v.id] = m;
+                                    scope.mapMarkers[v.id] = m;
 
-                                m.addListener('click', function () {
-                                    scope.setMarkerActive(m);
-                                    scope.onMarkerClick({goal: v});
-                                    scope.$apply();
-                                });
+                                    m.addListener('click', function () {
+                                        scope.setMarkerActive(m);
+                                        scope.onMarkerClick({goal: v});
+                                        scope.$apply();
+                                    });
+
+                                }
+
+                                if(scope.isBounded) {
+                                    scope.bounds.extend(scope.mapMarkers[v.id].getPosition());
+                                }
                             }
                         });
+
+                        if(scope.isBounded) {
+                            scope.map.fitBounds(scope.bounds);
+                        }
                     },true);
 
                     scope.setMarkerActive = function(m){

@@ -41,17 +41,20 @@ angular.module('main',['mgcrea.ngStrap.modal',
                 var mapScope = angular.element(mapSelector).isolateScope();
                 google.maps.event.trigger(mapScope.map, 'resize');
             },150);
-        }
+        };
 
         $scope.onMarkerClick = function(goal){
             console.log(goal);
             $scope.mapPopup = goal;
             $modal({scope: $scope, templateUrl: '/bundles/app/htmls/mapPopup.html',show: true});
-        }
+        };
+
     }])
     .controller('goalFooter', ['$scope', function($scope){
 
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
         $scope.deviceDetector = deviceDetector;
+
+        $scope.isRuLanguage = (window.navigator.language.toLowerCase() == 'ru');
     }]);

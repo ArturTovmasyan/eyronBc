@@ -1,30 +1,65 @@
 'use strict';
 
 angular.module('Components',[])
-    .service('loginPopoverService', ['$timeout', function($timeout){
+    .service('loginPopoverService', ['$timeout', '$rootScope', function($timeout, $rootScope){
 
-        function openLoginPopover(){
+        function openLoginPopover(dir){
             $timeout(function(){
                 var logged = angular.element(".user");
                 var notLogged = angular.element('.sign-in-popover');
 
                 if(logged.length){
-                    logged.hide();
-                }
-
-                if(notLogged) {
-
-                    notLogged.fadeIn();
-
-                    var middleScope = notLogged.scope();
-                    var popoverScope = middleScope.$$childHead;
-
-                    if (!popoverScope.$isShown) {
-                        popoverScope.$show();
-                        middleScope.joinToggle2 = !middleScope.joinToggle2;
+                    if(!dir) {
+                        logged.hide();
+                    }
+                    else {
+                        logged.fadeIn();
                     }
                 }
-            }, 500);
+
+                if(notLogged.length) {
+
+                    if(!dir) {
+                        notLogged.fadeIn();
+                    }
+                    else {
+                        notLogged.hide();
+                    }
+
+                    $rootScope.$on('openClosePopover', function(){
+                        var middleScopeSignIn = notLogged.scope();
+                        var popoverScopeSignIn = middleScopeSignIn.$$childTail;
+
+                        if(logged.length) {
+                            var middleScopeSigned = logged.scope();
+                            var popoverScopeSigned = middleScopeSigned.$$childTail;
+                        }
+
+                        if(!dir) {
+                            if (!popoverScopeSignIn.$isShown) {
+                                popoverScopeSignIn.$show();
+                                middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
+                            }
+
+                            if (popoverScopeSigned && popoverScopeSigned.$isShown) {
+                                popoverScopeSigned.$hide();
+                                middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
+                            }
+                        }
+                        else {
+                            if (popoverScopeSigned && !popoverScopeSigned.$isShown) {
+                                popoverScopeSigned.$show();
+                                middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
+                            }
+
+                            if (popoverScopeSignIn.$isShown) {
+                                popoverScopeSignIn.$hide();
+                                middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
+                            }
+                        }
+                    });
+                }
+            }, 300);
         }
 
         return {
@@ -51,10 +86,12 @@ angular.module('Components',[])
     .directive('openPopover',['$timeout', 'loginPopoverService', function($timeout, loginPopoverService){
         return {
             restrict: 'EA',
-            scope: {},
+            scope: {
+                dir: '='
+            },
             compile: function(){
-                return function(){
-                    loginPopoverService.openLoginPopover();
+                return function(scope){
+                    loginPopoverService.openLoginPopover(scope.dir);
                 }
             }
         }
@@ -188,6 +225,27 @@ angular.module('Components',[])
 
                 el.change(function(){
                     ngModel.$setViewValue(el.is(':checked') ? 1:0);
+                    scope.$apply();
+                });
+            }
+        }
+    }])
+    .directive('lsMobileOnMenuClick',['$timeout', function($timeout){
+        return {
+            restrict: 'EA',
+            scope: {
+                lsOpen: '=',
+                lsTrigger: '='
+            },
+            link: function(scope, el){
+                el.bind('click',function(){
+                    if(!scope.lsTrigger){
+                        $timeout(function(){
+                            scope.$emit('openClosePopover');
+                        }, 10);
+                    }
+
+                    scope.lsTrigger = !scope.lsTrigger;
                     scope.$apply();
                 });
             }

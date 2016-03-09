@@ -52,78 +52,72 @@
          infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search)'
          infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          infinite-scroll-distance='2'>
+        {% set searchResult = app.request.get('search') %}
 
-        {% if goalCount > 0 %}
+        <h2 class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
+        <div class="row">
 
-            {% set searchResult = app.request.get('search') %}
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="row idea-item" id="row">
+                    <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="goal in Ideas.items">
+                        <figure>
+                            <h3><a>[[ goal.title ]]</a></h3>
 
-            <h2 class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
-            <div class="row">
+                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]"
+                               data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
+                               id="goalTitle">
+                                <span class="overlay"></span>
+                                <img data-ng-src="[[ goal.cached_image ]]" alt="[[ goal.title ]]"/>
+                            </a>
 
-                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
-                    <div class="row idea-item" id="row">
-                        <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
-                             data-ng-cloak
-                             data-ng-repeat="goal in Ideas.items">
-                            <figure>
-                                <h3><a>[[ goal.title ]]</a></h3>
-
-                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ goal.slug ]]"
-                                   data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
-                                   id="goalTitle">
-                                    <span class="overlay"></span>
-                                    <img data-ng-src="[[ goal.cached_image ]]" alt="[[ goal.title ]]"/>
-                                </a>
-
-                                <div class="absolute">
-                                    <ul>
-                                        <li>
-                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
-                                                <span>
-                                                    {{ 'home_listed_by'|trans({},'messages') }}
-                                                    [[ goal.stats.listedBy ]]
-                                                </span>
-                                                <i class="icon-user-small"></i>
-                                            </a>
-
-                                            <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                            <span>
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 [[ goal.stats.listedBy ]]
-                                                <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
                                             </span>
-                                        </li>
-                                        <li>
-                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
-                                                <span>
-                                                    {{ 'home_complete'|trans({},'messages') }}
-                                                    [[ goal.stats.doneBy ]]
-                                                </span>
-                                                <i class="icon-user-small"></i>
-                                            </a>
+                                            <i class="icon-user-small"></i>
+                                        </a>
 
-                                            <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            [[ goal.stats.listedBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                            <span>
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 [[ goal.stats.doneBy ]]
-                                                <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
                                             </span>
-                                        </li>
-                                    </ul>
-                                </div>
+                                            <i class="icon-user-small"></i>
+                                        </a>
 
-                                <figcaption>
-                                    {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
-                                </figcaption>
-                            </figure>
-                        </div>
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') }}
+                                            [[ goal.stats.doneBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>
-        {% else %}
-            <h2>
-                <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
-            </h2>
-
-        {% endif %}
+        </div>
+        <h2 data-ng-show="Ideas.items" class="ng-hide">
+            <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
+        </h2>
         {# display navigation #}
         <div class="navigation text-center">
             <a href="javascript:void(0)"
