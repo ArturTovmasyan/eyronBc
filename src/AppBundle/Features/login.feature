@@ -6,7 +6,6 @@ Feature: Sign in
   @javascript @login
   Scenario: Login user
     Given I am on "/"
-    When I wait for angular
     When I follow "JOIN"
     And I find "_username" and set "user@user.com"
     And I find "_password" and set "Test1234"
