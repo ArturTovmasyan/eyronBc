@@ -6,7 +6,7 @@ Feature: Search
   @javascript @search
   Scenario: Open Bucket List and show me my search result
     Given I am on "/"
-    When I fill in "search" with "Visit Spain"
+    When I fill in "search" with "goal1"
     And I press key
     And I wait for angular
     Then I should see "LISTED BY"

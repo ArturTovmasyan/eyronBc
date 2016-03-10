@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(8000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
+        $this->getSession()->wait(7000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
     }
 
     /**
@@ -53,6 +53,29 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->pressButton('SIGN IN');
         $this->assertSession()->pageTextContains('MOST POPULAR');
     }
+
+
+    /**
+     * @Then I should see categories
+     */
+    public function iShouldSeeCategories()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        $categoryCount = $page->findAll('xpath', '//ul[@class="filter"]//li');
+
+        if(count($categoryCount) == 8) {
+            return;
+        }
+        else{
+            throw new \LogicException('Wrong category count');
+        }
+    }
+
 
     /**
      * @When I find :field and set :fieldData
@@ -284,6 +307,7 @@ JS;
      */
     public function iPressKey()
     {
+
         //get session
         $session = $this->getSession();
 
