@@ -6,19 +6,21 @@ Feature: Goal page
   Background:
     Given I am logged in
 
-  @javascript @goal
+  @javascript @preview
   Scenario: Open Preview and show me the initial state of my goal
     When I follow "user2"
     And I follow "Create Goal"
     Then I should see "Suggest as public"
     When I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
+#    TODO must js for video link and scroll up by class, scroll down by class is work
 #    And I fill in "app_bundle_goal_videoLink[ 0 ]" with "www.youtube.com"
-    And I scroll page "scrollTop"
+    And I scroll page to "top"
+    And I wait for angular
     And I click on goal create
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    When I scroll page "scrollHeight"
+    When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
     And I press "PREVIEW"
@@ -26,6 +28,18 @@ Feature: Goal page
     Then I should see "EDIT"
     When I follow "EDIT"
     Then I should see "TEST GOALS"
+
+
+  @javascript @doneGoal
+  Scenario: Done a goal
+    When I follow "user2"
+    And I follow "My Bucketlist"
+    Then I should be on "/user-profile"
+    When I scroll page to ".information"
+    And I follow "DONE"
+    Then I should be on "user-profile/completed-goals"
+    And I should see ""
+
 
 
   @javascript @createGoal

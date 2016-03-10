@@ -36,6 +36,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         // get user
         $user = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('admin@admin.com');
 
+        $user1 = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('user@user.com');
+
         // create goal
         $goal1 = new Goal();
         $goal1->setDescription('goal1 goal1');
@@ -52,9 +54,19 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal2->setTitle('goal3');
         $goal2->setStatus(1);
         $goal2->setVideoLink(null);
-        $goal2->setAuthor($user);
+        $goal2->setAuthor($user1);
         $goal2->setPublish(true);
         $manager->persist($goal2);
+
+        // create goal
+        $goal3 = new Goal();
+        $goal3->setDescription('goal4 goal4');
+        $goal3->setTitle('goal4');
+        $goal3->setStatus(1);
+        $goal3->setVideoLink(null);
+        $goal3->setAuthor($user1);
+        $goal3->setPublish(true);
+        $manager->persist($goal3);
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -76,6 +88,19 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal2->setImportant(true);
         $userGoal2->setUrgent(true);
         $manager->persist($userGoal2);
+
+
+        // create goal
+        $userGoal3 = new UserGoal();
+        $userGoal3->setUser($user1);
+        $userGoal3->setGoal($goal3);
+        $userGoal3->setIsVisible(true);
+        $userGoal3->setNote('sfsdf');
+        $userGoal3->setImportant(true);
+        $userGoal3->setUrgent(true);
+        $userGoal3->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal3);
+
 
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
@@ -124,8 +149,10 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $this->addReference('goal1', $goal1);
         $this->addReference('goal2', $goal2);
+        $this->addReference('goal3', $goal3);
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
+        $this->addReference('userGoal3', $userGoal3);
         $this->addReference('goalImage', $goalImage);
         $this->addReference('goalImage2', $goalImage2);
     }

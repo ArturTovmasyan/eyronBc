@@ -286,15 +286,19 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @Then I scroll page :size
+     * @When I scroll page to :value
      */
-    public function iScrollPage($value)
+    public function iScrollPageTo($value)
     {
         //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
+        $session = $this->getSession();
 
-        //scroll page with given value
-        $session->executeScript("window.scrollTo(0, document.body.".$value.")");
+        if($value == 'top') {
+            $session->executeScript("window.scrollTo(0, document.body.scrollTop)");
+        }
+        else {
+            $session->executeScript("jQuery($('html, body').scrollTo('".$value."'));");
+        }
     }
 
     /**
@@ -322,8 +326,24 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $shareIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="atc_s addthis_button_compact"]'));
 
-//        dump(count($shareIcon));exit;
         $shareIcon->click();
     }
+
+    /**
+     * @When I press done button
+     */
+    public function iPressDoneButton()
+    {
+        //get session
+        $session = $this->getSession();
+
+        //get page
+        $page = $session->getPage();
+
+        $doneLink = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="check_status"]//a[@id="done"]'));
+
+        $doneLink->click();
+    }
+
 
 }
