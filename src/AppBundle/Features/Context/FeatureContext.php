@@ -127,49 +127,22 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $button->press();
     }
 
-    /**
-     * @Then I click on goal create
-     */
-    public function iClickOnGoalCreate()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        //find submit button
-        $button = $page->findButton('btn_publish');
-
-        $button->press();
-    }
-
-    /**
-     * @Then I click on goal save
-     */
-    public function iClickOnGoalSave()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        //get login block
-        $saveBlock = $page->findById('goal-modal');
-
-        if ($saveBlock->isVisible()) {
-
-            //find submit button
-            $saveButton = $saveBlock->findButton('btn_save');
-
-            //find username and set data
-            $saveButton->press();
-        } else {
-
-            throw new \LogicException('Element is not visible...');
-        }
-    }
+//    /**
+//     * @Then I click on goal create
+//     */
+//    public function iClickOnGoalCreate()
+//    {
+//        //get session
+//        $session = $this->getSession(); // assume extends RawMinkContext
+//
+//        //get page
+//        $page = $session->getPage();
+//
+//        //find submit button
+//        $button = $page->findButton('btn_publish');
+//
+//        $button->press();
+//    }
 
     /**
      * @When I select register date fields
@@ -330,9 +303,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I press done button
+     * @When I click goal switch
      */
-    public function iPressDoneButton()
+    public function iClickGoalSwitch()
     {
         //get session
         $session = $this->getSession();
@@ -340,10 +313,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        $doneLink = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="check_status"]//a[@id="done"]'));
+        $goalSwithButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
 
-        $doneLink->click();
+        $goalSwithButton->click();
     }
-
 
 }
