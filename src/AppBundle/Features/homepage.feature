@@ -12,6 +12,7 @@ Feature:Homepage
     When I follow "DISCOVER MORE"
     Then I should be on "/ideas"
     And I should see "Explore over thousand great ideas"
+    And I wait for angular
     And I press share link
     And I wait for angular
     And I follow "Close"
