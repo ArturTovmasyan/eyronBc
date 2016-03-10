@@ -7,10 +7,11 @@ Feature: Search
   Scenario: Open Bucket List and show me my search result
     Given I am on "/"
     When I fill in "search" with "Visit Spain"
-    And I press key "13"
+    And I press key
     And I wait for angular
     Then I should see "LISTED BY"
     And I should see "COMPLETED BY"
     And I should see "ADD"
-    When I fill in "search" with "Visit Spain"
+    When I fill in "search" with "xxxxxxxx"
+    And I press key
     Then I should see "Sorry, we couldn't find anything, but you can explore other ideas:"

@@ -280,23 +280,14 @@ JS;
     }
 
     /**
-     * @When I press key :key
+     * @When I press key
      */
-    public function iPressKey($key)
+    public function iPressKey()
     {
         //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
+        $session = $this->getSession();
 
-        //get page
-        $page = $session->getPage();
-
-        $searchField = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//input[@name="search"]'));
-
-        $searchField->focus();
-
-//        http://stackoverflow.com/questions/17333842/can-i-send-raw-keyboard-input-using-mink-and-selenium2
-//        $this->getSession()->getDriver()->keyDown($searchField,$key);
-
+        //13 it is 'enter' key on keyboard for selenium2 Driver
+        $session->getDriver()->keyPress('//input[@name="search"]', 13);
     }
-
 }
