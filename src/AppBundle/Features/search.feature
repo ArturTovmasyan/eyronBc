@@ -12,6 +12,6 @@ Feature: Search
     Then I should see "LISTED BY"
     And I should see "COMPLETED BY"
     And I should see "ADD"
-    When I fill in "search" with "xxxxxxxx"
+    When I fill in "search" with "TEST777"
     And I press key
     Then I should see "Sorry, we couldn't find anything, but you can explore other ideas:"

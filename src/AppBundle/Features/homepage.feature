@@ -13,6 +13,7 @@ Feature:Homepage
     Then I should be on "/ideas"
     And I should see "Explore over thousand great ideas"
     And I wait for angular
+#    And I press share link
     And I follow "ADD"
     And I wait for angular
     Then I should see "SIGN IN"
