@@ -12,8 +12,10 @@ Feature:Homepage
     When I follow "DISCOVER MORE"
     Then I should be on "/ideas"
     And I should see "Explore over thousand great ideas"
+    And I press share link
     And I wait for angular
-#    And I press share link
+    And I follow "Close"
+    And I wait for angular
     And I follow "ADD"
     And I wait for angular
     Then I should see "SIGN IN"

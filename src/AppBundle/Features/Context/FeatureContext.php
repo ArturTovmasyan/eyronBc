@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(7000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
+        $this->getSession()->wait(6000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
     }
 
     /**
@@ -286,32 +286,44 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @Then I scroll page down :size
+     * @Then I scroll page :size
      */
-    public function iScrollPageDown($size)
+    public function iScrollPage($value)
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
 
-        $function = <<<JS
-        (function(){
-          var elem = document.getElementById("scroll-button");
-          elem.scrollIntoView(true);
-        })()
-JS;
-            $session->executeScript($function);
+        //scroll page with given value
+        $session->executeScript("window.scrollTo(0, document.body.".$value.")");
     }
 
     /**
-     * @When I press key
+     * @When I press key :key
      */
-    public function iPressKey()
+    public function iPressKey($key)
     {
-
         //get session
         $session = $this->getSession();
 
         //13 it is 'enter' key on keyboard for selenium2 Driver
-        $session->getDriver()->keyPress('//input[@name="search"]', 13);
+        $session->getDriver()->keyPress('//input[@name="search"]', $key);
     }
+
+    /**
+     * @Then I press share link
+     */
+    public function iPressShareLink()
+    {
+        //get session
+        $session = $this->getSession();
+
+        //get page
+        $page = $session->getPage();
+
+        $shareIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="atc_s addthis_button_compact"]'));
+
+//        dump(count($shareIcon));exit;
+        $shareIcon->click();
+    }
+
 }
