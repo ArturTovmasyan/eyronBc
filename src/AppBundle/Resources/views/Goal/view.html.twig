@@ -6,8 +6,8 @@
     {{ parent() }}
 
     <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/app/less/jssor-slider.css') }}" rel="stylesheet"/>
     <link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">
     {#<style>#}
         {#.ticker {#}
             {#width: 500px;#}
@@ -72,7 +72,11 @@
                              {{ 'btn_back_and_edit'|trans }}
 
                          </a>
-                         <a href="{{ path('add_to_me_goal', {'id' : goal.id }) }}"  type="button" class="btn btn-purple" name="btn_publish">{{ 'btn_publish'|trans }}
+                         <a href="javascript:void(0)"
+                            data-ls-jquery-modal
+                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id }) }}"
+                            class="btn btn-purple"
+                            data-ls-identity="goalPublishModal{{ goal.id }}">{{ 'btn_publish'|trans }}
                              {#<i class="icon icon-right"></i>#}
                              <i class="icon-arrow-right"></i>
                          </a>
@@ -93,10 +97,8 @@
     {% javascripts output='js/app_goal_view.js'
         'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
         'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/jssor-slider/js/jssor.slider.mini.js'
-        'bundles/app/js/jssor-inner-slider.js'
+        'app/bower_components/swiper/dist/js/swiper.min.js'
+        'bundles/app/js/swiper-inner.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
