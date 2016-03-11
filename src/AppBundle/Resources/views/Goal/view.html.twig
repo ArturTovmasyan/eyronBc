@@ -72,7 +72,11 @@
                              {{ 'btn_back_and_edit'|trans }}
 
                          </a>
-                         <a href="{{ path('add_to_me_goal', {'id' : goal.id }) }}"  type="button" class="btn btn-purple" name="btn_publish">{{ 'btn_publish'|trans }}
+                         <a href="javascript:void(0)"
+                            data-ls-jquery-modal
+                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id }) }}"
+                            class="btn btn-purple"
+                            data-ls-identity="goalPublishModal{{ goal.id }}">{{ 'btn_publish'|trans }}
                              {#<i class="icon icon-right"></i>#}
                              <i class="icon-arrow-right"></i>
                          </a>
