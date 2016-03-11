@@ -233,21 +233,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         }
     }
 
-    /**
-     * @When I click on the scroll icon
-     */
-    public function iClickOnTheScrollIcon()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        $scrollIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="ng-isolate-scope"]'));
-
-        $scrollIcon->click();
-    }
 
     /**
      * @When I scroll page to :value
@@ -277,37 +262,22 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $session->getDriver()->keyPress('//input[@name="search"]', $key);
     }
 
-    /**
-     * @Then I press share link
-     */
-    public function iPressShareLink()
-    {
-        //get session
-        $session = $this->getSession();
 
-        //get page
-        $page = $session->getPage();
-
-        $shareIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="atc_s addthis_button_compact"]'));
-
-        $shareIcon->click();
-    }
-
-    /**
-     * @When I click goal switch
-     */
-    public function iClickGoalSwitch()
-    {
-        //get session
-        $session = $this->getSession();
-
-        //get page
-        $page = $session->getPage();
-
-        $goalSwitchButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
-
-        $goalSwitchButton->click();
-    }
+//    /**
+//     * @When I click goal switch
+//     */
+//    public function iClickGoalSwitch()
+//    {
+//        //get session
+//        $session = $this->getSession();
+//
+//        //get page
+//        $page = $session->getPage();
+//
+//        $goalSwitchButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
+//
+//        $goalSwitchButton->click();
+//    }
 
 
     /**
@@ -349,9 +319,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
 
     /**
-     * @When I click on social icon :value
+     * @When I click on icon :value
      */
-    public function iClickOnSocialIcon($value)
+    public function iClickOnIcon($value)
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -380,6 +350,4 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $this->getSession()->switchToWindow($windowNames[1]);
         }
     }
-
-
 }

@@ -60,10 +60,10 @@ Feature: Goal page
   Scenario: Share a goal
     Given I am on "/ideas"
     When I wait for angular
-    And I press share link
+    And I click on icon "atc_s addthis_button_compact"
     And I wait for angular
     And I switch to iframe "#at3winshare-iframe"
-    And I click on social icon "at3winsvc_facebook"
+    And I click on icon "at3winsvc_facebook"
 #    TODO need js for correct wait
     And I wait
     And I switch to window
