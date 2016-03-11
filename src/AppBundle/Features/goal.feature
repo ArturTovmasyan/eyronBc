@@ -55,6 +55,25 @@ Feature: Goal page
     And I press "Save"
     Then I should see "user2 useryan"
 
+
+  @javascript @shareGoal
+  Scenario: Share a goal
+    Given I am on "/ideas"
+    When I wait for angular
+    And I press share link
+    And I wait for angular
+    And I switch to iframe "#at3winshare-iframe"
+    And I click on social icon "at3winsvc_facebook"
+#    TODO need js for correct wait
+    And I wait
+    And I switch to window
+    And I wait
+    And I fill in "email" with "test@test.am"
+    And I fill in "pass" with "test1234567"
+    And I press "login"
+    And I wait for angular
+
+
 #  @javascript @createGoal
 #  Scenario: Create goal
 #    When I follow "user2"

@@ -24,7 +24,15 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(6000,"(typeof(jQuery)=='undefined' && (0 === jQuery.active)) && !$.active");
+        $this->getSession()->wait(5000,"typeof(jQuery)=='undefined' && 0 === jQuery.active && !$.active");
+    }
+
+    /**
+     * @When I wait
+     */
+    public function iWait()
+    {
+       $this->getSession()->wait(2000);
     }
 
     /**
@@ -126,23 +134,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //press button
         $button->press();
     }
-
-//    /**
-//     * @Then I click on goal create
-//     */
-//    public function iClickOnGoalCreate()
-//    {
-//        //get session
-//        $session = $this->getSession(); // assume extends RawMinkContext
-//
-//        //get page
-//        $page = $session->getPage();
-//
-//        //find submit button
-//        $button = $page->findButton('btn_publish');
-//
-//        $button->press();
-//    }
 
     /**
      * @When I select register date fields
@@ -313,9 +304,82 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        $goalSwithButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
+        $goalSwitchButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
 
-        $goalSwithButton->click();
+        $goalSwitchButton->click();
     }
+
+
+    /**
+     * @When I switch to iframe :value
+     */
+    public function iSwitchToIframe($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get iframe blcok
+        $iframe = $page->find('css', $value);
+
+        //check if iframe block exist
+        if (null === $iframe) {
+            throw new \LogicException('Iframe is not found');
+        }
+
+        //get iframe id
+        $iframeId = $iframe->getAttribute('id');
+
+        if($iframeId == null) {
+
+            //get iframe name
+            $iframeId = $iframe->getAttribute('name');
+        }
+
+        if (null === $iframeId) {
+
+            throw new \LogicException('Iframe id is not found');
+        }
+
+        //swith to iframe window
+        $this->getSession()->switchToIframe($iframeId);
+    }
+
+
+    /**
+     * @When I click on social icon :value
+     */
+    public function iClickOnSocialIcon($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get facebook icon in iframe
+        $facebookIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="'.$value.'"]'));
+
+        //click facebook icon
+        $facebookIcon->click();
+
+    }
+
+    /**
+     * @When I switch to window
+     */
+    public function iSwitchToWindow()
+    {
+        //get window name
+        $windowNames = $this->getSession()->getWindowNames();
+        if(count($windowNames) > 1) {
+
+            //switch to new window
+            $this->getSession()->switchToWindow($windowNames[1]);
+        }
+    }
+
 
 }
