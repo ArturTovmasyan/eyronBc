@@ -1,4 +1,4 @@
-Feature:Homepage
+Feature: Homepage
   In order I open www.Bucket List 127.com
   As a user
   I need to be able to see Homepage

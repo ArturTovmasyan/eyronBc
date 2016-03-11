@@ -52,7 +52,6 @@ Feature: Goal page
     And I should see "COMPLETION DATE"
     When I click goal switch
     Then I should see "If you accomplished your Goal, just mark it"
-#    And I scroll page to "#app_bundle_user_goal_note"
     And I press "Save"
     Then I should see "user2 useryan"
 
