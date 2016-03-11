@@ -349,6 +349,15 @@
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5624b2123b6addeb" async="async"></script>
 
             <script>
+
+                function autoResizeDiv()
+                {
+                    document.getElementById('homepage').style.height = window.innerHeight +'px';
+                }
+                window.onresize = autoResizeDiv;
+                autoResizeDiv();
+
+
                 $(function () {
                     $('[data-toggle="popover"]').popover()
                 });

@@ -6,6 +6,9 @@
     {#</video>#}
 {#</div>#}
 
+<div id="homepage">
+
+
 <div class="homepage text-center">
     <div class="container">
         <h1>{{ 'homepage_title'|trans|raw }}</h1>
@@ -31,18 +34,22 @@
             </li>
         </ul>
 
-        <a href="javascript:void(0)" data-target-selector="#scroll-button" data-ls-scroll-to >
-            <i class="icon-scroll-down"><span class="path1"></span><span class="path2"></span></i>
-        </a>
+        {#<a href="javascript:void(0)" data-target-selector="#scroll-button" data-ls-scroll-to >#}
+            {#<i class="icon-scroll-down"><span class="path1"></span><span class="path2"></span></i>#}
+        {#</a>#}
 
     </div>
 </div>
 
-<figure class="cover">
-    <img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="test img-responsive" />
-</figure>
+<div class="absolute text-center">
+    <a href="javascript:void(0)" data-target-selector="#scroll-button" data-ls-scroll-to >
+        <i class="icon-scroll-down"><span class="path1"></span><span class="path2"></span></i>
+    </a>
+</div>
 
 
+{#<figure class="cover">#}
+    {#<img src="{{ asset('bundles/app/images/cover.jpg') }}" alt= "Some image" class="test img-responsive" />#}
+{#</figure>#}
 
-
-
+</div>

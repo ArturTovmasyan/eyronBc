@@ -616,32 +616,22 @@ ul.filter{
   display: block;
 }
 
-//#test{
-//  //background: url('../images/cover.jpg') no-repeat center center fixed;
-//  //-webkit-background-size: cover;
-//  //-moz-background-size: cover;
-//  //-o-background-size: cover;
-//  //background-size: cover;
-//  //height: 100%;
-//  //width: 100%;
-//  //
-//
-//  position: fixed;
-//  top: -50%;
-//  left: -50%;
-//  width: 200%;
-//  height: 200%;
-//  img{
-//    position: absolute;
-//    top: 0;
-//    left: 0;
-//    right: 0;
-//    bottom: 0;
-//    margin: auto;
-//    min-width: 50%;
-//    min-height: 50%;
-//  }
-//}
+
+#homepage{
+  background: url('../images/cover.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  //height: 100%;
+  //width: 100%;
+
+  .absolute{
+    width: 100%;
+    bottom:80px;
+  }
+}
 
 //.pen-icon{
 //  width: 25px;
@@ -876,14 +866,18 @@ ul.filter{
     font-size:18px;
   }
 
-  .icon-scroll-down{
-    display: inline-block;
-    margin: 40px 0 0;
-    font-size:30px;
-  }
+  //.icon-scroll-down{
+  //  display: inline-block;
+  //  margin: 40px 0 0;
+  //  font-size:30px;
+  //}
 }
 
-
+.icon-scroll-down{
+  display: inline-block;
+  //margin: 40px 0 0;
+  font-size:30px;
+}
 #homepage-ideas{
   padding: 0 0 40px;
 
@@ -1822,17 +1816,25 @@ footer{
     }
   }
 
+
+  #homepage{
+    .absolute{
+      bottom:150px;
+    }
+  }
+
   .homepage{
-    padding-top:35px;
+    //padding-top:35px;
+    top:25%;
 
     h4{
       padding:0 20px;
       font-size:18px;
     }
 
-    .icon-scroll-down{
-      margin: 40px 0 0;
-    }
+    //.icon-scroll-down{
+    //  margin: 40px 0 0;
+    //}
   }
 
   .right-block{
@@ -2175,9 +2177,16 @@ footer{
     }
   }
 
+  #homepage{
+    .absolute{
+      bottom:100px;
+    }
+  }
+
   .homepage{
 
-    padding-top:50px;
+    //padding-top:50px;
+    top:15%;
 
     h1{
       font-size: 52px;
@@ -2185,14 +2194,15 @@ footer{
     }
 
     h4{
-      padding:0 0 25px 0;
+      //padding:0 0 25px 0;
+      padding-bottom: 9%;
       font-size:23px;
       line-height: 30px;
     }
 
-    .icon-scroll-down{
-      margin: 20px 0 0;
-    }
+    //.icon-scroll-down{
+    //  margin: 20px 0 0;
+    //}
   }
 
   .bottom-part{
@@ -2278,20 +2288,23 @@ html {
     }
   }
   .homepage{
-    padding-top:110px;
+    //padding-top:110px;
+    top:15%;
+
     h1{
       font-size: 56px;
       padding-bottom:40px;
     }
 
     h4{
-      padding:0 0 90px 0;
+      //padding:0 0 90px 0;
+      //padding-bottom: 9%;
       font-size:24px;
       line-height: 32px;
     }
 
-    .icon-scroll-down{
-      margin: 85px 0 0;
-    }
+    //.icon-scroll-down{
+    //  margin: 85px 0 0;
+    //}
   }
 }
