@@ -5,17 +5,17 @@ Feature: Settings
 
 
   Background:
-    Given I am logged in as "user1"
+    Given I am logged in as "user2"
 
   @javascript @settings
   Scenario: Open pop up and show me the info I filled in registration
-    When I follow "user1"
+    When I follow "user2"
     And I follow "Settings"
     And I wait for angular
-    Then I should see "user1@user.com"
+    Then I should see "user2@user.com"
     When I fill in the following:
-      | bl_user_settings_firstName | user2 |
-      | bl_user_settings_lastName | user2 |
+      | bl_user_settings_firstName | user3 |
+      | bl_user_settings_lastName | user3 |
       | bl_user_settings_addEmail | test8@test.am |
       | bl_user_settings_currentPassword | Test1234 |
       | bl_user_settings_plainPassword_first | test1234 |
@@ -26,7 +26,7 @@ Feature: Settings
     And I wait for angular
     And I press "Save"
     And I wait for angular
-    And I follow "user2"
+    And I follow "user3"
     And I follow "Настройки"
     And I wait for angular
     Then I should not see "add email"

@@ -50,17 +50,17 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $scope->output = shell_exec('./behat.sh');
     }
 
-    /**
-     * @Given /^I am logged in$/
-     */
-    public function iAmLoggedIn()
-    {
-        $this->visit('/login');
-        $this->fillField('_username', 'user@user.com');
-        $this->fillField('_password', 'Test1234');
-        $this->pressButton('SIGN IN');
-        $this->assertSession()->pageTextContains('MOST POPULAR');
-    }
+//    /**
+//     * @Given /^I am logged in$/
+//     */
+//    public function iAmLoggedIn()
+//    {
+//        $this->visit('/login');
+//        $this->fillField('_username', 'user@user.com');
+//        $this->fillField('_password', 'Test1234');
+//        $this->pressButton('SIGN IN');
+//        $this->assertSession()->pageTextContains('MOST POPULAR');
+//    }
 
     /**
      * @Given I am logged in as :user
@@ -70,13 +70,13 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         if($user == 'admin') {
             $userName = 'admin@admin.com';
         }
-        elseif($user == 'user')
-        {
-            $userName = 'user@user.com';
-        }
         elseif($user == 'user1')
         {
             $userName = 'user1@user.com';
+        }
+        elseif($user == 'user2')
+        {
+            $userName = 'user2@user.com';
         }
 
         $password = 'Test1234';
@@ -91,7 +91,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         }
         else
         {
-            $this->assertSession()->pageTextContains('MOST POPULAR');
+            $this->assertSession()->pageTextContains('useryan');
         }
     }
 
@@ -385,11 +385,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        //get facebook icon in iframe
-        $facebookIcon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="'.$value.'"]'));
+        //get icon
+        $icon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="'.$value.'"]'));
 
-        //click facebook icon
-        $facebookIcon->click();
+        //click on icon
+        $icon->click();
 
     }
 

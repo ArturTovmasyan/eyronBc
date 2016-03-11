@@ -4,11 +4,11 @@ Feature: Some more features
   I need to be able to open MyBucket list and click 2 link
 
   Background:
-    Given I am logged in as "user"
+    Given I am logged in as "user1"
 
   @javascript @someMore
   Scenario: Open My Bucket List and follow the instructions
-    When I follow "user2"
+    When I follow "user1"
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I follow "Create a Goal"

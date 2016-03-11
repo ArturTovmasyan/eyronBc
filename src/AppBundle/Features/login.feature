@@ -1,40 +1,39 @@
 Feature: Sign in
   In order I log in
-  As a user
+  As a anonymous
   I should be able to enter Bucket List and see what's going on there
 
   @javascript @login
   Scenario: Login user
     Given I am on "/"
     When I follow "JOIN"
-    And I find "_username" and set "user@user.com"
+    And I find "_username" and set "user1@user.com"
     And I find "_password" and set "Test1234"
     And I find and press button in login
-    #check username
-    Then I should see "MOST POPULAR"
+    Then I should see "user1"
 
 
-  @javascript
-  Scenario: Login with bad credentials
-    Given I am on "/"
-      When I wait for angular
-      When I follow "JOIN"
-      And I find "_username" and set "test@grno.am"
-      And I find "_password" and set "test12asasa34"
-      And I find and press button in login
-      And I wait for angular
-      Then I should be on "/"
-      And I should see "The email and password you entered did not match our records. Please try again."
-
-  @javascript
-  Scenario: Log in admin user
-    Given I am on "/"
-    When I wait for angular
-    When I follow "JOIN"
-    And I find "_username" and set "admin@admin.com"
-    And I find "_password" and set "Test1234"
-    And I find and press button in login
-    Then I should be on "/admin/dashboard"
-
-    # this is not login page
-    And I should see "Homepage"
+#  @javascript
+#  Scenario: Login with bad credentials
+#    Given I am on "/"
+#      When I wait for angular
+#      When I follow "JOIN"
+#      And I find "_username" and set "test@grno.am"
+#      And I find "_password" and set "test12asasa34"
+#      And I find and press button in login
+#      And I wait for angular
+#      Then I should be on "/"
+#      And I should see "The email and password you entered did not match our records. Please try again."
+#
+#  @javascript
+#  Scenario: Log in admin user
+#    Given I am on "/"
+#    When I wait for angular
+#    When I follow "JOIN"
+#    And I find "_username" and set "admin@admin.com"
+#    And I find "_password" and set "Test1234"
+#    And I find and press button in login
+#    Then I should be on "/admin/dashboard"
+#
+#    # this is not login page
+#    And I should see "Homepage"

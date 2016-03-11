@@ -4,7 +4,7 @@ Feature: My Bucket list
   I need to be able to check my bucket list page
 
   Background:
-    Given I am logged in as "user"
+    Given I am logged in as "user1"
 
 
   @javascript @profile
@@ -18,6 +18,6 @@ Feature: My Bucket list
     And I wait for angular
     And I follow "Add some goals."
     Then I should be on "/goal/create"
-    And I should see "Suggest as public"
+    And I should see "user1"
 
 

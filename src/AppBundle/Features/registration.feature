@@ -15,4 +15,5 @@ Feature: Registration
     And I select register date fields
      And I press "SIGN UP"
      Then I should be on "/ideas"
+    And I should see "Tovmasyan"
 

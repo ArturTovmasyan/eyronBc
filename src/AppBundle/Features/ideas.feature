@@ -1,10 +1,10 @@
 Feature: Idea
   In order to use Idea page
-  As a user
+  As a anonymous
   I need to be able to see ideas page and search
 
   @javascript @ideas
-  Scenario:Open Ideas page and show list of ideas
+  Scenario: Open Ideas page and show list of ideas
     Given I am on "/ideas"
     And I wait for angular
     Then I should see "Explore over thousand great ideas"
@@ -21,5 +21,21 @@ Feature: Idea
     And I should see "LISTED BY"
     And I should see "COMPLETED BY"
 
-
+  @javascript @linkInIdeasPage
+  Scenario: Open ideas page and check Add, Done, Share links
+    Given I am on "/ideas"
+    And I should see "Explore over thousand great ideas"
+    And I wait for angular
+    And I click on icon "atc_s addthis_button_compact"
+    And I wait for angular
+    And I follow "Close"
+    And I wait for angular
+    And I follow "ADD"
+    And I wait for angular
+    Then I should see "SIGN IN"
+    When I follow "JOIN"
+    And I follow "DONE"
+    And I wait for angular
+    And I follow "JOIN"
+    Then I should see "SIGN IN"
 
