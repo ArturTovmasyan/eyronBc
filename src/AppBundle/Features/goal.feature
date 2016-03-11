@@ -4,7 +4,7 @@ Feature: Goal page
   I need to be able to check goal create page
 
   Background:
-    Given I am logged in
+    Given I am logged in as "user"
 
   @javascript @preview
   Scenario: Open Preview and show me the initial state of my goal
@@ -73,6 +73,29 @@ Feature: Goal page
     And I press "login"
     And I wait for angular
 
+  @javascript @goalDraft
+  Scenario: Open My Bucket list and show me the list of my drafts
+    When I follow "user2"
+    And I follow "My Bucketlist"
+    Then I should be on "/user-profile"
+    When I follow "Drafts"
+    Then I should be on "/goal/drafts"
+    And I should see "EDIT"
+    And I should see "DELETE"
+    When I follow "EDIT"
+    Then I should see "Suggest as public"
+    When I move backward one page
+    And I follow "DELETE"
+    And I wait for angular
+    Then I should see "You are about to delete your draft goal. Are you sure?"
+    When I follow "Delete"
+    Then I should be on "goal/drafts"
+    And I should see "Drafts"
+    When I follow "DELETE"
+    And I wait for angular
+    And I follow "Cancel"
+    Then I should not see "You are about to delete your draft goal. Are you sure?"
+
 
 #  @javascript @createGoal
 #  Scenario: Create goal
@@ -104,7 +127,8 @@ Feature: Goal page
 #    And  I follow "DELETE"
 #    Then I should be on "user-profile"
 #
-#  @javascript @goalDraft
+
+
 #  Scenario: Create draft
 #    Given I am on "/goal/create"
 #    Then I should see "Suggest as public"

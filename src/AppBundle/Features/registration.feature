@@ -13,6 +13,6 @@ Feature: Registration
       | fos_user_registration_form[plainPassword][first]  | test1234 |
       | fos_user_registration_form[plainPassword][second] | test1234 |
     And I select register date fields
-     And I press "register"
+     And I press "SIGN UP"
      Then I should be on "/ideas"
 

@@ -50,8 +50,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create goal
         $goal2 = new Goal();
-        $goal2->setDescription('goal3 goal3');
-        $goal2->setTitle('goal3');
+        $goal2->setDescription('goal2 goal2');
+        $goal2->setTitle('goal2');
         $goal2->setStatus(1);
         $goal2->setVideoLink(null);
         $goal2->setAuthor($user1);
@@ -60,13 +60,36 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create goal
         $goal3 = new Goal();
-        $goal3->setDescription('goal4 goal4');
-        $goal3->setTitle('goal4');
+        $goal3->setDescription('goal3 goal3');
+        $goal3->setTitle('goal3');
         $goal3->setStatus(1);
         $goal3->setVideoLink(null);
         $goal3->setAuthor($user1);
+        $goal3->setReadinessStatus(Goal::DRAFT);
         $goal3->setPublish(true);
         $manager->persist($goal3);
+
+        // create goal
+        $goal4 = new Goal();
+        $goal4->setDescription('goal4 goal4');
+        $goal4->setTitle('goal4');
+        $goal4->setStatus(1);
+        $goal4->setVideoLink(null);
+        $goal4->setAuthor($user1);
+        $goal4->setReadinessStatus(Goal::DRAFT);
+        $goal4->setPublish(true);
+        $manager->persist($goal4);
+
+        // create goal
+        $goal5 = new Goal();
+        $goal5->setDescription('goal5 goal5');
+        $goal5->setTitle('goal5');
+        $goal5->setStatus(1);
+        $goal5->setVideoLink(null);
+        $goal5->setAuthor($user1);
+        $goal5->setReadinessStatus(Goal::DRAFT);
+        $goal5->setPublish(true);
+        $manager->persist($goal5);
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -150,6 +173,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('goal1', $goal1);
         $this->addReference('goal2', $goal2);
         $this->addReference('goal3', $goal3);
+        $this->addReference('goal4', $goal4);
+        $this->addReference('goal5', $goal5);
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
         $this->addReference('userGoal3', $userGoal3);

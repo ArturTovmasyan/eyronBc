@@ -62,6 +62,40 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->assertSession()->pageTextContains('MOST POPULAR');
     }
 
+    /**
+     * @Given I am logged in as :user
+     */
+    public function iAmLoggedInAs($user)
+    {
+        if($user == 'admin') {
+            $userName = 'admin@admin.com';
+        }
+        elseif($user == 'user')
+        {
+            $userName = 'user@user.com';
+        }
+        elseif($user == 'user1')
+        {
+            $userName = 'user1@user.com';
+        }
+
+        $password = 'Test1234';
+
+        $this->visit('/login');
+        $this->fillField('_username', $userName);
+        $this->fillField('_password', $password);
+        $this->pressButton('SIGN IN');
+
+        if($user == 'admin') {
+            $this->assertSession()->pageTextContains('HOMEPAGE');
+        }
+        else
+        {
+            $this->assertSession()->pageTextContains('MOST POPULAR');
+        }
+    }
+
+
 
     /**
      * @Then I should see categories
@@ -196,43 +230,65 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $dateElements = $page->findAll('css', '.col-sm-4');
 
-        foreach($dateElements as $key => $dateElement)
-        {
+        foreach($dateElements as $key => $dateElement) {
+
             if (null === $key) {
                 throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'invalid xpath'));
             }
 
-            $dateElement->click();
+//            if ($dateElement->getHtml() != "") {
 
-            $options = $page->findAll('css', '.list');
+                $dateElement->click();
 
-            if($key == 0) {
-                $month = $options[0]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
-                );
-                $month->click();
+                $options = $page->findAll('css', '.list');
 
-            }
-            elseif($key == 1)
-            {
-                $day = $options[1]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
-                );
-                $day->click();
-            }
-            elseif($key == 2)
-            {
-                $year = $options[2]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
-                );
-                $year->click();
-            }
+                if ($key == 0) {
+                    $month = $options[0]->find(
+                        'xpath',
+                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
+                    );
+                    $month->click();
+
+                } elseif ($key == 1) {
+                    $day = $options[1]->find(
+                        'xpath',
+                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
+                    );
+                    $day->click();
+                } elseif ($key == 2) {
+                    $year = $options[2]->find(
+                        'xpath',
+                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
+                    );
+                    $year->click();
+                }
+//            }
         }
     }
 
+    /**
+     * @When I select language :value
+     */
+    public function iSelectLanguage($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        $page = $session->getPage();
+
+        $languageField = $page->find('css', '.language');
+
+        $languageField->click();
+
+        $option = $languageField->find('css', '.list');
+
+        $lang = $option->find(
+            'xpath',
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="'.$value.'"]')
+        );
+
+        $lang->click();
+    }
 
     /**
      * @When I scroll page to :value
@@ -350,4 +406,5 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $this->getSession()->switchToWindow($windowNames[1]);
         }
     }
+
 }

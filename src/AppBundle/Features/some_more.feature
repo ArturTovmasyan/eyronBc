@@ -4,7 +4,7 @@ Feature: Some more features
   I need to be able to open MyBucket list and click 2 link
 
   Background:
-    Given I am logged in
+    Given I am logged in as "user"
 
   @javascript @someMore
   Scenario: Open My Bucket List and follow the instructions
