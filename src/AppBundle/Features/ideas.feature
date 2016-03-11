@@ -8,6 +8,7 @@ Feature: Idea
     Given I am on "/ideas"
     And I wait for angular
     Then I should see "Explore over thousand great ideas"
+    And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     And I should see "LISTED BY"
     And I should see "COMPLETED BY"
     When I follow "MAP"

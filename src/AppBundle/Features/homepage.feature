@@ -11,6 +11,7 @@ Feature: Homepage
     Then I should see "Explore over thousand great ideas"
     When I follow "DISCOVER MORE"
     Then I should be on "/ideas"
+    # this is not the feature of homepage, it belongs to ideas
     And I should see "Explore over thousand great ideas"
     And I wait for angular
     And I click on icon "atc_s addthis_button_compact"

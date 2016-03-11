@@ -10,6 +10,7 @@ Feature: Sign in
     And I find "_username" and set "user@user.com"
     And I find "_password" and set "Test1234"
     And I find and press button in login
+    #check username
     Then I should see "MOST POPULAR"
 
 
@@ -34,4 +35,6 @@ Feature: Sign in
     And I find "_password" and set "Test1234"
     And I find and press button in login
     Then I should be on "/admin/dashboard"
+
+    # this is not login page
     And I should see "Homepage"
