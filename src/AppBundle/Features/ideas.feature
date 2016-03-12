@@ -8,7 +8,7 @@ Feature: Idea
     Given I am on "/ideas"
     And I wait for angular
     Then I should see "Explore over thousand great ideas"
-    And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
+#    And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     And I should see "LISTED BY"
     And I should see "COMPLETED BY"
     When I follow "MAP"
@@ -26,7 +26,7 @@ Feature: Idea
     Given I am on "/ideas"
     And I should see "Explore over thousand great ideas"
     And I wait for angular
-    And I click on icon "atc_s addthis_button_compact"
+    And I click on "atc_s addthis_button_compact"
     And I wait for angular
     And I follow "Close"
     And I wait for angular
@@ -36,6 +36,5 @@ Feature: Idea
     When I follow "JOIN"
     And I follow "DONE"
     And I wait for angular
-    And I follow "JOIN"
     Then I should see "SIGN IN"
 

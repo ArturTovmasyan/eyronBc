@@ -1,6 +1,6 @@
 Feature: Settings
   In order to change my info
-  As a user1
+  As a user2
   I need to be able to open the page and change the info I want
 
 
@@ -20,19 +20,18 @@ Feature: Settings
       | bl_user_settings_currentPassword | Test1234 |
       | bl_user_settings_plainPassword_first | test1234 |
       | bl_user_settings_plainPassword_second | test1234 |
-    And I select settings date fields
-    And I select language "Русский"
-    And I scroll page to "modal-bottom"
-    And I wait for angular
-    And I press "Save"
+    And I select date fields
+    And I select language
+#    And I wait
+    And I click on "btn btn-purple button-lg"
     And I wait for angular
     And I follow "user3"
     And I follow "Настройки"
     And I wait for angular
     Then I should not see "add email"
-    When I select language "English"
-    And I wait for angular
-    And I press "Сохранить"
+    When I select language
+#    And I wait
+    And I click on "btn btn-purple button-lg"
     And I wait for angular
     Then I should not see "Primary Email"
 

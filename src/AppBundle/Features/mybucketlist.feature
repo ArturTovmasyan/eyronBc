@@ -1,16 +1,15 @@
 Feature: My Bucket list
   In order to use my bucket list page and check it
-  As a user
+  As a user1
   I need to be able to check my bucket list page
 
   Background:
     Given I am logged in as "user1"
 
-
   @javascript @profile
   Scenario: Open Complete profile dropdown and show me the 7 points in it
     Given I am on "/activity"
-    When I click on icon "text-gray"
+    When I click on "text-gray"
     And I wait for angular
     And I follow "Upload an image"
     And I wait for angular

@@ -41,32 +41,23 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function beforeStep()
     {
         $this->getSession()->getDriver()->maximizeWindow();
-//        $this->getSession()->resizeWindow(1920, 1080, 'current');
     }
 
     /** @BeforeSuite */
     public static function callFixturesCommand(BeforeSuiteScope $scope)
     {
-        $scope->output = shell_exec('./behat.sh');
+        $scope->output = shell_exec('./bin/behat.sh');
     }
-
-//    /**
-//     * @Given /^I am logged in$/
-//     */
-//    public function iAmLoggedIn()
-//    {
-//        $this->visit('/login');
-//        $this->fillField('_username', 'user@user.com');
-//        $this->fillField('_password', 'Test1234');
-//        $this->pressButton('SIGN IN');
-//        $this->assertSession()->pageTextContains('MOST POPULAR');
-//    }
 
     /**
      * @Given I am logged in as :user
      */
     public function iAmLoggedInAs($user)
     {
+        //set default value
+        $userName = null;
+
+        //set userName
         if($user == 'admin') {
             $userName = 'admin@admin.com';
         }
@@ -79,13 +70,19 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $userName = 'user2@user.com';
         }
 
+        //set password
         $password = 'Test1234';
 
-        $this->visit('/login');
-        $this->fillField('_username', $userName);
-        $this->fillField('_password', $password);
-        $this->pressButton('SIGN IN');
+        //visit homepage
+        $this->visit('/');
 
+        //open login form
+        $this->clickLink('JOIN');
+
+        //set data in login form
+        $this->iSetUsernameAndPassword($userName, $password);
+
+        //check if user admin
         if($user == 'admin') {
             $this->assertSession()->pageTextContains('HOMEPAGE');
         }
@@ -94,8 +91,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $this->assertSession()->pageTextContains('useryan');
         }
     }
-
-
 
     /**
      * @Then I should see categories
@@ -118,12 +113,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         }
     }
 
-
     /**
-     * @When I find :field and set :fieldData
+     * @When I set username :userName and password :password
      */
-    public function iFindAndSet($field, $fieldData)
+    public function iSetUsernameAndPassword($userName, $password)
     {
+
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
 
@@ -137,30 +132,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             throw new \LogicException('Could not find the element');
         }
 
-        //check if login block is visible
-        if ($loginBlock->isVisible()) {
+        //find username and set data
+        $loginBlock->fillField('_username', $userName);
 
-            //find username and set data
-            $loginBlock->fillField($field, $fieldData);
-
-        } else {
-            throw new \LogicException('Element is not visible...');
-        }
-    }
-
-    /**
-     * @When I find and press button in login
-     */
-    public function iFindAndPressButtonInLogin()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        //get login block
-        $loginBlock = $page->find('css', '.popover-content');
+        //find password
+        $loginBlock->fillField('_password', $password);
 
         //find submit button
         $button = $loginBlock->findById('buttons');
@@ -170,113 +146,53 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I select register date fields
+     * @When I select date fields
      */
-    public function iSelectRegisterDateFields()
+    public function iSelectDateFields()
     {
-        //get session
+        //get mink session
         $session = $this->getSession(); // assume extends RawMinkContext
 
+        //get current page
         $page = $session->getPage();
 
-        $dateElements = $page->findAll('css', '.current');
+        //get date fields
+        $dateElements = $page->findAll('css','#behat');
 
-        foreach($dateElements as $key => $dateElement)
-        {
+        if (null === $dateElements) {
+            throw new \InvalidArgumentException(sprintf('Cannot find $dateElements'));
+        }
+
+        foreach($dateElements as $dateElement) {
+
+            //click on date filed
             $dateElement->click();
 
-            $options = $page->findAll('css', '.list');
+            //get options list in field
+            $optionsList = $dateElement->find('css', '.list');
 
-            if($key == 0) {
-                $month = $options[0]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
-                );
-                $month->click();
+            //get value in opt
+            $option = $optionsList->find(
+                'xpath',
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[2]')
+            );
 
-            }
-            elseif($key == 1)
-            {
-                $day = $options[1]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
-                );
-                $day->click();
-            }
-            elseif($key == 2)
-            {
-                $year = $options[2]->find(
-                    'xpath',
-                    $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
-                );
-                $year->click();
-            }
+            $option->click();
 
-            if (null === $key) {
-                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'blooo'));
-            }
         }
     }
 
     /**
-     * @When I select settings date fields
+     * @When I select language
      */
-    public function iSelectSettingsDateFields()
+    public function iSelectLanguage()
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
 
         $page = $session->getPage();
 
-        $dateElements = $page->findAll('css', '.col-sm-4');
-
-        foreach($dateElements as $key => $dateElement) {
-
-            if (null === $key) {
-                throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', 'invalid xpath'));
-            }
-
-//            if ($dateElement->getHtml() != "") {
-
-                $dateElement->click();
-
-                $options = $page->findAll('css', '.list');
-
-                if ($key == 0) {
-                    $month = $options[0]->find(
-                        'xpath',
-                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="January"]')
-                    );
-                    $month->click();
-
-                } elseif ($key == 1) {
-                    $day = $options[1]->find(
-                        'xpath',
-                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="1"]')
-                    );
-                    $day->click();
-                } elseif ($key == 2) {
-                    $year = $options[2]->find(
-                        'xpath',
-                        $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="2016"]')
-                    );
-                    $year->click();
-                }
-//            }
-        }
-    }
-
-    /**
-     * @When I select language :value
-     */
-    public function iSelectLanguage($value)
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        $page = $session->getPage();
-
-        $languageField = $page->find('css', '.language');
+        $languageField = $page->find('css', '#behat-lng');
 
         $languageField->click();
 
@@ -284,7 +200,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $lang = $option->find(
             'xpath',
-                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[text()="'.$value.'"]')
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[not(contains(@class, "selected"))]')
         );
 
         $lang->click();
@@ -302,7 +218,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $session->executeScript("window.scrollTo(0, document.body.scrollTop)");
         }
         else {
-            $session->executeScript("jQuery($('html, body').scrollTo('".$value."'));");
+            $session->executeScript("jQuery($('body').scrollTo('".$value."'));");
         }
     }
 
@@ -317,24 +233,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //13 it is 'enter' key on keyboard for selenium2 Driver
         $session->getDriver()->keyPress('//input[@name="search"]', $key);
     }
-
-
-//    /**
-//     * @When I click goal switch
-//     */
-//    public function iClickGoalSwitch()
-//    {
-//        //get session
-//        $session = $this->getSession();
-//
-//        //get page
-//        $page = $session->getPage();
-//
-//        $goalSwitchButton= $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="onoffswitch"]'));
-//
-//        $goalSwitchButton->click();
-//    }
-
 
     /**
      * @When I switch to iframe :value
@@ -375,9 +273,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
 
     /**
-     * @When I click on icon :value
+     * @When I click on :value
      */
-    public function iClickOnIcon($value)
+    public function iClickOn($value)
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -386,11 +284,29 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get icon
-        $icon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="'.$value.'"]'));
+        $icon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//*[contains(@class, normalize-space("'.$value.'")) or contains(@id, normalize-space("'.$value.'"))]'));
 
         //click on icon
         $icon->click();
 
+    }
+
+    /**
+     * @When I click button :value
+     */
+    public function iClickButton($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get icon
+        $icon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//button[@class="'.$value.'"]'));
+
+        //click on icon
+        $icon->click();
     }
 
     /**
@@ -406,5 +322,4 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $this->getSession()->switchToWindow($windowNames[1]);
         }
     }
-
 }

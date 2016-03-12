@@ -1,6 +1,6 @@
 Feature: Search
   In order to be able to search
-  As a user
+  As a anonymous
   I need to be able to see the result of the item being searched
 
   @javascript @search

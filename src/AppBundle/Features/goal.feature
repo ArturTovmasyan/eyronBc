@@ -1,6 +1,6 @@
 Feature: Goal page
   In order to use goal create page and check it
-  As a user
+  As a user1
   I need to be able to check goal create page
 
   Background:
@@ -14,16 +14,14 @@ Feature: Goal page
     When I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
 #    TODO must js for video link and scroll up by class, scroll down by class is work
-#    And I fill in "app_bundle_goal_videoLink[ 0 ]" with "www.youtube.com"
     And I scroll page to "top"
-    And I wait for angular
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
-    And I press "PREVIEW"
+    And I press "btn_preview"
     And I should be on "/goal/view/test-goals-1"
     Then I should see "EDIT"
     When I follow "EDIT"
@@ -60,10 +58,10 @@ Feature: Goal page
   Scenario: Share a goal
     Given I am on "/ideas"
     When I wait for angular
-    And I click on icon "atc_s addthis_button_compact"
+    And I click on "atc_s addthis_button_compact"
     And I wait
     And I switch to iframe "#at3winshare-iframe"
-    And I click on icon "at3winsvc_facebook"
+    And I click on "at3winsvc_facebook"
 #    TODO need js for correct wait
     And I wait
     And I switch to window

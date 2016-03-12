@@ -7,9 +7,7 @@ Feature: Sign in
   Scenario: Login user
     Given I am on "/"
     When I follow "JOIN"
-    And I find "_username" and set "user1@user.com"
-    And I find "_password" and set "Test1234"
-    And I find and press button in login
+    And I set username "user1@user.com" and password "Test1234"
     Then I should see "user1"
 
 
@@ -18,9 +16,7 @@ Feature: Sign in
 #    Given I am on "/"
 #      When I wait for angular
 #      When I follow "JOIN"
-#      And I find "_username" and set "test@grno.am"
-#      And I find "_password" and set "test12asasa34"
-#      And I find and press button in login
+#      And I set username "user1@user.com" and password "Test1234"
 #      And I wait for angular
 #      Then I should be on "/"
 #      And I should see "The email and password you entered did not match our records. Please try again."
@@ -30,9 +26,7 @@ Feature: Sign in
 #    Given I am on "/"
 #    When I wait for angular
 #    When I follow "JOIN"
-#    And I find "_username" and set "admin@admin.com"
-#    And I find "_password" and set "Test1234"
-#    And I find and press button in login
+#    And I set username "admin@admin.com" and password "Test1234"
 #    Then I should be on "/admin/dashboard"
 #
 #    # this is not login page

@@ -1,6 +1,6 @@
 Feature: Some more features
   In order I open My Bucket list and click 2 link
-  As a user
+  As a user1
   I need to be able to open MyBucket list and click 2 link
 
   Background:

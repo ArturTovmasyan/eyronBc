@@ -113,7 +113,7 @@
 
                                 {% if token == false %}
                                     <div class="form-group row">
-                                        {#<div class="col-sm-4"></div>#}
+                                        <div class="col-sm-4"></div>
                                         <div class="col-sm-8">
                                             {{ form_widget(form.addEmail, {'attr': {'class' : 'form-control', 'placeholder': 'form.add_email'|trans({}, 'FOSUserBundle') } }) }}
                                         </div>
@@ -146,7 +146,7 @@
 
                             <div class="form-group row">
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="behat">
 
                                     {% set arrayMonth = {
                                     1:'form.month_january'|trans({}, 'FOSUserBundle'),
@@ -174,7 +174,7 @@
                                     </select>
 
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="behat">
 
                                     {% set days = form.birthDate.day.vars.choices %}
 
@@ -187,7 +187,7 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="behat">
 
                                     {% set years = form.birthDate.year.vars.choices %}
 
@@ -205,7 +205,7 @@
                             <div class="error-message" data-ng-bind="errorMessages['birthDate']"></div>
 
                             <div class="form-group row">
-                                <div class="col-sm-12 language">
+                                <div class="col-sm-12 language" id="behat-lng">
                                     {{ form_widget(form.language) }}
                                 </div>
                             </div>

@@ -69,7 +69,7 @@
                     <p class="text-dark-gray">{{ 'form.date_of_birth'|trans({}, 'FOSUserBundle') }}</p>
 
                     <div class="form-group row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" id="behat">
 
                             {% set months = form.birthDate.month.vars.choices %}
 
@@ -95,7 +95,7 @@
                             </select>
 
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" id="behat">
 
                             {% set days = form.birthDate.day.vars.choices %}
 
@@ -107,7 +107,7 @@
                             </select>
 
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" id="behat">
 
                             {% set years = form.birthDate.year.vars.choices %}
 
