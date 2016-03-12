@@ -142,7 +142,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $button = $loginBlock->findById('buttons');
 
         //press button
-        $button->press();
+        $button->click();
     }
 
     /**

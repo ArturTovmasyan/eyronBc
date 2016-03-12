@@ -36,7 +36,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         // get user
         $user = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('admin@admin.com');
 
-        $user1 = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('user@user.com');
+        $user1 = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('user1@user.com');
 
         // create goal
         $goal1 = new Goal();
