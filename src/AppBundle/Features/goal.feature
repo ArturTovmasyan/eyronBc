@@ -106,6 +106,28 @@ Feature: Goal page
     Then I should not see "You are about to delete your draft goal. Are you sure?"
 
 
+  @javascript @goalActiveCompleted
+  Scenario: Open My Bucket list and show me the list of my drafts
+    When I follow "user1"
+    And I follow "My Bucketlist"
+    Then I should see "goal4"
+    When I follow "Active"
+    Then I should see "goal3"
+    When I follow "Completed"
+    Then I should see "goal4"
+    And I should see "Dreaming"
+    And I wait
+    When I am on "/logout"
+    And I am logged in as "user2"
+    Then I should see "user2 useryan"
+    When I am on "/user-profile"
+    Then I should see "What are you doing here? Come on, add some goals"
+    When I follow "Active"
+    Then I should see "Your life needs goals, add some more"
+    When I follow "Completed"
+    Then I should see "It’s time to act and complete some goals"
+
+
 #  @javascript @createGoal
 #  Scenario: Create goal
 #    When I follow "user2"
