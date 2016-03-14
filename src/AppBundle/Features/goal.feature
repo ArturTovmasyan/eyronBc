@@ -107,7 +107,7 @@ Feature: Goal page
 
 
   @javascript @goalActiveCompleted
-  Scenario: Open My Bucket list and show me the list of my drafts
+  Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
     When I follow "user1"
     And I follow "My Bucketlist"
     Then I should see "goal4"
