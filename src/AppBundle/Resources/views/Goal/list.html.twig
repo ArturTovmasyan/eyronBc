@@ -35,7 +35,7 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        <bdi>[[ adventureTextItem ? adventureTextItem.title:"MOST POPULAR" ]]</bdi>
+                        <bdi>[[ adventureTextItem ? adventureTextItem.title:"{{ 'most-popular'|trans }}" ]]</bdi>
                         <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>
                     </button>

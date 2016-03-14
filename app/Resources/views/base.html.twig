@@ -352,7 +352,9 @@
 
                 function autoResizeDiv()
                 {
-                    document.getElementById('homepage').style.height = window.innerHeight +'px';
+                    if(document.getElementById('homepage')) {
+                        document.getElementById('homepage').style.height = window.innerHeight + 'px';
+                    }
                 }
                 window.onresize = autoResizeDiv;
                 autoResizeDiv();
