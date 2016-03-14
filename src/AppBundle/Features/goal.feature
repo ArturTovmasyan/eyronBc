@@ -128,21 +128,23 @@ Feature: Goal page
     Then I should see "It’s time to act and complete some goals"
 
 
-#  @javascript @createGoal
-#  Scenario: Create goal
-#    When I follow "user2"
-#    And I follow "Create Goal"
-#    Then I should see "Suggest as public"
-#    When I fill in "app_bundle_goal[title]" with "BEHAT TEST GOALS"
-#    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
-#    And I wait for angular
-#    And I click on goal create
-#    And I wait for angular
-#    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-#    And I click on goal save
-#    And I wait for angular
-#    Then I should see "Complete your profile"
-#
+  @javascript @createGoal
+  Scenario: Create goal
+    When I follow "user1"
+    And I follow "Create Goal"
+    Then I should see "Suggest as public"
+    And I click on "iCheck-helper"
+    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
+#    TODO must be fixed for add vidoe link
+#    And I fill in "app_bundle_goal[videoLink][ 0 ]" with "www.google.com"
+    And I wait for angular
+    And I press "btn_publish"
+    And I wait for angular
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    When I click on "btn btn-transparent button-lg"
+
+
 #  @javascript @removeGoal
 #  Scenario: Create goal
 #    When I follow "user2"
