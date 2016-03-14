@@ -46,7 +46,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     /** @BeforeSuite */
     public static function callFixturesCommand(BeforeSuiteScope $scope)
     {
-        $scope->output = shell_exec('./bin/behat.sh');
+        $scope->output = shell_exec('./behat.sh');
     }
 
     /**
