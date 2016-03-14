@@ -4,7 +4,58 @@ Feature: Goal page
   I need to be able to check goal create page
 
   Background:
+    Given I am on "/logout"
     Given I am logged in as "user1"
+
+  @javascript @goalActiveCompleted
+  Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
+    When I follow "user1"
+    And I follow "My Bucketlist"
+    Then I should see "goal4"
+    When I follow "Active"
+    Then I should see "goal4"
+    When I follow "Completed"
+    Then I should see "goal3"
+    And I should see "Dreaming"
+    And I wait
+    When I am on "/logout"
+    And I am logged in as "user2"
+    Then I should see "user2 useryan"
+    When I am on "/user-profile"
+    Then I should see "What are you doing here? Come on, add some goals"
+    When I follow "Active"
+    Then I should see "Your life needs goals, add some more"
+    When I follow "Completed"
+    Then I should see "It’s time to act and complete some goals"
+
+  @javascript @manageGoal
+  Scenario: Open manage and let me change whatever I want
+    When I follow "user1"
+    And I follow "My Bucketlist"
+    Then I should be on "/user-profile"
+    When I scroll page to ".information"
+    And I follow "MANAGE"
+    And I wait for angular
+    Then I should see "Goal is active"
+    When I change date
+# TODO must be fixed with js
+    And I fill in "loc" with "Yerevan, Armenia"
+    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
+    And I change priority
+    And I fill in "stepText[ 0 ]" with "step 1"
+    And I change switch "3"
+    And I wait
+    And I change switch "3"
+    And I press "Save"
+    Then I should see "user1 useryan"
+    When I scroll page to ".information"
+    And I follow "MANAGE"
+    And I wait for angular
+    When I change switch "0"
+    Then I should see "Goal is completed"
+    And I click on "btn btn-purple button-lg"
+    Then I should see "user1 useryan"
+
 
   @javascript @preview
   Scenario: Open Preview and show me the initial state of my goal
@@ -38,49 +89,7 @@ Feature: Goal page
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
-  @javascript @manageGoal
-  Scenario: Open manage and let me change whatever I want
-    When I follow "user1"
-    And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
-    When I scroll page to ".information"
-    And I follow "MANAGE"
-    And I wait for angular
-    Then I should see "Goal is active"
-    When I change date
-  # TODO must be fixed with js
-    And I fill in "loc" with "Yerevan, Armenia"
-    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
-    And I change priority
-    And I fill in "stepText[ 0 ]" with "step 1"
-    And I change switch "3"
-    And I wait
-    And I change switch "3"
-    And I press "Save"
-    Then I should see "user1 useryan"
-    When I scroll page to ".information"
-    And I follow "MANAGE"
-    And I wait for angular
-    When I change switch "0"
-    Then I should see "Goal is completed"
-    And I click on "btn btn-purple button-lg"
-    Then I should see "user1 useryan"
 
-  @javascript @shareGoal
-  Scenario: Share a goal
-    Given I am on "/ideas"
-    When I wait for angular
-    And I click on "atc_s addthis_button_compact"
-    And I wait
-    And I switch to iframe "#at3winshare-iframe"
-    And I click on "at3winsvc_facebook"
-#    TODO need js for correct wait
-    And I wait
-    And I switch to window
-    And I wait
-    And I fill in "email" with "test@test.am"
-    And I fill in "pass" with "test1234567"
-    And I press "login"
 
   @javascript @goalDraft
   Scenario: Open My Bucket list and show me the list of my drafts
@@ -106,27 +115,22 @@ Feature: Goal page
     And I follow "Cancel"
     Then I should not see "You are about to delete your draft goal. Are you sure?"
 
-
-  @javascript @goalActiveCompleted
-  Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
-    When I follow "user1"
-    And I follow "My Bucketlist"
-    Then I should see "goal4"
-    When I follow "Active"
-    Then I should see "goal4"
-    When I follow "Completed"
-    Then I should see "goal3"
-    And I should see "Dreaming"
+  @javascript @shareGoal
+  Scenario: Share a goal
+    Given I am on "/ideas"
+    When I wait for angular
+    And I click on "atc_s addthis_button_compact"
     And I wait
-    When I am on "/logout"
-    And I am logged in as "user2"
-    Then I should see "user2 useryan"
-    When I am on "/user-profile"
-    Then I should see "What are you doing here? Come on, add some goals"
-    When I follow "Active"
-    Then I should see "Your life needs goals, add some more"
-    When I follow "Completed"
-    Then I should see "It’s time to act and complete some goals"
+    And I switch to iframe "#at3winshare-iframe"
+    And I click on "at3winsvc_facebook"
+ #    TODO need js for correct wait
+    And I wait
+    And I switch to window
+    And I wait
+    And I fill in "email" with "test@test.am"
+    And I fill in "pass" with "test1234567"
+    And I press "login"
+
 
 
   @javascript @goalCreatePage

@@ -5,6 +5,7 @@ Feature: Settings
 
 
   Background:
+    Given I am on "/logout"
     Given I am logged in as "user2"
 
   @javascript @settings

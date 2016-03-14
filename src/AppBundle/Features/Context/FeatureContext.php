@@ -73,9 +73,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //set password
         $password = 'Test1234';
 
-        //visit homepage
-        $this->visit('/');
-
         //open login form
         $this->clickLink('JOIN');
 

@@ -4,6 +4,7 @@ Feature: My Bucket list
   I need to be able to check my bucket list page
 
   Background:
+    Given I am on "/logout"
     Given I am logged in as "user1"
 
   @javascript @profile

@@ -4,6 +4,7 @@ Feature: Some more features
   I need to be able to open MyBucket list and click 2 link
 
   Background:
+    Given I am on "/logout"
     Given I am logged in as "user1"
 
   @javascript @someMore
