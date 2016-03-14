@@ -128,8 +128,8 @@ Feature: Goal page
     Then I should see "It’s time to act and complete some goals"
 
 
-  @javascript @createGoal
-  Scenario: Create goal
+  @javascript @goalCreatePage
+  Scenario: Open the page and show all the features
     When I follow "user1"
     And I follow "Create Goal"
     Then I should see "Suggest as public"
