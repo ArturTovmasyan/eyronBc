@@ -38,21 +38,33 @@ Feature: Goal page
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
-#  @javascript @manageGoal
-#  Scenario: Manage completed goal
-#    When I follow "user1"
-#    And I follow "My Bucketlist"
-#    Then I should be on "/user-profile"
-#    When I scroll page to ".information"
-#    And I follow "MANAGE"
-#    Then I should see "user2 useryan"
-#    When I click goal switch
-#    And I should see "COMPLETION DATE"
-#    When I click goal switch
-#    Then I should see "If you accomplished your Goal, just mark it"
-#    And I press "Save"
-#    Then I should see "user2 useryan"
-
+  @javascript @manageGoal
+  Scenario: Open manage and let me change whatever I want
+    When I follow "user1"
+    And I follow "My Bucketlist"
+    Then I should be on "/user-profile"
+    When I scroll page to ".information"
+    And I follow "MANAGE"
+    And I wait for angular
+    Then I should see "Goal is active"
+    When I change date
+  # TODO must be fixed with js
+    And I fill in "loc" with "Yerevan, Armenia"
+    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
+    And I change priority
+    And I fill in "stepText[ 0 ]" with "step 1"
+    And I change switch "3"
+    And I wait
+    And I change switch "3"
+    And I press "Save"
+    Then I should see "user1 useryan"
+    When I scroll page to ".information"
+    And I follow "MANAGE"
+    And I wait for angular
+    When I change switch "0"
+    Then I should see "Goal is completed"
+    And I click on "btn btn-purple button-lg"
+    Then I should see "user1 useryan"
 
   @javascript @shareGoal
   Scenario: Share a goal

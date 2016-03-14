@@ -67,7 +67,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal3->setStatus(1);
         $goal3->setVideoLink(null);
         $goal3->setAuthor($user1);
-//        $goal3->setReadinessStatus(Goal::DRAFT);
+        $goal3->setReadinessStatus(Goal::DRAFT);
         $goal3->setPublish(true);
         $manager->persist($goal3);
 
@@ -126,6 +126,16 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal3->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal3);
 
+        // create goal
+        $userGoal4 = new UserGoal();
+        $userGoal4->setUser($user1);
+        $userGoal4->setGoal($goal4);
+        $userGoal4->setIsVisible(true);
+        $userGoal4->setNote('sfsdf');
+        $userGoal4->setImportant(true);
+        $userGoal4->setUrgent(true);
+        $userGoal4->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal3);
 
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';

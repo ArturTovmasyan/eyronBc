@@ -322,4 +322,62 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $this->getSession()->switchToWindow($windowNames[1]);
         }
     }
+
+    /**
+     * @When I change date
+     */
+    public function iChangeDate()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get date
+        $date = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//td[@class="day"][7]'));
+
+        //click on icon
+        $date->click();
+
+    }
+
+    /**
+     * @When I change priority
+     */
+    public function iChangePriority()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get date
+        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//label[@class="radio-inline"]'));
+
+        //click on icon
+        $priority->click();
+
+
+    }
+
+    /**
+     * @When I change switch :number
+     */
+    public function iChangeSwitch($number)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get date
+        $switchs = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//label[@class="onoffswitch-label"])'));
+
+        //click on icon
+        $switchs[$number]->click();
+    }
+
 }
