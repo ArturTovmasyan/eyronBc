@@ -441,7 +441,7 @@
                                                 {% if userGoal.doDate is not null %}
                                                     {{ userGoal.doDate|date('M, Y') }}
                                                 {% else %}
-                                                    Dreaming
+                                                    {{ 'dreaming'|trans }}
                                                 {% endif %}
                                             </div>
                                         </div>
