@@ -84,7 +84,8 @@ Feature: Goal page
 
   @javascript @goalDraft
   Scenario: Open My Bucket list and show me the list of my drafts
-    When I follow "user1"
+    When I wait for angular
+    And I follow "user1"
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I follow "Drafts"
@@ -112,9 +113,9 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should see "goal4"
     When I follow "Active"
-    Then I should see "goal3"
-    When I follow "Completed"
     Then I should see "goal4"
+    When I follow "Completed"
+    Then I should see "goal3"
     And I should see "Dreaming"
     And I wait
     When I am on "/logout"
