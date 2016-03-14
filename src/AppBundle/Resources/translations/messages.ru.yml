@@ -28,7 +28,7 @@ goal:
       view_description: Описание просмотра цели
       og_title: Список целей
       list_description: Описание цели
-      complete_text: Достичь цели
+      complete_text: Реализуйте одну цель
       public: Предложить для открытого доступа
       agree: Отметьте флажком, если хотите разместить вашу цель в общий список идей
       preview: Предпросмотр
@@ -136,7 +136,7 @@ filters:
 
 
 account:
-  complete_text: Подтвердите свою учетную запись
+  complete_text: Подтвердите свой аккаунт
   complete: Завершить
 
 file:
