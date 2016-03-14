@@ -32,7 +32,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWait()
     {
-       $this->getSession()->wait(2000);
+       $this->getSession()->wait(3000);
     }
 
     /**

@@ -19,4 +19,20 @@ Feature: My Bucket list
     Then I should be on "/goal/create"
     And I should see "user1"
 
+  @javascript @myBucketList
+  Scenario: Open My BucketList and show me my all goals
+    When I follow "user1"
+    And I follow "My Bucketlist"
+    Then I should see "Active"
+    And I should see "user1 useryan"
+    And I should see "Listed"
+    And I should see "Completed"
+    When I click on "icon-settings"
+    And I wait for angular
+    And I click on "btn btn-transparent button-lg"
+    And I wait for angular
+    And I follow "Map"
+    And I wait
+    Then I should see "Satellite"
+#TODO must be added pagination part
 
