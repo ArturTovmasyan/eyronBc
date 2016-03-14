@@ -6,6 +6,7 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /bin/
+!/bin/behat.sh
 /composer.phar
 /vendor/
 /web/bundles/
