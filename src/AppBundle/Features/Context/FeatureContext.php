@@ -26,7 +26,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active && !$.active");
+        $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active");
     }
 
     /**
