@@ -2,8 +2,6 @@
 
 namespace AppBundle\Features\Context;
 
-use Behat\Mink\Driver\Selenium2Driver;
-use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
@@ -26,6 +24,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
+//        $this->ajaxClickHandler_before();
+//        $this->ajaxClickHandler_after();
         $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active");
     }
 
@@ -377,6 +377,59 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on icon
         $switchs[$number]->click();
+    }
+
+
+
+    /**
+     * Hook into jQuery ajaxStart and ajaxComplete events.
+     * Prepare __ajaxStatus() functions and attach them to these events.
+     * Event handlers are removed after one run.
+     */
+    public function ajaxClickHandler_before()
+    {
+        $javascript = <<<JS
+window.jQuery(document).one('ajaxStart.ss.test', function(){
+    window.__ajaxStatus = function() {
+        return 'waiting';
+    };
+});
+window.jQuery(document).one('ajaxComplete.ss.test', function(){
+    window.__ajaxStatus = function() {
+        return 'no ajax';
+    };
+});
+JS;
+        $this->getSession()->executeScript($javascript);
+    }
+
+    /**
+     * Wait for the __ajaxStatus()to return anything but 'waiting'.
+     * Don't wait longer than 5 seconds.
+     */
+    public function ajaxClickHandler_after()
+    {
+        $this->getSession()->wait(5000,
+            "(typeof window.__ajaxStatus !== 'undefined' ?
+                window.__ajaxStatus() : 'no ajax') !== 'waiting'"
+        );
+    }
+
+    /**
+     * @When I check subfilters :value
+     */
+    public function iCheckSubfilters($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get all sub filters in my bucket list
+        $subFilters = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ins[@class="iCheck-helper"])'));
+
+        $subFilters[$value]->click();
     }
 
 }

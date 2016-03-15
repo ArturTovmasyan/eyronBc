@@ -93,6 +93,27 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goal5);
 
         // create goal
+        $goal6 = new Goal();
+        $goal6->setDescription('goal6 goal6');
+        $goal6->setTitle('goal6');
+        $goal6->setStatus(1);
+        $goal6->setVideoLink(null);
+        $goal6->setAuthor($user1);
+        $goal6->setPublish(true);
+        $manager->persist($goal6);
+
+        // create goal
+        $goal7 = new Goal();
+        $goal7->setDescription('goal6 goal6');
+        $goal7->setTitle('goal6');
+        $goal7->setStatus(1);
+        $goal7->setVideoLink(null);
+        $goal7->setAuthor($user1);
+        $goal7->setPublish(true);
+        $manager->persist($goal7);
+
+
+        // create goal
         $userGoal1 = new UserGoal();
         $userGoal1->setUser($user);
         $userGoal1->setGoal($goal1);
@@ -113,16 +134,15 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal2->setUrgent(true);
         $manager->persist($userGoal2);
 
-
         // create goal
         $userGoal3 = new UserGoal();
         $userGoal3->setUser($user1);
         $userGoal3->setGoal($goal3);
         $userGoal3->setIsVisible(true);
         $userGoal3->setNote('sfsdf');
-        $userGoal3->setImportant(false);
+        $userGoal3->setImportant(true);
         $userGoal3->setStatus(UserGoal::COMPLETED);
-        $userGoal3->setUrgent(true);
+        $userGoal3->setUrgent(false);
         $manager->persist($userGoal3);
 
         // create goal
@@ -136,17 +156,27 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal4->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal4);
 
-
         // create goal
         $userGoal5 = new UserGoal();
-        $userGoal5->setUser($user);
-        $userGoal5->setGoal($goal4);
+        $userGoal5->setUser($user1);
+        $userGoal5->setGoal($goal7);
         $userGoal5->setIsVisible(true);
         $userGoal5->setNote('goal4');
         $userGoal5->setImportant(false);
-        $userGoal5->setUrgent(true);
+        $userGoal5->setUrgent(false);
         $userGoal5->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal5);
+
+        // create goal
+        $userGoal6 = new UserGoal();
+        $userGoal6->setUser($user1);
+        $userGoal6->setGoal($goal6);
+        $userGoal6->setIsVisible(true);
+        $userGoal6->setNote('goal6');
+        $userGoal6->setImportant(true);
+        $userGoal6->setUrgent(true);
+        $userGoal6->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal6);
 
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
