@@ -5,7 +5,8 @@ Feature: My Bucket list
 
   Background:
     Given I am on "/logout"
-    Given I am logged in as "user1"
+    And I wait
+    And I am logged in as "user1"
 
   @javascript @profile
   Scenario: Open Complete profile dropdown and show me the 7 points in it
@@ -33,7 +34,7 @@ Feature: My Bucket list
     And I click on "btn btn-transparent button-lg"
     And I wait for angular
     And I follow "Map"
-    And I wait
+    And I wait for angular
     Then I should see "Satellite"
 #TODO must be added pagination part
 

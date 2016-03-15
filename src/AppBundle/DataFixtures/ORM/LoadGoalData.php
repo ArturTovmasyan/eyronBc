@@ -99,7 +99,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal1->setIsVisible(true);
         $userGoal1->setNote('aaaaa');
         $userGoal1->setImportant(true);
-        $userGoal1->setUrgent(true);
+        $userGoal1->setUrgent(false);
         $userGoal1->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal1);
 
@@ -109,7 +109,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal2->setGoal($goal2);
         $userGoal2->setIsVisible(true);
         $userGoal2->setNote('aaaaa');
-        $userGoal2->setImportant(true);
+        $userGoal2->setImportant(false);
         $userGoal2->setUrgent(true);
         $manager->persist($userGoal2);
 
@@ -120,7 +120,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal3->setGoal($goal3);
         $userGoal3->setIsVisible(true);
         $userGoal3->setNote('sfsdf');
-        $userGoal3->setImportant(true);
+        $userGoal3->setImportant(false);
         $userGoal3->setStatus(UserGoal::COMPLETED);
         $userGoal3->setUrgent(true);
         $manager->persist($userGoal3);
@@ -131,10 +131,22 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal4->setGoal($goal4);
         $userGoal4->setIsVisible(true);
         $userGoal4->setNote('goal4');
-        $userGoal4->setImportant(true);
+        $userGoal4->setImportant(false);
         $userGoal4->setUrgent(true);
         $userGoal4->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal4);
+
+
+        // create goal
+        $userGoal5 = new UserGoal();
+        $userGoal5->setUser($user);
+        $userGoal5->setGoal($goal4);
+        $userGoal5->setIsVisible(true);
+        $userGoal5->setNote('goal4');
+        $userGoal5->setImportant(false);
+        $userGoal5->setUrgent(true);
+        $userGoal5->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal5);
 
         $oldPhotoPath = __DIR__ . '/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
@@ -189,6 +201,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
         $this->addReference('userGoal3', $userGoal3);
+        $this->addReference('userGoal4', $userGoal4);
+        $this->addReference('userGoal5', $userGoal5);
         $this->addReference('goalImage', $goalImage);
         $this->addReference('goalImage2', $goalImage2);
     }

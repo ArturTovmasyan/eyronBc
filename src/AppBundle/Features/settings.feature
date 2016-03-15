@@ -6,7 +6,8 @@ Feature: Settings
 
   Background:
     Given I am on "/logout"
-    Given I am logged in as "user2"
+    And I wait
+    And I am logged in as "user2"
 
   @javascript @settings
   Scenario: Open pop up and show me the info I filled in registration

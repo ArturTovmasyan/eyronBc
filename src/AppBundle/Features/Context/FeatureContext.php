@@ -2,6 +2,8 @@
 
 namespace AppBundle\Features\Context;
 
+use Behat\Mink\Driver\Selenium2Driver;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
@@ -24,7 +26,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWaitForAngular()
     {
         // Wait for angular to load
-        $this->getSession()->wait(5000,"typeof(jQuery)=='undefined' && 0 === jQuery.active && !$.active");
+        $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active && !$.active");
     }
 
     /**
@@ -32,7 +34,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWait()
     {
-       $this->getSession()->wait(3000);
+        $this->getSession()->wait(3000, "document.readyState == 'complete'");
     }
 
     /**
@@ -197,7 +199,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $lang = $option->find(
             'xpath',
-                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[not(contains(@class, "selected"))]')
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[not(contains(@class, "selected"))]')
         );
 
         $lang->click();

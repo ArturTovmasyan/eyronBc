@@ -5,7 +5,8 @@ Feature: Some more features
 
   Background:
     Given I am on "/logout"
-    Given I am logged in as "user1"
+    And I wait
+    And I am logged in as "user1"
 
   @javascript @someMore
   Scenario: Open My Bucket List and follow the instructions

@@ -5,7 +5,8 @@ Feature: Goal page
 
   Background:
     Given I am on "/logout"
-    Given I am logged in as "user1"
+    And I wait
+    And I am logged in as "user1"
 
   @javascript @goalActiveCompleted
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
@@ -148,6 +149,34 @@ Feature: Goal page
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I click on "btn btn-transparent button-lg"
+
+
+#@javascript @addGoal
+#  Scenario: Add a goal
+#    When I wait for angular
+#    And I click on "icon-plus-icon"
+#    And I wait for angular
+#    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+#    And I should see "If you accomplished your Goal, just mark it"
+#    When I scroll page to "radio-inline"
+#    And I wait
+#    And I scroll page to "top"
+#    And I change switch "0"
+#    And I wait for angular
+#    Then I should see "If you believe your Goal is still Active, you can undo it"
+#    And I wait
+#    When I scroll page to "radio-inline"
+#    And I wait
+#    And I scroll page to "top"
+#    And I change switch "0"
+#    And I change date
+#    And I fill in "loc" with "Yerevan, Armenia"
+#    And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
+#    And I change priority
+#    And I fill in "stepText[ 0 ]" with "step 1"
+#    And I change switch "3"
+#    And I wait
+#    And I change switch "3"
 
 
 #  @javascript @removeGoal
