@@ -113,8 +113,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $this->addReference('category6', $category6);
         $this->addReference('category7', $category7);
 
-//        $this->container->get('bl_news_feed_service')->updateNewsFeed();
-
     }
 
     /**

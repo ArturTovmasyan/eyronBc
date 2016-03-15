@@ -3,6 +3,8 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
+use Application\CommentBundle\Entity\Comment;
+use Application\CommentBundle\Entity\Thread;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -220,6 +222,54 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goalImage2->setFileSize($photo2->getSize());
         $goalImage2->setFileOriginalName($photo->getFilename());
         $manager->persist($goalImage2);
+
+        $manager->flush();
+
+
+        $thread = new Thread();
+        $thread->setId($goal6->getId());
+        $thread->setPermalink("http://bucketlist.loc/app_behat.php/goal/goal6");
+        $thread->setCommentable(true);
+        $thread->setNumComments(3);
+        $thread->setLastCommentAt(new \DateTime('now'));
+
+        $manager->persist($thread);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment1");
+        $comment->setThread($thread);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment1");
+        $comment->setThread($thread);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment2");
+        $comment->setThread($thread);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment3");
+        $comment->setThread($thread);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment4");
+        $comment->setThread($thread);
+        $manager->persist($comment);
+
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment5");
+        $comment->setThread($thread);
+        $manager->persist($comment);
 
         $manager->flush();
 

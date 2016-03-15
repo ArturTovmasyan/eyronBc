@@ -432,4 +432,27 @@ JS;
         $subFilters[$value]->click();
     }
 
+    /**
+     * @Then I click on comment show
+     */
+    public function iClickOnCommentShow()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        $commentShowLink = $page->find('css','#fos_comment_thread');
+
+        if (null === $commentShowLink) {
+            throw new \LogicException('Could not find the element');
+        }
+
+
+//        $link = $commentShowLink->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@name="comment"]'));
+        $link = $commentShowLink->find('css','.view-more-comments');
+        $link->click();
+    }
+
 }

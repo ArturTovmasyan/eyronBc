@@ -38,6 +38,22 @@ Feature: My Bucket list
     And I wait for angular
     Then I should see "Satellite"
 
+  @javascript @comments
+  Scenario: show comments in inner page
+    Given I am on "/logout"
+    And I wait
+    When I am logged in as "user1"
+    And I follow "user1"
+    And I follow "My Bucketlist"
+    And I wait
+    And I am on "/goal/goal6"
+    And I scroll page to "container"
+    And I wait for angular
+    Then I should see "Comments"
+    And should see "Show More +5"
+#    And I click on comment show
+    And I wait
+
   @javascript @subfilters
   Scenario: Open subfilters:dreams, important, urgent.......
     Given I am on "/logout"
