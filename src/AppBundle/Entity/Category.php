@@ -19,6 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="category")
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\CategoryTranslation")
  */
 class Category
 {
@@ -35,6 +36,7 @@ class Category
     /**
      * @ORM\Column(name="title", type="string")
      * @Groups("category")
+     * @Gedmo\Translatable
      */
     protected $title;
 
@@ -54,6 +56,20 @@ class Category
      **/
     protected $tags;
 
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="AppBundle\Entity\Translation\CategoryTranslation",
+     *   mappedBy="object",
+     *   cascade={"persist", "remove"}
+     * )
+     */
+    protected $translations;
+
+    /**
+     * Required for Translatable behaviour
+     * @Gedmo\Locale
+     */
+    protected $locale;
 
     /**
      * @VirtualProperty()
@@ -98,7 +114,7 @@ class Category
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -133,6 +149,7 @@ class Category
     public function __construct()
     {
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -166,5 +183,39 @@ class Category
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Add translations
+     *
+     * @param \AppBundle\Entity\Translation\CategoryTranslation $translations
+     * @return Category
+     */
+    public function addTranslation(\AppBundle\Entity\Translation\CategoryTranslation $translations)
+    {
+        $this->translations[] = $translations;
+
+        $translations->setObject($this);
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param \AppBundle\Entity\Translation\CategoryTranslation $translations
+     */
+    public function removeTranslation(\AppBundle\Entity\Translation\CategoryTranslation $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
+
+    /**
+     * Get translations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 }
