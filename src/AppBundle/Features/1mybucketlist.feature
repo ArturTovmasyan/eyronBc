@@ -71,7 +71,7 @@ Feature: My Bucket list
     And I wait
     And I check subfilters "1"
     And I wait
-    Then I should see "goal6"
+    Then I should see "goal9"
 
     When I check subfilters "1"
     And I wait

@@ -38,7 +38,6 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         // get users
         $user = $this->getReference('user');
         $user1 = $this->getReference('user1');
-//        $user2 = $this->getReference('user2');
 
         // create goal
         $goal1 = new Goal();
@@ -47,6 +46,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal1->setStatus(1);
         $goal1->setVideoLink(null);
         $goal1->setAuthor($user);
+        $goal1->setReadinessStatus(Goal::TO_PUBLISH);
         $goal1->setPublish(true);
         $manager->persist($goal1);
 
@@ -57,6 +57,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal2->setStatus(1);
         $goal2->setVideoLink(null);
         $goal2->setAuthor($user1);
+        $goal2->setReadinessStatus(Goal::TO_PUBLISH);
         $goal2->setPublish(true);
         $manager->persist($goal2);
 
@@ -67,7 +68,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal3->setStatus(1);
         $goal3->setVideoLink(null);
         $goal3->setAuthor($user1);
-        $goal3->setReadinessStatus(Goal::DRAFT);
+        $goal3->setReadinessStatus(Goal::TO_PUBLISH);
         $goal3->setPublish(true);
         $manager->persist($goal3);
 
@@ -77,6 +78,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal4->setTitle('goal4');
         $goal4->setStatus(1);
         $goal4->setVideoLink(null);
+        $goal4->setReadinessStatus(Goal::TO_PUBLISH);
         $goal4->setAuthor($user1);
         $goal4->setPublish(true);
         $manager->persist($goal4);
@@ -88,7 +90,6 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal5->setStatus(1);
         $goal5->setVideoLink(null);
         $goal5->setAuthor($user1);
-        $goal5->setReadinessStatus(Goal::DRAFT);
         $goal5->setPublish(true);
         $manager->persist($goal5);
 
@@ -98,6 +99,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal6->setTitle('goal6');
         $goal6->setStatus(1);
         $goal6->setVideoLink(null);
+        $goal6->setReadinessStatus(Goal::TO_PUBLISH);
         $goal6->setAuthor($user1);
         $goal6->setPublish(true);
         $manager->persist($goal6);
@@ -108,9 +110,31 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal7->setTitle('goal7');
         $goal7->setStatus(1);
         $goal7->setVideoLink(null);
+        $goal7->setReadinessStatus(Goal::TO_PUBLISH);
         $goal7->setAuthor($user1);
         $goal7->setPublish(true);
         $manager->persist($goal7);
+
+        // create goal
+        $goal8 = new Goal();
+        $goal8->setDescription('goal8 goal8');
+        $goal8->setTitle('goal8');
+        $goal8->setStatus(1);
+        $goal8->setVideoLink(null);
+        $goal8->setAuthor($user1);
+        $goal8->setPublish(true);
+        $manager->persist($goal8);
+
+        // create goal
+        $goal9 = new Goal();
+        $goal9->setDescription('goal9 goal9');
+        $goal9->setTitle('goal9');
+        $goal9->setStatus(1);
+        $goal9->setVideoLink(null);
+        $goal9->setAuthor($user1);
+        $goal9->setPublish(true);
+        $manager->persist($goal9);
+
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -176,6 +200,30 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal6->setUrgent(true);
         $userGoal6->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal6);
+
+
+        // create goal
+        $userGoal7 = new UserGoal();
+        $userGoal7->setUser($user1);
+        $userGoal7->setGoal($goal8);
+        $userGoal7->setIsVisible(true);
+        $userGoal7->setNote('goal8');
+        $userGoal7->setImportant(false);
+        $userGoal7->setUrgent(true);
+        $userGoal7->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal7);
+
+        // create goal
+        $userGoal8 = new UserGoal();
+        $userGoal8->setUser($user1);
+        $userGoal8->setGoal($goal9);
+        $userGoal8->setIsVisible(true);
+        $userGoal8->setNote('goal9');
+        $userGoal8->setImportant(true);
+        $userGoal8->setUrgent(true);
+        $userGoal8->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal8);
+
 
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
@@ -340,6 +388,53 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goalImage7->setFileOriginalName($photo7->getFilename());
 
         $manager->persist($goalImage7);
+
+        $oldPhotoPath8 = __DIR__ . '/images/image3.jpg';
+        $photoPath8 = __DIR__ . '/../../../../web/uploads/images/photo8.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath8, $photoPath8);
+
+        // new uploaded file
+        $photo8 = new UploadedFile(
+            $photoPath8,
+            'photo8.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage8 = new GoalImage();
+        $goalImage8->setGoal($goal8);
+        $goalImage8->setFile($photo8);
+        $goal8->addImage($goalImage8);
+        $goalImage8->setFileName($photo8->getClientOriginalName());
+        $goalImage8->setFileSize($photo8->getSize());
+        $goalImage8->setFileOriginalName($photo8->getFilename());
+
+        $manager->persist($goalImage8);
+
+        $oldPhotoPath9 = __DIR__ . '/images/leon.jpg';
+        $photoPath9 = __DIR__ . '/../../../../web/uploads/images/photo9.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath9, $photoPath9);
+
+        // new uploaded file
+        $photo8 = new UploadedFile(
+            $photoPath7,
+            'photo9.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage9 = new GoalImage();
+        $goalImage9->setGoal($goal9);
+        $goalImage9->setFile($photo8);
+        $goal9->addImage($goalImage9);
+        $goalImage9->setFileName($photo8->getClientOriginalName());
+        $goalImage9->setFileSize($photo8->getSize());
+        $goalImage9->setFileOriginalName($photo8->getFilename());
+
+        $manager->persist($goalImage9);
+
 
         $manager->flush();
 

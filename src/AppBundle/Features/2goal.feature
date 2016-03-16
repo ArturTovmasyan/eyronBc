@@ -12,9 +12,9 @@ Feature: Goal page
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
     When I follow "user1"
     And I follow "My Bucketlist"
-    Then I should see "goal6"
+    Then I should see "goal9"
     When I follow "Active"
-    Then I should see "goal6"
+    Then I should see "goal9"
     When I follow "Completed"
     Then I should see "goal3"
     And I should see "Dreaming"
