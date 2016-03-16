@@ -31,8 +31,13 @@
                         <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
                         <div class="bg-white padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
                             <div class="clearfix">
-                                <figure class="image">
-                                    <img data-ng-src="[[ activity.user.image_path ]]" alt="[[ activity.user.first_name ]]" class="img-circle img-responsive"/>
+
+                                <figure class="image  img-circle">
+                                    {% if user.getPhotoLink %}
+                                        <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+                                    {% else %}
+                                        <p class="no-image {{ className }}">{{ nameOnImage }}</p>
+                                    {% endif %}
                                 </figure>
 
                                 <div class="pull-left text-gray">
