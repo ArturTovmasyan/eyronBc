@@ -29,6 +29,7 @@ Feature: Activity
     And I should see "Completed"
     When I am on "/"
     And I follow "Goalfriends"
+    And I wait
     Then I should see "user2 useryan"
     And I should be on "/goal-friends"
     And I scroll page to "icon-top-idea"
@@ -51,10 +52,10 @@ Feature: Activity
     And I should see "Completed"
     When I click on "text-dark-gray"
     And I wait
-    And I should see "user2 useryan"
+    And I should see "Dreams"
     And I should see "goal9"
 
-    @javascript @activity
+  @javascript @activity
   Scenario: Open the page and show me my goal friends activities.
     Given I am on "/logout"
       When I am logged in as "user1"
