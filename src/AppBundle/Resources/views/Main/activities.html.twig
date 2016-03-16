@@ -32,9 +32,9 @@
                         <div class="bg-white padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
                             <div class="clearfix">
 
-                                <figure class="image  img-circle">
+                                <figure class="image">
                                     {% if user.getPhotoLink %}
-                                        <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+                                        <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-circle img-responsive">
                                     {% else %}
                                         <p class="no-image {{ className }}">{{ nameOnImage }}</p>
                                     {% endif %}
