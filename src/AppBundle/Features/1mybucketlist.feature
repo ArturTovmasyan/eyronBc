@@ -89,7 +89,7 @@ Feature: My Bucket list
     And I wait
     And I check subfilters "4"
     And I wait
-    Then I should see "goal6"
+    Then I should see "goal7"
 
     When I check subfilters "4"
     And I wait

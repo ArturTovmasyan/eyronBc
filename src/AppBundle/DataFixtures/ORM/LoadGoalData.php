@@ -35,12 +35,10 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $manager)
     {
-        // get user
-        $user = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('admin@admin.com');
-
-        $user1 = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('user1@user.com');
-
-        $user2 = $manager->getRepository('ApplicationUserBundle:User')->findOneByEmail('user2@user.com');
+        // get users
+        $user = $this->getReference('user');
+        $user1 = $this->getReference('user1');
+//        $user2 = $this->getReference('user2');
 
         // create goal
         $goal1 = new Goal();
@@ -106,14 +104,13 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create goal
         $goal7 = new Goal();
-        $goal7->setDescription('goal6 goal6');
-        $goal7->setTitle('goal6');
+        $goal7->setDescription('goal7 goal7');
+        $goal7->setTitle('goal7');
         $goal7->setStatus(1);
         $goal7->setVideoLink(null);
         $goal7->setAuthor($user1);
         $goal7->setPublish(true);
         $manager->persist($goal7);
-
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -180,8 +177,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal6->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal6);
 
-        $oldPhotoPath = __DIR__ . '/old_photo.jpg';
-        $photoPath = __DIR__ . '/photo.jpg';
+        $oldPhotoPath = __DIR__ . '/leon.jpg';
+        $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
 
         // copy photo path
         copy($oldPhotoPath, $photoPath);
@@ -190,41 +187,161 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $photo = new UploadedFile(
             $photoPath,
             'photo.jpg',
-            'image/jpeg',
-            123
+            'image/jpeg'
         );
+
         $goalImage = new GoalImage();
         $goalImage->setGoal($goal1);
+        $goal1->addImage($goalImage);
         $goalImage->setFile($photo);
         $goalImage->setFileName($photo->getClientOriginalName());
         $goalImage->setFileSize($photo->getSize());
         $goalImage->setFileOriginalName($photo->getFilename());
+
         $manager->persist($goalImage);
 
 
-        $oldPhotoPath2 = __DIR__ . '/old_photo2.jpg';
-        $photoPath2 = __DIR__ . '/photo2.jpg';
+        $oldPhotoPath2 = __DIR__ . '/image.jpg';
+        $photoPath2 = __DIR__ . '/../../../../web/uploads/images/photo2.jpg';
 
         // copy photo path
         copy($oldPhotoPath2, $photoPath2);
 
         // new uploaded file
         $photo2 = new UploadedFile(
-            $photoPath,
+            $photoPath2,
             'photo2.jpg',
-            'image/jpeg',
-            123
+            'image/jpeg'
         );
+
         $goalImage2 = new GoalImage();
         $goalImage2->setGoal($goal2);
+        $goal2->addImage($goalImage2);
         $goalImage2->setFile($photo2);
         $goalImage2->setFileName($photo2->getClientOriginalName());
         $goalImage2->setFileSize($photo2->getSize());
-        $goalImage2->setFileOriginalName($photo->getFilename());
+        $goalImage2->setFileOriginalName($photo2->getFilename());
+
         $manager->persist($goalImage2);
 
-        $manager->flush();
 
+        $oldPhotoPath3 = __DIR__ . '/image1.jpg';
+        $photoPath3 = __DIR__ . '/../../../../web/uploads/images/photo3.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath3, $photoPath3);
+
+        // new uploaded file
+        $photo3 = new UploadedFile(
+            $photoPath3,
+            'photo3.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage3 = new GoalImage();
+        $goalImage3->setGoal($goal3);
+        $goalImage3->setFile($photo3);
+        $goal3->addImage($goalImage3);
+        $goalImage3->setFileName($photo3->getClientOriginalName());
+        $goalImage3->setFileSize($photo3->getSize());
+        $goalImage3->setFileOriginalName($photo3->getFilename());
+
+        $manager->persist($goalImage3);
+
+        $oldPhotoPath4 = __DIR__ . '/image2.jpg';
+        $photoPath4 = __DIR__ . '/../../../../web/uploads/images/photo4.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath4, $photoPath4);
+
+        // new uploaded file
+        $photo4 = new UploadedFile(
+            $photoPath4,
+            'photo4.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage4 = new GoalImage();
+        $goalImage4->setGoal($goal4);
+        $goalImage4->setFile($photo4);
+        $goal4->addImage($goalImage4);
+        $goalImage4->setFileName($photo4->getClientOriginalName());
+        $goalImage4->setFileSize($photo4->getSize());
+        $goalImage4->setFileOriginalName($photo4->getFilename());
+
+        $manager->persist($goalImage4);
+
+        $oldPhotoPath5 = __DIR__ . '/image3.jpg';
+        $photoPath5 = __DIR__ . '/../../../../web/uploads/images/photo5.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath5, $photoPath5);
+
+        // new uploaded file
+        $photo5 = new UploadedFile(
+            $photoPath5,
+            'photo5.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage5 = new GoalImage();
+        $goalImage5->setGoal($goal5);
+        $goalImage5->setFile($photo5);
+        $goal5->addImage($goalImage5);
+        $goalImage5->setFileName($photo5->getClientOriginalName());
+        $goalImage5->setFileSize($photo5->getSize());
+        $goalImage5->setFileOriginalName($photo5->getFilename());
+
+        $manager->persist($goalImage5);
+
+        $oldPhotoPath6 = __DIR__ . '/image4.jpg';
+        $photoPath6 = __DIR__ . '/../../../../web/uploads/images/photo6.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath6, $photoPath6);
+
+        // new uploaded file
+        $photo6 = new UploadedFile(
+            $photoPath6,
+            'photo6.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage6 = new GoalImage();
+        $goalImage6->setGoal($goal6);
+        $goalImage6->setFile($photo6);
+        $goal6->addImage($goalImage6);
+        $goalImage6->setFileName($photo6->getClientOriginalName());
+        $goalImage6->setFileSize($photo6->getSize());
+        $goalImage6->setFileOriginalName($photo6->getFilename());
+
+        $manager->persist($goalImage6);
+
+
+        $oldPhotoPath7 = __DIR__ . '/image5.jpg';
+        $photoPath7 = __DIR__ . '/../../../../web/uploads/images/photo7.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath7, $photoPath7);
+
+        // new uploaded file
+        $photo7 = new UploadedFile(
+            $photoPath7,
+            'photo7.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage7 = new GoalImage();
+        $goalImage7->setGoal($goal6);
+        $goalImage7->setFile($photo7);
+        $goal7->addImage($goalImage7);
+        $goalImage7->setFileName($photo7->getClientOriginalName());
+        $goalImage7->setFileSize($photo7->getSize());
+        $goalImage7->setFileOriginalName($photo7->getFilename());
+
+        $manager->persist($goalImage7);
+
+        $manager->flush();
 
         $thread = new Thread();
         $thread->setId($goal6->getId());
