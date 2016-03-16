@@ -43,7 +43,10 @@ class CategoryAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'label'=>'admin.label.name.title',
+                'translatable_class' => 'AppBundle\Entity\Category',
+            ))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('file', 'file', array('required' => false, 'label'=>'admin.label.name.file'))
         ;
