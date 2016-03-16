@@ -16,6 +16,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
     public function __construct(Session $session, $simpleArg)
     {
+
     }
 
     /**
@@ -23,9 +24,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWaitForAngular()
     {
-        // Wait for angular to load
-//        $this->ajaxClickHandler_before();
-//        $this->ajaxClickHandler_after();
         $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active");
     }
 
@@ -35,6 +33,14 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     public function iWait()
     {
         $this->getSession()->wait(3000, "document.readyState == 'complete'");
+    }
+
+    /**
+     * @When I wait for view
+     */
+    public function iWaitForView()
+    {
+        $this->getSession()->wait(3000);
     }
 
     /**
@@ -117,7 +123,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iSetUsernameAndPassword($userName, $password)
     {
-
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
 
@@ -270,7 +275,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->switchToIframe($iframeId);
     }
 
-
     /**
      * @When I click on :value
      */
@@ -338,7 +342,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on icon
         $date->click();
-
     }
 
     /**
@@ -357,8 +360,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on icon
         $priority->click();
-
-
     }
 
     /**
@@ -379,42 +380,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $switchs[$number]->click();
     }
 
-
-
-    /**
-     * Hook into jQuery ajaxStart and ajaxComplete events.
-     * Prepare __ajaxStatus() functions and attach them to these events.
-     * Event handlers are removed after one run.
-     */
-    public function ajaxClickHandler_before()
-    {
-        $javascript = <<<JS
-window.jQuery(document).one('ajaxStart.ss.test', function(){
-    window.__ajaxStatus = function() {
-        return 'waiting';
-    };
-});
-window.jQuery(document).one('ajaxComplete.ss.test', function(){
-    window.__ajaxStatus = function() {
-        return 'no ajax';
-    };
-});
-JS;
-        $this->getSession()->executeScript($javascript);
-    }
-
-    /**
-     * Wait for the __ajaxStatus()to return anything but 'waiting'.
-     * Don't wait longer than 5 seconds.
-     */
-    public function ajaxClickHandler_after()
-    {
-        $this->getSession()->wait(5000,
-            "(typeof window.__ajaxStatus !== 'undefined' ?
-                window.__ajaxStatus() : 'no ajax') !== 'waiting'"
-        );
-    }
-
     /**
      * @When I check subfilters :value
      */
@@ -431,28 +396,4 @@ JS;
 
         $subFilters[$value]->click();
     }
-
-    /**
-     * @Then I click on comment show
-     */
-    public function iClickOnCommentShow()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        $commentShowLink = $page->find('css','#fos_comment_thread');
-
-        if (null === $commentShowLink) {
-            throw new \LogicException('Could not find the element');
-        }
-
-
-//        $link = $commentShowLink->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@name="comment"]'));
-        $link = $commentShowLink->find('css','.view-more-comments');
-        $link->click();
-    }
-
 }

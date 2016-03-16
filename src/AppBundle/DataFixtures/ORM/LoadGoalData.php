@@ -131,6 +131,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal9->setTitle('goal9');
         $goal9->setStatus(1);
         $goal9->setVideoLink(null);
+        $goal9->setReadinessStatus(Goal::TO_PUBLISH);
         $goal9->setAuthor($user1);
         $goal9->setPublish(true);
         $manager->persist($goal9);
@@ -439,8 +440,9 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->flush();
 
         $thread = new Thread();
-        $thread->setId($goal6->getId());
-        $thread->setPermalink("http://bucketlist.loc/app_behat.php/goal/goal6");
+        $thread->setId($goal9->getId());
+//        $thread->setPermalink("http://bucketlist.loc/app_behat.php/goal/goal9");
+        $thread->setPermalink("http://bucketlist.loc/goal/goal9");
         $thread->setCommentable(true);
         $thread->setNumComments(3);
         $thread->setLastCommentAt(new \DateTime('now'));

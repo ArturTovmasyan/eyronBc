@@ -133,7 +133,6 @@ Feature: Goal page
     And I press "login"
 
 
-
   @javascript @goalCreatePage
   Scenario: Open the page and show all the features
     When I follow "user1"
