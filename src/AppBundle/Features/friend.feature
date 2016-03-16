@@ -53,7 +53,6 @@ Feature: Activity
     When I click on "text-dark-gray"
     And I wait
     And I should see "Dreams"
-    And I should see "goal9"
 
   @javascript @activity
   Scenario: Open the page and show me my goal friends activities.
