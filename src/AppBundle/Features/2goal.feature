@@ -57,7 +57,6 @@ Feature: Goal page
     And I click on "btn btn-purple button-lg"
     Then I should see "user1 useryan"
 
-
   @javascript @preview
   Scenario: Open Preview and show me the initial state of my goal
     When I follow "user1"
@@ -90,7 +89,75 @@ Feature: Goal page
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
+  @javascript @shareGoal
+  Scenario: Share a goal
+    Given I am on "/ideas"
+    When I wait for angular
+    And I click on "atc_s addthis_button_compact"
+    And I wait
+    And I switch to iframe "#at3winshare-iframe"
+    And I click on "at3winsvc_facebook"
+    And I wait
+    And I switch to window
+    And I wait
+    And I fill in "email" with "test@test.am"
+    And I fill in "pass" with "test1234567"
+    And I press "login"
 
+  @javascript @goalCreatePage
+  Scenario: Open the page and show all the features
+    When I follow "user1"
+    And I follow "Create Goal"
+    Then I should see "Suggest as public"
+    And I click on "iCheck-helper"
+    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
+#    TODO must be fixed for add vidoe link
+#    And I fill in "app_bundle_goal[videoLink][ 0 ]" with "www.google.com"
+    And I wait for angular
+    And I press "btn_publish"
+    And I wait for angular
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    When I click on "btn btn-transparent button-lg"
+
+
+@javascript @addGoal
+  Scenario: Add a goal
+    When I wait for angular
+    And I click on "icon-plus-icon"
+    And I wait for angular
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    And I should see "If you accomplished your Goal, just mark it"
+    When I scroll page to "radio-inline"
+    And I wait for view
+    And I scroll page to "top"
+    And I change switch "0"
+    And I wait for angular
+    Then I should see "If you believe your Goal is still Active, you can undo it"
+    And I wait
+    When I scroll page to "radio-inline"
+    And I wait
+    And I scroll page to "top"
+    And I change switch "0"
+    And I change date
+    And I fill in "loc" with "Yerevan, Armenia"
+    And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
+    And I change priority
+    And I fill in "stepText[ 0 ]" with "step 1"
+    And I change switch "3"
+    And I wait
+    And I change switch "3"
+    When I follow "FORGET IT"
+    And  I follow "DELETE"
+    Then I should be on "/ideas"
+    When I click on "icon-plus-icon"
+    And I wait for angular
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    When I scroll page to "radio-inline"
+    And I click on "btn btn-transparent button-lg"
+    And I wait for view
+    And I should see "goal1"
+    And I should see "ADDED"
 
   @javascript @goalDraft
   Scenario: Open My Bucket list and show me the list of my drafts
@@ -115,92 +182,3 @@ Feature: Goal page
     And I wait for angular
     And I follow "Cancel"
     Then I should not see "You are about to delete your draft goal. Are you sure?"
-
-  @javascript @shareGoal
-  Scenario: Share a goal
-    Given I am on "/ideas"
-    When I wait for angular
-    And I click on "atc_s addthis_button_compact"
-    And I wait
-    And I switch to iframe "#at3winshare-iframe"
-    And I click on "at3winsvc_facebook"
- #    TODO need js for correct wait
-    And I wait
-    And I switch to window
-    And I wait
-    And I fill in "email" with "test@test.am"
-    And I fill in "pass" with "test1234567"
-    And I press "login"
-
-
-  @javascript @goalCreatePage
-  Scenario: Open the page and show all the features
-    When I follow "user1"
-    And I follow "Create Goal"
-    Then I should see "Suggest as public"
-    And I click on "iCheck-helper"
-    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
-    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
-#    TODO must be fixed for add vidoe link
-#    And I fill in "app_bundle_goal[videoLink][ 0 ]" with "www.google.com"
-    And I wait for angular
-    And I press "btn_publish"
-    And I wait for angular
-    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    When I click on "btn btn-transparent button-lg"
-
-
-#@javascript @addGoal
-#  Scenario: Add a goal
-#    When I wait for angular
-#    And I click on "icon-plus-icon"
-#    And I wait for angular
-#    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-#    And I should see "If you accomplished your Goal, just mark it"
-#    When I scroll page to "radio-inline"
-#    And I wait
-#    And I scroll page to "top"
-#    And I change switch "0"
-#    And I wait for angular
-#    Then I should see "If you believe your Goal is still Active, you can undo it"
-#    And I wait
-#    When I scroll page to "radio-inline"
-#    And I wait
-#    And I scroll page to "top"
-#    And I change switch "0"
-#    And I change date
-#    And I fill in "loc" with "Yerevan, Armenia"
-#    And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
-#    And I change priority
-#    And I fill in "stepText[ 0 ]" with "step 1"
-#    And I change switch "3"
-#    And I wait
-#    And I change switch "3"
-
-
-#  @javascript @removeGoal
-#  Scenario: Create goal
-#    When I follow "user2"
-#    And I follow "Create Goal"
-#    Then I should see "Suggest as public"
-#    When I fill in "app_bundle_goal[title]" with "BEHAT TEST GOALS"
-#    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
-#    And I wait for angular
-#    And I click on goal create
-#    And I wait for angular
-#    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-#    And I follow "FORGET IT"
-#    And  I follow "DELETE"
-#    Then I should be on "user-profile"
-#
-
-
-#  Scenario: Create draft
-#    Given I am on "/goal/create"
-#    Then I should see "Suggest as public"
-#    When I fill in "app_bundle_goal[title]" with "BEHAT TEST GOALS"
-#    When I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
-#    When I wait for angular
-#    When I press "PREVIEW"
-#    Then I should see "EDIT"
-#    And I should be on "/goal/view/behat-test-goals-1"
