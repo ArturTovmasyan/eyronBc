@@ -10,7 +10,7 @@
         <span class="overlay"></span>
         <img src="
         {% if cover %}
-             {{ cover|blImageFilter('goal_cover') }}
+             {{ cover|blImageFilter('goal_slider_image') }}
         {% else %}
              {{ asset(imgPath)}}
         {% endif %}"

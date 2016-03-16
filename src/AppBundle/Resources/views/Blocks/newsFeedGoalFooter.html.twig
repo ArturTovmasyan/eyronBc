@@ -6,23 +6,23 @@
            data-ls-identity="activity[[ activity.goal.id ]]"
            data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ activity.goal.id ]]">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-            <bdi>{{ 'add'|trans }}</bdi>
+            <bdi>{{ 'add'|trans | capitalize}}</bdi>
         </a>
     </li>
     <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal !== 0">
         <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-        <bdi>{{ 'added'|trans |upper}}</bdi>
+        <bdi>{{ 'added'|trans | capitalize}}</bdi>
     </li>
 
         <li class="col-xs-4 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2">
             <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ activity.goal.id ]]">
                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                <bdi>{{ 'done'|trans }}</bdi>
+                <bdi>{{ 'done'|trans | capitalize }}</bdi>
             </a>
         </li>
         <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal === 2">
             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-            <bdi>{{ 'completed'|trans |upper}}</bdi>
+            <bdi>{{ 'completed'|trans | capitalize}}</bdi>
         </li>
 
     {% if inner is not defined %}

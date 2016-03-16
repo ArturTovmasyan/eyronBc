@@ -225,20 +225,20 @@
                     <div class="col-sm-6">
                         <ol style="position: relative;">
                             <li>
-                                <a href="javascript:void(0)">
+                                <bdi>
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
                                     <i class="icon-ok-only"></i>
-                                </a>
+                                </bdi>
                                 <span class="text-gray">{{ 'my_list.signed_up'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ 'account.complete_text'|trans }}
+                                <bdi>{{ 'account.complete_text'|trans }}
                                     {% if user.registrationToken is null %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </a>
+                                </bdi>
                                 <span class="text-gray">{{ 'my_list.verification'|trans({}, 'FOSUserBundle') }}</span>
                                 <span class="text-gray">{{ 'my_list.confirm'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
@@ -275,34 +275,34 @@
                     <div class="col-sm-6">
                         <ol style="position: relative" start="5">
                             <li>
-                                <a href="javascript:void(0)">{{ 'deadline.complete_text'|trans }}
+                                <bdi>{{ 'deadline.complete_text'|trans }}
                                     {% if user.checkDeadLines() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </a>
+                                </bdi>
                                 <span class="text-gray">{{ 'my_list.dream_text'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">{{ 'goal.complete_text'|trans }}
+                                <bdi>{{ 'goal.complete_text'|trans }}
                                     {% if user.checkCompletedGoals() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </a>
+                                </bdi>
                                 <span class="text-gray">{{ 'my_list.have_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
 
                             <li>
-                                <a href="javascript:void(0)">{{ 'success_story.complete_text'|trans }}
+                                <bdi>{{ 'success_story.complete_text'|trans | capitalize}}
                                     {% if user.checkSuccessStory() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </a>
+                                </bdi>
                                 <span class="text-gray">{{ 'my_list.complete_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                         </ol>
@@ -353,7 +353,6 @@
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
-                            {#<i class="icon up-icon" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>#}
                             <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                             <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
                         </a>
@@ -442,7 +441,7 @@
                                                 {% if userGoal.doDate is not null %}
                                                     {{ userGoal.doDate|date('M, Y') }}
                                                 {% else %}
-                                                    Dreaming
+                                                    {{ 'dreaming'|trans }}
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -466,12 +465,12 @@
                                                         <div class="col-xs-6">
                                                             {% if goal.getUsedCount.listedBy > 0 %}
                                                                 <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                                                    <span>{{ 'block_listed'|trans | upper }} {{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.getUsedCount.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    <span>{{ 'block_listed'|trans | upper }} {{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.getUsedCount.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}
@@ -480,12 +479,12 @@
                                                         <div class="col-xs-6">
                                                             {% if goal.getUsedCount.doneBy > 0 %}
                                                                 <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                                                    <span>{{ 'block_completed'|trans | upper }} {{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.getUsedCount.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    <span>{{ 'block_completed'|trans | upper }} {{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.getUsedCount.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}
@@ -562,7 +561,7 @@
                                                                data-ls-identity="goalManageModal{{ goal.id }}"
                                                                class="text-gray">
                                                                 <i class="icon-manage"></i>
-                                                                {{ 'manage'|trans }}
+                                                                {{ 'manage'|trans | capitalize }}
                                                             </a>
 
                                                         </div>
@@ -578,13 +577,13 @@
                                                                         class="btn btn-transparent"
                                                                         id="successtory">
                                                                         <i class="icon ok-icon-green"></i>
-                                                                        {{ 'successtory'|trans | upper }}
+                                                                        {{ 'successtory'|trans | capitalize }}
                                                                     </a>
                                                                 {% else %}
                                                                     <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
 
-                                                                        {{ 'done'|trans }}
+                                                                        {{ 'done'|trans | capitalize }}
                                                                     </a>
                                                                 {% endif %}
                                                             </div>

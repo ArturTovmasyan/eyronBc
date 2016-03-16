@@ -196,7 +196,7 @@ my_bucket_list:
   active_goals: My Bucket List 127-Active Goals
   completed_goals: My Bucket List 127-Competed Goals
   description: Look at the things you did and the things you are about to do. See the list of your own goals, manage and share your own 'bucketlist'.
-  add_goal: add some goals.
+  add_goal: add some goals
   doing_here: What are you doing here? Come on,
   need_goal: Your life needs goals,
   add_some: add some more.
@@ -267,6 +267,9 @@ image_complete_text: Upload an image
 goalfriends: Goalfriends
 Add a note: Add a note
 
+dreaming: Dreaming
+
+most-popular: Most popular
 # sonata admin lable
 admin:
   label:

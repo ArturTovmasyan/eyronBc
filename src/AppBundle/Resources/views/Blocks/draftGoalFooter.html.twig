@@ -2,7 +2,7 @@
         <li class="col-xs-6">
             <a href="{{ path('add_goal', {'id': goal.id }) }}">
                 <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
-                <bdi>{{ 'btn_edit'|trans }}</bdi>
+                <bdi>{{ 'btn_edit'|trans | capitalize}}</bdi>
             </a>
         </li>
 
@@ -10,7 +10,7 @@
             <a href="javascript:void(0)" data-ls-confirm data-ls-href="{{ path('remove_draft_goal', {'goal' : goal.id}) }}">
 
                 <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
-                <bdi>{{ 'btn_remove'|trans }}</bdi>
+                <bdi>{{ 'btn_remove'|trans | capitalize}}</bdi>
             </a>
         </li>
 </ul>
