@@ -36,7 +36,7 @@
                                     {% if user.getPhotoLink %}
                                         <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-circle img-responsive">
                                     {% else %}
-                                        <p class="no-image {{ className }}">{{ nameOnImage }}</p>
+                                        <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
                                     {% endif %}
                                 </figure>
 
@@ -91,13 +91,18 @@
                     <div class="right-block margin-top">
                         <div class="right-menu">
                             <div class="row">
-                                <div class="col-xs-6">
-                                     <span>
-                                         {#<i class="icon top-icon"></i>#}
+                                <div class="col-xs-12">
+                                    <span>
                                          <i class="icon-top-idea"></i>
                                          <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
                                     </span>
                                 </div>
+                                {#<div class="col-xs-6">#}
+                                     {#<span>#}
+                                         {#<i class="icon-top-idea"></i>#}
+                                         {#<a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>#}
+                                    {#</span>#}
+                                {#</div>#}
                                 {#<div class="col-xs-6 text-right">#}
                                     {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
                                 {#</div>#}
