@@ -177,7 +177,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal6->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal6);
 
-        $oldPhotoPath = __DIR__ . '/leon.jpg';
+        $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
 
         // copy photo path
@@ -201,7 +201,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goalImage);
 
 
-        $oldPhotoPath2 = __DIR__ . '/image.jpg';
+        $oldPhotoPath2 = __DIR__ . '/images/image.jpg';
         $photoPath2 = __DIR__ . '/../../../../web/uploads/images/photo2.jpg';
 
         // copy photo path
@@ -225,7 +225,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goalImage2);
 
 
-        $oldPhotoPath3 = __DIR__ . '/image1.jpg';
+        $oldPhotoPath3 = __DIR__ . '/images/image1.jpg';
         $photoPath3 = __DIR__ . '/../../../../web/uploads/images/photo3.jpg';
 
         // copy photo path
@@ -248,7 +248,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($goalImage3);
 
-        $oldPhotoPath4 = __DIR__ . '/image2.jpg';
+        $oldPhotoPath4 = __DIR__ . '/images/image2.jpg';
         $photoPath4 = __DIR__ . '/../../../../web/uploads/images/photo4.jpg';
 
         // copy photo path
@@ -271,7 +271,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($goalImage4);
 
-        $oldPhotoPath5 = __DIR__ . '/image3.jpg';
+        $oldPhotoPath5 = __DIR__ . '/images/image3.jpg';
         $photoPath5 = __DIR__ . '/../../../../web/uploads/images/photo5.jpg';
 
         // copy photo path
@@ -294,7 +294,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($goalImage5);
 
-        $oldPhotoPath6 = __DIR__ . '/image4.jpg';
+        $oldPhotoPath6 = __DIR__ . '/images/image4.jpg';
         $photoPath6 = __DIR__ . '/../../../../web/uploads/images/photo6.jpg';
 
         // copy photo path
@@ -318,7 +318,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goalImage6);
 
 
-        $oldPhotoPath7 = __DIR__ . '/image5.jpg';
+        $oldPhotoPath7 = __DIR__ . '/images/image5.jpg';
         $photoPath7 = __DIR__ . '/../../../../web/uploads/images/photo7.jpg';
 
         // copy photo path
