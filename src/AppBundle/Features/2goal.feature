@@ -64,7 +64,6 @@ Feature: Goal page
     Then I should see "user1"
     When I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
-#    TODO must js for video link and scroll up by class, scroll down by class is work
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
@@ -109,12 +108,9 @@ Feature: Goal page
     When I follow "user1"
     And I follow "Create Goal"
     Then I should see "Suggest as public"
-    And I click on "iCheck-helper"
+    When I click on "iCheck-helper"
     And I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
-#    TODO must be fixed for add vidoe link
-#    And I fill in "app_bundle_goal[videoLink][ 0 ]" with "www.google.com"
-    And I wait for angular
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
