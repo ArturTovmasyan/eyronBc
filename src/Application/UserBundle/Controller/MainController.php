@@ -253,11 +253,12 @@ class MainController extends Controller
         else {
 
             // get referer
-            $referer = $request->server->get('HTTP_REFERER');
+//            $referer = $request->server->get('HTTP_REFERER');
 
             // generate url
-            $url = $referer ?
-                $referer :
+            $url =
+//                $referer ?
+//                $referer :
                 $this->generateUrl('homepage');
         }
 
