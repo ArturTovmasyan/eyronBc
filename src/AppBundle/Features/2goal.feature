@@ -40,7 +40,7 @@ Feature: Goal page
     Then I should see "Goal is active"
     When I change date
 # TODO must be fixed with js
-    And I fill in "loc" with "Yerevan, Armenia"
+#    And I fill in "loc" with "Yerevan, Armenia"
     And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
@@ -133,7 +133,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I change switch "0"
     And I change date
-    And I fill in "loc" with "Yerevan, Armenia"
+#    And I fill in "loc" with "Yerevan, Armenia"
     And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
