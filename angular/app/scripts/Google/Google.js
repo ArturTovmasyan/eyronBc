@@ -36,7 +36,11 @@ angular.module('Google', [])
                     });
 
                     if(icon){
-                        m.setIcon(icon);
+                        var ic = {
+                            url: icon,
+                            scaledSize:new google.maps.Size(25, 40)
+                        };
+                        m.setIcon(ic);
                     }
 
                     map.setCenter(m.getPosition());
@@ -74,11 +78,11 @@ angular.module('Google', [])
 
                                     scope.mapMarkers[v.id] = m;
 
-                                    m.addListener('click', function () {
-                                        scope.setMarkerActive(m);
-                                        scope.onMarkerClick({goal: v});
-                                        scope.$apply();
-                                    });
+                                    //m.addListener('click', function () {
+                                    //    scope.setMarkerActive(m);
+                                    //    scope.onMarkerClick({goal: v});
+                                    //    scope.$apply();
+                                    //});
 
                                 }
 
@@ -97,7 +101,11 @@ angular.module('Google', [])
 
                         angular.forEach(scope.mapMarkers, function(v){
                             if(scope.passiveMarkerIcon){
-                                v.setIcon(scope.passiveMarkerIcon);
+                                var pasive = {
+                                    url: scope.passiveMarkerIcon,
+                                    scaledSize:new google.maps.Size(25, 40)
+                                };
+                                v.setIcon(pasive);
                             }
                             else {
                                 v.setIcon(null);
@@ -105,7 +113,12 @@ angular.module('Google', [])
                         });
 
                         if(scope.activeMarkerIcon){
-                            m.setIcon(scope.activeMarkerIcon);
+                            var active = {
+                                url:scope.passiveMarkerIcon,
+                                scaledSize:new google.maps.Size(25, 40)
+                            };
+
+                            m.setIcon(active);
                         }
                     }
                 };

@@ -1,6 +1,7 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html data-ng-app="goal" data-ng-controller="activities"> {% endblock %}
+{% block angularApp %}
+<html data-ng-app="goal" data-ng-controller="activities" xmlns="http://www.w3.org/1999/html"> {% endblock %}
 
 
 {% block content %}
@@ -36,18 +37,35 @@
                                     {% if user.getPhotoLink %}
                                         <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-circle img-responsive">
                                     {% else %}
-                                        <p class="no-image {{ className }}">{{ nameOnImage }}</p>
+                                        <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
                                     {% endif %}
                                 </figure>
 
                                 <div class="pull-left text-gray">
                                     <h4>
+
                                         <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/user-profile/[[ activity.user.id ]]/all" class="text-dark-gray">
                                             [[ activity.user.first_name ]] [[ activity.user.last_name ]]
                                         </a>
-                                        {#<span class="text-gray">{{ getNewAction(convertedNew.action) }}</span>#}
+
+                                        <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
+                                            {{ 'goal.create'|trans({},'newsFeed') }}
+                                        </span>
+                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
+                                            {{ 'goal.add'|trans({},'newsFeed') }}
+                                        </span>
+                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
+                                            {{ 'goal.complete'|trans({},'newsFeed') }}
+                                        </span>
+                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
+                                            {{ 'goal.success_story'|trans({},'newsFeed') }}
+                                        </span>
+                                          <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
+                                            {{ 'goal.comment'|trans({},'newsFeed') }}
+                                        </span>
+
                                     </h4>
-                                    <p>[[ activity.datetime | date:'dd MMM yyyy HH:mm' ]]</p>
+                                    <p>[[ activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ activity.datetime | date:'HH:mm' ]]</p>
                                 </div>
                             </div>
 
@@ -91,13 +109,18 @@
                     <div class="right-block margin-top">
                         <div class="right-menu">
                             <div class="row">
-                                <div class="col-xs-6">
-                                     <span>
-                                         {#<i class="icon top-icon"></i>#}
+                                <div class="col-xs-12">
+                                    <span>
                                          <i class="icon-top-idea"></i>
                                          <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
                                     </span>
                                 </div>
+                                {#<div class="col-xs-6">#}
+                                     {#<span>#}
+                                         {#<i class="icon-top-idea"></i>#}
+                                         {#<a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>#}
+                                    {#</span>#}
+                                {#</div>#}
                                 {#<div class="col-xs-6 text-right">#}
                                     {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
                                 {#</div>#}

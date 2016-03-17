@@ -171,8 +171,8 @@ trait Location
     {
         if($this->getLng() && $this->getLat() && $this->getAddress()){
             $result = array(
-                "latitude" => $this->getLng(),
-                "longitude" => $this->getLat(),
+                "latitude" =>  $this->getLat(),
+                "longitude" =>$this->getLng(),
                 "address" => $this->getAddress()
             );
 

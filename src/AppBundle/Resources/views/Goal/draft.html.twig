@@ -18,7 +18,7 @@
                             {% endif %}
                             <a href="#">
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{{ image.downloadLink  }} {% endif %}" height="230" alt="{{ goal.title }}"/>
+                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_small')  }} {% endif %}" height="230" alt="{{ goal.title }}"/>
                             </a>
                             <figcaption>
 

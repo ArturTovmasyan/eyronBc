@@ -43,7 +43,15 @@
             </div>
         </div>
         <div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">
-            <div data-simple-map-marker data-refresh="showMap" style="width: 100%; height: 300px"></div>
+            <div data-simple-map-marker
+                 data-markers="locations"
+                 data-is-bounded="true"
+                 {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
+                 data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                 data-refresh="showMap"
+                 class="google-map "
+                 style="width: 100%; height: 300px"
+            ></div>
         </div>
     </div>
 
