@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Aphorism;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
@@ -38,6 +40,16 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         // get users
         $user = $this->getReference('user');
         $user1 = $this->getReference('user1');
+
+        $tag = new Tag();
+        $tag->setTag('test');
+        $manager->persist($tag);
+
+        $aphorism = new Aphorism();
+        $aphorism->setAuthor('user1');
+        $aphorism->setContent('One must be a fox in order to recognize traps, and a lion to frighten off wolves.');
+        $aphorism->addTag($tag);
+        $manager->persist($aphorism);
 
         // create goal
         $goal1 = new Goal();
@@ -132,10 +144,15 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal9->setStatus(1);
         $goal9->setVideoLink(null);
         $goal9->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal9->addTag($tag);
+
+        $goal9->setLat(40.069099);
+        $goal9->setLng(45.038189);
+        $goal9->setAddress('Armenia');
+
         $goal9->setAuthor($user1);
         $goal9->setPublish(true);
         $manager->persist($goal9);
-
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -435,6 +452,29 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goalImage9->setFileOriginalName($photo8->getFilename());
 
         $manager->persist($goalImage9);
+
+        $oldPhotoPath10 = __DIR__ . '/images/image4.jpg';
+        $photoPath10 = __DIR__ . '/../../../../web/uploads/images/photo10.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath10, $photoPath10);
+
+        // new uploaded file
+        $photo9 = new UploadedFile(
+            $photoPath7,
+            'photo10.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage10 = new GoalImage();
+        $goalImage10->setGoal($goal9);
+        $goalImage10->setFile($photo9);
+        $goal9->addImage($goalImage9);
+        $goalImage10->setFileName($photo9->getClientOriginalName());
+        $goalImage10->setFileSize($photo9->getSize());
+        $goalImage10->setFileOriginalName($photo9->getFilename());
+
+        $manager->persist($goalImage10);
 
 
         $manager->flush();

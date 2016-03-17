@@ -4,7 +4,6 @@ Feature: Activity
   I should have goals/goalfriends
   Where I see what my goalfriends have done
 
-
   @javascript @remainingActivity
   Scenario: All the remaining features in Activity page
     Given I am on "/logout"
@@ -94,4 +93,33 @@ Feature: Activity
       And I wait for view
 #      I should see "show 5+ more"
 
+
+  @javascript @innerPage
+  Scenario: Open idea inner page and show me the corresponding features.
+    Given I am on "/logout"
+    When I am logged in as "user1"
+    And I should see "user2 useryan"
+    And I am on "/goal/goal9"
+    Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
+    And I should see "goal9"
+    And I should see "Map"
+    When I scroll page to ".text-dark-gray"
+    And I wait for view
+    Then I should see "COMPLETED BY"
+    And I should see "LISTED BY"
+    When I am on "/done-users/goal9"
+    Then I should see "user2"
+    And I move backward one page
+    When I am on "/listed-users/goal9"
+    Then I should see "user1"
+    And I should see "user2"
+    When I move backward one page
+     And I am on "/goal/goal2"
+    Then I should not see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
+    And I should not see "Map"
+    When I am on "/goal/goal9"
+    And I wait
+    And I scroll page to ".text-dark-gray"
+    And I press like button
+    And I wait for view
 

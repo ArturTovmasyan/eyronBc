@@ -51,11 +51,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->getDriver()->maximizeWindow();
     }
 
-    /** @BeforeSuite */
-    public static function callFixturesCommand(BeforeSuiteScope $scope)
-    {
-        $scope->output = shell_exec('./bin/behat.sh');
-    }
+//    /** @BeforeSuite */
+//    public static function callFixturesCommand(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./bin/behat.sh');
+//    }
 
     /**
      * @Given I am logged in as :user
@@ -295,24 +295,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I click button :value
-     */
-    public function iClickButton($value)
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        //get icon
-        $icon = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//button[@class="'.$value.'"]'));
-
-        //click on icon
-        $icon->click();
-    }
-
-    /**
      * @When I switch to window
      */
     public function iSwitchToWindow()
@@ -424,4 +406,26 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->attachFileToField($field, $path);
     }
 
+    /**
+     * @When I press like button
+     */
+    public function iPressLikeButton()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get like button
+        $likeButton = $page->find('xpath', $session->getSelectorsHandler()->selectorToXpath('xpath', '//span[contains(text(),"Like")]'));
+
+        if (null === $likeButton) {
+
+            throw new \LogicException('Like button is not found');
+        }
+
+        //click on icon
+        $likeButton->click();
+    }
 }
