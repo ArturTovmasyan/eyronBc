@@ -30,7 +30,7 @@ Feature: Idea
     And I wait for angular
     And I follow "Close"
     And I wait for angular
-    And I follow "ADD"
+    And I follow "Add"
     And I wait for angular
     Then I should see "SIGN IN"
     When I follow "JOIN"

@@ -27,13 +27,16 @@ Feature: Settings
     And I select language
     And I click on "btn btn-purple button-lg"
     And I wait for angular
-    Then I should be on "/ideas"
+    Then I should be on "/activity"
     When I wait for angular
     And I follow "user3"
     And I follow "Настройки"
     And I wait for angular
     And I fill in "bl_user_settings_firstName" with "user2"
     And I fill in "bl_user_settings_lastName" with "useryan"
+    And I fill in "bl_user_settings_currentPassword" with "test1234"
+    And I fill in "bl_user_settings_plainPassword_first" with "Test1234"
+    And I fill in "bl_user_settings_plainPassword_second" with "Test1234"
     And I select language
     And I click on "btn btn-purple button-lg"
     And I wait for angular
