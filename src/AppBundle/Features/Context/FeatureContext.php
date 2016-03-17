@@ -406,26 +406,4 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->attachFileToField($field, $path);
     }
 
-    /**
-     * @When I press like button
-     */
-    public function iPressLikeButton()
-    {
-        //get session
-        $session = $this->getSession(); // assume extends RawMinkContext
-
-        //get page
-        $page = $session->getPage();
-
-        //get like button
-        $likeButton = $page->find('xpath', $session->getSelectorsHandler()->selectorToXpath('xpath', '//span[contains(text(),"Like")]'));
-
-        if (null === $likeButton) {
-
-            throw new \LogicException('Like button is not found');
-        }
-
-        //click on icon
-        $likeButton->click();
-    }
 }

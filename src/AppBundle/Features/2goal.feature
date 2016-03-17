@@ -35,7 +35,7 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I scroll page to ".information"
-    And I follow "MANAGE"
+    And I follow "Manage"
     And I wait for angular
     Then I should see "Goal is active"
     When I change date
@@ -50,7 +50,7 @@ Feature: Goal page
     And I press "Save"
     Then I should see "user1 useryan"
     When I scroll page to ".information"
-    And I follow "MANAGE"
+    And I follow "Manage"
     And I wait for angular
     When I change switch "0"
     Then I should see "Goal is completed"
@@ -83,7 +83,7 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I scroll page to ".information"
-    And I follow "DONE"
+    And I follow "Done"
     Then I should be on "user-profile/completed-goals"
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
@@ -142,7 +142,7 @@ Feature: Goal page
     And I change switch "3"
     When I follow "FORGET IT"
     And  I follow "DELETE"
-    Then I should be on "/ideas"
+    Then I should be on "/user-profile"
     When I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
@@ -160,18 +160,18 @@ Feature: Goal page
     Then I should be on "/user-profile"
     When I follow "Drafts"
     Then I should be on "/goal/drafts"
-    And I should see "EDIT"
-    And I should see "DELETE"
-    When I follow "EDIT"
+    And I should see "Edit"
+    And I should see "Delete"
+    When I follow "Edit"
     Then I should see "Suggest as public"
     When I move backward one page
-    And I follow "DELETE"
+    And I follow "Delete"
     And I wait for angular
     Then I should see "You are about to delete your draft goal. Are you sure?"
-    When I follow "Delete"
+    When I click on "btn btn-danger"
     Then I should be on "goal/drafts"
     And I should see "Drafts"
-    When I follow "DELETE"
+    When I follow "Delete"
     And I wait for angular
-    And I follow "Cancel"
+    And I click on "btn btn-success"
     Then I should not see "You are about to delete your draft goal. Are you sure?"

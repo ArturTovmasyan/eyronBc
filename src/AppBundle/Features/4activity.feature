@@ -120,6 +120,5 @@ Feature: Activity
     When I am on "/goal/goal9"
     And I wait
     And I scroll page to ".text-dark-gray"
-    And I press like button
     And I wait for view
 

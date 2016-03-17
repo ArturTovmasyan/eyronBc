@@ -9,13 +9,13 @@ Feature: My Bucket list
     And I wait
     When I am logged in as "user1"
     And I am on "/activity"
-    And I click on "text-gray"
+    And I click on "icon-question-icon"
     And I wait for angular
     And I follow "Upload an image"
     And I wait for angular
     And I follow "Cancel"
     And I wait for angular
-    And I follow "Add some goals."
+    And I follow "Add some goals"
     Then I should be on "/goal/create"
     And I should see "user1"
 
@@ -119,7 +119,7 @@ Feature: My Bucket list
 
     When I check subfilters "4"
     And I wait
-    Then I should see "What are you doing here? Come on, add some goals."
+    Then I should see "What are you doing here? Come on, add some goals"
 
   @javascript @comments
   Scenario: show comments in inner page
