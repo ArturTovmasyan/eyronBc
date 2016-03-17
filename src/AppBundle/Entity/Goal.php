@@ -877,7 +877,7 @@ class Goal implements MultipleFileInterface, PublishAware
      *
      * @VirtualProperty()
      * @SerializedName("location")
-     * @Groups({"goal"})
+     * @Groups({"goal", "tiny_goal"})
      */
     public function getGoalLocation()
     {

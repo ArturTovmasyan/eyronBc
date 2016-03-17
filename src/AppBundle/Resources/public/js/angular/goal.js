@@ -327,6 +327,8 @@ angular.module('goal', ['Interpolation',
     .controller('goalList', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
 
         $scope.Ideas = new lsInfiniteItems();
+        $scope.locations = [];
+        var locationsIds = [];
 
         $scope.castInt = function(value){
             return parseInt(value);
@@ -358,6 +360,20 @@ angular.module('goal', ['Interpolation',
                 $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
             }
         };
+
+        $scope.$watch('Ideas.items', function(d) {
+
+            angular.forEach(d, function(item) {
+                var location = {};
+                if(item.location && locationsIds.indexOf(item.id) == -1){
+                    location.id = item.id;
+                    locationsIds.push(location.id);
+                    location.latitude = item.location.latitude;
+                    location.longitude = item.location.longitude;
+                    $scope.locations.push(location);
+                }
+            });
+        });
 
         $scope.adventureText = function(slug, cJson){
             var item = null;
