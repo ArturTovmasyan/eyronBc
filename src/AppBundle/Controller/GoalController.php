@@ -910,10 +910,10 @@ class GoalController extends Controller
 
         if ($goal->isAuthor($user)) {
             $em->remove($goal);
-            $url = 'user_profile';
-        } else {
-            $url = 'homepage';
         }
+
+        //set myBucketList route name
+        $url = 'user_profile';
 
         $em->flush();
 

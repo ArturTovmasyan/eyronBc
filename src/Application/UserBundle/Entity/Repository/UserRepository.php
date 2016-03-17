@@ -61,6 +61,19 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * @param $email
+     * @return array
+     */
+    public  function findByEmail($email)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.username = :email")
+            ->setParameter('email', $email)
+            ->getResult();
+    }
+    /**
      * @param $userId
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
