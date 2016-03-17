@@ -15,7 +15,8 @@ Feature: Settings
     And I follow "Settings"
     And I wait for angular
     Then I should see "user2@user.com"
-    When I fill in the following:
+    When I attache profile image
+    And I fill in the following:
       | bl_user_settings_firstName | user3 |
       | bl_user_settings_lastName | user3 |
       | bl_user_settings_addEmail | test8@test.am |
@@ -24,7 +25,6 @@ Feature: Settings
       | bl_user_settings_plainPassword_second | test1234 |
     And I select date fields
     And I select language
-    And I wait
     And I click on "btn btn-purple button-lg"
     And I wait for angular
     Then I should be on "/ideas"
@@ -32,6 +32,8 @@ Feature: Settings
     And I follow "user3"
     And I follow "Настройки"
     And I wait for angular
+    And I fill in "bl_user_settings_firstName" with "user2"
+    And I fill in "bl_user_settings_lastName" with "useryan"
     And I select language
     And I click on "btn btn-purple button-lg"
     And I wait for angular

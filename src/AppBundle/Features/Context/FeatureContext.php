@@ -40,7 +40,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWaitForView()
     {
-        $this->getSession()->wait(3000);
+        $this->getSession()->wait(2000);
     }
 
     /**
@@ -396,4 +396,32 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $subFilters[$value]->click();
     }
+
+    /**
+     * @When I attache profile image
+     */
+    public function iAttacheProfileImage()
+    {
+        //get image path
+        $path = __DIR__.'/leon.jpg';
+
+        //get file filed name
+        $field = 'bl_user_settings_file';
+
+        //set step argument for file field
+        $field = $this->fixStepArgument($field);
+
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //remove hide class for upload file
+        $javascript = '$( "div" ).removeClass( "hide" );';
+
+        //execute js code
+        $session->executeScript($javascript);
+
+        //attache picture for user
+        $this->attachFileToField($field, $path);
+    }
+
 }

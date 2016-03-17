@@ -128,14 +128,11 @@ Feature: Goal page
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     And I should see "If you accomplished your Goal, just mark it"
-    When I scroll page to "radio-inline"
-    And I wait for view
-    And I scroll page to "top"
     And I change switch "0"
     And I wait for angular
     Then I should see "If you believe your Goal is still Active, you can undo it"
     And I wait
-    When I scroll page to "radio-inline"
+    When I scroll page to ".radio-inline"
     And I wait
     And I scroll page to "top"
     And I change switch "0"
@@ -153,9 +150,9 @@ Feature: Goal page
     When I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    When I scroll page to "radio-inline"
+    When I scroll page to ".radio-inline"
     And I click on "btn btn-transparent button-lg"
-    And I wait for view
+    And I wait for angular
     And I should see "goal1"
     And I should see "ADDED"
 
