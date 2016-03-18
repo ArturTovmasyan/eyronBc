@@ -383,6 +383,8 @@ angular.module('goal', ['Interpolation',
                     locationsIds.push(location.id);
                     location.latitude = item.location.latitude;
                     location.longitude = item.location.longitude;
+                    location.title = item.title;
+                    location.slug = item.slug;
                     $scope.locations.push(location);
                 }
             });

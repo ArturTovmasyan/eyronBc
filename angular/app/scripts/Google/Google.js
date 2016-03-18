@@ -1,5 +1,5 @@
 angular.module('Google', [])
-    .directive('simpleMapMarker',['$timeout', function($timeout){
+    .directive('simpleMapMarker',['$timeout', '$window', function($timeout, $window){
 
         function Initialize(el, zoom){
             var m, data = {};
@@ -21,6 +21,7 @@ angular.module('Google', [])
                 isBounded: '=',
                 onMarkerClick: '&',
                 passiveMarkerIcon: '@',
+                itemPageUrl: '@',
                 activeMarkerIcon: '@'
             },
             compile: function compile(){
@@ -80,6 +81,25 @@ angular.module('Google', [])
                                     var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
 
                                     scope.mapMarkers[v.id] = m;
+
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: v.title
+                                    });
+
+                                    m.addListener('mouseover', function() {
+                                        infowindow.open(scope.map, m);
+                                    });
+
+                                    m.addListener('mouseout', function() {
+                                        infowindow.close();
+                                    });
+
+                                    m.addListener('click', function () {
+                                        if(scope.itemPageUrl && v.slug){
+                                            $window.location.href = scope.itemPageUrl+ v.slug;
+                                        }
+
+                                    });
 
                                     //m.addListener('click', function () {
                                     //    scope.setMarkerActive(m);
