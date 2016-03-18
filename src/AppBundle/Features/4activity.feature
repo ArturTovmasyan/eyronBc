@@ -51,10 +51,11 @@ Feature: Activity
     And I should see "Top Ideas"
     When I follow "Top Ideas"
     Then I should be on "/ideas"
-    When I scroll page to "navigation text-center"
-    Then I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
-    And I click on "show-more"
-    And I wait
+    And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
+    When I scroll page to ".social"
+    And I wait for view
+    And I click on show more
+    And I wait for view
 
   @javascript @goalFriend
   Scenario: Show me the my goalfriends and when I click on them let me see their inner pages

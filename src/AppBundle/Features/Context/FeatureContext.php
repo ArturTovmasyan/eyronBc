@@ -406,4 +406,25 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->attachFileToField($field, $path);
     }
 
+    /**
+     * @Then I click on show more
+     */
+    public function iClickOnShowMore()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get all sub filters in my bucket list
+        $linkBlock = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//div[@class="navigation text-center"])'));
+
+        //get show link
+        $link = $linkBlock->find('css', '.show-more');
+
+        //click on show more link
+        $link->click();
+
+    }
 }

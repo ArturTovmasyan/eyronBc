@@ -27,8 +27,6 @@ Feature: Settings
     And I select language
     And I click on "btn btn-purple button-lg"
     And I wait for angular
-    Then I should be on "/activity"
-    When I wait for angular
     And I follow "user3"
     And I follow "Настройки"
     And I wait for angular
