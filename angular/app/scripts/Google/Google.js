@@ -70,10 +70,13 @@ angular.module('Google', [])
                             scope.bounds = new google.maps.LatLngBounds(null);
                         }
 
+                        angular.forEach(scope.mapMarkers, function(v, k){
+                            v.setMap(null);
+                        });
                         angular.forEach(d, function(v, k){
                             if(v.latitude && v.longitude) {
-                                v.id = k;
-                                if(!scope.mapMarkers[v.id]) {
+                                v.id = v.id ? v.id : k;
+                                if(!scope.mapMarkers[v.id] || !scope.mapMarkers[v.id].map ) {
                                     var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
 
                                     scope.mapMarkers[v.id] = m;
