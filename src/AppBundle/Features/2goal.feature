@@ -146,7 +146,7 @@ Feature: Goal page
     When I scroll page to ".radio-inline"
     And I click on "btn btn-transparent button-lg"
     And I wait for angular
-    And I should see "goal2"
+    And I should see "goal"
     And I should see "Added"
 
   @javascript @goalDraft
