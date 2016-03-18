@@ -208,7 +208,7 @@
                                         <li>
                                             <a href="{{ path('listed_users', {'slug': goal.slug} ) }}">
                                                 <span>
-                                                    {{ 'home_listed_by'|trans({},'messages') }}
+                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                     {{ goal.stats.listedBy }}
                                                 </span>
                                                 <i class="icon-user-small"></i>
@@ -217,7 +217,7 @@
                                         <li>
                                             <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
                                                 <span>
-                                                    {{ 'home_complete'|trans({},'messages') }}
+                                                    {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                     {{ goal.stats.doneBy }}
                                                 </span>
                                                 <i class="icon-user-small"></i>
