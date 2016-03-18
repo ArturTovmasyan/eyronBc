@@ -137,7 +137,7 @@ filters:
 
 account:
   complete_text: Подтвердите свой аккаунт
-  complete: Завершить
+  complete: Завершено на
 
 file:
     width_extension: Минимальный размер изображения составляет 400x400 пикселей

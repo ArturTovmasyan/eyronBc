@@ -88,14 +88,14 @@
                                     <li>
                                         <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
-                                                {{ 'home_listed_by'|trans({},'messages') }}
+                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                 [[ goal.stats.listedBy ]]
                                             </span>
                                             <i class="icon-user-small"></i>
                                         </a>
 
                                         <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
-                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                             [[ goal.stats.listedBy ]]
                                             <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
                                         </span>
@@ -103,14 +103,14 @@
                                     <li>
                                         <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
-                                                {{ 'home_complete'|trans({},'messages') }}
+                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                 [[ goal.stats.doneBy ]]
                                             </span>
                                             <i class="icon-user-small"></i>
                                         </a>
 
                                         <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
-                                            {{ 'home_complete'|trans({},'messages') }}
+                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
                                             [[ goal.stats.doneBy ]]
                                             <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
                                         </span>

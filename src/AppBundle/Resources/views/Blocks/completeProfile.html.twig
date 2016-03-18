@@ -11,7 +11,11 @@
                     <div class="progress-bar progress-bar-striped"
                          role="progressbar"
                          style="width: {{ user.getCompletedPercent()|round(1, 'floor') }}%">
-                        {{ user.getCompletedPercent()|round(1, 'floor') }}% {{ 'account.complete'|trans }}
+                        {% if app.request.locale == 'ru' %}
+                            {{ 'account.complete'|trans }} {{ user.getCompletedPercent()|round(1, 'floor') }}%
+                        {% else %}
+                            {{ user.getCompletedPercent()|round(1, 'floor') }}% {{ 'account.complete'|trans }}
+                        {% endif %}
                     </div>
                 </div>
 
