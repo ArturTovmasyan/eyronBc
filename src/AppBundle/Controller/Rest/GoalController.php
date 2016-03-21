@@ -265,7 +265,6 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
-     * @Security("has_role('ROLE_USER')")
      */
     public function addImagesAction($id = null, Request $request)
     {
@@ -579,7 +578,6 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
-     * @Security("has_role('ROLE_USER')")
      */
     public function addSuccessStoryImagesAction($id = null, Request $request)
     {
