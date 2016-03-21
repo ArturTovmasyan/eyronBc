@@ -83,6 +83,16 @@
                        value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
                        name="{{ form.birthday.vars.full_name }}"/>
 
+                {% if goal.address is defined and goal.address %}
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>Location</label>
+                            <div class="location">
+                                {{ goal.address }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 {#<div class="form-group row">#}
                     {#<div class="col-sm-12">#}
                         {#<div class="location">#}
