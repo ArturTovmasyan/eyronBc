@@ -9,6 +9,7 @@ namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\SuccessStory;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
@@ -554,7 +555,87 @@ class GoalController extends FOSRestController
         $em->persist($successStory);
         $em->flush();
 
+        return new JsonResponse($successStory->getId(), Response::HTTP_OK);
+    }
 
-        return new Response('', Response::HTTP_OK);
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This action is used for upload image for a success story",
+     *  statusCodes={
+     *         200="Returned when image was uploaded",
+     *         400="Returned when there are validation error",
+     *         403="Returned when adding image to success story which author isn't current user",
+     *         404="Returned when there aren't file, or success story not found",
+     *  },
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=false, "description"="Goal's images"}
+     *  }
+     * )
+     *
+     * @Rest\Post("/success-story/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
+     * @Rest\View()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function addSuccessStoryImagesAction($id = null, Request $request)
+    {
+
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //check if success story id exist
+        if ($id) {
+
+            //get success story by id
+            $successStory = $em->getRepository('AppBundle:SuccessStory')->find($id);
+
+            //check if success story not exist
+            if (!$successStory) {
+                return new Response('Success story not found', Response::HTTP_NOT_FOUND);
+            }
+
+            //check if success story isn`t current user
+            if ($this->getUser() != $successStory->getUser()) {
+                return new Response("Success story isn't of current user", Response::HTTP_FORBIDDEN);
+            }
+        }
+
+        // get all files form request
+        $file = $request->files->get('file');
+
+        // check file
+        if ($file) {
+            // get bucket list service
+            $bucketService = $this->get('bl_service');
+
+            // create new goal image object
+            $storyImage = new StoryImage();
+            $storyImage->setFile($file);
+            $storyImage->setStory($successStory);
+
+            // validate goal image
+            $validator = $this->get('validator');
+            $error = $validator->validate($storyImage, null, null);
+
+            if (count($error) > 0) {
+                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+            else { // upload image id there is no error
+
+                // upload file
+                $bucketService->uploadFile($storyImage);
+
+                $em->persist($storyImage);
+                $em->flush();
+            }
+
+            return new Response('', Response::HTTP_OK);
+        }
+
+        return new Response('', Response::HTTP_NOT_FOUND);
     }
 }

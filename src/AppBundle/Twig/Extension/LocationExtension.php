@@ -56,6 +56,7 @@ class LocationExtension extends \Twig_Extension
                     'title' => $goal->getTitle(),
                     'latitude' => $goal->getLat(),
                     'longitude' => $goal->getLng(),
+                    'slug' => $goal->getSlug(),
                     'image' => $goal->getListPhotoDownloadLink(),
                     'status' => $goal->getIsMyGoal()
                 );

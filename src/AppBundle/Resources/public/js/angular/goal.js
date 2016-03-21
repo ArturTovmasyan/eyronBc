@@ -324,10 +324,11 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Ideas = new lsInfiniteItems();
         $scope.locations = [];
+        $scope.noIdeas = false;
         var locationsIds = [];
 
         $scope.castInt = function(value){
@@ -350,6 +351,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
+            $scope.noIdeas = false;
+            $scope.locations = [];
+            locationsIds = [];
             if(ev.which == 13){
                 ev.preventDefault();
                 ev.stopPropagation();
@@ -362,6 +366,15 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$watch('Ideas.items', function(d) {
+            if(!d.length){
+                $timeout(function(){
+                    if(!$scope.Ideas.items.length){
+                        $scope.noIdeas = true;
+                        $scope.Ideas.reset();
+                        $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
+                    };
+                }, 1000);
+            }
 
             angular.forEach(d, function(item) {
                 var location = {};
@@ -370,6 +383,8 @@ angular.module('goal', ['Interpolation',
                     locationsIds.push(location.id);
                     location.latitude = item.location.latitude;
                     location.longitude = item.location.longitude;
+                    location.title = item.title;
+                    location.slug = item.slug;
                     $scope.locations.push(location);
                 }
             });
