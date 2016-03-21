@@ -82,8 +82,8 @@
                 <input id="{{ form.birthday.vars.id }}" type="hidden" class="hidden_date_value"
                        value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
                        name="{{ form.birthday.vars.full_name }}"/>
-                
-                {% if goal.address is defined and goal.address %}
+
+                {% if data.goal.address is defined and data.goal.address %}
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <div class="location">
@@ -91,20 +91,20 @@
                                 {#<span class="icon-remove-email"></span>#}
                                 {#<span class="icon-location-icon"></span>#}
                                 <i class="icon-location-icon"></i>
-                                {% if not completed and data.goal.address is null %}
-                                    <i class="icon-remove-email" data-ng-click="removeLocation()"></i>
-                                {% endif %}
+                                {#{% if not completed and data.goal.address is null %}#}
+                                    {#<i class="icon-remove-email" data-ng-click="removeLocation()"></i>#}
+                                {#{% endif %}#}
 
-                                <input  value="{{ data.goal.address ? data.goal.address : data.address }}"
+                                <input  value="{{ data.goal.address}}"
                                         type="text"
-                                        data-ng-disabled="complete.switch || {% if data.goal.address is not null %} true {% else %} false {% endif %}"
-                                        data-google-places-autocomplete
-                                        data-hidden-storage=".location-hidden"
+                                        data-ng-disabled="true"
+                                        {#data-google-places-autocomplete#}
+                                        {#data-hidden-storage=".location-hidden"#}
                                         class="form-control place-autocomplete"
                                         placeholder="{{ "goal.location_ex"|trans }}"/>
-                                <input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"
-                                       type="hidden" class="location-hidden"
-                                       name="{{ form.location.vars.full_name }}"/>
+                                {#<input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"#}
+                                       {#type="hidden" class="location-hidden"#}
+                                       {#name="{{ form.location.vars.full_name }}"/>#}
                             </div>
                         </div>
                     </div>
