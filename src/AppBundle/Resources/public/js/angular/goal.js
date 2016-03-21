@@ -8,7 +8,7 @@ angular.module('goal', ['Interpolation',
         'ngSanitize',
         'infinite-scroll',
         'Confirm',
-        'youtube-embed',
+        'videosharing-embed',
         'Components'
     ])
     .factory('lsInfiniteItems', ['$http', function($http) {
