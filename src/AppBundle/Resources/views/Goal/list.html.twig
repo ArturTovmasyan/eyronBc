@@ -49,6 +49,7 @@
                  {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
                  data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                  data-refresh="showMap"
+                 data-item-page-url="{{ app.debug ? '/app_dev.php':'' }}/goal/"
                  class="google-map "
                  style="width: 100%; height: 300px"
             ></div>
@@ -62,7 +63,10 @@
          infinite-scroll-distance='2'>
         {% set searchResult = app.request.get('search') %}
 
-        <h2 data-ng-show="Ideas.items.length" class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
+        <h2 data-ng-show="noIdeas" class="ng-hide">
+            <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
+        </h2>
+        <h2 data-ng-show="Ideas.items.length && !noIdeas" class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
         <div class="row">
 
             <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
@@ -123,9 +127,6 @@
                 </div>
             </div>
         </div>
-        <h2 data-ng-hide="Ideas.items.length" class="ng-hide">
-            <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
-        </h2>
         {# display navigation #}
         <div class="navigation text-center">
             <a href="javascript:void(0)"
