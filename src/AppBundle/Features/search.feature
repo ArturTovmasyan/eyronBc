@@ -14,4 +14,5 @@ Feature: Search
     And I should see "ADD"
     When I fill in "search" with "TEST777"
     And I press key "13"
+    And I wait for view
     Then I should see "Sorry, we couldn't find anything, but you can explore other ideas:"
