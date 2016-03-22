@@ -504,7 +504,7 @@
                                                     </div>
                                                 </div>
 
-                                                <p>{{ goal.author.showName|default(null)  }}</p>
+                                                <p>{% if goal.author.showName %}{{ goal.author.showName }}{% else %}&nbsp;{% endif %}</p>
                                                 <ul class="clearfix">
                                                     <li>
                                                         <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
