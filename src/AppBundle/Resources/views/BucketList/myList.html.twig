@@ -506,11 +506,10 @@
 
                                                 <p>{% if goal.author.showName %}{{ goal.author.showName }}{% else %}&nbsp;{% endif %}</p>
                                                 <ul class="clearfix">
-                                                    <li>
-                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-                                                    </li>
-
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
+                                                        <li>
+                                                            <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
+                                                        </li>
                                                         <li>
                                                             <div class="progress">
                                                                 <div class="progress-bar progress-bar-striped"
@@ -551,7 +550,6 @@
                                                             <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info"></i>
                                                         </li>
                                                     {% endif %}
-
                                                 </ul>
                                                 {% if profileUser.id == app.user.id %}
                                                     <div class="row">
