@@ -19,7 +19,7 @@ default:
           selenium2:
             capabilities: { "browserName": "firefox", "browser": "firefox", "version": "44"}
           goutte: ~
-          base_url: http:/behat.bucketlist.loc/
+          base_url: http://behat.bucketlist.loc/
           sessions:
               symfony2:
                   symfony2: ~
