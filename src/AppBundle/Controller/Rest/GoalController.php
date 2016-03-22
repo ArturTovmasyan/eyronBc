@@ -569,35 +569,45 @@ class GoalController extends FOSRestController
      *         404="Returned when there aren't file, or success story not found",
      *  },
      *  parameters={
-     *      {"name"="file", "dataType"="file", "required"=false, "description"="Goal's images"}
+     *      {"name"="file", "dataType"="file", "required"=false, "description"="Goal's images"},
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="Success story id"},
+     *      {"name"="userId", "dataType"="integer", "required"=true, "description"="User id"},
      *  }
      * )
      *
-     * @Rest\Post("/success-story/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
      * @param $id
+     * @param $userId
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addSuccessStoryImagesAction($id = null, Request $request)
+    public function addSuccessStoryImagesAction($id = null, $userId = null, Request $request)
     {
-
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
         //check if success story id exist
-        if ($id) {
+        if ($id && $userId) {
 
             //get success story by id
             $successStory = $em->getRepository('AppBundle:SuccessStory')->find($id);
+
+            //get user by id
+            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
 
             //check if success story not exist
             if (!$successStory) {
                 return new Response('Success story not found', Response::HTTP_NOT_FOUND);
             }
 
+            //check if user not exist
+            if (!$user) {
+                return new Response('User not found', Response::HTTP_NOT_FOUND);
+            }
+
             //check if success story isn`t current user
-            if ($this->getUser() != $successStory->getUser()) {
+            if ($user != $successStory->getUser()) {
                 return new Response("Success story isn't of current user", Response::HTTP_FORBIDDEN);
             }
         }
