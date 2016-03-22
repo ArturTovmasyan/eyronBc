@@ -498,8 +498,14 @@ class UserController extends FOSRestController
      */
     public function getAction(Request $request)
     {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
         //get current user
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($currentUser);
 
         //check if not logged in user
         if(!is_object($currentUser)) {
