@@ -296,7 +296,7 @@ class GoalController extends FOSRestController
 
         // get all files form request
         $file = $request->files->get('file');
-        
+
         // check file
         if($file){
             // get bucket list service
@@ -328,8 +328,8 @@ class GoalController extends FOSRestController
                 $em->flush();
             }
 
-
-            return $goalImage->getId();
+//            return $goalImage->getId();
+            return new Response('', Response::HTTP_OK);
         }
 
         return new Response('', Response::HTTP_NOT_FOUND);
