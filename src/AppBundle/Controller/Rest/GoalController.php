@@ -260,31 +260,43 @@ class GoalController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\Post("/goals/add-images/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/goals/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
      * @param $id
+     * @param $userId
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addImagesAction($id = null, Request $request)
+    public function addImagesAction($id = null, $userId = null, Request $request)
     {
-
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        if ($id){
+        if ($id && $userId){
+            //get user goal by goal id
             $goal = $em->getRepository('AppBundle:Goal')->find($id);
+
+            //get user by id
+            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+            //check ig goal is not exist
             if (!$goal){
                 return new Response('Goal not found', Response::HTTP_NOT_FOUND);
             }
 
-            if ($this->getUser() != $goal->getAuthor()){
+            //check if user not exist
+            if (!$user){
+                return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+            }
+
+            if ($user != $goal->getAuthor()){
                 return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
             }
         }
 
         // get all files form request
         $file = $request->files->get('file');
+        
         // check file
         if($file){
             // get bucket list service
