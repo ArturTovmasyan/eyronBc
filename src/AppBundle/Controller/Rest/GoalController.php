@@ -16,6 +16,7 @@ use Application\CommentBundle\Entity\Thread;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -286,7 +287,7 @@ class GoalController extends FOSRestController
 
             //check if user not exist
             if (!$user){
-                return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+                return new Response('User not found', Response::HTTP_NOT_FOUND);
             }
 
             if ($user != $goal->getAuthor()){
@@ -328,7 +329,6 @@ class GoalController extends FOSRestController
                 $em->flush();
             }
 
-//            return $goalImage->getId();
             return new Response('', Response::HTTP_OK);
         }
 
@@ -398,6 +398,66 @@ class GoalController extends FOSRestController
 
         return $draftGoals;
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to remove drafts",
+     *  statusCodes={
+     *         200="Returned when draft was removed",
+     *         404="Not found",
+     *         403="Returned when removed drafts to goal which author isn't current user",
+     *  },
+     * )
+     * @Rest\View()
+     * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param $goal
+     * @return array
+     */
+    public function deleteDraftsAction(Goal $goal)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get current user
+        $user = $this->getUser();
+
+        //check if user not exist
+        if (!$user){
+            return new Response('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        if ($user != $goal->getAuthor()){
+            return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
+        }
+
+        // get user goal
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
+
+        //check if user goal exist and 1
+        if(count($userGoal) == 1){
+
+            // remove from bd
+            $em->remove($userGoal);
+        }
+
+        //get goal draft by goal id
+        $goalDraft = $em->getRepository('AppBundle:Goal')->find($goal);
+
+        //check if success story not exist
+        if (!$goalDraft) {
+            return new Response('Goal draft not found', Response::HTTP_NOT_FOUND);
+        }
+
+        // remove from bd
+        $em->remove($goalDraft);
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
+    }
+
 
     /**
      * @ApiDoc(
