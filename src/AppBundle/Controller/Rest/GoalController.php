@@ -260,7 +260,7 @@ class GoalController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\Post("/goals/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/goals/add-images/{id}/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
      * @param $id
      * @param $userId
      * @param Request $request
