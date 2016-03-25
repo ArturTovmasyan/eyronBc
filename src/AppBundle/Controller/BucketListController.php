@@ -43,6 +43,7 @@ class BucketListController extends Controller
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $isCurrentUser = true;
 
         // get user by id
         if($user)
@@ -66,6 +67,11 @@ class BucketListController extends Controller
             $user = $this->getUser();
         }
 
+        //if it is self page
+        if($user == $this->getUser()){
+            $isCurrentUser = false;
+        }
+
         // check statuses
         if($status === 'active-goals')
         {
@@ -81,7 +87,7 @@ class BucketListController extends Controller
 
         // find all goals
         $userGoals = $em->getRepository("AppBundle:UserGoal")
-            ->findAllByUser($user, $status, $dream, $requestFilters);
+            ->findAllByUser($user, $status, $dream, $requestFilters, $isCurrentUser);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

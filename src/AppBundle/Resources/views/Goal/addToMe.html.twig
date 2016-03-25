@@ -67,10 +67,22 @@
 
                 <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
 
-                <div id="datepicker"
-                     data-ng-hide="complete.switch"
-                     data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
-                     style="color: black"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="datepicker"
+                             data-ng-hide="complete.switch"
+                             data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
+                             style="color: black"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="secondPicker"
+                             data-ng-hide="complete.switch"
+                             data-date-format="mm-yyyy"
+                             data-date="{{ data.doDate ? data.doDate|date_modify("+1 month")|date("m/Y") : "now"|date_modify("+1 month")|date("m/Y") }}"
+                             style="color: black">
+                        </div>
+                    </div>
+                </div>
 
                 {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                     <h6 class="text-gray text-center" data-ng-show="!complete.switch">

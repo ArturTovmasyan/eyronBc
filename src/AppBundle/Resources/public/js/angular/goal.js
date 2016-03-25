@@ -229,6 +229,12 @@ angular.module('goal', ['Interpolation',
                 },
                 todayHighlight: true
             });
+            angular.element('#secondPicker').datepicker({
+                format: "mm-yyyy",
+                startView: "months",
+                todayHighlight: "false",
+                minViewMode: "day"
+            });
 
             angular.element("#datepicker").on("changeDate", function() {
                 $scope.datepicker_title = true;
