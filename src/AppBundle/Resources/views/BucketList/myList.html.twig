@@ -321,6 +321,7 @@
              data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
              {#data-on-marker-click="onMarkerClick(goal)"#}
              data-is-bounded="true"
+             data-item-page-url="{{ app.debug ? '/app_dev.php':'' }}/goal/"
              {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
              data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
              data-refresh="showMap"
@@ -398,26 +399,26 @@
 
                         {% if profileUser.id != app.user.id and not userGoal.isVisible %}
 
-                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">
-                                <div class="col-sm-2 no-right">
-                                    <div class="date-left hidden-xs">
-                                        <div class="img-circle">
-                                            {#{{ userGoal.doDate|date('d') }}#}
-                                        </div>
-                                        {% if userGoals[lastIndex].id == userGoal.id %}
-                                            <span></span>
-                                        {% endif %}
-                                        <div class="elipse">
-                                            {#<div>{{ userGoal.doDate|date('M, Y') }}</div>#}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-10 bg-white no-left">
-                                    <div class="row">
-                                        <div class="col-sm-12 bg-white" style="height: 150px"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {#<div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">#}
+                                {#<div class="col-sm-2 no-right">#}
+                                    {#<div class="date-left hidden-xs">#}
+                                        {#<div class="img-circle">#}
+                                            {#&#123;&#35;{{ userGoal.doDate|date('d') }}&#35;&#125;#}
+                                        {#</div>#}
+                                        {#{% if userGoals[lastIndex].id == userGoal.id %}#}
+                                            {#<span></span>#}
+                                        {#{% endif %}#}
+                                        {#<div class="elipse">#}
+                                            {#&#123;&#35;<div>{{ userGoal.doDate|date('M, Y') }}</div>&#35;&#125;#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-sm-10 bg-white no-left">#}
+                                    {#<div class="row">#}
+                                        {#<div class="col-sm-12 bg-white" style="height: 150px"></div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
 
                         {% else %}
 
@@ -503,13 +504,12 @@
                                                     </div>
                                                 </div>
 
-                                                <p>{{ goal.author.showName|default(null)  }}</p>
+                                                <p>{% if goal.author.showName %}{{ goal.author.showName }}{% else %}&nbsp;{% endif %}</p>
                                                 <ul class="clearfix">
-                                                    <li>
-                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-                                                    </li>
-
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
+                                                        <li>
+                                                            <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
+                                                        </li>
                                                         <li>
                                                             <div class="progress">
                                                                 <div class="progress-bar progress-bar-striped"
@@ -550,7 +550,6 @@
                                                             <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info"></i>
                                                         </li>
                                                     {% endif %}
-
                                                 </ul>
                                                 {% if profileUser.id == app.user.id %}
                                                     <div class="row">

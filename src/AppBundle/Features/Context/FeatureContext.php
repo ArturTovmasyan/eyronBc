@@ -407,9 +407,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I press like button
+     * @Then I click on show more
      */
-    public function iPressLikeButton()
+    public function iClickOnShowMore()
     {
         //get session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -417,15 +417,14 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        //get like button
-        $likeButton = $page->find('xpath', $session->getSelectorsHandler()->selectorToXpath('xpath', '//span[contains(text(),"Like")]'));
+        //get all sub filters in my bucket list
+        $linkBlock = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//div[@class="navigation text-center"])'));
 
-        if (null === $likeButton) {
+        //get show link
+        $link = $linkBlock->find('css', '.show-more');
 
-            throw new \LogicException('Like button is not found');
-        }
+        //click on show more link
+        $link->click();
 
-        //click on icon
-        $likeButton->click();
     }
 }

@@ -7,6 +7,7 @@ $(document).ready(function(){
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoHeight: true,
+        loop: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
         spaceBetween: 30,

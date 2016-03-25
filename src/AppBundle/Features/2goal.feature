@@ -35,12 +35,10 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I scroll page to ".information"
-    And I follow "MANAGE"
+    And I follow "Manage"
     And I wait for angular
     Then I should see "Goal is active"
     When I change date
-# TODO must be fixed with js
-    And I fill in "loc" with "Yerevan, Armenia"
     And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
@@ -50,7 +48,7 @@ Feature: Goal page
     And I press "Save"
     Then I should see "user1 useryan"
     When I scroll page to ".information"
-    And I follow "MANAGE"
+    And I follow "Manage"
     And I wait for angular
     When I change switch "0"
     Then I should see "Goal is completed"
@@ -83,7 +81,7 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should be on "/user-profile"
     When I scroll page to ".information"
-    And I follow "DONE"
+    And I follow "Done"
     Then I should be on "user-profile/completed-goals"
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
@@ -116,7 +114,6 @@ Feature: Goal page
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I click on "btn btn-transparent button-lg"
 
-
 @javascript @addGoal
   Scenario: Add a goal
     When I wait for angular
@@ -133,7 +130,6 @@ Feature: Goal page
     And I scroll page to "top"
     And I change switch "0"
     And I change date
-    And I fill in "loc" with "Yerevan, Armenia"
     And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
@@ -142,15 +138,16 @@ Feature: Goal page
     And I change switch "3"
     When I follow "FORGET IT"
     And  I follow "DELETE"
-    Then I should be on "/ideas"
-    When I click on "icon-plus-icon"
+    Then I should be on "/user-profile"
+    When I am on "/ideas"
+    And I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".radio-inline"
     And I click on "btn btn-transparent button-lg"
     And I wait for angular
-    And I should see "goal1"
-    And I should see "ADDED"
+    And I should see "goal"
+    And I should see "Added"
 
   @javascript @goalDraft
   Scenario: Open My Bucket list and show me the list of my drafts
@@ -160,18 +157,18 @@ Feature: Goal page
     Then I should be on "/user-profile"
     When I follow "Drafts"
     Then I should be on "/goal/drafts"
-    And I should see "EDIT"
-    And I should see "DELETE"
-    When I follow "EDIT"
+    And I should see "Edit"
+    And I should see "Delete"
+    When I follow "Edit"
     Then I should see "Suggest as public"
     When I move backward one page
-    And I follow "DELETE"
+    And I follow "Delete"
     And I wait for angular
     Then I should see "You are about to delete your draft goal. Are you sure?"
-    When I follow "Delete"
+    When I click on "btn btn-danger"
     Then I should be on "goal/drafts"
     And I should see "Drafts"
-    When I follow "DELETE"
+    When I follow "Delete"
     And I wait for angular
-    And I follow "Cancel"
+    And I click on "btn btn-success"
     Then I should not see "You are about to delete your draft goal. Are you sure?"

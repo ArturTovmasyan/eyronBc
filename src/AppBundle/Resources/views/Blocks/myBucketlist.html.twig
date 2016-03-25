@@ -12,7 +12,7 @@
 
         {% set stats = user.getStats %}
 
-        <ul class="horizontal-menu">
+        <ul class="horizontal-menu {{ app.request.locale }}">
             <li>
                 <strong>{{ 'user_goal.active'|trans }}</strong>
                 <span>{{ stats.active }}</span>

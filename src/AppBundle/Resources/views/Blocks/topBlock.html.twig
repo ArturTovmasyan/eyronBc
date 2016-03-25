@@ -41,14 +41,14 @@
             <ul>
                 <li>
                     <a href="#">
-                        {{ 'block_listed'|trans | upper }}
+                        {{ 'block_listed'|trans | capitalize }}
                         <span>{{ goal.getUsedCount.listedBy }}</span>
                         <i class="icon-user-small"></i>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        {{ 'block_completed'|trans | upper }}
+                        {{ 'block_completed'|trans | capitalize }}
                         <span>{{ goal.getUsedCount.doneBy }}</span>
                         <i class="icon-user-small"></i>
                     </a>

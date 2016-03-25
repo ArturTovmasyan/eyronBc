@@ -67,10 +67,22 @@
 
                 <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
 
-                <div id="datepicker"
-                     data-ng-hide="complete.switch"
-                     data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
-                     style="color: black"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="datepicker"
+                             data-ng-hide="complete.switch"
+                             data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
+                             style="color: black"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="secondPicker"
+                             data-ng-hide="complete.switch"
+                             data-date-format="mm-yyyy"
+                             data-date="{{ data.doDate ? data.doDate|date_modify("+1 month")|date("m/Y") : "now"|date_modify("+1 month")|date("m/Y") }}"
+                             style="color: black">
+                        </div>
+                    </div>
+                </div>
 
                 {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
                     <h6 class="text-gray text-center" data-ng-show="!complete.switch">
@@ -83,31 +95,32 @@
                        value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
                        name="{{ form.birthday.vars.full_name }}"/>
 
-                {#<div class="form-group row">#}
-                    {#<div class="col-sm-12">#}
-                        {#<div class="location">#}
-                            {#&#123;&#35;<i class="icon location-icon"></i>&#35;&#125;#}
-                            {#&#123;&#35;<span class="icon-remove-email"></span>&#35;&#125;#}
-                            {#&#123;&#35;<span class="icon-location-icon"></span>&#35;&#125;#}
-                            {#<i class="icon-location-icon"></i>#}
-                            {#{% if not completed and data.goal.address is null %}#}
-                                {#<i class="icon-remove-email" data-ng-click="removeLocation()"></i>#}
-                            {#{% endif %}#}
+                {% if data.goal.address is defined and data.goal.address %}
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <div class="location">
+                                {#<i class="icon location-icon"></i>#}
+                                {#<span class="icon-remove-email"></span>#}
+                                {#<span class="icon-location-icon"></span>#}
+                                <i class="icon-location-icon"></i>
+                                {#{% if not completed and data.goal.address is null %}#}
+                                    {#<i class="icon-remove-email" data-ng-click="removeLocation()"></i>#}
+                                {#{% endif %}#}
 
-                            {#<input  value="{{ data.goal.address ? data.goal.address : data.address }}"#}
-                                    {#type="text"#}
-                                    {#data-ng-disabled="complete.switch || {% if data.goal.address is not null %} true {% else %} false {% endif %}"#}
-                                    {#data-google-places-autocomplete#}
-                                    {#data-hidden-storage=".location-hidden"#}
-                                    {#class="form-control place-autocomplete"#}
-                                    {#placeholder="{{ "goal.location_ex"|trans }}"/>#}
-                            {#<input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"#}
-                                   {#type="hidden" class="location-hidden"#}
-                                   {#name="{{ form.location.vars.full_name }}"/>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-
+                                <input  value="{{ data.goal.address}}"
+                                        type="text"
+                                        data-ng-disabled="true"
+                                        {#data-google-places-autocomplete#}
+                                        {#data-hidden-storage=".location-hidden"#}
+                                        class="form-control place-autocomplete"
+                                        placeholder="{{ "goal.location_ex"|trans }}"/>
+                                {#<input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"#}
+                                       {#type="hidden" class="location-hidden"#}
+                                       {#name="{{ form.location.vars.full_name }}"/>#}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <i class="icon-pencil"></i>
@@ -258,12 +271,12 @@
                 <div class="form-group row no-marginb">
 
                     <label for="inputEmail3"
-                           data-ng-show="private_checkbox"
+                           data-ng-hide="private_checkbox"
                            class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_visible"|trans }}
                     </label>
                     <label for="inputEmail3"
-                        data-ng-hide="private_checkbox"
+                        data-ng-show="private_checkbox"
                         class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_invisible"|trans }}
                     </label>
@@ -293,8 +306,8 @@
                 <p class="text-gray">
                     <i class="icon-eye-icon ng-hide" data-ng-hide="private_checkbox"></i>
                     <i class="icon-eye" data-ng-show="private_checkbox"></i>
-                    <span data-ng-show="private_checkbox">{{ "goal.visible_text"|trans }}</span>
-                    <span data-ng-hide="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
+                    <span data-ng-hide="private_checkbox">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-show="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
                 </p>
 
 

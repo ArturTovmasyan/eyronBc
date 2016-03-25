@@ -10,6 +10,7 @@ namespace Application\UserBundle\Controller\Rest;
 use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,6 +90,9 @@ class UserController extends FOSRestController
 
         $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
+        $em->persist($user);
+        $em->flush();
+
         if($this->container->get('kernel')->getEnvironment() != 'test')
         {
             $sessionId = $this->loginAction($user);
@@ -96,9 +100,6 @@ class UserController extends FOSRestController
         else {
             $sessionId = 'test';
         }
-
-        $em->persist($user);
-        $em->flush();
 
         $result = array(
             'sessionId' => $sessionId,
@@ -478,6 +479,40 @@ class UserController extends FOSRestController
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
         return new Response('', Response::HTTP_OK);
+    }
+
+    /**
+     * This function is used to get current users
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to get current user",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         401="Access allowed only for registered users"
+     *     },
+     * )
+     * @Rest\View(serializerGroups={"user"})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function getAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        // get drafts
+        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($currentUser);
+
+        //check if not logged in user
+        if(!is_object($currentUser)) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
+        }
+
+        return $currentUser;
     }
 }
 
