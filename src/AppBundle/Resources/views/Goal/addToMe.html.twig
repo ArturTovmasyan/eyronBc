@@ -77,8 +77,7 @@
                     <div class="col-sm-6">
                         <div id="secondPicker"
                              data-ng-hide="complete.switch"
-                             data-date-format="mm-yyyy"
-                             data-date="{{ data.doDate ? data.doDate|date_modify("+1 month")|date("m/Y") : "now"|date_modify("+1 month")|date("m/Y") }}"
+                             data-date="{{ data.doDate ? data.doDate|date_modify("+1 month")|date("m/d/Y") : "now"|date_modify("+1 month")|date("m/d/Y") }}"
                              style="color: black">
                         </div>
                     </div>
