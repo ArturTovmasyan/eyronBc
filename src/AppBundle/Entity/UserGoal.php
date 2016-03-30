@@ -61,7 +61,7 @@ class UserGoal
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $isVisible = false;
+    protected $isVisible = true;
 
     /**
      * @var
