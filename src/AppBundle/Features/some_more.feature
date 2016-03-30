@@ -12,7 +12,7 @@ Feature: Some more features
   Scenario: Open My Bucket List and follow the instructions
     When I follow "user1"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     When I follow "Create a Goal"
     Then I should be on "/goal/create"
     When I move backward one page

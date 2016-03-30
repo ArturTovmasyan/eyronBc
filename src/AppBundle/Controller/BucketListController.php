@@ -23,8 +23,8 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 class BucketListController extends Controller
 {
     /**
-     * @Route("/user-profile/{user}/{status}", defaults={"status" = null}, requirements={"status"="active-goals|completed-goals|all|", "user"="\d+"}, name="user_profile")
-     * @Route("/user-profile/{status}", name="user_profile_single")
+     * @Route("/profile/{status}", defaults={"status" = null}, name="user_profile_single", requirements={"status"="active-goals|completed-goals|all"})
+     * @Route("/profile/{user}/{status}", defaults={"status" = null}, requirements={"status"="active-goals|completed-goals|all|", "user"="[A-Za-z0-9]+"}, name="user_profile")
      * @Template()
      * @param User $user
      * @param $status
@@ -34,13 +34,6 @@ class BucketListController extends Controller
      */
     public function myListAction($user = null , $status = null , Request $request)
     {
-        // check route status
-        if(is_numeric($status) )
-        {
-            $user = $status;
-            $status = 'all';
-        }
-
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
@@ -48,7 +41,7 @@ class BucketListController extends Controller
         // get user by id
         if($user)
         {
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($user);
+            $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
         }
 
         // get dream
@@ -61,7 +54,6 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => $request->get('f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT) ? true : false,
         );
 
-
         if (!$user) {
             // get current user
             $user = $this->getUser();
@@ -73,16 +65,15 @@ class BucketListController extends Controller
         }
 
         // check statuses
-        if($status === 'active-goals')
-        {
-            $status = 1;
-        }
-        elseif ($status === 'completed-goals')
-        {
-            $status = 2;
-        }
-        else {
-            $status = 0;
+        switch($status) {
+            case 'active-goals':
+                $status = 1;
+                break;
+            case 'completed-goals':
+                $status = 2;
+                break;
+            default:
+                $status = 0;
         }
 
         // find all goals

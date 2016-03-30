@@ -59,6 +59,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="u_id", type="string", length=9)
+     * @Groups({"user", "tiny_user"})
+     */
+    protected $uId;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"}, fetch="EAGER")
      **/
     protected $userGoal;
@@ -1114,4 +1120,28 @@ class User extends BaseUser
     {
         return $this->updated;
     }
+
+    /**
+     * Set uId
+     *
+     * @param string $uId
+     * @return User
+     */
+    public function setUId($uId)
+    {
+        $this->uId = $uId;
+
+        return $this;
+    }
+
+    /**
+     * Get uId
+     *
+     * @return string 
+     */
+    public function getUId()
+    {
+        return $this->uId;
+    }
+
 }

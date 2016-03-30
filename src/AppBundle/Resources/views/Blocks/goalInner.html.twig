@@ -57,7 +57,7 @@
                     {% if images and images | length %}
                         <div id="main-slider" class="swiper-container">
                             <!-- Slides Container -->
-                            <div class="swiper-wrapper">
+                            <div {% if images| length > 1 %} class="swiper-wrapper" {% endif %}>
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">

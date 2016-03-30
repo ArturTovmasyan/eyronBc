@@ -47,7 +47,7 @@ Feature: My Bucket list
 
     And I follow "user1"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
 
     When I check subfilters "0"
     And I wait
@@ -87,7 +87,7 @@ Feature: My Bucket list
 
     And I follow "user2"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
 
     When I check subfilters "0"
     And I wait
