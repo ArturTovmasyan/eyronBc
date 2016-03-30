@@ -60,7 +60,7 @@
                         </div>
 
                         {#<iframe data-ng-show="videolink" width="100%" height="500" data-ng-src="[[ trustedUrl(videolink) ]]" frameborder="0" allowfullscreen></iframe>#}
-                        <youtube-video data-ng-show="videolink" video-url="videolink" player-height="'500px'" player-width="'100%'"></youtube-video>
+                        <embed-video data-ng-show="videolink" data-ng-href="[[ videolink ]]" height="'500px'" width="'100%'"></embed-video>
 
                         <div class="form-group text-center bottom">
                             <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-purple button-lg">

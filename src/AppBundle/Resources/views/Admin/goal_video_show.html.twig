@@ -2,11 +2,11 @@
 
 {% block field %}
     {% for k,videoLink in value %}
-        <youtube-video
-           player-width="'420px'"
-           player-height="'315px'"
+        <embed-video
+           width="'420px'"
+           height="'315px'"
            data-ng-init="adminShowVideos[{{ k }}]='{{ videoLink }}'"
-           video-url="adminShowVideos[{{ k }}]">
-        </youtube-video>
+           data-ng-href="{{ videoLink }}">
+        </embed-video>
     {% endfor %}
 {% endblock %}

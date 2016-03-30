@@ -248,12 +248,12 @@
                                     <br />
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <youtube-video
+                                            <embed-video
                                                 data-ng-init="mainSliderVideo='{{ v }}'"
-                                                video-url="mainSliderVideo"
-                                                player-height="'360px'"
-                                                player-width="'100%'">
-                                            </youtube-video>
+                                                data-ng-href="[[ mainSliderVideo ]]"
+                                                height="'360px'"
+                                                width="'100%'">
+                                            </embed-video>
                                         </div>
                                     </div>
                                 {% else %}
@@ -264,12 +264,12 @@
                                                 {% for k, video in goal.videoLink %}
                                                     {% if video %}
                                                         <div class="swiper-slide">
-                                                            <youtube-video u="image"
-                                                               player-width="'100%'"
-                                                               player-height="'300px'"
+                                                            <embed-video u="image"
+                                                               width="'100%'"
+                                                               height="'300px'"
                                                                data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
-                                                               video-url="mainSliderVideo[{{ k }}]">
-                                                            </youtube-video>
+                                                               data-ng-href="[[ mainSliderVideo[{{ k }}] ]]">
+                                                            </embed-video>
                                                         </div>
                                                     {% endif %}
                                                 {% endfor %}
@@ -381,12 +381,12 @@
                                                     <div class="col-sm-12">
                                                         {#<figure>#}
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
-                                                            <youtube-video
-                                                                video-url="storySliderVideo[{{ key }}]"
+                                                            <embed-video
+                                                                data-ng-href="[[ storySliderVideo[{{ key }}] ]]"
                                                                 data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                player-height="'360px'"
-                                                                player-width="'700px'">
-                                                            </youtube-video>
+                                                                height="'360px'"
+                                                                width="'700px'">
+                                                            </embed-video >
                                                         {#</figure>#}
                                                     </div>
                                                 </div>
@@ -399,13 +399,13 @@
                                                                 {% for k,video in videos %}
                                                                     {% if video %}
                                                                         <div class="swiper-slide">
-                                                                            <youtube-video
+                                                                            <embed-video
                                                                                 u="image"
                                                                                 data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                                player-width="'100%'"
-                                                                                player-height="'350px'"
-                                                                                video-url="storySliderVideo[{{ key }}][{{ k }}]">
-                                                                            </youtube-video>
+                                                                                width="'100%'"
+                                                                                height="'350px'"
+                                                                                data-ng-href="[[ storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                            </embed-video>
                                                                         </div>
                                                                     {% endif %}
                                                                 {% endfor %}
