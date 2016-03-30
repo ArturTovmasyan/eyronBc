@@ -156,4 +156,25 @@ class UserRepository extends EntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * This repository find unique users by id limit
+     *
+     * @param $begin
+     * @param $limit
+     * @return array
+     */
+    public function findByLimit($begin, $limit)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                            FROM ApplicationUserBundle:User u
+                            WHERE u.uId LIKE ''
+                            OR u.uId is NULL
+                            ORDER BY u.id ASC ")
+            ->setFirstResult($begin)
+            ->setMaxResults($limit)
+            ->getResult()
+            ;
+    }
 }

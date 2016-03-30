@@ -90,6 +90,15 @@ class DoctrineListener
             // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
+                do{
+                    $string = $this->container->get('bl_random_id_service')->randomString()?$this->container->get('bl_random_id_service')->randomString():"";
+                    $isUser = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $string));
+                }
+                while($isUser);
+
+                $entity->setUId($string);
+                $metadata = $em->getMetadataFactory()->getMetadataFor('ApplicationUserBundle:User');
+                $uow->recomputeSingleEntityChangeSet($metadata, $entity);
             }
         }
 

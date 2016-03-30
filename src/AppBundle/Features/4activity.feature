@@ -39,7 +39,7 @@ Feature: Activity
     And I should be on "/activity"
 
     When I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     And I should see "Active"
     And I should see "Completed"
     When I am on "/"
