@@ -25,6 +25,18 @@
             <bdi>{{ 'completed'|trans | capitalize}}</bdi>
         </li>
 
+        <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal === 2">
+            <a  href="javascript:void(0)"
+                data-ls-jquery-modal
+                data-ls-template-url="{{ app.debug ? '/app_dev.php':'' }}/goal/add-story/[[ activity.goal.id ]]"
+                data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
+                class="btn btn-transparent"
+                id="successtory">
+                <i class="icon ok-icon-green"></i>
+                {{ 'successtory'|trans | capitalize }}
+            </a>
+        </li>
+
     {% if inner is not defined %}
         <li class="col-xs-4">
             <div class="addthis_native_toolbox"

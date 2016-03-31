@@ -3,6 +3,16 @@
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="activities" xmlns="http://www.w3.org/1999/html"> {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
+    <style>
+        html {
+            overflow-y: auto !important;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
     {{ parent() }}
@@ -157,6 +167,18 @@
         </div>
     </div>
 {% endmacro %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_mybucketlist.js'
+    'app/bower_components/dropzone/downloads/dropzone.min.js'
+    'bundles/app/js/storyImages.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
 
 {%- block title -%}
     {{ 'activities.title'|trans }}
