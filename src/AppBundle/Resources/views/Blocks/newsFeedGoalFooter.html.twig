@@ -9,32 +9,23 @@
             <bdi>{{ 'add'|trans | capitalize}}</bdi>
         </a>
     </li>
+
     <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal !== 0">
         <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
         <bdi>{{ 'added'|trans | capitalize}}</bdi>
     </li>
 
-        <li class="col-xs-4 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2">
-            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ activity.goal.id ]]">
-                <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                <bdi>{{ 'done'|trans | capitalize }}</bdi>
-            </a>
-        </li>
-        <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal === 2">
-            <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-            <bdi>{{ 'completed'|trans | capitalize}}</bdi>
-        </li>
+    <li class="col-xs-4 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2">
+        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ activity.goal.id ]]">
+            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+            <bdi>{{ 'done'|trans | capitalize }}</bdi>
+        </a>
+    </li>
 
-        <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal === 2">
-            <a href="javascript:void(0)"
-               data-ls-jquery-modal
-               data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
-               data-ls-template-url="{{ app.debug ? '/app_dev.php':'' }}/goal/add-story/[[ activity.goal.id ]]"
-               id="successtory">
-                <i class="icon ok-icon-green"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                <bdi>{{ 'successtory'|trans | capitalize }}</bdi>
-            </a>
-        </li>
+    <li class="col-xs-4 transparent ng-hide" data-ng-show="activity.goal.is_my_goal && activity.goal.is_my_goal === 2">
+        <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        <bdi>{{ 'completed'|trans | capitalize}}</bdi>
+    </li>
 
     {% if inner is not defined %}
         <li class="col-xs-4">
