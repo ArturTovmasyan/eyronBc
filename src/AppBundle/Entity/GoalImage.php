@@ -86,6 +86,24 @@ class GoalImage
     }
 
     /**
+     * @VirtualProperty
+     * @Groups({"image"})
+     */
+    public function getImageSize()
+    {
+        //get image size
+        $size = getimagesize($this->getAbsolutePath().$this->getFileName());
+
+        //get image width
+        $width = $size[0];
+
+        //get image height
+        $height = $size[1];
+
+        return array('width' => $width, 'height' => $height);
+    }
+
+    /**
      * Get id
      *
      * @return integer 
