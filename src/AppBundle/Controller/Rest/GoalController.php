@@ -329,7 +329,7 @@ class GoalController extends FOSRestController
                 $em->flush();
             }
 
-            return new Response('', Response::HTTP_OK);
+            return $goalImage->getId();
         }
 
         return new Response('', Response::HTTP_NOT_FOUND);
