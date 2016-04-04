@@ -14,6 +14,8 @@ Feature: Activity
     And I wait for angular
     And I scroll page to "modal-bottom"
     And I change switch "2"
+    And I wait for view
+    And I change switch "2"
     And  I click on "btn btn-purple button-lg"
     And I wait for angular
     And I scroll page to ".information"
