@@ -294,9 +294,6 @@ class GoalController extends FOSRestController
                 return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
             }
         }
-        else{
-            return new Response("Invalid url parameters id", Response::HTTP_BAD_REQUEST);
-        }
 
         // get all files form request
         $file = $request->files->get('file');
