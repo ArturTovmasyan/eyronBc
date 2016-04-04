@@ -379,15 +379,15 @@
                                                 {% set v = videos[0] %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        {#<figure>#}
+                                                        <figure>
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
                                                             <embed-video
                                                                 data-ng-href="[[ storySliderVideo[{{ key }}] ]]"
                                                                 data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                height="'360px'"
-                                                                width="'700px'">
+                                                                height="360px"
+                                                                width="700px">
                                                             </embed-video >
-                                                        {#</figure>#}
+                                                        </figure>
                                                     </div>
                                                 </div>
                                             {% else %}
