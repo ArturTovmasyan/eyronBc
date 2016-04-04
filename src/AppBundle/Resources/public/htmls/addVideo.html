@@ -11,8 +11,8 @@
        data-ng-click="removeItem()" class="remove-icon">
     <span class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
     </a>
-
-    <embed-video data-ng-href="[[link]]" width="320px" height="420px"></embed-video>
+    
+    <embed-video data-ng-href="[[link?link:' ']]" width="320px" height='420px' ></embed-video>
 
     <!--<iframe data-ng-show="link"-->
         <!--width="100%"-->
