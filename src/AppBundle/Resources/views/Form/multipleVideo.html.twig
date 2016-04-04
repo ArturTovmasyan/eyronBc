@@ -21,6 +21,10 @@
             data-key="k"
             data-limit="3"
             data-link="video.link"
+            {% if app.request.attributes.get('_route') == "admin-goal_create" or
+                app.request.attributes.get('_route') == "admin-goal_edit" %}
+                data-for="admin"
+            {% endif %}
             data-array="videos">
         </videos>
     </div>
