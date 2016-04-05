@@ -66,6 +66,7 @@
                 {% endif %}
 
                 <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
+                {% set doDate = data.doDate ? data.doDate|date("d") : "now"|date("d") %}
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -77,7 +78,11 @@
                     <div class="col-sm-6">
                         <div id="secondPicker"
                              data-ng-hide="complete.switch"
-                             data-date="{{ data.doDate ? data.doDate|date_modify("+1 month")|date("m/d/Y") : "now"|date_modify("+1 month")|date("m/d/Y") }}"
+                             {% if doDate == 31 or doDate == 30 or doDate == 29 %}
+                                data-date="{{ data.doDate ? data.doDate|date_modify("+10 day")|date("m/d/Y") : "now"|date_modify("+10 day")|date("m/d/Y") }}"
+                             {% else %}
+                                data-date="{{ data.doDate ? data.doDate|date_modify("+31 day")|date("m/d/Y") : "now"|date_modify("+31 day")|date("m/d/Y") }}"
+                             {% endif %}
                              style="color: black">
                         </div>
                     </div>
