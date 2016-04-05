@@ -674,12 +674,7 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                // generate url
-                $url = !is_null($request->get("btn_cancel"))
-                    ? 'remove_goal'
-                    : 'user_profile';
-
-                return $this->redirectToRoute($url, array('goal'=> $goal, 'user' => $user->getId()));
+                return $this->redirectToRoute('user_profile');
             }
         }
 

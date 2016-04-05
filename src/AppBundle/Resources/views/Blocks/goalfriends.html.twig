@@ -13,7 +13,7 @@
 
             {% for goalFriend in goalFriends|slice(0,2) %}
                 <li class="clearfix">
-                    <a href="{{ path('user_profile', {'user': goalFriend.id, 'status': 'all'}) }}">
+                    <a href="{{ path('user_profile', {'user': goalFriend.uId, 'status': 'all'}) }}">
 
                         <figure class="image">
                             {#{% if goalStatus == false %}#}

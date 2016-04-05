@@ -14,6 +14,8 @@ Feature: Activity
     And I wait for angular
     And I scroll page to "modal-bottom"
     And I change switch "2"
+    And I wait for view
+    And I change switch "2"
     And  I click on "btn btn-purple button-lg"
     And I wait for angular
     And I scroll page to ".information"
@@ -39,7 +41,7 @@ Feature: Activity
     And I should be on "/activity"
 
     When I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     And I should see "Active"
     And I should see "Completed"
     When I am on "/"

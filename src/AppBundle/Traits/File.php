@@ -8,6 +8,8 @@
 
 namespace AppBundle\Traits;
 
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
@@ -274,4 +276,23 @@ trait File
             unlink($tabletFilePath);
         }
     }
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"image"})
+     */
+    public function getImageSize()
+    {
+        //get image size
+        $size = getimagesize($this->getAbsolutePath().$this->getFileName());
+
+        //get image width
+        $width = $size[0];
+
+        //get image height
+        $height = $size[1];
+
+        return array('width' => $width, 'height' => $height);
+    }
+
 }

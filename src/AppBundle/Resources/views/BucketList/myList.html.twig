@@ -336,21 +336,21 @@
                     {% set dream = app.request.get('d') %}
                     {% set activeGoals = profileUser.getStats.active %}
                     {% set my_router_params =  app.request.query.all %}
-                    {% set userId = {} %}
+                    {% set userUId = {} %}
                     {% set routeName = 'user_profile_single' %}
                     {% if profileUser.id != app.user.id %}
-                        {% set userId = {'user' : profileUser.id} %}
+                        {% set userUId = {'user' : profileUser.uId} %}
                         {% set routeName = 'user_profile' %}
                     {% endif %}
 
                     <li {% if status == all %} class="active" {% endif %} >
-                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
                     </li>
                     <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
                     </li>
                     <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path(routeName, my_router_params|merge(userId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
+                        <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
@@ -504,7 +504,8 @@
                                                     </div>
                                                 </div>
 
-                                                <p>{% if goal.author.showName %}{{ goal.author.showName }}{% else %}&nbsp;{% endif %}</p>
+                                                <p>{% if goal.author ? goal.author.showName : ' ' %}{% endif %}</p>
+
                                                 <ul class="clearfix">
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
                                                         <li>

@@ -113,6 +113,11 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <!-- RandomId service -->
+        <service id="bl_random_id_service" class="AppBundle\Services\RandomIdService">
+            <argument type="service" id="service_container" />
+        </service>
+
         <!--  form for languages -->
         <service id="app.form.lng" class="AppBundle\Form\Type\LngType">
             <tag name="form.type" alias="lng" />

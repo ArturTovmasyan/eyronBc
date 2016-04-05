@@ -57,7 +57,7 @@
                     {% if images and images | length %}
                         <div id="main-slider" class="swiper-container">
                             <!-- Slides Container -->
-                            <div class="swiper-wrapper">
+                            <div {% if images| length > 1 %} class="swiper-wrapper" {% endif %}>
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
@@ -251,8 +251,8 @@
                                             <embed-video
                                                 data-ng-init="mainSliderVideo='{{ v }}'"
                                                 data-ng-href="[[ mainSliderVideo ]]"
-                                                height="'360px'"
-                                                width="'100%'">
+                                                height="360px"
+                                                width="100%">
                                             </embed-video>
                                         </div>
                                     </div>
@@ -265,8 +265,8 @@
                                                     {% if video %}
                                                         <div class="swiper-slide">
                                                             <embed-video u="image"
-                                                               width="'100%'"
-                                                               height="'300px'"
+                                                               width="100%"
+                                                               height="300px"
                                                                data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
                                                                data-ng-href="[[ mainSliderVideo[{{ k }}] ]]">
                                                             </embed-video>
@@ -379,15 +379,15 @@
                                                 {% set v = videos[0] %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        {#<figure>#}
+                                                        <figure>
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
                                                             <embed-video
                                                                 data-ng-href="[[ storySliderVideo[{{ key }}] ]]"
                                                                 data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                height="'360px'"
-                                                                width="'700px'">
+                                                                height="360px"
+                                                                width="100%">
                                                             </embed-video >
-                                                        {#</figure>#}
+                                                        </figure>
                                                     </div>
                                                 </div>
                                             {% else %}
@@ -402,8 +402,8 @@
                                                                             <embed-video
                                                                                 u="image"
                                                                                 data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                                width="'100%'"
-                                                                                height="'350px'"
+                                                                                width="100%"
+                                                                                height="360px"
                                                                                 data-ng-href="[[ storySliderVideo[{{ key }}][{{ k }}] ]]">
                                                                             </embed-video>
                                                                         </div>

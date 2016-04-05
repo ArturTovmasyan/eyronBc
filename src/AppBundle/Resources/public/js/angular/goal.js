@@ -230,16 +230,34 @@ angular.module('goal', ['Interpolation',
                 todayHighlight: true
             });
             angular.element('#secondPicker').datepicker({
-                format: "mm-yyyy",
-                startView: "months",
-                todayHighlight: "false",
-                minViewMode: "day"
+                beforeShowDay: function(){
+                    var cond = angular.element('#datepicker').data('datepicker-disable');
+                    if(cond){
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                },
+                todayHighlight: true
             });
 
+            angular.element("#secondPicker").find( "td" ).removeClass("active");
+
             angular.element("#datepicker").on("changeDate", function() {
+                angular.element("#secondPicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
                 angular.element(".hidden_date_value").val(
                     angular.element("#datepicker").datepicker('getFormattedDate')
+                );
+
+                $scope.$apply();
+            });
+            angular.element("#secondPicker").on("changeDate", function() {
+                angular.element("#datepicker").find( "td" ).removeClass("active");
+                $scope.datepicker_title = true;
+                angular.element(".hidden_date_value").val(
+                    angular.element("#secondPicker").datepicker('getFormattedDate')
                 );
 
                 $scope.$apply();

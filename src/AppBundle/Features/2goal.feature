@@ -22,7 +22,7 @@ Feature: Goal page
     When I am on "/logout"
     And I am logged in as "user2"
     Then I should see "user2 useryan"
-    When I am on "/user-profile"
+    When I am on "/profile"
     Then I should see "What are you doing here? Come on, add some goals"
     When I follow "Active"
     Then I should see "Your life needs goals, add some more"
@@ -33,7 +33,7 @@ Feature: Goal page
   Scenario: Open manage and let me change whatever I want
     When I follow "user1"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     When I scroll page to ".information"
     And I follow "Manage"
     And I wait for angular
@@ -79,10 +79,10 @@ Feature: Goal page
   Scenario: Done a goal
     When I follow "user1"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     When I scroll page to ".information"
     And I follow "Done"
-    Then I should be on "user-profile/completed-goals"
+    Then I should be on "profile/completed-goals"
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
@@ -138,7 +138,7 @@ Feature: Goal page
     And I change switch "3"
     When I follow "FORGET IT"
     And  I follow "DELETE"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     When I am on "/ideas"
     And I click on "icon-plus-icon"
     And I wait for angular
@@ -154,7 +154,7 @@ Feature: Goal page
     When I wait for angular
     And I follow "user1"
     And I follow "My Bucketlist"
-    Then I should be on "/user-profile"
+    Then I should be on "/profile"
     When I follow "Drafts"
     Then I should be on "/goal/drafts"
     And I should see "Edit"

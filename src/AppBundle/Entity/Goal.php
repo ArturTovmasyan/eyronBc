@@ -531,6 +531,21 @@ class Goal implements MultipleFileInterface, PublishAware
 
 
     /**
+     * @VirtualProperty
+     * @SerializedName("image_size")
+     * @return null
+     * @Groups({"tiny_goal", "goal"})
+     */
+    public function getListPhotoImageSize()
+    {
+        // get list image
+        $image = $this->getListPhoto();
+
+        // return download link
+        return $image ? $image->getImageSize() : null;
+    }
+
+    /**
      * @return bool|mixed
      */
     public function getCoverPhoto()

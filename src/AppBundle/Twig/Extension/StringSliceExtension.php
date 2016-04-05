@@ -38,7 +38,7 @@ class StringSliceExtension extends \Twig_Extension
         if(strlen($text) > 160) {
 
             //cut string
-            $content = substr($text, 0, 160);
+            $content = substr($text, 0, 160).".";
 
             //get last dot position
             $pos = strrpos($content, '.');
