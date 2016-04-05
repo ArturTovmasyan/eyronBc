@@ -501,6 +501,7 @@ angular.module('goal', ['Interpolation',
                 key: '=',
                 link: '=',
                 limit: '=',
+                for: '@',
                 formId: '@',
                 formName: '@'
             },
