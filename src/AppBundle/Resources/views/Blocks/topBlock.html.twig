@@ -32,7 +32,7 @@
 
         <div class="col-sm-8">
 
-            <h2 {% if goal.title|length > 40 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
+            <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">{{ goal.title }}</h2>
 
             {% if goal.author.showName is defined and goal.author.showName %}
                 <p>{{ goal.author.showName }}</p>

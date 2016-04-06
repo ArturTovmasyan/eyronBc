@@ -514,5 +514,79 @@ class UserController extends FOSRestController
 
         return $currentUser;
     }
+
+
+    /**
+     * This function is used to get apps string for mobile
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to get apps string for mobile",
+     *  statusCodes={
+     *         200="OK",
+     *         204="No content"
+     *     },
+     * )
+     * @Rest\View()
+     */
+    public function getAppStringAction()
+    {
+        //get file directory
+        $rootDir= __DIR__ . '/../../../../../bin/appString.txt';
+
+        if(file_exists($rootDir)) {
+
+            //open file
+            $file = fopen($rootDir ,'r');
+
+            //get string in file
+            $string = fread($file, filesize($rootDir));
+
+            //close file
+            fclose($file);
+        }
+        else{
+            return new Response('File with app string not exist', Response::HTTP_NO_CONTENT);
+        }
+
+        return $string;
+    }
+
+    /**
+     * This function is used to create apps string for mobile
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to create apps string for mobile",
+     *  statusCodes={
+     *         200="OK",
+     *         400="Bad request"
+     *     },
+     * )
+     * @Rest\View()
+     */
+    public function postAppStringAction($string)
+    {
+        if(!$string) {
+            return new Response('Invalid string parameters', Response::HTTP_BAD_REQUEST);
+        }
+
+        //get file directory
+        $rootDir= __DIR__ . '/../../../../../bin/appString.txt';
+
+        //open file
+        $file = fopen($rootDir ,'w');
+
+        //write string code in file
+        fwrite($file, $string);
+
+        //close file
+        fclose($file);
+
+        return new Response('', Response::HTTP_OK);
+
+    }
 }
 
