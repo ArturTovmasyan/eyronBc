@@ -504,7 +504,7 @@
                                                     </div>
                                                 </div>
 
-                                                <p>{% if goal.author ? goal.author.showName : ' ' %}{% endif %}</p>
+                                                <p>{% if goal.author ? goal.author.showName : ' ' %} {{ goal.author.showName }}{% else %} &nbsp;{% endif %}</p>
 
                                                 <ul class="clearfix">
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}

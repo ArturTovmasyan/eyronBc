@@ -114,7 +114,7 @@ user_goal:
 # success story form
 success_story:
       complete_text: Write a success story
-      title: Write a success story , please !
+      title: Write a success story, please !
       description: Success story ...
       files: Files
       url: Video URL: https://www...
