@@ -524,8 +524,8 @@ class UserController extends FOSRestController
      *  section="User",
      *  description="This function is used to get apps string for mobile",
      *  statusCodes={
-     *         200="Returned when status changed",
-     *         400="Bad request"
+     *         200="OK",
+     *         204="No content"
      *     },
      * )
      * @Rest\View()
@@ -561,7 +561,7 @@ class UserController extends FOSRestController
      *  section="User",
      *  description="This function is used to create apps string for mobile",
      *  statusCodes={
-     *         200="Returned when status changed",
+     *         200="OK",
      *         400="Bad request"
      *     },
      * )
