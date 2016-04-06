@@ -535,7 +535,7 @@ class UserController extends FOSRestController
         //get file directory
         $rootDir= __DIR__ . '/../../../../../bin/appString.txt';
 
-        if(file_exists($rootDir)) {
+        if(file_exists($rootDir) || is_file($rootDir)) {
 
             //open file
             $file = fopen($rootDir ,'r');
