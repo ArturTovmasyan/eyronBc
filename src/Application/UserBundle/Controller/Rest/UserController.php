@@ -577,7 +577,7 @@ class UserController extends FOSRestController
         $rootDir= __DIR__ . '/../../../../../bin/appString.txt';
 
         //open file
-        $file = fopen($rootDir ,'w');
+        $file = fopen($rootDir ,'w+');
 
         //write string code in file
         fwrite($file, $string);
