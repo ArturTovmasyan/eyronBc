@@ -31,9 +31,7 @@ Feature: Idea
     And I wait for angular
     And I follow "Add"
     And I wait for angular
-    Then I should see "SIGN IN"
-    When I follow "JOIN"
-    And I follow "DONE"
+    And I follow "JOIN"
     And I wait for angular
-    Then I should see "SIGN IN"
+#    Then I should see "SIGN IN"
 
