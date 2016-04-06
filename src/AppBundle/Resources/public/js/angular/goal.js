@@ -540,6 +540,10 @@ angular.module('goal', ['Interpolation',
                     }
                 }
 
+                scope.isVideoLink = function(url){
+                    if(!url || url.indexOf("https:/") == -1)return false;
+                    return true;
+                };
                 scope.trustedUrl = function(url){
                     return $sce.trustAsResourceUrl(url);
                 };
