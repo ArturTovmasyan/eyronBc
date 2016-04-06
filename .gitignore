@@ -7,7 +7,6 @@
 /app/phpunit.xml
 /bin/*
 !/bin/behat.sh
-!/bin/appString.txt
 /composer.phar
 /vendor/
 /web/bundles/
