@@ -24,14 +24,16 @@ Feature: Idea
   Scenario: Open ideas page and check Add, Done, Share links
     Given I am on "/ideas"
     And I should see "Explore over thousand great ideas"
-    And I wait for view
+    And I wait
     And I click on "addthis_button_compact"
     And I wait for angular
     And I follow "Close"
-    And I wait for angular
+#    And I wait for angular
     And I follow "Add"
-    And I wait for angular
-    And I follow "JOIN"
-    And I wait for angular
-#    Then I should see "SIGN IN"
+    And I wait
+    Then I should see "SIGN IN"
+    When I follow "JOIN"
+    And I follow "DONE"
+    And I wait
+    Then I should see "SIGN IN"
 
