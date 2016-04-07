@@ -55,7 +55,7 @@ class NewFeedRepository extends EntityRepository
                            LEFT JOIN AppBundle:UserGoal ug WITH ug.user = u AND ug.goal = g
                            LEFT JOIN nf.successStory ss
                            LEFT JOIN nf.comment cmt
-                           WHERE u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)
+                           WHERE u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE
                            ORDER BY nf.datetime DESC")
             ->setParameter('ids', $goalFriendsIds)
             ->getResult();
@@ -111,6 +111,7 @@ class NewFeedRepository extends EntityRepository
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('nf.comment','cmt')
             ->where('u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)')
+            ->andWhere('g.publish = true')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('ids', $goalFriendsIds);
 
