@@ -217,6 +217,18 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
+            angular.element("#goal-add-form").ajaxForm({
+                beforeSubmit: function(){
+                    $scope.$apply();
+                },
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        angular.element('#cancel').click();
+                        $scope.$apply();
+
+                    }
+                }
+            });
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
