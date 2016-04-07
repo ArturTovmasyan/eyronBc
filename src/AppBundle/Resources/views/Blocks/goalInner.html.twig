@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="goal-information">
-                        <ul class="row goal-links">
+                        <ul class="row goal-links" data-ng-init="added = true">
 
                             {% if page == inner %}
                                 {% set xs = 6 %}
@@ -91,8 +91,9 @@
                                 {% endif %}
                                 {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
-                                    <li class="col-xs-{{ xs }}">
+                                    <li class="col-xs-{{ xs }}" data-ng-init="added = false" data-ng-show="!added">
                                         <a href="javascript:void(0)"
+                                           data-ng-click="added = true"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
@@ -100,12 +101,12 @@
                                             <bdi>{{ 'add'|trans }}</bdi>
                                         </a>
                                     </li>
-                                {% else %}
-                                    <li class="col-xs-{{ xs }} transparent">
-                                        <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                        <bdi>{{ 'added'|trans | upper}}</bdi>
-                                    </li>
                                 {% endif %}
+                                <li class="col-xs-{{ xs }} transparent" data-ng-show="{{ goal.isMyGoal }} || added">
+                                    <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                    <bdi>{{ 'added'|trans | upper}}</bdi>
+                                </li>
+
 
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}

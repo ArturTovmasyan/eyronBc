@@ -428,6 +428,8 @@
                                         <div class="img-circle">
                                             {% if userGoal.doDate is not null %}
                                                 {{ userGoal.doDate|date('d') }}
+                                            {% elseif userGoal.completionDate is not null%}
+                                                {{ userGoal.completionDate|date('d') }}
                                             {% else %}
                                                 <bdi class="dreaming">
                                                     <i class="icon-dreaming"></i>
@@ -441,6 +443,8 @@
                                             <div class="text-gray">
                                                 {% if userGoal.doDate is not null %}
                                                     {{ userGoal.doDate|date('M, Y') }}
+                                                {% elseif userGoal.completionDate is not null%}
+                                                    {{ userGoal.completionDate|date('M, Y') }}
                                                 {% else %}
                                                     {{ 'dreaming'|trans }}
                                                 {% endif %}

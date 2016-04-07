@@ -43,9 +43,9 @@ framework:
     trusted_proxies: ~
     session:
         # handler_id set to null will use default session handler from php.ini
-        cookie_lifetime: 86400
-        gc_maxlifetime: 1800
-        handler_id:  ~
+#        cookie_lifetime: 86400
+#        gc_maxlifetime: 1800
+#        handler_id:  ~
         gc_probability: 0
         save_path: ~
     fragments:       ~
