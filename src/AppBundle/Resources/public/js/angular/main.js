@@ -44,7 +44,6 @@ angular.module('main',['mgcrea.ngStrap.modal',
         };
 
         $scope.onMarkerClick = function(goal){
-            console.log(goal);
             $scope.mapPopup = goal;
             $modal({scope: $scope, templateUrl: '/bundles/app/htmls/mapPopup.html',show: true});
         };
