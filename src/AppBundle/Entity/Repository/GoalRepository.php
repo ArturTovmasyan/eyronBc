@@ -228,15 +228,28 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         }
 
         if (is_numeric($first) && is_numeric($count)){
-            $ids = $this->getEntityManager()
-                ->createQueryBuilder()
+
+            if(!$search && !$category ){
+                $ids = $this->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('g.id', 'count(ug) as HIDDEN  cnt')
+                    ->from('AppBundle:Goal', 'g', 'g.id')
+                    ->leftJoin('g.userGoal', 'ug')
+                    ->leftJoin('g.images', 'i', 'with', 'i.list = true')
+                    ->where('g.publish = :publish')
+                    ->groupBy('g.id')
+                    ->orderBy('cnt', 'desc')
+                    ->setParameter('publish', PublishAware::PUBLISH);
+                if($locale){
+                    $ids->andWhere('g.language  = :lng OR g.language is null')
+                        ->setParameter('lng', $locale);
+                }
+                $idsQuery = clone $ids;
+            }else{
+                $idsQuery = clone $query;
+            }
+            $ids = $idsQuery
                 ->select('g.id', 'count(ug) as HIDDEN  cnt')
-                ->from('AppBundle:Goal', 'g', 'g.id')
-                ->leftJoin('g.userGoal', 'ug')
-                ->where('g.publish = :publish')
-                ->groupBy('g.id')
-                ->orderBy('cnt', 'desc')
-                ->setParameter('publish', PublishAware::PUBLISH)
                 ->getQuery()
                 ->getResult()
             ;
