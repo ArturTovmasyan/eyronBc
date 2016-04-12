@@ -89,17 +89,24 @@ class UserAdmin extends Admin
      */
     public function createQuery($context = 'list')
     {
+        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+
         $query = parent::createQuery($context);
-        $query->andWhere($query->getRootAliases()[0]. ".roles LIKE :roleAdmin or ". $query->getRootAliases()[0]. ".roles LIKE :roleSuper");
-        $query->setParameter('roleAdmin', '%ROLE_SUPER_ADMIN%');
-        $query->setParameter('roleSuper', '%ROLE_ADMIN%');
+
+        //check if user has ROLE_GOD
+        if (!$user->hasRole('ROLE_GOD')) {
+
+            $query->andWhere($query->getRootAliases()[0] . ".roles LIKE :roleAdmin or " . $query->getRootAliases()[0] . ".roles LIKE :roleSuper");
+            $query->setParameter('roleAdmin', '%ROLE_SUPER_ADMIN%');
+            $query->setParameter('roleSuper', '%ROLE_ADMIN%');
+        }
+
         return $query;
     }
 
     public function prePersist($object)
     {
         $object->addRole("ROLE_ADMIN");
-        $object->addRole("ROLE_SUPER_ADMIN");
         $object->addRole("ROLE_SUPER_ADMIN");
     }
 }
