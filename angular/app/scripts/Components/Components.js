@@ -7,6 +7,38 @@ angular.module('Components',[])
             $timeout(function(){
                 var logged = angular.element(".user");
                 var notLogged = angular.element('.sign-in-popover');
+                var openPopover = function(notLogged, logged, dir){
+                    var middleScopeSignIn = notLogged.scope();
+                    var popoverScopeSignIn = middleScopeSignIn.$$childTail;
+
+                    if(logged.length) {
+                        var middleScopeSigned = logged.scope();
+                        var popoverScopeSigned = middleScopeSigned.$$childTail;
+                    }
+
+                    if(!dir) {
+                        if (!popoverScopeSignIn.$isShown) {
+                            popoverScopeSignIn.$show();
+                            middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
+                        }
+
+                        if (popoverScopeSigned && popoverScopeSigned.$isShown) {
+                            popoverScopeSigned.$hide();
+                            middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
+                        }
+                    }
+                    else {
+                        if (popoverScopeSigned && !popoverScopeSigned.$isShown) {
+                            popoverScopeSigned.$show();
+                            middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
+                        }
+
+                        if (popoverScopeSignIn.$isShown) {
+                            popoverScopeSignIn.$hide();
+                            middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
+                        }
+                    }
+                };
 
                 if(logged.length){
                     if(!dir) {
@@ -27,37 +59,11 @@ angular.module('Components',[])
                     }
 
                     $rootScope.$on('openClosePopover', function(){
-                        var middleScopeSignIn = notLogged.scope();
-                        var popoverScopeSignIn = middleScopeSignIn.$$childTail;
-
-                        if(logged.length) {
-                            var middleScopeSigned = logged.scope();
-                            var popoverScopeSigned = middleScopeSigned.$$childTail;
-                        }
-
-                        if(!dir) {
-                            if (!popoverScopeSignIn.$isShown) {
-                                popoverScopeSignIn.$show();
-                                middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
-                            }
-
-                            if (popoverScopeSigned && popoverScopeSigned.$isShown) {
-                                popoverScopeSigned.$hide();
-                                middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
-                            }
-                        }
-                        else {
-                            if (popoverScopeSigned && !popoverScopeSigned.$isShown) {
-                                popoverScopeSigned.$show();
-                                middleScopeSigned.joinToggle1 = !middleScopeSigned.joinToggle1;
-                            }
-
-                            if (popoverScopeSignIn.$isShown) {
-                                popoverScopeSignIn.$hide();
-                                middleScopeSignIn.joinToggle2 = !middleScopeSignIn.joinToggle2;
-                            }
-                        }
+                        openPopover(notLogged, logged, dir);
                     });
+                    $timeout(function(){
+                        openPopover(notLogged, logged, dir);
+                    },1500);
                 }
             }, 300);
         }

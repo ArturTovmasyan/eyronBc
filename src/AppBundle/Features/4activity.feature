@@ -18,6 +18,7 @@ Feature: Activity
     And I change switch "2"
     And  I click on "btn btn-purple button-lg"
     And I wait for angular
+    And I am on "/profile"
     And I scroll page to ".information"
     And I click on "btn btn-transparent"
     And I wait

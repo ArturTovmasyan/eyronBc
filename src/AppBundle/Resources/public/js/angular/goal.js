@@ -40,12 +40,19 @@ angular.module('goal', ['Interpolation',
             this.start = 0;
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url, search) {
-            if (this.busy) return;
+        lsInfiniteItems.prototype.nextPage = function(url, search, category) {
+            if (this.busy) {
+                return;
+            }
+
+            if (!category) {
+                category = "";
+            }
+
             this.busy = true;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
-            url += '?search=' + search;
+            url += '?search=' + search+ '&category=' + category;
             $http.get(url).success(function(data) {
                 this.items = this.items.concat(data);
                 this.start += this.count;
@@ -217,6 +224,18 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
+            angular.element("#goal-add-form").ajaxForm({
+                beforeSubmit: function(){
+                    $scope.$apply();
+                },
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        angular.element('#cancel').click();
+                        $scope.$apply();
+
+                    }
+                }
+            });
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
@@ -397,7 +416,7 @@ angular.module('goal', ['Interpolation',
                         $scope.Ideas.reset();
                         $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
                     };
-                }, 1000);
+                }, 1500);
             }
 
             angular.forEach(d, function(item) {

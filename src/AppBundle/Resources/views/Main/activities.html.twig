@@ -145,7 +145,7 @@
                 <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" id="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ activity.goal.title ]]</h3>
-                    <img data-ng-src="[[ activity.goal.cached_image ]]" alt="[[ activity.goal.title ]]"/>
+                    <img data-ng-if="activity.goal.image_path" data-ng-src="[[ activity.goal.cached_image ]]" alt="[[ activity.goal.title ]]"/>
                 </a>
                 <figcaption>
                     {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}

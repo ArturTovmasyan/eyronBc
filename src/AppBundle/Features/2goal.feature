@@ -47,6 +47,7 @@ Feature: Goal page
     And I change switch "3"
     And I press "Save"
     Then I should see "user1 useryan"
+    And I wait for angular
     When I scroll page to ".information"
     And I follow "Manage"
     And I wait for angular

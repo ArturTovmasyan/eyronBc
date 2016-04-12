@@ -58,7 +58,7 @@
 
     <div class="container ideas-list"
          data-ng-cloak
-         infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search)'
+         infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
          infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          infinite-scroll-distance='2'>
         {% set searchResult = app.request.get('search') %}
