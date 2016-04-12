@@ -84,7 +84,22 @@ angular.module('goal', ['Interpolation',
                 popoverScope.$show();
                 middleScope.joinToggle2 = !middleScope.joinToggle2;
             }
-        }
+        };
+
+        $timeout(function(){
+            angular.element("#goal-done-form").ajaxForm({
+                beforeSubmit: function(){
+                    $scope.$apply();
+                },
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        angular.element('#cancel').click();
+                        $scope.$apply();
+
+                    }
+                }
+            });
+        },500);
 
         angular.element('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
@@ -451,10 +466,26 @@ angular.module('goal', ['Interpolation',
         $scope.Activities = new lsInfiniteItems(3);
 
     }])
-    .controller('goalFooter', ['$scope', function($scope){}])
+    .controller('goalFooter', ['$scope', '$http', function($scope, $http){
+        $scope.completed = true;
+        $scope.addDone = function(path, id){
+            $http.get(path)
+                .success(function(res){
+                    $scope.completed = false;
+                    angular.element('#'+id).click();
+                });
+        };
+    }])
     .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
 
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
+        $scope.addDone = function(path, id){
+            $http.get(path)
+                .success(function(res){
+                    $scope.success = true;
+                    angular.element('#'+id).click();
+                });
+        };
 
         $scope.onMarkerClick = function(goal){
             $http.get(mapModalTemplateUrl)

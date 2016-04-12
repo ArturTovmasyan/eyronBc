@@ -12,7 +12,7 @@ Feature: Activity
     And I am on "/goal/goal9"
     And I follow "ADD"
     And I wait for angular
-    And I scroll page to "modal-bottom"
+    And I scroll page to ".modal-bottom"
     And I change switch "2"
     And I wait for view
     And I change switch "2"
@@ -21,6 +21,9 @@ Feature: Activity
     And I am on "/profile"
     And I scroll page to ".information"
     And I click on "btn btn-transparent"
+    And I wait for angular
+    And I scroll page to ".btn btn-transparent button-lg"
+    And I click on "btn btn-transparent button-lg"
     And I wait
     And I scroll page to ".information"
     Then I should see "SUCCESS STORY"

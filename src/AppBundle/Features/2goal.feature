@@ -83,6 +83,7 @@ Feature: Goal page
     Then I should be on "/profile"
     When I scroll page to ".information"
     And I follow "Done"
+    And I am on "profile/completed-goals"
     Then I should be on "profile/completed-goals"
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
