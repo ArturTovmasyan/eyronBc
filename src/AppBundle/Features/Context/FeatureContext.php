@@ -40,7 +40,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWaitForView()
     {
-        $this->getSession()->wait(4000);
+        $this->getSession()->wait(3000);
     }
 
     /**
