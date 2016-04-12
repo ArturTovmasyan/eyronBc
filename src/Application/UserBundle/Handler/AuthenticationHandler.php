@@ -70,7 +70,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             $session->remove('url');
 
         }
-        elseif ($user && $user->isAdmin()) {
+        elseif ($user && ($user->isAdmin() || $user->hasRole('ROLE_GOD'))) {
             $url = $this->router->generate('sonata_admin_dashboard');
         }
         else {

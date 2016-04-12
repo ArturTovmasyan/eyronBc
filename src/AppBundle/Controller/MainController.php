@@ -218,7 +218,7 @@ class MainController extends Controller
      *
      * @Route("/moderator/statistic", name="statistic_view")
      * @Template()
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      */
     public function statisticAction()
     {
