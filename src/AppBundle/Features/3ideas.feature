@@ -25,8 +25,8 @@ Feature: Idea
   Scenario: Open ideas page and check Add, Done, Share links
     Given I am on "/ideas"
     And I should see "Explore over thousand great ideas"
-    And I wait for angular
-    And I click on "atstbx"
+    And I wait for view
+    And I click on "addthis_button_expanded"
     And I wait for angular
     And I follow "Close"
     And I wait for angular
