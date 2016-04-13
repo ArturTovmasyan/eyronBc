@@ -75,6 +75,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user2->setCreated(new \DateTime('now')
         );
 
+        $manager->persist($user2);
+
         // create user
         $user3 = new User();
         $user3->setFirstName('user');
@@ -86,7 +88,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user3->setCreated(new \DateTime('now')
         );
 
-        $manager->persist($user2);
+        $manager->persist($user3);
 
         $manager->flush();
 

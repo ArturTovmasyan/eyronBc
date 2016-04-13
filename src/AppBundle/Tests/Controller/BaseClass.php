@@ -253,14 +253,12 @@ class BaseClass extends WebTestCase
 
         $userGoalIds = array();
 
-        for($i = 0; $i<count($userGoals); $i++)
-        {
-            $userGoalIds[] =
-                array(
-                    'file'.$i => $userGoals[$i]->getId()
-                );
+        $userGoal = reset($userGoals);
 
-        }
+        $userGoalIds[] =
+            array(
+                'file'. 1 => $userGoal->getId()
+            );
 
         return $userGoalIds;
     }

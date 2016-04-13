@@ -95,6 +95,7 @@ class UserGoalControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-goal getDoneAction rest!");
         }
     }
+
     /**
      * this function try to test postBucketlistAction
      *
@@ -123,7 +124,6 @@ class UserGoalControllerTest extends BaseClass
         }
 
     }
-
 
     /**
      * this function use to test user-goal delete action
