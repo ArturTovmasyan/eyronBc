@@ -102,7 +102,7 @@
                                         </a>
                                     </li>
                                 {% endif %}
-                                <li class="col-xs-{{ xs }} transparent" data-ng-show="{{ goal.isMyGoal }} || added">
+                                <li class="col-xs-{{ xs }} transparent ng-hide" data-ng-show="{% if goal.isMyGoal %}true{% else %}false{% endif %} || added">
                                     <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
                                     <bdi>{{ 'added'|trans | upper}}</bdi>
                                 </li>

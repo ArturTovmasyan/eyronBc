@@ -132,7 +132,7 @@
             <a href="javascript:void(0)"
                data-ng-cloak
                data-ng-show="!Ideas.busy && Ideas.request >= 2"
-               data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search)'
+               data-ng-click='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
                class="show-more ng-hide">
                 <span></span>
                 <span></span>
