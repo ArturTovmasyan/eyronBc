@@ -162,7 +162,7 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        $file = end($files);
+        $file = reset($files);
 
         $fileNames[] =
             array(
@@ -229,7 +229,6 @@ class BaseClass extends WebTestCase
                 array(
                     'file'.$i => $goals[$i]->getId()
                 );
-
         }
 
         return $goalIds;

@@ -284,7 +284,7 @@ trait File
     public function getImageSize()
     {
         //get image size
-        $size = getimagesize($this->getAbsolutePath().$this->getFileName());
+        $size = @getimagesize($this->getAbsolutePath().$this->getFileName());
 
         //get image width
         $width = $size[0];
