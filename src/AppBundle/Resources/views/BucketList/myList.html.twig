@@ -464,7 +464,11 @@
 
                                                 <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}">
                                                     <span class="overlay"></span>
-                                                    <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ goal.title }}" />
+
+                                                    {% if goal.getListPhotoDownloadLink() %}
+                                                        <img src="{{ goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" />
+                                                    {% endif %}
+
                                                 </a>
 
                                                 <figcaption>
