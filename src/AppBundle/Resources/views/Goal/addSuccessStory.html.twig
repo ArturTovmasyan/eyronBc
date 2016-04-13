@@ -27,7 +27,7 @@
                 <div>
                     {{ form_errors(form) }}
 
-                    <form action="{{ app.request.requestUri }}" method="post" enctype="multipart/form-data">
+                    <form id="goal-done-form" action="{{ app.request.requestUri }}" method="post" enctype="multipart/form-data">
 
                         <div class="form-group row">
                             <div class="col-sm-12">
@@ -63,7 +63,7 @@
 
                         <div class="form-group text-center bottom">
                             <input type="submit" name="add_story" value="{{ 'btn_save'|trans }}" class="btn btn-purple button-lg">
-                            <a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
+                            <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
                         </div>
 
                         {{ form_widget(form._token) }}

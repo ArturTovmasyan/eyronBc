@@ -78,7 +78,7 @@ class Builder extends ContainerAware
         if($this->otherMenu){
 
             //check if current user role is admin
-            if($security->isGranted('ROLE_ADMIN')) {
+            if($security->isGranted('ROLE_ADMIN') || $security->isGranted('ROLE_GOD')) {
 
                 //add statistic view menu
                 $menu->addChild($tr->trans('statistic_view'), array('route' => 'statistic_view'));

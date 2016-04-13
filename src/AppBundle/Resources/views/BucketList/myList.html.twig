@@ -573,7 +573,7 @@
                                                         </div>
 
                                                         <div class="col-xs-7 text-right">
-                                                            <div class="check_status">
+                                                            <div class="check_status" data-ng-init="success=false">
 
                                                                 {% if status ==  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
                                                                     <a  href="javascript:void(0)"
@@ -586,10 +586,20 @@
                                                                         {{ 'successtory'|trans | capitalize }}
                                                                     </a>
                                                                 {% else %}
-                                                                    <a href="{{ path("done_goal", {'id' : goal.id }) }}" class="btn btn-transparent" id="done">
+                                                                    <a href="javascript:void(0)" data-ng-show="!success" data-ng-click="addDone('{{ path("done_goal", {'id' : goal.id }) }}', 'addSuccesstory{{ goal.id }}')" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
 
                                                                         {{ 'done'|trans | capitalize }}
+                                                                    </a>
+                                                                    <a  href="javascript:void(0)"
+                                                                        data-ng-show="success"
+                                                                        data-ls-jquery-modal
+                                                                        data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
+                                                                        data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
+                                                                        class="btn btn-transparent"
+                                                                        id="addSuccesstory{{ goal.id }}">
+                                                                        <i class="icon ok-icon-green"></i>
+                                                                        {{ 'successtory'|trans | capitalize }}
                                                                     </a>
                                                                 {% endif %}
                                                             </div>
