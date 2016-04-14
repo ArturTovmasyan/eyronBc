@@ -539,6 +539,8 @@ class GoalController extends FOSRestController
                 $thread->setPermalink($url);
                 $thread->setLastCommentAt(new \DateTime('now'));
                 $thread->setId($goal->getId());
+                $numCount = $thread->incrementNumComments();
+                $thread->setNumComments($numCount);
 
                 // check validator
                 $errors = $validator->validate($thread);
@@ -550,6 +552,10 @@ class GoalController extends FOSRestController
                 }
 
                 // persist and flush thread
+                $em->persist($thread);
+            }else{
+                $numCount = $thread->incrementNumComments();
+                $thread->setNumComments($numCount);
                 $em->persist($thread);
             }
 
