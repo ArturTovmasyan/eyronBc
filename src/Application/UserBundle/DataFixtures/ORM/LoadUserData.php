@@ -77,6 +77,19 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($user2);
 
+        // create user
+        $user3 = new User();
+        $user3->setFirstName('user');
+        $user3->setLastName('user');
+        $user3->setEmail('user@user.com');
+        $user3->setEnabled(true);
+        $user3->setPlainPassword('Test1234');
+        $user3->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1duid');
+        $user3->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user3);
+
         $manager->flush();
 
         $this->addReference('user', $user);
