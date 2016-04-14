@@ -5,9 +5,15 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {% stylesheets output='css/layout_show.css'
+    'app/bower_components/swipebox/src/css/swipebox.min.css'
+    'app/bower_components/swiper/dist/css/swiper.min.css'
+    %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {#<link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">#}
+    {#<link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">#}
 {% endblock %}
 
 {% block content %}

@@ -162,7 +162,7 @@ class BaseClass extends WebTestCase
 
         $fileNames = array();
 
-        $file = end($files);
+        $file = reset($files);
 
         $fileNames[] =
             array(
@@ -229,7 +229,6 @@ class BaseClass extends WebTestCase
                 array(
                     'file'.$i => $goals[$i]->getId()
                 );
-
         }
 
         return $goalIds;
@@ -254,14 +253,12 @@ class BaseClass extends WebTestCase
 
         $userGoalIds = array();
 
-        for($i = 0; $i<count($userGoals); $i++)
-        {
-            $userGoalIds[] =
-                array(
-                    'file'.$i => $userGoals[$i]->getId()
-                );
+        $userGoal = reset($userGoals);
 
-        }
+        $userGoalIds[] =
+            array(
+                'file'. 1 => $userGoal->getId()
+            );
 
         return $userGoalIds;
     }

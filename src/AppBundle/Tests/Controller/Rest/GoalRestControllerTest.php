@@ -117,6 +117,7 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testAddImages($golId)
     {
+
         $url = sprintf('/api/v1.0/goals/add-images/%s', $golId);
         // try to get goal by id
 
@@ -154,7 +155,6 @@ class GoalRestControllerTest extends BaseClass
      * This function test RemoveImageAction
      *
      * @dataProvider allFileProvider
-     * @depends testAddImages
      */
     public function testRemoveImage($goalImageId)
     {

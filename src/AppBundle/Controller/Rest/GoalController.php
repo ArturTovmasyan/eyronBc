@@ -273,22 +273,29 @@ class GoalController extends FOSRestController
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        if ($id && $userId){
+        if ($id){
+
             //get user goal by goal id
             $goal = $em->getRepository('AppBundle:Goal')->find($id);
-
-            //get user by id
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
 
             //check ig goal is not exist
             if (!$goal){
                 return new Response('Goal not found', Response::HTTP_NOT_FOUND);
             }
+        }
+
+        if ($userId) {
+
+            //get user by id
+            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
 
             //check if user not exist
             if (!$user){
                 return new Response('User not found', Response::HTTP_NOT_FOUND);
             }
+        }
+
+        if($id && $userId) {
 
             if ($user != $goal->getAuthor()){
                 return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
