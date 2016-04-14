@@ -44,6 +44,9 @@ angular.module('goal', ['Interpolation',
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
+            setTimeout(function(){
+                this.loadAddthis();
+            }.bind(this), 500);
 
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
@@ -61,14 +64,6 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
-                //
-                //if(!this.items.length){
-                //    this.loadRandomItems(this.count);
-                //}
-
-                setTimeout(function(){
-                    this.loadAddthis();
-                }.bind(this), 500);
             }.bind(this));
         };
 
