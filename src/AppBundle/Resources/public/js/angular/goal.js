@@ -17,6 +17,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
+            this.reserve = [];
             this.count = loadCount ? loadCount : 7;
         };
 
@@ -35,9 +36,40 @@ angular.module('goal', ['Interpolation',
 
         lsInfiniteItems.prototype.reset = function(){
             this.items = [];
+            this.reserve = [];
             this.busy = false;
             this.request = 0;
             this.start = 0;
+        };
+        lsInfiniteItems.prototype.getReserve = function(url, search, category) {
+            this.items = this.items.concat(this.reserve);
+            this.nextReserve(url, search, category);
+
+        };
+        lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
+            if (this.busy) {
+                return;
+            }
+            if (!category) {
+                category = "";
+            }
+            this.busy = true;
+            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            url += '?search=' + search+ '&category=' + category;
+            $http.get(url).success(function(data) {
+                this.reserve = data;
+                this.start += this.count;
+                this.request++;
+                this.busy = data.length ? false : true;
+                //
+                //if(!this.items.length){
+                //    this.loadRandomItems(this.count);
+                //}
+
+                setTimeout(function(){
+                    this.loadAddthis();
+                }.bind(this), 500);
+            }.bind(this));
         };
 
         lsInfiniteItems.prototype.nextPage = function(url, search, category) {
@@ -50,6 +82,7 @@ angular.module('goal', ['Interpolation',
             }
 
             this.busy = true;
+            var reserveUrl = url;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
@@ -58,6 +91,7 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
+                this.nextReserve(reserveUrl, search, category);
 
                 if(!this.items.length){
                     this.loadRandomItems(this.count);
