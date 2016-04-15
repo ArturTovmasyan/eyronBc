@@ -23,12 +23,19 @@ assetic:
             node: /usr/local/bin/node
             node_paths: [/usr/local/lib/node_modules]
             apply_to: "\.less$"
-        yui_css:
-            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-            apply_to: "\.css$"
-        yui_js:
-            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: "%kernel.root_dir%/Resources/node_modules/.bin/uglifyjs"
             apply_to: "\.js$"
+        uglifycss:
+            bin: "%kernel.root_dir%/Resources/node_modules/.bin/uglifycss"
+            apply_to: "\.css$"
+#        yui_css:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+#            apply_to: "\.css$"
+#        yui_js:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+#            apply_to: "\.js$"
 
 monolog:
     handlers:
