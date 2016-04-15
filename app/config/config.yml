@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v272
+        assets_version: v273
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -314,6 +314,11 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [50, 50] }
+
+        goal_bg:
+            quality: 80
+            filters:
+                thumbnail: { size: [1280, 720], mode: outbound }
 
 knp_markdown:
     parser:
