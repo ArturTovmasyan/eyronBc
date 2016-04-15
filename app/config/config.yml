@@ -315,6 +315,11 @@ liip_imagine:
             filters:
                 central_crop: { size: [50, 50] }
 
+        goal_bg:
+            quality: 80
+            filters:
+                thumbnail: { size: [1280, 720], mode: outbound }
+
 knp_markdown:
     parser:
         service: markdown.parser.max
