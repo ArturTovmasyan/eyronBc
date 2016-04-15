@@ -73,14 +73,19 @@ assetic:
     bundles:        [ AppBundle, FOSCommentBundle]
     #java: /usr/bin/java
     filters:
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: "%kernel.root_dir%/Resources/node_modules/bin/uglifyjs"
+        uglifycss:
+            bin: "%kernel.root_dir%/Resources/node_modules/bin/uglifycss"
         cssrewrite: ~
         less:
             node: /usr/local/bin/node
             node_paths: [/usr/local/lib/node_modules]
-        yui_css:
-            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-        yui_js:
-            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+#        yui_css:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+#        yui_js:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
 doctrine:
