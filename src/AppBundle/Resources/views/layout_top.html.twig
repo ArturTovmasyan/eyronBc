@@ -3,11 +3,13 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
     {#<link href="{{ asset('app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}"#}
           {#rel="stylesheet">#}
     {#<link href="{{ asset('bundles/app/less/taggle_button.css') }}" rel="stylesheet">#}
     {% stylesheets output='css/layout_top.css'
+    'app/bower_components/icheck/skins/square/_all.css'
+    'app/bower_components/icheck/skins/minimal/_all.css'
     'app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'
     'bundles/app/less/taggle_button.css'
     %}
