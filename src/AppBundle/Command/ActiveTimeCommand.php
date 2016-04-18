@@ -24,13 +24,12 @@ class ActiveTimeCommand extends ContainerAwareCommand
         $begin = 0;
         $usersCount = 0;
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $service = $this->getContainer()->get('bl_active_time_service');
 
         do {
             $users = $em->getRepository('ApplicationUserBundle:User')->findByLimit(self::USER_LIMIT * $begin++, self::USER_LIMIT);
             if ($users) {
                 foreach ($users as $user) {
-                    $activeTime = $service->activeTime($user->getId());
+                    $activeTime = $user->getMostActiveTime();
                     $user->setActiveTime($activeTime);
                     $usersCount++;
                 }

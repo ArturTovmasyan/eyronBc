@@ -140,24 +140,4 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
             ->setParameter('userGoalIds', $ids)
             ->getResult();
     }
-
-
-    /**
-     * This repository find active time users by id limit
-     *
-     * @param $id
-     * @return array
-     */
-    public function findActiveTimes($id)
-    {
-        return $this->getEntityManager()
-            ->createQuery("SELECT ug,ug.doDate as doDate,ug.completionDate as completionDate,ug.listedDate as listedDate
-                            FROM AppBundle:UserGoal ug
-                            JOIN ug.user u
-                            WHERE u.id = :id
-                            ")
-            ->setParameter('id', $id)
-            ->getResult()
-            ;
-    }
 }
