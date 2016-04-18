@@ -129,6 +129,11 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <!-- GoalPercent service -->
+        <service id="bl_goal_percent_service" class="AppBundle\Services\GoalPercentService">
+            <argument type="service" id="service_container" />
+        </service>
+
         <!--  form for languages -->
         <service id="app.form.lng" class="AppBundle\Form\Type\LngType">
             <tag name="form.type" alias="lng" />
