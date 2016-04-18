@@ -234,6 +234,12 @@ class User extends BaseUser
     private $stats;
 
     /**
+     * @ORM\Column(name="active_time", type="integer", nullable=true)
+     * @var
+     */
+    protected $activeTime;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -1144,4 +1150,27 @@ class User extends BaseUser
         return $this->uId;
     }
 
+
+    /**
+     * Set activeTime
+     *
+     * @param integer $activeTime
+     * @return User
+     */
+    public function setActiveTime($activeTime)
+    {
+        $this->activeTime = $activeTime;
+
+        return $this;
+    }
+
+    /**
+     * Get activeTime
+     *
+     * @return integer 
+     */
+    public function getActiveTime()
+    {
+        return $this->activeTime;
+    }
 }

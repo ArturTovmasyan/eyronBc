@@ -31,7 +31,7 @@ class RandomUiCommand extends ContainerAwareCommand
         $randomService = $this->getContainer()->get('bl_random_id_service');
 
         do {
-            $users = $em->getRepository('ApplicationUserBundle:User')->findByLimit(self::USER_LIMIT * $begin++, self::USER_LIMIT);
+            $users = $em->getRepository('ApplicationUserBundle:User')->findByUIdAndLimit(self::USER_LIMIT * $begin++, self::USER_LIMIT);
             if ($users) {
                 foreach ($users as $user) {
                     do{

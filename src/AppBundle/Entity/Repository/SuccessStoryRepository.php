@@ -32,4 +32,23 @@ class SuccessStoryRepository extends EntityRepository
             ->setParameter('ssIds', $ids)
             ->getResult();
     }
+
+    /**
+     * This repository find active time users by id limit
+     *
+     * @param $id
+     * @return array
+     */
+    public function findActiveTimes($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ss,ss.updated as updated
+                            FROM AppBundle:SuccessStory ss
+                            JOIN ss.user u
+                            WHERE u.id = :id
+                            ")
+            ->setParameter('id', $id)
+            ->getResult()
+            ;
+    }
 }
