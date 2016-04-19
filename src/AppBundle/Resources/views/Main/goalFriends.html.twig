@@ -29,7 +29,9 @@
                         </div>
 
                     {% endif %}
-
+                    {% if app.request.get('slug') is defined  and app.request.get('slug') %}
+                        <div><a href="{{ path('inner_goal', {'slug': app.request.get('slug')}) }}" class="row"> << Back to {{ title }}</a></div>
+                    {% endif %}
                     {% set counter = 0 %}
                     {% for goalFriend in pagination %}
                         {% if counter is divisible by(2) %}
@@ -119,7 +121,7 @@
     {% if app.request.get('_route') == 'goal_friends' %}
         {{ 'goal.friends_title'|trans }}
     {% else %}
-        {{ 'goal.user_title'|trans }}
+        {{ 'goal.user_title'|trans }}{% if title %} {{ title }}{% endif %}
     {% endif %}
 {%- endblock -%}
 
@@ -127,7 +129,7 @@
     {% if app.request.get('_route') == 'goal_friends' %}
         {{ 'goal.friends_title'|trans }}
     {% else %}
-        {{ 'goal.user_title'|trans }}
+        {{ 'goal.user_title'|trans }}{% if title %} {{ title }}{% endif %}
     {% endif %}
 {%- endblock -%}
 
@@ -135,7 +137,7 @@
     {% if app.request.get('_route') == 'goal_friends' %}
         {{ 'goal.friends_description'|trans }}
     {% else %}
-        {{ 'goal.user_description'|trans }}
+        {{ 'goal.user_description'|trans }}{% if title %} {{ title }}{% endif %}
     {% endif %}
 {%- endblock -%}
 
@@ -143,7 +145,7 @@
     {% if app.request.get('_route') == 'goal_friends' %}
         {{ 'goal.friends_description'|trans }}
     {% else %}
-        {{ 'goal.user_description'|trans }}
+        {{ 'goal.user_description'|trans }}{% if title %} {{ title }}{% endif %}
     {% endif %}
 {%- endblock -%}
 

@@ -220,6 +220,13 @@
                         </div>
                     {% endif %}
                 </div>
+                {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success">
+                        {% for msg in app.session.flashBag.get('success') %}
+                            {{ msg }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
                 <div class="row slide ng-hide" data-ng-cloak data-ng-show="completeProfileMyBucketList" style="display: none">
                     <div class="col-sm-6">
