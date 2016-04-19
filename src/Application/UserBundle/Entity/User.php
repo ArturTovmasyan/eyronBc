@@ -70,6 +70,11 @@ class User extends BaseUser
     protected $userGoal;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SuccessStory", indexBy="goal_id", mappedBy="user", cascade={"persist"})
+     **/
+    protected $SuccessStories;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Goal", indexBy="goal_id", mappedBy="author", cascade={"persist"})
      **/
     protected $authorGoals;
@@ -232,6 +237,12 @@ class User extends BaseUser
      * @var
      */
     private $stats;
+
+    /**
+     * @ORM\Column(name="active_time", type="integer", nullable=true)
+     * @var
+     */
+    protected $activeTime;
 
     /**
      * @return mixed
@@ -1144,4 +1155,200 @@ class User extends BaseUser
         return $this->uId;
     }
 
+
+    /**
+     * Set activeTime
+     *
+     * @param integer $activeTime
+     * @return User
+     */
+    public function setActiveTime($activeTime)
+    {
+        $this->activeTime = $activeTime;
+
+        return $this;
+    }
+
+    /**
+     * Get activeTime
+     *
+     * @return integer 
+     */
+    public function getActiveTime()
+    {
+        return $this->activeTime;
+    }
+
+    /**
+     * Add SuccessStories
+     *
+     * @param \AppBundle\Entity\SuccessStory $successStories
+     * @return User
+     */
+    public function addSuccessStory(\AppBundle\Entity\SuccessStory $successStories)
+    {
+        $this->SuccessStories[] = $successStories;
+
+        return $this;
+    }
+
+    /**
+     * Remove SuccessStories
+     *
+     * @param \AppBundle\Entity\SuccessStory $successStories
+     */
+    public function removeSuccessStory(\AppBundle\Entity\SuccessStory $successStories)
+    {
+        $this->SuccessStories->removeElement($successStories);
+    }
+
+    /**
+     * Get SuccessStories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSuccessStories()
+    {
+        return $this->SuccessStories;
+    }
+
+    /**
+     * Get mostActiveTime
+     *
+     * @return integer
+     */
+    public function getMostActiveTime()
+    {
+        $userGoals = $this->getUserGoal();
+        $haveDate = false;
+        $timesAdd = [];
+        if ($userGoals)
+        {
+            $haveDate = true;
+            foreach($userGoals as $userGoal){
+                if($userGoal->getDoDate()){
+                    $time = $userGoal->getDoDate()->format('H');
+                    if(isset($timesAdd[$time])){
+                        $timesAdd[$time]++;
+                    }else{
+                        $timesAdd[$time] = 1;
+                    }
+                };
+
+                if($userGoal->getCompletionDate()){
+                    $time = $userGoal->getCompletionDate()->format('H');
+                    if(isset($timesAdd[$time])){
+                        $timesAdd[$time]++;
+                    }else{
+                        $timesAdd[$time] = 1;
+                    }
+                };
+
+                if($userGoal->getListedDate()){
+                    $time = $userGoal->getListedDate()->format('H');
+                    if(isset($timesAdd[$time])){
+                        $timesAdd[$time]++;
+                    }else{
+                        $timesAdd[$time] = 1;
+                    }
+                }
+            }
+        }
+        $successStories = $this->getSuccessStories();
+        if($successStories){
+            foreach($successStories as $time){
+                if($time->getUpdated()){
+                    $time = $time->getUpdated()->format('H');
+                    if(isset($timesAdd[$time])){
+                        $timesAdd[$time]++;
+                    }else{
+                        $timesAdd[$time] = 1;
+                    }
+                };
+            }
+        }
+
+        if($haveDate && $timesAdd){
+            $activeTime = array_keys($timesAdd, max($timesAdd))[0];
+        }else{
+            $activeTime = 0;
+        }
+        return $activeTime;
+    }
+
+    /**
+     * Update ActiveTime
+     *
+     * @return $this
+     */
+    public function updateActiveTime()
+    {
+        $activeTime = $this->getMostActiveTime();
+        $this->setActiveTime($activeTime);
+        return $this;
+    }
+
+    /**
+     * Get timePercent
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimePercent()
+    {
+        $userGoals = $this->getUserGoal();
+        $timePercent = 0;
+        $timesAgo = 0;
+        $allTimes = 0;
+        if ($userGoals)
+        {
+            foreach($userGoals as $userGoal){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
+                    //if goal have listed and do dates
+                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+                        $time1 = $userGoal->getListedDate();
+                        $time2 = $userGoal->getDoDate();
+                        $limit = date_diff($time2,$time1)->d;
+                        $time3 = new \DateTime('now');
+                        $currentLimit = date_diff($time3,$time1)->d;
+
+                        if($currentLimit > $limit){
+                            $timesAgo += $limit;
+                            $allTimes += $limit;
+                        }else{
+                            $timesAgo += $currentLimit;
+                            $allTimes += $limit;
+                        }
+                    }
+                }
+            }
+            if($allTimes){
+                $timePercent = (100/$allTimes)*$timesAgo;
+            }
+        }
+        return $timePercent;
+    }
+
+    /**
+     * Get getGoalCompletedPercent
+     *
+     * @return integer
+     */
+    public function getGoalCompletedPercent()
+    {
+        $userGoals = $this->getUserGoal();
+        $goalPercent = 0;
+        $count = 0;
+        if ($userGoals)
+        {
+            foreach($userGoals as $userGoal){
+                $goalPercent += $userGoal->getCompleted();
+                $count++;
+            }
+            if($count){
+                $goalPercent = $goalPercent/$count;
+            }
+
+        }
+        return $goalPercent;
+    }
 }
