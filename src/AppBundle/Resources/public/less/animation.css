@@ -29,9 +29,11 @@
 .goals-animate.ng-leave.goals-animate.ng-leave-active,
 .goals-animate.ng-enter {
     opacity: 0;
+    padding-top: 50px;
 }
 
 .goals-animate.ng-enter.goals-animate.ng-enter-active,
 .goals-animate.ng-leave {
     opacity: 1;
+    padding-top: 0px;
 }

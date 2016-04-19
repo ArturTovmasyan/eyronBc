@@ -176,7 +176,9 @@ class MainController extends Controller
             30/*limit per page*/
         );
 
-        return $this->render('AppBundle:Main:goalFriends.html.twig', array('pagination' => $pagination));
+        return $this->render('AppBundle:Main:goalFriends.html.twig', array(
+            'pagination' => $pagination,
+            'title' => $goal->getTitle()));
     }
 
     /**
