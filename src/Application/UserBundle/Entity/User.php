@@ -38,6 +38,9 @@ class User extends BaseUser
     const MALE = 0;
     const FEMALE = 1;
 
+    // constants for status
+    const COMPLETED = 2;
+
     // constants for percent
     const SIGN_UP = 15;
     const CONFIRM_ACCOUNT = 15;
@@ -1290,7 +1293,7 @@ class User extends BaseUser
         if ($userGoals)
         {
             foreach($userGoals as $userGoal){
-                if($userGoal->getStatus() != 2){
+                if($userGoal->getStatus() != self::COMPLETED){
                     //if goal have listed and do dates
                     if($userGoal->getListedDate() && $userGoal->getDoDate()){
                         $time1 = $userGoal->getListedDate();
@@ -1310,7 +1313,7 @@ class User extends BaseUser
                 }
             }
             if($allTimes){
-                $timePercent = (int)floor((100/$allTimes)*$timesAgo);
+                $timePercent = floor((100/$allTimes)*$timesAgo);
             }
         }
         return $timePercent;
@@ -1333,7 +1336,7 @@ class User extends BaseUser
                 $count++;
             }
             if($count){
-                $goalPercent = (int)floor($goalPercent/$count);
+                $goalPercent = floor($goalPercent/$count);
             }
 
         }
