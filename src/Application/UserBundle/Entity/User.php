@@ -1313,7 +1313,7 @@ class User extends BaseUser
                 }
             }
             if($allTimes){
-                $timePercent = floor((100/$allTimes)*$timesAgo);
+                $timePercent = (100/$allTimes)*$timesAgo;
             }
         }
         return $timePercent;
@@ -1336,7 +1336,7 @@ class User extends BaseUser
                 $count++;
             }
             if($count){
-                $goalPercent = floor($goalPercent/$count);
+                $goalPercent = $goalPercent/$count;
             }
 
         }
