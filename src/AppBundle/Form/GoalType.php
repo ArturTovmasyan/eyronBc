@@ -28,7 +28,7 @@ class GoalType extends AbstractType
     {
         $builder
             ->add('title', null, array('required' => true))
-            ->add('description', 'textarea', array('required' => false))
+            ->add('description', 'textarea', array('required' => true))
             ->add('status')
             ->add('files', 'hidden', array('mapped' => false))
             ->add('hashTags', 'hidden', array('mapped' => false))

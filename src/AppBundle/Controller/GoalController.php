@@ -148,14 +148,21 @@ class GoalController extends Controller
                     //get goal description
                     $description = $goal->getDescription();
 
-                    //cleare # tag in description
-                    $description = str_replace('#', '', $description);
+                    if($description) {
+                        //cleare # tag in description
+                        $description = str_replace('#', '', $description);
+                    }
 
                     //set description
                     $goal->setDescription($description);
 
                     $em->persist($goal);
                     $em->flush();
+
+                    $request->getSession()
+                        ->getFlashBag()
+                        ->add('success','Your Goal has been Successfully Published')
+                    ;
 
                     return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
                 }
