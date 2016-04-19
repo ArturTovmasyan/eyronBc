@@ -29,10 +29,9 @@ class ActiveTimeCommand extends ContainerAwareCommand
             $users = $em->getRepository('ApplicationUserBundle:User')->findByLimit(self::USER_LIMIT * $begin++, self::USER_LIMIT);
             if ($users) {
                 foreach ($users as $user) {
-                    $activeTime = $user->getMostActiveTime();
-                    $user->setActiveTime($activeTime);
-                    $usersCount++;
+                    $user->updateActiveTime();
                 }
+                $usersCount += count($users);
             }
 
             $em->flush();

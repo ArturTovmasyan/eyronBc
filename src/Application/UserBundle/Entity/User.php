@@ -38,9 +38,6 @@ class User extends BaseUser
     const MALE = 0;
     const FEMALE = 1;
 
-    // constants for status
-    const COMPLETED = 2;
-
     // constants for percent
     const SIGN_UP = 15;
     const CONFIRM_ACCOUNT = 15;
@@ -1280,6 +1277,18 @@ class User extends BaseUser
     }
 
     /**
+     * Update ActiveTime
+     *
+     * @return $this
+     */
+    public function updateActiveTime()
+    {
+        $activeTime = $this->getMostActiveTime();
+        $this->setActiveTime($activeTime);
+        return $this;
+    }
+
+    /**
      * Get timePercent
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -1293,7 +1302,7 @@ class User extends BaseUser
         if ($userGoals)
         {
             foreach($userGoals as $userGoal){
-                if($userGoal->getStatus() != self::COMPLETED){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
                     //if goal have listed and do dates
                     if($userGoal->getListedDate() && $userGoal->getDoDate()){
                         $time1 = $userGoal->getListedDate();
