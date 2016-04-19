@@ -110,11 +110,30 @@ Feature: Goal page
     Then I should see "Suggest as public"
     When I click on "iCheck-helper"
     And I fill in "app_bundle_goal[title]" with "TEST GOALS"
+    And I scroll page to "top"
+    And I press "btn_publish"
+    And I wait for view
+    Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    When I reload the page
+    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    When I click on "btn btn-transparent button-lg"
+    And I click on "btn btn-transparent button-lg"
+
+
+  @javascript @goalDescriptionTest
+  Scenario: Open the create page and check submit without desc.field fill
+    When I follow "user1"
+    And I follow "Create Goal"
+    Then I should see "Suggest as public"
+    When I click on "iCheck-helper"
+    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
+    And I press "btn_publish"
+    And I wait for angular
+    Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    And I wait for view
 
 @javascript @addGoal
   Scenario: Add a goal
