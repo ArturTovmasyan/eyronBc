@@ -114,8 +114,8 @@ Feature: Goal page
     And I press "btn_publish"
     And I wait for view
     Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    When I reload the page
-    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
+#    When I reload the page
+#    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
     And I press "btn_publish"
     And I wait for angular

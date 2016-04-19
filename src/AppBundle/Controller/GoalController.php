@@ -148,8 +148,10 @@ class GoalController extends Controller
                     //get goal description
                     $description = $goal->getDescription();
 
-                    //cleare # tag in description
-                    $description = str_replace('#', '', $description);
+                    if($description) {
+                        //cleare # tag in description
+                        $description = str_replace('#', '', $description);
+                    }
 
                     //set description
                     $goal->setDescription($description);
