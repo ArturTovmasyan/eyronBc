@@ -15,6 +15,7 @@ angular.module('goal', ['Interpolation',
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
+            this.noItem = false;
             this.request = 0;
             this.start = 0;
             this.reserve = [];
@@ -61,6 +62,12 @@ angular.module('goal', ['Interpolation',
             url += '?search=' + search+ '&category=' + category;
             $http.get(url).success(function(data) {
                 this.reserve = data;
+                angular.forEach(this.reserve, function(item) {
+                    if(item.cached_image){
+                        var img = new Image();
+                        img.src = item.cached_image;
+                    }
+                });
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
@@ -77,11 +84,15 @@ angular.module('goal', ['Interpolation',
             }
 
             this.busy = true;
+            this.noItem = false;
             var reserveUrl = url;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
             $http.get(url).success(function(data) {
+                if(!data.length){
+                    this.noItem = true;
+                }
                 this.items = this.items.concat(data);
                 this.start += this.count;
                 this.request++;
@@ -454,13 +465,11 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
-                $timeout(function(){
-                    if(!$scope.Ideas.items.length){
+                    if($scope.Ideas.noItem ){
                         $scope.noIdeas = true;
                         $scope.Ideas.reset();
                         $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
                     };
-                }, 1500);
             }
 
             angular.forEach(d, function(item) {

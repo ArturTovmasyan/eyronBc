@@ -155,7 +155,7 @@ header{
           color: #E5E5E5;
           font-weight: bold;
           font-size: 16px;
-          padding:25px 20px 25px 20px;
+          padding:27px 19px;
 
           i{
             display:inline-block;
@@ -225,7 +225,7 @@ header{
         }
         .user{
           display: block;
-          padding: 18px 5px 15px 15px;
+          padding: 14px 5px 14px 15px;
           position: relative;
           figure{
             background-color: transparent;
@@ -253,7 +253,7 @@ header{
 
           span.name{
             float:left;
-            margin-top:6px;
+            padding:6px 0 4px 7px;
             display: inline-block;
             text-align: left;
           }
@@ -1498,7 +1498,7 @@ footer{
             padding-bottom:24px;
           }
           .user{
-            padding: 18px 5px 15px 15px;
+            padding: 14px 5px 14px 15px;
             figure{
               width:45px;
               height:45px;
@@ -1515,10 +1515,6 @@ footer{
               margin:5px 5px 0 5px;
               font-size:14px;
               font-weight:600;
-            }
-
-            span{
-              margin-top:6px;
             }
           }
 
@@ -1833,13 +1829,13 @@ footer{
         li{
           a{
             font-size:16px;
-            padding: 25px 30px 23px;
+            padding: 27px 23px;
           }
         }
         .search{
 
           form{
-            padding:16px 15px 17px 30px;
+            padding:17px 0 17px 30px;
 
             input{
               font-size:16px;
@@ -1856,7 +1852,7 @@ footer{
           width:235px;
 
           .user{
-            padding: 18px 5px 15px 15px;
+            padding: 18px 5px 16px 15px;
             figure{
               width:50px;
               height:50px;
@@ -1873,10 +1869,6 @@ footer{
               margin:5px 5px 0 5px;
               font-size:14px;
               font-weight:600;
-            }
-
-            span{
-              margin-top:6px;
             }
 
             .icon-arrow-down,.icon-icon-up{
@@ -2075,11 +2067,84 @@ html {
 @media (min-width: @screen-lg) {
 
   header{
+
     .navbar-default{
       .navbar-nav{
         li{
           a{
-            padding: 27px 30px 26px;
+            font-size:16px;
+            padding: 27px 30px;
+          }
+        }
+        .search{
+
+          form{
+            padding:17px 15px 17px 30px;
+
+            input{
+              font-size:16px;
+              font-weight: normal;
+              padding-left:43px;
+            }
+          }
+
+        }
+      }
+
+      .navbar-right{
+        li{
+          width:235px;
+
+          .user{
+            padding: 18px 5px 16px 15px;
+            figure{
+              width:50px;
+              height:50px;
+              margin: 0 10px 0 0;
+              img{
+                height:50px;
+              }
+            }
+
+            p{
+              width:46px;
+              height:45px;
+              line-height: 41px;
+              margin:5px 5px 0 5px;
+              font-size:14px;
+              font-weight:600;
+            }
+
+            .icon-arrow-down,.icon-icon-up{
+              margin-right:10px;
+              margin-top:10px;
+            }
+          }
+
+          .user-menu{
+            width: 235px;
+            li{
+              a{
+                padding:10px 20px;
+                font-size:14px;
+                font-weight:500;
+
+                i{
+                  margin-right:10px;
+                }
+
+              }
+            }
+          }
+
+          .join-class {
+            min-width:234px;
+          }
+
+          .popover-content{
+            a{
+              font-size:14px;
+            }
           }
         }
       }

@@ -16,12 +16,12 @@ angular.module('main',['mgcrea.ngStrap.modal',
         'deviceDetector',
         function($scope, $modal, $timeout, deviceDetector){
 
-        if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
-            // open modal
-            $timeout(function(){
-                $scope.$broadcast('openLsModal', 'mobileDetectModal');
-            }, 500);
-        }
+        //if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
+        //    // open modal
+        //    $timeout(function(){
+        //        $scope.$broadcast('openLsModal', 'mobileDetectModal');
+        //    }, 500);
+        //}
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
