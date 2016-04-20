@@ -45,11 +45,6 @@ angular.module('goal', ['Interpolation',
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
-            angular.forEach(this.reserve, function(item) {
-                if(item.cached_image){
-                    (new Image()).src = item.cached_image;
-                }
-            });
             setTimeout(function(){
                 this.loadAddthis();
             }.bind(this), 500);
@@ -67,6 +62,12 @@ angular.module('goal', ['Interpolation',
             url += '?search=' + search+ '&category=' + category;
             $http.get(url).success(function(data) {
                 this.reserve = data;
+                angular.forEach(this.reserve, function(item) {
+                    if(item.cached_image){
+                        var img = new Image();
+                        img.src = item.cached_image;
+                    }
+                });
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
