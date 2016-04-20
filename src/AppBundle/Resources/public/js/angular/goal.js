@@ -15,6 +15,7 @@ angular.module('goal', ['Interpolation',
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
+            this.noItem = false;
             this.request = 0;
             this.start = 0;
             this.reserve = [];
@@ -44,6 +45,11 @@ angular.module('goal', ['Interpolation',
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
+            angular.forEach(this.reserve, function(item) {
+                if(item.cached_image){
+                    (new Image()).src = item.cached_image;
+                }
+            });
             setTimeout(function(){
                 this.loadAddthis();
             }.bind(this), 500);
@@ -77,11 +83,15 @@ angular.module('goal', ['Interpolation',
             }
 
             this.busy = true;
+            this.noItem = false;
             var reserveUrl = url;
 
             url = url.replace('{first}', this.start).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
             $http.get(url).success(function(data) {
+                if(!data.length){
+                    this.noItem = true;
+                }
                 this.items = this.items.concat(data);
                 this.start += this.count;
                 this.request++;
@@ -454,13 +464,11 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
-                $timeout(function(){
-                    if(!$scope.Ideas.items.length){
+                    if($scope.Ideas.noItem ){
                         $scope.noIdeas = true;
                         $scope.Ideas.reset();
                         $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
                     };
-                }, 1500);
             }
 
             angular.forEach(d, function(item) {

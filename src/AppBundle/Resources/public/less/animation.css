@@ -17,23 +17,26 @@
 /* goals animation */
 .goals-animate.ng-enter,
 .goals-animate.ng-leave {
-    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -webkit-transition: 200ms ease-out all;
+    -moz-transition: 200ms ease-out all;
+    -ms-transition: 200ms ease-out all;
+    -o-transition: 200ms ease-out all;
+    transition: 200ms ease-out all;
     position: relative;
     display: block;
 }
-
+.goals-animate.ng-enter-stagger {
+    transition-delay: 0.1s;
+    animation-delay: 0.1s;
+}
 .goals-animate.ng-leave.goals-animate.ng-leave-active,
 .goals-animate.ng-enter {
     opacity: 0;
-    padding-top: 50px;
+    top: 100px;
 }
 
 .goals-animate.ng-enter.goals-animate.ng-enter-active,
 .goals-animate.ng-leave {
     opacity: 1;
-    padding-top: 0px;
+    top: 0px;
 }
