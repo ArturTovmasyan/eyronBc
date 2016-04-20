@@ -80,6 +80,7 @@ class Builder extends ContainerAware
             //check if current user role is admin
             if($security->isGranted('ROLE_ADMIN') || $security->isGranted('ROLE_GOD')) {
 
+                $menu->addChild('Admin', array('route' => 'sonata_admin_dashboard'));
                 //add statistic view menu
                 $menu->addChild($tr->trans('statistic_view'), array('route' => 'statistic_view'));
             }
