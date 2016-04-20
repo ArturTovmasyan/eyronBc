@@ -24,7 +24,7 @@ Feature: Activity
     And I wait for angular
     And I scroll page to ".btn btn-transparent button-lg"
     And I click on "btn btn-transparent button-lg"
-    And I wait
+    And I wait for view
     And I scroll page to ".information"
     Then I should see "SUCCESS STORY"
     When I click on "btn btn-transparent ng-isolate-scope"
@@ -98,7 +98,6 @@ Feature: Activity
       Then I should see "user2 useryan"
       And I should see "STORY1"
       And I wait for view
-#      I should see "show 5+ more"
 
 
   @javascript @innerPage
@@ -113,7 +112,7 @@ Feature: Activity
     When I scroll page to ".text-dark-gray"
     And I wait for view
     Then I should see "COMPLETED BY"
-    And I should see "LISTED BY"
+    And I should see "LISTED"
     When I am on "/done-users/goal9"
     Then I should see "user2"
     And I move backward one page
