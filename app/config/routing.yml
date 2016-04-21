@@ -103,3 +103,5 @@ _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 
+user_context_hash:
+    path: /_fos_user_context_hash

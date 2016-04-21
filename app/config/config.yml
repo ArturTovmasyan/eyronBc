@@ -329,3 +329,20 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
+
+fos_http_cache:
+#    user_context:
+#        enabled: true
+#        role_provider: true
+    cache_control:
+        defaults:
+            overwrite: true
+        rules:
+            -
+               match:
+                   path: ^/
+               headers:
+                   overwrite: true
+                   cache_control: { public: true, max_age: 2600, s_maxage: 2600 }
+                   etag: true
