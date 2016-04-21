@@ -12,7 +12,7 @@ parameters:
        ru: Русский
     tablet:
         with: 640
-        height: 641
+        height: 640
     mobile:
         with: 480
         height: 320
@@ -36,7 +36,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v278
+        assets_version: v279
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
