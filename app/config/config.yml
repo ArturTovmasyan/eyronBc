@@ -12,7 +12,7 @@ parameters:
        ru: Русский
     tablet:
         with: 640
-        height: 640
+        height: 641
     mobile:
         with: 480
         height: 320
