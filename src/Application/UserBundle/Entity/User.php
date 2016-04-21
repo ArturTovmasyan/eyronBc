@@ -1359,9 +1359,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get getGoalCompletedPercent
-     *
-     * @return integer
+     * @return array
      */
     public function getComingGoals()
     {
