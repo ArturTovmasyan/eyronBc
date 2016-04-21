@@ -65,6 +65,12 @@ class User extends BaseUser
     protected $uId;
 
     /**
+     * @var
+     * @ORM\Column(name="registration_ids", type="text", nullable=true)
+     */
+    protected $registrationIds;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"}, fetch="EAGER")
      **/
     protected $userGoal;
@@ -1350,5 +1356,51 @@ class User extends BaseUser
 
         }
         return $goalPercent;
+    }
+
+    /**
+     * Get getGoalCompletedPercent
+     *
+     * @return integer
+     */
+    public function getComingGoals()
+    {
+        $comingGoals = [];
+        $userGoals = $this->getUserGoal();
+        if ($userGoals)
+        {
+            foreach($userGoals as $userGoal){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
+                    //if goal have listed and do dates
+                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+                        $time1 = $userGoal->getDoDate();
+                        $time2 = new \DateTime('now');
+                        $limit = date_diff($time1,$time2)->d;
+
+                        if($limit == 1 || $limit == 0){
+                            $comingGoals[] = $userGoal;
+                        };
+                    }
+                }
+            }
+        }
+        return $comingGoals;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setRegistrationIds($data)
+    {
+        $this->registrationIds = json_encode($data) ;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegistrationIds()
+    {
+        $idsArray = json_decode($this->registrationIds, true);
+        return is_array($idsArray)?$idsArray:[];
     }
 }
