@@ -48,7 +48,7 @@ class SuccessStory
     protected $files;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="successStories")
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="SuccessStories")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @Groups({"successStory_user"})
      **/
