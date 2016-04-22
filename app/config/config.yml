@@ -24,7 +24,7 @@ parameters:
         height: 720
 
 framework:
-    #esi:             ~
+    esi:            { enabled: true }
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -340,12 +340,14 @@ fos_http_cache:
             overwrite: true
         rules:
             -
-               match:
-                   path: ^/
-               headers:
-                   overwrite: true
-                   cache_control: { public: true, max_age: 2600, s_maxage: 2600 }
-                   etag: true
+             match:
+#                 host: ^http://bucketlist.loc/app_dev.php$
+#                 path: ^/page/how-it-works
+                 methods: [GET]
+
+             headers:
+                 overwrite: false
+                 cache_control: { public: true, max_age: 1500, s_maxage: 1500 }
 
 
 rms_push_notifications:
