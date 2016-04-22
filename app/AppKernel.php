@@ -55,6 +55,7 @@ class AppKernel extends Kernel
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new RMS\PushNotificationsBundle\RMSPushNotificationsBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
             // Sitemap Bundle include

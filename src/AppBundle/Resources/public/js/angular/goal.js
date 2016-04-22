@@ -66,6 +66,11 @@ angular.module('goal', ['Interpolation',
                     if(item.cached_image){
                         var img = new Image();
                         img.src = item.cached_image;
+                    }else {
+                        if(item.goal.cached_image){
+                            var img = new Image();
+                            img.src = item.goal.cached_image;
+                        }
                     }
                 });
                 this.start += this.count;
