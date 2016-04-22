@@ -26,6 +26,7 @@
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/font-awesome/css/font-awesome.min.css'
+            'app/bower_components/jquery-modal/jquery.modal.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
             'bundles/app/less/notices.less'
@@ -41,8 +42,7 @@
 
         {% endblock %}
 
-        <link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">
-
+        {#<link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">#}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
@@ -54,6 +54,7 @@
     </head>
 
     <body>
+    {% spaceless %}
     {% if not app.debug and testUrl != "http://behat.bucketlist.loc" %}
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -426,21 +427,7 @@
 
             // Identify the user and pass traits
             // To enable, replace sample data with actual user traits and uncomment the line
-            UserVoice.push(['identify', {
-                //email:      'john.doe@example.com', // User’s email address
-                //name:       'John Doe', // User’s real name
-                //created_at: 1364406966, // Unix timestamp for the date the user signed up
-                //id:         123, // Optional: Unique id of the user (if set, this should not change)
-                //type:       'Owner', // Optional: segment your users by type
-                //account: {
-                //  id:           123, // Optional: associate multiple users with a single account
-                //  name:         'Acme, Co.', // Account name
-                //  created_at:   1364406966, // Unix timestamp for the date the account was created
-                //  monthly_rate: 9.99, // Decimal; monthly rate of the account
-                //  ltv:          1495.00, // Decimal; lifetime value of the account
-                //  plan:         'Enhanced' // Plan name for the account
-                //}
-            }]);
+            UserVoice.push(['identify', {}]);
 
             // Add default trigger to the bottom-right corner of the window:
             UserVoice.push(['addTrigger', {trigger_position: 'bottom-right' }]);
@@ -451,5 +438,6 @@
             // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
             UserVoice.push(['autoprompt', {}]);
         </script>
+    {% endspaceless %}
     </body>
 </html>
