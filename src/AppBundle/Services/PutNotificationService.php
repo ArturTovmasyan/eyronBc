@@ -154,7 +154,7 @@ class PutNotificationService
      */
     public function sendTestMassage($currentUser)
     {
-        $massage = "testing notifications in BucketList";
+        $massage = $this->container->get('translator')->trans('test_message');
 
         $this->sendPushNote($currentUser, $massage);
     }
@@ -162,13 +162,14 @@ class PutNotificationService
     /**
      * @param $currentUser
      */
-    public function sendDoDateMassage($currentUser)
+    public function sendReminderMassage($currentUser)
     {
         $goals = $currentUser->getComingGoals();
 
-        $massage = '';
-
-        $this->sendPushNote($currentUser, $massage);
+        if($goals){
+            $massage = $this->container->get('translator')->trans('reminder_message');
+            $this->sendPushNote($currentUser, $massage);
+        }
     }
 
     /**

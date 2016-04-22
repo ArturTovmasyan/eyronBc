@@ -87,6 +87,10 @@ homepage_title: The goal is to die with memories, <br /> not dreams!
 homepage_list_title: Explore over thousand great ideas
 homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
 
+#notification
+test_message: testing notifications in BucketList
+reminder_message: Your goal deadline is close to end.Do your best to meet the deadline.
+
 # buttons
 btn_delete: Delete
 btn_publish: PUBLISH
