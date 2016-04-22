@@ -334,7 +334,7 @@ rms_push_notifications:
   android:
       timeout: 60 # Seconds to wait for connection timeout, default is 5
       gcm:
-          api_key: <string_android_gcm_api_key> # This is titled "Server Key" when creating it
+          api_key: "%android_api%" # This is titled "Server Key" when creating it
   ios:
       timeout: 60 # Seconds to wait for connection timeout, default is 60
       sandbox: false
