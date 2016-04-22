@@ -148,4 +148,39 @@ class PutNotificationService
             $this->sendNoteToIos($iosIds, $message);
         }
     }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendTestMassage($currentUser)
+    {
+        $massage = "testing notifications in BucketList";
+
+        $this->sendPushNote($currentUser, $massage);
+    }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendDoDateMassage($currentUser)
+    {
+        $goals = $currentUser->getComingGoals();
+
+        $massage = '';
+
+        $this->sendPushNote($currentUser, $massage);
+    }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendProgressMassage($currentUser)
+    {
+        $timePercent = $currentUser->getTimePercent();
+        $goalCompletedPercent = $currentUser->getGoalCompletedPercent();
+
+        $massage = '';
+
+        $this->sendPushNote($currentUser, $massage);
+    }
 }
