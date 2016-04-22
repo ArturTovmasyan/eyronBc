@@ -329,3 +329,15 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
+rms_push_notifications:
+  android:
+      timeout: 60 # Seconds to wait for connection timeout, default is 5
+      gcm:
+          api_key: "%android_api%" # This is titled "Server Key" when creating it
+  ios:
+      timeout: 60 # Seconds to wait for connection timeout, default is 60
+      sandbox: false
+#      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
+      pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
+#      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
