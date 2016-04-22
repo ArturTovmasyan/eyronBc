@@ -414,7 +414,10 @@ angular.module('goal', ['Interpolation',
                 limit: function () {
                     var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
                     return limit;
-                }
+                },
+                unfixed: function() {
+                    var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
+                    angular.element('.goal-information').css('left', '0').css('top', limit);}
             });
         }
 
