@@ -8,12 +8,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SandTestNoteCommand extends ContainerAwareCommand
+class PushNoteTestCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('bl:sand:test_note')
+            ->setName('bl:push:test_note')
             ->setDescription('Send Test Notifications By UserName')
             ->setDefinition(array(new InputArgument('username', InputArgument::REQUIRED, 'The username')))
             ;
