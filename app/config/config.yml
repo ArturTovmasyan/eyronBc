@@ -25,6 +25,7 @@ parameters:
 
 framework:
     esi:            { enabled: true }
+    fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -329,25 +330,6 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
-
-
-#fos_http_cache:
-#    user_context:
-#        enabled: true
-#        role_provider: true
-#    cache_control:
-#        defaults:
-#            overwrite: true
-#        rules:
-#            -
-#             match:
-##                 host: ^http://bucketlist.loc/app_dev.php$
-##                 path: ^/page/how-it-works
-#                 methods: [GET]
-#
-#             headers:
-#                 overwrite: false
-#                 cache_control: { public: true, max_age: 1500, s_maxage: 1500 }
 
 
 rms_push_notifications:

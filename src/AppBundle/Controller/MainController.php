@@ -126,7 +126,19 @@ class MainController extends Controller
             throw $this->createNotFoundException("Page not found");
         }
 
-        return array('page' => $page);
+        //get response
+        $response = $this->render('AppBundle:Main:page.html.twig', array('page' => $page));
+
+        $date = new \DateTime('now');
+
+        //set modify 30 day
+        $date->modify('+30 day');
+
+        //set cache expires
+        $response->setExpires($date);
+
+        return $response;
+
     }
 
     /**
