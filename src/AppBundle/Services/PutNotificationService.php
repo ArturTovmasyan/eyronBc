@@ -148,4 +148,40 @@ class PutNotificationService
             $this->sendNoteToIos($iosIds, $message);
         }
     }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendTestMassage($currentUser)
+    {
+        $massage = $this->container->get('translator')->trans('test_message');
+
+        $this->sendPushNote($currentUser, $massage);
+    }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendReminderMassage($currentUser)
+    {
+        $goals = $currentUser->getComingGoals();
+
+        if($goals){
+            $massage = $this->container->get('translator')->trans('reminder_message');
+            $this->sendPushNote($currentUser, $massage);
+        }
+    }
+
+    /**
+     * @param $currentUser
+     */
+    public function sendProgressMassage($currentUser)
+    {
+        $timePercent = $currentUser->getTimePercent();
+        $goalCompletedPercent = $currentUser->getGoalCompletedPercent();
+
+        $massage = '';
+
+        $this->sendPushNote($currentUser, $massage);
+    }
 }
