@@ -70,7 +70,13 @@ class BucketListService
         $path_parts = pathinfo($object->getFile()->getClientOriginalName());
 
         // generate filename
-        $object->setFileName(md5(microtime()) . '.' . $path_parts['extension']);
+        if(!$path_parts['extension']){
+            $extension = $object->getFile()->getMimeType();
+            $extension = substr($extension ,strpos($extension, '/') + 1);
+        }else{
+            $extension = $path_parts['extension'];
+        }
+        $object->setFileName(md5(microtime()) . '.' . $extension);
 
         // set size
         $object->setFileSize($object->getFile()->getClientSize());
