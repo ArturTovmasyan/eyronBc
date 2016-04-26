@@ -79,6 +79,8 @@ class MainController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $env = $this->get('kernel')->getEnvironment();
+
         // get page
         $page = $em->getRepository("AppBundle:Page")->findOneBy(array('slug' => $slug));
 
@@ -131,17 +133,21 @@ class MainController extends Controller
         // new response
         $response = new Response();
 
-        // set last modified data
-        $response->setLastModified($page->getUpdated());
+        //check environment
+        if($env == 'prod') {
 
-        // Set response as public. Otherwise it will be private by default.
-        $response->setPublic();
+            // set last modified data
+            $response->setLastModified($page->getUpdated());
 
-        // Check that the Response is not modified for the given Request
-        if ($response->isNotModified($request)) {
+            // Set response as public. Otherwise it will be private by default.
+            $response->setPublic();
 
-            // return the 304 Response immediately
-            return $response;
+            // Check that the Response is not modified for the given Request
+            if ($response->isNotModified($request)) {
+
+                // return the 304 Response immediately
+                return $response;
+            }
         }
 
         //get response
