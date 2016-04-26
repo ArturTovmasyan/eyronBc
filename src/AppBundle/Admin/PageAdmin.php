@@ -89,7 +89,6 @@ class PageAdmin extends Admin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('_action', 'actions', array(
                 'actions' => array(
