@@ -24,7 +24,8 @@ parameters:
         height: 720
 
 framework:
-    #esi:             ~
+    esi:            { enabled: true }
+    fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -329,6 +330,7 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
 
 rms_push_notifications:
   android:
