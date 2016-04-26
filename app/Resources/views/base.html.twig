@@ -75,7 +75,6 @@
 
         {% set addUrl = getSession('addUrl') %}
 
-        {% set feedCount = app.session.get('newFeed') %}
 
         {% if app.user and addUrl is not null %}
             <img src="{{ asset('bundles/app/images/loading.gif') }}" style="position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="not-login-modal-loading"/>
@@ -121,15 +120,8 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
 
-                                    {% if user is defined and feedCount > 0 %}
-                                        <li>
-                                            <a href="{{ path('activity') }}">
-                                                {#<i class="activity-icon"></i>#}
-                                                <i class="icon-activity-icon"></i>
-                                                <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
+                                    {{ render_esi(controller('AppBundle:Main:esiActivity')) }}
+
                                     <li>
                                         <a href="{{ path('goals_list') }}">
                                             {#<i class="ideas-icon"></i>#}
@@ -162,7 +154,7 @@
 
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        {{ render_esi(controller('AppBundle:Main:esiHeader')) }}
+                                        {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                     </li>
                                 </ul>
                             </div>

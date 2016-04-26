@@ -158,13 +158,27 @@ class MainController extends Controller
     }
 
     /**
+     * This action is used to include user block in header
+     *
      * @Template()
      * @return array
      */
-    public function esiHeaderAction()
+    public function esiUserAction()
     {
         return array();
     }
+
+    /**
+     * This action is used to include activity menu in header
+     *
+     * @Template()
+     * @return array
+     */
+    public function esiActivityAction()
+    {
+        return array();
+    }
+
 
     /**
      * @Route("/goal-friends", name="goal_friends")
