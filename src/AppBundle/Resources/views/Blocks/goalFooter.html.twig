@@ -9,12 +9,12 @@
            data-ls-identity="idea[[ goal.id ]]"
            data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ goal.id ]]">
            <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-           <bdi>{{ 'add'|trans | capitalize}}</bdi>
+           <span class="text">{{ 'add'|trans | capitalize}}</span>
         </a>
     </li>
     <li class="col-xs-4 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal !== 0)|| !completed ">
         <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-        <bdi>{{ 'added'|trans | capitalize}}</bdi>
+        <span class="text">{{ 'added'|trans | capitalize}}</span>
     </li>
 
 
@@ -22,7 +22,7 @@
         <a {% if app.user %}href="javascript:void(0)" data-ng-click="addDone('{{ app.debug ? '/app_dev.php':'' }}/goal/done/'+goal.id, 'addSuccesstory'+goal.id)"
                 {% else %}data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/done/[[ goal.id ]]"{% endif %}>
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-            <bdi>{{ 'done'|trans | capitalize}}</bdi>
+            <span class="text">{{ 'done'|trans | capitalize}}</span>
         </a>
         <a  href="javascript:void(0)"
             data-ng-show="false"
@@ -34,7 +34,7 @@
     </li>
     <li class="col-xs-4 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        <bdi>{{ 'completed'|trans | capitalize}}</bdi>
+        <span class="text">{{ 'completed'|trans | capitalize}}</span>
     </li>
 
     {#{% if inner is not defined %}#}
