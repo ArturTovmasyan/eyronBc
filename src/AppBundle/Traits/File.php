@@ -24,6 +24,12 @@ trait File
      *     groups={"Registration", "Profile", "Default", "Register"},
      *     minWidth = 400,
      *     minHeight = 400,
+     *     mimeTypes = {
+     *         "image/png",
+     *              "image/jpeg",
+     *              "image/jpg",
+     *              "image/gif",
+     *          },
      *     minWidthMessage = "file.width_extension",
      *     minHeightMessage = "file.height_extension",
      * )

@@ -26,6 +26,7 @@
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/font-awesome/css/font-awesome.min.css'
+            'app/bower_components/jquery-modal/jquery.modal.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
             'bundles/app/less/notices.less'
@@ -41,7 +42,7 @@
 
         {% endblock %}
 
-        <link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">
+        {#<link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">#}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
@@ -89,19 +90,20 @@
         {% block body %}
         <div id="mainframe">
             <div id="wrap">
+
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
                         <div class="container">
                             <div class="navbar-header">
                                 <button type="button"
-                                    data-ls-mobile-on-menu-click
-                                    data-ls-trigger="mobilePopoverOpened"
-                                    class="navbar-toggle collapsed"
-                                    data-toggle="collapse"
-                                    data-target="#navbar"
-                                    aria-expanded="false"
-                                    aria-controls="navbar">
+                                        data-ls-mobile-on-menu-click
+                                        data-ls-trigger="mobilePopoverOpened"
+                                        class="navbar-toggle collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#navbar"
+                                        aria-expanded="false"
+                                        aria-controls="navbar">
 
                                     <span data-ng-hide="mobilePopoverOpened" class="sr-only">{{ 'toogle_navigation'|trans }}</span>
                                     <span data-ng-hide="mobilePopoverOpened" class="icon-bar"></span>
@@ -119,14 +121,14 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
 
-                                    {% if user and feedCount > 0 %}
-                                    <li>
-                                        <a href="{{ path('activity') }}">
-                                            {#<i class="activity-icon"></i>#}
-                                            <i class="icon-activity-icon"></i>
-                                            <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
-                                        </a>
-                                    </li>
+                                    {% if user is defined and feedCount > 0 %}
+                                        <li>
+                                            <a href="{{ path('activity') }}">
+                                                {#<i class="activity-icon"></i>#}
+                                                <i class="icon-activity-icon"></i>
+                                                <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
+                                            </a>
+                                        </li>
                                     {% endif %}
                                     <li>
                                         <a href="{{ path('goals_list') }}">
@@ -139,97 +141,35 @@
                                         <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
                                             <span class="icon-search-icon"></span>
                                             <input type="text"
-                                               name="search"
-                                               class="form-control"
-                                               autocomplete="off"
-                                               {% if app.request.get('_route') == 'goals_list' %}
-                                                   data-ng-model="search"
-                                                   data-ng-keypress="doSearch($event)"
-                                               {% else %}
-                                                   data-ng-enter-submit=".search form"
-                                               {% endif %}
-                                               placeholder="{{ 'search'|trans }}">
+                                                   name="search"
+                                                   class="form-control"
+                                                   autocomplete="off"
+                                                    {% if app.request.get('_route') == 'goals_list' %}
+                                                        data-ng-model="search"
+                                                        data-ng-keypress="doSearch($event)"
+                                                    {% else %}
+                                                        data-ng-enter-submit=".search form"
+                                                    {% endif %}
+                                                   placeholder="{{ 'search'|trans }}">
                                         </form>
                                     </li>
                                 </ul>
 
 
                                 {#{% if 'phone' == getDeviceType() %}#}
-                                    {#{{ path("fos_user_security_login") }}#}
+                                {#{{ path("fos_user_security_login") }}#}
                                 {#{% endif %}#}
 
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        {% if app.user %}
-                                            {% set user = app.user %}
-                                            {% set lastName = user.lastName %}
-                                            {% set firstName = user.firstName %}
-                                            {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
-                                            {% set className = "user-no" ~ random(4) %}
-
-                                            <a href="javascript:void(0)"
-                                               style="display: none"
-                                               class="settings-modal"
-                                               data-ls-identity="settingModal"
-                                               data-ls-template-url="{{ path("settings") }}"
-                                               data-ls-jquery-modal>
-                                            </a>
-
-                                            <a href="javascript:void(0)"
-                                                class="user clearfix"
-                                                data-placement="bottom-left"
-                                                data-ng-click="joinToggle1 = !joinToggle1"
-                                                data-html="true"
-                                                data-ng-class="{'join-class': joinToggle1}"
-                                                data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
-                                                data-animation="am-fade-and-scale"
-                                                data-bs-popover>
-                                                {% if user.getPhotoLink %}
-                                                    <figure class="img-circle">
-                                                        <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
-                                                    </figure>
-                                                {% else %}
-                                                    <p class="no-image {{ className }}">{{ nameOnImage }}</p>
-                                                {% endif %}
-
-                                                <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
-
-                                                {% if not isMobile() %}
-                                                    <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
-                                                    <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
-                                                {% else %}
-                                                    <div data-open-popover data-dir="true"></div>
-                                                {% endif %}
-
-                                            </a>
-                                        {% endif %}
-                                            <a  href="javascript:void(0)"
-                                                {% if app.user %}
-                                                    style="display: none"
-                                                {% endif %}
-                                                data-ng-init="joinToggle2 = false"
-                                                class="sign-in-popover"
-                                                data-ng-class="{'join-class': joinToggle2}"
-                                                data-placement="bottom-left"
-                                                data-ng-click="joinToggle2 = !joinToggle2"
-                                                data-content-template="{{ path("fos_user_security_login") }}"
-                                                data-animation="am-fade-and-scale"
-                                                data-bs-popover>
-                                                <i class="icon-join-icon"></i>
-                                                {{ 'join'|trans }}
-                                            </a>
-                                             {% if (isMobile() and not app.user) or not app.user and
-                                            app.session.flashBag.peekAll|length and
-                                            app.session.flashBag.peekAll['error'] is defined and
-                                            app.session.flashBag.peekAll['error'][0] is not null %}
-                                                <div data-open-popover></div>
-                                            {% endif %}
+                                        {{ render_esi(controller('AppBundle:Main:esiHeader')) }}
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </nav>
                 </header>
+
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
                         <div class="email">

@@ -55,6 +55,7 @@ class AppKernel extends Kernel
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new RMS\PushNotificationsBundle\RMSPushNotificationsBundle(),
 
             new Liip\ImagineBundle\LiipImagineBundle(),
             // Sitemap Bundle include
@@ -62,7 +63,7 @@ class AppKernel extends Kernel
 
             //Enable markdown bundle
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
-            new SunCat\MobileDetectBundle\MobileDetectBundle()
+            new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {

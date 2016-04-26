@@ -24,7 +24,8 @@ parameters:
         height: 720
 
 framework:
-    #esi:             ~
+    esi:            { enabled: true }
+    fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -36,7 +37,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v278
+        assets_version: v280
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -329,3 +330,16 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
+
+rms_push_notifications:
+  android:
+      timeout: 60 # Seconds to wait for connection timeout, default is 5
+      gcm:
+          api_key: "%android_api%" # This is titled "Server Key" when creating it
+  ios:
+      timeout: 60 # Seconds to wait for connection timeout, default is 60
+      sandbox: false
+#      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
+      pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
+#      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12

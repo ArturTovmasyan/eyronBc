@@ -1,0 +1,65 @@
+{% if app.user %}
+    {% set user = app.user %}
+    {% set lastName = user.lastName %}
+    {% set firstName = user.firstName %}
+    {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+    {% set className = "user-no" ~ random(4) %}
+
+    <a href="javascript:void(0)"
+       style="display: none"
+       class="settings-modal"
+       data-ls-identity="settingModal"
+       data-ls-template-url="{{ path("settings") }}"
+       data-ls-jquery-modal>
+    </a>
+
+    <a href="javascript:void(0)"
+       class="user clearfix"
+       data-placement="bottom-left"
+       data-ng-click="joinToggle1 = !joinToggle1"
+       data-html="true"
+       data-ng-class="{'join-class': joinToggle1}"
+       data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
+       data-animation="am-fade-and-scale"
+       data-bs-popover>
+        {% if user.getPhotoLink %}
+            <figure class="img-circle">
+                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+            </figure>
+        {% else %}
+            <p class="no-image {{ className }}">{{ nameOnImage }}</p>
+        {% endif %}
+
+        <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
+
+        {% if not isMobile() %}
+            <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+            <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
+        {% else %}
+            <div data-open-popover data-dir="true"></div>
+        {% endif %}
+    </a>
+{% endif %}
+
+<a href="javascript:void(0)"
+        {% if app.user %}
+            style="display: none"
+        {% endif %}
+    data-ng-init="joinToggle2 = false"
+    class="sign-in-popover"
+    data-ng-class="{'join-class': joinToggle2}"
+    data-placement="bottom-left"
+    data-ng-click="joinToggle2 = !joinToggle2"
+    data-content-template="{{ path("fos_user_security_login") }}"
+    data-animation="am-fade-and-scale"
+    data-bs-popover>
+    <i class="icon-join-icon"></i>
+    {{ 'join'|trans }}
+</a>
+
+{% if (isMobile() and not app.user) or not app.user and
+        app.session.flashBag.peekAll|length and
+        app.session.flashBag.peekAll['error'] is defined and
+        app.session.flashBag.peekAll['error'][0] is not null %}
+    <div data-open-popover></div>
+{% endif %}
