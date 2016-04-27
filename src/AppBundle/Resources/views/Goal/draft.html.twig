@@ -18,9 +18,7 @@
                                 {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}
                             </a>
                             <figcaption>
-
                                 {%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}
-
                             </figcaption>
                         </figure>
                     </div>
