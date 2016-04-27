@@ -34,8 +34,8 @@
                             <div class="clearfix">
 
                                 <figure class="image">
-                                        <img data-ng-if="activity.user.image_path" ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
-                                         <p data-ng-if="!activity.user.image_path" class="no-image {{ className }}">[[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]</p>
+                                    <img data-ng-if="activity.user.image_path" ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                                    <p data-ng-if="!activity.user.image_path" class="no-image {% if className is defined %}{{ className }}{% endif %}">[[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]</p>
                                 </figure>
 
                                 <div class="pull-left text-gray">

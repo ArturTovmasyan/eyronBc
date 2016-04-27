@@ -24,7 +24,8 @@ parameters:
         height: 720
 
 framework:
-    #esi:             ~
+    esi:            { enabled: true }
+    fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -36,7 +37,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v280
+        assets_version: v281
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -329,6 +330,7 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
 
 rms_push_notifications:
   android:

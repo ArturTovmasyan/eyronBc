@@ -235,28 +235,28 @@
                     <div class="col-sm-6">
                         <ol style="position: relative;">
                             <li>
-                                <bdi>
+                                <span class="profile-title">
                                     {{ 'security.login.sign_up'|trans({}, 'FOSUserBundle') }}
                                     <i class="icon-ok-only"></i>
-                                </bdi>
+                                </span>
                                 <span class="text-gray">{{ 'my_list.signed_up'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
-                                <bdi>{{ 'account.complete_text'|trans }}
+                                <span class="profile-title">{{ 'account.complete_text'|trans }}
                                     {% if user.registrationToken is null %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </bdi>
+                                </span>
                                 <span class="text-gray">{{ 'my_list.verification'|trans({}, 'FOSUserBundle') }}</span>
                                 <span class="text-gray">{{ 'my_list.confirm'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
                                 {% if user.socialPhotoLink or  user.fileName %}
-                                    <bdi>{{ 'image_complete_text'|trans }}
+                                    <span class="profile-title">{{ 'image_complete_text'|trans }}
                                         <i class="icon-ok-only"></i>
-                                    </bdi>
+                                    </span>
                                 {% else %}
                                     <a href="javascript:void(0)"
                                        data-ls-jquery-modal
@@ -287,34 +287,34 @@
                     <div class="col-sm-6">
                         <ol style="position: relative" start="5">
                             <li>
-                                <bdi>{{ 'deadline.complete_text'|trans }}
+                                <span class="profile-title">{{ 'deadline.complete_text'|trans }}
                                     {% if user.checkDeadLines() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </bdi>
+                                </span>
                                 <span class="text-gray">{{ 'my_list.dream_text'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                             <li>
-                                <bdi>{{ 'goal.complete_text'|trans }}
+                                <span class="profile-title">{{ 'goal.complete_text'|trans }}
                                     {% if user.checkCompletedGoals() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </bdi>
+                                </span>
                                 <span class="text-gray">{{ 'my_list.have_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
 
                             <li>
-                                <bdi>{{ 'success_story.complete_text'|trans | capitalize}}
+                                <span class="profile-title">{{ 'success_story.complete_text'|trans | capitalize}}
                                     {% if user.checkSuccessStory() %}
                                         <i class="icon-ok-only"></i>
                                     {% else %}
                                         <i class="icon-question-only"></i>
                                     {% endif %}
-                                </bdi>
+                                </span>
                                 <span class="text-gray">{{ 'my_list.complete_goal'|trans({}, 'FOSUserBundle') }}</span>
                             </li>
                         </ol>
@@ -443,9 +443,9 @@
                                             {% elseif userGoal.completionDate is not null%}
                                                 {{ userGoal.completionDate|date('d') }}
                                             {% else %}
-                                                <bdi class="dreaming">
+                                                <i class="dreaming">
                                                     <i class="icon-dreaming"></i>
-                                                </bdi>
+                                                </i>
                                             {% endif %}
                                         </div>
                                         {% if userGoals[lastIndex].id == userGoal.id %}
@@ -602,7 +602,6 @@
                                                                 {% else %}
                                                                     <a href="javascript:void(0)" data-ng-show="!success" data-ng-click="addDone('{{ path("done_goal", {'id' : goal.id }) }}', 'addSuccesstory{{ goal.id }}')" class="btn btn-transparent" id="done">
                                                                         <i class="icon done-icon"></i>
-
                                                                         {{ 'done'|trans | capitalize }}
                                                                     </a>
                                                                     <a  href="javascript:void(0)"
@@ -662,17 +661,12 @@
                     <div class="right-menu">
                         <div class="row">
                             <div class="col-xs-8">
-                                <a href="{{ path('add_goal') }}">
-                                    <i class="icon-creat-icon"></i>
-                                    <bdi>{{ 'right_menu.create'|trans }}</bdi>
-                                </a>
+                                <i class="icon-creat-icon"></i>
+                                <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
                             </div>
                             <div class="col-xs-4 text-right">
                                 {% if profileUser.id == app.user.id %}
-                                    <a href="{{ path('goal_drafts') }}">
-                                        <bdi>{{ 'right_menu.draft'|trans }} {{ draftsCount }}</bdi>
-
-                                    </a>
+                                    <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }} {{ draftsCount }}</a>
                                 {% endif %}
                             </div>
                         </div>

@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -78,8 +79,15 @@ class MainController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $env = $this->get('kernel')->getEnvironment();
+
         // get page
         $page = $em->getRepository("AppBundle:Page")->findOneBy(array('slug' => $slug));
+
+        // check page
+        if(!$page){
+            throw $this->createNotFoundException("Page has not been found!");
+        }
 
         // check if page contact us
         if($slug == 'contact-us')
@@ -116,18 +124,61 @@ class MainController extends Controller
                     return array('page'=> $page, 'isSend'=>true);
                 }
             }
+
             // write form
             return array('page'=> $page, 'isSend'=>false, 'form' => $form->createView());
         }
 
-        // check page
-        if(!$page){
 
-            throw $this->createNotFoundException("Page not found");
+        // new response
+        $response = new Response();
+
+        //check environment
+        if($env == 'prod') {
+
+            // set last modified data
+            $response->setLastModified($page->getUpdated());
+
+            // Set response as public. Otherwise it will be private by default.
+            $response->setPublic();
+
+            // Check that the Response is not modified for the given Request
+            if ($response->isNotModified($request)) {
+
+                // return the 304 Response immediately
+                return $response;
+            }
         }
 
-        return array('page' => $page);
+        //get response
+        $response = $this->render('AppBundle:Main:page.html.twig', array('page' => $page), $response);
+
+        return $response;
+
     }
+
+    /**
+     * This action is used to include user block in header
+     *
+     * @Template()
+     * @return array
+     */
+    public function esiUserAction()
+    {
+        return array();
+    }
+
+    /**
+     * This action is used to include activity menu in header
+     *
+     * @Template()
+     * @return array
+     */
+    public function esiActivityAction()
+    {
+        return array();
+    }
+
 
     /**
      * @Route("/goal-friends", name="goal_friends")
@@ -380,111 +431,111 @@ class MainController extends Controller
             //set publishResult
             foreach($published as $n => $publish)
             {
-                        $time1 = new \DateTime($publish['dates']);
+                $time1 = new \DateTime($publish['dates']);
 
-                        $day = $time1->format('M d');
+                $day = $time1->format('M d');
 
-                        $ollDates[] = $day;//for view oll days in graph
+                $ollDates[] = $day;//for view oll days in graph
 
-                        foreach ($userNames as $userName) {
-                            if ($userName == $publish['publishedBy']) {
+                foreach ($userNames as $userName) {
+                    if ($userName == $publish['publishedBy']) {
 
-                                //when username is null move count in wiki userName
-                                if ($userName == null) {
+                        //when username is null move count in wiki userName
+                        if ($userName == null) {
 
-                                    $userName = 'admin@admin.com';
+                            $userName = 'admin@admin.com';
 
-                                    if (isset($publishResult[$day][$userName]['counts'])) {
+                            if (isset($publishResult[$day][$userName]['counts'])) {
 
-                                        $publishResult[$day][$userName]['counts'] += $publish['counts'];
+                                $publishResult[$day][$userName]['counts'] += $publish['counts'];
 
-                                        $publishResult[$day]['total']['counts'] += $publish['counts'];
+                                $publishResult[$day]['total']['counts'] += $publish['counts'];
 
-                                        $perUser[$userName] += $publish['counts'];
+                                $perUser[$userName] += $publish['counts'];
 
-                                    } else {
-                                        if (isset($publishResult[$day]['total']['counts'])) {
-                                            $publishResult[$day]['total']['counts'] += $publish['counts'];
-                                        } else {
-                                            $publishResult[$day]['total']['counts'] = $publish['counts'];
-                                        }
-
-                                        if (isset($perUser[$userName])) {
-
-                                            $perUser[$userName] += $publish['counts'];
-                                        } else {
-                                            $perUser[$userName] = $publish['counts'];
-                                        }
-
-                                        $publishResult[$day][$userName]['counts'] = $publish['counts'];
-                                    }
+                            } else {
+                                if (isset($publishResult[$day]['total']['counts'])) {
+                                    $publishResult[$day]['total']['counts'] += $publish['counts'];
                                 } else {
-                                    //if userName is wiki and it isset
-                                    if (isset($publishResult[$day][$userName]['counts'])) {
-
-                                        $publishResult[$day]['total']['counts'] += $publish['counts'];
-
-                                        $publishResult[$day][$userName]['counts'] += $publish['counts'];
-
-                                        $perUser[$userName] += $publish['counts'];
-
-                                    } else {
-                                        if (isset($publishResult[$day]['total']['counts'])) {
-
-                                            $publishResult[$day]['total']['counts'] += $publish['counts'];
-                                        } else {
-                                            $publishResult[$day]['total']['counts'] = $publish['counts'];
-                                        }
-
-                                        if (isset($perUser[$userName])) {
-
-                                            $perUser[$userName] += $publish['counts'];
-                                        } else {
-                                            $perUser[$userName] = $publish['counts'];
-                                        }
-
-                                        $publishResult[$day][$userName]['counts'] = $publish['counts'];
-                                    }
+                                    $publishResult[$day]['total']['counts'] = $publish['counts'];
                                 }
 
-                                $publishCount += $publish['counts'];//for total
+                                if (isset($perUser[$userName])) {
 
-                            } elseif (!isset($publishResult[$day][$userName]['counts']) and $userName != null) {
-                                if (!isset($publishResult[$day]['total']['counts'])) {
-
-                                    $publishResult[$day]['total']['counts'] = 0;
+                                    $perUser[$userName] += $publish['counts'];
+                                } else {
+                                    $perUser[$userName] = $publish['counts'];
                                 }
 
-                                if (!isset($perUser[$userName])) {
-                                    $perUser[$userName] = 0;
+                                $publishResult[$day][$userName]['counts'] = $publish['counts'];
+                            }
+                        } else {
+                            //if userName is wiki and it isset
+                            if (isset($publishResult[$day][$userName]['counts'])) {
+
+                                $publishResult[$day]['total']['counts'] += $publish['counts'];
+
+                                $publishResult[$day][$userName]['counts'] += $publish['counts'];
+
+                                $perUser[$userName] += $publish['counts'];
+
+                            } else {
+                                if (isset($publishResult[$day]['total']['counts'])) {
+
+                                    $publishResult[$day]['total']['counts'] += $publish['counts'];
+                                } else {
+                                    $publishResult[$day]['total']['counts'] = $publish['counts'];
                                 }
 
-                                $publishResult[$day][$userName]['counts'] = 0;//if in this day user not publish
+                                if (isset($perUser[$userName])) {
+
+                                    $perUser[$userName] += $publish['counts'];
+                                } else {
+                                    $perUser[$userName] = $publish['counts'];
+                                }
+
+                                $publishResult[$day][$userName]['counts'] = $publish['counts'];
                             }
                         }
 
+                        $publishCount += $publish['counts'];//for total
 
-                        if (isset($published[$n + 1])) {
+                    } elseif (!isset($publishResult[$day][$userName]['counts']) and $userName != null) {
+                        if (!isset($publishResult[$day]['total']['counts'])) {
 
-                            $time2 = new \DateTime($published[$n + 1]['dates']);
+                            $publishResult[$day]['total']['counts'] = 0;
+                        }
 
-                            for ($i = 0; $i < 30; $i++) {
+                        if (!isset($perUser[$userName])) {
+                            $perUser[$userName] = 0;
+                        }
 
-                                //if have day when no one not publish
-                                if ($time1 !== null && date_diff($time1, $time2)->d > 1) {
+                        $publishResult[$day][$userName]['counts'] = 0;//if in this day user not publish
+                    }
+                }
 
-                                    $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
 
-                                    $ollDates[] = $day;
+                if (isset($published[$n + 1])) {
 
-                                    $publishResult[$day]['total']['counts'] = 0;
+                    $time2 = new \DateTime($published[$n + 1]['dates']);
 
-                                    foreach ($kayNames as $userName) {
-                                        $publishResult[$day][$userName]['counts'] = 0;
-                                    }
-                                }
+                    for ($i = 0; $i < 30; $i++) {
+
+                        //if have day when no one not publish
+                        if ($time1 !== null && date_diff($time1, $time2)->d > 1) {
+
+                            $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
+
+                            $ollDates[] = $day;
+
+                            $publishResult[$day]['total']['counts'] = 0;
+
+                            foreach ($kayNames as $userName) {
+                                $publishResult[$day][$userName]['counts'] = 0;
                             }
                         }
+                    }
+                }
             }
 
         }

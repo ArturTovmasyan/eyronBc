@@ -3,12 +3,12 @@
     <div class="bg-white padding margin-top">
 
         <a href="{{ path('goal_friends') }}" class="heading text-gray">
-            {#<i class="goalfriends-icon"></i>#}
             <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-            <bdi>{{ 'goalfriends'|trans }} {{ goalFriends|length }}</bdi>
+            <span class="text">{{ 'goalfriends'|trans }} {{ goalFriends|length }}</span>
         </a>
 
         <hr/>
+
         <ul class="list">
 
             {% for goalFriend in goalFriends|slice(0,2) %}
@@ -32,8 +32,8 @@
                             <h4 class="text-dark-gray">{{ goalFriend.firstname }} {{ goalFriend.lastname }}</h4>
 
                             {% set stats = goalFriend.getStats %}
-                            <a href="#" class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</a> |
-                            <a href="#" class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</a>
+                            <span class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</span> |
+                            <span class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</span>
                         </div>
                     </a>
                 </li>
