@@ -16,7 +16,7 @@
     </li>
 
     <li class="col-xs-4 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
-        <a href="javascript:void(0)" data-ng-click="addDone('{{ app.debug ? '/app_dev.php':'' }}/goal/done/'+activity.goal.id, 'addSuccesstory'+activity.goal.id)">
+        <a href="javascript:void(0)" data-ng-click="addDone('{{ app.debug ? '/app_dev.php':'' }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index)">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <span class="text">{{ 'done'|trans | capitalize }}</span>
         </a>
@@ -25,7 +25,7 @@
             data-ls-jquery-modal
             data-ls-template-url="{{ app.debug ? '/app_dev.php':'' }}/goal/add-story/[[ activity.goal.id ]]"
             data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
-            id="addSuccesstory[[ activity.goal.id ]]">
+            id="addSuccessActivity[[ $index ]]">
         </a>
     </li>
 

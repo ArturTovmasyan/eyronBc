@@ -571,7 +571,7 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(res){
-                    $scope.success = true;
+                    $scope[id] = true;
                     angular.element('#'+id).click();
                 });
         };
