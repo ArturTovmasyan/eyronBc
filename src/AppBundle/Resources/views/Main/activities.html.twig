@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row"
                 {% if pagination.getTotalItemCount() != 0 %}
-                     infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
+                     infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                      infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                      infinite-scroll-distance='2'
                 {% endif %}>
