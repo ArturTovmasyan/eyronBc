@@ -50,6 +50,7 @@ angular.module('goal', ['Interpolation',
             this.start = 0;
         };
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
+            angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
             setTimeout(function(){
@@ -107,9 +108,26 @@ angular.module('goal', ['Interpolation',
 
                 url = url.replace('{first}', this.start).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    if(newData[0].datetime !== data[0].datetime){
+                    if(newData[0].datetime !== data[0].datetime ){
                         localStorageService.set('active_data'+userId, newData);
-                        this.oldChache = true;
+                        if(newData[1].datetime !== data[0].datetime){
+                            if(newData[2].datetime !== data[0].datetime){
+                                this.oldChache = true;
+                            }else {
+                                angular.element('#activities').addClass('comingByTop');
+                                this.items.unshift(newData[1]);
+                                this.items.unshift(newData[0]);
+                                this.start +=2;
+                            }
+                        }else {
+                            angular.element('#activities').addClass('comingByTop');
+                            this.items.unshift(newData[0]);
+                            this.start++;
+                        }
+                        this.reserve = [];
+                        this.busy = false;
+                        this.nextReserve(reserveUrl, search, category);
+
                     }
                 }.bind(this));
 
