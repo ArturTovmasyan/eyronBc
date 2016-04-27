@@ -13,17 +13,12 @@
                         <figure class="relative">
                             {% set image = goal.getListPhoto %}
 
-                            {% if image %}
-                                {% set image = goal.getListPhoto %}
-                            {% endif %}
                             <a href="#">
                                 <span class="overlay"></span>
-                                <img src="{% if image %}{{ image.downloadLink|blImageFilter('goal_list_small')  }} {% endif %}" height="230" alt="{{ goal.title }}"/>
+                                {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}
                             </a>
                             <figcaption>
-
                                 {%  include "AppBundle:Blocks:draftGoalFooter.html.twig" with {'goal' : goal }  %}
-
                             </figcaption>
                         </figure>
                     </div>
