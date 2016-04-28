@@ -1,7 +1,7 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-<html data-ng-app="goal" data-ng-controller="activities" xmlns="http://www.w3.org/1999/html"> {% endblock %}
+<html data-ng-app="goal" data-ng-controller="activities" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
 
 
 {% block content %}
@@ -11,11 +11,11 @@
         <div class="container">
             <div class="row"
                 {% if pagination.getTotalItemCount() != 0 %}
-                     infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}")'
-                     infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
-                     infinite-scroll-distance='2'
+                     data-infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
+                     data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
+                     data-infinite-scroll-distance='2'
                 {% endif %}>
-                <div class="col-md-8">
+                <div class="col-md-8" id="activities">
                     {% if pagination.getTotalItemCount() == 0 %}
                         <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
@@ -34,7 +34,7 @@
                             <div class="clearfix">
 
                                 <figure class="image">
-                                    <img data-ng-if="activity.user.image_path" ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                                    <img data-ng-if="activity.user.image_path" data-ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
                                     <p data-ng-if="!activity.user.image_path" class="no-image {% if className is defined %}{{ className }}{% endif %}">[[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]</p>
                                 </figure>
 
@@ -142,7 +142,7 @@
             <figure>
                 <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
-                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" id="goalTitle">
+                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" class="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ activity.goal.title ]]</h3>
                     <img data-ng-if="activity.goal.image_path" data-ng-src="[[ activity.goal.cached_image ]]" alt="[[ activity.goal.title ]]"/>

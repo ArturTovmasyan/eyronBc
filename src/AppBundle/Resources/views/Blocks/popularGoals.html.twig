@@ -18,7 +18,7 @@
                 {#{% set image = popularGoal.getListPhoto %}#}
                 {#{% endif %}#}
 
-                <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" id="goalTitle">
+                <a href="{{ path('inner_goal', {'slug': popularGoal.slug }) }}" class="goalTitle">
                     <span class="overlay"></span>
                     <img src="{% if imageDownloadLink %}{{ imageDownloadLink|blImageFilter('goal_list_small')  }} {% endif %}" alt="{{ popularGoal.title }}"/>
                 </a>
