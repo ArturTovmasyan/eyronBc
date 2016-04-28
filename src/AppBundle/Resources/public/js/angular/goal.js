@@ -9,13 +9,20 @@ angular.module('goal', ['Interpolation',
         'infinite-scroll',
         'Confirm',
         'videosharing-embed',
-        'Components'
+        'Components',
+        'LocalStorageModule'
     ])
-    .factory('lsInfiniteItems', ['$http', function($http) {
+    .config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+        .setPrefix('goal')
+        .setNotify(false, false)
+    })
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
             this.noItem = false;
+            this.oldChache = false;
             this.request = 0;
             this.start = 0;
             this.reserve = [];
@@ -43,6 +50,7 @@ angular.module('goal', ['Interpolation',
             this.start = 0;
         };
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
+            angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
             setTimeout(function(){
@@ -79,7 +87,7 @@ angular.module('goal', ['Interpolation',
             }.bind(this));
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url, search, category) {
+        lsInfiniteItems.prototype.nextPage = function(url, search, category, userId) {
             if (this.busy) {
                 return;
             }
@@ -90,28 +98,72 @@ angular.module('goal', ['Interpolation',
 
             this.busy = true;
             this.noItem = false;
+            this.oldChache = false;
             var reserveUrl = url;
 
-            url = url.replace('{first}', this.start).replace('{count}', this.count);
-            url += '?search=' + search+ '&category=' + category;
-            $http.get(url).success(function(data) {
-                if(!data.length){
-                    this.noItem = true;
-                }
+            //if have userId and caching data by activities
+            if(userId && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == '/api/v1.0/activities/{first}/{count}' && !category && !search) {
+                var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
+
+                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                $http.get(url).success(function(newData) {
+                    if(newData[0].datetime !== data[0].datetime ){
+                        localStorageService.set('active_data'+userId, newData);
+                        if(newData[1].datetime !== data[0].datetime){
+                            if(newData[2].datetime !== data[0].datetime){
+                                this.oldChache = true;
+                            }else {
+                                angular.element('#activities').addClass('comingByTop');
+                                this.items.unshift(newData[1]);
+                                this.items.unshift(newData[0]);
+                                this.start +=2;
+                            }
+                        }else {
+                            angular.element('#activities').addClass('comingByTop');
+                            this.items.unshift(newData[0]);
+                            this.start++;
+                        }
+                        this.reserve = [];
+                        this.busy = false;
+                        this.nextReserve(reserveUrl, search, category);
+
+                    }
+                }.bind(this));
+
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
                 this.nextReserve(reserveUrl, search, category);
 
-                if(!this.items.length){
-                    this.loadRandomItems(this.count);
-                }
-
                 setTimeout(function(){
                     this.loadAddthis();
                 }.bind(this), 500);
-            }.bind(this));
+            }else{
+                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                url += '?search=' + search+ '&category=' + category;
+                $http.get(url).success(function(data) {
+                    if(userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/3?search=&category='){
+                        localStorageService.set('active_data'+userId, data);
+                    }
+                    if(!data.length){
+                        this.noItem = true;
+                    }
+                    this.items = this.items.concat(data);
+                    this.start += this.count;
+                    this.request++;
+                    this.busy = data.length ? false : true;
+                    this.nextReserve(reserveUrl, search, category);
+
+                    if(!this.items.length){
+                        this.loadRandomItems(this.count);
+                    }
+
+                    setTimeout(function(){
+                        this.loadAddthis();
+                    }.bind(this), 500);
+                }.bind(this));
+            }
         };
 
         return lsInfiniteItems;
@@ -507,9 +559,18 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('activities', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+    .controller('activities', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Activities = new lsInfiniteItems(3);
+        $scope.$watch('Activities.oldChache',function(cache){
+            $timeout(function(){
+                if(cache){
+                    $scope.Activities.reset();
+                    $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
+                }
+            }, 1000);
+
+        })
 
     }])
     .controller('goalFooter', ['$scope', '$http', function($scope, $http){
@@ -528,7 +589,7 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(res){
-                    $scope.success = true;
+                    $scope[id] = true;
                     angular.element('#'+id).click();
                 });
         };

@@ -34,6 +34,11 @@
     opacity: 0;
     top: 100px;
 }
+.comingByTop>.goals-animate.ng-leave.goals-animate.ng-leave-active,
+.comingByTop>.goals-animate.ng-enter {
+    opacity: 0;
+    top: -100px;
+}
 
 .goals-animate.ng-enter.goals-animate.ng-enter-active,
 .goals-animate.ng-leave {
