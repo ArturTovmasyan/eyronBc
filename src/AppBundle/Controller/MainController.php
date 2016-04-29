@@ -317,6 +317,17 @@ class MainController extends Controller
                             $count++;
                         }
                     }
+                }else{
+                    $time2 = new \DateTime('now');
+
+                    for($i =$count;$i < 30 ; $i++){
+
+                        if(date_diff($time1,$time2)->d > 0){
+                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
+                            $createResult[$count]['counts'] = 0;
+                            $count++;
+                        }
+                    }
                 }
             };
 
@@ -370,6 +381,17 @@ class MainController extends Controller
                     for($i =$count; $i < 30 ; $i++){
 
                         if(date_diff($time1,$time2)->d > 1){
+                            $updatedResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
+                            $updatedResult[$count]['counts'] = 0;
+                            $count++;
+                        }
+                    }
+                }else {
+                    $time2 = new \DateTime('now');
+
+                    for ($i = $count; $i < 30; $i++) {
+
+                        if (date_diff($time1, $time2)->d > 0) {
                             $updatedResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
                             $updatedResult[$count]['counts'] = 0;
                             $count++;
@@ -523,6 +545,25 @@ class MainController extends Controller
 
                         //if have day when no one not publish
                         if ($time1 !== null && date_diff($time1, $time2)->d > 1) {
+
+                            $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
+
+                            $ollDates[] = $day;
+
+                            $publishResult[$day]['total']['counts'] = 0;
+
+                            foreach ($kayNames as $userName) {
+                                $publishResult[$day][$userName]['counts'] = 0;
+                            }
+                        }
+                    }
+                }else{
+                    $time2 = new \DateTime('now');
+
+                    for ($i = 0; $i < 30; $i++) {
+
+                        //if have day when no one not publish
+                        if ($time1 !== null && date_diff($time1, $time2)->d > 0) {
 
                             $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
 
