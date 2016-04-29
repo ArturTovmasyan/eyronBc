@@ -49,8 +49,12 @@ angular.module('main',['mgcrea.ngStrap.modal',
         };
 
     }])
-    .controller('goalFooter', ['$scope', function($scope){
-
+    .controller('goalFooter', ['$scope', '$timeout', function($scope, $timeout){
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+                    }, 500);
+        };
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
         $scope.deviceDetector = deviceDetector;
