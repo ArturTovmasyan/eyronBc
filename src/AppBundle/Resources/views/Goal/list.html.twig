@@ -63,14 +63,18 @@
          data-infinite-scroll-distance='2'>
         {% set searchResult = app.request.get('search') %}
 
-        <h2 data-ng-show="noIdeas" class="ng-hide">
-            <p class="empty-text text-center">{{ 'goal.not_found'|trans }}</p>
+        <h2 data-ng-show="noIdeas" class="ng-hide text-center">
+            <span class="empty-text text-center">{{ 'goal.not_found'|trans }}</span>
         </h2>
-        <h2 data-ng-show="Ideas.items.length && !noIdeas" class="text-center text-dark {% if searchResult %}no-bottom {% endif %}">{% if not searchResult %}{{ 'homepage_list_title'|trans }} {% endif %}</h2>
+        {% if not searchResult %}
+            <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark ">
+               {{ 'homepage_list_title'|trans }}
+            </h2>
+        {% endif %}
         <div class="row">
 
             <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
-                <div class="row idea-item" >
+                <div class="row idea-item  {% if searchResult %} ideas-result {% endif %}">
                     <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
                          data-ng-cloak
                          data-ng-repeat="goal in Ideas.items">
