@@ -486,6 +486,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.Ideas = new lsInfiniteItems();
         $scope.locations = [];
+        $scope.ideasTitle = true;
         $scope.noIdeas = false;
         var locationsIds = [];
 
@@ -510,6 +511,8 @@ angular.module('goal', ['Interpolation',
 
         $scope.doSearch = function(ev){
             $scope.noIdeas = false;
+            $scope.ideasTitle = false;
+            angular.element('.idea-item').addClass('ideas-result');
             $scope.locations = [];
             locationsIds = [];
             if(ev.which == 13){
@@ -527,6 +530,7 @@ angular.module('goal', ['Interpolation',
             if(!d.length){
                     if($scope.Ideas.noItem ){
                         $scope.noIdeas = true;
+                        angular.element('.idea-item').removeClass('ideas-result');
                         $scope.Ideas.reset();
                         $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
                     };

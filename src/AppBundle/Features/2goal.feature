@@ -70,6 +70,7 @@ Feature: Goal page
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
+    And I scroll page to "top"
     And I press "btn_preview"
     And I should be on "/goal/view/test-goals-1"
     Then I should see "EDIT"
