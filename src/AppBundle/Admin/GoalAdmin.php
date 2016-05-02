@@ -137,7 +137,7 @@ class GoalAdmin extends Admin
     public function preUpdate($object)
     {
         // get current user
-        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
         $description = $object->getDescription();
         $object->setDescription($description);
 
