@@ -29,51 +29,62 @@
                         <div data-ng-show="activity.comment || activity.success_story">
                             {{ _self.goal() }}
                         </div>
+
                         <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
-                        <div class="bg-white padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
-                            <div class="clearfix">
 
-                                <figure class="image">
-                                    <img data-ng-if="activity.user.image_path" data-ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
-                                    <p data-ng-if="!activity.user.image_path" class="no-image {% if className is defined %}{{ className }}{% endif %}">[[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]</p>
-                                </figure>
+                        <div class="bg-white round">
+                            <div class=" padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
+                                <div class="clearfix">
 
-                                <div class="pull-left text-gray">
-                                    <h4>
+                                    <figure class="image">
+                                        <img data-ng-if="activity.user.image_path" data-ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                                        <p data-ng-if="!activity.user.image_path" class="no-image {% if className is defined %}{{ className }}{% endif %}">[[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]</p>
+                                    </figure>
 
-                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/profile/[[ activity.user.u_id ]]" class="text-dark-gray">
-                                            [[ activity.user.first_name ]] [[ activity.user.last_name ]]
-                                        </a>
+                                    <div class="pull-left text-gray">
+                                        <h4>
 
-                                        <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
-                                            {{ 'goal.create'|trans({},'newsFeed') }}
-                                        </span>
-                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
-                                            {{ 'goal.add'|trans({},'newsFeed') }}
-                                        </span>
-                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
-                                            {{ 'goal.complete'|trans({},'newsFeed') }}
-                                        </span>
-                                         <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
-                                            {{ 'goal.success_story'|trans({},'newsFeed') }}
-                                        </span>
-                                          <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
-                                            {{ 'goal.comment'|trans({},'newsFeed') }}
-                                        </span>
+                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/profile/[[ activity.user.u_id ]]" class="text-dark-gray">
+                                                [[ activity.user.first_name ]] [[ activity.user.last_name ]]
+                                            </a>
 
-                                    </h4>
-                                    <p>[[ activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ activity.datetime | date:'HH:mm' ]]</p>
+                                            <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
+                                                {{ 'goal.create'|trans({},'newsFeed') }}
+                                            </span>
+
+                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
+                                                {{ 'goal.add'|trans({},'newsFeed') }}
+                                             </span>
+
+                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
+                                                {{ 'goal.complete'|trans({},'newsFeed') }}
+                                             </span>
+
+                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
+                                                {{ 'goal.success_story'|trans({},'newsFeed') }}
+                                             </span>
+
+                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
+                                                {{ 'goal.comment'|trans({},'newsFeed') }}
+                                             </span>
+
+                                        </h4>
+
+                                        <p>[[ activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ activity.datetime | date:'HH:mm' ]]</p>
+
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="comment-place ng-hide" data-ng-show="activity.comment">
-                                <span class="arrow-up"></span>
-                                [[ activity.comment.comment_body ]]
-                            </div>
+                                <div class="comment-place ng-hide" data-ng-show="activity.comment">
+                                    <span class="arrow-up"></span>
+                                    [[ activity.comment.comment_body ]]
+                                </div>
 
-                            <div class="comment-place ng-hide" data-ng-show="activity.success_story">
-                                <span class="arrow-up"></span>
-                                [[ activity.success_story.story ]]
+                                <div class="comment-place ng-hide" data-ng-show="activity.success_story">
+                                    <span class="arrow-up"></span>
+                                    [[ activity.success_story.story ]]
+                                </div>
+
                             </div>
 
                             <div data-ng-show="!activity.comment && !activity.success_story">
@@ -103,7 +114,7 @@
                     {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
 
-                    <div class="right-block margin-top">
+                    <div class="right-block round margin-top">
                         <div class="right-menu">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -138,7 +149,7 @@
 
 {% macro goal(goal) %}
     <div class="row">
-        <div class="col-sm-12 idea-item">
+        <div class="col-sm-12 idea-item round">
             <figure>
                 <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
