@@ -1,7 +1,9 @@
 <div class="modal-top">
 
+    {% set image = goal.getListPhoto  %}
+
     <figure>
-        <img src="{{ goal.getListPhoto ? goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') : null }}" alt= "{{ goal.title }}" class="img-responsive" />
+       {% if image %} <img src="{{image.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" class="img-responsive" />{% endif %}
     </figure>
 
     {% if doneByUsers is defined and listedByUsers is defined %}
