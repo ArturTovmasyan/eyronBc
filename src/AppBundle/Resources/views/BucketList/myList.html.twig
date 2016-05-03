@@ -118,7 +118,7 @@
     {% set lastName = profileUser.lastName %}
     {% set firstName = profileUser.firstName %}
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
-    {% set className = "profile-image user-no" ~ random(4) %}
+    {% set className = "profile-image profile-image" ~ random(4) %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
     <div class="content-header">

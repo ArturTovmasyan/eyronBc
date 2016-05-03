@@ -23,6 +23,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.oldChache = false;
+            this.isReset = false;
             this.request = 0;
             this.start = 0;
             this.reserve = [];
@@ -43,11 +44,13 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.reset = function(){
+            this.isReset = true;
             this.items = [];
             this.reserve = [];
             this.busy = false;
             this.request = 0;
             this.start = 0;
+            this.oldChache = false;
         };
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             angular.element('#activities').removeClass('comingByTop');
@@ -102,7 +105,7 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == '/api/v1.0/activities/{first}/{count}' && !category && !search) {
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == '/api/v1.0/activities/{first}/{count}' && !category && !search) {
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
@@ -568,7 +571,7 @@ angular.module('goal', ['Interpolation',
         $scope.Activities = new lsInfiniteItems(3);
         $scope.$watch('Activities.oldChache',function(cache){
             $timeout(function(){
-                if(cache){
+                if($scope.Activities.oldChache){
                     $scope.Activities.reset();
                     $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
                 }

@@ -361,4 +361,40 @@ class MainController extends Controller
 
         return array('form' => $form->createView());
     }
+
+    /**
+     * @Route("/sand-message/{userId}", name="sand-test-message")
+     * @param $userId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function sandMessageAction(Request $request, $userId)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+
+        $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+
+        // get referer
+        $referer = $request->server->get('HTTP_REFERER');
+
+        // generate url
+        $url =
+            $referer ?
+                $referer :
+                $this->generateUrl('homepage');
+        //check if user haven`t any goals
+        if ($user) {
+            $sendNoteService->sendTestMassage($user);
+            $this->addFlash('success', 'You sand Test Message successfully');
+        }else {
+            $this->addFlash('error', 'User Not Found');
+        }
+
+
+
+        return $this->redirect($url);
+    }
 }

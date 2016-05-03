@@ -74,6 +74,7 @@ class UserAdmin extends Admin
             ->add('username', null, array('label'=>'admin.label.name.username'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('TestMessage', 'string', array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
