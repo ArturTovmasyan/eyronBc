@@ -300,6 +300,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     {
         $search = str_replace(' ', '', $search);
 
+        //TODO roles in query must be changed
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
