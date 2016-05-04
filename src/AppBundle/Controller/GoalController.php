@@ -894,15 +894,6 @@ class GoalController extends Controller
         //get new feed is log service
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
-        //If user is logged in then show news feed
-        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-
-        if($session->has('newFeed')) {
-            $session->remove('newFeed');
-        }
-
-        //set url in session
-        $session->set('newFeed', $feedCount);
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {
@@ -918,6 +909,17 @@ class GoalController extends Controller
         $url = 'user_profile';
 
         $em->flush();
+
+        //If user is logged in then show news feed
+        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+
+        //check if session has newFeed 
+        if($session->has('newFeed')) {
+            $session->remove('newFeed');
+        }
+
+        //set url in session
+        $session->set('newFeed', $feedCount);
 
         return $this->redirectToRoute($url);
     }
