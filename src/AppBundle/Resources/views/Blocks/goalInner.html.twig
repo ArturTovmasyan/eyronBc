@@ -43,7 +43,7 @@
 
         <div class="row">
             <div class="col-md-9">
-                {% if goal.author and goal.author.id != user.id %}<p class="title-smaller">by {{ goal.author.showName }}</p>{% endif %}
+                {% if goal.author %}<p class="title-smaller">by {{ goal.author.showName }}</p>{% endif %}
                 <h2 {% if goal.title|length > 25 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
             </div>
             <div class="col-md-3"></div>
