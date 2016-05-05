@@ -18,6 +18,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
@@ -32,6 +33,14 @@ class GoalAdmin extends Admin
 
     protected  $baseRouteName = 'admin-goal';
     protected  $baseRoutePattern = 'admin-goal';
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('merge', $this->getRouterIdParameter().'/merge');
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -112,6 +121,7 @@ class GoalAdmin extends Admin
                     'edit' => array('template' => 'AppBundle:Admin:goal_list_action_edit.html.twig'),
                     'delete' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),
                     'goal_link' => array('template' => 'AppBundle:Admin:goal_list_action_link.html.twig'),
+                    'merge' => array('template' => 'AppBundle:Admin:goal_merge_action.html.twig'),
                 )
             ))
         ;
