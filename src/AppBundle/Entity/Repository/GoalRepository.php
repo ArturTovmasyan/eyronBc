@@ -300,6 +300,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     {
         $search = str_replace(' ', '', $search);
 
+        //TODO roles in query must be changed
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
@@ -309,7 +310,9 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->join('ug.goal', 'g')
                     ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
                              AND u.id != :userId")
+                    ->andWhere('u.roles = :roles')
                     ->setParameter('userId', $userId)
+                    ->setParameter('roles', 'a:0:{}')
                     ;
 
         if ($search){
