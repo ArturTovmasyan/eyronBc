@@ -19,13 +19,15 @@ class CRUDController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     * @ParamConverter("goal", class="AppBundle:Goal")
      */
 
-    public function mergeAction(Request $request)
+    public function mergeAction(Request $request, Goal $goal)
     {
         //get current goal
-        $object = $this->admin->getSubject();
+//        $object = $this->admin->getSubject();
 
+        dump($goal);exit;
         //get entity manager
         $em = $this->get('doctrine')->getEntityManager();
 
@@ -52,7 +54,7 @@ class CRUDController extends Controller
         $allGoals = $em->getRepository('AppBundle:Goal')->findAll();
 
         return $this->render('AppBundle:Admin:goal_merge.html.twig', array(
-          'mergeGoal' => $object, 'allGoal' => $allGoals
+          'mergeGoal' => $goal, 'allGoal' => $allGoals
         ));
     }
 
