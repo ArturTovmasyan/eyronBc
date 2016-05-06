@@ -343,3 +343,6 @@ rms_push_notifications:
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
       pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
+
+genemu_form:
+    select2: ~

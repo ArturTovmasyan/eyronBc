@@ -64,6 +64,7 @@ class AppKernel extends Kernel
             //Enable markdown bundle
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {

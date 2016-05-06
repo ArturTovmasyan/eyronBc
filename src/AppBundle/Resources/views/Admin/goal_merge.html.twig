@@ -12,52 +12,45 @@
 
 {% block content %}
 
-    {#{{ dump(mergeGoal) }}#}
-
     <div class="container">
         <h2 class="text-center">Goal Merge</h2>
 
             <div class="row drafts idea-item">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-sm-6">
                         <figure class="relative">
-                            {% set image = mergeGoal.getListPhoto %}
-                           <p>{{ mergeGoal.title }}</p>
+                            {% set image = goal.getListPhoto %}
+                           <p>{{ goal.title }}</p>
                             <a href="#">
                                 <span class="overlay"></span>
-                                {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ mergeGoal.title }}"/>{% endif %}
+                                {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/>{% endif %}
                             </a>
                         </figure>
                     </div>
+
+                <div class="col-sm-6">
+                    <form action="#" method="post" class="form-inline">
+                        <div class="col-sm-8">
+
+                            {{ form_row(form.goal) }}
+                            {{ form_widget(form._token) }}
+
+                            {{ form_stylesheet(form) }}
+                            {{ form_javascript(form) }}
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </form>
+
+                </div>
+
             </div>
 
 
-        <div class="row">
-            <form action="#" method="post" class="form-inline">
-                <div class="col-sm-6">
-                    <div class="row">
-
-                        <div class="col-sm-4">
-                            <select name="groupBy" class="form-control">
-                                <option>WITH GOAL</option>
-                                {#{% for key,  select in selects %}#}
-                                {#<option value="{{ key }}" {% if key == groupBy %} selected {% endif %}>{{ select }}</option>#}
-                                {#{% endfor %}#}
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-3">
-                    <input type="submit" name="submit" class="btn btn-primary" value="Submit">
-                    <input type="submit" name="cancel" class="btn btn-default" value="Clear">
-                </div>
-
-            </form>
-        </div>
-
-
-
+        {#<div class="row">#}
+                   {#</div>#}
 
 
     </div>
