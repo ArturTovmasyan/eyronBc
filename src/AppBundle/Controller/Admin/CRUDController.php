@@ -8,6 +8,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use Application\CommentBundle\Entity\Thread;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -51,6 +52,9 @@ class CRUDController extends Controller
             //merge success story and comment with goal
             $this->mergeSuccessStoryAndComment($goal, $mergingGoal);
 
+            //merge listed an done goal users
+//            $this->mergeListedAndDoneUser($goal, $mergingGoal);
+
             //set flush messages
             $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
 
@@ -83,6 +87,7 @@ class CRUDController extends Controller
 
         foreach($goalSuccessStory as $story)
         {
+            //add success story in merged goal
             $mergeGoalObject->addSuccessStory($story);
             $em->persist($mergeGoalObject);
         }
@@ -91,36 +96,34 @@ class CRUDController extends Controller
         $commentPermalink = $this->generateUrl('inner_goal', array('slug' => $mergeGoalObject->getSlug()), true);
 
         // get goal comments
-        $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsById($goal->getId());
+        $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsByGoalId($goal->getId());
 
-        //get first comment in goal
-        $goalComment = reset($goalComments);
-
-        //get goal old thread
-        $goalOldThread = $goalComment->getThread();
-
+        //check if goal comments exist
         if(count($goalComments) > 0){
 
-            //get merged goal comments
-            $mergedGoalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsById($mergingGoal->getId());
+            //get first comment in goal
+            $goalComment = reset($goalComments);
 
-            //check if merged goal comment exist
-            if(count($mergedGoalComments ) > 0){
+            //get goal old thread for remove
+            $goalOldThread = $goalComment->getThread();
 
-                //get first comment
-                $comment = reset($mergedGoalComments);
+            //get merged goal thread
+            $mergedGoalOldThread = $em->getRepository("ApplicationCommentBundle:Comment")->findThreadByGoalId($mergingGoal->getId());
 
-                //get thread
-                $mergedGoalThread = $comment->getThread();
+            //check if merged goal comments exist
+            if(count($mergedGoalOldThread ) > 0){
+
+                //get merged goal thread
+                $mergedGoalThread = reset($mergedGoalOldThread);
             }
-
             else{
 
-                //create new thread for comment
+                //create new thread for merged goal comments
                 $mergedGoalThread = new Thread();
                 $mergedGoalThread->setId($mergingGoal->getId());
                 $mergedGoalThread->setPermalink($commentPermalink);
                 $mergedGoalThread->setLastCommentAt(new \DateTime('now'));
+                $em->persist($mergedGoalThread);
             }
 
             foreach($goalComments as $goalComment){
@@ -130,8 +133,6 @@ class CRUDController extends Controller
                 $em->persist($goalComment);
             }
 
-            $em->persist($mergedGoalThread);
-
             //remove goal old thread
             $em->remove($goalOldThread);
         }
@@ -140,4 +141,26 @@ class CRUDController extends Controller
         $em->flush();
 
     }
+
+    /**
+     * This function is used to merge listed and done users for goal
+     *
+     * @param $goal
+     * @param $mergingGoal
+     */
+
+    public function mergeListedAndDoneUser($goal, $mergingGoal)
+    {
+        //get entity manager
+        $em = $this->get('doctrine')->getManager();
+
+//        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+//        $doneByUsersForGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED);
+//        $listedByUsersForGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
+//        $doneByUsersForMargingGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($mergingGoal->getId(), UserGoal::COMPLETED);
+//        $listedByUsersForMargingGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($mergingGoal, UserGoal::ACTIVE);
+
+//        $stats = $goal->getStats();
+    }
+
 }
