@@ -232,7 +232,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             if(!$search && !$category ){
 
                 //set first random data for discover category ideas
-                $first = rand(1,100);
+                $first = rand(1,50);
 
                 $ids = $this->getEntityManager()
                     ->createQueryBuilder()
