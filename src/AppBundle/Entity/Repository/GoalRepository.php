@@ -230,6 +230,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         if (is_numeric($first) && is_numeric($count)){
 
             if(!$search && !$category ){
+
+                //set first random data for discover category ideas
+                $first = rand(1,100);
+
                 $ids = $this->getEntityManager()
                     ->createQueryBuilder()
                     ->select('g.id', 'count(ug) as HIDDEN  cnt')
