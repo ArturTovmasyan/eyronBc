@@ -235,7 +235,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 if($first == 0) {
 
                     //set first random data for discover category ideas
-                    $first = rand(1, 50);
+                    $first = rand(1, 30);
                 }
 
                 $ids = $this->getEntityManager()
