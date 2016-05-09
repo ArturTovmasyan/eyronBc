@@ -345,4 +345,9 @@ rms_push_notifications:
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
 
 genemu_form:
-    select2: ~
+    select2:
+        enabled: true
+        configs:
+            width: 100%
+            allowClear: false
+            minimumInputLength: 0

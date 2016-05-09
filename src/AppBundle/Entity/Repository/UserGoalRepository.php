@@ -46,6 +46,30 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
     }
 
     /**
+     * This function is used to get user goals by user and goal id
+     *
+     * @param $userIds
+     * @param $goalId
+     * @return array
+     */
+    public function findUserGoalsByUSerId($userIds, $goalId)
+    {
+        $query =  $this->getEntityManager()
+            ->createQuery("SELECT ug
+                             FROM AppBundle:UserGoal ug
+                             LEFT JOIN ug.user u
+                             LEFT JOIN ug.goal g
+                             WHERE u.id IN (:uid) and g.id = :gid
+                            ")
+            ->setParameter('uid', $userIds)
+            ->setParameter('gid', $goalId)
+            ->getResult()
+        ;
+
+        return $query;
+    }
+
+    /**
      * @param $userId
      * @param $status
      * @param $dream

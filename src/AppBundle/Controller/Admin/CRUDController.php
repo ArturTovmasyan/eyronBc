@@ -53,7 +53,7 @@ class CRUDController extends Controller
             $this->mergeSuccessStoryAndComment($goal, $mergingGoal);
 
             //merge listed an done goal users
-//            $this->mergeListedAndDoneUser($goal, $mergingGoal);
+            $this->mergeListedAndDoneUser($goal, $mergingGoal);
 
             //set flush messages
             $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
@@ -148,19 +148,59 @@ class CRUDController extends Controller
      * @param $goal
      * @param $mergingGoal
      */
-
     public function mergeListedAndDoneUser($goal, $mergingGoal)
     {
         //get entity manager
         $em = $this->get('doctrine')->getManager();
 
-//        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-//        $doneByUsersForGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED);
-//        $listedByUsersForGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
-//        $doneByUsersForMargingGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($mergingGoal->getId(), UserGoal::COMPLETED);
-//        $listedByUsersForMargingGoals = $em->getRepository("AppBundle:Goal")->findGoalUsers($mergingGoal, UserGoal::ACTIVE);
+        //get merge goal
+        $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
 
-//        $stats = $goal->getStats();
+        //get user ids by user goal
+        $goalUserIds = $this->getUserIdsByUserGoals($goal);
+
+        //get user ids by merging user goal
+        $mergeGoalUserIds = $this->getUserIdsByUserGoals($mergingGoal);
+
+        //get user ids for get userGoals
+        $userIds = array_diff($goalUserIds, $mergeGoalUserIds);
+
+        //get user goals for merging
+        $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUSerId($userIds, $goal->getId());
+
+        foreach($mergeUserGoals as $mergeUserGoal)
+        {
+            //add success story in merged goal
+            $mergeGoalObject->addUserGoal($mergeUserGoal);
+            $em->persist($mergeGoalObject);
+        }
+
+        $em->flush();
+
+    }
+
+    /**
+     * This function is used to get user ids by user goals
+     *
+     * @param $data
+     * @return array
+     */
+    public function getUserIdsByUserGoals($data)
+    {
+        $data->getUserGoal()->count();
+
+        //get all user goals
+        $userGoals = $data->getUserGoal();
+
+        //set default array
+        $userIds = array();
+
+        foreach($userGoals as $userGoal)
+        {
+            $userIds[] = $userGoal->getUser()->getId();
+        }
+
+        return $userIds;
     }
 
 }
