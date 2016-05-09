@@ -240,4 +240,29 @@ class CRUDController extends Controller
         return $result;
     }
 
+    /**
+     * Show action.
+     *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function showAction($id = null)
+    {
+        //get entity manager
+        $em = $this->get('doctrine')->getManager();
+
+        //disable goal archived filters
+        $em->getFilters()->disable('archived_goal_filter');
+
+        //get parent edit action
+        $result =  parent::showAction($id = null);
+
+        return $result;
+    }
+
 }
