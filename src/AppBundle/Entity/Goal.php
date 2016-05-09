@@ -8,6 +8,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ArchivedGoal;
+use AppBundle\Model\ArchivedGoalInterface;
+use AppBundle\Model\MergeGoal;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -28,7 +31,7 @@ use Gedmo\Mapping\Annotation\Blameable;
  * })
  * @Gedmo\Loggable
  */
-class Goal implements MultipleFileInterface, PublishAware
+class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;
@@ -216,6 +219,12 @@ class Goal implements MultipleFileInterface, PublishAware
      */
     private $cachedImage;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     * @var bool
+     */
+    private $archived = false;
+    
     /**
      * Get id
      *
@@ -984,5 +993,28 @@ class Goal implements MultipleFileInterface, PublishAware
     public function getPublishedDate()
     {
         return $this->publishedDate;
+    }
+
+    /**
+     * Set archived
+     *
+     * @param boolean $archived
+     * @return Goal
+     */
+    public function setArchived($archived)
+    {
+        $this->archived = $archived;
+
+        return $this;
+    }
+
+    /**
+     * Get archived
+     *
+     * @return boolean 
+     */
+    public function getArchived()
+    {
+        return $this->archived;
     }
 }

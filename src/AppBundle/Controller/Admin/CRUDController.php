@@ -137,9 +137,6 @@ class CRUDController extends Controller
             $em->remove($goalOldThread);
         }
 
-        //call flush
-        $em->flush();
-
     }
 
     /**
@@ -175,8 +172,24 @@ class CRUDController extends Controller
             $em->persist($mergeGoalObject);
         }
 
-        $em->flush();
+        //get all userGoals for old goal
+        $oldGoalUserGoals = $goal->getUserGoal();
 
+        foreach($oldGoalUserGoals as $oldGoalUserGoal)
+        {
+            //remove old goal user goals
+            $goal->removeUserGoal($oldGoalUserGoal);
+            $em->persist($goal);
+
+            //remove old goal user goals
+            $em->remove($oldGoalUserGoal);
+        }
+
+        //set goal archived
+        $goal->setArchived(true);
+        $em->persist($goal);
+
+        $em->flush();
     }
 
     /**
@@ -201,6 +214,30 @@ class CRUDController extends Controller
         }
 
         return $userIds;
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param int|string|null $id
+     *
+     * @return Response|RedirectResponse
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function editAction($id = null)
+    {
+        //get entity manager
+        $em = $this->get('doctrine')->getManager();
+
+        //disable goal archived filters
+        $em->getFilters()->disable('archived_goal_filter');
+
+        //get parent edit action
+        $result =  parent::editAction($id = null);
+
+        return $result;
     }
 
 }

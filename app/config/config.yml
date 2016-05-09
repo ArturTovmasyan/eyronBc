@@ -120,6 +120,9 @@ doctrine:
             publish_filter:
                 class:                AppBundle\Filter\PublishFilter
                 enabled:              false
+            archived_goal_filter:
+                class:                AppBundle\Filter\ArchivedGoalFilter
+                enabled:              true
 
         mappings:
             loggable:
