@@ -18,7 +18,9 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 /**
  * Class CategoryAdmin
@@ -32,6 +34,14 @@ class GoalAdmin extends Admin
 
     protected  $baseRouteName = 'admin-goal';
     protected  $baseRoutePattern = 'admin-goal';
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('merge', $this->getRouterIdParameter().'/merge');
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -59,6 +69,7 @@ class GoalAdmin extends Admin
             ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
 //            , 'attr' => array('class' => 'tinymce')
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('rawLocation', 'bl_location', array('label' => false))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('language', 'lng', array('required' => true))
@@ -75,6 +86,7 @@ class GoalAdmin extends Admin
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
+            ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('created', 'doctrine_orm_callback', array(
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
@@ -96,6 +108,9 @@ class GoalAdmin extends Admin
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
+        //disable goal archived filters
+        $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
+
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
@@ -103,6 +118,7 @@ class GoalAdmin extends Admin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('template' => 'AppBundle:Admin:goal_description_list.html.twig','label'=>'admin.label.name.description'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('created', null, array('label'=>'admin.label.name.created'))
@@ -112,6 +128,7 @@ class GoalAdmin extends Admin
                     'edit' => array('template' => 'AppBundle:Admin:goal_list_action_edit.html.twig'),
                     'delete' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),
                     'goal_link' => array('template' => 'AppBundle:Admin:goal_list_action_link.html.twig'),
+                    'merge' => array('template' => 'AppBundle:Admin:goal_merge_action.html.twig'),
                 )
             ))
         ;

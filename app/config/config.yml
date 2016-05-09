@@ -120,6 +120,9 @@ doctrine:
             publish_filter:
                 class:                AppBundle\Filter\PublishFilter
                 enabled:              false
+            archived_goal_filter:
+                class:                AppBundle\Filter\ArchivedGoalFilter
+                enabled:              true
 
         mappings:
             loggable:
@@ -343,3 +346,11 @@ rms_push_notifications:
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
       pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
+
+genemu_form:
+    select2:
+        enabled: true
+        configs:
+            width: 100%
+            allowClear: false
+            minimumInputLength: 0

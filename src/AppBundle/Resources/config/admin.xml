@@ -55,6 +55,7 @@
             <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.goal"/>
             <argument/>
             <argument>AppBundle\Entity\Goal</argument>
+            <argument>AppBundle:Admin/CRUD</argument>
             <argument/>
             <call method="setTemplate">
                 <argument>edit</argument>
@@ -64,9 +65,12 @@
                 <argument>show</argument>
                 <argument>AppBundle:Admin:goal_show.html.twig</argument>
             </call>
+            <call method="setTemplate">
+                <argument>merge</argument>
+                <argument>AppBundle:Admin:goal_merge.html.twig</argument>
+            </call>
         </service>
 
     </services>
-
 
 </container>

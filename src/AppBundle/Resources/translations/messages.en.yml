@@ -312,7 +312,9 @@ admin:
       username: Username
       created: Created
       goal_link: Link
+      action_merge: Merge
       goal_status: Goal Status
+      archived: Archived goals
 
 # end sonata admin lable
 
