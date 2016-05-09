@@ -32,9 +32,9 @@ class ReplaceInDescriptionExtension extends \Twig_Extension
 
     public function replaceDescription($text)
     {
-        $content = str_replace('#', '',  $text);
+        $content = preg_replace('/#([^\s])/', '$1',  $text);
 
-        return $content;
+        return  $content;
     }
     public function getName()
     {
