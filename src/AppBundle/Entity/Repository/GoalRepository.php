@@ -185,7 +185,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false)
     {
         $query =
             $this->getEntityManager()
@@ -242,17 +242,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->orderBy('cnt', 'desc')
                     ->setParameter('publish', PublishAware::PUBLISH);
 
-                //get ideas result
-                $allIdeas = $ids->getQuery()->getResult();
+                //check if envorinment is behat
+                if($behat == false) {
 
-                //get count ideas
-                $countIdeas = count($allIdeas);
+                    //get ideas result
+                    $allIdeas = $ids->getQuery()->getResult();
 
-                //set random second parameter
-                $random = $countIdeas - 14;
+                    //get count ideas
+                    $countIdeas = count($allIdeas);
 
-                //set first random data for discover category ideas
-                $first = rand(0, $random);
+                    //set random second parameter
+                    $random = $countIdeas - 14;
+
+                    //set first random data for discover category ideas
+                    $first = rand(0, $random);
+                }
 
                 if($locale){
                     $ids->andWhere('g.language  = :lng OR g.language is null')

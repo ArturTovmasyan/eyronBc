@@ -717,8 +717,19 @@ class GoalController extends Controller
 
         $allIds = [];
 
+        //get envorinment
+        $env = $this->container->get('kernel')->getEnvironment();
+
+        //set default behat false
+        $behat = false;
+
+        //check if envor
+        if($env == 'behat') {
+            $behat = true;
+        }
+
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale, $behat);
 
         //check if search goal count is 0
         if(count($goals) == 0) {
