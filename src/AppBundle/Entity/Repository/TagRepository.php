@@ -55,4 +55,25 @@ class TagRepository extends EntityRepository
         return $result;
     }
 
+    /**
+     * This function is used to get tags by goal and tag id
+     *
+     * @param $tagsIds
+     * @param $goalId
+     * @return array
+     */
+    public function findTagsByIds($tagsIds, $goalId)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery("SELECT t
+                       FROM AppBundle:Tag t
+                       LEFT JOIN t.goal g
+                       WHERE t.id in (:tagIds) and g.id = :gId")
+            ->setParameter('tagIds', $tagsIds)
+            ->setParameter('gId', $goalId)
+            ->getResult();
+
+        return $result;
+    }
+
 }

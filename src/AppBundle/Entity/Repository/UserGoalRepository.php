@@ -52,7 +52,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      * @param $goalId
      * @return array
      */
-    public function findUserGoalsByUSerId($userIds, $goalId)
+    public function findUserGoalsByUserId($userIds, $goalId)
     {
         $query =  $this->getEntityManager()
             ->createQuery("SELECT ug
