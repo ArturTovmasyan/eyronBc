@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% set goalCount = goals.getTotalItemCount %}
+{% set routeParam = app.request.get('category') %}
 
 {% block content %}
     <div class="content-top">
@@ -35,7 +36,7 @@
                         data-ng-click="filter = !filter"
                         data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        <span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'most-popular'|trans }}" ]]</span>
+                        <span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>
                         <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>
                     </button>
@@ -133,18 +134,22 @@
                 </div>
             </div>
         </div>
-        {# display navigation #}
-        <div class="navigation text-center">
-            <a href="javascript:void(0)"
-               data-ng-cloak
-               data-ng-show="!Ideas.busy && Ideas.request >= 2"
-               data-ng-click='Ideas.getReserve("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
-               class="show-more ng-hide">
-                <span></span>
-                <span></span>
-                <span></span>
-            </a>
-        </div>
+
+        {% if routeParam and (goalCount != 0 and searchResult is null) %}
+            {# display navigation #}
+            <div class="navigation text-center">
+                <a href="javascript:void(0)"
+                   data-ng-cloak
+                   data-ng-show="!Ideas.busy && Ideas.request >= 2"
+                   data-ng-click='Ideas.getReserve("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
+                   class="show-more ng-hide">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        {% endif %}
+
     </div>
 {% endblock %}
 
