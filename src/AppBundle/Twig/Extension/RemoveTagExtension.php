@@ -9,19 +9,20 @@
 namespace AppBundle\Twig\Extension;
 
 /**
- * Class ReplaceInDescriptionExtension
+ * Class RemoveTagsExtension
  * @package AppBundle\Twig\Extension
  */
 
-class ReplaceInDescriptionExtension extends \Twig_Extension
+
+class RemoveTagExtension extends \Twig_Extension
 {
     /**
      * @return array
      */
-    public function getFunctions()
+    public function getFilters()
     {
         return array(
-            new \Twig_SimpleFunction('replaceDescription', array($this, 'replaceDescription'))
+            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag'))
         );
     }
 
@@ -30,11 +31,11 @@ class ReplaceInDescriptionExtension extends \Twig_Extension
      * @return mixed
      */
 
-    public function replaceDescription($text)
+    public function removeTag($text)
     {
-        $content = str_replace('#', '',  $text);
+        $content = preg_replace('/#([^\s])/', '$1',  $text);
 
-        return $content;
+        return  $content;
     }
     public function getName()
     {

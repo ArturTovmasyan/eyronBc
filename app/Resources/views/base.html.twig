@@ -352,9 +352,15 @@
 
             // Set colors
             UserVoice.push(['set', {
+                trigger_style: 'tab',
                 accent_color: '#448dd6',
                 trigger_color: 'white',
-                trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+//                trigger_background_color: 'rgba(46, 49, 51, 0.6)',
+                trigger_background_color: '#021523',
+
+                strings: {
+                    post_suggestion_title: 'Feedback'
+                },
             }]);
 
             // Identify the user and pass traits

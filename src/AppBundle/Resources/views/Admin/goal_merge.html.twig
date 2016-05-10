@@ -1,0 +1,60 @@
+{% extends base_template %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="hidden-xs"><a href="{{ url('sonata_admin_dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
+    <li class="active hidden-xs">Goal Merge</li>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text-center">Goal Merge</h2>
+
+            <div class="row drafts idea-item">
+                    <div class="col-sm-6">
+                        <figure class="relative">
+                            {% set image = goal.getListPhoto %}
+                           <p>{{ goal.title }}</p>
+                            <a href="#">
+                                <span class="overlay"></span>
+                                {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/>{% endif %}
+                            </a>
+                        </figure>
+                    </div>
+
+                <div class="col-sm-6">
+                    <form action="#" method="post" class="form-inline">
+                        <div class="col-sm-8">
+
+                            {{ form_row(form.goal) }}
+                            {{ form_widget(form._token) }}
+
+                            {{ form_stylesheet(form) }}
+                            {{ form_javascript(form) }}
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        {#<div class="row">#}
+                   {#</div>#}
+
+
+    </div>
+
+
+
+{% endblock %}
