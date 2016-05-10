@@ -231,13 +231,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
             if(!$search && !$category ){
 
-                //check if this first pagination page
-                if($first == 0) {
-
-                    //set first random data for discover category ideas
-                    $first = rand(1, 30);
-                }
-
                 $ids = $this->getEntityManager()
                     ->createQueryBuilder()
                     ->select('g.id', 'count(ug) as HIDDEN  cnt')
@@ -248,6 +241,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->groupBy('g.id')
                     ->orderBy('cnt', 'desc')
                     ->setParameter('publish', PublishAware::PUBLISH);
+
+                //get ideas result
+                $allIdeas = $ids->getQuery()->getResult();
+
+                //get count ideas
+                $countIdeas = count($allIdeas);
+
+                //set random second parameter
+                $random = $countIdeas - 14;
+
+                //set first random data for discover category ideas
+                $first = rand(0, $random);
+
                 if($locale){
                     $ids->andWhere('g.language  = :lng OR g.language is null')
                         ->setParameter('lng', $locale);
