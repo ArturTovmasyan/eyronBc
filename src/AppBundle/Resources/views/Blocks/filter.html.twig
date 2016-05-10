@@ -12,15 +12,26 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
+                    <span>
+                        <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
+                    </span>
+                    {{ 'most_popular'|trans }}
+                </a>
+            </li>
+
             {% for category in categories %}
-                <li>
-                    <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
-                        <span>
-                            <img src="{{ category.downloadLink }}"/>
-                        </span>
-                        {{ category.title }}
-                    </a>
-                </li>
+                {% if  category.slug != 'most-popular' %}
+                    <li>
+                        <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
+                            <span>
+                                <img src="{{ category.downloadLink }}"/>
+                            </span>
+                            {{ category.title }}
+                        </a>
+                    </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
