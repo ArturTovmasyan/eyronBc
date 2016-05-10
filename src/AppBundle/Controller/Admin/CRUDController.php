@@ -9,6 +9,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Form\MergeGoalType;
 use Application\CommentBundle\Entity\Thread;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,21 +25,17 @@ class CRUDController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @ParamConverter("goal", class="AppBundle:Goal")
      */
-
     public function mergeAction(Request $request, Goal $goal)
     {
 
-        //create form
-        $form = $this->createFormBuilder()
-            ->add('goal', 'genemu_jqueryselect2_entity', array(
-                'class' => 'AppBundle\Entity\Goal',
-                'property' => 'title',
-                'placeholder' => 'Select goal'))
-            ->getForm();
-
+        // create form
+        $form = $this->createForm(new MergeGoalType());
 
         //check if method post
         if($request->isMethod('POST')) {
+
+            //get entity manager
+            $em = $this->get('doctrine')->getManager();
 
             // get data from request
             $form->handleRequest($request);
@@ -49,11 +46,28 @@ class CRUDController extends Controller
             //get merging goal id in form
             $mergingGoal = $form->get('goal')->getData();
 
-            //merge success story and comment with goal
-            $this->mergeSuccessStoryAndComment($goal, $mergingGoal);
+            //get tag value in form
+            $tagChecked = $form->get('tags')->getData();
 
-            //merge listed an done goal users
-            $this->mergeListedAndDoneUser($goal, $mergingGoal);
+            //get story value in form
+            $storyChecked = $form->get('successStory')->getData();
+
+            //get comment value in form
+            $commentChecked = $form->get('comment')->getData();
+
+            //get user value in form
+            $userChecked = $form->get('user')->getData();
+
+            //get merge goal
+            $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
+
+            //check if tag checked
+            if($tagChecked) {
+                $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
+
+            }
+
+            $em->flush();
 
             //set flush messages
             $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
@@ -69,28 +83,15 @@ class CRUDController extends Controller
 
 
     /**
-     * This function is used to merge goal success story and comments
+     * This function is used to merge goal comments
      *
      * @param $goal
-     * @param $mergingGoal
+     * @param $em
+     * @param $mergeGoalObject
      */
-    public function mergeSuccessStoryAndComment($goal, $mergingGoal)
+
+    public function mergeComments($goal, $em, $mergeGoalObject)
     {
-        //get entity manager
-        $em = $this->get('doctrine')->getManager();
-
-        //get goal success story
-        $goalSuccessStory = $goal->getSuccessStories();
-
-        //get merge goal
-        $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
-
-        foreach($goalSuccessStory as $story)
-        {
-            //add success story in merged goal
-            $mergeGoalObject->addSuccessStory($story);
-            $em->persist($mergeGoalObject);
-        }
 
         //generate new link for merged comment
         $commentPermalink = $this->generateUrl('inner_goal', array('slug' => $mergeGoalObject->getSlug()), true);
@@ -108,7 +109,7 @@ class CRUDController extends Controller
             $goalOldThread = $goalComment->getThread();
 
             //get merged goal thread
-            $mergedGoalOldThread = $em->getRepository("ApplicationCommentBundle:Comment")->findThreadByGoalId($mergingGoal->getId());
+            $mergedGoalOldThread = $em->getRepository("ApplicationCommentBundle:Comment")->findThreadByGoalId($mergeGoalObject->getId());
 
             //check if merged goal comments exist
             if(count($mergedGoalOldThread ) > 0){
@@ -120,7 +121,7 @@ class CRUDController extends Controller
 
                 //create new thread for merged goal comments
                 $mergedGoalThread = new Thread();
-                $mergedGoalThread->setId($mergingGoal->getId());
+                $mergedGoalThread->setId($mergeGoalObject->getId());
                 $mergedGoalThread->setPermalink($commentPermalink);
                 $mergedGoalThread->setLastCommentAt(new \DateTime('now'));
                 $em->persist($mergedGoalThread);
@@ -136,23 +137,85 @@ class CRUDController extends Controller
             //remove goal old thread
             $em->remove($goalOldThread);
         }
+    }
+
+
+    /**
+     * This function is used to merge goal success story
+     *
+     * @param $goal
+     * @param $em
+     * @param $mergeGoalObject
+     */
+
+    public function mergeSuccessStory($goal, $em, $mergeGoalObject)
+    {
+
+        //get goal success story
+        $goalSuccessStory = $goal->getSuccessStories();
+
+        foreach($goalSuccessStory as $story)
+        {
+            //add success story in merged goal
+            $mergeGoalObject->addSuccessStory($story);
+            $em->persist($mergeGoalObject);
+        }
+    }
+
+    /**
+     * This function is used to merge goal tags
+     *
+     * @param $goal
+     * @param $mergingGoal
+     * @param $em
+     * @param $mergeGoalObject
+     */
+    public function mergeTags($goal, $mergingGoal, $em, $mergeGoalObject)
+    {
+        //get goal tags ids
+        $goalTagIds = $this->getTagsIdsByGoal($goal);
+
+        //get merging goal tags ids
+        $mergeGoalTagIds = $this->getTagsIdsByGoal($mergingGoal);
+
+        //get user ids for get userGoals
+        $tagsIds = array_diff($goalTagIds, $mergeGoalTagIds);
+
+        //get tags for merge
+        $mergeGoalTags = $em->getRepository('AppBundle:Tag')->findTagsByIds($tagsIds, $goal->getId());
+
+        foreach($mergeGoalTags as $mergeGoalTag)
+        {
+            //add success story in merged goal
+            $mergeGoalObject->addTag($mergeGoalTag);
+            $em->persist($mergeGoalObject);
+        }
+
+        //get all tags for old goal
+//        $oldGoalTags = $goal->getTags();
+
+//        foreach($oldGoalTags as $oldGoalTag)
+//        {
+//            //remove old goal user goals
+//            $goal->removeTag($oldGoalTag);
+//            $em->persist($goal);
+//
+//            //remove old goal tags
+//            $em->remove($oldGoalTag);
+//        }
 
     }
 
     /**
-     * This function is used to merge listed and done users for goal
+     * This function is used to merge listed and done, activities users for goal
      *
      * @param $goal
      * @param $mergingGoal
+     * @param $em
+     * @param $mergeGoalObject
      */
-    public function mergeListedAndDoneUser($goal, $mergingGoal)
+    public function mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject)
     {
-        //get entity manager
-        $em = $this->get('doctrine')->getManager();
-
-        //get merge goal
-        $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
-
         //get user ids by user goal
         $goalUserIds = $this->getUserIdsByUserGoals($goal);
 
@@ -163,7 +226,7 @@ class CRUDController extends Controller
         $userIds = array_diff($goalUserIds, $mergeGoalUserIds);
 
         //get user goals for merging
-        $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUSerId($userIds, $goal->getId());
+        $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUserId($userIds, $goal->getId());
 
         foreach($mergeUserGoals as $mergeUserGoal)
         {
@@ -214,6 +277,30 @@ class CRUDController extends Controller
         }
 
         return $userIds;
+    }
+
+    /**
+     * This function is used to get tags ids by goal
+     *
+     * @param $data
+     * @return array
+     */
+    public function getTagsIdsByGoal($data)
+    {
+        $data->getTags()->count();
+
+        //get all goal tags
+        $goalTags = $data->getTags();
+
+        //set default array
+        $tagsIds = array();
+
+        foreach($goalTags as $goalTag)
+        {
+            $tagsIds[] = $goalTag->getId();
+        }
+
+        return $tagsIds;
     }
 
     /**
