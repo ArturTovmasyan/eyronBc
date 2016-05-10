@@ -33,7 +33,7 @@ class RemoveTagExtension extends \Twig_Extension
 
     public function removeTag($text)
     {
-        $content = preg_replace('/#([^\s])/', '$1',  $text);
+        $content = preg_replace('/#([^\s#])/', '$1',  $text);
 
         return  $content;
     }
