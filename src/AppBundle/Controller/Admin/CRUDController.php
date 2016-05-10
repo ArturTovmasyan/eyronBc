@@ -64,8 +64,26 @@ class CRUDController extends Controller
             //check if tag checked
             if($tagChecked) {
                 $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
-
             }
+
+            //check if successStory checked
+            if($storyChecked) {
+                $this->mergeSuccessStory($goal, $em, $mergeGoalObject);
+            }
+
+            //check if comment checked
+            if($commentChecked) {
+                $this->mergeComments($goal, $em, $mergeGoalObject);
+            }
+
+            //check if user checked
+            if($userChecked) {
+                $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
+            }
+
+            //set goal archived
+            $goal->setArchived(true);
+            $em->persist($goal);
 
             $em->flush();
 
@@ -192,17 +210,17 @@ class CRUDController extends Controller
         }
 
         //get all tags for old goal
-//        $oldGoalTags = $goal->getTags();
+        $oldGoalTags = $goal->getTags();
 
-//        foreach($oldGoalTags as $oldGoalTag)
-//        {
-//            //remove old goal user goals
-//            $goal->removeTag($oldGoalTag);
-//            $em->persist($goal);
-//
-//            //remove old goal tags
+        foreach($oldGoalTags as $oldGoalTag)
+        {
+            //remove old goal user goals
+            $goal->removeTag($oldGoalTag);
+            $em->persist($goal);
+
+            //remove old goal tags
 //            $em->remove($oldGoalTag);
-//        }
+        }
 
     }
 
@@ -248,11 +266,6 @@ class CRUDController extends Controller
             $em->remove($oldGoalUserGoal);
         }
 
-        //set goal archived
-        $goal->setArchived(true);
-        $em->persist($goal);
-
-        $em->flush();
     }
 
     /**
