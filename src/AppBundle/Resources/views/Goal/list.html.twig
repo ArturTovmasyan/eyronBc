@@ -11,6 +11,7 @@
 {% set goalCount = goals.getTotalItemCount %}
 
 {% block content %}
+    {% set routeParam = app.request.get('category') %}
     <div class="content-top">
         <div class="container">
 
@@ -133,18 +134,22 @@
                 </div>
             </div>
         </div>
-        {# display navigation #}
-        <div class="navigation text-center">
-            <a href="javascript:void(0)"
-               data-ng-cloak
-               data-ng-show="!Ideas.busy && Ideas.request >= 2"
-               data-ng-click='Ideas.getReserve("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
-               class="show-more ng-hide">
-                <span></span>
-                <span></span>
-                <span></span>
-            </a>
-        </div>
+
+        {% if routeParam %}
+            {# display navigation #}
+            <div class="navigation text-center">
+                <a href="javascript:void(0)"
+                   data-ng-cloak
+                   data-ng-show="!Ideas.busy && Ideas.request >= 2"
+                   data-ng-click='Ideas.getReserve("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
+                   class="show-more ng-hide">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        {% endif %}
+
     </div>
 {% endblock %}
 
