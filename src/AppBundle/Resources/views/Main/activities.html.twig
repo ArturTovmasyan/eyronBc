@@ -10,13 +10,13 @@
     <div id="news-feed">
         <div class="container">
             <div class="row"
-                {% if pagination.getTotalItemCount() != 0 %}
+                {% if activities_count != 0 %}
                      data-infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                      data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                      data-infinite-scroll-distance='2'
                 {% endif %}>
                 <div class="col-md-8" id="activities">
-                    {% if pagination.getTotalItemCount() == 0 %}
+                    {% if activities_count == 0 %}
                         <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
                         </h3>

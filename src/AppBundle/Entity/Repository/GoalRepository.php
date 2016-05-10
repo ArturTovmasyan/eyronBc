@@ -304,8 +304,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
-                    ->select('DISTINCT u')
-                    ->from('ApplicationUserBundle:User', 'u')
+                    ->select('DISTINCT u, ug')
+                    ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('ug.goal', 'g')
                     ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
