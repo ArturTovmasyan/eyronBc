@@ -27,6 +27,7 @@ framework:
     esi:            { enabled: true }
     fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
+    ide: "phpstorm://open?file=%%f&line=%%l"
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
