@@ -17,48 +17,50 @@ class NewFeedRepository extends EntityRepository
      */
     public function findUnconvertedLogs()
     {
-//        $lastConvertedLogId = $this->getEntityManager()
-//            ->createQuery("SELECT MAX(l.id)
-//                           FROM AppBundle:NewFeed nf
-//                           JOIN nf.log l")
-//            ->getSingleScalarResult();
-
         return $this->getEntityManager()
             ->createQuery("SELECT le
                            FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                           WHERE le.id > (SELECT MAX(l1.id)
-                              FROM AppBundle:NewFeed nf1
-                              JOIN nf1.log l1) OR (SELECT COALESCE(MAX(l.id), 0)
-                           FROM AppBundle:NewFeed nf
-                           JOIN nf.log l) = 0")
-//            ->setParameter('lastConvertedId', $lastConvertedLogId)
+                           WHERE
+                            le.id > (SELECT MAX(l1.id) FROM AppBundle:NewFeed nf1 JOIN nf1.log l1)
+                           OR
+                            (SELECT COALESCE(MAX(l.id), 0) FROM AppBundle:NewFeed nf JOIN nf.log l) = 0")
             ->getResult();
     }
 
     /**
      * @param $userId
+     * @param $getCount
      * @return array
      */
-    public function findNewFeed($userId)
+    public function findNewFeed($userId, $getCount = false)
     {
         $goalFriendsIds = $this->getEntityManager()
                                ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
+
         if (!count($goalFriendsIds)){
             $goalFriendsIds[] = 0;
         }
 
-        return $this->getEntityManager()
-            ->createQuery("SELECT nf, u, g, ss, cmt
-                           FROM AppBundle:NewFeed nf
-                           JOIN nf.user u
-                           JOIN nf.goal g WITH g.readinessStatus = true
-                           LEFT JOIN AppBundle:UserGoal ug WITH ug.user = u AND ug.goal = g
-                           LEFT JOIN nf.successStory ss
-                           LEFT JOIN nf.comment cmt
-                           WHERE u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE
-                           ORDER BY nf.datetime DESC")
-            ->setParameter('ids', $goalFriendsIds)
-            ->getResult();
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('nf, u, g, ss, cmt')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.user', 'u')
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
+            ->leftJoin('nf.successStory', 'ss')
+            ->leftJoin('nf.comment', 'cmt')
+            ->where('u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->orderBy('nf.datetime', 'DESC')
+            ->setParameter('ids', $goalFriendsIds);
+
+        if ($getCount){
+            return $query->select('count(nf)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /**

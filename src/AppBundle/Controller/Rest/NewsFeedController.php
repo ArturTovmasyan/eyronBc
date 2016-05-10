@@ -42,11 +42,16 @@ class NewsFeedController extends FOSRestController
      */
     public function getAction($first, $count)
     {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeedByCount($this->getUser()->getId());
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $newsFeeds = array_slice($newsFeeds, $first, $count);
+        }
 
         $goalIds = [];
         foreach($newsFeeds as $newsFeed){
@@ -60,11 +65,6 @@ class NewsFeedController extends FOSRestController
                 'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
                 'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
             ]);
-        }
-
-
-        if (is_numeric($first) && is_numeric($count)) {
-            $newsFeeds = array_slice($newsFeeds, $first, $count);
         }
 
         $liipManager = $this->get('liip_imagine.cache.manager');
