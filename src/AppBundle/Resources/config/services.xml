@@ -69,7 +69,7 @@
         </service>
 
         <!-- service for twig extension is replace # in goal description -->
-        <service id="bl_replace_description_extension" class="AppBundle\Twig\Extension\ReplaceInDescriptionExtension">
+        <service id="bl_replace_description_extension" class="AppBundle\Twig\Extension\RemoveTagExtension">
             <tag name="twig.extension"/>
         </service>
 
