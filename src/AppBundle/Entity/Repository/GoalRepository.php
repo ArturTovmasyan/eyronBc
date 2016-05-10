@@ -201,7 +201,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
-        if($category){
+        if($category && $category != 'most-popular'){
             $query
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
@@ -229,7 +229,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         if (is_numeric($first) && is_numeric($count)){
 
-            if(!$search && !$category ){
+            if(!$search && !$category){
 
                 $ids = $this->getEntityManager()
                     ->createQueryBuilder()
