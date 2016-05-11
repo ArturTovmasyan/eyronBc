@@ -355,3 +355,12 @@ genemu_form:
             width: 100%
             allowClear: false
             minimumInputLength: 0
+
+google:
+    analytics:
+        trackers:
+            default:
+                name:      bucketlist127
+                accountId: UA-73721689-1
+                domain:    stage.bucketlist127.com
+                trackPageLoadTime: true
