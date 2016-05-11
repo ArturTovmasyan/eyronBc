@@ -251,7 +251,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="text-gray">{{ goal.description|removeTag|markdown }}</div>
+                            <div class="inner-info text-gray">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -336,7 +336,7 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <bdi class="{{ className }}">{{ nameOnImage | upper}}</bdi>
+                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>
