@@ -1,5 +1,8 @@
 {% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}
 {% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
+{% set user = app.user %}
+{% set author = goal.author %}
+{% set show = true %}
 
 <div id="fb-root"></div>
 
@@ -41,11 +44,21 @@
             </div>
         </div>
 
+        {% if user and author and user.id == author.id %}
+            {% set show = false %}
+        {% endif %}
+
         <div class="row">
-            <div class="col-md-9">
-                <h2 class="goal-inner-title {% if goal.title|length > 25 %}title-smaller{% endif %}">{{ goal.title }}</h2>
+            <div class="col-sm-12">
+                {% if author and author.isAdmin == false and show %}
+                    <p class="goal-author">
+                        <span class="bg-blue">
+                           {{ 'by' ~ " " ~ author.showName }}
+                        </span>
+                    </p>
+                {% endif %}
+                <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
             </div>
-            <div class="col-md-3"></div>
         </div>
 
         <div class="inner-content">
@@ -238,7 +251,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="text-gray">{{ goal.description|removeTag|markdown }}</div>
+                            <div class="inner-info text-gray">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -323,7 +336,7 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <bdi class="{{ className }}">{{ nameOnImage | upper}}</bdi>
+                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>

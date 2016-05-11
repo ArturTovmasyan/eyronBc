@@ -150,7 +150,7 @@
   }
 
   .addthis_native_toolbox{
-    padding-right:15px;
+    padding-right: 10px;
   }
   #main-slider{
     position: relative; top: 0; left: 0;
@@ -348,7 +348,8 @@
     img{
       width:105%;
       .blur;
-      margin: -25px;
+      //margin: -25px;
+      margin: -50px -30px -25px;
       height:215px;
     }
   }
@@ -375,25 +376,80 @@
     line-height: 22px;
   }
 
+  .goal-author{
+    position: absolute;
+    top: -23px;
+    font-size: 13px;
+    line-height: 21px;
+
+    span{
+      padding: 2px 10px 5px;
+    }
+  }
+
   .inner{
     padding:0 10px 10px;
-    p{
-      padding:0 0 5px 0;
+
+    p,span,a,strong,li,em{
       font-size:12px;
       white-space: normal;
-      text-align: justify;
+      text-align: left;
       word-break: break-word;
     }
 
+    ul{
+      padding:10px;
+      li{
+        margin:5px;
+      }
+    }
+
+    a{
+      color: #666666;
+
+      &:hover{
+        color: #7724F6;
+      }
+    }
+
     h1,h2,h3,h4,h5,h6{
-      padding:0 20px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      padding: 0;
+      color:#555;
     }
 
-    h1,h2{
-      font-size:18px;
+    h1{
+      font-size: 32px;
+      line-height: 32px;
     }
 
-    bdi{
+    h2{
+      font-size: 24px;
+      line-height: 24px;
+    }
+
+    h3{
+      font-size: 20px;
+      line-height: 20px;
+    }
+
+    h4{
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    h5{
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    h6{
+      font-size: 14px;
+      line-height: 14px;
+    }
+
+    span.no-image{
       display: block;
       width:43px;
       height:43px;
@@ -401,7 +457,6 @@
       line-height: 40px;
       text-align: center;
       .rounded-corners;
-      border:2px solid #cecece;
     }
 
     .comment-place{
@@ -492,7 +547,6 @@
         margin-top:15px;
       }
 
-
       figcaption{
         ul{
           li{
@@ -508,7 +562,7 @@
               font-size:30px;
             }
 
-            bdi,.text{
+            .text{
               font-size:13px;
             }
           }
@@ -590,26 +644,23 @@
 
     }
     h2.title-smaller{
-      font-size:23px;
-      line-height:35px;
+      font-size:24px;
+      line-height:36px;
     }
 
+    .goal-author{
+      top: -42px;
+      font-size: 16px;
+      line-height: 24px;
+
+      span{
+        padding: 5px 40px 8px;
+      }
+    }
     .inner{
-      padding:0 15px 5px 15px;
-      p{
-        padding:0 0 10px 0;
+      padding:0 15px 5px 25px;
+      p,span,a,strong,li,em{
         font-size:14px;
-      }
-
-      h1,h2{
-        font-size:30px;
-      }
-
-      bdi{
-        width:43px;
-        height:43px;
-        color:#ffffff;
-        line-height: 40px;
       }
 
       .comment-place{
@@ -656,7 +707,7 @@
       }
     }
     .addthis_native_toolbox{
-      padding-right:7px;
+      padding-right: 0;
     }
   }
 
@@ -708,7 +759,7 @@
     padding-bottom: 30px;
 
     hr{
-      margin:20px 0 20px 10px;
+      margin:20px 0;
     }
 
     .quote{
@@ -749,27 +800,19 @@
     h2.goal-inner-title{
       padding: 5px 40px 10px;
       margin:0 0 20px 0;
-      line-height:60px;
+      line-height:55px;
       font-size: 52px;
     }
     h2.title-smaller{
-      font-size: 23px;
+      font-size: 36px;
       line-height: 55px;
     }
 
     .inner{
-      padding:0 20px 10px 20px;
-      bdi{
-        width:43px;
-        height:43px;
-        color:#ffffff;
-        line-height: 40px;
-      }
-
-      p{
+      padding:0 20px 10px 40px;
+      p,span,a,strong,li,em{
         font-size:16px;
-        line-height:26px;
-        padding-left:21px;
+        line-height:24px;
       }
 
       .comment-place{
@@ -803,7 +846,7 @@
 
   .inner-content{
     .fb-like{
-      margin: 7px 0 0 30px;
+      margin: 7px 0 0 40px;
     }
 
     #main-slider{
