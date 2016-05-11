@@ -12,7 +12,7 @@ Feature: Idea
     And I should see "Completed by"
     When I follow "MAP"
     And I wait for angular
-    And I press "Most popular"
+    And I press "Discover"
     Then I should see categories
     When I follow "Experience"
     Then I should be on "/ideas/experience"

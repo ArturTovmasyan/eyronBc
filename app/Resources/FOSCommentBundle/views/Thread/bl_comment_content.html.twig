@@ -28,7 +28,7 @@
             {% else %}
                 {% set nameOnImage = comment.author.firstName|slice(0,1) ~ comment.author.lastName|slice(0,1) %}
                 {% set className = "user-no" ~ random(4) %}
-                <bdi class="no-image {{ className }}">{{ nameOnImage  |upper}}</bdi>
+                <span class="no-image {{ className }}">{{ nameOnImage  |upper}}</span>
             {% endif %}
         </div>
         <div class="col-xs-10 col-sm-11">

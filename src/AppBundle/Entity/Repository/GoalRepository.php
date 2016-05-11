@@ -182,11 +182,12 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $count
      * @param $allIds
      * @param $isRandom
+     * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $isRandom = false)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false, $isRandom = false)
     {
         $query =
             $this->getEntityManager()
@@ -245,18 +246,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->groupBy('g.id')
                     ->setParameter('publish', PublishAware::PUBLISH);
 
-                //get ideas result
-                $allIdeas = $ids->getQuery()->getResult();
-
-                //get count ideas
-                $countIdeas = count($allIdeas);
-
-                //set random second parameter
-                $random = $countIdeas - 14;
-
-                //set first random data for discover category ideas
-                $first = rand(0, $random);
-
                 if($locale){
                     $ids->andWhere('g.language  = :lng OR g.language is null')
                         ->setParameter('lng', $locale);
@@ -265,11 +254,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             }else{
                 $idsQuery = clone $query;
             }
+
             $ids = $idsQuery
                 ->select('g.id', 'count(ug) as HIDDEN  cnt')
                 ->getQuery()
                 ->getResult()
             ;
+
+            //check if random is true and env isn`t behat
+            if($isRandom && !$behat) {
+
+              //do goal ids is random
+              $ids = $this->shuffle_goal($ids);
+            }
 
             $allIds = $ids;
             $ids = array_slice($ids, $first, $count);
@@ -473,5 +470,35 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 								   ORDER BY dates')
             ->setParameter('limit', $limit)
             ->getResult();
+    }
+
+    /**
+     * This function is used to do random data in array
+     *
+     * @param $ids
+     * @return array
+     */
+    public function shuffle_goal($ids) {
+
+        //check if ids not exist
+        if(!is_array($ids)) {
+
+            return $ids;
+        }
+
+        //get key in array
+        $keys = array_keys($ids);
+
+        //random array by key
+        shuffle($keys);
+
+        //set random default array
+        $random = array();
+
+        foreach ($keys as $key) {
+            $random[$key] = $ids[$key];
+        }
+
+        return $random;
     }
 }

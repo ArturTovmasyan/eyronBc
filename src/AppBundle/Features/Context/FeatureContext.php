@@ -110,7 +110,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $categoryCount = $page->findAll('xpath', '//ul[@class="filter"]//li');
 
-        if(count($categoryCount) == 8) {
+        if(count($categoryCount) == 9) {
             return;
         }
         else{
