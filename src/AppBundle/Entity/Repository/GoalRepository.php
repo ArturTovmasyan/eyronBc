@@ -181,11 +181,13 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $first
      * @param $count
      * @param $allIds
+     * @param $isRandom
+     * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false, $isRandom = false)
     {
         $query =
             $this->getEntityManager()
@@ -197,11 +199,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
                 ->groupBy('g.id')
-                ->orderBy('cnt', 'desc')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
-        if($category){
+        if($category && $category != 'most-popular'){
             $query
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
@@ -229,21 +230,24 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         if (is_numeric($first) && is_numeric($count)){
 
-            if(!$search && !$category ){
+            //check if category is discover by default
+            if(!$search && !$category){
+
+                //set isRandom true
+                $isRandom = true;
 
                 $ids = $this->getEntityManager()
                     ->createQueryBuilder()
-                    ->select('g.id', 'count(ug) as HIDDEN  cnt')
+                    ->select('g.id')
                     ->from('AppBundle:Goal', 'g', 'g.id')
                     ->leftJoin('g.userGoal', 'ug')
                     ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                     ->where('g.publish = :publish')
                     ->groupBy('g.id')
-                    ->orderBy('cnt', 'desc')
                     ->setParameter('publish', PublishAware::PUBLISH);
 
-                //check if envorinment is behat
-                if($behat == false) {
+                //check if envorinment is not behat
+                if(!$behat) {
 
                     //get ideas result
                     $allIdeas = $ids->getQuery()->getResult();
@@ -283,8 +287,14 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->andWhere('g.id IN (:ids)')
                 ->setParameter('ids', $ids);
             ;
-        }
 
+            //check if isRandom is false
+            if(!$isRandom) {
+                $query
+                    ->orderBy('cnt', 'desc')
+                ;
+            }
+        }
 
         return $query->getQuery()->getResult();
     }
