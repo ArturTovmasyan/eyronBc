@@ -40,6 +40,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         // get users
         $user = $this->getReference('user');
         $user1 = $this->getReference('user1');
+        $user3 = $this->getReference('user3');
 
         $tag = new Tag();
         $tag->setTag('test');
@@ -154,6 +155,25 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal9->setPublish(true);
         $manager->persist($goal9);
 
+
+        // create goal
+        $goal10 = new Goal();
+        $goal10->setDescription('goal10 goal10');
+        $goal10->setTitle('goal10');
+        $goal10->setStatus(1);
+        $goal10->setVideoLink(null);
+        $goal10->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal10->addTag($tag);
+
+        $goal10->setLat(40.069099);
+        $goal10->setLng(45.038189);
+        $goal10->setAddress('Armenia');
+
+        $goal10->setAuthor($user3);
+        $goal10->setPublish(true);
+        $manager->persist($goal10);
+
+
         // create goal
         $userGoal1 = new UserGoal();
         $userGoal1->setUser($user);
@@ -241,6 +261,17 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal8->setUrgent(true);
         $userGoal8->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal8);
+
+        // create goal
+        $userGoal9 = new UserGoal();
+        $userGoal9->setUser($user3);
+        $userGoal9->setGoal($goal10);
+        $userGoal9->setIsVisible(true);
+        $userGoal9->setNote('goal9');
+        $userGoal9->setImportant(true);
+        $userGoal9->setUrgent(true);
+        $userGoal9->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal9);
 
 
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
@@ -461,7 +492,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // new uploaded file
         $photo9 = new UploadedFile(
-            $photoPath7,
+            $photoPath10,
             'photo10.jpg',
             'image/jpeg'
         );
@@ -476,6 +507,28 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($goalImage10);
 
+        $oldPhotoPath11 = __DIR__ . '/images/image6.jpg';
+        $photoPath11 = __DIR__ . '/../../../../web/uploads/images/photo11.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath11, $photoPath11);
+
+        // new uploaded file
+        $photo10 = new UploadedFile(
+            $photoPath11,
+            'photo11.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage11 = new GoalImage();
+        $goalImage11->setGoal($goal1);
+        $goal10->addImage($goalImage11);
+        $goalImage11->setFile($photo10);
+        $goalImage11->setFileName($photo->getClientOriginalName());
+        $goalImage11->setFileSize($photo->getSize());
+        $goalImage11->setFileOriginalName($photo->getFilename());
+
+        $manager->persist($goalImage);
 
         $manager->flush();
 

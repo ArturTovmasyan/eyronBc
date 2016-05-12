@@ -79,8 +79,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create user
         $user3 = new User();
-        $user3->setFirstName('user');
-        $user3->setLastName('user');
+        $user3->setFirstName('user3');
+        $user3->setLastName('user3');
         $user3->setEmail('user@user.com');
         $user3->setEnabled(true);
         $user3->setPlainPassword('Test1234');
@@ -90,11 +90,41 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($user3);
 
+        // create user
+        $user4 = new User();
+        $user4->setFirstName('user4');
+        $user4->setLastName('user4');
+        $user4->setEmail('user4@user.com');
+        $user4->setEnabled(true);
+        $user4->setPlainPassword('Test1234');
+        $user4->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1duqw');
+        $user4->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user4);
+
+        // create user
+        $user5 = new User();
+        $user5->setFirstName('user5');
+        $user5->setLastName('user5');
+        $user5->setEmail('user5@user.com');
+        $user5->setEnabled(true);
+        $user5->setPlainPassword('Test1234');
+        $user5->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dugh');
+        $user5->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user5);
+        
+        
         $manager->flush();
 
         $this->addReference('user', $user);
         $this->addReference('user1', $user1);
         $this->addReference('user2', $user2);
+        $this->addReference('user3', $user3);
+        $this->addReference('user4', $user4);
+        $this->addReference('user5', $user5);
     }
 
     /**
