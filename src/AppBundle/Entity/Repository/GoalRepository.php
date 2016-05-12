@@ -256,7 +256,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             }
 
             $ids = $idsQuery
-                ->select('g.id', 'count(ug) as HIDDEN  cnt')
+                ->select('g.id')
                 ->getQuery()
                 ->getResult()
             ;
