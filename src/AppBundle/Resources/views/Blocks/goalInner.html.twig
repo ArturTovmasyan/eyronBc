@@ -52,9 +52,9 @@
             <div class="col-sm-12">
                 {% if author and author.isAdmin == false and show %}
                     <p class="goal-author">
-                        <span class="bg-blue">
-                           {{ 'by' ~ " " ~ author.showName }}
-                        </span>
+                        {#<a class="bg-blue" href="">#}
+                            <a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
+
                     </p>
                 {% endif %}
                 <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
@@ -251,7 +251,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="inner-info text-gray">{{ goal.description|removeTag|markdown }}</div>
+                            <div class="text-dark-grey">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -438,6 +438,8 @@
                                 {% endfor %}
 
                             {% endif %}
+
+                            <br />
 
                             {% if app.user %}
                                 <h4>{{ 'comments'|trans }}</h4><hr />

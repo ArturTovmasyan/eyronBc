@@ -38,8 +38,9 @@
 
                     {% set counter = 0 %}
                     {% for goalFriend in pagination %}
+
                         {% if counter is divisible by(2) %}
-                            <div class="row {% if app.request.get('_route') == 'goal_friends' %} margin-top{% endif %}" >
+                            <div class="row {% if app.request.get('_route') == 'goal_friends' and counter == 0 %} margin-top{% endif %}" >
                         {% endif %}
 
                                 <div class="col-sm-6">
