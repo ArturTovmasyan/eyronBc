@@ -83,6 +83,10 @@ class CRUDController extends Controller
             //merge goal title by goal author roles
             $this->mergeGoalTitle($goal, $em, $mergeGoalObject);
 
+            //set goal id in merge goal
+            $mergeGoalObject->setMergedGoalId($goalId);
+            $em->persist($mergeGoalObject);
+
             //set goal archived
             $goal->setArchived(true);
             $em->persist($goal);

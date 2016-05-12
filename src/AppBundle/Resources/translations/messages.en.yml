@@ -315,6 +315,7 @@ admin:
       action_merge: Merge
       goal_status: Goal Status
       archived: Archived goals
+      merged_id: Merged goal id
 
 # end sonata admin lable
 

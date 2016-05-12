@@ -70,6 +70,7 @@ class GoalAdmin extends Admin
 //            , 'attr' => array('class' => 'tinymce')
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
+            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('rawLocation', 'bl_location', array('label' => false))
             ->add('videoLink', 'bl_multiple_video', array('label' => false))
             ->add('language', 'lng', array('required' => true))
@@ -87,6 +88,7 @@ class GoalAdmin extends Admin
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
+            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('created', 'doctrine_orm_callback', array(
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
@@ -118,6 +120,7 @@ class GoalAdmin extends Admin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
+            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('created', null, array('label'=>'admin.label.name.created'))
