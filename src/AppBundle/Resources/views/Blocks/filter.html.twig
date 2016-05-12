@@ -12,6 +12,15 @@
                 </a>
             </li>
 
+            {% set mostPopular = false %}
+
+            {% for i in 0..(categories|length -1) %}
+                    {% if categories[i].getSlug() == 'most-popular' %}
+                        {% set mostPopular = true %}
+                    {% endif %}
+            {% endfor %}
+
+            {% if mostPopular %}
             <li>
                 <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
                     <span>
@@ -20,9 +29,9 @@
                     {{ 'most_popular'|trans }}
                 </a>
             </li>
-
+            {% endif %}
             {% for category in categories %}
-                {% if  category.slug != 'most-popular' %}
+                {% if category.slug != 'most-popular' %}
                     <li>
                         <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
                             <span>
