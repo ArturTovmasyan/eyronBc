@@ -41,6 +41,14 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $user = $this->getReference('user');
         $user1 = $this->getReference('user1');
         $user3 = $this->getReference('user3');
+        $user4 = $this->getReference('user4');
+        $user5 = $this->getReference('user5');
+        $user6 = $this->getReference('user6');
+        $user7 = $this->getReference('user7');
+        $user8 = $this->getReference('user8');
+        $user9 = $this->getReference('user9');
+        $user10 = $this->getReference('user10');
+
 
         $tag = new Tag();
         $tag->setTag('test');
@@ -273,7 +281,140 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal9->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal9);
 
+        // create goal
+        $userGoal10 = new UserGoal();
+        $userGoal10->setUser($user3);
+        $userGoal10->setGoal($goal7);
+        $userGoal10->setIsVisible(true);
+        $userGoal10->setNote('goal9');
+        $userGoal10->setImportant(true);
+        $userGoal10->setUrgent(true);
+        $userGoal10->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal10);
 
+        // create goal
+        $userGoal11 = new UserGoal();
+        $userGoal11->setUser($user4);
+        $userGoal11->setGoal($goal7);
+        $userGoal11->setIsVisible(true);
+        $userGoal11->setNote('goal9');
+        $userGoal11->setImportant(true);
+        $userGoal11->setUrgent(true);
+        $userGoal11->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal11);
+
+        // create goal
+        $userGoal12 = new UserGoal();
+        $userGoal12->setUser($user5);
+        $userGoal12->setGoal($goal7);
+        $userGoal12->setIsVisible(true);
+        $userGoal12->setNote('goal9');
+        $userGoal12->setImportant(true);
+        $userGoal12->setUrgent(true);
+        $userGoal12->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal12);
+
+        // create goal
+        $userGoal13 = new UserGoal();
+        $userGoal13->setUser($user6);
+        $userGoal13->setGoal($goal4);
+        $userGoal13->setIsVisible(true);
+        $userGoal13->setNote('goal9');
+        $userGoal13->setImportant(true);
+        $userGoal13->setUrgent(true);
+        $userGoal13->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal13);
+
+        // create goal
+        $userGoal14 = new UserGoal();
+        $userGoal14->setUser($user7);
+        $userGoal14->setGoal($goal7);
+        $userGoal14->setIsVisible(true);
+        $userGoal14->setNote('goal9');
+        $userGoal14->setImportant(true);
+        $userGoal14->setUrgent(true);
+        $userGoal14->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal14);
+
+        // create goal
+        $userGoal15 = new UserGoal();
+        $userGoal15->setUser($user8);
+        $userGoal15->setGoal($goal7);
+        $userGoal15->setIsVisible(true);
+        $userGoal15->setNote('goal9');
+        $userGoal15->setImportant(true);
+        $userGoal15->setUrgent(true);
+        $userGoal15->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal15);
+
+        // create goal
+        $userGoal16 = new UserGoal();
+        $userGoal16->setUser($user9);
+        $userGoal16->setGoal($goal7);
+        $userGoal16->setIsVisible(true);
+        $userGoal16->setNote('goal9');
+        $userGoal16->setImportant(true);
+        $userGoal16->setUrgent(true);
+        $userGoal16->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal16);
+
+        // create goal
+        $userGoal17 = new UserGoal();
+        $userGoal17->setUser($user10);
+        $userGoal17->setGoal($goal7);
+        $userGoal17->setIsVisible(true);
+        $userGoal17->setNote('goal9');
+        $userGoal17->setImportant(true);
+        $userGoal17->setUrgent(true);
+        $userGoal17->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal17);
+
+        // create goal
+        $userGoal18 = new UserGoal();
+        $userGoal18->setUser($user3);
+        $userGoal18->setGoal($goal4);
+        $userGoal18->setIsVisible(true);
+        $userGoal18->setNote('goal9');
+        $userGoal18->setImportant(true);
+        $userGoal18->setUrgent(true);
+        $userGoal18->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal18);
+
+        // create goal
+        $userGoal19 = new UserGoal();
+        $userGoal19->setUser($user4);
+        $userGoal19->setGoal($goal4);
+        $userGoal19->setIsVisible(true);
+        $userGoal19->setNote('goal9');
+        $userGoal19->setImportant(true);
+        $userGoal19->setUrgent(true);
+        $userGoal19->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal19);
+
+        // create goal
+        $userGoal20 = new UserGoal();
+        $userGoal20->setUser($user5);
+        $userGoal20->setGoal($goal4);
+        $userGoal20->setIsVisible(true);
+        $userGoal20->setNote('goal9');
+        $userGoal20->setImportant(true);
+        $userGoal20->setUrgent(true);
+        $userGoal20->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal20);
+
+        // create goal
+        $userGoal21 = new UserGoal();
+        $userGoal21->setUser($user7);
+        $userGoal21->setGoal($goal4);
+        $userGoal21->setIsVisible(true);
+        $userGoal21->setNote('goal9');
+        $userGoal21->setImportant(true);
+        $userGoal21->setUrgent(true);
+        $userGoal21->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal21);
+
+
+        //add user goal for goal6
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
 

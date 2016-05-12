@@ -115,8 +115,73 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         );
 
         $manager->persist($user5);
-        
-        
+
+        // create user
+        $user6 = new User();
+        $user6->setFirstName('user6');
+        $user6->setLastName('user6');
+        $user6->setEmail('user6@user.com');
+        $user6->setEnabled(true);
+        $user6->setPlainPassword('Test1234');
+        $user6->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dkuh');
+        $user6->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user6);
+
+        // create user
+        $user7 = new User();
+        $user7->setFirstName('user7');
+        $user7->setLastName('user7');
+        $user7->setEmail('user7@user.com');
+        $user7->setEnabled(true);
+        $user7->setPlainPassword('Test1234');
+        $user7->setRegistrationToken('a4b9e332d75ac0e99b54bf09h3de1dugh');
+        $user7->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user7);
+
+        // create user
+        $user8 = new User();
+        $user8->setFirstName('user8');
+        $user8->setLastName('user8');
+        $user8->setEmail('user8@user.com');
+        $user8->setEnabled(true);
+        $user8->setPlainPassword('Test1234');
+        $user8->setRegistrationToken('a4b9e332d75ac0m99b54bf09d2de1dugh');
+        $user8->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user8);
+
+        // create user
+        $user9 = new User();
+        $user9->setFirstName('user9');
+        $user9->setLastName('user9');
+        $user9->setEmail('user9@user.com');
+        $user9->setEnabled(true);
+        $user9->setPlainPassword('Test1234');
+        $user9->setRegistrationToken('a4b9e332d75ac0o99b54bf09d2de1dugh');
+        $user9->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user9);
+
+        // create user
+        $user10 = new User();
+        $user10->setFirstName('user10');
+        $user10->setLastName('user10');
+        $user10->setEmail('user10@user.com');
+        $user10->setEnabled(true);
+        $user10->setPlainPassword('Test1234');
+        $user10->setRegistrationToken('a4b9e382d75ac0e99b54bf09d2de1dugh');
+        $user10->setCreated(new \DateTime('now')
+        );
+
+        $manager->persist($user10);
+
+
         $manager->flush();
 
         $this->addReference('user', $user);
@@ -125,6 +190,11 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('user3', $user3);
         $this->addReference('user4', $user4);
         $this->addReference('user5', $user5);
+        $this->addReference('user6', $user6);
+        $this->addReference('user7', $user7);
+        $this->addReference('user8', $user8);
+        $this->addReference('user9', $user9);
+        $this->addReference('user10', $user10);
     }
 
     /**
