@@ -27,9 +27,11 @@ class CRUDController extends Controller
      */
     public function mergeAction(Request $request, Goal $goal)
     {
-
+        //get goalId
+        $goalId = $goal->getId();
+        
         // create form
-        $form = $this->createForm(new MergeGoalType());
+        $form = $this->createForm(new MergeGoalType($goalId));
 
         //check if method post
         if($request->isMethod('POST')) {
@@ -39,9 +41,6 @@ class CRUDController extends Controller
 
             // get data from request
             $form->handleRequest($request);
-
-            //get goalId
-            $goalId = $goal->getId();
 
             //get merging goal id in form
             $mergingGoal = $form->get('goal')->getData();
@@ -80,6 +79,9 @@ class CRUDController extends Controller
             if($userChecked) {
                 $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
             }
+
+            //merge goal title by goal author roles
+            $this->mergeGoalTitle($goal, $em, $mergeGoalObject);
 
             //set goal archived
             $goal->setArchived(true);
@@ -176,6 +178,46 @@ class CRUDController extends Controller
         {
             //add success story in merged goal
             $mergeGoalObject->addSuccessStory($story);
+            $em->persist($mergeGoalObject);
+        }
+    }
+
+    /**
+     * This function is used to merge goal title by user roles
+     *
+     * @param $goal
+     * @param $em
+     * @param $mergeGoalObject
+     */
+    public function mergeGoalTitle($goal, $em, $mergeGoalObject)
+    {
+        //get goal author
+        $goalAuthor = $goal->getAuthor();
+
+        //get merge goal author
+        $mergeGoalAuthor = $mergeGoalObject->getAuthor();
+
+        //if goalAuthor is admin and merge goal author is not
+        if($goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+            return;
+        }
+
+        //if goalAuthor and mergeGoalAuthor is admin
+        if($goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+            return;
+        }
+
+        //if goalAuthor is not admin and merge goal author is yes
+        if(!$goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+
+            $mergeGoalObject->setAuthor($goalAuthor);
+            $em->persist($mergeGoalObject);
+        }
+
+        //if goalAuthor and mergeGoalAuthor is not admin
+        if(!$goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+
+            $mergeGoalObject->setAuthor($goalAuthor);
             $em->persist($mergeGoalObject);
         }
     }
