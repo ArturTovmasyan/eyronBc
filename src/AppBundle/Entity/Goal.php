@@ -226,7 +226,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $archived = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      * @var integer
      */
     private $mergedGoalId;
@@ -1040,7 +1040,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * Get mergedGoalId
      *
-     * @return integer 
+     * @return integer
      */
     public function getMergedGoalId()
     {
