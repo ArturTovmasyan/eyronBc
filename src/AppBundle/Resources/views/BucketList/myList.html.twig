@@ -524,7 +524,11 @@
                                                     </div>
                                                 </div>
 
-                                                <p>{% if goal.author and goal.author.id != user.id %}<a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-dark-gray">{{ goal.author.showName }} &nbsp;</a>{% endif %}</p>
+                                                <p>
+                                                    {% if goal.author and goal.author.id != user.id %}
+                                                        <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-dark-gray">{{ goal.author.showName }} </a>
+                                                    {% endif %} &nbsp;
+                                                </p>
 
                                                 <ul class="clearfix">
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
