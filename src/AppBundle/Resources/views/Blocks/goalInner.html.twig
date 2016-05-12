@@ -52,9 +52,9 @@
             <div class="col-sm-12">
                 {% if author and author.isAdmin == false and show %}
                     <p class="goal-author">
-                        <span class="bg-blue">
-                           {{ 'by' ~ " " ~ author.showName }}
-                        </span>
+                        {#<a class="bg-blue" href="">#}
+                            <a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
+
                     </p>
                 {% endif %}
                 <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
