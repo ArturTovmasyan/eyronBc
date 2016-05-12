@@ -31,7 +31,7 @@
 
 {%- block og_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description)|removeTag -}}
+        {{- sliceString(goal.description)|removeTagInMeta -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
@@ -47,7 +47,7 @@
 
 {%- block meta_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description)|removeTag -}}
+        {{- sliceString(goal.description)|removeTagInMeta -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
