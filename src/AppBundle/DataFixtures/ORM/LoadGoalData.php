@@ -77,7 +77,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal2->setTitle('goal2');
         $goal2->setStatus(1);
         $goal2->setVideoLink(null);
-        $goal2->setAuthor($user1);
+        $goal2->setAuthor($user4);
         $goal2->setReadinessStatus(Goal::TO_PUBLISH);
         $goal2->setPublish(true);
         $manager->persist($goal2);
@@ -88,7 +88,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal3->setTitle('goal3');
         $goal3->setStatus(1);
         $goal3->setVideoLink(null);
-        $goal3->setAuthor($user1);
+        $goal3->setAuthor($user4);
         $goal3->setReadinessStatus(Goal::TO_PUBLISH);
         $goal3->setPublish(true);
         $manager->persist($goal3);
@@ -100,7 +100,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal4->setStatus(1);
         $goal4->setVideoLink(null);
         $goal4->setReadinessStatus(Goal::TO_PUBLISH);
-        $goal4->setAuthor($user1);
+        $goal4->setAuthor($user4);
         $goal4->setPublish(true);
         $manager->persist($goal4);
 
@@ -110,7 +110,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal5->setTitle('goal5');
         $goal5->setStatus(1);
         $goal5->setVideoLink(null);
-        $goal5->setAuthor($user1);
+        $goal5->setAuthor($user4);
         $goal5->setPublish(true);
         $manager->persist($goal5);
 
@@ -121,7 +121,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal6->setStatus(1);
         $goal6->setVideoLink(null);
         $goal6->setReadinessStatus(Goal::TO_PUBLISH);
-        $goal6->setAuthor($user1);
+        $goal6->setAuthor($user4);
         $goal6->setPublish(true);
         $manager->persist($goal6);
 
@@ -132,7 +132,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal7->setStatus(1);
         $goal7->setVideoLink(null);
         $goal7->setReadinessStatus(Goal::TO_PUBLISH);
-        $goal7->setAuthor($user1);
+        $goal7->setAuthor($user4);
         $goal7->setPublish(true);
         $manager->persist($goal7);
 
@@ -142,7 +142,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal8->setTitle('goal8');
         $goal8->setStatus(1);
         $goal8->setVideoLink(null);
-        $goal8->setAuthor($user1);
+        $goal8->setAuthor($user4);
         $goal8->setPublish(true);
         $manager->persist($goal8);
 
@@ -159,7 +159,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal9->setLng(45.038189);
         $goal9->setAddress('Armenia');
 
-        $goal9->setAuthor($user1);
+        $goal9->setAuthor($user4);
         $goal9->setPublish(true);
         $manager->persist($goal9);
 
@@ -177,7 +177,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal10->setLng(45.038189);
         $goal10->setAddress('Armenia');
 
-        $goal10->setAuthor($user3);
+        $goal10->setAuthor($user5);
         $goal10->setPublish(true);
         $manager->persist($goal10);
 
