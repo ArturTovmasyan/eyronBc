@@ -251,7 +251,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="inner-info text-gray">{{ goal.description|removeTag|markdown }}</div>
+                            <div class="text-dark-grey">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -438,6 +438,8 @@
                                 {% endfor %}
 
                             {% endif %}
+
+                            <br />
 
                             {% if app.user %}
                                 <h4>{{ 'comments'|trans }}</h4><hr />
