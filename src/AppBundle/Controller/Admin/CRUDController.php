@@ -113,7 +113,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
 
@@ -171,7 +170,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeSuccessStory($goal, $em, $mergeGoalObject)
     {
 
