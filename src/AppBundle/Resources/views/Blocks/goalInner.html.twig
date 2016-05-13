@@ -251,7 +251,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="text-dark-grey">{{ goal.description|removeTag|markdown }}</div>
+                            <div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
