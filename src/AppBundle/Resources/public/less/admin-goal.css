@@ -40,3 +40,36 @@
     width: 33%;
     height: 33%;
 }
+
+.images{
+    padding-left:0;
+    list-style: none;
+}
+
+.images figure{
+    text-align: center;
+    padding:25px 15px  15px;
+    background-color: #f4f4f4;
+    margin: 10px 0 15px;
+}
+
+.images figcaption{
+    padding: 10px 20px 0;
+}
+
+.file-list{
+   margin:10px 0;
+}
+
+.images .delete-link{
+    vertical-align: middle;
+}
+
+.file-list .delete-link{
+    padding:0 25px;
+}
+
+.add-image{
+    clear: both;
+    margin:20px 15px 15px;
+}
