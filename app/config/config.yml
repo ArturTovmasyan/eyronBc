@@ -357,11 +357,19 @@ genemu_form:
             allowClear: false
             minimumInputLength: 0
 
-google:
-    analytics:
-        trackers:
-            default:
-                name:      bucketlist127
-                accountId: UA-73721689-1
-                domain:    stage.bucketlist127.com
-                trackPageLoadTime: true
+#google:
+#    analytics:
+#        enhanced_ecommerce: false
+#        session_auto_started: true
+#        trackers:
+#            default:
+#                name: bucketlist
+#                accountId: UA-77817737-1
+#                domain: .bucketlist.am
+#                setSiteSpeedSampleRate: 5
+#                allowAnchor: true
+#                allowHash: true
+#                includeNamePrefix: false
+#                plugins:
+#                    - 'linkid'
+#        whitelist: [ 'q', 'utm_source', 'utm_medium', 'utm_term', 'utm_content', 'utm_campaign' ]
