@@ -183,6 +183,7 @@
                                    data-ls-identity="settingModalInMyBucketList"
                                    data-ls-template-url="{{ path("settings") }}"
                                    data-ls-jquery-modal>
+                                    <span class="black-overlay settings-overlay"></span>
                                     <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
                                 </a>
                             </div>
@@ -191,7 +192,7 @@
                             <div class="profile-information" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
                                 <em>{{ 'complete_message'|trans }}</em>
 
-                                <div class="row">
+                                <div class="row no-gutter">
                                     <div class="col-xs-10">
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped"
@@ -206,12 +207,10 @@
                                     </div>
                                     <div class="col-xs-2">
                                         <a class="text-gray"
-                                                {#data-ng-class="{'icon-question-icon': !completeProfileMyBucketList, 'icon-icon-up': completeProfileMyBucketList}"#}
                                            data-ng-click="completeProfileMyBucketList=!completeProfileMyBucketList">
+                                            <span class="black-overlay"></span>
                                             <i class="icon-question-icon" data-ng-hide="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
-                                            {#<i class="icon up-icon ng-hide" data-ng-show="completeProfileMyBucketList"></i>#}
                                             <i class="icon-icon-up ng-hide" data-ng-show="completeProfileMyBucketList"><span class="path1"></span><span class="path2"></span></i>
-                                            {#<i class="icon-icon-up"><span class="path1"></span><span class="path2"></span></i>#}
                                         </a>
                                     </div>
 
@@ -519,14 +518,16 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <h3>
-                                                            <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}" class="text-dark-gray">{{ goal.title }}</a>
+                                                            <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}" class="text-dark-gray">
+                                                                <strong>{{ goal.title }}</strong>
+                                                            </a>
                                                         </h3>
                                                     </div>
                                                 </div>
 
                                                 <p>
                                                     {% if goal.author and goal.author.id != user.id %}
-                                                        <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-dark-gray">{{ goal.author.showName }} </a>
+                                                        <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-gray">{{ goal.author.showName }} </a>
                                                     {% endif %} &nbsp;
                                                 </p>
 

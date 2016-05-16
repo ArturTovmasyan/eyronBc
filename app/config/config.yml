@@ -38,7 +38,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v290
+        assets_version: v298
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -48,6 +48,7 @@ framework:
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
 #        handler_id:  ~
+        cookie_lifetime: 2628000 #1 month
         gc_probability: 0
         save_path: ~
     fragments:       ~

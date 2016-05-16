@@ -27,9 +27,11 @@ class CRUDController extends Controller
      */
     public function mergeAction(Request $request, Goal $goal)
     {
-
+        //get goalId
+        $goalId = $goal->getId();
+        
         // create form
-        $form = $this->createForm(new MergeGoalType());
+        $form = $this->createForm(new MergeGoalType($goalId));
 
         //check if method post
         if($request->isMethod('POST')) {
@@ -39,9 +41,6 @@ class CRUDController extends Controller
 
             // get data from request
             $form->handleRequest($request);
-
-            //get goalId
-            $goalId = $goal->getId();
 
             //get merging goal id in form
             $mergingGoal = $form->get('goal')->getData();
@@ -60,6 +59,9 @@ class CRUDController extends Controller
 
             //get merge goal
             $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
+
+            //merge goal author by roles
+            $this->mergeGoalAuthor($goal, $em, $mergeGoalObject);
 
             //check if tag checked
             if($tagChecked) {
@@ -80,6 +82,10 @@ class CRUDController extends Controller
             if($userChecked) {
                 $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
             }
+
+            //set goal id in merge goal
+            $mergeGoalObject->setMergedGoalId($goalId);
+            $em->persist($mergeGoalObject);
 
             //set goal archived
             $goal->setArchived(true);
@@ -107,7 +113,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
 
@@ -165,7 +170,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeSuccessStory($goal, $em, $mergeGoalObject)
     {
 
@@ -177,6 +181,71 @@ class CRUDController extends Controller
             //add success story in merged goal
             $mergeGoalObject->addSuccessStory($story);
             $em->persist($mergeGoalObject);
+        }
+    }
+
+    /**
+     * This function is used to merge goal author by user roles
+     *
+     * @param $goal
+     * @param $em
+     * @param $mergeGoalObject
+     */
+    public function mergeGoalAuthor($goal, $em, $mergeGoalObject)
+    {
+        //get goal author
+        $goalAuthor = $goal->getAuthor();
+
+        //get merge goal author
+        $mergeGoalAuthor = $mergeGoalObject->getAuthor();
+
+        if($goalAuthor && $mergeGoalAuthor) {
+
+            //if goalAuthor is admin and merge goal author is not
+            if($goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+                return;
+            }
+
+            //if goalAuthor and mergeGoalAuthor is admin
+            if($goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+                return;
+            }
+
+            //if goalAuthor is not admin and merge goal author is yes
+            if(!$goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
+
+            //if goalAuthor and mergeGoalAuthor is not admin
+            if(!$goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
+        }
+        else{
+
+            //check if merge goal don't have author
+            if($goalAuthor && !$mergeGoalAuthor) {
+
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
+
+            //check if goal don't have author
+            if(!$goalAuthor && $mergeGoalAuthor) {
+                return;
+            }
+
+            //check if goals don't have any author
+            if(!$goalAuthor && !$mergeGoalAuthor) {
+                return;
+            }
         }
     }
 
@@ -218,10 +287,7 @@ class CRUDController extends Controller
             $goal->removeTag($oldGoalTag);
             $em->persist($goal);
 
-            //remove old goal tags
-//            $em->remove($oldGoalTag);
         }
-
     }
 
     /**
@@ -246,11 +312,16 @@ class CRUDController extends Controller
         //get user goals for merging
         $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUserId($userIds, $goal->getId());
 
-        foreach($mergeUserGoals as $mergeUserGoal)
-        {
-            //add success story in merged goal
-            $mergeGoalObject->addUserGoal($mergeUserGoal);
-            $em->persist($mergeGoalObject);
+        //check if $mergeUserGoals exist
+        if(count($mergeUserGoals) > 0) {
+
+            foreach($mergeUserGoals as $mergeUserGoal)
+            {
+                //add success story in merged goal
+                $mergeGoalObject->addUserGoal($mergeUserGoal);
+                $em->persist($mergeGoalObject);
+            }
+
         }
 
         //get all userGoals for old goal
@@ -265,7 +336,6 @@ class CRUDController extends Controller
             //remove old goal user goals
             $em->remove($oldGoalUserGoal);
         }
-
     }
 
     /**

@@ -256,7 +256,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             }
 
             $ids = $idsQuery
-                ->select('g.id', 'count(ug) as HIDDEN  cnt')
+                ->select('g.id')
                 ->getQuery()
                 ->getResult()
             ;
@@ -370,9 +370,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i
+            ->createQuery("SELECT g, i, a, ss
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
+                           LEFT JOIN g.author a
+                           LEFT JOIN g.successStories ss
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();

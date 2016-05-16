@@ -289,6 +289,7 @@ admin:
       id: Id
       title: Title
       tags: Tags
+      slug: Slug
       downloadLink: Icon
       file: File
       author: Author
@@ -311,10 +312,11 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
-      goal_link: Link
+      goal_link: Goal link
       action_merge: Merge
       goal_status: Goal Status
       archived: Archived goals
+      merged_id: Merged goal id
 
 # end sonata admin lable
 
