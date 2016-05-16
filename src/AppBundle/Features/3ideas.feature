@@ -28,7 +28,7 @@ Feature: Idea
     And I wait for view
     And I click on "addthis_button_expanded"
     And I wait for angular
-    And I follow "Close"
+    And I click on "at-expanded-menu-close"
     And I wait for angular
     And I follow "Add"
     And I wait for angular

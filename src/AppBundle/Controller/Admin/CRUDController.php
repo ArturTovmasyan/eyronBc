@@ -83,6 +83,10 @@ class CRUDController extends Controller
             //merge goal title by goal author roles
             $this->mergeGoalTitle($goal, $em, $mergeGoalObject);
 
+            //set goal id in merge goal
+            $mergeGoalObject->setMergedGoalId($goalId);
+            $em->persist($mergeGoalObject);
+
             //set goal archived
             $goal->setArchived(true);
             $em->persist($goal);
@@ -109,7 +113,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
 
@@ -167,7 +170,6 @@ class CRUDController extends Controller
      * @param $em
      * @param $mergeGoalObject
      */
-
     public function mergeSuccessStory($goal, $em, $mergeGoalObject)
     {
 
@@ -197,28 +199,53 @@ class CRUDController extends Controller
         //get merge goal author
         $mergeGoalAuthor = $mergeGoalObject->getAuthor();
 
-        //if goalAuthor is admin and merge goal author is not
-        if($goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
-            return;
+        if($goalAuthor && $mergeGoalAuthor) {
+
+            //if goalAuthor is admin and merge goal author is not
+            if($goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+                return;
+            }
+
+            //if goalAuthor and mergeGoalAuthor is admin
+            if($goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+                return;
+            }
+
+            //if goalAuthor is not admin and merge goal author is yes
+            if(!$goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
+
+            //if goalAuthor and mergeGoalAuthor is not admin
+            if(!$goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
+
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
         }
+        else{
 
-        //if goalAuthor and mergeGoalAuthor is admin
-        if($goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
-            return;
-        }
+            //check if merge goal don't have author
+            if($goalAuthor && !$mergeGoalAuthor) {
 
-        //if goalAuthor is not admin and merge goal author is yes
-        if(!$goalAuthor->isAdmin() && $mergeGoalAuthor->isAdmin()) {
+                $mergeGoalObject->setAuthor($goalAuthor);
+                $em->persist($mergeGoalObject);
+                return;
+            }
 
-            $mergeGoalObject->setAuthor($goalAuthor);
-            $em->persist($mergeGoalObject);
-        }
+            //check if goal don't have author
+            if(!$goalAuthor && $mergeGoalAuthor) {
+                return;
+            }
 
-        //if goalAuthor and mergeGoalAuthor is not admin
-        if(!$goalAuthor->isAdmin() && !$mergeGoalAuthor->isAdmin()) {
-
-            $mergeGoalObject->setAuthor($goalAuthor);
-            $em->persist($mergeGoalObject);
+            //check if goals don't have any author
+            if(!$goalAuthor && !$mergeGoalAuthor) {
+                return;
+            }
         }
     }
 
@@ -260,10 +287,7 @@ class CRUDController extends Controller
             $goal->removeTag($oldGoalTag);
             $em->persist($goal);
 
-            //remove old goal tags
-//            $em->remove($oldGoalTag);
         }
-
     }
 
     /**
@@ -288,26 +312,29 @@ class CRUDController extends Controller
         //get user goals for merging
         $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUserId($userIds, $goal->getId());
 
-        foreach($mergeUserGoals as $mergeUserGoal)
-        {
-            //add success story in merged goal
-            $mergeGoalObject->addUserGoal($mergeUserGoal);
-            $em->persist($mergeGoalObject);
+        //check if $mergeUserGoals exist
+        if(count($mergeUserGoals) > 0) {
+
+            foreach($mergeUserGoals as $mergeUserGoal)
+            {
+                //add success story in merged goal
+                $mergeGoalObject->addUserGoal($mergeUserGoal);
+                $em->persist($mergeGoalObject);
+            }
+
+            //get all userGoals for old goal
+            $oldGoalUserGoals = $goal->getUserGoal();
+
+            foreach($oldGoalUserGoals as $oldGoalUserGoal)
+            {
+                //remove old goal user goals
+                $goal->removeUserGoal($oldGoalUserGoal);
+                $em->persist($goal);
+
+                //remove old goal user goals
+                $em->remove($oldGoalUserGoal);
+            }
         }
-
-        //get all userGoals for old goal
-        $oldGoalUserGoals = $goal->getUserGoal();
-
-        foreach($oldGoalUserGoals as $oldGoalUserGoal)
-        {
-            //remove old goal user goals
-            $goal->removeUserGoal($oldGoalUserGoal);
-            $em->persist($goal);
-
-            //remove old goal user goals
-            $em->remove($oldGoalUserGoal);
-        }
-
     }
 
     /**
