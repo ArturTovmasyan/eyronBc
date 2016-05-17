@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d1dc4adfc9c5c078e03948bc2363a0b",
-    "content-hash": "d94619635ba24975b37678477cec286f",
+    "hash": "fa9097ba99a9b5c475bae7eaddfa85cb",
+    "content-hash": "c0eef54affa9f8bbbfb8e9d1a6210541",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -68,110 +68,6 @@
                 "translation"
             ],
             "time": "2013-12-17 18:40:49"
-        },
-        {
-            "name": "antimattr/common-product",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/antimattr/common-product.git",
-                "reference": "eac827a2844dd7db69082952d3853d76389d2a0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/antimattr/common-product/zipball/eac827a2844dd7db69082952d3853d76389d2a0a",
-                "reference": "eac827a2844dd7db69082952d3853d76389d2a0a",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/collections": "1.*",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "antimattr/test-case": "~1.0@stable",
-                "fabpot/php-cs-fixer": "dev-master",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "AntiMattr\\Common\\Product\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthew Fitzgerald",
-                    "email": "matthewfitz@gmail.com"
-                }
-            ],
-            "description": "Common Product Model",
-            "homepage": "http://github.com/antimattr/common-product",
-            "keywords": [
-                "antimattr",
-                "product"
-            ],
-            "time": "2014-12-23 22:48:13"
-        },
-        {
-            "name": "antimattr/google-bundle",
-            "version": "v2.0.4",
-            "target-dir": "AntiMattr/GoogleBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/antimattr/GoogleBundle.git",
-                "reference": "06cf924dc4c71cfd5a181594b92601fa3c1675a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/antimattr/GoogleBundle/zipball/06cf924dc4c71cfd5a181594b92601fa3c1675a8",
-                "reference": "06cf924dc4c71cfd5a181594b92601fa3c1675a8",
-                "shasum": ""
-            },
-            "require": {
-                "antimattr/common-product": "~1.0@stable",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "antimattr/test-case": "~1.0@stable",
-                "fabpot/php-cs-fixer": "dev-master",
-                "phpunit/phpunit": "~4.0",
-                "symfony/dependency-injection": "~2.3",
-                "symfony/http-foundation": "~2.3"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "AntiMattr\\GoogleBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthew Fitzgerald",
-                    "email": "matthewfitz@gmail.com"
-                }
-            ],
-            "description": "Google Bundle for Symfony2",
-            "homepage": "http://github.com/antimattr/google-bundle",
-            "keywords": [
-                "adwords",
-                "analytics",
-                "ecommerce",
-                "enhanced ecommerce",
-                "google",
-                "impression",
-                "maps",
-                "product",
-                "symfony"
-            ],
-            "time": "2015-04-01 17:57:44"
         },
         {
             "name": "behat/transliterator",
@@ -6321,9 +6217,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "antimattr/google-bundle": 0
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -49,6 +49,9 @@ class GoalController extends Controller
      */
     public function addAction(Request $request)
     {
+        //api for send create goal event in google analytics
+        $createGoalEvent = "https://www.google-analytics.com/collect?v=1&t=event&tid=UA-77817737-1&cid=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&ec=goal&ea=create&el=Create%20Goal";
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
@@ -155,6 +158,9 @@ class GoalController extends Controller
 
                     //set description
                     $goal->setDescription($description);
+
+                    //send create goal event in google analytics
+                    $this->get('bl_service')->sendEventInGoogleAnalytics($createGoalEvent);
 
                     $em->persist($goal);
                     $em->flush();
@@ -503,7 +509,7 @@ class GoalController extends Controller
     public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
     {
         //api for send addGoal event in google analytics
-        $addGoalEvent = "https://www.google-analytics.com/collect?v=1&t=event&tid=UA-77817737-1&cid=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&ec=goal&ea=add&el=Add%20Goal&ev=1";
+        $addGoalEvent = $this->getParameter('add_goal_event');
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
