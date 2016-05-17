@@ -8,6 +8,7 @@
 
 namespace AppBundle\Services;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -132,5 +133,30 @@ class BucketListService
         $im->writeImage( $tabletFile );
         $im->clear();
         $im->destroy();
+    }
+
+    /**
+     * This function is used to send event in google analytics
+     * 
+     * @param $url
+     * @return Response
+     */
+    public function sendEventInGoogleAnalytics($url)
+    {
+        //init curl
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        //run curl
+        $output = curl_exec($ch);
+
+        //check if error exists
+        if ($output === false) {
+            return new Response('Http bad request', Response::HTTP_BAD_REQUEST);
+        }
+
+        curl_close($ch);
     }
 }
