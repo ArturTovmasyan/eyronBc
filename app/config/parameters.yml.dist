@@ -30,4 +30,11 @@ parameters:
     twitter_client_secret:
     android_api: 'AIzaSyCNFhbRdRENr2ny9YI64YNXSgyxk3T79kg'
 
+    # api for send event in google analytics
+    add_goal_event: 'https://www.google-analytics.com/collect?v=1&t=event&tid=UA-73721689-1&cid=542524539131-ntm4qnj41qt339nv5e2f6vmi1274cr17.apps.googleusercontent.com&ec=goal&ea=add&el=Add%20Goal'
+    done_goal_event: 'https://www.google-analytics.com/collect?v=1&t=event&tid=UA-73721689-1&cid=542524539131-ntm4qnj41qt339nv5e2f6vmi1274cr17.apps.googleusercontent.com&ec=goal&ea=done&el=Done%20Goal'
+    create_goal_event: 'https://www.google-analytics.com/collect?v=1&t=event&tid=UA-73721689-1&cid=542524539131-ntm4qnj41qt339nv5e2f6vmi1274cr17.apps.googleusercontent.com&ec=goal&ea=create&el=Create%20Goal'
+    remove_goal_event: 'https://www.google-analytics.com/collect?v=1&t=event&tid=UA-73721689-1&cid=542524539131-ntm4qnj41qt339nv5e2f6vmi1274cr17.apps.googleusercontent.com&ec=goal&ea=remove&el=Remove%20Goal'
+    user_register_event: 'https://www.google-analytics.com/collect?v=1&t=event&tid=UA-73721689-1&cid=542524539131-ntm4qnj41qt339nv5e2f6vmi1274cr17.apps.googleusercontent.com&ec=user&ea=registration&el=Registration%20User'
+
 

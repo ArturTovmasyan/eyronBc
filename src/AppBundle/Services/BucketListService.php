@@ -137,9 +137,9 @@ class BucketListService
 
     /**
      * This function is used to send event in google analytics
-     * 
+     *
      * @param $url
-     * @return Response
+     * @throws \Exception
      */
     public function sendEventInGoogleAnalytics($url)
     {
@@ -154,9 +154,15 @@ class BucketListService
 
         //check if error exists
         if ($output === false) {
-            return new Response('Bad request for google analytics send event', Response::HTTP_BAD_REQUEST);
-        }
 
+            //get logger service
+            $logger = $this->container->get('logger');
+
+            //set error in log
+            $logger->error(curl_error($ch));
+        }
+        
+        //close curl
         curl_close($ch);
     }
 }
