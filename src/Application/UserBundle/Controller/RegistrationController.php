@@ -13,6 +13,9 @@ class RegistrationController extends BaseController
         $formHandler = $this->container->get('fos_user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
 
+        //api for send done goal event in google analytics
+        $userRegisterEventApi = $this->container->getParameter('user_register_event');
+        
         $process = $formHandler->process($confirmationEnabled);
         if ($process) {
             $user = $form->getData();
@@ -40,6 +43,8 @@ class RegistrationController extends BaseController
                 $this->authenticateUser($user, $response);
             }
 
+            $this->container->get('bl_service')->sendEventInGoogleAnalytics($userRegisterEventApi);
+            
             return $response;
         }
 

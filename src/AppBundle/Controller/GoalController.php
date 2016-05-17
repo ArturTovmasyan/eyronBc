@@ -50,7 +50,7 @@ class GoalController extends Controller
     public function addAction(Request $request)
     {
         //api for send create goal event in google analytics
-        $createGoalEvent = "https://www.google-analytics.com/collect?v=1&t=event&tid=UA-77817737-1&cid=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&ec=goal&ea=create&el=Create%20Goal";
+        $createGoalEventApi = $this->getParameter('create_goal_event');
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -160,7 +160,7 @@ class GoalController extends Controller
                     $goal->setDescription($description);
 
                     //send create goal event in google analytics
-                    $this->get('bl_service')->sendEventInGoogleAnalytics($createGoalEvent);
+                    $this->get('bl_service')->sendEventInGoogleAnalytics($createGoalEventApi);
 
                     $em->persist($goal);
                     $em->flush();
@@ -360,7 +360,7 @@ class GoalController extends Controller
     public function doneAction(Goal $goal)
     {
         //api for send done event in google analytics
-        $doneGoalEvent = "https://www.google-analytics.com/collect?v=1&t=event&tid=UA-77817737-1&cid=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&ec=goal&ea=done&el=Done%20Goal&ev=1";
+        $doneGoalEventApi = $this->getParameter('done_goal_event');
 
         // get current user
         $user = $this->getUser();
@@ -384,7 +384,7 @@ class GoalController extends Controller
         // set date
         $userGoal->setCompletionDate(new \DateTime());
 
-        $this->get('bl_service')->sendEventInGoogleAnalytics($doneGoalEvent);
+        $this->get('bl_service')->sendEventInGoogleAnalytics($doneGoalEventApi);
 
         $em->persist($userGoal);
         $em->flush();
@@ -509,7 +509,7 @@ class GoalController extends Controller
     public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
     {
         //api for send addGoal event in google analytics
-        $addGoalEvent = $this->getParameter('add_goal_event');
+        $addGoalEventApi = $this->getParameter('add_goal_event');
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -687,7 +687,7 @@ class GoalController extends Controller
                 }
 
                 //send add goal event in google analytics
-                $this->get('bl_service')->sendEventInGoogleAnalytics($addGoalEvent);
+                $this->get('bl_service')->sendEventInGoogleAnalytics($addGoalEventApi);
 
                 $em->persist($userGoal);
                 $em->flush();
@@ -905,7 +905,7 @@ class GoalController extends Controller
     public  function removeGoal(Request $request, Goal $goal, User $user)
     {
         //api for send done goal event in google analytics
-        $removeGoalEvent = "https://www.google-analytics.com/collect?v=1&t=event&tid=UA-77817737-1&cid=AIzaSyDLBvq2ZzFkkmuKzROfqnRbQJsm7nkLMyw&ec=goal&ea=remove&el=Remove%20Goal&ev=1";
+        $removeGoalEventApi = $this->getParameter('remove_goal_event');
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -947,7 +947,7 @@ class GoalController extends Controller
         $session->set('newFeed', $feedCount);
 
         //send add goal event in google analytics
-        $this->get('bl_service')->sendEventInGoogleAnalytics($removeGoalEvent);
+        $this->get('bl_service')->sendEventInGoogleAnalytics($removeGoalEventApi);
 
         return $this->redirectToRoute($url);
     }

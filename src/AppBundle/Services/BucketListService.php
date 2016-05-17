@@ -154,7 +154,7 @@ class BucketListService
 
         //check if error exists
         if ($output === false) {
-            return new Response('Http bad request', Response::HTTP_BAD_REQUEST);
+            return new Response('Bad request for google analytics send event', Response::HTTP_BAD_REQUEST);
         }
 
         curl_close($ch);
