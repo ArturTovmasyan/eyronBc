@@ -159,7 +159,7 @@ class BucketListService
             $logger = $this->container->get('logger');
 
             //set error in log
-            $logger->error(curl_error($ch));
+            $logger->error('Bad request for add event in google analytics');
         }
         
         //close curl
