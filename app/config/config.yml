@@ -23,6 +23,15 @@ parameters:
         with: 1280
         height: 720
 
+    # event for google analytics
+    event_add_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Add&el=Add%%20goal'
+    event_done_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Done&el=Done%%20goal'
+    event_create_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Create&el=Create%%20goal'
+    event_remove_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Remove&el=Remove%%20goal'
+    event_user_register: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration%%20user'
+    event_create_story: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Success%%20story&ea=create&el=Create%%20story'
+    event_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=User%%20login'
+
 framework:
     esi:            { enabled: true }
     fragments:      { path: /_proxy }
@@ -67,6 +76,7 @@ twig:
 
     globals:
         project_name: %project_name%
+        ga_id: %ga_id%
 
 
 # Assetic Configuration
@@ -356,3 +366,4 @@ genemu_form:
             width: 100%
             allowClear: false
             minimumInputLength: 0
+

@@ -242,6 +242,9 @@ class MainController extends Controller
     public function checkLoginAction(Request $request)
     {
 
+        //send login user event in google analytics
+        $this->get('bl_service')->loginUserEvent();
+
         //get current user
         $user = $this->getUser();
 
@@ -252,14 +255,8 @@ class MainController extends Controller
         }
         else {
 
-            // get referer
-//            $referer = $request->server->get('HTTP_REFERER');
-
             // generate url
-            $url =
-//                $referer ?
-//                $referer :
-                $this->generateUrl('homepage');
+            $url = $this->generateUrl('homepage');
         }
 
         $this->addFlash('error', '');
