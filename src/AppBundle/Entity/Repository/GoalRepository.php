@@ -181,27 +181,26 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $first
      * @param $count
      * @param $allIds
-     * @param $isRandom
      * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false, $isRandom = false)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, $behat = false, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->select('g', 'i', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
-                ->groupBy('g.id')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
+        //check if category exist and not equal most-popular
         if($category && $category != 'most-popular'){
             $query
                 ->andWhere('gt.id in (
@@ -230,40 +229,26 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         if (is_numeric($first) && is_numeric($count)){
 
-            //check if category is discover by default
-            if(!$search && !$category){
+            //set is random
+            $isRandom = (!$search && !$category);
 
-                //set isRandom true
-                $isRandom = true;
+            //clone query
+            $idsQuery = clone $query;
 
-                $ids = $this->getEntityManager()
-                    ->createQueryBuilder()
-                    ->select('g.id')
-                    ->from('AppBundle:Goal', 'g', 'g.id')
-                    ->leftJoin('g.userGoal', 'ug')
-                    ->leftJoin('g.images', 'i', 'with', 'i.list = true')
-                    ->where('g.publish = :publish')
-                    ->groupBy('g.id')
-                    ->setParameter('publish', PublishAware::PUBLISH);
+            $idsQuery
+                ->select('g.id', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt');
 
-                if($locale){
-                    $ids->andWhere('g.language  = :lng OR g.language is null')
-                        ->setParameter('lng', $locale);
-                }
-                $idsQuery = clone $ids;
-            }else{
-                $idsQuery = clone $query;
+            if ($category == 'most-popular'){
+                $idsQuery->orderBy('cnt', 'desc');
             }
 
             $ids = $idsQuery
-                ->select('g.id')
                 ->getQuery()
                 ->getResult()
             ;
 
             //check if random is true and env isn`t behat
             if($isRandom && !$behat) {
-
               //do goal ids is random
               $ids = $this->shuffle_goal($ids);
             }
