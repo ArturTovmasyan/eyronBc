@@ -156,6 +156,9 @@ class GoalController extends Controller
                     //set description
                     $goal->setDescription($description);
 
+                    //send create goal event in google analytics
+                    $this->get('bl_service')->createGoalEvent();
+
                     $em->persist($goal);
                     $em->flush();
 
@@ -375,6 +378,9 @@ class GoalController extends Controller
         // set date
         $userGoal->setCompletionDate(new \DateTime());
 
+        //send done goal event in google analytic
+        $this->get('bl_service')->doneGoalEvent();
+
         $em->persist($userGoal);
         $em->flush();
 
@@ -469,6 +475,9 @@ class GoalController extends Controller
                 // add success story to goal
                 $goal->addSuccessStory($story);
                 $em->persist($story);
+
+                //send add story event in google analytics
+                $this->get('bl_service')->createGoalStoryEvent();
 
                 $em->flush();
 
@@ -652,12 +661,6 @@ class GoalController extends Controller
                     $em->persist($goal);
                 }
 
-                // set date
-//                $userGoal->setListedDate(new \DateTime());
-
-                // set user
-//                $userGoal->setUser($user);
-
                 // set step
                 $userGoal->setSteps($steps);
 
@@ -677,6 +680,9 @@ class GoalController extends Controller
                     // set do date
                     $userGoal->setDoDate($doDate);
                 }
+
+                //send add goal event in google analytics
+                $this->get('bl_service')->addGoalEvent();
 
                 $em->persist($userGoal);
                 $em->flush();
@@ -931,6 +937,9 @@ class GoalController extends Controller
 
         //set url in session
         $session->set('newFeed', $feedCount);
+
+        //send add goal event in google analytics
+        $this->get('bl_service')->removeGoalEvent();
 
         return $this->redirectToRoute($url);
     }

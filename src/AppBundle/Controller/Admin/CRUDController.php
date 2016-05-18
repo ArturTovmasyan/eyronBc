@@ -60,6 +60,9 @@ class CRUDController extends Controller
             //get merge goal
             $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
 
+            //merge goal author by roles
+            $this->mergeGoalAuthor($goal, $em, $mergeGoalObject);
+
             //check if tag checked
             if($tagChecked) {
                 $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
@@ -79,9 +82,6 @@ class CRUDController extends Controller
             if($userChecked) {
                 $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
             }
-
-            //merge goal title by goal author roles
-            $this->mergeGoalTitle($goal, $em, $mergeGoalObject);
 
             //set goal id in merge goal
             $mergeGoalObject->setMergedGoalId($goalId);
@@ -185,13 +185,13 @@ class CRUDController extends Controller
     }
 
     /**
-     * This function is used to merge goal title by user roles
+     * This function is used to merge goal author by user roles
      *
      * @param $goal
      * @param $em
      * @param $mergeGoalObject
      */
-    public function mergeGoalTitle($goal, $em, $mergeGoalObject)
+    public function mergeGoalAuthor($goal, $em, $mergeGoalObject)
     {
         //get goal author
         $goalAuthor = $goal->getAuthor();
@@ -322,18 +322,19 @@ class CRUDController extends Controller
                 $em->persist($mergeGoalObject);
             }
 
-            //get all userGoals for old goal
-            $oldGoalUserGoals = $goal->getUserGoal();
+        }
 
-            foreach($oldGoalUserGoals as $oldGoalUserGoal)
-            {
-                //remove old goal user goals
-                $goal->removeUserGoal($oldGoalUserGoal);
-                $em->persist($goal);
+        //get all userGoals for old goal
+        $oldGoalUserGoals = $goal->getUserGoal();
 
-                //remove old goal user goals
-                $em->remove($oldGoalUserGoal);
-            }
+        foreach($oldGoalUserGoals as $oldGoalUserGoal)
+        {
+            //remove old goal user goals
+            $goal->removeUserGoal($oldGoalUserGoal);
+            $em->persist($goal);
+
+            //remove old goal user goals
+            $em->remove($oldGoalUserGoal);
         }
     }
 

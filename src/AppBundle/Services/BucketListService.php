@@ -8,6 +8,7 @@
 
 namespace AppBundle\Services;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -132,5 +133,120 @@ class BucketListService
         $im->writeImage( $tabletFile );
         $im->clear();
         $im->destroy();
+    }
+
+    /**
+     * This function is used to send event in google analytics
+     *
+     * @param $url
+     * @throws \Exception
+     */
+    public function sendEventInGoogleAnalytics($url)
+    {
+        //init curl
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        //run curl
+        $output = curl_exec($ch);
+
+        //check if error exists
+        if ($output === false) {
+
+            //get logger service
+            $logger = $this->container->get('logger');
+
+            //set error in log
+            $logger->error('Bad request for add event in google analytics');
+        }
+        
+        //close curl
+        curl_close($ch);
+    }
+
+    /**
+     * This function is used to send create goal event 
+     */
+    public function createGoalEvent()
+    {
+        //get create goal event
+        $createGoalEvent = $this->container->getParameter('event_create_goal');
+        
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($createGoalEvent);
+    }
+
+    /**
+     * This function is used to send done goal event
+     */
+    public function doneGoalEvent()
+    {
+        //get done goal event api
+        $doneGoalEvent = $this->container->getParameter('event_done_goal');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($doneGoalEvent);
+    }
+
+    /**
+     * This function is used to send add goal event
+     */
+    public function addGoalEvent()
+    {
+        //get addGoal event api
+        $addGoalEvent = $this->container->getParameter('event_add_goal');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($addGoalEvent);
+    }
+
+    /**
+     * This function is used to send remove goal event
+     */
+    public function removeGoalEvent()
+    {
+        //get remove goal event api
+        $removeGoalEvent = $this->container->getParameter('event_remove_goal');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($removeGoalEvent);
+    }
+
+    /**
+     * This function is used to send user register event
+     */
+    public function userRegisterEvent()
+    {
+        //get user register event api
+        $userRegisterEvent = $this->container->getParameter('event_user_register');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($userRegisterEvent);
+    }
+
+    /**
+     * This function is used to send create goal story event
+     */
+    public function createGoalStoryEvent()
+    {
+        //get create story event api
+        $createStoryEvent = $this->container->getParameter('event_create_story');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($createStoryEvent);
+    }
+
+    /**
+     * This function is used to send login user story event
+     */
+    public function loginUserEvent()
+    {
+        //get login user event api
+        $loginUserEvent = $this->container->getParameter('event_login_user');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($loginUserEvent);
     }
 }

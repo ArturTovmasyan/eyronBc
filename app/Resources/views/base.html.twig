@@ -5,6 +5,7 @@
 {% set host = app.request.getSchemeAndHttpHost() %}
 {% set user = app.user %}
 {% set testUrl = app.request.getSchemeAndHttpHost() %}
+{#{% set gaId = ga_id %}#}
 
     <head>
         <meta charset="UTF-8" />
@@ -62,10 +63,10 @@
                     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-73721689-1', 'auto');
+            ga('create', {{ ga_id }}, 'auto');
             ga('send', 'pageview' {% if app.request.get('search') != null %} , '/goals?q={{ app.request.get('search') }}' {% endif %} );
-
         </script>
+
     {% endif %}
         <div data-ls-jquery-modal
              style="display: none"
@@ -377,5 +378,6 @@
             UserVoice.push(['autoprompt', {}]);
         </script>
     {% endspaceless %}
+
     </body>
 </html>
