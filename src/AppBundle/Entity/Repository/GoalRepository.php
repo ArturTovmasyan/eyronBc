@@ -186,7 +186,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null, $behat = false)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, $behat = false, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()

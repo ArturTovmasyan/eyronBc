@@ -729,7 +729,7 @@ class GoalController extends Controller
         }
 
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale, $behat);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $behat, $allIds, $locale);
 
         //check if search goal count is 0
         if(count($goals) == 0) {
