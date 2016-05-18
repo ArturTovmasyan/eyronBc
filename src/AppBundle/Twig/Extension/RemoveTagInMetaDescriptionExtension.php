@@ -32,7 +32,11 @@ class RemoveTagInMetaDescriptionExtension extends \Twig_Extension
      */
     public function removeTagInMeta($text)
     {
+        //remove tag in text
         $content = str_replace('#', '',  $text);
+
+        //remove html tag in text
+        $content = strip_tags($content);
 
         return $content;
     }
