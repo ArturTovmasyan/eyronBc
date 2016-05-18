@@ -175,16 +175,16 @@
     {{ 'activities.title'|trans }}
 {%- endblock -%}
 
+{%- block meta_description -%}
+    {{ 'activities.description'|trans }}
+{%- endblock -%}
+
 {%- block og_title -%}
     {{ 'activities.title'|trans }}
 {%- endblock -%}
 
 {%- block og_description -%}
-    {{ 'activities.description'|trans }}
-{%- endblock -%}
-
-{%- block meta_description -%}
-    {{ 'activities.description'|trans }}
+    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_url -%}

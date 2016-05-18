@@ -29,12 +29,16 @@
     {{ goal.title }}
 {%- endblock -%}
 
-{%- block og_description -%}
+{%- block meta_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description)|markdown|removeTagInMeta -}}
+        {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_image -%}
@@ -43,14 +47,6 @@
         {% else %}
             {{ parent() }}
         {%- endif -%}
-{%- endblock -%}
-
-{%- block meta_description -%}
-    {%- if goal.description -%}
-        {{- sliceString(goal.description)|markdown|removeTagInMeta -}}
-    {% else %}
-        {{ 'goal.view_description'|trans }}
-    {%- endif -%}
 {%- endblock -%}
 
 {%- block og_url -%}
