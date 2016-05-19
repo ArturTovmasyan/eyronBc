@@ -241,6 +241,9 @@ class MainController extends Controller
      */
     public function checkLoginAction(Request $request)
     {
+        //get entity manager
+        $em = $this->container->get('doctrine')->getManager();
+
         //get current user
         $user = $this->getUser();
 
@@ -260,6 +263,12 @@ class MainController extends Controller
 
         //check if user haven`t any goals
         if ($user && count($user->getUserGoal()) == 0) {
+
+            //set user activity value
+            $user->setActivity(false);
+            $em->persist($user);
+            $em->flush();
+
             //generate url
             $url = $this->generateUrl('goals_list');
         }

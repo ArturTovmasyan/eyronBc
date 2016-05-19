@@ -61,7 +61,6 @@ framework:
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
 #        handler_id:  ~
-        cookie_lifetime: 2628000 #1 month
         gc_probability: 0
         save_path: ~
     fragments:       ~
