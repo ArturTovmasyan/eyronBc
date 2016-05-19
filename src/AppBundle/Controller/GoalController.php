@@ -914,12 +914,22 @@ class GoalController extends Controller
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {
-            // remove from bd
+
+            //remove from bd
             $em->remove($userGoal);
+
+            //send add goal event in google analytics
+            $this->get('bl_service')->unListGoalEvent();
         }
 
+        //check if goal author this user
         if ($goal->isAuthor($user)) {
+
+            //remove goal
             $em->remove($goal);
+
+            //send add goal event in google analytics
+            $this->get('bl_service')->removeGoalEvent();
         }
 
         //set myBucketList route name
@@ -938,8 +948,7 @@ class GoalController extends Controller
         //set url in session
         $session->set('newFeed', $feedCount);
 
-        //send add goal event in google analytics
-        $this->get('bl_service')->removeGoalEvent();
+
 
         return $this->redirectToRoute($url);
     }
