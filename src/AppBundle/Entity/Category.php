@@ -17,7 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CategoryRepository")
  * @ORM\Table(name="category")
  * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\CategoryTranslation")
  */

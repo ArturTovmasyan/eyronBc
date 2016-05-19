@@ -8,7 +8,7 @@
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% set goalCount = goals.getTotalItemCount %}
+{#{% set goalCount = goals.getTotalItemCount %}#}
 {% set routeParam = app.request.get('category') %}
 {% set env = app.environment %}
 
@@ -154,20 +154,20 @@
 
 {%- block title -%}
 
-    {% if goalCount > 0 %}
-        {% set goalTitle = goals.items|first.title %}
-    {% endif %}
+    {#{% if goalCount > 0 %}#}
+        {#{% set goalTitle = goals.items|first.title %}#}
+    {#{% endif %}#}
 
-   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
+   {#{% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}#}
 {%- endblock -%}
 
 {%- block og_title -%}
 
-    {% if goalCount > 0 %}
-        {% set goalTitle = goals.items|first.title %}
-    {% endif %}
+    {#{% if goalCount > 0 %}#}
+        {#{% set goalTitle = goals.items|first.title %}#}
+    {#{% endif %}#}
 
-   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
+   {#{% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}#}
 {%- endblock -%}
 
 {%- block meta_description -%}
