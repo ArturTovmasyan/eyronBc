@@ -53,6 +53,7 @@ class GoalAdmin extends Admin
         $showMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('author', null, array('template' => 'AppBundle:Admin:author_name_show.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig', 'label'=>'admin.label.name.videoLink'))
@@ -120,6 +121,7 @@ class GoalAdmin extends Admin
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
             ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
