@@ -1401,4 +1401,28 @@ class User extends BaseUser
         $idsArray = json_decode($this->registrationIds, true);
         return is_array($idsArray)?$idsArray:[];
     }
+    
+    /**
+     * This function is used to get login social name
+     * 
+     */
+    public function getSocialsName()
+    {
+        //check if login by facebook
+       if($this->getFacebookId()) {
+           return 'Facebook';
+       }
+        
+        //check if login by google
+        if($this->getGoogleId()) {
+            return 'Google';
+        }
+        
+        //check if login by twiter
+        if($this->getTwitterId()) {
+            return 'Twitter';
+        }
+        
+        return null;
+    }
 }
