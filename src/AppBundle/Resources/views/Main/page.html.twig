@@ -74,36 +74,28 @@
                 </div>
             </div>
         </div>
-
     {% endif %}
 
-
 {% endblock %}
-
 
 {%- block title -%}
     {{ page.name }}
 {%- endblock -%}
 
 {%- block og_title -%}
-    {{ page.name }}
+   {{- block('title') -}}
 {%- endblock -%}
-
-{%- block og_description -%}
-    {% if page.description %}
-        {{- sliceString(page.description)|raw -}}
-    {% else %}
-        {{ 'page.description'|trans }}
-    {% endif %}
-{%- endblock -%}
-
 
 {%- block meta_description -%}
     {% if page.description %}
-        {{- sliceString(page.description|raw) -}}
+        {{ page.description|striptags|sliceString }}
     {% else %}
         {{ 'page.description'|trans }}
     {% endif %}
+{%- endblock -%}
+
+{%- block og_description -%}
+   {{ block('meta_description') }}
 {%- endblock -%}
 
 {%- block og_url -%}

@@ -111,7 +111,6 @@
 
 {% endblock %}
 
-
 {%- block title -%}
     {{ goal.title }}
 {%- endblock -%}
@@ -120,12 +119,16 @@
     {{ goal.title }}
 {%- endblock -%}
 
-{%- block og_description -%}
+{%- block meta_description -%}
     {%- if goal.description -%}
-        {{- sliceString(goal.description)|removeTagInMeta -}}
+        {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_image -%}
@@ -134,14 +137,6 @@
         {{- host ~ images.first.getImagePath() -}}
     {% else %}
         {{- parent() -}}
-    {%- endif -%}
-{%- endblock -%}
-
-{%- block meta_description -%}
-    {%- if goal.description -%}
-        {{- sliceString(goal.description)|removeTagInMeta -}}
-    {% else %}
-        {{ 'goal.view_description'|trans }}
     {%- endif -%}
 {%- endblock -%}
 
