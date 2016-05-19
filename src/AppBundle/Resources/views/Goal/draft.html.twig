@@ -47,12 +47,12 @@
     {{ 'draft.title'|trans }}
 {%- endblock -%}
 
-{%- block og_description -%}
+{%- block meta_description -%}
     {{ 'draft.description'|trans }}
 {%- endblock -%}
 
-{%- block meta_description -%}
-    {{ 'draft.description'|trans }}
+{%- block og_description -%}
+    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_url -%}

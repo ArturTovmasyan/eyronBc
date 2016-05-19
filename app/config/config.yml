@@ -31,6 +31,10 @@ parameters:
     event_user_register: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration%%20user'
     event_create_story: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Success%%20story&ea=Create&el=Create%%20story'
     event_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=User%%20login'
+    event_facebook_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Facebook%%20login&el=User%%20login%%20by%%20Facebook'
+    event_google_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Google%%20login&el=User%%20login%%20by%%20Google'
+    event_twitter_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Twitter%%20login&el=User%%20login%%20by%%20Twitter'
+    event_unlist_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Unlist&el=Unlist%%20goal'
 
 framework:
     esi:            { enabled: true }

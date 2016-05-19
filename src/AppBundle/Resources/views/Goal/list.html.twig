@@ -170,12 +170,12 @@
    {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
 {%- endblock -%}
 
-{%- block og_description -%}
-    {% if app.request.get('search') %}{{- 'goal.search_description'|trans -}}{% else %}{{- 'goal.list_description'|trans -}}{% endif %}
-{%- endblock -%}
-
 {%- block meta_description -%}
     {{ 'goal.list_description'|trans }}
+{%- endblock -%}
+
+{%- block og_description -%}
+    {% if app.request.get('search') %}{{- 'goal.search_description'|trans -}}{% else %}{{- 'goal.list_description'|trans -}}{% endif %}
 {%- endblock -%}
 
 {%- block og_url -%}

@@ -317,6 +317,7 @@ admin:
       goal_status: Goal Status
       archived: Archived goals
       merged_id: Merged goal id
+      author_name: Author
 
 # end sonata admin lable
 
