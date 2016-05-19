@@ -18,10 +18,11 @@ angular.module('goal', ['Interpolation',
         .setPrefix('goal')
         .setNotify(false, false)
     })
-    .factory('RestService', ['$resource', function($resource) {
-        return $resource('/api/v1.0/goals/:first/:count',{ first:'@first', count: '@count', search:'@search', category:'@category'})
+    .factory('GoalRest', ['$resource', function($resource) {
+        var prefix = (window.location.href.indexOf('/app_dev.php/') !== -1)?'/app_dev.php/':'/';
+        return $resource(prefix + 'api/v1.0/goals/:first/:count',{ first:'@first', count: '@count', search:'@search', category:'@category'})
     }])
-    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'RestService', function($http, localStorageService, RestService) {
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'GoalRest', function($http, localStorageService, GoalRest) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
@@ -75,7 +76,7 @@ angular.module('goal', ['Interpolation',
             }
             this.busy = true;
             if(url == 'goals'){
-                query = RestService.query({first: this.start, count: this.count, search: search, category: category});
+                query = GoalRest.query({first: this.start, count: this.count, search: search, category: category});
                 query.$promise.then(function(data){
                     this.reserve = data;
                     this.busy = data.length ? false : true;
@@ -170,7 +171,7 @@ angular.module('goal', ['Interpolation',
                 }.bind(this), 500);
             }else{
                 if(url == 'goals'){
-                    query = RestService.query({first: this.start, count: this.count, search: search, category: category});
+                    query = GoalRest.query({first: this.start, count: this.count, search: search, category: category});
                     query.$promise.then(function(data){
                         if(!data.length){
                             this.noItem = true;
