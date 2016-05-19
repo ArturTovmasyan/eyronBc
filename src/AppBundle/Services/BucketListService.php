@@ -249,4 +249,44 @@ class BucketListService
         //send event in google analytic
         $this->sendEventInGoogleAnalytics($loginUserEvent);
     }
+
+    /**
+     * This function is used to send login user by social event
+     * 
+     * @param $social
+     */
+    public function loginUserBySocialEvent($social)
+    {
+        switch($social){
+            case 'Facebook':
+                $parameterName = 'event_facebook_login_user';
+                break;
+            case 'Google':
+                $parameterName = 'event_google_login_user';
+                break;
+            case 'Twitter':
+                $parameterName = 'event_twitter_login_user';
+                break;
+            default:
+                return;
+        }
+        
+        //get login user by social event api
+        $loginUserBySocialEvent = $this->container->getParameter($parameterName);
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
+    }
+
+    /**
+     * This function is used to send unList goal event
+     */
+    public function unListGoalEvent() 
+    {
+        //get unList goal event api
+        $unListGoalEvent = $this->container->getParameter('event_unlist_goal');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($unListGoalEvent);
+    }
 }
