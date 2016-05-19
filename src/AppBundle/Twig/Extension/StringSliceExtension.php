@@ -17,10 +17,10 @@ class StringSliceExtension extends \Twig_Extension
     /**
      * @return array
      */
-    public function getFunctions()
+    public function getFilters()
     {
         return array(
-            new \Twig_SimpleFunction('sliceString', array($this, 'sliceString'))
+            new \Twig_SimpleFilter('sliceString', array($this, 'sliceString'))
         );
     }
 
