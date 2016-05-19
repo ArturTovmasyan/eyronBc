@@ -717,7 +717,8 @@ class GoalController extends Controller
         $search = $request->get('search');
 
         // get categories
-        $categories  = $em->getRepository('AppBundle:Category')->findAll();
+        $categories  = $em->getRepository('AppBundle:Category')->getAllCached();
+
         $serializer = $this->get('serializer');
         $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
 
