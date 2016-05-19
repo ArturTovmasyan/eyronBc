@@ -33,7 +33,7 @@
                             <i class="icon-quote-right"></i>
                             <ul class="aphorism" data-delay-add-class>
                                 {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content|length > 230 ? aphorism.content|removeTag|slice(0, 230) ~ '...' : aphorism.content|removeTag }}
+                                    <li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}
                                         <span class="text-right">{{ aphorism.author }}</span>
                                     </li>
                                 {% endfor %}
