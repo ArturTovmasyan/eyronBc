@@ -13,6 +13,11 @@
     </div>
 {% endblock %}
 
+{% block actions %}
+    <li>{% include 'AppBundle:Admin:goal_edit_action_link.html.twig' %}</li>
+    {{ parent() }}
+{% endblock %}
+
 {% block javascripts %}
 
     {{ parent() }}

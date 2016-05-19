@@ -9,8 +9,9 @@
     {% stylesheets output='css/layout_show.css'
     'app/bower_components/swipebox/src/css/swipebox.min.css'
     'app/bower_components/swiper/dist/css/swiper.min.css'
+    filter='less,cssrewrite'
     %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {#<link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">#}
     {#<link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">#}
@@ -30,7 +31,7 @@
 
 {%- block og_description -%}
     {%- if goal.description -%}
-        {{- replaceDescription(sliceString(goal.description)) -}}
+        {{- sliceString(goal.description)|removeTagInMeta -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}
@@ -46,7 +47,7 @@
 
 {%- block meta_description -%}
     {%- if goal.description -%}
-        {{- replaceDescription(sliceString(goal.description)) -}}
+        {{- sliceString(goal.description)|removeTagInMeta -}}
     {% else %}
         {{ 'goal.view_description'|trans }}
     {%- endif -%}

@@ -7,7 +7,8 @@ join: JOIN
 copyright: 2015 Bucketlist 127
 
 #blocks
-most_popular: MOST POPULAR
+most_popular: Most Popular
+discover: Discover
 add: ADD
 done: DONE
 clone: CLONE
@@ -288,6 +289,7 @@ admin:
       id: Id
       title: Title
       tags: Tags
+      slug: Slug
       downloadLink: Icon
       file: File
       author: Author
@@ -310,8 +312,11 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
-      goal_link: Link
+      goal_link: Goal link
+      action_merge: Merge
       goal_status: Goal Status
+      archived: Archived goals
+      merged_id: Merged goal id
 
 # end sonata admin lable
 

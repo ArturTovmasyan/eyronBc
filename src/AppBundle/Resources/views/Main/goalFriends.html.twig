@@ -10,7 +10,7 @@
 
                     {% if app.request.get('_route') == 'goal_friends' %}
 
-                        <div class="bg-white padding">
+                        <div class="bg-white padding round">
 
                             <form role="search" action="#" method="GET">
                                 <div class="form-group row">
@@ -38,12 +38,13 @@
 
                     {% set counter = 0 %}
                     {% for goalFriend in pagination %}
+
                         {% if counter is divisible by(2) %}
-                            <div class="row {% if app.request.get('_route') == 'goal_friends' %} margin-top{% endif %}" >
+                            <div class="row {% if app.request.get('_route') == 'goal_friends' and counter == 0 %} margin-top{% endif %}" >
                         {% endif %}
 
                                 <div class="col-sm-6">
-                                    <div class="users-list clearfix">
+                                    <div class="users-list round clearfix">
                                          <a href="{{ path('user_profile', {'user': goalFriend.uId}) }}" style="display:block;">
                                             <div class="row no-gutter">
                                                 <div class="col-xs-3">
@@ -97,7 +98,7 @@
                         {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
 
 
-                        <div class="right-block  margin-top">
+                        <div class="right-block round margin-top">
                             <div class="right-menu">
                                 <div class="row">
                                     <div class="col-xs-6">

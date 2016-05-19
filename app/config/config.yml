@@ -23,10 +23,20 @@ parameters:
         with: 1280
         height: 720
 
+    # event for google analytics
+    event_add_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Add&el=Add%%20goal'
+    event_done_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Done&el=Done%%20goal'
+    event_create_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Create&el=Create%%20goal'
+    event_remove_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Remove&el=Remove%%20goal'
+    event_user_register: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration%%20user'
+    event_create_story: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Success%%20story&ea=Create&el=Create%%20story'
+    event_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=User%%20login'
+
 framework:
     esi:            { enabled: true }
     fragments:      { path: /_proxy }
     translator:      { fallbacks: ["%locale%"] }
+    ide: "phpstorm://open?file=%%f&line=%%l"
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -37,7 +47,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v284
+        assets_version: v299
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -47,6 +57,7 @@ framework:
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
 #        handler_id:  ~
+        cookie_lifetime: 2628000 #1 month
         gc_probability: 0
         save_path: ~
     fragments:       ~
@@ -65,6 +76,7 @@ twig:
 
     globals:
         project_name: %project_name%
+        ga_id: %ga_id%
 
 
 # Assetic Configuration
@@ -120,6 +132,9 @@ doctrine:
             publish_filter:
                 class:                AppBundle\Filter\PublishFilter
                 enabled:              false
+            archived_goal_filter:
+                class:                AppBundle\Filter\ArchivedGoalFilter
+                enabled:              true
 
         mappings:
             loggable:
@@ -343,3 +358,12 @@ rms_push_notifications:
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
       pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
+
+genemu_form:
+    select2:
+        enabled: true
+        configs:
+            width: 100%
+            allowClear: false
+            minimumInputLength: 0
+

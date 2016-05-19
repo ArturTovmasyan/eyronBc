@@ -188,6 +188,7 @@ class MainController extends Controller
      */
     public function goalFriendsAction(Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
         $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, true);
@@ -198,6 +199,17 @@ class MainController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             30/*limit per page*/
         );
+
+        $goalFriendsIds = array_keys($pagination->getItems());
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
+
+        foreach($pagination->getItems() as &$user){
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active" => $stats[$user->getId()]['listedBy'],
+                "doneBy" => $stats[$user->getId()]['doneBy']
+            ]);
+        }
 
         return array('pagination' => $pagination);
     }
@@ -240,20 +252,12 @@ class MainController extends Controller
      */
     public function activitiesAction(Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $em = $this->getDoctrine()->getManager();
-        $this->get('bl_news_feed_service')->updateNewsFeed();
+        $newsFeedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), true);
 
-        //If user is logged in then show news feed
-        $result = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $result,
-            $request->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
-        );
-
-        return array('pagination' => $pagination);
+        return array('activities_count' => $newsFeedCount);
     }
 
     /**

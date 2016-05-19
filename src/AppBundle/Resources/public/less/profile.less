@@ -55,6 +55,25 @@
   padding:10px 0 0 0;
   background-color: #f4f4f4;
 
+  i.icon-settings{
+    margin-right:-9px;
+    //position: relative;
+  }
+
+  //.black-overlay{
+  //  display: inline-block;
+  //  background-color: rgba(0, 0, 0, 0.20);
+  //  position: absolute;
+  //  border-radius: 50%;
+  //}
+  //
+  //.settings-overlay{
+  //  width:45px;
+  //  height:45px;
+  //  top:7px;
+  //  right:11px;
+  //}
+
   figure{
     background-color: rgba(207, 207, 207, 0.34);
     text-align: center;
@@ -185,6 +204,20 @@
     i{
       font-size:30px;
       cursor: pointer;
+    }
+    a.text-gray{
+      margin-left:20px;
+      //position: relative;
+
+      //i{
+      //  position: relative;
+      //}
+      //.black-overlay{
+      //  left: 23px;
+      //  top: 2px;
+      //  width: 24px;
+      //  height: 24px;
+      //}
     }
   }
 }
@@ -563,4 +596,17 @@
       }
     }
   }
+}
+
+@media (min-width: @screen-md) {
+
+  .profile{
+
+    h1{
+      font-size: 52px;
+      line-height: 62px;
+      padding:10px 25px;
+    }
+  }
+
 }

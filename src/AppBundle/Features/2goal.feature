@@ -95,11 +95,10 @@ Feature: Goal page
     When I wait for angular
     And I click on "atc_s addthis_button_compact"
     And I wait
-    And I switch to iframe "#at3winshare-iframe"
-    And I click on "at3winsvc_facebook"
-    And I wait
+    And I click on "at3winsvc_facebook top-service"
+#    And I switch to iframe "#at3winshare-iframe"
+    And I wait for view
     And I switch to window
-    And I wait
     And I fill in "email" with "test@test.am"
     And I fill in "pass" with "test1234567"
     And I press "login"

@@ -181,27 +181,27 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $first
      * @param $count
      * @param $allIds
+     * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, $behat = false, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('g', 'i', 'count(ug) as HIDDEN  cnt')
+                ->select('g', 'i', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->leftJoin('g.tags', 'gt')
                 ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
-                ->groupBy('g.id')
-                ->orderBy('cnt', 'desc')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
-        if($category){
+        //check if category exist and not equal most-popular
+        if($category && $category != 'most-popular'){
             $query
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
@@ -229,30 +229,29 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         if (is_numeric($first) && is_numeric($count)){
 
-            if(!$search && !$category ){
-                $ids = $this->getEntityManager()
-                    ->createQueryBuilder()
-                    ->select('g.id', 'count(ug) as HIDDEN  cnt')
-                    ->from('AppBundle:Goal', 'g', 'g.id')
-                    ->leftJoin('g.userGoal', 'ug')
-                    ->leftJoin('g.images', 'i', 'with', 'i.list = true')
-                    ->where('g.publish = :publish')
-                    ->groupBy('g.id')
-                    ->orderBy('cnt', 'desc')
-                    ->setParameter('publish', PublishAware::PUBLISH);
-                if($locale){
-                    $ids->andWhere('g.language  = :lng OR g.language is null')
-                        ->setParameter('lng', $locale);
-                }
-                $idsQuery = clone $ids;
-            }else{
-                $idsQuery = clone $query;
+            //set is random
+            $isRandom = (!$search && !$category);
+
+            //clone query
+            $idsQuery = clone $query;
+
+            $idsQuery
+                ->select('g.id', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt');
+
+            if ($category == 'most-popular'){
+                $idsQuery->orderBy('cnt', 'desc');
             }
+
             $ids = $idsQuery
-                ->select('g.id', 'count(ug) as HIDDEN  cnt')
                 ->getQuery()
                 ->getResult()
             ;
+
+            //check if random is true and env isn`t behat
+            if($isRandom && !$behat) {
+              //do goal ids is random
+              $ids = $this->shuffle_goal($ids);
+            }
 
             $allIds = $ids;
             $ids = array_slice($ids, $first, $count);
@@ -265,8 +264,14 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->andWhere('g.id IN (:ids)')
                 ->setParameter('ids', $ids);
             ;
-        }
 
+            //check if isRandom is false
+            if(!$isRandom) {
+                $query
+                    ->orderBy('cnt', 'desc')
+                ;
+            }
+        }
 
         return $query->getQuery()->getResult();
     }
@@ -300,16 +305,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     {
         $search = str_replace(' ', '', $search);
 
+        //TODO roles in query must be changed
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
-                    ->select('DISTINCT u')
-                    ->from('ApplicationUserBundle:User', 'u')
+                    ->select('DISTINCT u, ug')
+                    ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('ug.goal', 'g')
                     ->where("g.id IN (SELECT g1.id FROM AppBundle:UserGoal ug1 JOIN ug1.user u1 WITH u1.id = :userId JOIN ug1.goal g1)
                              AND u.id != :userId")
+                    ->andWhere('u.roles = :roles')
                     ->setParameter('userId', $userId)
+                    ->setParameter('roles', 'a:0:{}')
                     ;
 
         if ($search){
@@ -347,9 +355,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i
+            ->createQuery("SELECT g, i, a, ss
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
+                           LEFT JOIN g.author a
+                           LEFT JOIN g.successStories ss
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
@@ -447,5 +457,35 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 								   ORDER BY dates')
             ->setParameter('limit', $limit)
             ->getResult();
+    }
+
+    /**
+     * This function is used to do random data in array
+     *
+     * @param $ids
+     * @return array
+     */
+    public function shuffle_goal($ids) {
+
+        //check if ids not exist
+        if(!is_array($ids)) {
+
+            return $ids;
+        }
+
+        //get key in array
+        $keys = array_keys($ids);
+
+        //random array by key
+        shuffle($keys);
+
+        //set random default array
+        $random = array();
+
+        foreach ($keys as $key) {
+            $random[$key] = $ids[$key];
+        }
+
+        return $random;
     }
 }

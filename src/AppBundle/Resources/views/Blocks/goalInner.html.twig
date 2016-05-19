@@ -1,5 +1,8 @@
 {% set inner = constant("AppBundle\\Entity\\Goal::INNER") %}
 {% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
+{% set user = app.user %}
+{% set author = goal.author %}
+{% set show = true %}
 
 <div id="fb-root"></div>
 
@@ -41,11 +44,20 @@
             </div>
         </div>
 
+        {% if user and author and user.id == author.id %}
+            {% set show = false %}
+        {% endif %}
+
         <div class="row">
-            <div class="col-md-9">
-                <h2 {% if goal.title|length > 25 %}class="title-smaller"{% endif %}>{{ goal.title }}</h2>
+            <div class="col-sm-12">
+                {% if author and author.isAdmin == false and show %}
+                    <p class="goal-author">
+                        {#<a class="bg-blue" href="">#}
+                            <a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
+                    </p>
+                {% endif %}
+                <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
             </div>
-            <div class="col-md-3"></div>
         </div>
 
         <div class="inner-content">
@@ -238,7 +250,7 @@
                     <div class="col-md-8">
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
-                            <div class="text-gray">{{ replaceDescription(goal.description)|markdown }}</div>
+                            <div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -291,6 +303,7 @@
                             {% set stories = goal.getSuccessStories %}
 
                             {% if stories|length > 0 %}
+                                <br />
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% if stories|length > 2 %}
@@ -323,7 +336,7 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <bdi class="{{ className }}">{{ nameOnImage | upper}}</bdi>
+                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>
@@ -425,6 +438,8 @@
                                 {% endfor %}
 
                             {% endif %}
+
+                            <br />
 
                             {% if app.user %}
                                 <h4>{{ 'comments'|trans }}</h4><hr />

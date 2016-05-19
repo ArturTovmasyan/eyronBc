@@ -6,21 +6,41 @@
             <li>
                 <a href="{{ path('goals_list') }}">
                     <span>
+                        <img src="{{ asset('bundles/app/images/discover.png') }}"/>
+                    </span>
+                    {{ 'discover'|trans }}
+                </a>
+            </li>
+
+            {% set mostPopular = false %}
+
+            {% for i in 0..(categories|length -1) %}
+                    {% if categories[i].getSlug() == 'most-popular' %}
+                        {% set mostPopular = true %}
+                    {% endif %}
+            {% endfor %}
+
+            {% if mostPopular %}
+            <li>
+                <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
+                    <span>
                         <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
                     </span>
                     {{ 'most_popular'|trans }}
                 </a>
             </li>
-
+            {% endif %}
             {% for category in categories %}
-                <li>
-                    <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
-                        <span>
-                            <img src="{{ category.downloadLink }}"/>
-                        </span>
-                        {{ category.title }}
-                    </a>
-                </li>
+                {% if category.slug != 'most-popular' %}
+                    <li>
+                        <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
+                            <span>
+                                <img src="{{ category.downloadLink }}"/>
+                            </span>
+                            {{ category.title }}
+                        </a>
+                    </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>

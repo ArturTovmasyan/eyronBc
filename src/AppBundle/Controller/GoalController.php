@@ -156,6 +156,9 @@ class GoalController extends Controller
                     //set description
                     $goal->setDescription($description);
 
+                    //send create goal event in google analytics
+                    $this->get('bl_service')->createGoalEvent();
+
                     $em->persist($goal);
                     $em->flush();
 
@@ -375,6 +378,9 @@ class GoalController extends Controller
         // set date
         $userGoal->setCompletionDate(new \DateTime());
 
+        //send done goal event in google analytic
+        $this->get('bl_service')->doneGoalEvent();
+
         $em->persist($userGoal);
         $em->flush();
 
@@ -469,6 +475,9 @@ class GoalController extends Controller
                 // add success story to goal
                 $goal->addSuccessStory($story);
                 $em->persist($story);
+
+                //send add story event in google analytics
+                $this->get('bl_service')->createGoalStoryEvent();
 
                 $em->flush();
 
@@ -652,12 +661,6 @@ class GoalController extends Controller
                     $em->persist($goal);
                 }
 
-                // set date
-//                $userGoal->setListedDate(new \DateTime());
-
-                // set user
-//                $userGoal->setUser($user);
-
                 // set step
                 $userGoal->setSteps($steps);
 
@@ -677,6 +680,9 @@ class GoalController extends Controller
                     // set do date
                     $userGoal->setDoDate($doDate);
                 }
+
+                //send add goal event in google analytics
+                $this->get('bl_service')->addGoalEvent();
 
                 $em->persist($userGoal);
                 $em->flush();
@@ -717,8 +723,19 @@ class GoalController extends Controller
 
         $allIds = [];
 
+        //get envorinment
+        $env = $this->container->get('kernel')->getEnvironment();
+
+        //set default behat false
+        $behat = false;
+
+        //check if envor
+        if($env == 'behat') {
+            $behat = true;
+        }
+
         // find all goals
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $allIds, $locale);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $behat, $allIds, $locale);
 
         //check if search goal count is 0
         if(count($goals) == 0) {
@@ -894,15 +911,6 @@ class GoalController extends Controller
         //get new feed is log service
         $this->get('bl_news_feed_service')->updateNewsFeed();
 
-        //If user is logged in then show news feed
-        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-
-        if($session->has('newFeed')) {
-            $session->remove('newFeed');
-        }
-
-        //set url in session
-        $session->set('newFeed', $feedCount);
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {
@@ -918,6 +926,20 @@ class GoalController extends Controller
         $url = 'user_profile';
 
         $em->flush();
+
+        //If user is logged in then show news feed
+        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+
+        //check if session has newFeed 
+        if($session->has('newFeed')) {
+            $session->remove('newFeed');
+        }
+
+        //set url in session
+        $session->set('newFeed', $feedCount);
+
+        //send add goal event in google analytics
+        $this->get('bl_service')->removeGoalEvent();
 
         return $this->redirectToRoute($url);
     }

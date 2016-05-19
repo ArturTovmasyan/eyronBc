@@ -9,19 +9,20 @@
 namespace AppBundle\Twig\Extension;
 
 /**
- * Class ReplaceInDescriptionExtension
+ * Class RemoveTagInMetaDescriptionExtension
  * @package AppBundle\Twig\Extension
  */
+ 
 
-class ReplaceInDescriptionExtension extends \Twig_Extension
+class RemoveTagInMetaDescriptionExtension extends \Twig_Extension
 {
     /**
      * @return array
      */
-    public function getFunctions()
+    public function getFilters()
     {
         return array(
-            new \Twig_SimpleFunction('replaceDescription', array($this, 'replaceDescription'))
+            new \Twig_SimpleFilter('removeTagInMeta', array($this, 'removeTagInMeta'))
         );
     }
 
@@ -29,15 +30,15 @@ class ReplaceInDescriptionExtension extends \Twig_Extension
      * @param $text
      * @return mixed
      */
-
-    public function replaceDescription($text)
+    public function removeTagInMeta($text)
     {
         $content = str_replace('#', '',  $text);
 
         return $content;
     }
+
     public function getName()
     {
-        return 'bl_replace_description_extension';
+        return 'bl_remove_tag_meta';
     }
 }

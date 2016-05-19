@@ -58,6 +58,10 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $category7->setTitle('Personal');
         $manager->persist($category7);
 
+        $category8 = new Category();
+        $category8->setTitle('Most Popular');
+        $manager->persist($category8);
+
 
         $tag1 = new Tag();
         $tag1->setTag('adventure');

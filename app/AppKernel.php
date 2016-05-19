@@ -61,9 +61,13 @@ class AppKernel extends Kernel
             // Sitemap Bundle include
             new Presta\SitemapBundle\PrestaSitemapBundle(),
 
+            //include Genemu Bundle
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+
             //Enable markdown bundle
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {

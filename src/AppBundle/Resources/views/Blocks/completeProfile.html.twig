@@ -2,7 +2,7 @@
 
     {% set user = userWithRelations(app.user.id) %}
 
-    <div class="bg-white padding ng-hide" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
+    <div class="bg-white round padding ng-hide" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
         <div class="row">
             <em>{{ 'complete_message'|trans }}</em>
             <div class="col-xs-10">

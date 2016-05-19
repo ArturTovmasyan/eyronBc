@@ -146,6 +146,31 @@ class UserRepository extends EntityRepository
 
     }
 
+    public function findUsersStats($userIds)
+    {
+        if (count($userIds) < 1){
+            return null;
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT u.id,
+                            (SELECT COUNT(ug1)
+                             FROM ApplicationUserBundle:User u1
+                             LEFT JOIN u1.userGoal ug1 WITH ug1.status = :completed
+                             WHERE u1.id = u.id) as doneBy,
+                            (SELECT COUNT(ug2)
+                             FROM ApplicationUserBundle:User u2
+                             LEFT JOIN u2.userGoal ug2 WITH ug2.status = :active
+                             WHERE u2.id = u.id) as listedBy
+                           FROM ApplicationUserBundle:User u
+                           INDEX BY u.id
+                           WHERE u.id IN (:userIds)")
+            ->setParameter('completed', UserGoal::COMPLETED)
+            ->setParameter('active', UserGoal::ACTIVE)
+            ->setParameter('userIds', $userIds)
+            ->getResult();
+    }
+
     public function findAdmins($role)
     {
         return $this->getEntityManager()
