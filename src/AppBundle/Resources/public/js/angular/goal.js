@@ -68,7 +68,8 @@ angular.module('goal', ['Interpolation',
 
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
-            if (this.busy) {
+            //if busy or in goal show page
+            if (this.busy || (this.count == 3 && url == 'goals')) {
                 return;
             }
             if (!category) {
@@ -457,10 +458,11 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', function($scope, $filter, $timeout, lsInfiniteItems){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
+        $scope.Ideas = new lsInfiniteItems(3);
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
