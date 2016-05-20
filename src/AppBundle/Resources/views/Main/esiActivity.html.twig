@@ -1,6 +1,4 @@
-{% set feedCount = app.session.get('newFeed') %}
-
-{% if app.user and feedCount > 0 %}
+{% if app.user and app.user.activity %}
     <li>
         <a href="{{ path('activity') }}">
             <i class="icon-activity-icon"></i>

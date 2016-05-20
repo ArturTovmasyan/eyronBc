@@ -512,25 +512,23 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
-        //get session
-        $session = $request->getSession();
+        //get user activitt value
+        $activity = $user->getActivity();
+        
+        //check if user don't have activity
+        if(!$activity) {
+            
+            //get new feed is log service
+            $this->get('bl_news_feed_service')->updateNewsFeed();
 
-        //get new feed is log service
-        $this->get('bl_news_feed_service')->updateNewsFeed();
+            //If user is logged in then show news feed
+            $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
 
-        //If user is logged in then show news feed
-        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-
-        if($session->has('newFeed')) {
-            $session->remove('newFeed');
-        }
-
-        //set url in session
-        $session->set('newFeed', $feedCount);
-
-        //check if user and session url exist
-        if ($session->has('addUrl')) {
-            $session->remove('addUrl');
+            //check if user dont have activity
+            if($feedCount > 0) {
+                $user->setActivity(true);
+                $em->persist($user);
+            }
         }
 
         // create filter
@@ -898,20 +896,16 @@ class GoalController extends Controller
      * @Secure(roles="ROLE_USER")
      *
      */
-    public  function removeGoal(Request $request, Goal $goal, User $user)
+    public  function removeGoal(Goal $goal, User $user)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //get activity
+        $activity = $user->getActivity();
+
         // get user goal
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
-
-        //get session
-        $session = $request->getSession();
-
-        //get new feed is log service
-        $this->get('bl_news_feed_service')->updateNewsFeed();
-
 
         //check if user goal exist and 1
         if(count($userGoal) == 1) {
@@ -936,20 +930,20 @@ class GoalController extends Controller
         //set myBucketList route name
         $url = 'user_profile';
 
-        $em->flush();
+        if($activity) {
+            
+            //get new feed is log service
+            $this->get('bl_news_feed_service')->updateNewsFeed();
 
-        //If user is logged in then show news feed
-        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+            //If user is logged in then show news feed
+            $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
 
-        //check if session has newFeed 
-        if($session->has('newFeed')) {
-            $session->remove('newFeed');
+            if($feedCount == 0) {
+                $user->setActivity(false);
+                $em->persist($user);
+                $em->flush();
+            }
         }
-
-        //set url in session
-        $session->set('newFeed', $feedCount);
-
-
 
         return $this->redirectToRoute($url);
     }
