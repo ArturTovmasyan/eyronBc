@@ -61,7 +61,6 @@ framework:
 #        cookie_lifetime: 86400
 #        gc_maxlifetime: 1800
 #        handler_id:  ~
-        cookie_lifetime: 2628000 #1 month
         gc_probability: 0
         save_path: ~
     fragments:       ~
@@ -126,6 +125,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         entity_listener_resolver: bl.settings.listener.resolver
+        default_entity_manager: default
+        result_cache_driver: apc
+        query_cache_driver: apc
+
         dql:
             datetime_functions:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction

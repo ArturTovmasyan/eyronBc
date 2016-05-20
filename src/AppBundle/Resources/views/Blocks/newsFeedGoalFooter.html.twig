@@ -1,5 +1,5 @@
 <ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter">
-    <li class="col-xs-4 ng-hide" data-ng-show="!activity.goal.is_my_goal && completed">
+    <li class="col-xs-6 ng-hide" data-ng-show="!activity.goal.is_my_goal && completed">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
            data-ng-click="activity.goal.is_my_goal = 1"
@@ -10,12 +10,12 @@
         </a>
     </li>
 
-    <li class="col-xs-4 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">
+    <li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">
         <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
         <span class="text">{{ 'added'|trans | capitalize}}</span>
     </li>
 
-    <li class="col-xs-4 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
+    <li class="col-xs-6 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
         <a href="javascript:void(0)" data-ng-click="addDone('{{ app.debug ? '/app_dev.php':'' }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index)">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <span class="text">{{ 'done'|trans | capitalize }}</span>
@@ -29,17 +29,9 @@
         </a>
     </li>
 
-    <li class="col-xs-4 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">
+    <li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">
         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
         <span class="text">{{ 'completed'|trans | capitalize}}</span>
     </li>
-
-    {% if inner is not defined %}
-        <li class="col-xs-4">
-            <div class="addthis_native_toolbox"
-                 data-url="{{ app.request.getSchemeAndHttpHost }}{{ app.debug ? '/app_dev.php' : '' }}/goal/[[ activity.goal.slug ]]"
-                 data-title="[[ activity.goal.title ]]"
-                 data-description="[[ activity.goal.description ? activity.goal.description: '{{ 'goal.view_description'|trans }}' ]]"></div>
-        </li>
-    {% endif %}
+    
 </ul>
