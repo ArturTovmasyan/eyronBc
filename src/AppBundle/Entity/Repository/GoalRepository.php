@@ -194,8 +194,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->select('g', 'i', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
-                ->leftJoin('g.tags', 'gt')
-                ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
@@ -203,6 +201,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         //check if category exist and not equal most-popular
         if($category && $category != 'most-popular'){
             $query
+                ->leftJoin('g.tags', 'gt')
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
                 LEFT JOIN c.tags ct
