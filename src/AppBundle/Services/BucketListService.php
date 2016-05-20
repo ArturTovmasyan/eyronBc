@@ -304,7 +304,7 @@ class BucketListService
         
         //If user is logged in then show news feed
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-        
+
         //check if service call after login
         if ($inLogin) {
             
