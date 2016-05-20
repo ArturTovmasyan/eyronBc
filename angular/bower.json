@@ -29,6 +29,7 @@
     "font-awesome": "4.5.*",
     "swipebox": "1.4.*",
     "swiper": "3.3.*",
+    "angular-resource":"1.5.*",
     "angular-local-storage": "0.2.*"
   },
   "devDependencies": {

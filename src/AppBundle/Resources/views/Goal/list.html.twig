@@ -60,7 +60,7 @@
 
     <div class="container ideas-list"
          data-ng-cloak
-         data-infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
+         data-infinite-scroll='Ideas.nextPage("goals", search, "{{ app.request.get('category') }}")'
          data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          data-infinite-scroll-distance='2'>
         {% set searchResult = app.request.get('search') %}
@@ -141,7 +141,7 @@
                 <a href="javascript:void(0)"
                    data-ng-cloak
                    data-ng-show="!Ideas.busy && Ideas.request >= 2"
-                   data-ng-click='Ideas.getReserve("/api/v1.0/goals/{first}/{count}", search, "{{ app.request.get('category') }}")'
+                   data-ng-click='Ideas.getReserve("goals", search, "{{ app.request.get('category') }}")'
                    class="show-more ng-hide">
                     <span></span>
                     <span></span>

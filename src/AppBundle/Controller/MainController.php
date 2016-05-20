@@ -31,8 +31,11 @@ class MainController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //get current user
+        $user = $this->getUser();
+
         //check if user not exist
-        if (!$this->getUser()){
+        if (!$user){
             $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
             $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
@@ -40,30 +43,27 @@ class MainController extends Controller
         }
 
         // get current user id
-        $currentUserId = $this->getUser()->getId();
-
-        //get new feed is log service
-        $this->get('bl_news_feed_service')->updateNewsFeed();
+        $currentUserId = $user->getId();
 
         //If user is logged in then show news feed
         $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($currentUserId);
 
         // check user is not have a new feed
         if ($feedCount == 0) {
+
+            //set redirect url to ideas list
             $url = 'goals_list';
+            $user->setActivity(false);
+
         } else {
+
+            //set redirect url to activity page
             $url = 'activity';
+            $user->setActivity(true);
         }
 
-        //get session
-        $session = $request->getSession();
-
-        if($session->has('newFeed')) {
-            $session->remove('newFeed');
-        }
-
-        //set url in session
-        $session->set('newFeed', $feedCount);
+        $em->persist($user);
+        $em->flush();
 
         return $this->redirectToRoute($url);
     }
@@ -256,6 +256,11 @@ class MainController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $newsFeedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), true);
+
+        //check if user don't have activity
+        if($newsFeedCount == 0) {
+            return $this->redirectToRoute('homepage');
+        }
 
         return array('activities_count' => $newsFeedCount);
     }
