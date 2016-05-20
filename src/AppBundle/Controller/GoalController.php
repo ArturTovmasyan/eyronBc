@@ -512,24 +512,8 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
-        //get user activitt value
-        $activity = $user->getActivity();
-        
-        //check if user don't have activity
-        if(!$activity) {
-            
-            //get new feed is log service
-            $this->get('bl_news_feed_service')->updateNewsFeed();
-
-            //If user is logged in then show news feed
-            $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-
-            //check if user dont have activity
-            if($feedCount > 0) {
-                $user->setActivity(true);
-                $em->persist($user);
-            }
-        }
+        //check and set user activity by new feed count
+        $this->get('bl_service')->setUserActivity($user, $inLogin = false);
 
         // create filter
         $filters = array(
@@ -856,9 +840,6 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //get activity
-        $activity = $user->getActivity();
-
         // get user goal
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
@@ -885,20 +866,8 @@ class GoalController extends Controller
         //set myBucketList route name
         $url = 'user_profile';
 
-        if($activity) {
-            
-            //get new feed is log service
-            $this->get('bl_news_feed_service')->updateNewsFeed();
-
-            //If user is logged in then show news feed
-            $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
-
-            if($feedCount == 0) {
-                $user->setActivity(false);
-                $em->persist($user);
-                $em->flush();
-            }
-        }
+        //check and set user activity by new feed count
+        $this->get('bl_service')->setUserActivity($user, $inLogin = false);
 
         return $this->redirectToRoute($url);
     }
