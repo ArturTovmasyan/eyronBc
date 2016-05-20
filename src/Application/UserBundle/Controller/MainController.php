@@ -264,10 +264,14 @@ class MainController extends Controller
         //check if user haven`t any goals
         if ($user && count($user->getUserGoal()) == 0) {
 
-            //set user activity value
-            $user->setActivity(false);
-            $em->persist($user);
-            $em->flush();
+            //check if user have activity
+            if($user->getActivity()) {
+                
+                //set user activity value
+                $user->setActivity(false);
+                $em->persist($user);
+                $em->flush();
+            }
 
             //generate url
             $url = $this->generateUrl('goals_list');
