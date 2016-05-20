@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="col-xs-8 col-sm-6 text-right"
-                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categories|json_encode }})">
+                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categoriesJson }})">
                     <button type="button"
                         data-ng-cloak
                         class="btn btn-default text-purple no-bg"

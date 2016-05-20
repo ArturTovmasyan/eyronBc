@@ -694,7 +694,10 @@ class GoalController extends Controller
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->getAllCached();
 
-        return array('category' => $category, 'search' => $search, 'categories' => $categories);
+        $serializer = $this->get('serializer');
+        $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
+
+        return array('categories' => $categories, 'search' => $search, 'categoriesJson' => $categoriesJson);
     }
 
 
