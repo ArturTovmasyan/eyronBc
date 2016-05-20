@@ -11,9 +11,9 @@
         <meta charset="UTF-8" />
         <title>{%- block title -%}BucketList{%- endblock -%}</title>
         <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
-        <meta property="og:title" content="{%- block og_title -%}BucketList{%- endblock -%}" />
+        <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
         <meta property="og:url" content="{%- block og_url -%}{{- app.request.uri -}} {%- endblock -%}" />
-        <meta property="og:description" content="{%- block og_description -%}BucketList {%- endblock -%}" />
+        <meta property="og:description" content="{%- block og_description -%}{{ block('description') }}{%- endblock -%}" />
         <meta property="og:site_name" content="BucketList" />
         {#<meta property="og:image" content="{%- block og_image -%}{{ 'bl.w3docs.com/favicon.ico' }}{%- endblock -%}" />#}
         <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist.jpg{%- endblock -%}" />
