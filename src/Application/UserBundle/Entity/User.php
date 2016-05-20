@@ -114,7 +114,6 @@ class User extends BaseUser
      */
     protected $gender;
 
-
     /**
      * @ORM\Column(name="language", type="string", length=3, nullable=true)
      * @var
@@ -243,6 +242,11 @@ class User extends BaseUser
      * @var
      */
     private $stats;
+
+    /**
+     * @ORM\Column(name="activity", type="boolean", nullable=false)
+     */
+    protected $activity = false;
 
     /**
      * @ORM\Column(name="active_time", type="integer", nullable=true)
@@ -1424,5 +1428,28 @@ class User extends BaseUser
         }
         
         return null;
+    }
+
+    /**
+     * Set activity
+     *
+     * @param boolean $activity
+     * @return User
+     */
+    public function setActivity($activity)
+    {
+        $this->activity = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Get activity
+     *
+     * @return boolean 
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 }
