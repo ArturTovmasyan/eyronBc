@@ -39,6 +39,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class GoalController extends Controller
 {
+    const STAGE_URL = 'http://stage.bucketlist127.com/';
+    const STAGE_CACHE_PREFIX = '-stage';
+    const PROD_CACHE_PREFIX = '-prod';
     /**
      * @Route("goal/create", name="add_goal")
      * @Template()
@@ -691,8 +694,10 @@ class GoalController extends Controller
         // get search key
         $search = $request->get('search');
 
+        $cachePrefix = (strpos($request->getUri(), self::STAGE_URL) === false)?self::PROD_CACHE_PREFIX: self::STAGE_CACHE_PREFIX;
+
         // get categories
-        $categories  = $em->getRepository('AppBundle:Category')->getAllCached();
+        $categories  = $em->getRepository('AppBundle:Category')->getAllCached($cachePrefix);
 
         $serializer = $this->get('serializer');
         $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
