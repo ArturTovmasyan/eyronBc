@@ -39,13 +39,4 @@
         <span class="text">{{ 'completed'|trans | capitalize}}</span>
     </li>
 
-    {#{% if inner is not defined %}#}
-
-        {#<li class="col-xs-4">#}
-            {#<div class="addthis_native_toolbox"#}
-                 {#data-url="{{ app.request.getSchemeAndHttpHost }}{{ app.debug ? '/app_dev.php' : '' }}/goal/[[ goal.slug ]]"#}
-                 {#data-title="[[ goal.title ]]"#}
-                 {#data-description="[[ goal.description ? goal.description: '{{ 'goal.view_description'|trans }}' ]]"></div>#}
-        {#</li>#}
-    {#{% endif %}#}
 </ul>

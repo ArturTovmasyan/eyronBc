@@ -33,13 +33,5 @@
         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
         <span class="text">{{ 'completed'|trans | capitalize}}</span>
     </li>
-
-    {#{% if inner is not defined %}#}
-        {#<li class="col-xs-4">#}
-            {#<div class="addthis_native_toolbox"#}
-                 {#data-url="{{ app.request.getSchemeAndHttpHost }}{{ app.debug ? '/app_dev.php' : '' }}/goal/[[ activity.goal.slug ]]"#}
-                 {#data-title="[[ activity.goal.title ]]"#}
-                 {#data-description="[[ activity.goal.description ? activity.goal.description: '{{ 'goal.view_description'|trans }}' ]]"></div>#}
-        {#</li>#}
-    {#{% endif %}#}
+    
 </ul>
