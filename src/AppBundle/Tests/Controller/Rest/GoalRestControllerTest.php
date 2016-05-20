@@ -38,6 +38,53 @@ class GoalRestControllerTest extends BaseClass
     }
 
     /**
+     * This test is used to check most popular category filter by goal listed count
+     */
+    public function testMostPopularFilter()
+    {
+        //get goal
+        $url = sprintf('/api/v1.0/goals/%s/%s?category=most-popular', 0, 6);
+
+        //try to get goals by filter most-popular category
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal getsAction rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        //get goal in rest response
+        $goals = \GuzzleHttp\json_decode($this->client->getResponse()->getContent());
+
+        //set default array
+        $allListedBy = array();
+
+        foreach($goals as $goal)
+        {
+            $allListedBy[] = $goal->stats->listedBy;
+        }
+
+        //set listed goal
+        $listedGoal = $allListedBy;
+
+        //sort array
+         arsort($allListedBy);
+
+        //check arrays is equal
+        $isEqual = $listedGoal === $allListedBy;
+
+        $this->assertTrue($isEqual, "Most popular category don't sort by listed!");
+
+    }
+
+    /**
      * This function test get goal
      *
      * @dataProvider goalByIdProvider
@@ -271,7 +318,5 @@ class GoalRestControllerTest extends BaseClass
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
         }
-
     }
-
 }
