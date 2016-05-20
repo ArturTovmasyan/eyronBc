@@ -8,6 +8,7 @@
 
 <div class="inner-container">
     {% set cover = goal.getCoverPhotoDownloadLink %}
+    {% set goalInner = true %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
     <figure class="goal-image">
         <span class="overlay"></span>
@@ -19,48 +20,54 @@
         {% endif %}"
              alt="{{ goal.title }}" />
     </figure>
+    <div class="container ideas-list"
+         data-ng-cloak
+         data-infinite-scroll='Ideas.nextPage("goals")'
+         data-infinite-scroll-disabled='Ideas.request >= 1'
+         data-infinite-scroll-distance='2'>
+    </div>
 
     <div class="goal-content">
         <div class="container">
-        <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-7">
-                <div class="quote">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-7">
+                    <div class="quote">
 
-                    <div class="ticker">
-                        {% if aphorisms %}
-                            <i class="icon-quote-left"></i>
-                            <i class="icon-quote-right"></i>
-                            <ul class="aphorism" data-delay-add-class>
-                                {% for aphorism in aphorisms %}
-                                    <li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}
-                                        <span class="text-right">{{ aphorism.author }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                        <div class="ticker">
+                            {% if aphorisms %}
+                                <i class="icon-quote-left"></i>
+                                <i class="icon-quote-right"></i>
+                                <ul class="aphorism" data-delay-add-class>
+                                    {% for aphorism in aphorisms %}
+                                        <li>{{ aphorism.content|length > 230 ? aphorism.content|slice(0, 230)|removeTag ~ '...' : aphorism.content|removeTag }}
+                                            <span class="text-right">{{ aphorism.author }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {% if user and author and user.id == author.id %}
-            {% set show = false %}
-        {% endif %}
+            {% if user and author and user.id == author.id %}
+                {% set show = false %}
+            {% endif %}
 
-        <div class="row">
-            <div class="col-sm-12">
-                {% if author and author.isAdmin == false and show %}
-                    <p class="goal-author">
-                        {#<a class="bg-blue" href="">#}
-                            <a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
-                    </p>
-                {% endif %}
-                <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    {% if author and author.isAdmin == false and show %}
+                        <p class="goal-author">
+                            {#<a class="bg-blue" href="">#}
+                                <a href="{{ path('user_profile',  {'user': author.uId})}}" class="text-gray bg-blue">{{ 'by' ~ " " ~ author.showName }} </a>
+                        </p>
+                    {% endif %}
+                    <h2 class="goal-inner-title {% if goal.title|length > 40 %}title-smaller{% endif %}">{{ goal.title }}</h2>
+                </div>
             </div>
-        </div>
 
-        <div class="inner-content">
+            <div class="inner-content">
 
             <div class="row no-gutter">
                 <div class="col-md-8">
@@ -448,6 +455,76 @@
                         {% endif %}
                     </div>
                     <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+
+    <div class="bg-grey">
+        <div class="container" id="random_goals">
+
+        <h2 class="text-center text-dark">See also</h2>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="row idea-item ">
+                    <div class="col-md-4 goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="goal in Ideas.items">
+                        <figure>
+                            <h3>
+                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                            </h3>
+
+                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ ::goal.slug ]]"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img data-ng-src="[[ ::goal.image_path ]]" alt="[[ ::goal.title ]]"/>
+                            </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                        [[ ::goal.stats.listedBy ]]
+                                                    </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                                <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                    [[ ::goal.stats.listedBy ]]
+                                                    <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                                </span>
+                                    </li>
+                                    <li>
+                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                        [[ ::goal.stats.doneBy ]]
+                                                    </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                                <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                                    {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                    [[ ::goal.stats.doneBy ]]
+                                                    <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                                </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                            </figcaption>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </div>
