@@ -62,13 +62,14 @@ angular.module('goal', ['Interpolation',
             angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
-            setTimeout(function(){
-                this.loadAddthis();
-            }.bind(this), 500);
+            //setTimeout(function(){
+            //    this.loadAddthis();
+            //}.bind(this), 500);
 
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
-            if (this.busy) {
+            //if busy or in goal show page
+            if (this.busy || (this.count == 3 && url == 'goals')) {
                 return;
             }
             if (!category) {
@@ -166,9 +167,9 @@ angular.module('goal', ['Interpolation',
                 this.busy = data.length ? false : true;
                 this.nextReserve(reserveUrl, search, category);
 
-                setTimeout(function(){
-                    this.loadAddthis();
-                }.bind(this), 500);
+                //setTimeout(function(){
+                //    this.loadAddthis();
+                //}.bind(this), 500);
             }else{
                 if(url == 'goals'){
                     query = GoalRest.query({first: this.start, count: this.count, search: search, category: category});
@@ -186,9 +187,9 @@ angular.module('goal', ['Interpolation',
                             this.loadRandomItems(this.count);
                         }
 
-                        setTimeout(function () {
-                            this.loadAddthis();
-                        }.bind(this), 500);
+                        //setTimeout(function () {
+                        //    this.loadAddthis();
+                        //}.bind(this), 500);
                     }.bind(this));
                 }else {
                     url = url.replace('{first}', this.start).replace('{count}', this.count);
@@ -207,9 +208,9 @@ angular.module('goal', ['Interpolation',
                             this.loadRandomItems(this.count);
                         }
 
-                        setTimeout(function () {
-                            this.loadAddthis();
-                        }.bind(this), 500);
+                        //setTimeout(function () {
+                        //    this.loadAddthis();
+                        //}.bind(this), 500);
                     }.bind(this));
                 }
             }
@@ -457,10 +458,11 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', function($scope, $filter, $timeout){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', function($scope, $filter, $timeout, lsInfiniteItems){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
+        $scope.Ideas = new lsInfiniteItems(3);
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -509,15 +511,15 @@ angular.module('goal', ['Interpolation',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        if(angular.element('.goal-information') && screen.width >= 992) {
+        if(angular.element('.goal-information') && screen.width >= 992  && window.innerWidth >= 992) {
             angular.element('.goal-information').scrollToFixed({
                 marginTop: 85,
                 limit: function () {
-                    var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 30;
+                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
                     return limit;
                 },
                 unfixed: function() {
-                    var limit = angular.element('footer').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
+                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
                     angular.element('.goal-information').css('left', '0').css('top', limit);}
             });
         }
