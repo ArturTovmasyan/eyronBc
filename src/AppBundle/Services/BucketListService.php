@@ -289,4 +289,62 @@ class BucketListService
         //send event in google analytic
         $this->sendEventInGoogleAnalytics($unListGoalEvent);
     }
+
+    /**
+     * This function is used to check user have activity and set it
+     *
+     * @param $user
+     * @param bool $inLogin
+     * @param string $url
+     */
+    public function setUserActivity($user, $inLogin = false, &$url = null)
+    {
+        //get new feed is log service
+        $this->container->get('bl_news_feed_service')->updateNewsFeed();
+        
+        //If user is logged in then show news feed
+        $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+        
+        //check if service call after login
+        if ($inLogin) {
+            
+            //check user is not have a new feed
+            if ($feedCount == 0) {
+
+                //set redirect url to ideas list
+                $url = 'goals_list';
+                $user->setActivity(false);
+
+            }else {
+
+                //set redirect url to activity page
+                $url = 'activity';
+                $user->setActivity(true);
+            }
+        }
+        else {
+            
+            //get user activity
+            $activity = $user->getActivity();
+
+            //check if user don't have activity
+            if (!$activity) {
+
+                //check if user dont have activity
+                if($feedCount > 0) {
+                    $user->setActivity(true);
+                }
+            }
+            else{
+
+                //check if user don't have new feed
+                if($feedCount == 0) {
+                    $user->setActivity(false);
+                }
+            }
+        }
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 }

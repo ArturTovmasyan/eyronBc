@@ -42,29 +42,12 @@ class MainController extends Controller
             return array('goals' => $goals);
         }
 
-        // get current user id
-        $currentUserId = $user->getId();
-
-        //If user is logged in then show news feed
-        $feedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($currentUserId);
-
-        // check user is not have a new feed
-        if ($feedCount == 0) {
-
-            //set redirect url to ideas list
-            $url = 'goals_list';
-            $user->setActivity(false);
-
-        } else {
-
-            //set redirect url to activity page
-            $url = 'activity';
-            $user->setActivity(true);
-        }
-
-        $em->persist($user);
-        $em->flush();
-
+        //set url
+        $url = 'goals_list';
+        
+        //check and set user activity by new feed count
+        $this->get('bl_service')->setUserActivity($user, $inLogin = true, $url);
+        
         return $this->redirectToRoute($url);
     }
 
