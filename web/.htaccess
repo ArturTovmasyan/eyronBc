@@ -19,13 +19,6 @@ ExpiresByType image/png "access plus 30 days"
 ExpiresByType application/x-shockwave-flash "access plus 30 days"
 ExpiresByType application/x-font-woff   "access plus 1 year"
 
-# Use the front controller as index file. It serves as a fallback solution when
-# every other rewrite/redirect fails (e.g. in an aliased environment without
-# mod_rewrite). Additionally, this reduces the matching process for the
-# start page (path "/") because otherwise Apache will apply the rewriting rules
-# to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
-DirectoryIndex app.php
-
 # Insert filter
 SetOutputFilter DEFLATE
 
