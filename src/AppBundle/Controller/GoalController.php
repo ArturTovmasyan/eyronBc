@@ -704,58 +704,13 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // default locale
-        $locale = null;
-
-        if($user = $this->getUser()){
-            $locale = $user->getLanguage();
-        }
-
         // get search key
         $search = $request->get('search');
 
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->getAllCached();
 
-        $serializer = $this->get('serializer');
-        $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
-
-        $allIds = [];
-
-        //get envorinment
-        $env = $this->container->get('kernel')->getEnvironment();
-
-        //set default behat false
-        $behat = false;
-
-        //check if envor
-        if($env == 'behat') {
-            $behat = true;
-
-            // find all goals
-            $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, ($request->query->getInt('page', 1) - 1) * 7, 7, $behat, $allIds, $locale);
-
-            //check if search goal count is 0
-            if(count($goals) == 0) {
-                $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-            }
-
-            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
-
-            // get paginator
-            $paginator  = $this->get('knp_paginator');
-
-            // paginate data
-            $pagination = $paginator->paginate(
-                $allIds,
-                $request->query->getInt('page', 1)/*page number*/,
-                7/*limit per page*/
-            );
-
-            $pagination->setItems($goals);
-        }
-
-        return array('categories' => $categories, 'categoriesJson' => $categoriesJson);
+        return array('category' => $category, 'search' => $search, 'categories' => $categories);
     }
 
 
