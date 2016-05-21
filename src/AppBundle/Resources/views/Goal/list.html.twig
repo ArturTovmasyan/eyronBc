@@ -1,176 +1,176 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{#{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalList"> {% endblock %}#}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalList"> {% endblock %}
 
-{#{% block stylesheets %}#}
-    {#{{ parent() }}#}
+{% block stylesheets %}
+    {{ parent() }}
 
-    {#<link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">#}
-{#{% endblock %}#}
+    <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
+{% endblock %}
 
-{# url prefix#}
-{#{% if app.debug %}#}
-    {#{% set urlPrefix = '/app_dev.php'%}#}
-{#{% else %}#}
-    {#{% set urlPrefix = ''%}#}
-{#{% endif %}#}
+ url prefix
+{% if app.debug %}
+    {% set urlPrefix = '/app_dev.php'%}
+{% else %}
+    {% set urlPrefix = ''%}
+{% endif %}
 
-{#{% block content %}#}
-    {#<div class="content-top">#}
-        {#<div class="container">#}
+{% block content %}
+    <div class="content-top">
+        <div class="container">
 
-            {#<div class="row">#}
-                {#<div class="col-xs-4 col-sm-6">#}
-                    {#<a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap" class="text-gray map-top">#}
-                        {#<span>{{ 'menu.map'|trans | upper}}</span>#}
-                        {#<i class="icon-arrow-down" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>#}
-                        {#<i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>#}
-                    {#</a>#}
-                {#</div>#}
+            <div class="row">
+                <div class="col-xs-4 col-sm-6">
+                    <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap" class="text-gray map-top">
+                        <span>{{ 'menu.map'|trans | upper}}</span>
+                        <i class="icon-arrow-down" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
+                    </a>
+                </div>
 
-                {#<div class="col-xs-8 col-sm-6 text-right"#}
-                     {#data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categoriesJson }})">#}
-                    {#<button type="button"#}
-                        {#data-ng-cloak#}
-                        {#class="btn btn-default text-purple no-bg"#}
-                        {#data-container="body"#}
-                        {#data-toggle="popover"#}
-                        {#data-placement="bottom"#}
-                        {#data-content="hello"#}
-                        {#data-ng-click="filter = !filter"#}
-                        {#data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>#}
+                <div class="col-xs-8 col-sm-6 text-right"
+                     data-ng-init="adventureTextItem=adventureText('{{ app.request.get('category') }}',{{ categoriesJson }})">
+                    <button type="button"
+                        data-ng-cloak
+                        class="btn btn-default text-purple no-bg"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="bottom"
+                        data-content="hello"
+                        data-ng-click="filter = !filter"
+                        data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
-                        {#<span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>#}
-                        {#<i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>#}
-                        {#<i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>#}
-                    {#</button>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">#}
-            {#<div data-simple-map-marker#}
-                 {#data-markers="locations"#}
-                 {#data-is-bounded="true"#}
-                 {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
-                 {#data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"#}
-                 {#data-refresh="showMap"#}
-                 {#data-item-page-url="{{ urlPrefix }}/goal/"#}
-                 {#class="google-map "#}
-                 {#style="width: 100%; height: 300px"#}
-            {#></div>#}
-        {#</div>#}
-    {#</div>#}
+                        <span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>
+                        <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
+                        <i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">
+            <div data-simple-map-marker
+                 data-markers="locations"
+                 data-is-bounded="true"
+                 data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
+                 data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                 data-refresh="showMap"
+                 data-item-page-url="{{ urlPrefix }}/goal/"
+                 class="google-map "
+                 style="width: 100%; height: 300px"
+            ></div>
+        </div>
+    </div>
 
-    {#<div class="container ideas-list"#}
-         {#data-ng-cloak#}
-         {#data-infinite-scroll='Ideas.nextPage("goals", search, "{{ app.request.get('category') }}")'#}
-         {#data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'#}
-         {#data-infinite-scroll-distance='2'>#}
+    <div class="container ideas-list"
+         data-ng-cloak
+         data-infinite-scroll='Ideas.nextPage("goals", search, "{{ app.request.get('category') }}")'
+         data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
+         data-infinite-scroll-distance='2'>
 
-        {#<h2 data-ng-show="noIdeas" class="ng-hide text-center">#}
-            {#<span class="empty-text text-center">{{ 'goal.not_found'|trans }}</span>#}
-        {#</h2>#}
-        {#{% if not search %}#}
-            {#<h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark ">#}
-               {#{{ 'homepage_list_title'|trans }}#}
-            {#</h2>#}
-        {#{% endif %}#}
-
-
-
-        {#<div class="row">#}
-
-            {#<div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">#}
-                {#<div class="row idea-item  {% if search %} ideas-result {% endif %}">#}
-                    {#<div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"#}
-                         {#data-ng-cloak#}
-                         {#data-ng-repeat="goal in Ideas.items">#}
-                        {#<figure>#}
-                            {#<h3>#}
-                                {#<a data-ng-href="{{ urlPrefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>#}
-                            {#</h3>#}
-
-                            {#<a data-ng-href="{{ urlPrefix }}/goal/[[ ::goal.slug ]]"#}
-                               {#data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"#}
-                               {#class="goalTitle">#}
-                                {#<span class="overlay"></span>#}
-                                {#<img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>#}
-                            {#</a>#}
-
-                            {#<div class="absolute">#}
-                                {#<ul>#}
-                                    {#<li>#}
-                                        {#<a data-ng-href="{{ urlPrefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">#}
-                                            {#<span>#}
-                                                {#{{ 'home_listed_by'|trans({},'messages') | capitalize }}#}
-                                                {#[[ ::goal.stats.listedBy ]]#}
-                                            {#</span>#}
-                                            {#<i class="icon-user-small"></i>#}
-                                        {#</a>#}
-
-                                        {#<span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">#}
-                                            {#{{ 'home_listed_by'|trans({},'messages') | capitalize }}#}
-                                            {#[[ ::goal.stats.listedBy ]]#}
-                                            {#<i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>#}
-                                        {#</span>#}
-                                    {#</li>#}
-                                    {#<li>#}
-                                        {#<a data-ng-href="{{ urlPrefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">#}
-                                            {#<span>#}
-                                                {#{{ 'home_complete'|trans({},'messages') | capitalize }}#}
-                                                {#[[ ::goal.stats.doneBy ]]#}
-                                            {#</span>#}
-                                            {#<i class="icon-user-small"></i>#}
-                                        {#</a>#}
-
-                                        {#<span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">#}
-                                            {#{{ 'home_complete'|trans({},'messages') | capitalize }}#}
-                                            {#[[ ::goal.stats.doneBy ]]#}
-                                            {#<i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>#}
-                                        {#</span>#}
-                                    {#</li>#}
-                                {#</ul>#}
-                            {#</div>#}
-
-                            {#<figcaption>#}
-                                {#{%  include "AppBundle:Blocks:goalFooter.html.twig"  %}#}
-                            {#</figcaption>#}
-                        {#</figure>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-
-            {# display navigation #}
-            {#<div class="navigation text-center">#}
-                {#<a href="javascript:void(0)"#}
-                   {#data-ng-cloak#}
-                   {#data-ng-show="!Ideas.busy && Ideas.request >= 2"#}
-                   {#data-ng-click='Ideas.getReserve("goals", search, "{{ 'category' }}")'#}
-                   {#class="show-more ng-hide">#}
-                    {#<span></span>#}
-                    {#<span></span>#}
-                    {#<span></span>#}
-                {#</a>#}
-            {#</div>#}
-
-    {#</div>#}
-{#{% endblock %}#}
-
-{#{%- block title -%}#}
-
-    {#{% if goalCount > 0 %}#}
-        {#{% set goalTitle = goals.items|first.title %}#}
-    {#{% endif %}#}
-
-   {#{% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}#}
-{#{%- endblock -%}#}
-
-{#{%- block meta_description -%}#}
-    {#{{ 'goal.list_description'|trans }}#}
-{#{%- endblock -%}#}
+        <h2 data-ng-show="noIdeas" class="ng-hide text-center">
+            <span class="empty-text text-center">{{ 'goal.not_found'|trans }}</span>
+        </h2>
+        {% if not search %}
+            <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark ">
+               {{ 'homepage_list_title'|trans }}
+            </h2>
+        {% endif %}
 
 
-{#{%- block og_url -%}#}
-{#{{- app.request.uri -}}#}
-{#{%- endblock -%}#}
+
+        <div class="row">
+
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                <div class="row idea-item  {% if search %} ideas-result {% endif %}">
+                    <div class="col-md-[[ (($index + 1) % 7) < 5 ? 4 : 8 ]] goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="goal in Ideas.items">
+                        <figure>
+                            <h3>
+                                <a data-ng-href="{{ urlPrefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                            </h3>
+
+                            <a data-ng-href="{{ urlPrefix }}/goal/[[ ::goal.slug ]]"
+                               data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
+                               class="goalTitle">
+                                <span class="overlay"></span>
+                                <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                            </a>
+
+                            <div class="absolute">
+                                <ul>
+                                    <li>
+                                        <a data-ng-href="{{ urlPrefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                            <span>
+                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                [[ ::goal.stats.listedBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                            [[ ::goal.stats.listedBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a data-ng-href="{{ urlPrefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                            <span>
+                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                [[ ::goal.stats.doneBy ]]
+                                            </span>
+                                            <i class="icon-user-small"></i>
+                                        </a>
+
+                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                            [[ ::goal.stats.doneBy ]]
+                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <figcaption>
+                                {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+             display navigation
+            <div class="navigation text-center">
+                <a href="javascript:void(0)"
+                   data-ng-cloak
+                   data-ng-show="!Ideas.busy && Ideas.request >= 2"
+                   data-ng-click='Ideas.getReserve("goals", search, "{{ 'category' }}")'
+                   class="show-more ng-hide">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+    </div>
+{% endblock %}
+
+{%- block title -%}
+
+    {% if goalCount > 0 %}
+        {% set goalTitle = goals.items|first.title %}
+    {% endif %}
+
+   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'goal.list_description'|trans }}
+{%- endblock -%}
+
+
+{%- block og_url -%}
+{{- app.request.uri -}}
+{%- endblock -%}
