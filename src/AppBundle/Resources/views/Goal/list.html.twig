@@ -159,11 +159,11 @@
 
 {%- block title -%}
 
-    {% if goalCount > 0 %}
-        {% set goalTitle = goals.items|first.title %}
-    {% endif %}
+    {#{% if goalCount > 0 %}#}
+        {#{% set goalTitle = goals.items|first.title %}#}
+    {#{% endif %}#}
 
-   {% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}
+   {#{% if app.request.get('search') %}{{- 'goal.search_title'|trans ~ goalTitle|default('') -}}{% else %}{{- 'goal.og_title'|trans -}}{% endif %}#}
 {%- endblock -%}
 
 {%- block meta_description -%}
