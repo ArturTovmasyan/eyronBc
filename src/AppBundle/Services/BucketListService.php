@@ -8,6 +8,7 @@
 
 namespace AppBundle\Services;
 
+use Application\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
@@ -258,13 +259,13 @@ class BucketListService
     public function loginUserBySocialEvent($social)
     {
         switch($social){
-            case 'Facebook':
+            case User::FACEBOOK:
                 $parameterName = 'event_facebook_login_user';
                 break;
-            case 'Google':
+            case User::GOOGLE:
                 $parameterName = 'event_google_login_user';
                 break;
-            case 'Twitter':
+            case User::TWITTER:
                 $parameterName = 'event_twitter_login_user';
                 break;
             default:

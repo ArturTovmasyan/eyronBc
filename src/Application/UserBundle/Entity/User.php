@@ -46,6 +46,9 @@ class User extends BaseUser
     const SET_DEADLINE = 15;
     const COMPLETE_GOAL = 15;
     const SUCCESS_STORY = 15;
+    const FACEBOOK = 'Facebook';
+    const GOOGLE = 'Google';
+    const TWITTER = 'Twitter';
 
     // use file trait
     use File;
@@ -1414,17 +1417,17 @@ class User extends BaseUser
     {
         //check if login by facebook
        if($this->getFacebookId()) {
-           return 'Facebook';
+           return self::FACEBOOK;
        }
         
         //check if login by google
         if($this->getGoogleId()) {
-            return 'Google';
+            return self::GOOGLE;
         }
         
-        //check if login by twiter
+        //check if login by twitter
         if($this->getTwitterId()) {
-            return 'Twitter';
+            return self::TWITTER;
         }
         
         return null;
