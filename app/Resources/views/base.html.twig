@@ -64,7 +64,7 @@
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
             ga('create', '{{ ga_id }}', 'auto');
-            ga('send', 'pageview' {% if app.request.get('search') != null %} , '/goals?q={{ app.request.get('search') }}' {% endif %} );
+            ga('send', 'pageview' {% if app.request.get('search') != null %} , '/ideas?search={{ app.request.get('search') }}' {% endif %} );
         </script>
 
     {% endif %}

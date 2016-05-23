@@ -161,7 +161,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get date fields
-        $dateElements = $page->findAll('css','#behat');
+        $dateElements = $page->findAll('css','.date');
 
         if (null === $dateElements) {
             throw new \InvalidArgumentException(sprintf('Cannot find $dateElements'));
@@ -196,7 +196,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         $page = $session->getPage();
 
-        $languageField = $page->find('css', '#behat-lng');
+        $languageField = $page->find('css', '.lng');
 
         $languageField->click();
 

@@ -26,10 +26,6 @@ Feature: Idea
     Given I am on "/ideas"
     And I should see "Explore over thousand great ideas"
     And I wait for view
-    And I click on "addthis_button_expanded"
-    And I wait for angular
-    And I click on "at-expanded-menu-close"
-    And I wait for angular
     And I follow "Add"
     And I wait for angular
     Then I should see "SIGN IN"
