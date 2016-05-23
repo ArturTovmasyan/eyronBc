@@ -4,6 +4,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/merge-goal-image.js') }}"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -62,9 +63,13 @@
                             <input type="submit" name="submit" class="btn btn-primary" value="Submit">
                         </div>
                     </form>
-
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 id="merge-goal-id"></h3>
+                            <img src="#" id="merge_image" style="display: none;width: 300px;height: 200px">
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
     </div>

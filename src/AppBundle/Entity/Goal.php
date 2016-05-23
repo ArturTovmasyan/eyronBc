@@ -534,7 +534,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @VirtualProperty
      * @SerializedName("image_path")
      * @return null
-     * @Groups({"tiny_goal", "goal"})
+     * @Groups({"tiny_goal", "goal", "image_link"})
      */
     public function getListPhotoDownloadLink()
     {
