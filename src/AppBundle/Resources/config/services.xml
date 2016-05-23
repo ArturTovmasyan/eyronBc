@@ -24,73 +24,8 @@
             <tag name="form.type" alias="bl_multiple_video" />
         </service>
 
-        <!-- service for twig extension replace in string -->
-        <service id="bl.replace.in" class="AppBundle\Twig\Extension\ReplaceExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension to get popular goals -->
-        <service id="bl.popular.goals.extension" class="AppBundle\Twig\Extension\PopularGoalsExtension">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension to get popular goals -->
-        <service id="bl.user.relations.extension" class="AppBundle\Twig\Extension\UserWithRelationsExtension">
-            <argument type="service" id="service_container" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension to get new action -->
-        <service id="bl.news.extension" class="AppBundle\Twig\Extension\NewActionExtension">
-            <argument type="service" id="service_container" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <service id="bl.policy.link.extension" class="AppBundle\Twig\Extension\GetPolicyLinkExtension">
-            <argument type="service" id="service_container" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <service id="bl.device.type.extension" class="AppBundle\Twig\Extension\DeviceTypeExtension">
-            <argument type="service" id="service_container" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension to get goal friends -->
-        <service id="bl.popular.goal.friends.extension" class="AppBundle\Twig\Extension\GoalFriendsExtension">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension is my goal -->
-        <service id="bl.is_my_goal" class="AppBundle\Twig\Extension\IsMyGoalExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension is replace # in goal description -->
-        <service id="bl_replace_description_extension" class="AppBundle\Twig\Extension\RemoveTagExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension is get session in twig and cleare session -->
-        <service id="bl_get_session_extension" class="AppBundle\Twig\Extension\GetSessionExtension">
-            <argument type="service" id="session" />
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension location -->
-        <service id="bl.location" class="AppBundle\Twig\Extension\LocationExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension is slice string -->
-        <service id="bl.string_slice" class="AppBundle\Twig\Extension\StringSliceExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <!-- service for twig extension is get path info -->
-        <service id="bl.path.info.extension" class="AppBundle\Twig\Extension\GetPathInfoExtension">
+         <!--service for twig extension replace in string -->
+        <service id="bl.oll.in" class="AppBundle\Twig\Extension\OllTwigExtension">
             <argument type="service" id="service_container" />
             <tag name="twig.extension"/>
         </service>
