@@ -74,6 +74,7 @@ class SuccessStory
     /**
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory"})
+     * @Assert\NotBlank()
      */
     protected $story;
 
