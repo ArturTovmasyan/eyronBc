@@ -181,12 +181,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $first
      * @param $count
      * @param $allIds
-     * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, $behat = false, &$allIds = null, $locale = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
@@ -194,8 +193,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->select('g', 'i', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
-                ->leftJoin('g.tags', 'gt')
-                ->leftJoin('g.userGoal', 'ug')
                 ->where('g.publish = :publish')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
@@ -203,6 +200,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         //check if category exist and not equal most-popular
         if($category && $category != 'most-popular'){
             $query
+                ->leftJoin('g.tags', 'gt')
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
                 LEFT JOIN c.tags ct
@@ -247,10 +245,15 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->getResult()
             ;
 
-            //check if random is true and env isn`t behat
-            if($isRandom && !$behat) {
+            //check if random is true
+            if($isRandom) {
+
               //do goal ids is random
               $ids = $this->shuffle_goal($ids);
+            }
+            else {
+                $query
+                    ->orderBy('cnt', 'desc');
             }
 
             $allIds = $ids;
@@ -263,14 +266,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $query
                 ->andWhere('g.id IN (:ids)')
                 ->setParameter('ids', $ids);
-            ;
-
-            //check if isRandom is false
-            if(!$isRandom) {
-                $query
-                    ->orderBy('cnt', 'desc')
-                ;
-            }
         }
 
         return $query->getQuery()->getResult();

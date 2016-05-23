@@ -50,10 +50,13 @@ class DoctrineListener
     public function postLoad(LifecycleEventArgs $event)
     {
         if ($token = $this->container->get('security.token_storage')->getToken()){
-            $user = $token->getUser();
+
             $entity = $event->getObject();
 
             if ($entity instanceof Goal){
+
+                $user = $token->getUser();
+
                 $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
                 $entity->setShareLink($shareLink);
 

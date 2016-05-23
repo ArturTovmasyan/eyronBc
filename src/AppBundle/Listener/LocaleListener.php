@@ -8,6 +8,8 @@
 
 namespace AppBundle\Listener;
 
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -16,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Class LocaleListener
  * @package AppBundle\Listener
  */
-class LocaleListener implements EventSubscriberInterface
+class LocaleListener //implements EventSubscriberInterface
 {
     /**
      * @var string
@@ -24,20 +26,27 @@ class LocaleListener implements EventSubscriberInterface
     private $defaultLocale;
 
     /**
-     * @param string $defaultLocale
+     * @var
      */
-    public function __construct($defaultLocale = 'en')
+    private $container;
+
+    /**
+     * @param $defaultLocale
+     * @param Container $container
+     */
+    public function __construct($defaultLocale = "en", Container $container)
     {
         $this->defaultLocale = $defaultLocale;
+        $this->container = $container;
     }
 
     /**
-     * @param GetResponseEvent $event
+     *
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest()
     {
         // get request
-        $request = $event->getRequest();
+        $request = $this->container->get("request");
 
         //get current url
         $currentUrl = $request->getUri();
@@ -57,16 +66,5 @@ class LocaleListener implements EventSubscriberInterface
                 $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
             }
         }
-    }
-
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            // must be registered before the default Locale listener
-            KernelEvents::REQUEST => array(array('onKernelRequest', 17)),
-        );
     }
 }

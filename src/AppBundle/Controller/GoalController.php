@@ -702,7 +702,7 @@ class GoalController extends Controller
         $serializer = $this->get('serializer');
         $categoriesJson = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(array('category')));
 
-        return array('categories' => $categories, 'search' => $search, 'categoriesJson' => $categoriesJson);
+        return array('category' => $category, 'categories' => $categories, 'search' => $search, 'categoriesJson' => $categoriesJson);
     }
 
 

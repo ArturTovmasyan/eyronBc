@@ -58,20 +58,7 @@ class GoalController extends FOSRestController
         $category = $request->get('category');
         $search = $request->get('search');
 
-        //get envorinment
-        $env = $this->container->get('kernel')->getEnvironment();
-
-        //check if envorinment is behat
-        if($env == 'behat'){
-            //set behat true
-            $behat = true;
-        }
-        else{
-            //set behat false
-            $behat = false;
-        }
-
-        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, $first, $count, $behat);
+        $goals = $em->getRepository("AppBundle:Goal")->findAllByCategory($category, $search, $first, $count);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
         $goals = array_values($goals);
