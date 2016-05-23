@@ -128,3 +128,17 @@ Feature: Activity
     And I scroll page to ".text-dark-gray"
     And I wait for view
 
+  @javascript @profile
+  Scenario: Open Complete profile dropdown and show me the 7 points in it
+    Given I am on "/logout"
+    And I wait
+    When I am logged in as "user1"
+    And I click on "icon-question-icon"
+    And I wait for angular
+    And I follow "Upload an image"
+    And I wait for angular
+    And I follow "Cancel"
+    And I wait for angular
+    And I follow "Add some goals"
+    Then I should be on "/goal/create"
+    And I should see "user1"

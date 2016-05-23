@@ -89,19 +89,20 @@ Feature: Goal page
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
-  @javascript @shareGoal
-  Scenario: Share a goal
-    Given I am on "/ideas"
-    When I wait for angular
-    And I click on "atc_s addthis_button_compact"
-    And I wait
-    And I click on "at3winsvc_facebook top-service"
-#    And I switch to iframe "#at3winshare-iframe"
-    And I wait for view
-    And I switch to window
-    And I fill in "email" with "test@test.am"
-    And I fill in "pass" with "test1234567"
-    And I press "login"
+    #TODO DON'T USE
+#  @javascript @shareGoal
+#  Scenario: Share a goal
+#    Given I am on "/ideas"
+#    When I wait for angular
+#    And I click on "atc_s addthis_button_compact"
+#    And I wait
+#    And I click on "at3winsvc_facebook top-service"
+##    And I switch to iframe "#at3winshare-iframe"
+#    And I wait for view
+#    And I switch to window
+#    And I fill in "email" with "test@test.am"
+#    And I fill in "pass" with "test1234567"
+#    And I press "login"
 
   @javascript @goalCreatePage
   Scenario: Open the page and show all the features
@@ -114,8 +115,6 @@ Feature: Goal page
     And I press "btn_publish"
     And I wait for view
     Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-#    When I reload the page
-#    And I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
     And I press "btn_publish"
     And I wait for angular
@@ -137,7 +136,7 @@ Feature: Goal page
 
 @javascript @addGoal
   Scenario: Add a goal
-    When I wait for angular
+    Given I am on "/goal/goal1"
     And I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
@@ -159,8 +158,10 @@ Feature: Goal page
     And I change switch "3"
     When I follow "FORGET IT"
     And  I follow "DELETE"
+    And I wait
     Then I should be on "/profile"
     When I am on "/ideas"
+    And I am on "/goal/goal1"
     And I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"

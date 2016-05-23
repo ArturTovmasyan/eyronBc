@@ -3,22 +3,6 @@ Feature: My Bucket list
   As a user1
   I need to be able to check my bucket list page
 
-  @javascript @profile
-  Scenario: Open Complete profile dropdown and show me the 7 points in it
-    Given I am on "/logout"
-    And I wait
-    When I am logged in as "user1"
-    And I am on "/activity"
-    And I click on "icon-question-icon"
-    And I wait for angular
-    And I follow "Upload an image"
-    And I wait for angular
-    And I follow "Cancel"
-    And I wait for angular
-    And I follow "Add some goals"
-    Then I should be on "/goal/create"
-    And I should see "user1"
-
   @javascript @myBucketList
   Scenario: Open My BucketList and show me my all goals
     Given I am on "/logout"
@@ -37,7 +21,6 @@ Feature: My Bucket list
     And I follow "Map"
     And I wait for angular
     Then I should see "Satellite"
-
 
   @javascript @subfilters
   Scenario: Open subfilters:dreams, important, urgent.......
