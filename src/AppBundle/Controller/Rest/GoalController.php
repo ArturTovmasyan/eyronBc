@@ -731,4 +731,32 @@ class GoalController extends FOSRestController
 
         return new Response('', Response::HTTP_NOT_FOUND);
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goal image path",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View(serializerGroups={"image_link"})
+     *
+     * @Rest\Get("/goals/image/{id}", requirements={"id"="\d+"}, name="app_rest_goal_image", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param $id
+     * @return array
+     */
+    public function getImageAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // find goal by id
+        $goal = $em->getRepository("AppBundle:Goal")->find($id);
+
+        return $goal;
+    }
 }

@@ -13,9 +13,10 @@ use Doctrine\ORM\Query;
 class CategoryRepository extends EntityRepository
 {
     /**
+     * @param $cachePrefix
      * @return array
      */
-    public function getAllCached()
+    public function getAllCached($cachePrefix)
     {
         $query =
             $this->getEntityManager()
@@ -27,7 +28,7 @@ class CategoryRepository extends EntityRepository
         $query->getQuery()->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
         return $query->getQuery()
-            ->useResultCache(true, 24 * 3600, 'categories')
+            ->useResultCache(true, 24 * 3600, 'categories'.$cachePrefix)
             ->getResult();
     }
 }

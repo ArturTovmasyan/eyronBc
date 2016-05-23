@@ -18,11 +18,7 @@ angular.module('goal', ['Interpolation',
         .setPrefix('goal')
         .setNotify(false, false)
     })
-    .factory('GoalRest', ['$resource', function($resource) {
-        var prefix = (window.location.href.indexOf('/app_dev.php/') !== -1)?'/app_dev.php/':'/';
-        return $resource(prefix + 'api/v1.0/goals/:first/:count',{ first:'@first', count: '@count', search:'@search', category:'@category'})
-    }])
-    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'GoalRest', function($http, localStorageService, GoalRest) {
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
@@ -57,7 +53,7 @@ angular.module('goal', ['Interpolation',
             this.start = 0;
             this.oldChache = false;
         };
-        var query;
+
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
@@ -69,58 +65,43 @@ angular.module('goal', ['Interpolation',
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
             //if busy or in goal show page
-            if (this.busy || (this.count == 3 && url == 'goals')) {
+            if (this.busy || (this.count == 3 && url == '/api/v1.0/goals/{first}/{count}')) {
                 return;
+            }
+            if (!search) {
+                search = "";
             }
             if (!category) {
                 category = "";
             }
             this.busy = true;
-            if(url == 'goals'){
-                query = GoalRest.query({first: this.start, count: this.count, search: search, category: category});
-                query.$promise.then(function(data){
-                    this.reserve = data;
-                    this.busy = data.length ? false : true;
-                    angular.forEach(this.reserve, function(item) {
-                        if(item.cached_image){
+            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            url += '?search=' + search+ '&category=' + category;
+            $http.get(url).success(function(data) {
+                this.reserve = data;
+                this.busy = data.length ? false : true;
+                angular.forEach(this.reserve, function(item) {
+                    if(item.cached_image){
+                        var img = new Image();
+                        img.src = item.cached_image;
+                    }else {
+                        if(item.goal.cached_image){
                             var img = new Image();
-                            img.src = item.cached_image;
-                        }else {
-                            if(item.goal.cached_image){
-                                var img = new Image();
-                                img.src = item.goal.cached_image;
-                            }
+                            img.src = item.goal.cached_image;
                         }
-                    });
-                    this.start += this.count;
-                    this.request++;
-                }.bind(this));
-            }else {
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
-                url += '?search=' + search+ '&category=' + category;
-                $http.get(url).success(function(data) {
-                    this.reserve = data;
-                    this.busy = data.length ? false : true;
-                    angular.forEach(this.reserve, function(item) {
-                        if(item.cached_image){
-                            var img = new Image();
-                            img.src = item.cached_image;
-                        }else {
-                            if(item.goal.cached_image){
-                                var img = new Image();
-                                img.src = item.goal.cached_image;
-                            }
-                        }
-                    });
-                    this.start += this.count;
-                    this.request++;
-                }.bind(this));
-            }
+                    }
+                });
+                this.start += this.count;
+                this.request++;
+            }.bind(this));
         };
 
         lsInfiniteItems.prototype.nextPage = function(url, search, category, userId) {
             if (this.busy) {
                 return;
+            }
+            if (!search) {
+                search = "";
             }
 
             if (!category) {
@@ -171,48 +152,30 @@ angular.module('goal', ['Interpolation',
                 //    this.loadAddthis();
                 //}.bind(this), 500);
             }else{
-                if(url == 'goals'){
-                    query = GoalRest.query({first: this.start, count: this.count, search: search, category: category});
-                    query.$promise.then(function(data){
-                        if(!data.length){
-                            this.noItem = true;
-                        }
-                        this.items = this.items.concat(data);
-                        this.busy = data.length ? false : true;
-                        this.start += this.count;
-                        this.request++;
-                        this.nextReserve(reserveUrl, search, category);
+                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                url += '?search=' + search + '&category=' + category;
+                $http.get(url).success(function (data) {
+                    if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/3?search=&category=') {
+                        localStorageService.set('active_data' + userId, data);
+                    }
+                    //if get empty
+                    if(!data.length){
+                        this.noItem = true;
+                    }
+                    this.items = this.items.concat(data);
+                    this.busy = data.length ? false : true;
+                    this.start += this.count;
+                    this.request++;
+                    this.nextReserve(reserveUrl, search, category);
 
-                        if (!this.items.length) {
-                            this.loadRandomItems(this.count);
-                        }
+                    if (!this.items.length) {
+                        this.loadRandomItems(this.count);
+                    }
 
-                        //setTimeout(function () {
-                        //    this.loadAddthis();
-                        //}.bind(this), 500);
-                    }.bind(this));
-                }else {
-                    url = url.replace('{first}', this.start).replace('{count}', this.count);
-                    url += '?search=' + search + '&category=' + category;
-                    $http.get(url).success(function (data) {
-                        if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/3?search=&category=') {
-                            localStorageService.set('active_data' + userId, data);
-                        }
-                        this.items = this.items.concat(data);
-                        this.busy = data.length ? false : true;
-                        this.start += this.count;
-                        this.request++;
-                        this.nextReserve(reserveUrl, search, category);
-
-                        if (!this.items.length) {
-                            this.loadRandomItems(this.count);
-                        }
-
-                        //setTimeout(function () {
-                        //    this.loadAddthis();
-                        //}.bind(this), 500);
-                    }.bind(this));
-                }
+                    //setTimeout(function () {
+                    //    this.loadAddthis();
+                    //}.bind(this), 500);
+                }.bind(this));
             }
         };
 
@@ -573,7 +536,7 @@ angular.module('goal', ['Interpolation',
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage("goals", $scope.search);
+                $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
             }
         };
 
@@ -583,7 +546,7 @@ angular.module('goal', ['Interpolation',
                         $scope.noIdeas = true;
                         angular.element('.idea-item').removeClass('ideas-result');
                         $scope.Ideas.reset();
-                        $scope.Ideas.nextPage("goals", '');
+                        $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
                     };
             }
 
