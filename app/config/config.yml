@@ -374,3 +374,10 @@ genemu_form:
             allowClear: false
             minimumInputLength: 0
 
+monolog:
+    channels: ["mailchimp"]
+    handlers:
+        luvbyrd:
+            type:  stream
+            path:  "%kernel.logs_dir%/mailchimp.log"
+            channels: [mailchimp]
