@@ -181,12 +181,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $first
      * @param $count
      * @param $allIds
-     * @param $behat
      * @return mixed
      * @param null $locale
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, $behat = false, &$allIds = null, $locale = null)
+    public function findAllByCategory($category = null, $search = null, $first = null, $count = null, &$allIds = null, $locale = null)
     {
         $query =
             $this->getEntityManager()
@@ -246,10 +245,15 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->getResult()
             ;
 
-            //check if random is true and env isn`t behat
-            if($isRandom && !$behat) {
+            //check if random is true
+            if($isRandom) {
+
               //do goal ids is random
               $ids = $this->shuffle_goal($ids);
+            }
+            else {
+                $query
+                    ->orderBy('cnt', 'desc');
             }
 
             $allIds = $ids;
@@ -262,14 +266,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $query
                 ->andWhere('g.id IN (:ids)')
                 ->setParameter('ids', $ids);
-            ;
-
-            //check if isRandom is false
-            if(!$isRandom) {
-                $query
-                    ->orderBy('cnt', 'desc')
-                ;
-            }
         }
 
         return $query->getQuery()->getResult();
