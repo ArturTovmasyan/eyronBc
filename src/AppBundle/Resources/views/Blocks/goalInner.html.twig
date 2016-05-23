@@ -22,7 +22,7 @@
     </figure>
     <div class="container ideas-list"
          data-ng-cloak
-         data-infinite-scroll='Ideas.nextPage("goals")'
+         data-infinite-scroll='Ideas.nextPage("/api/v1.0/goals/{first}/{count}")'
          data-infinite-scroll-disabled='Ideas.request >= 1'
          data-infinite-scroll-distance='2'>
     </div>
