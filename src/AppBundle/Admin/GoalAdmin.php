@@ -70,7 +70,7 @@ class GoalAdmin extends Admin
             ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
 //            , 'attr' => array('class' => 'tinymce')
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('slug', null, array('label'=>'admin.label.name.slug'))
+            ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
