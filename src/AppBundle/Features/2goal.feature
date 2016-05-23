@@ -89,6 +89,7 @@ Feature: Goal page
     When I scroll page to ".information"
     Then I should see "SUCCESS STORY"
 
+    #TODO DON'T USE
 #  @javascript @shareGoal
 #  Scenario: Share a goal
 #    Given I am on "/ideas"
