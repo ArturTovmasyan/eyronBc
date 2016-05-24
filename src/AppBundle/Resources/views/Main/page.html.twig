@@ -82,20 +82,12 @@
     {{ page.name }}
 {%- endblock -%}
 
-{%- block og_title -%}
-   {{- block('title') -}}
-{%- endblock -%}
-
 {%- block meta_description -%}
     {% if page.description %}
-        {{ page.description|striptags|sliceString }}
+        {{- page.description|striptags|sliceString -}}
     {% else %}
-        {{ 'page.description'|trans }}
+        {{- 'page.description'|trans -}}
     {% endif %}
-{%- endblock -%}
-
-{%- block og_description -%}
-   {{ block('meta_description') }}
 {%- endblock -%}
 
 {%- block og_url -%}
