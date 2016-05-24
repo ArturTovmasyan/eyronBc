@@ -292,6 +292,18 @@ class BucketListService
     }
 
     /**
+     * This function is used to send comment event
+     */
+    public function commentEvent()
+    {
+        //get comment goal event api
+        $commentEvent = $this->container->getParameter('event_comment');
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($commentEvent);
+    }
+    
+    /**
      * This function is used to check user have activity and set it
      *
      * @param $user
