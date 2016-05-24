@@ -76,6 +76,17 @@
             <tag name="liip_imagine.filter.loader" loader="central_crop" />
         </service>
 
+        <!-- mail Chimp service -->
+        <service id="bl_mail_chimp_service" class="AppBundle\Services\MailChimpService">
+            <argument type="service" id="service_container" />
+            <argument>%mail_chimp_api_key%</argument>
+        </service>
+
+        <!-- mandrill service -->
+        <service id="bl_mandrill_service" class="AppBundle\Services\MandrillService">
+            <argument type="service" id="service_container" />
+        </service>
+
     </services>
 
 </container>
