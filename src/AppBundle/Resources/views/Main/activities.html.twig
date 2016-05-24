@@ -40,8 +40,8 @@
 
                                         {% set className = "user-no" ~ random(4) %}
 
-                                        <img data-ng-if="activity.user.image_path" data-ng-src="[[ activity.user.image_path ]]" alt="{{ user.filename }}" class="img-circle img-responsive">
-                                        <p data-ng-if="!activity.user.image_path" class="no-image {% if className is defined %}{{ className }}{% endif %}">
+                                        <img data-ng-if="activity.user.cached_image" data-ng-src="[[ activity.user.cached_image]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                                        <p data-ng-if="!activity.user.cached_image" class="no-image {% if className is defined %}{{ className }}{% endif %}">
                                             [[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]
                                         </p>
                                     </figure>
