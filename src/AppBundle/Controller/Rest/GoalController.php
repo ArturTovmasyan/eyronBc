@@ -579,8 +579,8 @@ class GoalController extends FOSRestController
                 return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
             }
 
-        //send create goal event in google analytics
-//        $this->container->get('bl_service')->createCommentEvent();
+            //send comment event in google analytics
+            $this->get('bl_service')->commentEvent();
         
             // persist new comment end flush objects
             $em->persist($comment);
