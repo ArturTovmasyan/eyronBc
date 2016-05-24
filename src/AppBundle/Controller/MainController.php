@@ -28,11 +28,6 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
-//        $service = $this->get('bl_mail_chimp_service')->getMailChimpList('Testing');
-        $service = $this->get('bl_mail_chimp_service')->getMailChimpMembersByList('6e296b753f');
-        dump($service);
-        exit;
-
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 

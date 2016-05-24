@@ -100,6 +100,34 @@ class MailChimpService
     }
 
     /**
+     * @param $data
+     * @param $listId
+     * @return bool|mixed
+     */
+    public function addSubscriber($data, $listId)
+    {
+        //hashing user email for security
+        $memberId = md5(strtolower($data['email']));
+
+        // create connection url
+        $url = $this->mailChimpUrl . 'lists/' . $listId . '/members/' . $memberId;
+
+        // create content an json
+        $json = json_encode([
+            'email_address' => $data['email'],
+            'status' => 'subscribed', // "subscribed","unsubscribed","cleaned","pending"
+            'merge_fields' => [
+                'FNAME' => $data['firstName'],
+                'LNAME' => $data['lastName'],
+            ]
+        ]);
+
+        $result = $this->myCUrl($url, "PUT", $json);
+
+        return $result;
+    }
+
+    /**
      * @param $url
      * @param string $method
      * @param null $postFields
