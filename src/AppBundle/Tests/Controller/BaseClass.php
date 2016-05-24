@@ -51,7 +51,7 @@ class BaseClass extends WebTestCase
         ));
         $this->client->enableProfiler();
         $this->client2 = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin11@admin.com',
+            'PHP_AUTH_USER' => 'user1@user.com',
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client2->enableProfiler();
