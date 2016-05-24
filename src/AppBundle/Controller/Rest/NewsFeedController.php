@@ -69,7 +69,9 @@ class NewsFeedController extends FOSRestController
 
         $liipManager = $this->get('liip_imagine.cache.manager');
         foreach($newsFeeds as $newsFeed){
+            /** @var  $newsFeed \AppBundle\Entity\NewFeed */
             $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+            $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
         }
 
         return $newsFeeds;

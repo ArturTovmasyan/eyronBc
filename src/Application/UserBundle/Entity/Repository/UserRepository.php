@@ -220,4 +220,19 @@ class UserRepository extends EntityRepository
             ->getResult()
             ;
     }
+
+
+    /**
+     * @return array
+     */
+    public function findAllForMandrill()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u.email, u.firstName, u.lastName
+                            FROM ApplicationUserBundle:User u
+                            ")
+            ->setMaxResults()
+            ->getResult()
+            ;
+    }
 }

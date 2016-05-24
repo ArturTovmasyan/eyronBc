@@ -15,14 +15,6 @@
     {{ 'home_ideas.title'|trans({},'messages') }}
 {%- endblock -%}
 
-{%- block og_title -%}
-    {{- block('title') -}}
-{%- endblock -%}
-
-{%- block og_description -%}
-    {{- block('meta_description') -}}
-{%- endblock -%}
-
 {%- block og_url -%}
     {{- app.request.uri -}}
 {%- endblock -%}
