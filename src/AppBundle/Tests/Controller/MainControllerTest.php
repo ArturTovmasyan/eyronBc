@@ -15,12 +15,26 @@ class MainControllerTest extends BaseClass
         // try to goal inner page
         $crawler = $this->client2->request('GET', '/goal/goal8');
 
-//        dump(($this->client2->getResponse()->getContent()));exit;
+        //get page html
+        $htmlInCode = $crawler->filterXPath("//meta[@name='description']/@content");
+
+        //get meta description
+        $metaDesc = $htmlInCode->text();
+
+//        dump($metaDesc);
+
+        //get page html
+        $htmlInWeb = $crawler->filterXPath("//div[@class='text-dark-grey goal-info']//p");
+
+        $desc = $htmlInWeb->text();
+
+//        dump($desc);exit;
+
         $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal page!');
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(13, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
     }
 

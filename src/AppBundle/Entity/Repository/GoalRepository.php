@@ -370,10 +370,14 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findBySlugWithRelations($slug)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, t
+            ->createQuery("SELECT g, i, t, au, ug, gs, f
                            FROM AppBundle:Goal g
                            LEFT JOIN g.tags t
                            LEFT JOIN g.images i
+                           LEFT JOIN g.author au
+                           LEFT JOIN au.userGoal ug
+                           LEFT JOIN g.successStories gs
+                           LEFT JOIN gs.files f
                            WHERE g.slug = :slug")
             ->setParameter('slug', $slug['slug'])
             ->getOneOrNullResult();
