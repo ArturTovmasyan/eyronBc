@@ -25,20 +25,12 @@
     {{ goal.title }}
 {%- endblock -%}
 
-{%- block og_title -%}
-    {{ goal.title }}
-{%- endblock -%}
-
 {%- block meta_description -%}
-    {%- if goal.description -%}
+    {%- if goal.description is empty -%}
         {{- goal.description|markdown|replace({'#': ''})|striptags|sliceString -}}
     {% else %}
-        {{ 'goal.view_description'|trans }}
+        {{- 'goal.view_description'|trans -}}
     {%- endif -%}
-{%- endblock -%}
-
-{%- block og_description -%}
-    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_image -%}
