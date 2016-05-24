@@ -258,6 +258,11 @@ class User extends BaseUser
     protected $activeTime;
 
     /**
+     * @Groups({"tiny_goal"})
+     */
+    private $cachedImage;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -1454,5 +1459,24 @@ class User extends BaseUser
     public function getActivity()
     {
         return $this->activity;
+    }
+
+    /**
+     * @return mixed
+     *
+     * @VirtualProperty
+     * @Groups({"user", "tiny_user", "settings"})
+     */
+    public function getCachedImage()
+    {
+        return $this->cachedImage;
+    }
+
+    /**
+     * @param mixed $cachedImage
+     */
+    public function setCachedImage($cachedImage)
+    {
+        $this->cachedImage = $cachedImage;
     }
 }
