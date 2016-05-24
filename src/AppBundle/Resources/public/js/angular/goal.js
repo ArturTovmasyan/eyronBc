@@ -23,7 +23,7 @@ angular.module('goal', ['Interpolation',
             this.items = [];
             this.busy = false;
             this.noItem = false;
-            this.oldChache = false;
+            //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -51,7 +51,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
-            this.oldChache = false;
+            //this.oldChache = false;
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -110,7 +110,7 @@ angular.module('goal', ['Interpolation',
 
             this.busy = true;
             this.noItem = false;
-            this.oldChache = false;
+            //this.oldChache = false;
             var reserveUrl = url;
 
             //if have userId and caching data by activities
@@ -122,19 +122,25 @@ angular.module('goal', ['Interpolation',
                 $http.get(url).success(function(newData) {
                     if(newData[0].datetime !== data[0].datetime ){
                         localStorageService.set('active_data'+userId, newData);
-                        if(newData[1].datetime !== data[0].datetime){
-                            if(newData[2].datetime !== data[0].datetime){
-                                this.oldChache = true;
+                        angular.element('#activities').addClass('comingByTop');
+                        for(var j = 1; j < this.count; j++){
+                            if(newData[j].datetime !== data[0].datetime){
+                                if(j == this.count -1){
+                                    for(var i = j; i >= 0; i--) {
+                                        this.items.unshift(newData[i]);
+                                        this.items.pop();
+                                    }
+                                    break;
+                                }else {
+                                    continue;
+                                }
                             }else {
-                                angular.element('#activities').addClass('comingByTop');
-                                this.items.unshift(newData[1]);
-                                this.items.unshift(newData[0]);
-                                this.start +=2;
+                                for(var i = j-1; i >= 0; i--) {
+                                    this.items.unshift(newData[i]);
+                                    this.start++;
+                                }
+                                break;
                             }
-                        }else {
-                            angular.element('#activities').addClass('comingByTop');
-                            this.items.unshift(newData[0]);
-                            this.start++;
                         }
                         this.reserve = [];
                         this.busy = false;
@@ -155,7 +161,7 @@ angular.module('goal', ['Interpolation',
                 url = url.replace('{first}', this.start).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/3?search=&category=') {
+                    if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/'+this.count+'?search=&category=') {
                         localStorageService.set('active_data' + userId, data);
                     }
                     //if get empty
@@ -579,16 +585,16 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('activities', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
-        $scope.Activities = new lsInfiniteItems(3);
-        $scope.$watch('Activities.oldChache',function(cache){
-            $timeout(function(){
-                if($scope.Activities.oldChache){
-                    $scope.Activities.reset();
-                    $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
-                }
-            }, 1000);
-
-        })
+        $scope.Activities = new lsInfiniteItems(10);
+        //$scope.$watch('Activities.oldChache',function(cache){
+        //    $timeout(function(){
+        //        if($scope.Activities.oldChache){
+        //            $scope.Activities.reset();
+        //            $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
+        //        }
+        //    }, 1000);
+        //
+        //})
 
     }])
     .controller('goalFooter', ['$scope', '$http', function($scope, $http){
