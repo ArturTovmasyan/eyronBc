@@ -375,9 +375,13 @@ genemu_form:
             minimumInputLength: 0
 
 monolog:
-    channels: ["mailchimp"]
+    channels: ["mailchimp", "mandrill"]
     handlers:
-        luvbyrd:
+        mailchimp:
             type:  stream
             path:  "%kernel.logs_dir%/mailchimp.log"
             channels: [mailchimp]
+        mandrill:
+            type:  stream
+            path:  "%kernel.logs_dir%/mandrill.log"
+            channels: [mandrill]

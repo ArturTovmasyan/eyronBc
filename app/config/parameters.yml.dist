@@ -31,5 +31,7 @@ parameters:
     android_api: 'AIzaSyCNFhbRdRENr2ny9YI64YNXSgyxk3T79kg'
     ga_id: UA-77918751-1
     mail_chimp_api_key: cf0e029471ab89a7c70c81b70071b572-us13
+    mandrill_api_key: DLeuoYgpFGJJZYEY_xrYcw
+    to_report_email: no-reply@bucketlist127.com
 
 
