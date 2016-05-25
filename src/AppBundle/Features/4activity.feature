@@ -80,6 +80,8 @@ Feature: Activity
   Scenario: Open the page and show me my goal friends activities.
     Given I am on "/logout"
       When I am logged in as "user1"
+      Then I should be on "/activity"
+      And I wait for view
       And I should see "user2 useryan"
       And I should see "goal9"
       And I should see "ADDED"
