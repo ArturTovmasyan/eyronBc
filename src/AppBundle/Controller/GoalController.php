@@ -512,11 +512,17 @@ class GoalController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get current user
+        //get current user
         $user = $this->getUser();
 
+        //get bl service
+        $blService = $this->get('bl_service');
+        
         //check and set user activity by new feed count
-        $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+        $blService->setUserActivity($user, $inLogin = false);
+
+        //send add goal event in google analytics
+        $blService->addGoalEvent();
 
         // create filter
         $filters = array(
@@ -665,9 +671,6 @@ class GoalController extends Controller
                     // set do date
                     $userGoal->setDoDate($doDate);
                 }
-
-                //send add goal event in google analytics
-                $this->get('bl_service')->addGoalEvent();
 
                 $em->persist($userGoal);
                 $em->flush();
