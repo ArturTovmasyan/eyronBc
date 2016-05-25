@@ -160,7 +160,7 @@ class GoalController extends Controller
                     $goal->setDescription($description);
 
                     //send create goal event in google analytics
-                    $this->get('bl_service')->createGoalEvent();
+                    $this->get('google_analytic')->createGoalEvent();
 
                     $em->persist($goal);
                     $em->flush();
@@ -382,7 +382,7 @@ class GoalController extends Controller
         $userGoal->setCompletionDate(new \DateTime());
 
         //send done goal event in google analytic
-        $this->get('bl_service')->doneGoalEvent();
+        $this->get('google_analytic')->doneGoalEvent();
 
         $em->persist($userGoal);
         $em->flush();
@@ -480,7 +480,7 @@ class GoalController extends Controller
                 $em->persist($story);
 
                 //send add story event in google analytics
-                $this->get('bl_service')->createGoalStoryEvent();
+                $this->get('google_analytic')->createGoalStoryEvent();
 
                 $em->flush();
 
@@ -517,6 +517,9 @@ class GoalController extends Controller
 
         //get bl service
         $blService = $this->get('bl_service');
+
+        //get GA service
+        $analyticService = $this->get('google_analytic');
 
         //check and set user activity by new feed count
         $blService->setUserActivity($user, $inLogin = false);
@@ -681,7 +684,7 @@ class GoalController extends Controller
             if(!$userGoalId) {
 
                 //send add goal event in google analytics
-                $blService->addGoalEvent();
+                $analyticService->addGoalEvent();
             }
         }
 
@@ -867,7 +870,7 @@ class GoalController extends Controller
             $em->remove($userGoal);
 
             //send add goal event in google analytics
-            $this->get('bl_service')->unListGoalEvent();
+            $this->get('google_analytic')->unListGoalEvent();
         }
 
         //check if goal author this user
@@ -877,7 +880,7 @@ class GoalController extends Controller
             $em->remove($goal);
 
             //send add goal event in google analytics
-            $this->get('bl_service')->removeGoalEvent();
+            $this->get('google_analytic')->removeGoalEvent();
         }
 
         //set myBucketList route name
