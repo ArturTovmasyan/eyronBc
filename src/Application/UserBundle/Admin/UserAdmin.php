@@ -62,6 +62,7 @@ class UserAdmin extends Admin
             ->add('email', null, array('label'=>'admin.label.name.email'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('created', 'sonata_type_date_picker', array('label'=>'admin.label.name.created'))
             ;
         ;
     }
@@ -75,6 +76,7 @@ class UserAdmin extends Admin
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('TestMessage', 'string', array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
+            ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
