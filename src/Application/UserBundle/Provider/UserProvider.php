@@ -8,13 +8,13 @@
 
 namespace Application\UserBundle\Provider;
 
+use AppBundle\Services\GoogleAnalyticService;
 use Application\UserBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FacebookResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitterResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -33,19 +33,19 @@ class UserProvider extends  BaseProvider
     protected $userManager;
 
     /**
-     * @var Container
+     * @var GoogleAnalyticService
      */
-    protected $container;
+    protected $analytic;
 
     /**
      * Constructor
      *
      * @param UserManagerInterface $userManager
      */
-    public function __construct(UserManagerInterface $userManager, Container $container = null)
+    public function __construct(UserManagerInterface $userManager, GoogleAnalyticService $analytic)
     {
         $this->userManager = $userManager;
-        $this->container = $container;
+        $this->analytic = $analytic;
     }
 
     /**
@@ -162,7 +162,7 @@ class UserProvider extends  BaseProvider
             $socialName = $user->getSocialsName();
 
             //send login user by social event in google analytics
-            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+            $this->analytic->registrationUserBySocialEvent($socialName);
         }
 
         return $user;
@@ -221,7 +221,7 @@ class UserProvider extends  BaseProvider
             $socialName = $user->getSocialsName();
 
             //send login user by social event in google analytics
-            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+            $this->analytic->registrationUserBySocialEvent($socialName);
 
         }
 
@@ -276,7 +276,7 @@ class UserProvider extends  BaseProvider
             $socialName = $user->getSocialsName();
 
             //send login user by social event in google analytics
-            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+            $this->analytic->registrationUserBySocialEvent($socialName);
 
         }
 

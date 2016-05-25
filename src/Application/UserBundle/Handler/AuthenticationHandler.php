@@ -9,11 +9,13 @@
 
 namespace Application\UserBundle\Handler;
 
-use Symfony\Component\DependencyInjection\Container;
+use AppBundle\Services\GoogleAnalyticService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
@@ -33,17 +35,26 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     private $router;
 
     /**
-     * @var Container
+     * @var GoogleAnalyticService
      */
-    private $container;
+    private $analytic;
 
     /**
-     * @param Router $router
+     * @var Session
      */
-    public function __construct(Router $router, Container $container)
+    private $session;
+
+    /**
+     * AuthenticationHandler constructor.
+     * @param Route $router
+     * @param GoogleAnalyticService $analytic
+     * @param Session $session
+     */
+    public function __construct(Session $session = null, Router $router = null, GoogleAnalyticService $analytic = null)
     {
-        $this->container = $container;
+        $this->analytic = $analytic;
         $this->router = $router;
+        $this->session = $session;
     }
 
     /**
@@ -66,11 +77,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         if($social) {
 
             //send login user by social event in google analytics
-            $this->container->get('google_analytic')->loginUserBySocialEvent($social);
+            $this->analytic->loginUserBySocialEvent($social);
         }
         else{
             //send login user event in google analytics
-            $this->container->get('google_analytic')->loginUserEvent();
+            $this->analytic->loginUserEvent();
         }
 
         //check if user and session url exist
@@ -158,7 +169,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         }
 
         //set flash messages for open login by js
-        $this->container->get('session')->getFlashBag()->add('error', '');
+        $this->session->getFlashBag()->add('error', '');
 
         //get current route name
         $routeName = $request->get('_route');
