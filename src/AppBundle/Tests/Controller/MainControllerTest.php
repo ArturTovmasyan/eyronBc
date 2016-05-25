@@ -2,39 +2,44 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
 class MainControllerTest extends BaseClass
 {
     /**
-     * This function is used to test for check meta tag content
+     * This function is used to check goal description content in web and meta tag
      */
-    public function testMetaTagContent()
+    public function testDescriptionContent()
     {
-        // try to goal inner page
+        //try to open goal inner page
         $crawler = $this->client2->request('GET', '/goal/goal8');
 
-        //get page html
-        $htmlInCode = $crawler->filterXPath("//meta[@name='description']/@content");
+        //get meta desc content
+        $metaContent = $crawler->filterXPath("//meta[@name='description']/@content");
 
-        //get meta description
-        $metaDesc = $htmlInCode->text();
+        //get meta description text
+        $metaDescription = $metaContent->text();
 
-//        dump($metaDesc);
+        //get description content in page
+        $descContent = $crawler->filterXPath("//div[@class='text-dark-grey goal-info']//p");
 
-        //get page html
-        $htmlInWeb = $crawler->filterXPath("//div[@class='text-dark-grey goal-info']//p");
+        //get description text
+        $description = $descContent->text();
 
-        $desc = $htmlInWeb->text();
+        //set default value
+        $hashTag = true;
 
-//        dump($desc);exit;
+        if (strpos($metaDescription, '#') !== false || strpos($description, '#') !== false) {
+            $hashTag = false;
+        }
+
+        $this->assertTrue($hashTag, "Goal description contains # tag");
 
         $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal page!');
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal inner page!");
         }
     }
 
