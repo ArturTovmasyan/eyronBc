@@ -254,11 +254,11 @@ class MainController extends Controller
         if($social) {
             
             //send login user by social event in google analytics
-            $this->get('bl_service')->loginUserBySocialEvent($social);
+            $this->get('google_analytic')->loginUserBySocialEvent($social);
         }
         else{
             //send login user event in google analytics
-            $this->get('bl_service')->loginUserEvent();
+            $this->get('google_analytic')->loginUserEvent();
         }
 
         //check if user haven`t any goals

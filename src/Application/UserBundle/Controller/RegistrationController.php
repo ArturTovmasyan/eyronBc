@@ -41,7 +41,7 @@ class RegistrationController extends BaseController
             }
 
             //send user register event in google analytic
-            $this->container->get('bl_service')->userRegisterEvent();
+            $this->container->get('google_analytic')->userRegisterEvent();
             
             return $response;
         }

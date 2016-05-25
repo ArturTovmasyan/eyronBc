@@ -91,7 +91,7 @@ class UserController extends FOSRestController
         $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
         //send user register event in google analytics
-        $this->container->get('bl_service')->userRegisterEvent();
+        $this->container->get('google_analytic')->userRegisterEvent();
         
         $em->persist($user);
         $em->flush();
@@ -145,7 +145,7 @@ class UserController extends FOSRestController
         $social = $user->getSocialsName();
 
         //send login user by social event in google analytics
-        $this->get('bl_service')->loginUserBySocialEvent($social);
+        $this->get('google_analytic')->loginUserBySocialEvent($social);
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
@@ -192,7 +192,7 @@ class UserController extends FOSRestController
                 $phpSessionId = $this->loginAction($user);
 
                 //send user login event in google analytics
-                $this->container->get('bl_service')->loginUserEvent();
+                $this->container->get('google_analytic')->loginUserEvent();
                 
                 return array(
                     'sessionId' => $phpSessionId,
