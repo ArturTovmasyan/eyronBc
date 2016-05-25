@@ -138,7 +138,9 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create goal
         $goal8 = new Goal();
-        $goal8->setDescription('goal8 goal8');
+        $goal8->setDescription("UNIT TEST is a #great way to #enjoy international #destinations 'at' a low cost and with a fair degree of #freedom,
+                                Links:The A-Z of backpacking tips Top 10 Backpacking Destinations for 2014");
+
         $goal8->setTitle('goal8');
         $goal8->setStatus(1);
         $goal8->setVideoLink(null);

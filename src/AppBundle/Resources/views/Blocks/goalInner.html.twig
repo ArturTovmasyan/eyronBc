@@ -2,7 +2,6 @@
 {% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
 {% set user = app.user %}
 {% set author = goal.author %}
-{#{% set show = true %}#}
 
 <div id="fb-root"></div>
 
@@ -50,10 +49,6 @@
                     </div>
                 </div>
             </div>
-
-            {#{% if user and author and user.id == author.id %}#}
-                {#{% set show = false %}#}
-            {#{% endif %}#}
 
             <div class="row">
                 <div class="col-sm-12">

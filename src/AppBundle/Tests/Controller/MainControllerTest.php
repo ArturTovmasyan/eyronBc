@@ -1,11 +1,48 @@
 <?php
-//
-//namespace AppBundle\Tests\Controller;
-//
-//use Symfony\Component\HttpFoundation\Response;
-//
-//class MainControllerTest extends BaseClass
-//{
+
+namespace AppBundle\Tests\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+
+class MainControllerTest extends BaseClass
+{
+    /**
+     * This function is used to check goal description content in web and meta tag
+     */
+    public function testDescriptionContent()
+    {
+        //try to open goal inner page
+        $crawler = $this->client2->request('GET', '/goal/goal8');
+
+        //get meta desc content
+        $metaContent = $crawler->filterXPath("//meta[@name='description']/@content");
+
+        //get meta description text
+        $metaDescription = $metaContent->text();
+
+        //get description content in page
+        $descContent = $crawler->filterXPath("//div[@class='text-dark-grey goal-info']//p");
+
+        //get description text
+        $description = $descContent->text();
+
+        //set default value
+        $hashTag = true;
+
+        if (strpos($metaDescription, '#') !== false || strpos($description, '#') !== false) {
+            $hashTag = false;
+        }
+
+        $this->assertTrue($hashTag, "Goal description contains # tag");
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal page!');
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal inner page!");
+        }
+    }
+
 //    /**
 //     * This function is used to check homepage
 //     */
@@ -136,4 +173,4 @@
 //            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
 //        }
 //    }
-//}
+}
