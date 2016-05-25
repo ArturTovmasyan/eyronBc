@@ -120,7 +120,7 @@ class GoogleAnalyticService
     public function userRegisterEvent()
     {
         //get user register event api
-        $userRegisterEvent = $this->container->getParameter('event_user_register');
+        $userRegisterEvent = $this->container->getParameter('event_user_registration');
 
         //send event in google analytic
         $this->sendEventInGoogleAnalytics($userRegisterEvent);
@@ -200,6 +200,34 @@ class GoogleAnalyticService
 
         //send event in google analytic
         $this->sendEventInGoogleAnalytics($commentEvent);
+    }
+
+    /**
+     * This function is used to send registration user by social event
+     * 
+     * @param $social
+     */
+    public function registrationUserBySocialEvent($social)
+    {
+        switch($social){
+            case User::FACEBOOK:
+                $parameterName = 'event_facebook_registration';
+                break;
+            case User::GOOGLE:
+                $parameterName = 'event_google_registration';
+                break;
+            case User::TWITTER:
+                $parameterName = 'event_twitter_registration';
+                break;
+            default:
+                return;
+        }
+
+        //get login user by social event api
+        $loginUserBySocialEvent = $this->container->getParameter($parameterName);
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
     }
 
 }

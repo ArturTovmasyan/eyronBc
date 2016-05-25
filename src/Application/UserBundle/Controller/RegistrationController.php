@@ -26,6 +26,9 @@ class RegistrationController extends BaseController
                 $route = 'fos_user_registration_confirmed';
             }
 
+            //send user register event in google analytic
+            $this->container->get('google_analytic')->userRegisterEvent();
+            
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
             $url = $this->container->get('router')->generate($route);
 
@@ -39,9 +42,6 @@ class RegistrationController extends BaseController
             if ($authUser) {
                 $this->authenticateUser($user, $response);
             }
-
-            //send user register event in google analytic
-            $this->container->get('google_analytic')->userRegisterEvent();
             
             return $response;
         }
