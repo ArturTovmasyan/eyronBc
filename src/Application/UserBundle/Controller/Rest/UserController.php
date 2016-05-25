@@ -144,9 +144,17 @@ class UserController extends FOSRestController
         //get social name for user login
         $social = $user->getSocialsName();
 
-        //send login user by social event in google analytics
-        $this->get('google_analytic')->loginUserBySocialEvent($social);
+        //check if social exists
+        if($social) {
 
+            //send login user by social event in google analytics
+            $this->get('google_analytic')->loginUserBySocialEvent($social);
+        }
+        else{
+            //send login user event in google analytics
+            $this->get('google_analytic')->loginUserEvent();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
@@ -191,9 +199,6 @@ class UserController extends FOSRestController
 
                 $phpSessionId = $this->loginAction($user);
 
-                //send user login event in google analytics
-                $this->container->get('google_analytic')->loginUserEvent();
-                
                 return array(
                     'sessionId' => $phpSessionId,
                     'userInfo'  => $user
