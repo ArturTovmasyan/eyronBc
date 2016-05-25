@@ -40,12 +40,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     /**
      * @param Router $router
      */
-    public function __construct(Router $router, Container $container = null)
+    public function __construct(Router $router, Container $container)
     {
         $this->container = $container;
         $this->router = $router;
     }
-
 
     /**
      * @param Request $request
@@ -59,6 +58,20 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
         //get session
         $session = $request->getSession();
+
+        //get social name for user login
+        $social = $user->getSocialsName();
+
+        //check if social exists
+        if($social) {
+
+            //send login user by social event in google analytics
+            $this->container->get('google_analytic')->loginUserBySocialEvent($social);
+        }
+        else{
+            //send login user event in google analytics
+            $this->container->get('google_analytic')->loginUserEvent();
+        }
 
         //check if user and session url exist
         if ($user && $session->has('url') && !$user->isAdmin()) {

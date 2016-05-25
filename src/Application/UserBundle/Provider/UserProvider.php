@@ -14,6 +14,7 @@ use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitterResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -24,22 +25,27 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider as BaseProvider;
  * Class UserProvider
  * @package Application\UserBundle\Provider
  */
-class UserProvider extends   BaseProvider
+class UserProvider extends  BaseProvider
 {
-
     /**
      * @var UserManagerInterface
      */
     protected $userManager;
 
     /**
+     * @var Container
+     */
+    protected $container;
+
+    /**
      * Constructor
      *
      * @param UserManagerInterface $userManager
      */
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(UserManagerInterface $userManager, Container $container = null)
     {
         $this->userManager = $userManager;
+        $this->container = $container;
     }
 
     /**
@@ -152,6 +158,11 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
         }
 
         return $user;
@@ -206,6 +217,12 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+
         }
 
         return $user;
@@ -255,10 +272,14 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+
         }
 
         return $user;
     }
-
-
 }

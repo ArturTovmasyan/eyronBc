@@ -247,20 +247,6 @@ class MainController extends Controller
         //get current user
         $user = $this->getUser();
 
-        //get social name for user login
-        $social = $user->getSocialsName();
-
-        //check if social exists
-        if($social) {
-            
-            //send login user by social event in google analytics
-            $this->get('google_analytic')->loginUserBySocialEvent($social);
-        }
-        else{
-            //send login user event in google analytics
-            $this->get('google_analytic')->loginUserEvent();
-        }
-
         //check if user haven`t any goals
         if ($user && count($user->getUserGoal()) == 0) {
 

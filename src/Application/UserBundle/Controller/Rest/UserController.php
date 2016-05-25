@@ -326,7 +326,15 @@ class UserController extends FOSRestController
             $em->persist($newUser);
             $em->flush();
 
+            //get registration user
             $user = $newUser;
+
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
+            
         }
 
         $sessionId = $this->loginAction($user);
