@@ -517,12 +517,9 @@ class GoalController extends Controller
 
         //get bl service
         $blService = $this->get('bl_service');
-        
+
         //check and set user activity by new feed count
         $blService->setUserActivity($user, $inLogin = false);
-
-        //send add goal event in google analytics
-        $blService->addGoalEvent();
 
         // create filter
         $filters = array(
@@ -676,6 +673,15 @@ class GoalController extends Controller
                 $em->flush();
 
                 return $this->redirectToRoute('user_profile');
+            }
+        }
+        else{
+
+            //check if action is not edit
+            if(!$userGoalId) {
+
+                //send add goal event in google analytics
+                $blService->addGoalEvent();
             }
         }
 
