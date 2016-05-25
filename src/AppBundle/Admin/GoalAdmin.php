@@ -130,9 +130,9 @@ class GoalAdmin extends Admin
             ->add('created', null, array('label'=>'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array('template' => 'AppBundle:Admin:goal_list_action_delete.html.twig'),
+                    'show' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),
                     'edit' => array('template' => 'AppBundle:Admin:goal_list_action_edit.html.twig'),
-                    'delete' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),
+                    'delete' => array('template' => 'AppBundle:Admin:goal_list_action_delete.html.twig'),
                     'goal_link' => array('template' => 'AppBundle:Admin:goal_list_action_link.html.twig'),
                     'merge' => array('template' => 'AppBundle:Admin:goal_merge_action.html.twig'),
                 )
