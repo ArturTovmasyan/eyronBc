@@ -443,6 +443,13 @@ class GoalController extends Controller
                     $story->setVideoLink($videoLinks);
                 }
 
+                //check if goal author not admin
+                if(!$goal->getAuthor()->isAdmin()) {
+                    
+                    //send success story notify
+                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user);
+                }
+
                 // get images ids
                 $images = $form->get('files')->getData();
 

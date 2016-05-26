@@ -45,6 +45,9 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     // constants for inner page
     const INNER = "inner";
     const VIEW = "view";
+    
+    const COMMENT = 0;
+    const STORY = 1;
 
     // use location trait
     use Location;
