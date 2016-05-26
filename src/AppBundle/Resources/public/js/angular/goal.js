@@ -637,6 +637,46 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
+    .controller('goalFriends', ['$scope', '$http', '$compile', function($scope, $http, $compile){
+
+        $scope.disableScroll = false;
+        $scope.goalFriends = {};
+        var path = "/api/v1.0/goal-friends/{id}";
+
+        $scope.prefix = "/";
+
+        $scope.getGaolFriends = function(id){
+            path = path.replace('{id}', id);
+            $http.get(path)
+                .success(function(data){
+                    $scope.goalFriends = data;
+                    $scope.disableScroll = true;
+                    $scope.length = Object.keys($scope.goalFriends).length;
+                    console.log($scope.goalFriends);
+                    //$scope[id] = true;
+                    //angular.element('#'+id).click();
+                });
+        };
+
+        //$scope.onMarkerClick = function(goal){
+        //    $http.get(mapModalTemplateUrl)
+        //        .success(function(res){
+        //
+        //            var newSc = $scope.$new();
+        //            newSc.goal = goal;
+        //
+        //            var tmp = $compile(res)(newSc);
+        //            angular.element('body').append(tmp);
+        //            tmp.modal({
+        //                fadeDuration: 500
+        //            });
+        //            tmp.on($.modal.CLOSE, function(){
+        //                tmp.remove();
+        //            })
+        //        });
+        //}
+
+    }])
     .directive('delayAddClass',['$interval', function($interval){
         return {
             restrict: 'EA',

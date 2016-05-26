@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Rest\RouteResource("Activity")
@@ -73,5 +74,43 @@ class NewsFeedController extends FOSRestController
         }
 
         return $newsFeeds;
+    }
+
+    /**
+     * @Rest\Get("/goal-friends/{id}", requirements={"id"="\d+"}, name="app_rest_goal_friends", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get goal friends",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"user"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $id
+     * @return array
+     */
+    public function getGoalFriendsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $goalFriends = $em->getRepository("AppBundle:Goal")->findGoalFriends($id, false);
+
+//        foreach($newsFeeds as $newsFeed){
+//            $newsFeed->getGoal()->setStats([
+//                'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
+//                'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
+//            ]);
+//        }
+
+//        $liipManager = $this->get('liip_imagine.cache.manager');
+//        foreach($newsFeeds as $newsFeed){
+//            $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+//        }
+
+        return $goalFriends;
     }
 }
