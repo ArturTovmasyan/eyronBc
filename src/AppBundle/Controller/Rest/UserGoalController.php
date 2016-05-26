@@ -133,6 +133,9 @@ class UserGoalController extends FOSRestController
             $userGoal->setDoDate($doDate);
         }
 
+        //send add goal event in google analytics
+        $this->container->get('google_analytic')->addGoalEvent();
+
         $em->persist($userGoal);
         $em->flush();
 
@@ -164,6 +167,10 @@ class UserGoalController extends FOSRestController
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($userGoal);
+
+        //send remove goal event in google analytics
+        $this->container->get('google_analytic')->removeGoalEvent();
+
         $em->flush();
 
         return new Response('', Response::HTTP_OK);
@@ -370,6 +377,9 @@ class UserGoalController extends FOSRestController
 
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
+
+        //send done goal event in google analytics
+        $this->container->get('google_analytic')->doneGoalEvent();
 
         $em->persist($userGoal);
         $em->flush();

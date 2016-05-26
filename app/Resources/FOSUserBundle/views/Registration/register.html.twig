@@ -41,17 +41,10 @@
     {{ 'user.register_title'|trans({}, 'FOSUserBundle') }}
 {%- endblock -%}
 
-{%- block og_title -%}
-    {{- block('title') -}}
-{%- endblock -%}
-
 {%- block meta_description -%}
     {{ 'user.register_description'|trans({}, 'FOSUserBundle') }}
 {% endblock %}
 
-{%- block og_description -%}
-    {{- block('meta_description') -}}
-{%- endblock -%}
 
 {%- block og_url -%}
     {{- app.request.uri }}

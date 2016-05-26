@@ -123,26 +123,18 @@
 
 {%- block title -%}
     {% if app.request.get('_route') == 'goal_friends' %}
-        {{ 'goal.friends_title'|trans }}
+        {{- 'goal.friends_title'|trans -}}
     {% else %}
-        {{ 'goal.user_title'|trans }}{% if title %} {{ title }}{% endif %}
+        {{- 'goal.user_title'|trans -}}{% if title %} {{ title }}{% endif %}
     {% endif %}
 {%- endblock -%}
 
 {%- block meta_description -%}
     {% if app.request.get('_route') == 'goal_friends' %}
-        {{ 'goal.friends_description'|trans }}
+        {{- 'goal.friends_description'|trans -}}
     {% else %}
-        {{ 'goal.user_description'|trans }}{% if title %} {{ title }}{% endif %}
+        {{- 'goal.user_description'|trans -}}{% if title %} {{ title }}{% endif %}
     {% endif %}
-{%- endblock -%}
-
-{%- block og_title -%}
-    {{- block('title') -}}
-{%- endblock -%}
-
-{%- block og_description -%}
-    {{- block('meta_description') -}}
 {%- endblock -%}
 
 {%- block og_url -%}

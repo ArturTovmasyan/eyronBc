@@ -42,7 +42,7 @@
                 {% set show = false %}
             {% endif %}
 
-            {% if author and author.isAdmin == false and show %}
+            {% if author and not author.isAdmin and show %}
                 <p>{{ goal.author.showName }}</p>
             {% endif %}
 

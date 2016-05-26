@@ -53,8 +53,11 @@
     </style>
 {% endblock %}
 
+{%- block meta_description -%}
+    {{ 'my_bucket_list.description'|trans }}
+{%- endblock -%}
+
 {%- block title -%}
-
     {% if status == completed %}
         {{- 'my_bucket_list.completed_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
     {% elseif status == active %}
@@ -64,35 +67,6 @@
     {% elseif status  == 'all' %}
         {{- 'goal.friend_inner_title'|trans -}}
     {% endif %}
-
-{%- endblock -%}
-
-{%- block og_title -%}
-
-    {% if status == completed %}
-        {{- 'my_bucket_list.completed_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
-    {% elseif status == active %}
-        {{- 'my_bucket_list.active_goals'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
-    {% elseif status == all %}
-        {{- 'my_bucket_list.title'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
-    {% elseif status  == 'all' %}
-        {{- 'goal.friend_inner_title'|trans -}}
-    {% endif %}
-
-{%- endblock -%}
-
-{%- block og_description -%}
-
-    {% if status == completed %}
-        {{- 'my_bucket_list.completed_description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
-    {% elseif status == active %}
-        {{- 'my_bucket_list.active_description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
-    {% elseif status == all %}
-        {{- 'my_bucket_list.description'|trans ~ dreamDescription|default('') ~ iuDescription|default('') ~ noIUDescription|default('') ~ iNoUDescription|default('') ~ noInoUDescription|default('') -}}
-    {% elseif status  == 'all' %}
-        {{- 'goal.friend_inner_description'|trans -}}
-    {% endif %}
-
 {%- endblock -%}
 
 {%- block og_image -%}
@@ -102,10 +76,6 @@
     {% else %}
         {{- parent() -}}
     {%- endif -%}
-{%- endblock -%}
-
-{%- block meta_description -%}
-    {{ 'my_bucket_list.description'|trans }}
 {%- endblock -%}
 
 {%- block og_url -%}

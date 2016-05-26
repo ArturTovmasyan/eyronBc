@@ -13,7 +13,8 @@ Feature: Registration
       | fos_user_registration_form[plainPassword][first]  | test1234 |
       | fos_user_registration_form[plainPassword][second] | test1234 |
     And I select date fields
-     And I press "SIGN UP"
-     Then I should be on "/ideas"
+    And I press "SIGN UP"
+    And I wait for view
+    Then I should be on "/ideas"
     And I should see "Tovmasyan"
 

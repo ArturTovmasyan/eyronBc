@@ -61,7 +61,7 @@ class GoalRestControllerTest extends BaseClass
         }
 
         //get goal in rest response
-        $goals = \GuzzleHttp\json_decode($this->client->getResponse()->getContent());
+        $goals = json_decode($this->client->getResponse()->getContent());
 
         //set default array
         $allListedBy = array();
