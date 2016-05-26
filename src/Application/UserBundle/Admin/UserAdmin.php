@@ -62,9 +62,11 @@ class UserAdmin extends Admin
             ->add('email', null, array('label'=>'admin.label.name.email'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('created', null, array('label'=>'admin.label.name.created'))
-            ;
-        ;
+            ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker'),null,
+                array('widget' => 'single_text',
+                      'format' => 'yyyy-MM-dd',
+                      'required' => false)
+            );
     }
 
     // Fields to be shown on lists
