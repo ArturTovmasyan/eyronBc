@@ -134,7 +134,7 @@ class UserGoalController extends FOSRestController
         }
 
         //send add goal event in google analytics
-        $this->container->get('bl_service')->addGoalEvent();
+        $this->container->get('google_analytic')->addGoalEvent();
 
         $em->persist($userGoal);
         $em->flush();
@@ -169,7 +169,7 @@ class UserGoalController extends FOSRestController
         $em->remove($userGoal);
 
         //send remove goal event in google analytics
-        $this->container->get('bl_service')->removeGoalEvent();
+        $this->container->get('google_analytic')->removeGoalEvent();
 
         $em->flush();
 
@@ -379,7 +379,7 @@ class UserGoalController extends FOSRestController
         $userGoal->setCompletionDate($completionDate);
 
         //send done goal event in google analytics
-        $this->container->get('bl_service')->doneGoalEvent();
+        $this->container->get('google_analytic')->doneGoalEvent();
 
         $em->persist($userGoal);
         $em->flush();

@@ -240,7 +240,7 @@ class GoalController extends FOSRestController
         }
 
         //send create goal event in google analytics
-        $this->container->get('bl_service')->createGoalEvent();
+        $this->container->get('google_analytic')->createGoalEvent();
         
         $em->persist($goal);
         $em->flush();
@@ -580,7 +580,7 @@ class GoalController extends FOSRestController
             }
 
             //send comment event in google analytics
-            $this->get('bl_service')->commentEvent();
+            $this->get('google_analytic')->commentEvent();
         
             // persist new comment end flush objects
             $em->persist($comment);
@@ -642,7 +642,7 @@ class GoalController extends FOSRestController
         }
 
         //send create goal event in google analytics
-        $this->container->get('bl_service')->createGoalStoryEvent();
+        $this->container->get('google_analytic')->createGoalStoryEvent();
         
         // persist and flush object
         $em->persist($successStory);
