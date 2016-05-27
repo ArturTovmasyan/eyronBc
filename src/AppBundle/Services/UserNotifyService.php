@@ -153,11 +153,11 @@ class UserNotifyService
         //get no-reply email
         $noReplyEmail = $this->noReplyEmail;
 
-        // get get environment
-        $env = $this->kernel->getEnvironment();
+        //get environment
+        $isDebug = $this->kernel->isDebug();
 
-        // check environment
-        if($env != 'prod'){
+        //check environment
+        if($isDebug){
             return;
         }
 
