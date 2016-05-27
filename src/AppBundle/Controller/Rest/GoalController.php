@@ -582,14 +582,14 @@ class GoalController extends FOSRestController
         //send comment event in google analytics
         $this->get('google_analytic')->commentEvent();
 
-        //check if goal author not admin
-        if(!$goal->getAuthor()->isAdmin()) {
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify()) {
 
-            //get current user
-            $user = $this->getUser();
+            //get user name
+            $userName = $this->getUser()->showName();
 
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
         }
 
         // persist new comment end flush objects
@@ -655,14 +655,14 @@ class GoalController extends FOSRestController
         //send create goal event in google analytics
         $this->container->get('google_analytic')->createGoalStoryEvent();
 
-        //check if goal author not admin
-        if(!$goal->getAuthor()->isAdmin()) {
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify()) {
 
-            //get current user
-            $user = $this->getUser();
+            //get user name
+            $userName = $this->getUser()->showName();
 
             //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user);
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
         }
 
         // persist and flush object

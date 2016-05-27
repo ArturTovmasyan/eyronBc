@@ -7,6 +7,6 @@
             {% set transName = 'notify_success_story' %}
         {% endif %}
 
-        {{ transName|trans({'%fromUserName%': fromUserName, '%userName%': userName, '%link%': link}, 'messages') }}
+        {{ transName|trans({'%senderName%': senderName, '%userName%': userName, '%link%': link}, 'messages') }}
     {% endautoescape %}
 {% endblock %}

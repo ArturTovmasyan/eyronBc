@@ -20,10 +20,6 @@ class GoogleAnalyticService
      */
     protected  $container;
 
-    /**
-     * @var
-     */
-    protected $em;
 
     /**
      * @param Container $container
@@ -31,7 +27,6 @@ class GoogleAnalyticService
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->em = $container->get('doctrine')->getManager();
     }
 
 

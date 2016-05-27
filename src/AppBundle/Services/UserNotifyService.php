@@ -20,32 +20,25 @@ class UserNotifyService
     protected  $container;
 
     /**
-     * @var
-     */
-    protected $em;
-
-    /**
      * @param Container $container
      */
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->em = $container->get('doctrine')->getManager();
     }
 
 
     /**
+     * This function is used to send notify about new comment
+     * 
      * @param Goal $goal
-     * @param User $user
+     * @param $senderName
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewComment(Goal $goal, User $user)
+    public function sendNotifyAboutNewComment(Goal $goal, $senderName)
     {
         //get goal author
         $author = $goal->getAuthor();
-
-        //get sender user name
-        $fromUserName = $user->showName();
 
         //get author email
         $email = $author->getEmail();
@@ -59,21 +52,20 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->container->get('router')->generate('view_goal', array('slug' => $slug), true);
 
-        $this->sendEmail($email, $fromUserName, $authorName, $url, Goal::COMMENT);
+        $this->sendEmail($email, $senderName, $authorName, $url, Goal::COMMENT);
     }
 
     /**
+     * This function is used to send notify about new success story
+     * 
      * @param Goal $goal
-     * @param User $user
+     * @param $senderName
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewSuccessStory(Goal $goal, User $user)
+    public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
     {
         //get goal author
         $author = $goal->getAuthor();
-
-        //get sender user name
-        $fromUserName = $user->showName();
 
         //get goal author email
         $email = $author->getEmail();
@@ -87,19 +79,19 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->container->get('router')->generate('inner_goal', array('slug' => $slug), true);
 
-        $this->sendEmail($email, $fromUserName, $authorName, $url, Goal::STORY);
+        $this->sendEmail($email, $senderName, $authorName, $url, Goal::STORY);
     }
 
     /**
      * @param $email
-     * @param $fromUserName
+     * @param $senderName
      * @param $authorName
      * @param $url
      * @param $notifyType
      * @throws \Swift_TransportException
      * @throws \Twig_Error
      */
-    public function sendEmail($email, $fromUserName, $authorName, $url, $notifyType)
+    public function sendEmail($email, $senderName, $authorName, $url, $notifyType)
     {
         //get project name
         $projectName = $this->container->getParameter('project_name');
@@ -116,7 +108,7 @@ class UserNotifyService
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($this->container->get('templating')->render(
                     'AppBundle:Main:userNotifyEmail.html.twig',
-                    array('fromUserName' => $fromUserName, 'userName' => $authorName, 'link' => $url, 'notifyType' => $notifyType)
+                    array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'notifyType' => $notifyType)
                 ), 'text/html');
 
             //send email
@@ -128,5 +120,4 @@ class UserNotifyService
         }
     }
 
-    
 }
