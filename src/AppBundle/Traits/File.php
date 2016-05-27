@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 trait File
 {
     /**
+     * @Assert\NotBlank()
      * @Assert\Image(
      *     groups={"Registration", "Profile", "Default", "Register"},
      *     minWidth = 400,

@@ -321,23 +321,20 @@ class GoalController extends FOSRestController
             $validator = $this->get('validator');
             $error = $validator->validate($goalImage, null, array('goal'));
 
-
             if(count($error) > 0){
                 return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
             }
-            else { // upload image id there is no error
 
-                // upload file
-                $bucketService->uploadFile($goalImage);
+            // upload file
+            $bucketService->uploadFile($goalImage);
 
-                if (isset($goal)){
-                    $goalImage->setGoal($goal);
-                    $goal->addImage($goalImage);
-                }
-
-                $em->persist($goalImage);
-                $em->flush();
+            if (isset($goal)){
+                $goalImage->setGoal($goal);
+                $goal->addImage($goalImage);
             }
+
+            $em->persist($goalImage);
+            $em->flush();
 
             return $goalImage->getId();
         }
