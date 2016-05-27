@@ -82,7 +82,7 @@ class UserNotifyService
     public function sendNotifyAboutNewComment(Goal $goal, $senderName)
     {
         //check if user notify is disabled
-        if($this->userNotify == 'off') {
+        if(!$this->userNotify) {
             return;
         }
 
@@ -114,7 +114,7 @@ class UserNotifyService
     public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
     {
         //check if user notify is disabled
-        if($this->userNotify == 'off') {
+        if(!$this->userNotify) {
             return;
         }
 
