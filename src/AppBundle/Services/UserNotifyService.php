@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -32,12 +33,22 @@ class UserNotifyService
     /**
      * @var
      */
+    protected  $kernel;
+
+    /**
+     * @var
+     */
     protected  $projectName;
 
     /**
      * @var
      */
     protected  $noReplyEmail;
+
+    /**
+     * @var
+     */
+    protected  $userNotify;
 
 
     /**
@@ -49,13 +60,15 @@ class UserNotifyService
      * @param $projectName
      * @param $noReplyEmail
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $projectName, $noReplyEmail)
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail, $userNotify)
     {
         $this->router = $router;
         $this->template = $template;
         $this->mailer = $mailer;
+        $this->kernel = $kernel;
         $this->projectName = $projectName;
         $this->noReplyEmail = $noReplyEmail;
+        $this->userNotify = $userNotify;
     }
 
 
@@ -68,6 +81,11 @@ class UserNotifyService
      */
     public function sendNotifyAboutNewComment(Goal $goal, $senderName)
     {
+        //check if user notify is disabled
+        if($this->userNotify == 'off') {
+            return;
+        }
+
         //get goal author
         $author = $goal->getAuthor();
 
@@ -95,6 +113,11 @@ class UserNotifyService
      */
     public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
     {
+        //check if user notify is disabled
+        if($this->userNotify == 'off') {
+            return;
+        }
+
         //get goal author
         $author = $goal->getAuthor();
 
@@ -129,6 +152,14 @@ class UserNotifyService
 
         //get no-reply email
         $noReplyEmail = $this->noReplyEmail;
+
+        //get environment
+        $isDebug = $this->kernel->isDebug();
+
+        //check environment
+        if($isDebug){
+            return;
+        }
 
         try {
             //calculate message
