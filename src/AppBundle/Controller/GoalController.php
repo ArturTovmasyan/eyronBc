@@ -327,15 +327,12 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED);
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
-
-        $paginator  = $this->get('knp_paginator');
-        $doneByUsers = $paginator->paginate($doneByUsers, 1, 3);
-        $listedByUsers = $paginator->paginate($listedByUsers, 1, 3);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 1, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 1, 3);
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
