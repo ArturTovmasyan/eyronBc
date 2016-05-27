@@ -32,11 +32,13 @@
             {#</div>#}
         {#</div>#}
     {#</div>#}
-    <div class="row no-gutter">
+    {#<div class="row no-gutter">#}
 
-        <div class="col-sm-8">
+        <div>
 
-            <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">{{ goal.title }}</h2>
+            <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">
+                {{ goal.title }}
+            </h2>
 
             {% if user and author and user.id == author.id %}
                 {% set show = false %}
@@ -64,21 +66,14 @@
             </ul>
         </div>
 
-        <div class="col-sm-4 text-right">
-            <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
-                {#<i class="icon trash-icon"></i>#}
-                <i class="icon-trash"></i>
-                {{ 'forget'|trans | upper }}
-            </a>
-        </div>
+        {#<div class="col-sm-4 text-right">#}
+            {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">#}
+                {#<i class="icon-trash"></i>#}
+                {#{{ 'forget'|trans | upper }}#}
+            {#</a>#}
+        {#</div>#}
 
-        <div data-ng-show="showDetails" class="relative">
-            <div class="delete-message">
-                <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
-                <a href="{{ path('remove_goal', {'goal' : goal.getId , 'user': user.getId }) }}" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
-                <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
-            </div>
-        </div>
-    </div>
+
+    {#</div>#}
 
 </div>

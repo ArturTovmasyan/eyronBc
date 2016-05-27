@@ -15,7 +15,15 @@
         <!--  Google Analytic Service -->
         <service id="google_analytic" class="AppBundle\Services\GoogleAnalyticService">
             <argument type="service" id="service_container" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <!--  User Notify Service -->
+        <service id="user_notify" class="AppBundle\Services\UserNotifyService">
+            <argument type="service" id="router" />
+            <argument type="service" id="templating" />
+            <argument type="service" id="mailer" />
+            <argument>%project_name%</argument>
+            <argument>%no_reply%</argument>
         </service>
 
         <service id="bl.location.type" class="AppBundle\Form\Type\LocationType">

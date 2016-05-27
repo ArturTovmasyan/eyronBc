@@ -526,62 +526,72 @@ class GoalController extends FOSRestController
 
         $commentBody = $request->get('commentBody');
 
-
         // check thread by goal id
         $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($goal->getId());
-            // create thread for goal
-            if(!$thread)
+
+        // create thread for goal
+        if(!$thread)
+        {
+            // generate url by goal id for goal thread
+            $url = $this->container->get('router')->generate('inner_goal', array('slug' => $goal->getSlug()), true);
+
+            $thread = new Thread();
+            $thread->setPermalink($url);
+            $thread->setLastCommentAt(new \DateTime('now'));
+            $thread->setId($goal->getId());
+            $numCount = $thread->incrementNumComments();
+            $thread->setNumComments($numCount);
+
+            // check validator
+            $errors = $validator->validate($thread);
+
+            if(count($errors) > 0)
             {
-                // generate url by goal id for goal thread
-                $url = $this->container->get('router')->generate('inner_goal', array('slug' => $goal->getSlug()), true);
-
-                $thread = new Thread();
-                $thread->setPermalink($url);
-                $thread->setLastCommentAt(new \DateTime('now'));
-                $thread->setId($goal->getId());
-                $numCount = $thread->incrementNumComments();
-                $thread->setNumComments($numCount);
-
-                // check validator
-                $errors = $validator->validate($thread);
-
-                if(count($errors) > 0)
-                {
-                    $errorsString = (string)$errors;
-                    return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
-                }
-
-                // persist and flush thread
-                $em->persist($thread);
-            }else{
-                $numCount = $thread->incrementNumComments();
-                $thread->setNumComments($numCount);
-                $em->persist($thread);
-            }
-
-            // create comment
-            $comment= new Comment();
-            $comment->setAuthor($this->getUser());
-            $comment->setBody($commentBody);
-            $comment->setThread($thread);
-            $comment->setCreatedAt(new \DateTime('now'));
-            $comment->setState(0);
-
-            // validate new comment
-            $errors = $validator->validate($comment);
-
-            if(count($errors) > 0){
                 $errorsString = (string)$errors;
-
                 return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
             }
 
-            //send comment event in google analytics
-            $this->get('google_analytic')->commentEvent();
-        
-            // persist new comment end flush objects
-            $em->persist($comment);
-            $em->flush();
+            // persist and flush thread
+            $em->persist($thread);
+        }else{
+            $numCount = $thread->incrementNumComments();
+            $thread->setNumComments($numCount);
+            $em->persist($thread);
+        }
+
+        // create comment
+        $comment= new Comment();
+        $comment->setAuthor($this->getUser());
+        $comment->setBody($commentBody);
+        $comment->setThread($thread);
+        $comment->setCreatedAt(new \DateTime('now'));
+        $comment->setState(0);
+
+        // validate new comment
+        $errors = $validator->validate($comment);
+
+        if(count($errors) > 0){
+            $errorsString = (string)$errors;
+
+            return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
+        }
+
+        //send comment event in google analytics
+        $this->get('google_analytic')->commentEvent();
+
+        //get user name
+        $userName = $this->getUser()->showName();
+
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify($userName)) {
+
+            //send success story notify
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+        }
+
+        // persist new comment end flush objects
+        $em->persist($comment);
+        $em->flush();
 
         return new Response('', Response::HTTP_OK);
     }
@@ -615,6 +625,7 @@ class GoalController extends FOSRestController
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
         // get validator
         $validator = $this->container->get('validator');
 
@@ -640,7 +651,17 @@ class GoalController extends FOSRestController
 
         //send create goal event in google analytics
         $this->container->get('google_analytic')->createGoalStoryEvent();
-        
+
+        //get user name
+        $userName = $this->getUser()->showName();
+
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify($userName)) {
+
+            //send success story notify
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+        }
+
         // persist and flush object
         $em->persist($successStory);
         $em->flush();

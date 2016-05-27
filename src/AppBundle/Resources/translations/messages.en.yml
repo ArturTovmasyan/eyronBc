@@ -340,6 +340,9 @@ is not equal to: is not equal to
 >: >
 <: <
 <=: <=
+notify_comment: Hello %userName%, %senderName% has left a comment on your <a href = %link%>Goal</a>
+notify_success_story: Hello %userName%, %senderName% has written a success story to your <a href = %link%>Goal</a>
+
 
 # end sonata admin breadcrumb and filter
 
