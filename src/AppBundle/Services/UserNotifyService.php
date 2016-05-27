@@ -104,7 +104,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from ' . $projectName )
                 ->setFrom($noReplyEmail)
-                ->setCc('ateptan777@gmail.com')
+                ->setCc($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($this->container->get('templating')->render(
                     'AppBundle:Main:userNotifyEmail.html.twig',
