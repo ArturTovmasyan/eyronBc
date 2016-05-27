@@ -3,9 +3,9 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
-use Application\UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Routing\Router;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 
 /**
@@ -17,14 +17,45 @@ class UserNotifyService
     /**
      * @var \Symfony\Component\DependencyInjection\Container
      */
-    protected  $container;
+    protected  $router;
 
     /**
-     * @param Container $container
+     * @var TwigEngine
      */
-    public function __construct(Container $container)
+    protected  $template;
+
+    /**
+     * @var \Swift_Mailer
+     */
+    protected  $mailer;
+
+    /**
+     * @var
+     */
+    protected  $projectName;
+
+    /**
+     * @var
+     */
+    protected  $noReplyEmail;
+
+
+    /**
+     * UserNotifyService constructor.
+     * @param Router $router
+     * @param TwigEngine $template
+     * @param \Swift_Mailer $mailer
+     * @param \Swift_Mailer $mailer
+     * @param $projectName
+     * @param $noReplyEmail
+     */
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $projectName, $noReplyEmail)
     {
-        $this->container = $container;
+        $this->router = $router;
+        $this->template = $template;
+        $this->mailer = $mailer;
+        $this->projectName = $projectName;
+        $this->noReplyEmail = $noReplyEmail;
     }
 
 
@@ -50,7 +81,7 @@ class UserNotifyService
         $slug = $goal->getSlug();
 
         //generate goal inner page url for email
-        $url = $this->container->get('router')->generate('view_goal', array('slug' => $slug), true);
+        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
         $this->sendEmail($email, $senderName, $authorName, $url, Goal::COMMENT);
     }
@@ -77,7 +108,7 @@ class UserNotifyService
         $slug = $goal->getSlug();
 
         //generate goal inner page url for email
-        $url = $this->container->get('router')->generate('inner_goal', array('slug' => $slug), true);
+        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
         $this->sendEmail($email, $senderName, $authorName, $url, Goal::STORY);
     }
@@ -94,10 +125,10 @@ class UserNotifyService
     public function sendEmail($email, $senderName, $authorName, $url, $notifyType)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->projectName;
 
         //get no-reply email
-        $noReplyEmail = $this->container->getParameter('no_reply');
+        $noReplyEmail = $this->noReplyEmail;
 
         try {
             //calculate message
@@ -106,13 +137,13 @@ class UserNotifyService
                 ->setFrom($noReplyEmail)
                 ->setCc($email)
                 ->setContentType('text/html; charset=UTF-8')
-                ->setBody($this->container->get('templating')->render(
+                ->setBody($this->template->render(
                     'AppBundle:Main:userNotifyEmail.html.twig',
                     array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'notifyType' => $notifyType)
                 ), 'text/html');
 
             //send email
-            $this->container->get('mailer')->send($message);
+            $this->mailer->send($message);
 
         } catch(\Swift_TransportException $e) {
 
