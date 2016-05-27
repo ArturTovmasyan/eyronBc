@@ -901,6 +901,9 @@ class GoalController extends Controller
             //check and set user activity by new feed count
             $this->get('bl_service')->setUserActivity($user, $inLogin = false);
         }
+        else {
+            $em->flush();
+        }
 
         return $this->redirectToRoute($url);
     }
