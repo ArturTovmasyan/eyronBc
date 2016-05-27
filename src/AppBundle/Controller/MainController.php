@@ -53,9 +53,11 @@ class MainController extends Controller
 
     /**
      * @Route("/page/{slug}", name="page")
-     * @param slug
      * @Template()
-     * @return array
+     *
+     * @param Request $request
+     * @param $slug
+     * @return array|Response
      */
     public function pageAction(Request $request, $slug)
     {
@@ -211,9 +213,10 @@ class MainController extends Controller
      */
     public function goalUsersAction(Goal $goal, Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:Goal')
-            ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED);
+            ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED, null, null, true);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -221,6 +224,17 @@ class MainController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             30/*limit per page*/
         );
+
+        $usersIds = array_keys($pagination->getItems());
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($usersIds);
+
+        foreach($pagination->getItems() as &$user){
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active" => $stats[$user->getId()]['listedBy'],
+                "doneBy" => $stats[$user->getId()]['doneBy']
+            ]);
+        }
 
         return $this->render('AppBundle:Main:goalFriends.html.twig', array(
             'pagination' => $pagination,

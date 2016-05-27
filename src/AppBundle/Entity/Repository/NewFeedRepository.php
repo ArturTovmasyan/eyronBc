@@ -28,6 +28,23 @@ class NewFeedRepository extends EntityRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function deleteConvertedLogs()
+    {
+        $maxLogId = $this->getEntityManager()
+            ->createQuery('SELECT COALESCE(MAX(l.id), 0) as maxId
+                           FROM AppBundle:NewFeed nf JOIN nf.log l')
+            ->getSingleScalarResult();
+
+        return $this->getEntityManager()
+            ->createQuery("DELETE FROM Gedmo\Loggable\Entity\LogEntry log
+                           WHERE log.id <= :logId")
+            ->setParameter('logId', $maxLogId)
+            ->execute();
+    }
+
+    /**
      * @param $userId
      * @param $getCount
      * @return array
