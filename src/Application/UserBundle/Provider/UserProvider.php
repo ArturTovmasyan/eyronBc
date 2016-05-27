@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Provider;
 
+use AppBundle\Services\GoogleAnalyticService;
 use Application\UserBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FacebookResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
@@ -24,22 +25,27 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider as BaseProvider;
  * Class UserProvider
  * @package Application\UserBundle\Provider
  */
-class UserProvider extends   BaseProvider
+class UserProvider extends  BaseProvider
 {
-
     /**
      * @var UserManagerInterface
      */
     protected $userManager;
 
     /**
+     * @var GoogleAnalyticService
+     */
+    protected $analytic;
+
+    /**
      * Constructor
      *
      * @param UserManagerInterface $userManager
      */
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(UserManagerInterface $userManager, GoogleAnalyticService $analytic)
     {
         $this->userManager = $userManager;
+        $this->analytic = $analytic;
     }
 
     /**
@@ -152,6 +158,11 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->analytic->registrationUserBySocialEvent($socialName);
         }
 
         return $user;
@@ -206,6 +217,12 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->analytic->registrationUserBySocialEvent($socialName);
+
         }
 
         return $user;
@@ -255,10 +272,14 @@ class UserProvider extends   BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name
+            $socialName = $user->getSocialsName();
+
+            //send login user by social event in google analytics
+            $this->analytic->registrationUserBySocialEvent($socialName);
+
         }
 
         return $user;
     }
-
-
 }

@@ -28,12 +28,15 @@ parameters:
     event_done_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Done&el=Done%%20goal'
     event_create_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Create&el=Create%%20goal'
     event_remove_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Remove&el=Remove%%20goal'
-    event_user_register: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration%%20user'
     event_create_story: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Success%%20story&ea=Create&el=Create%%20story'
-    event_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=User%%20login'
-    event_facebook_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Facebook%%20login&el=User%%20login%%20by%%20Facebook'
-    event_google_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Google%%20login&el=User%%20login%%20by%%20Google'
-    event_twitter_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Twitter%%20login&el=User%%20login%%20by%%20Twitter'
+    event_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Login'
+    event_facebook_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Facebook%%20login'
+    event_google_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Google%%20login'
+    event_twitter_login_user: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Twitter%%20login'
+    event_user_registration: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration'
+    event_facebook_registration: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Facebook%%20registration'
+    event_google_registration: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Google%%20registration'
+    event_twitter_registration: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Twitter%%20registration'
     event_unlist_goal: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Unlist&el=Unlist%%20goal'
     event_comment: 'https://www.google-analytics.com/collect?v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Comment&ea=Add&el=Add%%20comments'
 
@@ -76,7 +79,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:location.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig']
+        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:location.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig', 'SonataCoreBundle:Form:datepicker.html.twig']
 
     globals:
         project_name: %project_name%
@@ -337,7 +340,7 @@ liip_imagine:
         user_icon:
             quality: 100
             filters:
-                central_crop: { size: [50, 50] }
+                central_crop: { size: [60, 60] }
 
         goal_bg:
             quality: 80
