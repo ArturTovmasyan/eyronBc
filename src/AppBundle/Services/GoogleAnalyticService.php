@@ -74,7 +74,7 @@ class GoogleAnalyticService
     public function sendEventInGoogleAnalyticsAsync($url)
     {
         $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
-        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request " . $url);
+        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\"");
         $newProcess->start();
     }
 
