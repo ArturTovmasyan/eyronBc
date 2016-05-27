@@ -1053,11 +1053,12 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * This function is used to check goal has author for notify
      * 
+     * @param null $senderName
      * @return bool
      */
-    public function hasAuthorForNotify()
+    public function hasAuthorForNotify($senderName = null)
     {
-        if(($this->getAuthor() != null) && (!$this->getAuthor()->isAdmin())) {
+        if(($this->getAuthor() != null) && (!$this->getAuthor()->isAdmin()) && ($this->getAuthor()->showName() !== $senderName)) {
             return true;
         }
         

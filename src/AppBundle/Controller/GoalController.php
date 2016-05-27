@@ -447,7 +447,7 @@ class GoalController extends Controller
                 }
 
                 //check if goal author not admin and not null
-                if($goal->hasAuthorForNotify()) {
+                if($goal->hasAuthorForNotify($userName)) {
                     
                     //send success story notify
                     $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
