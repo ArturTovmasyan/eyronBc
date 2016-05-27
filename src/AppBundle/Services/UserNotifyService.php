@@ -3,8 +3,8 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -38,7 +38,7 @@ class UserNotifyService
     /**
      * @var
      */
-    protected  $userNotify;
+    protected  $enabled;
 
 
     /**
@@ -93,10 +93,10 @@ class UserNotifyService
         //generate content for email
         $content = $this->template->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url)
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'eventName' => 'notify_comment')
         );
 
-        $this->sendEmail($email, $senderName, $authorName, $url);
+        $this->sendEmail($email, $content);
     }
 
     /**
@@ -131,7 +131,7 @@ class UserNotifyService
         //generate content for email
         $content = $this->template->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url)
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'eventName' => 'notify_success_story')
         );
         
         $this->sendEmail($email, $content);
@@ -139,12 +139,9 @@ class UserNotifyService
 
     /**
      * @param $email
-     * @param $senderName
-     * @param $authorName
-     * @param $url
-     * @param $notifyType
+     * @param $content
+     * @throws \Exception
      * @throws \Swift_TransportException
-     * @throws \Twig_Error
      */
     public function sendEmail($email, $content)
     {
@@ -162,9 +159,9 @@ class UserNotifyService
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
-                ->setSubject('You have a message from bucketlist 127' )
+                ->setSubject('You have a message from bucketlist 127')
                 ->setFrom($noReplyEmail)
-                ->setCc($email)
+                ->setTo('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

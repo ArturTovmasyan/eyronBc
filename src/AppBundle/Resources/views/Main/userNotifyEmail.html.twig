@@ -1,12 +1,5 @@
 {% block body_text %}
     {% autoescape false %}
-
-        {% if notifyType == constant('AppBundle\\Entity\\Goal::COMMENT') %}
-            {% set transName = 'notify_comment' %}
-        {% elseif notifyType == constant('AppBundle\\Entity\\Goal::STORY') %}
-            {% set transName = 'notify_success_story' %}
-        {% endif %}
-
-        {{ transName|trans({'%senderName%': senderName, '%userName%': userName, '%link%': link}, 'messages') }}
+        {{ eventName|trans({'%senderName%': senderName, '%userName%': userName, '%link%': link}, 'messages') }}
     {% endautoescape %}
 {% endblock %}
