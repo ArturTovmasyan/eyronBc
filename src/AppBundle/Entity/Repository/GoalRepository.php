@@ -503,4 +503,20 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         return $random;
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findGoalWithAuthor($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, a
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.author a
+                           WHERE g.id = :id")
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
 }
