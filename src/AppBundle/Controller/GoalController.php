@@ -358,6 +358,7 @@ class GoalController extends Controller
     {
         // get current user
         $user = $this->getUser();
+        //$this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -508,18 +509,20 @@ class GoalController extends Controller
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get current user
         $user = $this->getUser();
 
-        //get bl service
-        $blService = $this->get('bl_service');
-
         //get GA service
         $analyticService = $this->get('google_analytic');
 
-        //check and set user activity by new feed count
-        $blService->setUserActivity($user, $inLogin = false);
+        if (!$user->getActivity()){
+            //get bl service
+            $blService = $this->get('bl_service');
+            //check and set user activity by new feed count
+            $blService->setUserActivity($user, $inLogin = false);
+        }
 
         // create filter
         $filters = array(
@@ -684,6 +687,7 @@ class GoalController extends Controller
                 $analyticService->addGoalEvent();
             }
         }
+
 
         return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
     }
@@ -883,8 +887,10 @@ class GoalController extends Controller
         //set myBucketList route name
         $url = 'user_profile';
 
-        //check and set user activity by new feed count
-        $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+        if ($user->getActivity()){
+            //check and set user activity by new feed count
+            $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+        }
 
         return $this->redirectToRoute($url);
     }

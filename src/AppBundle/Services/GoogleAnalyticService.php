@@ -6,6 +6,7 @@ use Application\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Process\Process;
 
 
 /**
@@ -67,6 +68,17 @@ class GoogleAnalyticService
     }
 
     /**
+     * This function is used to run sendEventInGoogleAnalytics function Asynchronously
+     * @param $url
+     */
+    public function sendEventInGoogleAnalyticsAsync($url)
+    {
+        $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
+        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request " . $url);
+        $newProcess->start();
+    }
+
+    /**
      * This function is used to send create goal event
      */
     public function createGoalEvent()
@@ -75,7 +87,7 @@ class GoogleAnalyticService
         $createGoalEvent = $this->container->getParameter('event_create_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($createGoalEvent);
+        $this->sendEventInGoogleAnalyticsAsync($createGoalEvent);
     }
 
     /**
@@ -87,7 +99,7 @@ class GoogleAnalyticService
         $doneGoalEvent = $this->container->getParameter('event_done_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($doneGoalEvent);
+        $this->sendEventInGoogleAnalyticsAsync($doneGoalEvent);
     }
 
     /**
@@ -99,7 +111,7 @@ class GoogleAnalyticService
         $addGoalEvent = $this->container->getParameter('event_add_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($addGoalEvent);
+        $this->sendEventInGoogleAnalyticsAsync($addGoalEvent);
     }
 
     /**
@@ -111,7 +123,7 @@ class GoogleAnalyticService
         $removeGoalEvent = $this->container->getParameter('event_remove_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($removeGoalEvent);
+        $this->sendEventInGoogleAnalyticsAsync($removeGoalEvent);
     }
 
     /**
@@ -123,7 +135,7 @@ class GoogleAnalyticService
         $userRegisterEvent = $this->container->getParameter('event_user_registration');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($userRegisterEvent);
+        $this->sendEventInGoogleAnalyticsAsync($userRegisterEvent);
     }
 
     /**
@@ -135,7 +147,7 @@ class GoogleAnalyticService
         $createStoryEvent = $this->container->getParameter('event_create_story');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($createStoryEvent);
+        $this->sendEventInGoogleAnalyticsAsync($createStoryEvent);
     }
 
     /**
@@ -147,7 +159,7 @@ class GoogleAnalyticService
         $loginUserEvent = $this->container->getParameter('event_login_user');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($loginUserEvent);
+        $this->sendEventInGoogleAnalyticsAsync($loginUserEvent);
     }
 
     /**
@@ -175,7 +187,7 @@ class GoogleAnalyticService
         $loginUserBySocialEvent = $this->container->getParameter($parameterName);
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
+        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
     }
 
     /**
@@ -187,7 +199,7 @@ class GoogleAnalyticService
         $unListGoalEvent = $this->container->getParameter('event_unlist_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($unListGoalEvent);
+        $this->sendEventInGoogleAnalyticsAsync($unListGoalEvent);
     }
 
     /**
@@ -199,7 +211,7 @@ class GoogleAnalyticService
         $commentEvent = $this->container->getParameter('event_comment');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($commentEvent);
+        $this->sendEventInGoogleAnalyticsAsync($commentEvent);
     }
 
     /**
@@ -227,7 +239,7 @@ class GoogleAnalyticService
         $loginUserBySocialEvent = $this->container->getParameter($parameterName);
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
+        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
     }
 
 }
