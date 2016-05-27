@@ -200,7 +200,8 @@
 
 .goal-end{
   background-color: #ffffff;
-  padding:10px 10px 40px;
+  //padding:10px 10px 40px;
+  padding:10px 10px 0;
   .rounded-corners(6px);
   margin-bottom: 50px;
 
@@ -228,6 +229,37 @@
 
   p{
     font-size:12px;
+  }
+
+  label.onoffswitch-label{
+    //padding-top:0 !important;
+    border:1px solid #cccccc;
+  }
+
+  .onoffswitch{
+    .onoffswitch-switch{
+      width:30px;
+      border:1px solid #cccccc;
+    }
+  }
+
+  .modal-bottom{
+    button,a{
+      padding:8px 15px;
+      color: #666666;
+      font-size:12px;
+      text-transform: uppercase;
+      margin-right: 3px;
+      font-weight:bold;
+
+      &.forget{
+        padding:5px 10px 5px 5px;
+      }
+
+      &:hover,&.btn-purple{
+        color: #ffffff;
+      }
+    }
   }
 }
 
@@ -662,9 +694,21 @@
       padding-top:0 !important;
     }
 
-    .onoffswitch{
-      .onoffswitch-switch{
-        width:33px;
+    //.onoffswitch{
+    //  .onoffswitch-switch{
+    //    width:30px;
+    //  }
+    //}
+
+    .modal-bottom{
+      button,a{
+        padding:10px 45px;
+        font-size:14px;
+        margin-right: 5px;
+
+        &.forget{
+          padding:6px 15px 6px 10px;
+        }
       }
     }
   }
@@ -891,6 +935,18 @@
       padding-left:0 !important;
       font-size:18px;
       color:#666666 !important;
+    }
+
+    .modal-bottom{
+      button,a{
+        padding:10px 55px;
+        font-size:15px;
+        margin-right: 5px;
+
+        &.forget{
+          padding:7px 15px 7px 10px;
+        }
+      }
     }
   }
 
