@@ -22,8 +22,7 @@
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
             <argument type="service" id="mailer" />
-            <argument type="service" id="kernel" />
-            <argument>%project_name%</argument>
+            <argument>%kernel.debug%</argument>
             <argument>%no_reply%</argument>
             <argument>%user_notify%</argument>
         </service>

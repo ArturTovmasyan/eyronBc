@@ -33,16 +33,6 @@ class UserNotifyService
     /**
      * @var
      */
-    protected  $kernel;
-
-    /**
-     * @var
-     */
-    protected  $projectName;
-
-    /**
-     * @var
-     */
     protected  $noReplyEmail;
 
     /**
@@ -56,19 +46,18 @@ class UserNotifyService
      * @param Router $router
      * @param TwigEngine $template
      * @param \Swift_Mailer $mailer
-     * @param \Swift_Mailer $mailer
-     * @param $projectName
+     * @param $isDebug
      * @param $noReplyEmail
+     * @param $enabled
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail, $userNotify)
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $isDebug, $noReplyEmail, $enabled)
     {
         $this->router = $router;
         $this->template = $template;
         $this->mailer = $mailer;
-        $this->kernel = $kernel;
-        $this->projectName = $projectName;
+        $this->isDebug = $isDebug;
         $this->noReplyEmail = $noReplyEmail;
-        $this->userNotify = $userNotify;
+        $this->enabled = $enabled;
     }
 
 
@@ -82,7 +71,7 @@ class UserNotifyService
     public function sendNotifyAboutNewComment(Goal $goal, $senderName)
     {
         //check if user notify is disabled
-        if(!$this->userNotify) {
+        if(!$this->enabled) {
             return;
         }
 
@@ -101,7 +90,13 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        $this->sendEmail($email, $senderName, $authorName, $url, Goal::COMMENT);
+        //generate content for email
+        $content = $this->template->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url)
+        );
+
+        $this->sendEmail($email, $senderName, $authorName, $url);
     }
 
     /**
@@ -114,7 +109,7 @@ class UserNotifyService
     public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
     {
         //check if user notify is disabled
-        if(!$this->userNotify) {
+        if(!$this->enabled) {
             return;
         }
 
@@ -133,7 +128,13 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        $this->sendEmail($email, $senderName, $authorName, $url, Goal::STORY);
+        //generate content for email
+        $content = $this->template->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url)
+        );
+        
+        $this->sendEmail($email, $content);
     }
 
     /**
@@ -145,16 +146,13 @@ class UserNotifyService
      * @throws \Swift_TransportException
      * @throws \Twig_Error
      */
-    public function sendEmail($email, $senderName, $authorName, $url, $notifyType)
+    public function sendEmail($email, $content)
     {
-        //get project name
-        $projectName = $this->projectName;
-
         //get no-reply email
         $noReplyEmail = $this->noReplyEmail;
 
         //get environment
-        $isDebug = $this->kernel->isDebug();
+        $isDebug = $this->isDebug;
 
         //check environment
         if($isDebug){
@@ -164,14 +162,11 @@ class UserNotifyService
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
-                ->setSubject('You have a message from ' . $projectName )
+                ->setSubject('You have a message from bucketlist 127' )
                 ->setFrom($noReplyEmail)
                 ->setCc($email)
                 ->setContentType('text/html; charset=UTF-8')
-                ->setBody($this->template->render(
-                    'AppBundle:Main:userNotifyEmail.html.twig',
-                    array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'notifyType' => $notifyType)
-                ), 'text/html');
+                ->setBody($content, 'text/html');
 
             //send email
             $this->mailer->send($message);
