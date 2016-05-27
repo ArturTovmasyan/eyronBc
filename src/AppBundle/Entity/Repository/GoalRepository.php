@@ -386,13 +386,17 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * @param $goalId
      * @param $status
-     * @return array
+     * @param null $first
+     * @param null $count
+     * @param bool|false $getQuery
+     * @return array|Query
      */
-    public function findGoalUsers($goalId, $status, $first = null, $count = null)
+    public function findGoalUsers($goalId, $status, $first = null, $count = null, $getQuery = false)
     {
         $query = $this->getEntityManager()
             ->createQuery("SELECT u, ug
                            FROM ApplicationUserBundle:User u
+                           INDEX BY u.id
                            JOIN u.userGoal ug WITH ug.status = :status OR :status IS NULl
                            JOIN ug.goal g WITH g.id = :goalId");
 
@@ -402,10 +406,15 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setMaxResults($count);
         }
 
-        return $query
+        $query
             ->setParameter('status', $status)
-            ->setParameter('goalId', $goalId)
-            ->getResult();
+            ->setParameter('goalId', $goalId);
+
+        if ($getQuery){
+            return $query;
+        }
+
+        return $query->getResult();
     }
 
     /**
