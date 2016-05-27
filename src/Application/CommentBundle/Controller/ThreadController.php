@@ -43,7 +43,7 @@ class ThreadController extends BaseController
         $goal = $em->getRepository('AppBundle:Goal')->find($id);
 
         //check if goal author is not admin and not null
-        if($goal->hasAuthorForNotify()) {
+        if($goal && $goal->hasAuthorForNotify()) {
 
             //get user name
             $userName = $this->getUser()->showName();
