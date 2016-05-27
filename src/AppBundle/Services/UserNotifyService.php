@@ -45,6 +45,11 @@ class UserNotifyService
      */
     protected  $noReplyEmail;
 
+    /**
+     * @var
+     */
+    protected  $userNotify;
+
 
     /**
      * UserNotifyService constructor.
@@ -55,7 +60,7 @@ class UserNotifyService
      * @param $projectName
      * @param $noReplyEmail
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail)
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail, $userNotify)
     {
         $this->router = $router;
         $this->template = $template;
@@ -63,6 +68,7 @@ class UserNotifyService
         $this->kernel = $kernel;
         $this->projectName = $projectName;
         $this->noReplyEmail = $noReplyEmail;
+        $this->userNotify = $userNotify;
     }
 
 
@@ -75,6 +81,11 @@ class UserNotifyService
      */
     public function sendNotifyAboutNewComment(Goal $goal, $senderName)
     {
+        //check if user notify is disabled
+        if($this->userNotify == 'off') {
+            return;
+        }
+
         //get goal author
         $author = $goal->getAuthor();
 
@@ -102,6 +113,11 @@ class UserNotifyService
      */
     public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
     {
+        //check if user notify is disabled
+        if($this->userNotify == 'off') {
+            return;
+        }
+
         //get goal author
         $author = $goal->getAuthor();
 
@@ -141,7 +157,7 @@ class UserNotifyService
         $env = $this->kernel->getEnvironment();
 
         // check environment
-        if($env == "test"){
+        if($env != 'prod'){
             return;
         }
 
