@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -32,6 +33,11 @@ class UserNotifyService
     /**
      * @var
      */
+    protected  $kernel;
+
+    /**
+     * @var
+     */
     protected  $projectName;
 
     /**
@@ -49,11 +55,12 @@ class UserNotifyService
      * @param $projectName
      * @param $noReplyEmail
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $projectName, $noReplyEmail)
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail)
     {
         $this->router = $router;
         $this->template = $template;
         $this->mailer = $mailer;
+        $this->kernel = $kernel;
         $this->projectName = $projectName;
         $this->noReplyEmail = $noReplyEmail;
     }
@@ -130,12 +137,20 @@ class UserNotifyService
         //get no-reply email
         $noReplyEmail = $this->noReplyEmail;
 
+        // get get environment
+        $env = $this->kernel->getEnvironment();
+
+        // check environment
+        if($env == "test"){
+            return;
+        }
+
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from ' . $projectName )
                 ->setFrom($noReplyEmail)
-                ->setCc($email)
+                ->setCc('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($this->template->render(
                     'AppBundle:Main:userNotifyEmail.html.twig',
