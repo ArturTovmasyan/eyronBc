@@ -40,7 +40,7 @@ class ThreadController extends BaseController
         $em = $this->container->get('doctrine')->getManager();
 
         //get goal by id
-        $goal = $em->getRepository('AppBundle:Goal')->find($id);
+        $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($id);
 
         //get user name
         $userName = $this->getUser()->showName();

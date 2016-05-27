@@ -25,6 +25,9 @@ class DoctrineListener
 
     protected $loadUserStats = true;
 
+    protected $setIsMyGoal = true;
+
+
     public function disableUserStatsLoading()
     {
         $this->loadUserStats = false;
@@ -33,6 +36,16 @@ class DoctrineListener
     public function enableUserStatsLoading()
     {
         $this->loadUserStats = true;
+    }
+
+    public function disableIsMyGoalLoading()
+    {
+        $this->setIsMyGoal = false;
+    }
+
+    public function enableIsMyGoalLoading()
+    {
+        $this->setIsMyGoal = true;
     }
 
 
@@ -60,7 +73,7 @@ class DoctrineListener
                 $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
                 $entity->setShareLink($shareLink);
 
-                if ($user instanceof User) {
+                if ($user instanceof User && $this->setIsMyGoal) {
 
                     $userGoals = $user->getUserGoal();
 

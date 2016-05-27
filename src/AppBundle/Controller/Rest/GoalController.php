@@ -515,13 +515,15 @@ class GoalController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      *
-     * @param Goal $goal
+     * @param $goalId
      * @param Request $request
      * @return Comment|JsonResponse|Response
      */
-    public function putCommentAction(Goal $goal, Request $request)
+    public function putCommentAction($goalId, Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
         $em = $this->getDoctrine()->getManager();
+        $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($goalId);
         $validator = $this->container->get('validator');
 
         $commentBody = $request->get('commentBody');
@@ -584,7 +586,6 @@ class GoalController extends FOSRestController
 
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($userName)) {
-
             //send success story notify
             $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
         }
@@ -616,6 +617,7 @@ class GoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
      *
      * @param Goal $goal
      * @param Request $request
