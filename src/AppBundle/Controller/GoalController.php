@@ -422,6 +422,9 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
+        //get current user id
+        $userId = $user->getId();
+
         //get user name
         $userName = $user->showName();
         
@@ -445,8 +448,8 @@ class GoalController extends Controller
                 }
 
                 //check if goal author not admin and not null
-                if($goal->hasAuthorForNotify($userName)) {
-                    
+                if($goal->hasAuthorForNotify($userId)) {
+
                     //send success story notify
                     $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
                 }

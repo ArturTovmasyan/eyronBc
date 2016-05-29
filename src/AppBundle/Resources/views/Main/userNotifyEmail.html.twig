@@ -1,5 +1,0 @@
-{% block body_text %}
-    {% autoescape false %}
-        {{ eventName|trans({'%senderName%': senderName, '%userName%': userName, '%link%': link}, 'messages') }}
-    {% endautoescape %}
-{% endblock %}

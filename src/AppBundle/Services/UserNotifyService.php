@@ -3,10 +3,10 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Router;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 
 
 /**
@@ -21,9 +21,9 @@ class UserNotifyService
     protected  $router;
 
     /**
-     * @var TwigEngine
+     * @var Translator
      */
-    protected  $template;
+    protected  $translator;
 
     /**
      * @var \Swift_Mailer
@@ -44,16 +44,16 @@ class UserNotifyService
     /**
      * UserNotifyService constructor.
      * @param Router $router
-     * @param TwigEngine $template
+     * @param Translator $translator
      * @param \Swift_Mailer $mailer
      * @param $isDebug
      * @param $noReplyEmail
      * @param $enabled
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $isDebug, $noReplyEmail, $enabled)
+    public function __construct(Router $router, Translator $translator, \Swift_Mailer $mailer, $isDebug, $noReplyEmail, $enabled)
     {
         $this->router = $router;
-        $this->template = $template;
+        $this->translator = $translator;
         $this->mailer = $mailer;
         $this->isDebug = $isDebug;
         $this->noReplyEmail = $noReplyEmail;
@@ -63,7 +63,7 @@ class UserNotifyService
 
     /**
      * This function is used to send notify about new comment
-     * 
+     *
      * @param Goal $goal
      * @param $senderName
      * @throws \Swift_TransportException
@@ -90,18 +90,15 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        //generate content for email
-        $content = $this->template->render(
-            'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'eventName' => 'notify_comment')
-        );
+        //generate content for comment
+        $content = $this->translator->trans('notify_comment', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url));
 
         $this->sendEmail($email, $content);
     }
 
     /**
      * This function is used to send notify about new success story
-     * 
+     *
      * @param Goal $goal
      * @param $senderName
      * @throws \Swift_TransportException
@@ -128,12 +125,9 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        //generate content for email
-        $content = $this->template->render(
-            'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'eventName' => 'notify_success_story')
-        );
-        
+        //generate content for success story
+        $content = $this->translator->trans('notify_success_story', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url));
+
         $this->sendEmail($email, $content);
     }
 
@@ -161,7 +155,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from bucketlist 127')
                 ->setFrom($noReplyEmail)
-                ->setTo('ateptan777@gmail.com')
+                ->setTo($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

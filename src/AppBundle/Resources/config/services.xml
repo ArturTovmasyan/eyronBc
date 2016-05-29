@@ -20,7 +20,7 @@
         <!--  User Notify Service -->
         <service id="user_notify" class="AppBundle\Services\UserNotifyService">
             <argument type="service" id="router" />
-            <argument type="service" id="templating" />
+            <argument type="service" id="translator.default" />
             <argument type="service" id="mailer" />
             <argument>%kernel.debug%</argument>
             <argument>%no_reply%</argument>

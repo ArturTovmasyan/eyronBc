@@ -42,11 +42,17 @@ class ThreadController extends BaseController
         //get goal by id
         $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($id);
 
+        //get current user
+        $user = $this->getUser();
+
+        //get current user id
+        $userId = $user->getId();
+
         //get user name
-        $userName = $this->getUser()->showName();
+        $userName = $user->showName();
 
         //check if goal author is not admin and not null
-        if($goal && $goal->hasAuthorForNotify($userName)) {
+        if($goal && $goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
             $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
