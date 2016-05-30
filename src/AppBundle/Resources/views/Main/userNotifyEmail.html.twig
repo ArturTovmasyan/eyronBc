@@ -1,0 +1,29 @@
+{% block body_text %}
+    {% autoescape false %}
+        {{ eventName|trans({'%userName%': userName, '%senderName%': senderName, '%link%': link}, 'email') }}
+    <div>
+        {{ goalTitle }}
+        <p>{{ 'now'|date('d M Y') }}</p>
+    </div>
+       <p>{{ text }}</p>
+
+    {#{% set cover = photoPath %}#}
+    {#{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
+
+    {#<figure class="goal-image">#}
+        {#<span class="overlay"></span>#}
+        {#<img src="#}
+        {#{% if cover %}#}
+             {#{{ cover|blImageFilter('goal_bg') }}#}
+        {#{% else %}#}
+             {#{{ asset(imgPath)}}#}
+        {#{% endif %}"#}
+             {#alt="{{ goalTitle }}" />#}
+    {#</figure>#}
+
+    <p>
+        <a href = "{{ link }}">View on Bucket List 127</a>
+    </p>
+    {% endautoescape %}
+
+{% endblock %}

@@ -5,6 +5,7 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Goal;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Router;
 
@@ -21,9 +22,9 @@ class UserNotifyService
     protected  $router;
 
     /**
-     * @var Translator
+     * @var TwigEngine
      */
-    protected  $translator;
+    protected  $template;
 
     /**
      * @var \Swift_Mailer
@@ -44,16 +45,16 @@ class UserNotifyService
     /**
      * UserNotifyService constructor.
      * @param Router $router
-     * @param Translator $translator
+     * @param TwigEngine $template
      * @param \Swift_Mailer $mailer
      * @param $notProd
      * @param $noReplyEmail
      * @param $enabled
      */
-    public function __construct(Router $router, Translator $translator, \Swift_Mailer $mailer, $notProd, $noReplyEmail, $enabled)
+    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $notProd, $noReplyEmail, $enabled)
     {
         $this->router = $router;
-        $this->translator = $translator;
+        $this->template = $template;
         $this->mailer = $mailer;
         $this->notProd = $notProd;
         $this->noReplyEmail = $noReplyEmail;
@@ -66,9 +67,10 @@ class UserNotifyService
      *
      * @param Goal $goal
      * @param $senderName
+     * @param $commentText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewComment(Goal $goal, $senderName)
+    public function sendNotifyAboutNewComment(Goal $goal, $senderName, $commentText)
     {
         //check if user notify is disabled
         if(!$this->enabled) {
@@ -87,13 +89,22 @@ class UserNotifyService
         //get goal slug
         $slug = $goal->getSlug();
 
+        //get goal title
+        $goalTitle = $goal->getTitle();
+
+        //get goal photo path
+        $goalPhotoPath =  $goal->getCoverPhotoDownloadLink();
+            
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        //generate content for comment
-        $content = $this->translator->trans('notify_comment', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url), 'email');
-
-        $this->sendEmail($email, $content);
+        //generate content for email
+        $content = $this->template->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'text' => $commentText, 'photoPath'=> $goalPhotoPath, 'goalTitle' => $goalTitle, 'eventName' => 'notify_comment')
+        );
+        
+        $this->sendEmail($email, $content, $goalPhotoPath);
     }
 
     /**
@@ -101,9 +112,10 @@ class UserNotifyService
      *
      * @param Goal $goal
      * @param $senderName
+     * @param $storyText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
+    public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName, $storyText)
     {
         //check if user notify is disabled
         if(!$this->enabled) {
@@ -125,8 +137,11 @@ class UserNotifyService
         //generate goal inner page url for email
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
-        //generate content for success story
-        $content = $this->translator->trans('notify_success_story', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url), 'email');
+        //generate content for email
+        $content = $this->template->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'text' => $storyText, 'eventName' => 'notify_comment')
+        );
 
         $this->sendEmail($email, $content);
     }
@@ -155,7 +170,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from bucketlist 127')
                 ->setFrom($noReplyEmail)
-                ->setTo($email)
+                ->setTo('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

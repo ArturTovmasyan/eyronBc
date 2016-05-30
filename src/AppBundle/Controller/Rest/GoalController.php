@@ -593,7 +593,7 @@ class GoalController extends FOSRestController
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($userId)) {
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName, $commentBody);
         }
 
         // persist new comment end flush objects
@@ -673,7 +673,7 @@ class GoalController extends FOSRestController
         if($goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName, $story);
         }
 
         // persist and flush object

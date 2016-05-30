@@ -451,7 +451,7 @@ class GoalController extends Controller
                 if($goal->hasAuthorForNotify($userId)) {
 
                     //send success story notify
-                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName, $story->getStory());
                 }
 
                 // get images ids
