@@ -14,12 +14,19 @@ angular.module('goal', ['Interpolation',
         'angular-cache',
         'ngResource'
     ])
-    .config(function (localStorageServiceProvider, CacheFactoryProvider) {
-    localStorageServiceProvider
-        .setPrefix('goal')
-        .setNotify(false, false);
-    angular.extend(CacheFactoryProvider.defaults, { maxAge: 60 * 1000,
-        storageMode: 'localStorage'});
+    .config(function (localStorageServiceProvider ) {
+
+        localStorageServiceProvider
+            .setPrefix('goal')
+            .setNotify(false, false);
+    })
+    .config(function(CacheFactoryProvider){
+        angular.extend(CacheFactoryProvider.defaults, {
+            maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+            cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
+            deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+            storageMode: 'localStorage' // This cache will use `localStorage`.
+        });
     })
     .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
@@ -642,30 +649,33 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
         var path = "/api/v1.0/goal-friends/{id}";
-        var profileCache;
+
 
         $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
 
         $scope.getGaolFriends = function(id){
             path = path.replace('{id}', id);
-            if (!CacheFactory.get('profileCache')) {
 
-                profileCache = CacheFactory.createCache('profileCache', {
-                    maxAge: 10 * 60 * 1000, // 1 minute
-                    deleteOnExpire: 'aggressive',
-                    storageMode: 'localStorage'
-                });
+
+            var profileCache = CacheFactory.get('bucketlist');
+
+            if(!profileCache){
+                profileCache = CacheFactory('bucketlist');
+            }
+
+            var goalFriends = profileCache.get('goal-friends');
+
+            if (!goalFriends) {
 
                 $http.get(path)
                     .success(function(data){
                         $scope.goalFriends = data[1];
                         $scope.length = data['length'];
-                        profileCache.put('aabb', data);
+                        profileCache.put('goal-friends', data);
                     });
             }else {
-                var data = CacheFactory.get('profileCache');
-                $scope.goalFriends = data[1];
-                $scope.length = data['length'];
+                $scope.goalFriends = goalFriends[1];
+                $scope.length = goalFriends['length'];
             }
         };
 
