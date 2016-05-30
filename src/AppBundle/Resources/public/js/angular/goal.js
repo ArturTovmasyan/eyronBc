@@ -186,6 +186,7 @@ angular.module('goal', ['Interpolation',
 
                     if (!this.items.length) {
                         this.loadRandomItems(this.count);
+
                     }
 
                     //setTimeout(function () {
@@ -596,6 +597,16 @@ angular.module('goal', ['Interpolation',
     .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Activities = new lsInfiniteItems(10);
+        $scope.showNoActivities = false;
+
+        $scope.$watch('Activities.items', function(d) {
+            if(!d.length){
+                if($scope.Activities.noItem ){
+                    $scope.showNoActivities = true;
+                };
+            }
+
+        });
 
     }])
     .controller('goalFooter', ['$scope', '$http', function($scope, $http){
