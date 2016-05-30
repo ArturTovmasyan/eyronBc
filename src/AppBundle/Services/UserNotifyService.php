@@ -3,11 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Bundle\TwigBundle\TwigEngine;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\DependencyInjection\Container;
 
 
 /**
@@ -19,46 +15,15 @@ class UserNotifyService
     /**
      * @var \Symfony\Component\DependencyInjection\Container
      */
-    protected  $router;
-
-    /**
-     * @var TwigEngine
-     */
-    protected  $template;
-
-    /**
-     * @var \Swift_Mailer
-     */
-    protected  $mailer;
-
-    /**
-     * @var
-     */
-    protected  $noReplyEmail;
-
-    /**
-     * @var
-     */
-    protected  $enabled;
+    protected  $container;
 
 
     /**
-     * UserNotifyService constructor.
-     * @param Router $router
-     * @param TwigEngine $template
-     * @param \Swift_Mailer $mailer
-     * @param $notProd
-     * @param $noReplyEmail
-     * @param $enabled
+     * @param Container $container
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, $notProd, $noReplyEmail, $enabled)
+    public function __construct(Container $container)
     {
-        $this->router = $router;
-        $this->template = $template;
-        $this->mailer = $mailer;
-        $this->notProd = $notProd;
-        $this->noReplyEmail = $noReplyEmail;
-        $this->enabled = $enabled;
+        $this->container = $container;
     }
 
 
@@ -72,8 +37,14 @@ class UserNotifyService
      */
     public function sendNotifyAboutNewComment(Goal $goal, $senderName, $commentText)
     {
+        //get user notify value in parameter
+        $enabled = $this->container->getParameter('user_notify');
+
+        //get request
+        $request = $this->container->get('request');
+
         //check if user notify is disabled
-        if(!$this->enabled) {
+        if(!$enabled) {
             return;
         }
 
@@ -93,18 +64,23 @@ class UserNotifyService
         $goalTitle = $goal->getTitle();
 
         //get goal photo path
-        $goalPhotoPath =  $goal->getCoverPhotoDownloadLink();
-            
+        $basePath = $request->getSchemeAndHttpHost();
+
+        //get goal photo absolute path
+        $goalPhotoPath =  $basePath.$goal->getCoverPhotoDownloadLink();
+
+        //TODO get translator and get email text
+
         //generate goal inner page url for email
-        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
+        $url = $this->container->get('router')->generate('inner_goal', array('slug' => $slug), true);
 
         //generate content for email
-        $content = $this->template->render(
+        $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
             array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'text' => $commentText, 'photoPath'=> $goalPhotoPath, 'goalTitle' => $goalTitle, 'eventName' => 'notify_comment')
         );
         
-        $this->sendEmail($email, $content, $goalPhotoPath);
+        $this->sendEmail($email, $content);
     }
 
     /**
@@ -155,10 +131,10 @@ class UserNotifyService
     public function sendEmail($email, $content)
     {
         //get no-reply email
-        $noReplyEmail = $this->noReplyEmail;
+        $noReplyEmail = $this->container->getParameter('no_reply');
 
         //get kernel debug
-        $notProd = $this->notProd;
+        $notProd = $this->container->getParameter('kernel.debug');
 
         //check if environment is not prod
         if($notProd){
@@ -170,12 +146,12 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from bucketlist 127')
                 ->setFrom($noReplyEmail)
-                ->setTo($email)
+                ->setTo('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
             //send email
-            $this->mailer->send($message);
+            $this->container->get('mailer')->send($message);
 
         } catch(\Swift_TransportException $e) {
 

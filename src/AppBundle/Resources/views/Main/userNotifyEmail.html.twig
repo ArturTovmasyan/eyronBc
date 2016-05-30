@@ -7,19 +7,19 @@
     </div>
        <p>{{ text }}</p>
 
-    {#{% set cover = photoPath %}#}
-    {#{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
+    {% set cover = photoPath %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
 
-    {#<figure class="goal-image">#}
-        {#<span class="overlay"></span>#}
-        {#<img src="#}
-        {#{% if cover %}#}
-             {#{{ cover|blImageFilter('goal_bg') }}#}
-        {#{% else %}#}
-             {#{{ asset(imgPath)}}#}
-        {#{% endif %}"#}
-             {#alt="{{ goalTitle }}" />#}
-    {#</figure>#}
+    <figure class="goal-image">
+        <span class="overlay"></span>
+        <img src="
+        {% if cover %}
+             {{ cover|blImageFilter('goal_bg') }}
+        {% else %}
+             {{ asset(imgPath)}}
+        {% endif %}"
+             alt="{{ goalTitle }}" />
+    </figure>
 
     <p>
         <a href = "{{ link }}">View on Bucket List 127</a>

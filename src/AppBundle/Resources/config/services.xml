@@ -19,12 +19,7 @@
 
         <!--  User Notify Service -->
         <service id="user_notify" class="AppBundle\Services\UserNotifyService">
-            <argument type="service" id="router" />
-            <argument type="service" id="templating" />
-            <argument type="service" id="mailer" />
-            <argument>%kernel.debug%</argument>
-            <argument>%no_reply%</argument>
-            <argument>%user_notify%</argument>
+            <argument type="service" id="service_container" />
         </service>
 
         <service id="bl.location.type" class="AppBundle\Form\Type\LocationType">
