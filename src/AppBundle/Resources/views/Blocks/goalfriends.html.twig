@@ -1,44 +1,40 @@
 {% if user is defined %}
-    {% set goalFriends = goalFriends(user) %}
-    <div class="bg-white padding round margin-top">
+    <div data-ng-controller="goalFriends">
+        <div class="bg-white padding round margin-top"
+             data-ng-cloak
+             data-ng-init = "userId = {{ user.id }}">
 
-        <a href="{{ path('goal_friends') }}" class="heading text-gray">
-            <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-            <span class="text">{{ 'goalfriends'|trans }} {{ goalFriends|length }}</span>
-        </a>
+            <a href="{{ path('goal_friends') }}" class="heading text-gray">
+                <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                <span class="text">{{ 'goalfriends'|trans }} [[ length ]]</span>
+            </a>
 
-        <hr/>
+            <hr/>
 
-        <ul class="list">
-
-            {% for goalFriend in goalFriends|slice(0,2) %}
-                <li class="clearfix">
-                    <a href="{{ path('user_profile', {'user': goalFriend.uId, 'status': 'all'}) }}">
+            <ul class="list">
+                <li class="clearfix"
+                    data-ng-cloak
+                    data-ng-repeat="goalFriend in goalFriends">
+                    <a href="[[ prefix ]]profile/[[ goalFriend.u_id ]]/all">
 
                         <figure class="image">
                             {#{% if goalStatus == false %}#}
                                 {#<i class="icon-lock-white"></i>#}
                             {#{% endif %}#}
-                            {% if goalFriend.getPhotoLink() %}
-                                <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive"/>
-                            {% else %}
-                                {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
-                                {% set className = "user-no" ~ random(4) %}
-                                <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
-                            {% endif %}
+                            <img data-ng-if="goalFriend.cached_image.length != 2"  data-ng-src="[[ goalFriend.cached_image ]]" alt="[[ goalFriend.first_name ]]" class="img-circle img-responsive"/>
+                            {% set className = "user-no" ~ random(4) %}
+                            <p data-ng-if="goalFriend.cached_image.length == 2" class="no-image {{ className }}">[[ goalFriend.cached_image | uppercase ]]</p>
                         </figure>
 
-                        <div class="pull-left text-gray">
-                            <h4 class="text-dark-gray">{{ goalFriend.firstname }} {{ goalFriend.lastname }}</h4>
+                        <div class="pull-left text-gray" data-ng-init="stats = goalFriend.stats">
+                            <h4 class="text-dark-gray">[[ goalFriend.first_name ]] [[ goalFriend.last_name ]]</h4>
 
-                            {% set stats = goalFriend.getStats %}
-                            <span class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</span> |
-                            <span class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</span>
+                            <span class="text-gray">{{ 'listed_by'|trans }} [[ stats.listedBy ]]</span> |
+                            <span class="text-gray">{{ 'completed'|trans }} [[ stats.doneBy ]]</span>
                         </div>
                     </a>
                 </li>
-            {% endfor %}
-
-        </ul>
+            </ul>
+        </div>
     </div>
 {% endif %}
