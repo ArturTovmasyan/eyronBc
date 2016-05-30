@@ -1,7 +1,8 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-<html data-ng-app="goal" data-ng-controller="activities" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
+<html data-ng-app="goal" data-ng-controller="ActivityController" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
+
 
 
 {% block content %}
@@ -10,17 +11,16 @@
     <div id="news-feed">
         <div class="container">
             <div class="row"
-                {% if activities_count != 0 %}
-                     data-infinite-scroll='Activities.nextPage("/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
-                     data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
-                     data-infinite-scroll-distance='2'
-                {% endif %}>
+                 data-infinite-scroll='Activities.nextPage("{% if app.debug %}/app_dev.php{% endif %}/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
+                 data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
+                 data-infinite-scroll-distance='2'>
+
                 <div class="col-md-8" id="activities">
-                    {% if activities_count == 0 %}
-                        <h3 class="text-dark-gray">{{ 'active.not_have'|trans }}
+
+                        <h3 class="text-dark-gray" data-ng-show="!Activities.items">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
                         </h3>
-                    {% endif %}
+
                     <div class="goals-animate"
                          data-ng-cloak
                          {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
