@@ -1,0 +1,2 @@
+notify_comment: Hello %userName%, %senderName% has left a <b>comment</b> on your <a href = %link%>Goal</a>
+notify_success_story: Hello %userName%, %senderName% has written a <b>success story</b> to your <a href = %link%>Goal</a>

@@ -91,7 +91,7 @@ class UserNotifyService
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
         //generate content for comment
-        $content = $this->translator->trans('notify_comment', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url));
+        $content = $this->translator->trans('notify_comment', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url), 'email');
 
         $this->sendEmail($email, $content);
     }
@@ -126,7 +126,7 @@ class UserNotifyService
         $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
 
         //generate content for success story
-        $content = $this->translator->trans('notify_success_story', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url));
+        $content = $this->translator->trans('notify_success_story', array('%senderName%' => $senderName, '%userName%' => $authorName, '%link%' => $url), 'email');
 
         $this->sendEmail($email, $content);
     }
