@@ -170,7 +170,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from bucketlist 127')
                 ->setFrom($noReplyEmail)
-                ->setTo('ateptan777@gmail.com')
+                ->setTo($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
