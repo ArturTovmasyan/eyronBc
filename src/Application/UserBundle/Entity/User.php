@@ -263,6 +263,18 @@ class User extends BaseUser
     private $cachedImage;
 
     /**
+     * @ORM\Column(name="comment_notify", type="boolean", nullable=true)
+     * @var
+     */
+    private $commentNotify;
+
+    /**
+     * @ORM\Column(name="success_story_notify", type="boolean", nullable=true)
+     * @var
+     */
+    private $successStoryNotify;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -1478,5 +1490,51 @@ class User extends BaseUser
     public function setCachedImage($cachedImage)
     {
         $this->cachedImage = $cachedImage;
+    }
+
+    /**
+     * Set commentNotify
+     *
+     * @param boolean $commentNotify
+     * @return User
+     */
+    public function setCommentNotify($commentNotify)
+    {
+        $this->commentNotify = $commentNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get commentNotify
+     *
+     * @return boolean 
+     */
+    public function getCommentNotify()
+    {
+        return $this->commentNotify;
+    }
+
+    /**
+     * Set successStoryNotify
+     *
+     * @param boolean $successStoryNotify
+     * @return User
+     */
+    public function setSuccessStoryNotify($successStoryNotify)
+    {
+        $this->successStoryNotify = $successStoryNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get successStoryNotify
+     *
+     * @return boolean 
+     */
+    public function getSuccessStoryNotify()
+    {
+        return $this->successStoryNotify;
     }
 }

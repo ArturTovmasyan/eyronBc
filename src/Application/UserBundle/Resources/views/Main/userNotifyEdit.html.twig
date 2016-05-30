@@ -1,0 +1,56 @@
+{% extends "ApplicationUserBundle:Basses:settings.html.twig" %}
+
+{% block settings_content %}
+
+    <div id="settings-modal">
+        <div class="settings">
+            <form action="{{ path('edit_user_notify') }}" method="POST">
+                <div class="form-group row">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-9 control-label">{{ 'Comments' }}</label>
+
+                                <div class="col-sm-3">
+                                    <input value="1" type="checkbox" name="comment"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-9 control-label">{{ 'Success stories' }}</label>
+
+                                <div class="col-sm-3">
+                                    <input value="1"  type="checkbox" name="story">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-bottom">
+                    <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                    {#<a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>#}
+                </div>
+
+                {{ form_widget(form._token) }}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{%- block title -%}
+    {{ 'user.settings'|trans({},'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'goal.list_description'|trans }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

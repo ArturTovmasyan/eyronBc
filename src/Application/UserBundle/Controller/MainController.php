@@ -4,6 +4,7 @@ namespace Application\UserBundle\Controller;
 
 use Application\UserBundle\Entity\User;
 use Application\UserBundle\Form\SettingsType;
+use Application\UserBundle\Form\UserNotifySettingsType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -401,5 +402,145 @@ class MainController extends Controller
 
 
         return $this->redirect($url);
+    }
+
+    /**
+     * @Route("/edit/user-notify", name="edit_user_notify")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function userNotifyEditAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+
+        // create goal form
+        $form = $this->createForm(new UserNotifySettingsType(), $user);
+
+        // check request method
+        if ($request->isMethod('POST')) {
+
+            // get data from request
+            $form->handleRequest($request);
+
+            // check valid
+            if($form->isValid()){
+
+                $em->flush();
+                
+                return $this->redirectToRoute('edit_user_notify');
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/edit/user-profile", name="edit_user_profile")
+     * @Security("has_role('ROLE_USER')")
+     * @Template("ApplicationUserBundle:Main:profileEdit.html.twig")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function profileEditAction(Request $request)
+    {
+        
+        //get user in db
+        $user = $this->getUser();
+
+//        //get session
+//        $session = $request->getSession();
+//
+//        //check if user and session url exist
+//        if ($session->has('addUrl')) {
+//            $session->remove('addUrl');
+//        }
+
+        //get current email
+        $currentEmail = $user->getEmail();
+
+        // create goal form
+        $form = $this->createForm(new SettingsType(), $user);
+
+        // check request method
+        if ($request->isMethod('POST')) {
+
+            //get form data in request
+            $formData = $request->request->get('bl_user_settings');
+
+            // get data from request
+            $form->handleRequest($request);
+
+            //get primary email
+            $primaryEmail = $request->request->get('primary');
+
+            //check if primary email equal current email
+            if ($primaryEmail != null && $primaryEmail == $currentEmail) {
+
+                //set primary email
+                $primaryEmail = null;
+            }
+            else {
+
+                //set for check user duplicate error
+                $user->setEmail($primaryEmail);
+            }
+
+            //get validator
+            $validator = $this->get('validator');
+
+            //get errors
+            $errors = $validator->validate($user, null, array('Settings'));
+
+            //returned value
+            $returnResult = array();
+
+            //check count of errors
+            if (count($errors) > 0) {
+
+                // loop for error
+                foreach ($errors as $error) {
+                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
+                }
+            }
+            else{
+
+                //set current email
+                $user->setEmail($currentEmail);
+
+                if ($currentEmail == $user->getSocialFakeEmail() && $formData['addEmail']){
+                    $user->setEmail($formData['addEmail']);
+                    $formData['addEmail'] = "";
+                    $request->request->set('bl_user_settings', $formData);
+                }
+            }
+
+            //check if form is valid
+            if ($form->isValid() && count($returnResult) == 0) {
+
+                //set primary value in entity
+                $user->primary = $primaryEmail;
+
+                //set updated for preUpdate event
+                $user->setUpdated(new \DateTime());
+
+                //get fos user manager
+                $fosManager = $this->container->get('fos_user.user_manager');
+
+                //get uploadFile service
+                $this->get('bl_service')->uploadFile($user);
+
+                //update user
+                $fosManager->updateUser($user);
+
+                return $this->redirectToRoute('edit_user_profile');
+
+            }
+
+        }
+
+        return array('form' => $form->createView());
     }
 }

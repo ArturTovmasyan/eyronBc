@@ -1,0 +1,32 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block AngularApp %} <html> {% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="settings">
+        <div class="container">
+
+            <div class="row bg-white">
+
+                <div class="col-md-8 col-md-offset-2">
+
+                    <div class="settings-menu">
+                        {{ knp_menu_render('ApplicationUserBundle:Profile:settingsMenu') }}
+                    </div>
+
+                    {% block settings_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -177,6 +177,7 @@ user:
     account_verified_description: Description for account verified page
     register_title: Registration
     register_description: Description for registration
+    settings: User settings
 
 
 First name: First name
