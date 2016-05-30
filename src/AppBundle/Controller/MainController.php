@@ -249,17 +249,7 @@ class MainController extends Controller
      */
     public function activitiesAction(Request $request)
     {
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-
-        $em = $this->getDoctrine()->getManager();
-        $newsFeedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), true);
-
-        //check if user don't have activity
-        if($newsFeedCount == 0) {
-            return $this->redirectToRoute('homepage');
-        }
-
-        return array('activities_count' => $newsFeedCount);
+        return array();
     }
 
     /**

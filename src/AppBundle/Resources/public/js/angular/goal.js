@@ -11,12 +11,22 @@ angular.module('goal', ['Interpolation',
         'videosharing-embed',
         'Components',
         'LocalStorageModule',
+        'angular-cache',
         'ngResource'
     ])
-    .config(function (localStorageServiceProvider) {
-    localStorageServiceProvider
-        .setPrefix('goal')
-        .setNotify(false, false)
+    .config(function (localStorageServiceProvider ) {
+
+        localStorageServiceProvider
+            .setPrefix('goal')
+            .setNotify(false, false);
+    })
+    .config(function(CacheFactoryProvider){
+        angular.extend(CacheFactoryProvider.defaults, {
+            maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+            cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
+            deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+            storageMode: 'localStorage' // This cache will use `localStorage`.
+        });
     })
     .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
@@ -583,18 +593,9 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('activities', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Activities = new lsInfiniteItems(10);
-        //$scope.$watch('Activities.oldChache',function(cache){
-        //    $timeout(function(){
-        //        if($scope.Activities.oldChache){
-        //            $scope.Activities.reset();
-        //            $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
-        //        }
-        //    }, 1000);
-        //
-        //})
 
     }])
     .controller('goalFooter', ['$scope', '$http', function($scope, $http){
@@ -636,6 +637,42 @@ angular.module('goal', ['Interpolation',
                 });
         }
 
+    }])
+    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
+        var path = "/api/v1.0/goal-friends/{id}";
+
+
+        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+
+        $scope.getGaolFriends = function(id){
+            path = path.replace('{id}', id);
+
+
+            var profileCache = CacheFactory.get('bucketlist');
+
+            if(!profileCache){
+                profileCache = CacheFactory('bucketlist');
+            }
+
+            var goalFriends = profileCache.get('goal-friends');
+
+            if (!goalFriends) {
+
+                $http.get(path)
+                    .success(function(data){
+                        $scope.goalFriends = data[1];
+                        $scope.length = data['length'];
+                        profileCache.put('goal-friends', data);
+                    });
+            }else {
+                $scope.goalFriends = goalFriends[1];
+                $scope.length = goalFriends['length'];
+            }
+        };
+
+        $scope.$watch('userId', function(id){
+            $scope.getGaolFriends(id);
+        })
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {
