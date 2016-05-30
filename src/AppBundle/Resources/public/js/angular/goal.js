@@ -603,9 +603,9 @@ angular.module('goal', ['Interpolation',
             if(!d.length){
                 if($scope.Activities.noItem ){
                     $scope.showNoActivities = true;
+                    angular.element('#non-activity').css('display', 'block');
                 };
             }
-
         });
 
     }])
