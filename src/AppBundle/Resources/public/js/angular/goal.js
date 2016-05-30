@@ -593,18 +593,9 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('activities', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Activities = new lsInfiniteItems(10);
-        //$scope.$watch('Activities.oldChache',function(cache){
-        //    $timeout(function(){
-        //        if($scope.Activities.oldChache){
-        //            $scope.Activities.reset();
-        //            $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
-        //        }
-        //    }, 1000);
-        //
-        //})
 
     }])
     .controller('goalFooter', ['$scope', '$http', function($scope, $http){
