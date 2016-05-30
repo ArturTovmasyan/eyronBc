@@ -139,7 +139,9 @@
                     </div>
                     <div class="col-sm-4">
                         {% if profileUser.showName %}
-                             <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
+                             <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
+                                 <span class="bg-blue">{{ profileUser.showName }}</span>
+                             </h1>
                         {% endif %}
                     {% if  profileUser.getAge  %}
                     <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
