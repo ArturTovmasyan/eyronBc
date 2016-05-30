@@ -72,6 +72,10 @@ class NewsFeedService
     {
         $entityLogs = $this->em->getRepository('AppBundle:NewFeed')->findUnconvertedLogs();
 
+        if (count($entityLogs) == 0){
+            return null;
+        }
+
         $userUsernames = [];
         //Get logged entities ids in corresponding arrays
         foreach($entityLogs as $entityLog){
@@ -106,6 +110,8 @@ class NewsFeedService
 
         $this->em->flush();
 
+        $this->em->getRepository('AppBundle:NewFeed')->deleteConvertedLogs();
+
         return $newsFeed;
     }
 
@@ -120,7 +126,7 @@ class NewsFeedService
         }
 
         $userGoal = $this->userGoals[$entityLog->getObjectId()];
-        if ($entityLog->getAction() == "create" &&
+        if ($entityLog->getAction() == "create" && !is_null($userGoal->getGoal()->getAuthor()) &&
             $userGoal->getGoal()->getAuthor()->getId() == $userGoal->getUser()->getId()){
                 return null;
         }

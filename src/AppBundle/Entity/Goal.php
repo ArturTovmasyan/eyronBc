@@ -45,6 +45,9 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     // constants for inner page
     const INNER = "inner";
     const VIEW = "view";
+    
+    const COMMENT = 0;
+    const STORY = 1;
 
     // use location trait
     use Location;
@@ -1045,5 +1048,20 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     public function getMergedGoalId()
     {
         return $this->mergedGoalId;
+    }
+
+    /**
+     * This function is used to check goal has author for notify
+     * 
+     * @param null $senderName
+     * @return bool
+     */
+    public function hasAuthorForNotify($senderName)
+    {
+        if(($this->getAuthor() != null) && (!$this->getAuthor()->isAdmin()) && ($this->getAuthor()->showName() !== $senderName)) {
+            return true;
+        }
+        
+        return false;
     }
 }

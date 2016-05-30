@@ -327,15 +327,12 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED);
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
-
-        $paginator  = $this->get('knp_paginator');
-        $doneByUsers = $paginator->paginate($doneByUsers, 1, 3);
-        $listedByUsers = $paginator->paginate($listedByUsers, 1, 3);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 1, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 1, 3);
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
@@ -361,6 +358,7 @@ class GoalController extends Controller
     {
         // get current user
         $user = $this->getUser();
+        //$this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -424,6 +422,9 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
+        //get user name
+        $userName = $user->showName();
+        
         // create form
         $form = $this->createForm(new SuccessStoryType(), $story);
 
@@ -441,6 +442,13 @@ class GoalController extends Controller
                     $videoLinks = array_filter($videoLinks);
 
                     $story->setVideoLink($videoLinks);
+                }
+
+                //check if goal author not admin and not null
+                if($goal->hasAuthorForNotify($userName)) {
+                    
+                    //send success story notify
+                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
                 }
 
                 // get images ids
@@ -511,18 +519,20 @@ class GoalController extends Controller
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get current user
         $user = $this->getUser();
 
-        //get bl service
-        $blService = $this->get('bl_service');
-
         //get GA service
         $analyticService = $this->get('google_analytic');
 
-        //check and set user activity by new feed count
-        $blService->setUserActivity($user, $inLogin = false);
+        if (!$user->getActivity()){
+            //get bl service
+            $blService = $this->get('bl_service');
+            //check and set user activity by new feed count
+            $blService->setUserActivity($user, $inLogin = false);
+        }
 
         // create filter
         $filters = array(
@@ -687,6 +697,7 @@ class GoalController extends Controller
                 $analyticService->addGoalEvent();
             }
         }
+
 
         return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
     }
@@ -886,8 +897,13 @@ class GoalController extends Controller
         //set myBucketList route name
         $url = 'user_profile';
 
-        //check and set user activity by new feed count
-        $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+        if ($user->getActivity()){
+            //check and set user activity by new feed count
+            $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+        }
+        else {
+            $em->flush();
+        }
 
         return $this->redirectToRoute($url);
     }

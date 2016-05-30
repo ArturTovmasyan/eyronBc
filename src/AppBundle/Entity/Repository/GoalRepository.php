@@ -294,9 +294,69 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $userId
+     * @param $search
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findGoalFriendIds($userId, $search)
+    {
+        $search = str_replace(' ', '', $search);
+
+        $sqlJoin = "";
+        if ($search){
+            $search = '%' . $search . '%';
+            $sqlJoin = " AND (u.first_name LIKE :search
+                           OR u.last_name LIKE :search
+                           OR u.email LIKE :search
+                           OR CONCAT(u.first_name, u.last_name) LIKE :search) ";
+        }
+
+        //TODO roles in query must be changed
+        $connection = $this->getEntityManager()->getConnection();
+        $statement = $connection->prepare("SELECT DISTINCT ug.user_id
+                                           FROM users_goals AS ug
+                                           JOIN fos_user as u ON u.id = ug.user_id AND u.roles = :roles
+                                           $sqlJoin
+                                           WHERE ug.goal_id IN (SELECT ug1.goal_id
+                                                                FROM users_goals AS ug1
+                                                                WHERE ug1.user_id = :userId)
+                                           AND ug.user_id != :userId");
+        $statement->bindValue('userId', $userId);
+        $statement->bindValue('roles', 'a:0:{}');
+        if ($search){
+            $statement->bindValue('search', $search);
+        }
+        $statement->execute();
+
+        $userIds = $statement->fetchAll(\PDO::FETCH_COLUMN);
+
+        return $userIds;
+    }
+
+    /**
+     * @param $userId
+     * @param bool|false $getOnlyIds
+     * @param null $count
+     * @param null $search
+     * @param bool|false $getOnlyQuery
      * @return array
      */
     public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
+    {
+        if ($getOnlyIds){
+            $goalFriendIds = $this->findGoalFriendIds($userId, $search);
+
+            return $goalFriendIds;
+        }
+
+        return $this->findGoalFriendsDoctrine($userId, null, $count, $search, $getOnlyQuery);
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
     {
         $search = str_replace(' ', '', $search);
 
@@ -323,23 +383,15 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%');
         }
 
+        if ($count){
+            $query->setMaxResults($count);
+        }
+
         if ($getOnlyQuery){
             return $query->getQuery();
         }
 
-        $results = $query->getQuery()->getResult();
-
-
-        if ($getOnlyIds){
-            $ids = [];
-            foreach($results as $result){
-                $ids[] = $result->getId();
-            }
-
-            return $ids;
-        }
-
-        return $results;
+        return $query->getQuery()->getResult();
     }
 
     /**
@@ -386,19 +438,35 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * @param $goalId
      * @param $status
-     * @return array
+     * @param null $first
+     * @param null $count
+     * @param bool|false $getQuery
+     * @return array|Query
      */
-    public function findGoalUsers($goalId, $status)
+    public function findGoalUsers($goalId, $status, $first = null, $count = null, $getQuery = false)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT u
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT u, ug
                            FROM ApplicationUserBundle:User u
-                           JOIN u.userGoal ug
-                           JOIN ug.goal g
-                           WHERE (ug.status = :status OR :status IS NULl) AND g.id = :goalId")
+                           INDEX BY u.id
+                           JOIN u.userGoal ug WITH ug.status = :status OR :status IS NULl
+                           JOIN ug.goal g WITH g.id = :goalId");
+
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+        }
+
+        $query
             ->setParameter('status', $status)
-            ->setParameter('goalId', $goalId)
-            ->getResult();
+            ->setParameter('goalId', $goalId);
+
+        if ($getQuery){
+            return $query;
+        }
+
+        return $query->getResult();
     }
 
     /**
@@ -486,5 +554,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         }
 
         return $random;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findGoalWithAuthor($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, a
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.author a
+                           WHERE g.id = :id")
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
     }
 }

@@ -33,7 +33,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                              FROM AppBundle:UserGoal ug
                              LEFT JOIN ug.user u
                              LEFT JOIN ug.goal g
-                             LEFT JOIn g.images i
+                             LEFT JOIN g.images i
                              LEFT JOIN g.author a
                              WHERE u.id = :uid and g.id = :gid
                             ")
@@ -159,7 +159,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                            INDEX BY ug.id
                            JOIN ug.user u
                            JOIN ug.goal g
-                           JOIN g.author author
+                           LEFT JOIN g.author author
                            WHERE ug.id IN (:userGoalIds)")
             ->setParameter('userGoalIds', $ids)
             ->getResult();

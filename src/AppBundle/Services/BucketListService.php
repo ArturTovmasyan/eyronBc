@@ -149,7 +149,7 @@ class BucketListService
         $this->container->get('bl_news_feed_service')->updateNewsFeed();
         
         //If user is logged in then show news feed
-        $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeedCounts($user->getId());
+        $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 
         //check if service call after login
         if ($inLogin) {

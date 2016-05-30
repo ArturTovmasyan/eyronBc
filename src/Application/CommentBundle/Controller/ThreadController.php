@@ -36,6 +36,22 @@ class ThreadController extends BaseController
      */
     protected function onCreateCommentSuccess(FormInterface $form, $id, CommentInterface $parent = null)
     {
+        //get entity manager
+        $em = $this->container->get('doctrine')->getManager();
+
+        //get goal by id
+        $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($id);
+
+        //get user name
+        $userName = $this->getUser()->showName();
+
+        //check if goal author is not admin and not null
+        if($goal && $goal->hasAuthorForNotify($userName)) {
+
+            //send success story notify
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+        }
+
         //send comment event in google analytics
         $this->container->get('google_analytic')->commentEvent();
         

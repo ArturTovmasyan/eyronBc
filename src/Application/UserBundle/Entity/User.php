@@ -74,7 +74,7 @@ class User extends BaseUser
     protected $registrationIds;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"})
      **/
     protected $userGoal;
 
