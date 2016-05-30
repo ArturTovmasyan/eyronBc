@@ -89,7 +89,7 @@ class NewsFeedController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $id
@@ -101,18 +101,49 @@ class NewsFeedController extends FOSRestController
 
         $goalFriends = $em->getRepository("AppBundle:Goal")->findGoalFriends($id, false);
 
-//        foreach($newsFeeds as $newsFeed){
-//            $newsFeed->getGoal()->setStats([
-//                'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
-//                'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
-//            ]);
-//        }
+        $length = count($goalFriends) - 1;
 
-//        $liipManager = $this->get('liip_imagine.cache.manager');
-//        foreach($newsFeeds as $newsFeed){
-//            $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-//        }
+        //keys for random 3 items
+        $i = 0;$j = 1;$k = 2;$count = 0;
+        $friends = [];
+        $friends['length'] = $length + 1;
 
-        return $goalFriends;
+        if($length > 2){
+            $i = rand(0, $length);
+            $j = rand(0, $length);
+            $k = rand(0, $length);
+            while($i == $j || $i == $k || $k == $j){
+                $j = rand(0, $length);
+                $k = rand(0, $length);
+            }
+        }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($goalFriends as $goalFriend){
+
+            if($goalFriend->getImagePath()){
+                $goalFriend->setCachedImage($liipManager->getBrowserPath($goalFriend->getImagePath(), 'user_icon'));
+            }else{
+                $name = $goalFriend->getFirstName()[0].$goalFriend->getLastName()[0];
+                $goalFriend->setCachedImage($name);
+            }
+
+            switch ($count) {
+                case $i:
+                    $friends[1][] = $goalFriend;
+                    break;
+                case $j:
+                    $friends[1][] = $goalFriend;
+                    break;
+                case $k:
+                    $friends[1][] = $goalFriend;
+                    break;
+            }
+            $count++;
+
+        }
+
+        return $friends;
     }
 }

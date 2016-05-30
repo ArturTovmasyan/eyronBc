@@ -11,12 +11,15 @@ angular.module('goal', ['Interpolation',
         'videosharing-embed',
         'Components',
         'LocalStorageModule',
+        'angular-cache',
         'ngResource'
     ])
-    .config(function (localStorageServiceProvider) {
+    .config(function (localStorageServiceProvider, CacheFactoryProvider) {
     localStorageServiceProvider
         .setPrefix('goal')
-        .setNotify(false, false)
+        .setNotify(false, false);
+    angular.extend(CacheFactoryProvider.defaults, { maxAge: 60 * 1000,
+        storageMode: 'localStorage'});
     })
     .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
@@ -637,45 +640,38 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('goalFriends', ['$scope', '$http', '$compile', function($scope, $http, $compile){
-
-        $scope.disableScroll = false;
-        $scope.goalFriends = {};
+    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
         var path = "/api/v1.0/goal-friends/{id}";
+        var profileCache;
 
-        $scope.prefix = "/";
+        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
 
         $scope.getGaolFriends = function(id){
             path = path.replace('{id}', id);
-            $http.get(path)
-                .success(function(data){
-                    $scope.goalFriends = data;
-                    $scope.disableScroll = true;
-                    $scope.length = Object.keys($scope.goalFriends).length;
-                    console.log($scope.goalFriends);
-                    //$scope[id] = true;
-                    //angular.element('#'+id).click();
+            if (!CacheFactory.get('profileCache')) {
+
+                profileCache = CacheFactory.createCache('profileCache', {
+                    maxAge: 10 * 60 * 1000, // 1 minute
+                    deleteOnExpire: 'aggressive',
+                    storageMode: 'localStorage'
                 });
+
+                $http.get(path)
+                    .success(function(data){
+                        $scope.goalFriends = data[1];
+                        $scope.length = data['length'];
+                        profileCache.put('aabb', data);
+                    });
+            }else {
+                var data = CacheFactory.get('profileCache');
+                $scope.goalFriends = data[1];
+                $scope.length = data['length'];
+            }
         };
 
-        //$scope.onMarkerClick = function(goal){
-        //    $http.get(mapModalTemplateUrl)
-        //        .success(function(res){
-        //
-        //            var newSc = $scope.$new();
-        //            newSc.goal = goal;
-        //
-        //            var tmp = $compile(res)(newSc);
-        //            angular.element('body').append(tmp);
-        //            tmp.modal({
-        //                fadeDuration: 500
-        //            });
-        //            tmp.on($.modal.CLOSE, function(){
-        //                tmp.remove();
-        //            })
-        //        });
-        //}
-
+        $scope.$watch('userId', function(id){
+            $scope.getGaolFriends(id);
+        })
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {
