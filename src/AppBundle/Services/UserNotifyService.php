@@ -46,16 +46,16 @@ class UserNotifyService
      * @param Router $router
      * @param Translator $translator
      * @param \Swift_Mailer $mailer
-     * @param $isDebug
+     * @param $notProd
      * @param $noReplyEmail
      * @param $enabled
      */
-    public function __construct(Router $router, Translator $translator, \Swift_Mailer $mailer, $isDebug, $noReplyEmail, $enabled)
+    public function __construct(Router $router, Translator $translator, \Swift_Mailer $mailer, $notProd, $noReplyEmail, $enabled)
     {
         $this->router = $router;
         $this->translator = $translator;
         $this->mailer = $mailer;
-        $this->isDebug = $isDebug;
+        $this->notProd = $notProd;
         $this->noReplyEmail = $noReplyEmail;
         $this->enabled = $enabled;
     }
@@ -142,11 +142,11 @@ class UserNotifyService
         //get no-reply email
         $noReplyEmail = $this->noReplyEmail;
 
-        //get environment
-        $isDebug = $this->isDebug;
+        //get kernel debug
+        $notProd = $this->notProd;
 
-        //check environment
-        if($isDebug){
+        //check if environment is not prod
+        if($notProd){
             return;
         }
 
