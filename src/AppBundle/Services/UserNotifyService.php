@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
+use Application\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\Container;
 
 
@@ -31,53 +32,46 @@ class UserNotifyService
      * This function is used to send notify about new comment
      *
      * @param Goal $goal
-     * @param $senderName
+     * @param User $user
      * @param $commentText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewComment(Goal $goal, $senderName, $commentText)
+    public function sendNotifyAboutNewComment(Goal $goal, User $user, $commentText)
     {
         //get user notify value in parameter
         $enabled = $this->container->getParameter('user_notify');
 
-        //get request
-        $request = $this->container->get('request');
+        //get kernel debug
+        $notProd = $this->container->getParameter('kernel.debug');
 
         //check if user notify is disabled
-        if(!$enabled) {
+        if(!$enabled || $notProd) {
             return;
+        }
+
+        //check if comment text is null
+        if(!$commentText) {
+
+            //get entity manager
+            $em = $this->container->get('doctrine')->getManager();
+
+            //get last comment
+            $lastComment = $em->getRepository('ApplicationCommentBundle:Comment')->findLastCommentByGoalId($goal->getId());
+
+            //get comment text
+            $commentText = $lastComment['body'];
         }
 
         //get goal author
         $author = $goal->getAuthor();
-
+        
         //get author email
         $email = $author->getEmail();
-
-        //get author name
-        $authorName = $author->showName();
-
-        //get goal slug
-        $slug = $goal->getSlug();
-
-        //get goal title
-        $goalTitle = $goal->getTitle();
-
-        //get goal photo path
-        $basePath = $request->getSchemeAndHttpHost();
-
-        //get goal photo absolute path
-        $goalPhotoPath =  $basePath.$goal->getCoverPhotoDownloadLink();
-
-        //TODO get translator and get email text
-
-        //generate goal inner page url for email
-        $url = $this->container->get('router')->generate('inner_goal', array('slug' => $slug), true);
 
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'text' => $commentText, 'photoPath'=> $goalPhotoPath, 'goalTitle' => $goalTitle, 'eventName' => 'notify_comment')
+            array('eventText' => $commentText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_comment')
         );
         
         $this->sendEmail($email, $content);
@@ -87,36 +81,33 @@ class UserNotifyService
      * This function is used to send notify about new success story
      *
      * @param Goal $goal
-     * @param $senderName
+     * @param User $user
      * @param $storyText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName, $storyText)
+    public function sendNotifyAboutNewSuccessStory(Goal $goal, User $user, $storyText)
     {
+        //get user notify value in parameter
+        $enabled = $this->container->getParameter('user_notify');
+
+        //get kernel debug
+        $notProd = $this->container->getParameter('kernel.debug');
+
         //check if user notify is disabled
-        if(!$this->enabled) {
+        if(!$enabled || $notProd) {
             return;
         }
 
         //get goal author
         $author = $goal->getAuthor();
 
-        //get goal author email
+        //get author email
         $email = $author->getEmail();
 
-        //get goal author name
-        $authorName = $author->showName();
-
-        //get goal slug
-        $slug = $goal->getSlug();
-
-        //generate goal inner page url for email
-        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
-
         //generate content for email
-        $content = $this->template->render(
+        $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'text' => $storyText, 'eventName' => 'notify_comment')
+            array('eventText' => $storyText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_success_story')
         );
 
         $this->sendEmail($email, $content);
@@ -133,20 +124,15 @@ class UserNotifyService
         //get no-reply email
         $noReplyEmail = $this->container->getParameter('no_reply');
 
-        //get kernel debug
-        $notProd = $this->container->getParameter('kernel.debug');
-
-        //check if environment is not prod
-        if($notProd){
-            return;
-        }
+        //get project name
+        $projectName = $this->container->getParameter('project_name');
 
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
                 ->setSubject('You have a message from bucketlist 127')
-                ->setFrom($noReplyEmail)
-                ->setTo('ateptan777@gmail.com')
+                ->setFrom($noReplyEmail, $projectName)
+                ->setTo($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

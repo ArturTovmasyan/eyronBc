@@ -425,9 +425,6 @@ class GoalController extends Controller
         //get current user id
         $userId = $user->getId();
 
-        //get user name
-        $userName = $user->showName();
-        
         // create form
         $form = $this->createForm(new SuccessStoryType(), $story);
 
@@ -451,7 +448,7 @@ class GoalController extends Controller
                 if($goal->hasAuthorForNotify($userId)) {
 
                     //send success story notify
-                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName, $story->getStory());
+                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story->getStory());
                 }
 
                 // get images ids

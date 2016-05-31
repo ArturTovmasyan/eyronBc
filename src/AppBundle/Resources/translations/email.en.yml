@@ -1,2 +1,3 @@
 notify_comment: Hello %userName%, %senderName% has left a <a href = %link%>comment</a> on your goal:
 notify_success_story: Hello %userName%, %senderName% has written a <a href = %link%>success story</a> to your goal:
+notify_email_footer: This message was sent to %email%. If you don't want to receive these emails from <a href = %homePage%>Bucket List 127</a> in the future, please manage your subscription.

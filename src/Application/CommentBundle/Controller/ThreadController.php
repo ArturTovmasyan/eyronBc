@@ -48,14 +48,11 @@ class ThreadController extends BaseController
         //get current user id
         $userId = $user->getId();
 
-        //get user name
-        $userName = $user->showName();
-
         //check if goal author is not admin and not null
         if($goal && $goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, null);
         }
 
         //send comment event in google analytics
