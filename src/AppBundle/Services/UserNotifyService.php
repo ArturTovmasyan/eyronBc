@@ -72,7 +72,7 @@ class UserNotifyService
         $userName = $user->showName();
 
         //get subject for email
-        $subject = $this->container->get('translator')->trans('subject_form_comment_email', array('%senderName%' => $userName), 'email');
+        $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email');
 
         //generate content for email
         $content = $this->container->get('templating')->render(
@@ -114,7 +114,7 @@ class UserNotifyService
         $userName = $user->showName();
 
         //get subject for email
-        $subject = $this->container->get('translator')->trans('subject_form_story_email', array('%senderName%' => $userName), 'email');
+        $subject = $this->container->get('translator')->trans('subject_for_story_email', array('%senderName%' => $userName), 'email');
 
         //generate content for email
         $content = $this->container->get('templating')->render(
