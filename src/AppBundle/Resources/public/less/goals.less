@@ -19,6 +19,15 @@
   //}
 
   .map-top{
+    font-size:14px;
+    padding: 10px 0;
+
+    i{
+      font-size:18px;
+      vertical-align: middle;
+      margin-left: 3px;
+    }
+
     &:hover{
       color:#7724F6 !important;
       text-decoration: none;
@@ -66,10 +75,16 @@
 
   .no-bg{
     border:0;
-    font-size:18px;
-    padding:20px 0 15px;
+    font-size:14px;
+    padding:10px 0;
     outline:none;
     box-shadow: none;
+
+    i{
+      font-size:18px;
+      vertical-align: middle;
+      margin-left: 3px;
+    }
 
     &:hover,&:focus{
       outline:none;
@@ -256,7 +271,7 @@
         padding:5px 10px 5px 5px;
       }
 
-      &:hover,&.btn-purple{
+      &:hover,&:focus,&.btn-purple{
         color: #ffffff;
       }
     }
@@ -862,6 +877,24 @@
 
 @media (min-width: @screen-md) {
   .content-top{
+
+    .map-top{
+     font-size:18px;
+      padding:20px 0 15px;
+
+      i{
+        font-size:30px;
+      }
+    }
+
+    .no-bg{
+      font-size:18px;
+      padding:20px 0 15px;
+
+      i{
+        font-size:30px;
+      }
+    }
 
     .icon-arrow-down,.icon-icon-up {
       font-size:30px;

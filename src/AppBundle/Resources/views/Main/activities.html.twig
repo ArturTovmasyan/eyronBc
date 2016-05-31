@@ -11,7 +11,7 @@
     <div id="news-feed">
         <div class="container">
             <div class="row"
-                 data-infinite-scroll='Activities.nextPage("{% if app.debug %}/app_dev.php{% endif %}/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
+                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
 
@@ -27,7 +27,7 @@
                          data-ng-repeat="activity in Activities.items">
 
                         <div data-ng-show="activity.comment || activity.success_story">
-                            {{ _self.goal() }}
+                            {{ _self.goal(env_prefix) }}
                         </div>
 
                         <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
@@ -49,7 +49,7 @@
                                     <div class="pull-left text-gray">
                                         <h4>
 
-                                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/profile/[[ activity.user.u_id ]]" class="text-dark-gray">
+                                            <a data-ng-href="{{ env_prefix  }}/profile/[[ activity.user.u_id ]]" class="text-dark-gray">
                                                 [[ activity.user.first_name ]] [[ activity.user.last_name ]]
                                             </a>
 
@@ -93,7 +93,7 @@
                             </div>
 
                             <div data-ng-show="!activity.comment && !activity.success_story">
-                                {{ _self.goal() }}
+                                {{ _self.goal(env_prefix) }}
                             </div>
 
                         </div>
@@ -151,19 +151,19 @@
     </div>
 {% endblock %}
 
-{% macro goal(goal) %}
+{% macro goal(env_prefix) %}
     <div class="row">
         <div class="col-sm-12 idea-item round">
             <figure>
                 <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
-                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ activity.goal.slug ]]" class="goalTitle">
+                <a data-ng-href="{{ env_prefix }}/goal/[[ activity.goal.slug ]]" class="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ activity.goal.title ]]</h3>
                     <img data-ng-if="activity.goal.image_path" data-ng-src="[[ activity.goal.cached_image ]]" alt="[[ activity.goal.title ]]"/>
                 </a>
                 <figcaption>
-                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" with {'goal' : goal }  %}
+                    {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" %}
                 </figcaption>
             </figure>
         </div>

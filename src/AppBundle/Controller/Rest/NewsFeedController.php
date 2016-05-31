@@ -72,14 +72,18 @@ class NewsFeedController extends FOSRestController
         foreach($newsFeeds as $newsFeed){
             /** @var  $newsFeed \AppBundle\Entity\NewFeed */
             $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
+            try{
+                $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
+            }catch (\Exception $e){
+                $newsFeed->getUser()->setCachedImage("");
+            }
         }
 
         return $newsFeeds;
     }
 
     /**
-     * @Rest\Get("/goal-friends/{id}", requirements={"id"="\d+"}, name="app_rest_goal_friends", options={"method_prefix"=false})
+     * @Rest\Get("/goal-friends", name="app_rest_goal_friends", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
@@ -92,14 +96,13 @@ class NewsFeedController extends FOSRestController
      * @Rest\View(serializerGroups={"user", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
-     * @param $id
      * @return array
      */
-    public function getGoalFriendsAction($id)
+    public function getGoalFriendsAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $goalFriends = $em->getRepository("AppBundle:Goal")->findGoalFriends($id, false);
+        $goalFriends = $em->getRepository("AppBundle:Goal")->findGoalFriends($this->getUser()->getId(), false);
 
         $length = count($goalFriends) - 1;
 
@@ -145,5 +148,41 @@ class NewsFeedController extends FOSRestController
         }
 
         return $friends;
+    }
+
+    /**
+     * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get top ideas",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"goal", "image_path", "tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $count
+     * @return array
+     */
+    public function getTopIdeasAction($count)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($topIdeas as $topIdea){
+
+            if($topIdea->getListPhotoDownloadLink()){
+                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+
+        }
+
+        return $topIdeas;
     }
 }

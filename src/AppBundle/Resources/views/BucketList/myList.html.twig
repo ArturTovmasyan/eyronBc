@@ -304,7 +304,7 @@
              data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
              {#data-on-marker-click="onMarkerClick(goal)"#}
              data-is-bounded="true"
-             data-item-page-url="{{ app.debug ? '/app_dev.php':'' }}/goal/"
+             data-item-page-url="{{ env_prefix  }}/goal/"
              {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
              data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
              data-refresh="showMap"

@@ -44,6 +44,10 @@ monolog:
 assetic:
     use_controller: false
 
+twig:
+    globals:
+        env_prefix: '/app_dev.php'
+
 swiftmailer:
 #    disable_delivery:  true
 #    delivery_address: andranik.hovhan@gmail.com
