@@ -22,12 +22,25 @@ angular.module('goal', ['Interpolation',
     })
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {
-            maxAge: 15 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+            maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
             cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
             deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
             storageMode: 'localStorage' // This cache will use `localStorage`.
         });
     })
+    .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
+        function refreshCache(id){
+            var profileCache = CacheFactory.get('bucketlist');
+
+            if(!profileCache){
+                profileCache = CacheFactory('bucketlist');
+            }
+            profileCache.remove('top-ideas' + id);
+        }
+        return {
+            refreshCache: refreshCache
+        }
+    }])
     .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
@@ -604,13 +617,18 @@ angular.module('goal', ['Interpolation',
                 if($scope.Activities.noItem ){
                     $scope.showNoActivities = true;
                     angular.element('#non-activity').css('display', 'block');
-                };
+                }
             }
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', function($scope, $http){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
         $scope.completed = true;
+
+        $scope.refreshCache = function(id){
+            refreshCacheService.refreshCache(id);
+        };
+
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(res){
@@ -665,7 +683,7 @@ angular.module('goal', ['Interpolation',
                 profileCache = CacheFactory('bucketlist');
             }
 
-            var goalFriends = profileCache.get('goal-friends');
+            var goalFriends = profileCache.get('goal-friends'+id);
 
             if (!goalFriends) {
 
@@ -673,7 +691,7 @@ angular.module('goal', ['Interpolation',
                     .success(function(data){
                         $scope.goalFriends = data[1];
                         $scope.length = data['length'];
-                        profileCache.put('goal-friends', data);
+                        profileCache.put('goal-friends'+id, data);
                     });
             }else {
                 $scope.goalFriends = goalFriends[1];
@@ -683,6 +701,38 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('userId', function(id){
             $scope.getGaolFriends(id);
+        })
+    }])
+    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
+        var path = "/api/v1.0/top-ideas/{count}";
+
+        var profileCache = CacheFactory.get('bucketlist');
+
+        if(!profileCache){
+            profileCache = CacheFactory('bucketlist');
+        }
+
+        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+
+        $scope.getPopularGoals = function(id){
+            path = path.replace('{count}', $scope.count);
+
+            var topIdeas = profileCache.get('top-ideas'+id);
+
+            if (!topIdeas) {
+
+                $http.get(path)
+                    .success(function(data){
+                        $scope.popularGoals = data;
+                        profileCache.put('top-ideas'+id, data);
+                    });
+            }else {
+                $scope.popularGoals = topIdeas;
+            }
+        };
+
+        $scope.$watch('userId', function(id){
+            $scope.getPopularGoals(id);
         })
     }])
     .directive('delayAddClass',['$interval', function($interval){
