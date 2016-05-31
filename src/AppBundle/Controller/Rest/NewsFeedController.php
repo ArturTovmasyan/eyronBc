@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Rest\RouteResource("Activity")
@@ -75,5 +76,74 @@ class NewsFeedController extends FOSRestController
         }
 
         return $newsFeeds;
+    }
+
+    /**
+     * @Rest\Get("/goal-friends/{id}", requirements={"id"="\d+"}, name="app_rest_goal_friends", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get goal friends",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"user", "tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $id
+     * @return array
+     */
+    public function getGoalFriendsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $goalFriends = $em->getRepository("AppBundle:Goal")->findGoalFriends($id, false);
+
+        $length = count($goalFriends) - 1;
+
+        //keys for random 3 items
+        $i = 0;$j = 1;$k = 2;$count = 0;
+        $friends = [];
+        $friends['length'] = $length + 1;
+
+        if($length > 2){
+            $i = rand(0, $length);
+            $j = rand(0, $length);
+            $k = rand(0, $length);
+            while($i == $j || $i == $k || $k == $j){
+                $j = rand(0, $length);
+                $k = rand(0, $length);
+            }
+        }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($goalFriends as $goalFriend){
+
+            if($goalFriend->getImagePath()){
+                $goalFriend->setCachedImage($liipManager->getBrowserPath($goalFriend->getImagePath(), 'user_icon'));
+            }else{
+                $name = $goalFriend->getFirstName()[0].$goalFriend->getLastName()[0];
+                $goalFriend->setCachedImage($name);
+            }
+
+            switch ($count) {
+                case $i:
+                    $friends[1][] = $goalFriend;
+                    break;
+                case $j:
+                    $friends[1][] = $goalFriend;
+                    break;
+                case $k:
+                    $friends[1][] = $goalFriend;
+                    break;
+            }
+            $count++;
+
+        }
+
+        return $friends;
     }
 }
