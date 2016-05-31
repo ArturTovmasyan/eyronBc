@@ -68,13 +68,19 @@ class UserNotifyService
         //get author email
         $email = $author->getEmail();
 
+        //get sender name
+        $userName = $user->showName();
+
+        //get subject for email
+        $subject = $this->container->get('translator')->trans('subject_form_comment_email', array('%senderName%' => $userName), 'email');
+
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
             array('eventText' => $commentText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_comment')
         );
         
-        $this->sendEmail($email, $content);
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
@@ -104,22 +110,29 @@ class UserNotifyService
         //get author email
         $email = $author->getEmail();
 
+        //get sender name
+        $userName = $user->showName();
+
+        //get subject for email
+        $subject = $this->container->get('translator')->trans('subject_form_story_email', array('%senderName%' => $userName), 'email');
+
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
             array('eventText' => $storyText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_success_story')
         );
 
-        $this->sendEmail($email, $content);
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
      * @param $email
      * @param $content
+     * @param $subject
      * @throws \Exception
      * @throws \Swift_TransportException
      */
-    public function sendEmail($email, $content)
+    public function sendEmail($email, $content, $subject)
     {
         //get no-reply email
         $noReplyEmail = $this->container->getParameter('no_reply');
@@ -130,9 +143,9 @@ class UserNotifyService
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
-                ->setSubject('You have a message from bucketlist 127')
+                ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
-                ->setTo($email)
+                ->setTo('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
