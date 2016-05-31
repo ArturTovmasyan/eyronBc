@@ -250,6 +250,7 @@ class MainController extends Controller
     public function activitiesAction(Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
 
         $em = $this->getDoctrine()->getManager();
         $newsFeedCount = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), true);

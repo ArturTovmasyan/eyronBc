@@ -247,6 +247,11 @@ class User extends BaseUser
     private $stats;
 
     /**
+     * @var int
+     */
+    protected $completedPercent = -1;
+
+    /**
      * @ORM\Column(name="activity", type="boolean", nullable=false)
      */
     protected $activity = false;
@@ -765,6 +770,10 @@ class User extends BaseUser
      */
     public function getCompletedPercent()
     {
+        if ($this->completedPercent >= 0){
+            return $this->completedPercent;
+        }
+
         // default percent
         $percent = 0;
 
@@ -789,8 +798,7 @@ class User extends BaseUser
         // check success story
         $percent +=  $this->checkSuccessStory() ? self::SUCCESS_STORY : 0;
 
-        return $percent;
-
+        return $this->completedPercent = $percent;
     }
 
     /**
