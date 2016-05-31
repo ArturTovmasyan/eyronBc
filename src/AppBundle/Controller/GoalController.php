@@ -385,7 +385,7 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return $this->redirectToRoute("user_profile_single", array('status' => 'completed-goals'));
+        return new Response('ok');
     }
 
     /**
@@ -492,7 +492,7 @@ class GoalController extends Controller
 
                 $em->flush();
 
-                return $this->redirectToRoute("user_profile");
+                return new Response('ok');
             }
         }
 
@@ -685,7 +685,7 @@ class GoalController extends Controller
                 $em->persist($userGoal);
                 $em->flush();
 
-                return $this->redirectToRoute('user_profile');
+                return new Response('ok');
             }
         }
         else{
