@@ -145,7 +145,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
-                ->setTo('ateptan777@gmail.com')
+                ->setTo($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
