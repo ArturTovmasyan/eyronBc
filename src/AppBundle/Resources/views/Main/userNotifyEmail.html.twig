@@ -7,7 +7,6 @@
     {% set senderName = user.showName %}
     {% set author = goal.author %}
     {% set email = author.email %}
-    {% set authorName = author.showName %}
     {% set slug = goal.slug %}
     {% set goalUrl = url('inner_goal', {'slug': slug}) %}
     {% set homePageUrl = url('homepage') %}
@@ -17,11 +16,11 @@
         {#<img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>#}
         <img src="http://www.bucketlist127.com/bundles/app/images/logo.png?v310" alt="Bucket List 127" class="img-responsive"/>
 
-        {{ mailText|trans({'%userName%': authorName, '%senderName%' : senderName, '%link%': goalUrl}, 'email') }}
+        {{ mailText|trans({'%senderName%' : senderName, '%link%': goalUrl}, 'email') }}
 
     <div>
         {{ goal.title }}
-        <p>{{ 'now'|date('d M Y') }}</p>
+        <p>{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
     </div>
        <p>{{ eventText }}</p>
 
