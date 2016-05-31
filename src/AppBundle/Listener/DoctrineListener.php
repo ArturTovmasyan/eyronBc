@@ -64,6 +64,7 @@ class DoctrineListener
     {
         if ($token = $this->container->get('security.token_storage')->getToken()){
 
+            $em = $this->container->get('doctrine')->getManager();
             $entity = $event->getObject();
 
             if ($entity instanceof Goal){
@@ -75,12 +76,11 @@ class DoctrineListener
 
                 if ($user instanceof User && $this->setIsMyGoal) {
 
-                    $userGoals = $user->getUserGoal();
+                    $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($user->getId());
 
-                    if ($userGoals->count() > 0) {
-                        $userGoalsArray = $userGoals->toArray();
+                    if (count($userGoalsArray) > 0) {
                         if (array_key_exists($entity->getId(), $userGoalsArray)) {
-                            $entity->setIsMyGoal($userGoalsArray[$entity->getId()]->getstatus() == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+                            $entity->setIsMyGoal($userGoalsArray[$entity->getId()]['status'] == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
                         } else {
                             $entity->setIsMyGoal(0);
                         }
@@ -90,7 +90,6 @@ class DoctrineListener
             if ($entity instanceof User){
 
                 if ($this->loadUserStats) {
-                    $em = $this->container->get('doctrine')->getManager();
                     $stats = $em->getRepository('ApplicationUserBundle:User')->findUserStats($entity->getId());
 
                     $entity->setStats([

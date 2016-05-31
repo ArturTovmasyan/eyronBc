@@ -164,4 +164,21 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
             ->setParameter('userGoalIds', $ids)
             ->getResult();
     }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findUserGoals($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g.id, ug.status
+                           FROM AppBundle:Goal g
+                           INDEX BY g.id
+                           JOIN g.userGoal ug
+                           WHERE ug.user = :userId")
+            ->useResultCache(true, 24 * 3600, 'user_goal_' . $userId)
+            ->setParameter('userId', $userId)
+            ->getResult();
+    }
 }

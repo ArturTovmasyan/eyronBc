@@ -20,6 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
+ * @ORM\EntityListeners({"AppBundle\Listener\UserGoalListener"})
  * @Gedmo\Loggable
  */
 class UserGoal
