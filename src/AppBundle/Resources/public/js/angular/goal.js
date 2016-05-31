@@ -676,14 +676,12 @@ angular.module('goal', ['Interpolation',
 
     }])
     .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
-        var path = "/api/v1.0/goal-friends/{id}";
+        var path = "/api/v1.0/goal-friends";
 
 
         $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
 
         $scope.getGaolFriends = function(id){
-            path = path.replace('{id}', id);
-
 
             var profileCache = CacheFactory.get('bucketlist');
 
