@@ -20,130 +20,130 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends Controller
 {
-    /**
-     * @Route("/settings", name="settings")
-     * @Template()
-     * @Secure(roles="ROLE_USER")
-     */
-    public function settingsAction(Request $request)
-    {
-        //get user in db
-        $user = $this->getUser();
-
-        //get session
-        $session = $request->getSession();
-
-        //check if user and session url exist
-        if ($session->has('addUrl')) {
-            $session->remove('addUrl');
-        }
-
-        //get http referer
-        $referer = $request->headers->get('referer');
-
-        //get last url for redirect
-        $lastUrl = $referer ? $referer : $this->generateUrl('homepage');
-
-        //get current email
-        $currentEmail = $user->getEmail();
-
-        // create goal form
-        $form = $this->createForm(new SettingsType(), $user);
-
-        // check request method
-        if ($request->isMethod('POST')) {
-
-            //get form data in request
-            $formData = $request->request->get('bl_user_settings');
-
-            // get data from request
-            $form->handleRequest($request);
-
-            //get primary email
-            $primaryEmail = $request->request->get('primary');
-
-            //check if primary email equal current email
-            if ($primaryEmail != null && $primaryEmail == $currentEmail) {
-
-                //set primary email
-                $primaryEmail = null;
-            }
-            else {
-
-                //set for check user duplicate error
-                $user->setEmail($primaryEmail);
-            }
-
-            //get validator
-            $validator = $this->get('validator');
-
-            //get errors
-            $errors = $validator->validate($user, null, array('Settings'));
-
-            //returned value
-            $returnResult = array();
-
-            //check count of errors
-            if (count($errors) > 0) {
-
-                // loop for error
-                foreach ($errors as $error) {
-                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
-                }
-            }
-            else{
-
-                //set current email
-                $user->setEmail($currentEmail);
-
-                if ($currentEmail == $user->getSocialFakeEmail() && $formData['addEmail']){
-                    $user->setEmail($formData['addEmail']);
-                    $formData['addEmail'] = "";
-                    $request->request->set('bl_user_settings', $formData);
-                }
-            }
-
-            //check if form is valid
-            if ($form->isValid() && count($returnResult) == 0) {
-
-                //set primary value in entity
-                $user->primary = $primaryEmail;
-
-                //set updated for preUpdate event
-                $user->setUpdated(new \DateTime());
-
-                //get fos user manager
-                $fosManager = $this->container->get('fos_user.user_manager');
-
-                //get uploadFile service
-                $this->get('bl_service')->uploadFile($user);
-
-                //update user
-                $fosManager->updateUser($user);
-
-                return $this->redirect($lastUrl);
-
-            }
-            else {
-
-                //get form errors
-                $formErrors = $form->getErrors(true);
-
-                foreach($formErrors as $formError)
-                {
-                    //get error field name
-                    $name = $formError->getOrigin()->getConfig()->getName();
-
-                    //set for errors in array
-                    $returnResult[$name] = $formError->getMessage();
-                }
-
-                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
-            }
-        }
-
-        return array('form' => $form->createView());
-    }
+//    /**
+//     * @Route("/settings", name="settings")
+//     * @Template()
+//     * @Secure(roles="ROLE_USER")
+//     */
+//    public function settingsAction(Request $request)
+//    {
+//        //get user in db
+//        $user = $this->getUser();
+//
+//        //get session
+//        $session = $request->getSession();
+//
+//        //check if user and session url exist
+//        if ($session->has('addUrl')) {
+//            $session->remove('addUrl');
+//        }
+//
+//        //get http referer
+//        $referer = $request->headers->get('referer');
+//
+//        //get last url for redirect
+//        $lastUrl = $referer ? $referer : $this->generateUrl('homepage');
+//
+//        //get current email
+//        $currentEmail = $user->getEmail();
+//
+//        // create goal form
+//        $form = $this->createForm(new SettingsType(), $user);
+//
+//        // check request method
+//        if ($request->isMethod('POST')) {
+//
+//            //get form data in request
+//            $formData = $request->request->get('bl_user_settings');
+//
+//            // get data from request
+//            $form->handleRequest($request);
+//
+//            //get primary email
+//            $primaryEmail = $request->request->get('primary');
+//
+//            //check if primary email equal current email
+//            if ($primaryEmail != null && $primaryEmail == $currentEmail) {
+//
+//                //set primary email
+//                $primaryEmail = null;
+//            }
+//            else {
+//
+//                //set for check user duplicate error
+//                $user->setEmail($primaryEmail);
+//            }
+//
+//            //get validator
+//            $validator = $this->get('validator');
+//
+//            //get errors
+//            $errors = $validator->validate($user, null, array('Settings'));
+//
+//            //returned value
+//            $returnResult = array();
+//
+//            //check count of errors
+//            if (count($errors) > 0) {
+//
+//                // loop for error
+//                foreach ($errors as $error) {
+//                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
+//                }
+//            }
+//            else{
+//
+//                //set current email
+//                $user->setEmail($currentEmail);
+//
+//                if ($currentEmail == $user->getSocialFakeEmail() && $formData['addEmail']){
+//                    $user->setEmail($formData['addEmail']);
+//                    $formData['addEmail'] = "";
+//                    $request->request->set('bl_user_settings', $formData);
+//                }
+//            }
+//
+//            //check if form is valid
+//            if ($form->isValid() && count($returnResult) == 0) {
+//
+//                //set primary value in entity
+//                $user->primary = $primaryEmail;
+//
+//                //set updated for preUpdate event
+//                $user->setUpdated(new \DateTime());
+//
+//                //get fos user manager
+//                $fosManager = $this->container->get('fos_user.user_manager');
+//
+//                //get uploadFile service
+//                $this->get('bl_service')->uploadFile($user);
+//
+//                //update user
+//                $fosManager->updateUser($user);
+//
+//                return $this->redirect($lastUrl);
+//
+//            }
+//            else {
+//
+//                //get form errors
+//                $formErrors = $form->getErrors(true);
+//
+//                foreach($formErrors as $formError)
+//                {
+//                    //get error field name
+//                    $name = $formError->getOrigin()->getConfig()->getName();
+//
+//                    //set for errors in array
+//                    $returnResult[$name] = $formError->getMessage();
+//                }
+//
+//                return new JsonResponse($returnResult, Response::HTTP_BAD_REQUEST);
+//            }
+//        }
+//
+//        return array('form' => $form->createView());
+//    }
 
     /**
      * This function is used to remove user emails by email name
@@ -372,6 +372,7 @@ class MainController extends Controller
      * @Route("/sand-message/{userId}", name="sand-test-message")
      * @param $userId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
      */
     public function sandMessageAction(Request $request, $userId)
     {
@@ -400,7 +401,6 @@ class MainController extends Controller
         }
 
 
-
         return $this->redirect($url);
     }
 
@@ -408,6 +408,7 @@ class MainController extends Controller
      * @Route("/edit/user-notify", name="edit_user_notify")
      * @Security("has_role('ROLE_USER')")
      * @Template()
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function userNotifyEditAction(Request $request)
@@ -415,6 +416,7 @@ class MainController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //get current user
         $user = $this->getUser();
 
         // create goal form
@@ -429,13 +431,17 @@ class MainController extends Controller
             // check valid
             if($form->isValid()){
 
+                //get uploadFile service
+                $this->get('bl_service')->uploadFile($user);
+
+                $em->persist($user);
                 $em->flush();
                 
                 return $this->redirectToRoute('edit_user_notify');
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'profileUser' => $user);
     }
 
     /**
@@ -443,10 +449,10 @@ class MainController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @Template("ApplicationUserBundle:Main:profileEdit.html.twig")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
      */
     public function profileEditAction(Request $request)
     {
-        
         //get user in db
         $user = $this->getUser();
 
@@ -494,18 +500,8 @@ class MainController extends Controller
             //get errors
             $errors = $validator->validate($user, null, array('Settings'));
 
-            //returned value
-            $returnResult = array();
-
             //check count of errors
-            if (count($errors) > 0) {
-
-                // loop for error
-                foreach ($errors as $error) {
-                    $returnResult[$error->getPropertyPath()] = $error->getMessage();
-                }
-            }
-            else{
+            if (count($errors) == 0) {
 
                 //set current email
                 $user->setEmail($currentEmail);
@@ -518,7 +514,7 @@ class MainController extends Controller
             }
 
             //check if form is valid
-            if ($form->isValid() && count($returnResult) == 0) {
+            if ($form->isValid() && count($errors) == 0) {
 
                 //set primary value in entity
                 $user->primary = $primaryEmail;
@@ -538,9 +534,8 @@ class MainController extends Controller
                 return $this->redirectToRoute('edit_user_profile');
 
             }
-
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'profileUser' => $user);
     }
 }

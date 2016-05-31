@@ -266,13 +266,13 @@ class User extends BaseUser
      * @ORM\Column(name="comment_notify", type="boolean", nullable=true)
      * @var
      */
-    private $commentNotify;
+    private $commentNotify = true;
 
     /**
      * @ORM\Column(name="success_story_notify", type="boolean", nullable=true)
      * @var
      */
-    private $successStoryNotify;
+    private $successStoryNotify = true;
 
     /**
      * @return mixed

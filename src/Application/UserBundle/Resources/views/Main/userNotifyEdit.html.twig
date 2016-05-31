@@ -2,9 +2,11 @@
 
 {% block settings_content %}
 
+    {% set commentValue = user.commentNotify %}
+    {% set storyValue = user.successStoryNotify %}
+
     <div id="settings-modal">
         <div class="settings">
-            <form action="{{ path('edit_user_notify') }}" method="POST">
                 <div class="form-group row">
                     <div class="row">
                         <div class="col-sm-6">
@@ -12,7 +14,7 @@
                                 <label class="col-sm-9 control-label">{{ 'Comments' }}</label>
 
                                 <div class="col-sm-3">
-                                    <input value="1" type="checkbox" name="comment"
+                                    <input value="{{ commentValue }}" {% if commentValue %}checked{% endif %} type="checkbox" id="{{ form.commentNotify.vars.id }}" name="{{ form.commentNotify.vars.full_name }}">
                                 </div>
                             </div>
                         </div>
@@ -22,7 +24,7 @@
                                 <label class="col-sm-9 control-label">{{ 'Success stories' }}</label>
 
                                 <div class="col-sm-3">
-                                    <input value="1"  type="checkbox" name="story">
+                                    <input value="{{ storyValue }}" {% if storyValue %}checked{% endif %} type="checkbox" id="{{ form.successStoryNotify.vars.id }}" name="{{ form.successStoryNotify.vars.full_name }}">
                                 </div>
                             </div>
 
@@ -33,11 +35,10 @@
 
                 <div class="modal-bottom">
                     <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                    {#<a href="javascript:void(0)" rel="modal:close" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>#}
+                    <a href="#" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
                 </div>
 
                 {{ form_widget(form._token) }}
-            </form>
         </div>
     </div>
 

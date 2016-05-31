@@ -30,6 +30,7 @@ class UserNotifySettingsType extends AbstractType
         $builder
             ->add('commentNotify', 'checkbox', array('required'=> false))
             ->add('successStoryNotify', 'checkbox', array('required'=> false))
+            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
@@ -39,7 +40,8 @@ class UserNotifySettingsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Application\UserBundle\Entity\User'
+            'data_class' => 'Application\UserBundle\Entity\User',
+            'validation_groups' => 'Settings'
         ));
     }
 
