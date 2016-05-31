@@ -29,13 +29,18 @@ angular.module('goal', ['Interpolation',
         });
     })
     .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
-        function refreshCache(id){
+        function refreshCache(userId, goalId){
             var profileCache = CacheFactory.get('bucketlist');
 
             if(!profileCache){
                 profileCache = CacheFactory('bucketlist');
             }
-            profileCache.remove('top-ideas' + id);
+            var cache = profileCache.get('top-ideas' + userId);
+            angular.forEach(cache, function(item) {
+                if(item.id == goalId){
+                    profileCache.remove('top-ideas' + userId);
+                }
+            });
         }
         return {
             refreshCache: refreshCache
@@ -451,11 +456,14 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', function($scope, $filter, $timeout, lsInfiniteItems){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+        $scope.refreshCache = function(userId, goalId){
+            refreshCacheService.refreshCache(userId, goalId);
+        };
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -625,8 +633,8 @@ angular.module('goal', ['Interpolation',
     .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
         $scope.completed = true;
 
-        $scope.refreshCache = function(id){
-            refreshCacheService.refreshCache(id);
+        $scope.refreshCache = function(userId, goalId){
+            refreshCacheService.refreshCache(userId, goalId);
         };
 
         $scope.addDone = function(path, id){

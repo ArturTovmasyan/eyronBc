@@ -2,9 +2,9 @@
     <li class="col-xs-6 ng-hide" data-ng-show="!activity.goal.is_my_goal && completed">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
-           data-ng-click="activity.goal.is_my_goal = 1; refreshCache('{{ app.user.id }}')"
+           data-ng-click="activity.goal.is_my_goal = 1; refreshCache('{{ app.user.id }}', activity.goal.id)"
            data-ls-identity="activity[[ activity.goal.id ]]"
-           data-ls-template-url="{{ app.debug ? '/app_dev.php' : '' }}/goal/add-to-me/[[ activity.goal.id ]]">
+           data-ls-template-url="{{ url_prefix }}/goal/add-to-me/[[ activity.goal.id ]]">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>
         </a>
@@ -16,14 +16,14 @@
     </li>
 
     <li class="col-xs-6 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
-        <a href="javascript:void(0)" data-ng-click="addDone('{{ app.debug ? '/app_dev.php':'' }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}')">
+        <a href="javascript:void(0)" data-ng-click="addDone('{{ url_prefix }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}', activity.goal.id)">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <span class="text">{{ 'done'|trans | capitalize }}</span>
         </a>
         <a  href="javascript:void(0)"
             data-ng-show="false"
             data-ls-jquery-modal
-            data-ls-template-url="{{ app.debug ? '/app_dev.php':'' }}/goal/add-story/[[ activity.goal.id ]]"
+            data-ls-template-url="{{ url_prefix }}/goal/add-story/[[ activity.goal.id ]]"
             data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
             id="addSuccessActivity[[ $index ]]">
         </a>

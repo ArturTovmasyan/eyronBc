@@ -5,6 +5,7 @@
 {% set host = app.request.getSchemeAndHttpHost() %}
 {% set user = app.user %}
 {% set testUrl = app.request.getSchemeAndHttpHost() %}
+{% set url_prefix = app.debug ? '/app_dev.php' : '' %}
 
     <head>
         <meta charset="UTF-8" />
