@@ -470,10 +470,10 @@
                          data-ng-repeat="goal in Ideas.items">
                         <figure>
                             <h3>
-                                <a data-ng-href="{{ url_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                                <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
 
-                            <a data-ng-href="{{ url_prefix }}/goal/[[ ::goal.slug ]]"
+                            <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
                                class="goalTitle">
                                 <span class="overlay"></span>
                                 <img data-ng-src="[[ ::goal.image_path ]]" alt="[[ ::goal.title ]]"/>
@@ -482,7 +482,7 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a data-ng-href="{{ url_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
                                                     <span>
                                                         {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                         [[ ::goal.stats.listedBy ]]
@@ -497,7 +497,7 @@
                                                 </span>
                                     </li>
                                     <li>
-                                        <a data-ng-href="{{ url_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
                                                     <span>
                                                         {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                         [[ ::goal.stats.doneBy ]]

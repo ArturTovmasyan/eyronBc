@@ -47,7 +47,7 @@
                  data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
                  data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                  data-refresh="showMap"
-                 data-item-page-url="{{ url_prefix  }}/goal/"
+                 data-item-page-url="{{ env_prefix  }}/goal/"
                  class="google-map "
                  style="width: 100%; height: 300px"
             ></div>
@@ -80,10 +80,10 @@
                          data-ng-repeat="goal in Ideas.items">
                         <figure>
                             <h3>
-                                <a data-ng-href="{{ url_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                                <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
 
-                            <a data-ng-href="{{ url_prefix  }}/goal/[[ ::goal.slug ]]"
+                            <a data-ng-href="{{ env_prefix  }}/goal/[[ ::goal.slug ]]"
                                data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
                                class="goalTitle">
                                 <span class="overlay"></span>
@@ -93,7 +93,7 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a data-ng-href="{{ url_prefix  }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                        <a data-ng-href="{{ env_prefix  }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                 [[ ::goal.stats.listedBy ]]
@@ -108,7 +108,7 @@
                                         </span>
                                     </li>
                                     <li>
-                                        <a data-ng-href="{{ url_prefix  }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                        <a data-ng-href="{{ env_prefix  }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                 [[ ::goal.stats.doneBy ]]

@@ -84,6 +84,7 @@ twig:
     globals:
         project_name: %project_name%
         ga_id: %ga_id%
+        env_prefix: ~
 
 
 # Assetic Configuration
