@@ -51,9 +51,12 @@
       color:#ffffff;
     }
 
+
+
     figcaption{
       ul{
         li{
+          height:35px;
           a{
             padding:5px 0;
             &:hover,&:focus{
@@ -91,11 +94,11 @@
             }
           }
           .text{
-            font-size:11px;
+            font-size:12px;
           }
         }
         .transparent{
-          padding:5px 0;
+          //padding:5px 0;
           .text{
             color: #a4a4a4;
           }
@@ -104,6 +107,17 @@
             a,.text {
               color: #a4a4a4;
             }
+          }
+        }
+      }
+    }
+
+    .absolute{
+      bottom:25px;
+      ul{
+        li{
+          a,span{
+            font-size:12px;
           }
         }
       }
@@ -565,6 +579,7 @@
       figcaption{
         ul{
           li{
+            height:50px;
             a{
               padding:10px 0;
             }
@@ -581,17 +596,18 @@
               font-size:13px;
             }
           }
-          .transparent{
-            padding: 0;
-          }
+          //.transparent{
+          //  padding: 0;
+          //}
         }
       }
 
       .absolute{
+        bottom:40px;
         ul{
           li{
             padding-left:20px;
-            a{
+            a,span{
               color:#E5E5E5;
               font-size:14px;
             }
