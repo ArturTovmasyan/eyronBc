@@ -1,0 +1,112 @@
+{% extends "AppBundle::layout_top.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+
+    {% block content_header %}
+
+            {% set stats = profileUser.getStats %}
+            {% set lastName = profileUser.lastName %}
+            {% set user = app.user %}
+            {% set firstName = profileUser.firstName %}
+            {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+            {% set className = "profile-image profile-image" ~ random(4) %}
+        <div data-ng-controller="SettingController" xmlns="http://www.w3.org/1999/html">
+
+        <form id="settings-form" action="#" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
+            <div class="content-header">
+                <div class="profile">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <figure>
+                                    {#<span class="overlay"></span>#}
+                                        {#<div class="relative">#}
+
+                                            <div data-ng-show="imageUrl">
+                                                <img data-ng-src="[[ imageUrl ]]" data-ng-init="imageUrl='{{ user.getPhotoLink|blImageFilter('user_image')|default("") }}'" alt="{{ user.fileOriginalName }}"  class="img-responsive img-circle" width="145" height="145">
+                                            </div>
+
+                                            <div data-ng-hide="imageUrl">
+                                                {{ form_label(form.file, null,  {'label_attr' : {'class':'upload'} }) }}
+                                            </div>
+
+                                            <div class="hide">
+                                                {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
+                                            </div>
+
+                                            <figcaption data-ng-show="imageUrl">
+                                                {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle'|capitalize)) }}
+                                            </figcaption>
+                                        {#</div>#}
+
+
+                                    <figcaption>
+                                        <ul>
+                                            <li>
+                                                <span>{{ 'user_goal.active'|trans | capitalize }}</span>
+                                                <span>{{ stats.active }}</span>
+                                            </li>
+
+                                            <li>
+                                                <span>{{ 'block_listed'|trans | capitalize }}</span>
+                                                <span>{{ stats.listedBy }}</span>
+                                            </li>
+
+                                            <li>
+                                                <span>{{ 'block_completed'|trans |capitalize }}</span>
+                                                <span>{{ stats.doneBy }}</span>
+                                            </li>
+                                        </ul>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-sm-4">
+                                {% if profileUser.showName %}
+                                    <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
+                                        <span class="bg-blue">{{ profileUser.showName }}</span>
+                                    </h1>
+                                {% endif %}
+                                {% if  profileUser.getAge  %}
+                                    <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    {% endblock %}
+
+
+                <div class="bucketlist">
+                    <div class="container">
+                        <div class="row">
+                            <ul class="menu">
+
+                                <li class="active" >
+                                    <a  href="{{ path('edit_user_profile') }}">{{ 'user.profile'|trans({}, 'FOSUserBundle') }}</a>
+                                </li>
+                                <li class="active" >
+                                    <a  href="{{ path('edit_user_notify') }}">{{ 'user.notification'|trans({}, 'FOSUserBundle') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <br/>
+                {% block settings_content %}{% endblock %}
+        </form>
+    </div>
+
+{% endblock %}
+

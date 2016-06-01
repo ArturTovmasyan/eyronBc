@@ -1,0 +1,58 @@
+{% extends "ApplicationUserBundle:Basses:settings.html.twig" %}
+
+{% block settings_content %}
+
+    {% set commentValue = user.commentNotify %}
+    {% set storyValue = user.successStoryNotify %}
+
+    <div id="settings-modal">
+        <p>{{ 'user.notify_settings_text'|trans({}, 'FOSUserBundle') }}</p>
+        <div class="settings">
+                <div class="form-group row">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-9 control-label">{{ 'Comments' }}</label>
+
+                                <div class="col-sm-3">
+                                    <input value="{{ commentValue }}" {% if commentValue %}checked{% endif %} type="checkbox" id="{{ form.commentNotify.vars.id }}" name="{{ form.commentNotify.vars.full_name }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-9 control-label">{{ 'Success stories' }}</label>
+
+                                <div class="col-sm-3">
+                                    <input value="{{ storyValue }}" {% if storyValue %}checked{% endif %} type="checkbox" id="{{ form.successStoryNotify.vars.id }}" name="{{ form.successStoryNotify.vars.full_name }}">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-bottom">
+                    <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                    <a href="#" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
+                </div>
+
+                {{ form_widget(form._token) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{%- block title -%}
+    {{ 'user.notify_edit'|trans({},'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{ 'user.notify_edit'|trans({},'FOSUserBundle') }}
+{%- endblock -%}
+
+{%- block og_url -%}
+    {{- app.request.uri -}}
+{%- endblock -%}

@@ -139,7 +139,9 @@
                     </div>
                     <div class="col-sm-4">
                         {% if profileUser.showName %}
-                             <h1 class="bg-blue {% if profileUser.showName|length > 12 %}title-smaller{% endif %}">{{ profileUser.showName }}</h1>
+                             <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
+                                 <span class="bg-blue">{{ profileUser.showName }}</span>
+                             </h1>
                         {% endif %}
                     {% if  profileUser.getAge  %}
                     <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
@@ -149,15 +151,11 @@
                     {% if profileUser.id == app.user.id %}
                         <div class="col-sm-4">
                             <div class="text-right">
-                                <a href="javascript:void(0)"
-                                   data-ls-identity="settingModalInMyBucketList"
-                                   data-ls-template-url="{{ path("settings") }}"
-                                   data-ls-jquery-modal>
+                                <a href="{{ path("edit_user_profile") }}">
                                     <span class="black-overlay settings-overlay"></span>
                                     <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
                                 </a>
                             </div>
-
 
                             <div class="profile-information" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
                                 <em>{{ 'complete_message'|trans }}</em>
