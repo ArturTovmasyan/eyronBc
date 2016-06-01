@@ -178,6 +178,7 @@ user:
     register_title: Registration
     register_description: Description for registration
     settings: User settings
+    notify_settings_text: What you will receive
 
 
 First name: First name

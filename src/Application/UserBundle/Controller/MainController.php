@@ -405,7 +405,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/edit/user-notify", name="edit_user_notify")
+     * @Route("/edit/notification", name="edit_user_notify")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      * @param Request $request
@@ -445,7 +445,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/edit/user-profile", name="edit_user_profile")
+     * @Route("/edit/profile", name="edit_user_profile")
      * @Security("has_role('ROLE_USER')")
      * @Template("ApplicationUserBundle:Main:profileEdit.html.twig")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
