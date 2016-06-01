@@ -8,7 +8,7 @@
                     <span>
                         <img src="{{ asset('bundles/app/images/discover.png') }}"/>
                     </span>
-                    {{ 'discover'|trans }}
+                    <span>{{ 'discover'|trans }}</span>
                 </a>
             </li>
 
@@ -26,7 +26,7 @@
                     <span>
                         <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
                     </span>
-                    {{ 'most_popular'|trans }}
+                    <span>{{ 'most_popular'|trans }}</span>
                 </a>
             </li>
             {% endif %}
@@ -37,7 +37,7 @@
                             <span>
                                 <img src="{{ category.downloadLink }}"/>
                             </span>
-                            {{ category.title }}
+                            <span>{{ category.title }}</span>
                         </a>
                     </li>
             {% endif %}

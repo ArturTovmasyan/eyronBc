@@ -2,6 +2,11 @@
 {% set view = constant("AppBundle\\Entity\\Goal::VIEW") %}
 {% set user = app.user %}
 {% set author = goal.author %}
+{% if user.id is defined %}
+    {% set userId = user.id %}
+{% else %}
+    {% set userId = 0 %}
+{% endif %}
 
 <div id="fb-root"></div>
 
@@ -106,7 +111,7 @@
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-xs-{{ xs }}" data-ng-init="added = false" data-ng-show="!added">
                                         <a href="javascript:void(0)"
-                                           data-ng-click="added = true"
+                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}')"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
@@ -124,7 +129,7 @@
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-xs-6">
-                                        <a href="{{ path('done_goal', {'id' : goal.id}) }}">
+                                        <a href="{{ path('done_goal', {'id' : goal.id}) }}" data-ng-click="refreshCache('{{ userId }}','{{ goal.id }}')">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>
                                         </a>
@@ -470,10 +475,10 @@
                          data-ng-repeat="goal in Ideas.items">
                         <figure>
                             <h3>
-                                <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                                <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
                             </h3>
 
-                            <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/goal/[[ ::goal.slug ]]"
+                            <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
                                class="goalTitle">
                                 <span class="overlay"></span>
                                 <img data-ng-src="[[ ::goal.image_path ]]" alt="[[ ::goal.title ]]"/>
@@ -482,7 +487,7 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
                                                     <span>
                                                         {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                         [[ ::goal.stats.listedBy ]]
@@ -497,7 +502,7 @@
                                                 </span>
                                     </li>
                                     <li>
-                                        <a data-ng-href="{{ app.debug ? '/app_dev.php':'' }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
                                                     <span>
                                                         {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                         [[ ::goal.stats.doneBy ]]
