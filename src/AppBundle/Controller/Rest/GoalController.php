@@ -362,7 +362,7 @@ class GoalController extends FOSRestController
      */
     public function removeImageAction(GoalImage $goalImage)
     {
-        if(!$goalImage->getGoal() || $this->getUser()->getId() != $goalImage->getGoal()->getAuthor()->getId()){
+        if(!$goalImage->getGoal() || (!is_null($goalImage->getGoal()->getAuthor()) && $this->getUser()->getId() != $goalImage->getGoal()->getAuthor()->getId())){
             return new Response("Goal image hasn't goal or it isn't an image of current user", Response::HTTP_BAD_REQUEST);
         }
 

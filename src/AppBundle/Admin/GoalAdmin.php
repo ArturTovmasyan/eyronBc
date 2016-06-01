@@ -145,10 +145,6 @@ class GoalAdmin extends Admin
      */
     public function prePersist($object)
     {
-        $description = $object->getDescription();
-
-        $object->setDescription($description);
-
         $object->setPublish(PublishAware::PUBLISH);
         $object->setStatus(Goal::PUBLIC_PRIVACY);
         $this->preUpdate($object);
@@ -305,8 +301,10 @@ class GoalAdmin extends Admin
 
                 // upload file
 
-                $bucketService->uploadFile($image);
-                $image->setGoal($object);
+                if (!$image->getId()) {
+                    $bucketService->uploadFile($image);
+                    $image->setGoal($object);
+                }
             }
 
             if (!$hasListPhoto && $images->first()){
