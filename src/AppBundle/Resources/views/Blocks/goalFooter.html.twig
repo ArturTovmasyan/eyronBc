@@ -25,7 +25,7 @@
 
 
     <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
-        <a {% if app.user %}href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+goal.id, 'addSuccesstory'+goal.id); refreshCache('{{ app.user.id }}', goal.id)"
+        <a {% if app.user %}href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+goal.id + '?ajax=true', 'addSuccesstory'+goal.id); refreshCache('{{ app.user.id }}', goal.id)"
                 {% else %}data-ng-href="{{ env_prefix }}/goal/done/[[ ::goal.id ]]"{% endif %}>
 
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
