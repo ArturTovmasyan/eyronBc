@@ -15,7 +15,7 @@
                 <li class="clearfix"
                     data-ng-cloak
                     data-ng-repeat="goalFriend in goalFriends">
-                    <a href="[[ prefix ]]profile/[[ goalFriend.u_id ]]/all">
+                    <a href="{{ env_prefix }}/profile/[[ goalFriend.u_id ]]/all">
 
                         <figure class="image">
                             {#{% if goalStatus == false %}#}
