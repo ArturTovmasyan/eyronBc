@@ -106,6 +106,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * @param $user
      * @param $count
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -115,7 +116,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('g', 'i', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN  cnt')
+                ->select('g', 'i', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->andWhere('g.publish = true and not exists (SELECT ug1 FROM AppBundle:UserGoal ug1 WHERE ug1.goal = g AND ug1.user = :user)')
@@ -126,7 +127,9 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             $query->setMaxResults($count);
         }
 
-        return $query->getQuery()->getResult();
+        return $query
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -294,9 +297,69 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $userId
+     * @param $search
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findGoalFriendIds($userId, $search)
+    {
+        $search = str_replace(' ', '', $search);
+
+        $sqlJoin = "";
+        if ($search){
+            $search = '%' . $search . '%';
+            $sqlJoin = " AND (u.first_name LIKE :search
+                           OR u.last_name LIKE :search
+                           OR u.email LIKE :search
+                           OR CONCAT(u.first_name, u.last_name) LIKE :search) ";
+        }
+
+        //TODO roles in query must be changed
+        $connection = $this->getEntityManager()->getConnection();
+        $statement = $connection->prepare("SELECT DISTINCT ug.user_id
+                                           FROM users_goals AS ug
+                                           JOIN fos_user as u ON u.id = ug.user_id AND u.roles = :roles
+                                           $sqlJoin
+                                           WHERE ug.goal_id IN (SELECT ug1.goal_id
+                                                                FROM users_goals AS ug1
+                                                                WHERE ug1.user_id = :userId)
+                                           AND ug.user_id != :userId");
+        $statement->bindValue('userId', $userId);
+        $statement->bindValue('roles', 'a:0:{}');
+        if ($search){
+            $statement->bindValue('search', $search);
+        }
+        $statement->execute();
+
+        $userIds = $statement->fetchAll(\PDO::FETCH_COLUMN);
+
+        return $userIds;
+    }
+
+    /**
+     * @param $userId
+     * @param bool|false $getOnlyIds
+     * @param null $count
+     * @param null $search
+     * @param bool|false $getOnlyQuery
      * @return array
      */
     public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
+    {
+        if ($getOnlyIds){
+            $goalFriendIds = $this->findGoalFriendIds($userId, $search);
+
+            return $goalFriendIds;
+        }
+
+        return $this->findGoalFriendsDoctrine($userId, null, $count, $search, $getOnlyQuery);
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
     {
         $search = str_replace(' ', '', $search);
 
@@ -323,23 +386,15 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%');
         }
 
+        if ($count){
+            $query->setMaxResults($count);
+        }
+
         if ($getOnlyQuery){
             return $query->getQuery();
         }
 
-        $results = $query->getQuery()->getResult();
-
-
-        if ($getOnlyIds){
-            $ids = [];
-            foreach($results as $result){
-                $ids[] = $result->getId();
-            }
-
-            return $ids;
-        }
-
-        return $results;
+        return $query->getQuery()->getResult();
     }
 
     /**

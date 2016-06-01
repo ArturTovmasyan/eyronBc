@@ -11,13 +11,41 @@ angular.module('goal', ['Interpolation',
         'videosharing-embed',
         'Components',
         'LocalStorageModule',
+        'angular-cache',
         'ngResource'
     ])
-    .config(function (localStorageServiceProvider) {
-    localStorageServiceProvider
-        .setPrefix('goal')
-        .setNotify(false, false)
+    .config(function (localStorageServiceProvider ) {
+
+        localStorageServiceProvider
+            .setPrefix('goal')
+            .setNotify(false, false);
     })
+    .config(function(CacheFactoryProvider){
+        angular.extend(CacheFactoryProvider.defaults, {
+            maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+            cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
+            deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+            storageMode: 'localStorage' // This cache will use `localStorage`.
+        });
+    })
+    .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
+        function refreshCache(userId, goalId){
+            var profileCache = CacheFactory.get('bucketlist');
+
+            if(!profileCache){
+                profileCache = CacheFactory('bucketlist');
+            }
+            var cache = profileCache.get('top-ideas' + userId);
+            angular.forEach(cache, function(item) {
+                if(item.id == goalId){
+                    profileCache.remove('top-ideas' + userId);
+                }
+            });
+        }
+        return {
+            refreshCache: refreshCache
+        }
+    }])
     .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
@@ -176,6 +204,7 @@ angular.module('goal', ['Interpolation',
 
                     if (!this.items.length) {
                         this.loadRandomItems(this.count);
+
                     }
 
                     //setTimeout(function () {
@@ -427,11 +456,14 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', function($scope, $filter, $timeout, lsInfiniteItems){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+        $scope.refreshCache = function(userId, goalId){
+            refreshCacheService.refreshCache(userId, goalId);
+        };
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -583,22 +615,28 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('activities', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
 
         $scope.Activities = new lsInfiniteItems(10);
-        //$scope.$watch('Activities.oldChache',function(cache){
-        //    $timeout(function(){
-        //        if($scope.Activities.oldChache){
-        //            $scope.Activities.reset();
-        //            $scope.Activities.nextPage("/api/v1.0/activities/{first}/{count}");
-        //        }
-        //    }, 1000);
-        //
-        //})
+        $scope.showNoActivities = false;
+
+        $scope.$watch('Activities.items', function(d) {
+            if(!d.length){
+                if($scope.Activities.noItem ){
+                    $scope.showNoActivities = true;
+                    angular.element('#non-activity').css('display', 'block');
+                }
+            }
+        });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', function($scope, $http){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
         $scope.completed = true;
+
+        $scope.refreshCache = function(userId, goalId){
+            refreshCacheService.refreshCache(userId, goalId);
+        };
+
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(res){
@@ -636,6 +674,72 @@ angular.module('goal', ['Interpolation',
                 });
         }
 
+    }])
+    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
+        var path = "/api/v1.0/goal-friends";
+
+
+        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+
+        $scope.getGaolFriends = function(id){
+
+            var profileCache = CacheFactory.get('bucketlist');
+
+            if(!profileCache){
+                profileCache = CacheFactory('bucketlist');
+            }
+
+            var goalFriends = profileCache.get('goal-friends'+id);
+
+            if (!goalFriends) {
+
+                $http.get(path)
+                    .success(function(data){
+                        $scope.goalFriends = data[1];
+                        $scope.length = data['length'];
+                        profileCache.put('goal-friends'+id, data);
+                    });
+            }else {
+                $scope.goalFriends = goalFriends[1];
+                $scope.length = goalFriends['length'];
+            }
+        };
+
+        $scope.$watch('userId', function(id){
+            $scope.getGaolFriends(id);
+        })
+    }])
+    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
+        var path = "/api/v1.0/top-ideas/{count}";
+
+        var profileCache = CacheFactory.get('bucketlist');
+
+        if(!profileCache){
+            profileCache = CacheFactory('bucketlist');
+        }
+
+        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+
+        $scope.getPopularGoals = function(id){
+            path = path.replace('{count}', $scope.count);
+
+            var topIdeas = profileCache.get('top-ideas'+id);
+
+            if (!topIdeas) {
+
+                $http.get(path)
+                    .success(function(data){
+                        $scope.popularGoals = data;
+                        profileCache.put('top-ideas'+id, data);
+                    });
+            }else {
+                $scope.popularGoals = topIdeas;
+            }
+        };
+
+        $scope.$watch('userId', function(id){
+            $scope.getPopularGoals(id);
+        })
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {

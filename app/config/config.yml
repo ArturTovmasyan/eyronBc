@@ -55,7 +55,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v308
+        assets_version: v312
         #assets_version: SomeVersionScheme
     default_locale:  en
     trusted_hosts:   ~
@@ -84,6 +84,7 @@ twig:
     globals:
         project_name: %project_name%
         ga_id: %ga_id%
+        env_prefix: ~
 
 
 # Assetic Configuration
