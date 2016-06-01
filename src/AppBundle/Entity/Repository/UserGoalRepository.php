@@ -24,7 +24,8 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
     /**
      * @param $userId
      * @param $goalId
-     * @return array
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findByUserAndGoal($userId, $goalId)
     {
@@ -82,9 +83,10 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug, g, i, ss, gug')
+                ->addSelect('ug, g, a, i, ss, gug')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->leftJoin('ug.goal', 'g')
+                ->leftJoin('g.author', 'a')
                 ->leftJoin('g.userGoal', 'gug')
                 ->leftJoin('g.successStories', 'ss')
                 ->leftJoin('g.images', 'i')

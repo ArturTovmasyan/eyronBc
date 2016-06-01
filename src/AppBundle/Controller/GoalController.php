@@ -358,7 +358,7 @@ class GoalController extends Controller
     {
         // get current user
         $user = $this->getUser();
-        //$this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -875,8 +875,7 @@ class GoalController extends Controller
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
         //check if user goal exist and 1
-        if(count($userGoal) == 1) {
-
+        if(!is_null($userGoal)) {
             //remove from bd
             $em->remove($userGoal);
 

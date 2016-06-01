@@ -92,6 +92,23 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * @param $userId
+     */
+    public function findUserCompletionFields($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT COUNT(ug) deadLineCount,
+                              (SELECT COUNT(ss) FROM AppBundle:SuccessStory ss WHERE ss.user = u) as storyCount,
+                              (SELECT COUNT(ug1) FROM AppBundle:UserGoal ug1 WHERE ug1.user = u AND ug1.status = :completedStatus) as completedCount
+                           FROM ApplicationUserBundle:User u
+                           LEFT JOIN u.userGoal ug WITH ug.doDate IS NOT NULL
+                           WHERE u.id = :userId")
+            ->setParameter('userId', $userId)
+            ->setParameter('completedStatus', UserGoal::COMPLETED)
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param $type
      * @param $id
      * @return mixed
@@ -234,5 +251,31 @@ class UserRepository extends EntityRepository
             ->setMaxResults()
             ->getResult()
             ;
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function updatePercentStatuses($user)
+    {
+        if($user->getProfileCompletedPercent() == 100){
+            return $user;
+        }
+
+        $em = $this->getEntityManager();
+
+        $statuses = $this->findUserCompletionFields($user->getId());
+        $user->setHasDeadLines($statuses['deadLineCount']);
+        $user->setHasCompletedGoal($statuses['completedCount']);
+        $user->setHasSuccessStory($statuses['storyCount']);
+        $percent = $user->getCompletedPercent();
+
+        if ($percent == 100) {
+            $user->setProfileCompletedPercent(floor($percent));
+            $em->flush();
+        }
+
+        return $user;
     }
 }
