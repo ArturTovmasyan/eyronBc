@@ -605,8 +605,10 @@ class GoalController extends Controller
                 $userGoal->setUser($user);
                 $newAdded = true;
 
-                $em->persist($userGoal);
-                $em->flush();
+                if($goal->getReadinessStatus() != Goal::DRAFT){
+                    $em->persist($userGoal);
+                    $em->flush();
+                }
             }
         }
 
