@@ -28,16 +28,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <figure>
-                                    {#<div>#}
-                                        {#{% if profileUser.getPhotoLink %}#}
-                                            {#<img src="{{ profileUser.getPhotoLink|blImageFilter('user_image') }}" alt="Profile image" class="img-responsive img-circle"/>#}
-                                        {#{% else %}#}
-                                            {#<span class="no-image {{ className }}">{{ nameOnImage }}</span>#}
-                                        {#{% endif %}#}
-                                    {#</div>#}
                                     {#<span class="overlay"></span>#}
-
-
                                         {#<div class="relative">#}
 
                                             <div data-ng-show="imageUrl">
@@ -102,10 +93,10 @@
                             <ul class="menu">
 
                                 <li class="active" >
-                                    <a  href="{{ path('edit_user_profile') }}">{{ 'Profile' }}</a>
+                                    <a  href="{{ path('edit_user_profile') }}">{{ 'user.profile'|trans({}, 'FOSUserBundle') }}</a>
                                 </li>
                                 <li class="active" >
-                                    <a  href="{{ path('edit_user_notify') }}">{{ 'Notification' }}</a>
+                                    <a  href="{{ path('edit_user_notify') }}">{{ 'user.notification'|trans({}, 'FOSUserBundle') }}</a>
                                 </li>
                             </ul>
                         </div>
