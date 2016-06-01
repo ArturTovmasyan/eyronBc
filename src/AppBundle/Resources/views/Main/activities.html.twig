@@ -40,17 +40,17 @@
 
                                         {% set className = "user-no" ~ random(4) %}
 
-                                        <img data-ng-if="activity.user.cached_image" data-ng-src="[[ activity.user.cached_image]]" alt="{{ user.filename }}" class="img-circle img-responsive">
+                                        <img data-ng-if="activity.user.cached_image" data-ng-src="[[ ::activity.user.cached_image]]" alt="{{ user.filename }}" class="img-circle img-responsive">
                                         <p data-ng-if="!activity.user.cached_image" class="no-image {% if className is defined %}{{ className }}{% endif %}">
-                                            [[ activity.user.first_name|limitTo:1|uppercase ]][[ activity.user.last_name|limitTo:1|uppercase ]]
+                                            [[ ::activity.user.first_name|limitTo:1|uppercase ]][[ ::activity.user.last_name|limitTo:1|uppercase ]]
                                         </p>
                                     </figure>
 
                                     <div class="pull-left text-gray">
                                         <h4>
 
-                                            <a data-ng-href="{{ env_prefix  }}/profile/[[ activity.user.u_id ]]" class="text-dark-gray">
-                                                [[ activity.user.first_name ]] [[ activity.user.last_name ]]
+                                            <a data-ng-href="{{ env_prefix  }}/profile/[[ ::activity.user.u_id ]]" class="text-dark-gray">
+                                                [[ ::activity.user.first_name ]] [[ ::activity.user.last_name ]]
                                             </a>
 
                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
@@ -75,19 +75,19 @@
 
                                         </h4>
 
-                                        <p>[[ activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ activity.datetime | date:'HH:mm' ]]</p>
+                                        <p>[[ ::activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ ::activity.datetime | date:'HH:mm' ]]</p>
 
                                     </div>
                                 </div>
 
                                 <div class="comment-place ng-hide" data-ng-show="activity.comment">
                                     <span class="arrow-up"></span>
-                                    [[ activity.comment.comment_body ]]
+                                    [[ ::activity.comment.comment_body ]]
                                 </div>
 
                                 <div class="comment-place ng-hide" data-ng-show="activity.success_story">
                                     <span class="arrow-up"></span>
-                                    [[ activity.success_story.story ]]
+                                    [[ ::activity.success_story.story ]]
                                 </div>
 
                             </div>
@@ -157,10 +157,10 @@
             <figure>
                 <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
 
-                <a data-ng-href="{{ env_prefix }}/goal/[[ activity.goal.slug ]]" class="goalTitle">
+                <a data-ng-href="{{ env_prefix }}/goal/[[ ::activity.goal.slug ]]" class="goalTitle">
                     <span class="overlay"></span>
-                    <h3>[[ activity.goal.title ]]</h3>
-                    <img data-ng-if="activity.goal.image_path" data-ng-src="[[ activity.goal.cached_image ]]" alt="[[ activity.goal.title ]]"/>
+                    <h3>[[ ::activity.goal.title ]]</h3>
+                    <img data-ng-if="activity.goal.image_path" data-ng-src="[[ ::activity.goal.cached_image ]]" alt="[[ ::activity.goal.title ]]"/>
                 </a>
                 <figcaption>
                     {% include "AppBundle:Blocks:newsFeedGoalFooter.html.twig" %}
