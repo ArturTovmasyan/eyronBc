@@ -359,7 +359,7 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){
+    .controller('goalEnd', ['$scope', '$timeout', '$window',function($scope, $timeout, $window){
 
         $scope.stepsArray = [{}];
         $scope.openSignInPopover = function(){
@@ -393,6 +393,17 @@ angular.module('goal', ['Interpolation',
                         angular.element('#cancel').click();
                         $scope.$apply();
 
+                    }
+                }
+            });
+            angular.element("#goal-add-for-create-form").ajaxForm({
+                beforeSubmit: function(){
+                    $scope.$apply();
+                },
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        $window.location.href = $scope.redirectPath;
+                        $scope.$apply();
                     }
                 }
             });
