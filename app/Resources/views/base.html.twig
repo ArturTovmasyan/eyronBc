@@ -18,6 +18,8 @@
         <meta property="og:image" content="{%- block og_image -%}{{ app.request.schemeAndHttpHost }}/bundles/app/images/bucketlist.jpg{%- endblock -%}" />
         <meta property="og:type" content="article">
 
+        <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
 
@@ -269,6 +271,7 @@
                 'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
                 'app/bower_components/angular-cache/dist/angular-cache.min.js'
                 'app/scripts/Interpolation/Interpolation.js'
+                'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Components/Components.js'
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
@@ -376,29 +379,7 @@
             {#// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)#}
             {#UserVoice.push(['autoprompt', {}]);#}
         {#</script>#}
-
-
     {% endspaceless %}
-
-    {# this must be only on production #}
-    {% if production  %}
-    <!-- Facebook Conversion Code for Bucket List 127 Sign Up -->
-    <script>(function() {
-            var _fbq = window._fbq || (window._fbq = []);
-            if (!_fbq.loaded) {
-                var fbds = document.createElement('script');
-                fbds.async = true;
-                fbds.src = 'https://connect.facebook.net/en_US/fbds.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(fbds, s);
-                _fbq.loaded = true;
-            }
-        })();
-        window._fbq = window._fbq || [];
-        window._fbq.push(['track', '6053055443809', {'value':'0.01','currency':'USD'}]);
-    </script>
-    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6053055443809&cd[value]=0.01&cd[currency]=USD&noscript=1" /></noscript>
-    {% endif %}
 
     </body>
 </html>
