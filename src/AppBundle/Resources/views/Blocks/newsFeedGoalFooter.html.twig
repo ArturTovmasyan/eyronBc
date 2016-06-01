@@ -16,7 +16,7 @@
     </li>
 
     <li class="col-xs-6 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
-        <a href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}', activity.goal.id)">
+        <a href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+activity.goal.id + '?ajax=true', 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}', activity.goal.id)">
             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
             <span class="text">{{ 'done'|trans | capitalize }}</span>
         </a>
