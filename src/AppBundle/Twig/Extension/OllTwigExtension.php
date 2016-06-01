@@ -64,7 +64,6 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getPolicyLink', array($this, 'getPolicyLink')),
             new \Twig_SimpleFunction('isMobile', array($this, 'isMobile')),
             new \Twig_SimpleFunction('isTablet', array($this, 'isTablet')),
-            new \Twig_SimpleFunction('goalFriends', array($this, 'goalFriends')),
             new \Twig_SimpleFunction('isMyGoal', array($this, 'isMyGoal')),
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
@@ -156,17 +155,6 @@ class OllTwigExtension extends \Twig_Extension
     public function isTablet()
     {
         return $this->container->get('mobile_detect.mobile_detector')->isTablet();
-    }
-
-    /**
-     * @param $userId
-     * @param $count
-     * @return mixed
-     */
-    public function goalFriends($userId, $count = null)
-    {
-        $goalFriends = $this->entityManager->getRepository('AppBundle:Goal')->findGoalFriends($userId, false, $count);
-        return $goalFriends;
     }
 
     /**

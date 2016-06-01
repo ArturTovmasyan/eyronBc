@@ -254,7 +254,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(name="profile_completed_percent", type="integer", nullable=false)
      */
-    protected $profileCompletedPercent;
+    protected $profileCompletedPercent = 0;
 
     /**
      * @ORM\Column(name="active_time", type="integer", nullable=true)
