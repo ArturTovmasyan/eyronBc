@@ -1,11 +1,16 @@
 {# If goal exists, uses that, if not, then will use the goal parents scopes goal #}
+{% if app.user.id is defined %}
+    {% set userId = app.user.id %}
+{% else %}
+    {% set userId = 0 %}
+{% endif %}
 <ul data-ng-controller="goalFooter" class="row no-gutter{% if inner is defined %} goal-links{% endif %}"
     {% if goal is defined and goalInner is not defined %} data-ng-init="completed=true;goal.is_my_goal={{ goal.isMyGoal|default(0) }};goal.id={{ goal.id }}" {% endif %} data-ng-cloak>
 
     <li class="col-xs-6 ng-hide" data-ng-show="!goal.is_my_goal && completed">
         <a href="javascript:void(0)"
            data-ls-jquery-modal
-           data-ng-click="goal.is_my_goal = 1; refreshCache('{{ app.user.id }}', goal.id) {% if isMobile() and not app.user%}&& popoverByMobile(){% endif %}"
+           data-ng-click="goal.is_my_goal = 1; refreshCache('{{ userId }}', goal.id) {% if isMobile() and not app.user%}&& popoverByMobile(){% endif %}"
            data-ls-identity="idea[[ ::goal.id ]]"
            data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ ::goal.id ]]">
 
