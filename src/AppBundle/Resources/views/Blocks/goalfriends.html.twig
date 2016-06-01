@@ -6,7 +6,7 @@
 
             <a href="{{ path('goal_friends') }}" class="heading text-gray">
                 <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                <span class="text">{{ 'goalfriends'|trans }} [[ length ]]</span>
+                <span class="text">{{ 'goalfriends'|trans }} [[ ::length ]]</span>
             </a>
 
             <hr/>
@@ -15,22 +15,22 @@
                 <li class="clearfix"
                     data-ng-cloak
                     data-ng-repeat="goalFriend in goalFriends">
-                    <a href="{{ env_prefix }}/profile/[[ goalFriend.u_id ]]/all">
+                    <a href="{{ env_prefix }}/profile/[[ ::goalFriend.u_id ]]/all">
 
                         <figure class="image">
                             {#{% if goalStatus == false %}#}
                                 {#<i class="icon-lock-white"></i>#}
                             {#{% endif %}#}
-                            <img data-ng-if="goalFriend.cached_image.length != 2"  data-ng-src="[[ goalFriend.cached_image ]]" alt="[[ goalFriend.first_name ]]" class="img-circle img-responsive"/>
+                            <img data-ng-if="goalFriend.cached_image.length != 2"  data-ng-src="[[ ::goalFriend.cached_image ]]" alt="[[ ::goalFriend.first_name ]]" class="img-circle img-responsive"/>
                             {% set className = "user-no" ~ random(4) %}
-                            <p data-ng-if="goalFriend.cached_image.length == 2" class="no-image {{ className }}">[[ goalFriend.cached_image | uppercase ]]</p>
+                            <p data-ng-if="goalFriend.cached_image.length == 2" class="no-image {{ className }}">[[ ::goalFriend.cached_image | uppercase ]]</p>
                         </figure>
 
                         <div class="pull-left text-gray" data-ng-init="stats = goalFriend.stats">
-                            <h4 class="text-dark-gray">[[ goalFriend.first_name ]] [[ goalFriend.last_name ]]</h4>
+                            <h4 class="text-dark-gray">[[ ::goalFriend.first_name ]] [[ ::goalFriend.last_name ]]</h4>
 
-                            <span class="text-gray">{{ 'listed_by'|trans }} [[ stats.listedBy ]]</span> |
-                            <span class="text-gray">{{ 'completed'|trans }} [[ stats.doneBy ]]</span>
+                            <span class="text-gray">{{ 'listed_by'|trans }} [[ ::stats.listedBy ]]</span> |
+                            <span class="text-gray">{{ 'completed'|trans }} [[ ::stats.doneBy ]]</span>
                         </div>
                     </a>
                 </li>

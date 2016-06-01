@@ -3,8 +3,8 @@
         <a href="javascript:void(0)"
            data-ls-jquery-modal
            data-ng-click="activity.goal.is_my_goal = 1; refreshCache('{{ app.user.id }}', activity.goal.id)"
-           data-ls-identity="activity[[ activity.goal.id ]]"
-           data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ activity.goal.id ]]">
+           data-ls-identity="activity[[ ::activity.goal.id ]]"
+           data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ ::activity.goal.id ]]">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>
         </a>
@@ -23,8 +23,8 @@
         <a  href="javascript:void(0)"
             data-ng-show="false"
             data-ls-jquery-modal
-            data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ activity.goal.id ]]"
-            data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
+            data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ ::activity.goal.id ]]"
+            data-ls-identity="goalAddSuccessStoryModal[[ ::activity.goal.id ]]"
             id="addSuccessActivity[[ $index ]]">
         </a>
     </li>
