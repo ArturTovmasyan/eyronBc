@@ -47,7 +47,7 @@ class UserNotifyService
         //get goal author
         $author = $goal->getAuthor();
 
-        //get notify settings value
+        //get comment notify settings value
         $enabled = $author->getCommentNotify();
 
         //check if user notify is disabled
@@ -105,7 +105,7 @@ class UserNotifyService
         //get goal author
         $author = $goal->getAuthor();
 
-        //get notify settings value
+        //get story notify settings value
         $enabled = $author->getSuccessStoryNotify();
 
         //check if user notify is disabled
@@ -151,7 +151,7 @@ class UserNotifyService
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
-                ->setTo('ateptan777@gmail.com')
+                ->setTo($email)
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

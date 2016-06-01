@@ -13,9 +13,8 @@
                         <div class="col-sm-6">
                             <div class="form-group row">
                                 <label class="col-sm-9 control-label">{{ 'Comments' }}</label>
-
                                 <div class="col-sm-3">
-                                    <input value="{{ commentValue }}" {% if commentValue %}checked{% endif %} type="checkbox" id="{{ form.commentNotify.vars.id }}" name="{{ form.commentNotify.vars.full_name }}">
+                                    {{ form_widget(form.commentNotify) }}
                                 </div>
                             </div>
                         </div>
@@ -23,9 +22,8 @@
                         <div class="col-sm-6">
                             <div class="form-group row">
                                 <label class="col-sm-9 control-label">{{ 'Success stories' }}</label>
-
                                 <div class="col-sm-3">
-                                    <input value="{{ storyValue }}" {% if storyValue %}checked{% endif %} type="checkbox" id="{{ form.successStoryNotify.vars.id }}" name="{{ form.successStoryNotify.vars.full_name }}">
+                                    {{ form_widget(form.successStoryNotify) }}
                                 </div>
                             </div>
 

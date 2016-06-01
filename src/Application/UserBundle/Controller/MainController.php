@@ -441,7 +441,7 @@ class MainController extends Controller
             }
         }
 
-        return array('form' => $form->createView(), 'profileUser' => $user);
+        return array('form' => $form->createView());
     }
 
     /**
@@ -536,6 +536,6 @@ class MainController extends Controller
             }
         }
 
-        return array('form' => $form->createView(), 'profileUser' => $user);
+        return array('form' => $form->createView());
     }
 }

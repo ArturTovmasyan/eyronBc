@@ -13,12 +13,13 @@
 
     {% block content_header %}
 
-            {% set stats = profileUser.getStats %}
-            {% set lastName = profileUser.lastName %}
             {% set user = app.user %}
-            {% set firstName = profileUser.firstName %}
+            {% set stats = user.getStats %}
+            {% set lastName = user.lastName %}
+            {% set firstName = user.firstName %}
             {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
             {% set className = "profile-image profile-image" ~ random(4) %}
+
         <div data-ng-controller="SettingController" xmlns="http://www.w3.org/1999/html">
 
         <form id="settings-form" action="#" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
@@ -70,13 +71,13 @@
                                 </figure>
                             </div>
                             <div class="col-sm-4">
-                                {% if profileUser.showName %}
-                                    <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
-                                        <span class="bg-blue">{{ profileUser.showName }}</span>
+                                {% if user.showName %}
+                                    <h1 class="{% if user.showName|length > 12 %}title-smaller{% endif %}">
+                                        <span class="bg-blue">{{ user.showName }}</span>
                                     </h1>
                                 {% endif %}
-                                {% if  profileUser.getAge  %}
-                                    <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
+                                {% if  user.getAge  %}
+                                    <p>{{ user.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                                 {% endif %}
                             </div>
                         </div>
