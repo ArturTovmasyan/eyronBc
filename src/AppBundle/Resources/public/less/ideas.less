@@ -51,11 +51,15 @@
       color:#ffffff;
     }
 
+
+
     figcaption{
       ul{
         li{
+          height:35px;
+          line-height:31px;
           a{
-            padding:5px 0;
+            //padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
@@ -91,11 +95,11 @@
             }
           }
           .text{
-            font-size:11px;
+            font-size:12px;
           }
         }
         .transparent{
-          padding:5px 0;
+          //padding:5px 0;
           .text{
             color: #a4a4a4;
           }
@@ -104,6 +108,17 @@
             a,.text {
               color: #a4a4a4;
             }
+          }
+        }
+      }
+    }
+
+    .absolute{
+      bottom:25px;
+      ul{
+        li{
+          a,span{
+            font-size:12px;
           }
         }
       }
@@ -158,7 +173,7 @@
     img{
       margin: 0 auto;
       width: 100%;
-      height:100%;
+
     }
     .swiper-button-prev{
       left:25px;
@@ -430,32 +445,32 @@
 
       h1{
         font-size: 32px;
-        line-height: 32px;
+        line-height: normal;
       }
 
       h2{
         font-size: 24px;
-        line-height: 24px;
+        line-height: normal;
       }
 
       h3{
         font-size: 20px;
-        line-height: 20px;
+        line-height: normal;
       }
 
       h4{
         font-size: 16px;
-        line-height: 16px;
+        line-height: normal;
       }
 
       h5{
         font-size: 15px;
-        line-height: 15px;
+        line-height: normal;
       }
 
       h6{
         font-size: 14px;
-        line-height: 14px;
+        line-height: normal;
       }
     }
 
@@ -565,9 +580,11 @@
       figcaption{
         ul{
           li{
-            a{
-              padding:10px 0;
-            }
+            height:50px;
+            line-height:45px;
+            //a{
+            //  padding:10px 0;
+            //}
 
             i.icon-green-ok,.icon-green-plus{
               font-size: 49px;
@@ -578,20 +595,21 @@
             }
 
             .text{
-              font-size:13px;
+              font-size:14px;
             }
           }
-          .transparent{
-            padding: 0;
-          }
+          //.transparent{
+          //  padding: 0;
+          //}
         }
       }
 
       .absolute{
+        bottom:40px;
         ul{
           li{
             padding-left:20px;
-            a{
+            a,span{
               color:#E5E5E5;
               font-size:14px;
             }
