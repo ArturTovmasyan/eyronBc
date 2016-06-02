@@ -45,14 +45,19 @@ class NewsFeedController extends FOSRestController
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
-        $this->get('bl_news_feed_service')->updateNewsFeed();
 
         //If user is logged in then show news feed
-        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
+        $newsFeedsQuery = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
 
-        if (is_numeric($first) && is_numeric($count)) {
-            $newsFeeds = array_slice($newsFeeds, $first, $count);
-        }
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $newsFeedsQuery,
+            $first / $count + 1,
+            $count
+        );
+
+        $newsFeeds = $pagination->getItems();
+
 
         $goalIds = [];
         foreach($newsFeeds as $newsFeed){
@@ -71,10 +76,15 @@ class NewsFeedController extends FOSRestController
         $liipManager = $this->get('liip_imagine.cache.manager');
         foreach($newsFeeds as $newsFeed){
             /** @var  $newsFeed \AppBundle\Entity\NewFeed */
-            $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            try{
+            try {
+                $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+            } catch (\Exception $e){
+                $newsFeed->getGoal()->setCachedImage("");
+            }
+
+            try {
                 $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
-            }catch (\Exception $e){
+            } catch (\Exception $e){
                 $newsFeed->getUser()->setCachedImage("");
             }
         }
