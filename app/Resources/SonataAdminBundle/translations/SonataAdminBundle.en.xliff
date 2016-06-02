@@ -366,6 +366,10 @@
                 <source>confirm_exit</source>
                 <target>You have unsaved changes.</target>
             </trans-unit>
+            <trans-unit id="all_users_count">
+                <source>all_users_count</source>
+                <target>All users count</target>
+            </trans-unit>
             <trans-unit id="link_edit_acl">
               <source>link_edit_acl</source>
               <target>Edit ACL</target>

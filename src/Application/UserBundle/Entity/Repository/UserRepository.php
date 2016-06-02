@@ -246,8 +246,7 @@ class UserRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery("SELECT u.email, u.firstName, u.lastName
-                            FROM ApplicationUserBundle:User u
-                            ")
+                            FROM ApplicationUserBundle:User u")
             ->setMaxResults()
             ->getResult()
             ;
@@ -277,5 +276,16 @@ class UserRepository extends EntityRepository
         }
 
         return $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findAllCount()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT COUNT(u)
+                           FROm ApplicationUserBundle:User u")
+            ->getSingleScalarResult();
     }
 }
