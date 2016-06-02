@@ -1,37 +1,52 @@
 <ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter">
-    <li class="col-xs-6 ng-hide" data-ng-show="!activity.goal.is_my_goal && completed">
+
+    <li class="col-xs-6" ng-class="{transparent: (activity.goal.is_my_goal && activity.goal.is_my_goal !== 0) || !completed}">
         <a href="javascript:void(0)"
+           data-ng-show="!activity.goal.is_my_goal && completed"
            data-ls-jquery-modal
            data-ng-click="activity.goal.is_my_goal = 1; refreshCache('{{ app.user.id }}', activity.goal.id)"
            data-ls-identity="activity[[ activity.goal.id ]]"
-           data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ activity.goal.id ]]">
+           data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ activity.goal.id ]]"
+           class="ng-hide">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>
         </a>
+        <span class="ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">
+            <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            <span class="text">{{ 'added'|trans | capitalize}}</span>
+        </span>
     </li>
 
-    <li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">
-        <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-        <span class="text">{{ 'added'|trans | capitalize}}</span>
+    {#<li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">#}
+        {#<i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>#}
+        {#<span class="text">{{ 'added'|trans | capitalize}}</span>#}
+    {#</li>#}
+
+    <li class="col-xs-6" ng-class="{transparent: (activity.goal.is_my_goal && activity.goal.is_my_goal === 2 )|| !completed}">
+        <span class="ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
+             <a href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}', activity.goal.id)">
+                 <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                 <span class="text">{{ 'done'|trans | capitalize }}</span>
+             </a>
+             <a  href="javascript:void(0)"
+                data-ng-show="false"
+                data-ls-jquery-modal
+                data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ activity.goal.id ]]"
+                data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
+                id="addSuccessActivity[[ $index ]]">
+             </a>
+        </span>
+
+        <span  class="ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">
+            <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            <span class="text">{{ 'completed'|trans | capitalize}}</span>
+        </span>
+
     </li>
 
-    <li class="col-xs-6 ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
-        <a href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+activity.goal.id, 'addSuccessActivity'+ $index); refreshCache('{{ app.user.id }}', activity.goal.id)">
-            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-            <span class="text">{{ 'done'|trans | capitalize }}</span>
-        </a>
-        <a  href="javascript:void(0)"
-            data-ng-show="false"
-            data-ls-jquery-modal
-            data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ activity.goal.id ]]"
-            data-ls-identity="goalAddSuccessStoryModal[[ activity.goal.id ]]"
-            id="addSuccessActivity[[ $index ]]">
-        </a>
-    </li>
-
-    <li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">
-        <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        <span class="text">{{ 'completed'|trans | capitalize}}</span>
-    </li>
+    {#<li class="col-xs-6 transparent ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">#}
+        {#<i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+        {#<span class="text">{{ 'completed'|trans | capitalize}}</span>#}
+    {#</li>#}
     
 </ul>
