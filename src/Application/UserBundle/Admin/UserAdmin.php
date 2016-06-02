@@ -59,7 +59,7 @@ class UserAdmin extends Admin
     {
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('email', null, array('label'=>'admin.label.name.email_username'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker'),null,
@@ -77,14 +77,14 @@ class UserAdmin extends Admin
             ->add('username', null, array('label'=>'admin.label.name.username'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('TestMessage', 'string', array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
+            ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
             ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                    'pushNote' => array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
             ))
         ;
     }

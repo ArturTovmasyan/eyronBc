@@ -318,6 +318,8 @@ admin:
       archived: Archived goals
       merged_id: Merged goal id
       author_name: Author
+      email_username: Email\Username
+      messages: Message
 
 # end sonata admin lable
 
