@@ -351,10 +351,11 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function doneAction(Goal $goal)
+    public function doneAction(Goal $goal, Request $request)
     {
         // get current user
         $user = $this->getUser();
@@ -385,7 +386,11 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('ok');
+        if ($request->query->get('ajax')){
+            return new Response('ok');
+        }
+
+        return $this->redirectToRoute("user_profile_single", array('status' => 'completed-goals'));
     }
 
     /**
@@ -600,8 +605,10 @@ class GoalController extends Controller
                 $userGoal->setUser($user);
                 $newAdded = true;
 
-                $em->persist($userGoal);
-                $em->flush();
+                if($goal->getReadinessStatus() != Goal::DRAFT){
+                    $em->persist($userGoal);
+                    $em->flush();
+                }
             }
         }
 

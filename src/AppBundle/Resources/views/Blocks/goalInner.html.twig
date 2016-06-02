@@ -79,7 +79,7 @@
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
-                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}"/>
+                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}height="100%" {% endif %}/>
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -128,12 +128,26 @@
 
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
-                                    <li class="col-xs-6">
-                                        <a href="{{ path('done_goal', {'id' : goal.id}) }}" data-ng-click="refreshCache('{{ userId }}','{{ goal.id }}')">
+                                    <li class="col-xs-6" data-ng-init="completed=true">
+                                        <a {% if app.user %}
+                                            href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
+                                        {% else %}href="{{ path('done_goal', {'id' : goal.id}) }}"{% endif %}
+                                        data-ng-show="completed">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>
                                         </a>
+                                        <li class="col-xs-6 transparent ng-hide" data-ng-show="!completed">
+                                            <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            <span class="text">{{ 'completed'|trans | capitalize}}</span>
+                                        </li>
                                     </li>
+                                    <a  href="javascript:void(0)"
+                                        data-ng-show="false"
+                                        data-ls-jquery-modal
+                                        data-ls-template-url="{{ env_prefix }}/goal/add-story/{{ goal.id  }}"
+                                        data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
+                                        id="addSuccesstory{{ goal.id }}">
+                                    </a>
                                 {% else %}
                                     <li class="col-xs-6 transparent">
                                         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
@@ -269,7 +283,7 @@
                                         <div class="col-sm-12">
                                             <embed-video
                                                 data-ng-init="mainSliderVideo='{{ v }}'"
-                                                data-ng-href="[[ mainSliderVideo ]]"
+                                                data-ng-href="[[ ::mainSliderVideo ]]"
                                                 height="360px"
                                                 width="100%">
                                             </embed-video>
@@ -287,7 +301,7 @@
                                                                width="100%"
                                                                height="300px"
                                                                data-ng-init="mainSliderVideo[{{ k }}]='{{ video }}'"
-                                                               data-ng-href="[[ mainSliderVideo[{{ k }}] ]]">
+                                                               data-ng-href="[[ ::mainSliderVideo[{{ k }}] ]]">
                                                             </embed-video>
                                                         </div>
                                                     {% endif %}
@@ -350,7 +364,7 @@
                                             <div class="col-xs-10 col-sm-11">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
-                                                    [[ dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
+                                                    [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                 </span>
                                                 <p>{{ story.story }}</p>
                                             </div>
@@ -402,7 +416,7 @@
                                                         <figure>
                                                             {#<iframe src="{{ v }}" width="700" height="360"></iframe>#}
                                                             <embed-video
-                                                                data-ng-href="[[ storySliderVideo[{{ key }}] ]]"
+                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
                                                                 data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
                                                                 height="360px"
                                                                 width="100%">
@@ -424,7 +438,7 @@
                                                                                 data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
                                                                                 width="100%"
                                                                                 height="360px"
-                                                                                data-ng-href="[[ storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
                                                                             </embed-video>
                                                                         </div>
                                                                     {% endif %}

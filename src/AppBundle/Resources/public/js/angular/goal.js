@@ -473,13 +473,21 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.addDone = function(path, id){
+            $http.get(path)
+                .success(function(res){
+                    $scope.completed = false;
+                    angular.element('#'+id).click();
+                });
         };
 
         $scope.openSignInPopover = function(){
