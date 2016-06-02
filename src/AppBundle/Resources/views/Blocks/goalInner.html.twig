@@ -79,7 +79,7 @@
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
-                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}"/>
+                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}height="100%" {% endif %}/>
                                         </a>
                                     </div>
                                 {% endfor %}
