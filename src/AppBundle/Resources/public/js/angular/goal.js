@@ -12,7 +12,8 @@ angular.module('goal', ['Interpolation',
         'Components',
         'LocalStorageModule',
         'angular-cache',
-        'ngResource'
+        'ngResource',
+        'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
 
@@ -46,7 +47,7 @@ angular.module('goal', ['Interpolation',
             refreshCache: refreshCache
         }
     }])
-    .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', function($http, localStorageService, envPrefix) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
@@ -93,7 +94,7 @@ angular.module('goal', ['Interpolation',
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
             //if busy or in goal show page
-            if (this.busy || (this.count == 3 && url == '/api/v1.0/goals/{first}/{count}')) {
+            if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
             if (!search) {
@@ -142,7 +143,7 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == '/api/v1.0/activities/{first}/{count}' && !category && !search) {
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v1.0/activities/{first}/{count}' && !category && !search) {
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
@@ -189,7 +190,7 @@ angular.module('goal', ['Interpolation',
                 url = url.replace('{first}', this.start).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/'+this.count+'?search=&category=') {
+                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
                         localStorageService.set('active_data' + userId, data);
                     }
                     //if get empty
@@ -216,7 +217,7 @@ angular.module('goal', ['Interpolation',
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
+    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix){
 
         $scope.files = [];
         $scope.disablePreview = false;
@@ -354,6 +355,10 @@ angular.module('goal', ['Interpolation',
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
+            if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
+                var goalId = angular.element('#goal-create-form').attr('data-goal-id');
+                $window.location.href = window.location.href + '?id=' + goalId;
+            }
             $scope.goalSubmitTemplate = '';
             $scope.$apply();
         })
@@ -380,10 +385,11 @@ angular.module('goal', ['Interpolation',
             angular.element(".location .location-hidden").val(null);
             angular.element(".location .location-hidden").attr('value',null);
             angular.element(".location .place-autocomplete").val('');
-        }
+        };
 
 
         $timeout(function(){
+            angular.element('#goal-create-form').attr('data-goal-id', $scope.goalId);
             angular.element("#goal-add-form").ajaxForm({
                 beforeSubmit: function(){
                     $scope.$apply();
@@ -467,13 +473,21 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.addDone = function(path, id){
+            $http.get(path)
+                .success(function(res){
+                    $scope.completed = false;
+                    angular.element('#'+id).click();
+                });
         };
 
         $scope.openSignInPopover = function(){
@@ -545,7 +559,7 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
 
         $scope.Ideas = new lsInfiniteItems();
         $scope.locations = [];
@@ -585,7 +599,7 @@ angular.module('goal', ['Interpolation',
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search);
             }
         };
 
@@ -595,7 +609,7 @@ angular.module('goal', ['Interpolation',
                         $scope.noIdeas = true;
                         angular.element('.idea-item').removeClass('ideas-result');
                         $scope.Ideas.reset();
-                        $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
+                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
                     };
             }
 
@@ -686,11 +700,8 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
-        var path = "/api/v1.0/goal-friends";
-
-
-        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
+        var path = envPrefix + "api/v1.0/goal-friends";
 
         $scope.getGaolFriends = function(id){
 
@@ -720,16 +731,14 @@ angular.module('goal', ['Interpolation',
             $scope.getGaolFriends(id);
         })
     }])
-    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
-        var path = "/api/v1.0/top-ideas/{count}";
+    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
+        var path = envPrefix + "api/v1.0/top-ideas/{count}";
 
         var profileCache = CacheFactory.get('bucketlist');
 
         if(!profileCache){
             profileCache = CacheFactory('bucketlist');
         }
-
-        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
 
         $scope.getPopularGoals = function(id){
             path = path.replace('{count}', $scope.count);
