@@ -11,6 +11,7 @@ namespace AppBundle\Controller\Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,16 +39,19 @@ class NewsFeedController extends FOSRestController
      *
      * @param $first
      * @param $count
+     * @param $request
      *
      * @return Response
      */
-    public function getAction($first, $count)
+    public function getAction($first, $count, Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
 
+        $lastId = $request->query->get('id', null);
+
         //If user is logged in then show news feed
-        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count);
+        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId);
 
         $goalIds = [];
         foreach($newsFeeds as $newsFeed){

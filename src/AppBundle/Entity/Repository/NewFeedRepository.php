@@ -51,9 +51,10 @@ class NewFeedRepository extends EntityRepository
      * @param bool|false $getCount
      * @param null $first
      * @param null $count
+     * @param null $lastId
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -73,6 +74,12 @@ class NewFeedRepository extends EntityRepository
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('user', $userId)
         ;
+
+        if ($lastId){
+            $query
+                ->andWhere('nf.id < :lastId')
+                ->setParameter('lastId', $lastId);
+        }
 
         if ($getCount){
             return $query->select('count(nf)')

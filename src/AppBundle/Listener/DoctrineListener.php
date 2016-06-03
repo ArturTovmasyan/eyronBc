@@ -150,7 +150,12 @@ class DoctrineListener
         $uow = $em->getUnitOfWork();
 
         if ($entity instanceof UserGoal){
-            $user = $this->tokeStorage->getToken()->getUser();
+            $token = $this->tokeStorage->getToken();
+            $user = null;
+            if ($token){
+                $user = $token->getUser();
+            }
+
             if (is_object($user)) {
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status']) && $changeSet['status'][1] = UserGoal::COMPLETED) {
@@ -169,8 +174,10 @@ class DoctrineListener
 
         if ($entity instanceof ActivityableInterface){
             $newFeed = $this->generateActivityOnInsert($em, $entity);
-            $em->persist($newFeed);
-            $em->flush();
+            if (!is_null($newFeed)) {
+                $em->persist($newFeed);
+                $em->flush();
+            }
         }
     }
 
@@ -181,7 +188,11 @@ class DoctrineListener
      */
     private function generateActivityOnInsert($em, $entity)
     {
-        $user = $this->tokeStorage->getToken()->getUser();
+        $token = $this->tokeStorage->getToken();
+        $user = null;
+        if ($token){
+            $user = $token->getUser();
+        }
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
             if ($entity instanceof Goal){
@@ -189,7 +200,7 @@ class DoctrineListener
                 $goal = $entity;
             }
             elseif($entity instanceof UserGoal &&
-                (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId()))
+                (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId() || $entity->getStatus() == UserGoal::COMPLETED))
             {
                 $action = NewFeed::GOAL_ADD;
                 if ($entity->getStatus() == UserGoal::COMPLETED){

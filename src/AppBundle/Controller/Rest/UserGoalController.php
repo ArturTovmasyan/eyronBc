@@ -380,6 +380,7 @@ class UserGoalController extends FOSRestController
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
 
+
         //send done goal event in google analytics
         $this->container->get('google_analytic')->doneGoalEvent();
 
