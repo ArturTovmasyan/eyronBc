@@ -34,6 +34,14 @@ class UserAdmin extends Admin
             ->add('email', null, array('label'=>'admin.label.name.email'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('picture', null, array('template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
+            ->add('profile', null, array('template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
+            ->add('listedGoal', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
+            ->add('createdGoal', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
+            ->add('successStory count', null, array('template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
+            ->add('sex', null, array('label'=>'Sex'))
+            ->add('lastLogin', null, array('label'=>'Last login'))
+            ->add('created', 'datetime', array('label' =>'admin.label.name.created'))
         ;
     }
 
@@ -60,7 +68,7 @@ class UserAdmin extends Admin
     {
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('email', null, array('label'=>'admin.label.name.email_username'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker'),null,
@@ -78,14 +86,14 @@ class UserAdmin extends Admin
             ->add('username', null, array('label'=>'admin.label.name.username'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('TestMessage', 'string', array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
+            ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
             ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                )
+                    'pushNote' => array('template' => 'ApplicationUserBundle:Admin:test_message.html.twig'))
             ))
         ;
     }
