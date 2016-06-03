@@ -104,8 +104,12 @@ angular.module('goal', ['Interpolation',
                 category = "";
             }
             this.busy = true;
-            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            var first = (url.indexOf('activities') != -1)?0:this.start;
+            url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
+            if(!first){
+                url += '&id=' + this.items[this.items.length -1].id;
+            }
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
@@ -147,10 +151,10 @@ angular.module('goal', ['Interpolation',
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
+                    localStorageService.set('active_data'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
-                        localStorageService.set('active_data'+userId, newData);
                         angular.element('#activities').addClass('comingByTop');
                         for(var j = 1; j < this.count; j++){
                             if(newData[j].datetime !== data[0].datetime){
@@ -166,19 +170,19 @@ angular.module('goal', ['Interpolation',
                             }else {
                                 for(var i = j-1; i >= 0; i--) {
                                     this.items.unshift(newData[i]);
-                                    this.start++;
+                                    // this.start++;
                                 }
                                 break;
                             }
                         }
                         this.reserve = [];
-                        this.busy = false;
-                        this.nextReserve(reserveUrl, search, category);
+                        // this.busy = false;
+                        // this.nextReserve(reserveUrl, search, category);
 
                     }
                 }.bind(this));
 
-                this.start += this.count;
+                // this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
                 this.nextReserve(reserveUrl, search, category);
@@ -187,7 +191,8 @@ angular.module('goal', ['Interpolation',
                 //    this.loadAddthis();
                 //}.bind(this), 500);
             }else{
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                var first = (url.indexOf('activities') != -1)?0:this.start;
+                url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
                     if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
