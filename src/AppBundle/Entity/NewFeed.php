@@ -30,6 +30,7 @@ class NewFeed
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
+     * @Groups({"new_feed"})
      */
     protected $id;
 
