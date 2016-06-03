@@ -11,11 +11,11 @@
                 {% set oneGoalStoryCount = goal.successStories|length %}
                 {% set storyCount = storyCount + goal.successStories|length %}
 
-                {{ oneGoalStoryCount }}
-
                 <a href="{{ path('inner_goal', {'slug': goal.slug}) }}" target="_blank" title="{{ goal.title }}">
                     {{ goal.title }}
-                </a> </br>
+                </a>
+                {{ oneGoalStoryCount }}
+                </br>
             {% endfor %}
             <hr>
         {{ "All counts " ~ storyCount }}
