@@ -3,19 +3,22 @@
 {% block field %}
     <div>
         {% if object is defined and object.id %}
-            {% set authorGoals = object.getAuthorGoals() %}
-            {% set goalCount = 0 %}
+            {% set storys = object.getSuccessStories() %}
+            {% set storyCount = 0 %}
 
-            {% for authorGoal in authorGoals %}
-                {% if authorGoal.isAuthor(object) %}
-                    {% set goalCount = goalCount + 1 %}
-                    <a href="{{ path('inner_goal', {'slug': authorGoal.slug}) }}" target="_blank" title="{{ authorGoal.title }}">
-                        {{ authorGoal.title }}
-                    </a> </br>
-                {% endif %}
+            {% for story in storys %}
+                {% set goal = story.goal %}
+                {% set oneGoalStoryCount = goal.successStories|length %}
+                {% set storyCount = storyCount + goal.successStories|length %}
+
+                {{ oneGoalStoryCount }}
+
+                <a href="{{ path('inner_goal', {'slug': goal.slug}) }}" target="_blank" title="{{ goal.title }}">
+                    {{ goal.title }}
+                </a> </br>
             {% endfor %}
-
-            {{ goalCount }}
+            <hr>
+        {{ "All counts " ~ storyCount }}
         {% endif %}
     </div>
 {% endblock %}

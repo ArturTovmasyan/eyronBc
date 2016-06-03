@@ -7,15 +7,16 @@
             {% set goalCount = 0 %}
 
             {% for authorGoal in authorGoals %}
-                {% if authorGoal.isAuthor(object) %}
+                {#{% if authorGoal.isAuthor(object) %}#}
                     {% set goalCount = goalCount + 1 %}
                     <a href="{{ path('inner_goal', {'slug': authorGoal.slug}) }}" target="_blank" title="{{ authorGoal.title }}">
                     {{ authorGoal.title }}
                     </a> </br>
-                {% endif %}
+                {#{% endif %}#}
             {% endfor %}
 
-                {{ goalCount }}
+            <hr>
+            {{ "All counts " ~ goalCount }}
         {% endif %}
     </div>
 {% endblock %}
