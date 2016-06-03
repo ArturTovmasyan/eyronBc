@@ -145,9 +145,6 @@ class BucketListService
      */
     public function setUserActivity($user, $inLogin = false, &$url = null)
     {
-        //get new feed is log service
-        $this->container->get('bl_news_feed_service')->updateNewsFeed();
-        
         //If user is logged in then show news feed
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 

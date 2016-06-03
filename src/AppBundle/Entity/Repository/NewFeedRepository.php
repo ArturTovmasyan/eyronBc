@@ -57,7 +57,7 @@ class NewFeedRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('nf, u, g, gi, ss, si, cmt')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u')
+            ->join('nf.user', 'u', 'WITH', 'u != :user')
             ->join('u.userGoal', 'gfUserGoal')
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')

@@ -249,8 +249,6 @@ class MainController extends Controller
      */
     public function activitiesAction(Request $request)
     {
-        $this->get('bl_news_feed_service')->updateNewsFeed();
-
         //This part is used for profile completion percent calculation
         $em = $this->getDoctrine()->getManager();
         if ($this->getUser()->getProfileCompletedPercent() != 100) {
