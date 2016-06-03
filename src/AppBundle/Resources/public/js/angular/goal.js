@@ -104,11 +104,12 @@ angular.module('goal', ['Interpolation',
                 category = "";
             }
             this.busy = true;
-            var first = (url.indexOf('activities') != -1)?0:this.start;
+            var lastId = this.items[this.items.length -1].id;
+            var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
             url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
-            if(!first){
-                url += '&id=' + this.items[this.items.length -1].id;
+            if(!first && lastId){
+                url += '&id=' + lastId
             }
             $http.get(url).success(function(data) {
                 this.reserve = data;
@@ -170,7 +171,7 @@ angular.module('goal', ['Interpolation',
                             }else {
                                 for(var i = j-1; i >= 0; i--) {
                                     this.items.unshift(newData[i]);
-                                    // this.start++;
+                                    this.start++;
                                 }
                                 break;
                             }
@@ -182,7 +183,7 @@ angular.module('goal', ['Interpolation',
                     }
                 }.bind(this));
 
-                // this.start += this.count;
+                this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
                 this.nextReserve(reserveUrl, search, category);
