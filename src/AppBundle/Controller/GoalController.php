@@ -603,9 +603,9 @@ class GoalController extends Controller
                 $userGoal->setStatus(UserGoal::ACTIVE);
                 $userGoal->setListedDate(new \DateTime());
                 $userGoal->setUser($user);
-                $newAdded = true;
 
                 if($goal->getReadinessStatus() != Goal::DRAFT){
+                    $newAdded = true;
                     $em->persist($userGoal);
                     $em->flush();
                 }
