@@ -47,17 +47,7 @@ class NewsFeedController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //If user is logged in then show news feed
-        $newsFeedsQuery = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId());
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $newsFeedsQuery,
-            $first / $count + 1,
-            $count
-        );
-
-        $newsFeeds = $pagination->getItems();
-
+        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count);
 
         $goalIds = [];
         foreach($newsFeeds as $newsFeed){

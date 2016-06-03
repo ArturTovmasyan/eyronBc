@@ -35,16 +35,17 @@ class BucketListController extends Controller
     public function myListAction($user = null , $status = null , Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
 
         // get user by id
-        if($user)
-        {
+        if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
+        }
+        else {
+            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         }
 
         // get dream
@@ -87,7 +88,7 @@ class BucketListController extends Controller
         $pagination = $paginator->paginate(
             $userGoals,
             $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
+            5/*limit per page*/
         );
 
 

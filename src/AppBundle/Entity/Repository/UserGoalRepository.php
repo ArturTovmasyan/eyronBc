@@ -13,6 +13,7 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 /**
@@ -75,10 +76,12 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      * @param $status
      * @param $dream
      * @param $requestFilters
-     * @param $isCurrentUser
+     * @param bool|false $isCurrentUser
+     * @param null $first
+     * @param null $count
      * @return array
      */
-    public function findAllByUser($userId, $status, $dream, $requestFilters, $isCurrentUser = false)
+    public function findAllByUser($userId, $status, $dream, $requestFilters, $isCurrentUser = false, $first = null, $count = null)
     {
         $query =
             $this->getEntityManager()
@@ -142,7 +145,16 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
 
         $query->andWhere($subQuery->getDQLPart('where'));
 
-        return $query->getQuery()->getResult();
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery();
     }
 
     /**

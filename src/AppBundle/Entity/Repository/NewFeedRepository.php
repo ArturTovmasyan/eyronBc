@@ -49,9 +49,11 @@ class NewFeedRepository extends EntityRepository
     /**
      * @param $userId
      * @param bool|false $getCount
+     * @param null $first
+     * @param null $count
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -78,7 +80,16 @@ class NewFeedRepository extends EntityRepository
                 ->getSingleScalarResult();
         }
 
-        return $query->getQuery();
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery()->getResult();
     }
     /**
      * @param $userId

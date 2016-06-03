@@ -229,7 +229,8 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $em = $this->getDoctrine()->getManager();
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
+        $userGoals = $em->getRepository('AppBundle:UserGoal')
+            ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, false, $first, $count);
 
         // slice data
         if (is_numeric($first) && is_numeric($count)) {
@@ -307,7 +308,8 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $em = $this->getDoctrine()->getManager();
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
+        $userGoals = $em->getRepository('AppBundle:UserGoal')
+            ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, null, 0, $count);
 
         // slice data
         if (is_numeric($count)) {

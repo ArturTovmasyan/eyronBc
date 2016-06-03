@@ -153,12 +153,11 @@ class BucketListService
             
             //check user is not have a new feed
             if ($feedCount == 0) {
-
                 //set redirect url to ideas list
                 $url = 'goals_list';
                 $user->setActivity(false);
 
-            }else {
+            } else {
 
                 //set redirect url to activity page
                 $url = 'activity';
@@ -167,11 +166,8 @@ class BucketListService
         }
         else {
             
-            //get user activity
-            $activity = $user->getActivity();
-
             //check if user don't have activity
-            if (!$activity) {
+            if (!$user->getActivity()) {
 
                 //check if user dont have activity
                 if($feedCount > 0) {
