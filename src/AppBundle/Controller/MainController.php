@@ -177,6 +177,7 @@ class MainController extends Controller
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
         $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, true);
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -217,6 +218,7 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:Goal')
             ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED, null, null, true);
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -249,8 +251,10 @@ class MainController extends Controller
      */
     public function activitiesAction(Request $request)
     {
-        //This part is used for profile completion percent calculation
         $em = $this->getDoctrine()->getManager();
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
+        //This part is used for profile completion percent calculation
         if ($this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }

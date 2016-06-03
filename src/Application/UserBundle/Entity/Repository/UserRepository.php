@@ -163,6 +163,20 @@ class UserRepository extends EntityRepository
 
     }
 
+    /**
+     * @param $user
+     */
+    public function setUserStats($user)
+    {
+        $stats = $this->findUserStats($user->getId());
+
+        $user->setStats([
+            "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+            "active"   => $stats['listedBy'],
+            "doneBy"   => $stats['doneBy']
+        ]);
+    }
+
     public function findUsersStats($userIds)
     {
         if (count($userIds) < 1){

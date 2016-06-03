@@ -40,6 +40,8 @@ class BucketListController extends Controller
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
 
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
         // get user by id
         if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));

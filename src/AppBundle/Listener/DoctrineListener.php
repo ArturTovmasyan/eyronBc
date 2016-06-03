@@ -97,15 +97,8 @@ class DoctrineListener
                 }
             }
             if ($entity instanceof User){
-
-                if ($this->loadUserStats) {
-                    $stats = $em->getRepository('ApplicationUserBundle:User')->findUserStats($entity->getId());
-
-                    $entity->setStats([
-                        "listedBy" => $stats['listedBy'] + $stats['doneBy'],
-                        "active" => $stats['listedBy'],
-                        "doneBy" => $stats['doneBy']
-                    ]);
+                if ($this->loadUserStats){
+                    $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
 
             }
