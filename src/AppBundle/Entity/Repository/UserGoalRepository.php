@@ -13,6 +13,7 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 /**
@@ -24,7 +25,8 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
     /**
      * @param $userId
      * @param $goalId
-     * @return array
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findByUserAndGoal($userId, $goalId)
     {
@@ -74,17 +76,20 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      * @param $status
      * @param $dream
      * @param $requestFilters
-     * @param $isCurrentUser
+     * @param bool|false $isCurrentUser
+     * @param null $first
+     * @param null $count
      * @return array
      */
-    public function findAllByUser($userId, $status, $dream, $requestFilters, $isCurrentUser = false)
+    public function findAllByUser($userId, $status, $dream, $requestFilters, $isCurrentUser = false, $first = null, $count = null)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug, g, i, ss, gug')
+                ->addSelect('ug, g, a, i, ss, gug')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->leftJoin('ug.goal', 'g')
+                ->leftJoin('g.author', 'a')
                 ->leftJoin('g.userGoal', 'gug')
                 ->leftJoin('g.successStories', 'ss')
                 ->leftJoin('g.images', 'i')
@@ -140,7 +145,16 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
 
         $query->andWhere($subQuery->getDQLPart('where'));
 
-        return $query->getQuery()->getResult();
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery();
     }
 
     /**
@@ -162,6 +176,23 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                            LEFT JOIN g.author author
                            WHERE ug.id IN (:userGoalIds)")
             ->setParameter('userGoalIds', $ids)
+            ->getResult();
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findUserGoals($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g.id, ug.status
+                           FROM AppBundle:Goal g
+                           INDEX BY g.id
+                           JOIN g.userGoal ug
+                           WHERE ug.user = :userId")
+            ->useResultCache(true, 24 * 3600, 'user_goal_' . $userId)
+            ->setParameter('userId', $userId)
             ->getResult();
     }
 }

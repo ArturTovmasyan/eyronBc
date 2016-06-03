@@ -60,12 +60,10 @@ class OllTwigExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('replaceString', array($this, 'replaceString')),
             new \Twig_SimpleFunction('popularGoals', array($this, 'popularGoals')),
-            new \Twig_SimpleFunction('userWithRelations', array($this, 'userWithRelations')),
             new \Twig_SimpleFunction('getNewAction', array($this, 'getNewAction')),
             new \Twig_SimpleFunction('getPolicyLink', array($this, 'getPolicyLink')),
             new \Twig_SimpleFunction('isMobile', array($this, 'isMobile')),
             new \Twig_SimpleFunction('isTablet', array($this, 'isTablet')),
-            new \Twig_SimpleFunction('goalFriends', array($this, 'goalFriends')),
             new \Twig_SimpleFunction('isMyGoal', array($this, 'isMyGoal')),
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
@@ -94,18 +92,6 @@ class OllTwigExtension extends \Twig_Extension
         $popularGoals = $this->entityManager->getRepository("AppBundle:Goal")->findPopular($user, $count);
         $this->entityManager->getRepository("AppBundle:Goal")->findGoalStateCount($popularGoals);
         return $popularGoals;
-    }
-
-    /**
-     * @param $userId
-     * @return mixed
-     */
-    public function userWithRelations($userId)
-    {
-        $em = $this->container->get('doctrine')->getManager();
-        $user = $em->getRepository('ApplicationUserBundle:User')->findWithRelationsById($userId);
-
-        return $user;
     }
 
     /**
@@ -169,17 +155,6 @@ class OllTwigExtension extends \Twig_Extension
     public function isTablet()
     {
         return $this->container->get('mobile_detect.mobile_detector')->isTablet();
-    }
-
-    /**
-     * @param $userId
-     * @param $count
-     * @return mixed
-     */
-    public function goalFriends($userId, $count = null)
-    {
-        $goalFriends = $this->entityManager->getRepository('AppBundle:Goal')->findGoalFriends($userId, false, $count);
-        return $goalFriends;
     }
 
     /**

@@ -10,6 +10,7 @@
 namespace Application\UserBundle\Handler;
 
 use AppBundle\Services\GoogleAnalyticService;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,15 +47,15 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
     /**
      * AuthenticationHandler constructor.
-     * @param Route $router
-     * @param GoogleAnalyticService $analytic
-     * @param Session $session
+     * @param Session|null $session
+     * @param Router|null $router
+     * @param GoogleAnalyticService|null $analytic
      */
     public function __construct(Session $session = null, Router $router = null, GoogleAnalyticService $analytic = null)
     {
-        $this->analytic = $analytic;
-        $this->router = $router;
-        $this->session = $session;
+        $this->analytic      = $analytic;
+        $this->router        = $router;
+        $this->session       = $session;
     }
 
     /**
