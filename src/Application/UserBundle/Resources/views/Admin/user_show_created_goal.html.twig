@@ -6,15 +6,19 @@
             {% set authorGoals = object.getAuthorGoals() %}
             {% set goalCount = 0 %}
 
+            <ul>
             {% for authorGoal in authorGoals %}
-                    {% set goalCount = goalCount + 1 %}
-                    <a href="{{ path('inner_goal', {'slug': authorGoal.slug}) }}" target="_blank" title="{{ authorGoal.title }}">
-                    {{ authorGoal.title }}
-                    </a> </br>
-            {% endfor %}
+                {% set goalCount = goalCount + 1 %}
 
+                <li>
+                    <a href="{{ path('inner_goal', {'slug': authorGoal.slug}) }}" target="_blank" title="{{ authorGoal.title }}">
+                        {{ authorGoal.title }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
             <hr>
-            {{ "All counts " ~ goalCount }}
+            {{ 'count - ' ~ goalCount }}
         {% endif %}
     </div>
 {% endblock %}

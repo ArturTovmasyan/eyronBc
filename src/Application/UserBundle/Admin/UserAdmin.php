@@ -29,18 +29,18 @@ class UserAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('id', null, array('label' =>' admin.label.name.id'))
+            ->add('email', null, array('label' => 'admin.label.name.email'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
-            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('lastName', null, array('label' => 'admin.label.name.lastName'))
             ->add('picture', null, array('template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
             ->add('profile', null, array('template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
-            ->add('listedGoal', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
-            ->add('createdGoal', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
+            ->add('listedGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
+            ->add('createdGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
             ->add('successStory count', null, array('template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
-            ->add('sex', null, array('label'=>'Sex'))
-            ->add('lastLogin', null, array('label'=>'Last login'))
-            ->add('created', 'datetime', array('label' =>'admin.label.name.created'))
+            ->add('sex', null, array('label' => 'Sex'))
+            ->add('lastLogin', null, array('label' => 'Last login'))
+            ->add('created', 'datetime', array('label' =>'Date of registration'))
         ;
     }
 
