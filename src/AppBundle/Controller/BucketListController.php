@@ -34,14 +34,20 @@ class BucketListController extends Controller
      */
     public function myListAction($user = null , $status = null , Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
 
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
         // get user by id
-        if($user)
-        {
+        if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
+        }
+        else {
+            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         }
 
         // get dream
@@ -84,7 +90,7 @@ class BucketListController extends Controller
         $pagination = $paginator->paginate(
             $userGoals,
             $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
+            7/*limit per page*/
         );
 
 
@@ -96,18 +102,20 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
         );
 
-        // get current user with relations, for db optimization
-        $currentUser = $em->getRepository("ApplicationUserBundle:User")->findWithRelationsById($this->getUser()->getId());
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
 
         // get drafts
         $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
         return array(
             'profileUser' => $user,
-            'userGoals' => $pagination,
+            'userGoals'   => $pagination,
             'draftsCount' => $draftsCount,
-            'filters' => $filters,
-            'currentUser' => $currentUser
+            'filters'     => $filters,
+            'currentUser' => $this->getUser()
             );
     }
 }

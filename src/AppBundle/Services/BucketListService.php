@@ -145,9 +145,6 @@ class BucketListService
      */
     public function setUserActivity($user, $inLogin = false, &$url = null)
     {
-        //get new feed is log service
-        $this->container->get('bl_news_feed_service')->updateNewsFeed();
-        
         //If user is logged in then show news feed
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 
@@ -156,12 +153,11 @@ class BucketListService
             
             //check user is not have a new feed
             if ($feedCount == 0) {
-
                 //set redirect url to ideas list
                 $url = 'goals_list';
                 $user->setActivity(false);
 
-            }else {
+            } else {
 
                 //set redirect url to activity page
                 $url = 'activity';
@@ -170,11 +166,8 @@ class BucketListService
         }
         else {
             
-            //get user activity
-            $activity = $user->getActivity();
-
             //check if user don't have activity
-            if (!$activity) {
+            if (!$user->getActivity()) {
 
                 //check if user dont have activity
                 if($feedCount > 0) {

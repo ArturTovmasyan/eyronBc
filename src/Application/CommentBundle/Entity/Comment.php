@@ -8,6 +8,7 @@
 
 namespace Application\CommentBundle\Entity;
 
+use AppBundle\Model\ActivityableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\SignedCommentInterface;
@@ -20,9 +21,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Application\CommentBundle\Entity\Repository\CommentRepository")
  * @ORM\Table(name="comment")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
- * @Gedmo\Loggable
  */
-class Comment extends BaseComment implements SignedCommentInterface
+class Comment extends BaseComment implements SignedCommentInterface, ActivityableInterface
 {
     /**
      * @ORM\Id

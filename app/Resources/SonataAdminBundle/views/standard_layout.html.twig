@@ -293,6 +293,10 @@ file that was distributed with this source code.
                                     {% endif %}
                                 {% endblock sonata_page_content_nav %}
 
+                                {%  if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
+                                    {{ 'all_users_count'|trans({}, 'SonataAdminBundle') }} {{ admin.usersCount }}
+                                {% endif %}
+
                             {% endblock sonata_page_content_header %}
                         </section>
 

@@ -18,8 +18,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserAdmin extends Admin
 {
-    protected  $baseRouteName = 'admin-user';
-    protected  $baseRoutePattern = 'admin-user';
+    protected $baseRouteName    = 'admin-user';
+    protected $baseRoutePattern = 'admin-user';
+    public    $usersCount       = 0;
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -94,7 +95,11 @@ class UserAdmin extends Admin
      */
     public function createQuery($context = 'list')
     {
-        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $container = $this->getConfigurationPool()->getContainer();
+
+        $user = $container->get('security.token_storage')->getToken()->getUser();
+        $em = $container->get('doctrine')->getManager();
+        $this->usersCount = $em->getRepository('ApplicationUserBundle:User')->findAllCount();
 
         $query = parent::createQuery($context);
 
