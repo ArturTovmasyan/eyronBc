@@ -5,7 +5,7 @@ Feature: Goal page
 
   Background:
     Given I am on "/logout"
-    And I wait
+    And I wait for view
     And I am logged in as "user1"
 
   @javascript @goalActiveCompleted
@@ -20,6 +20,7 @@ Feature: Goal page
     And I should see "Dreaming"
     And I wait
     When I am on "/logout"
+    And I wait for view
     And I am logged in as "user2"
     Then I should see "user2 useryan"
     When I am on "/profile"
@@ -42,9 +43,9 @@ Feature: Goal page
     And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
-    And I change switch "3"
-    And I wait
-    And I change switch "3"
+    And I change switch "2"
+    And I wait for view
+    And I change switch "2"
     And I press "Save"
     Then I should see "user1 useryan"
     And I wait for angular
@@ -52,8 +53,9 @@ Feature: Goal page
     And I follow "Manage"
     And I wait for angular
     When I change switch "0"
+    And I wait for view
     Then I should see "Goal is completed"
-    And I click on "btn btn-purple button-lg"
+    And I click on "btn btn-purple"
     Then I should see "user1 useryan"
 
   @javascript @preview
@@ -72,7 +74,7 @@ Feature: Goal page
     And I wait for angular
     And I scroll page to "top"
     And I press "btn_preview"
-    And I should be on "/goal/view/test-goals-1"
+    And I should be on "/goal/view/test-goals"
     Then I should see "EDIT"
     When I follow "EDIT"
     Then I should see "TEST GOALS"
@@ -119,7 +121,7 @@ Feature: Goal page
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    And I click on "btn btn-transparent button-lg"
+    And I follow "Cancel"
 
 
   @javascript @goalDescriptionTest
@@ -166,7 +168,7 @@ Feature: Goal page
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".radio-inline"
-    And I click on "btn btn-transparent button-lg"
+    And I follow "Cancel"
     And I wait for angular
     And I should see "goal"
     And I should see "Added"

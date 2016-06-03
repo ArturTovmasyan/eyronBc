@@ -1,19 +1,17 @@
 <?php
-//
-//namespace AppBundle\Tests\Controller;
-//
-//use Symfony\Component\HttpFoundation\File\UploadedFile;
-//use Symfony\Component\HttpFoundation\Response;
-//
-///**
-// * Class GoalControllerTest
-// * @package AppBundle\Tests\Controller
-// *
-// * todo must be added actions : This action not have a route because i'm can't create UI tests .
-// *  innerContentAction
-// */
-//class GoalControllerTest extends BaseClass
-//{
+
+namespace AppBundle\Tests\Controller;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * Class GoalControllerTest
+ * @package AppBundle\Tests\Controller
+ *
+ */
+class GoalControllerTest extends BaseClass
+{
 //    /**
 //     * This function is used to check goal list
 //     */
@@ -55,40 +53,42 @@
 //    }
 //
 //
-//    /**
-//     * This function is used to check goal add page
-//     */
-//    public function testAdd()
-//    {
-//        // try to open goal view page
-//        $crawler = $this->client->request('GET', '/goal/create');
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add page!');
-//
-//        // get form
-//        $form = $crawler->selectButton('btn_publish')->form(array(
-//            'app_bundle_goal[title]' => 'goal2',
-//            'app_bundle_goal[description]' => 'goalDescription',
-//            'app_bundle_goal[files]' => '',
-//            'app_bundle_goal[status]' => 1,
-//            'app_bundle_goal[hashTags]' => null,
-//            'app_bundle_goal[language]' => 'en',
-//
-//        ));
-//
-//        // submit form
-//        $this->client->submit($form);
-//        // get goal
-//        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('goal2');
-//
-//        if ($profile = $this->client->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
-//        // get goal id
-//       return $goal;
-//    }
-//
+    /**
+     * This function is used to check goal add page
+     */
+    public function testAdd()
+    {
+        // try to open goal view page
+        $crawler = $this->client2->request('GET', '/goal/create');
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal add page!');
+
+        // get form
+        $form = $crawler->selectButton('btn_publish')->form(array(
+            'app_bundle_goal[title]' => 'GOAL888',
+            'app_bundle_goal[description]' => 'goalDescription',
+            'app_bundle_goal[files]' => '',
+            'app_bundle_goal[status]' => 1,
+            'app_bundle_goal[hashTags]' => null,
+            'app_bundle_goal[language]' => 'en',
+
+        ));
+
+        // submit form
+        $this->client2->submit($form);
+
+        // get goal
+        $goal = $this->em->getRepository('AppBundle:Goal')->findOneByTitle('GOAL888');
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        // get goal id
+       return $goal->getId();
+    }
+
 //    /**
 //     * @depends testAdd
 //     */
@@ -262,32 +262,38 @@
 //
 //        return $goalId;
 //    }
-//
-//
-//    /**
-//     * test remove goal
-//     *
-//     * @depends testAddSuccessStoryImage
-//     */
-//    public function testRemoveGoal($goalId)
-//    {
-//        // get user id
-//        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('admin@admin.com');
-//        // open remove goal page
-//        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
-//
-//
-//        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
-//
-//        // check db request count
-//        if ($profile = $this->client->getProfile()) {
-//
-//            // count is 20, because calculated redirected route too
-//
-//            // check the number of requests
-//            $this->assertLessThan(20, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
-//    }
+
+
+    /**
+     * test remove goal
+     *
+     * @depends testAdd
+     * @param $goalId
+     */
+    public function testRemoveGoal($goalId)
+    {
+        // get user id
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user1@user.com');
+
+        // open remove goal page
+        $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
+
+        //get removed goal for test
+        $goal = $this->em->getRepository('AppBundle:Goal')->find($goalId);
+
+        $this->assertNull($goal, "Goal remove don't work");
+
+        // check db request count
+        if ($profile = $this->client->getProfile()) {
+
+            // count is 16, because calculated redirected route too
+            // check the number of requests
+            $this->assertLessThan(16, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+    }
+
 //
 //    /**
 //     * @dataProvider fileProvider
@@ -307,4 +313,4 @@
 //        }
 //
 //    }
-//}
+}
