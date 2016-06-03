@@ -73,3 +73,27 @@
     clear: both;
     margin:20px 15px 15px;
 }
+
+.facebook{
+    background: url('../images/facebook.png') no-repeat center center;
+    width: 85px;
+    height: 35px;
+    display: block;
+    background-size: 100%;
+}
+
+.twitter{
+    background: url('../images/twitter.png') no-repeat center center;
+    width: 85px;
+    height: 35px;
+    display: block;
+    background-size: 100%;
+}
+
+.google{
+    background: url('../images/google.png') no-repeat center center;
+    width: 85px;
+    height: 35px;
+    display: block;
+    background-size: 100%;
+}
