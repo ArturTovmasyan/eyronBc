@@ -111,7 +111,7 @@
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-xs-{{ xs }}" data-ng-init="added = false" data-ng-show="!added">
                                         <a href="javascript:void(0)"
-                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}')"
+                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}'){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
@@ -131,7 +131,7 @@
                                     <li class="col-xs-6" data-ng-init="completed=true">
                                         <a {% if app.user %}
                                             href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
-                                        {% else %}href="{{ path('done_goal', {'id' : goal.id}) }}"{% endif %}
+                                        {% elseif isMobile() %}href="javascript:void(0)" data-ng-click="popoverByMobile(); addDone('{{ env_prefix }}/goal/done/'+goal.id)" {% else %}href="{{ path('done_goal', {'id' : goal.id}) }}"{% endif %}
                                         data-ng-show="completed">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>
