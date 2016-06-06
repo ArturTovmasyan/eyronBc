@@ -41,15 +41,22 @@ class GoogleAnalyticService
     {
         //init curl
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google-analytics.com/collect');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $url);
 
         //run curl
         $output = curl_exec($ch);
 
+        //get curl error
+        $err = curl_error($ch);
+
+        //close curl
+        curl_close($ch);
+
         //check if error exists
-        if ($output === false) {
+        if ($err) {
 
             //get logger service
             $logger = $this->container->get('logger');
@@ -57,9 +64,6 @@ class GoogleAnalyticService
             //set error in log
             $logger->error('Bad request for add event in google analytics');
         }
-
-        //close curl
-        curl_close($ch);
     }
 
     /**
