@@ -39,6 +39,13 @@ class GoogleAnalyticService
      */
     public function sendEventInGoogleAnalytics($url)
     {
+//        $request = $this->container->get('request');
+//
+//        // get cookie
+//        $value = $request->cookies->get('_ga');
+
+//        dump($value);exit;
+
         //init curl
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.google-analytics.com/collect');
@@ -111,6 +118,7 @@ class GoogleAnalyticService
 
         //send event in google analytic
         $this->sendEventInGoogleAnalyticsAsync($addGoalEvent);
+//        $this->sendEventInGoogleAnalytics($addGoalEvent);
     }
 
     /**
