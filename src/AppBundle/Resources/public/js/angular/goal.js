@@ -599,9 +599,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
-            // if(ev.which === 13) {
-            //     angular.element('.icon-remove-email').click();
-            // }
+            if(ev.which === 13 && screen.width < 768) {
+                angular.element('.icon-remove-email').click();
+            }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
