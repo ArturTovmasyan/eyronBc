@@ -331,8 +331,8 @@ class GoalController extends Controller
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 1, 3);
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 1, 3);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 0, 3 );
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
