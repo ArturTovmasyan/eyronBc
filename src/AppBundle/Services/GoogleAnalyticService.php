@@ -39,16 +39,22 @@ class GoogleAnalyticService
      */
     public function sendEventInGoogleAnalytics($url)
     {
-//        $request = $this->container->get('request');
-//
-//        // get cookie
-//        $value = $request->cookies->get('_ga');
+        //get user uid
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-//        dump($value);exit;
+        //check if user has uid
+        if($user && $user->getUId()) {
+            //set client id
+            $clientId = $user->getUId();
+        }
+        else{
+            //generate random client id for GA
+            $clientId = $this->randomNumber(12);
+        }
 
         //init curl
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.google-analytics.com/collect');
+        curl_setopt($ch, CURLOPT_URL, "https://www.google-analytics.com/collect?cid=".$clientId);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $url);
@@ -93,7 +99,8 @@ class GoogleAnalyticService
         $createGoalEvent = $this->container->getParameter('event_create_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($createGoalEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($createGoalEvent);
+        $this->sendEventInGoogleAnalytics($createGoalEvent);
     }
 
     /**
@@ -105,7 +112,8 @@ class GoogleAnalyticService
         $doneGoalEvent = $this->container->getParameter('event_done_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($doneGoalEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($doneGoalEvent);
+        $this->sendEventInGoogleAnalytics($doneGoalEvent);
     }
 
     /**
@@ -117,8 +125,8 @@ class GoogleAnalyticService
         $addGoalEvent = $this->container->getParameter('event_add_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($addGoalEvent);
-//        $this->sendEventInGoogleAnalytics($addGoalEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($addGoalEvent);
+        $this->sendEventInGoogleAnalytics($addGoalEvent);
     }
 
     /**
@@ -130,7 +138,8 @@ class GoogleAnalyticService
         $removeGoalEvent = $this->container->getParameter('event_remove_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($removeGoalEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($removeGoalEvent);
+        $this->sendEventInGoogleAnalytics($removeGoalEvent);
     }
 
     /**
@@ -142,7 +151,8 @@ class GoogleAnalyticService
         $userRegisterEvent = $this->container->getParameter('event_user_registration');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($userRegisterEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($userRegisterEvent);
+        $this->sendEventInGoogleAnalytics($userRegisterEvent);
     }
 
     /**
@@ -154,7 +164,8 @@ class GoogleAnalyticService
         $createStoryEvent = $this->container->getParameter('event_create_story');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($createStoryEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($createStoryEvent);
+        $this->sendEventInGoogleAnalytics($createStoryEvent);
     }
 
     /**
@@ -166,7 +177,8 @@ class GoogleAnalyticService
         $loginUserEvent = $this->container->getParameter('event_login_user');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($loginUserEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($loginUserEvent);
+        $this->sendEventInGoogleAnalytics($loginUserEvent);
     }
 
     /**
@@ -194,7 +206,8 @@ class GoogleAnalyticService
         $loginUserBySocialEvent = $this->container->getParameter($parameterName);
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
+        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
     }
 
     /**
@@ -206,7 +219,9 @@ class GoogleAnalyticService
         $unListGoalEvent = $this->container->getParameter('event_unlist_goal');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($unListGoalEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($unListGoalEvent);
+        $this->sendEventInGoogleAnalytics($unListGoalEvent);
+
     }
 
     /**
@@ -218,7 +233,8 @@ class GoogleAnalyticService
         $commentEvent = $this->container->getParameter('event_comment');
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($commentEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($commentEvent);
+        $this->sendEventInGoogleAnalytics($commentEvent);
     }
 
     /**
@@ -246,7 +262,23 @@ class GoogleAnalyticService
         $loginUserBySocialEvent = $this->container->getParameter($parameterName);
 
         //send event in google analytic
-        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
+//        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
+        $this->sendEventInGoogleAnalytics($loginUserBySocialEvent);
     }
 
+    /**
+     * This function is used to generate random number
+     *
+     * @param $length
+     * @return string
+     */
+    public function randomNumber($length) {
+        $result = '';
+
+        for($i = 0; $i < $length; $i++) {
+            $result .= mt_rand(0, 9);
+        }
+
+        return $result;
+    }
 }

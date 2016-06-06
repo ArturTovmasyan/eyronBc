@@ -24,21 +24,21 @@ parameters:
         height: 720
 
     # event for google analytics
-    event_add_goal: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Add&el=Add%%20goal'
-    event_done_goal: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Done&el=Done%%20goal'
-    event_create_goal: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Create&el=Create%%20goal'
-    event_remove_goal: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Remove&el=Remove%%20goal'
-    event_create_story: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Success%%20story&ea=Create&el=Create%%20story'
-    event_login_user: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Login'
-    event_facebook_login_user: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Facebook%%20login'
-    event_google_login_user: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Google%%20login'
-    event_twitter_login_user: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Login&el=Twitter%%20login'
-    event_user_registration: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Registration'
-    event_facebook_registration: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Facebook%%20registration'
-    event_google_registration: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Google%%20registration'
-    event_twitter_registration: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=User&ea=Registration&el=Twitter%%20registration'
-    event_unlist_goal: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Goal&ea=Unlist&el=Unlist%%20goal'
-    event_comment: 'v=1&t=event&tid=%ga_id%&cid=%google_client_id%&ec=Comment&ea=Add&el=Add%%20comments'
+    event_add_goal: 'v=1&t=event&tid=%ga_id%&ec=Goal&ea=Add&el=Add%%20goal&ev=1'
+    event_done_goal: 'v=1&t=event&tid=%ga_id%&ec=Goal&ea=Done&el=Done%%20goal&ev=1'
+    event_create_goal: 'v=1&t=event&tid=%ga_id%&ec=Goal&ea=Create&el=Create%%20goal&ev=1'
+    event_remove_goal: 'v=1&t=event&tid=%ga_id%&ec=Goal&ea=Remove&el=Remove%%20goal&ev=1'
+    event_create_story: 'v=1&t=event&tid=%ga_id%&ec=Success%%20story&ea=Create&el=Create%%20story&ev=1'
+    event_login_user: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Login&el=Login&ev=1'
+    event_facebook_login_user: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Login&el=Facebook%%20login&ev=1'
+    event_google_login_user: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Login&el=Google%%20login&ev=1'
+    event_twitter_login_user: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Login&el=Twitter%%20login&ev=1'
+    event_user_registration: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Registration&el=Registration&ev=1'
+    event_facebook_registration: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Registration&el=Facebook%%20registration&ev=1'
+    event_google_registration: 'v=1&t=event&tid=%ga_id%&ec=User&ea=Registration&el=Google%%20registration&ev=1'
+    event_twitter_registration: 'v=1&t=event&tid=%ga_id%&&ec=User&ea=Registration&el=Twitter%%20registration&ev=1'
+    event_unlist_goal: 'v=1&t=event&tid=%ga_id%&ec=Goal&ea=Unlist&el=Unlist%%20goal&ev=1'
+    event_comment: 'v=1&t=event&tid=%ga_id%&ec=Comment&ea=Add&el=Add%%20comments&ev=1'
 
 framework:
     esi:            { enabled: true }
