@@ -39,6 +39,13 @@ class GoogleAnalyticService
      */
     public function sendEventInGoogleAnalytics($url)
     {
+        //get kernel debug
+        $isDebug = $this->container->getParameter('kernel.debug');
+
+        if($isDebug) {
+         return;
+        }
+
         //get user uid
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
