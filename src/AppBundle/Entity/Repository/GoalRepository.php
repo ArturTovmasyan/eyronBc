@@ -207,8 +207,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->andWhere('gt.id in (
                 SELECT ct.id FROM AppBundle:Category c
                 LEFT JOIN c.tags ct
-                WHERE c.slug = :catId
-                )')
+                WHERE c.slug = :catId)')
                 ->setParameter('catId', $category)
             ;
         }
@@ -243,14 +242,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 $idsQuery->orderBy('cnt', 'desc');
             }
 
-            $ids = $idsQuery
-                ->getQuery()
-                ->getResult()
-            ;
+            $ids = $idsQuery->getQuery()->getResult();
 
             //check if random is true
             if($isRandom) {
-
               //do goal ids is random
               $ids = $this->shuffle_goal($ids);
             }

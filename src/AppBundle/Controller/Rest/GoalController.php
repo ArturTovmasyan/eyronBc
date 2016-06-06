@@ -63,7 +63,7 @@ class GoalController extends FOSRestController
 
         $goals = array_values($goals);
 
-        if ($count == 7){
+        if ($count == 7 || $count == 3){
             $liipManager = $this->get('liip_imagine.cache.manager');
             for($i = 0; $i < 4; $i++){
                 if (isset($goals[$i])) {

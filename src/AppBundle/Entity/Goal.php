@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ActivityableInterface;
 use AppBundle\Model\ArchivedGoal;
 use AppBundle\Model\ArchivedGoalInterface;
 use AppBundle\Model\MergeGoal;
@@ -29,9 +30,8 @@ use Gedmo\Mapping\Annotation\Blameable;
  * @ORM\Table(name="goal", indexes={
  *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"})
  * })
- * @Gedmo\Loggable
  */
-class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
+class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;

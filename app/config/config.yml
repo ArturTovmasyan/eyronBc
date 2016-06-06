@@ -55,7 +55,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v315
+        assets_version: v318
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~

@@ -13,8 +13,8 @@
                         <figure class="relative">
                             {% set image = goal.getListPhoto %}
 
-                            <a href="#">
-                                <span class="overlay"></span>
+                            <a href="{{ path('add_goal', {'id': goal.id }) }}">
+                                <span class="overlay">{{ goal.title }}</span>
                                 {% if image %} <img src="{{ image.downloadLink|blImageFilter('goal_list_small')  }}" height="230" alt="{{ goal.title }}"/> {% endif %}
                             </a>
                             <figcaption>

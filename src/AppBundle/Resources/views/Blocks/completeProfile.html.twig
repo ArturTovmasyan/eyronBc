@@ -1,6 +1,4 @@
-{% if user is defined %}
-
-    {% set user = userWithRelations(app.user.id) %}
+{% if user is defined and user.profileCompletedPercent != 100 %}
 
     <div class="bg-white round padding ng-hide" data-ng-show="{{ user.getCompletedPercent()|round(1, 'floor') }} != 100">
         <div class="row">

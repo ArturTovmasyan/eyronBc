@@ -5,7 +5,7 @@ Feature: Goal page
 
   Background:
     Given I am on "/logout"
-    And I wait
+    And I wait for view
     And I am logged in as "user1"
 
   @javascript @goalActiveCompleted
@@ -121,7 +121,7 @@ Feature: Goal page
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
-    And I click on "btn btn-transparent button-lg"
+    And I follow "Cancel"
 
 
   @javascript @goalDescriptionTest
@@ -168,7 +168,7 @@ Feature: Goal page
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".radio-inline"
-    And I click on "btn btn-transparent button-lg"
+    And I follow "Cancel"
     And I wait for angular
     And I should see "goal"
     And I should see "Added"

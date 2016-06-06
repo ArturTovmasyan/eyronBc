@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * NewFeedRepository
@@ -44,12 +45,65 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
+
+    /**
+     * @param $userId
+     * @param bool|false $getCount
+     * @param null $first
+     * @param null $count
+     * @param null $lastId
+     * @return \Doctrine\ORM\Query|mixed
+     */
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('nf, u, g, gi, ss, si, cmt')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.user', 'u', 'WITH', 'u != :user')
+            ->join('u.userGoal', 'gfUserGoal')
+            ->join('gfUserGoal.goal', 'gfGoal')
+            ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('g.images', 'gi')
+            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
+            ->leftJoin('nf.successStory', 'ss')
+            ->leftJoin('ss.files', 'si')
+            ->leftJoin('nf.comment', 'cmt')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->orderBy('nf.datetime', 'DESC')
+            ->setParameter('user', $userId)
+        ;
+
+        if ($lastId){
+            $query
+                ->andWhere('nf.id < :lastId')
+                ->setParameter('lastId', $lastId);
+        }
+
+        if ($getCount){
+            return $query->select('count(nf)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery()->getResult();
+    }
     /**
      * @param $userId
      * @param $getCount
      * @return array
      */
-    public function findNewFeed($userId, $getCount = false)
+    public function findNewFeedOld($userId, $getCount = false)
     {
         $goalFriendsIds = $this->getEntityManager()
                                ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
@@ -60,10 +114,11 @@ class NewFeedRepository extends EntityRepository
 
         $query = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('nf, u, g, ss, cmt')
+            ->select('nf, u, g, gi, ss, cmt')
             ->from('AppBundle:NewFeed', 'nf')
             ->join('nf.user', 'u')
             ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('g.images', 'gi')
             ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('nf.comment', 'cmt')
@@ -79,34 +134,4 @@ class NewFeedRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
-
-    /**
-     * @param $userId
-     * @return array
-     */
-    public function findNewFeedByCount($userId)
-    {
-        $goalFriendsIds = $this->getEntityManager()
-                               ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
-        if (!count($goalFriendsIds)){
-            $goalFriendsIds[] = 0;
-        }
-
-        $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('nf, u, g, ss, cmt')
-            ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
-            ->join('nf.user', 'u')
-            ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
-            ->leftJoin('nf.successStory', 'ss')
-            ->leftJoin('nf.comment','cmt')
-            ->where('u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true)')
-            ->andWhere('g.publish = true')
-            ->orderBy('nf.datetime', 'DESC')
-            ->setParameter('ids', $goalFriendsIds);
-
-        return $query->getQuery()->getResult();
-    }
-
 }
