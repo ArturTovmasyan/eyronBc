@@ -47,17 +47,22 @@ class GoogleAnalyticService
         }
 
         //get user uid
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $token = $this->container->get('security.token_storage')->getToken();
 
-        //check if user has uid
-        if($user && $user->getUId()) {
-            //set client id
-            $clientId = $user->getUId();
+        if($token) {
+
+            //get user
+            $user = $token->getUser();
+            
+            if($user && $user->getUId()) {
+                $clientId = $user->getUId();
+            }
         }
         else{
             //generate random client id for GA
             $clientId = $this->randomNumber(12);
         }
+
 
         //init curl
         $ch = curl_init();
