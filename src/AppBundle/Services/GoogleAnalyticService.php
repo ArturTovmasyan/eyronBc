@@ -52,7 +52,7 @@ class GoogleAnalyticService
         $gaValue = $request->cookies->has('_ga');
 
         //if ga value exist
-        if(!$gaValue) {
+        if($gaValue) {
 
             //get client id in cookie
             $clientId = $request->cookies->get('_ga');
