@@ -30,7 +30,6 @@ class GoogleAnalyticService
         $this->container = $container;
     }
 
-
     /**
      * This function is used to send event in google analytics
      *
@@ -43,26 +42,28 @@ class GoogleAnalyticService
         $isDebug = $this->container->getParameter('kernel.debug');
 
         if($isDebug) {
-         return;
+            return;
         }
 
-        //get user uid
-        $token = $this->container->get('security.token_storage')->getToken();
+        //get request
+        $request = $this->container->get('request');
 
-        if($token) {
+        //get google analytic cookie value
+        $gaValue = $request->cookies->has('_ga');
 
-            //get user
-            $user = $token->getUser();
-            
-            if($user && $user->getUId()) {
-                $clientId = $user->getUId();
-            }
+        //if ga value exist
+        if(!$gaValue) {
+
+            //get client id in cookie
+            $clientId = $request->cookies->get('_ga');
+
+            $clientId = substr($clientId, 6);
         }
         else{
-            //generate random client id for GA
-            $clientId = $this->randomNumber(12);
-        }
 
+            //generate client id
+            $clientId = $this->randomNumber(9).'.'.$this->randomNumber(10);
+        }
 
         //init curl
         $ch = curl_init();
@@ -91,16 +92,16 @@ class GoogleAnalyticService
         }
     }
 
-    /**
-     * This function is used to run sendEventInGoogleAnalytics function Asynchronously
-     * @param $url
-     */
-    public function sendEventInGoogleAnalyticsAsync($url)
-    {
-        $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
-        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\"");
-        $newProcess->start();
-    }
+//    /**
+//     * This function is used to run sendEventInGoogleAnalytics function Asynchronously
+//     * @param $url
+//     */
+//    public function sendEventInGoogleAnalyticsAsync($url)
+//    {
+//        $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
+//        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\"");
+//        $newProcess->start();
+//    }
 
     /**
      * This function is used to send create goal event
@@ -293,4 +294,17 @@ class GoogleAnalyticService
 
         return $result;
     }
+
+//    /**
+//     * @return string
+//     */
+//    function generate_uuid() {
+//        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+//            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+//            mt_rand(0, 0xffff),
+//            mt_rand(0, 0x0fff) | 0x4000,
+//            mt_rand(0, 0x3fff) | 0x8000,
+//            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+//        );
+//    }
 }
