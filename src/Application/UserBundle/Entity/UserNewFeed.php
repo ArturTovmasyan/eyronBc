@@ -27,13 +27,13 @@ class UserNewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\NewFeed", inversedBy="userNewFeed")
-     * @ORM\JoinColumn(name="new_feed_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="new_feed_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $newFeed;
 
