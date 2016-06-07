@@ -45,7 +45,7 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed1($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -96,7 +96,7 @@ class NewFeedRepository extends EntityRepository
      * @param null $lastId
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeedOld($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
