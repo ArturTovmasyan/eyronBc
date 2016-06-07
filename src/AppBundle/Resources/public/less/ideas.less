@@ -146,7 +146,7 @@
     }
   }
   .fb-like{
-    margin: 7px 0 0 15px;
+    margin: 8px 0 0 15px;
     display:inline-block;
   }
   .addthis_counter a.atc_s{
@@ -162,12 +162,12 @@
 
   .addthis_counter{
     .addthis_button_expanded{
-      margin-top:10px !important;
+      margin-top: 7px !important;
     }
   }
 
   .addthis_native_toolbox{
-    padding-right: 10px;
+    padding-right: 15px;
   }
   #main-slider{
     position: relative;
@@ -198,68 +198,52 @@
 .goal-information{
   overflow: hidden;
   background-color: #ffffff;
+  padding: 0 5px;
 
   hr{
     margin:0 !important;
     border-color:#eee;
   }
 
-  ul:last-child{
-    padding-left:20px;
+  .users-lists{
     margin-bottom: 0;
 
-    &>li{
+    ul{
+      padding: 5px 0;
+      margin-bottom: 0;
       border-bottom:1px solid #eee;
-      padding-top:5px;
-      padding-bottom:5px;
-      color:#a4a4a4;
-      ul{
-        li{
-          display: inline-block;
+      &>li{
+        color:#a4a4a4;
+        ul{
           border-bottom:0;
-          padding-bottom:0;
-          font-size: 12px;
-
-          //&:last-child{
-          //  a,i{
-          //    background: url('../images/listed-arrow.png') no-repeat center center;
-          //    background-size: 100% ;
-          //    display: block;
-          //    width:37px;
-          //    height:37px;
-          //    margin:1px 0 0 3px;
-          //  }
-          //
-          //  a{
-          //    &:hover{
-          //      background: url('../images/listed-arrow-purple.png') no-repeat center center;
-          //      background-size: 100% ;
-          //    }
-          //  }
-          //
-          //}
-        }
-      }
-      .users-arrow{
-       right:40px;
-
-        a,i{
-          background: url('../images/listed-arrow.png') no-repeat center center;
-          background-size: 100% ;
-          display: block;
-          width:37px;
-          height:37px;
-          margin:1px 0 0 3px;
-        }
-
-        a{
-          &:hover{
-            background: url('../images/listed-arrow-purple.png') no-repeat center center;
-            background-size: 100% ;
+          li{
+            display: inline-block;
+            border-bottom:0;
+            padding-bottom:0;
+            font-size: 12px;
           }
         }
 
-      }
+        .users-arrow{
+          right:40px;
+
+          a,i{
+            background: url('../images/listed-arrow.png') no-repeat center center;
+            background-size: 100% ;
+            display: block;
+            width:37px;
+            height:37px;
+            margin:1px 0 0 3px;
+          }
+
+          a{
+            &:hover{
+              background: url('../images/listed-arrow-purple.png') no-repeat center center;
+              background-size: 100% ;
+            }
+          }
+        }
+    }
     }
   }
 
@@ -294,6 +278,7 @@
     i{
       font-size: 20px;
       vertical-align: middle;
+
     }
 
     i.icon-green-ok,.icon-green-plus{
@@ -325,7 +310,7 @@
 
       a{
         font-size:11px;
-        padding-right:5px;
+        padding-right:10px;
       }
     }
 
@@ -413,8 +398,8 @@
       width:105%;
       .blur;
       margin: -50px -30px -25px;
-      //height:215px;
-      height:507px;
+      //height:507px;
+      height:475px;
     }
   }
 
@@ -445,7 +430,7 @@
 
   .goal-author{
     position: absolute;
-    top: -23px;
+    top: -30px;
     font-size: 13px;
     line-height: 21px;
 
@@ -570,6 +555,10 @@
         &:first-child{
           font-weight:600;
         }
+
+        &:last-child{
+          padding:0 0 5px 0;
+        }
       }
 
       span{
@@ -600,8 +589,12 @@
 
   .goal-image{
     img{
-      height:380px;
+      height:381px;
     }
+  }
+
+  h2.goal-inner-title{
+    margin-top: 11px;
   }
 
   .goal-content{
@@ -614,12 +607,17 @@
     padding:40px 0 0;
   }
 
+  h2.goal-inner-title{
+    margin-top: 0;
+  }
+
   .goal-image{
     img{
       height:349px;
     }
   }
 }
+
 .view-content{
   margin: 50px 0 20px 0;
   min-height:800px;
@@ -712,7 +710,7 @@
 
     .quote{
       height: 145px;
-      padding: 15px 0 0;
+      padding: 10px 0 0;
       i{
         font-size:23px;
       }
@@ -737,10 +735,10 @@
 
     .goal-image{
         //height:626px;
-        height:527px;
+        height:627px;
       .overlay{
         //height:626px;
-        height:527px;
+        height:627px;
       }
 
       img{
@@ -771,7 +769,7 @@
       }
     }
     .inner{
-      padding:0 15px 5px 25px;
+      padding:0 20px 5px 20px;
       //p,span,a,strong,li,em{
       //  font-size:14px;
       //}
@@ -803,33 +801,48 @@
   }
 
   .no-quote{
+      .goal-image{
+        height:567px;
+        .overlay{
+          height:567px;
+        }
 
-    .goal-image{
-      img{
-        height:410px;
+        img{
+          height:620px;
+        }
       }
-    }
 
     .goal-content{
       padding:81px 0 0;
     }
   }
 
-  //.no-author{
-  //  .goal-content{
-  //    padding:40px 0 0;
-  //  }
-  //
-  //  .goal-image{
-  //    img{
-  //      height:349px;
-  //    }
-  //  }
-  //}
+  .no-author{
+    .goal-content{
+      padding:40px 0 0;
+    }
+
+    .goal-image{
+      height:527px;
+      .overlay{
+        height:527px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+  }
 
   .inner-content{
     .fb-like{
-      margin: 7px 0 0 20px;
+      margin: 8px 0 0 20px;
+    }
+
+    .addthis_counter{
+      .addthis_button_expanded{
+        margin-top: 10px !important;
+      }
     }
 
     #main-slider{
@@ -839,32 +852,28 @@
         height:414px;
       }
     }
-    .addthis_native_toolbox{
-      padding-right: 0;
-    }
-
   }
 
   .goal-information{
-    ul:last-child{
-      padding-left:25px;
-      margin-bottom: 10px;
-      &>li{
-        padding-top:7px;
-        padding-bottom:7px;
+    padding:0 5px 0 10px;
 
-        ul{
-          li{
-            font-size: 14px;
+    .users-lists{
+      ul{
+        padding: 7px 0;
+
+        &>li{
+          ul{
+            li{
+              font-size: 14px;
+            }
           }
         }
+
       }
     }
-
     p{
       font-size:17px;
     }
-
   }
 
   .goal-links{
@@ -873,12 +882,26 @@
     li{
       height:50px;
       line-height:50px;
+
       a{
         font-size: 14px;
       }
 
+      &.clone{
+        text-align: center;
+
+        a{
+          font-size:13px;
+          padding-right:0;
+          span{
+            margin-right:5px;
+          }
+        }
+      }
+
       i{
         font-size: 30px;
+        margin-right: 4px;
       }
 
       i.icon-green-ok,.icon-green-plus{
@@ -983,9 +1006,42 @@
     }
   }
 
+  .no-quote{
+    .goal-image{
+      height:612px;
+      .overlay{
+        height:612px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+
+  }
+
+  .no-author{
+
+    .goal-image{
+      height:571px;
+      .overlay{
+        height:571px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+    .goal-content{
+      padding:40px 0 0;
+    }
+  }
   .inner-content{
     .fb-like{
-      margin: 7px 0 0 40px;
+      margin: 9px 0 0 40px;
+    }
+    .addthis_native_toolbox{
+      padding-right: 0;
     }
 
     #main-slider{
@@ -1003,12 +1059,11 @@
 
   .goal-information{
     width: 374px;
+    padding:0;
 
-    ul:last-child{
-      padding-left:20px;
-      &>li{
-        padding-top:10px;
-        padding-bottom:10px;
+    .users-lists{
+      ul{
+        padding: 10px 0;
       }
     }
 
