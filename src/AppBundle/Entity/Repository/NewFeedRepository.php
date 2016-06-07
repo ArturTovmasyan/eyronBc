@@ -45,7 +45,7 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed1($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -96,13 +96,13 @@ class NewFeedRepository extends EntityRepository
      * @param null $lastId
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeedOld($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('nf, u, g, gi, ss, si, cmt')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', 'u != :user')
+            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = 'a:0:{}'")
             ->join('u.userGoal', 'gfUserGoal')
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
@@ -185,8 +185,14 @@ class NewFeedRepository extends EntityRepository
     public function bindNewFeed($newFeed)
     {
         $userId = $newFeed->getUser()->getId();
-        $goalFriendIds = $this->getEntityManager()->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
 
+        $roles = $newFeed->getUser()->getRoles();
+
+        if (count($roles) != 1 || $roles[0] != 'ROLE_USER'){
+            return;
+        }
+
+        $goalFriendIds = $this->getEntityManager()->getRepository('AppBundle:Goal')->findGoalFriendIds($userId, null, true);
         $userNewFeeds = "";
         foreach($goalFriendIds as $goalFriendId){
             $userNewFeeds .= ($userNewFeeds != "" ? ", " : "") . "($goalFriendId, {$newFeed->getId()})";
@@ -196,7 +202,7 @@ class NewFeedRepository extends EntityRepository
         if ($userNewFeeds){
             $connection = $this->getEntityManager()->getConnection();
             $statement = $connection->prepare("INSERT INTO user_new_feed (user_id, new_feed_id)
-                                           VALUES $userNewFeeds");
+                                               VALUES $userNewFeeds");
             $statement->execute();
         }
     }
