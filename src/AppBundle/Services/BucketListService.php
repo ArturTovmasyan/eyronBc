@@ -145,6 +145,10 @@ class BucketListService
      */
     public function setUserActivity($user, $inLogin = false, &$url = null)
     {
+        if ($user->getActivity()){
+            $url = 'activity';
+        }
+
         //If user is logged in then show news feed
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 
