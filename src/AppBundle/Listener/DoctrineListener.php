@@ -179,6 +179,10 @@ class DoctrineListener
                 $em->flush();
             }
         }
+
+        if ($entity instanceof NewFeed){
+            $em->getRepository('AppBundle:NewFeed')->bindNewFeed($entity);
+        }
     }
 
     /**
