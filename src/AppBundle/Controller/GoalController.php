@@ -625,6 +625,14 @@ class GoalController extends Controller
             if($form->isValid()){
 
                 $goalStatus = $request->get('goal_status');
+
+                if($userGoal->getStatus() == UserGoal::COMPLETED && !$goalStatus){
+                    $userGoal->setCompletionDate(null);
+                }elseif ($userGoal->getStatus() != UserGoal::COMPLETED && $goalStatus){
+                    // set date
+                    $userGoal->setCompletionDate(new \DateTime());
+                }
+
                 $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
 
                 // get step text
