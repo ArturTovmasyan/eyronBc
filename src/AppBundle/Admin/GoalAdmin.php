@@ -300,11 +300,8 @@ class GoalAdmin extends Admin
                 }
 
                 // upload file
-
-                if (!$image->getId()) {
-                    $bucketService->uploadFile($image);
-                    $image->setGoal($object);
-                }
+                $bucketService->uploadFile($image);
+                $image->setGoal($object);
             }
 
             if (!$hasListPhoto && $images->first()){
