@@ -167,7 +167,7 @@ class GoalController extends Controller
 
                     $request->getSession()
                         ->getFlashBag()
-                        ->add('success','Your Goal has been Successfully Published')
+                        ->set('success','Your Goal has been Successfully Published')
                     ;
 
                     return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
