@@ -45,6 +45,48 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('nf, u, g, gi, ss, si, cmt')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.userNewFeed', 'unf', 'WITH', 'unf.user = :user')
+            ->join('nf.user', 'u')
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('g.images', 'gi')
+            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
+            ->leftJoin('nf.successStory', 'ss')
+            ->leftJoin('ss.files', 'si')
+            ->leftJoin('nf.comment', 'cmt')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->orderBy('nf.datetime', 'DESC')
+            ->setParameter('user', $userId)
+        ;
+
+        if ($lastId){
+            $query
+                ->andWhere('nf.id < :lastId')
+                ->setParameter('lastId', $lastId);
+        }
+
+        if ($getCount){
+            return $query->select('count(nf)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        if (is_numeric($first) && is_numeric($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+        return $query->getQuery()->getResult();
+    }
 
     /**
      * @param $userId
@@ -54,7 +96,7 @@ class NewFeedRepository extends EntityRepository
      * @param null $lastId
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeedOld($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -103,7 +145,7 @@ class NewFeedRepository extends EntityRepository
      * @param $getCount
      * @return array
      */
-    public function findNewFeedOld($userId, $getCount = false)
+    public function findNewFeedOlder($userId, $getCount = false)
     {
         $goalFriendsIds = $this->getEntityManager()
                                ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
@@ -133,5 +175,29 @@ class NewFeedRepository extends EntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+
+    /**
+     * @param $newFeed
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function bindNewFeed($newFeed)
+    {
+        $userId = $newFeed->getUser()->getId();
+        $goalFriendIds = $this->getEntityManager()->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
+
+        $userNewFeeds = "";
+        foreach($goalFriendIds as $goalFriendId){
+            $userNewFeeds .= ($userNewFeeds != "" ? ", " : "") . "($goalFriendId, {$newFeed->getId()})";
+        }
+
+
+        if ($userNewFeeds){
+            $connection = $this->getEntityManager()->getConnection();
+            $statement = $connection->prepare("INSERT INTO user_new_feed (user_id, new_feed_id)
+                                           VALUES $userNewFeeds");
+            $statement->execute();
+        }
     }
 }

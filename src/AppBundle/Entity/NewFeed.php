@@ -85,6 +85,11 @@ class NewFeed
     protected $log;
 
     /**
+     * @ORM\OneToMany(targetEntity="Application\UserBundle\Entity\UserNewFeed", mappedBy="newFeed")
+     */
+    protected $userNewFeed;
+
+    /**
      * NewFeed constructor.
      * @param null $action
      * @param null $user
@@ -94,6 +99,8 @@ class NewFeed
      */
     public function __construct($action = null, $user = null, $goal = null, $story = null, $comment = null)
     {
+        $this->userNewFeed = new \Doctrine\Common\Collections\ArrayCollection();
+
         $this->setUser($user);
         $this->setAction($action);
         $this->setGoal($goal);
