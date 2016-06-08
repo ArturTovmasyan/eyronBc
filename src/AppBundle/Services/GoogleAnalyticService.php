@@ -197,11 +197,11 @@ class GoogleAnalyticService
      */
     public function loginUserEvent()
     {
-//        //get login user event api
-//        $loginUserEvent = $this->container->getParameter('event_login_user');
+        //get login user event api
+        $loginUserEvent = $this->container->getParameter('event_login_user');
 
-//        //send event in google analytic
-////        $this->sendEventInGoogleAnalyticsAsync($loginUserEvent);
+        //send event in google analytic
+        $this->sendEventInGoogleAnalyticsAsync($loginUserEvent);
     }
 
     /**
@@ -211,25 +211,25 @@ class GoogleAnalyticService
      */
     public function loginUserBySocialEvent($social)
     {
-//        switch($social){
-//            case User::FACEBOOK:
-//                $parameterName = 'event_facebook_login_user';
-//                break;
-//            case User::GOOGLE:
-//                $parameterName = 'event_google_login_user';
-//                break;
-//            case User::TWITTER:
-//                $parameterName = 'event_twitter_login_user';
-//                break;
-//            default:
-//                return;
-//        }
-//
-//        //get login user by social event api
-//        $loginUserBySocialEvent = $this->container->getParameter($parameterName);
-//
-//        //send event in google analytic
-////        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
+        switch($social){
+            case User::FACEBOOK:
+                $parameterName = 'event_facebook_login_user';
+                break;
+            case User::GOOGLE:
+                $parameterName = 'event_google_login_user';
+                break;
+            case User::TWITTER:
+                $parameterName = 'event_twitter_login_user';
+                break;
+            default:
+                return;
+        }
+
+        //get login user by social event api
+        $loginUserBySocialEvent = $this->container->getParameter($parameterName);
+
+        //send event in google analytic
+        $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
     }
 
     /**
