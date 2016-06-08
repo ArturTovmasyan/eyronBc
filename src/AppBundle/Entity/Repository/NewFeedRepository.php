@@ -98,47 +98,64 @@ class NewFeedRepository extends EntityRepository
      */
     public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
-        $query = $this->getEntityManager()
+        $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('nf, u, g, gi, ss, si, cmt')
+            ->select('DISTINCT nf.id')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = 'a:0:{}'")
+            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
             ->join('u.userGoal', 'gfUserGoal')
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->orderBy('nf.datetime', 'DESC')
+            ->setParameter('user', $userId)
+            ->setParameter('simpleRole', 'a:0:{}');
+
+        if ($lastId) {
+            $newFeedIdsQuery
+                ->andWhere('nf.id < :lastId')
+                ->setParameter('lastId', $lastId);
+        }
+
+        if (is_numeric($first) && is_numeric($count))
+        {
+            $newFeedIdsQuery
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+        }
+
+        if ($getCount){
+            return $newFeedIdsQuery->select('count(nf)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+
+        if (count($newFeedIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('nf, u, g, gi, ss, si, cmt')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
             ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
             ->leftJoin('g.images', 'gi')
             ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('ss.files', 'si')
             ->leftJoin('nf.comment', 'cmt')
-            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE AND nf.id IN (:ids)')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('user', $userId)
-        ;
-
-        if ($lastId){
-            $query
-                ->andWhere('nf.id < :lastId')
-                ->setParameter('lastId', $lastId);
-        }
-
-        if ($getCount){
-            return $query->select('count(nf)')
-                ->getQuery()
-                ->getSingleScalarResult();
-        }
-
-        if (is_numeric($first) && is_numeric($count)){
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count);
-
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
-        }
-
-        return $query->getQuery()->getResult();
+            ->setParameter('simpleRole', 'a:0:{}')
+            ->setParameter('ids', $newFeedIds)
+            ->getQuery()
+            ->getResult();
     }
     /**
      * @param $userId
@@ -207,3 +224,16 @@ class NewFeedRepository extends EntityRepository
         }
     }
 }
+
+
+/*
+
+SELECT SQL_NO_CACHE DISTINCT id0 FROM (SELECT n0_.id AS id0, n0_.action AS action1, n0_.perform_date AS perform_date2, f1_.username AS username3, f1_.username_canonical AS username_canonical4, f1_.email AS email5, f1_.email_canonical AS email_canonical6, f1_.enabled AS enabled7, f1_.salt AS salt8, f1_.password AS password9, f1_.last_login AS last_login10, f1_.locked AS locked11, f1_.expired AS expired12, f1_.expires_at AS expires_at13, f1_.confirmation_token AS confirmation_token14, f1_.password_requested_at AS password_requested_at15, f1_.roles AS roles16, f1_.credentials_expired AS credentials_expired17, f1_.credentials_expire_at AS credentials_expire_at18, f1_.id AS id19, f1_.u_id AS u_id20, f1_.registration_ids AS registration_ids21, f1_.first_name AS first_name22, f1_.gender AS gender23, f1_.language AS language24, f1_.birth_date AS birth_date25, f1_.last_name AS last_name26, f1_.about_me AS about_me27, f1_.facebook_id AS facebook_id28, f1_.twitter_id AS twitter_id29, f1_.google_id AS google_id30, f1_.social_photo_link AS social_photo_link31, f1_.registration_token AS registration_token32, f1_.user_emails AS user_emails33, f1_.created AS created34, f1_.updated AS updated35, f1_.activity AS activity36, f1_.profile_completed_percent AS profile_completed_percent37, f1_.active_time AS active_time38, f1_.file_original_name AS file_original_name39, f1_.file_name AS file_name40, f1_.file_size AS file_size41, g2_.id AS id42, g2_.description AS description43, g2_.title AS title44, g2_.video_link AS video_link45, g2_.status AS status46, g2_.readiness_status AS readiness_status47, g2_.publish AS publish48, g2_.created AS created49, g2_.updated AS updated50, g2_.published_date AS published_date51, g2_.slug AS slug52, g2_.language AS language53, g2_.published_by AS published_by54, g2_.archived AS archived55, g2_.merged_goal_id AS merged_goal_id56, g2_.address AS address57, g2_.lat AS lat58, g2_.lng AS lng59, g3_.id AS id60, g3_.list_image AS list_image61, g3_.cover_image AS cover_image62, g3_.created AS created63, g3_.updated AS updated64, g3_.file_original_name AS file_original_name65, g3_.file_name AS file_name66, g3_.file_size AS file_size67, s4_.id AS id68, s4_.created AS created69, s4_.updated AS updated70, s4_.story AS story71, s4_.video_link AS video_link72, s5_.id AS id73, s5_.created AS created74, s5_.updated AS updated75, s5_.file_original_name AS file_original_name76, s5_.file_name AS file_name77, s5_.file_size AS file_size78, c6_.body AS body79, c6_.ancestors AS ancestors80, c6_.depth AS depth81, c6_.created_at AS created_at82, c6_.state AS state83, c6_.id AS id84 FROM new_feed n0_ INNER JOIN fos_user f1_ ON n0_.user_id = f1_.id INNER JOIN users_goals u7_ ON f1_.id = u7_.user_id INNER JOIN goal g8_ ON u7_.goal_id = g8_.id AND (g8_.archived = 0) INNER JOIN users_goals u9_ ON g8_.id = u9_.goal_id AND (u9_.user_id = 1) INNER JOIN goal g2_ ON n0_.goal_id = g2_.id AND (g2_.archived = 0) LEFT JOIN goal_image g3_ ON g2_.id = g3_.goal_id LEFT JOIN users_goals u10_ ON f1_.id = u10_.user_id AND (u10_.goal_id = g2_.id) LEFT JOIN success_story s4_ ON n0_.success_story_id = s4_.id LEFT JOIN story_image s5_ ON s4_.id = s5_.story_id LEFT JOIN comment c6_ ON n0_.comment_id = c6_.id WHERE n0_.id < '911') dctrn_result LIMIT 10 OFFSET 0;
+
+
+SELECT SQL_NO_CACHE DISTINCT id0 FROM
+(SELECT n0_.id AS id0, n0_.action AS action1, n0_.perform_date AS perform_date2 FROM new_feed n0_ INNER JOIN fos_user f1_ ON n0_.user_id = f1_.id INNER JOIN users_goals u7_ ON f1_.id = u7_.user_id INNER JOIN goal g8_ ON u7_.goal_id = g8_.id AND (g8_.archived = 0) INNER JOIN users_goals u9_ ON g8_.id = u9_.goal_id AND (u9_.user_id = 1) INNER JOIN goal g2_ ON n0_.goal_id = g2_.id AND (g2_.archived = 0) LEFT JOIN goal_image g3_ ON g2_.id = g3_.goal_id LEFT JOIN users_goals u10_ ON f1_.id = u10_.user_id AND (u10_.goal_id = g2_.id) LEFT JOIN success_story s4_ ON n0_.success_story_id = s4_.id LEFT JOIN story_image s5_ ON s4_.id = s5_.story_id LEFT JOIN comment c6_ ON n0_.comment_id = c6_.id WHERE n0_.id < '911') dctrn_result LIMIT 10 OFFSET 0;
+
+
+
+ */
