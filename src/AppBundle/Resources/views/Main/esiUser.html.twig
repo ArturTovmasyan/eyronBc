@@ -49,8 +49,9 @@
     class="sign-in-popover"
     data-ng-class="{'join-class': joinToggle2}"
     data-placement="bottom-left"
+    data-html="true"
     data-ng-click="joinToggle2 = !joinToggle2"
-    data-content-template="{{ path("fos_user_security_login") }}"
+    data-content='{{ include("FOSUserBundle:Security:login.html.twig") }}'
     data-animation="am-fade-and-scale"
     data-bs-popover>
     <i class="icon-join-icon"></i>
