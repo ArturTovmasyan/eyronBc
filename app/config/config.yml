@@ -35,7 +35,7 @@ parameters:
     event_twitter_login_user: '&t=event&ec=User&ea=Login&el=Twitter%%20login'
     event_user_registration: '&t=event&ec=User&ea=Registration&el=Registration'
     event_facebook_registration: '&t=event&ec=User&ea=Registration&el=Facebook%%20registration'
-    event_google_registration: '&t=event&ec=User&ea=Registration&el=Google%%20registration1'
+    event_google_registration: '&t=event&ec=User&ea=Registration&el=Google%%20registration'
     event_twitter_registration: '&t=event&ec=User&ea=Registration&el=Twitter%%20registration'
     event_unlist_goal: '&t=event&ec=Goal&ea=Unlist&el=Unlist%%20goal'
     event_comment: '&t=event&ec=Comment&ea=Add&el=Add%%20comments'
