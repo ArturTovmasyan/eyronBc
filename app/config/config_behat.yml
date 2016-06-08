@@ -20,4 +20,4 @@ doctrine:
         dbname: "%test_database_name%"
 twig:
     globals:
-        env_prefix: '/app_behat.php'
+        env_prefix: ~

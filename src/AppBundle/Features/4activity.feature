@@ -28,7 +28,7 @@ Feature: Activity
     And I wait for view
     And I scroll page to ".information"
     Then I should see "SUCCESS STORY"
-    When I click on "btn btn-transparent ng-isolate-scope"
+    When I click on "btn btn-transparent successtory ng-isolate-scope"
     And I wait for angular
     And I fill in "app_bundle_success_story_type[story]" with "STORY1"
     And I fill in "app_bundle_success_story_type[videoLink][ 0 ]" with "www.google.com"
