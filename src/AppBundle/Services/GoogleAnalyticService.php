@@ -39,12 +39,28 @@ class GoogleAnalyticService
      */
     public function sendEventInGoogleAnalytics($url, $clientId)
     {
+        //get tid in parameter
+        $tid = $this->container->getParameter('ga_id');
+
+        //data for GA event
+        $data = array(
+            'v' => 1,
+            'tid' => $tid,
+            'cid' => $clientId,
+        );
+
+        //generate url param
+        $content = http_build_query($data).$url;
+
+        //encode url
+        $content = utf8_encode($content);
+
         //init curl
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://www.google-analytics.com/collect?cid=".$clientId);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google-analytics.com/collect');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
 
         //run curl
         $output = curl_exec($ch);
@@ -226,7 +242,6 @@ class GoogleAnalyticService
 
         //send event in google analytic
         $this->sendEventInGoogleAnalyticsAsync($unListGoalEvent);
-
     }
 
     /**
