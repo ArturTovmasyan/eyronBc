@@ -937,6 +937,15 @@ class GoalController extends Controller
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $goalImage->getGoal()->removeImage($goalImage);
+        $goalImages = $goalImage->getGoal()->getImages();
+        if ($goalImage->getList() && $goalImages->first()){
+            $goalImages->first()->setList(true);
+        }
+        if ($goalImage->getCover() && $goalImages->first()){
+            $goalImages->first()->setCover(true);
+        }
+
         // remove from bd
         $em->remove($goalImage);
 
