@@ -22,13 +22,19 @@ class AnalyticsCurlCommand extends ContainerAwareCommand
         $this
             ->setName('bl:analytics:request')
             ->addArgument('url', InputArgument::REQUIRED, 'Type a request url')
+            ->addArgument('clientId', InputArgument::REQUIRED, 'Type a client id for GA')
             ->setDescription('Send Analytics request');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        //get url in command argument
         $url = $input->getArgument('url');
+        
+        //get client id in command argument
+        $clientId = $input->getArgument('clientId');
+        
         $analyticService = $this->getContainer()->get('google_analytic');
-        $analyticService->sendEventInGoogleAnalytics($url);
+        $analyticService->sendEventInGoogleAnalytics($url, $clientId);
     }
 }

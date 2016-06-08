@@ -45,7 +45,6 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
-
     /**
      * @param $userId
      * @param bool|false $getCount
@@ -56,59 +55,76 @@ class NewFeedRepository extends EntityRepository
      */
     public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
     {
-        $query = $this->getEntityManager()
+        $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('nf, u, g, gi, ss, si, cmt')
+            ->select('DISTINCT nf.id')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', 'u != :user')
+            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
             ->join('u.userGoal', 'gfUserGoal')
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
+            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
+            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->orderBy('nf.datetime', 'DESC')
+            ->setParameter('user', $userId)
+            ->setParameter('simpleRole', 'a:0:{}');
+
+        if ($lastId) {
+            $newFeedIdsQuery
+                ->andWhere('nf.id < :lastId')
+                ->setParameter('lastId', $lastId);
+        }
+
+        if (is_numeric($first) && is_numeric($count)) {
+            $newFeedIdsQuery
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+        }
+
+        if ($getCount) {
+            return $newFeedIdsQuery->select('count(nf)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+
+        if (count($newFeedIds) == 0) {
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('nf, u, g, gi, ss, si, cmt')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
             ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
             ->leftJoin('g.images', 'gi')
             ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('ss.files', 'si')
             ->leftJoin('nf.comment', 'cmt')
-            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE AND nf.id IN (:ids)')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('user', $userId)
-        ;
-
-        if ($lastId){
-            $query
-                ->andWhere('nf.id < :lastId')
-                ->setParameter('lastId', $lastId);
-        }
-
-        if ($getCount){
-            return $query->select('count(nf)')
-                ->getQuery()
-                ->getSingleScalarResult();
-        }
-
-        if (is_numeric($first) && is_numeric($count)){
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count);
-
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
-        }
-
-        return $query->getQuery()->getResult();
+            ->setParameter('simpleRole', 'a:0:{}')
+            ->setParameter('ids', $newFeedIds)
+            ->getQuery()
+            ->getResult();
     }
+
     /**
      * @param $userId
      * @param $getCount
      * @return array
      */
-    public function findNewFeedOld($userId, $getCount = false)
+    public function findNewFeedOlder($userId, $getCount = false)
     {
         $goalFriendsIds = $this->getEntityManager()
-                               ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
+            ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
 
-        if (!count($goalFriendsIds)){
+        if (!count($goalFriendsIds)) {
             $goalFriendsIds[] = 0;
         }
 
@@ -126,7 +142,7 @@ class NewFeedRepository extends EntityRepository
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('ids', $goalFriendsIds);
 
-        if ($getCount){
+        if ($getCount) {
             return $query->select('count(nf)')
                 ->getQuery()
                 ->getSingleScalarResult();

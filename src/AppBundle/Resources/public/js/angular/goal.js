@@ -373,6 +373,21 @@ angular.module('goal', ['Interpolation',
     .controller('goalEnd', ['$scope', '$timeout', '$window',function($scope, $timeout, $window){
 
         $scope.stepsArray = [{}];
+
+        var switchChanged = false;
+        var dateChanged = false;
+        var isSuccess = false;
+
+        $scope.$watch('complete.switch', function (d) {
+            if( d !== 0 && d !== 1){
+                switchChanged = !switchChanged
+            }else {
+                if(angular.element('#success' + $scope.goalId).length > 0) {
+                    isSuccess = angular.element('#success' + $scope.goalId).scope()['success' + $scope.goalId]?true:false;
+                }
+            }
+        });
+
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
             var popoverScope = middleScope.$$childHead;
@@ -395,9 +410,50 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
+            var doDate = angular.element(".hidden_date_value").val();
             angular.element('#goal-create-form').attr('data-goal-id', $scope.goalId);
             angular.element("#goal-add-form").ajaxForm({
                 beforeSubmit: function(){
+                    var selector = 'success' + $scope.goalId;
+                    if(angular.element('#'+ selector).length > 0) {
+                        var parentScope = angular.element('#' + selector).scope();
+                        //if goal status changed
+                        if (switchChanged) {
+                            parentScope[selector] = !parentScope[selector];
+                            //if goal changed  from success to active
+                            if (isSuccess) {
+                                //and date be changed
+                                if (dateChanged && doDate) {
+                                    //change  doDate
+                                    parentScope['change' + $scope.goalId] = 2;
+                                    parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                    angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                } else {
+                                    if(doDate){
+                                        parentScope['change' + $scope.goalId] = 2;
+                                        parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                        angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                    }else {
+                                        //infinity
+                                        parentScope['change' + $scope.goalId] = 1;
+                                        angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                                    }
+                                }
+                            } else {
+                                //new datetime for completed 
+                                parentScope['change' + $scope.goalId] = 2;
+                                angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                                parentScope['doDate' + $scope.goalId] = new Date();
+                            }
+                        } else {
+                            if (!isSuccess && dateChanged && doDate) {
+                                //change for doDate
+                                parentScope['change' + $scope.goalId] = 2;
+                                parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                            }
+                        }
+                    }
                     $scope.$apply();
                 },
                 success: function(res, text, header){
@@ -449,19 +505,17 @@ angular.module('goal', ['Interpolation',
             angular.element("#datepicker").on("changeDate", function() {
                 angular.element("#secondPicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#datepicker").datepicker('getFormattedDate')
-                );
-
+                doDate =  angular.element("#datepicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
             angular.element("#secondPicker").on("changeDate", function() {
                 angular.element("#datepicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#secondPicker").datepicker('getFormattedDate')
-                );
-
+                doDate = angular.element("#secondPicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
 
@@ -486,6 +540,12 @@ angular.module('goal', ['Interpolation',
         $scope.Ideas = new lsInfiniteItems(3);
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
         };
 
         $scope.addDone = function(path, id){
@@ -593,6 +653,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
+            if(ev.which === 13 && screen.width < 768) {
+                angular.element('.icon-remove-email').click();
+            }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
@@ -661,11 +724,17 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', function($scope, $http, refreshCacheService, $timeout){
         $scope.completed = true;
 
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
         };
 
         $scope.addDone = function(path, id){

@@ -293,10 +293,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * @param $userId
      * @param $search
+     * @param $getAll
      * @return array
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findGoalFriendIds($userId, $search)
+    public function findGoalFriendIds($userId, $search, $getAll = false)
     {
         $search = str_replace(' ', '', $search);
 
@@ -309,18 +310,27 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            OR CONCAT(u.first_name, u.last_name) LIKE :search) ";
         }
 
+        $roleFilter = "";
+        if (!$getAll){
+            $roleFilter = " AND u.roles = :roles ";
+        }
+
         //TODO roles in query must be changed
         $connection = $this->getEntityManager()->getConnection();
         $statement = $connection->prepare("SELECT DISTINCT ug.user_id
                                            FROM users_goals AS ug
-                                           JOIN fos_user as u ON u.id = ug.user_id AND u.roles = :roles
+                                           JOIN fos_user as u ON u.id = ug.user_id $roleFilter
                                            $sqlJoin
                                            WHERE ug.goal_id IN (SELECT ug1.goal_id
                                                                 FROM users_goals AS ug1
                                                                 WHERE ug1.user_id = :userId)
                                            AND ug.user_id != :userId");
         $statement->bindValue('userId', $userId);
-        $statement->bindValue('roles', 'a:0:{}');
+
+        if (!$getAll){
+            $statement->bindValue('roles', 'a:0:{}');
+        }
+
         if ($search){
             $statement->bindValue('search', $search);
         }
@@ -420,13 +430,14 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findBySlugWithRelations($slug)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, t, au, ug, gs, f
+            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu
                            FROM AppBundle:Goal g
                            LEFT JOIN g.tags t
                            LEFT JOIN g.images i
                            LEFT JOIN g.author au
                            LEFT JOIN au.userGoal ug
                            LEFT JOIN g.successStories gs
+                           LEFT JOIN gs.user gsu
                            LEFT JOIN gs.files f
                            WHERE g.slug = :slug")
             ->setParameter('slug', $slug['slug'])

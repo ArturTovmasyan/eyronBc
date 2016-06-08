@@ -142,8 +142,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //find password
         $loginBlock->fillField('_password', $password);
 
-        //find submit button
-        $button = $loginBlock->findById('buttons');
+        //AND JAN PUSH KANES DEVELOPI VRA ELI
+        //get value in opt
+        $button = $loginBlock->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//button[@type="submit"]')
+        );
 
         //press button
         $button->click();

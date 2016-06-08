@@ -59,11 +59,17 @@ angular.module('main',['mgcrea.ngStrap.modal',
         };
 
     }])
-    .controller('goalFooter', ['$scope', '$timeout', function($scope, $timeout){
+    .controller('goalFooter', ['$scope', '$timeout', '$http', function($scope, $timeout, $http){
         $scope.popoverByMobile = function(){
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
-                    }, 500);
+            }, 500);
+        };
+
+        $scope.addDone = function(path){
+            $http.get(path)
+                .success(function(res){
+                });
         };
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {

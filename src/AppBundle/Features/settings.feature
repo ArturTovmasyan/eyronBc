@@ -25,7 +25,7 @@ Feature: Settings
       | bl_user_settings_plainPassword_second | test1234 |
     And I select date fields
     And I select language
-    And I click on "btn btn-purple"
+    And I click on "btn btn-purple button-lg"
     And I wait for angular
     And I follow "user3"
     And I follow "Настройки"
