@@ -1544,7 +1544,6 @@ class User extends BaseUser
         $this->cachedImage = $cachedImage;
     }
 
-<<<<<<< HEAD
     /**
      * Set commentNotify
      *
@@ -1561,7 +1560,7 @@ class User extends BaseUser
     /**
      * Get commentNotify
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCommentNotify()
     {
@@ -1584,13 +1583,14 @@ class User extends BaseUser
     /**
      * Get successStoryNotify
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getSuccessStoryNotify()
     {
         return $this->successStoryNotify;
-=======
 
+    }
+    
     /**
      * @return mixed
      */
@@ -1657,6 +1657,8 @@ class User extends BaseUser
     public function setUserGoalCount($userGoalCount)
     {
         $this->userGoalCount = $userGoalCount;
->>>>>>> b6adcd17715c2374336d69d913693718c81e4f03
     }
 }
+
+
+
