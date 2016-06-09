@@ -543,6 +543,35 @@ angular.module('goal', ['Interpolation',
             refreshCacheService.refreshCache(userId, goalId);
         };
 
+        var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+        var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+        if(goalImageBottom != mainSliderBottom){
+            var distance = goalImageBottom - mainSliderBottom;
+            angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+        }
+
+        if(window.innerWidth > 991 && window.innerWidth < 1200){
+            angular.element('#main-slider img').addClass("full-height");
+        }else{
+            angular.element('#main-slider img').removeClass("full-height")
+        }
+
+        $(window).resize(function(){
+            if(window.innerWidth > 991 && window.innerWidth < 1200){
+                angular.element('#main-slider img').addClass("full-height");
+            }else{
+                angular.element('#main-slider img').removeClass("full-height")
+            }
+            goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+            mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+            if(goalImageBottom != mainSliderBottom){
+                var distance = goalImageBottom - mainSliderBottom;
+                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            }
+        });
+
         $scope.popoverByMobile = function(){
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
