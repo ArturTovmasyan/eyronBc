@@ -875,40 +875,40 @@
     }
   }
 
-  .goal-links{
-    height: 50px;
-    border-bottom: 0;
-    li{
-      height:50px;
-      line-height:50px;
-
-      a{
-        font-size: 14px;
-      }
-
-      &.clone{
-        text-align: center;
-
-        a{
-          font-size:13px;
-          padding-right:0;
-          span{
-            margin-right:5px;
-          }
-        }
-      }
-
-      i{
-        font-size: 30px;
-        margin-right: 4px;
-      }
-
-      i.icon-green-ok,.icon-green-plus{
-        font-size: 49px;
-      }
-    }
-
-  }
+  //.goal-links{
+  //  height: 50px;
+  //  border-bottom: 0;
+  //  li{
+  //    height:50px;
+  //    line-height:50px;
+  //
+  //    a{
+  //      font-size: 14px;
+  //    }
+  //
+  //    &.clone{
+  //      text-align: center;
+  //
+  //      a{
+  //        font-size:13px;
+  //        padding-right:0;
+  //        span{
+  //          margin-right:5px;
+  //        }
+  //      }
+  //    }
+  //
+  //    i{
+  //      font-size: 30px;
+  //      margin-right: 4px;
+  //    }
+  //
+  //    i.icon-green-ok,.icon-green-plus{
+  //      font-size: 49px;
+  //    }
+  //  }
+  //
+  //}
 }
 
 @media (min-width: @screen-md) {
@@ -1056,7 +1056,7 @@
   }
 
   .goal-information{
-    width: 374px;
+    width: 330px;
     padding:0;
 
     .users-lists{
@@ -1066,8 +1066,73 @@
     }
 
     p{
+      font-size:18px;
+    }
+
+  }
+
+  .goal-links{
+    height: 50px;
+    border-bottom: 0;
+    li{
+      height:50px;
+      line-height:50px;
+
+      a{
+        font-size: 13px;
+      }
+
+      &.clone{
+        text-align: center;
+
+        a{
+          font-size:13px;
+          padding-right:0;
+          span{
+            margin-right:5px;
+          }
+        }
+      }
+      &:last-child{
+        text-align:left;
+      }
+    }
+
+  }
+
+}
+
+@media (min-width: @screen-lg) {
+  .goal-information{
+    width: 374px;
+
+    p{
       font-size:20px;
     }
 
   }
+
+  .goal-links{
+    li{
+
+      a{
+        font-size: 14px;
+      }
+
+      i{
+        font-size: 30px;
+        margin-right: 4px;
+      }
+
+      i.icon-green-ok,.icon-green-plus{
+        font-size: 49px;
+      }
+
+      &:last-child{
+        text-align:center;
+      }
+    }
+
+  }
+
 }
