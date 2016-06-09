@@ -25,7 +25,7 @@ Feature: Settings
       | bl_user_settings_plainPassword_second | test1234 |
     And I select date fields
     And I select language
-    And I click on "btn btn-purple button-lg"
+    And I press "Save"
     And I wait for angular
     And I follow "user3"
     And I follow "Настройки"
@@ -36,7 +36,7 @@ Feature: Settings
     And I fill in "bl_user_settings_plainPassword_first" with "Test1234"
     And I fill in "bl_user_settings_plainPassword_second" with "Test1234"
     And I select language
-    And I click on "btn btn-purple button-lg"
+    And I press "Save"
     And I wait for angular
     Then I should not see "Primary Email"
 

@@ -32,5 +32,5 @@ Feature: Idea
     When I follow "JOIN"
     And I wait for angular
     And I follow "Done"
-    And I wait for angular
+    And I wait for view
     Then I should see "SIGN IN"
