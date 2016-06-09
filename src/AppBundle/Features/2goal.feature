@@ -89,6 +89,7 @@ Feature: Goal page
     And I am on "profile/completed-goals"
     Then I should be on "profile/completed-goals"
     When I scroll page to ".information"
+    And I wait for view
     Then I should see "SUCCESS STORY"
 
     #TODO DON'T USE
