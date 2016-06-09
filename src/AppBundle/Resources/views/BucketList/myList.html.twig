@@ -404,12 +404,12 @@
                                                 </i>
                                             {% endif %}
                                         </div>
-                                        <div class="img-circle" data-ng-if="change{{ goal.id }} == 1">
+                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
                                         </div>
-                                        <div class="img-circle" data-ng-if="change{{ goal.id }} == 2">
+                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
                                             [[ doDate{{ goal.id }} | date:'dd']]
                                         </div>
 
@@ -644,7 +644,7 @@
                             </div>
                             <div class="col-xs-4 text-right">
                                 {% if profileUser.id == app.user.id %}
-                                    <a href="{{ path('goal_drafts') }}">{{ 'right_menu.draft'|trans }} {{ draftsCount }}</a>
+                                    <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
                                 {% endif %}
                             </div>
                         </div>

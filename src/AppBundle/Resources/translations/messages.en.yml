@@ -74,6 +74,7 @@ goal:
       create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
+      empty_private_ideas: Currently there are no Private goals in your Private goal list
 activities:
       title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
@@ -170,6 +171,8 @@ menu:
   map: Map
 
 right_menu:
+  my_ideas: My Ideas
+  private: My Private Ideas
   create: Create a Goal
   draft: Drafts
   ideas: Top Ideas
@@ -235,6 +238,9 @@ draft:
   title: Bucket List 127-Drafts
   description: If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published.
 
+private_ideas:
+  title: Bucket List 127-Private Ideas
+  description: If you .......................................
 done_by: Completed by
 home_complete: COMPLETED BY
 mobile_modal: |
