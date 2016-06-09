@@ -30,26 +30,49 @@ class GoogleAnalyticService
         $this->container = $container;
     }
 
-
     /**
      * This function is used to send event in google analytics
      *
      * @param $url
+     * @param $clientId
      * @throws \Exception
      */
-    public function sendEventInGoogleAnalytics($url)
+    public function sendEventInGoogleAnalytics($url, $clientId)
     {
+        //get tid in parameter
+        $tid = $this->container->getParameter('ga_id');
+
+        //data for GA event
+        $data = array(
+            'v' => 1,
+            'tid' => $tid,
+            'cid' => $clientId,
+        );
+
+        //generate url param
+        $content = http_build_query($data).$url;
+
+        //encode url
+        $content = utf8_encode($content);
+
         //init curl
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google-analytics.com/collect');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
 
         //run curl
         $output = curl_exec($ch);
 
+        //get curl error
+        $err = curl_error($ch);
+
+        //close curl
+        curl_close($ch);
+
         //check if error exists
-        if ($output === false) {
+        if ($err) {
 
             //get logger service
             $logger = $this->container->get('logger');
@@ -57,9 +80,6 @@ class GoogleAnalyticService
             //set error in log
             $logger->error('Bad request for add event in google analytics');
         }
-
-        //close curl
-        curl_close($ch);
     }
 
     /**
@@ -68,8 +88,35 @@ class GoogleAnalyticService
      */
     public function sendEventInGoogleAnalyticsAsync($url)
     {
+        //get kernel debug
+        $isDebug = $this->container->getParameter('kernel.debug');
+
+        if($isDebug) {
+            return;
+        }
+
+        //get request
+        $request = $this->container->get('request');
+
+        //get google analytic cookie value
+        $gaValue = $request->cookies->has('_ga');
+
+        //if ga value exist
+        if($gaValue) {
+
+            //get client id in cookie
+            $clientId = $request->cookies->get('_ga');
+
+            $clientId = substr($clientId, 6);
+        }
+        else{
+
+            //generate client id
+            $clientId = $this->randomNumber(9).'.'.$this->randomNumber(10);
+        }
+
         $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
-        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\"");
+        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\" $clientId");
         $newProcess->start();
     }
 
@@ -237,4 +284,32 @@ class GoogleAnalyticService
         $this->sendEventInGoogleAnalyticsAsync($loginUserBySocialEvent);
     }
 
+    /**
+     * This function is used to generate random number
+     *
+     * @param $length
+     * @return string
+     */
+    public function randomNumber($length) {
+        $result = '';
+
+        for($i = 0; $i < $length; $i++) {
+            $result .= mt_rand(0, 9);
+        }
+
+        return $result;
+    }
+
+//    /**
+//     * @return string
+//     */
+//    function generate_uuid() {
+//        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+//            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+//            mt_rand(0, 0xffff),
+//            mt_rand(0, 0x0fff) | 0x4000,
+//            mt_rand(0, 0x3fff) | 0x8000,
+//            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+//        );
+//    }
 }

@@ -10,7 +10,7 @@
             <div class="ideas">
                 <figure>
                     <h3>
-                        <a href="{{ env_prefix }}/goal/[[ popularGoal.slug]]">[[ popularGoal.title ]]</a>
+                        <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]">[[ ::popularGoal.title ]]</a>
                     </h3>
 
                     {#{% set imageDownloadLink = popularGoal.listPhotoDownloadLink %}#}
@@ -19,38 +19,38 @@
                     {#{% set image = popularGoal.getListPhoto %}#}
                     {#{% endif %}#}
 
-                    <a href="{{ env_prefix }}/goal/[[ popularGoal.slug]]" class="goalTitle">
+                    <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]" class="goalTitle">
                         <span class="overlay"></span>
-                        <img data-ng-src="[[ popularGoal.cached_image ]]" alt="[[ popularGoal.title ]]"/>
+                        <img data-ng-src="[[ ::popularGoal.cached_image ]]" alt="[[ ::popularGoal.title ]]"/>
                     </a>
 
                     <div class="absolute">
                         <ul>
                             <li>
-                                <a href="{{ env_prefix }}/listed-users/[[ popularGoal.slug]]" data-ng-if="popularGoal.stats.listedBy">
+                                <a href="{{ env_prefix }}/listed-users/[[ ::popularGoal.slug]]" data-ng-if="popularGoal.stats.listedBy">
                                     <span>
                                         {{ 'home_listed_by'|trans({},'messages') }}
-                                        [[ popularGoal.stats.listedBy ]]
+                                        [[ ::popularGoal.stats.listedBy ]]
                                     </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                                 <span class="text-white" data-ng-if="!popularGoal.stats.listedBy">
                                     {{ 'home_listed_by'|trans({},'messages') }}
-                                    [[ popularGoal.stats.listedBy ]]
+                                    [[ ::popularGoal.stats.listedBy ]]
                                 </span>
                                 <i class="icon-user-small" data-ng-if="!popularGoal.stats.listedBy"></i>
                             </li>
                             <li>
-                                <a href="{{ env_prefix }}/done-users/[[ popularGoal.slug]]" data-ng-if="popularGoal.stats.doneBy">
+                                <a href="{{ env_prefix }}/done-users/[[ ::popularGoal.slug]]" data-ng-if="popularGoal.stats.doneBy">
                                     <span>
                                         {{ 'home_complete'|trans({},'messages') }}
-                                        [[ popularGoal.stats.doneBy ]]
+                                        [[ ::popularGoal.stats.doneBy ]]
                                     </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                                 <span class="text-white" data-ng-if="!popularGoal.stats.doneBy">
                                     {{ 'home_complete'|trans({},'messages') }}
-                                    [[ popularGoal.stats.doneBy ]]
+                                    [[ ::popularGoal.stats.doneBy ]]
                                 </span>
                                 <i class="icon-user-small" data-ng-if="!popularGoal.stats.doneBy"></i>
                             </li>
@@ -65,8 +65,8 @@
                                 <a href="javascript:void(0)"
                                    data-ls-jquery-modal
                                    data-ng-click=" goal.is_my_goal = 1 ; refreshCache('{{ user.id }}', goal.id) {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
-                                   data-ls-identity="idea[[ goal.id ]]"
-                                   data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ goal.id ]]">
+                                   data-ls-identity="idea[[ ::goal.id ]]"
+                                   data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ ::goal.id ]]">
 
                                     <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                     <span class="text">{{ 'add'|trans | capitalize}}</span>
@@ -80,7 +80,7 @@
 
                             <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
                                 <a {% if app.user %}href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+goal.id, 'addSuccesstory'+goal.id); refreshCache('{{ user.id }}', goal.id)"
-                                   {% else %}data-ng-href="{{ env_prefix }}/goal/done/[[ goal.id ]]"{% endif %}>
+                                   {% else %}data-ng-click="popoverByDesktop(); addDone('{{ env_prefix }}/goal/done/'+goal.id)"{% endif %}>
 
                                     <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                     <span class="text">{{ 'done'|trans | capitalize}}</span>
@@ -88,9 +88,9 @@
                                 <a  href="javascript:void(0)"
                                     data-ng-show="false"
                                     data-ls-jquery-modal
-                                    data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ goal.id ]]"
-                                    data-ls-identity="goalAddSuccessStoryModal[[ goal.id ]]"
-                                    id="addSuccesstory[[ goal.id ]]">
+                                    data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ ::goal.id ]]"
+                                    data-ls-identity="goalAddSuccessStoryModal[[ ::goal.id ]]"
+                                    id="addSuccesstory[[ ::goal.id ]]">
                                 </a>
                             </li>
                             <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">

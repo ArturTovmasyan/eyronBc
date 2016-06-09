@@ -10,8 +10,8 @@
 
         {% include "AppBundle:Blocks:topBlock.html.twig" %}
 
-        <form class="form-horizontal" {% if 'goal/create' not in getReferer() %}id="goal-add-form"{% endif %} action="{{ app.request.requestUri }}" method="post"
-              data-ng-init="initSteps({{ data.getStepsJson }})" >
+        <form class="form-horizontal" id="{% if 'goal/create' not in getReferer() %}goal-add-form{% else %}goal-add-for-create-form{% endif %}" action="{{ app.request.requestUri }}" method="post"
+              data-ng-init="initSteps({{ data.getStepsJson }});redirectPath = '{{ path('user_profile') }}'; goalId = '{{ goal.getId }}'" >
 
             <div class="goal-end">
 

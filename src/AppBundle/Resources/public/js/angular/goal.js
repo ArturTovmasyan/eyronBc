@@ -12,7 +12,8 @@ angular.module('goal', ['Interpolation',
         'Components',
         'LocalStorageModule',
         'angular-cache',
-        'ngResource'
+        'ngResource',
+        'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
 
@@ -46,7 +47,7 @@ angular.module('goal', ['Interpolation',
             refreshCache: refreshCache
         }
     }])
-    .factory('lsInfiniteItems', ['$http', 'localStorageService', function($http, localStorageService) {
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', function($http, localStorageService, envPrefix) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
@@ -93,7 +94,7 @@ angular.module('goal', ['Interpolation',
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
             //if busy or in goal show page
-            if (this.busy || (this.count == 3 && url == '/api/v1.0/goals/{first}/{count}')) {
+            if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
             if (!search) {
@@ -103,8 +104,13 @@ angular.module('goal', ['Interpolation',
                 category = "";
             }
             this.busy = true;
-            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            var lastId = this.items[this.items.length -1].id;
+            var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
+            url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
+            if(!first && lastId){
+                url += '&id=' + lastId
+            }
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
@@ -142,14 +148,14 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == '/api/v1.0/activities/{first}/{count}' && !category && !search) {
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v1.0/activities/{first}/{count}' && !category && !search) {
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
+                    localStorageService.set('active_data'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
-                        localStorageService.set('active_data'+userId, newData);
                         angular.element('#activities').addClass('comingByTop');
                         for(var j = 1; j < this.count; j++){
                             if(newData[j].datetime !== data[0].datetime){
@@ -171,8 +177,8 @@ angular.module('goal', ['Interpolation',
                             }
                         }
                         this.reserve = [];
-                        this.busy = false;
-                        this.nextReserve(reserveUrl, search, category);
+                        // this.busy = false;
+                        // this.nextReserve(reserveUrl, search, category);
 
                     }
                 }.bind(this));
@@ -186,10 +192,11 @@ angular.module('goal', ['Interpolation',
                 //    this.loadAddthis();
                 //}.bind(this), 500);
             }else{
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                var first = (url.indexOf('activities') != -1)?0:this.start;
+                url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == '/api/v1.0/activities/0/'+this.count+'?search=&category=') {
+                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
                         localStorageService.set('active_data' + userId, data);
                     }
                     //if get empty
@@ -216,7 +223,7 @@ angular.module('goal', ['Interpolation',
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', function($scope, $sce, $timeout, loginPopoverService){
+    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix){
 
         $scope.files = [];
         $scope.disablePreview = false;
@@ -354,14 +361,33 @@ angular.module('goal', ['Interpolation',
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
+            if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
+                var goalId = angular.element('#goal-create-form').attr('data-goal-id');
+                $window.location.href = window.location.href + '?id=' + goalId;
+            }
             $scope.goalSubmitTemplate = '';
             $scope.$apply();
         })
 
     }])
-    .controller('goalEnd', ['$scope', '$timeout', function($scope, $timeout){
+    .controller('goalEnd', ['$scope', '$timeout', '$window',function($scope, $timeout, $window){
 
         $scope.stepsArray = [{}];
+
+        var switchChanged = false;
+        var dateChanged = false;
+        var isSuccess = false;
+
+        $scope.$watch('complete.switch', function (d) {
+            if( d !== 0 && d !== 1){
+                switchChanged = !switchChanged
+            }else {
+                if(angular.element('#success' + $scope.goalId).length > 0) {
+                    isSuccess = angular.element('#success' + $scope.goalId).scope()['success' + $scope.goalId]?true:false;
+                }
+            }
+        });
+
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
             var popoverScope = middleScope.$$childHead;
@@ -380,12 +406,54 @@ angular.module('goal', ['Interpolation',
             angular.element(".location .location-hidden").val(null);
             angular.element(".location .location-hidden").attr('value',null);
             angular.element(".location .place-autocomplete").val('');
-        }
+        };
 
 
         $timeout(function(){
+            var doDate = angular.element(".hidden_date_value").val();
+            angular.element('#goal-create-form').attr('data-goal-id', $scope.goalId);
             angular.element("#goal-add-form").ajaxForm({
                 beforeSubmit: function(){
+                    var selector = 'success' + $scope.goalId;
+                    if(angular.element('#'+ selector).length > 0) {
+                        var parentScope = angular.element('#' + selector).scope();
+                        //if goal status changed
+                        if (switchChanged) {
+                            parentScope[selector] = !parentScope[selector];
+                            //if goal changed  from success to active
+                            if (isSuccess) {
+                                //and date be changed
+                                if (dateChanged && doDate) {
+                                    //change  doDate
+                                    parentScope['change' + $scope.goalId] = 2;
+                                    parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                    angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                } else {
+                                    if(doDate){
+                                        parentScope['change' + $scope.goalId] = 2;
+                                        parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                        angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                    }else {
+                                        //infinity
+                                        parentScope['change' + $scope.goalId] = 1;
+                                        angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                                    }
+                                }
+                            } else {
+                                //new datetime for completed 
+                                parentScope['change' + $scope.goalId] = 2;
+                                angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                                parentScope['doDate' + $scope.goalId] = new Date();
+                            }
+                        } else {
+                            if (!isSuccess && dateChanged && doDate) {
+                                //change for doDate
+                                parentScope['change' + $scope.goalId] = 2;
+                                parentScope['doDate' + $scope.goalId] = new Date(doDate);
+                                angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                            }
+                        }
+                    }
                     $scope.$apply();
                 },
                 success: function(res, text, header){
@@ -393,6 +461,17 @@ angular.module('goal', ['Interpolation',
                         angular.element('#cancel').click();
                         $scope.$apply();
 
+                    }
+                }
+            });
+            angular.element("#goal-add-for-create-form").ajaxForm({
+                beforeSubmit: function(){
+                    $scope.$apply();
+                },
+                success: function(res, text, header){
+                    if(header.status === 200){
+                        $window.location.href = $scope.redirectPath;
+                        $scope.$apply();
                     }
                 }
             });
@@ -426,19 +505,17 @@ angular.module('goal', ['Interpolation',
             angular.element("#datepicker").on("changeDate", function() {
                 angular.element("#secondPicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#datepicker").datepicker('getFormattedDate')
-                );
-
+                doDate =  angular.element("#datepicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
             angular.element("#secondPicker").on("changeDate", function() {
                 angular.element("#datepicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#secondPicker").datepicker('getFormattedDate')
-                );
-
+                doDate = angular.element("#secondPicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
 
@@ -456,13 +533,34 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
+        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
+        };
+
+        $scope.addDone = function(path, id){
+            $http.get(path)
+                .success(function(res){
+                    $scope.completed = false;
+                    angular.element('#'+id).click();
+                });
         };
 
         $scope.openSignInPopover = function(){
@@ -534,7 +632,7 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
 
         $scope.Ideas = new lsInfiniteItems();
         $scope.locations = [];
@@ -562,6 +660,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
+            if(ev.which === 13 && screen.width < 768) {
+                angular.element('.icon-remove-email').click();
+            }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
@@ -574,7 +675,7 @@ angular.module('goal', ['Interpolation',
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", $scope.search);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search);
             }
         };
 
@@ -584,7 +685,7 @@ angular.module('goal', ['Interpolation',
                         $scope.noIdeas = true;
                         angular.element('.idea-item').removeClass('ideas-result');
                         $scope.Ideas.reset();
-                        $scope.Ideas.nextPage("/api/v1.0/goals/{first}/{count}", '');
+                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
                     };
             }
 
@@ -630,11 +731,23 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
         $scope.completed = true;
 
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
         };
 
         $scope.addDone = function(path, id){
@@ -675,11 +788,8 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
-        var path = "/api/v1.0/goal-friends";
-
-
-        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
+    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
+        var path = envPrefix + "api/v1.0/goal-friends";
 
         $scope.getGaolFriends = function(id){
 
@@ -709,16 +819,14 @@ angular.module('goal', ['Interpolation',
             $scope.getGaolFriends(id);
         })
     }])
-    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', function($scope, $http, CacheFactory){
-        var path = "/api/v1.0/top-ideas/{count}";
+    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
+        var path = envPrefix + "api/v1.0/top-ideas/{count}";
 
         var profileCache = CacheFactory.get('bucketlist');
 
         if(!profileCache){
             profileCache = CacheFactory('bucketlist');
         }
-
-        $scope.prefix = (window.location.pathname.indexOf('app_dev.php') === -1)?"/":"/app_dev.php/";
 
         $scope.getPopularGoals = function(id){
             path = path.replace('{count}', $scope.count);

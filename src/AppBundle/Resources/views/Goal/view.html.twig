@@ -124,11 +124,10 @@
 {%- endblock -%}
 
 {%- block og_image -%}
-    {% set images = goal.images %}
-    {%- if images.first -%}
-        {{- host ~ images.first.getImagePath() -}}
+    {%- if goal.getListPhoto -%}
+        {{- host ~ goal.getListPhoto.getDownloadLink|blImageFilter('goal_cover') -}}
     {% else %}
-        {{- parent() -}}
+        {{ parent() }}
     {%- endif -%}
 {%- endblock -%}
 

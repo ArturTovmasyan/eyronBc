@@ -1,5 +1,5 @@
 {% if user is defined %}
-    <div class="bg-white round padding {% if user.getCompletedPercent()|round(1, 'floor') != 100 %}margin-top {% endif %}">
+    <div class="bg-white round padding {% if user.profileCompletedPercent|round(1, 'floor') != 100 %}margin-top {% endif %}">
 
         <a href="{{ path('user_profile') }}" class="heading text-gray">
             <i class=" icon-list-icon"></i>

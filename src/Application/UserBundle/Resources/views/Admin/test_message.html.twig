@@ -1,11 +1,6 @@
-{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
-
-{% block field%}
-    <div >
-        {% if object.registrationIds is defined and object.registrationIds %}
-            <a href="{{ path("sand-test-message", {'userId': object.id }) }}" class="btn btn-info">
-                Sand Massage
-            </a>
-        {% endif %}
-    </div>
-{% endblock %}
+{% if object.registrationIds is defined and object.registrationIds %}
+    <a href="{{ path("sand-test-message", {'userId': object.id }) }}" class="btn btn-sm btn-default edit_link">
+        <i class="glyphicon glyphicon-envelope"></i>
+        {{ 'admin.label.name.messages'|trans({}, 'messages') }}
+    </a>
+{% endif %}

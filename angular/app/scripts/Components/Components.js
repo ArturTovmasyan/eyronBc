@@ -171,7 +171,7 @@ angular.module('Components',[])
                 scope.openModal = function(tmp){
                     angular.element('body').append(tmp);
                     tmp.modal({
-                        fadeDuration: 500
+                        fadeDuration: 300
                     });
                     $rootScope.$broadcast('lsJqueryModalOpened'+scope.lsIdentity);
                     el.trigger('lsJqueryModalOpened' + scope.lsIdentity);

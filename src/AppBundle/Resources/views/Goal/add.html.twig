@@ -56,7 +56,7 @@
                              <button type="submit"
                                  data-ls-jquery-modal
                                  data-ls-identity="goalSave"
-                                 data-ls-template="[[ goalSubmitTemplate ]]"
+                                 data-ls-template="[[ ::goalSubmitTemplate ]]"
                                  class="btn btn-purple goal-create-submit"
                                  name="btn_publish">{{ 'goal.publish'|trans }}
                                  <i class="icon-arrow-right"></i>
@@ -84,7 +84,7 @@
 
                                      {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "data-ng-model":"description", "data-ng-init":"description ='" ~ form.vars.value.description ~ "'", "data-value" : "[[ description ]]" } }) }}
                                      <div class="tags" data-ng-cloak>
-                                         <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ tag ]] </button>
+                                         <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ ::tag ]] </button>
                                      </div>
 
                                      <p class="text-gray">

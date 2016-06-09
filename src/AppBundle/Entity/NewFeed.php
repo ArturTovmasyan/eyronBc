@@ -30,6 +30,7 @@ class NewFeed
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
+     * @Groups({"new_feed"})
      */
     protected $id;
 
@@ -82,6 +83,24 @@ class NewFeed
      * @ORM\JoinColumn(name="log_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $log;
+
+    /**
+     * NewFeed constructor.
+     * @param null $action
+     * @param null $user
+     * @param null $goal
+     * @param null $story
+     * @param null $comment
+     */
+    public function __construct($action = null, $user = null, $goal = null, $story = null, $comment = null)
+    {
+        $this->setUser($user);
+        $this->setAction($action);
+        $this->setGoal($goal);
+        $this->setSuccessStory($story);
+        $this->setComment($comment);
+        $this->setDatetime(new \DateTime());
+    }
 
     /**
      * Get id

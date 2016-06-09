@@ -8,72 +8,38 @@
        {% if image %} <img src="{{image.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" class="img-responsive" />{% endif %}
     </figure>
 
-    {% if doneByUsers is defined and listedByUsers is defined %}
-        {% set done =  doneByUsers %}
-        {% set listed =  listedByUsers %}
-    {% else %}
-        {% set done = goal.getUsedCount.doneBy %}
-        {% set listed = goal.getUsedCount.listedBy %}
-    {% endif %}
     <span class="overlay"></span>
-    {#<div class="text-right">#}
 
-            {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">#}
-                {#<i class="icon-trash"></i>#}
-                {#{{ 'forget'|trans | upper }}#}
-            {#</a>#}
+    <div>
 
+        <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">
+            {{ goal.title }}
+        </h2>
 
-        {#<div data-ng-show="showDetails" class="relative">#}
-            {#<div class="delete-message">#}
-                {#<h3>{{ 'delete_message'|trans|upper|raw }}</h3>#}
-                {#<a href="{{ path('remove_goal', {'goal' : goal.getId , 'user': user.getId }) }}" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>#}
-                {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-    {#<div class="row no-gutter">#}
+        {% if user and author and user.id == author.id %}
+            {% set show = false %}
+        {% endif %}
 
-        <div>
+        {% if author and not author.isAdmin and show %}
+            <p>{{ goal.author.showName }}</p>
+        {% endif %}
 
-            <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">
-                {{ goal.title }}
-            </h2>
-
-            {% if user and author and user.id == author.id %}
-                {% set show = false %}
-            {% endif %}
-
-            {% if author and not author.isAdmin and show %}
-                <p>{{ goal.author.showName }}</p>
-            {% endif %}
-
-            <ul>
-                <li>
-                    <a href="#">
-                        {{ 'block_listed'|trans | capitalize }}
-                        <span>{{ goal.getUsedCount.listedBy }}</span>
-                        <i class="icon-user-small"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        {{ 'block_completed'|trans | capitalize }}
-                        <span>{{ goal.getUsedCount.doneBy }}</span>
-                        <i class="icon-user-small"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        {#<div class="col-sm-4 text-right">#}
-            {#<a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">#}
-                {#<i class="icon-trash"></i>#}
-                {#{{ 'forget'|trans | upper }}#}
-            {#</a>#}
-        {#</div>#}
-
-
-    {#</div>#}
+        <ul>
+            <li>
+                <a href="#">
+                    {{ 'block_listed'|trans | capitalize }}
+                    <span>{{ goal.stats.listedBy }}</span>
+                    <i class="icon-user-small"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    {{ 'block_completed'|trans | capitalize }}
+                    <span>{{ goal.stats.doneBy }}</span>
+                    <i class="icon-user-small"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 
 </div>
