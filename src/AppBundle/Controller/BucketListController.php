@@ -108,12 +108,12 @@ class BucketListController extends Controller
         }
 
         // get drafts
-        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+        $myIdeasCount =  $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
 
         return array(
             'profileUser' => $user,
             'userGoals'   => $pagination,
-            'draftsCount' => $draftsCount,
+            'myIdeasCount' => $myIdeasCount,
             'filters'     => $filters,
             'currentUser' => $this->getUser()
             );

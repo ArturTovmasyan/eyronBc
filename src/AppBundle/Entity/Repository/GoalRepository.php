@@ -179,6 +179,32 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * @param $user
+     * @return array
+     */
+    public function findMyIdeasCount(&$user)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('COUNT(g)')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.author', 'a')
+                ->where('a.id = :user')
+                ->andWhere('g.readinessStatus = :readinessStatus')
+                ->orWhere('g.status = :status')
+                ->setParameter('user', $user)
+                ->setParameter('readinessStatus', Goal::DRAFT)
+                ->setParameter('status', Goal::PRIVATE_PRIVACY)
+        ;
+
+        $myIdeasCount = $query->getQuery()->getSingleScalarResult();
+        $user->setDraftCount($myIdeasCount);
+
+        return $myIdeasCount;
+    }
+
+    /**
      * @param $category
      * @param $search
      * @param $first
@@ -579,5 +605,29 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function findMyPrivateGoals($user)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g, i')
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.images', 'i')
+            ->leftJoin('g.author', 'a')
+            ->where('a.id = :user')
+            ->andWhere('g.status = :status')
+            ->andWhere('g.readinessStatus = :readinessStatus')
+            ->orderBy('g.id', 'desc')
+            ->setParameter('user', $user)
+            ->setParameter('status', Goal::PRIVATE_PRIVACY)
+            ->setParameter('readinessStatus', Goal::TO_PUBLISH)
+        ;
+
+        return $query->getQuery()->getResult();
     }
 }
