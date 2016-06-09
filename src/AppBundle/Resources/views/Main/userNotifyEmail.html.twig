@@ -16,7 +16,7 @@
         {#<img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>#}
         <img src="http://www.bucketlist127.com/bundles/app/images/logo.png?v310" alt="Bucket List 127" class="img-responsive"/>
 
-        {{ mailText|trans({'%senderName%' : senderName, '%link%': goalUrl}, 'email') }}
+        {{ mailText|trans({'%senderName%' : senderName, '%link%': goalUrl}, 'email', language) }}
 
     <div>
         {{ goal.title }}
@@ -55,7 +55,7 @@
         </figure>
 
     <p>
-        <a href = "{{ link }}">View on Bucket List 127</a>
+        <a href = "{{ goalUrl }}">{{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>
     </p>
 
         <footer>
@@ -75,6 +75,7 @@
                     </li>
                 </ul>
 
+                {#for css class include,need to inline format for style#}
                 <ul class="social">
                     <li>
                         <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
@@ -107,7 +108,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="row">
-                        {{ 'notify_email_footer'|trans({'%email%': email, '%homePage%' : homePageUrl}, 'email') }}
+                        {{ 'notify_email_footer'|trans({'%email%': email, '%homePage%' : homePageUrl}, 'email', language) }}
                     </div>
                 </div>
             </div>

@@ -177,6 +177,7 @@ user:
     account_verified_description: Описание страницы “Аккаунт подтвержден”
     register_title: Регистрация
     register_description: Описание регистрации
+    notify_settings_text: Что вы будете получитъ
 
 
 

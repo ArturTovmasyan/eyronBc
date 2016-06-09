@@ -71,16 +71,19 @@ class UserNotifyService
         //get author email
         $email = $author->getEmail();
 
+        //get author language
+        $language = $author->getLanguage() ? $author->getLanguage() : 'en';
+
         //get sender name
         $userName = $user->showName();
 
         //get subject for email
-        $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email');
+        $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email', $language);
 
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('eventText' => $commentText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_comment')
+            array('eventText' => $commentText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_comment', 'language' => $language)
         );
         
         $this->sendEmail($email, $content, $subject);
@@ -116,16 +119,19 @@ class UserNotifyService
         //get author email
         $email = $author->getEmail();
 
+        //get author language
+        $language = $author->getLanguage() ? $author->getLanguage() : 'en';
+        
         //get sender name
         $userName = $user->showName();
 
         //get subject for email
-        $subject = $this->container->get('translator')->trans('subject_for_story_email', array('%senderName%' => $userName), 'email');
+        $subject = $this->container->get('translator')->trans('subject_for_story_email', array('%senderName%' => $userName), 'email', $language);
 
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('eventText' => $storyText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_success_story')
+            array('eventText' => $storyText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_success_story', 'language' => $language)
         );
 
         $this->sendEmail($email, $content, $subject);
