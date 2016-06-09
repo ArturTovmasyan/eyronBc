@@ -35,20 +35,21 @@ class BucketListController extends Controller
     public function myListAction($user = null , $status = null , Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
-
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         // get user by id
         if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
         }
         else {
-            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+            $user = $this->getUser();
         }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         // get dream
         $dream = $request->get('d');
