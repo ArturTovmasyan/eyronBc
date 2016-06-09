@@ -90,11 +90,11 @@ class UserController extends FOSRestController
 
         $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
-        //send user register event in google analytics
-        $this->container->get('google_analytic')->userRegisterEvent();
-        
         $em->persist($user);
         $em->flush();
+
+        //send user register event in google analytics
+        $this->container->get('google_analytic')->userRegisterEvent();
 
         if($this->container->get('kernel')->getEnvironment() != 'test')
         {
