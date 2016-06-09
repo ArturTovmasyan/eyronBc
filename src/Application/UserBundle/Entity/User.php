@@ -10,7 +10,6 @@ namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
-use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
@@ -22,7 +21,6 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
@@ -62,7 +60,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="u_id", type="string", length=9)
+     * @ORM\Column(name="u_id", type="string", length=9, unique=true)
      * @Groups({"user", "tiny_user"})
      */
     protected $uId;
