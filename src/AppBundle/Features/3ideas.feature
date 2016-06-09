@@ -6,7 +6,8 @@ Feature: Idea
   @javascript @ideas
   Scenario: Open Ideas page and show list of ideas
     Given I am on "/ideas"
-    Then I should see "Explore over thousand great ideas"
+    And I wait for view
+    Then I should see "Explore thousands of great ideas for your Bucket List"
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     And I should see "Listed by"
     And I should see "Completed by"
@@ -24,6 +25,7 @@ Feature: Idea
   @javascript @linkInIdeasPage
   Scenario: Open ideas page and check Add, Done, Share links
     Given I am on "/ideas"
+    And I wait for view
     And I should see "Explore thousands of great ideas for your Bucket List"
     And I wait for view
     And I follow "Add"
