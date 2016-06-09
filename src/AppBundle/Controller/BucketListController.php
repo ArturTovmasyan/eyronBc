@@ -94,6 +94,21 @@ class BucketListController extends Controller
         );
 
 
+        $goalIds = [];
+        foreach($pagination as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($pagination as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
+        }
+
+
         // create filter
         $filters = array(
             UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',

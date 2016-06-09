@@ -183,7 +183,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @Groups({"goal", "tiny_goal"})
      */
-    protected $stats;
+    protected $stats = null;
 
     /**
      * @Groups({"goal", "tiny_goal"})
@@ -298,22 +298,6 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     public function setIsMyGoal($isMyGoal)
     {
         $this->isMyGoal = $isMyGoal;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStats()
-    {
-        return $this->stats;
-    }
-
-    /**
-     * @param mixed $stats
-     */
-    public function setStats($stats)
-    {
-        $this->stats = $stats;
     }
 
     /**
@@ -883,26 +867,35 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         return false;
     }
 
-    /**
-     * @return array
-     */
-    public function getUsedCount()
-    {
-        // empty data vor result
-        $result = array('listedBy' => 0, 'doneBy' => 0);
 
-        // get user goals
+    /**
+     * @return mixed
+     */
+    public function getStats()
+    {
+        if (!is_null($this->stats)){
+            return $this->stats;
+        }
+
+        $this->stats = ['listedBy' => 0, 'doneBy' => 0];
+
         $userGoals = $this->getUserGoal();
 
-        // check user goals
         if($userGoals){
-
-            // loop for user goals
             foreach($userGoals as $userGoal){
-                $userGoal->getStatus() == UserGoal::ACTIVE ? $result['listedBy'] ++ : $result['doneBy'] ++;
+                $userGoal->getStatus() == UserGoal::ACTIVE ? $this->stats['listedBy'] ++ : $this->stats['doneBy'] ++;
             }
         }
-        return $result;
+
+        return $this->stats;
+    }
+
+    /**
+     * @param mixed $stats
+     */
+    public function setStats($stats)
+    {
+        $this->stats = $stats;
     }
 
     /**

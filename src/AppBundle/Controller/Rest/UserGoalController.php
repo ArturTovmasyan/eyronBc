@@ -232,11 +232,6 @@ class UserGoalController extends FOSRestController
         $userGoals = $em->getRepository('AppBundle:UserGoal')
             ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, false, $first, $count);
 
-        // slice data
-        if (is_numeric($first) && is_numeric($count)) {
-            $userGoals = array_slice($userGoals, $first, $count);
-        }
-
         //This part is used to calculate goal stats
         $goalIds = [];
         foreach($userGoals as $userGoal){
@@ -310,11 +305,6 @@ class UserGoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $userGoals = $em->getRepository('AppBundle:UserGoal')
             ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, null, 0, $count);
-
-        // slice data
-        if (is_numeric($count)) {
-            $userGoals = array_slice($userGoals, 0, $count);
-        }
 
         //This part is used to calculate goal stats
         $goalIds = [];

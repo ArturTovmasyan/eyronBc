@@ -271,11 +271,13 @@ class User extends BaseUser
     /**
      * This fields are used for optimization or profile completion
      */
-    private $hasDeadLines;
+    private $hasDeadLines     = null;
 
-    private $hasCompletedGoal;
+    private $hasCompletedGoal = null;
 
-    private $hasSuccessStory;
+    private $hasSuccessStory  = null;
+
+    private $userGoalCount    = null;
 
     /**
      * @return mixed
@@ -788,6 +790,7 @@ class User extends BaseUser
         return $this->editedGoals;
     }
 
+    protected $currentCompletedPercent = null;
     /**
      * This function is used to check percent of completed profile
      *
@@ -797,6 +800,10 @@ class User extends BaseUser
     {
         if ($this->getProfileCompletedPercent() == 100){
             return 100;
+        }
+
+        if (!is_null($this->currentCompletedPercent)){
+            return $this->currentCompletedPercent;
         }
 
         // default percent
@@ -812,7 +819,7 @@ class User extends BaseUser
         $percent += $this->socialPhotoLink || $this->fileName ? self::UPLOAD_IMAGE : 0;
 
         // check goal
-        $percent += $this->userGoal->count() > 0 ? self::ADD_GOAL : 0;
+        $percent += $this->getUserGoalCount() > 0 ? self::ADD_GOAL : 0;
 
         // check deadlines
         $percent += $this->checkDeadLines() ? self::SET_DEADLINE : 0;
@@ -823,7 +830,7 @@ class User extends BaseUser
         // check success story
         $percent +=  $this->checkSuccessStory() ? self::SUCCESS_STORY : 0;
 
-        return $percent;
+        return $this->currentCompletedPercent = $percent;
     }
 
     /**
@@ -833,7 +840,7 @@ class User extends BaseUser
      */
     public function checkDeadLines()
     {
-        if ($this->hasDeadLines){
+        if (!is_null($this->hasDeadLines)){
             return true;
         }
 
@@ -862,7 +869,7 @@ class User extends BaseUser
      */
     public function checkCompletedGoals()
     {
-        if ($this->hasCompletedGoal){
+        if (!is_null($this->hasCompletedGoal)){
             return true;
         }
 
@@ -892,7 +899,7 @@ class User extends BaseUser
      */
     public function checkSuccessStory()
     {
-        if ($this->hasSuccessStory){
+        if (!is_null($this->hasSuccessStory)){
             return true;
         }
 
@@ -1572,5 +1579,25 @@ class User extends BaseUser
     public function setHasSuccessStory($hasSuccessStory)
     {
         $this->hasSuccessStory = $hasSuccessStory;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUserGoalCount()
+    {
+        if (is_null($this->userGoalCount)){
+            $this->userGoalCount = $this->userGoal->count();
+        }
+
+        return $this->userGoalCount;
+    }
+
+    /**
+     * @param null $userGoalCount
+     */
+    public function setUserGoalCount($userGoalCount)
+    {
+        $this->userGoalCount = $userGoalCount;
     }
 }

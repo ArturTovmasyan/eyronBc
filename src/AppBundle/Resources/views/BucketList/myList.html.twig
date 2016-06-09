@@ -245,7 +245,7 @@
                                 <li>
                                     <a href="{{ path('add_goal') }}">
                                         <strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
-                                        {% if user.userGoal|length > 0 %}
+                                        {% if user.getUserGoalCount|length > 0 %}
                                             <i class="icon-ok-only"></i>
                                         {% else %}
                                             <i class="icon-question-only"></i>
@@ -388,30 +388,7 @@
 
                         {% set lastIndex = userGoals|length - 1 %}
 
-                        {% if profileUser.id != app.user.id and not userGoal.isVisible %}
-
-                            {#<div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") %} active-idea{% endif %}">#}
-                                {#<div class="col-sm-2 no-right">#}
-                                    {#<div class="date-left hidden-xs">#}
-                                        {#<div class="img-circle">#}
-                                            {#&#123;&#35;{{ userGoal.doDate|date('d') }}&#35;&#125;#}
-                                        {#</div>#}
-                                        {#{% if userGoals[lastIndex].id == userGoal.id %}#}
-                                            {#<span></span>#}
-                                        {#{% endif %}#}
-                                        {#<div class="elipse">#}
-                                            {#&#123;&#35;<div>{{ userGoal.doDate|date('M, Y') }}</div>&#35;&#125;#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                                {#<div class="col-sm-10 bg-white no-left">#}
-                                    {#<div class="row">#}
-                                        {#<div class="col-sm-12 bg-white" style="height: 150px"></div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
-
-                        {% else %}
+                        {% if profileUser.id == app.user.id or userGoal.isVisible %}
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
                                 <div class="col-sm-2 no-right">
@@ -478,28 +455,28 @@
                                                 <figcaption>
                                                     <div class="row">
                                                         <div class="col-xs-6">
-                                                            {% if goal.getUsedCount.listedBy > 0 %}
+                                                            {% if goal.stats.listedBy > 0 %}
                                                                 <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.stats.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.getUsedCount.listedBy }}</span>
+                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.stats.listedBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}
                                                         </div>
 
                                                         <div class="col-xs-6">
-                                                            {% if goal.getUsedCount.doneBy > 0 %}
+                                                            {% if goal.stats.doneBy > 0 %}
                                                                 <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.stats.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </a>
                                                             {% else %}
                                                                 <span class="text-white">
-                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.getUsedCount.doneBy }}</span>
+                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.stats.doneBy }}</span>
                                                                     <i class="icon-user-small"></i>
                                                                 </span>
                                                             {% endif %}

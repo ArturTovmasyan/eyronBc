@@ -99,7 +99,8 @@ class UserRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT COUNT(ug) deadLineCount,
                               (SELECT COUNT(ss) FROM AppBundle:SuccessStory ss WHERE ss.user = u) as storyCount,
-                              (SELECT COUNT(ug1) FROM AppBundle:UserGoal ug1 WHERE ug1.user = u AND ug1.status = :completedStatus) as completedCount
+                              (SELECT COUNT(ug1) FROM AppBundle:UserGoal ug1 WHERE ug1.user = u AND ug1.status = :completedStatus) as completedCount,
+                              (SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.user = u) as userGoalCount
                            FROM ApplicationUserBundle:User u
                            LEFT JOIN u.userGoal ug WITH ug.doDate IS NOT NULL
                            WHERE u.id = :userId")
@@ -282,10 +283,10 @@ class UserRepository extends EntityRepository
         $user->setHasDeadLines($statuses['deadLineCount']);
         $user->setHasCompletedGoal($statuses['completedCount']);
         $user->setHasSuccessStory($statuses['storyCount']);
+        $user->setUserGoalCount($statuses['userGoalCount']);
         $percent = $user->getCompletedPercent();
 
         if ($percent == 100) {
-            $user->setProfileCompletedPercent(floor($percent));
             $em->flush();
         }
 
