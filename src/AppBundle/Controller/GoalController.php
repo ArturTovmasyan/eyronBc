@@ -167,7 +167,7 @@ class GoalController extends Controller
 
                     $request->getSession()
                         ->getFlashBag()
-                        ->add('success','Your Goal has been Successfully Published')
+                        ->set('success','Your Goal has been Successfully Published')
                     ;
 
                     return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
@@ -367,8 +367,8 @@ class GoalController extends Controller
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 1, 3);
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 1, 3);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 0, 3 );
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
@@ -973,6 +973,15 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        $goalImage->getGoal()->removeImage($goalImage);
+        $goalImages = $goalImage->getGoal()->getImages();
+        if ($goalImage->getList() && $goalImages->first()){
+            $goalImages->first()->setList(true);
+        }
+        if ($goalImage->getCover() && $goalImages->first()){
+            $goalImages->first()->setCover(true);
+        }
 
         // remove from bd
         $em->remove($goalImage);

@@ -24,7 +24,7 @@ Feature: Idea
   @javascript @linkInIdeasPage
   Scenario: Open ideas page and check Add, Done, Share links
     Given I am on "/ideas"
-    And I should see "Explore over thousand great ideas"
+    And I should see "Explore thousands of great ideas for your Bucket List"
     And I wait for view
     And I follow "Add"
     And I wait for angular
@@ -32,5 +32,5 @@ Feature: Idea
     When I follow "JOIN"
     And I wait for angular
     And I follow "Done"
-    And I wait for angular
+    And I wait for view
     Then I should see "SIGN IN"
