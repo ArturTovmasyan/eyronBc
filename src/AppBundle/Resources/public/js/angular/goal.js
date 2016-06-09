@@ -533,7 +533,8 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
+        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -546,6 +547,12 @@ angular.module('goal', ['Interpolation',
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
         };
 
         $scope.addDone = function(path, id){
@@ -724,7 +731,7 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', function($scope, $http, refreshCacheService, $timeout){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
         $scope.completed = true;
 
         $scope.refreshCache = function(userId, goalId){
@@ -735,6 +742,12 @@ angular.module('goal', ['Interpolation',
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
         };
 
         $scope.addDone = function(path, id){
