@@ -179,8 +179,11 @@ Feature: Goal page
     And I follow "user1"
     And I follow "My Bucketlist"
     Then I should be on "/profile"
+    When I follow "My Ideas"
+    Then I should be on "/goal/my-ideas"
     When I follow "Drafts"
-    Then I should be on "/goal/drafts"
+    Then I should be on "/goal/my-ideas/drafts"
+    And I wait for view
     And I should see "Edit"
     And I should see "Delete"
     When I follow "Edit"
@@ -188,11 +191,11 @@ Feature: Goal page
     When I move backward one page
     And I follow "Delete"
     And I wait for angular
-    Then I should see "You are about to delete your draft goal. Are you sure?"
+    Then I should see "Your goal will be permanently deleted."
     When I click on "btn btn-danger"
-    Then I should be on "goal/drafts"
+    Then I should be on "/goal/my-ideas/drafts"
     And I should see "Drafts"
     When I follow "Delete"
     And I wait for angular
     And I click on "btn btn-success"
-    Then I should not see "You are about to delete your draft goal. Are you sure?"
+    Then I should not see "Your goal will be permanently deleted."
