@@ -5,7 +5,7 @@
     {% set show = true %}
 
     <figure>
-       {% if image %} <img src="{{image.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" class="img-responsive" />{% endif %}
+       {% if image %} <img src="{{image.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt="{{ goal.title }}" class="img-responsive" />{% endif %}
     </figure>
 
     <span class="overlay"></span>
