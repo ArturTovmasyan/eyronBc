@@ -455,6 +455,7 @@ class UserGoal implements ActivityableInterface
             }
             return $done * 100 / $count;
         }
+
         return 100;
     }
 

@@ -445,6 +445,21 @@ angular.module('goal', ['Interpolation',
             }
         };
 
+        $scope.getCompleted = function(userGoal){
+            if(!userGoal || !userGoal.steps || !userGoal.steps.length){
+                return 100;
+            }
+
+            var result = 0;
+            angular.forEach(userGoal.steps, function(v){
+                if(v === $scope.UserGoalConstant['DONE']){
+                    result++;
+                }
+            });
+
+            return result * 100 / userGoal.steps.length;
+        };
+
         $scope.removeLocation = function(){
             angular.element(".location .location-hidden").val(null);
             angular.element(".location .location-hidden").attr('value',null);
