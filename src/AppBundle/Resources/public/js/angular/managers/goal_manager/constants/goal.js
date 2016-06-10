@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goal').constant('Goal',{
+angular.module('goal').constant('GoalConstant',{
   // constants for privacy status
   PUBLIC_PRIVACY: true,
   PRIVATE_PRIVACY: false,
