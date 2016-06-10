@@ -241,6 +241,7 @@ class User extends BaseUser
 
     /**
      * @var
+     * @Groups({"tiny_user"})
      */
     private $stats;
 
