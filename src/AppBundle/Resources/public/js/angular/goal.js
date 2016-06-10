@@ -52,6 +52,7 @@ angular.module('goal', ['Interpolation',
             this.items = [];
             this.busy = false;
             this.noItem = false;
+            this.category = "";
             //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
@@ -97,12 +98,17 @@ angular.module('goal', ['Interpolation',
             if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
+
             if (!search) {
                 search = "";
             }
+
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
+
             this.busy = true;
             var lastId = this.items[this.items.length -1].id;
             var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
@@ -139,7 +145,9 @@ angular.module('goal', ['Interpolation',
             }
 
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
 
             this.busy = true;
