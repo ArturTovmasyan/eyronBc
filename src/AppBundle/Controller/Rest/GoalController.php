@@ -63,22 +63,23 @@ class GoalController extends FOSRestController
 
         $goals = array_values($goals);
 
+        $filters = [
+            0 => 'goal_list_small',
+            1 => 'goal_list_small',
+            2 => 'goal_list_small',
+            3 => 'goal_list_small',
+            4 => 'goal_list_horizontal',
+            5 => 'goal_list_big',
+            6 => 'goal_list_vertical',
+        ];
+
+
         if ($count == 7 || $count == 3){
             $liipManager = $this->get('liip_imagine.cache.manager');
-            for($i = 0; $i < 4; $i++){
-                if (isset($goals[$i])) {
-                    $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), 'goal_list_small'));
+            for($i = 0; $i < 7; $i++){
+                if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
+                    $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
                 }
-            }
-
-            if (isset($goals[4])) {
-                $goals[4]->setCachedImage($liipManager->getBrowserPath($goals[4]->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            }
-            if (isset($goals[5])) {
-                $goals[5]->setCachedImage($liipManager->getBrowserPath($goals[5]->getListPhotoDownloadLink(), 'goal_list_big'));
-            }
-            if (isset($goals[6])) {
-                $goals[6]->setCachedImage($liipManager->getBrowserPath($goals[6]->getListPhotoDownloadLink(), 'goal_list_vertical'));
             }
         }
 

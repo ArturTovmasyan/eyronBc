@@ -195,7 +195,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true, nullable=false)
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_goal", "userGoal_goal"})
      */
     protected $slug;
 

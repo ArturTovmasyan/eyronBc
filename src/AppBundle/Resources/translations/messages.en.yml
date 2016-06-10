@@ -37,6 +37,7 @@ goal:
       agree: By checking you suggest your goal to be listed in the Ideas list
       preview: PREVIEW
       publish: Create
+      edit: UPDATE
       description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*
       search_title: Bucket List 127-search result-
       search_description:  Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.
@@ -240,7 +241,8 @@ draft:
 
 private_ideas:
   title: Bucket List 127-Private Ideas
-  description: If you .......................................
+  description: If you want to have a look at your private ideas, here you can see your own ideas list that will remind you of your activities.
+
 done_by: Completed by
 home_complete: COMPLETED BY
 mobile_modal: |

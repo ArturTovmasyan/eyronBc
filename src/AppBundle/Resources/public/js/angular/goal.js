@@ -16,7 +16,6 @@ angular.module('goal', ['Interpolation',
         'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
-
         localStorageServiceProvider
             .setPrefix('goal')
             .setNotify(false, false);
@@ -52,6 +51,7 @@ angular.module('goal', ['Interpolation',
             this.items = [];
             this.busy = false;
             this.noItem = false;
+            this.category = "";
             //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
@@ -97,12 +97,17 @@ angular.module('goal', ['Interpolation',
             if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
+
             if (!search) {
                 search = "";
             }
+
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
+
             this.busy = true;
             var lastId = this.items[this.items.length -1].id;
             var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
@@ -139,7 +144,9 @@ angular.module('goal', ['Interpolation',
             }
 
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
 
             this.busy = true;
@@ -586,7 +593,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope.completed = false;
                     angular.element('#'+id).click();
                 });
@@ -643,8 +650,7 @@ angular.module('goal', ['Interpolation',
             angular.element('.goal-information').scrollToFixed({
                 marginTop: 85,
                 limit: function () {
-                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
-                    return limit;
+                    return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
                 },
                 unfixed: function() {
                     var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
@@ -710,12 +716,12 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
-                    if($scope.Ideas.noItem ){
-                        $scope.noIdeas = true;
-                        angular.element('.idea-item').removeClass('ideas-result');
-                        $scope.Ideas.reset();
-                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
-                    };
+                if($scope.Ideas.noItem ){
+                    $scope.noIdeas = true;
+                    angular.element('.idea-item').removeClass('ideas-result');
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
+                }
             }
 
             angular.forEach(d, function(item) {
@@ -792,7 +798,7 @@ angular.module('goal', ['Interpolation',
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope[id] = true;
                     angular.element('#'+id).click();
                 });
@@ -910,8 +916,6 @@ angular.module('goal', ['Interpolation',
                         }, dl);
                     }
                 }
-
-
             }
         }
     }])
@@ -960,10 +964,10 @@ angular.module('goal', ['Interpolation',
                     else {
                         scope.array.splice(scope.key, 1);
                     }
-                }
+                };
 
                 scope.isVideoLink = function(url){
-                    if(!url || url.indexOf("https:/") == -1)return false;
+                    if(!url || url.indexOf("https:/") == -1) return false;
                     return true;
                 };
                 scope.trustedUrl = function(url){
@@ -989,7 +993,7 @@ angular.module('goal', ['Interpolation',
 
                         if(d === ''){
                             if(scope.key === 0){
-                                if(scope.array.length > 1){
+                                if(scope.array.length > 1) {
                                     scope.array.splice(scope.key, 1);
                                 }
                             }
@@ -998,7 +1002,7 @@ angular.module('goal', ['Interpolation',
                             }
                         }
                         else {
-                            if(!scope.array[scope.key + 1]){
+                            if(!scope.array[scope.key + 1]) {
                                 scope.array[scope.key + 1] = {};
                             }
                         }
