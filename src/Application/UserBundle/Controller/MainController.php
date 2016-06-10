@@ -444,6 +444,34 @@ class MainController extends Controller
         return array('form' => $form->createView());
     }
 
+
+    /**
+     * @param null $user
+     * @return Response
+     */
+    public function profileHeaderAction($user = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // get user by id
+        if($user){
+            $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
+        }
+        else {
+            $user = $this->getUser();
+
+            //This part is used for profile completion percent calculation
+            if ($this->getUser()->getProfileCompletedPercent() != 100) {
+                $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+            }
+
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
+        return $this->render('ApplicationUserBundle:Main:profileHeader.html.twig', ['profileUser' => $user]);
+    }
+
+
     /**
      * @Route("/edit/profile", name="edit_user_profile")
      * @Security("has_role('ROLE_USER')")

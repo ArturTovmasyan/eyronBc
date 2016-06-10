@@ -6,12 +6,13 @@
         {% set userEmails = user.getUserEmails %}
     {% endif %}
 
-    <div id="settings-modal">
-        <div class="settings">
-            <div class="modal-container">
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="settings bg-white">
+
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1">
-
                         <div class="form-group row no-padding">
                             <div class="col-sm-6">
                                 {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
@@ -199,14 +200,13 @@
 
                         {{ form_widget(form._token) }}
 
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                            <a href="" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal-bottom">
-                <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                <a href="" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
-            </div>
+        </div>
         </div>
     </div>
 

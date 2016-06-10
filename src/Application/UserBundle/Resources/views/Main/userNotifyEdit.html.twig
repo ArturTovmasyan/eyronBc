@@ -5,39 +5,90 @@
     {% set commentValue = user.commentNotify %}
     {% set storyValue = user.successStoryNotify %}
 
-    <div id="settings-modal">
-        <p>{{ 'user.notify_settings_text'|trans({}, 'FOSUserBundle') }}</p>
-        <div class="settings">
-                <div class="form-group row">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group row">
-                                <label class="col-sm-9 control-label">{{ 'comments'|trans({}, 'messages') }}</label>
-                                <div class="col-sm-3">
-                                    {{ form_widget(form.commentNotify) }}
-                                </div>
-                            </div>
-                        </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 bg-white">
 
-                        <div class="col-sm-6">
-                            <div class="form-group row">
-                                <label class="col-sm-9 control-label">{{ 'success_stories'|trans({}, 'messages') }}</label>
-                                <div class="col-sm-3">
-                                    {{ form_widget(form.successStoryNotify) }}
-                                </div>
-                            </div>
+        <div class="settings bg-white">
+            <h3>{{ 'user.notify_settings_text'|trans({}, 'FOSUserBundle') }}</h3>
 
-                        </div>
+            <hr />
+            {#<div class="col-sm-6">#}
+                {#<div class="form-group row">#}
+                    {#<label class="col-sm-9 control-label">{{ 'comments'|trans({}, 'messages') }}</label>#}
+                    {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.commentNotify) }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+            <div class="row no-marginb">
+
+                <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="comment.switch={{ commentValue|default("0") }}">
+                    <span data-ng-show="complete.switch">{{  'comments'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="complete.switch">{{  'comments'|trans({}, 'messages') }}</span>
+                </label>
+
+                <div class="col-xs-4 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="goal_status"
+                               data-ng-model="comment.switch"
+                               data-ls-checked="comment.switch"
+                               class="onoffswitch-checkbox"
+                               id="myCommentSwitch">
+                        <label class="onoffswitch-label" for="myCommentSwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
                     </div>
-
                 </div>
+            </div>
 
-                <div class="modal-bottom">
-                    <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
-                    <a href="#" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
+            <div class="row no-marginb">
+
+                <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="comment.switch={{ storyValue|default("0") }}">
+                    <span data-ng-show="complete.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="complete.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>
+                </label>
+
+                <div class="col-xs-4 col-sm-2">
+                    <div class="onoffswitch">
+                        <input type="checkbox"
+                               name="goal_status"
+                               data-ng-model="story.switch"
+                               data-ls-checked="story.switch"
+                               class="onoffswitch-checkbox"
+                               id="myStorySwitch">
+                        <label class="onoffswitch-label" for="myStorySwitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
                 </div>
+            </div>
 
-                {{ form_widget(form._token) }}
+
+            {#<div class="col-sm-6">#}
+                {#<div class="form-group row">#}
+                    {#<label class="col-sm-9 control-label">{{ 'success_stories'|trans({}, 'messages') }}</label>#}
+                    {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.successStoryNotify) }}#}
+                    {#</div>#}
+                {#</div>#}
+
+            {#</div>#}
+
+            <hr />
+
+
+            <div>
+                <button type="submit" class="btn btn-purple button-lg">{{ 'btn_save'|trans({}, 'messages') }}</button>
+                <a href="#" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans({}, 'messages') }}</a>
+            </div>
+
+            {{ form_widget(form._token) }}
+        </div>
         </div>
     </div>
 
