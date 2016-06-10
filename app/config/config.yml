@@ -139,6 +139,9 @@ doctrine:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+            string_functions:
+                match_against: AppBundle\Extensions\Doctrine\MatchAgainst
+
         filters:
             # An array of filters
             publish_filter:
