@@ -1,6 +1,5 @@
 {% extends "AppBundle::layout_top.html.twig" %}
 
-{# set current user to user with joined relation #}
 {% set status = app.request.get('status') %}
 {% set all = null %}
 {% set active = 'active-goals' %}
@@ -42,7 +41,7 @@
 {% endblock %}
 
 {% block content_header %}
-    {{ render(controller('ApplicationUserBundle:Main:profileHeader', {'profileUser': app.user})) }}
+    {{ render(controller('ApplicationUserBundle:Main:profileHeader', {'profileUser': user})) }}
 {% endblock %}
 
 {% block content_container %}
@@ -51,11 +50,11 @@
         <div class="container">
             <div class="row">
                 <ul class="menu">
-                    <li>
-                        <a  href="{{ path('edit_user_profile') }}">{{ 'user.profile'|trans({}, 'FOSUserBundle') }}</a>
-                    </li>
                     <li class="active">
-                        <a  href="{{ path('edit_user_notify') }}">{{ 'user.notification'|trans({}, 'FOSUserBundle') }}</a>
+                        <a href="{{ path('edit_user_profile') }}">{{ 'user.profile'|trans({}, 'FOSUserBundle') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('edit_user_notify') }}">{{ 'user.notification'|trans({}, 'FOSUserBundle') }}</a>
                     </li>
                 </ul>
             </div>
