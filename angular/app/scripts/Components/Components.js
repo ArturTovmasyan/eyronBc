@@ -166,14 +166,16 @@ angular.module('Components',[])
                                 }
                             });
                     }
-                }
+                };
 
                 scope.openModal = function(tmp){
+
                     angular.element('body').append(tmp);
                     tmp.modal({
                         fadeDuration: 300
                     });
-                    $rootScope.$broadcast('lsJqueryModalOpened'+scope.lsIdentity);
+
+                    $rootScope.$broadcast('lsJqueryModalOpened' + scope.lsIdentity);
                     el.trigger('lsJqueryModalOpened' + scope.lsIdentity);
 
                     tmp.on($.modal.CLOSE, function(){
@@ -202,11 +204,11 @@ angular.module('Components',[])
                         reader.onload = function (e) {
                             scope.imageUrl = e.target.result;
                             scope.$apply();
-                        }
+                        };
 
                         reader.readAsDataURL(input.files[0]);
                     }
-                }
+                };
 
                 el.change(function(){
                     scope.readURL(el[0]);
