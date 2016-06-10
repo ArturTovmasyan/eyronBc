@@ -41,24 +41,8 @@
 <html data-ng-app="goal" data-ng-controller="goalMyBucketList">
 {% endblock %}
 
-{%- block meta_description -%}
-    {#{{ 'my_bucket_list.description'|trans }}#}
-{%- endblock -%}
-
-{%- block title -%}
-
-{%- endblock -%}
-
-{%- block og_image -%}
-
-{%- endblock -%}
-
-{%- block og_url -%}
-{%- endblock -%}
-
 {% block content_header %}
     {{ render(controller('ApplicationUserBundle:Main:profileHeader', {'profileUser': app.user})) }}
-
 {% endblock %}
 
 {% block content_container %}
