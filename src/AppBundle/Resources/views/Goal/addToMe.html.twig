@@ -70,22 +70,21 @@
                     </div>
                 </div>
 
-                {#{% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}#}
-                    {#<h6 class="text-gray text-center" data-ng-show="!complete.switch">#}
-                        {#<i class="icon info-icon"></i>#}
-                        {#{{ "goal.missed_deadline"|trans }}#}
-                    {#</h6>#}
-                {#{% endif %}#}
+                <h6 class="text-gray text-center"
+                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                    <i class="icon info-icon"></i>
+                    {{ "goal.missed_deadline"|trans }}
+                </h6>
 
-                <input type="hidden" class="hidden_date_value" value="0"/>
+                {#<input type="hidden" class="hidden_date_value" value="0"/>#}
 
-                <div class="form-group row">
+                <div class="form-group row" data-ng-if="userGoal.goal.location">
                     <div class="col-sm-12">
                         <div class="location">
                             <i class="icon-location-icon"></i>
-                            <input value="address"
-                                type="text"
+                            <input type="text"
                                 data-ng-disabled="true"
+                                data-ng-model="userGoal.goal.location.address"
                                 class="form-control place-autocomplete"
                                 placeholder="{{ "goal.location_ex"|trans }}"/>
                         </div>
@@ -95,7 +94,11 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <i class="icon-pencil"></i>
-                        {#{{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}#}
+                        <textarea class="form-control"
+                          data-ng-model="userGoal.note"
+                          rows="3"
+                          placeholder="{{ 'goal.note_p'|trans }}"
+                          data-ng-disabled="complete.switch"></textarea>
                     </div>
                 </div>
 

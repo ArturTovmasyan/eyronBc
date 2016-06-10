@@ -402,8 +402,6 @@ angular.module('goal', ['Interpolation',
             }
         });
 
-
-
         var switchChanged = false;
         var dateChanged = false;
         var isSuccess = false;
@@ -428,8 +426,23 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $scope.initSteps = function(json){
-            $scope.stepsArray = json;
+        $scope.compareDates = function(date1, date2){
+            if(!date1){
+                return null;
+            }
+
+            var d1 = new Date(date1);
+            var d2 = date2 ? new Date(date2): new Date();
+
+            if(d1 < d2){
+                return -1;
+            }
+            else if(d1 === d2){
+                return 0;
+            }
+            else {
+                return 1;
+            }
         };
 
         $scope.removeLocation = function(){
