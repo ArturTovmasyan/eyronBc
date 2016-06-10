@@ -13,23 +13,22 @@
         <form class="form-horizontal" method="post" data-ng-init="redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">
                 {# edit goal status #}
-                <div class="clearfix">
-                    <div class="form-group row no-marginb">
+                <div class="clearfix ng-hide" data-ng-show="userGoal.id">
+                    <div class="form-group row no-marginb" data-ng-init="completed=(userGoal.status==UserGoalConstant['COMPLETED'])">
 
-                        <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch=0">
+                        <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
                             <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                             <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                         </label>
 
                         <div class="col-xs-4 col-sm-2">
-                            <div class="onoffswitch">
+                            <div class="onoffswitch" data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
                                 <input type="checkbox"
                                    name="goal_status"
                                    data-ng-model="complete.switch"
                                    data-ls-checked="complete.switch"
                                    class="onoffswitch-checkbox"
-                                   id="myonoffswitch"
-                                   data-ng-init="complete.switch=0">
+                                   id="myonoffswitch">
 
                                 <label class="onoffswitch-label" for="myonoffswitch">
                                     <span class="onoffswitch-inner"></span>
@@ -39,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group ng-hide" data-ng-show="userGoal.id">
                         <label class="col-sm-12 control-label text-left">
                             <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
                             <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
@@ -48,8 +47,9 @@
 
                 </div>
 
-                <div class="clearfix" data-ng-show="complete.switch">
+                <div class="clearfix ng-hide" data-ng-show="complete.switch">
                     <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                    <span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>
                 </div>
                 <hr/>
 

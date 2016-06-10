@@ -409,13 +409,13 @@ angular.module('goal', ['Interpolation',
         var isSuccess = false;
 
         $scope.$watch('complete.switch', function (d) {
-            if( d !== 0 && d !== 1){
-                switchChanged = !switchChanged
-            }else {
-                if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
-                    isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
-                }
-            }
+            //if( d !== 0 && d !== 1){
+            //    switchChanged = !switchChanged
+            //}else {
+            //    if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
+            //        isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
+            //    }
+            //}
         });
 
         $scope.openSignInPopover = function(){
@@ -560,7 +560,7 @@ angular.module('goal', ['Interpolation',
                 target.trigger('change');
             });
 
-        }, 500);
+        }, 1500);
 
     }])
     .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
