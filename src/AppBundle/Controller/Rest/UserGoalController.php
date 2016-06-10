@@ -194,6 +194,7 @@ class UserGoalController extends FOSRestController
      *      {"name"="urgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
      *      {"name"="notUrgentImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
      *      {"name"="notUrgentNotImportant", "dataType"="boolean", "required"=false, "description"="Status boolean"},
+     *      {"name"="userId", "dataType"="integer", "required"=false, "description"="User id"},
      * }
      *
      * )
@@ -217,6 +218,20 @@ class UserGoalController extends FOSRestController
                 $condition = null;
         }
 
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get userId in request
+        $userId = $request->get('userId');
+
+        //check if userId don't sent
+        if($userId) {
+            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
+        }
+        else{
+            $user = $this->getUser();
+        }
+
         //check isDream
         $dream = $request->get('isDream') == true ? true : false;
         $first = $request->get('first');
@@ -228,9 +243,8 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $request->get('notUrgentImportant')    ? true : false;
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
-        $em = $this->getDoctrine()->getManager();
         $userGoals = $em->getRepository('AppBundle:UserGoal')
-            ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, false, $first, $count);
+            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, false, $first, $count);
 
         //This part is used to calculate goal stats
         $goalIds = [];
@@ -239,6 +253,9 @@ class UserGoalController extends FOSRestController
         }
 
         $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        //generate user stats
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         foreach($userGoals as $userGoal){
             $userGoal->getGoal()->setStats([
@@ -249,7 +266,8 @@ class UserGoalController extends FOSRestController
 
 
         // return user goals
-        return $userGoals;
+        return [
+            'user_goals' => $userGoals, 'user' => $user];
     }
 
     /**
@@ -320,7 +338,6 @@ class UserGoalController extends FOSRestController
                 'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
             ]);
         }
-
 
         // return user goals
         return $userGoals;
