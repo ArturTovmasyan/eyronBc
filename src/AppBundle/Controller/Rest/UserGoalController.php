@@ -139,7 +139,7 @@ class UserGoalController extends FOSRestController
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+        return new Response($userGoal, Response::HTTP_OK);
     }
 
     /**
