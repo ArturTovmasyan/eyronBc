@@ -456,14 +456,6 @@ class MainController extends Controller
         //get user in db
         $user = $this->getUser();
 
-//        //get session
-//        $session = $request->getSession();
-//
-//        //check if user and session url exist
-//        if ($session->has('addUrl')) {
-//            $session->remove('addUrl');
-//        }
-
         //get current email
         $currentEmail = $user->getEmail();
 
