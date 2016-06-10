@@ -377,7 +377,11 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalEnd', ['$scope', '$timeout', '$window',function($scope, $timeout, $window){
+    .controller('goalEnd', ['$scope', '$timeout', '$window', '$http', function($scope, $timeout, $window, $http){
+
+        $http.get('/api/v1.0/usergoals/60').success(function(userGoal){
+            console.log(userGoal, 'User Goal');
+        });
 
         $scope.stepsArray = [{}];
 
