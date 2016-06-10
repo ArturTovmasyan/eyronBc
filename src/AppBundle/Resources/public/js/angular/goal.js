@@ -172,7 +172,7 @@ angular.module('goal', ['Interpolation',
                                         this.items.pop();
                                     }
                                     break;
-                                }else {
+                                } else {
                                     continue;
                                 }
                             }else {
