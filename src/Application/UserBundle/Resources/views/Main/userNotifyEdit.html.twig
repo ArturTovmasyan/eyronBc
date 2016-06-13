@@ -22,7 +22,7 @@
                 <div class="col-xs-4 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="onoffswitch"
+                               name="{{ form.children.commentNotify.vars.full_name }}"
                                data-ng-model="comment.switch"
                                data-ls-checked="comment.switch"
                                class="onoffswitch-checkbox"
@@ -49,7 +49,6 @@
                                data-ng-model="story.switch"
                                data-ls-checked="story.switch"
                                class="onoffswitch-checkbox"
-                               data-ng-init="story.switch={{ commentValue ? 1 : 0 }}"
                                id="myStorySwitch">
                         <label class="onoffswitch-label" for="myStorySwitch">
                             <span class="onoffswitch-inner"></span>
