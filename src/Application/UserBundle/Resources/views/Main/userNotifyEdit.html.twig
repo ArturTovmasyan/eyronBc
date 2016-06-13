@@ -1,4 +1,4 @@
-{% extends "ApplicationUserBundle:Basses:settings.html.twig" %}
+{% extends "ApplicationUserBundle:Base:settings.html.twig" %}
 
 {% block settings_content %}
 
@@ -32,7 +32,7 @@
                 <div class="col-xs-4 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="goal_status"
+                               name="comment"
                                data-ng-model="comment.switch"
                                data-ls-checked="comment.switch"
                                class="onoffswitch-checkbox"
@@ -55,7 +55,7 @@
                 <div class="col-xs-4 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="goal_status"
+                               name="story"
                                data-ng-model="story.switch"
                                data-ls-checked="story.switch"
                                class="onoffswitch-checkbox"
