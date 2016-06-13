@@ -5,11 +5,11 @@
     {% set commentValue = user.commentNotify %}
     {% set storyValue = user.successStoryNotify %}
 
-    <br />
-    <div class="row">
-        <div class="col-md-8 bg-white">
 
-        <div class="settings bg-white">
+    <div class="row">
+        <div class="col-md-8">
+
+        <div class="settings bg-white round">
             <h3>{{ 'user.notify_settings_text'|trans({}, 'FOSUserBundle') }}</h3>
 
             <hr />
@@ -24,7 +24,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="comment.switch={{ commentValue|default("0") }}">
+                <label class="col-xs-8 col-sm-10 control-label text-left" data-ng-init="comment.switch={{ commentValue|default("0") }}">
                     <span data-ng-show="complete.switch">{{  'comments'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="complete.switch">{{  'comments'|trans({}, 'messages') }}</span>
                 </label>
@@ -47,7 +47,7 @@
 
             <div class="row no-marginb">
 
-                <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="comment.switch={{ storyValue|default("0") }}">
+                <label class="col-xs-8 col-sm-10 control-label text-left" data-ng-init="comment.switch={{ storyValue|default("0") }}">
                     <span data-ng-show="complete.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>
                     <span data-ng-hide="complete.switch">{{ 'success_stories'|trans({}, 'messages') }}</span>
                 </label>
@@ -89,6 +89,7 @@
 
             {{ form_widget(form._token) }}
         </div>
+
         </div>
     </div>
 
