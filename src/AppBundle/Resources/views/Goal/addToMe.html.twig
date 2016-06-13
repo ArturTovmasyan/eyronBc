@@ -1,14 +1,45 @@
 <div class="modal" id="goal-modal" data-ng-controller="goalEnd">
     <div class="goal-container">
-        {#{% if newAdded %}#}
-            {#<div class="email">{{ "goal.create_goal" | trans }}</div>#}
-        {#{% endif %}#}
+        {% if newAdded %}
+            <div class="email">{{ "goal.create_goal" | trans }}</div>
+        {% endif %}
 
-        {#{% set goal = data.goal %}#}
-        {#{% set completed = false %}#}
-        {#{% set user = app.user %}#}
 
-        {#{% include "AppBundle:Blocks:topBlock.html.twig" %}#}
+        <div class="modal-top">
+            <figure>
+                <img ng-src="[[ userGoal.goal.image_path]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+            </figure>
+
+            <span class="overlay"></span>
+
+            <div>
+
+                <h2 ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
+                    [[ userGoal.goal.title ]]
+                </h2>
+
+                <p data-ng-if="'{{ app.user }}' && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
+                    [[ userGoal.goal.author.show_name ]]
+
+                </p>
+                <ul>
+                    <li>
+                        <a href="#">
+                            {{ 'block_listed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.listedBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            {{ 'block_completed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.doneBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <form class="form-horizontal" method="post" data-ng-init="redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">

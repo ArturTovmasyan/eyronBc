@@ -670,6 +670,8 @@ class User extends BaseUser
 
     /**
      * @return string
+     * @Groups({"user", "tiny_user"})
+     * @VirtualProperty()
      */
     public function showName()
     {
@@ -683,6 +685,8 @@ class User extends BaseUser
 
     /**
      * @return bool
+     * @Groups({"user"})
+     * @VirtualProperty()
      */
     public function isAdmin()
     {
