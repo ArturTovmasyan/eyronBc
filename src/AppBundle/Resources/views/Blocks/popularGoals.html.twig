@@ -1,6 +1,5 @@
 {% if user is defined and count is defined%}
-    {#{% if popularGoals %}#}
-        {#{% for popularGoal in popularGoals %}#}
+
     <div data-ng-controller="popularGoalsController"
          data-ng-cloak
          data-ng-init = "userId = {{ user.id }}; count = {{ count }}">
@@ -12,12 +11,6 @@
                     <h3>
                         <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]">[[ ::popularGoal.title ]]</a>
                     </h3>
-
-                    {#{% set imageDownloadLink = popularGoal.listPhotoDownloadLink %}#}
-
-                    {#{% if image %}#}
-                    {#{% set image = popularGoal.getListPhoto %}#}
-                    {#{% endif %}#}
 
                     <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]" class="goalTitle">
                         <span class="overlay"></span>
@@ -105,6 +98,4 @@
         </div>
     </div>
 
-        {#{% endfor %}#}
-    {#{% endif %}#}
 {% endif %}
