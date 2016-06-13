@@ -82,6 +82,7 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      *
      * @param Goal $goal
      * @param Request $request
@@ -139,7 +140,8 @@ class UserGoalController extends FOSRestController
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+
+        return $userGoal;
     }
 
     /**
