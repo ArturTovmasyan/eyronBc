@@ -115,9 +115,9 @@ class GoogleAnalyticService
             $clientId = $this->randomNumber(9).'.'.$this->randomNumber(10);
         }
 
-        $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
-        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\" $clientId");
-        $newProcess->start();
+//        $mainDir = str_replace('app', '', $this->container->getParameter('kernel.root_dir'));
+//        $newProcess = new Process("cd $mainDir && php app/console bl:analytics:request \"" . $url . "\" $clientId");
+//        $newProcess->start();
     }
 
     /**
