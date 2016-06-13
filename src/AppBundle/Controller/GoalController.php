@@ -546,6 +546,28 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("goal/add-modal", name="add_modal")
+     * @Template()
+     * @return array
+     * @Secure(roles="ROLE_USER")
+     */
+    public function addModalAction()
+    {
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
+        );
+        $newAdded = false;
+
+        return $this->render('@App/Goal/addToMe.html.twig', array(
+            'filters' => $filters, 'newAdded' => $newAdded
+        ));
+    }
+
+    /**
      * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")

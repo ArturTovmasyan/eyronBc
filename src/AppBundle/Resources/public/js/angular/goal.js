@@ -17,6 +17,13 @@ angular.module('goal', ['Interpolation',
         'angulartics.google.analytics',
         'PathPrefix'
     ])
+    .value('template', { addTemplate: ''})
+    .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
+        var url = envPrefix + "goal/add-modal";
+        $http.get(url).success(function(data) {
+            template.addTemplate = data;
+        })
+    }])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
             .setPrefix('goal')
