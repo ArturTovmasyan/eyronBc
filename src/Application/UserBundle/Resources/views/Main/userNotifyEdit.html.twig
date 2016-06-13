@@ -36,6 +36,7 @@
                                data-ng-model="comment.switch"
                                data-ls-checked="comment.switch"
                                class="onoffswitch-checkbox"
+                               data-ng-init="complete.switch={{ commentValue ? 1 : 0 }}"
                                id="myCommentSwitch">
                         <label class="onoffswitch-label" for="myCommentSwitch">
                             <span class="onoffswitch-inner"></span>
