@@ -37,6 +37,8 @@ class SettingsMobileType extends AbstractType
             ->add('primary', 'email', array('required' => false))
             ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
             ->add('file', 'file', array('required' => false))
+            ->add('commentNotify', 'choice', array('required' => false, 'choices' => array(1,0)))
+            ->add('successStoryNotify','choice', array('required' => false, 'choices' => array(1,0)))
         ;
     }
 
