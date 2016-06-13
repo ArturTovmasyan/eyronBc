@@ -179,6 +179,32 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * @param $user
+     * @return array
+     */
+    public function findMyIdeasCount(&$user)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->addSelect('COUNT(g)')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.author', 'a')
+                ->where('a.id = :user')
+                ->andWhere('g.readinessStatus = :readinessStatus')
+                ->orWhere('g.status = :status')
+                ->setParameter('user', $user)
+                ->setParameter('readinessStatus', Goal::DRAFT)
+                ->setParameter('status', Goal::PRIVATE_PRIVACY)
+        ;
+
+        $myIdeasCount = $query->getQuery()->getSingleScalarResult();
+        $user->setDraftCount($myIdeasCount);
+
+        return $myIdeasCount;
+    }
+
+    /**
      * @param $category
      * @param $search
      * @param $first
@@ -193,65 +219,58 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('g', 'i', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt')
                 ->from('AppBundle:Goal', 'g', 'g.id')
                 ->leftJoin('g.images', 'i', 'with', 'i.list = true')
                 ->where('g.publish = :publish')
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
-        //check if category exist and not equal most-popular
-        if($category && $category != 'most-popular'){
-            $query
-                ->leftJoin('g.tags', 'gt')
-                ->andWhere('gt.id in (
-                SELECT ct.id FROM AppBundle:Category c
-                LEFT JOIN c.tags ct
-                WHERE c.slug = :catId)')
-                ->setParameter('catId', $category)
-            ;
-        }
+        $isRandom = (!$search && !$category);
 
         if($search){
+            $sortSelect = "MATCH_AGAINST(g.title, :search) * 10 + MATCH_AGAINST(g.description, :search) as HIDDEN cnt";
+
             $query
-                ->andWhere('g.title LIKE :search or g.description LIKE :search')
-                ->setParameter('search', '%' . $search . '%')
-                ->groupBy('g.id')
-            ;
+                ->andWhere('MATCH_AGAINST(g.title, g.description, :search) > 0.5')
+                ->setParameter('search', $search);
+        }
+        else {
+            if($category && $category != 'most-popular'){
+                $query
+                    ->leftJoin('g.tags', 'gt')
+                    ->andWhere('gt.id in (SELECT ct.id
+                                          FROM AppBundle:Category c
+                                          LEFT JOIN c.tags ct
+                                          WHERE c.slug = :catId)')
+                    ->setParameter('catId', $category);
+            }
+
+            if($locale){
+                $query
+                    ->andWhere('g.language  = :lng OR g.language is null')
+                    ->setParameter('lng', $locale);
+            }
+
+            $sortSelect = "(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN cnt";
         }
 
-        // show for corresponding language
-        if(!$search && $locale){
+        if (!$isRandom){
             $query
-                ->andWhere('g.language  = :lng OR g.language is null')
-                ->setParameter('lng', $locale);
+                ->addSelect($sortSelect)
+                ->orderBy('cnt', 'desc');
         }
 
         if (is_numeric($first) && is_numeric($count)){
 
-            //set is random
-            $isRandom = (!$search && !$category);
-
-            //clone query
             $idsQuery = clone $query;
 
-            $idsQuery
-                ->select('g.id', '(SELECT count(cug) FROM AppBundle:UserGoal cug WHERE cug.goal = g) as HIDDEN  cnt');
+            $ids = $idsQuery
+                ->addSelect('g.id')
+                ->getQuery()
+                ->getResult();
 
-            if ($category == 'most-popular'){
-                $idsQuery->orderBy('cnt', 'desc');
-            }
-
-            $ids = $idsQuery->getQuery()->getResult();
-
-            //check if random is true
-            if($isRandom) {
-              //do goal ids is random
+            if($isRandom){
               $ids = $this->shuffle_goal($ids);
-            }
-            else {
-                $query
-                    ->orderBy('cnt', 'desc');
             }
 
             $allIds = $ids;
@@ -265,6 +284,8 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->andWhere('g.id IN (:ids)')
                 ->setParameter('ids', $ids);
         }
+
+        $query->addSelect('g, i');
 
         return $query->getQuery()->getResult();
     }
@@ -579,5 +600,29 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function findMyPrivateGoals($user)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g, i')
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.images', 'i')
+            ->leftJoin('g.author', 'a')
+            ->where('a.id = :user')
+            ->andWhere('g.status = :status')
+            ->andWhere('g.readinessStatus = :readinessStatus')
+            ->orderBy('g.id', 'desc')
+            ->setParameter('user', $user)
+            ->setParameter('status', Goal::PRIVATE_PRIVACY)
+            ->setParameter('readinessStatus', Goal::TO_PUBLISH)
+        ;
+
+        return $query->getQuery()->getResult();
     }
 }

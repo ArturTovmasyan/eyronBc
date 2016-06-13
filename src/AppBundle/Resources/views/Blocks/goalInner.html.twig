@@ -79,7 +79,7 @@
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
-                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}height="100%" {% endif %}/>
+                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -129,9 +129,9 @@
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-xs-6" data-ng-init="completed=true">
-                                        <a {% if app.user %}
-                                            href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
-                                        {% elseif isMobile() %}href="javascript:void(0)" data-ng-click="popoverByMobile(); addDone('{{ env_prefix }}/goal/done/'+goal.id)" {% else %}href="{{ path('done_goal', {'id' : goal.id}) }}"{% endif %}
+                                        <a href="javascript:void(0)"
+                                        {% if app.user %} data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
+                                        {% elseif isMobile() %} data-ng-click="popoverByMobile(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')" {% else %}data-ng-click="popoverByDesktop(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')"{% endif %}
                                         data-ng-show="completed">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>

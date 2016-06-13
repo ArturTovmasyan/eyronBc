@@ -47,10 +47,12 @@ angular.module('main',['mgcrea.ngStrap.modal',
             if(!mapSelector){
                 return;
             }
+
             $timeout(function(){
                 var mapScope = angular.element(mapSelector).isolateScope();
                 google.maps.event.trigger(mapScope.map, 'resize');
-            },150);
+
+            }, 150);
         };
 
         $scope.onMarkerClick = function(goal){
@@ -59,17 +61,21 @@ angular.module('main',['mgcrea.ngStrap.modal',
         };
 
     }])
-    .controller('goalFooter', ['$scope', '$timeout', '$http', function($scope, $timeout, $http){
+    .controller('goalFooter', ['$scope', '$timeout', '$http', 'loginPopoverService', function($scope, $timeout, $http, loginPopoverService){
         $scope.popoverByMobile = function(){
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
         };
 
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
+        };
+
         $scope.addDone = function(path){
-            $http.get(path)
-                .success(function(res){
-                });
+            $http.get(path);
         };
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
@@ -89,16 +95,16 @@ angular.module('main',['mgcrea.ngStrap.modal',
         $scope.getPopularGoals = function(id){
             path = path.replace('{count}', $scope.count);
 
-            var topIdeas = profileCache.get('top-ideas'+id);
+            var topIdeas = profileCache.get('top-ideas' + id);
 
             if (!topIdeas) {
 
                 $http.get(path)
                     .success(function(data){
                         $scope.popularGoals = data;
-                        profileCache.put('top-ideas'+id, data);
+                        profileCache.put('top-ideas' + id, data);
                     });
-            }else {
+            } else {
                 $scope.popularGoals = topIdeas;
             }
         };

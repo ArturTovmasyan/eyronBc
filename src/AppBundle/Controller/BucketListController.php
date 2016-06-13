@@ -35,20 +35,21 @@ class BucketListController extends Controller
     public function myListAction($user = null , $status = null , Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
-
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         // get user by id
         if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
         }
         else {
-            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+            $user = $this->getUser();
         }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         // get dream
         $dream = $request->get('d');
@@ -94,6 +95,21 @@ class BucketListController extends Controller
         );
 
 
+        $goalIds = [];
+        foreach($pagination as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($pagination as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
+        }
+
+
         // create filter
         $filters = array(
             UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
@@ -108,12 +124,12 @@ class BucketListController extends Controller
         }
 
         // get drafts
-        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+        $myIdeasCount =  $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
 
         return array(
             'profileUser' => $user,
             'userGoals'   => $pagination,
-            'draftsCount' => $draftsCount,
+            'myIdeasCount' => $myIdeasCount,
             'filters'     => $filters,
             'currentUser' => $this->getUser()
             );

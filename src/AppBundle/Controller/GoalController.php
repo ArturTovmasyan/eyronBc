@@ -220,17 +220,24 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/drafts", name="goal_drafts")
+     * @Route("goal/my-ideas/{slug}", defaults={"slug" = null}, name="my_ideas")
      * @Template()
      * @return array
+     * @param $slug
+     * @param Request $request
      * @Secure(roles="ROLE_USER")
      */
-    public function draftAction(Request $request)
+    public function myIdeasAction($slug = null, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+        if($slug == 'drafts'){
+            // find all drafts goal
+            $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+        } else{
+            // find all private goals
+            $goals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser());
+        }
 
         // get paginator
         $paginator  = $this->get('knp_paginator');
@@ -242,9 +249,38 @@ class GoalController extends Controller
             9/*limit per page*/
         );
 
-        return array('goals' => $pagination);
+        return array(
+            'goals'       => $pagination,
+            'profileUser' => $this->getUser());
 
     }
+
+//    /**
+//     * @Route("goal/drafts", name="goal_drafts")
+//     * @Template()
+//     * @return array
+//     * @Secure(roles="ROLE_USER")
+//     */
+//    public function draftAction(Request $request)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//
+//        // find all drafts goal
+//        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+//
+//        // get paginator
+//        $paginator  = $this->get('knp_paginator');
+//
+//        // paginate data
+//        $pagination = $paginator->paginate(
+//            $goals,
+//            $request->query->getInt('page', 1)/*page number*/,
+//            9/*limit per page*/
+//        );
+//
+//        return array('goals' => $pagination);
+//
+//    }
 
     /**
      * @Route("goal/view/{slug}", name="view_goal")
@@ -827,16 +863,17 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/remove-draft/{goal}", name="remove_draft_goal")
+     * @Route("goal/remove-ideas/{goal}/{slug}", defaults={"slug" = null}, name="remove_my_ideas")
      *
      * @param Goal $goal
+     * @param $slug
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
      * @deprecated must be checked and removed
      */
-    public function removeDraftGoal(Goal $goal)
+    public function removeDraftGoal(Goal $goal, $slug = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -867,7 +904,7 @@ class GoalController extends Controller
         $em->remove($goalDraft);
         $em->flush();
 
-        return $this->redirectToRoute("goal_drafts");
+        return $this->redirectToRoute("my_ideas", array('slug' => $slug));
     }
 
     /**
@@ -936,6 +973,15 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        $goalImage->getGoal()->removeImage($goalImage);
+        $goalImages = $goalImage->getGoal()->getImages();
+        if ($goalImage->getList() && $goalImages->first()){
+            $goalImages->first()->setList(true);
+        }
+        if ($goalImage->getCover() && $goalImages->first()){
+            $goalImages->first()->setCover(true);
+        }
 
         // remove from bd
         $em->remove($goalImage);

@@ -16,7 +16,6 @@ angular.module('goal', ['Interpolation',
         'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
-
         localStorageServiceProvider
             .setPrefix('goal')
             .setNotify(false, false);
@@ -52,6 +51,7 @@ angular.module('goal', ['Interpolation',
             this.items = [];
             this.busy = false;
             this.noItem = false;
+            this.category = "";
             //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
@@ -97,12 +97,17 @@ angular.module('goal', ['Interpolation',
             if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
+
             if (!search) {
                 search = "";
             }
+
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
+
             this.busy = true;
             var lastId = this.items[this.items.length -1].id;
             var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
@@ -139,7 +144,9 @@ angular.module('goal', ['Interpolation',
             }
 
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
 
             this.busy = true;
@@ -533,7 +540,8 @@ angular.module('goal', ['Interpolation',
         }, 500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
+        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -542,15 +550,50 @@ angular.module('goal', ['Interpolation',
             refreshCacheService.refreshCache(userId, goalId);
         };
 
+        var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+        var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+        if(goalImageBottom != mainSliderBottom){
+            var distance = goalImageBottom - mainSliderBottom;
+            angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+        }
+
+        if(window.innerWidth > 991 && window.innerWidth < 1200){
+            angular.element('#main-slider img').addClass("full-height");
+        }else{
+            angular.element('#main-slider img').removeClass("full-height")
+        }
+
+        $(window).resize(function(){
+            if(window.innerWidth > 991 && window.innerWidth < 1200){
+                angular.element('#main-slider img').addClass("full-height");
+            }else{
+                angular.element('#main-slider img').removeClass("full-height")
+            }
+            goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+            mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+            if(goalImageBottom != mainSliderBottom){
+                var distance = goalImageBottom - mainSliderBottom;
+                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            }
+        });
+
         $scope.popoverByMobile = function(){
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
         };
 
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
+        };
+
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope.completed = false;
                     angular.element('#'+id).click();
                 });
@@ -607,8 +650,7 @@ angular.module('goal', ['Interpolation',
             angular.element('.goal-information').scrollToFixed({
                 marginTop: 85,
                 limit: function () {
-                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
-                    return limit;
+                    return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
                 },
                 unfixed: function() {
                     var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
@@ -674,12 +716,12 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
-                    if($scope.Ideas.noItem ){
-                        $scope.noIdeas = true;
-                        angular.element('.idea-item').removeClass('ideas-result');
-                        $scope.Ideas.reset();
-                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
-                    };
+                if($scope.Ideas.noItem ){
+                    $scope.noIdeas = true;
+                    angular.element('.idea-item').removeClass('ideas-result');
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
+                }
             }
 
             angular.forEach(d, function(item) {
@@ -724,7 +766,7 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', function($scope, $http, refreshCacheService, $timeout){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
         $scope.completed = true;
 
         $scope.refreshCache = function(userId, goalId){
@@ -735,6 +777,12 @@ angular.module('goal', ['Interpolation',
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
         };
 
         $scope.addDone = function(path, id){
@@ -750,7 +798,7 @@ angular.module('goal', ['Interpolation',
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope[id] = true;
                     angular.element('#'+id).click();
                 });
@@ -868,8 +916,6 @@ angular.module('goal', ['Interpolation',
                         }, dl);
                     }
                 }
-
-
             }
         }
     }])
@@ -918,10 +964,10 @@ angular.module('goal', ['Interpolation',
                     else {
                         scope.array.splice(scope.key, 1);
                     }
-                }
+                };
 
                 scope.isVideoLink = function(url){
-                    if(!url || url.indexOf("https:/") == -1)return false;
+                    if(!url || url.indexOf("https:/") == -1) return false;
                     return true;
                 };
                 scope.trustedUrl = function(url){
@@ -947,7 +993,7 @@ angular.module('goal', ['Interpolation',
 
                         if(d === ''){
                             if(scope.key === 0){
-                                if(scope.array.length > 1){
+                                if(scope.array.length > 1) {
                                     scope.array.splice(scope.key, 1);
                                 }
                             }
@@ -956,7 +1002,7 @@ angular.module('goal', ['Interpolation',
                             }
                         }
                         else {
-                            if(!scope.array[scope.key + 1]){
+                            if(!scope.array[scope.key + 1]) {
                                 scope.array[scope.key + 1] = {};
                             }
                         }

@@ -58,7 +58,7 @@
                                  data-ls-identity="goalSave"
                                  data-ls-template="[[ ::goalSubmitTemplate ]]"
                                  class="btn btn-purple goal-create-submit"
-                                 name="btn_publish">{{ 'goal.publish'|trans }}
+                                 name="btn_publish">{% if app.request.get('id') %}{{ 'goal.edit'|trans }}{% else %}{{ 'goal.publish'|trans }}{% endif %}
                                  <i class="icon-arrow-right"></i>
                              </button>
                          </div>
