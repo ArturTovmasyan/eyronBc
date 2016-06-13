@@ -8,11 +8,14 @@
 
         <figure>
 
-            <div data-ng-show="imageUrl" class="setting-bg">
+            <div data-ng-show="imageUrl" class="setting-bg relative">
                 <img data-ng-src="[[ imageUrl ]]" alt="{{ user.filename }}" class="img-responsive img-circle">
+                <figcaption data-ng-show="imageUrl">
+                    {{ form_label(form.file, 'change profile picture'|trans({}, 'FOSUserBundle'|capitalize)) }}
+                </figcaption>
             </div>
 
-            <div class="relative">
+            {#<div class="relative">#}
 
                 <div data-ng-show="imageUrl">
                     <img data-ng-src="[[ imageUrl ]]"
@@ -28,10 +31,8 @@
                     {{ form_widget(form.file, {'attr': {'data-ls-file-upload-preview': '', 'data-image-url': 'imageUrl'} }) }}
                 </div>
 
-                <figcaption data-ng-show="imageUrl">
-                    {{ form_label(form.file, 'change profile pictures'|trans({}, 'FOSUserBundle'|capitalize)) }}
-                </figcaption>
-            </div>
+
+            {#</div>#}
         </figure>
     </div>
     {% endblock %}
