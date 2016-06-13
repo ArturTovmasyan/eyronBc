@@ -140,7 +140,6 @@ class UserGoalController extends FOSRestController
         $em->persist($userGoal);
         $em->flush();
 
-
         return $userGoal;
     }
 
@@ -231,12 +230,8 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $em = $this->getDoctrine()->getManager();
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
-
-        // slice data
-        if (is_numeric($first) && is_numeric($count)) {
-            $userGoals = array_slice($userGoals, $first, $count);
-        }
+        $userGoals = $em->getRepository('AppBundle:UserGoal')
+            ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, false, $first, $count);
 
         //This part is used to calculate goal stats
         $goalIds = [];
@@ -309,12 +304,8 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $em = $this->getDoctrine()->getManager();
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter);
-
-        // slice data
-        if (is_numeric($count)) {
-            $userGoals = array_slice($userGoals, 0, $count);
-        }
+        $userGoals = $em->getRepository('AppBundle:UserGoal')
+            ->findAllByUser($this->getUser()->getId(), $condition, $dream, $requestFilter, null, 0, $count);
 
         //This part is used to calculate goal stats
         $goalIds = [];
@@ -379,6 +370,7 @@ class UserGoalController extends FOSRestController
 
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
+
 
         //send done goal event in google analytics
         $this->container->get('google_analytic')->doneGoalEvent();

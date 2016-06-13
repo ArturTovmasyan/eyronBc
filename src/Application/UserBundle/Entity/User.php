@@ -10,7 +10,6 @@ namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
-use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
@@ -22,7 +21,6 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserRepository")
@@ -62,7 +60,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="u_id", type="string", length=9)
+     * @ORM\Column(name="u_id", type="string", length=9, unique=true)
      * @Groups({"user", "tiny_user"})
      */
     protected $uId;
@@ -247,14 +245,14 @@ class User extends BaseUser
     private $stats;
 
     /**
-     * @var int
-     */
-    protected $completedPercent = -1;
-
-    /**
      * @ORM\Column(name="activity", type="boolean", nullable=false)
      */
     protected $activity = false;
+
+    /**
+     * @ORM\Column(name="profile_completed_percent", type="integer", nullable=false)
+     */
+    protected $profileCompletedPercent = 0;
 
     /**
      * @ORM\Column(name="active_time", type="integer", nullable=true)
@@ -266,6 +264,18 @@ class User extends BaseUser
      * @Groups({"tiny_goal"})
      */
     private $cachedImage;
+
+
+    /**
+     * This fields are used for optimization or profile completion
+     */
+    private $hasDeadLines     = null;
+
+    private $hasCompletedGoal = null;
+
+    private $hasSuccessStory  = null;
+
+    private $userGoalCount    = null;
 
     /**
      * @return mixed
@@ -320,6 +330,22 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfileCompletedPercent()
+    {
+        return $this->profileCompletedPercent;
+    }
+
+    /**
+     * @param mixed $profileCompletedPercent
+     */
+    public function setProfileCompletedPercent($profileCompletedPercent)
+    {
+        $this->profileCompletedPercent = $profileCompletedPercent;
     }
 
     /**
@@ -762,7 +788,7 @@ class User extends BaseUser
         return $this->editedGoals;
     }
 
-
+    protected $currentCompletedPercent = null;
     /**
      * This function is used to check percent of completed profile
      *
@@ -770,8 +796,12 @@ class User extends BaseUser
      */
     public function getCompletedPercent()
     {
-        if ($this->completedPercent >= 0){
-            return $this->completedPercent;
+        if ($this->getProfileCompletedPercent() == 100){
+            return 100;
+        }
+
+        if (!is_null($this->currentCompletedPercent)){
+            return $this->currentCompletedPercent;
         }
 
         // default percent
@@ -787,7 +817,7 @@ class User extends BaseUser
         $percent += $this->socialPhotoLink || $this->fileName ? self::UPLOAD_IMAGE : 0;
 
         // check goal
-        $percent += $this->userGoal->count() > 0 ? self::ADD_GOAL : 0;
+        $percent += $this->getUserGoalCount() > 0 ? self::ADD_GOAL : 0;
 
         // check deadlines
         $percent += $this->checkDeadLines() ? self::SET_DEADLINE : 0;
@@ -798,7 +828,7 @@ class User extends BaseUser
         // check success story
         $percent +=  $this->checkSuccessStory() ? self::SUCCESS_STORY : 0;
 
-        return $this->completedPercent = $percent;
+        return $this->currentCompletedPercent = $percent;
     }
 
     /**
@@ -808,6 +838,10 @@ class User extends BaseUser
      */
     public function checkDeadLines()
     {
+        if (!is_null($this->hasDeadLines)){
+            return true;
+        }
+
         // get user goal
         $userGoals = $this->userGoal;
 
@@ -833,6 +867,10 @@ class User extends BaseUser
      */
     public function checkCompletedGoals()
     {
+        if (!is_null($this->hasCompletedGoal)){
+            return true;
+        }
+
         // get user goal
         $userGoals = $this->userGoal;
 
@@ -859,6 +897,10 @@ class User extends BaseUser
      */
     public function checkSuccessStory()
     {
+        if (!is_null($this->hasSuccessStory)){
+            return true;
+        }
+
         // get user goal
         $userGoals = $this->userGoal;
 
@@ -1486,5 +1528,74 @@ class User extends BaseUser
     public function setCachedImage($cachedImage)
     {
         $this->cachedImage = $cachedImage;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getHasDeadLines()
+    {
+        return $this->hasDeadLines;
+    }
+
+    /**
+     * @param mixed $hasDeadLines
+     */
+    public function setHasDeadLines($hasDeadLines)
+    {
+        $this->hasDeadLines = $hasDeadLines;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasCompletedGoal()
+    {
+        return $this->hasCompletedGoal;
+    }
+
+    /**
+     * @param mixed $hasCompletedGoal
+     */
+    public function setHasCompletedGoal($hasCompletedGoal)
+    {
+        $this->hasCompletedGoal = $hasCompletedGoal;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasSuccessStory()
+    {
+        return $this->hasSuccessStory;
+    }
+
+    /**
+     * @param mixed $hasSuccessStory
+     */
+    public function setHasSuccessStory($hasSuccessStory)
+    {
+        $this->hasSuccessStory = $hasSuccessStory;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUserGoalCount()
+    {
+        if (is_null($this->userGoalCount)){
+            $this->userGoalCount = $this->userGoal->count();
+        }
+
+        return $this->userGoalCount;
+    }
+
+    /**
+     * @param null $userGoalCount
+     */
+    public function setUserGoalCount($userGoalCount)
+    {
+        $this->userGoalCount = $userGoalCount;
     }
 }

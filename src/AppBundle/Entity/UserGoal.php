@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ActivityableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
@@ -20,9 +21,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
  * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
- * @Gedmo\Loggable
+ * @ORM\EntityListeners({"AppBundle\Listener\UserGoalListener"})
  */
-class UserGoal
+class UserGoal implements ActivityableInterface
 {
     use Location;
 
@@ -52,7 +53,6 @@ class UserGoal
      * @var
      * @ORM\Column(name="status", type="smallint", nullable=true)
      * @Groups({"userGoal"})
-     * @Gedmo\Versioned
      */
     protected $status;
 
@@ -86,6 +86,7 @@ class UserGoal
 
     /**
      * @var
+     * @Groups({"userGoal"})
      * @ORM\Column(name="steps", type="array", nullable=true)
      */
     protected $steps = [];
@@ -115,7 +116,6 @@ class UserGoal
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
      * @Groups({"userGoal_goal"})
-     * @Gedmo\Versioned
      **/
     protected $goal;
 
@@ -455,6 +455,7 @@ class UserGoal
             }
             return $done * 100 / $count;
         }
+
         return 100;
     }
 

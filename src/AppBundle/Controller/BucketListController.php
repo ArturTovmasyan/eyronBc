@@ -34,15 +34,22 @@ class BucketListController extends Controller
      */
     public function myListAction($user = null , $status = null , Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
         $isCurrentUser = true;
 
         // get user by id
-        if($user)
-        {
+        if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
         }
+        else {
+            $user = $this->getUser();
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         // get dream
         $dream = $request->get('d');
@@ -84,8 +91,23 @@ class BucketListController extends Controller
         $pagination = $paginator->paginate(
             $userGoals,
             $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
+            7/*limit per page*/
         );
+
+
+        $goalIds = [];
+        foreach($pagination as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+        }
+
+        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+
+        foreach($pagination as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
+        }
 
 
         // create filter
@@ -96,18 +118,20 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
         );
 
-        // get current user with relations, for db optimization
-        $currentUser = $em->getRepository("ApplicationUserBundle:User")->findWithRelationsById($this->getUser()->getId());
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
 
         // get drafts
-        $draftsCount =  $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+        $myIdeasCount =  $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
 
         return array(
             'profileUser' => $user,
-            'userGoals' => $pagination,
-            'draftsCount' => $draftsCount,
-            'filters' => $filters,
-            'currentUser' => $currentUser
+            'userGoals'   => $pagination,
+            'myIdeasCount' => $myIdeasCount,
+            'filters'     => $filters,
+            'currentUser' => $this->getUser()
             );
     }
 }

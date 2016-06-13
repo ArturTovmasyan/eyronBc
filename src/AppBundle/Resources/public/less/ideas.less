@@ -10,7 +10,7 @@
     background: transparent;
     overflow: hidden;
     position: relative;
-    margin-bottom:32px;
+    margin-bottom:15px;
     text-align: center;
     .rounded-corners(5px);
 
@@ -51,11 +51,15 @@
       color:#ffffff;
     }
 
+
+
     figcaption{
       ul{
         li{
+          height:35px;
+          line-height:31px;
           a{
-            padding:5px 0;
+            //padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
@@ -91,11 +95,11 @@
             }
           }
           .text{
-            font-size:11px;
+            font-size:12px;
           }
         }
         .transparent{
-          padding:5px 0;
+          //padding:5px 0;
           .text{
             color: #a4a4a4;
           }
@@ -108,6 +112,17 @@
         }
       }
     }
+
+    .absolute{
+      bottom:25px;
+      ul{
+        li{
+          a,span{
+            font-size:12px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -115,8 +130,8 @@
   padding-bottom:20px;
 
   h2{
-    font-size:18px;
-    line-height:30px;
+    font-size: 18px;
+    line-height: normal;
     font-weight: 300;
   }
 }
@@ -131,7 +146,8 @@
     }
   }
   .fb-like{
-    margin: 7px 0 0 15px;
+    margin: 8px 0 0 15px;
+    display:inline-block;
   }
   .addthis_counter a.atc_s{
     width:113px !important;
@@ -146,20 +162,29 @@
 
   .addthis_counter{
     .addthis_button_expanded{
-      margin-top:10px !important;
+      margin-top: 7px !important;
     }
   }
 
   .addthis_native_toolbox{
-    padding-right: 10px;
+    padding-right: 15px;
   }
   #main-slider{
-    position: relative; top: 0; left: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    height:190px;
+
     img{
       margin: 0 auto;
       width: 100%;
-      height:100%;
+
     }
+
+    .swiper-slide{
+      height:190px;
+    }
+
     .swiper-button-prev{
       left:25px;
     }
@@ -167,50 +192,58 @@
       right:20px;
     }
   }
+
 }
 
 .goal-information{
   overflow: hidden;
   background-color: #ffffff;
+  padding: 0 5px;
 
   hr{
     margin:0 !important;
     border-color:#eee;
   }
-  ul:last-child{
-    padding-left:20px;
-    &>li{
+
+  .users-lists{
+    margin-bottom: 0;
+
+    ul{
+      padding: 5px 0;
+      margin-bottom: 0;
       border-bottom:1px solid #eee;
-      padding-top:5px;
-      padding-bottom:5px;
-      color:#a4a4a4;
-      ul{
-        li{
-          display: inline-block;
+      &>li{
+        color:#a4a4a4;
+        ul{
           border-bottom:0;
-          padding-bottom:0;
-          font-size: 12px;
-
-          &:last-child{
-            a,i{
-              background: url('../images/listed-arrow.png') no-repeat center center;
-              background-size: 100% ;
-              display: block;
-              width:37px;
-              height:37px;
-              margin-left:3px;
-            }
-
-            a{
-              &:hover{
-                background: url('../images/listed-arrow-purple.png') no-repeat center center;
-                background-size: 100% ;
-              }
-            }
-
+          li{
+            display: inline-block;
+            border-bottom:0;
+            padding-bottom:0;
+            font-size: 12px;
           }
         }
-      }
+
+        .users-arrow{
+          right:40px;
+
+          a,i{
+            background: url('../images/listed-arrow.png') no-repeat center center;
+            background-size: 100% ;
+            display: block;
+            width:37px;
+            height:37px;
+            margin:1px 0 0 3px;
+          }
+
+          a{
+            &:hover{
+              background: url('../images/listed-arrow-purple.png') no-repeat center center;
+              background-size: 100% ;
+            }
+          }
+        }
+    }
     }
   }
 
@@ -223,14 +256,17 @@
 .goal-links{
   padding-left:0;
   margin-bottom:0;
-  height: 50px;
+  height: 35px;
+
   li{
     text-align: center;
     border-right:1px solid #eee;
+    height:35px;
+    line-height:35px;
     a{
       display: block;
       color: #a4a4a4;
-      padding: 11px 0;
+      //padding: 11px 0;
       font-size:12px;
 
 
@@ -240,12 +276,13 @@
     }
 
     i{
-      font-size: 30px;
+      font-size: 20px;
       vertical-align: middle;
+
     }
 
     i.icon-green-ok,.icon-green-plus{
-      font-size: 49px;
+      font-size: 30px;
       margin-right:0;
     }
 
@@ -267,8 +304,19 @@
       }
 
     }
+
+    &.clone{
+      text-align:right;
+
+      a{
+        font-size:11px;
+        padding-right:10px;
+      }
+    }
+
     &:last-child{
       border-right:0;
+      margin-bottom:0;
     }
   }
   .transparent{
@@ -286,7 +334,7 @@
   background-color: #d8d8d8;
 
   hr{
-    margin:5px 0 10px;
+    margin:7px 0 10px;
   }
 
   .quote{
@@ -349,11 +397,13 @@
     img{
       width:105%;
       .blur;
-      //margin: -25px;
       margin: -50px -30px -25px;
-      height:215px;
+      //height:507px;
+      height:475px;
     }
   }
+
+
 
   .goal-content{
     position: relative;
@@ -365,12 +415,12 @@
     background-color: #021523;
     display: inline-block;
     color:#ffffff;
-    padding: 5px 10px 10px;
-    margin-bottom:10px;
+    padding: 5px 10px 5px;
+    margin-bottom:2px;
     overflow: hidden;
     line-height:25px;
     font-size:18px;
-    margin-top:10px;
+    margin-top:0;
   }
 
   h2.title-smaller{
@@ -380,7 +430,7 @@
 
   .goal-author{
     position: absolute;
-    top: -23px;
+    top: -30px;
     font-size: 13px;
     line-height: 21px;
 
@@ -394,7 +444,7 @@
   }
 
   .inner{
-    padding:0 10px 10px;
+    padding:0 15px 5px;
 
     .goal-info{
       p,span,a,strong,ul,ol,li,em{
@@ -430,38 +480,34 @@
 
       h1{
         font-size: 32px;
-        line-height: 32px;
+        line-height: normal;
       }
 
       h2{
         font-size: 24px;
-        line-height: 24px;
+        line-height: normal;
       }
 
       h3{
         font-size: 20px;
-        line-height: 20px;
+        line-height: normal;
       }
 
       h4{
         font-size: 16px;
-        line-height: 16px;
+        line-height: normal;
       }
 
       h5{
         font-size: 15px;
-        line-height: 15px;
+        line-height: normal;
       }
 
       h6{
         font-size: 14px;
-        line-height: 14px;
+        line-height: normal;
       }
     }
-
-
-
-
 
 
     span.no-image{
@@ -509,6 +555,10 @@
         &:first-child{
           font-weight:600;
         }
+
+        &:last-child{
+          padding:0 0 5px 0;
+        }
       }
 
       span{
@@ -528,6 +578,43 @@
     padding-top:10px;
     color:#666666;
     font-size:14px;
+  }
+}
+
+.no-quote{
+
+  .quote{
+    display:none;
+  }
+
+  .goal-image{
+    img{
+      height:381px;
+    }
+  }
+
+  h2.goal-inner-title{
+    margin-top: 11px;
+  }
+
+  .goal-content{
+    padding:61px 0 0;
+  }
+}
+
+.no-author{
+  .goal-content{
+    padding:40px 0 0;
+  }
+
+  h2.goal-inner-title{
+    margin-top: 0;
+  }
+
+  .goal-image{
+    img{
+      height:349px;
+    }
   }
 }
 
@@ -555,6 +642,7 @@
   .idea-item{
     figure{
       text-align: left;
+      margin-bottom:32px;
       h3{
         font-size:24px;
         padding: 0 25px;
@@ -565,9 +653,11 @@
       figcaption{
         ul{
           li{
-            a{
-              padding:10px 0;
-            }
+            height:50px;
+            line-height:45px;
+            //a{
+            //  padding:10px 0;
+            //}
 
             i.icon-green-ok,.icon-green-plus{
               font-size: 49px;
@@ -578,20 +668,21 @@
             }
 
             .text{
-              font-size:13px;
+              font-size:14px;
             }
           }
-          .transparent{
-            padding: 0;
-          }
+          //.transparent{
+          //  padding: 0;
+          //}
         }
       }
 
       .absolute{
+        bottom:40px;
         ul{
           li{
             padding-left:20px;
-            a{
+            a,span{
               color:#E5E5E5;
               font-size:14px;
             }
@@ -607,7 +698,6 @@
 
     h2{
       font-size: 27px;
-      line-height: 35px;
     }
   }
 
@@ -619,7 +709,7 @@
 
     .quote{
       height: 145px;
-      padding: 15px 0 0;
+      padding: 10px 0 0;
       i{
         font-size:23px;
       }
@@ -643,12 +733,15 @@
     }
 
     .goal-image{
-        height:626px;
+        //height:626px;
+        height:627px;
       .overlay{
-        height:626px;
+        //height:626px;
+        height:627px;
       }
 
       img{
+        //height:656px;
         height:656px;
       }
     }
@@ -675,7 +768,7 @@
       }
     }
     .inner{
-      padding:0 15px 5px 25px;
+      padding:0 20px 5px 20px;
       //p,span,a,strong,li,em{
       //  font-size:14px;
       //}
@@ -706,10 +799,49 @@
     }
   }
 
+  .no-quote{
+      .goal-image{
+        height:567px;
+        .overlay{
+          height:567px;
+        }
+
+        img{
+          height:620px;
+        }
+      }
+
+    .goal-content{
+      padding:81px 0 0;
+    }
+  }
+
+  .no-author{
+    .goal-content{
+      padding:40px 0 0;
+    }
+
+    .goal-image{
+      height:527px;
+      .overlay{
+        height:527px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+  }
 
   .inner-content{
     .fb-like{
-      margin: 7px 0 0 20px;
+      margin: 8px 0 0 20px;
+    }
+
+    .addthis_counter{
+      .addthis_button_expanded{
+        margin-top: 10px !important;
+      }
     }
 
     #main-slider{
@@ -719,41 +851,64 @@
         height:414px;
       }
     }
-    .addthis_native_toolbox{
-      padding-right: 0;
-    }
-
   }
 
   .goal-information{
-    ul:last-child{
-      padding-left:25px;
-      &>li{
-        padding-top:7px;
-        padding-bottom:7px;
+    padding:0 5px 0 10px;
 
-        ul{
-          li{
-            font-size: 14px;
+    .users-lists{
+      ul{
+        padding: 7px 0;
+
+        &>li{
+          ul{
+            li{
+              font-size: 14px;
+            }
           }
         }
+
       }
     }
-
     p{
       font-size:17px;
     }
-
   }
 
-  .goal-links{
-    li{
-      a{
-        font-size: 14px;
-      }
-    }
-
-  }
+  //.goal-links{
+  //  height: 50px;
+  //  border-bottom: 0;
+  //  li{
+  //    height:50px;
+  //    line-height:50px;
+  //
+  //    a{
+  //      font-size: 14px;
+  //    }
+  //
+  //    &.clone{
+  //      text-align: center;
+  //
+  //      a{
+  //        font-size:13px;
+  //        padding-right:0;
+  //        span{
+  //          margin-right:5px;
+  //        }
+  //      }
+  //    }
+  //
+  //    i{
+  //      font-size: 30px;
+  //      margin-right: 4px;
+  //    }
+  //
+  //    i.icon-green-ok,.icon-green-plus{
+  //      font-size: 49px;
+  //    }
+  //  }
+  //
+  //}
 }
 
 @media (min-width: @screen-md) {
@@ -761,9 +916,8 @@
   .ideas-list{
 
     h2{
-      padding: 60px 0 65px;
-      font-size: 48px;
-      line-height: 60px
+      padding: 50px 0;
+      font-size: 32px;
     }
 
     .no-bottom{
@@ -850,9 +1004,42 @@
     }
   }
 
+  .no-quote{
+    .goal-image{
+      height:612px;
+      .overlay{
+        height:612px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+
+  }
+
+  .no-author{
+
+    .goal-image{
+      height:571px;
+      .overlay{
+        height:571px;
+      }
+
+      img{
+        height:620px;
+      }
+    }
+    .goal-content{
+      padding:40px 0 0;
+    }
+  }
   .inner-content{
     .fb-like{
-      margin: 7px 0 0 40px;
+      margin: 9px 0 0 40px;
+    }
+    .addthis_native_toolbox{
+      padding-right: 0;
     }
 
     #main-slider{
@@ -869,19 +1056,83 @@
   }
 
   .goal-information{
-    width: 374px;
+    width: 330px;
+    padding:0;
 
-    ul:last-child{
-      padding-left:20px;
-      &>li{
-        padding-top:10px;
-        padding-bottom:10px;
+    .users-lists{
+      ul{
+        padding: 10px 0;
       }
     }
+
+    p{
+      font-size:18px;
+    }
+
+  }
+
+  .goal-links{
+    height: 50px;
+    border-bottom: 0;
+    li{
+      height:50px;
+      line-height:50px;
+
+      a{
+        font-size: 13px;
+      }
+
+      &.clone{
+        text-align: center;
+
+        a{
+          font-size:13px;
+          padding-right:0;
+          span{
+            margin-right:5px;
+          }
+        }
+      }
+      &:last-child{
+        text-align:left;
+      }
+    }
+
+  }
+
+}
+
+@media (min-width: @screen-lg) {
+  .goal-information{
+    width: 374px;
 
     p{
       font-size:20px;
     }
 
   }
+
+  .goal-links{
+    li{
+
+      a{
+        font-size: 14px;
+      }
+
+      i{
+        font-size: 30px;
+        margin-right: 4px;
+      }
+
+      i.icon-green-ok,.icon-green-plus{
+        font-size: 49px;
+      }
+
+      &:last-child{
+        text-align:center;
+      }
+    }
+
+  }
+
 }

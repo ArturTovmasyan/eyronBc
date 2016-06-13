@@ -10,7 +10,7 @@
 
 <div id="fb-root"></div>
 
-<div class="inner-container">
+<div class="inner-container {% if not aphorisms %} no-quote {% if not author or author.isAdmin %} no-author{% endif %} {% endif %}">
     {% set cover = goal.getCoverPhotoDownloadLink %}
     {% set goalInner = true %}
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
@@ -24,7 +24,7 @@
         {% endif %}"
              alt="{{ goal.title }}" />
     </figure>
-    <div class="container ideas-list"
+    <div class="container"
          data-ng-cloak
          data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}")'
          data-infinite-scroll-disabled='Ideas.request >= 1'
@@ -79,7 +79,7 @@
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
                                         <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
-                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}"/>
+                                            <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                         </a>
                                     </div>
                                 {% endfor %}
@@ -101,7 +101,7 @@
                                 {% set xs = 6 %}
                                 {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
                                     {% set xs = 3 %}
-                                    <li class="col-xs-3">
+                                    <li class="col-xs-3 clone">
                                         <a href="{{ path('add_goal', {'id': goal.id, 'clone' : true }) }}">
                                             <span class="glyphicon glyphicon-copy "></span>{{ 'clone'|trans }}
                                         </a>
@@ -111,7 +111,7 @@
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-xs-{{ xs }}" data-ng-init="added = false" data-ng-show="!added">
                                         <a href="javascript:void(0)"
-                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}')"
+                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}'){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
                                            data-ls-jquery-modal
                                            data-ls-identity="idea{{ goal.id }}"
                                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id}) }}">
@@ -129,9 +129,9 @@
                             {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-xs-6" data-ng-init="completed=true">
-                                        <a {% if app.user %}
-                                            href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
-                                        {% else %}href="{{ path('done_goal', {'id' : goal.id}) }}"{% endif %}
+                                        <a href="javascript:void(0)"
+                                        {% if app.user %} data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
+                                        {% elseif isMobile() %} data-ng-click="popoverByMobile(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')" {% else %}data-ng-click="popoverByDesktop(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')"{% endif %}
                                         data-ng-show="completed">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>
@@ -172,16 +172,16 @@
                             <hr />
                         {% endif %}
                         {% if page == inner %}
-                            <ul>
+                            <ul class="users-lists">
                                 <li>
-                                    <ul class="row no-gutter">
+                                    <ul class="row">
                                         <li class="col-xs-5">
                                             {{ 'done_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.doneBy }}</p>
                                         </li>
-                                        <li class="col-xs-4">
+                                        <li class="col-xs-7">
                                             <ul class="users">
-                                                {% set left = 0 %}
+                                                {% set left = 80 %}
                                                 {% for doneByUser in doneByUsers %}
                                                     {% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}
                                                     {% set className = "user-no" ~ random(4) %}
@@ -197,26 +197,29 @@
                                                     </li>
                                                     {% set left = left + 20 %}
                                                 {% endfor %}
+
+                                                <li class="users-arrow">
+                                                    {% if goal.stats.doneBy == 0 %}
+                                                        <i></i>
+                                                    {% else %}
+                                                        <a href="{{ path('done_users', {'slug': goal.slug}) }}"></a>
+                                                    {% endif %}
+                                                </li>
                                             </ul>
-                                        </li>
-                                        <li class="col-xs-3">
-                                            {% if goal.stats.doneBy == 0 %}
-                                                <i></i>
-                                            {% else %}
-                                                <a href="{{ path('done_users', {'slug': goal.slug}) }}"></a>
-                                            {% endif %}
                                         </li>
                                     </ul>
                                 </li>
+
                                 <li>
-                                    <ul class="row no-gutter">
+                                    <ul class="row">
                                         <li class="col-xs-5">
                                             {{ 'listed_by'|trans | upper }}
                                             <p class="text-purple">{{ goal.stats.listedBy }}</p>
                                         </li>
-                                        <li class="col-xs-4">
+                                        <li class="col-xs-7">
                                             <ul class="users">
-                                                {% set left = 0 %}
+                                                {% set left = 80 %}
+                                                {#{{ dump(listedByUsers) }}#}
                                                 {% for listedByUser in listedByUsers %}
                                                     {% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}
                                                     {% set className = "user-no" ~ random(4) %}
@@ -231,14 +234,14 @@
                                                     </li>
                                                     {% set left = left + 20 %}
                                                 {% endfor %}
+                                                <li class="users-arrow">
+                                                    {% if goal.stats.listedBy == 0 %}
+                                                        <i></i>
+                                                    {% else %}
+                                                        <a href="{{ path('listed_users', {'slug': goal.slug}) }}"></a>
+                                                    {% endif %}
+                                                </li>
                                             </ul>
-                                        </li>
-                                        <li class="col-xs-3">
-                                            {% if goal.stats.listedBy == 0 %}
-                                                <i></i>
-                                            {% else %}
-                                                <a href="{{ path('listed_users', {'slug': goal.slug}) }}"></a>
-                                            {% endif %}
                                         </li>
                                     </ul>
                                 </li>
@@ -250,7 +253,7 @@
 
             {% if page != view %}
                 <div class="row padding-top bg-white">
-                    <div class="col-xs-6 col-md-4">
+                    <div class="col-xs-4 col-md-4">
                         <div class="fb-like"
                              data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
                              data-layout="button_count"
@@ -259,9 +262,10 @@
                              data-share="false">
                         </div>
                     </div>
-                    <div class="col-xs-6 col-md-4 text-right">
+                    <div class="col-xs-8 col-md-4 text-right">
                         <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
                     </div>
+                    <div class="col-md-4"></div>
                 </div>
             {% endif %}
 
@@ -278,7 +282,6 @@
 
                                 {% if goal.videoLink|length == 1 %}
                                     {% set v = goal.videoLink[0] %}
-                                    <br />
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <embed-video
@@ -323,7 +326,7 @@
                             {% set stories = goal.getSuccessStories %}
 
                             {% if stories|length > 0 %}
-                                <br />
+
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% if stories|length > 2 %}
@@ -495,7 +498,7 @@
                             <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
                                class="goalTitle">
                                 <span class="overlay"></span>
-                                <img data-ng-src="[[ ::goal.image_path ]]" alt="[[ ::goal.title ]]"/>
+                                <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
                             </a>
 
                             <div class="absolute">

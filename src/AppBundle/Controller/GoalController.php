@@ -167,7 +167,7 @@ class GoalController extends Controller
 
                     $request->getSession()
                         ->getFlashBag()
-                        ->add('success','Your Goal has been Successfully Published')
+                        ->set('success','Your Goal has been Successfully Published')
                     ;
 
                     return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
@@ -220,17 +220,24 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/drafts", name="goal_drafts")
+     * @Route("goal/my-ideas/{slug}", defaults={"slug" = null}, name="my_ideas")
      * @Template()
      * @return array
+     * @param $slug
+     * @param Request $request
      * @Secure(roles="ROLE_USER")
      */
-    public function draftAction(Request $request)
+    public function myIdeasAction($slug = null, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        // find all drafts goal
-        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+        if($slug == 'drafts'){
+            // find all drafts goal
+            $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+        } else{
+            // find all private goals
+            $goals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser());
+        }
 
         // get paginator
         $paginator  = $this->get('knp_paginator');
@@ -242,9 +249,38 @@ class GoalController extends Controller
             9/*limit per page*/
         );
 
-        return array('goals' => $pagination);
+        return array(
+            'goals'       => $pagination,
+            'profileUser' => $this->getUser());
 
     }
+
+//    /**
+//     * @Route("goal/drafts", name="goal_drafts")
+//     * @Template()
+//     * @return array
+//     * @Secure(roles="ROLE_USER")
+//     */
+//    public function draftAction(Request $request)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//
+//        // find all drafts goal
+//        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
+//
+//        // get paginator
+//        $paginator  = $this->get('knp_paginator');
+//
+//        // paginate data
+//        $pagination = $paginator->paginate(
+//            $goals,
+//            $request->query->getInt('page', 1)/*page number*/,
+//            9/*limit per page*/
+//        );
+//
+//        return array('goals' => $pagination);
+//
+//    }
 
     /**
      * @Route("goal/view/{slug}", name="view_goal")
@@ -331,8 +367,8 @@ class GoalController extends Controller
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 1, 3);
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 1, 3);
+        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 0, 3 );
 
         // get aphorism by goal
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
@@ -351,14 +387,15 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @param Goal $goal
+     * @param Request $request
      * @return array
      * @Secure(roles="ROLE_USER")
      */
-    public function doneAction(Goal $goal)
+    public function doneAction(Goal $goal, Request $request)
     {
         // get current user
         $user = $this->getUser();
-        //$this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -385,7 +422,11 @@ class GoalController extends Controller
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('ok');
+        if ($request->query->get('ajax')){
+            return new Response('ok');
+        }
+
+        return $this->redirectToRoute("user_profile_single", array('status' => 'completed-goals'));
     }
 
     /**
@@ -598,10 +639,12 @@ class GoalController extends Controller
                 $userGoal->setStatus(UserGoal::ACTIVE);
                 $userGoal->setListedDate(new \DateTime());
                 $userGoal->setUser($user);
-                $newAdded = true;
 
-                $em->persist($userGoal);
-                $em->flush();
+                if($goal->getReadinessStatus() != Goal::DRAFT){
+                    $newAdded = true;
+                    $em->persist($userGoal);
+                    $em->flush();
+                }
             }
         }
 
@@ -618,6 +661,14 @@ class GoalController extends Controller
             if($form->isValid()){
 
                 $goalStatus = $request->get('goal_status');
+
+                if($userGoal->getStatus() == UserGoal::COMPLETED && !$goalStatus){
+                    $userGoal->setCompletionDate(null);
+                }elseif ($userGoal->getStatus() != UserGoal::COMPLETED && $goalStatus){
+                    // set date
+                    $userGoal->setCompletionDate(new \DateTime());
+                }
+
                 $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
 
                 // get step text
@@ -812,16 +863,17 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/remove-draft/{goal}", name="remove_draft_goal")
+     * @Route("goal/remove-ideas/{goal}/{slug}", defaults={"slug" = null}, name="remove_my_ideas")
      *
      * @param Goal $goal
+     * @param $slug
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
      * @deprecated must be checked and removed
      */
-    public function removeDraftGoal(Goal $goal)
+    public function removeDraftGoal(Goal $goal, $slug = null)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -852,7 +904,7 @@ class GoalController extends Controller
         $em->remove($goalDraft);
         $em->flush();
 
-        return $this->redirectToRoute("goal_drafts");
+        return $this->redirectToRoute("my_ideas", array('slug' => $slug));
     }
 
     /**
@@ -875,8 +927,7 @@ class GoalController extends Controller
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
         //check if user goal exist and 1
-        if(count($userGoal) == 1) {
-
+        if(!is_null($userGoal)) {
             //remove from bd
             $em->remove($userGoal);
 
@@ -922,6 +973,15 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        $goalImage->getGoal()->removeImage($goalImage);
+        $goalImages = $goalImage->getGoal()->getImages();
+        if ($goalImage->getList() && $goalImages->first()){
+            $goalImages->first()->setList(true);
+        }
+        if ($goalImage->getCover() && $goalImages->first()){
+            $goalImages->first()->setCover(true);
+        }
 
         // remove from bd
         $em->remove($goalImage);

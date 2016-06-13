@@ -7,7 +7,7 @@
         </li>
 
         <li class="col-xs-6">
-            <a href="javascript:void(0)" data-ls-confirm data-ls-href="{{ path('remove_draft_goal', {'goal' : goal.id}) }}">
+            <a href="javascript:void(0)" data-ls-confirm data-ls-href="{{ path('remove_my_ideas', {'goal' : goal.id , 'slug' : slug}) }}">
 
                 <i class="icon-delete-in-circle"><span class="path1"></span><span class="path2"></span></i>
                 <span class="text">{{ 'btn_remove'|trans | capitalize}}</span>

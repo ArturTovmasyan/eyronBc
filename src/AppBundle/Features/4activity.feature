@@ -13,10 +13,11 @@ Feature: Activity
     And I follow "ADD"
     And I wait for angular
     And I scroll page to ".modal-bottom"
+    And I wait for view
     And I change switch "2"
     And I wait for view
     And I change switch "2"
-    And  I click on "btn btn-purple button-lg"
+    And  I click on "btn btn-purple"
     And I wait for angular
     And I am on "/profile"
     And I scroll page to ".information"
@@ -27,7 +28,7 @@ Feature: Activity
     And I wait for view
     And I scroll page to ".information"
     Then I should see "SUCCESS STORY"
-    When I click on "btn btn-transparent ng-isolate-scope"
+    When I click on "btn btn-transparent successtory ng-isolate-scope"
     And I wait for angular
     And I fill in "app_bundle_success_story_type[story]" with "STORY1"
     And I fill in "app_bundle_success_story_type[videoLink][ 0 ]" with "www.google.com"
@@ -90,6 +91,7 @@ Feature: Activity
   @javascript @successStories
   Scenario: Show me success stories
       Given I am on "/logout"
+      And I wait
       When I am logged in as "user1"
       And I should see "user2 useryan"
       And I am on "/goal/goal9"
@@ -105,6 +107,7 @@ Feature: Activity
   @javascript @innerPage
   Scenario: Open idea inner page and show me the corresponding features.
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I should see "user2 useryan"
     And I am on "/goal/goal9"

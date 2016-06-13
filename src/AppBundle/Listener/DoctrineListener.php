@@ -10,10 +10,16 @@ namespace AppBundle\Listener;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\NewFeed;
+use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Model\ActivityableInterface;
+use Application\CommentBundle\Entity\Comment;
 use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
+use Gedmo\Loggable\Entity\LogEntry;
 use Symfony\Component\DependencyInjection\Container;
 
 class DoctrineListener
@@ -22,6 +28,8 @@ class DoctrineListener
      * @var
      */
     protected $container;
+
+    protected $tokeStorage;
 
     protected $loadUserStats = true;
 
@@ -55,6 +63,7 @@ class DoctrineListener
     function __construct(Container $container)
     {
         $this->container = $container;
+        $this->tokeStorage = $container->get('security.token_storage');
     }
 
     /**
@@ -64,6 +73,7 @@ class DoctrineListener
     {
         if ($token = $this->container->get('security.token_storage')->getToken()){
 
+            $em = $this->container->get('doctrine')->getManager();
             $entity = $event->getObject();
 
             if ($entity instanceof Goal){
@@ -75,12 +85,11 @@ class DoctrineListener
 
                 if ($user instanceof User && $this->setIsMyGoal) {
 
-                    $userGoals = $user->getUserGoal();
+                    $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($user->getId());
 
-                    if ($userGoals->count() > 0) {
-                        $userGoalsArray = $userGoals->toArray();
+                    if (count($userGoalsArray) > 0) {
                         if (array_key_exists($entity->getId(), $userGoalsArray)) {
-                            $entity->setIsMyGoal($userGoalsArray[$entity->getId()]->getstatus() == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+                            $entity->setIsMyGoal($userGoalsArray[$entity->getId()]['status'] == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
                         } else {
                             $entity->setIsMyGoal(0);
                         }
@@ -88,16 +97,8 @@ class DoctrineListener
                 }
             }
             if ($entity instanceof User){
-
-                if ($this->loadUserStats) {
-                    $em = $this->container->get('doctrine')->getManager();
-                    $stats = $em->getRepository('ApplicationUserBundle:User')->findUserStats($entity->getId());
-
-                    $entity->setStats([
-                        "listedBy" => $stats['listedBy'] + $stats['doneBy'],
-                        "active" => $stats['listedBy'],
-                        "doneBy" => $stats['doneBy']
-                    ]);
+                if ($this->loadUserStats){
+                    $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
 
             }
@@ -142,6 +143,94 @@ class DoctrineListener
         }
     }
 
+    public function postUpdate(LifecycleEventArgs $event)
+    {
+        $entity = $event->getObject();
+        $em = $event->getObjectManager();
+        $uow = $em->getUnitOfWork();
+
+        if ($entity instanceof UserGoal){
+            $token = $this->tokeStorage->getToken();
+            $user = null;
+            if ($token){
+                $user = $token->getUser();
+            }
+
+            if (is_object($user)) {
+                $changeSet = $uow->getEntityChangeSet($entity);
+                if (isset($changeSet['status']) && $changeSet['status'][1] = UserGoal::COMPLETED) {
+                    $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $entity->getGoal());
+                    $em->persist($newFeed);
+                    $em->flush();
+                }
+            }
+        }
+    }
+
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $entity = $event->getObject();
+        $em = $event->getObjectManager();
+
+        if ($entity instanceof ActivityableInterface){
+            $newFeed = $this->generateActivityOnInsert($em, $entity);
+            if (!is_null($newFeed)) {
+                $em->persist($newFeed);
+                $em->flush();
+            }
+        }
+    }
+
+    /**
+     * @param $em
+     * @param $entity
+     * @return NewFeed|null
+     */
+    private function generateActivityOnInsert($em, $entity)
+    {
+        $token = $this->tokeStorage->getToken();
+        $user = null;
+        if ($token){
+            $user = $token->getUser();
+        }
+        if (is_object($user)){
+            $action = $goal = $story = $comment = null;
+            if ($entity instanceof Goal){
+                $action = NewFeed::GOAL_CREATE;
+                $goal = $entity;
+            }
+            elseif($entity instanceof UserGoal &&
+                (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId() || $entity->getStatus() == UserGoal::COMPLETED))
+            {
+                $action = NewFeed::GOAL_ADD;
+                if ($entity->getStatus() == UserGoal::COMPLETED){
+                    $action = NewFeed::GOAL_COMPLETE;
+                }
+
+                $goal = $entity->getGoal();
+            }
+            elseif($entity instanceof SuccessStory){
+                $action = NewFeed::SUCCESS_STORY;
+                $goal = $entity->getGoal();
+                $story = $entity;
+            }
+            elseif($entity instanceof Comment){
+                $goalId = $entity->getThread()->getId();
+                $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
+                if (!is_null($goal)){
+                    $comment = $entity;
+                    $action = NewFeed::COMMENT;
+                }
+            }
+
+            if (!is_null($action)) {
+                return $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @param $entity
      */
@@ -174,8 +263,6 @@ class DoctrineListener
             catch(\Exception $e){
                 // this try is used cli/ in cli request object is inactive scope
             }
-
-
         }
     }
 }

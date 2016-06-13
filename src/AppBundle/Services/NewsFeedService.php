@@ -67,6 +67,7 @@ class NewsFeedService
 
     /**
      * @return array
+     * @Deprecated
      */
     public function updateNewsFeed()
     {

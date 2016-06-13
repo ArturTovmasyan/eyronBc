@@ -13,10 +13,11 @@ angular.module('goal', ['Interpolation',
         'LocalStorageModule',
         'angular-cache',
         'ngResource',
+        'angulartics',
+        'angulartics.google.analytics',
         'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
-
         localStorageServiceProvider
             .setPrefix('goal')
             .setNotify(false, false);
@@ -52,6 +53,7 @@ angular.module('goal', ['Interpolation',
             this.items = [];
             this.busy = false;
             this.noItem = false;
+            this.category = "";
             //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
@@ -97,15 +99,25 @@ angular.module('goal', ['Interpolation',
             if (this.busy || (this.count == 3 && url == envPrefix + 'api/v1.0/goals/{first}/{count}')) {
                 return;
             }
+
             if (!search) {
                 search = "";
             }
+
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
+
             this.busy = true;
-            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            var lastId = this.items[this.items.length -1].id;
+            var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
+            url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
+            if(!first && lastId){
+                url += '&id=' + lastId
+            }
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
@@ -134,7 +146,9 @@ angular.module('goal', ['Interpolation',
             }
 
             if (!category) {
-                category = "";
+                category = this.category;
+            }else {
+                this.category = category;
             }
 
             this.busy = true;
@@ -147,10 +161,10 @@ angular.module('goal', ['Interpolation',
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
+                    localStorageService.set('active_data'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
-                        localStorageService.set('active_data'+userId, newData);
                         angular.element('#activities').addClass('comingByTop');
                         for(var j = 1; j < this.count; j++){
                             if(newData[j].datetime !== data[0].datetime){
@@ -160,7 +174,7 @@ angular.module('goal', ['Interpolation',
                                         this.items.pop();
                                     }
                                     break;
-                                }else {
+                                } else {
                                     continue;
                                 }
                             }else {
@@ -172,8 +186,8 @@ angular.module('goal', ['Interpolation',
                             }
                         }
                         this.reserve = [];
-                        this.busy = false;
-                        this.nextReserve(reserveUrl, search, category);
+                        // this.busy = false;
+                        // this.nextReserve(reserveUrl, search, category);
 
                     }
                 }.bind(this));
@@ -187,7 +201,8 @@ angular.module('goal', ['Interpolation',
                 //    this.loadAddthis();
                 //}.bind(this), 500);
             }else{
-                url = url.replace('{first}', this.start).replace('{count}', this.count);
+                var first = (url.indexOf('activities') != -1)?0:this.start;
+                url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
                     if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
@@ -364,9 +379,45 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalEnd', ['$scope', '$timeout', '$window',function($scope, $timeout, $window){
+    .controller('goalEnd', ['$scope',
+      '$timeout',
+      '$window',
+      'UserGoalConstant',
+      'GoalConstant',
+      '$http',
+      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http){
+
+        $scope.GoalConstant = GoalConstant;
+        $scope.UserGoalConstant = UserGoalConstant;
 
         $scope.stepsArray = [{}];
+
+        $http.get('/api/v1.0/usergoals/60').success(function(userGoal){
+            console.log(userGoal, 'User Goal');
+            if(!userGoal.goal || !userGoal.goal.id){
+                console.warn('undefined goal or goalId of UserGoal');
+            }
+
+            $scope.userGoal = userGoal;
+            if(userGoal.steps.length > 0) {
+                $scope.stepsArray = userGoal.steps;
+            }
+        });
+
+        var switchChanged = false;
+        var dateChanged = false;
+        var isSuccess = false;
+
+        $scope.$watch('complete.switch', function (d) {
+            //if( d !== 0 && d !== 1){
+            //    switchChanged = !switchChanged
+            //}else {
+            //    if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
+            //        isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
+            //    }
+            //}
+        });
+
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
             var popoverScope = middleScope.$$childHead;
@@ -377,8 +428,38 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $scope.initSteps = function(json){
-            $scope.stepsArray = json;
+        $scope.compareDates = function(date1, date2){
+            if(!date1){
+                return null;
+            }
+
+            var d1 = new Date(date1);
+            var d2 = date2 ? new Date(date2): new Date();
+
+            if(d1 < d2){
+                return -1;
+            }
+            else if(d1 === d2){
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        };
+
+        $scope.getCompleted = function(userGoal){
+            if(!userGoal || !userGoal.steps || !userGoal.steps.length){
+                return 100;
+            }
+
+            var result = 0;
+            angular.forEach(userGoal.steps, function(v){
+                if(v === $scope.UserGoalConstant['DONE']){
+                    result++;
+                }
+            });
+
+            return result * 100 / userGoal.steps.length;
         };
 
         $scope.removeLocation = function(){
@@ -389,9 +470,50 @@ angular.module('goal', ['Interpolation',
 
 
         $timeout(function(){
-            angular.element('#goal-create-form').attr('data-goal-id', $scope.goalId);
+            var doDate = angular.element(".hidden_date_value").val();
+            angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
             angular.element("#goal-add-form").ajaxForm({
                 beforeSubmit: function(){
+                    var selector = 'success' + $scope.userGoal.goal.id;
+                    if(angular.element('#'+ selector).length > 0) {
+                        var parentScope = angular.element('#' + selector).scope();
+                        //if goal status changed
+                        if (switchChanged) {
+                            parentScope[selector] = !parentScope[selector];
+                            //if goal changed  from success to active
+                            if (isSuccess) {
+                                //and date be changed
+                                if (dateChanged && doDate) {
+                                    //change  doDate
+                                    parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                    parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                    angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
+                                } else {
+                                    if(doDate){
+                                        parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                        parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                        angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
+                                    }else {
+                                        //infinity
+                                        parentScope['change' + $scope.userGoal.goal.id] = 1;
+                                        angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
+                                    }
+                                }
+                            } else {
+                                //new datetime for completed 
+                                parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
+                                parentScope['doDate' + $scope.userGoal.goal.id] = new Date();
+                            }
+                        } else {
+                            if (!isSuccess && dateChanged && doDate) {
+                                //change for doDate
+                                parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
+                            }
+                        }
+                    }
                     $scope.$apply();
                 },
                 success: function(res, text, header){
@@ -443,19 +565,17 @@ angular.module('goal', ['Interpolation',
             angular.element("#datepicker").on("changeDate", function() {
                 angular.element("#secondPicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#datepicker").datepicker('getFormattedDate')
-                );
-
+                doDate =  angular.element("#datepicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
             angular.element("#secondPicker").on("changeDate", function() {
                 angular.element("#datepicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                angular.element(".hidden_date_value").val(
-                    angular.element("#secondPicker").datepicker('getFormattedDate')
-                );
-
+                doDate = angular.element("#secondPicker").datepicker('getFormattedDate');
+                angular.element(".hidden_date_value").val(doDate);
+                dateChanged = true;
                 $scope.$apply();
             });
 
@@ -470,10 +590,11 @@ angular.module('goal', ['Interpolation',
                 target.trigger('change');
             });
 
-        }, 500);
+        }, 1500);
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
+        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -482,9 +603,50 @@ angular.module('goal', ['Interpolation',
             refreshCacheService.refreshCache(userId, goalId);
         };
 
+        var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+        var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+        if(goalImageBottom != mainSliderBottom){
+            var distance = goalImageBottom - mainSliderBottom;
+            angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+        }
+
+        if(window.innerWidth > 991 && window.innerWidth < 1200){
+            angular.element('#main-slider img').addClass("full-height");
+        }else{
+            angular.element('#main-slider img').removeClass("full-height")
+        }
+
+        $(window).resize(function(){
+            if(window.innerWidth > 991 && window.innerWidth < 1200){
+                angular.element('#main-slider img').addClass("full-height");
+            }else{
+                angular.element('#main-slider img').removeClass("full-height")
+            }
+            goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+            mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+            if(goalImageBottom != mainSliderBottom){
+                var distance = goalImageBottom - mainSliderBottom;
+                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            }
+        });
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
+        };
+
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope.completed = false;
                     angular.element('#'+id).click();
                 });
@@ -541,8 +703,7 @@ angular.module('goal', ['Interpolation',
             angular.element('.goal-information').scrollToFixed({
                 marginTop: 85,
                 limit: function () {
-                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
-                    return limit;
+                    return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
                 },
                 unfixed: function() {
                     var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
@@ -587,6 +748,9 @@ angular.module('goal', ['Interpolation',
         $scope.search = $scope.getParameterByName('search',window.location.href);
 
         $scope.doSearch = function(ev){
+            if(ev.which === 13 && screen.width < 768) {
+                angular.element('.icon-remove-email').click();
+            }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
@@ -605,12 +769,12 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
-                    if($scope.Ideas.noItem ){
-                        $scope.noIdeas = true;
-                        angular.element('.idea-item').removeClass('ideas-result');
-                        $scope.Ideas.reset();
-                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
-                    };
+                if($scope.Ideas.noItem ){
+                    $scope.noIdeas = true;
+                    angular.element('.idea-item').removeClass('ideas-result');
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
+                }
             }
 
             angular.forEach(d, function(item) {
@@ -655,11 +819,23 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', function($scope, $http, refreshCacheService){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
         $scope.completed = true;
 
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
+        };
+
+        $scope.popoverByMobile = function(){
+            $timeout(function(){
+                angular.element('.navbar-toggle').click();
+            }, 500);
+        };
+
+        $scope.popoverByDesktop = function(){
+            $timeout(function(){
+                loginPopoverService.openLoginPopover();
+            }, 50);
         };
 
         $scope.addDone = function(path, id){
@@ -675,7 +851,7 @@ angular.module('goal', ['Interpolation',
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)
-                .success(function(res){
+                .success(function(){
                     $scope[id] = true;
                     angular.element('#'+id).click();
                 });
@@ -793,8 +969,6 @@ angular.module('goal', ['Interpolation',
                         }, dl);
                     }
                 }
-
-
             }
         }
     }])
@@ -843,10 +1017,10 @@ angular.module('goal', ['Interpolation',
                     else {
                         scope.array.splice(scope.key, 1);
                     }
-                }
+                };
 
                 scope.isVideoLink = function(url){
-                    if(!url || url.indexOf("https:/") == -1)return false;
+                    if(!url || url.indexOf("https:/") == -1) return false;
                     return true;
                 };
                 scope.trustedUrl = function(url){
@@ -872,7 +1046,7 @@ angular.module('goal', ['Interpolation',
 
                         if(d === ''){
                             if(scope.key === 0){
-                                if(scope.array.length > 1){
+                                if(scope.array.length > 1) {
                                     scope.array.splice(scope.key, 1);
                                 }
                             }
@@ -881,7 +1055,7 @@ angular.module('goal', ['Interpolation',
                             }
                         }
                         else {
-                            if(!scope.array[scope.key + 1]){
+                            if(!scope.array[scope.key + 1]) {
                                 scope.array[scope.key + 1] = {};
                             }
                         }
