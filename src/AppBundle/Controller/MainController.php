@@ -28,8 +28,20 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
+
         //get entity manager
         $em = $this->getDoctrine()->getManager();
+
+//        $goal = $em->getRepository("AppBundle:Goal")->find(1);
+//
+//        return $this->render('@App/Main/userNotifyEmail.html.twig', array(
+//            'goal'=> $goal,
+//            'user' => $this->getUser(),
+//            'mailText' => 'notify_comment',
+//            'language' => 'en',
+//            'eventText' => 'This is text'
+//        ));
+//        exit;
 
         //get current user
         $user = $this->getUser();

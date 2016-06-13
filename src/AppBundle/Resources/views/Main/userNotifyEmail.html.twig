@@ -12,109 +12,132 @@
     {% set slug = goal.slug %}
     {% set goalUrl = url('inner_goal', {'slug': slug}) %}
     {% set homePageUrl = url('homepage') %}
+    {% set profile = path('user_profile', {'user' : user.uId}, true) %}
 
     {% autoescape false %}
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Bucket List 127</title>
+            </head>
+        <body>
+            <div style="width: 600px;font-family: 'Open Sans', arial, sans-serif;">
 
-        {#<img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>#}
-        <img src="http://www.bucketlist127.com/bundles/app/images/logo.png?v310" alt="Bucket List 127" class="img-responsive"/>
+                <figure>
+                    {#<img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>#}
+                    <img src="{{ baseUrl }}/bundles/app/images/email-bucketlist127.png" alt="Bucket List 127" height="50" />
+                </figure>
 
-        {{ mailText|trans({'%senderName%' : senderName, '%link%': goalUrl}, 'email', language) }}
+                <hr style="border: 1px solid #cccccc;"/>
 
-    <div>
-        {{ goal.title }}
-        <p>{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
-    </div>
-       <p>{{ eventText }}</p>
+                <div style="clear:both;margin:10px 0;padding: 15px 0 0;">
 
-        {% if user.getPhotoLink %}
-            {#{% set senderPhoto = baseUrl~user.getPhotoLink %}#}
-            <figure class="img-circle">
-                {#<img src="{{ senderPhoto|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">#}
-                <img src="http://www.bucketlist127.com/media/cache/user_icon/uploads/photo/d1052f795ab770284fa73783ef43db56.jpg" alt="{{ user.filename }}" class="img-responsive">
-            </figure>
-        {% else %}
-            <p class="no-image {{ className }}">{{ nameOnImage }}</p>
-        {% endif %}
+                    {% if user.getPhotoLink %}
+                        {#{% set senderPhoto = baseUrl~user.getPhotoLink %}#}
+                        <figure style="float:left;width:60px;height:60px;overflow:hidden;margin:0 15px 10px 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                            {#<img src="http://www.bucketlist127.com/media/cache/user_icon/uploads/photo/d1052f795ab770284fa73783ef43db56.jpg" alt="{{ user.filename }}"#}
+                            <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}"
+                                 style="width:60px;height:60px; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                        </figure>
+                    {% else %}
+                        <p style="width:60px;height:60px;background-color: #195480;">{{ nameOnImage }}</p>
+                    {% endif %}
 
-        {% set cover = goal.getCoverPhotoDownloadLink %}
-        {#{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
-        {#{% set imgPath ='http://www.bucketlist127.com/bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
-
-        <figure class="goal-image">
-            <span class="overlay"></span>
-            <img src="
-        {% if cover %}
-              {#{% set goalPhoto = baseUrl~cover %}#}
-              {#{% set goalPhoto = 'http://www.bucketlist127.com/uploads/images/tfss-7c1d71f9-b5c9-4233-b7e1-faeca7d2b2fc-Hong-Kong.jpg' %}#}
-              {% set goalPhoto = 'http://www.bucketlist127.com/media/cache/goal_list_small/uploads/images/eda28adcc31714a040e46b8116983d15.jpg' %}
-             {#{{ goalPhoto|blImageFilter('goal_bg') }}#}
-             {{ goalPhoto }}
-        {#{% else %}#}
-             {#{{ asset(imgPath)}}#}
-             {#{{ imgPath }}#}
-        {% endif %}"
-                 alt="{{ goal.title }}" />
-        </figure>
-
-    <p>
-        <a href = "{{ goalUrl }}">{{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>
-    </p>
-
-        <footer>
-            <div class="container">
-
-                <ul class="apps clearfix">
-                    <li>
-                        <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
-                            {#<img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>#}
-                            <img src="{{ 'http://www.bucketlist127.com/bundles/app/images/appstore.png' }}" alt="Appstore" class="img-responsive"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
-                            <img src="{{ 'http://www.bucketlist127.com/bundles/app/images/googleplay.png' }}" alt="Googleplay" class="img-responsive"/>
-                        </a>
-                    </li>
-                </ul>
-
-                {#for css class include,need to inline format for style#}
-                <ul class="social">
-                    <li>
-                        <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
-                            <i class="fa fa-facebook-square"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.twitter.com/bucketlist127" target="_blank">
-                            <i class="fa fa-twitter-square"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.pinterest.com/bucketlist127/" target="_blank">
-                            <i class="fa fa-pinterest-square"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.instagram.com/bucketlist127/" target="_blank">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row">
-                        {{ 'notify_email_footer'|trans({'%email%': email, '%homePage%' : homePageUrl}, 'email', language) }}
+                    <div style="float:left">
+                        <p style="color: #333;margin:5px 0;">{{ mailText|trans({'%senderName%' : senderName, '%profile%': profile, '%link%': goalUrl, '%style%' : 'color: #7724F6 ','%profileStyle%' : 'color: #333 ' }, 'email', language) }}</p>
+                        <a href="{{ path('inner_goal', {'slug' : goal.slug }, true) }}" style="color: #333333;">{{ goal.title }}</a>
+                        <p style="color:#666666;margin:5px 0 15px;">{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
                     </div>
                 </div>
+
+                <div style="width:525px;margin:0 auto;font-size: 17px;padding: 1px 15px;background-color: #f2f2f2;position: relative;margin-top: 50px;color: #333;clear:both;">
+                    <span style="width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #f2f2f2;position: absolute;top: -8px;
+            left: 14px;"></span>
+                    <p>{{ eventText }}</p>
+                </div>
+
+                {% set cover = goal.getCoverPhotoDownloadLink %}
+                {#{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
+                {#{% set imgPath ='http://www.bucketlist127.com/bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
+
+                <figure style="margin:20px 0;position: relative">
+                    <span style="display: block;width: 100%;height: 230px;background: rgba(0, 0, 0, 0.2);position: absolute;"></span>
+                    <h3 style="position: absolute;z-index:1;color:#ffffff;font-size: 24px;padding: 0 25px;line-height: 30px;margin-top: 15px;width: 100%;font-weight: 700;">{{ goal.title }}</h3>
+                    <img src="
+                {% if cover %}
+                      {% set goalPhoto = baseUrl~cover %}
+                      {#{% set goalPhoto = 'http://www.bucketlist127.com/uploads/images/tfss-7c1d71f9-b5c9-4233-b7e1-faeca7d2b2fc-Hong-Kong.jpg' %}#}
+                      {#{% set goalPhoto = 'http://www.bucketlist127.com/media/cache/goal_list_small/uploads/images/eda28adcc31714a040e46b8116983d15.jpg' %}#}
+                     {{ goalPhoto|blImageFilter('goal_bg') }}
+                     {#{{ goalPhoto }}#}
+                {#{% else %}#}
+                     {#{{ asset(imgPath)}}#}
+                     {#{{ imgPath }}#}
+                {% endif %}"
+                         alt="{{ goal.title }}"  width="600"/>
+                </figure>
+
+                <p style="text-align:center;">
+                    <a href = "{{ goalUrl }}" style="background: #7724F6;display: inline-block;color:#ffffff;padding:15px 35px;font-size:14px;text-decoration:none;border-radius: 6px;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;-o-border-radius: 6px;">
+                        {{ 'email_bucketlist_link'|trans({}, 'email', language) }}</a>
+                </p>
+
+                <hr style="border:1px solid #cccccc" />
+
+                <footer>
+                    <div class="container">
+
+                        <ul style="list-style-type:none;text-align:center;">
+                            <li style="display: inline-block;">
+                                <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                                    {#<img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>#}
+                                    <img src="{{ baseUrl ~ '/bundles/app/images/email-app-store.png' }}" alt="Appstore" height="40"/>
+                                </a>
+                            </li>
+                            <li style="display: inline-block;margin-left:10px;">
+                                <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                                    {#<img src="{{ 'http://www.bucketlist127.com/bundles/app/images/email-google-play.png' }}" alt="Googleplay" class="img-responsive"/>#}
+                                    <img src="{{ baseUrl ~ '/bundles/app/images/email-google-play.png' }}" alt="Googleplay" height="40"/>
+                                </a>
+                            </li>
+                        </ul>
+
+                        {#for css class include,need to inline format for style#}
+                        <ul style="list-style-type:none;text-align:center;">
+                            <li style="display: inline-block;">
+                                <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-facebook.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:15px;">
+                                <a href="https://www.twitter.com/bucketlist127" target="_blank">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-twitter.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:15px;">
+                                <a href="https://www.pinterest.com/bucketlist127/" target="_blank">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-pinterest.png" height="32"/>
+                                </a>
+                            </li>
+
+                            <li style="display: inline-block;margin-left:15px;">
+                                <a href="https://www.instagram.com/bucketlist127/" target="_blank">
+                                    <img src="{{ baseUrl }}/bundles/app/images/email-instagram.png" height="32"/>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                   <p style="text-align:center;color: #666666;"> {{ 'notify_email_footer'|trans({'%email%': email}, 'email', language) }}</p>
+
+                </footer>
             </div>
-        </footer>
+        </body>
+    </html>
     {% endautoescape %}
 
 {% endblock %}
