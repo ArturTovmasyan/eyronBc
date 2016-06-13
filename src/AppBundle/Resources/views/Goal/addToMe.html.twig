@@ -13,25 +13,22 @@
             <span class="overlay"></span>
 
             <div>
-
                 <h2 ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
                     [[ userGoal.goal.title ]]
                 </h2>
-
                 <p data-ng-if="'{{ app.user }}' && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
                     [[ userGoal.goal.author.show_name ]]
-
                 </p>
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             {{ 'block_listed'|trans | capitalize }}
                             <span>[[ userGoal.goal.stats.listedBy | number ]]</span>
                             <i class="icon-user-small"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             {{ 'block_completed'|trans | capitalize }}
                             <span>[[ userGoal.goal.stats.doneBy | number ]]</span>
                             <i class="icon-user-small"></i>
@@ -108,8 +105,6 @@
                     {{ "goal.missed_deadline"|trans }}
                 </h6>
 
-                {#<input type="hidden" class="hidden_date_value" value="0"/>#}
-
                 <div class="form-group row" data-ng-if="userGoal.goal.location">
                     <div class="col-sm-12">
                         <div class="location">
@@ -133,20 +128,6 @@
                           data-ng-disabled="complete.switch"></textarea>
                     </div>
                 </div>
-
-
-                {#{% set important = data.getImportant %}#}
-                {#{% set urgent = data.getUrgent %}#}
-
-                {#{% if important == true and urgent == true %}#}
-                    {#{% set priority = 1 %}#}
-                {#{% elseif important == false and urgent == true %}#}
-                    {#{% set priority = 2 %}#}
-                {#{% elseif important == true and urgent == false %}#}
-                    {#{% set priority = 3 %}#}
-                {#{% elseif important == false and urgent == false %}#}
-                    {#{% set priority = 4 %}#}
-                {#{% endif %}#}
 
                 <div class="form-group row">
                     <div class="col-xs-12">
