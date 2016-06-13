@@ -11,27 +11,24 @@
         {#{% include "AppBundle:Blocks:topBlock.html.twig" %}#}
 
         <form class="form-horizontal" method="post" data-ng-init="redirectPath='{{ path('user_profile') }}'">
-
             <div class="goal-end">
-
                 {# edit goal status #}
-                <div class="clearfix">
-                    <div class="form-group row no-marginb">
+                <div class="clearfix ng-hide" data-ng-show="userGoal.id">
+                    <div class="form-group row no-marginb" data-ng-init="completed=(userGoal.status==UserGoalConstant['COMPLETED'])">
 
-                        <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch=0">
+                        <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
                             <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
                             <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
                         </label>
 
                         <div class="col-xs-4 col-sm-2">
-                            <div class="onoffswitch">
+                            <div class="onoffswitch" data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
                                 <input type="checkbox"
                                    name="goal_status"
                                    data-ng-model="complete.switch"
                                    data-ls-checked="complete.switch"
                                    class="onoffswitch-checkbox"
-                                   id="myonoffswitch"
-                                   data-ng-init="complete.switch=0">
+                                   id="myonoffswitch">
 
                                 <label class="onoffswitch-label" for="myonoffswitch">
                                     <span class="onoffswitch-inner"></span>
@@ -41,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group ng-hide" data-ng-show="userGoal.id">
                         <label class="col-sm-12 control-label text-left">
                             <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
                             <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
@@ -50,8 +47,9 @@
 
                 </div>
 
-                <div class="clearfix" data-ng-show="complete.switch">
+                <div class="clearfix ng-hide" data-ng-show="complete.switch">
                     <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                    <span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>
                 </div>
                 <hr/>
 
@@ -72,22 +70,21 @@
                     </div>
                 </div>
 
-                {#{% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}#}
-                    {#<h6 class="text-gray text-center" data-ng-show="!complete.switch">#}
-                        {#<i class="icon info-icon"></i>#}
-                        {#{{ "goal.missed_deadline"|trans }}#}
-                    {#</h6>#}
-                {#{% endif %}#}
+                <h6 class="text-gray text-center"
+                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                    <i class="icon info-icon"></i>
+                    {{ "goal.missed_deadline"|trans }}
+                </h6>
 
-                <input type="hidden" class="hidden_date_value" value="0"/>
+                {#<input type="hidden" class="hidden_date_value" value="0"/>#}
 
-                <div class="form-group row">
+                <div class="form-group row" data-ng-if="userGoal.goal.location">
                     <div class="col-sm-12">
                         <div class="location">
                             <i class="icon-location-icon"></i>
-                            <input value="address"
-                                type="text"
+                            <input type="text"
                                 data-ng-disabled="true"
+                                data-ng-model="userGoal.goal.location.address"
                                 class="form-control place-autocomplete"
                                 placeholder="{{ "goal.location_ex"|trans }}"/>
                         </div>
@@ -97,7 +94,11 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <i class="icon-pencil"></i>
-                        {#{{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}#}
+                        <textarea class="form-control"
+                          data-ng-model="userGoal.note"
+                          rows="3"
+                          placeholder="{{ 'goal.note_p'|trans }}"
+                          data-ng-disabled="complete.switch"></textarea>
                     </div>
                 </div>
 
@@ -191,8 +192,8 @@
                              aria-valuenow="45"
                              aria-valuemin="0"
                              aria-valuemax="100"
-                             style="width:{{ 10 }}%">
-                            {{ 10 }}% Complete
+                             style="width:[[ getCompleted(userGoal) | number:1 ]]%">
+                            [[ getCompleted(userGoal) | number:1 ]]% Complete
                         </div>
                     </div>
 

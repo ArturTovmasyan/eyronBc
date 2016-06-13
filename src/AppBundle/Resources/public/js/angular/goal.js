@@ -377,26 +377,43 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalEnd', ['$scope', '$timeout', '$window', '$http', function($scope, $timeout, $window, $http){
+    .controller('goalEnd', ['$scope',
+      '$timeout',
+      '$window',
+      'UserGoalConstant',
+      'GoalConstant',
+      '$http',
+      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http){
+
+        $scope.GoalConstant = GoalConstant;
+        $scope.UserGoalConstant = UserGoalConstant;
+
+        $scope.stepsArray = [{}];
 
         $http.get('/api/v1.0/usergoals/60').success(function(userGoal){
             console.log(userGoal, 'User Goal');
-        });
+            if(!userGoal.goal || !userGoal.goal.id){
+                console.warn('undefined goal or goalId of UserGoal');
+            }
 
-        $scope.stepsArray = [{}];
+            $scope.userGoal = userGoal;
+            if(userGoal.steps.length > 0) {
+                $scope.stepsArray = userGoal.steps;
+            }
+        });
 
         var switchChanged = false;
         var dateChanged = false;
         var isSuccess = false;
 
         $scope.$watch('complete.switch', function (d) {
-            if( d !== 0 && d !== 1){
-                switchChanged = !switchChanged
-            }else {
-                if(angular.element('#success' + $scope.goalId).length > 0) {
-                    isSuccess = angular.element('#success' + $scope.goalId).scope()['success' + $scope.goalId]?true:false;
-                }
-            }
+            //if( d !== 0 && d !== 1){
+            //    switchChanged = !switchChanged
+            //}else {
+            //    if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
+            //        isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
+            //    }
+            //}
         });
 
         $scope.openSignInPopover = function(){
@@ -409,8 +426,38 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $scope.initSteps = function(json){
-            $scope.stepsArray = json;
+        $scope.compareDates = function(date1, date2){
+            if(!date1){
+                return null;
+            }
+
+            var d1 = new Date(date1);
+            var d2 = date2 ? new Date(date2): new Date();
+
+            if(d1 < d2){
+                return -1;
+            }
+            else if(d1 === d2){
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        };
+
+        $scope.getCompleted = function(userGoal){
+            if(!userGoal || !userGoal.steps || !userGoal.steps.length){
+                return 100;
+            }
+
+            var result = 0;
+            angular.forEach(userGoal.steps, function(v){
+                if(v === $scope.UserGoalConstant['DONE']){
+                    result++;
+                }
+            });
+
+            return result * 100 / userGoal.steps.length;
         };
 
         $scope.removeLocation = function(){
@@ -422,10 +469,10 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             var doDate = angular.element(".hidden_date_value").val();
-            angular.element('#goal-create-form').attr('data-goal-id', $scope.goalId);
+            angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
             angular.element("#goal-add-form").ajaxForm({
                 beforeSubmit: function(){
-                    var selector = 'success' + $scope.goalId;
+                    var selector = 'success' + $scope.userGoal.goal.id;
                     if(angular.element('#'+ selector).length > 0) {
                         var parentScope = angular.element('#' + selector).scope();
                         //if goal status changed
@@ -436,32 +483,32 @@ angular.module('goal', ['Interpolation',
                                 //and date be changed
                                 if (dateChanged && doDate) {
                                     //change  doDate
-                                    parentScope['change' + $scope.goalId] = 2;
-                                    parentScope['doDate' + $scope.goalId] = new Date(doDate);
-                                    angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                    parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                    parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                    angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                                 } else {
                                     if(doDate){
-                                        parentScope['change' + $scope.goalId] = 2;
-                                        parentScope['doDate' + $scope.goalId] = new Date(doDate);
-                                        angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                        parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                        parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                        angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                                     }else {
                                         //infinity
-                                        parentScope['change' + $scope.goalId] = 1;
-                                        angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                                        parentScope['change' + $scope.userGoal.goal.id] = 1;
+                                        angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
                                     }
                                 }
                             } else {
                                 //new datetime for completed 
-                                parentScope['change' + $scope.goalId] = 2;
-                                angular.element('.goal' + $scope.goalId).removeClass("active-idea");
-                                parentScope['doDate' + $scope.goalId] = new Date();
+                                parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
+                                parentScope['doDate' + $scope.userGoal.goal.id] = new Date();
                             }
                         } else {
                             if (!isSuccess && dateChanged && doDate) {
                                 //change for doDate
-                                parentScope['change' + $scope.goalId] = 2;
-                                parentScope['doDate' + $scope.goalId] = new Date(doDate);
-                                angular.element('.goal' + $scope.goalId).addClass("active-idea");
+                                parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                             }
                         }
                     }
@@ -541,7 +588,7 @@ angular.module('goal', ['Interpolation',
                 target.trigger('change');
             });
 
-        }, 500);
+        }, 1500);
 
     }])
     .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',

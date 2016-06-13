@@ -86,6 +86,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
+     * @Groups({"userGoal"})
      * @ORM\Column(name="steps", type="array", nullable=true)
      */
     protected $steps = [];
@@ -454,6 +455,7 @@ class UserGoal implements ActivityableInterface
             }
             return $done * 100 / $count;
         }
+
         return 100;
     }
 
