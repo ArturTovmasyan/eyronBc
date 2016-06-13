@@ -13,6 +13,8 @@ angular.module('goal', ['Interpolation',
         'LocalStorageModule',
         'angular-cache',
         'ngResource',
+        'angulartics',
+        'angulartics.google.analytics',
         'PathPrefix'
     ])
     .config(function (localStorageServiceProvider ) {
