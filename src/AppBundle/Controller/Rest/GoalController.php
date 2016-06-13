@@ -225,10 +225,10 @@ class GoalController extends FOSRestController
         }
 
         $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
-        $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
-        $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
-        $goal->setVideoLink(array_key_exists('video_links', $data) ? $data['video_links'] : null);
-        $goal->setLanguage(array_key_exists('language', $data) ? $data['language'] : "en");
+        $goal->setTitle(array_key_exists('title', $data)                             ? $data['title']       : null);
+        $goal->setDescription(array_key_exists('description', $data)                 ? $data['description'] : null);
+        $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
+        $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 

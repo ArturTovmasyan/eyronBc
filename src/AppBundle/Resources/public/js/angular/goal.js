@@ -333,6 +333,29 @@ angular.module('goal', ['Interpolation',
             var reg = /(#[a-z0-9][a-z0-9\-_]+)/ig;
             $scope.tags = d.match(reg);
         },true);
+        //
+        // angular.element(".draft-save-submit").click(function(){
+        //     angular.element("#goal-create-form").ajaxForm({
+        //         beforeSubmit: function(){
+        //             $scope.$apply();
+        //         },
+        //         error: function(res, text, header){
+        //             if(res.status === 401) {
+        //                 loginPopoverService.openLoginPopover();
+        //             }
+        //         },
+        //         success: function(res, text, header){
+        //             if(header.status === 200){
+        //                 $window.location.href = $window.location.origin + envPrefix + 'goal/my-ideas/drafts';
+        //             }
+        //         }
+        //     });
+        //
+        //     if(!$scope.$$phase){
+        //         $scope.$apply()
+        //     }
+        //
+        // });
 
         // end description Tagging
 
