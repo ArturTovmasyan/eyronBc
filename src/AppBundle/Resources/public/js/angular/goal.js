@@ -462,6 +462,56 @@ angular.module('goal', ['Interpolation',
             return result * 100 / userGoal.steps.length;
         };
 
+        $scope.momentDateFormat = function(date, format){
+            return moment(date).format(format);
+        };
+
+        $scope.momentDateModify = function(date, value, key, format){
+            var m = moment(date);
+
+            if(key === 'day'){
+                return m.day(value).format(format);
+            }
+            //else if(key === 'month'){
+            //    return m.month(value).format(format);
+            //}
+            //else if(key === 'year'){
+            //    return m.year(value).format(format);
+            //}
+        };
+
+        $scope.getSecondPickerDate = function(date, format){
+            var days = parseInt(moment(date).format('D'));
+
+            if(days > 28 && days < 32){
+                return $scope.momentDateModify(date, '+10', 'day', format)
+            }
+            else {
+                return $scope.momentDateModify(date, '+33', 'day', format)
+            }
+        };
+
+        $scope.getUrgentImportantStatus = function(userGoal){
+            if(!userGoal || !userGoal.id){
+                return null;
+            }
+
+            if(userGoal.urgent && userGoal.important){
+                return $scope.UserGoalConstant['URGENT_IMPORTANT'];
+            }
+            else if(userGoal.urgent && !userGoal.important){
+                return $scope.UserGoalConstant['URGENT_NOT_IMPORTANT'];
+            }
+            else if(!userGoal.urgent && userGoal.important) {
+                return $scope.UserGoalConstant['NOT_URGENT_IMPORTANT'];
+            }
+            else if(!userGoal.urgent && !userGoal.important){
+                return $scope.UserGoalConstant['NOT_URGENT_NOT_IMPORTANT'];
+            }
+
+            return null;
+        };
+
         $scope.removeLocation = function(){
             angular.element(".location .location-hidden").val(null);
             angular.element(".location .location-hidden").attr('value',null);

@@ -59,12 +59,13 @@
                     <div class="col-sm-6">
                         <div id="datepicker"
                              data-ng-hide="complete.switch"
-                             data-date=""
+                             data-date="[[ momentDateFormat(userGoal.do_date, 'MM/DD/YYYY') ]]"
                              style="color: black"></div>
                     </div>
                     <div class="col-sm-6">
                         <div id="secondPicker"
                              data-ng-hide="complete.switch"
+                             data-date="[[ getSecondPickerDate(userGoal.do_date, 'MM/DD/YYYY') ]]"
                              style="color: black">
                         </div>
                     </div>
@@ -140,13 +141,15 @@
                                                 {% for id, name in filters %}
 
                                                     <div class="col-sm-6">
-                                                        <div class="inputs-style priority-radio">
+                                                        <div class="inputs-style priority-radio"
+                                                             data-ng-class="{'active-important': getUrgentImportantStatus(userGoal) == {{ id }}}">
                                                             <label class="radio-inline">
                                                                 <input name="test"
-                                                                       class="important-radio"
-                                                                       type="radio"
-                                                                       data-ng-disabled="complete.switch"
-                                                                       value="{{ id }}">
+                                                                   class="important-radio"
+                                                                   type="radio"
+                                                                   data-ng-disabled="complete.switch"
+                                                                   data-ng-checked="getUrgentImportantStatus(userGoal) == {{ id }}"
+                                                                   value="{{ id }}">
                                                                 {{ name|trans|raw }}
                                                             </label>
 
@@ -252,15 +255,16 @@
 
                     <div class="col-xs-4 col-sm-2">
                         <div class="onoffswitch">
-                            <input  checked
-                                data-ng-init="private_checkbox=true"
+                            <input checked
+                                data-ng-init="private_checkbox=userGoal.is_visible"
                                 type="checkbox"
                                 data-ng-model="private_checkbox"
                                 data-ls-checked="private_checkbox"
                                 data-ng-disabled="complete.switch"
+                                id="goal-is-visible"
                                 class="onoffswitch-checkbox">
 
-                            <label class="onoffswitch-label">
+                            <label class="onoffswitch-label" for="goal-is-visible">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
                             </label>
@@ -275,7 +279,8 @@
                     <span data-ng-show="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
                 </p>
 
-                <p class="text-gray clearfix">
+                <p class="text-gray clearfix"
+                   data-ng-if="userGoal.id && userGoal.author && userGoal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
                     <strong class="text-dark-gray pull-left">
                         <i class="icon lock-icon"></i>
                         {{ 'user_goal.private' |trans }}
@@ -286,24 +291,20 @@
                 <hr />
 
                 <div class="modal-bottom">
-
                     <button type="submit" name="btn_save" class="btn btn-purple">{{ "btn_save"|trans }}</button>
-
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-
                     <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
                         <i class="icon-trash"></i>
                         <span>{{ 'forget'|trans | upper }}</span>
                     </a>
-
                 </div>
 
                 <div data-ng-show="showDetails">
                     <div class="delete-message">
                         <div>
                             <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
-                            <a href="#" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
-                            <a data-ng-click="showDetails=!showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
+                            <a data-ng-href="{{ app.debug ? '/app_dev.php' : '' }}/goal/remove-goal/[[ userGoal.id ]]" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
+                            <a data-ng-click="showDetails=!showDetails" href="javascript:void(0)" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
                         </div>
                     </div>
                 </div>
