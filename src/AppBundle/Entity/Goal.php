@@ -9,9 +9,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\ActivityableInterface;
-use AppBundle\Model\ArchivedGoal;
 use AppBundle\Model\ArchivedGoalInterface;
-use AppBundle\Model\MergeGoal;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -23,12 +21,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use AppBundle\Validator\Constraints as AppAssert;
-use Gedmo\Mapping\Annotation\Blameable;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal", indexes={
- *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"})
+ *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"}),
+ *          @ORM\Index(name="fulltext_index_title", columns={"title"}, flags={"fulltext"}),
+ *          @ORM\Index(name="fulltext_index_description", columns={"description"}, flags={"fulltext"}),
+ *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
  * })
  */
 class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface
