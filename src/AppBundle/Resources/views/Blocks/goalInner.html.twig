@@ -325,7 +325,7 @@
 
                             {% if stories|length > 0 %}
 
-                                <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
+                                <h4 class="text-dark-gray" name="success_story">{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% if stories|length > 2 %}
                                     <div class="text-right">
@@ -463,7 +463,7 @@
                             <br />
 
                             {% if app.user %}
-                                <h4>{{ 'comments'|trans }}</h4><hr />
+                                <h4 name="comments">{{ 'comments'|trans }}</h4><hr />
                                 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': goal.id} %}
                             {% endif %}
                         {% endif %}
