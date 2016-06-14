@@ -12,7 +12,7 @@
     {% set slug = goal.slug %}
     {% set goalUrl = url('inner_goal', {'slug': slug}) %}
     {% set homePageUrl = url('homepage') %}
-    {% set profile = path('user_profile', {'user' : user.uId}, true) %}
+    {% set profile = url('user_profile', {'user' : user.uId}) %}
 
     {% autoescape false %}
         <!DOCTYPE html>
@@ -50,7 +50,7 @@
 
                     <div style="float:left">
                         <p style="color: #333;margin: 5px 0;font-size:16px;">{{ mailText|trans({'%senderName%' : senderName, '%profile%': profile, '%link%': goalUrl, '%style%' : 'color: #7724F6 ','%profileStyle%' : 'color: #333 ' }, 'email', language) }}</p>
-                        <a href="{{ path('inner_goal', {'slug' : goal.slug }, true) }}" style="color: #333333;font-size:16px;">{{ goal.title }}</a>
+                        <a href="{{ goalUrl }}" style="color: #333333;font-size:16px;">{{ goal.title }}</a>
                         <p style="color:#999999;margin:5px 0 0;font-size:14px;font-weight:700;">{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
                     </div>
                 </div>

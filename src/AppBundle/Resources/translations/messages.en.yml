@@ -95,6 +95,10 @@ homepage_description: Have your list of goals for life and see how much more you
 #notification
 test_message: testing notifications in BucketList
 reminder_message: Your goal deadline is close to end.Do your best to meet the deadline.
+progress_bad: |
+                Your Bucketlist progress is behind the schedule. You're left %goalPercent% to achieve your goals.
+                You have to hurry and finish soon. Click on the link to see what you have left incomplete in your BucketList account.
+progress_good: Wow!!! Your BucketList progress is uptodate, you meet your schedule and achieve your goals. Keep aiming!!!
 
 # buttons
 btn_delete: Delete
