@@ -28,8 +28,8 @@ class UserNotifySettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('commentNotify', 'checkbox', array('required'=> false))
-            ->add('successStoryNotify', 'checkbox', array('required'=> false))
+            ->add('isCommentNotify', 'checkbox', array('required'=> false))
+            ->add('isSuccessStoryNotify', 'checkbox', array('required'=> false))
             ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }

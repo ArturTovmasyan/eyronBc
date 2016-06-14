@@ -121,13 +121,14 @@
                         <div class="error-message">{{ form_errors(form.birthDate) }}</div>
 
                     </div>
-
-                    <div class="form-group row">
-                        <p class="text-gray">{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
-                            {% set menu = knp_menu_get('AppBundle:Builder:privacyMenu') %}
-                            <a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
-                        </p>
-                    </div>
+                    {% set menu = knp_menu_get('AppBundle:Builder:privacyMenu') %}
+                    {% if menu.children|length > 0 %}
+                        <div class="form-group row">
+                            <p class="text-gray">{{ 'registration.agreement'|trans({}, 'FOSUserBundle') }}
+                                <a href="{{ (menu.children|first).uri }}" class="text-purple">{{ 'registration.privacy_policy'|trans({}, 'FOSUserBundle') }}</a>
+                            </p>
+                        </div>
+                    {% endif %}
 
                     <button type="submit" name="register" class="btn btn-purple">{{ 'registration.sign_up_btn'|trans({}, 'FOSUserBundle') | upper }}</button>
 
