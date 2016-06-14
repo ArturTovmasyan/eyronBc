@@ -279,18 +279,40 @@ class User extends BaseUser
     private $userGoalCount    = null;
 
     /**
-     * @ORM\Column(name="comment_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_comment_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
      */
-    private $commentNotify = true;
+    private $isCommentNotify = true;
 
     /**
-     * @ORM\Column(name="success_story_notify", type="boolean", nullable=true)
+     * @ORM\Column(name="is_success_story_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
      */
-    private $successStoryNotify = true;
+    private $isSuccessStoryNotify = true;
+
+    /**
+     * @ORM\Column(name="is_comment_push_note", type="boolean", nullable=true)
+     * @var
+     * @Groups({"settings"})
+     */
+    private $isCommentPushNote = true;
+
+    /**
+     * @ORM\Column(name="is_success_story_push_note", type="boolean", nullable=true)
+     * @var
+     * @Groups({"settings"})
+     */
+    private $isSuccessStoryPushNote = true;
+
+    /**
+     * @ORM\Column(name="is_progress_push_note", type="boolean", nullable=true)
+     * @var
+     * @Groups({"settings"})
+     */
+    private $isProgressPushNote = true;
+
 
     /**
      * @return mixed
@@ -1546,53 +1568,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set commentNotify
-     *
-     * @param boolean $commentNotify
-     * @return User
-     */
-    public function setCommentNotify($commentNotify)
-    {
-        $this->commentNotify = $commentNotify;
-
-        return $this;
-    }
-
-    /**
-     * Get commentNotify
-     *
-     * @return boolean
-     */
-    public function getCommentNotify()
-    {
-        return $this->commentNotify;
-    }
-
-    /**
-     * Set successStoryNotify
-     *
-     * @param boolean $successStoryNotify
-     * @return User
-     */
-    public function setSuccessStoryNotify($successStoryNotify)
-    {
-        $this->successStoryNotify = $successStoryNotify;
-
-        return $this;
-    }
-
-    /**
-     * Get successStoryNotify
-     *
-     * @return boolean
-     */
-    public function getSuccessStoryNotify()
-    {
-        return $this->successStoryNotify;
-
-    }
-    
-    /**
      * @return mixed
      */
     public function getHasDeadLines()
@@ -1659,7 +1634,120 @@ class User extends BaseUser
     {
         $this->userGoalCount = $userGoalCount;
     }
+
+
+    /**
+     * Set isCommentNotify
+     *
+     * @param boolean $isCommentNotify
+     * @return User
+     */
+    public function setIsCommentNotify($isCommentNotify)
+    {
+        $this->isCommentNotify = $isCommentNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get isCommentNotify
+     *
+     * @return boolean 
+     */
+    public function getIsCommentNotify()
+    {
+        return $this->isCommentNotify;
+    }
+
+    /**
+     * Set isSuccessStoryNotify
+     *
+     * @param boolean $isSuccessStoryNotify
+     * @return User
+     */
+    public function setIsSuccessStoryNotify($isSuccessStoryNotify)
+    {
+        $this->isSuccessStoryNotify = $isSuccessStoryNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get isSuccessStoryNotify
+     *
+     * @return boolean 
+     */
+    public function getIsSuccessStoryNotify()
+    {
+        return $this->isSuccessStoryNotify;
+    }
+
+    /**
+     * Set isCommentPushNote
+     *
+     * @param boolean $isCommentPushNote
+     * @return User
+     */
+    public function setIsCommentPushNote($isCommentPushNote)
+    {
+        $this->isCommentPushNote = $isCommentPushNote;
+
+        return $this;
+    }
+
+    /**
+     * Get isCommentPushNote
+     *
+     * @return boolean 
+     */
+    public function getIsCommentPushNote()
+    {
+        return $this->isCommentPushNote;
+    }
+
+    /**
+     * Set isSuccessStoryPushNote
+     *
+     * @param boolean $isSuccessStoryPushNote
+     * @return User
+     */
+    public function setIsSuccessStoryPushNote($isSuccessStoryPushNote)
+    {
+        $this->isSuccessStoryPushNote = $isSuccessStoryPushNote;
+
+        return $this;
+    }
+
+    /**
+     * Get isSuccessStoryPushNote
+     *
+     * @return boolean 
+     */
+    public function getIsSuccessStoryPushNote()
+    {
+        return $this->isSuccessStoryPushNote;
+    }
+
+    /**
+     * Set isProgressPushNote
+     *
+     * @param boolean $isProgressPushNote
+     * @return User
+     */
+    public function setIsProgressPushNote($isProgressPushNote)
+    {
+        $this->isProgressPushNote = $isProgressPushNote;
+
+        return $this;
+    }
+
+    /**
+     * Get isProgressPushNote
+     *
+     * @return boolean 
+     */
+    public function getIsProgressPushNote()
+    {
+        return $this->isProgressPushNote;
+    }
 }
-
-
-

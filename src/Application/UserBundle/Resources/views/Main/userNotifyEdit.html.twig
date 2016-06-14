@@ -2,9 +2,8 @@
 
 {% block settings_content %}
 
-    {% set commentValue = user.commentNotify %}
-    {% set storyValue = user.successStoryNotify %}
-
+    {% set commentValue = user.isCommentNotify %}
+    {% set storyValue = user.isSuccessStoryNotify %}
 
     <div class="row">
         <div class="col-md-8">
@@ -15,14 +14,14 @@
             <div class="row no-marginb">
 
                 <label class="col-xs-8 col-sm-10 control-label text-left" data-ng-init="comment.switch={{ commentValue|default("0") }}">
-                    <span data-ng-show="comment.switch">{{  'comments'|trans({}, 'messages') }}</span>
-                    <span data-ng-hide="comment.switch">{{  'comments'|trans({}, 'messages') }}</span>
+                    <span data-ng-show="comment.switch">{{ 'comments'|trans({}, 'messages') }}</span>
+                    <span data-ng-hide="comment.switch">{{ 'comments'|trans({}, 'messages') }}</span>
                 </label>
 
                 <div class="col-xs-4 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="{{ form.children.commentNotify.vars.full_name }}"
+                               name="{{ form.children.isCommentNotify.vars.full_name }}"
                                data-ng-model="comment.switch"
                                data-ls-checked="comment.switch"
                                class="onoffswitch-checkbox"
@@ -45,7 +44,7 @@
                 <div class="col-xs-4 col-sm-2">
                     <div class="onoffswitch">
                         <input type="checkbox"
-                               name="{{ form.children.successStoryNotify.vars.full_name }}"
+                               name="{{ form.children.isSuccessStoryNotify.vars.full_name }}"
                                data-ng-model="story.switch"
                                data-ls-checked="story.switch"
                                class="onoffswitch-checkbox"
