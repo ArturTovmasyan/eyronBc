@@ -230,7 +230,10 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:Goal')
             ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED, null, null, true);
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
+        if ($this->getUser()) {
+            $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
