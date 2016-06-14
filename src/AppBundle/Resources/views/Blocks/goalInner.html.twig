@@ -107,7 +107,6 @@
                                         </a>
                                     </li>
                                 {% endif %}
-                                {#{% if not isMyGoal(goal, app.user, "add") %}#}
                                 {% if goal.isMyGoal == 0 %}
                                     <li class="col-xs-{{ xs }}" data-ng-init="added = false" data-ng-show="!added">
                                         <a href="javascript:void(0)"
@@ -126,7 +125,6 @@
                                 </li>
 
 
-                            {#{% if  not isMyGoal(goal, app.user, 'done') %}#}
                                 {% if goal.isMyGoal != 2 %}
                                     <li class="col-xs-6" data-ng-init="completed=true">
                                         <a href="javascript:void(0)"
