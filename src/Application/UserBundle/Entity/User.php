@@ -281,12 +281,14 @@ class User extends BaseUser
     /**
      * @ORM\Column(name="comment_notify", type="boolean", nullable=true)
      * @var
+     * @Groups({"settings"})
      */
     private $commentNotify = true;
 
     /**
      * @ORM\Column(name="success_story_notify", type="boolean", nullable=true)
      * @var
+     * @Groups({"settings"})
      */
     private $successStoryNotify = true;
 
