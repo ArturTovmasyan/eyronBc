@@ -237,6 +237,10 @@ class UserController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
         $id = null;
+
+        //set reg value for mobile
+        $isRegistred = false;
+
         $newUser = new User();
 
         // switch for type
@@ -329,6 +333,9 @@ class UserController extends FOSRestController
             //get registration user
             $user = $newUser;
 
+            //set reg status for mobile
+            $isRegistred = true;
+
             //get registration social name
             $socialName = $user->getSocialsName();
 
@@ -337,10 +344,12 @@ class UserController extends FOSRestController
             
         }
 
+        //get session id
         $sessionId = $this->loginAction($user);
 
         return  array(
             'sessionId' => $sessionId,
+            'registred' => $isRegistred,
             'userInfo'  => $user
         );
     }
