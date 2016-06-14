@@ -1,4 +1,3 @@
-{#All comments code, must be changed after design fixed,please dont remove it#}
 
 {% block body_text %}
 
@@ -32,9 +31,7 @@
                 <div style="clear:both;margin:10px 0;padding: 20px 0 0;height:70px;">
 
                     {% if user.getPhotoLink %}
-                        {#{% set senderPhoto = baseUrl~user.getPhotoLink %}#}
                         <figure style="float:left;width:65px;height:65px !important;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
-                            {#<img src="http://www.bucketlist127.com/media/cache/user_icon/uploads/photo/d1052f795ab770284fa73783ef43db56.jpg" alt="{{ user.filename }}"#}
                             <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}"
                                  style="width:65px;height:65px !important; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
                         </figure>
@@ -87,13 +84,11 @@
                     <ul style="list-style-type:none;text-align:center;padding:20px 0;margin:0;">
                         <li style="display: inline-block;">
                             <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" target="_blank" style="display:block;">
-                                {#<img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>#}
                                 <img src="{{ baseUrl ~ '/bundles/app/images/email-app-store.png' }}" alt="Appstore" height="40"/>
                             </a>
                         </li>
                         <li style="display: inline-block;margin-left:10px;">
                             <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" target="_blank" style="display:block;">
-                                {#<img src="{{ 'http://www.bucketlist127.com/bundles/app/images/email-google-play.png' }}" alt="Googleplay" class="img-responsive"/>#}
                                 <img src="{{ baseUrl ~ '/bundles/app/images/email-google-play.png' }}" alt="Googleplay" height="40"/>
                             </a>
                         </li>
