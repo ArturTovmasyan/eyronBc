@@ -33,10 +33,10 @@
 
                     {% if user.getPhotoLink %}
                         {#{% set senderPhoto = baseUrl~user.getPhotoLink %}#}
-                        <figure style="float:left;width:65px;height:65px;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                        <figure style="float:left;width:65px;height:65px !important;overflow:hidden;margin:0 20px;border:1px solid #cccccc; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
                             {#<img src="http://www.bucketlist127.com/media/cache/user_icon/uploads/photo/d1052f795ab770284fa73783ef43db56.jpg" alt="{{ user.filename }}"#}
                             <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}"
-                                 style="width:65px;height:65px; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
+                                 style="width:65px;height:65px !important; border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%">
                         </figure>
                     {% else %}
                         <p style="width:60px;height:60px;background: #0f2763;
@@ -49,7 +49,7 @@
                     {% endif %}
 
                     <div style="float:left">
-                        <p style="color: #333;margin:0 0 5px 0;font-size:16px;">{{ mailText|trans({'%senderName%' : senderName, '%profile%': profile, '%link%': goalUrl, '%style%' : 'color: #7724F6 ','%profileStyle%' : 'color: #333 ' }, 'email', language) }}</p>
+                        <p style="color: #333;margin: 5px 0;font-size:16px;">{{ mailText|trans({'%senderName%' : senderName, '%profile%': profile, '%link%': goalUrl, '%style%' : 'color: #7724F6 ','%profileStyle%' : 'color: #333 ' }, 'email', language) }}</p>
                         <a href="{{ path('inner_goal', {'slug' : goal.slug }, true) }}" style="color: #333333;font-size:16px;">{{ goal.title }}</a>
                         <p style="color:#999999;margin:5px 0 0;font-size:14px;font-weight:700;">{{ 'now'|date('d M Y') }} at {{ 'now'|date('H:m') }}</p>
                     </div>
@@ -62,25 +62,15 @@
                 </div>
 
                 {% set cover = goal.getCoverPhotoDownloadLink %}
-                {#{% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
-                {#{% set imgPath ='http://www.bucketlist127.com/bundles/app/images/cover' ~ random(4) ~ '.png' %}#}
 
                 <figure style="margin:20px 0 0;background-color: #011420;width: 510px;overflow:hidden;text-align:center;">
-                    {#<span style="position: absolute;display: block;width: 100%;height: 230px;background: rgba(0, 0, 0, 0.2);"></span>#}
                     <img src="
-                {% if cover %}
-                      {% set goalPhoto = baseUrl~cover %}
-                      {#{% set goalPhoto = 'http://www.bucketlist127.com/uploads/images/tfss-7c1d71f9-b5c9-4233-b7e1-faeca7d2b2fc-Hong-Kong.jpg' %}#}
-                      {#{% set goalPhoto = 'http://www.bucketlist127.com/media/cache/goal_list_small/uploads/images/eda28adcc31714a040e46b8116983d15.jpg' %}#}
-                     {{ goalPhoto|blImageFilter('goal_bg') }}
-                     {#{{ goalPhoto }}#}
-                {#{% else %}#}
-                     {#{{ asset(imgPath)}}#}
-                     {#{{ imgPath }}#}
-                {% endif %}"
+                        {% if cover %}
+                            {% set goalPhoto = baseUrl~cover %}
+                            {{ goalPhoto|blImageFilter('goal_bg') }}
+                        {% endif %}"
                          alt="{{ goal.title }}"  height="230" width="100%"/>
                     <figcaption style=";text-align:center;">
-
                         <h3 style="color:#ffffff;font-size: 24px;padding: 10px 25px;text-transform: capitalize;margin:0;line-height: 30px;font-weight: 700;">{{ goal.title }}</h3>
                     </figcaption>
                 </figure>
