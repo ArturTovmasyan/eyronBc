@@ -38,10 +38,10 @@ class SettingsMobileType extends AbstractType
             ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
             ->add('file', 'file', array('required' => false))
             ->add('isCommentNotify', 'checkbox', array('required' => false))
-            ->add('isSuccessStoryNotify','checkbox', array('required' => false))
-            ->add('isCommentPushNote','checkbox', array('required' => false))
-            ->add('isSuccessStoryPushNote','checkbox', array('required' => false))
-            ->add('isProgressPushNote','checkbox', array('required' => false))
+            ->add('isSuccessStoryNotify', 'checkbox', array('required' => false))
+            ->add('isCommentPushNote', 'checkbox', array('required' => false))
+            ->add('isSuccessStoryPushNote', 'checkbox', array('required' => false))
+            ->add('isProgressPushNote', 'checkbox', array('required' => false))
         ;
     }
 
