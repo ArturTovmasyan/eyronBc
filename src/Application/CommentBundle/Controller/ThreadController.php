@@ -42,14 +42,17 @@ class ThreadController extends BaseController
         //get goal by id
         $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($id);
 
-        //get user name
-        $userName = $this->getUser()->showName();
+        //get current user
+        $user = $this->getUser();
+
+        //get current user id
+        $userId = $user->getId();
 
         //check if goal author is not admin and not null
-        if($goal && $goal->hasAuthorForNotify($userName)) {
+        if($goal && $goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, null);
         }
 
         //send comment event in google analytics

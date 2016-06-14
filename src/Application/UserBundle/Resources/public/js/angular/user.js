@@ -13,19 +13,19 @@ angular.module('user', ['Components', 'Interpolation'])
                 increaseArea: '20%'
             });
 
-            angular.element("#settings-form").ajaxForm({
-                success: function(){
-                    $window.location.reload();
-                },
-                error: function(res){
-                    $scope.errorMessages = angular.fromJson(res.responseText);
-                    if(res.status === 401) {
-                        $.modal.close();
-                        loginPopoverService.openLoginPopover();
-                    }
-                    $scope.$apply();
-                }
-            });
+            // angular.element("#settings-form").ajaxForm({
+            //     success: function(){
+            //         $window.location.reload();
+            //     },
+            //     error: function(res){
+            //         $scope.errorMessages = angular.fromJson(res.responseText);
+            //         if(res.status === 401) {
+            //             $.modal.close();
+            //             loginPopoverService.openLoginPopover();
+            //         }
+            //         $scope.$apply();
+            //     }
+            // });
 
         }, 600);
     }]);

@@ -279,6 +279,18 @@ class User extends BaseUser
     private $userGoalCount    = null;
 
     /**
+     * @ORM\Column(name="comment_notify", type="boolean", nullable=true)
+     * @var
+     */
+    private $commentNotify = true;
+
+    /**
+     * @ORM\Column(name="success_story_notify", type="boolean", nullable=true)
+     * @var
+     */
+    private $successStoryNotify = true;
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -1531,7 +1543,53 @@ class User extends BaseUser
         $this->cachedImage = $cachedImage;
     }
 
+    /**
+     * Set commentNotify
+     *
+     * @param boolean $commentNotify
+     * @return User
+     */
+    public function setCommentNotify($commentNotify)
+    {
+        $this->commentNotify = $commentNotify;
 
+        return $this;
+    }
+
+    /**
+     * Get commentNotify
+     *
+     * @return boolean
+     */
+    public function getCommentNotify()
+    {
+        return $this->commentNotify;
+    }
+
+    /**
+     * Set successStoryNotify
+     *
+     * @param boolean $successStoryNotify
+     * @return User
+     */
+    public function setSuccessStoryNotify($successStoryNotify)
+    {
+        $this->successStoryNotify = $successStoryNotify;
+
+        return $this;
+    }
+
+    /**
+     * Get successStoryNotify
+     *
+     * @return boolean
+     */
+    public function getSuccessStoryNotify()
+    {
+        return $this->successStoryNotify;
+
+    }
+    
     /**
      * @return mixed
      */
@@ -1600,3 +1658,6 @@ class User extends BaseUser
         $this->userGoalCount = $userGoalCount;
     }
 }
+
+
+
