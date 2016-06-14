@@ -53,10 +53,15 @@
                     <i class="icon-ok-only"></i>
                 </span>
             {% else %}
-                <a href="javascript:void(0)"
-                   data-ls-jquery-modal
-                   data-ls-template-url="{{ path('settings') }}"
-                   data-ls-identity="goalSettingsInCompleteModal">
+                {#<a href="javascript:void(0)"#}
+                   {#data-ls-jquery-modal#}
+                   {#data-ls-template-url="{{ path('settings') }}"#}
+                   {#data-ls-identity="goalSettingsInCompleteModal">#}
+                    {#<strong>{{ 'image_complete_text'|trans }}</strong>#}
+                    {#<i class="icon-question-only"></i>#}
+                {#</a>#}
+
+                <a href="{{ path('edit_user_profile') }}">
                     <strong>{{ 'image_complete_text'|trans }}</strong>
                     <i class="icon-question-only"></i>
                 </a>
