@@ -41,6 +41,9 @@ class UserNotifyService
         //get user notify value in parameter
         $enabledByConfig = $this->container->getParameter('user_notify');
 
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
@@ -80,6 +83,9 @@ class UserNotifyService
         //get subject for email
         $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email', $language);
 
+        //send notification to mobile
+        $sendNoteService->sendPushNote($user, $subject);
+
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
@@ -102,6 +108,9 @@ class UserNotifyService
         //get user notify value in parameter
         $enabledByConfig = $this->container->getParameter('user_notify');
 
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+        
         //get kernel debug
         $notProd = $this->container->getParameter('kernel.debug');
 
@@ -127,6 +136,9 @@ class UserNotifyService
 
         //get subject for email
         $subject = $this->container->get('translator')->trans('subject_for_story_email', array('%senderName%' => $userName), 'email', $language);
+
+        //send notification to mobile
+        $sendNoteService->sendPushNote($user, $subject);
 
         //generate content for email
         $content = $this->container->get('templating')->render(
