@@ -3,10 +3,8 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Goal;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Routing\Router;
-use Symfony\Bundle\TwigBundle\TwigEngine;
+use Application\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\Container;
 
 
 /**
@@ -18,163 +16,166 @@ class UserNotifyService
     /**
      * @var \Symfony\Component\DependencyInjection\Container
      */
-    protected  $router;
-
-    /**
-     * @var TwigEngine
-     */
-    protected  $template;
-
-    /**
-     * @var \Swift_Mailer
-     */
-    protected  $mailer;
-
-    /**
-     * @var
-     */
-    protected  $kernel;
-
-    /**
-     * @var
-     */
-    protected  $projectName;
-
-    /**
-     * @var
-     */
-    protected  $noReplyEmail;
-
-    /**
-     * @var
-     */
-    protected  $userNotify;
+    protected  $container;
 
 
     /**
-     * UserNotifyService constructor.
-     * @param Router $router
-     * @param TwigEngine $template
-     * @param \Swift_Mailer $mailer
-     * @param \Swift_Mailer $mailer
-     * @param $projectName
-     * @param $noReplyEmail
+     * @param Container $container
      */
-    public function __construct(Router $router, TwigEngine $template, \Swift_Mailer $mailer, Kernel $kernel, $projectName, $noReplyEmail, $userNotify)
+    public function __construct(Container $container)
     {
-        $this->router = $router;
-        $this->template = $template;
-        $this->mailer = $mailer;
-        $this->kernel = $kernel;
-        $this->projectName = $projectName;
-        $this->noReplyEmail = $noReplyEmail;
-        $this->userNotify = $userNotify;
+        $this->container = $container;
     }
 
 
     /**
      * This function is used to send notify about new comment
-     * 
+     *
      * @param Goal $goal
-     * @param $senderName
+     * @param User $user
+     * @param $commentText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewComment(Goal $goal, $senderName)
+    public function sendNotifyAboutNewComment(Goal $goal, User $user, $commentText)
     {
-        //check if user notify is disabled
-        if(!$this->userNotify) {
-            return;
-        }
+        //get user notify value in parameter
+        $enabledByConfig = $this->container->getParameter('user_notify');
+
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+
+        //get kernel debug
+        $notProd = $this->container->getParameter('kernel.debug');
 
         //get goal author
         $author = $goal->getAuthor();
+
+        //get comment notify settings value
+        $enabled = $author->getCommentNotify();
+
+        //check if user notify is disabled
+        if(!$enabledByConfig || $notProd || !$enabled) {
+            return;
+        }
+
+        //check if comment text is null
+        if(!$commentText) {
+
+            //get entity manager
+            $em = $this->container->get('doctrine')->getManager();
+
+            //get last comment
+            $lastComment = $em->getRepository('ApplicationCommentBundle:Comment')->findLastCommentByGoalId($goal->getId());
+
+            //get comment text
+            $commentText = $lastComment['body'];
+        }
 
         //get author email
         $email = $author->getEmail();
 
-        //get author name
-        $authorName = $author->showName();
+        //get author language
+        $language = $author->getLanguage() ? $author->getLanguage() : 'en';
 
-        //get goal slug
-        $slug = $goal->getSlug();
+        //get sender name
+        $userName = $user->showName();
 
-        //generate goal inner page url for email
-        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
+        //get subject for email
+        $subject = $this->container->get('translator')->trans('subject_for_comment_email', array('%senderName%' => $userName), 'email', $language);
 
-        $this->sendEmail($email, $senderName, $authorName, $url, Goal::COMMENT);
+        //send notification to mobile
+        $sendNoteService->sendPushNote($user, $subject);
+
+        //generate content for email
+        $content = $this->container->get('templating')->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('eventText' => $commentText, 'goal' => $goal, 'type' => 'comments', 'user' => $user, 'mailText' => 'notify_comment', 'language' => $language)
+        );
+        
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
      * This function is used to send notify about new success story
-     * 
+     *
      * @param Goal $goal
-     * @param $senderName
+     * @param User $user
+     * @param $storyText
      * @throws \Swift_TransportException
      */
-    public function sendNotifyAboutNewSuccessStory(Goal $goal, $senderName)
+    public function sendNotifyAboutNewSuccessStory(Goal $goal, User $user, $storyText)
     {
-        //check if user notify is disabled
-        if(!$this->userNotify) {
-            return;
-        }
+        //get user notify value in parameter
+        $enabledByConfig = $this->container->getParameter('user_notify');
+
+        //get put notification service
+        $sendNoteService = $this->container->get('bl_put_notification_service');
+        
+        //get kernel debug
+        $notProd = $this->container->getParameter('kernel.debug');
 
         //get goal author
         $author = $goal->getAuthor();
 
-        //get goal author email
+        //get story notify settings value
+        $enabled = $author->getSuccessStoryNotify();
+
+        //check if user notify is disabled
+        if(!$enabledByConfig || $notProd || !$enabled) {
+            return;
+        }
+
+        //get author email
         $email = $author->getEmail();
 
-        //get goal author name
-        $authorName = $author->showName();
+        //get author language
+        $language = $author->getLanguage() ? $author->getLanguage() : 'en';
+        
+        //get sender name
+        $userName = $user->showName();
 
-        //get goal slug
-        $slug = $goal->getSlug();
+        //get subject for email
+        $subject = $this->container->get('translator')->trans('subject_for_story_email', array('%senderName%' => $userName), 'email', $language);
 
-        //generate goal inner page url for email
-        $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
+        //send notification to mobile
+        $sendNoteService->sendPushNote($user, $subject);
 
-        $this->sendEmail($email, $senderName, $authorName, $url, Goal::STORY);
+        //generate content for email
+        $content = $this->container->get('templating')->render(
+            'AppBundle:Main:userNotifyEmail.html.twig',
+            array('eventText' => $storyText, 'goal' => $goal, 'type' => 'success_story', 'user' => $user, 'mailText' => 'notify_success_story', 'language' => $language)
+        );
+
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
      * @param $email
-     * @param $senderName
-     * @param $authorName
-     * @param $url
-     * @param $notifyType
+     * @param $content
+     * @param $subject
+     * @throws \Exception
      * @throws \Swift_TransportException
-     * @throws \Twig_Error
      */
-    public function sendEmail($email, $senderName, $authorName, $url, $notifyType)
+    public function sendEmail($email, $content, $subject)
     {
-        //get project name
-        $projectName = $this->projectName;
-
         //get no-reply email
-        $noReplyEmail = $this->noReplyEmail;
+        $noReplyEmail = $this->container->getParameter('no_reply');
 
-        //get environment
-        $isDebug = $this->kernel->isDebug();
-
-        //check environment
-        if($isDebug){
-            return;
-        }
+        //get project name
+        $projectName = $this->container->getParameter('project_name');
 
         try {
             //calculate message
             $message = \Swift_Message::newInstance()
-                ->setSubject('You have a message from ' . $projectName )
-                ->setFrom($noReplyEmail)
-                ->setCc($email)
+                ->setSubject($subject)
+                ->setFrom($noReplyEmail, $projectName)
+                ->setTo($email)
+//                ->setTo('anulimanukyan@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
-                ->setBody($this->template->render(
-                    'AppBundle:Main:userNotifyEmail.html.twig',
-                    array('senderName' => $senderName, 'userName' => $authorName, 'link' => $url, 'notifyType' => $notifyType)
-                ), 'text/html');
+                ->setBody($content, 'text/html');
 
             //send email
-            $this->mailer->send($message);
+            $this->container->get('mailer')->send($message);
 
         } catch(\Swift_TransportException $e) {
 

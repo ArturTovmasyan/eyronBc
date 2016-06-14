@@ -55,7 +55,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v321
+        assets_version: v327
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -371,7 +371,7 @@ rms_push_notifications:
       timeout: 60 # Seconds to wait for connection timeout, default is 60
       sandbox: false
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
-      pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
+      pem: %kernel.root_dir%/Certificates/production_Certificates.p12
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
 
 genemu_form:

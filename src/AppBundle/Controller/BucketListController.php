@@ -44,6 +44,7 @@ class BucketListController extends Controller
         // get user by id
         if($user){
             $user = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $user));
+            $isCurrentUser = false;
         }
         else {
             $user = $this->getUser();
@@ -60,16 +61,6 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_IMPORTANT     => $request->get('f_' . UserGoal::NOT_URGENT_IMPORTANT)     ? true : false,
             UserGoal::NOT_URGENT_NOT_IMPORTANT => $request->get('f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT) ? true : false,
         );
-
-        if (!$user) {
-            // get current user
-            $user = $this->getUser();
-        }
-
-        //if it is self page
-        if($user == $this->getUser()){
-            $isCurrentUser = false;
-        }
 
         // check statuses
         switch($status) {
@@ -112,26 +103,20 @@ class BucketListController extends Controller
 
         // create filter
         $filters = array(
-            UserGoal::URGENT_IMPORTANT => 'filter.import_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filter.not_import_urgent',
-            UserGoal::NOT_URGENT_IMPORTANT => 'filter.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT         => 'filter.import_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT     => 'filter.not_import_urgent',
+            UserGoal::NOT_URGENT_IMPORTANT     => 'filter.import_not_urgent',
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
         );
-
-        //This part is used for profile completion percent calculation
-        if ($this->getUser()->getProfileCompletedPercent() != 100) {
-            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
-        }
 
         // get drafts
         $myIdeasCount =  $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
 
         return array(
-            'profileUser' => $user,
-            'userGoals'   => $pagination,
+            'profileUser'  => $user,
+            'userGoals'    => $pagination,
             'myIdeasCount' => $myIdeasCount,
-            'filters'     => $filters,
-            'currentUser' => $this->getUser()
-            );
+            'filters'      => $filters
+        );
     }
 }

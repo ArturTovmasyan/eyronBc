@@ -65,7 +65,7 @@ class NewFeedRepository extends EntityRepository
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
             ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
             ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
-            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->where('(ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('user', $userId)
             ->setParameter('simpleRole', 'a:0:{}');
@@ -105,7 +105,7 @@ class NewFeedRepository extends EntityRepository
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('ss.files', 'si')
             ->leftJoin('nf.comment', 'cmt')
-            ->where('(ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE AND nf.id IN (:ids)')
+            ->where('(ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE AND nf.id IN (:ids)')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('user', $userId)
             ->setParameter('simpleRole', 'a:0:{}')
@@ -138,7 +138,7 @@ class NewFeedRepository extends EntityRepository
             ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('nf.comment', 'cmt')
-            ->where('u.id IN (:ids) AND (ug IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
+            ->where('u.id IN (:ids) AND (ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
             ->orderBy('nf.datetime', 'DESC')
             ->setParameter('ids', $goalFriendsIds);
 
