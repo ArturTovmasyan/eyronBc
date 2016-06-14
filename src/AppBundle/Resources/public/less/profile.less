@@ -63,6 +63,8 @@
     //position: relative;
   }
 
+
+
   //.black-overlay{
   //  display: inline-block;
   //  background-color: rgba(0, 0, 0, 0.20);
@@ -102,6 +104,7 @@
 
     img{
       height:140px;
+      width: 100%;
     }
 
     figcaption{
@@ -132,6 +135,31 @@
       }
     }
 
+  }
+
+  #settings-form{
+    figure{
+      background: transparent;
+      padding: 0;
+      .upload{
+        width:120px;
+        height:120px;
+        padding: 40px 15px;
+        font-size:13px;
+      }
+
+      figcaption{
+        position: absolute;
+        top: 29px;
+
+        label{
+          color: #ffffff !important;
+          text-transform: uppercase;
+          padding:0 15px;
+          font-size: 14px;
+        }
+      }
+    }
   }
 
   ol{
@@ -218,8 +246,9 @@
 }
 
 .bucketlist{
-  padding:5px 0;
+  padding: 5px 0 0;
   background-color: #ffffff;
+  margin-bottom: 7px;
 
   ul{
     padding-left:0;
@@ -371,6 +400,18 @@
       }
 
     }
+    #settings-form{
+      figure{
+        figcaption{
+          top: 20px;
+
+          label{
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
 
     ol{
       padding:30px 30px 20px;
@@ -424,8 +465,8 @@
   }
 
   .bucketlist{
-    padding:20px 0 10px;
-
+    padding: 10px 0 0;
+    margin-bottom: 10px;
     ul{
       padding-left:0;
       margin-bottom:1px;
@@ -522,6 +563,27 @@
 
     }
 
+    #settings-form{
+      figure{
+        .upload{
+          width:140px;
+          height:140px;
+          padding: 47px 15px;
+          font-size:14px;
+
+          figcaption{
+            top: 25px;
+
+            label{
+              font-size: 16px;
+              line-height: 24px;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+    }
+
     ol{
       padding:40px 40px 30px;
       font-size:16px;
@@ -564,8 +626,8 @@
   }
 
   .bucketlist{
-    padding:20px 0 10px;
-
+    padding:20px 0 0;
+    margin-bottom: 20px;
     ul{
       padding-left:0;
       margin-bottom:1px;
@@ -590,7 +652,7 @@
     }
 
     form{
-      padding:20px 0 10px;
+      padding:20px 0;
 
       label{
         font-size:14px;

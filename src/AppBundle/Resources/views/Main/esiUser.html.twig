@@ -5,12 +5,9 @@
     {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
     {% set className = "user-no" ~ random(4) %}
 
-    <a href="javascript:void(0)"
+    <a href="{{ path("edit_user_profile") }}"
        style="display: none"
-       class="settings-modal"
-       data-ls-identity="settingModal"
-       data-ls-template-url="{{ path("settings") }}"
-       data-ls-jquery-modal>
+       class="settings-modal">
     </a>
 
     <a href="javascript:void(0)"

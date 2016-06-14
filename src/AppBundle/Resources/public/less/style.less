@@ -391,7 +391,7 @@ label{
 }
 .user-no3{
   //background: url('../images/user-no-image.png') no-repeat -165px 0;
-  background: #0f2763; /* Old browsers */
+  background: #0f2763;
   background: -moz-linear-gradient(left, #0f2763 0%, #102a65 3%, #122b6b 4%, #122b6b 5%, #152e70 6%, #173575 8%, #1e3b7d 10%, #335998 16%, #4e78b2 22%, #507bb0 22%, #5d8bbc 25%, #6b9bc3 29%, #6f9dbf 29%, #7ca9c8 32%, #8ab1ce 37%, #94bacf 42%, #95bbce 43%, #9ebfd2 47%, #9dc0d4 48%, #a1c2d5 49%, #a3c2d4 50%, #a7c4d6 51%, #a7c4d4 51%, #afcbd7 56%, #b5d1dc 64%, #b2d0db 69%, #aeccd7 70%, #abcdd9 71%, #a7c8d9 73%, #94bed4 78%, #8fbcd1 78%, #86b4cc 80%, #7cadcd 82%, #74a6c7 83%, #5a94c2 87%, #528cba 88%, #4783b9 90%, #4076b2 92%, #3067a7 97%, #2c62a2 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(left, #0f2763 0%,#102a65 3%,#122b6b 4%,#122b6b 5%,#152e70 6%,#173575 8%,#1e3b7d 10%,#335998 16%,#4e78b2 22%,#507bb0 22%,#5d8bbc 25%,#6b9bc3 29%,#6f9dbf 29%,#7ca9c8 32%,#8ab1ce 37%,#94bacf 42%,#95bbce 43%,#9ebfd2 47%,#9dc0d4 48%,#a1c2d5 49%,#a3c2d4 50%,#a7c4d6 51%,#a7c4d4 51%,#afcbd7 56%,#b5d1dc 64%,#b2d0db 69%,#aeccd7 70%,#abcdd9 71%,#a7c8d9 73%,#94bed4 78%,#8fbcd1 78%,#86b4cc 80%,#7cadcd 82%,#74a6c7 83%,#5a94c2 87%,#528cba 88%,#4783b9 90%,#4076b2 92%,#3067a7 97%,#2c62a2 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right, #0f2763 0%,#102a65 3%,#122b6b 4%,#122b6b 5%,#152e70 6%,#173575 8%,#1e3b7d 10%,#335998 16%,#4e78b2 22%,#507bb0 22%,#5d8bbc 25%,#6b9bc3 29%,#6f9dbf 29%,#7ca9c8 32%,#8ab1ce 37%,#94bacf 42%,#95bbce 43%,#9ebfd2 47%,#9dc0d4 48%,#a1c2d5 49%,#a3c2d4 50%,#a7c4d6 51%,#a7c4d4 51%,#afcbd7 56%,#b5d1dc 64%,#b2d0db 69%,#aeccd7 70%,#abcdd9 71%,#a7c8d9 73%,#94bed4 78%,#8fbcd1 78%,#86b4cc 80%,#7cadcd 82%,#74a6c7 83%,#5a94c2 87%,#528cba 88%,#4783b9 90%,#4076b2 92%,#3067a7 97%,#2c62a2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -845,9 +845,7 @@ ul.filter{
   }
 }
 
-.button-lg{
-  width:186px;
-}
+
 
 .btn-transparent{
   background-color:transparent;
@@ -970,6 +968,31 @@ ul li{list-style: none;}
 
 
 .settings{
+  padding:10px;
+  margin-bottom:10px;
+
+  hr{
+    margin: 5px 0;
+  }
+
+  .iradio_minimal-purple.checked{
+    margin-top: 10px;
+    background: url('../images/purple.png') no-repeat -140px 0;
+  }
+
+  h3{
+    margin: 2px 0;
+    font-size: 15px;
+    padding: 0 0 5px;
+    line-height: normal;
+    color: #666666;
+  }
+
+  .control-label{
+    padding-top: 7px;
+    color: #333;
+    font-size: 12px;
+  }
 
   figure{
     padding:30px 0 10px;
@@ -1028,7 +1051,20 @@ ul li{list-style: none;}
   }
 
   label{
-    padding:9px 0;
+    //padding:9px 0;
+
+    &.onoffswitch-label{
+      padding:0;
+      border:1px solid #cccccc;
+
+    }
+  }
+
+  .onoffswitch{
+    .onoffswitch-switch{
+      width:30px;
+      border:1px solid #cccccc;
+    }
   }
 
   .upload{
@@ -1049,6 +1085,7 @@ ul li{list-style: none;}
       color:#666666;
       display: block;
       text-align:left !important;
+      padding-top:8px;
     }
   }
 
@@ -1533,6 +1570,14 @@ footer{
   }
 }
 
+.button-lg{
+  padding: 8px 15px;
+  font-size:12px;
+  margin-right: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1630,6 +1675,14 @@ footer{
     }
   }
 
+  .button-lg{
+    margin-right: 15px;
+    padding: 7px 35px;
+    font-size: 13px;
+  }
+
+
+
   #signin{
     width:210px;
     padding-bottom:20px;
@@ -1707,6 +1760,25 @@ footer{
       .rounded-corners(10px);
     }
   }
+
+
+  .settings{
+    padding: 20px;
+
+    hr{
+      margin: 5px 0 10px;
+    }
+
+    h3{
+      margin: 0 0 5px;
+      font-size: 20px;
+    }
+
+    .control-label{
+      font-size: 14px;
+    }
+  }
+
 
   .standart-pages{
     padding-bottom:10px;
@@ -1975,6 +2047,11 @@ footer{
     }
   }
 
+  .button-lg{
+    width: 186px;
+    padding: 10px 45px;
+    font-size: 14px;
+  }
   h1,h2{
     font-size:48px;
     font-weight:300;
@@ -2009,6 +2086,21 @@ footer{
     h1{
       font-size:52px;
       margin:60px 0 35px;
+    }
+  }
+
+  .settings{
+    margin-bottom: 20px;
+    padding:20px 25px;
+
+    hr{
+      margin:5px 0 20px;
+    }
+
+    h3{
+      margin: 0 0 10px;
+      font-size: 24px;
+      padding:0;
     }
   }
 

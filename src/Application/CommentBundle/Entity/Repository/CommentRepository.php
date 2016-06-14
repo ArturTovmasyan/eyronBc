@@ -31,6 +31,25 @@ class CommentRepository extends EntityRepository implements loggableEntityReposi
     }
 
     /**
+     * This function is used to get last comment by goal(thread) id
+     *
+     * @param $id
+     * @return array
+     */
+    public function findLastCommentByGoalId($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT c.body
+                           FROM ApplicationCommentBundle:Comment c
+                           JOIN c.thread t
+                           WHERE t.id  = :id
+                           ORDER BY c.createdAt DESC")
+            ->setParameter('id', $id)
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
+
+    /**
      * This function is used to get thread by goal(thread) id
      *
      * @param $id
