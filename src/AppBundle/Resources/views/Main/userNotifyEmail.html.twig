@@ -10,7 +10,7 @@
     {% set author = goal.author %}
     {% set email = author.email %}
     {% set slug = goal.slug %}
-    {% set goalUrl = url('inner_goal', {'slug': slug}) %}
+    {% set goalUrl = url('inner_goal', {'slug': slug})~'#'~type %}
     {% set homePageUrl = url('homepage') %}
     {% set profile = url('user_profile', {'user' : user.uId}) %}
 
