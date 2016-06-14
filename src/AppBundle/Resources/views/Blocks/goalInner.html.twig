@@ -273,6 +273,7 @@
                         <hr/>
                         {% if goal.description and not goal.description == '' %}
                             <div class="text-dark-grey goal-info">{{ goal.description|removeTag|markdown }}</div>
+
                         {% endif %}
 
                         {% if goal.videoLink %}
@@ -324,7 +325,7 @@
                             {% set stories = goal.getSuccessStories %}
 
                             {% if stories|length > 0 %}
-
+                                <a name="success_story"></a>
                                 <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
 
                                 {% if stories|length > 2 %}
@@ -463,6 +464,7 @@
                             <br />
 
                             {% if app.user %}
+                                <a name="comments"></a>
                                 <h4>{{ 'comments'|trans }}</h4><hr />
                                 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': goal.id} %}
                             {% endif %}
