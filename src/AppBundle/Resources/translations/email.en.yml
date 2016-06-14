@@ -1,6 +1,6 @@
-notify_comment: %senderName% wrote a <a href = %link%>comment</a> in your goal:
-notify_success_story: %senderName% wrote a <a href = %link%>success story</a> in your goal:
+notify_comment: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href="%link%" style="%style%">comment</a> in your goal:
+notify_success_story: <a style="%profileStyle%" href="%profile%">%senderName%</a> wrote a <a href = %link% class="text-purple">success story</a> in your goal:
 subject_for_comment_email: %senderName% wrote a comment
 subject_for_story_email: %senderName% wrote a success story
-notify_email_footer: This message was sent to %email%. If you don't want to receive these emails from <a href = %homePage%>Bucket List 127</a> in the future, please manage your subscription.
+notify_email_footer: This message was sent to %email%. If you don't want to receive these emails from Bucket List 127 in the future, please manage your subscription.
 email_bucketlist_link: View on Bucket List 127

@@ -8,10 +8,10 @@ angular.module('user', ['Components', 'Interpolation'])
         $timeout(function(){
             angular.element(".settings select").niceSelect();
 
-            angular.element('input[type=radio]').iCheck({
-                radioClass: 'iradio_minimal-purple',
-                increaseArea: '20%'
-            });
+            // angular.element('input[type=radio]').iCheck({
+            //     radioClass: 'iradio_minimal-purple',
+            //     increaseArea: '20%'
+            // });
 
             // angular.element("#settings-form").ajaxForm({
             //     success: function(){
