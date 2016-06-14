@@ -89,7 +89,7 @@ class UserNotifyService
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('eventText' => $commentText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_comment', 'language' => $language)
+            array('eventText' => $commentText, 'goal' => $goal, 'type' => 'comments', 'user' => $user, 'mailText' => 'notify_comment', 'language' => $language)
         );
         
         $this->sendEmail($email, $content, $subject);
@@ -143,7 +143,7 @@ class UserNotifyService
         //generate content for email
         $content = $this->container->get('templating')->render(
             'AppBundle:Main:userNotifyEmail.html.twig',
-            array('eventText' => $storyText, 'goal' => $goal, 'user' => $user, 'mailText' => 'notify_success_story', 'language' => $language)
+            array('eventText' => $storyText, 'goal' => $goal, 'type' => 'success_story', 'user' => $user, 'mailText' => 'notify_success_story', 'language' => $language)
         );
 
         $this->sendEmail($email, $content, $subject);
