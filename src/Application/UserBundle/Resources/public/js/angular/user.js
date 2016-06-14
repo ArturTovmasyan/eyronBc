@@ -4,10 +4,9 @@ angular.module('user', ['Components', 'Interpolation'])
     .controller('SettingController', ['$scope', '$timeout', 'loginPopoverService', '$window', function($scope, $timeout, loginPopoverService, $window){
 
         $scope.errorMessages = [];
+        angular.element(".settings select").niceSelect();
 
         $timeout(function(){
-            angular.element(".settings select").niceSelect();
-
             // angular.element('input[type=radio]').iCheck({
             //     radioClass: 'iradio_minimal-purple',
             //     increaseArea: '20%'
