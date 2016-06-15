@@ -133,7 +133,12 @@ class UserGoalController extends FOSRestController
                 $doDate= \DateTime::createFromFormat('d/m/Y', $doDate);
             }
             catch(\Exception $e){
-                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+                try {
+                    $doDate= \DateTime::createFromFormat('m-d-Y', $doDate);
+                }
+                catch(\Exception $e) {
+                    return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+                }
             }
 
             $userGoal->setDoDate($doDate);
