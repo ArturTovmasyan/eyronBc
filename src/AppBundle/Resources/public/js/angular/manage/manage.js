@@ -36,41 +36,20 @@ angular.module('manage', ['Interpolation',
                         scope.run();
                     });
 
-                    // for non angular events
-                    // el.on('openLsModal', function(event, dataId){
-                    //     if(dataId === scope.lsIdentity){
-                    //         scope.run();
-                    //         scope.$apply();
-                    //     }
-                    // });
-
-                    // for angular events
-                    // scope.$on('openLsModal', function(event, dataId){
-                    //     if(dataId === scope.lsIdentity){
-                    //         scope.run();
-                    //     }
-                    // });
-
                     scope.run = function(){
                         if(scope.lsType == "manage"){
-                            UserGoalDataManager.get({id:id}, {}, function (resource){
+                            UserGoalDataManager.get({id: scope.lsGoalId}, function (resource){
                                 userGoalData.data = resource;
+                                var tmp = $compile(template.addTemplate)(scope);
+                                scope.openModal(tmp);
                             });
                         }
-                        else{
-                            UserGoalDataManager.add({id:scope.lsGoalId}, {}, function (resource){
+                        else {
+                            UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (resource){
                                 userGoalData.data = resource;
-                            });
-                            // $http.get(scope.lsTemplateUrl)
-                            //     .success(function(res){
-                            var tmp = $compile(template.addTemplate)(scope);
+                                var tmp = $compile(template.addTemplate)(scope);
                                 scope.openModal(tmp);
-                            //     .error(function(res, status){
-                            //         if(status === 401) {
-                            //             loginPopoverService.openLoginPopover();
-                            //         }
-                            //     });
-                            // 
+                            });
                         }
                     };
 
@@ -81,13 +60,8 @@ angular.module('manage', ['Interpolation',
                             fadeDuration: 300
                         });
 
-                        // $rootScope.$broadcast('lsJqueryModalOpened' + scope.lsIdentity);
-                        // el.trigger('lsJqueryModalOpened' + scope.lsIdentity);
-
                         tmp.on($.modal.CLOSE, function(){
                             tmp.remove();
-                            // $rootScope.$broadcast('lsJqueryModalClosed' + scope.lsIdentity);
-                            // el.trigger('lsJqueryModalClosed' + scope.lsIdentity);
                         })
                     }
 

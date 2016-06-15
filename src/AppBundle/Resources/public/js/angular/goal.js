@@ -931,19 +931,7 @@ angular.module('goal', ['Interpolation',
                 });
         };
     }])
-    .controller('goalMyBucketList', ['$scope', '$http', '$compile', 'template', 'UserGoalDataManager', 'userGoalData', '$timeout',
-        function($scope, $http, $compile, template, UserGoalDataManager, userGoalData, $timeout){
-
-        angular.element(".manage-modal").click(function(el){
-            var id = el.target.attributes['data-goal-id'].value;
-            UserGoalDataManager.get({id:id}, {}, function (resource){
-                userGoalData.data = resource;
-                $scope.goalSubmitTemplate = template.addTemplate;
-                // $timeout(function(){
-                //     $scope.$broadcast('openLsModal', 'goalManageModal'+id);
-                // },10);
-            });
-        });
+    .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
         
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
