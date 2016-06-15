@@ -75,14 +75,15 @@
                          <a href="{{ path('add_goal', {'id' : goal.id }) }}" type="button" class="btn btn-transparent">
                              {#<i class="icon icon-left"></i>#}
                              <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
-                             {{ 'btn_back_and_edit'|trans }}
+                             {{ 'draft.edit'|trans }}
 
                          </a>
                          <a href="javascript:void(0)"
-                            data-ls-jquery-modal
-                            data-ls-template-url="{{ path('add_to_me_goal', {'id' : goal.id }) }}"
+                            id="goal-create-form"
+                            data-ls-goal-id="{{ goal.id }}"
+                            data-ls-goal-manage
                             class="btn btn-purple"
-                            data-ls-identity="goalPublishModal{{ goal.id }}">{{ 'btn_publish'|trans }}
+                            data-ls-type="add">{{ 'goal.publish'|trans }}
                              {#<i class="icon icon-right"></i>#}
                              <i class="icon-arrow-right"></i>
                          </a>

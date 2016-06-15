@@ -179,7 +179,7 @@ class GoalController extends Controller
         }
         
         $slug = $request->get('slug', null);
-        $isPrivate = ($slug == "drafts" || $slug == null)?false:true;
+        $isPrivate = ($slug == "drafts" )?false:true;
 
         return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $cloneGoalId);
     }
