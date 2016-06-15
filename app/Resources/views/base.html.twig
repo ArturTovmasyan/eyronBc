@@ -94,17 +94,19 @@
              data-ls-template='{{ include('AppBundle:Blocks:mobileModal.html.twig') }}'>
         </div>
 
-        {% set addUrl = getSession('addUrl') %}
+        {% set goalAction = getSession('goal_action') %}
 
+        <img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>
 
-        {% if app.user and addUrl is not null %}
-            <img src="{{ asset('bundles/app/images/loading.gif') }}" style="position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="not-login-modal-loading"/>
-            <div data-ls-jquery-modal
-                 style="display: none"
-                 class="not-login-modal"
-                 data-ls-identity="notLoginModal"
-                 data-ls-template-url="{{ addUrl }}">
-            </div>
+        {{ dump(goalAction) }}
+        {% if app.user and goalAction is not null %}
+            {% if goalAction['action'] == "rest_put_usergoal" %}
+                <div data-ls-goal-manage
+                     style="display: none"
+                     data-ls-initial-run="true"
+                     data-ls-goal-id="{{ goalAction['goal_id'] }}">
+                </div>
+            {% endif %}
         {% endif %}
 
         {% block body %}
@@ -328,18 +330,6 @@
                 {% if error is not null  %}
                     setTimeout(openSettingsModal, 500);
                 {% endif %}
-
-                $(document).ready(function(){
-                    {% if addUrl is not null %}
-                        setTimeout(function(){
-                            $(".not-login-modal").trigger('openLsModal', 'notLoginModal');
-
-                            $(".not-login-modal").on('lsJqueryModalOpenednotLoginModal', function(){
-                                $(".not-login-modal-loading").hide();
-                            })
-                        }, 1000);
-                    {% endif %}
-                });
 
             </script>
 

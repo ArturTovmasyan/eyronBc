@@ -157,6 +157,9 @@ class UserGoalController extends FOSRestController
 
             $userGoal->setDoDate($doDate);
         }
+        if($request->get('goal_status')){
+            $userGoal->setCompletionDate(new \DateTime('now'));
+        }
 
         $em->persist($userGoal);
         $em->flush();
