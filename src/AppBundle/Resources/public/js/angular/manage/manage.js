@@ -23,30 +23,36 @@ angular.module('manage', ['Interpolation',
         'template',
         'userGoalData',
         'UserGoalDataManager',
-        function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager){
+        '$timeout',
+        function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager, $timeout){
             return {
                 restrict: 'EA',
                 scope: {
                     lsGoalId: '@',
-                    lsType: '@'
+                    lsInitialRun: '='
                 },
                 link: function(scope, el){
+
+                    console.log(scope);
+
+                    if(scope.lsInitialRun){
+                        $timeout(scope.run, 1000);
+                    }
 
                     el.bind('click', function(){
                         scope.run();
                     });
 
                     scope.run = function(){
-                        if(scope.lsType == "manage"){
-                            UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
-                                scope.runCallback(uGoal);
-                            });
-                        }
-                        else {
-                            UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
-                                scope.runCallback(uGoal);
-                            });
-                        }
+                        $(".modal-loading").show();
+
+                        UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
+                            scope.runCallback(uGoal);
+                        }, function(res){
+                            if(res.status === 401){
+                                loginPopoverService.openLoginPopover();
+                            }
+                        });
                     };
 
                     scope.runCallback = function(uGoal){
@@ -57,9 +63,11 @@ angular.module('manage', ['Interpolation',
 
                         var tmp = $compile(template.addTemplate)(scope);
                         scope.openModal(tmp);
+                        $(".modal-loading").hide();
                     };
 
                     scope.openModal = function(tmp){
+
                         angular.element('body').append(tmp);
                         tmp.modal({
                             fadeDuration: 300
