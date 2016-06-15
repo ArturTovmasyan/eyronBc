@@ -79,6 +79,18 @@ Feature: Goal page
     When I follow "EDIT"
     Then I should see "TEST GOALS"
 
+  @javascript @createDraft
+  Scenario: Create drafts
+    When I follow "user1"
+    And I follow "Create Goal"
+    Then I should see "user1"
+    When I fill in "app_bundle_goal[title]" with "TEST GOALS"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
+    And I scroll page to "top"
+    And I press "btn_save_draft"
+    And I wait for angular
+    Then I should be on "/goal/my-ideas/drafts"
+
   @javascript @doneGoal
   Scenario: Done a goal
     When I follow "user1"
