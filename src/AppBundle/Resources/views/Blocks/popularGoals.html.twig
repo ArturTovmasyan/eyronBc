@@ -64,7 +64,7 @@
                             <li class="col-xs-6 ng-hide" data-ng-show="!goal.is_my_goal && completed">
                                 <a href="javascript:void(0)"
                                    data-ls-jquery-modal
-                                   data-ng-click=" goal.is_my_goal = 1 ; refreshCache('{{ user.id }}', goal.id) {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
+                                   data-ng-click=" goal.is_my_goal = 1 ; addGoal(goal.id); refreshCache('{{ user.id }}', goal.id) {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
                                    data-ls-identity="idea[[ ::goal.id ]]"
                                    data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ ::goal.id ]]">
 

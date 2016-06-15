@@ -913,9 +913,19 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', 'UserGoalDataManager', 'userGoalData', 'template',
+        function($scope, $http, refreshCacheService, $timeout, loginPopoverService, UserGoalDataManager, userGoalData, template){
         $scope.completed = true;
 
+        $scope.addGoal = function (id) {
+            UserGoalDataManager.add({id:id}, {}, function (resource){
+                userGoalData.data = resource;
+                $scope.goalSubmitTemplate = template.addTemplate;
+                // $timeout(function(){
+                //     $scope.$broadcast('openLsModal', 'idea'+id);
+                // },10);
+            });
+        };
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
         };
@@ -948,9 +958,9 @@ angular.module('goal', ['Interpolation',
             UserGoalDataManager.getGoal({id:id}, {}, function (resource){
                 userGoalData.data = resource;
                 $scope.goalSubmitTemplate = template.addTemplate;
-                $timeout(function(){
-                    $scope.$broadcast('openLsModal', 'goalManageModal'+id);
-                },10);
+                // $timeout(function(){
+                //     $scope.$broadcast('openLsModal', 'goalManageModal'+id);
+                // },10);
             });
         });
         
