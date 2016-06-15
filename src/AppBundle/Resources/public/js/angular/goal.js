@@ -598,8 +598,11 @@ angular.module('goal', ['Interpolation',
                   }
               });
 
-              var priority = $scope.getUrgentImportant($scope.userGoal.priority);
-
+              var ui = $scope.getUrgentImportant(parseInt($scope.userGoal.priority));
+              if(ui){
+                  $scope.userGoal.urgent    = ui.urgent;
+                  $scope.userGoal.important = ui.important;
+              }
 
               UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
                   angular.element('#cancel').click();
@@ -652,7 +655,7 @@ angular.module('goal', ['Interpolation',
                 var target = angular.element(event.target);
                 angular.element(".priority-radio").removeClass('active-important');
                 target.parents().closest('.priority-radio').addClass('active-important');
-
+                $scope.userGoal.priority = target.val();
                 target.trigger('change');
             });
         }, 100);
