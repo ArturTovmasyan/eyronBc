@@ -1,6 +1,6 @@
 <ul class="row {% if inner is defined %} goal-links {% endif %} ">
         <li class="col-xs-6">
-            <a href="{{ path('add_goal', {'id': goal.id }) }}">
+            <a href="{{ path('add_goal', {'id': goal.id, 'slug': slug }) }}">
                 <i class="icon-manage-in-circle"><span class="path1"></span><span class="path2"></span></i>
                 <span class="text">{{ 'btn_edit'|trans | capitalize}}</span>
             </a>

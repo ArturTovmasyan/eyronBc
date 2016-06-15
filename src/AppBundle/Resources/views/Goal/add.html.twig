@@ -53,15 +53,17 @@
                              <button type="submit" data-ng-disabled="disablePreview" class="btn btn-transparent goal-view-submit" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
+                             {% if not isPrivate %}
                              <button type="submit" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
-                                 <span>Save as a Draft</span>
+                                 <span>{% if id %}{{ 'draft.edit'|trans }}{% else %}{{ 'draft.create'|trans }}{% endif %}</span>
                              </button>
+                             {% endif %}
                              <button type="submit"
                                  data-ls-jquery-modal
                                  data-ls-identity="goalSave"
                                  data-ls-template="[[ ::goalSubmitTemplate ]]"
                                  class="btn btn-purple goal-create-submit"
-                                 name="btn_publish">{% if app.request.get('id') %}{{ 'goal.edit'|trans }}{% else %}{{ 'goal.publish'|trans }}{% endif %}
+                                 name="btn_publish">{% if id and isPrivate%}{{ 'goal.edit'|trans }}{% else %}{{ 'goal.publish'|trans }}{% endif %}
                                  <i class="icon-arrow-right"></i>
                              </button>
                          </div>
