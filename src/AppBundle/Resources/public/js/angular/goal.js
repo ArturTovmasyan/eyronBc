@@ -416,6 +416,7 @@ angular.module('goal', ['Interpolation',
       function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager){
 
         $scope.userGoal = userGoalData.data;
+        angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
         $scope.GoalConstant = GoalConstant;
         $scope.UserGoalConstant = UserGoalConstant;
 
@@ -896,16 +897,6 @@ angular.module('goal', ['Interpolation',
     .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', 'UserGoalDataManager', 'userGoalData', 'template',
         function($scope, $http, refreshCacheService, $timeout, loginPopoverService, UserGoalDataManager, userGoalData, template){
         $scope.completed = true;
-
-        $scope.addGoal = function (id) {
-            UserGoalDataManager.add({id:id}, {}, function (resource){
-                userGoalData.data = resource;
-                $scope.goalSubmitTemplate = template.addTemplate;
-                // $timeout(function(){
-                //     $scope.$broadcast('openLsModal', 'idea'+id);
-                // },10);
-            });
-        };
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
         };
