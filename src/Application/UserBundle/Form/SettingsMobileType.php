@@ -37,6 +37,11 @@ class SettingsMobileType extends AbstractType
             ->add('primary', 'email', array('required' => false))
             ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
             ->add('file', 'file', array('required' => false))
+            ->add('isCommentNotify', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isSuccessStoryNotify', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isCommentPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isSuccessStoryPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isProgressPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
         ;
     }
 
@@ -49,7 +54,6 @@ class SettingsMobileType extends AbstractType
             'data_class' => 'Application\UserBundle\Entity\User',
             'validation_groups' => 'MobileSettings',
             'csrf_protection' => false,
-
         ));
     }
 

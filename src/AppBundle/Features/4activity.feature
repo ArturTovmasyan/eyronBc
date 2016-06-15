@@ -138,11 +138,13 @@ Feature: Activity
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
+    And I am on "/profile"
     And I click on "icon-question-icon"
     And I wait for angular
     And I follow "Upload an image"
     And I wait for angular
-    And I follow "Cancel"
+    And I am on "/profile"
+    And I click on "icon-question-icon"
     And I wait for angular
     And I follow "Add some goals"
     Then I should be on "/goal/create"

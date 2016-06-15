@@ -23,23 +23,6 @@ parameters:
         with: 1280
         height: 720
 
-    # event for google analytics
-    event_add_goal: '&t=event&ec=Goal&ea=Add&el=Add%%20goal'
-    event_done_goal: '&t=event&ec=Goal&ea=Done&el=Done%%20goal'
-    event_create_goal: '&t=event&ec=Goal&ea=Create&el=Create%%20goal'
-    event_remove_goal: '&t=event&ec=Goal&ea=Remove&el=Remove%%20goal'
-    event_create_story: '&t=event&ec=Success%%20story&ea=Create&el=Create%%20story'
-    event_login_user: '&t=event&ec=User&ea=Login&el=Login'
-    event_facebook_login_user: '&t=event&ec=User&ea=Login&el=Facebook%%20login'
-    event_google_login_user: '&t=event&ec=User&ea=Login&el=Google%%20login'
-    event_twitter_login_user: '&t=event&ec=User&ea=Login&el=Twitter%%20login'
-    event_user_registration: '&t=event&ec=User&ea=Registration&el=Registration'
-    event_facebook_registration: '&t=event&ec=User&ea=Registration&el=Facebook%%20registration'
-    event_google_registration: '&t=event&ec=User&ea=Registration&el=Google%%20registration'
-    event_twitter_registration: '&t=event&ec=User&ea=Registration&el=Twitter%%20registration'
-    event_unlist_goal: '&t=event&ec=Goal&ea=Unlist&el=Unlist%%20goal'
-    event_comment: '&t=event&ec=Comment&ea=Add&el=Add%%20comments'
-
 framework:
     esi:            { enabled: true }
     fragments:      { path: /_proxy }
@@ -55,7 +38,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v321
+        assets_version: v328
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -139,6 +122,9 @@ doctrine:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+            string_functions:
+                match_against: AppBundle\Extensions\Doctrine\MatchAgainst
+
         filters:
             # An array of filters
             publish_filter:
@@ -368,7 +354,7 @@ rms_push_notifications:
       timeout: 60 # Seconds to wait for connection timeout, default is 60
       sandbox: false
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
-      pem: %kernel.root_dir%/Certificates/luvbyrdProd.pem
+      pem: %kernel.root_dir%/Certificates/production_Certificates.p12
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
 
 genemu_form:

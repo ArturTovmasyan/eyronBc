@@ -9,9 +9,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\ActivityableInterface;
-use AppBundle\Model\ArchivedGoal;
 use AppBundle\Model\ArchivedGoalInterface;
-use AppBundle\Model\MergeGoal;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -23,12 +21,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use AppBundle\Validator\Constraints as AppAssert;
-use Gedmo\Mapping\Annotation\Blameable;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\GoalRepository")
  * @ORM\Table(name="goal", indexes={
- *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"})
+ *          @ORM\Index(name="search", columns={"language", "publish", "title", "updated"}),
+ *          @ORM\Index(name="fulltext_index_title", columns={"title"}, flags={"fulltext"}),
+ *          @ORM\Index(name="fulltext_index_description", columns={"description"}, flags={"fulltext"}),
+ *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
  * })
  */
 class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface
@@ -45,9 +45,6 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     // constants for inner page
     const INNER = "inner";
     const VIEW = "view";
-    
-    const COMMENT = 0;
-    const STORY = 1;
 
     // use location trait
     use Location;
@@ -198,7 +195,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true, nullable=false)
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_goal", "userGoal_goal"})
      */
     protected $slug;
 
@@ -1046,12 +1043,12 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * This function is used to check goal has author for notify
      * 
-     * @param null $senderName
+     * @param $userId
      * @return bool
      */
-    public function hasAuthorForNotify($senderName)
+    public function hasAuthorForNotify($userId)
     {
-        if(($this->getAuthor() != null) && (!$this->getAuthor()->isAdmin()) && ($this->getAuthor()->showName() !== $senderName)) {
+        if(($this->getAuthor()) && (!$this->getAuthor()->isAdmin()) && ($this->getAuthor()->getId() !== $userId)) {
             return true;
         }
         

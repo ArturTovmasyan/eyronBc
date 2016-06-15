@@ -36,11 +36,6 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
     private $router;
 
     /**
-     * @var GoogleAnalyticService
-     */
-    private $analytic;
-
-    /**
      * @var Session
      */
     private $session;
@@ -49,11 +44,9 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      * AuthenticationHandler constructor.
      * @param Session|null $session
      * @param Router|null $router
-     * @param GoogleAnalyticService|null $analytic
      */
-    public function __construct(Session $session = null, Router $router = null, GoogleAnalyticService $analytic = null)
+    public function __construct(Session $session = null, Router $router = null)
     {
-        $this->analytic      = $analytic;
         $this->router        = $router;
         $this->session       = $session;
     }
@@ -70,20 +63,6 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
         //get session
         $session = $request->getSession();
-
-        //get social name for user login
-        $social = $user->getSocialsName();
-
-        //check if social exists
-        if($social) {
-
-            //send login user by social event in google analytics
-            $this->analytic->loginUserBySocialEvent($social);
-        }
-        else{
-            //send login user event in google analytics
-            $this->analytic->loginUserEvent();
-        }
 
         //check if user and session url exist
         if ($user && $session->has('url') && !$user->isAdmin()) {
@@ -177,28 +156,23 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
         //get url
         $url = $request->getUri();
+        //get last url
+        $referrerUrl = $request->headers->get('referer');
 
-        //check if route name is done_goal
-        if ($routeName == "done_goal") {
 
-            //set url in session
-            $request->getSession()->set('url', $url);
-        }
+        //set url in session
+        $request->getSession()->set('url', $url);
 
         //check if route nam is current list
         if ($routeName == "add_to_me_goal" ||
-            $routeName == "settings"       ||
             $routeName == "add_story"      ||
             $routeName == "add_goal") {
 
             //check if route don`t add_goal
             if ($routeName !== "add_goal") {
 
-                //get last url
-                $redirectUrl = $request->headers->get('referer');
-
                 //set url in session
-                $request->getSession()->set('url', $redirectUrl);
+                $request->getSession()->set('url', $referrerUrl);
 
                 //set url in session
                 $request->getSession()->set('addUrl', $url);
@@ -207,8 +181,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
-        //generate homepage url for redirect
-        $loginPath = $this->router->generate('homepage');
+        $loginPath = $referrerUrl;
+        if (!$loginPath){
+            //generate homepage url for redirect
+            $loginPath = $this->router->generate('homepage');
+        }
 
         return new RedirectResponse($loginPath);
     }

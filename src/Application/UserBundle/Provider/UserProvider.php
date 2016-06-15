@@ -33,19 +33,13 @@ class UserProvider extends  BaseProvider
     protected $userManager;
 
     /**
-     * @var GoogleAnalyticService
-     */
-    protected $analytic;
-
-    /**
      * Constructor
      *
      * @param UserManagerInterface $userManager
      */
-    public function __construct(UserManagerInterface $userManager, GoogleAnalyticService $analytic)
+    public function __construct(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
-        $this->analytic = $analytic;
     }
 
     /**
@@ -158,11 +152,6 @@ class UserProvider extends  BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
-            //get registration social name
-            $socialName = $user->getSocialsName();
-
-            //send login user by social event in google analytics
-            $this->analytic->registrationUserBySocialEvent($socialName);
         }
 
         return $user;
@@ -217,12 +206,6 @@ class UserProvider extends  BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
-            //get registration social name
-            $socialName = $user->getSocialsName();
-
-            //send login user by social event in google analytics
-            $this->analytic->registrationUserBySocialEvent($socialName);
-
         }
 
         return $user;
@@ -271,12 +254,6 @@ class UserProvider extends  BaseProvider
 
             // update user
             $this->userManager->updateUser($user);
-
-            //get registration social name
-            $socialName = $user->getSocialsName();
-
-            //send login user by social event in google analytics
-            $this->analytic->registrationUserBySocialEvent($socialName);
 
         }
 
