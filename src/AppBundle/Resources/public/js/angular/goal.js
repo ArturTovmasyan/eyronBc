@@ -945,7 +945,7 @@ angular.module('goal', ['Interpolation',
 
         angular.element(".manage-modal").click(function(el){
             var id = el.target.attributes['data-goal-id'].value;
-            UserGoalDataManager.manage({id:id}, {}, function (resource){
+            UserGoalDataManager.getGoal({id:id}, {}, function (resource){
                 userGoalData.data = resource;
                 $scope.goalSubmitTemplate = template.addTemplate;
                 $timeout(function(){
