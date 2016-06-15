@@ -54,7 +54,7 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="status", type="smallint", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $status;
+    protected $status = self::ACTIVE;
 
     /**
      * @var
@@ -68,14 +68,14 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="urgent", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $urgent;
+    protected $urgent = false;
 
     /**
      * @var
      * @ORM\Column(name="important", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $important;
+    protected $important = false;
 
     /**
      * @var

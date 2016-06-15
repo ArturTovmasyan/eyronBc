@@ -104,10 +104,29 @@ class UserGoalController extends FOSRestController
             $userGoal->setUser($this->getUser());
         }
 
-        $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
-        $userGoal->setIsVisible($request->get('is_visible') ? true : false);
-        $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
-        $userGoal->setNote($request->get('note') ? $request->get('note') : null);
+        if (!is_null($request->get('goal_status'))){
+            $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+        }
+
+        if (!is_null($request->get('is_visible'))){
+            $userGoal->setIsVisible($request->get('is_visible') ? true : false);
+        }
+
+        if (!is_null($request->get('steps'))){
+            $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+        }
+
+        if (!is_null($request->get('note'))){
+            $userGoal->setNote($request->get('note'));
+        }
+
+        if (!is_null($request->get('urgent'))){
+            $userGoal->setUrgent($request->get('urgent') ? true : false);
+        }
+
+        if (!is_null($request->get('important'))){
+            $userGoal->setImportant($request->get('important') ? true : false);
+        }
 
         $location = $request->get('location');
         if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
@@ -116,16 +135,13 @@ class UserGoalController extends FOSRestController
             $userGoal->setLng($location['longitude']);
         }
 
-        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT ){
+        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT){
             // set status to publish
             $goal->setReadinessStatus(Goal::TO_PUBLISH);
             $em->persist($goal);
         }
 
         $userGoal->setListedDate(new \DateTime());
-
-        $userGoal->setUrgent($request->get('urgent') ? true : false);
-        $userGoal->setImportant($request->get('important') ? true : false);
 
         $doDateRaw = $request->get('do_date');
         if($doDateRaw){

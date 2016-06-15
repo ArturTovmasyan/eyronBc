@@ -152,7 +152,6 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $request->getSession()->set('url', $url);
 
         $routeNames = [
-            "rest_get_usergoal",
             "rest_put_usergoal"
         ];
 
