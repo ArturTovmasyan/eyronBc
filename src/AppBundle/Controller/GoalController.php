@@ -877,49 +877,50 @@ class GoalController extends Controller
 
     /**
      * @Route("goal/remove-goal/{goal}/{user}", name="remove_goal")
+     * @Route("goal/remove-user-goal/{userGoal}", name="remove_user_goal")
      *
-     * @param Goal $goal
-     * @param User $user
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @ParamConverter("user", class="ApplicationUserBundle:User")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @ParamConverter("userGoal", class="AppBundle:UserGoal", options={"repository_method"="findByIdWithRelations"} )
      * @Secure(roles="ROLE_USER")
      *
+     * @param UserGoal|null $userGoal
+     * @param Goal|null $goal
+     * @param User|null $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|HttpException
      */
-    public  function removeGoal(Goal $goal, User $user)
+    public  function removeGoal(UserGoal $userGoal = null, Goal $goal = null, User $user = null)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
-
-        //check if user goal exist and 1
-        if(!is_null($userGoal)) {
-            
-            //remove from bd
-            $em->remove($userGoal);
+        if(is_null($userGoal)){
+            $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
         }
 
-        //check if goal author this user
-        if ($goal->isAuthor($user)) {
+        if(is_null($userGoal)) {
+            return new HttpException(Response::HTTP_NOT_FOUND, "User goal not found");
+        }
 
-            //remove goal
+        $goal = $userGoal->getGoal();
+        $user = $userGoal->getUser();
+
+        if($user->getId() != $this->getUser()->getId()){
+            return new HttpException(Response::HTTP_FORBIDDEN, "It isn't your user goal");
+        }
+
+        $em->remove($userGoal);
+
+        if ($goal->isAuthor($user) && !$goal->getPublish()) {
             $em->remove($goal);
         }
 
-        //set myBucketList route name
-        $url = 'user_profile';
-
         if ($user->getActivity()){
-            //check and set user activity by new feed count
             $this->get('bl_service')->setUserActivity($user, $inLogin = false);
         }
-        else {
-            $em->flush();
-        }
 
-        return $this->redirectToRoute($url);
+        $em->flush();
+
+        return $this->redirectToRoute('user_profile');
     }
 
     /**
