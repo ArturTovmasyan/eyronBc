@@ -159,7 +159,9 @@ class DoctrineListener
             if (is_object($user)) {
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status']) && $changeSet['status'][1] = UserGoal::COMPLETED) {
-                    $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $entity->getGoal());
+                    $goal = $entity->getGoal();
+                    $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+                    $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
                     $em->persist($newFeed);
                     $em->flush();
                 }
@@ -224,6 +226,8 @@ class DoctrineListener
             }
 
             if (!is_null($action)) {
+                $goal = $entity->getGoal();
+                $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                 return $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
             }
         }

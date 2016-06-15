@@ -51,6 +51,20 @@ class NewFeed
     protected $goal;
 
     /**
+     * @ORM\Column(name="listed_by", type="integer", nullable=false)
+     *
+     * @Groups({"new_feed"})
+     */
+    protected $listedBy;
+
+    /**
+     * @ORM\Column(name="completed_by", type="integer", nullable=false)
+     *
+     * @Groups({"new_feed"})
+     */
+    protected $completedBy;
+
+    /**
      * @ORM\Column(name="action", type="smallint")
      * @Groups({"new_feed"})
      */
@@ -191,6 +205,10 @@ class NewFeed
     {
         $this->goal = $goal;
 
+        $stats = $goal->getStats();
+        $this->listedBy    = isset($stats['listedBy']) ? $stats['listedBy'] : 0;
+        $this->completedBy = isset($stats['doneBy'])   ? $stats['doneBy']   : 0;
+
         return $this;
     }
 
@@ -294,5 +312,53 @@ class NewFeed
     public function getLog()
     {
         return $this->log;
+    }
+
+    /**
+     * Set listedBy
+     *
+     * @param integer $listedBy
+     *
+     * @return NewFeed
+     */
+    public function setListedBy($listedBy)
+    {
+        $this->listedBy = $listedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get listedBy
+     *
+     * @return integer
+     */
+    public function getListedBy()
+    {
+        return $this->listedBy;
+    }
+
+    /**
+     * Set completedBy
+     *
+     * @param integer $completedBy
+     *
+     * @return NewFeed
+     */
+    public function setCompletedBy($completedBy)
+    {
+        $this->completedBy = $completedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get completedBy
+     *
+     * @return integer
+     */
+    public function getCompletedBy()
+    {
+        return $this->completedBy;
     }
 }
