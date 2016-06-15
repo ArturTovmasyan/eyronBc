@@ -13,7 +13,7 @@
     <div>
 
         <h2  class="{% if goal.title|length > 35 %}title-smaller {% endif %}{% if goal.author.showName is not defined or goal.author.showName is null %}title-top {% endif  %}">
-            {{ goal.title }}
+            <span>{{ goal.title }}</span>
         </h2>
 
         {% if user and author and user.id == author.id %}
