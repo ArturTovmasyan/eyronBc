@@ -58,6 +58,6 @@
 {% if not app.user and (isMobile() or
        (app.session.flashBag.peekAll|length and
         app.session.flashBag.peekAll['error'] is defined and
-        app.session.flashBag.peekAll['error'][0] is not null)) %}
+        app.session.flashBag.get('error') is not null)) %}
     <div data-open-popover></div>
 {% endif %}
