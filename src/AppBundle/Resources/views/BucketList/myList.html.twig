@@ -250,10 +250,9 @@
                                                     <div class="row">
                                                         <div class="col-xs-5">
                                                             <a href="javascript:void(0)"
-                                                               data-goal-id="{{ goal.id }}"
-                                                               data-ls-jquery-modal
-                                                               data-ls-template="[[ ::goalSubmitTemplate ]]"
-                                                               data-ls-identity="goalManageModal{{ goal.id }}"
+                                                               data-ls-goal-id="{{ goal.id }}"
+                                                               data-ls-goal-manage
+                                                               data-ls-type="manage"
                                                                class="text-gray manage-modal">
                                                                 <i class="icon-manage"></i>
                                                                 <span>{{ 'manage'|trans | capitalize }}</span>

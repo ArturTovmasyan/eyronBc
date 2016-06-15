@@ -127,13 +127,16 @@ class UserGoalController extends FOSRestController
         $userGoal->setUrgent($request->get('urgent') ? true : false);
         $userGoal->setImportant($request->get('important') ? true : false);
 
-        $doDate = $request->get('do_date');
-        if($doDate){
-            try {
-                $doDate= \DateTime::createFromFormat('d/m/Y', $doDate);
+        $doDateRaw = $request->get('do_date');
+        if($doDateRaw){
+            $doDate = \DateTime::createFromFormat('d/m/Y', $doDateRaw);
+
+            if(!$doDate){
+                $doDate = \DateTime::createFromFormat('m-d-Y', $doDateRaw);
             }
-            catch(\Exception $e){
-                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+            if(!$doDate){
+                return new Response('Error do date', Response::HTTP_BAD_REQUEST);
             }
 
             $userGoal->setDoDate($doDate);

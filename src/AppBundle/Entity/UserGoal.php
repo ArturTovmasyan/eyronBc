@@ -484,6 +484,9 @@ class UserGoal implements ActivityableInterface
      * This function is used to return json location for twig
      *
      * @return string
+     * @VirtualProperty()
+     * @SerializedName("formatted_steps")
+     * @Groups({"userGoal"})
      */
     public function getStepsJson()
     {
@@ -500,7 +503,7 @@ class UserGoal implements ActivityableInterface
         else{
             $result[] = array();
         }
-        return json_encode($result);
+        return $result;
     }
 
     /**
