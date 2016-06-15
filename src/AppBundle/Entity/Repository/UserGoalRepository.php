@@ -179,6 +179,24 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
     }
 
     /**
+     * @param $userGoal
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByIdWithRelations($userGoal)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ug, g, author
+                           FROM AppBundle:UserGoal ug
+                           JOIN ug.goal g
+                           LEFT JOIN g.author author
+                           WHERE ug.id = :userGoalId")
+            ->setParameter('userGoalId', $userGoal)
+            ->getSingleResult();
+    }
+    
+    /**
      * @param $userId
      * @return array
      */
