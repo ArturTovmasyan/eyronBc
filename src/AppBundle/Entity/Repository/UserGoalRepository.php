@@ -14,6 +14,8 @@ use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /**
@@ -211,5 +213,49 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
             ->useResultCache(true, 24 * 3600, 'user_goal_' . $userId)
             ->setParameter('userId', $userId)
             ->getResult();
+    }
+
+    /**
+     * @param $currentUserId
+     * @param null $userGoalId
+     * @param null $userId
+     * @param null $goalId
+     * @return bool|HttpException
+     */
+    public function removeUserGoal($currentUserId, $userGoalId = null, $userId = null, $goalId = null)
+    {
+        if (is_null($userGoalId) ^ (is_null($goalId) && is_null($userId))){
+            throw new HttpException(Response::HTTP_BAD_REQUEST);
+        }
+
+        $em = $this->getEntityManager();
+
+        if (is_null($userGoalId)){
+            $userGoal = $this->findByUserAndGoal($userId, $goalId);
+        }
+        else {
+            $userGoal = $this->findByIdWithRelations($userGoalId);
+        }
+
+        if(is_null($userGoal)) {
+            return new HttpException(Response::HTTP_NOT_FOUND, "User goal not found");
+        }
+
+        $goal = $userGoal->getGoal();
+        $user = $userGoal->getUser();
+
+        if($user->getId() != $currentUserId){
+            return new HttpException(Response::HTTP_FORBIDDEN, "It isn't your user goal");
+        }
+
+        $em->remove($userGoal);
+
+        if ($goal->isAuthor($user) && !$goal->getPublish()){
+            $em->remove($goal);
+        }
+
+        $em->flush();
+
+        return true;
     }
 }

@@ -168,16 +168,10 @@ class UserGoalController extends FOSRestController
      * @param $userGoal
      * @return Response
      */
-    public function deleteAction(UserGoal $userGoal)
+    public function deleteAction($userGoal)
     {
-        if ($userGoal->getUser()->getId() != $this->getUser()->getId()){
-            return new Response("It isn't current user's userGoal", Response::HTTP_BAD_REQUEST);
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $em->remove($userGoal);
-
-        $em->flush();
+        $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoal);
 
         return new Response('', Response::HTTP_OK);
     }
