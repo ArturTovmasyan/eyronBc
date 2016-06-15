@@ -3,6 +3,7 @@
 angular.module('goal')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', function($resource, envPrefix, $analytics){
     return $resource( envPrefix + 'api/v1.0/usergoals/:id/:where/:what', {}, {
+      getGoal: {method:'GET'},
       creates: {method:'PUT', transformResponse: function (object) {
           $analytics.eventTrack('Goal create', {  category: 'Goal', label: 'Goal create from Web' });
           return angular.fromJson(object);
