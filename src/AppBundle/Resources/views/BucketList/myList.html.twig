@@ -192,11 +192,13 @@
                                                     </div>
                                                 </div>
 
-                                                <p>
-                                                    {% if goal.author and goal.author.id != profileUser.id %}
-                                                        <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-gray">{{ goal.author.showName }} </a>
-                                                    {% endif %} &nbsp;
-                                                </p>
+
+                                                    <p>
+                                                        {% if goal.author and goal.author.id != profileUser.id %}
+                                                            <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-gray">{{ goal.author.showName }} </a>
+                                                        {% endif %}
+                                                    </p>
+
 
                                                 <ul class="clearfix">
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
@@ -253,7 +255,7 @@
                                                                data-ls-identity="goalManageModal{{ goal.id }}"
                                                                class="text-gray">
                                                                 <i class="icon-manage"></i>
-                                                                {{ 'manage'|trans | capitalize }}
+                                                                <span>{{ 'manage'|trans | capitalize }}</span>
                                                             </a>
 
                                                         </div>
@@ -333,11 +335,11 @@
                 <div class="right-block">
                     <div class="right-menu">
                         <div class="row">
-                            <div class="col-xs-8">
+                            <div class="col-xs-7">
                                 <i class="icon-creat-icon"></i>
                                 <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
                             </div>
-                            <div class="col-xs-4 text-right">
+                            <div class="col-xs-5 text-right">
                                 {% if profileUser.id == app.user.id %}
                                     <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
                                 {% endif %}
@@ -346,7 +348,7 @@
                         <hr/>
 
                         <div class="row padding-top">
-                            <div class="col-xs-9">
+                            <div class="col-xs-12">
                                 <span>
                                     <i class="icon-suggest-icon"></i>
                                     <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>

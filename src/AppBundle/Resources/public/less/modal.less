@@ -323,10 +323,9 @@ a.close-modal{
   }
 
   h2{
-    background-color: #021523;
+
     color:#ffffff;
-    padding:0 5px;
-    margin:10px 0 0 10px;
+    margin:10px 0 5px 10px;
     font-size: 18px;
     white-space: normal;
     word-wrap: break-word;
@@ -334,7 +333,13 @@ a.close-modal{
     height: 30px;
     width:260px;
     overflow: hidden;
-    display: inline-block;
+    padding: 0;
+
+    span{
+      background-color: #021523;
+      display: inline-block;
+      padding:0 5px 5px;
+    }
   }
 
   h1{
@@ -346,13 +351,13 @@ a.close-modal{
     background-color: #021523;
     color:#ffffff;
     font-size:12px;
-    padding:5px 20px;
+    padding:5px 10px;
     display: inline-block;
-    margin:0 0 10px 25px;
+    margin:0 0 5px 10px;
   }
 
   ul{
-    padding: 0 0 0 35px;
+    padding: 0 0 0 15px;
     li{
       display: inline-block;
     }
@@ -607,25 +612,23 @@ a.close-modal{
     height:260px;
     a{
       font-size:16px;
-
       span{
         margin-left:10px;
       }
-
     }
-
-
 
     h2{
       width: auto;
       height: auto;
-      padding:10px;
-      //margin:130px 0 5px 30px;
       margin:0 0 5px 30px;
       font-size: 25px;
+
+      span{
+        padding:10px 30px;
+      }
     }
+
     h2.title-smaller{
-      //margin:110px 0 5px 30px;
       margin:0 0 5px 30px;
     }
 
@@ -645,7 +648,7 @@ a.close-modal{
     }
 
     ul{
-      padding: 0 0 0 30px;
+      padding: 0 0 0 35px;
       li{
         margin-right:15px;
       }
