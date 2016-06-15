@@ -565,7 +565,7 @@ angular.module('goal', ['Interpolation',
                               parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                               angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                           } else {
-                              if(doDate){
+                              if($scope.userGoal.do_date){
                                   parentScope['change' + $scope.userGoal.goal.id] = 2;
                                   parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                                   angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
@@ -603,6 +603,8 @@ angular.module('goal', ['Interpolation',
                   $scope.userGoal.urgent    = ui.urgent;
                   $scope.userGoal.important = ui.important;
               }
+
+              $scope.userGoal.goal_status = $scope.complete.switch;
 
               UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
                   angular.element('#cancel').click();

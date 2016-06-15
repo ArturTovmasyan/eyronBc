@@ -84,8 +84,8 @@ Feature: Goal page
     When I follow "user1"
     And I follow "Create Goal"
     Then I should see "user1"
-    When I fill in "app_bundle_goal[title]" with "TEST GOALS"
-    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
+    When I fill in "app_bundle_goal[title]" with "TEST2 GOALS2"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST2 GOALS2"
     And I scroll page to "top"
     And I press "btn_save_draft"
     And I wait for angular
@@ -202,14 +202,19 @@ Feature: Goal page
     And I should see "Delete"
     When I follow "Edit"
     Then I should see "Suggest as public"
-    When I move backward one page
+    And I scroll page to "top"
+    And I press "btn_publish"
+    And I wait for angular
+#    And I click on "btn btn-purple"
+    And I follow "Save"
+    And I wait for view
+    Then I should be on "/profile"
+    When I am on "/goal/my-ideas/drafts"
+    Then I should not see "TEST2 GOALS2"
     And I follow "Delete"
     And I wait for angular
     Then I should see "Your goal will be permanently deleted."
     When I click on "btn btn-danger"
     Then I should be on "/goal/my-ideas/drafts"
-    And I should see "Drafts"
-    When I follow "Delete"
-    And I wait for angular
-    And I click on "btn btn-success"
-    Then I should not see "Your goal will be permanently deleted."
+    And I should see "Currently there are no draft goals in your draft list"
+
