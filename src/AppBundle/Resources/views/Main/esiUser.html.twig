@@ -55,9 +55,9 @@
     {{ 'join'|trans }}
 </a>
 
-{% if (isMobile() and not app.user) or not app.user and
-        app.session.flashBag.peekAll|length and
+{% if not app.user and (isMobile() or
+       (app.session.flashBag.peekAll|length and
         app.session.flashBag.peekAll['error'] is defined and
-        app.session.flashBag.peekAll['error'][0] is not null %}
+        app.session.flashBag.peekAll['error'][0] is not null)) %}
     <div data-open-popover></div>
 {% endif %}

@@ -10,11 +10,13 @@
             <input type="password"  class="form-control"  id="password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" name="_password" required="required" />
         </div>
 
-        {% for messages in app.session.flashBag.get('error') %}
-            <div class="error-message">
-                {{ messages|trans({}, 'FOSUserBundle') }}
-            </div>
-        {% endfor %}
+        {% if app.session.flashBag.peekAll['error'] is defined %}
+            {% for messages in app.session.flashBag.peekAll['error'] %}
+                <div class="error-message">
+                    {{ messages|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <a href="{{ path("fos_user_resetting_check_email") }}">{{ 'security.login.forgot_password'|trans({}, 'FOSUserBundle') }}</a>
 
