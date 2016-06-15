@@ -5,6 +5,7 @@ angular.module('manage', ['Interpolation',
     'LocalStorageModule',
     'angular-cache',
     'angulartics',
+    'ngResource',
     'angulartics.google.analytics',
     'PathPrefix'
     ])
