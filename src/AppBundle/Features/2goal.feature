@@ -165,6 +165,7 @@ Feature: Goal page
     Then I should be on "/profile"
     When I am on "/ideas"
     And I am on "/goal/goal1"
+    And I wait for view
     And I click on "icon-plus-icon"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"

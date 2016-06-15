@@ -177,6 +177,11 @@ user:
     account_verified_description: Description for account verified page
     register_title: Registration
     register_description: Description for registration
+    profile_edit: Profile edit
+    notify_edit: Notification edit
+    notify_settings_text: What you will receive
+    profile: Profile
+    notification: Notification
 
 
 First name: First name

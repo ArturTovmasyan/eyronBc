@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\UserGoal;
-use Application\UserBundle\Entity\User;
 
 /**
  * Class OllTwigExtension
@@ -26,19 +25,13 @@ class OllTwigExtension extends \Twig_Extension
     protected $container;
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
-
-    /**
      * OllTwigExtension constructor.
      * @param Container $container
      */
     public function __construct(Container $container)
     {
-        $this->entityManager = $container->get('doctrine')->getEntityManager();
         $this->container = $container;
-        $this->session = $container->get('session');
+        $this->session   = $container->get('session');
     }
 
     /**
@@ -59,12 +52,9 @@ class OllTwigExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('replaceString', array($this, 'replaceString')),
-            new \Twig_SimpleFunction('popularGoals', array($this, 'popularGoals')),
             new \Twig_SimpleFunction('getNewAction', array($this, 'getNewAction')),
-            new \Twig_SimpleFunction('getPolicyLink', array($this, 'getPolicyLink')),
             new \Twig_SimpleFunction('isMobile', array($this, 'isMobile')),
             new \Twig_SimpleFunction('isTablet', array($this, 'isTablet')),
-            new \Twig_SimpleFunction('isMyGoal', array($this, 'isMyGoal')),
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
             new \Twig_SimpleFunction('getReferer', array($this, 'getReferer'))
@@ -80,18 +70,6 @@ class OllTwigExtension extends \Twig_Extension
     {
         $content = str_replace($search, $replace, $object);
         return $content;
-    }
-
-    /**
-     * @param $user
-     * @param $count
-     * @return mixed
-     */
-    public function popularGoals($user, $count)
-    {
-        $popularGoals = $this->entityManager->getRepository("AppBundle:Goal")->findPopular($user, $count);
-        $this->entityManager->getRepository("AppBundle:Goal")->findGoalStateCount($popularGoals);
-        return $popularGoals;
     }
 
     /**
@@ -121,27 +99,6 @@ class OllTwigExtension extends \Twig_Extension
     }
 
     /**
-     * @return string
-     */
-    public function getPolicyLink()
-    {
-        $em = $this->container->get('doctrine')->getManager();
-        $pages = $em->getRepository('AppBundle:Page')->findAllByOrdered();
-        $route = $this->container->get('router');
-
-        if($pages){
-
-            foreach($pages as $page){
-                if (strpos(strtolower($page->getName()), 'policy') !== false){
-                    return $route->generate('page', array('slug' => $page->getSlug()));
-                }
-            }
-        }
-
-        return '#';
-    }
-
-    /**
      * @return bool
      */
     public function isMobile()
@@ -155,43 +112,6 @@ class OllTwigExtension extends \Twig_Extension
     public function isTablet()
     {
         return $this->container->get('mobile_detect.mobile_detector')->isTablet();
-    }
-
-    /**
-     * @param Goal $goal
-     * @param User $user
-     * @param $type
-     * @return bool
-     */
-    public function isMyGoal(Goal $goal, $user, $type)
-    {
-        // check user
-        if($user instanceof User){
-
-            // get user goals
-            $userGoals = $user->getUserGoal();
-
-            // check user count
-            if($userGoals->count() > 0){
-
-                // get array from persist collection
-                $userGoalsArray = $userGoals->toArray();
-
-                // check if in array
-                if(array_key_exists($goal->getId(), $userGoalsArray)){
-
-                    // get user current goal
-                    $userGoal = $userGoalsArray[$goal->getId()];
-
-                    // if for add ro list return true
-                    if($type == "add" || $userGoal ->getStatus() == UserGoal::COMPLETED ){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 
     /**

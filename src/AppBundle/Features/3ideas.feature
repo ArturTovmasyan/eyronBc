@@ -15,9 +15,9 @@ Feature: Idea
     And I wait for angular
     And I press "Discover"
     Then I should see categories
-    When I follow "Experience"
-    Then I should be on "/ideas/experience"
-    Then I should see "Experience"
+    When I follow "Most Popular"
+    Then I should be on "/ideas/most-popular"
+    Then I should see "Most Popular"
     And I wait for view
     And I should see "Listed by"
     And I should see "Completed by"

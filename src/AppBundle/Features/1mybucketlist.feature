@@ -16,7 +16,7 @@ Feature: My Bucket list
     And I should see "Completed"
     When I click on "icon-settings"
     And I wait for angular
-    And I click on "btn btn-transparent button-lg"
+    And I am on "/profile"
     And I wait for angular
     And I follow "Map"
     And I wait for angular

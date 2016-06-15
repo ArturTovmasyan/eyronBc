@@ -64,22 +64,23 @@ class GoalController extends FOSRestController
 
         $goals = array_values($goals);
 
+        $filters = [
+            0 => 'goal_list_small',
+            1 => 'goal_list_small',
+            2 => 'goal_list_small',
+            3 => 'goal_list_small',
+            4 => 'goal_list_horizontal',
+            5 => 'goal_list_big',
+            6 => 'goal_list_vertical',
+        ];
+
+
         if ($count == 7 || $count == 3){
             $liipManager = $this->get('liip_imagine.cache.manager');
-            for($i = 0; $i < 4; $i++){
-                if (isset($goals[$i])) {
-                    $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), 'goal_list_small'));
+            for($i = 0; $i < 7; $i++){
+                if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
+                    $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
                 }
-            }
-
-            if (isset($goals[4])) {
-                $goals[4]->setCachedImage($liipManager->getBrowserPath($goals[4]->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            }
-            if (isset($goals[5])) {
-                $goals[5]->setCachedImage($liipManager->getBrowserPath($goals[5]->getListPhotoDownloadLink(), 'goal_list_big'));
-            }
-            if (isset($goals[6])) {
-                $goals[6]->setCachedImage($liipManager->getBrowserPath($goals[6]->getListPhotoDownloadLink(), 'goal_list_vertical'));
             }
         }
 
@@ -306,9 +307,6 @@ class GoalController extends FOSRestController
             return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalEvent();
-        
         $em->persist($goal);
         $em->flush();
 
@@ -645,16 +643,16 @@ class GoalController extends FOSRestController
             return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //send comment event in google analytics
-        $this->get('google_analytic')->commentEvent();
+        //get current user
+        $user = $this->getUser();
 
-        //get user name
-        $userName = $this->getUser()->showName();
+        //get current user id
+        $userId = $user->getId();
 
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userName)) {
+        if($goal->hasAuthorForNotify($userId)) {
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, $commentBody);
         }
 
         // persist new comment end flush objects
@@ -718,17 +716,17 @@ class GoalController extends FOSRestController
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalStoryEvent();
+        //get current user
+        $user = $this->getUser();
 
-        //get user name
-        $userName = $this->getUser()->showName();
+        //get current user id
+        $userId = $user->getId();
 
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userName)) {
+        if($goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
         }
 
         // persist and flush object

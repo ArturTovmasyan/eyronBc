@@ -53,19 +53,19 @@ class NewsFeedController extends FOSRestController
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId);
 
-        $goalIds = [];
-        foreach($newsFeeds as $newsFeed){
-            $goalIds[$newsFeed->getGoal()->getId()] = 1;
-        }
-
-        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
-
-        foreach($newsFeeds as $newsFeed){
-            $newsFeed->getGoal()->setStats([
-                'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
-                'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
-            ]);
-        }
+//        $goalIds = [];
+//        foreach($newsFeeds as $newsFeed){
+//            $goalIds[$newsFeed->getGoal()->getId()] = 1;
+//        }
+//
+//        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+//
+//        foreach($newsFeeds as $newsFeed){
+//            $newsFeed->getGoal()->setStats([
+//                'listedBy' => $stats[$newsFeed->getGoal()->getId()]['listedBy'],
+//                'doneBy'   => $stats[$newsFeed->getGoal()->getId()]['doneBy'],
+//            ]);
+//        }
 
         $liipManager = $this->get('liip_imagine.cache.manager');
         foreach($newsFeeds as $newsFeed){
