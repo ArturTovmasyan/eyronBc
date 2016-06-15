@@ -3,6 +3,7 @@
 angular.module('goal', ['Interpolation',
         'Google',
         'user',
+        'manage',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
@@ -17,14 +18,6 @@ angular.module('goal', ['Interpolation',
         'angulartics.google.analytics',
         'PathPrefix'
     ])
-    .value('template', { addTemplate: ''})
-    .value('userGoalData', { data: {}})
-    .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
-        var url = envPrefix + "goal/add-modal";
-        $http.get(url).success(function(data) {
-            template.addTemplate = data;
-        })
-    }])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
             .setPrefix('goal')
@@ -404,10 +397,10 @@ angular.module('goal', ['Interpolation',
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
-            // if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
-            //     var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-            //     $window.location.href = window.location.href + '?id=' + goalId;
-            // }
+            if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
+                var goalId = angular.element('#goal-create-form').attr('data-goal-id');
+                $window.location.href = window.location.href + '?id=' + goalId;
+            }
             $scope.goalSubmitTemplate = '';
         })
 
@@ -903,9 +896,19 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', function($scope, $http, refreshCacheService, $timeout, loginPopoverService){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', 'UserGoalDataManager', 'userGoalData', 'template',
+        function($scope, $http, refreshCacheService, $timeout, loginPopoverService, UserGoalDataManager, userGoalData, template){
         $scope.completed = true;
 
+        $scope.addGoal = function (id) {
+            UserGoalDataManager.add({id:id}, {}, function (resource){
+                userGoalData.data = resource;
+                $scope.goalSubmitTemplate = template.addTemplate;
+                // $timeout(function(){
+                //     $scope.$broadcast('openLsModal', 'idea'+id);
+                // },10);
+            });
+        };
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
         };
@@ -938,9 +941,9 @@ angular.module('goal', ['Interpolation',
             UserGoalDataManager.getGoal({id:id}, {}, function (resource){
                 userGoalData.data = resource;
                 $scope.goalSubmitTemplate = template.addTemplate;
-                $timeout(function(){
-                    $scope.$broadcast('openLsModal', 'goalManageModal'+id);
-                },10);
+                // $timeout(function(){
+                //     $scope.$broadcast('openLsModal', 'goalManageModal'+id);
+                // },10);
             });
         });
         

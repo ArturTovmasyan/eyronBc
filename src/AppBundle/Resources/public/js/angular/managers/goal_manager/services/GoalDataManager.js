@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goal')
+angular.module('manage')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', function($resource, envPrefix, $analytics){
     return $resource( envPrefix + 'api/v1.0/usergoals/:id/:where/:what', {}, {
       getGoal: {method:'GET'},

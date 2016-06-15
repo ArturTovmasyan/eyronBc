@@ -180,8 +180,11 @@ class GoalController extends Controller
                  return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));;
             }
         }
+        
+        $slug = $request->get('slug', null);
+        $isPrivate = ($slug == "drafts" || $slug == null)?false:true;
 
-        return array('form' => $form->createView(), 'currentUser' => $currentUser);
+        return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $cloneGoalId);
     }
 
 
@@ -251,6 +254,7 @@ class GoalController extends Controller
 
         return array(
             'goals'       => $pagination,
+            'slug'        => $slug,
             'profileUser' => $this->getUser());
 
     }
