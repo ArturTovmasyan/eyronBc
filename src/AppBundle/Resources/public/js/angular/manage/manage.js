@@ -53,7 +53,7 @@ angular.module('manage', ['Interpolation',
 
                     scope.run = function(){
                         if(scope.lsType == "manage"){
-                            UserGoalDataManager.getGoal({id:id}, {}, function (resource){
+                            UserGoalDataManager.get({id:id}, {}, function (resource){
                                 userGoalData.data = resource;
                             });
                         }

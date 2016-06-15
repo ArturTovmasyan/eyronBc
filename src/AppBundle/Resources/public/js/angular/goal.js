@@ -415,19 +415,18 @@ angular.module('goal', ['Interpolation',
       'UserGoalDataManager',
       function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager){
 
-        var userGoal = userGoalData.data;
+        $scope.userGoal = userGoalData.data;
         $scope.GoalConstant = GoalConstant;
         $scope.UserGoalConstant = UserGoalConstant;
 
         $scope.stepsArray = [{}];
 
-        if(!userGoal.goal || !userGoal.goal.id){
+        if(!$scope.userGoal.goal || !$scope.userGoal.goal.id){
             console.warn('undefined goal or goalId of UserGoal');
         }
 
-        $scope.userGoal = userGoal;
-        if(userGoal.steps.length > 0) {
-            $scope.stepsArray = userGoal.steps;
+        if($scope.userGoal.steps.length > 0) {
+            $scope.stepsArray = $scope.userGoal.steps;
         }
 
         var switchChanged = false;
@@ -555,15 +554,15 @@ angular.module('goal', ['Interpolation',
                       //if goal changed  from success to active
                       if (isSuccess) {
                           //and date be changed
-                          if (dateChanged && doDate) {
+                          if (dateChanged && $scope.userGoal.do_date) {
                               //change  doDate
                               parentScope['change' + $scope.userGoal.goal.id] = 2;
-                              parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                              parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                               angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                           } else {
                               if(doDate){
                                   parentScope['change' + $scope.userGoal.goal.id] = 2;
-                                  parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                  parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                                   angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                               }else {
                                   //infinity
@@ -578,16 +577,16 @@ angular.module('goal', ['Interpolation',
                           parentScope['doDate' + $scope.userGoal.goal.id] = new Date();
                       }
                   } else {
-                      if (!isSuccess && dateChanged && doDate) {
+                      if (!isSuccess && dateChanged && $scope.userGoal.do_date) {
                           //change for doDate
                           parentScope['change' + $scope.userGoal.goal.id] = 2;
-                          parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                          parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                           angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                       }
                   }
               }
 
-              UserGoalDataManager.manage({id:userGoal.goal.id}, userGoal, function (resource){
+              UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (resource){
                   angular.element('#cancel').click();
                   if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
                       $window.location.href = $scope.redirectPath;
@@ -597,7 +596,6 @@ angular.module('goal', ['Interpolation',
         };
 
         $timeout(function(){
-            var doDate = angular.element(".hidden_date_value").val();
             angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
             // angular.element("#goal-add-form").ajaxForm({
                 // beforeSubmit: function(){
@@ -642,17 +640,17 @@ angular.module('goal', ['Interpolation',
             angular.element("#datepicker").on("changeDate", function() {
                 angular.element("#secondPicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                doDate =  angular.element("#datepicker").datepicker('getFormattedDate');
-                angular.element(".hidden_date_value").val(doDate);
+                var doDate =  angular.element("#datepicker").datepicker('getDate');
+                $scope.userGoal.do_date = moment(doDate).format('MM-DD-YYYY');
                 dateChanged = true;
                 $scope.$apply();
             });
             angular.element("#secondPicker").on("changeDate", function() {
                 angular.element("#datepicker").find( "td" ).removeClass("active");
                 $scope.datepicker_title = true;
-                doDate = angular.element("#secondPicker").datepicker('getFormattedDate');
-                angular.element(".hidden_date_value").val(doDate);
+                var doDate = angular.element("#secondPicker").datepicker('getDate');
                 dateChanged = true;
+                $scope.userGoal.do_date = moment(doDate).format('MM-DD-YYYY');
                 $scope.$apply();
             });
 
@@ -938,7 +936,7 @@ angular.module('goal', ['Interpolation',
 
         angular.element(".manage-modal").click(function(el){
             var id = el.target.attributes['data-goal-id'].value;
-            UserGoalDataManager.getGoal({id:id}, {}, function (resource){
+            UserGoalDataManager.get({id:id}, {}, function (resource){
                 userGoalData.data = resource;
                 $scope.goalSubmitTemplate = template.addTemplate;
                 // $timeout(function(){
