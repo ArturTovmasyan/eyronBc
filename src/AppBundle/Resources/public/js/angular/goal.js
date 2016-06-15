@@ -374,7 +374,7 @@ angular.module('goal', ['Interpolation',
                 },
                 success: function(res, text, header){
                     if(header.status === 200){
-                        UserGoalDataManager.creates({id:res.id}, {}, function (resource){
+                        UserGoalDataManager.creates({id:res}, {}, function (resource){
                             userGoalData.data = resource;
                             $scope.goalSubmitTemplate = template.addTemplate;
                             $scope.loading = false;
@@ -435,13 +435,13 @@ angular.module('goal', ['Interpolation',
         var isSuccess = false;
 
         $scope.$watch('complete.switch', function (d) {
-            //if( d !== 0 && d !== 1){
-            //    switchChanged = !switchChanged
-            //}else {
-            //    if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
-            //        isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
-            //    }
-            //}
+            if( d !== 0 && d !== 1){
+               switchChanged = !switchChanged
+            }else {
+               if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
+                   isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope()['success' + $scope.userGoal.goal.id]?true:false;
+               }
+            }
         });
 
         $scope.openSignInPopover = function(){
@@ -680,12 +680,14 @@ angular.module('goal', ['Interpolation',
             refreshCacheService.refreshCache(userId, goalId);
         };
 
-        var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
-        var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+        if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
+            var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
+            var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
 
-        if(goalImageBottom != mainSliderBottom){
-            var distance = goalImageBottom - mainSliderBottom;
-            angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            if(goalImageBottom != mainSliderBottom){
+                var distance = goalImageBottom - mainSliderBottom;
+                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            }
         }
 
         if(window.innerWidth > 991 && window.innerWidth < 1200){
@@ -700,12 +702,15 @@ angular.module('goal', ['Interpolation',
             }else{
                 angular.element('#main-slider img').removeClass("full-height")
             }
-            goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
-            mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
 
-            if(goalImageBottom != mainSliderBottom){
-                var distance = goalImageBottom - mainSliderBottom;
-                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+            if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
+                goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight();
+                mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
+
+                if (goalImageBottom != mainSliderBottom) {
+                    var distance = goalImageBottom - mainSliderBottom;
+                    angular.element('#main-slider').css("height", angular.element('#main-slider').innerHeight() + distance)
+                }
             }
         });
 

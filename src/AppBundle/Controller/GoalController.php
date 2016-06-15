@@ -167,14 +167,14 @@ class GoalController extends Controller
                         ->set('success','Your Goal has been Successfully Published')
                     ;
 
-                    return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
+                    return new Response($goal->getId());
                 }
 
                 $em->persist($goal);
                 $em->flush();
 
                 // redirect to view
-                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));;
+                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));
             }
         }
         

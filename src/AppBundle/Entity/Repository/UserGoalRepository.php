@@ -105,7 +105,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
                 ->setParameter('status', $status);
         }
         //if it is not self page
-        if($isCurrentUser){
+        if(!$isCurrentUser){
             $query
                 ->andWhere('ug.isVisible = true');
         }
