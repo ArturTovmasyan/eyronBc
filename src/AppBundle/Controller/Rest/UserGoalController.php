@@ -91,6 +91,11 @@ class UserGoalController extends FOSRestController
     public function putAction(Goal $goal, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+        
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
         if (!$userGoal) {
