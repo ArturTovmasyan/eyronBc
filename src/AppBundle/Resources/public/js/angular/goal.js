@@ -551,57 +551,57 @@ angular.module('goal', ['Interpolation',
             angular.element(".location .place-autocomplete").val('');
         };
 
-          $scope.sendUserGoal = function () {
-              $timeout(function(){
-                  var selector = 'success' + $scope.userGoal.goal.id;
-                  if(angular.element('#'+ selector).length > 0) {
-                      var parentScope = angular.element('#' + selector).scope();
-                      //if goal status changed
-                      if (switchChanged) {
-                          parentScope[selector] = !parentScope[selector];
-                          //if goal changed  from success to active
-                          if (isSuccess) {
-                              //and date be changed
-                              if (dateChanged && doDate) {
-                                  //change  doDate
-                                  parentScope['change' + $scope.userGoal.goal.id] = 2;
-                                  parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
-                                  angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
-                              } else {
-                                  if(doDate){
-                                      parentScope['change' + $scope.userGoal.goal.id] = 2;
-                                      parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
-                                      angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
-                                  }else {
-                                      //infinity
-                                      parentScope['change' + $scope.userGoal.goal.id] = 1;
-                                      angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
-                                  }
-                              }
-                          } else {
-                              //new datetime for completed
-                              parentScope['change' + $scope.userGoal.goal.id] = 2;
-                              angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
-                              parentScope['doDate' + $scope.userGoal.goal.id] = new Date();
-                          }
-                      } else {
-                          if (!isSuccess && dateChanged && doDate) {
-                              //change for doDate
+        $scope.sendUserGoal = function () {
+          $timeout(function(){
+              var selector = 'success' + $scope.userGoal.goal.id;
+              if(angular.element('#'+ selector).length > 0) {
+                  var parentScope = angular.element('#' + selector).scope();
+                  //if goal status changed
+                  if (switchChanged) {
+                      parentScope[selector] = !parentScope[selector];
+                      //if goal changed  from success to active
+                      if (isSuccess) {
+                          //and date be changed
+                          if (dateChanged && doDate) {
+                              //change  doDate
                               parentScope['change' + $scope.userGoal.goal.id] = 2;
                               parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
                               angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
+                          } else {
+                              if(doDate){
+                                  parentScope['change' + $scope.userGoal.goal.id] = 2;
+                                  parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                                  angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
+                              }else {
+                                  //infinity
+                                  parentScope['change' + $scope.userGoal.goal.id] = 1;
+                                  angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
+                              }
                           }
+                      } else {
+                          //new datetime for completed
+                          parentScope['change' + $scope.userGoal.goal.id] = 2;
+                          angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
+                          parentScope['doDate' + $scope.userGoal.goal.id] = new Date();
+                      }
+                  } else {
+                      if (!isSuccess && dateChanged && doDate) {
+                          //change for doDate
+                          parentScope['change' + $scope.userGoal.goal.id] = 2;
+                          parentScope['doDate' + $scope.userGoal.goal.id] = new Date(doDate);
+                          angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                       }
                   }
+              }
 
-                  UserGoalDataManager.manage({id:userGoal.goal.id}, userGoal, function (resource){
-                      angular.element('#cancel').click();
-                      if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
-                          $window.location.href = $scope.redirectPath;
-                      }
-                  });
-              }, 1500)
-          };
+              UserGoalDataManager.manage({id:userGoal.goal.id}, userGoal, function (resource){
+                  angular.element('#cancel').click();
+                  if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
+                      $window.location.href = $scope.redirectPath;
+                  }
+              });
+          }, 1500)
+        };
 
         $timeout(function(){
             var doDate = angular.element(".hidden_date_value").val();
@@ -632,24 +632,14 @@ angular.module('goal', ['Interpolation',
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
-                    if(cond){
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
+                    return !cond;
                 },
                 todayHighlight: true
             });
             angular.element('#secondPicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
-                    if(cond){
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
+                    return !cond;
                 },
                 todayHighlight: true
             });
