@@ -197,7 +197,6 @@ Feature: Goal page
     Then I should be on "/goal/my-ideas"
     When I follow "Drafts"
     Then I should be on "/goal/my-ideas/drafts"
-    And I wait for view
     And I should see "Edit"
     And I should see "Delete"
     When I follow "Edit"
@@ -205,10 +204,10 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-#    And I click on "btn btn-purple"
     And I follow "Save"
     And I wait for view
     Then I should be on "/profile"
+    And I should see "Your Goal has been Successfully Published"
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
     And I wait
