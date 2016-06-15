@@ -506,7 +506,7 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $scope.getUrgentImportantStatus = function(userGoal){
+        $scope.getPriority = function(userGoal){
             if(!userGoal || !userGoal.id){
                 return null;
             }
@@ -525,6 +525,21 @@ angular.module('goal', ['Interpolation',
             }
 
             return null;
+        };
+
+        $scope.getUrgentImportant = function(priority){
+            if(priority === $scope.UserGoalConstant['URGENT_IMPORTANT']){
+                return {urgent: true, important: true};
+            }
+            else if(priority === $scope.UserGoalConstant['URGENT_NOT_IMPORTANT']){
+                return {urgent: true, important: false};
+            }
+            else if(priority === $scope.UserGoalConstant['NOT_URGENT_IMPORTANT']) {
+                return {urgent: false, important: true};
+            }
+            else if(priority === $scope.UserGoalConstant['NOT_URGENT_NOT_IMPORTANT']){
+                return {urgent: false, important: false};
+            }
         };
 
         $scope.removeLocation = function(){
@@ -583,7 +598,10 @@ angular.module('goal', ['Interpolation',
                   }
               });
 
-              UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (resource){
+              var priority = $scope.getUrgentImportant($scope.userGoal.priority);
+
+
+              UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
                   angular.element('#cancel').click();
                   if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
                       $window.location.href = $scope.redirectPath;
