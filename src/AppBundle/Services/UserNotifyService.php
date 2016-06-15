@@ -51,7 +51,7 @@ class UserNotifyService
         $author = $goal->getAuthor();
 
         //get comment notify settings value
-        $enabled = $author->getCommentNotify();
+        $enabled = $author->getIsCommentNotify();
 
         //check if user notify is disabled
         if(!$enabledByConfig || $notProd || !$enabled) {
@@ -118,7 +118,7 @@ class UserNotifyService
         $author = $goal->getAuthor();
 
         //get story notify settings value
-        $enabled = $author->getSuccessStoryNotify();
+        $enabled = $author->getIsSuccessStoryNotify();
 
         //check if user notify is disabled
         if(!$enabledByConfig || $notProd || !$enabled) {
