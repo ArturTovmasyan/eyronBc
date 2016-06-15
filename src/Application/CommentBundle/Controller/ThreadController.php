@@ -55,9 +55,6 @@ class ThreadController extends BaseController
             $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, null);
         }
 
-        //send comment event in google analytics
-        $this->container->get('google_analytic')->commentEvent();
-        
         return parent::onCreateCommentSuccess($form, $id, $parent);
     }
 }

@@ -240,9 +240,6 @@ class GoalController extends FOSRestController
             return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalEvent();
-        
         $em->persist($goal);
         $em->flush();
 
@@ -579,9 +576,6 @@ class GoalController extends FOSRestController
             return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //send comment event in google analytics
-        $this->get('google_analytic')->commentEvent();
-
         //get current user
         $user = $this->getUser();
 
@@ -654,9 +648,6 @@ class GoalController extends FOSRestController
 
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
-
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalStoryEvent();
 
         //get current user
         $user = $this->getUser();
