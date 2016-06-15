@@ -425,10 +425,6 @@ angular.module('goal', ['Interpolation',
             console.warn('undefined goal or goalId of UserGoal');
         }
 
-        if($scope.userGoal.steps.length > 0) {
-            $scope.stepsArray = $scope.userGoal.steps;
-        }
-
         var switchChanged = false;
         var dateChanged = false;
         var isSuccess = false;
@@ -497,12 +493,6 @@ angular.module('goal', ['Interpolation',
             if(key === 'day'){
                 return m.day(value).format(format);
             }
-            //else if(key === 'month'){
-            //    return m.month(value).format(format);
-            //}
-            //else if(key === 'year'){
-            //    return m.year(value).format(format);
-            //}
         };
 
         $scope.getSecondPickerDate = function(date, format){
@@ -543,7 +533,7 @@ angular.module('goal', ['Interpolation',
             angular.element(".location .place-autocomplete").val('');
         };
 
-        $scope.sendUserGoal = function () {
+        $scope.save = function () {
           $timeout(function(){
               var selector = 'success' + $scope.userGoal.goal.id;
               if(angular.element('#'+ selector).length > 0) {
@@ -586,40 +576,23 @@ angular.module('goal', ['Interpolation',
                   }
               }
 
+              $scope.userGoal.steps = {};
+              angular.forEach($scope.userGoal.formatted_steps, function(v){
+                  if(v.text) {
+                      $scope.userGoal.steps[v.text] = v.switch ? v.switch : false;
+                  }
+              });
+
               UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (resource){
                   angular.element('#cancel').click();
                   if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
                       $window.location.href = $scope.redirectPath;
                   }
               });
-          }, 1500)
+          }, 100)
         };
 
         $timeout(function(){
-            angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
-            // angular.element("#goal-add-form").ajaxForm({
-                // beforeSubmit: function(){
-                //
-                // },
-                // success: function(res, text, header){
-                //     if(header.status === 200){
-                //         angular.element('#cancel').click();
-                //         $scope.$apply();
-                //
-                //     }
-                // }
-            // });
-            // angular.element("#goal-add-for-create-form").ajaxForm({
-            //     beforeSubmit: function(){
-            //         $scope.$apply();
-            //     },
-            //     success: function(res, text, header){
-            //         if(header.status === 200){
-            //             $window.location.href = $scope.redirectPath;
-            //             $scope.$apply();
-            //         }
-            //     }
-            // });
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
                     var cond = angular.element('#datepicker').data('datepicker-disable');
@@ -664,9 +637,7 @@ angular.module('goal', ['Interpolation',
 
                 target.trigger('change');
             });
-
-        }, 1500);
-
+        }, 100);
     }])
     .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
         function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
