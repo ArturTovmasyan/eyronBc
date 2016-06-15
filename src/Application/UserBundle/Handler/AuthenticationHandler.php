@@ -177,28 +177,23 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
 
         //get url
         $url = $request->getUri();
+        //get last url
+        $referrerUrl = $request->headers->get('referer');
 
-        //check if route name is done_goal
-        if ($routeName == "done_goal") {
 
-            //set url in session
-            $request->getSession()->set('url', $url);
-        }
+        //set url in session
+        $request->getSession()->set('url', $url);
 
         //check if route nam is current list
         if ($routeName == "add_to_me_goal" ||
-            $routeName == "settings"       ||
             $routeName == "add_story"      ||
             $routeName == "add_goal") {
 
             //check if route don`t add_goal
             if ($routeName !== "add_goal") {
 
-                //get last url
-                $redirectUrl = $request->headers->get('referer');
-
                 //set url in session
-                $request->getSession()->set('url', $redirectUrl);
+                $request->getSession()->set('url', $referrerUrl);
 
                 //set url in session
                 $request->getSession()->set('addUrl', $url);
@@ -207,8 +202,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
-        //generate homepage url for redirect
-        $loginPath = $this->router->generate('homepage');
+        $loginPath = $referrerUrl;
+        if (!$loginPath){
+            //generate homepage url for redirect
+            $loginPath = $this->router->generate('homepage');
+        }
 
         return new RedirectResponse($loginPath);
     }
