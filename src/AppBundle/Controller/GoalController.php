@@ -159,9 +159,6 @@ class GoalController extends Controller
                     //set description
                     $goal->setDescription($description);
 
-                    //send create goal event in google analytics
-                    $this->get('google_analytic')->createGoalEvent();
-
                     $em->persist($goal);
                     $em->flush();
 
@@ -416,9 +413,6 @@ class GoalController extends Controller
         // set date
         $userGoal->setCompletionDate(new \DateTime());
 
-        //send done goal event in google analytic
-        $this->get('google_analytic')->doneGoalEvent();
-
         $em->persist($userGoal);
         $em->flush();
 
@@ -527,9 +521,6 @@ class GoalController extends Controller
                 // add success story to goal
                 $goal->addSuccessStory($story);
                 $em->persist($story);
-
-                //send add story event in google analytics
-                $this->get('google_analytic')->createGoalStoryEvent();
 
                 $em->flush();
 
@@ -700,12 +691,6 @@ class GoalController extends Controller
                 return new Response('ok');
             }
         }
-        else {
-            if(!$userGoalId) {
-                $this->get('google_analytic')->addGoalEvent();
-            }
-        }
-
 
         return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
     }
@@ -885,11 +870,9 @@ class GoalController extends Controller
 
         //check if user goal exist and 1
         if(!is_null($userGoal)) {
+            
             //remove from bd
             $em->remove($userGoal);
-
-            //send add goal event in google analytics
-            $this->get('google_analytic')->unListGoalEvent();
         }
 
         //check if goal author this user
@@ -897,9 +880,6 @@ class GoalController extends Controller
 
             //remove goal
             $em->remove($goal);
-
-            //send add goal event in google analytics
-            $this->get('google_analytic')->removeGoalEvent();
         }
 
         //set myBucketList route name
