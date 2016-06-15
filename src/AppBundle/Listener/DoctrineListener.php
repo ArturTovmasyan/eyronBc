@@ -226,7 +226,6 @@ class DoctrineListener
             }
 
             if (!is_null($action)) {
-                $goal = $entity->getGoal();
                 $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                 return $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
             }
