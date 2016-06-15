@@ -42,7 +42,7 @@
             <div class="goal-end">
                 {# edit goal status #}
                 <div class="clearfix ng-hide" data-ng-show="userGoal.id">
-                    <div class="form-group row no-marginb" data-ng-init="completed=(userGoal.status==UserGoalConstant['COMPLETED'])">
+                    <div class="form-group row no-marginb">
 
                         <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
                             <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
@@ -256,23 +256,21 @@
                 <div class="form-group row no-marginb">
 
                     <label for="inputEmail3"
-                           data-ng-hide="private_checkbox"
+                           data-ng-hide="userGoal.is_visible"
                            class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_visible"|trans }}
                     </label>
                     <label for="inputEmail3"
-                        data-ng-show="private_checkbox"
+                        data-ng-show="userGoal.is_visible"
                         class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_invisible"|trans }}
                     </label>
 
                     <div class="col-xs-4 col-sm-2">
                         <div class="onoffswitch">
-                            <input checked
-                                data-ng-init="private_checkbox=userGoal.is_visible"
-                                type="checkbox"
-                                data-ng-model="private_checkbox"
-                                data-ls-checked="private_checkbox"
+                            <input type="checkbox"
+                                data-ng-model="userGoal.is_visible"
+                                data-ls-checked="userGoal.is_visible"
                                 data-ng-disabled="complete.switch"
                                 id="goal-is-visible"
                                 class="onoffswitch-checkbox">
@@ -286,10 +284,10 @@
                 </div>
 
                 <p class="text-gray">
-                    <i class="icon-eye-icon ng-hide" data-ng-hide="private_checkbox"></i>
-                    <i class="icon-eye" data-ng-show="private_checkbox"></i>
-                    <span data-ng-hide="private_checkbox">{{ "goal.visible_text"|trans }}</span>
-                    <span data-ng-show="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
+                    <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
+                    <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
+                    <span data-ng-hide="userGoal.is_visible">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
 
                 <p class="text-gray clearfix"
