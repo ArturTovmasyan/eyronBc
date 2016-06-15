@@ -876,49 +876,24 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/remove-goal/{goal}/{user}", name="remove_goal")
-     * @Route("goal/remove-user-goal/{userGoal}", name="remove_user_goal")
+     * @Route("goal/remove-goal/{goalId}/{userId}", name="remove_goal")
+     * @Route("goal/remove-user-goal/{userGoalId}", name="remove_user_goal")
      *
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @ParamConverter("user", class="ApplicationUserBundle:User")
-     * @ParamConverter("userGoal", class="AppBundle:UserGoal", options={"repository_method"="findByIdWithRelations"} )
      * @Secure(roles="ROLE_USER")
      *
-     * @param UserGoal|null $userGoal
-     * @param Goal|null $goal
-     * @param User|null $user
+     * @param $userGoalId
+     * @param $goalId
+     * @param $userId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|HttpException
      */
-    public  function removeGoal(UserGoal $userGoal = null, Goal $goal = null, User $user = null)
+    public  function removeGoal($userGoalId = null, $goalId = null, $userId = null)
     {
         $em = $this->getDoctrine()->getManager();
+        $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoalId, $userId, $goalId);
 
-        if(is_null($userGoal)){
-            $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
+        if ($this->getUser()->getActivity()){
+            $this->get('bl_service')->setUserActivity($this->getUser(), $inLogin = false);
         }
-
-        if(is_null($userGoal)) {
-            return new HttpException(Response::HTTP_NOT_FOUND, "User goal not found");
-        }
-
-        $goal = $userGoal->getGoal();
-        $user = $userGoal->getUser();
-
-        if($user->getId() != $this->getUser()->getId()){
-            return new HttpException(Response::HTTP_FORBIDDEN, "It isn't your user goal");
-        }
-
-        $em->remove($userGoal);
-
-        if ($goal->isAuthor($user) && !$goal->getPublish()) {
-            $em->remove($goal);
-        }
-
-        if ($user->getActivity()){
-            $this->get('bl_service')->setUserActivity($user, $inLogin = false);
-        }
-
-        $em->flush();
 
         return $this->redirectToRoute('user_profile');
     }

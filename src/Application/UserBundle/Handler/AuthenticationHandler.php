@@ -143,41 +143,25 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        //check if request format is json
-        if ($request->get('_format') == "json"){
-            return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
-        //set flash messages for open login by js
         $this->session->getFlashBag()->add('error', '');
 
-        //get current route name
-        $routeName = $request->get('_route');
-
-        //get url
-        $url = $request->getUri();
-        //get last url
+        $routeName   = $request->get('_route');
+        $url         = $request->getUri();
         $referrerUrl = $request->headers->get('referer');
 
-
-        //set url in session
         $request->getSession()->set('url', $url);
 
-        //check if route nam is current list
-        if ($routeName == "add_to_me_goal" ||
-            $routeName == "add_story"      ||
-            $routeName == "add_goal") {
+        $routeNames = [
+            "rest_get_usergoal",
+            "rest_put_usergoal"
+        ];
 
-            //check if route don`t add_goal
-            if ($routeName !== "add_goal") {
+        if (in_array($routeName, $routeNames)) {
+            $goal = $request->get('goal');
+            $request->getSession()->set('goal_action', ['action' => $routeName, 'goal_id' => (is_object($goal) ? $goal->getId() : $goal) ]);
+        }
 
-                //set url in session
-                $request->getSession()->set('url', $referrerUrl);
-
-                //set url in session
-                $request->getSession()->set('addUrl', $url);
-            }
-
+        if ($request->get('_format') == "json"){
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
