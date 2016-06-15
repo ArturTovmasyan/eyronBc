@@ -40,13 +40,13 @@ Feature: Goal page
     And I wait for angular
     Then I should see "Goal is active"
     When I change date
-    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
+#    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
     And I wait for view
     And I change switch "2"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "user1 useryan"
     And I wait for angular
     When I scroll page to ".information"
@@ -211,6 +211,7 @@ Feature: Goal page
     Then I should be on "/profile"
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
+    And I wait
     And I follow "Delete"
     And I wait for angular
     Then I should see "Your goal will be permanently deleted."
