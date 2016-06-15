@@ -149,8 +149,6 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $url         = $request->getUri();
         $referrerUrl = $request->headers->get('referer');
 
-        $request->getSession()->set('url', $url);
-
         $routeNames = [
             "rest_put_usergoal"
         ];
@@ -169,6 +167,8 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             //generate homepage url for redirect
             $loginPath = $this->router->generate('homepage');
         }
+
+        $request->getSession()->set('url', $url);
 
         return new RedirectResponse($loginPath);
     }
