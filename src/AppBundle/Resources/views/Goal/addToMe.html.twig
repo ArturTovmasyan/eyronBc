@@ -212,7 +212,7 @@
                         </div>
                     </div>
 
-                <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
+                <div class="form-group row" data-ng-repeat="(k, step) in userGoal.formatted_steps">
 
                     <label class="col-sm-2 control-label">
                         <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
@@ -226,7 +226,7 @@
                                    class="form-control"
                                    data-step
                                    data-key="k"
-                                   data-array="stepsArray"
+                                   data-array="userGoal.formatted_steps"
                                    data-ng-model="step.text"
                                    data-ng-disabled="complete.switch"
                                    name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"

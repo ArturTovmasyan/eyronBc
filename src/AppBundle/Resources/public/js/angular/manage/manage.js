@@ -38,23 +38,28 @@ angular.module('manage', ['Interpolation',
 
                     scope.run = function(){
                         if(scope.lsType == "manage"){
-                            UserGoalDataManager.get({id: scope.lsGoalId}, function (resource){
-                                userGoalData.data = resource;
-                                var tmp = $compile(template.addTemplate)(scope);
-                                scope.openModal(tmp);
+                            UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
+                                scope.runCallback(uGoal);
                             });
                         }
                         else {
-                            UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (resource){
-                                userGoalData.data = resource;
-                                var tmp = $compile(template.addTemplate)(scope);
-                                scope.openModal(tmp);
+                            UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
+                                scope.runCallback(uGoal);
                             });
                         }
                     };
 
-                    scope.openModal = function(tmp){
+                    scope.runCallback = function(uGoal){
+                        userGoalData.data = uGoal;
+                        if(userGoalData.data.do_date){
+                            userGoalData.data.do_date = moment(userGoalData.data.do_date).format('MM-DD-YYYY');
+                        }
 
+                        var tmp = $compile(template.addTemplate)(scope);
+                        scope.openModal(tmp);
+                    };
+
+                    scope.openModal = function(tmp){
                         angular.element('body').append(tmp);
                         tmp.modal({
                             fadeDuration: 300
