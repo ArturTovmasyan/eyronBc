@@ -33,10 +33,10 @@ angular.module('manage', ['Interpolation',
                 },
                 link: function(scope, el){
 
-                    console.log(scope);
-
                     if(scope.lsInitialRun){
-                        $timeout(scope.run, 1000);
+                        $timeout(function(){
+                            scope.run();
+                        }, 1000);
                     }
 
                     el.bind('click', function(){
