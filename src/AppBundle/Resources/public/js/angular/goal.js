@@ -533,7 +533,7 @@ angular.module('goal', ['Interpolation',
             angular.element(".location .place-autocomplete").val('');
         };
 
-        $scope.sendUserGoal = function () {
+        $scope.save = function () {
           $timeout(function(){
               var selector = 'success' + $scope.userGoal.goal.id;
               if(angular.element('#'+ selector).length > 0) {
@@ -575,6 +575,13 @@ angular.module('goal', ['Interpolation',
                       }
                   }
               }
+
+              $scope.userGoal.steps = {};
+              angular.forEach($scope.userGoal.formatted_steps, function(v){
+                  if(v.text) {
+                      $scope.userGoal.steps[v.text] = v.switch ? v.switch : false;
+                  }
+              });
 
               UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (resource){
                   angular.element('#cancel').click();
