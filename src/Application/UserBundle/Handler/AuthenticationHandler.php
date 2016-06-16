@@ -64,6 +64,24 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         //get session
         $session = $request->getSession();
 
+        //get social name for user login
+        $social = $user->getSocialsName();
+
+        //check if social exists
+        if($social) {
+        //send login user by social event in google analytics
+        $request->getSession()
+            ->getFlashBag()
+                ->set('userLogin','User login by '.$social.' from Web')
+            ;
+        }
+        else{
+            $request->getSession()
+                ->getFlashBag()
+                ->set('userLogin','User native login from Web')
+            ;
+        }
+
         //check if user and session url exist
         if ($user && $session->has('url') && !$user->isAdmin()) {
 

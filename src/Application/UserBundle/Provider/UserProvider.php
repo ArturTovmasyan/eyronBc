@@ -10,6 +10,7 @@ namespace Application\UserBundle\Provider;
 
 use AppBundle\Services\GoogleAnalyticService;
 use Application\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\Container;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\FacebookResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GoogleResourceOwner;
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\TwitchResourceOwner;
@@ -33,13 +34,20 @@ class UserProvider extends  BaseProvider
     protected $userManager;
 
     /**
+     * @var Container
+     */
+    protected $container;
+
+    /**
      * Constructor
      *
      * @param UserManagerInterface $userManager
+     * @param Container $container
      */
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(UserManagerInterface $userManager, Container $container)
     {
         $this->userManager = $userManager;
+        $this->container = $container;
     }
 
     /**
@@ -152,6 +160,15 @@ class UserProvider extends  BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+
+            //get registration social name		
+            $socialName = $user->getSocialsName();
+
+            $this->container->get('request')->getSession()
+                ->getFlashBag()
+                ->set('userRegistration','User registration by '.$socialName.' from Web')
+            ;
+
         }
 
         return $user;
@@ -206,6 +223,14 @@ class UserProvider extends  BaseProvider
             // update user
             $this->userManager->updateUser($user);
 
+            //get registration social name		
+            $socialName = $user->getSocialsName();
+
+            $this->container->get('request')->getSession()
+                ->getFlashBag()
+                ->set('userRegistration','User registration by '.$socialName.' from Web')
+            ;
+
         }
 
         return $user;
@@ -254,6 +279,14 @@ class UserProvider extends  BaseProvider
 
             // update user
             $this->userManager->updateUser($user);
+
+            //get registration social name		
+            $socialName = $user->getSocialsName();
+
+            $this->container->get('request')->getSession()
+                ->getFlashBag()
+                ->set('userRegistration','User registration by '.$socialName.' from Web')
+            ;
 
         }
 
