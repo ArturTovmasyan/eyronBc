@@ -3,9 +3,8 @@
 namespace Application\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class Profile extends ContainerAware
+class Profile
 {
     /**
      * @param FactoryInterface $factory
