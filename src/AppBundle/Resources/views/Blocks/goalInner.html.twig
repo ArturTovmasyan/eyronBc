@@ -113,8 +113,7 @@
                                            data-ng-cloak
                                            data-ls-goal-manage
                                            data-ls-goal-id="{{ goal.id }}"
-                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}'){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
-                                           data-ls-type="add">
+                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}'){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                             <span class="text">{{ 'add'|trans }}</span>
                                         </a>
