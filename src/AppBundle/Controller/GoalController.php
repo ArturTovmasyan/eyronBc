@@ -181,6 +181,19 @@ class GoalController extends Controller
         $slug = $request->get('slug', null);
         $isPrivate = ($slug == "drafts" || $slug == null)?false:true;
 
+        if($isPrivate){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('private','Edit my private idea from Web')
+            ;
+        }elseif ($cloneGoalId){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('draft','Edit my draft  from Web')
+            ;
+        }
+
+
         return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $cloneGoalId);
     }
 
@@ -835,13 +848,14 @@ class GoalController extends Controller
      *
      * @param Goal $goal
      * @param $slug
+     * @param Request $request
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
      * @deprecated must be checked and removed
      */
-    public function removeDraftGoal(Goal $goal, $slug = null)
+    public function removeDraftGoal(Goal $goal, $slug = null, Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -871,6 +885,18 @@ class GoalController extends Controller
         // remove from bd
         $em->remove($goalDraft);
         $em->flush();
+
+        if($slug == "drafts"){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('draft','Delete my draft from Web')
+            ;
+        }else{
+            $request->getSession()
+                ->getFlashBag()
+                ->set('private','Delete my private idea from Web')
+            ;
+        }
 
         return $this->redirectToRoute("my_ideas", array('slug' => $slug));
     }

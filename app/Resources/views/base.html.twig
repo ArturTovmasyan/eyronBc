@@ -78,6 +78,16 @@
                         ga('send', 'event', 'comments', 'comments ', '{{ msg }}');
                     {% endfor %}
                 {% endif %}
+                {% if app.session.flashBag.has('private') %}
+                    {% for msg in app.session.flashBag.get('private')  %}
+                        ga('send', 'event', 'My ideas', 'My private ideas ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('draft') %}
+                    {% for msg in app.session.flashBag.get('draft')  %}
+                        ga('send', 'event', 'My ideas', 'Drafts ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
             </script>
         {% endif %}
 
