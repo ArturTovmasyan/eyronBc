@@ -98,7 +98,6 @@
 
         <img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>
 
-        {{ dump(goalAction) }}
         {% if app.user and goalAction is not null %}
             {% if goalAction['action'] == "rest_put_usergoal" %}
                 <div data-ls-goal-manage
@@ -278,6 +277,7 @@
             {% javascripts output='js/base_script.js'
                 'app/bower_components/jquery/dist/jquery.min.js'
                 'app/bower_components/jquery-form/jquery.form.js'
+                'app/bower_components/moment/min/moment.min.js'
                 'app/bower_components/jquery-nice-select/js/jquery.nice-select.min.js'
                 'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
                 'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
@@ -299,6 +299,8 @@
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
                 'bundles/applicationuser/js/angular/user.js'
+                'bundles/app/js/angular/manage/manage.js'
+                'bundles/app/js/angular/managers/goal_manager/services/GoalDataManager.js'
                 'bundles/app/js/angular/main.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 %}

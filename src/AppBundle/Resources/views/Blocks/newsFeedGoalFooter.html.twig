@@ -7,7 +7,6 @@
            data-ls-goal-id="[[ ::activity.goal.id ]]"
            data-ng-show="!activity.goal.is_my_goal && completed"
            data-ng-click="activity.goal.is_my_goal = 1; refreshCache('{{ app.user.id }}', activity.goal.id)"
-           data-ls-type="add"
            class="ng-hide">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>
