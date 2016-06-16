@@ -30,6 +30,7 @@ angular.module('manage', ['Interpolation',
                 restrict: 'EA',
                 scope: {
                     lsGoalId: '@',
+                    lsType: '@',
                     lsInitialRun: '='
                 },
                 link: function(scope, el){
@@ -47,13 +48,35 @@ angular.module('manage', ['Interpolation',
                     scope.run = function(){
                         $(".modal-loading").show();
 
-                        UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
-                            scope.runCallback(uGoal);
-                        }, function(res){
-                            if(res.status === 401){
-                                loginPopoverService.openLoginPopover();
+                        if(scope.lsType){
+                            UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
+                                scope.runCallback(uGoal);
+                            }, function(res){
+                                if(res.status === 401){
+                                    loginPopoverService.openLoginPopover();
+                                }
+                            });
+                        }else {
+                            if(scope.lsInitialRun){
+                                UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
+                                    if(uGoal.id){
+                                        scope.runCallback(uGoal);
+                                    }else {
+                                        UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
+                                            scope.runCallback(uGoal);
+                                        }) 
+                                    }
+                                })
+                            }else {
+                                UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
+                                    scope.runCallback(uGoal);
+                                }, function(res){
+                                    if(res.status === 401){
+                                        loginPopoverService.openLoginPopover();
+                                    }
+                                });
                             }
-                        });
+                        }
                     };
 
                     scope.runCallback = function(uGoal){
