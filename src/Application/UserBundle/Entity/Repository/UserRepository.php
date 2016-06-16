@@ -287,6 +287,7 @@ class UserRepository extends EntityRepository
         $percent = $user->getCompletedPercent();
 
         if ($percent == 100) {
+            $user->setProfileCompletedPercent(100);
             $em->flush();
         }
 
