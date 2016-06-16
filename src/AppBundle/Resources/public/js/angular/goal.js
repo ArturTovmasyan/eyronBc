@@ -241,8 +241,8 @@ angular.module('goal', ['Interpolation',
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', 'UserGoalDataManager', 'template', 'userGoalData',
-        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData){
+    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', 'UserGoalDataManager', 'template', 'userGoalData', '$analytics',
+        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics){
 
         $scope.files = [];
         $scope.disablePreview = false;
@@ -264,6 +264,7 @@ angular.module('goal', ['Interpolation',
                 },
                 success: function(res, text, header){
                     if(header.status === 200){
+                        $analytics.eventTrack('Success story', {  category: 'Success story', label: 'Add success story from Web' });
                         angular.element('#cancel').click();
                         $scope.$apply();
 
