@@ -49,7 +49,7 @@ angular.module('goal', ['Interpolation',
             refreshCache: refreshCache
         }
     }])
-    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', function($http, localStorageService, envPrefix) {
+    .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', '$analytics', function($http, localStorageService, envPrefix, $analytics) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
             this.busy = false;
@@ -90,6 +90,14 @@ angular.module('goal', ['Interpolation',
             angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
+            if(category){
+                $analytics.eventTrack('Load more in select category', {  category: 'Goal', label: 'Load more in category ' + category + ' from Web' });
+            }else {
+                if(angular.element('#activities').length > 0){
+                    $analytics.eventTrack('Activity load more', {  category: 'Activity', label: 'Load more from Web' });
+                }
+            }
+
             //setTimeout(function(){
             //    this.loadAddthis();
             //}.bind(this), 500);
