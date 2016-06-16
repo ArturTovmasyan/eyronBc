@@ -163,11 +163,6 @@ class GoalAdmin extends Admin
         $object->setEditor($user);
         $object->setReadinessStatus(Goal::TO_PUBLISH);
 
-        //check if goal is published
-        if($object->getPublish() == true) {
-            $object->setAuthor(null);
-        }
-
         $this->getAndAddTags($object);
         $this->addImages($object);
 
