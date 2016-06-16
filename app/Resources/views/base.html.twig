@@ -73,6 +73,11 @@
                         ga('send', 'event', 'User', 'User login', '{{ msg }}');
                     {% endfor %}
                 {% endif %}
+                {% if app.session.flashBag.has('comments') %}
+                    {% for msg in app.session.flashBag.get('comments')  %}
+                        ga('send', 'event', 'comments', 'comments ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
             </script>
         {% endif %}
 

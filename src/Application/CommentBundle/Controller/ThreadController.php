@@ -48,6 +48,10 @@ class ThreadController extends BaseController
         //get current user id
         $userId = $user->getId();
 
+        $this->container->get('request')->getSession()
+            ->getFlashBag()
+            ->set('comments','Add comment from Web');
+
         //check if goal author is not admin and not null
         if($goal && $goal->hasAuthorForNotify($userId)) {
 
