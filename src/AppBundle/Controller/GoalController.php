@@ -745,6 +745,13 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+        
+        if($category){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('category','Goal select category '.$category.' from Web')
+            ;
+        }
 
         // get search key
         $search = $request->get('search');

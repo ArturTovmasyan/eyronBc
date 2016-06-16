@@ -88,6 +88,11 @@
                         ga('send', 'event', 'My ideas', 'Drafts ', '{{ msg }}');
                     {% endfor %}
                 {% endif %}
+                {% if app.session.flashBag.has('category') %}
+                    {% for msg in app.session.flashBag.get('category')  %}
+                        ga('send', 'event', 'Goal', 'Goal select category ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
             </script>
         {% endif %}
 
