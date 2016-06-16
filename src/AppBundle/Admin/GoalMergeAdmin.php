@@ -8,12 +8,12 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class GoalMergeAdmin extends Admin
+class GoalMergeAdmin extends AbstractAdmin
 {
 //    protected $baseRoutePattern = 'goal-manage';
 //    protected $baseRouteName = 'goal-manage';

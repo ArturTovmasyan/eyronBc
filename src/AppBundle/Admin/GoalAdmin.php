@@ -14,7 +14,7 @@ use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\GoalImageType;
 use AppBundle\Model\PublishAware;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -23,10 +23,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 /**
- * Class CategoryAdmin
+ * Class GoalAdmin
  * @package AppBundle\Admin
  */
-class GoalAdmin extends Admin
+class GoalAdmin extends AbstractAdmin
 {
     protected $formOptions = array(
         'validation_groups' => array('goal')

@@ -8,7 +8,7 @@
 
 namespace Application\UserBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     protected $baseRouteName    = 'admin-user';
     protected $baseRoutePattern = 'admin-user';

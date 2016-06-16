@@ -9,7 +9,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Tag;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class AphorismAdmin
  * @package AppBundle\Admin
  */
-class AphorismAdmin extends Admin
+class AphorismAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-aphorism';
     protected  $baseRoutePattern = 'admin-aphorism';

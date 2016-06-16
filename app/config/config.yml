@@ -233,6 +233,8 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+    show_mosaic_button: true
+
 
 # stfo doctrine extensions
 stof_doctrine_extensions:
@@ -265,6 +267,7 @@ stfalcon_tinymce:
 
 a2lix_translation_form:
     locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
+    default_required: false
 
 liip_imagine:
     resolvers:

@@ -8,7 +8,7 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class TagAdmin
  * @package AppBundle\Admin
  */
-class TagAdmin extends Admin
+class TagAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-tag';
     protected  $baseRoutePattern = 'admin-tag';
