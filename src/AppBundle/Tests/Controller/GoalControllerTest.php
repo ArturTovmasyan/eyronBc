@@ -86,7 +86,7 @@ class GoalControllerTest extends BaseClass
         return $goal->getId();
     }
 
-    
+
     /**
      * This function is used to check goal add page
      */
@@ -337,19 +337,24 @@ class GoalControllerTest extends BaseClass
     */
     public function testPublishedGoalRemove($goalId)
     {
-        // get user id
+        //get user id
         $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user1@user.com');
+
         // open remove goal page
         $this->client->request('GET', '/goal/remove-goal/'. $goalId .'/' . $user->getId());
+
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND, 'can not open goal remove page!');
+
         //get removed goal for test
         $goal = $this->em->getRepository('AppBundle:Goal')->find($goalId);
-        $this->assertTrue($goal, "Published goal must be don't removed");
-        // check db request count
+
+        $this->assertNotNull($goal, "Published goal must be don't removed");
+
+        //check db request count
         if ($profile = $this->client->getProfile()) {
-            // count is 16, because calculated redirected route too
+
             // check the number of requests
-            $this->assertLessThan(16, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(14, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
     }
 
