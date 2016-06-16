@@ -4,36 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a6a4a309a59b279d754bbf63d16d2986",
-    "content-hash": "157a56511fe3bec3362159e68dae0e14",
+    "hash": "a703c980ad96af567780452d0a85e164",
+    "content-hash": "86a5231399f6a998301d8f34d9c30ddd",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
-            "version": "1.3",
+            "version": "2.1.2",
             "target-dir": "A2lix/TranslationFormBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/a2lix/TranslationFormBundle.git",
-                "reference": "7f0f33af0863275791c96b18f7c1d78bf5a290c0"
+                "reference": "a04a8db282caabc084cf9fcccd82d2fcfbee36af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/a2lix/TranslationFormBundle/zipball/7f0f33af0863275791c96b18f7c1d78bf5a290c0",
-                "reference": "7f0f33af0863275791c96b18f7c1d78bf5a290c0",
+                "url": "https://api.github.com/repos/a2lix/TranslationFormBundle/zipball/a04a8db282caabc084cf9fcccd82d2fcfbee36af",
+                "reference": "a04a8db282caabc084cf9fcccd82d2fcfbee36af",
                 "shasum": ""
             },
             "require": {
                 "symfony/symfony": ">=2.3"
             },
+            "require-dev": {
+                "doctrine/common": "~2.3",
+                "gedmo/doctrine-extensions": "~2.4",
+                "knplabs/doctrine-behaviors": "1.0.*",
+                "phpunit/phpunit": "~4.1"
+            },
             "suggest": {
                 "a2lix/i18n-doctrine-bundle": "For A2lix strategy",
+                "gedmo/doctrine-extensions": "For Gedmo strategy",
                 "knplabs/doctrine-behaviors": "For Knp strategy",
-                "stof/doctrine-extensions-bundle": "For Gedmo strategy"
+                "prezent/doctrine-translatable-bundle": "For Prezent strategy"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -47,14 +54,11 @@
             ],
             "authors": [
                 {
-                    "name": "A2lix",
+                    "name": "David ALLIX",
                     "homepage": "http://a2lix.fr"
-                },
-                {
-                    "name": "David ALLIX"
                 }
             ],
-            "description": "Translate your doctrine objects easily with a custom form field",
+            "description": "Translate your doctrine objects easily with some helps",
             "homepage": "https://github.com/a2lix/TranslationFormBundle",
             "keywords": [
                 "Symfony2",
@@ -67,7 +71,7 @@
                 "translatable",
                 "translation"
             ],
-            "time": "2013-12-17 18:40:49"
+            "time": "2016-04-11 12:49:49"
         },
         {
             "name": "behat/transliterator",
@@ -1263,149 +1267,6 @@
             "time": "2015-11-16 08:38:13"
         },
         {
-            "name": "friendsofsymfony/http-cache",
-            "version": "1.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSHttpCache.git",
-                "reference": "783f3918d85263e444db02a9e42d0f42aa7c1f43"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCache/zipball/783f3918d85263e444db02a9e42d0f42aa7c1f43",
-                "reference": "783f3918d85263e444db02a9e42d0f42aa7c1f43",
-                "shasum": ""
-            },
-            "require": {
-                "guzzle/guzzle": "~3.8",
-                "php": ">=5.3.3",
-                "symfony/event-dispatcher": "^2.3||^3.0",
-                "symfony/options-resolver": "^2.3||^3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9.1",
-                "monolog/monolog": "~1.0",
-                "symfony/http-kernel": "^2.3||^3.0",
-                "symfony/process": "^2.3||^3.0"
-            },
-            "suggest": {
-                "monolog/monolog": "For logging issues while invalidating"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "FOS\\HttpCache\\": "src/",
-                    "FOS\\HttpCache\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Liip AG",
-                    "homepage": "http://www.liip.ch/"
-                },
-                {
-                    "name": "Driebit",
-                    "email": "tech@driebit.nl",
-                    "homepage": "http://www.driebit.nl"
-                },
-                {
-                    "name": "Community contributions",
-                    "homepage": "https://github.com/friendsofsymfony/FOSHttpCache/contributors"
-                }
-            ],
-            "description": "Tools to manage cache invalidation",
-            "homepage": "https://github.com/friendsofsymfony/FOSHttpCache",
-            "keywords": [
-                "caching",
-                "http",
-                "invalidation",
-                "nginx",
-                "purge",
-                "varnish"
-            ],
-            "time": "2016-02-02 12:07:34"
-        },
-        {
-            "name": "friendsofsymfony/http-cache-bundle",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSHttpCacheBundle.git",
-                "reference": "e21bd9138631a03b34c9583aa730893c5c7290de"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCacheBundle/zipball/e21bd9138631a03b34c9583aa730893c5c7290de",
-                "reference": "e21bd9138631a03b34c9583aa730893c5c7290de",
-                "shasum": ""
-            },
-            "require": {
-                "friendsofsymfony/http-cache": "~1.0",
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": "~2.3"
-            },
-            "require-dev": {
-                "matthiasnoback/symfony-dependency-injection-test": "0.*",
-                "mockery/mockery": "0.9.*",
-                "monolog/monolog": "*",
-                "polishsymfonycommunity/symfony-mocker-container": "~1.0",
-                "sensio/framework-extra-bundle": "~2.3",
-                "symfony/expression-language": "~2.4",
-                "symfony/monolog-bundle": "~2.3",
-                "symfony/symfony": "~2.3"
-            },
-            "suggest": {
-                "sensio/framework-extra-bundle": "For Tagged Cache Invalidation",
-                "symfony/console": "To send invalidation requests from the command line",
-                "symfony/expression-language": "For Tagged Cache Invalidation"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "FOS\\HttpCacheBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Liip AG",
-                    "homepage": "http://www.liip.ch/"
-                },
-                {
-                    "name": "Driebit",
-                    "email": "tech@driebit.nl",
-                    "homepage": "http://www.driebit.nl"
-                },
-                {
-                    "name": "Community contributions",
-                    "homepage": "https://github.com/friendsofsymfony/FOSHttpCacheBundle/contributors"
-                }
-            ],
-            "description": "Set path based HTTP cache headers and send invalidation requests to your HTTP cache",
-            "homepage": "https://github.com/FriendsOfSymfony/FOSHttpCacheBundle",
-            "keywords": [
-                "caching",
-                "esi",
-                "http",
-                "invalidation",
-                "purge",
-                "varnish"
-            ],
-            "time": "2014-08-19 12:04:24"
-        },
-        {
             "name": "friendsofsymfony/rest-bundle",
             "version": "1.7.7",
             "target-dir": "FOS/RestBundle",
@@ -1707,101 +1568,6 @@
                 "form"
             ],
             "time": "2016-01-27 16:52:41"
-        },
-        {
-            "name": "guzzle/guzzle",
-            "version": "v3.9.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/0645b70d953bc1c067bbc8d5bc53194706b628d9",
-                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.3",
-                "symfony/event-dispatcher": "~2.1"
-            },
-            "replace": {
-                "guzzle/batch": "self.version",
-                "guzzle/cache": "self.version",
-                "guzzle/common": "self.version",
-                "guzzle/http": "self.version",
-                "guzzle/inflection": "self.version",
-                "guzzle/iterator": "self.version",
-                "guzzle/log": "self.version",
-                "guzzle/parser": "self.version",
-                "guzzle/plugin": "self.version",
-                "guzzle/plugin-async": "self.version",
-                "guzzle/plugin-backoff": "self.version",
-                "guzzle/plugin-cache": "self.version",
-                "guzzle/plugin-cookie": "self.version",
-                "guzzle/plugin-curlauth": "self.version",
-                "guzzle/plugin-error-response": "self.version",
-                "guzzle/plugin-history": "self.version",
-                "guzzle/plugin-log": "self.version",
-                "guzzle/plugin-md5": "self.version",
-                "guzzle/plugin-mock": "self.version",
-                "guzzle/plugin-oauth": "self.version",
-                "guzzle/service": "self.version",
-                "guzzle/stream": "self.version"
-            },
-            "require-dev": {
-                "doctrine/cache": "~1.3",
-                "monolog/monolog": "~1.0",
-                "phpunit/phpunit": "3.7.*",
-                "psr/log": "~1.0",
-                "symfony/class-loader": "~2.1",
-                "zendframework/zend-cache": "2.*,<2.3",
-                "zendframework/zend-log": "2.*,<2.3"
-            },
-            "suggest": {
-                "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle": "src/",
-                    "Guzzle\\Tests": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Guzzle Community",
-                    "homepage": "https://github.com/guzzle/guzzle/contributors"
-                }
-            ],
-            "description": "PHP HTTP client. This library is deprecated in favor of https://packagist.org/packages/guzzlehttp/guzzle",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "rest",
-                "web service"
-            ],
-            "time": "2015-03-18 18:23:50"
         },
         {
             "name": "hwi/oauth-bundle",

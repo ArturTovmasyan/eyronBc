@@ -265,7 +265,6 @@ stfalcon_tinymce:
 
 a2lix_translation_form:
     locales: [en, ru]                       # [Optionnal] Array of translations locales. Can be specified in the form.
-    default_required: false
 
 liip_imagine:
     resolvers:
