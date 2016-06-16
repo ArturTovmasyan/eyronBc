@@ -63,6 +63,16 @@
 
                 ga('create', '{{ ga_id }}', 'auto');
                 ga('send', 'pageview' {% if app.request.get('search') != null %} , '/ideas?search={{ app.request.get('search') }}' {% endif %} );
+                {% if app.session.flashBag.has('userRegistration') %}
+                    {% for msg in app.session.flashBag.get('userRegistration')  %}
+                        ga('send', 'event', 'User', 'User registration', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('userLogin') %}
+                    {% for msg in app.session.flashBag.get('userLogin')  %}
+                        ga('send', 'event', 'User', 'User login', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
             </script>
         {% endif %}
 

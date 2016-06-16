@@ -59,6 +59,11 @@ class RegistrationFormHandler extends BaseHandler
         // upload files
         $blService->uploadFile($user);
 
+        $this->request->getSession()
+            ->getFlashBag()
+            ->set('userRegistration','User native registration from Web')
+        ;
+
         // generate token
         $token = md5(microtime());
 

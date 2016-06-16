@@ -224,7 +224,7 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      */
     public function removeUserGoal($currentUserId, $userGoalId = null, $userId = null, $goalId = null)
     {
-        if (is_null($userGoalId) ^ (is_null($goalId) && is_null($userId))){
+        if (!(is_null($userGoalId) ^ (is_null($goalId) && is_null($userId)))){
             throw new HttpException(Response::HTTP_BAD_REQUEST);
         }
 
