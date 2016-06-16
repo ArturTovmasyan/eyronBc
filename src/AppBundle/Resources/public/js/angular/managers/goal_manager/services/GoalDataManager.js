@@ -20,8 +20,8 @@ angular.module('manage')
           return angular.fromJson(object);
       }},
       delete: {method:'DELETE', transformResponse: function (object) {
-          $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
-          return angular.fromJson(object);
+          $analytics.eventTrack('Goal unlisted', {  category: 'Goal', label: 'Goal unlisted from Web' });
+          return object;
       }}
     });
   }]);

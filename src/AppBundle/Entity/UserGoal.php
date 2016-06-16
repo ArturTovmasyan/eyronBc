@@ -40,6 +40,10 @@ class UserGoal implements ActivityableInterface
     // constants for steps
     const TO_DO = 0;
     const DONE = 1;
+    
+    //constants for delete or unlisted user goal
+    const DELETE = 1;
+    const UNLISTED = 0;
 
     /**
      * @ORM\Id

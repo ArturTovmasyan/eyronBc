@@ -413,7 +413,8 @@ angular.module('goal', ['Interpolation',
       '$http',
       'userGoalData',
       'UserGoalDataManager',
-      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager){
+      '$analytics',
+      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics){
 
         $scope.userGoal = userGoalData.data;
         angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
@@ -616,6 +617,15 @@ angular.module('goal', ['Interpolation',
           }, 100)
         };
 
+        $scope.removeUserGoal = function (id) {
+            UserGoalDataManager.delete({id:id}, function (resource){
+                if(resource[0] == 1){
+                    $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
+                }
+                $window.location.href = $window.location.href;
+            });
+        };
+
         $timeout(function(){
             angular.element('#datepicker').datepicker({
                 beforeShowDay: function(){
@@ -663,8 +673,8 @@ angular.module('goal', ['Interpolation',
             });
         }, 100);
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService',
-        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService', '$analytics',
+        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService, $analytics){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -722,6 +732,7 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(){
+                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
                     $scope.completed = false;
                     angular.element('#'+id).click();
                 });
@@ -894,8 +905,8 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', 'UserGoalDataManager', 'userGoalData', 'template',
-        function($scope, $http, refreshCacheService, $timeout, loginPopoverService, UserGoalDataManager, userGoalData, template){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', '$analytics',
+        function($scope, $http, refreshCacheService, $timeout, loginPopoverService, $analytics){
         $scope.completed = true;
         $scope.refreshCache = function(userId, goalId){
             refreshCacheService.refreshCache(userId, goalId);
@@ -916,17 +927,19 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(res){
+                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
                     $scope.completed = false;
                     angular.element('#'+id).click();
                 });
         };
     }])
-    .controller('goalMyBucketList', ['$scope', '$http', '$compile', function($scope, $http, $compile){
+    .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', function($scope, $http, $compile, $analytics){
         
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(){
+                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
                     $scope[id] = true;
                     angular.element('#'+id).click();
                 });
