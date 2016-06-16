@@ -93,9 +93,6 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        //send user register event in google analytics
-        $this->container->get('google_analytic')->userRegisterEvent();
-
         if($this->container->get('kernel')->getEnvironment() != 'test')
         {
             $sessionId = $this->loginAction($user);
@@ -141,20 +138,6 @@ class UserController extends FOSRestController
             $phpSessionId = $session->getId();
         }
 
-        //get social name for user login
-        $social = $user->getSocialsName();
-
-        //check if social exists
-        if($social) {
-
-            //send login user by social event in google analytics
-            $this->get('google_analytic')->loginUserBySocialEvent($social);
-        }
-        else{
-            //send login user event in google analytics
-            $this->get('google_analytic')->loginUserEvent();
-        }
-        
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
@@ -237,6 +220,10 @@ class UserController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
         $id = null;
+
+        //set reg value for mobile
+        $isRegistred = false;
+
         $newUser = new User();
 
         // switch for type
@@ -329,18 +316,17 @@ class UserController extends FOSRestController
             //get registration user
             $user = $newUser;
 
-            //get registration social name
-            $socialName = $user->getSocialsName();
+            //set reg status for mobile
+            $isRegistred = true;
 
-            //send login user by social event in google analytics
-            $this->container->get('google_analytic')->registrationUserBySocialEvent($socialName);
-            
         }
 
+        //get session id
         $sessionId = $this->loginAction($user);
 
         return  array(
             'sessionId' => $sessionId,
+            'registred' => $isRegistred,
             'userInfo'  => $user
         );
     }

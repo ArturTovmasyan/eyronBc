@@ -71,10 +71,15 @@
                     {% if profileUser.id == app.user.id %}
                         <div class="col-sm-4">
                             <div class="text-right">
-                                <a href="javascript:void(0)"
-                                   data-ls-identity="settingModalInMyBucketList"
-                                   data-ls-template-url="{{ path("settings") }}"
-                                   data-ls-jquery-modal>
+                                {#<a href="javascript:void(0)"#}
+                                {#data-ls-identity="settingModalInMyBucketList"#}
+                                {#data-ls-template-url="{{ path("settings") }}"#}
+                                {#data-ls-jquery-modal>#}
+                                {#<span class="black-overlay settings-overlay"></span>#}
+                                {#<i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>#}
+                                {#</a>#}
+
+                                <a href="{{ path('edit_user_profile') }}">
                                     <span class="black-overlay settings-overlay"></span>
                                     <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
                                 </a>
@@ -152,10 +157,14 @@
                                             <i class="icon-ok-only"></i>
                                         </span>
                                     {% else %}
-                                        <a href="javascript:void(0)"
-                                           data-ls-jquery-modal
-                                           data-ls-template-url="{{ path('settings') }}"
-                                           data-ls-identity="goalSettingsInCompleteModal">
+                                        {#<a href="javascript:void(0)"#}
+                                           {#data-ls-jquery-modal#}
+                                           {#data-ls-template-url="{{ path('settings') }}"#}
+                                           {#data-ls-identity="goalSettingsInCompleteModal">#}
+                                            {#<strong>{{ 'image_complete_text'|trans }}</strong>#}
+                                            {#<i class="icon-question-only"></i>#}
+                                        {#</a>#}
+                                        <a href="{{ path('edit_user_profile') }}">
                                             <strong>{{ 'image_complete_text'|trans }}</strong>
                                             <i class="icon-question-only"></i>
                                         </a>

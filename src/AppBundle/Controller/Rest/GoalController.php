@@ -240,9 +240,6 @@ class GoalController extends FOSRestController
             return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalEvent();
-        
         $em->persist($goal);
         $em->flush();
 
@@ -579,16 +576,16 @@ class GoalController extends FOSRestController
             return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //send comment event in google analytics
-        $this->get('google_analytic')->commentEvent();
+        //get current user
+        $user = $this->getUser();
 
-        //get user name
-        $userName = $this->getUser()->showName();
+        //get current user id
+        $userId = $user->getId();
 
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userName)) {
+        if($goal->hasAuthorForNotify($userId)) {
             //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $userName);
+            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, $commentBody);
         }
 
         // persist new comment end flush objects
@@ -652,17 +649,17 @@ class GoalController extends FOSRestController
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //send create goal event in google analytics
-        $this->container->get('google_analytic')->createGoalStoryEvent();
+        //get current user
+        $user = $this->getUser();
 
-        //get user name
-        $userName = $this->getUser()->showName();
+        //get current user id
+        $userId = $user->getId();
 
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userName)) {
+        if($goal->hasAuthorForNotify($userId)) {
 
             //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
         }
 
         // persist and flush object

@@ -159,9 +159,6 @@ class GoalController extends Controller
                     //set description
                     $goal->setDescription($description);
 
-                    //send create goal event in google analytics
-                    $this->get('google_analytic')->createGoalEvent();
-
                     $em->persist($goal);
                     $em->flush();
 
@@ -416,9 +413,6 @@ class GoalController extends Controller
         // set date
         $userGoal->setCompletionDate(new \DateTime());
 
-        //send done goal event in google analytic
-        $this->get('google_analytic')->doneGoalEvent();
-
         $em->persist($userGoal);
         $em->flush();
 
@@ -463,9 +457,9 @@ class GoalController extends Controller
         // get current user
         $user = $this->getUser();
 
-        //get user name
-        $userName = $user->showName();
-        
+        //get current user id
+        $userId = $user->getId();
+
         // create form
         $form = $this->createForm(new SuccessStoryType(), $story);
 
@@ -486,10 +480,10 @@ class GoalController extends Controller
                 }
 
                 //check if goal author not admin and not null
-                if($goal->hasAuthorForNotify($userName)) {
-                    
+                if($goal->hasAuthorForNotify($userId)) {
+
                     //send success story notify
-                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $userName);
+                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story->getStory());
                 }
 
                 // get images ids
@@ -528,9 +522,6 @@ class GoalController extends Controller
                 $goal->addSuccessStory($story);
                 $em->persist($story);
 
-                //send add story event in google analytics
-                $this->get('google_analytic')->createGoalStoryEvent();
-
                 $em->flush();
 
                 return new Response('ok');
@@ -564,16 +555,6 @@ class GoalController extends Controller
 
         //get current user
         $user = $this->getUser();
-
-        //get GA service
-        $analyticService = $this->get('google_analytic');
-
-        if (!$user->getActivity()){
-            //get bl service
-            $blService = $this->get('bl_service');
-            //check and set user activity by new feed count
-            $blService->setUserActivity($user, $inLogin = false);
-        }
 
         // create filter
         $filters = array(
@@ -648,107 +629,68 @@ class GoalController extends Controller
             }
         }
 
-        // create goal form
+
         $form  = $this->createForm(new UserGoalType(), $userGoal);
 
-        // check method
-        if($request->isMethod("POST")){
-
-            // get data
+        if($request->isMethod("POST"))
+        {
             $form->handleRequest($request);
 
-            // check form
-            if($form->isValid()){
-
+            if($form->isValid())
+            {
                 $goalStatus = $request->get('goal_status');
 
                 if($userGoal->getStatus() == UserGoal::COMPLETED && !$goalStatus){
                     $userGoal->setCompletionDate(null);
-                }elseif ($userGoal->getStatus() != UserGoal::COMPLETED && $goalStatus){
-                    // set date
+                }
+                elseif ($userGoal->getStatus() != UserGoal::COMPLETED && $goalStatus){
                     $userGoal->setCompletionDate(new \DateTime());
                 }
 
                 $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
 
-                // get step text
-                $stepTexts = $request->get('stepText');
-
-                // if step text
-                if($stepTexts){
-
-                    // get switch
+                if($stepTexts = $request->get('stepText'))
+                {
                     $switch = $request->get('switch');
-
-                    // loop for step text
                     foreach($stepTexts as $key => $stepText){
-
-                        // check step text
                         if(strlen($stepText) > 0 ){
-                            // get step
                             $name = $stepText;
-
-                            // get status
                             $status = is_array($switch) && array_key_exists($key, $switch) ? UserGoal::DONE : UserGoal::TO_DO;
-
                             $steps[$name] = $status;
                         }
                     }
                 }
 
-                // get location
-                $location = json_decode($form->get('location')->getData());
-
-                if($location){
+                if($location = json_decode($form->get('location')->getData())){
                     $userGoal->setAddress($location->address);
                     $userGoal->setLat($location->location->latitude);
                     $userGoal->setLng($location->location->longitude);
                 }
 
-                // if user is author, and goal is in draft
                 if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
-
-                    // set status to publish
                     $goal->setReadinessStatus(Goal::TO_PUBLISH);
                     $em->persist($goal);
                 }
 
-                // set step
                 $userGoal->setSteps($steps);
-
-                //set urgent
                 $userGoal->setUrgent($urgent);
-
-                //set important
                 $userGoal->setImportant($important);
 
-                $doDate = $form->get('birthday')->getData();
-
-                // check date
-                if($doDate){
-
+                if($doDate = $form->get('birthday')->getData()){
                     $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
-
-                    // set do date
                     $userGoal->setDoDate($doDate);
                 }
 
                 $em->persist($userGoal);
                 $em->flush();
 
+                if (!$user->getActivity()){
+                    $this->get('bl_service')->setUserActivity($user, $inLogin = false);
+                }
+
                 return new Response('ok');
             }
         }
-        else{
-
-            //check if action is not edit
-            if(!$userGoalId) {
-
-                //send add goal event in google analytics
-                $analyticService->addGoalEvent();
-            }
-        }
-
 
         return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
     }
@@ -928,11 +870,9 @@ class GoalController extends Controller
 
         //check if user goal exist and 1
         if(!is_null($userGoal)) {
+            
             //remove from bd
             $em->remove($userGoal);
-
-            //send add goal event in google analytics
-            $this->get('google_analytic')->unListGoalEvent();
         }
 
         //check if goal author this user
@@ -940,9 +880,6 @@ class GoalController extends Controller
 
             //remove goal
             $em->remove($goal);
-
-            //send add goal event in google analytics
-            $this->get('google_analytic')->removeGoalEvent();
         }
 
         //set myBucketList route name

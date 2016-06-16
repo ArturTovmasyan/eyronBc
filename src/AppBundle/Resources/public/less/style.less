@@ -845,9 +845,7 @@ ul.filter{
   }
 }
 
-.button-lg{
-  width:186px;
-}
+
 
 .btn-transparent{
   background-color:transparent;
@@ -970,6 +968,38 @@ ul li{list-style: none;}
 
 
 .settings{
+  padding:10px;
+  margin-bottom:10px;
+
+  .form-group{
+    margin-bottom:0;
+  }
+  select {
+    display: none;
+  }
+
+  hr{
+    margin: 5px 0;
+  }
+
+  .iradio_minimal-purple.checked{
+    margin-top: 10px;
+    background: url('../images/purple.png') no-repeat -140px 0;
+  }
+
+  h3{
+    margin: 2px 0;
+    font-size: 15px;
+    padding: 0 0 5px;
+    line-height: normal;
+    color: #666666;
+  }
+
+  .control-label{
+    padding-top: 7px;
+    color: #333;
+    font-size: 12px;
+  }
 
   figure{
     padding:30px 0 10px;
@@ -1028,7 +1058,20 @@ ul li{list-style: none;}
   }
 
   label{
-    padding:9px 0;
+    //padding:9px 0;
+
+    &.onoffswitch-label{
+      padding:0;
+      border:1px solid #cccccc;
+
+    }
+  }
+
+  .onoffswitch{
+    .onoffswitch-switch{
+      width:30px;
+      border:1px solid #cccccc;
+    }
   }
 
   .upload{
@@ -1049,6 +1092,7 @@ ul li{list-style: none;}
       color:#666666;
       display: block;
       text-align:left !important;
+      padding-top:8px;
     }
   }
 
@@ -1533,6 +1577,18 @@ footer{
   }
 }
 
+.button-lg{
+  padding: 8px 15px;
+  font-size:12px;
+  margin-right: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.check_status{
+  padding-bottom:8px;
+}
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1630,6 +1686,14 @@ footer{
     }
   }
 
+  .button-lg{
+    margin-right: 15px;
+    padding: 7px 35px;
+    font-size: 13px;
+  }
+
+
+
   #signin{
     width:210px;
     padding-bottom:20px;
@@ -1707,6 +1771,25 @@ footer{
       .rounded-corners(10px);
     }
   }
+
+
+  .settings{
+    padding: 20px;
+
+    hr{
+      margin: 5px 0 10px;
+    }
+
+    h3{
+      margin: 0 0 5px;
+      font-size: 20px;
+    }
+
+    .control-label{
+      font-size: 14px;
+    }
+  }
+
 
   .standart-pages{
     padding-bottom:10px;
@@ -1850,10 +1933,6 @@ footer{
   padding-bottom:0;
 }
 
-.check_status{
-  padding-bottom:15px;
-}
-
 .green-bg{
   background-color: #66cc33;
   color:#ffffff;
@@ -1975,9 +2054,18 @@ footer{
     }
   }
 
+  .button-lg{
+    //width: 186px;
+    padding: 10px 45px;
+    font-size: 14px;
+  }
   h1,h2{
     font-size:48px;
     font-weight:300;
+  }
+
+  .check_status{
+    padding-bottom:15px;
   }
 
   .empty-text{
@@ -2009,6 +2097,21 @@ footer{
     h1{
       font-size:52px;
       margin:60px 0 35px;
+    }
+  }
+
+  .settings{
+    margin-bottom: 20px;
+    padding:20px 25px;
+
+    hr{
+      margin:5px 0 20px;
+    }
+
+    h3{
+      margin: 0 0 10px;
+      font-size: 24px;
+      padding:0;
     }
   }
 
@@ -2246,6 +2349,10 @@ html {
       line-height: 32px;
       padding-bottom: 2%;
     }
+  }
+
+  .button-lg{
+    width: 186px;
   }
 }
 

@@ -28,8 +28,20 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
+
         //get entity manager
         $em = $this->getDoctrine()->getManager();
+
+//        $goal = $em->getRepository("AppBundle:Goal")->find(1);
+//
+//        return $this->render('@App/Main/userNotifyEmail.html.twig', array(
+//            'goal'=> $goal,
+//            'user' => $this->getUser(),
+//            'mailText' => 'notify_comment',
+//            'language' => 'en',
+//            'eventText' => 'This is text'
+//        ));
+//        exit;
 
         //get current user
         $user = $this->getUser();
@@ -218,7 +230,10 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:Goal')
             ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED, null, null, true);
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
+        if ($this->getUser()) {
+            $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
