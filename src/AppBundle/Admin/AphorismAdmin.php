@@ -54,10 +54,10 @@ class AphorismAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('author', null, array('label'=>'admin.label.name.author'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('author', null, array('label'=>'admin.label.name.author','show_filter' => true))
+            ->add('content', null, array('label'=>'admin.label.name.content','show_filter' => true))
+            ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
         ;
     }
 

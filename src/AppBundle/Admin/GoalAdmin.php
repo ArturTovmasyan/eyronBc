@@ -84,15 +84,16 @@ class GoalAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
-            ->add('archived', null, array('label'=>'admin.label.name.archived'))
-            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
+            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
+            ->add('publish', null, array('label'=>'admin.label.name.publish', 'show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
+            ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
+            ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
+            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))
+            ->add('archived', null, array('label'=>'admin.label.name.archived','show_filter' => true))
+            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id','show_filter' => true))
             ->add('created', 'doctrine_orm_callback', array(
+                'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;

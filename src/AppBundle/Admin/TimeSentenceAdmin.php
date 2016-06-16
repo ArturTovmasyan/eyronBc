@@ -54,10 +54,10 @@ class TimeSentenceAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
-            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('content', null, array('label'=>'admin.label.name.content','show_filter' => true))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString','show_filter' => true))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith','show_filter' => true))
         ;
     }
 

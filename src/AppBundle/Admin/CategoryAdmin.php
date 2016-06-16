@@ -60,8 +60,8 @@ class CategoryAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }

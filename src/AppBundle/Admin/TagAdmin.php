@@ -50,8 +50,8 @@ class TagAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('tag', null, array('label'=>'admin.label.name.tag'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('tag', null, array('label'=>'admin.label.name.tag','show_filter' => true))
         ;
     }
 
