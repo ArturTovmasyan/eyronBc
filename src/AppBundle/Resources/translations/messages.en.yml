@@ -35,9 +35,9 @@ goal:
       complete_text: Complete a goal
       public: Suggest as public
       agree: By checking you suggest your goal to be listed in the Ideas list
-      preview: PREVIEW
-      publish: Create
-      edit: UPDATE
+      preview: Preview
+      publish: Save as a Goal
+      edit: Update Goal
       description_title: Place a hash character (#) in front of a word or unspaced phrase in title and description to convert it into hashtag. <br /> You can use simple Markdown elements for emphasizing a snippet of text with a <strong>heavier font-weight</strong> and <em>italics</em>: **bold**, *italics*
       search_title: Bucket List 127-search result-
       search_description:  Here is the list of goal you searched for. Search bucketlist, share ideas and examples from your goalfriends. Search Things To Do In Bucket Lists.
@@ -240,6 +240,9 @@ my_bucket_list:
   noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
 
 draft:
+  edit: Edit
+  update: Update Draft
+  create: Save as a Draft
   title: Bucket List 127-Drafts
   description: If you hesitate to start a goal and still think over to create it or not, don't delay. Draft list gives you an opportunity to see the goals you have worked on but not yet published.
 

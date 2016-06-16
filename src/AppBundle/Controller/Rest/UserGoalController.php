@@ -37,7 +37,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "user"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $goal Goal
@@ -82,6 +82,7 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      *
      * @param Goal $goal
      * @param Request $request
@@ -90,6 +91,11 @@ class UserGoalController extends FOSRestController
     public function putAction(Goal $goal, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+        
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
         if (!$userGoal) {
@@ -98,10 +104,29 @@ class UserGoalController extends FOSRestController
             $userGoal->setUser($this->getUser());
         }
 
-        $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
-        $userGoal->setIsVisible($request->get('is_visible') ? true : false);
-        $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
-        $userGoal->setNote($request->get('note') ? $request->get('note') : null);
+        if (!is_null($request->get('goal_status'))){
+            $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+        }
+
+        if (!is_null($request->get('is_visible'))){
+            $userGoal->setIsVisible($request->get('is_visible') ? true : false);
+        }
+
+        if (!is_null($request->get('steps'))){
+            $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+        }
+
+        if (!is_null($request->get('note'))){
+            $userGoal->setNote($request->get('note'));
+        }
+
+        if (!is_null($request->get('urgent'))){
+            $userGoal->setUrgent($request->get('urgent') ? true : false);
+        }
+
+        if (!is_null($request->get('important'))){
+            $userGoal->setImportant($request->get('important') ? true : false);
+        }
 
         $location = $request->get('location');
         if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
@@ -110,7 +135,7 @@ class UserGoalController extends FOSRestController
             $userGoal->setLng($location['longitude']);
         }
 
-        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT ){
+        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT){
             // set status to publish
             $goal->setReadinessStatus(Goal::TO_PUBLISH);
             $em->persist($goal);
@@ -118,30 +143,28 @@ class UserGoalController extends FOSRestController
 
         $userGoal->setListedDate(new \DateTime());
 
-        $userGoal->setUrgent($request->get('urgent') ? true : false);
-        $userGoal->setImportant($request->get('important') ? true : false);
+        $doDateRaw = $request->get('do_date');
+        if($doDateRaw){
+            $doDate = \DateTime::createFromFormat('d/m/Y', $doDateRaw);
 
-        $doDate = $request->get('do_date');
-        if($doDate){
-            try {
-                $doDate= \DateTime::createFromFormat('d/m/Y', $doDate);
+            if(!$doDate){
+                $doDate = \DateTime::createFromFormat('m-d-Y', $doDateRaw);
             }
-            catch(\Exception $e){
-                try {
-                    $doDate= \DateTime::createFromFormat('m-d-Y', $doDate);
-                }
-                catch(\Exception $e) {
-                    return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
-                }
+
+            if(!$doDate){
+                return new Response('Error do date', Response::HTTP_BAD_REQUEST);
             }
 
             $userGoal->setDoDate($doDate);
+        }
+        if($request->get('goal_status')){
+            $userGoal->setCompletionDate(new \DateTime('now'));
         }
 
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+        return $userGoal;
     }
 
     /**
@@ -161,18 +184,12 @@ class UserGoalController extends FOSRestController
      * @param $userGoal
      * @return Response
      */
-    public function deleteAction(UserGoal $userGoal)
+    public function deleteAction($userGoal)
     {
-        if ($userGoal->getUser()->getId() != $this->getUser()->getId()){
-            return new Response("It isn't current user's userGoal", Response::HTTP_BAD_REQUEST);
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $em->remove($userGoal);
+        $msg = $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoal);
 
-        $em->flush();
-
-        return new Response('', Response::HTTP_OK);
+        return new Response($msg, Response::HTTP_OK);
     }
 
     /**

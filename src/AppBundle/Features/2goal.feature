@@ -40,13 +40,13 @@ Feature: Goal page
     And I wait for angular
     Then I should see "Goal is active"
     When I change date
-    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
+#    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
     And I wait for view
     And I change switch "2"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "user1 useryan"
     And I wait for angular
     When I scroll page to ".information"
@@ -78,6 +78,18 @@ Feature: Goal page
     Then I should see "EDIT"
     When I follow "EDIT"
     Then I should see "TEST GOALS"
+
+  @javascript @createDraft
+  Scenario: Create drafts
+    When I follow "user1"
+    And I follow "Create Goal"
+    Then I should see "user1"
+    When I fill in "app_bundle_goal[title]" with "TEST2 GOALS2"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST2 GOALS2"
+    And I scroll page to "top"
+    And I press "btn_save_draft"
+    And I wait for angular
+    Then I should be on "/goal/my-ideas/drafts"
 
   @javascript @doneGoal
   Scenario: Done a goal
@@ -185,19 +197,24 @@ Feature: Goal page
     Then I should be on "/goal/my-ideas"
     When I follow "Drafts"
     Then I should be on "/goal/my-ideas/drafts"
-    And I wait for view
     And I should see "Edit"
     And I should see "Delete"
     When I follow "Edit"
     Then I should see "Suggest as public"
-    When I move backward one page
+    And I scroll page to "top"
+    And I press "btn_publish"
+    And I wait for angular
+    And I follow "Save"
+    And I wait for view
+    Then I should be on "/profile"
+    And I should see "Your Goal has been Successfully Published"
+    When I am on "/goal/my-ideas/drafts"
+    Then I should not see "TEST2 GOALS2"
+    And I wait
     And I follow "Delete"
     And I wait for angular
     Then I should see "Your goal will be permanently deleted."
     When I click on "btn btn-danger"
     Then I should be on "/goal/my-ideas/drafts"
-    And I should see "Drafts"
-    When I follow "Delete"
-    And I wait for angular
-    And I click on "btn btn-success"
-    Then I should not see "Your goal will be permanently deleted."
+    And I should see "Currently there are no draft goals in your draft list"
+

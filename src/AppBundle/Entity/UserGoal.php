@@ -40,6 +40,10 @@ class UserGoal implements ActivityableInterface
     // constants for steps
     const TO_DO = 0;
     const DONE = 1;
+    
+    //constants for delete or unlisted user goal
+    const DELETE = 1;
+    const UNLISTED = 0;
 
     /**
      * @ORM\Id
@@ -54,7 +58,7 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="status", type="smallint", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $status;
+    protected $status = self::ACTIVE;
 
     /**
      * @var
@@ -68,14 +72,14 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="urgent", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $urgent;
+    protected $urgent = false;
 
     /**
      * @var
      * @ORM\Column(name="important", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $important;
+    protected $important = false;
 
     /**
      * @var
@@ -86,6 +90,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
+     * @Groups({"userGoal"})
      * @ORM\Column(name="steps", type="array", nullable=true)
      */
     protected $steps = [];
@@ -454,6 +459,7 @@ class UserGoal implements ActivityableInterface
             }
             return $done * 100 / $count;
         }
+
         return 100;
     }
 
@@ -482,6 +488,9 @@ class UserGoal implements ActivityableInterface
      * This function is used to return json location for twig
      *
      * @return string
+     * @VirtualProperty()
+     * @SerializedName("formatted_steps")
+     * @Groups({"userGoal"})
      */
     public function getStepsJson()
     {
@@ -498,7 +507,7 @@ class UserGoal implements ActivityableInterface
         else{
             $result[] = array();
         }
-        return json_encode($result);
+        return $result;
     }
 
     /**
