@@ -9,24 +9,20 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class Builder
  * @package AppBundle\Menu
  */
-class Builder extends ContainerAware
+class Builder implements ContainerAwareInterface
 {
-    /**
-     * @var
-     */
     private $otherMenu;
 
-    /**
-     * @var
-     */
     private $policyMenu;
+
+    private $container;
 
     /**
      * Sets the Container associated with this Controller.
