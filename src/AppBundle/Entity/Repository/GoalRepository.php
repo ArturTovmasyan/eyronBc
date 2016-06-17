@@ -22,6 +22,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class GoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
 {
+    const TopIdeasCount = 100;
+
     /**
      * @param $count
      * @return mixed
@@ -113,21 +115,34 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      */
     public function findPopular($user, $count)
     {
-        $query =
-            $this->getEntityManager()
+        $ids = $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('g', 'i', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN cnt')
-                ->from('AppBundle:Goal', 'g', 'g.id')
-                ->leftJoin('g.images', 'i', 'with', 'i.list = true')
-                ->andWhere('g.publish = true and not exists (SELECT ug1 FROM AppBundle:UserGoal ug1 WHERE ug1.goal = g AND ug1.user = :user)')
+                ->select('DISTINCT g.id', '(SELECT COUNT(ug2) FROM AppBundle:UserGoal ug2 WHERE ug2.goal = g) as HIDDEN cnt')
+                ->from('AppBundle:Goal', 'g')
+                ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+                ->where('g.publish = true AND ug.id IS NULL')
                 ->orderBy('cnt', 'desc')
-                ->setParameter('user', $user->getId());
+                ->setParameter('user', $user->getId())
+                ->setMaxResults(self::TopIdeasCount)
+                ->getQuery()
+                ->getScalarResult();
 
-        if($count){
-            $query->setMaxResults($count);
+
+        $ids = array_map(function($v){ return $v['id']; }, $ids);
+        shuffle($ids);
+        $ids = array_slice($ids, 0, $count);
+
+        if (count($ids) == 0){
+            return [];
         }
 
-        return $query
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g', 'i')
+            ->from('AppBundle:Goal', 'g', 'g.id')
+            ->leftJoin('g.images', 'i')
+            ->where('g.id IN (:ids)')
+            ->setParameter('ids', $ids)
             ->getQuery()
             ->getResult();
     }

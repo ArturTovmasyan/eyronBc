@@ -11,6 +11,7 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\SuccessStory;
+use AppBundle\Form\GoalType;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -87,33 +88,39 @@ class GoalController extends FOSRestController
     }
 
     /**
+     * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
-     *  section="Goal",
-     *  description="This function is used to get suggested goals",
+     *  section="Activity",
+     *  description="This function is used to get top ideas",
      *  statusCodes={
      *         200="Returned when goals was returned",
-     *  },
-     *
-     *
+     *  }
      * )
      *
-     * @param int $count
-     * @param Request $request
-     * @return mixed
-     * @Security("has_role('ROLE_USER')")
      * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $count
+     * @return array
      */
-    public function getSuggestAction($count, Request $request)
+    public function getTopIdeasAction($count)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $goals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
-        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
 
-        $goals = array_values($goals);
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($topIdeas as $topIdea){
 
-        return  $goals;
+            if($topIdea->getListPhotoDownloadLink()){
+                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+
+        }
+
+        return $topIdeas;
     }
 
     /**
@@ -207,6 +214,7 @@ class GoalController extends FOSRestController
      * @param $id
      * @return mixed
      * @Rest\Put("/goals/create/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_put", options={"method_prefix"=false})
+     * @Rest\Post("/goals/create/{id}", defaults={"id"=null}, requirements={"id"="\d+"}, name="app_rest_goal_post", options={"method_prefix"=false})
      * @Rest\View()
      * @Security("has_role('ROLE_USER')")
      */
@@ -225,11 +233,76 @@ class GoalController extends FOSRestController
             $goal = new Goal();
         }
 
-        $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
-        $goal->setTitle(array_key_exists('title', $data) ? $data['title'] : null);
-        $goal->setDescription(array_key_exists('description', $data) ? $data['description'] : null);
-        $goal->setVideoLink(array_key_exists('video_links', $data) ? $data['video_links'] : null);
-        $goal->setLanguage(array_key_exists('language', $data) ? $data['language'] : "en");
+        if($request->isMethod('PUT')){
+            $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
+            $goal->setTitle(array_key_exists('title', $data)                             ? $data['title']       : null);
+            $goal->setDescription(array_key_exists('description', $data)                 ? $data['description'] : null);
+            $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
+            $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
+        }else{
+            $form = $this->createForm(new GoalType(), $goal);
+
+            // get data from request
+            $form->handleRequest($request);
+
+            //Delete last empty link
+            if ($videoLinks = $goal->getVideoLink()){
+                $videoLinks = array_values($videoLinks);
+                $videoLinks = array_filter($videoLinks);
+
+                $goal->setVideoLink($videoLinks);
+            }
+
+            // get tags from form
+            $tags = $form->get('hashTags')->getData();
+
+            // add tags
+            $this->getAndAddTags($goal, $tags);
+
+            // get images ids
+            $images = $form->get('files')->getData();
+
+            // remove all images that older one day
+//            $this->removeAllOldImages();
+
+            if($images){
+
+                // get json from request
+                $images = json_decode($images);
+
+                // remove duplicate
+                $images = array_unique($images);
+
+                // get goal images form bd
+                $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
+
+                // check goal images
+                if($goalImages){
+
+                    // loop for goal images
+                    foreach($goalImages as $goalImage){
+
+                        // add to goal
+                        $goal->addImage($goalImage);
+                    }
+                }
+            }
+
+            //get goal description
+            $description = $goal->getDescription();
+
+            if($description) {
+                //cleare # tag in description
+                $description = str_replace('#', '', $description);
+            }
+
+            //set description
+            $goal->setDescription($description);
+
+            //send create goal event in google analytics
+//            $this->get('google_analytic')->createGoalEvent();
+        }
+
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
@@ -785,5 +858,87 @@ class GoalController extends FOSRestController
         $goal = $em->getRepository("AppBundle:Goal")->find($id);
 
         return $goal;
+    }
+
+    /**
+     * @param $object
+     * @param $tags
+     */
+    private function getAndAddTags(&$object, $tags)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get environment
+        $env = $this->container->getParameter("kernel.environment");
+
+        // check environment
+        if($env == "test") {
+            $tags = array();
+        }
+
+        // check tags
+        if($tags){
+
+            // remove # from json
+            $tags = str_replace('#', '', $tags);
+
+            // get array
+            $tags = json_decode($tags);
+
+            // get tags from db
+            $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
+
+            // get new tags
+            $newTags = array_diff($tags, $dbTags);
+
+            // loop for array
+            foreach($newTags as $tagString){
+
+                // create new tag
+                $tag = new Tag();
+
+                $title = strtolower($tagString);
+
+                // replace ',' symbols
+                $title = str_replace(',', '', $title);
+
+                // replace ':' symbols
+                $title = str_replace(':', '', $title);
+
+                // replace '.' symbols
+                $title = str_replace('.', '', $title);
+
+                // set tag title
+                $tag->setTag($title);
+
+                // add tag
+                $object->addTag($tag);
+
+                // persist tag
+                $em->persist($tag);
+
+            }
+
+            // tags that is already exist in database
+            $existTags = array_diff($tags, $newTags);
+
+            // get tags from database
+            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
+
+            // loop for tags n database
+            foreach($oldTags as $oldTag){
+
+                // check tag in collection
+                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
+
+                    // add tag
+                    $object->addTag($oldTag);
+
+                    // persist tag
+                    $em->persist($oldTag);
+                }
+            }
+        }
     }
 }

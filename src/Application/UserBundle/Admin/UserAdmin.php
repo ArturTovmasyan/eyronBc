@@ -8,7 +8,7 @@
 
 namespace Application\UserBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     protected $baseRouteName    = 'admin-user';
     protected $baseRoutePattern = 'admin-user';
@@ -67,18 +67,21 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('email', null, array('label'=>'admin.label.name.email_username'))
-            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
-            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker'),null,
-                array('widget' => 'single_text',
-                      'format' => 'yyyy-MM-dd',
-                      'required' => false)
-            );
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('email', null, array('label'=>'admin.label.name.email_username','show_filter' => true))
+            ->add('firstName', null, array('label'=>'admin.label.name.firstName','show_filter' => true))
+            ->add('lastName', null, array('label'=>'admin.label.name.lastName','show_filter' => true))
+//            ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker', 'show_filter' => true),null,
+//                array('widget' => 'single_text',
+//                      'format' => 'yyyy-MM-dd',
+//                      'required' => false)
+//            );
+            ->add('created','doctrine_orm_date_range', array('show_filter' => true),'sonata_type_date_range_picker',
+                array('field_options_start' => array('format' => 'yyyy-MM-dd'),
+                      'field_options_end' => array('format' => 'yyyy-MM-dd'))
+                );
     }
 
-    // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

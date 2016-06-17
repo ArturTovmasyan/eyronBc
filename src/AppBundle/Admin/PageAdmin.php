@@ -8,13 +8,13 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class PageAdmin extends Admin
+class PageAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-page';
     protected  $baseRoutePattern = 'admin-page';
@@ -76,10 +76,10 @@ class PageAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('name', null, array('label'=>'admin.label.name.name','show_filter' => true))
+            ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
+            ->add('position', null, array('label'=>'admin.label.name.position','show_filter' => true))
         ;
     }
 

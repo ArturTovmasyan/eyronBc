@@ -183,7 +183,7 @@ class PutNotificationService
         if($timePercent > $goalCompletedPercent){
             $massage = $this->container->get('translator')->trans('progress_bad', array('%goalPercent%' => (100 - $goalCompletedPercent).'%')); 
         }else{
-            $massage = $this->container->get('translator')->trans('progress_god');
+            $massage = $this->container->get('translator')->trans('progress_good');
         }
         
 

@@ -64,6 +64,24 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         //get session
         $session = $request->getSession();
 
+        //get social name for user login
+        $social = $user->getSocialsName();
+
+        //check if social exists
+        if($social) {
+        //send login user by social event in google analytics
+        $request->getSession()
+            ->getFlashBag()
+                ->set('userLogin','User login by '.$social.' from Web')
+            ;
+        }
+        else{
+            $request->getSession()
+                ->getFlashBag()
+                ->set('userLogin','User native login from Web')
+            ;
+        }
+
         //check if user and session url exist
         if ($user && $session->has('url') && !$user->isAdmin()) {
 
@@ -143,41 +161,22 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        //check if request format is json
-        if ($request->get('_format') == "json"){
-            return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
-        }
-
-        //set flash messages for open login by js
         $this->session->getFlashBag()->add('error', '');
 
-        //get current route name
-        $routeName = $request->get('_route');
-
-        //get url
-        $url = $request->getUri();
-        //get last url
+        $routeName   = $request->get('_route');
+        $url         = $request->getUri();
         $referrerUrl = $request->headers->get('referer');
 
+        $routeNames = [
+            "rest_put_usergoal"
+        ];
 
-        //set url in session
-        $request->getSession()->set('url', $url);
+        if (in_array($routeName, $routeNames)) {
+            $goal = $request->get('goal');
+            $request->getSession()->set('goal_action', ['action' => $routeName, 'goal_id' => (is_object($goal) ? $goal->getId() : $goal) ]);
+        }
 
-        //check if route nam is current list
-        if ($routeName == "add_to_me_goal" ||
-            $routeName == "add_story"      ||
-            $routeName == "add_goal") {
-
-            //check if route don`t add_goal
-            if ($routeName !== "add_goal") {
-
-                //set url in session
-                $request->getSession()->set('url', $referrerUrl);
-
-                //set url in session
-                $request->getSession()->set('addUrl', $url);
-            }
-
+        if ($request->get('_format') == "json"){
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }
 
@@ -186,6 +185,8 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             //generate homepage url for redirect
             $loginPath = $this->router->generate('homepage');
         }
+
+        $request->getSession()->set('url', $url);
 
         return new RedirectResponse($loginPath);
     }

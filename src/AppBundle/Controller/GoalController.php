@@ -167,18 +167,34 @@ class GoalController extends Controller
                         ->set('success','Your Goal has been Successfully Published')
                     ;
 
-                    return $this->redirectToRoute('add_to_me_goal', array('id'=> $goal->getId()));
+                    return new Response($goal->getId());
                 }
 
                 $em->persist($goal);
                 $em->flush();
 
                 // redirect to view
-                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));;
+                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));
             }
         }
+        
+        $slug = $request->get('slug', null);
+        $isPrivate = ($slug == "drafts" || $slug == null)?false:true;
 
-        return array('form' => $form->createView(), 'currentUser' => $currentUser);
+        if($isPrivate){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('private','Edit my private idea from Web')
+            ;
+        }elseif ($cloneGoalId){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('draft','Edit my draft  from Web')
+            ;
+        }
+
+
+        return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $cloneGoalId);
     }
 
 
@@ -248,6 +264,7 @@ class GoalController extends Controller
 
         return array(
             'goals'       => $pagination,
+            'slug'        => $slug,
             'profileUser' => $this->getUser());
 
     }
@@ -537,6 +554,26 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("goal/add-modal", name="add_modal")
+     * @Template()
+     * @return array
+     */
+    public function addModalAction()
+    {
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
+        );
+
+        return $this->render('@App/Goal/addToMe.html.twig', array(
+            'filters' => $filters
+        ));
+    }
+
+    /**
      * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
@@ -706,6 +743,13 @@ class GoalController extends Controller
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
+        
+        if($category){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('category','Goal select category '.$category.' from Web')
+            ;
+        }
 
         // get search key
         $search = $request->get('search');
@@ -809,13 +853,14 @@ class GoalController extends Controller
      *
      * @param Goal $goal
      * @param $slug
+     * @param Request $request
      * @ParamConverter("goal", class="AppBundle:Goal")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
      * @deprecated must be checked and removed
      */
-    public function removeDraftGoal(Goal $goal, $slug = null)
+    public function removeDraftGoal(Goal $goal, $slug = null, Request $request)
     {
         // get entity manager
         $em = $this->getDoctrine()->getManager();
@@ -846,54 +891,42 @@ class GoalController extends Controller
         $em->remove($goalDraft);
         $em->flush();
 
+        if($slug == "drafts"){
+            $request->getSession()
+                ->getFlashBag()
+                ->set('draft','Delete my draft from Web')
+            ;
+        }else{
+            $request->getSession()
+                ->getFlashBag()
+                ->set('private','Delete my private idea from Web')
+            ;
+        }
+
         return $this->redirectToRoute("my_ideas", array('slug' => $slug));
     }
 
     /**
-     * @Route("goal/remove-goal/{goal}/{user}", name="remove_goal")
+     * @Route("goal/remove-goal/{goalId}/{userId}", name="remove_goal")
+     * @Route("goal/remove-user-goal/{userGoalId}", name="remove_user_goal")
      *
-     * @param Goal $goal
-     * @param User $user
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @ParamConverter("user", class="ApplicationUserBundle:User")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Secure(roles="ROLE_USER")
      *
+     * @param $userGoalId
+     * @param $goalId
+     * @param $userId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|HttpException
      */
-    public  function removeGoal(Goal $goal, User $user)
+    public  function removeGoal($userGoalId = null, $goalId = null, $userId = null)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoalId, $userId, $goalId);
 
-        // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
-
-        //check if user goal exist and 1
-        if(!is_null($userGoal)) {
-            
-            //remove from bd
-            $em->remove($userGoal);
+        if ($this->getUser()->getActivity()){
+            $this->get('bl_service')->setUserActivity($this->getUser(), $inLogin = false);
         }
 
-        //check if goal author this user
-        if ($goal->isAuthor($user)) {
-
-            //remove goal
-            $em->remove($goal);
-        }
-
-        //set myBucketList route name
-        $url = 'user_profile';
-
-        if ($user->getActivity()){
-            //check and set user activity by new feed count
-            $this->get('bl_service')->setUserActivity($user, $inLogin = false);
-        }
-        else {
-            $em->flush();
-        }
-
-        return $this->redirectToRoute($url);
+        return $this->redirectToRoute('user_profile');
     }
 
     /**

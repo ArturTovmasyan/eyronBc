@@ -8,7 +8,7 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class CategoryAdmin
  * @package AppBundle\Admin
  */
-class CategoryAdmin extends Admin
+class CategoryAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-category';
     protected  $baseRoutePattern = 'admin-category';
@@ -60,8 +60,8 @@ class CategoryAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
         ;
     }
