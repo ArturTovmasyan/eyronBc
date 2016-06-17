@@ -120,6 +120,8 @@ doctrine:
         dql:
             datetime_functions:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                hour:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                dayofweek:      Oro\ORM\Query\AST\Functions\SimpleFunction
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
             string_functions:
