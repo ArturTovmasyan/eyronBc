@@ -401,9 +401,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $count
      * @return array
      */
-    public function findRandomGoalFriends($userId, $count)
+    public function findRandomGoalFriends($userId, $count, &$allCount)
     {
         $goalFriendIds = $this->findGoalFriendIds($userId);
+        $allCount = count($goalFriendIds);
         shuffle($goalFriendIds);
         $goalFriendIds = array_slice($goalFriendIds, 0, $count);
 

@@ -559,7 +559,7 @@ class GoalController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
      * @return array
@@ -567,7 +567,8 @@ class GoalController extends FOSRestController
     public function getRandomFriendsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $goalFriends = $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($this->getUser()->getId(), self::RandomGoalFriendCounts);
+        $allCount = 0;
+        $goalFriends = $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($this->getUser()->getId(), self::RandomGoalFriendCounts, $allCount);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
@@ -582,7 +583,10 @@ class GoalController extends FOSRestController
             }
         }
 
-        return $goalFriends;
+        return [
+            '1'      => $goalFriends,
+            'length' => $allCount
+            ];
     }
 
     /**
