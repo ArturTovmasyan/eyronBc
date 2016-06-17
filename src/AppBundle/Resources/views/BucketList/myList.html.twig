@@ -192,14 +192,6 @@
                                                     </div>
                                                 </div>
 
-
-                                                    <p>
-                                                        {% if goal.author and goal.author.id != profileUser.id %}
-                                                            <a href="{{ path('user_profile',  {'user': goal.author.uId})}}" class="text-gray">{{ goal.author.showName }} </a>
-                                                        {% endif %}
-                                                    </p>
-
-
                                                 <ul class="clearfix">
                                                     {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
                                                         <li>
@@ -342,15 +334,16 @@
                         <hr/>
 
                         <div class="row padding-top">
-                            <div class="col-xs-12">
+                            <div class="col-xs-10">
                                 <span>
                                     <i class="icon-suggest-icon"></i>
                                     <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
                                 </span>
                             </div>
-                            {#<div class="col-xs-3 text-right">#}
-                            {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                            {#</div>#}
+
+                            <div class="col-xs-2 text-right">
+                                <a href="#" class="laod"></a>
+                            </div>
                         </div>
 
                         <hr/>

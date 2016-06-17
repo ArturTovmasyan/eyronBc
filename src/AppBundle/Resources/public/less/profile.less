@@ -63,19 +63,11 @@
     //position: relative;
   }
 
-  //.black-overlay{
-  //  display: inline-block;
-  //  background-color: rgba(0, 0, 0, 0.20);
-  //  position: absolute;
-  //  border-radius: 50%;
-  //}
-  //
-  //.settings-overlay{
-  //  width:45px;
-  //  height:45px;
-  //  top:7px;
-  //  right:11px;
-  //}
+  .mobile-settings{
+    position: absolute;
+    right:20px;
+    overflow: initial;
+  }
 
   figure{
     background-color: rgba(207, 207, 207, 0.34);
@@ -210,23 +202,31 @@
   h1{
     font-size:25px;
     margin:7px 0 5px;
+    font-weight: lighter;
 
     span{
-      padding:5px 10px;
+      display: inline-block;
+      line-height: normal;
+      padding: 2px 10px;
     }
   }
 
   h1.title-smaller{
     font-size:20px;
     line-height:30px;
+    span{
+      padding: 5px 10px;
+    }
   }
 
   p{
     background-color: #021523;
     color:#ffffff;
-    padding:5px 10px;
+    padding: 2px 10px 3px;
     display: inline-block;
     margin-bottom:5px;
+    font-weight: 600;
+    line-height: normal;
   }
 
   em{
@@ -455,22 +455,25 @@
 
     h1{
       font-size:30px;
-      margin:25px 0 10px;
+      margin:25px 0 5px;
 
       span{
-        padding:5px 15px;
-
+        padding:3px 15px 5px;
       }
     }
 
     h1.title-smaller{
       font-size:23px;
       line-height:35px;
+      span{
+        padding:3px 15px 5px;
+      }
     }
 
     p{
-      padding:5px 15px;
+      padding: 4px 15px 5px;
       margin-bottom:10px;
+      font-size:18px;
     }
 
     em{
@@ -635,19 +638,24 @@
 
     h1{
       font-size:45px;
+      margin:25px 0 10px;
 
       span{
-        padding:10px 25px;
+        padding: 0 20px 2px;
       }
     }
 
     h1.title-smaller{
-      font-size:27px;
+      font-size:38px;
+      span{
+        padding: 7px 20px 14px;
+      }
     }
 
     p{
-      padding:10px 40px;
+      padding:3px 20px 6px;
       margin-bottom:15px;
+      font-size: 24px;
     }
 
     .profile-information{
@@ -705,17 +713,12 @@
   }
 }
 
-@media (min-width: @screen-md) {
+@media (min-width: @screen-lg) {
 
   .profile{
 
     h1{
       font-size: 52px;
-      line-height: 62px;
-
-      span{
-        padding:10px 25px;
-      }
     }
   }
 
