@@ -30,6 +30,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class GoalController extends FOSRestController
 {
+    const RandomGoalFriendCounts = 3;
+
     /**
      * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getall", options={"method_prefix"=false})
      * @ApiDoc(
@@ -253,13 +255,10 @@ class GoalController extends FOSRestController
                 $goal->setVideoLink($videoLinks);
             }
 
-            // get tags from form
             $tags = $form->get('hashTags')->getData();
 
-            // add tags
             $this->getAndAddTags($goal, $tags);
 
-            // get images ids
             $images = $form->get('files')->getData();
 
             // remove all images that older one day
@@ -267,40 +266,25 @@ class GoalController extends FOSRestController
 
             if($images){
 
-                // get json from request
                 $images = json_decode($images);
-
-                // remove duplicate
                 $images = array_unique($images);
-
-                // get goal images form bd
                 $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
 
-                // check goal images
                 if($goalImages){
 
-                    // loop for goal images
                     foreach($goalImages as $goalImage){
-
-                        // add to goal
                         $goal->addImage($goalImage);
                     }
                 }
             }
 
-            //get goal description
             $description = $goal->getDescription();
 
             if($description) {
-                //cleare # tag in description
                 $description = str_replace('#', '', $description);
             }
 
-            //set description
             $goal->setDescription($description);
-
-            //send create goal event in google analytics
-//            $this->get('google_analytic')->createGoalEvent();
         }
 
         $goal->setReadinessStatus(Goal::DRAFT);
@@ -367,12 +351,11 @@ class GoalController extends FOSRestController
             if (!$user){
                 return new Response('User not found', Response::HTTP_NOT_FOUND);
             }
-        }
 
-        if($id && $userId) {
-
-            if ($user != $goal->getAuthor()){
-                return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
+            if ($id){
+                if ($user != $goal->getAuthor()){
+                    return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
+                }
             }
         }
 
@@ -561,6 +544,42 @@ class GoalController extends FOSRestController
 
         if (is_numeric($first) && is_numeric($count)) {
             $goalFriends = array_slice($goalFriends, $first, $count);
+        }
+
+        return $goalFriends;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get goal friends",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"user"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @return array
+     */
+    public function getRandomFriendsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $goalFriends = $em->getRepository("AppBundle:Goal")->findRandomGoalFriends($this->getUser()->getId(), self::RandomGoalFriendCounts);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($goalFriends as $goalFriend){
+
+            if($goalFriend->getImagePath()){
+                $goalFriend->setCachedImage($liipManager->getBrowserPath($goalFriend->getImagePath(), 'user_icon'));
+            }
+            else {
+                $name = $goalFriend->getFirstName()[0] . $goalFriend->getLastName()[0];
+                $goalFriend->setCachedImage($name);
+            }
         }
 
         return $goalFriends;
