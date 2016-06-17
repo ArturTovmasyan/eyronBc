@@ -257,9 +257,18 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="active_time", type="integer", nullable=true)
-     * @var
      */
     protected $activeTime;
+
+    /**
+     * @ORM\Column(name="active_day_of_week", type="integer", nullable=true)
+     */
+    protected $activeDayOfWeek;
+
+    /**
+     * @ORM\Column(name="last_push_note_data", type="datetime", nullable=true)
+     */
+    protected $lastPushNoteData;
 
     /**
      * @Groups({"tiny_goal"})
@@ -1326,63 +1335,52 @@ class User extends BaseUser
      *
      * @return integer
      */
-    public function getMostActiveTime()
+    public function getMostActiveTimeAndDay()
     {
         $userGoals = $this->getUserGoal();
-        $haveDate = false;
         $timesAdd = [];
-        if ($userGoals)
-        {
-            $haveDate = true;
+        $daysAdd  = [];
+        if ($userGoals){
             foreach($userGoals as $userGoal){
-                if($userGoal->getDoDate()){
-                    $time = $userGoal->getDoDate()->format('H');
-                    if(isset($timesAdd[$time])){
-                        $timesAdd[$time]++;
-                    }else{
-                        $timesAdd[$time] = 1;
-                    }
-                };
 
                 if($userGoal->getCompletionDate()){
                     $time = $userGoal->getCompletionDate()->format('H');
-                    if(isset($timesAdd[$time])){
-                        $timesAdd[$time]++;
-                    }else{
-                        $timesAdd[$time] = 1;
-                    }
+                    $timesAdd[$time] = isset($timesAdd[$time]) ? $timesAdd[$time] + 1 : 1;
+
+                    $dayOfWeek = $userGoal->getCompletionDate()->format('w');
+                    $daysAdd[$dayOfWeek] = isset($daysAdd[$dayOfWeek]) ? $daysAdd[$dayOfWeek] + 1 : 1;
                 };
 
                 if($userGoal->getListedDate()){
                     $time = $userGoal->getListedDate()->format('H');
-                    if(isset($timesAdd[$time])){
-                        $timesAdd[$time]++;
-                    }else{
-                        $timesAdd[$time] = 1;
-                    }
+                    $timesAdd[$time] = isset($timesAdd[$time]) ? $timesAdd[$time] + 1 : 1;
+
+                    $dayOfWeek = $userGoal->getListedDate()->format('w');
+                    $daysAdd[$dayOfWeek] = isset($daysAdd[$dayOfWeek]) ? $daysAdd[$dayOfWeek] + 1 : 1;
                 }
             }
         }
         $successStories = $this->getSuccessStories();
         if($successStories){
-            foreach($successStories as $time){
-                if($time->getUpdated()){
-                    $time = $time->getUpdated()->format('H');
-                    if(isset($timesAdd[$time])){
-                        $timesAdd[$time]++;
-                    }else{
-                        $timesAdd[$time] = 1;
-                    }
+            foreach($successStories as $story){
+                if($story->getUpdated()){
+                    $time = $story->getUpdated()->format('H');
+                    $timesAdd[$time] = isset($timesAdd[$time]) ? $timesAdd[$time] + 1 : 1;
+
+                    $dayOfWeek = $story->getUpdated()->format('w');
+                    $daysAdd[$dayOfWeek] = isset($daysAdd[$dayOfWeek]) ? $daysAdd[$dayOfWeek] + 1 : 1;
                 };
             }
         }
 
-        if($haveDate && $timesAdd){
-            $activeTime = array_keys($timesAdd, max($timesAdd))[0];
-        }else{
-            $activeTime = 0;
-        }
-        return $activeTime;
+        $activeTime    = (count($timesAdd) > 0) ? array_keys($timesAdd, max($timesAdd))[0] : 0;
+        $activeWeekDay = (count($daysAdd)  > 0) ? array_keys($daysAdd,  max($daysAdd))[0]  : 0;
+
+        return [
+            'activeTime'    => $activeTime,
+            'activeWeekDay' => $activeWeekDay
+        ];
+
     }
 
     /**
@@ -1392,8 +1390,9 @@ class User extends BaseUser
      */
     public function updateActiveTime()
     {
-        $activeTime = $this->getMostActiveTime();
-        $this->setActiveTime($activeTime);
+        $active = $this->getMostActiveTimeAndDay();
+        $this->setActiveTime($active['activeTime']);
+        $this->setActiveDayOfWeek($active['activeWeekDay']);
         return $this;
     }
 
@@ -1752,5 +1751,37 @@ class User extends BaseUser
         }
 
         return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActiveDayOfWeek()
+    {
+        return $this->activeDayOfWeek;
+    }
+
+    /**
+     * @param mixed $activeDayOfWeek
+     */
+    public function setActiveDayOfWeek($activeDayOfWeek)
+    {
+        $this->activeDayOfWeek = $activeDayOfWeek;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastPushNoteData()
+    {
+        return $this->lastPushNoteData;
+    }
+
+    /**
+     * @param mixed $lastPushNoteData
+     */
+    public function setLastPushNoteData($lastPushNoteData)
+    {
+        $this->lastPushNoteData = $lastPushNoteData;
     }
 }

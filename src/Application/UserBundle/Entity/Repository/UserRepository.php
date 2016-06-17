@@ -13,6 +13,7 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Class UserRepository
@@ -243,14 +244,18 @@ class UserRepository extends EntityRepository
      */
     public function findByLimit($begin, $limit)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT u
-                            FROM ApplicationUserBundle:User u
-                            ORDER BY u.id ASC ")
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT u, ug, ss
+                           FROM ApplicationUserBundle:User u
+                           LEFT JOIN u.userGoal ug
+                           LEFT JOIN u.SuccessStories ss
+                           ORDER BY u.id ASC ")
             ->setFirstResult($begin)
-            ->setMaxResults($limit)
-            ->getResult()
-            ;
+            ->setMaxResults($limit);
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+
+        return $paginator->getIterator()->getArrayCopy();
     }
 
 
@@ -303,5 +308,17 @@ class UserRepository extends EntityRepository
             ->createQuery("SELECT COUNT(u)
                            FROm ApplicationUserBundle:User u")
             ->getSingleScalarResult();
+    }
+
+
+    public function findPushNoteUsers()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           WHERE DATE_DIFF(CURRENT_DATE(), DATE(u.lastPushNoteData)) >= 7
+                           AND u.activeTime = HOUR(CURRENT_TIME())
+                           AND u.activeDayOfWeek = DAYOFWEEK(CURRENT_DATE()) - 1")
+            ->getResult();
     }
 }
