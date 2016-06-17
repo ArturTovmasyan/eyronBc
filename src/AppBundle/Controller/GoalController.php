@@ -557,7 +557,6 @@ class GoalController extends Controller
      * @Route("goal/add-modal", name="add_modal")
      * @Template()
      * @return array
-     * @Secure(roles="ROLE_USER")
      */
     public function addModalAction()
     {

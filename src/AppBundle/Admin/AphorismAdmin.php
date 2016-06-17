@@ -9,7 +9,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Tag;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class AphorismAdmin
  * @package AppBundle\Admin
  */
-class AphorismAdmin extends Admin
+class AphorismAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-aphorism';
     protected  $baseRoutePattern = 'admin-aphorism';
@@ -54,10 +54,10 @@ class AphorismAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('author', null, array('label'=>'admin.label.name.author'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('author', null, array('label'=>'admin.label.name.author','show_filter' => true))
+            ->add('content', null, array('label'=>'admin.label.name.content','show_filter' => true))
+            ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
         ;
     }
 

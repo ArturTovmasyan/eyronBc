@@ -72,12 +72,14 @@ Feature: Goal page
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
+    Then I should be on "/profile"
+    When I am on "/goal/create"
+    And I fill in "app_bundle_goal[title]" with "TEST3 GOALS3"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST3 GOALS3"
     And I scroll page to "top"
     And I press "btn_preview"
-    And I should be on "/goal/view/test-goals"
-    Then I should see "EDIT"
-    When I follow "EDIT"
-    Then I should see "TEST GOALS"
+    Then I should be on "/goal/view/test3-goals3"
+    And I should see "EDIT"
 
   @javascript @createDraft
   Scenario: Create drafts
@@ -165,7 +167,6 @@ Feature: Goal page
     And I scroll page to "top"
     And I change switch "0"
     And I change date
-    And I fill in "app_bundle_user_goal[note]" with "Add to me goal"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "3"
@@ -174,9 +175,8 @@ Feature: Goal page
     When I follow "FORGET IT"
     And  I follow "DELETE"
     And I wait
-    Then I should be on "/profile"
-    When I am on "/ideas"
-    And I am on "/goal/goal1"
+    Then I should be on "/goal/goal1"
+    And I reload the page
     And I wait for view
     And I click on "icon-plus-icon"
     And I wait for angular

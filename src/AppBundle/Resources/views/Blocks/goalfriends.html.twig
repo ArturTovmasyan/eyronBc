@@ -4,10 +4,18 @@
              data-ng-cloak
              data-ng-init = "userId = {{ user.id }}">
 
-            <a href="{{ path('goal_friends') }}" class="heading text-gray">
-                <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                <span class="text">{{ 'goalfriends'|trans }} [[ ::length ]]</span>
-            </a>
+            <div class="row">
+                <div class="col-xs-10">
+                    <a href="{{ path('goal_friends') }}" class="heading text-gray">
+                        <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                        <span class="text">{{ 'goalfriends'|trans }} [[ ::length ]]</span>
+                    </a>
+                </div>
+
+                <div class="col-xs-2 text-right">
+                    <a href="javascript:void(0)" data-ng-click="refreshGoalFriends()" class="laod"></a>
+                </div>
+            </div>
 
             <hr/>
 

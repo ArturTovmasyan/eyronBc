@@ -8,7 +8,7 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class TimeSentenceAdmin
  * @package AppBundle\Admin
  */
-class TimeSentenceAdmin extends Admin
+class TimeSentenceAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-time-sentence';
     protected  $baseRoutePattern = 'admin-time-sentence';
@@ -54,10 +54,10 @@ class TimeSentenceAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('content', null, array('label'=>'admin.label.name.content'))
-            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString'))
-            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('content', null, array('label'=>'admin.label.name.content','show_filter' => true))
+            ->add('replaceString', null, array('label'=>'admin.label.name.replaceString','show_filter' => true))
+            ->add('replaceWith', null, array('label'=>'admin.label.name.replaceWith','show_filter' => true))
         ;
     }
 

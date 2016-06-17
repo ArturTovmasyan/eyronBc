@@ -8,7 +8,7 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class TagAdmin
  * @package AppBundle\Admin
  */
-class TagAdmin extends Admin
+class TagAdmin extends AbstractAdmin
 {
     protected  $baseRouteName = 'admin-tag';
     protected  $baseRoutePattern = 'admin-tag';
@@ -50,8 +50,8 @@ class TagAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('tag', null, array('label'=>'admin.label.name.tag'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('tag', null, array('label'=>'admin.label.name.tag','show_filter' => true))
         ;
     }
 

@@ -107,6 +107,12 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure>
+
+                            <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg">
+                                <span class="settings-overlay"></span>
+                                <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
+                            </a>
+
                             {% block profileImage %}
                             <div>
                                 {% if profileUser.getPhotoLink %}
@@ -150,7 +156,7 @@
 
                     {% if profileUser.id == app.user.id %}
                         <div class="col-sm-4">
-                            <div class="text-right">
+                            <div class="text-right hidden-xs">
                                 <a href="{{ path("edit_user_profile") }}">
                                     <span class="black-overlay settings-overlay"></span>
                                     <i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>
