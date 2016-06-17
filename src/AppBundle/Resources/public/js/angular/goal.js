@@ -407,8 +407,8 @@ angular.module('goal', ['Interpolation',
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
             if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
-                var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-                $window.location.href = window.location.href + '?id=' + goalId;
+                // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
+                $window.location.href = $scope.redirectPath;
             }
             $scope.goalSubmitTemplate = '';
         })
@@ -976,13 +976,13 @@ angular.module('goal', ['Interpolation',
     .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
         var path = envPrefix + "api/v1.0/goal-friends";
 
+        var profileCache = CacheFactory.get('bucketlist');
+
+        if(!profileCache){
+            profileCache = CacheFactory('bucketlist');
+        }
+        
         $scope.getGaolFriends = function(id){
-
-            var profileCache = CacheFactory.get('bucketlist');
-
-            if(!profileCache){
-                profileCache = CacheFactory('bucketlist');
-            }
 
             var goalFriends = profileCache.get('goal-friends'+id);
 
@@ -998,6 +998,16 @@ angular.module('goal', ['Interpolation',
                 $scope.goalFriends = goalFriends[1];
                 $scope.length = goalFriends['length'];
             }
+        };
+
+        $scope.refreshGoalFriends = function () {
+            $http.get(path)
+                .success(function(data){
+                    var id = $scope.userId;
+                    $scope.goalFriends = data[1];
+                    $scope.length = data['length'];
+                    profileCache.put('goal-friends'+id, data);
+                });
         };
 
         $scope.$watch('userId', function(id){
