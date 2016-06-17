@@ -40,7 +40,6 @@ Feature: Goal page
     And I wait for angular
     Then I should see "Goal is active"
     When I change date
-#    And I fill in "app_bundle_user_goal[note]" with "Hello my friends"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
@@ -68,7 +67,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-    Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
@@ -146,11 +145,10 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for view
-    Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
     And I press "btn_publish"
     And I wait for angular
-    Then I should not see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     And I follow "Cancel"
 
 
