@@ -72,10 +72,14 @@ Feature: Goal page
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
+    Then I should be on "/profile"
+    When I am on "/goal/create"
+    And I fill in "app_bundle_goal[title]" with "TEST3 GOALS3"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST3 GOALS3"
     And I scroll page to "top"
     And I press "btn_preview"
-    And I should be on "/goal/view/test-goals"
-    Then I should see "EDIT"
+    Then I should be on "/goal/view/test-goals"
+    And I should see "EDIT"
     When I follow "EDIT"
     Then I should see "TEST GOALS"
 
