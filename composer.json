@@ -42,7 +42,7 @@
         "friendsofsymfony/comment-bundle": "2.0.*",
         "knplabs/knp-paginator-bundle": "2.5.*",
         "stfalcon/tinymce-bundle": "2.*",
-        "a2lix/translation-form-bundle": "1.*@dev",
+        "a2lix/translation-form-bundle": "1.*",
         "liip/imagine-bundle" : "1.5.*",
         "presta/sitemap-bundle": "1.5.*",
         "richsage/rms-push-notifications-bundle": "0.2.*",
