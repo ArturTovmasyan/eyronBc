@@ -106,6 +106,7 @@ class User extends BaseUser
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
+     * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
     protected $firstName;
 
@@ -162,6 +163,7 @@ class User extends BaseUser
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
+     * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
     protected $lastName;
 
