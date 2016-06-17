@@ -14,7 +14,6 @@ Feature: Settings
     When I follow "user2"
     And I follow "Settings"
     Then I should see "user2@user.com"
-#    When I attache profile image
     And I wait for view
     And I fill in the following:
       | bl_user_settings_firstName | user3 |
@@ -27,14 +26,15 @@ Feature: Settings
     And I select language
     And I press "Save"
     And I follow "user3"
-    And I follow "Настройки"
+    And I wait for view
+    And I follow "user3"
     And I fill in "bl_user_settings_firstName" with "user2"
     And I fill in "bl_user_settings_lastName" with "useryan"
     And I fill in "bl_user_settings_currentPassword" with "test1234"
     And I fill in "bl_user_settings_plainPassword_first" with "Test1234"
     And I fill in "bl_user_settings_plainPassword_second" with "Test1234"
     And I select language
-    And I press "Сохранить"
+    And I press "Save"
     And I wait for view
     Then I should see "Primary Email"
     When I follow "Notification"

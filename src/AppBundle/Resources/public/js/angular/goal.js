@@ -436,6 +436,10 @@ angular.module('goal', ['Interpolation',
           $scope.newAdded = false;
         }
 
+        $scope.$on('addGoal', function(){
+          $scope.newAdded = true;
+        });
+
         $scope.stepsArray = [{}];
 
         if(!$scope.userGoal.goal || !$scope.userGoal.goal.id){
@@ -1028,6 +1032,13 @@ angular.module('goal', ['Interpolation',
         if(!profileCache){
             profileCache = CacheFactory('bucketlist');
         }
+        angular.element('#popularLoad').on('click', function () {
+            $http.get(path)
+                .success(function(data){
+                    $scope.popularGoals = data;
+                    profileCache.put('top-ideas'+$scope.userId, data);
+                });
+        });
 
         $scope.getPopularGoals = function(id){
             path = path.replace('{count}', $scope.count);

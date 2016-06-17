@@ -567,10 +567,9 @@ class GoalController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
             UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
         );
-        $newAdded = false;
 
         return $this->render('@App/Goal/addToMe.html.twig', array(
-            'filters' => $filters, 'newAdded' => $newAdded
+            'filters' => $filters
         ));
     }
 
