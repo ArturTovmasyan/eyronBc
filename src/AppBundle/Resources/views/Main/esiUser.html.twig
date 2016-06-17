@@ -27,7 +27,8 @@
             <p class="no-image {{ className }}">{{ nameOnImage }}</p>
         {% endif %}
 
-        <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
+        <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
+            <br/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
 
         {% if not isMobile() %}
             <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
