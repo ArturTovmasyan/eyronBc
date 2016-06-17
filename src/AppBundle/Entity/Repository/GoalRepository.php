@@ -332,7 +332,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @return array
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findGoalFriendIds($userId, $search, $getAll = false)
+    public function findGoalFriendIds($userId, $search = null, $getAll = false)
     {
         $search = str_replace(' ', '', $search);
 
@@ -393,6 +393,31 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         }
 
         return $this->findGoalFriendsDoctrine($userId, null, $count, $search, $getOnlyQuery);
+    }
+
+
+    /**
+     * @param $userId
+     * @param $count
+     * @return array
+     */
+    public function findRandomGoalFriends($userId, $count, &$allCount)
+    {
+        $goalFriendIds = $this->findGoalFriendIds($userId);
+        $allCount = count($goalFriendIds);
+        shuffle($goalFriendIds);
+        $goalFriendIds = array_slice($goalFriendIds, 0, $count);
+
+        if (count($goalFriendIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.id IN (:ids)")
+            ->setParameter('ids', $goalFriendIds)
+            ->getResult();
     }
 
     /**

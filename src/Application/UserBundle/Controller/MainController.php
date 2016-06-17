@@ -505,6 +505,9 @@ class MainController extends Controller
                 }
             }
 
+            //get fos user manager
+            $fosManager = $this->container->get('fos_user.user_manager');
+
             //check if form is valid
             if ($form->isValid() && count($errors) == 0) {
 
@@ -514,9 +517,6 @@ class MainController extends Controller
                 //set updated for preUpdate event
                 $user->setUpdated(new \DateTime());
 
-                //get fos user manager
-                $fosManager = $this->container->get('fos_user.user_manager');
-
                 //get uploadFile service
                 $this->get('bl_service')->uploadFile($user);
 
@@ -524,7 +524,9 @@ class MainController extends Controller
                 $fosManager->updateUser($user);
 
                 return $this->redirectToRoute('edit_user_profile');
-
+            }
+            else {
+                $fosManager->reloadUser($user);
             }
         }
 
