@@ -91,13 +91,16 @@
                             <div class="swiper-button-next swiper-button-white"></div>
                             <div class="swiper-button-prev swiper-button-white"></div>
                         </div>
+                    {% else%}
+                        <figure class="goal-preview" id="main-slider">
+                            <img class="img-responsive" src="{{ asset(imgPath)}}" alt="view goal img" style="height: 100%;"/>
+                        </figure>
                     {% endif %}
                 </div>
                 <div class="col-md-4">
-                    <div class="goal-information">
-                        <ul class="row goal-links" data-ng-init="added = true">
-
-                            {% if page == inner %}
+                    {% if page == inner %}
+                        <div class="goal-information">
+                            <ul class="row goal-links" data-ng-init="added = true">
                                 {% set xs = 6 %}
                                 {% if is_granted('ROLE_SUPER_ADMIN', app.user) %}
                                     {% set xs = 3 %}
@@ -158,25 +161,22 @@
                                     {% endif %}
 
                                 </li>
+                            </ul>
 
-                            {% endif %}
-                        </ul>
+                            {% if goal.lat is not null and goal.lng is not null %}
+                                <div data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                    <div class="map-marker" data-ng-show="location"
+                                         data-simple-map-marker
+                                         data-zoom="14"
+                                         data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                                         data-markers="location"
 
-                        {% if goal.lat is not null and goal.lng is not null %}
-                            <div data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
-                                <div class="map-marker" data-ng-show="location"
-                                     data-simple-map-marker
-                                     data-zoom="14"
-                                     data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
-                                     data-markers="location"
-
-                                     style="width: 99.8%; height: 215px">
+                                         style="width: 99.8%; height: 215px">
+                                    </div>
                                 </div>
-                            </div>
-                        {% else %}
-                            <hr />
-                        {% endif %}
-                        {% if page == inner %}
+                            {% else %}
+                                <hr />
+                            {% endif %}
                             <ul class="users-lists">
                                 <li>
                                     <ul class="row">
@@ -251,8 +251,8 @@
                                     </ul>
                                 </li>
                             </ul>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -486,71 +486,73 @@
 
     </div>
 
-    <div class="bg-grey">
-        <div class="container" id="random_goals">
+    {% if page == inner %}
+        <div class="bg-grey">
+            <div class="container" id="random_goals">
 
-        <h2 class="text-center text-dark">See also</h2>
+                <h2 class="text-center text-dark">See also</h2>
 
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
-                <div class="row idea-item ">
-                    <div class="col-md-4 goals-animate"
-                         data-ng-cloak
-                         data-ng-repeat="goal in Ideas.items">
-                        <figure>
-                            <h3>
-                                <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
-                            </h3>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                        <div class="row idea-item ">
+                            <div class="col-md-4 goals-animate"
+                                 data-ng-cloak
+                                 data-ng-repeat="goal in Ideas.items">
+                                <figure>
+                                    <h3>
+                                        <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
+                                    </h3>
 
-                            <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
-                               class="goalTitle">
-                                <span class="overlay"></span>
-                                <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
-                            </a>
+                                    <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
+                                       class="goalTitle">
+                                        <span class="overlay"></span>
+                                        <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                                    </a>
 
-                            <div class="absolute">
-                                <ul>
-                                    <li>
-                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
-                                                    <span>
-                                                        {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                        [[ ::goal.stats.listedBy ]]
-                                                    </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
+                                    <div class="absolute">
+                                        <ul>
+                                            <li>
+                                                <a data-ng-href="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                                            <span>
+                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                [[ ::goal.stats.listedBy ]]
+                                                            </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
 
-                                                <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
-                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                    [[ ::goal.stats.listedBy ]]
-                                                    <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
-                                                </span>
-                                    </li>
-                                    <li>
-                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
-                                                    <span>
-                                                        {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                        [[ ::goal.stats.doneBy ]]
-                                                    </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                            [[ ::goal.stats.listedBy ]]
+                                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                                        </span>
+                                            </li>
+                                            <li>
+                                                <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                                            <span>
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ ::goal.stats.doneBy ]]
+                                                            </span>
+                                                    <i class="icon-user-small"></i>
+                                                </a>
 
-                                                <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
-                                                    {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                    [[ ::goal.stats.doneBy ]]
-                                                    <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
-                                                </span>
-                                    </li>
-                                </ul>
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                            [[ ::goal.stats.doneBy ]]
+                                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                                        </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <figcaption>
+                                        {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
+                                    </figcaption>
+                                </figure>
                             </div>
-
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:goalFooter.html.twig"  %}
-                            </figcaption>
-                        </figure>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+    {% endif %}
 </div>
