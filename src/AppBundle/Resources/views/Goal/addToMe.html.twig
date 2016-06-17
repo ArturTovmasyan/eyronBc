@@ -4,7 +4,7 @@
 
 
         <div class="modal-top">
-            <figure>
+            <figure data-ng-if="userGoal.goal.image_path">
                 <img data-ng-src="[[ userGoal.goal.image_path]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
             </figure>
 
@@ -12,7 +12,7 @@
 
             <div>
                 <h2 data-ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
-                    [[ userGoal.goal.title ]]
+                    <span>[[ userGoal.goal.title ]]</span>
                 </h2>
                 <p data-ng-if="'{{ app.user }}' && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
                     [[ userGoal.goal.author.show_name ]]

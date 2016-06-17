@@ -269,33 +269,6 @@ class GoalController extends Controller
 
     }
 
-//    /**
-//     * @Route("goal/drafts", name="goal_drafts")
-//     * @Template()
-//     * @return array
-//     * @Secure(roles="ROLE_USER")
-//     */
-//    public function draftAction(Request $request)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        // find all drafts goal
-//        $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-//
-//        // get paginator
-//        $paginator  = $this->get('knp_paginator');
-//
-//        // paginate data
-//        $pagination = $paginator->paginate(
-//            $goals,
-//            $request->query->getInt('page', 1)/*page number*/,
-//            9/*limit per page*/
-//        );
-//
-//        return array('goals' => $pagination);
-//
-//    }
-
     /**
      * @Route("goal/view/{slug}", name="view_goal")
      * @Template()
