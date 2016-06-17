@@ -78,10 +78,8 @@ Feature: Goal page
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST3 GOALS3"
     And I scroll page to "top"
     And I press "btn_preview"
-    Then I should be on "/goal/view/test-goals"
+    Then I should be on "/goal/view/test3-goals3"
     And I should see "EDIT"
-    When I follow "EDIT"
-    Then I should see "TEST GOALS"
 
   @javascript @createDraft
   Scenario: Create drafts
