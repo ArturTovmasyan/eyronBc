@@ -984,7 +984,7 @@ angular.module('goal', ['Interpolation',
 
     }])
     .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
-        var path = envPrefix + "api/v1.0/goal-friends";
+        var path = envPrefix + "api/v1.0/goal/random/friends";
 
         var profileCache = CacheFactory.get('bucketlist');
 
