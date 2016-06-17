@@ -430,6 +430,12 @@ angular.module('goal', ['Interpolation',
         $scope.GoalConstant = GoalConstant;
         $scope.UserGoalConstant = UserGoalConstant;
 
+        if(angular.element('#goal-create-form').length > 0){
+          $scope.newAdded = true;
+        }else {
+          $scope.newAdded = false;
+        }
+
         $scope.stepsArray = [{}];
 
         if(!$scope.userGoal.goal || !$scope.userGoal.goal.id){

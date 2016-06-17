@@ -1,8 +1,6 @@
 <div class="modal" id="goal-modal" data-ng-controller="goalEnd">
     <div class="goal-container">
-        {% if newAdded %}
-            <div class="email">{{ "goal.create_goal" | trans }}</div>
-        {% endif %}
+        <div data-ng-if="newAdded" class="email">{{ "goal.create_goal" | trans }}</div>
 
 
         <div class="modal-top">
