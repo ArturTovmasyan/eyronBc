@@ -16,8 +16,8 @@ Feature: Settings
     Then I should see "user2@user.com"
     And I wait for view
     And I fill in the following:
-      | bl_user_settings_firstName | user3 |
-      | bl_user_settings_lastName | user3 |
+      | bl_user_settings_firstName | userTest |
+      | bl_user_settings_lastName | userTest |
       | bl_user_settings_addEmail | test8@test.am |
       | bl_user_settings_currentPassword | Test1234 |
       | bl_user_settings_plainPassword_first | test1234 |
@@ -25,16 +25,15 @@ Feature: Settings
     And I select date fields
     And I select language
     And I press "Save"
-    And I follow "user3"
-    And I wait for view
-    And I follow "user3"
-    And I fill in "bl_user_settings_firstName" with "user2"
+    And I follow "userTest"
+    And I follow "Настройки"
+    And I fill in "bl_user_settings_firstName" with "userTo"
     And I fill in "bl_user_settings_lastName" with "useryan"
     And I fill in "bl_user_settings_currentPassword" with "test1234"
     And I fill in "bl_user_settings_plainPassword_first" with "Test1234"
     And I fill in "bl_user_settings_plainPassword_second" with "Test1234"
     And I select language
-    And I press "Save"
+    And I press "Сохранить"
     And I wait for view
     Then I should see "Primary Email"
     When I follow "Notification"
