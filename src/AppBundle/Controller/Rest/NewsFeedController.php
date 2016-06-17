@@ -153,40 +153,4 @@ class NewsFeedController extends FOSRestController
 
         return $friends;
     }
-
-    /**
-     * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
-     * @ApiDoc(
-     *  resource=true,
-     *  section="Activity",
-     *  description="This function is used to get top ideas",
-     *  statusCodes={
-     *         200="Returned when goals was returned",
-     *  }
-     * )
-     *
-     * @Rest\View(serializerGroups={"goal", "image_path", "tiny_goal"})
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param $count
-     * @return array
-     */
-    public function getTopIdeasAction($count)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
-        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
-
-        $liipManager = $this->get('liip_imagine.cache.manager');
-        foreach($topIdeas as $topIdea){
-
-            if($topIdea->getListPhotoDownloadLink()){
-                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
-            }
-
-        }
-
-        return $topIdeas;
-    }
 }

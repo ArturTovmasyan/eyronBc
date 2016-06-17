@@ -88,33 +88,39 @@ class GoalController extends FOSRestController
     }
 
     /**
+     * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
-     *  section="Goal",
-     *  description="This function is used to get suggested goals",
+     *  section="Activity",
+     *  description="This function is used to get top ideas",
      *  statusCodes={
      *         200="Returned when goals was returned",
-     *  },
-     *
-     *
+     *  }
      * )
      *
-     * @param int $count
-     * @param Request $request
-     * @return mixed
-     * @Security("has_role('ROLE_USER')")
      * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $count
+     * @return array
      */
-    public function getSuggestAction($count, Request $request)
+    public function getTopIdeasAction($count)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $goals = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
-        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
 
-        $goals = array_values($goals);
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($topIdeas as $topIdea){
 
-        return  $goals;
+            if($topIdea->getListPhotoDownloadLink()){
+                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+
+        }
+
+        return $topIdeas;
     }
 
     /**
