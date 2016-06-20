@@ -252,8 +252,13 @@ class UserController extends FOSRestController
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setGoogleId($id);
-                    $newUser->setEmail($data->emails[0]->value);
-                    $newUser->setUsername($data->emails[0]->value);
+                    $email = $newUser->getSocialFakeEmail();
+                    if (isset($data->emails) && isset($data->emails[0])){
+                        $email = $data->emails[0]->value;
+                    }
+
+                    $newUser->setEmail($email);
+                    $newUser->setUsername($email);
                     $newUser->setFirstName($data->name->givenName);
                     $newUser->setLastName($data->name->familyName);
                     if (isset($data->gender)) {
@@ -623,39 +628,36 @@ class UserController extends FOSRestController
      */
     public function putDeviceIdAction(Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-        //get current user
-        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
-        //check if not logged in user
+        $currentUser = $this->getUser();
+
         if(!is_object($currentUser)) {
             throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
         }
-        // get all data
+
         $data = $request->request->all();
-        // get register ids
         $registrationIds = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
-        //get mobile OC
+
+        $registrationIds = preg_replace('/\|ID\|\d\|:/', '', $registrationIds);
+
         $mobileOc = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
         if(!$registrationIds || !$mobileOc){
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Empty parameters value");
         }
-        // get exist registrations data
+
         $regData = $currentUser->getRegistrationIds();
+
         // check is mobile device exist
         if(array_key_exists($mobileOc, $regData)){
-            // get device array
             $device = $regData[$mobileOc];
-            // check is registration in array
+
             if(!in_array($registrationIds, $device)){
-                // push to array
                 array_push($device, $registrationIds);
             }
-            // set mobile data
+
             $regData[$mobileOc] = $device;
         }
         else{
-            // set mobile data
             $regData[$mobileOc][] =  $registrationIds;
         }
         // set register ids

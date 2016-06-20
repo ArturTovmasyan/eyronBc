@@ -14,9 +14,11 @@
                 <h2 data-ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
                     <span>[[ userGoal.goal.title ]]</span>
                 </h2>
-                <p data-ng-if="'{{ app.user }}' && userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
-                    [[ userGoal.goal.author.show_name ]]
-                </p>
+                {% if app.user %}
+                    <p data-ng-if="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
+                        [[ userGoal.goal.author.show_name ]]
+                    </p>
+                {% endif %}
                 <ul>
                     <li>
                         <a href="javascript:void(0)">
@@ -287,16 +289,16 @@
                     <span data-ng-hide="userGoal.is_visible">{{ "goal.visible_text"|trans }}</span>
                     <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
-
-                <p class="text-gray clearfix"
-                   data-ng-if="userGoal.id && userGoal.author && userGoal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
-                    <strong class="text-dark-gray pull-left">
-                        <i class="icon lock-icon"></i>
-                        {{ 'user_goal.private' |trans }}
-                    </strong> &nbsp;
-                    <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
-                </p>
-
+                {% if app.user %}
+                    <p class="text-gray clearfix"
+                       data-ng-if="userGoal.id && userGoal.author && userGoal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
+                        <strong class="text-dark-gray pull-left">
+                            <i class="icon lock-icon"></i>
+                            {{ 'user_goal.private' |trans }}
+                        </strong> &nbsp;
+                        <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+                    </p>
+                {% endif %}
                 <hr />
 
                 <div class="modal-bottom">

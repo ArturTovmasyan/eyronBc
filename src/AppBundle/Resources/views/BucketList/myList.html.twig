@@ -259,7 +259,7 @@
                                                                 <a href="javascript:void(0)"
                                                                    data-ng-cloak
                                                                    data-ng-show="!success{{ goal.id }}"
-                                                                   data-ng-click="addDone('{{ path("done_goal", {'id' : goal.id }) }}', 'success{{ goal.id }}')"
+                                                                   data-ng-click="goalId = '{{ goal.id }}'; addDone('{{ path("done_goal", {'id' : goal.id }) }}', 'success{{ goal.id }}')"
                                                                    class="btn btn-transparent ng-hide"
                                                                    id="done{{ goal.id }}">
                                                                     <i class="icon done-icon"></i>

@@ -38,12 +38,17 @@ angular.module('goal', ['Interpolation',
             if(!profileCache){
                 profileCache = CacheFactory('bucketlist');
             }
+
+            //remove top ideas in cache if they are changed
             var cache = profileCache.get('top-ideas' + userId);
             angular.forEach(cache, function(item) {
                 if(item.id == goalId){
                     profileCache.remove('top-ideas' + userId);
                 }
             });
+
+            //remove goal friends on add or done event
+            profileCache.remove('goal-friends'+ userId);
         }
         return {
             refreshCache: refreshCache
@@ -241,11 +246,37 @@ angular.module('goal', ['Interpolation',
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', 'UserGoalDataManager', 'template', 'userGoalData', '$analytics',
-        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics){
+    .controller('goalAdd', ['$scope', 
+        '$sce',
+        '$timeout',
+        'loginPopoverService',
+        '$window',
+        'envPrefix',
+        'UserGoalDataManager',
+        'template',
+        'userGoalData',
+        '$analytics',
+        'lsInfiniteItems',
+        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
         $scope.disablePreview = false;
+        $scope.Ideas = new lsInfiniteItems(3);
+
+        $scope.haveIdeas = false;
+
+        $scope.searchGoal = function(ev){
+            $scope.Ideas.reset();
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
+        };
+
+        $scope.$watch('Ideas.items', function(d) {
+            if(d.length){
+                $scope.haveIdeas = $scope.title? true: false;
+            }else {
+                $scope.haveIdeas = false;
+            }
+        });
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
@@ -423,7 +454,9 @@ angular.module('goal', ['Interpolation',
       'userGoalData',
       'UserGoalDataManager',
       '$analytics',
-      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics){
+      'refreshingDate',
+      'refreshCacheService',
+      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics, refreshingDate, refreshCacheService){
 
         $scope.userGoal = userGoalData.data;
         angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
@@ -437,7 +470,8 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.$on('addGoal', function(){
-          $scope.newAdded = true;
+            refreshCacheService.refreshCache(refreshingDate.userId, refreshingDate.goalId);
+            $scope.newAdded = true;
         });
 
         $scope.stepsArray = [{}];
@@ -958,6 +992,11 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(){
+                    //changing date
+                    $scope['change' + $scope.goalId] = 2;
+                    angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                    $scope['doDate' + $scope.goalId] = new Date();
+
                     $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
                     $scope[id] = true;
                     angular.element('#'+id).click();
