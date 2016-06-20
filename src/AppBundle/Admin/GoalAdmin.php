@@ -156,6 +156,14 @@ class GoalAdmin extends AbstractAdmin
      */
     public function preUpdate($object)
     {
+        $original = $this->getModelManager()->getEntityManager($this->getClass())->getUnitOfWork()->getOriginalEntityData($object);
+
+        if($original['publish'] != $object->getPublish() && $object->getPublish() == PublishAware::PUBLISH){
+            $this->getRequest()->getSession()
+                ->getFlashBag()
+                ->set('goalPublished','Goal published from Web')
+            ;
+        }
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
         $description = $object->getDescription();
