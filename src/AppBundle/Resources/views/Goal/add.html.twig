@@ -96,7 +96,7 @@
                                                  <div class="row idea-item ">
                                                      <div class="col-md-4 goals-animate"
                                                           data-ng-cloak
-                                                          data-ng-repeat="goal in Ideas.items">
+                                                          data-ng-repeat="goal in Ideas.items | limitTo: 3">
                                                          <figure>
                                                              <h3>
                                                                  <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
