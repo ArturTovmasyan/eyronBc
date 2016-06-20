@@ -28,7 +28,7 @@ parameters:
     google_client_secret:
     twitter_client_id:
     twitter_client_secret:
-    android_api: 'AIzaSyBk9ttM4Z0Wu9QkqULBqaN9DRL2lqjCokQ'
+    android_api: 'AIzaSyBXtE9p5yqXEBBKtA5NI3iV28ak2DmZ8eA'
     ga_id: UA-77918751-1
     mail_chimp_api_key: cf0e029471ab89a7c70c81b70071b572-us13
     mandrill_api_key: DLeuoYgpFGJJZYEY_xrYcw
