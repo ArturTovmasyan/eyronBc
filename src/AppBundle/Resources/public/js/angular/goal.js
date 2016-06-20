@@ -992,6 +992,11 @@ angular.module('goal', ['Interpolation',
         $scope.addDone = function(path, id){
             $http.get(path)
                 .success(function(){
+                    //changing date
+                    $scope['change' + $scope.goalId] = 2;
+                    angular.element('.goal' + $scope.goalId).removeClass("active-idea");
+                    $scope['doDate' + $scope.goalId] = new Date();
+
                     $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
                     $scope[id] = true;
                     angular.element('#'+id).click();
