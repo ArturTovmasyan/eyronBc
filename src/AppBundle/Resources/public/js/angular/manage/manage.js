@@ -11,6 +11,10 @@ angular.module('manage', ['Interpolation',
     ])
     .value('template', { addTemplate: ''})
     .value('userGoalData', { data: {}})
+    .value('refreshingDate', { 
+        userId: '',
+        goalId: ''
+    })
     .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
         var url = envPrefix + "goal/add-modal";
         $http.get(url).success(function(data) {
@@ -25,13 +29,15 @@ angular.module('manage', ['Interpolation',
         'userGoalData',
         'UserGoalDataManager',
         '$timeout',
-        function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager, $timeout){
+        'refreshingDate',
+        function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager, $timeout, refreshingDate){
             return {
                 restrict: 'EA',
                 scope: {
                     lsGoalId: '@',
                     lsType: '@',
-                    lsInitialRun: '='
+                    lsInitialRun: '=',
+                    lsUserId: '@'
                 },
                 link: function(scope, el){
 
@@ -58,6 +64,12 @@ angular.module('manage', ['Interpolation',
                             });
                         }
                         else {
+                            if(scope.lsGoalId && scope.lsUserId){
+                                //for refresh cache event
+                                refreshingDate.goalId = scope.lsGoalId;
+                                refreshingDate.userId = scope.lsUserId;
+                            }
+                            
                             if(scope.lsInitialRun){
                                 UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
                                     if(uGoal.id){
