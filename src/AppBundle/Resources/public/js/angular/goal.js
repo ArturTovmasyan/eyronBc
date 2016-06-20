@@ -241,11 +241,37 @@ angular.module('goal', ['Interpolation',
 
         return lsInfiniteItems;
     }])
-    .controller('goalAdd', ['$scope', '$sce', '$timeout', 'loginPopoverService', '$window', 'envPrefix', 'UserGoalDataManager', 'template', 'userGoalData', '$analytics',
-        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics){
+    .controller('goalAdd', ['$scope', 
+        '$sce',
+        '$timeout',
+        'loginPopoverService',
+        '$window',
+        'envPrefix',
+        'UserGoalDataManager',
+        'template',
+        'userGoalData',
+        '$analytics',
+        'lsInfiniteItems',
+        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
         $scope.disablePreview = false;
+        $scope.Ideas = new lsInfiniteItems(3);
+
+        $scope.haveIdeas = false;
+
+        $scope.searchGoal = function(ev){
+            $scope.Ideas.reset();
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
+        };
+
+        $scope.$watch('Ideas.items', function(d) {
+            if(d.length){
+                $scope.haveIdeas = $scope.title? true: false;
+            }else {
+                $scope.haveIdeas = false;
+            }
+        });
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
