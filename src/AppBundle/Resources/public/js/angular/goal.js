@@ -38,12 +38,17 @@ angular.module('goal', ['Interpolation',
             if(!profileCache){
                 profileCache = CacheFactory('bucketlist');
             }
+
+            //remove top ideas in cache if they are changed
             var cache = profileCache.get('top-ideas' + userId);
             angular.forEach(cache, function(item) {
                 if(item.id == goalId){
                     profileCache.remove('top-ideas' + userId);
                 }
             });
+
+            //remove goal friends on add or done event
+            profileCache.remove('goal-friends'+ userId);
         }
         return {
             refreshCache: refreshCache
@@ -449,7 +454,9 @@ angular.module('goal', ['Interpolation',
       'userGoalData',
       'UserGoalDataManager',
       '$analytics',
-      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics){
+      'refreshingDate',
+      'refreshCacheService',
+      function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics, refreshingDate, refreshCacheService){
 
         $scope.userGoal = userGoalData.data;
         angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
@@ -463,7 +470,8 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.$on('addGoal', function(){
-          $scope.newAdded = true;
+            refreshCacheService.refreshCache(refreshingDate.userId, refreshingDate.goalId);
+            $scope.newAdded = true;
         });
 
         $scope.stepsArray = [{}];
