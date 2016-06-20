@@ -34,16 +34,24 @@ angular.module('goal', ['Interpolation',
     .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
         function refreshCache(userId, goalId){
             var profileCache = CacheFactory.get('bucketlist');
+            var popularCache = CacheFactory.get('bucketlist_by_popular');
 
             if(!profileCache){
                 profileCache = CacheFactory('bucketlist');
             }
 
+            if(!popularCache){
+                popularCache = CacheFactory('bucketlist_by_popular', {
+                    maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
+                    deleteOnExpire: 'aggressive'
+                });
+            }
+
             //remove top ideas in cache if they are changed
-            var cache = profileCache.get('top-ideas' + userId);
+            var cache = popularCache.get('top-ideas' + userId);
             angular.forEach(cache, function(item) {
                 if(item.id == goalId){
-                    profileCache.remove('top-ideas' + userId);
+                    popularCache.remove('top-ideas' + userId);
                 }
             });
 
@@ -1066,30 +1074,33 @@ angular.module('goal', ['Interpolation',
     .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
         var path = envPrefix + "api/v1.0/top-ideas/{count}";
 
-        var profileCache = CacheFactory.get('bucketlist');
+        var popularCache = CacheFactory.get('bucketlist_by_popular');
 
-        if(!profileCache){
-            profileCache = CacheFactory('bucketlist');
+        if(!popularCache){
+            popularCache = CacheFactory('bucketlist_by_popular', {
+                maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
+                deleteOnExpire: 'aggressive'
+            });
         }
         angular.element('#popularLoad').on('click', function () {
             $http.get(path)
                 .success(function(data){
                     $scope.popularGoals = data;
-                    profileCache.put('top-ideas'+$scope.userId, data);
+                    popularCache.put('top-ideas'+$scope.userId, data);
                 });
         });
 
         $scope.getPopularGoals = function(id){
             path = path.replace('{count}', $scope.count);
 
-            var topIdeas = profileCache.get('top-ideas'+id);
+            var topIdeas = popularCache.get('top-ideas'+id);
 
             if (!topIdeas) {
 
                 $http.get(path)
                     .success(function(data){
                         $scope.popularGoals = data;
-                        profileCache.put('top-ideas'+id, data);
+                        popularCache.put('top-ideas'+id, data);
                     });
             }else {
                 $scope.popularGoals = topIdeas;
