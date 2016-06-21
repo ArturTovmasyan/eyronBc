@@ -177,7 +177,6 @@
 
                                     <li>
                                         <a href="{{ path('goals_list') }}">
-                                            {#<i class="ideas-icon"></i>#}
                                             <i class="icon-ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
@@ -195,7 +194,7 @@
                                                     {% else %}
                                                         data-ng-enter-submit=".search form"
                                                     {% endif %}
-                                                   placeholder="{{ 'search'|trans }}">
+                                                   placeholder="{{ 'search'|trans | capitalize}}">
                                         </form>
                                     </li>
                                 </ul>
