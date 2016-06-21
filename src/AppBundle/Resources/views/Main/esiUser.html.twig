@@ -15,6 +15,7 @@
        data-placement="bottom-left"
        data-ng-click="joinToggle1 = !joinToggle1"
        data-html="true"
+       data-auto-close="true"
        data-ng-class="{'join-class': joinToggle1}"
        data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
        data-animation="am-fade-and-scale"
@@ -40,11 +41,12 @@
 {% endif %}
 
 <a href="javascript:void(0)"
-        {% if app.user %}
-            style="display: none"
-        {% endif %}
+    {% if app.user %}
+        style="display: none"
+    {% endif %}
     data-ng-init="joinToggle2 = false"
     class="sign-in-popover"
+    data-auto-close="true"
     data-ng-class="{'join-class': joinToggle2}"
     data-placement="bottom-left"
     data-html="true"

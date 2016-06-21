@@ -272,14 +272,20 @@ angular.module('goal', ['Interpolation',
         //     slidesToShow: 2,
         //     slidesToScroll: 2
         // });
+        $scope.searchTimeoutPtr = null;
         $scope.disablePreview = false;
         $scope.Ideas = new lsInfiniteItems(3);
 
         $scope.haveIdeas = false;
 
         $scope.searchGoal = function(ev){
-            $scope.Ideas.reset();
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
+            $timeout.cancel($scope.searchTimeoutPtr);
+
+            $scope.searchTimeoutPtr = $timeout(function(){
+                $scope.Ideas.reset();
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
+            }, 600);
+
         };
 
         $scope.$watch('Ideas.items', function(d) {
@@ -979,8 +985,11 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', '$http', 'envPrefix',
+        function($scope, lsInfiniteItems, $timeout, $http, envPrefix){
 
+        var statePath = envPrefix + "api/v1.0/users/{id}/states";
+        
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
 
@@ -992,6 +1001,21 @@ angular.module('goal', ['Interpolation',
                 }
             }
         });
+
+        $scope.$on('addGoal', function(){
+            $scope.changeStates();
+        });
+
+        $scope.changeStates = function () {
+            statePath = statePath.replace('{id}', $scope.userId);
+
+            $http.get(statePath)
+              .success(function(data){
+                  $scope.isChange = true;
+                  $scope.stats = data;
+                  // profileCache.put('user-states'+id, data);
+              });
+        };
 
     }])
     .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', '$analytics',
@@ -1094,6 +1118,10 @@ angular.module('goal', ['Interpolation',
                     profileCache.put('goal-friends'+id, data);
                 });
         };
+
+        $scope.$on('addGoal', function(){
+            $scope.refreshGoalFriends();
+        });
 
         $scope.$watch('userId', function(id){
             $scope.getGaolFriends(id);
