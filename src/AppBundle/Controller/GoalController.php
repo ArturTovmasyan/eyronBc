@@ -880,29 +880,6 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/remove-goal/{goalId}/{userId}", name="remove_goal")
-     * @Route("goal/remove-user-goal/{userGoalId}", name="remove_user_goal")
-     *
-     * @Secure(roles="ROLE_USER")
-     *
-     * @param $userGoalId
-     * @param $goalId
-     * @param $userId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|HttpException
-     */
-    public  function removeGoal($userGoalId = null, $goalId = null, $userId = null)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoalId, $userId, $goalId);
-
-        if ($this->getUser()->getActivity()){
-            $this->get('bl_service')->setUserActivity($this->getUser(), $inLogin = false);
-        }
-
-        return $this->redirectToRoute('user_profile');
-    }
-
-    /**
      * @Route("goal/remove-image/{filename}", name="remove_image")
      * @Secure(roles="ROLE_USER")
      * @ParamConverter("goalImage", class="AppBundle:GoalImage",  options={
