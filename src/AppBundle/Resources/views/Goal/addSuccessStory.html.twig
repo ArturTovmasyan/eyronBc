@@ -46,7 +46,7 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <i class="icon-pencil"></i>
-                            <textarea required="required" data-ng-model="successStory.story" class="form-control" placeholder="Success story ..." rows="4"></textarea>
+                            <textarea required="required" data-ng-model="story" class="form-control" placeholder="Success story ..." rows="4"></textarea>
                         </div>
                     </div>
 
@@ -71,11 +71,11 @@
 
                     <div class="form-group">
                         <label class="text-dark-gray">Video</label>
-                        <video-link data-ng-repeat="(k, video) in videos"
+                        <video-link data-ng-repeat="(k, video) in userGoal.goal.videos_array"
                             data-key="k"
                             data-limit="3"
                             data-link="video.link"
-                            data-array="videos">
+                            data-array="userGoal.goal.videos_array">
                         </video-link>
                     </div>
 

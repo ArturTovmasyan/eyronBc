@@ -458,7 +458,20 @@ angular.module('goal', ['Interpolation',
       '$timeout',
       '$window',
       '$analytics',
-      function($scope, $sce, $timeout, $window, $analytics){
+      '$http',
+      function($scope, $sce, $timeout, $window, $analytics, $http){
+
+          $http.get('/api/v1.0/usergoals/295')
+            .success(function(res){
+                res.goal.videos_array = [];
+
+                angular.forEach(res.goal.video_link, function(v){
+                    res.goal.videos_array.push({link: v});
+                });
+
+                $scope.userGoal = res;
+                console.log($scope);
+            });
 
           $scope.files = [];
           $scope.successStory = {};
@@ -1318,7 +1331,7 @@ angular.module('goal', ['Interpolation',
               };
 
               scope.isVideoLink = function(url){
-                  return !(!url || url.indexOf("https:/") == -1);
+                  return !(!angular.isString(url) || url.indexOf("https:/") == -1);
               };
 
               scope.trustedUrl = function(url){
