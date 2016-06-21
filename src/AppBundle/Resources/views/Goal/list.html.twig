@@ -25,13 +25,14 @@
                      data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
                     <button type="button"
                         data-ng-cloak
+                        data-html="true"
+                        data-auto-close="true"
+                        data-animation="am-fade-and-scale"
+                        data-bs-popover
                         class="btn btn-default text-purple no-bg"
-                        data-container="body"
-                        data-toggle="popover"
                         data-placement="bottom"
-                        data-content="hello"
-                        data-ng-click="filter = !filter"
-                        data-template='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
+                        data-ng-click="filter=!filter"
+                        data-content='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
                         <span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>
                         <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
