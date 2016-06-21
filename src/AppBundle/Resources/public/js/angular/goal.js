@@ -268,6 +268,10 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
+        // $('.slickClass').slick({
+        //     slidesToShow: 2,
+        //     slidesToScroll: 2
+        // });
         $scope.disablePreview = false;
         $scope.Ideas = new lsInfiniteItems(3);
 
@@ -275,12 +279,36 @@ angular.module('goal', ['Interpolation',
 
         $scope.searchGoal = function(ev){
             $scope.Ideas.reset();
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(d.length){
-                $scope.haveIdeas = $scope.title? true: false;
+                // $('.slickClass').slick({
+                //     slidesToShow: 3,
+                //     slidesToScroll: 3,
+                //     responsive: [
+                //         {
+                //             breakpoint: 768,
+                //             settings: {
+                //                 arrows: false,
+                //                 centerMode: true,
+                //                 centerPadding: '40px',
+                //                 slidesToShow: 2
+                //             }
+                //         },
+                //         {
+                //             breakpoint: 480,
+                //             settings: {
+                //                 arrows: false,
+                //                 centerMode: true,
+                //                 centerPadding: '40px',
+                //                 slidesToShow: 1
+                //             }
+                //         }
+                //     ]
+                // });
+                $scope.haveIdeas = $scope.addTitle? true: false;
             }else {
                 $scope.haveIdeas = false;
             }

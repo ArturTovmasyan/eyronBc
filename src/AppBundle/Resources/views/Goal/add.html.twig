@@ -82,9 +82,16 @@
                              <div class="col-xs-10 col-xs-offset-1 ">
 
                                  <div class="form-group">
-                                     {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "title",
+                                     {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",
                                          'data-ng-change' : "searchGoal($event)"} }) }}
                                  </div>
+
+                                 {#<div class="slickClass">#}
+                                     {#<div>your 1</div>#}
+                                     {#<div>your 2</div>#}
+                                     {#<div>your 3</div>#}
+                                     {#<div>your 4</div>#}
+                                 {#</div>#}
 
                                  <div class="bg-grey" data-ng-if="haveIdeas">
                                      <div class="container">
