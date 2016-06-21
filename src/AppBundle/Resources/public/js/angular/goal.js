@@ -268,14 +268,20 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
+        $scope.searchTimeoutPtr = null;
         $scope.disablePreview = false;
         $scope.Ideas = new lsInfiniteItems(3);
 
         $scope.haveIdeas = false;
 
         $scope.searchGoal = function(ev){
-            $scope.Ideas.reset();
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
+            $timeout.cancel($scope.searchTimeoutPtr);
+
+            $scope.searchTimeoutPtr = $timeout(function(){
+                $scope.Ideas.reset();
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
+            }, 600);
+
         };
 
         $scope.$watch('Ideas.items', function(d) {
