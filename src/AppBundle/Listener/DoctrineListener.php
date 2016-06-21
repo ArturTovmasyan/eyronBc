@@ -211,7 +211,7 @@ class DoctrineListener
 
                 $goal = $entity->getGoal();
             }
-            elseif($entity instanceof SuccessStory){
+            elseif($entity instanceof SuccessStory && str_replace(" ", "", $entity->getStory()) != ""){
                 $action = NewFeed::SUCCESS_STORY;
                 $goal = $entity->getGoal();
                 $story = $entity;
