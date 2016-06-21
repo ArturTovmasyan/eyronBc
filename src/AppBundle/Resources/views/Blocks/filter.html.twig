@@ -1,6 +1,6 @@
-<div class="popover" role="tooltip">
-    <div class="arrow"></div>
-    <h3 class="popover-title" style="display: none;"></h3>
+{#<div class="popover" role="tooltip">#}
+    {#<div class="arrow"></div>#}
+    {#<h3 class="popover-title" style="display: none;"></h3>#}
     <div>
         <ul class="filter">
             <li>
@@ -16,9 +16,9 @@
 
             {% if categories|length > 0 %}
                 {% for i in 0..(categories|length -1) %}
-                        {% if categories[i].getSlug() == 'most-popular' %}
-                            {% set mostPopular = true %}
-                        {% endif %}
+                    {% if categories[i].getSlug() == 'most-popular' %}
+                        {% set mostPopular = true %}
+                    {% endif %}
                 {% endfor %}
             {% endif %}
 
@@ -46,4 +46,4 @@
             {% endfor %}
         </ul>
     </div>
-</div>
+{#</div>#}
