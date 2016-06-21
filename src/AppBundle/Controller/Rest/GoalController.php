@@ -76,12 +76,18 @@ class GoalController extends FOSRestController
             6 => 'goal_list_vertical',
         ];
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
 
         if ($count == 7 || $count == 3){
-            $liipManager = $this->get('liip_imagine.cache.manager');
             for($i = 0; $i < 7; $i++){
                 if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
                     $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
+                }
+            }
+        }elseif ($count == 9){
+            foreach($goals as $goal){
+                if (isset($goal) && $goal->getListPhotoDownloadLink()) {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[0]));
                 }
             }
         }
