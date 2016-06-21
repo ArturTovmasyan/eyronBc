@@ -13,6 +13,7 @@ use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,6 +84,7 @@ class UserGoalController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findWithRelations"})
      *
      * @param Goal $goal
      * @param Request $request
