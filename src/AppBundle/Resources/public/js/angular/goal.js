@@ -275,12 +275,12 @@ angular.module('goal', ['Interpolation',
 
         $scope.searchGoal = function(ev){
             $scope.Ideas.reset();
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(d.length){
-                $scope.haveIdeas = $scope.title? true: false;
+                $scope.haveIdeas = $scope.addTitle? true: false;
             }else {
                 $scope.haveIdeas = false;
             }
