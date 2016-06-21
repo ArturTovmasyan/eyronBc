@@ -456,20 +456,12 @@ angular.module('goal', ['Interpolation',
     .controller('goalDone', ['$scope',
       '$sce',
       '$timeout',
-      'loginPopoverService',
       '$window',
-      'envPrefix',
-      'UserGoalDataManager',
-      'template',
-      'userGoalData',
       '$analytics',
-      'lsInfiniteItems',
-      function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
+      function($scope, $sce, $timeout, $window, $analytics){
 
           $scope.files = [];
-          $scope.disablePreview = false;
-
-          $scope.haveIdeas = false;
+          $scope.successStory = {};
 
           $timeout(function(){
               angular.element("#goal-done-form").ajaxForm({
@@ -485,7 +477,7 @@ angular.module('goal', ['Interpolation',
                       }
                   }
               });
-          },500);
+          }, 500);
 
           // file uploads
 
@@ -522,16 +514,6 @@ angular.module('goal', ['Interpolation',
                           $scope.$apply();
                       }
                   });
-
-                  $scope.goalDropzone.on('addedfile', function(){
-                      $scope.disablePreview = true;
-                      $scope.$apply();
-                  });
-
-                  $scope.goalDropzone.on('queuecomplete', function(){
-                      $scope.disablePreview = false;
-                      $scope.$apply();
-                  })
               }, 500);
           };
 
@@ -1290,6 +1272,60 @@ angular.module('goal', ['Interpolation',
                 };
             }
         }
+    }])
+    .directive('videoLink', ['$sce', function($sce){
+      return {
+          restrict: 'EA',
+          scope: {
+              array: '=',
+              key: '=',
+              link: '=',
+              limit: '='
+          },
+          templateUrl: '/bundles/app/htmls/videoLink.html',
+          link: function(scope){
+
+              scope.lm = scope.limit ? scope.limit : 3;
+
+              scope.$watch('link',function(d){
+                  if(angular.isUndefined(d)){
+                      return;
+                  }
+
+                  if(d === ''){
+                      scope.removeItem();
+                  }
+                  else {
+                      if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.lm){
+                          scope.array[scope.key + 1] = {};
+                      }
+                  }
+              }, true);
+
+              scope.removeItem = function(){
+                  if(scope.array[scope.array.length - 1].link){
+                      scope.array[scope.array.length] = {};
+                  }
+
+                  if(scope.key === 0){
+                      if(scope.array.length > 1){
+                          scope.array.splice(scope.key, 1);
+                      }
+                  }
+                  else {
+                      scope.array.splice(scope.key, 1);
+                  }
+              };
+
+              scope.isVideoLink = function(url){
+                  return !(!url || url.indexOf("https:/") == -1);
+              };
+
+              scope.trustedUrl = function(url){
+                  return $sce.trustAsResourceUrl(url);
+              };
+          }
+      }
     }])
     .directive('step',[function(){
         return {
