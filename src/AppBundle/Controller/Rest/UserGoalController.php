@@ -56,7 +56,7 @@ class UserGoalController extends FOSRestController
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
-        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_small'));
+        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
         
         return $userGoal;
     }
@@ -167,7 +167,7 @@ class UserGoalController extends FOSRestController
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
-        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_small'));
+        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
 
         $em->persist($userGoal);
         $em->flush();
