@@ -38,7 +38,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v329
+        assets_version: v337
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -120,6 +120,8 @@ doctrine:
         dql:
             datetime_functions:
                 date:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                hour:           Oro\ORM\Query\AST\Functions\SimpleFunction
+                dayofweek:      Oro\ORM\Query\AST\Functions\SimpleFunction
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
             string_functions:
@@ -233,6 +235,8 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
+    show_mosaic_button: true
+
 
 # stfo doctrine extensions
 stof_doctrine_extensions:
@@ -354,7 +358,7 @@ rms_push_notifications:
       timeout: 60 # Seconds to wait for connection timeout, default is 60
       sandbox: false
 #      pem: %kernel.root_dir%/Certificates/luvbyrdDev.pem
-      pem: %kernel.root_dir%/Certificates/production_Certificates.p12
+      pem: %kernel.root_dir%/Certificates/production_Certificates.pem
 #      passphrase: %kernel.root_dir%/Certificates/Certificates_dev.p12
 
 genemu_form:

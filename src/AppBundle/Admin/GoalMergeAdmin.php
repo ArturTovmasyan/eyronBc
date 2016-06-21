@@ -8,12 +8,12 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class GoalMergeAdmin extends Admin
+class GoalMergeAdmin extends AbstractAdmin
 {
 //    protected $baseRoutePattern = 'goal-manage';
 //    protected $baseRouteName = 'goal-manage';
@@ -60,8 +60,8 @@ class GoalMergeAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('title', null, array('label'=>'admin.label.name.tag'))
+            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.tag','show_filter' => true))
         ;
     }
 

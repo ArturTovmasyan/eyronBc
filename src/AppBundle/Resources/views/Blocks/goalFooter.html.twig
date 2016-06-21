@@ -9,11 +9,11 @@
 
     <li class="col-xs-6" ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal !== 0) || !completed}">
         <a href="javascript:void(0)"
+           data-ng-cloak
            data-ng-show="!goal.is_my_goal && completed"
-           data-ls-jquery-modal
+           data-ls-goal-id="[[ ::goal.id ]]"
+           data-ls-goal-manage
            data-ng-click="goal.is_my_goal = 1; refreshCache('{{ userId }}', goal.id){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}"
-           data-ls-identity="idea[[ ::goal.id ]]"
-           data-ls-template-url="{{ env_prefix }}/goal/add-to-me/[[ ::goal.id ]]"
            class="ng-hide">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>

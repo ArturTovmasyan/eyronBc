@@ -95,6 +95,7 @@ class CRUDController extends Controller
 
             //set flush messages
             $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
+            $this->addFlash('GoalMerge','Goal merge from Web');
 
             return new RedirectResponse($this->admin->generateUrl('list'));
 

@@ -63,6 +63,36 @@
 
                 ga('create', '{{ ga_id }}', 'auto');
                 ga('send', 'pageview' {% if app.request.get('search') != null %} , '/ideas?search={{ app.request.get('search') }}' {% endif %} );
+                {% if app.session.flashBag.has('userRegistration') %}
+                    {% for msg in app.session.flashBag.get('userRegistration')  %}
+                        ga('send', 'event', 'User', 'User registration', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('userLogin') %}
+                    {% for msg in app.session.flashBag.get('userLogin')  %}
+                        ga('send', 'event', 'User', 'User login', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('comments') %}
+                    {% for msg in app.session.flashBag.get('comments')  %}
+                        ga('send', 'event', 'comments', 'comments ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('private') %}
+                    {% for msg in app.session.flashBag.get('private')  %}
+                        ga('send', 'event', 'My ideas', 'My private ideas ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('draft') %}
+                    {% for msg in app.session.flashBag.get('draft')  %}
+                        ga('send', 'event', 'My ideas', 'Drafts ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
+                {% if app.session.flashBag.has('category') %}
+                    {% for msg in app.session.flashBag.get('category')  %}
+                        ga('send', 'event', 'Goal', 'Goal select category ', '{{ msg }}');
+                    {% endfor %}
+                {% endif %}
             </script>
         {% endif %}
 
@@ -76,10 +106,10 @@
                 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
                     document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-            fbq('init', '1649754408571889');
+            fbq('init', '1100030436724857');
             fbq('track', "PageView");</script>
         <noscript><img height="1" width="1" style="display:none"
-                       src="https://www.facebook.com/tr?id=1649754408571889&ev=PageView&noscript=1"
+                       src="https://www.facebook.com/tr?id=1100030436724857&ev=PageView&noscript=1"
             /></noscript>
         <!-- End Facebook Pixel Code -->
         {% endif %}
@@ -94,17 +124,19 @@
              data-ls-template='{{ include('AppBundle:Blocks:mobileModal.html.twig') }}'>
         </div>
 
-        {% set addUrl = getSession('addUrl') %}
+        {% set goalAction = getSession('goal_action') %}
 
+        <img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>
 
-        {% if app.user and addUrl is not null %}
-            <img src="{{ asset('bundles/app/images/loading.gif') }}" style="position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="not-login-modal-loading"/>
-            <div data-ls-jquery-modal
-                 style="display: none"
-                 class="not-login-modal"
-                 data-ls-identity="notLoginModal"
-                 data-ls-template-url="{{ addUrl }}">
-            </div>
+        {% if app.user and goalAction is not null %}
+            {% if goalAction['action'] == "rest_put_usergoal" %}
+                <div data-ls-goal-manage
+                     style="display: none"
+                     data-ls-initial-run="true"
+                     data-ls-user-id="{{ app.user.id }}"
+                     data-ls-goal-id="{{ goalAction['goal_id'] }}">
+                </div>
+            {% endif %}
         {% endif %}
 
         {% block body %}
@@ -276,6 +308,7 @@
             {% javascripts output='js/base_script.js'
                 'app/bower_components/jquery/dist/jquery.min.js'
                 'app/bower_components/jquery-form/jquery.form.js'
+                'app/bower_components/moment/min/moment.min.js'
                 'app/bower_components/jquery-nice-select/js/jquery.nice-select.min.js'
                 'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
                 'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
@@ -289,12 +322,16 @@
                 'app/bower_components/angular-strap/dist/angular-strap.tpl.min.js'
                 'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
                 'app/bower_components/angular-cache/dist/angular-cache.min.js'
+                'app/bower_components/angulartics/dist/angulartics.min.js'
+                'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
                 'app/scripts/Interpolation/Interpolation.js'
                 'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Components/Components.js'
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
                 'bundles/applicationuser/js/angular/user.js'
+                'bundles/app/js/angular/manage/manage.js'
+                'bundles/app/js/angular/managers/goal_manager/services/GoalDataManager.js'
                 'bundles/app/js/angular/main.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 %}
@@ -326,18 +363,6 @@
                 {% if error is not null  %}
                     setTimeout(openSettingsModal, 500);
                 {% endif %}
-
-                $(document).ready(function(){
-                    {% if addUrl is not null %}
-                        setTimeout(function(){
-                            $(".not-login-modal").trigger('openLsModal', 'notLoginModal');
-
-                            $(".not-login-modal").on('lsJqueryModalOpenednotLoginModal', function(){
-                                $(".not-login-modal-loading").hide();
-                            })
-                        }, 1000);
-                    {% endif %}
-                });
 
             </script>
 

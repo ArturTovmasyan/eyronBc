@@ -15,7 +15,7 @@
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
 
-                <div class="col-md-8" id="activities">
+                <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
                         <h3 class="text-dark-gray" style="display: none" id="non-activity">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
@@ -122,21 +122,15 @@
                     <div class="right-block round margin-top">
                         <div class="right-menu">
                             <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-xs-10">
                                     <span>
                                          <i class="icon-top-idea"></i>
                                          <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
                                     </span>
                                 </div>
-                                {#<div class="col-xs-6">#}
-                                     {#<span>#}
-                                         {#<i class="icon-top-idea"></i>#}
-                                         {#<a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>#}
-                                    {#</span>#}
-                                {#</div>#}
-                                {#<div class="col-xs-6 text-right">#}
-                                    {#<a href="{{ path("goals_list") }}">{{ 'right_menu.show'|trans }}</a>#}
-                                {#</div>#}
+                                <div class="col-xs-2 text-right">
+                                    <a href="#" class="load" id="popularLoad" data-ng-class="{'load-animate': load}" data-ng-click="load=!load"></a>
+                                </div>
                             </div>
                             <hr/>
                         </div>

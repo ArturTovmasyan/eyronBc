@@ -1,150 +1,133 @@
 <div class="modal" id="goal-modal" data-ng-controller="goalEnd">
     <div class="goal-container">
-        {% if newAdded %}
-            <div class="email">{{ "goal.create_goal" | trans }}</div>
-        {% endif %}
+        <div data-ng-if="newAdded" class="email">{{ "goal.create_goal" | trans }}</div>
 
-        {% set goal = data.goal %}
-        {% set completed = false %}
-        {% set user = app.user %}
 
-        {% include "AppBundle:Blocks:topBlock.html.twig" %}
+        <div class="modal-top">
+            <figure data-ng-if="userGoal.goal.image_path">
+                <img data-ng-src="[[ userGoal.goal.image_path]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+            </figure>
 
-        <form class="form-horizontal" id="{% if 'goal/create' not in getReferer() %}goal-add-form{% else %}goal-add-for-create-form{% endif %}" action="{{ app.request.requestUri }}" method="post"
-              data-ng-init="initSteps({{ data.getStepsJson }});redirectPath = '{{ path('user_profile') }}'; goalId = '{{ goal.getId }}'" >
+            <span class="overlay"></span>
 
+            <div>
+                <h2 data-ng-class="{'title-smaller': userGoal.goal.title.length > 35, 'title-top': !userGoal.goal.author.show_name}">
+                    <span>[[ userGoal.goal.title ]]</span>
+                </h2>
+                {% if app.user %}
+                    <p data-ng-if="userGoal.goal.author && !userGoal.goal.author.is_admin && userGoal.goal.author.id == {{ app.user.id }}">
+                        [[ userGoal.goal.author.show_name ]]
+                    </p>
+                {% endif %}
+                <ul>
+                    <li>
+                        <a href="javascript:void(0)">
+                            {{ 'block_listed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.listedBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            {{ 'block_completed'|trans | capitalize }}
+                            <span>[[ userGoal.goal.stats.doneBy | number ]]</span>
+                            <i class="icon-user-small"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form class="form-horizontal" method="post" data-ng-init="redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">
-
                 {# edit goal status #}
-                {% if data.id is not null %}
+                <div class="clearfix ng-hide" data-ng-show="userGoal.id">
+                    <div class="form-group row no-marginb">
 
-                    {% set completed = data.status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
+                        <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
+                            <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
+                            <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
+                        </label>
 
-                    <div class="clearfix">
-                        <div class="form-group row no-marginb">
+                        <div class="col-xs-4 col-sm-2">
+                            <div class="onoffswitch" data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
+                                <input type="checkbox"
+                                   name="goal_status"
+                                   data-ng-model="complete.switch"
+                                   data-ls-checked="complete.switch"
+                                   class="onoffswitch-checkbox"
+                                   id="myonoffswitch">
 
-                            <label class="col-xs-8 col-sm-10 control-label text-left text-purple" data-ng-init="complete.switch={{ completed|default("0") }}">
-                                <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
-                                <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
-                            </label>
-
-                            <div class="col-xs-4 col-sm-2">
-                                <div class="onoffswitch">
-                                    <input type="checkbox"
-                                       name="goal_status"
-                                       data-ng-model="complete.switch"
-                                       data-ls-checked="complete.switch"
-                                       class="onoffswitch-checkbox"
-                                       id="myonoffswitch"
-                                       data-ng-init="complete.switch={{ data.status == constant('AppBundle\\Entity\\UserGoal::ACTIVE') ? 0 : 1 }}">
-
-                                    <label class="onoffswitch-label" for="myonoffswitch">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
+                                <label class="onoffswitch-label" for="myonoffswitch">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
                             </div>
                         </div>
-
-                        <div class="row form-group">
-                            <label class="col-sm-12 control-label text-left">
-                                <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
-                                <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
-                            </label>
-                        </div>
-
                     </div>
 
-                    <div class="clearfix" data-ng-show="complete.switch">
-                        <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
-                        {% if data.doDate %}
-                            <span class="text-gray">{{ "goal.scheduled_date"|trans | upper}} {{ data.doDate|date('d M Y') | upper }}</span>
-                        {% endif %}
+                    <div class="row form-group ng-hide" data-ng-show="userGoal.id">
+                        <label class="col-sm-12 control-label text-left">
+                            <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
+                            <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
+                        </label>
                     </div>
-                    <hr/>
 
-                {% endif %}
+                </div>
+
+                <div class="clearfix ng-hide" data-ng-show="complete.switch">
+                    <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
+                    <span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>
+                </div>
+                <hr/>
 
                 <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
-                {% set doDate = data.doDate ? data.doDate|date("d") : "now"|date("d") %}
 
                 <div class="row">
                     <div class="col-sm-6">
                         <div id="datepicker"
                              data-ng-hide="complete.switch"
-                             data-date="{{ data.doDate ? data.doDate|date("m/d/Y") : "now"|date("m/d/Y") }}"
+                             data-date="[[ momentDateFormat(userGoal.do_date, 'MM/DD/YYYY') ]]"
                              style="color: black"></div>
                     </div>
                     <div class="col-sm-6">
                         <div id="secondPicker"
                              data-ng-hide="complete.switch"
-                             {% if doDate == 31 or doDate == 30 or doDate == 29 %}
-                                data-date="{{ data.doDate ? data.doDate|date_modify("+10 day")|date("m/d/Y") : "now"|date_modify("+10 day")|date("m/d/Y") }}"
-                             {% else %}
-                                data-date="{{ data.doDate ? data.doDate|date_modify("+31 day")|date("m/d/Y") : "now"|date_modify("+31 day")|date("m/d/Y") }}"
-                             {% endif %}
+                             data-date="[[ getSecondPickerDate(userGoal.do_date, 'MM/DD/YYYY') ]]"
                              style="color: black">
                         </div>
                     </div>
                 </div>
 
-                {% if data.id is not null and data.doDate is not null and data.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
-                    <h6 class="text-gray text-center" data-ng-show="!complete.switch">
-                        <i class="icon info-icon"></i>
-                        {{ "goal.missed_deadline"|trans }}
-                    </h6>
-                {% endif %}
+                <h6 class="text-gray text-center"
+                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                    <i class="icon info-icon"></i>
+                    {{ "goal.missed_deadline"|trans }}
+                </h6>
 
-                <input id="{{ form.birthday.vars.id }}" type="hidden" class="hidden_date_value"
-                       value="{{ data.doDate ? data.doDate|date("m/d/Y") : null }}"
-                       name="{{ form.birthday.vars.full_name }}"/>
-
-                {% if data.goal.address is defined and data.goal.address %}
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <div class="location">
-                                {#<i class="icon location-icon"></i>#}
-                                {#<span class="icon-remove-email"></span>#}
-                                {#<span class="icon-location-icon"></span>#}
-                                <i class="icon-location-icon"></i>
-                                {#{% if not completed and data.goal.address is null %}#}
-                                    {#<i class="icon-remove-email" data-ng-click="removeLocation()"></i>#}
-                                {#{% endif %}#}
-
-                                <input  value="{{ data.goal.address}}"
-                                        type="text"
-                                        data-ng-disabled="true"
-                                        {#data-google-places-autocomplete#}
-                                        {#data-hidden-storage=".location-hidden"#}
-                                        class="form-control place-autocomplete"
-                                        placeholder="{{ "goal.location_ex"|trans }}"/>
-                                {#<input id="{{ form.location.vars.id }}" value="{{ data.goal.getJsonLocations ? data.goal.getJsonLocations : data.getJsonLocations }}"#}
-                                       {#type="hidden" class="location-hidden"#}
-                                       {#name="{{ form.location.vars.full_name }}"/>#}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="form-group row">
+                <div class="form-group row" data-ng-if="userGoal.goal.location">
                     <div class="col-sm-12">
-                        <i class="icon-pencil"></i>
-                        {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'rows':'3', 'placeholder' : 'goal.note_p'|trans ,'data-ng-disabled': 'complete.switch'} } ) }}
+                        <div class="location">
+                            <i class="icon-location-icon"></i>
+                            <input type="text"
+                                data-ng-disabled="true"
+                                data-ng-model="userGoal.goal.location.address"
+                                class="form-control place-autocomplete"
+                                placeholder="{{ "goal.location_ex"|trans }}"/>
+                        </div>
                     </div>
                 </div>
 
-
-                {% set important = data.getImportant %}
-                {% set urgent = data.getUrgent %}
-
-                {% if important == true and urgent == true %}
-                    {% set priority = 1 %}
-                {% elseif important == false and urgent == true %}
-                    {% set priority = 2 %}
-                {% elseif important == true and urgent == false %}
-                    {% set priority = 3 %}
-                {% elseif important == false and urgent == false %}
-                    {% set priority = 4 %}
-                {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <i class="icon-pencil"></i>
+                        <textarea class="form-control"
+                          data-ng-model="userGoal.note"
+                          rows="3"
+                          placeholder="{{ 'goal.note_p'|trans }}"
+                          data-ng-disabled="complete.switch"></textarea>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-xs-12">
@@ -170,14 +153,16 @@
                                                 {% for id, name in filters %}
 
                                                     <div class="col-sm-6">
-                                                        <div class="inputs-style priority-radio {% if data.getUrgentImportantStatus() == id %}active-important{% endif %}">
+                                                        <div class="inputs-style priority-radio"
+                                                             data-ng-class="{'active-important': getPriority(userGoal)=={{ id }}}">
                                                             <label class="radio-inline">
                                                                 <input name="test"
-                                                                       class="important-radio"
-                                                                       type="radio"
-                                                                       data-ng-disabled="complete.switch"
-                                                                       value="{{ id }}"
-                                                                       {% if data.getUrgentImportantStatus() == id %}checked{% endif %}>
+                                                                   class="important-radio"
+                                                                   type="radio"
+                                                                   data-ng-model="userGoal.priority"
+                                                                   data-ng-disabled="complete.switch"
+                                                                   data-ng-checked="getPriority(userGoal)=={{ id }}"
+                                                                   value="{{ id }}">
                                                                 {{ name|trans|raw }}
                                                             </label>
 
@@ -217,21 +202,18 @@
                 </div>
 
                 <h4>{{ "goal.complete_step"|trans }}</h4>
-                {% if data.id is not null and data.steps is not null and data.steps|length > 0 %}
-
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped"
                              role="progressbar"
                              aria-valuenow="45"
                              aria-valuemin="0"
                              aria-valuemax="100"
-                             style="width:{{ data.getCompleted|round(1, 'floor') }}%">
-                            {{ data.getCompleted|round(1, 'floor') }}% Complete
+                             style="width:[[ getCompleted(userGoal) | number:1 ]]%">
+                            [[ getCompleted(userGoal) | number:1 ]]% Complete
                         </div>
                     </div>
-                {% endif %}
 
-                <div class="form-group row" data-ng-repeat="(k, step) in stepsArray">
+                <div class="form-group row" data-ng-repeat="(k, step) in userGoal.formatted_steps">
 
                     <label class="col-sm-2 control-label">
                         <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
@@ -244,9 +226,8 @@
                             <input type="text"
                                    class="form-control"
                                    data-step
-                                   {% if completed %}disabled{% endif %}
                                    data-key="k"
-                                   data-array="stepsArray"
+                                   data-array="userGoal.formatted_steps"
                                    data-ng-model="step.text"
                                    data-ng-disabled="complete.switch"
                                    name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
@@ -275,31 +256,26 @@
                 <div class="form-group row no-marginb">
 
                     <label for="inputEmail3"
-                           data-ng-hide="private_checkbox"
+                           data-ng-hide="userGoal.is_visible"
                            class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_visible"|trans }}
                     </label>
                     <label for="inputEmail3"
-                        data-ng-show="private_checkbox"
+                        data-ng-show="userGoal.is_visible"
                         class="col-xs-8 col-sm-10 control-label text-purple text-left">
                         {{ "goal.as_invisible"|trans }}
                     </label>
 
                     <div class="col-xs-4 col-sm-2">
                         <div class="onoffswitch">
-                            <input {% if data.isVisible %}
-                                    checked
-                                    data-ng-init="private_checkbox=true"
-                                    {% endif %}
-                                    type="checkbox"
-                                    data-ng-model="private_checkbox"
-                                    data-ls-checked="private_checkbox"
-                                    data-ng-disabled="complete.switch"
-                                    class="onoffswitch-checkbox"
-                                    id="{{ form.isVisible.vars.id }}"
-                                    name="{{ form.isVisible.vars.full_name }}">
+                            <input type="checkbox"
+                                data-ng-model="userGoal.is_visible"
+                                data-ls-checked="userGoal.is_visible"
+                                data-ng-disabled="complete.switch"
+                                id="goal-is-visible"
+                                class="onoffswitch-checkbox">
 
-                            <label class="onoffswitch-label" for="{{ form.isVisible.vars.id }}">
+                            <label class="onoffswitch-label" for="goal-is-visible">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
                             </label>
@@ -308,15 +284,14 @@
                 </div>
 
                 <p class="text-gray">
-                    <i class="icon-eye-icon ng-hide" data-ng-hide="private_checkbox"></i>
-                    <i class="icon-eye" data-ng-show="private_checkbox"></i>
-                    <span data-ng-hide="private_checkbox">{{ "goal.visible_text"|trans }}</span>
-                    <span data-ng-show="private_checkbox">{{ "goal.invisible_text"|trans }}</span>
+                    <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
+                    <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
+                    <span data-ng-hide="userGoal.is_visible">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
-
-
-                {% if data.id is not null and data.goal.author and data.goal.author.id == app.user.id and data.goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
-                    <p class="text-gray clearfix">
+                {% if app.user %}
+                    <p class="text-gray clearfix"
+                       data-ng-if="userGoal.id && userGoal.author && userGoal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
                         <strong class="text-dark-gray pull-left">
                             <i class="icon lock-icon"></i>
                             {{ 'user_goal.private' |trans }}
@@ -324,33 +299,26 @@
                         <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
                     </p>
                 {% endif %}
-
                 <hr />
 
                 <div class="modal-bottom">
-
-                    <button type="submit" name="btn_save" class="btn btn-purple">{{ "btn_save"|trans }}</button>
-
+                    <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-
                     <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
                         <i class="icon-trash"></i>
                         <span>{{ 'forget'|trans | upper }}</span>
                     </a>
-
                 </div>
 
                 <div data-ng-show="showDetails">
                     <div class="delete-message">
                         <div>
                             <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
-                            <a href="{{ path('remove_goal', {'goal' : goal.getId , 'user': user.getId }) }}" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
-                            <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
+                            <a href="javascript:void(0)" data-ng-click="removeUserGoal([[ userGoal.id ]])" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
+                            <a data-ng-click="showDetails=!showDetails" href="javascript:void(0)" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
                         </div>
                     </div>
                 </div>
-
-                {{ form_widget(form._token) }}
             </div>
         </form>
     </div>

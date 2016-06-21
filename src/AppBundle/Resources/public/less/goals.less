@@ -13,10 +13,49 @@
     font-size:18px;
     padding:20px 0 15px;
   }
+  .popover-content{
+    padding:5px 0;
+  }
 
-  //span{
-  //  vertical-align: middle;
-  //}
+  ul.filter{
+    padding: 0;
+    margin-bottom:0;
+    min-width:125px;
+
+    li{
+      padding: 5px 8px;
+
+      a{
+        color:#666666;
+        display: block;
+        vertical-align: middle;
+        font-weight: 600;
+        font-size:12px;
+        padding: 0;
+
+        span{
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        img{
+          height: 20px;
+          margin-right:7px;
+        }
+
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      &:hover{
+        background-color: #7725f6;
+
+        a{
+          color:#ffffff;
+        }
+      }
+    }
+  }
 
   .map-top{
     font-size:14px;
@@ -95,19 +134,20 @@
   }
 
   .buttons{
-    margin:0 0 15px 0;
+    margin:0 0 5px 0;
     button,a{
       display: inline-block;
-      padding: 5px 15px;
-      margin-left: 5px;
+      padding: 4px 7px;
+      margin-left: 4px;
       font-size:12px;
+      margin-bottom:8px;
 
       span{
-        line-height: 25px;
+        line-height: 20px;
       }
 
       i.icon-arrow-right,i.icon-arrow-left{
-        font-size: 25px;
+        font-size: 20px;
         vertical-align: middle;
       }
 
@@ -127,8 +167,9 @@
         outline:0;
       }
     }
+
     .btn-transparent{
-      padding:4px 15px;
+      padding: 4px 5px 4px 7px;
     }
 
     .icon-right{
@@ -144,11 +185,42 @@
 
 .goals{
   padding-bottom:20px;
-  margin:30px 0;
-  background-color: #ffffff;
+  margin:15px 0 0;
 
   .margin-top{
     margin-top:5px;
+  }
+
+  a{
+    .icon-arrow-right,.icon-arrow-left{
+      display:inline-block;
+      color: #999999;
+      font-size:20px;
+      margin-top:3px;
+      line-height: 45px;
+    }
+
+    .icon-arrow-left{
+      font-size:22px;
+      line-height: 40px;
+    }
+
+    .icon-arrow-right{
+      margin-right:15px;
+    }
+
+    &:hover{
+      text-decoration: none;
+    }
+
+  }
+
+  h3{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: normal;
+    margin-top: 10px;
+    padding: 0 2px 0 14px;
   }
 
   .title{
@@ -649,6 +721,23 @@
       padding:20px 0 15px;
     }
 
+    ul.filter{
+      min-width:170px;
+      padding: 10px 0 0 0;
+
+      li{
+        padding: 10px 21px;
+
+        a{
+          font-size:14px;
+
+          img{
+            margin-right:10px;
+            height: 24px;
+          }
+        }
+      }
+    }
     p{
       font-size: 13px;
     }
@@ -666,13 +755,26 @@
       margin:22px 0 20px;
 
       button,a{
+        margin-bottom: 0;
+        padding: 5px 15px;
+        margin-left: 5px;
+        font-size:12px;
+
         span{
           line-height: 27px;
         }
-        span.icon-arrow-right,span.icon-arrow-left{
-          font-size: 30px;
+
+        i.icon-arrow-right,i.icon-arrow-left{
+          font-size: 25px;
         }
 
+        //span.icon-arrow-right,span.icon-arrow-left{
+        //  font-size: 30px;
+        //}
+
+      }
+      .btn-transparent{
+        padding:4px 15px;
       }
     }
   }
@@ -732,9 +834,23 @@
   }
 
   .goals{
+    margin:30px 0;
+
     .margin-top{
       margin-top:15px;
     }
+
+    a{
+      .icon-arrow-right,.icon-arrow-left{
+        font-size: 30px;
+        margin-top:13px;
+      }
+      .icon-arrow-left{
+        font-size: 32px;
+      }
+
+    }
+
     .title{
       margin-top: 10px;
       font-size: 45px;
@@ -748,7 +864,12 @@
       font-size: 25px;
       line-height:35px;
       height:auto;
+    }
 
+    h3{
+      margin-top:20px;
+      font-size: 25px;
+      padding: 0 2px 0 15px;
     }
 
     .form-group{
@@ -809,15 +930,10 @@
 
       h3{
         margin:10px 0 0;
-        height: 50px;
+        height: 75px;
         overflow: hidden;
         font-size:18px;
         line-height: 23px;
-      }
-
-      p{
-        margin:0 0 5px 0;
-        height:20px;
       }
 
       ul{
@@ -1005,18 +1121,32 @@
       }
     }
 
+    a{
+      .icon-arrow-right,.icon-arrow-left{
+        margin-top:30px;
+      }
+      .icon-arrow-right{
+        margin-right: 0;
+      }
+    }
+
     .title{
       margin-top:15px;
       font-size: 52px;
       height: 83px;
       padding: 5px 0 11px 0;
     }
+
+    h3{
+      margin-top: 40px;
+      padding: 0;
+    }
+
     h3.title{
       padding: 17px 40px;
       font-size: 25px;
       line-height:35px;
       height:auto;
-
     }
 
     .relative{

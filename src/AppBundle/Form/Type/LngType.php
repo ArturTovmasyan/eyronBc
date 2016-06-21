@@ -8,11 +8,8 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Form\GoalImageType;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

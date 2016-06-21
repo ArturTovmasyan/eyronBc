@@ -15,6 +15,7 @@
        data-placement="bottom-left"
        data-ng-click="joinToggle1 = !joinToggle1"
        data-html="true"
+       data-auto-close="true"
        data-ng-class="{'join-class': joinToggle1}"
        data-content='{{ include("AppBundle:Blocks:user.widget.html.twig") }}'
        data-animation="am-fade-and-scale"
@@ -27,7 +28,8 @@
             <p class="no-image {{ className }}">{{ nameOnImage }}</p>
         {% endif %}
 
-        <span class="name">{{ user.firstName }} <br/>{{ user.lastName }}</span>
+        <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
+            <br/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
 
         {% if not isMobile() %}
             <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
@@ -39,11 +41,12 @@
 {% endif %}
 
 <a href="javascript:void(0)"
-        {% if app.user %}
-            style="display: none"
-        {% endif %}
+    {% if app.user %}
+        style="display: none"
+    {% endif %}
     data-ng-init="joinToggle2 = false"
     class="sign-in-popover"
+    data-auto-close="true"
     data-ng-class="{'join-class': joinToggle2}"
     data-placement="bottom-left"
     data-html="true"

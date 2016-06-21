@@ -1,5 +1,5 @@
 {% if user is defined %}
-    <div class="bg-white round padding {% if user.profileCompletedPercent|round(1, 'floor') != 100 %}margin-top {% endif %}">
+    <div class="bg-white round padding {% if user.getCompletedPercent()|round(1, 'floor') != 100 %}margin-top {% endif %}">
 
         <a href="{{ path('user_profile') }}" class="heading text-gray">
             <i class=" icon-list-icon"></i>
@@ -10,20 +10,23 @@
 
         {% set stats = user.getStats %}
 
-        <ul class="horizontal-menu {{ app.request.locale }}">
+        <ul class="horizontal-menu {{ app.request.locale }}" data-ng-init="isChange = false">
             <li>
                 <strong>{{ 'user_goal.active'|trans }}</strong>
-                <span>{{ stats.active }}</span>
+                <span data-ng-if="!isChange">{{ stats.active }}</span>
+                <span data-ng-if="isChange">[[ stats.listedBy - stats.doneBy ]]</span>
             </li>
 
             <li>
                 <strong>{{ 'block_listed'|trans }}</strong>
-                <span>{{ stats.listedBy }}</span>
+                <span data-ng-if="!isChange">{{ stats.listedBy }}</span>
+                <span data-ng-if="isChange">[[ stats.listedBy ]]</span>
             </li>
 
             <li>
                 <strong>{{ 'block_completed'|trans |capitalize }}</strong>
-                <span>{{ stats.doneBy }}</span>
+                <span data-ng-if="!isChange">{{ stats.doneBy }}</span>
+                <span data-ng-if="isChange">[[ stats.doneBy ]]</span>
             </li>
         </ul>
     </div>
