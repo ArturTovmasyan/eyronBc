@@ -88,33 +88,27 @@
                             </div>
                          </div>
 
-                         {#<div class="slickClass">#}
-                         {#<div>your 1</div>#}
-                         {#<div>your 2</div>#}
-                         {#<div>your 3</div>#}
-                         {#<div>your 4</div>#}
-                         {#</div>#}
                          <div class="row bg-grey" data-ng-if="haveIdeas">
                              <div class="col-xs-12">
                              <div class="row no-gutter">
                                  <div class="col-xs-9">
                                      <h3 class="text-left text-dark">Existing similar goals</h3>
                                  </div>
-                                 <div class="col-xs-3 text-right ng-hide">
-                                     <a href="#">
+                                 <div class="col-xs-3 text-right" data-ng-if="isMore">
+                                     <a href="#" data-ng-click="slickConfig.method.slickPrev()">
                                          <i class="icon-arrow-left">
                                              <span class="path1"></span><span class="path2"></span>
                                          </i>
                                      </a>
-                                     <a href="#">
+                                     <a href="#" data-ng-click="slickConfig.method.slickNext()">
                                          <i class="icon-arrow-right"></i>
                                      </a>
                                  </div>
                              </div>
-                                 <div class="row idea-item">
+                                 <slick settings="slickConfig" class="row idea-item">
                                      <div class="col-sm-6 col-md-4 goals-animate"
                                           data-ng-cloak
-                                          data-ng-repeat="goal in Ideas.items | limitTo: 3">
+                                          data-ng-repeat="goal in Ideas.items">
                                          <figure>
                                              <h3>
                                                  <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]">[[ ::goal.title ]]</a>
@@ -166,7 +160,7 @@
                                              </figcaption>
                                          </figure>
                                      </div>
-                                 </div>
+                                 </slick>
                             </div>
                          </div>
 

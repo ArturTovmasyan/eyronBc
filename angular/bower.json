@@ -33,6 +33,7 @@
     "angular-cache":"4.6.0",
     "angulartics-google-analytics":"0.1.*",
     "slick-carousel":"1.6.*",
+    "angular-slick-carousel":"3.1.*",
     "angular-local-storage": "0.2.*"
   },
   "devDependencies": {

@@ -16,7 +16,8 @@ angular.module('goal', ['Interpolation',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',
-        'PathPrefix'
+        'PathPrefix',
+        'slickCarousel'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -159,7 +160,7 @@ angular.module('goal', ['Interpolation',
             }.bind(this));
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url, search, category, userId) {
+        lsInfiniteItems.prototype.nextPage = function(url, search, category, userId , notReserve) {
             if (this.busy) {
                 return;
             }
@@ -217,7 +218,9 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
-                this.nextReserve(reserveUrl, search, category);
+                if(!notReserve){
+                    this.nextReserve(reserveUrl, search, category);
+                }
 
                 //setTimeout(function(){
                 //    this.loadAddthis();
@@ -238,7 +241,9 @@ angular.module('goal', ['Interpolation',
                     this.busy = data.length ? false : true;
                     this.start += this.count;
                     this.request++;
-                    this.nextReserve(reserveUrl, search, category);
+                    if(!notReserve){
+                        this.nextReserve(reserveUrl, search, category);
+                    }
 
                     if (!this.items.length) {
                         this.loadRandomItems(this.count);
@@ -268,13 +273,38 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
-        // $('.slickClass').slick({
-        //     slidesToShow: 2,
-        //     slidesToScroll: 2
-        // });
+
+        $scope.slickConfig = {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            arrows: false,
+            method: {},
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        };
+
         $scope.searchTimeoutPtr = null;
         $scope.disablePreview = false;
-        $scope.Ideas = new lsInfiniteItems(3);
+        $scope.isMore = false;
+        $scope.Ideas = new lsInfiniteItems(9);
 
         $scope.haveIdeas = false;
 
@@ -283,39 +313,17 @@ angular.module('goal', ['Interpolation',
 
             $scope.searchTimeoutPtr = $timeout(function(){
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle, null, null, true);
             }, 600);
 
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(d.length){
-                // $('.slickClass').slick({
-                //     slidesToShow: 3,
-                //     slidesToScroll: 3,
-                //     responsive: [
-                //         {
-                //             breakpoint: 768,
-                //             settings: {
-                //                 arrows: false,
-                //                 centerMode: true,
-                //                 centerPadding: '40px',
-                //                 slidesToShow: 2
-                //             }
-                //         },
-                //         {
-                //             breakpoint: 480,
-                //             settings: {
-                //                 arrows: false,
-                //                 centerMode: true,
-                //                 centerPadding: '40px',
-                //                 slidesToShow: 1
-                //             }
-                //         }
-                //     ]
-                // });
+                $scope.isMore = d.length > 3? true: false;
                 $scope.haveIdeas = $scope.addTitle? true: false;
             }else {
+                $scope.isMore = false;
                 $scope.haveIdeas = false;
             }
         });
