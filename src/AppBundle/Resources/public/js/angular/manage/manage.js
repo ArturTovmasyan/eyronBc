@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('manage', ['Interpolation',
-    'Components',
-    'LocalStorageModule',
-    'angular-cache',
-    'angulartics',
-    'ngResource',
-    'angulartics.google.analytics',
-    'PathPrefix'
+        'Components',
+        'LocalStorageModule',
+        'angular-cache',
+        'angulartics',
+        'ngResource',
+        'angulartics.google.analytics',
+        'PathPrefix'
     ])
     .value('template', { addTemplate: ''})
     .value('userGoalData', { data: {}})
