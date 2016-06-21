@@ -13,6 +13,7 @@ use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "user", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $goal Goal
@@ -52,6 +53,11 @@ class UserGoalController extends FOSRestController
         if(!$userGoal){
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
+        }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        if ($userGoal->getGoal()->getListPhotoDownloadLink()){
+            $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
         }
 
         return $userGoal;
@@ -82,7 +88,8 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findWithRelations"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_goal", "tiny_user"})
      *
      * @param Goal $goal
      * @param Request $request
@@ -159,6 +166,11 @@ class UserGoalController extends FOSRestController
         }
         if($request->get('goal_status')){
             $userGoal->setCompletionDate(new \DateTime('now'));
+        }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        if ($userGoal->getGoal()->getListPhotoDownloadLink()){
+            $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
         }
 
         $em->persist($userGoal);

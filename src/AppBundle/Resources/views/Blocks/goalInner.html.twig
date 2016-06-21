@@ -473,7 +473,7 @@
                             {% if app.user %}
                                 <a name="comments"></a>
                                 <h4>{{ 'comments'|trans }}</h4><hr />
-                                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': goal.id} %}
+                                <div id="fos_comment_thread"></div>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -525,7 +525,7 @@
                                                             [[ ::goal.stats.listedBy ]]
                                                             <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
                                                         </span>
-                                            </li>
+                                            </li>c
                                             <li>
                                                 <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
                                                             <span>
