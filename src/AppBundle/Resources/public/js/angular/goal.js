@@ -468,32 +468,8 @@ angular.module('goal', ['Interpolation',
 
           $scope.files = [];
           $scope.disablePreview = false;
-          $scope.Ideas = new lsInfiniteItems(3);
 
           $scope.haveIdeas = false;
-
-          $scope.searchGoal = function(ev){
-              $scope.Ideas.reset();
-              $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
-          };
-
-          $scope.$watch('Ideas.items', function(d) {
-              if(d.length){
-                  $scope.haveIdeas = $scope.title? true: false;
-              }else {
-                  $scope.haveIdeas = false;
-              }
-          });
-
-          $scope.openSignInPopover = function(){
-              var middleScope = angular.element(".sign-in-popover").scope();
-              var popoverScope = middleScope.$$childHead;
-
-              if(!popoverScope.$isShown){
-                  popoverScope.$show();
-                  middleScope.joinToggle2 = !middleScope.joinToggle2;
-              }
-          };
 
           $timeout(function(){
               angular.element("#goal-done-form").ajaxForm({
@@ -510,13 +486,6 @@ angular.module('goal', ['Interpolation',
                   }
               });
           },500);
-
-          angular.element('input[type=checkbox]').iCheck({
-              checkboxClass: 'icheckbox_square-purple',
-              increaseArea: '20%'
-          }).on('ifChanged', function (event) {
-              $(event.target).trigger('change');
-          });
 
           // file uploads
 
@@ -563,93 +532,13 @@ angular.module('goal', ['Interpolation',
                       $scope.disablePreview = false;
                       $scope.$apply();
                   })
-              },500);
+              }, 500);
           };
 
           // end file uploads
-
           $scope.trustedUrl = function(url){
               return $sce.trustAsResourceUrl(url);
           };
-
-          // description Tagging
-
-          $scope.$watch('description',function(d){
-              if(!d){
-                  return;
-              }
-
-              var reg = /(#[a-z0-9][a-z0-9\-_]+)/ig;
-              $scope.tags = d.match(reg);
-          },true);
-
-          angular.element(".draft-save-submit").click(function(){
-              angular.element("#goal-create-form").ajaxForm({
-                  beforeSubmit: function(){
-                      $scope.$apply();
-                  },
-                  error: function(res, text, header){
-                      if(res.status === 401) {
-                          loginPopoverService.openLoginPopover();
-                      }
-                  },
-                  success: function(res, text, header){
-                      if(header.status === 200){
-                          $window.location.href = $window.location.origin + envPrefix + 'goal/my-ideas/drafts';
-                      }
-                  }
-              });
-
-              if(!$scope.$$phase){
-                  $scope.$apply()
-              }
-
-          });
-
-          // end description Tagging
-
-          angular.element(".goal-create-submit").click(function(){
-              angular.element("#goal-create-form").ajaxForm({
-                  beforeSubmit: function(){
-                      $scope.loading = true;
-                      $scope.$apply();
-                  },
-                  error: function(res, text, header){
-                      if(res.status === 401) {
-                          loginPopoverService.openLoginPopover();
-                      }
-                  },
-                  success: function(res, text, header){
-                      if(header.status === 200){
-                          UserGoalDataManager.creates({id:res}, {}, function (resource){
-                              userGoalData.data = resource;
-                              $scope.goalSubmitTemplate = template.addTemplate;
-                              $scope.loading = false;
-                              $timeout(function(){
-                                  $scope.$broadcast('openLsModal', 'goalSave');
-                              },10);
-                          });
-                      }
-                  }
-              });
-
-              if(!$scope.$$phase){
-                  $scope.$apply()
-              }
-
-          });
-
-          angular.element(".goal-view-submit").click(function(){
-              angular.element("#goal-create-form").ajaxFormUnbind();
-          });
-
-          $scope.$on('lsJqueryModalClosedgoalSave', function(){
-              if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
-                  // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-                  $window.location.href = $scope.redirectPath;
-              }
-              $scope.goalSubmitTemplate = '';
-          })
 
     }])
     .controller('goalEnd', ['$scope',
