@@ -1019,7 +1019,8 @@ angular.module('goal', ['Interpolation',
         };
     }])
     .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', function($scope, $http, $compile, $analytics){
-        
+        $scope.isMobile =false;
+        $scope.isMobile = window.innerWidth < 767? true : false;
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)

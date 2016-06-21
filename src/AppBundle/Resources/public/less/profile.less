@@ -60,7 +60,6 @@
 
   i.icon-settings{
     margin-right:-9px;
-    //position: relative;
   }
 
   .mobile-settings{
@@ -100,6 +99,20 @@
     figcaption{
       margin-top:11px;
       background-color: transparent;
+
+      h3{
+        color: #ffffff;
+        font-size:18px;
+        margin:0 10px 15px;
+        line-height: normal;
+        span{
+          white-space: nowrap;
+          width: 100%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: block;
+        }
+      }
 
       li{
         display: inline-block;
@@ -231,19 +244,20 @@
 
   em{
     display: block;
-    color:#ffffff;
-    padding-bottom: 5px;
-    text-shadow: 2px 2px 5px #666666;
+    color:#666666;
+    padding: 10px 0 5px;
   }
 
   .profile-information{
-    margin-top:5px;
+    width:90%;
+    margin: 17px auto 10px;
+
     i{
       font-size:30px;
       cursor: pointer;
     }
     a.text-gray{
-      margin-left:20px;
+      margin-left:8px;
 
     }
   }
@@ -477,11 +491,13 @@
     }
 
     em{
-      text-shadow: none;
+      color: #ffffff;
+      padding: 0 0 5px;
     }
 
     .profile-information{
       margin-top:85px;
+
     }
 
   }
@@ -659,7 +675,12 @@
     }
 
     .profile-information{
-      margin-top:110px;
+      margin:110px auto 0;
+
+      a.text-gray{
+        margin-left:20px;
+
+      }
     }
 
   }
