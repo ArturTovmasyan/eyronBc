@@ -10,23 +10,23 @@
 
         {% set stats = user.getStats %}
 
-        <ul class="horizontal-menu {{ app.request.locale }}" data-ng-init="isChange = false">
+        <ul class="horizontal-menu {{ app.request.locale }}" data-ng-init="isChange = false" data-ng-cloak>
             <li>
                 <strong>{{ 'user_goal.active'|trans }}</strong>
                 <span data-ng-if="!isChange">{{ stats.active }}</span>
-                <span data-ng-if="isChange">[[ stats.listedBy - stats.doneBy ]]</span>
+                <span data-ng-if="isChange" data-ng-cloak>[[ stats.listedBy - stats.doneBy ]]</span>
             </li>
 
             <li>
                 <strong>{{ 'block_listed'|trans }}</strong>
                 <span data-ng-if="!isChange">{{ stats.listedBy }}</span>
-                <span data-ng-if="isChange">[[ stats.listedBy ]]</span>
+                <span data-ng-if="isChange" data-ng-bind="stats.listedBy"></span>
             </li>
 
             <li>
                 <strong>{{ 'block_completed'|trans |capitalize }}</strong>
                 <span data-ng-if="!isChange">{{ stats.doneBy }}</span>
-                <span data-ng-if="isChange">[[ stats.doneBy ]]</span>
+                <span data-ng-if="isChange" data-ng-bind="stats.doneBy"></span>
             </li>
         </ul>
     </div>

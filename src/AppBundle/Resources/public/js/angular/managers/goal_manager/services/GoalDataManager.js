@@ -27,6 +27,9 @@ angular.module('manage')
           return angular.fromJson(object);
       }},
       delete: {method:'DELETE', transformResponse: function (object) {
+          $timeout(function(){
+            $rootScope.$broadcast('deleteGoal');
+          },600);
           $analytics.eventTrack('Goal unlisted', {  category: 'Goal', label: 'Goal unlisted from Web' });
           return object;
       }}
