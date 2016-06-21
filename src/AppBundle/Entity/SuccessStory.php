@@ -212,7 +212,7 @@ class SuccessStory implements ActivityableInterface
      */
     public function setStory($story)
     {
-        $this->story = $story;
+        $this->story = trim($story);
 
         return $this;
     }
