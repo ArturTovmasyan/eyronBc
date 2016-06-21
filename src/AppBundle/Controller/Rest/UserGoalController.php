@@ -37,7 +37,7 @@ class UserGoalController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "user", "tiny_goal"})
      * @Security("has_role('ROLE_USER')")
      *
      * @param $goal Goal
@@ -54,6 +54,10 @@ class UserGoalController extends FOSRestController
             $userGoal->setGoal($goal);
         }
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_small'));
+        
         return $userGoal;
     }
 
@@ -82,7 +86,7 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_user"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_goal", "tiny_user"})
      *
      * @param Goal $goal
      * @param Request $request
@@ -160,6 +164,10 @@ class UserGoalController extends FOSRestController
         if($request->get('goal_status')){
             $userGoal->setCompletionDate(new \DateTime('now'));
         }
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_small'));
 
         $em->persist($userGoal);
         $em->flush();
