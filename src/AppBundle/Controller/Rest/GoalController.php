@@ -455,13 +455,7 @@ class GoalController extends FOSRestController
     public function getDraftsAction($first, $count)
     {
         $em = $this->getDoctrine()->getManager();
-
-        // find all drafts goal
-        $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-
-        if (is_numeric($first) && is_numeric($count)) {
-            $draftGoals = array_slice($draftGoals, $first, $count);
-        }
+        $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser(), $first, $count);
 
         return $draftGoals;
     }

@@ -42,6 +42,7 @@
             <tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>
             <tag name="doctrine.event_listener" event = "postUpdate" method="postUpdate"/>
             <tag name="doctrine.event_listener" event = "postPersist" method="postPersist"/>
+            <tag name="doctrine.event_listener" event = "preRemove" method="preRemove"/>
         </service>
 
 
@@ -54,11 +55,6 @@
 
 
         <service id="bl.settings.listener.resolver" class="AppBundle\Listener\MyEntityListenerResolver">
-            <argument type="service" id="service_container" />
-        </service>
-
-        <!-- NewsFeed service -->
-        <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
             <argument type="service" id="service_container" />
         </service>
 
