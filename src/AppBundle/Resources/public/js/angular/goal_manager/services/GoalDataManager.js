@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('manage')
+angular.module('goalManage')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', '$timeout', '$rootScope', 'refreshCacheService', 'UserContext', 'refreshingDate',
     function($resource, envPrefix, $analytics, $timeout, $rootScope, refreshCacheService, UserContext, refreshingDate){
     return $resource( envPrefix + 'api/v1.0/usergoals/:id/:where/:what', {}, {
