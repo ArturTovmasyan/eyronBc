@@ -148,7 +148,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container">
+                        <div class="container" id="main-nav" style="display: none">
                             <div class="navbar-header">
                                 <button type="button"
                                         data-ls-mobile-on-menu-click
@@ -354,7 +354,9 @@
 
 
                 $(function () {
-                    $('[data-toggle="popover"]').popover()
+                    $('[data-toggle="popover"]').popover();
+
+                    $('#main-nav').fadeIn(500);
                 });
 
                 function openSettingsModal(){
