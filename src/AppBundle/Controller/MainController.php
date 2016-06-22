@@ -188,7 +188,7 @@ class MainController extends Controller
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, true);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, true);
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         $paginator  = $this->get('knp_paginator');

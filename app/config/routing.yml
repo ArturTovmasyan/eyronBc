@@ -92,12 +92,12 @@ app_new_feed_rest:
 
 app_emails_remove_rest:
     type:     rest
-    resource: @ApplicationUserBundle/Controller/Rest/SettingsController.php
+    resource: Application\UserBundle\Controller\Rest\SettingsController
     prefix:   /
 
 application_user_rest:
     type:     rest
-    resource: @ApplicationUserBundle/Controller/Rest/UserController.php
+    resource: Application\UserBundle\Controller\Rest\UserController
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

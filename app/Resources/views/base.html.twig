@@ -23,6 +23,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
@@ -40,7 +41,6 @@
             'bundles/app/less/modal.less'
             'bundles/app/less/profile.less'
             'bundles/app/less/comments.less'
-            'bundles/app/less/icons.css'
             'bundles/app/less/animation.css'
             filter='less,cssrewrite' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
@@ -149,7 +149,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container">
+                        <div class="container" id="main-nav" style="display: none">
                             <div class="navbar-header">
                                 <button type="button"
                                         data-ls-mobile-on-menu-click
@@ -362,7 +362,9 @@
 
 
                 $(function () {
-                    $('[data-toggle="popover"]').popover()
+                    $('[data-toggle="popover"]').popover();
+
+                    $('#main-nav').fadeIn(350);
                 });
 
                 function openSettingsModal(){
