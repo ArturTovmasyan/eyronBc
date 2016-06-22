@@ -14,13 +14,13 @@
             <li>
                 <strong>{{ 'user_goal.active'|trans }}</strong>
                 <span data-ng-if="!isChange">{{ stats.active }}</span>
-                <span data-ng-if="isChange" data-ng-cloak>[[ stats.listedBy - stats.doneBy ]]</span>
+                <span data-ng-if="isChange" data-ng-bind="stats.listedBy"></span>
             </li>
 
             <li>
                 <strong>{{ 'block_listed'|trans }}</strong>
                 <span data-ng-if="!isChange">{{ stats.listedBy }}</span>
-                <span data-ng-if="isChange" data-ng-bind="stats.listedBy"></span>
+                <span data-ng-if="isChange" data-ng-cloak>[[ stats.listedBy - (-1)*stats.doneBy ]]</span>
             </li>
 
             <li>

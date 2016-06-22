@@ -159,25 +159,29 @@ angular.module('goal', ['Interpolation',
                     localStorageService.set('active_data'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
-                        for(var j = 1; j < this.count; j++){
-                            if(newData[j].datetime !== data[0].datetime){
-                                if(j == this.count -1){
-                                    for(var i = j; i >= 0; i--) {
-                                        this.items.unshift(newData[i]);
-                                        this.items.pop();
-                                    }
-                                    break;
-                                } else {
-                                    continue;
-                                }
-                            }else {
-                                for(var i = j-1; i >= 0; i--) {
-                                    this.items.unshift(newData[i]);
-                                    this.start++;
-                                }
-                                break;
-                            }
+                        for(var i = this.count -1; i >= 0; i--){
+                            this.items.unshift(newData[i]);
+                            this.items.pop();
                         }
+                        // for(var j = 1; j < this.count; j++){
+                        //     if(newData[j].datetime !== data[0].datetime){
+                        //         if(j == this.count -1){
+                        //             for(var i = j; i >= 0; i--) {
+                        //                 this.items.unshift(newData[i]);
+                        //                 this.items.pop();
+                        //             }
+                        //             break;
+                        //         } else {
+                        //             continue;
+                        //         }
+                        //     }else {
+                        //         for(var i = j-1; i >= 0; i--) {
+                        //             this.items.unshift(newData[i]);
+                        //             this.start++;
+                        //         }
+                        //         break;
+                        //     }
+                        // }
                         this.reserve = [];
                         // this.busy = false;
                         // this.nextReserve(reserveUrl, search, category);
@@ -761,58 +765,6 @@ angular.module('goal', ['Interpolation',
                 });
         }
 
-    }])
-    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
-        var path = envPrefix + "api/v1.0/goal/random/friends";
-
-        var profileCache = CacheFactory.get('bucketlist');
-        var deg = 360;
-
-        if(!profileCache){
-            profileCache = CacheFactory('bucketlist');
-        }
-        
-        $scope.getGaolFriends = function(id){
-
-            var goalFriends = profileCache.get('goal-friends'+id);
-
-            if (!goalFriends) {
-
-                $http.get(path)
-                    .success(function(data){
-                        $scope.goalFriends = data[1];
-                        $scope.length = data['length'];
-                        profileCache.put('goal-friends'+id, data);
-                    });
-            }else {
-                $scope.goalFriends = goalFriends[1];
-                $scope.length = goalFriends['length'];
-            }
-        };
-
-        $scope.refreshGoalFriends = function () {
-            angular.element('#goalFriendLoad').css({
-                '-webkit-transform': 'rotate('+deg+'deg)',
-                '-ms-transform': 'rotate('+deg+'deg)',
-                'transform': 'rotate('+deg+'deg)'
-            });
-            deg += 360;
-            $http.get(path)
-                .success(function(data){
-                    var id = $scope.userId;
-                    $scope.length = data['length'];
-                    $scope.goalFriends = data[1];
-                    profileCache.put('goal-friends'+id, data);
-                });
-        };
-
-        $scope.$on('addGoal', function(){
-            $scope.refreshGoalFriends();
-        });
-
-        $scope.$watch('userId', function(id){
-            $scope.getGaolFriends(id);
-        })
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {
