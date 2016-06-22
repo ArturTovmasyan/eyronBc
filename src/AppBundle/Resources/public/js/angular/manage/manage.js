@@ -281,6 +281,7 @@ angular.module('manage', ['Interpolation',
                       //if goal status changed
                       if (switchChanged) {
                           parentScope[selector] = !parentScope[selector];
+                          parentScope.completed = !parentScope.completed;
                           //if goal changed  from success to active
                           if (isSuccess) {
                               //and date be changed
