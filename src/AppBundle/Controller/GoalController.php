@@ -59,24 +59,26 @@ class GoalController extends Controller
         $currentUser = $this->getUser();
 
         // get clone id?
-        $cloneGoalId = $request->get('id');
+        $goalId = $request->get('id');
 
         //get clone param in get request
         $cloneTrue = $request->get('clone');
 
         // check is clones
-        if($cloneGoalId){
+        if($goalId){
 
-            // get goal for clone
-            $cloneGoal = $em->getRepository("AppBundle:Goal")->find($cloneGoalId);
+            $goal = $em->getRepository("AppBundle:Goal")->findGoalWithAuthor($goalId);
+            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
+                throw new HttpException(Response::HTTP_FORBIDDEN);
+            }
 
             // check clone goal
-            if(!$cloneGoal){
+            if(!$goal){
                 throw $this->createNotFoundException("Goal from clone not found");
             }
 
             // if clone, clone from object, elsi edit exist object
-            $goal = $cloneTrue ? clone $cloneGoal : $cloneGoal;
+            $goal = $cloneTrue ? clone $goal : $goal;
 
         }
         else{
@@ -186,7 +188,7 @@ class GoalController extends Controller
                 ->getFlashBag()
                 ->set('private','Edit my private idea from Web')
             ;
-        }elseif ($cloneGoalId){
+        }elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
                 ->set('draft','Edit my draft  from Web')
@@ -194,7 +196,7 @@ class GoalController extends Controller
         }
 
 
-        return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $cloneGoalId);
+        return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $goalId);
     }
 
 
