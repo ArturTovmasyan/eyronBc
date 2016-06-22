@@ -1063,6 +1063,7 @@ angular.module('goal', ['Interpolation',
         var path = envPrefix + "api/v1.0/goal/random/friends";
 
         var profileCache = CacheFactory.get('bucketlist');
+        var deg = 360;
 
         if(!profileCache){
             profileCache = CacheFactory('bucketlist');
@@ -1087,6 +1088,10 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.refreshGoalFriends = function () {
+            angular.element('#goalFriendLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
+            angular.element('#goalFriendLoad').css('-ms-transform', 'rotate('+deg+'deg)');
+            angular.element('#goalFriendLoad').css('transform', 'rotate('+deg+'deg)');
+            deg += 360;
             $http.get(path)
                 .success(function(data){
                     var id = $scope.userId;
@@ -1106,6 +1111,7 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
         var path = envPrefix + "api/v1.0/top-ideas/{count}";
+        var deg = 360;
 
         var popularCache = CacheFactory.get('bucketlist_by_popular');
 
@@ -1115,7 +1121,12 @@ angular.module('goal', ['Interpolation',
                 deleteOnExpire: 'aggressive'
             });
         }
+
         angular.element('#popularLoad').on('click', function () {
+            angular.element('#popularLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
+            angular.element('#popularLoad').css('-ms-transform', 'rotate('+deg+'deg)');
+            angular.element('#popularLoad').css('transform', 'rotate('+deg+'deg)');
+            deg += 360;
             $http.get(path)
                 .success(function(data){
                     $scope.popularGoals = data;

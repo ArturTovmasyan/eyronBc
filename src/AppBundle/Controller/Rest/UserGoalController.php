@@ -13,6 +13,7 @@ use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,9 +56,10 @@ class UserGoalController extends FOSRestController
         }
 
         $liipManager = $this->get('liip_imagine.cache.manager');
+        if ($userGoal->getGoal()->getListPhotoDownloadLink()){
+            $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
+        }
 
-        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
-        
         return $userGoal;
     }
 
@@ -86,6 +88,7 @@ class UserGoalController extends FOSRestController
      * )
      *
      * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findWithRelations"})
      * @Rest\View(serializerGroups={"userGoal", "userGoal_location", "userGoal_goal", "goal", "goal_author", "tiny_goal", "tiny_user"})
      *
      * @param Goal $goal
@@ -166,8 +169,9 @@ class UserGoalController extends FOSRestController
         }
 
         $liipManager = $this->get('liip_imagine.cache.manager');
-
-        $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
+        if ($userGoal->getGoal()->getListPhotoDownloadLink()){
+            $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
+        }
 
         $em->persist($userGoal);
         $em->flush();
