@@ -60,7 +60,10 @@ class GoalController extends Controller
         $cloneTrue = $request->get('clone');
 
         if($goalId){
-            $goal = $em->getRepository("AppBundle:Goal")->find($goalId);
+            $goal = $em->getRepository("AppBundle:Goal")->findGoalWithAuthor($goalId);
+            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
+                throw new HttpException(Response::HTTP_FORBIDDEN);
+            }
 
             if(is_null($goal)){
                 throw $this->createNotFoundException("Goal not found");
@@ -138,12 +141,13 @@ class GoalController extends Controller
             $request->getSession()
                 ->getFlashBag()
                 ->set('private','Edit my private idea from Web');
-        }
-        elseif ($goalId){
+        } elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
-                ->set('draft','Edit my draft from Web');
+                ->set('draft','Edit my draft  from Web')
+            ;
         }
+
 
         return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $goalId);
     }
