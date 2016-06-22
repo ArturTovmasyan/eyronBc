@@ -541,15 +541,22 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
-        // check search data
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-        // get goal friends
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
 
-        if (is_numeric($first) && is_numeric($count)) {
-            $goalFriends = array_slice($goalFriends, $first, $count);
+
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+
+        $goalFriendsIds = array_keys($goalFriends);
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
+
+        foreach($goalFriends as &$user) {
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active" => $stats[$user->getId()]['listedBy'],
+                "doneBy" => $stats[$user->getId()]['doneBy']
+            ]);
         }
 
         return $goalFriends;
