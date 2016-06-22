@@ -32,37 +32,6 @@ angular.module('goal', ['Interpolation',
             storageMode: 'localStorage' // This cache will use `localStorage`.
         });
     })
-    .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
-        function refreshCache(userId, goalId){
-            var profileCache = CacheFactory.get('bucketlist');
-            var popularCache = CacheFactory.get('bucketlist_by_popular');
-
-            if(!profileCache){
-                profileCache = CacheFactory('bucketlist');
-            }
-
-            if(!popularCache){
-                popularCache = CacheFactory('bucketlist_by_popular', {
-                    maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
-                    deleteOnExpire: 'aggressive'
-                });
-            }
-
-            //remove top ideas in cache if they are changed
-            var cache = popularCache.get('top-ideas' + userId);
-            angular.forEach(cache, function(item) {
-                if(item.id == goalId){
-                    popularCache.remove('top-ideas' + userId);
-                }
-            });
-
-            //remove goal friends on add or done event
-            profileCache.remove('goal-friends'+ userId);
-        }
-        return {
-            refreshCache: refreshCache
-        }
-    }])
     .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', '$analytics', function($http, localStorageService, envPrefix, $analytics) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
@@ -520,7 +489,6 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.$on('addGoal', function(){
-            refreshCacheService.refreshCache(refreshingDate.userId, refreshingDate.goalId);
             $scope.newAdded = true;
         });
 

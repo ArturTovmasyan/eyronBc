@@ -342,6 +342,9 @@
             {% endjavascripts %}
 
             <script>
+                angular.module('Components').constant('UserContext',{
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+                });
 
                 function autoResizeDiv()
                 {

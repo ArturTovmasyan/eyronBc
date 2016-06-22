@@ -64,9 +64,10 @@ angular.module('manage', ['Interpolation',
                             });
                         }
                         else {
-                            if(scope.lsGoalId && scope.lsUserId){
+                            refreshingDate.goalId = scope.lsGoalId;
+                            
+                            if(scope.lsUserId){
                                 //for refresh cache event
-                                refreshingDate.goalId = scope.lsGoalId;
                                 refreshingDate.userId = scope.lsUserId;
                             }
                             
