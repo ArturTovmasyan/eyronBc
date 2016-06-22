@@ -76,12 +76,18 @@ class GoalController extends FOSRestController
             6 => 'goal_list_vertical',
         ];
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
 
         if ($count == 7 || $count == 3){
-            $liipManager = $this->get('liip_imagine.cache.manager');
             for($i = 0; $i < 7; $i++){
                 if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
                     $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
+                }
+            }
+        }elseif ($count == 9){
+            foreach($goals as $goal){
+                if (isset($goal) && $goal->getListPhotoDownloadLink()) {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[0]));
                 }
             }
         }
@@ -535,15 +541,22 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
-        // check search data
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-        // get goal friends
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
 
-        if (is_numeric($first) && is_numeric($count)) {
-            $goalFriends = array_slice($goalFriends, $first, $count);
+
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+
+        $goalFriendsIds = array_keys($goalFriends);
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
+
+        foreach($goalFriends as &$user) {
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active" => $stats[$user->getId()]['listedBy'],
+                "doneBy" => $stats[$user->getId()]['doneBy']
+            ]);
         }
 
         return $goalFriends;

@@ -124,15 +124,27 @@
                             {% endblock %}
 
                             <figcaption>
-                                <ul>
-                                    <li>
-                                        <span>{{ 'user_goal.active'|trans | capitalize }}</span>
-                                        <span>{{ stats.active }}</span>
-                                    </li>
+                                <h3 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}" data-ng-if="isMobile">
+                                    <span>
+                                        {% if profileUser.showName %}
+                                            {{ profileUser.showName }}
+                                        {% endif %}
 
+                                        {% if  profileUser.getAge  %}
+                                            {{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}
+                                        {% endif %}
+                                    </span>
+                                </h3>
+
+                                <ul>
                                     <li>
                                         <span>{{ 'block_listed'|trans | capitalize }}</span>
                                         <span>{{ stats.listedBy }}</span>
+                                    </li>
+
+                                    <li>
+                                        <span>{{ 'user_goal.active'|trans | capitalize }}</span>
+                                        <span>{{ stats.active }}</span>
                                     </li>
 
                                     <li>
@@ -143,7 +155,7 @@
                             </figcaption>
                         </figure>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 hidden-xs">
                         {% if profileUser.showName %}
                             <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
                                 <span class="bg-blue">{{ profileUser.showName }}</span>
@@ -155,7 +167,7 @@
                     </div>
 
                     {% if profileUser.id == app.user.id %}
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" data-ng-class="{'bg-white': isMobile}">
                             <div class="text-right hidden-xs">
                                 <a href="{{ path("edit_user_profile") }}">
                                     <span class="black-overlay settings-overlay"></span>
@@ -189,6 +201,7 @@
                                             </a>
                                         </div>
                                     </div>
+
                                 </div>
                             {% endif %}
                         </div>

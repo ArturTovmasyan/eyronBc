@@ -77,10 +77,6 @@ angular.module('manage', ['Interpolation',
                                     }
                                     else {
                                         UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
-                                            $timeout(function(){
-                                                $rootScope.$broadcast('addGoal');
-                                            },600);
-                                            
                                             scope.runCallback(uGoal);
                                         }) 
                                     }
@@ -88,9 +84,6 @@ angular.module('manage', ['Interpolation',
                             }
                             else {
                                 UserGoalDataManager.add({id: scope.lsGoalId}, {}, function (uGoal){
-                                    $timeout(function(){
-                                        $rootScope.$broadcast('addGoal');
-                                    },600);
                                     scope.runCallback(uGoal);
                                 }, function(res){
                                     if(res.status === 401){

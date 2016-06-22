@@ -15,7 +15,7 @@
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
 
-                <div class="col-md-8" id="activities">
+                <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
                         <h3 class="text-dark-gray" style="display: none" id="non-activity">{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
@@ -129,7 +129,7 @@
                                     </span>
                                 </div>
                                 <div class="col-xs-2 text-right">
-                                    <a href="#" class="load" id="popularLoad" data-ng-class="{'load-animate': load}" data-ng-click="load=!load"></a>
+                                    <a href="#" class="load" id="popularLoad"></a>
                                 </div>
                             </div>
                             <hr/>

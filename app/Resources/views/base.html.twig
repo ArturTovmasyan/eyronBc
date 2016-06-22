@@ -23,6 +23,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
@@ -30,6 +31,8 @@
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/font-awesome/css/font-awesome.min.css'
             'app/bower_components/jquery-modal/jquery.modal.css'
+            'app/bower_components/slick-carousel/slick/slick.css'
+            'app/bower_components/slick-carousel/slick/slick-theme.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
             'bundles/app/less/notices.less'
@@ -38,7 +41,6 @@
             'bundles/app/less/modal.less'
             'bundles/app/less/profile.less'
             'bundles/app/less/comments.less'
-            'bundles/app/less/icons.css'
             filter='less,cssrewrite' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -146,7 +148,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container">
+                        <div class="container" id="main-nav" style="display: none">
                             <div class="navbar-header">
                                 <button type="button"
                                         data-ls-mobile-on-menu-click
@@ -177,7 +179,6 @@
 
                                     <li>
                                         <a href="{{ path('goals_list') }}">
-                                            {#<i class="ideas-icon"></i>#}
                                             <i class="icon-ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
@@ -195,7 +196,7 @@
                                                     {% else %}
                                                         data-ng-enter-submit=".search form"
                                                     {% endif %}
-                                                   placeholder="{{ 'search'|trans }}">
+                                                   placeholder="{{ 'search'|trans | capitalize}}">
                                         </form>
                                     </li>
                                 </ul>
@@ -324,6 +325,8 @@
                 'app/bower_components/angular-cache/dist/angular-cache.min.js'
                 'app/bower_components/angulartics/dist/angulartics.min.js'
                 'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
+                'app/bower_components/slick-carousel/slick/slick.min.js'
+                'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
                 'app/scripts/Interpolation/Interpolation.js'
                 'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Components/Components.js'
@@ -351,7 +354,9 @@
 
 
                 $(function () {
-                    $('[data-toggle="popover"]').popover()
+                    $('[data-toggle="popover"]').popover();
+
+                    $('#main-nav').fadeIn(350);
                 });
 
                 function openSettingsModal(){

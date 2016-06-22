@@ -379,12 +379,13 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     /**
      * @param $userId
      * @param bool|false $getOnlyIds
-     * @param null $count
      * @param null $search
      * @param bool|false $getOnlyQuery
+     * @param null $first
+     * @param null $count
      * @return array
      */
-    public function findGoalFriends($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
+    public function findGoalFriends($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
     {
         if ($getOnlyIds){
             $goalFriendIds = $this->findGoalFriendIds($userId, $search);
@@ -392,7 +393,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             return $goalFriendIds;
         }
 
-        return $this->findGoalFriendsDoctrine($userId, null, $count, $search, $getOnlyQuery);
+        return $this->findGoalFriendsDoctrine($userId, null, $search, $getOnlyQuery, $first, $count);
     }
 
 
@@ -424,7 +425,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $userId
      * @return array
      */
-    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $count = null, $search = null, $getOnlyQuery = false)
+    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
     {
         $search = str_replace(' ', '', $search);
 
@@ -451,12 +452,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%');
         }
 
-        if ($count){
-            $query->setMaxResults($count);
+        if (!is_null($first) && !is_null($count)){
+
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count)
+            ;
         }
 
         if ($getOnlyQuery){
             return $query->getQuery();
+        }
+
+        if (!is_null($first) && !is_null($count)){
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
         }
 
         return $query->getQuery()->getResult();

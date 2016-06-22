@@ -1,4 +1,4 @@
 fos_comment_thread_api:
     type: rest
-    resource: @ApplicationCommentBundle/Controller/ThreadController.php
+    resource: Application\CommentBundle\Controller\ThreadController
     name_prefix: fos_comment_

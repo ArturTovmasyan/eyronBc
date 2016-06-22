@@ -666,5 +666,34 @@ class UserController extends FOSRestController
         $em->flush();
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * This function is used to get user states
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to get user states",
+     *  statusCodes={
+     *         200="OK",
+     *         400="Bad request"
+     *     },
+     * )
+     * @Rest\View()
+     */
+    public function getStatesAction($id)
+    {
+        if(!$id) {
+            return new Response('Invalid id parameters', Response::HTTP_BAD_REQUEST);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $states = $em->getRepository("ApplicationUserBundle:User")->findUserStats($id);
+        
+
+        return new JsonResponse($states);
+
+    }
 }
 

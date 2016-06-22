@@ -16,7 +16,8 @@ angular.module('goal', ['Interpolation',
         'ngResource',
         'angulartics',
         'angulartics.google.analytics',
-        'PathPrefix'
+        'PathPrefix',
+        'slickCarousel'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -159,7 +160,7 @@ angular.module('goal', ['Interpolation',
             }.bind(this));
         };
 
-        lsInfiniteItems.prototype.nextPage = function(url, search, category, userId) {
+        lsInfiniteItems.prototype.nextPage = function(url, search, category, userId , notReserve) {
             if (this.busy) {
                 return;
             }
@@ -217,7 +218,9 @@ angular.module('goal', ['Interpolation',
                 this.start += this.count;
                 this.request++;
                 this.busy = data.length ? false : true;
-                this.nextReserve(reserveUrl, search, category);
+                if(!notReserve){
+                    this.nextReserve(reserveUrl, search, category);
+                }
 
                 //setTimeout(function(){
                 //    this.loadAddthis();
@@ -238,7 +241,9 @@ angular.module('goal', ['Interpolation',
                     this.busy = data.length ? false : true;
                     this.start += this.count;
                     this.request++;
-                    this.nextReserve(reserveUrl, search, category);
+                    if(!notReserve){
+                        this.nextReserve(reserveUrl, search, category);
+                    }
 
                     if (!this.items.length) {
                         this.loadRandomItems(this.count);
@@ -268,20 +273,57 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
+
+        $scope.slickConfig = {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            arrows: false,
+            method: {},
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        };
+
+        $scope.searchTimeoutPtr = null;
         $scope.disablePreview = false;
-        $scope.Ideas = new lsInfiniteItems(3);
+        $scope.isMore = false;
+        $scope.Ideas = new lsInfiniteItems(9);
 
         $scope.haveIdeas = false;
 
         $scope.searchGoal = function(ev){
-            $scope.Ideas.reset();
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.title);
+            $timeout.cancel($scope.searchTimeoutPtr);
+
+            $scope.searchTimeoutPtr = $timeout(function(){
+                $scope.Ideas.reset();
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.addTitle, null, null, true);
+            }, 600);
+
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(d.length){
-                $scope.haveIdeas = $scope.title? true: false;
+                $scope.isMore = d.length > 3? true: false;
+                $scope.haveIdeas = $scope.addTitle? true: false;
             }else {
+                $scope.isMore = false;
                 $scope.haveIdeas = false;
             }
         });
@@ -1034,8 +1076,11 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', function($scope, lsInfiniteItems, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', '$http', 'envPrefix',
+        function($scope, lsInfiniteItems, $timeout, $http, envPrefix){
 
+        var statePath = envPrefix + "api/v1.0/users/{id}/states";
+        
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
 
@@ -1047,6 +1092,21 @@ angular.module('goal', ['Interpolation',
                 }
             }
         });
+
+        $scope.$on('addGoal', function(){
+            $scope.changeStates();
+        });
+
+        $scope.changeStates = function () {
+            statePath = statePath.replace('{id}', $scope.userId);
+
+            $http.get(statePath)
+              .success(function(data){
+                  $scope.isChange = true;
+                  $scope.stats = data;
+                  // profileCache.put('user-states'+id, data);
+              });
+        };
 
     }])
     .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', '$analytics',
@@ -1078,7 +1138,8 @@ angular.module('goal', ['Interpolation',
         };
     }])
     .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', function($scope, $http, $compile, $analytics){
-        
+        $scope.isMobile =false;
+        $scope.isMobile = window.innerWidth < 767? true : false;
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
         $scope.addDone = function(path, id){
             $http.get(path)
@@ -1117,6 +1178,7 @@ angular.module('goal', ['Interpolation',
         var path = envPrefix + "api/v1.0/goal/random/friends";
 
         var profileCache = CacheFactory.get('bucketlist');
+        var deg = 360;
 
         if(!profileCache){
             profileCache = CacheFactory('bucketlist');
@@ -1141,6 +1203,10 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.refreshGoalFriends = function () {
+            angular.element('#goalFriendLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
+            angular.element('#goalFriendLoad').css('-ms-transform', 'rotate('+deg+'deg)');
+            angular.element('#goalFriendLoad').css('transform', 'rotate('+deg+'deg)');
+            deg += 360;
             $http.get(path)
                 .success(function(data){
                     var id = $scope.userId;
@@ -1150,12 +1216,17 @@ angular.module('goal', ['Interpolation',
                 });
         };
 
+        $scope.$on('addGoal', function(){
+            $scope.refreshGoalFriends();
+        });
+
         $scope.$watch('userId', function(id){
             $scope.getGaolFriends(id);
         })
     }])
     .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
         var path = envPrefix + "api/v1.0/top-ideas/{count}";
+        var deg = 360;
 
         var popularCache = CacheFactory.get('bucketlist_by_popular');
 
@@ -1165,7 +1236,12 @@ angular.module('goal', ['Interpolation',
                 deleteOnExpire: 'aggressive'
             });
         }
+
         angular.element('#popularLoad').on('click', function () {
+            angular.element('#popularLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
+            angular.element('#popularLoad').css('-ms-transform', 'rotate('+deg+'deg)');
+            angular.element('#popularLoad').css('transform', 'rotate('+deg+'deg)');
+            deg += 360;
             $http.get(path)
                 .success(function(data){
                     $scope.popularGoals = data;
