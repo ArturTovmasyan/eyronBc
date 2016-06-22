@@ -1088,15 +1088,17 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.refreshGoalFriends = function () {
-            angular.element('#goalFriendLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
-            angular.element('#goalFriendLoad').css('-ms-transform', 'rotate('+deg+'deg)');
-            angular.element('#goalFriendLoad').css('transform', 'rotate('+deg+'deg)');
+            angular.element('#goalFriendLoad').css({
+                '-webkit-transform': 'rotate('+deg+'deg)',
+                '-ms-transform': 'rotate('+deg+'deg)',
+                'transform': 'rotate('+deg+'deg)'
+            });
             deg += 360;
             $http.get(path)
                 .success(function(data){
                     var id = $scope.userId;
-                    $scope.goalFriends = data[1];
                     $scope.length = data['length'];
+                    $scope.goalFriends = data[1];
                     profileCache.put('goal-friends'+id, data);
                 });
         };
@@ -1123,9 +1125,11 @@ angular.module('goal', ['Interpolation',
         }
 
         angular.element('#popularLoad').on('click', function () {
-            angular.element('#popularLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
-            angular.element('#popularLoad').css('-ms-transform', 'rotate('+deg+'deg)');
-            angular.element('#popularLoad').css('transform', 'rotate('+deg+'deg)');
+            angular.element('#popularLoad').css({
+                '-webkit-transform': 'rotate('+deg+'deg)',
+                '-ms-transform': 'rotate('+deg+'deg)',
+                'transform': 'rotate('+deg+'deg)'
+            });
             deg += 360;
             $http.get(path)
                 .success(function(data){

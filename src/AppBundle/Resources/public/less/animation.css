@@ -16,7 +16,9 @@
 }
 /* goals animation */
 .goals-animate.ng-enter,
-.goals-animate.ng-leave {
+.friends-animate.ng-enter,
+.goals-animate.ng-leave,
+.friends-animate.ng-leave{
     -webkit-transition: 200ms ease-out all;
     -moz-transition: 200ms ease-out all;
     -ms-transition: 200ms ease-out all;
@@ -25,7 +27,8 @@
     position: relative;
     display: block;
 }
-.goals-animate.ng-enter-stagger {
+.goals-animate.ng-enter-stagger,
+.friends-animate.ng-enter-stagger{
     transition-delay: 0.1s;
     animation-delay: 0.1s;
 }
@@ -33,6 +36,11 @@
 .goals-animate.ng-enter {
     opacity: 0;
     top: 100px;
+}
+.friends-animate.ng-leave.friends-animate.ng-leave-active,
+.friends-animate.ng-enter {
+    opacity: 0;
+    top: -50px;
 }
 .comingByTop>.goals-animate.ng-leave.goals-animate.ng-leave-active,
 .comingByTop>.goals-animate.ng-enter {
