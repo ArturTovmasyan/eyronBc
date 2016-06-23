@@ -9,6 +9,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,9 +27,9 @@ class GoalImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('label'=>false))
-            ->add('list', 'hidden')
-            ->add('cover', 'hidden')
+            ->add('file',  FileType::class, array('label'=>false))
+            ->add('list',  HiddenType::class)
+            ->add('cover', HiddenType::class)
         ;
     }
 
@@ -44,7 +46,7 @@ class GoalImageType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_goal_image';
     }

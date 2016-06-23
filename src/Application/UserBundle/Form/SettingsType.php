@@ -8,7 +8,13 @@
 
 namespace Application\UserBundle\Form;
 
+use AppBundle\Form\Type\LngType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,8 +37,8 @@ class SettingsType extends AbstractType
         $builder
             ->add('firstName', null, array('required'=>true, 'label' => 'form.firstName', 'translation_domain' => 'FOSUserBundle'))
             ->add('lastName', null, array('required'=>true, 'label' => 'form.lastName', 'translation_domain' => 'FOSUserBundle'))
-            ->add('addEmail', 'email', array('required' => false, 'label' => 'form.add_email'))
-            ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
+            ->add('addEmail', EmailType::class, array('required' => false, 'label' => 'form.add_email'))
+            ->add('language', LngType::class, array('required' => true, 'label' => 'form.language'))
         ;
 
         if ($builder->getData()->getSocialFakeEmail() != $builder->getData()->getEmail()) {
@@ -42,12 +48,12 @@ class SettingsType extends AbstractType
 
         if (!$builder->getData()->getSocialFakeEmail()) {
             $builder
-                ->add('currentPassword', 'password', array(
+                ->add('currentPassword', PasswordType::class, array(
                     'required' => false,
                     'label' => 'form.current_password',
                     'translation_domain' => 'FOSUserBundle',
                 ))
-                ->add('plainPassword', 'repeated', array(
+                ->add('plainPassword', RepeatedType::class, array(
                     'required' => false,
                     'type' => 'password',
                     'options' => array('translation_domain' => 'FOSUserBundle'),
@@ -58,8 +64,8 @@ class SettingsType extends AbstractType
         }
 
         $builder
-            ->add('birthDate', 'date', array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
-            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
+            ->add('birthDate', DateType::class, array('required' => false, 'label' => 'form.birthDate', 'translation_domain' => 'FOSUserBundle', 'years' =>  range(\date("Y"), \date("Y") - 100),))
+            ->add('file', FileType::class, array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
@@ -67,7 +73,6 @@ class SettingsType extends AbstractType
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
-
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\UserBundle\Entity\User',
@@ -93,7 +98,7 @@ class SettingsType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bl_user_settings';
     }

@@ -90,7 +90,7 @@ class MainController extends Controller
         if($slug == 'contact-us')
         {
             // create form type
-            $form  = $this->createForm(new ContactUsType());
+            $form  = $this->createForm(ContactUsType::class);
 
             // check request method
             if($request->isMethod("POST")){

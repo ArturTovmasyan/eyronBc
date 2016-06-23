@@ -248,7 +248,7 @@ class GoalController extends FOSRestController
             $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
             $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
         }else{
-            $form = $this->createForm(new GoalType(), $goal);
+            $form = $this->createForm(GoalType::class, $goal);
 
             // get data from request
             $form->handleRequest($request);

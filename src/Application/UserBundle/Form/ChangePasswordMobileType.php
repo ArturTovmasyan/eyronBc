@@ -9,6 +9,8 @@
 namespace Application\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -29,12 +31,12 @@ class ChangePasswordMobileType extends AbstractType
     {
 
         $builder
-            ->add('currentPassword', 'password', array(
+            ->add('currentPassword', PasswordType::class, array(
                 'required' => true,
                 'label' => 'form.current_password',
                 'translation_domain' => 'FOSUserBundle',
             ))
-            ->add('plainPassword', 'repeated', array(
+            ->add('plainPassword', RepeatedType::class, array(
                 'required' => true,
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
@@ -61,7 +63,7 @@ class ChangePasswordMobileType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bl_mobile_change_password';
     }

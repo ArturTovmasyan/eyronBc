@@ -27,7 +27,7 @@ class BlMultipleVideoType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bl_multiple_video';
     }

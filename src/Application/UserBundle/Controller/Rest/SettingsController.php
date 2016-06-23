@@ -65,7 +65,7 @@ class SettingsController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         // create goal form
-        $form = $this->createForm(new SettingsMobileType(), $user);
+        $form = $this->createForm(SettingsMobileType::class, $user);
 
         // get data from request
         $form->handleRequest($request);
@@ -133,7 +133,7 @@ class SettingsController extends FOSRestController
         $user = $this->getUser();
 
         // create goal form
-        $form = $this->createForm(new ChangePasswordMobileType(), $user);
+        $form = $this->createForm(ChangePasswordMobileType::class, $user);
 
         // get data from request
         $form->handleRequest($request);
