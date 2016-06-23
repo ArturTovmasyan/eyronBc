@@ -318,41 +318,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="right-block">
-                    <div class="right-menu">
-                        <div class="row">
-                            <div class="col-xs-7">
-                                <i class="icon-creat-icon"></i>
-                                <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
-                            </div>
-                            <div class="col-xs-5 text-right">
-                                {% if profileUser.id == app.user.id %}
-                                    <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <hr/>
-
-                        <div class="row padding-top">
-                            <div class="col-xs-10">
-                                <span>
-                                    <i class="icon-suggest-icon"></i>
-                                    <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
-                                </span>
-                            </div>
-
-                            <div class="col-xs-2 text-right">
-                                <a href="#" class="load" id="popularLoad"></a>
-                            </div>
-                        </div>
-
-                        <hr/>
-                    </div>
-                    <div class="row">
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
-                    </div>
-                </div>
-
+                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2, 'isProfile': true}  %}
             </div>
         </div>
     </div>

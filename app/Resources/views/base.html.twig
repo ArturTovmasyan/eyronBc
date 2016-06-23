@@ -41,6 +41,7 @@
             'bundles/app/less/modal.less'
             'bundles/app/less/profile.less'
             'bundles/app/less/comments.less'
+            'bundles/app/less/animation.css'
             filter='less,cssrewrite' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -333,8 +334,12 @@
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
                 'bundles/applicationuser/js/angular/user.js'
+                'bundles/app/js/angular/goal_manager/goalManager.js'
                 'bundles/app/js/angular/manage/manage.js'
-                'bundles/app/js/angular/managers/goal_manager/services/GoalDataManager.js'
+                'bundles/app/js/angular/goalComponents/goalComponents.js'
+                'bundles/app/js/angular/goal_manager/services/GoalDataManager.js'
+                'bundles/app/js/angular/goal_manager/constants/goalConstant.js'
+                'bundles/app/js/angular/goal_manager/constants/userGoalConstant.js'
                 'bundles/app/js/angular/main.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 %}
@@ -342,6 +347,9 @@
             {% endjavascripts %}
 
             <script>
+                angular.module('Components').constant('UserContext',{
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+                });
 
                 function autoResizeDiv()
                 {
