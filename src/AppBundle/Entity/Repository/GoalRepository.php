@@ -149,9 +149,11 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $user
-     * @return array
+     * @param null $first
+     * @param null $count
+     * @return Query
      */
-    public function findMyDrafts($user)
+    public function findMyDrafts($user, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
                 ->createQueryBuilder()
@@ -166,7 +168,17 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
-        return $query->getQuery()->getResult();
+        if (!is_null($first) && !is_null($count)){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
+        }
+
+
+        return $query->getQuery();
     }
 
     /**
@@ -672,6 +684,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('readinessStatus', Goal::TO_PUBLISH)
         ;
 
-        return $query->getQuery()->getResult();
+        return $query->getQuery();
     }
 }

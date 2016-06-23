@@ -96,24 +96,7 @@
                     <div class="col-md-4">
                         {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
                         {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-
-
-                        <div class="right-block round margin-top">
-                            <div class="right-menu">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                         <span>
-                                             <i class="icon-top-idea"></i>
-                                             <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
-                                        </span>
-                                    </div>
-                                </div>
-                                <hr/>
-                            </div>
-                            <div class="row">
-                                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                            </div>
-                        </div>
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
                     </div>
                 {% endif %}
             </div>

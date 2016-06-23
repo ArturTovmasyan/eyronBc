@@ -19,57 +19,28 @@ use Doctrine\ORM\Query;
 class AphorismRepository extends EntityRepository
 {
     /**
-     * @return array
+     * @param $goal
+     * @return array|null
      */
     public function findOneRandom($goal)
     {
-        // default value for tags ids
-        $ids = array();
-
-        $tags = array();
-
-        if ($goal->getTags()) {
-            // get tags
-            $tags = $goal->getTags()->toArray();
+        $ids = [];
+        foreach($goal->getTags() as $tag){
+            $ids[] = $tag->getId();
         }
 
-        // check tags
-        if($tags){
-
-            // loop for tags
-            foreach($tags as $tag){
-
-                // get tags
-                $ids[] = $tag->getId();
-            }
+        if(count($ids) == 0){
+            return [];
         }
 
-        // check ids and return null
-        if(is_null($ids)){
+        //May be will be random :)
+        shuffle($ids);
 
-            return null;
-        }
-
-        $result = $this->getEntityManager()
+        return $this->getEntityManager()
             ->createQuery("SELECT a
                            FROM AppBundle:Aphorism a
-                           JOIN a.tags at
-                           JOIN AppBundle:Tag t WITH t in (:tags) AND t.id = at.id
-                           ")
+                           JOIN a.tags t WITH t.id IN (:tags)")
             ->setParameter('tags', $ids)
             ->getResult();
-
-
-        // check result
-        if($result){
-
-            // get count
-//            $count = count($result);
-
-//            return $result[rand(0, $count-1)];
-            return $result;
-        }
-
-        return null;
     }
 }

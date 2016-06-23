@@ -5,6 +5,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'ng.deviceDetector',
     'ngAnimate',
     'manage',
+    'goalComponents',
     'user',
     'Confirm',
     'Components',
@@ -83,34 +84,4 @@ angular.module('main',['mgcrea.ngStrap.modal',
         $scope.deviceDetector = deviceDetector;
 
         $scope.isRuLanguage = (window.navigator.language.toLowerCase() == 'ru');
-    }])
-    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
-        var path = envPrefix + "api/v1.0/top-ideas/{count}";
-
-        var profileCache = CacheFactory.get('bucketlist');
-
-        if(!profileCache){
-            profileCache = CacheFactory('bucketlist');
-        }
-
-        $scope.getPopularGoals = function(id){
-            path = path.replace('{count}', $scope.count);
-
-            var topIdeas = profileCache.get('top-ideas' + id);
-
-            if (!topIdeas) {
-
-                $http.get(path)
-                    .success(function(data){
-                        $scope.popularGoals = data;
-                        profileCache.put('top-ideas' + id, data);
-                    });
-            } else {
-                $scope.popularGoals = topIdeas;
-            }
-        };
-
-        $scope.$watch('userId', function(id){
-            $scope.getPopularGoals(id);
-        })
     }]);

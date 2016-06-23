@@ -4,6 +4,7 @@ angular.module('goal', ['Interpolation',
         'Google',
         'user',
         'manage',
+        'goalComponents',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
         'ngSanitize',
@@ -32,37 +33,6 @@ angular.module('goal', ['Interpolation',
             storageMode: 'localStorage' // This cache will use `localStorage`.
         });
     })
-    .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
-        function refreshCache(userId, goalId){
-            var profileCache = CacheFactory.get('bucketlist');
-            var popularCache = CacheFactory.get('bucketlist_by_popular');
-
-            if(!profileCache){
-                profileCache = CacheFactory('bucketlist');
-            }
-
-            if(!popularCache){
-                popularCache = CacheFactory('bucketlist_by_popular', {
-                    maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
-                    deleteOnExpire: 'aggressive'
-                });
-            }
-
-            //remove top ideas in cache if they are changed
-            var cache = popularCache.get('top-ideas' + userId);
-            angular.forEach(cache, function(item) {
-                if(item.id == goalId){
-                    popularCache.remove('top-ideas' + userId);
-                }
-            });
-
-            //remove goal friends on add or done event
-            profileCache.remove('goal-friends'+ userId);
-        }
-        return {
-            refreshCache: refreshCache
-        }
-    }])
     .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', '$analytics', function($http, localStorageService, envPrefix, $analytics) {
         var lsInfiniteItems = function(loadCount) {
             this.items = [];
@@ -189,25 +159,29 @@ angular.module('goal', ['Interpolation',
                     localStorageService.set('active_data'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
-                        for(var j = 1; j < this.count; j++){
-                            if(newData[j].datetime !== data[0].datetime){
-                                if(j == this.count -1){
-                                    for(var i = j; i >= 0; i--) {
-                                        this.items.unshift(newData[i]);
-                                        this.items.pop();
-                                    }
-                                    break;
-                                } else {
-                                    continue;
-                                }
-                            }else {
-                                for(var i = j-1; i >= 0; i--) {
-                                    this.items.unshift(newData[i]);
-                                    this.start++;
-                                }
-                                break;
-                            }
+                        for(var i = this.count -1; i >= 0; i--){
+                            this.items.unshift(newData[i]);
+                            this.items.pop();
                         }
+                        // for(var j = 1; j < this.count; j++){
+                        //     if(newData[j].datetime !== data[0].datetime){
+                        //         if(j == this.count -1){
+                        //             for(var i = j; i >= 0; i--) {
+                        //                 this.items.unshift(newData[i]);
+                        //                 this.items.pop();
+                        //             }
+                        //             break;
+                        //         } else {
+                        //             continue;
+                        //         }
+                        //     }else {
+                        //         for(var i = j-1; i >= 0; i--) {
+                        //             this.items.unshift(newData[i]);
+                        //             this.start++;
+                        //         }
+                        //         break;
+                        //     }
+                        // }
                         this.reserve = [];
                         // this.busy = false;
                         // this.nextReserve(reserveUrl, search, category);
@@ -1076,10 +1050,7 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$timeout', '$http', 'envPrefix',
-        function($scope, lsInfiniteItems, $timeout, $http, envPrefix){
-
-        var statePath = envPrefix + "api/v1.0/users/{id}/states";
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
         
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
@@ -1092,21 +1063,6 @@ angular.module('goal', ['Interpolation',
                 }
             }
         });
-
-        $scope.$on('addGoal', function(){
-            $scope.changeStates();
-        });
-
-        $scope.changeStates = function () {
-            statePath = statePath.replace('{id}', $scope.userId);
-
-            $http.get(statePath)
-              .success(function(data){
-                  $scope.isChange = true;
-                  $scope.stats = data;
-                  // profileCache.put('user-states'+id, data);
-              });
-        };
 
     }])
     .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', '$analytics',
@@ -1173,102 +1129,6 @@ angular.module('goal', ['Interpolation',
                 });
         }
 
-    }])
-    .controller('goalFriends', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
-        var path = envPrefix + "api/v1.0/goal/random/friends";
-
-        var profileCache = CacheFactory.get('bucketlist');
-        var deg = 360;
-
-        if(!profileCache){
-            profileCache = CacheFactory('bucketlist');
-        }
-        
-        $scope.getGaolFriends = function(id){
-
-            var goalFriends = profileCache.get('goal-friends'+id);
-
-            if (!goalFriends) {
-
-                $http.get(path)
-                    .success(function(data){
-                        $scope.goalFriends = data[1];
-                        $scope.length = data['length'];
-                        profileCache.put('goal-friends'+id, data);
-                    });
-            }else {
-                $scope.goalFriends = goalFriends[1];
-                $scope.length = goalFriends['length'];
-            }
-        };
-
-        $scope.refreshGoalFriends = function () {
-            angular.element('#goalFriendLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
-            angular.element('#goalFriendLoad').css('-ms-transform', 'rotate('+deg+'deg)');
-            angular.element('#goalFriendLoad').css('transform', 'rotate('+deg+'deg)');
-            deg += 360;
-            $http.get(path)
-                .success(function(data){
-                    var id = $scope.userId;
-                    $scope.goalFriends = data[1];
-                    $scope.length = data['length'];
-                    profileCache.put('goal-friends'+id, data);
-                });
-        };
-
-        $scope.$on('addGoal', function(){
-            $scope.refreshGoalFriends();
-        });
-
-        $scope.$watch('userId', function(id){
-            $scope.getGaolFriends(id);
-        })
-    }])
-    .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', function($scope, $http, CacheFactory, envPrefix){
-        var path = envPrefix + "api/v1.0/top-ideas/{count}";
-        var deg = 360;
-
-        var popularCache = CacheFactory.get('bucketlist_by_popular');
-
-        if(!popularCache){
-            popularCache = CacheFactory('bucketlist_by_popular', {
-                maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
-                deleteOnExpire: 'aggressive'
-            });
-        }
-
-        angular.element('#popularLoad').on('click', function () {
-            angular.element('#popularLoad').css('-webkit-transform', 'rotate('+deg+'deg)');
-            angular.element('#popularLoad').css('-ms-transform', 'rotate('+deg+'deg)');
-            angular.element('#popularLoad').css('transform', 'rotate('+deg+'deg)');
-            deg += 360;
-            $http.get(path)
-                .success(function(data){
-                    $scope.popularGoals = data;
-                    popularCache.put('top-ideas'+$scope.userId, data);
-                });
-        });
-
-        $scope.getPopularGoals = function(id){
-            path = path.replace('{count}', $scope.count);
-
-            var topIdeas = popularCache.get('top-ideas'+id);
-
-            if (!topIdeas) {
-
-                $http.get(path)
-                    .success(function(data){
-                        $scope.popularGoals = data;
-                        popularCache.put('top-ideas'+id, data);
-                    });
-            }else {
-                $scope.popularGoals = topIdeas;
-            }
-        };
-
-        $scope.$watch('userId', function(id){
-            $scope.getPopularGoals(id);
-        })
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {

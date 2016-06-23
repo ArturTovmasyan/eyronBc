@@ -14,38 +14,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class NewFeedRepository extends EntityRepository
 {
     /**
-     * @return array
-     */
-    public function findUnconvertedLogs()
-    {
-        return $this->getEntityManager()
-            ->createQuery("SELECT le
-                           FROM Gedmo\\Loggable\\Entity\\LogEntry le
-                           WHERE
-                            le.id > (SELECT MAX(l1.id) FROM AppBundle:NewFeed nf1 JOIN nf1.log l1)
-                           OR
-                            (SELECT COALESCE(MAX(l.id), 0) FROM AppBundle:NewFeed nf JOIN nf.log l) = 0")
-            ->getResult();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function deleteConvertedLogs()
-    {
-        $maxLogId = $this->getEntityManager()
-            ->createQuery('SELECT COALESCE(MAX(l.id), 0) as maxId
-                           FROM AppBundle:NewFeed nf JOIN nf.log l')
-            ->getSingleScalarResult();
-
-        return $this->getEntityManager()
-            ->createQuery("DELETE FROM Gedmo\Loggable\Entity\LogEntry log
-                           WHERE log.id <= :logId")
-            ->setParameter('logId', $maxLogId)
-            ->execute();
-    }
-
-    /**
      * @param $userId
      * @param bool|false $getCount
      * @param null $first
@@ -115,39 +83,19 @@ class NewFeedRepository extends EntityRepository
     }
 
     /**
+     * @param $action
      * @param $userId
-     * @param $getCount
-     * @return array
+     * @param $goalId
+     * @return mixed
      */
-    public function findNewFeedOlder($userId, $getCount = false)
+    public function removeNewFeed($action, $userId, $goalId)
     {
-        $goalFriendsIds = $this->getEntityManager()
-            ->getRepository('AppBundle:Goal')->findGoalFriends($userId, true);
-
-        if (!count($goalFriendsIds)) {
-            $goalFriendsIds[] = 0;
-        }
-
-        $query = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('nf, u, g, gi, ss, cmt')
-            ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u')
-            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
-            ->leftJoin('g.images', 'gi')
-            ->leftJoin('AppBundle:UserGoal', 'ug', 'WITH', 'ug.user = u AND ug.goal = g')
-            ->leftJoin('nf.successStory', 'ss')
-            ->leftJoin('nf.comment', 'cmt')
-            ->where('u.id IN (:ids) AND (ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
-            ->orderBy('nf.datetime', 'DESC')
-            ->setParameter('ids', $goalFriendsIds);
-
-        if ($getCount) {
-            return $query->select('count(nf)')
-                ->getQuery()
-                ->getSingleScalarResult();
-        }
-
-        return $query->getQuery()->getResult();
+        return $this->getEntityManager()
+            ->createQuery("DELETE FROM AppBundle:NewFeed n
+                           WHERE n.action = :action AND n.goal = :goal AND n.user = :user")
+            ->setParameter('action', $action)
+            ->setParameter('goal',   $goalId)
+            ->setParameter('user',   $userId)
+            ->execute();
     }
 }

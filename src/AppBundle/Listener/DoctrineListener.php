@@ -158,14 +158,36 @@ class DoctrineListener
 
             if (is_object($user)) {
                 $changeSet = $uow->getEntityChangeSet($entity);
-                if (isset($changeSet['status']) && $changeSet['status'][1] = UserGoal::COMPLETED) {
-                    $goal = $entity->getGoal();
-                    $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                    $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
-                    $em->persist($newFeed);
-                    $em->flush();
+                if (isset($changeSet['status'])){
+                    if($changeSet['status'][1] == UserGoal::COMPLETED) {
+                        $goal = $entity->getGoal();
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+                        $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        $em->persist($newFeed);
+                        $em->flush();
+                    }
+                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
+                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $event
+     */
+    public function preRemove(LifecycleEventArgs $event)
+    {
+        $entity = $event->getObject();
+        $em = $event->getObjectManager();
+
+        if ($entity instanceof UserGoal){
+            if ($entity->getStatus() == UserGoal::COMPLETED){
+                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+            }
+
+            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
         }
     }
 
