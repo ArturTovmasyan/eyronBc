@@ -58,6 +58,14 @@ angular.module('goalComponents', ['Interpolation',
       });
     });
 
+    $scope.$on('doneGoal', function(){
+      angular.forEach($scope.popularGoals, function(item){
+        if(item.id == refreshingDate.goalId){
+          $scope.refreshPopulars();
+        }
+      });
+    });
+
     $scope.$watch('userId', function(id){
       $scope.getPopularGoals(id);
     })
@@ -68,6 +76,10 @@ angular.module('goalComponents', ['Interpolation',
       var statePath = envPrefix + "api/v1.0/users/{id}/states";
 
       $scope.$on('addGoal', function(){
+        $scope.changeStates();
+      });
+
+      $scope.$on('doneGoal', function(){
         $scope.changeStates();
       });
 
@@ -128,6 +140,10 @@ angular.module('goalComponents', ['Interpolation',
     };
 
     $scope.$on('addGoal', function(){
+      $scope.refreshGoalFriends();
+    });
+
+    $scope.$on('doneGoal', function(){
       $scope.refreshGoalFriends();
     });
 
