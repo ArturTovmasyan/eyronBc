@@ -101,7 +101,7 @@
                                        data-ng-cloak
                                        data-ls-goal-manage
                                        data-ls-goal-id="[[ ::goal.id ]]"
-                                       data-ng-click=" goal.is_my_goal = 1 ; refreshCache('{{ user.id }}', goal.id) {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                       data-ng-click=" goal.is_my_goal = 1 {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
 
                                         <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                         <span class="text">{{ 'add'|trans | capitalize}}</span>
@@ -114,18 +114,13 @@
 
 
                                 <li class="col-xs-6 ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
-                                    <a {% if app.user %}href="javascript:void(0)" data-ng-click="addDone('{{ env_prefix }}/goal/done/'+goal.id, 'addSuccesstory'+goal.id); refreshCache('{{ user.id }}', goal.id)"
-                                       {% else %}data-ng-click="popoverByDesktop(); addDone('{{ env_prefix }}/goal/done/'+goal.id)"{% endif %}>
-
+                                    <a href="javascript:void(0)"
+                                       data-ng-cloak
+                                       data-ls-user-goal-manage
+                                       data-ls-goal-id="[[ ::goal.id ]]"
+                                       data-ng-click=" completed = false {% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                         <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                         <span class="text">{{ 'done'|trans | capitalize}}</span>
-                                    </a>
-                                    <a  href="javascript:void(0)"
-                                        data-ng-show="false"
-                                        data-ls-jquery-modal
-                                        data-ls-template-url="{{ env_prefix }}/goal/add-story/[[ ::goal.id ]]"
-                                        data-ls-identity="goalAddSuccessStoryModal[[ ::goal.id ]]"
-                                        id="addSuccesstory[[ ::goal.id ]]">
                                     </a>
                                 </li>
                                 <li class="col-xs-6 transparent ng-hide" data-ng-show="(goal.is_my_goal && goal.is_my_goal === 2 )|| !completed">
