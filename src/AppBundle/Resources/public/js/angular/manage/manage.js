@@ -202,11 +202,11 @@ angular.module('manage', ['Interpolation',
     
                   scope.runCallback = function(uGoal){
                       userGoalData.doneData = uGoal;
-                      userGoalData.doneData.goal.videos_array = [];
-                        //todo check goal or story video link is it
-                      angular.forEach(userGoalData.doneData.goal.video_link, function(v){
-                          userGoalData.doneData.goal.videos_array.push({link: v});
-                      });
+                      // userGoalData.doneData.story.videos_array = [];
+
+                      // angular.forEach(userGoalData.doneData.story.video_link, function(v){
+                      //     userGoalData.doneData.story.videos_array.push({link: v});
+                      // });
     
                       var tmp = $compile(template.doneTemplate)(scope);
                       scope.openModal(tmp);

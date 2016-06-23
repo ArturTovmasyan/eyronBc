@@ -168,13 +168,14 @@ angular.module('goalComponents', ['Interpolation',
       
       $scope.save = function () {
         $timeout(function(){
-          var data = {
-            story: $scope.story,
-            files: $scope.files,
-            links: $scope.userGoal.goal.videos_array
-          };
-          
-          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
+          $scope.userGoal.files = $scope.files;
+          // var data = {
+          //   story: $scope.userGoal.story.story,
+          //   files: $scope.files,
+          //   links: $scope.userGoal.story.videos_array
+          // };
+          //
+          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
             angular.element('#cancel').click();
           });
         }, 100)
