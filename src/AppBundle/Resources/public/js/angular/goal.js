@@ -187,14 +187,15 @@ angular.module('goal', ['Interpolation',
                         // this.nextReserve(reserveUrl, search, category);
 
                     }
-                }.bind(this));
 
-                this.start += this.count;
-                this.request++;
-                this.busy = data.length ? false : true;
-                if(!notReserve){
-                    this.nextReserve(reserveUrl, search, category);
-                }
+                    this.start += this.count;
+                    this.request++;
+                    this.busy = data.length ? false : true;
+                    if(!notReserve){
+                        this.nextReserve(reserveUrl, search, category);
+                    }
+
+                }.bind(this));
 
                 //setTimeout(function(){
                 //    this.loadAddthis();
