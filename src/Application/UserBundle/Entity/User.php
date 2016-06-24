@@ -748,7 +748,7 @@ class User extends BaseUser
 
     /**
      * @return bool
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      * @VirtualProperty()
      */
     public function isAdmin()

@@ -9,8 +9,14 @@ angular.module('goalManage', ['Interpolation',
     'angulartics.google.analytics',
     'PathPrefix'
     ])
-  .value('template', { addTemplate: ''})
-  .value('userGoalData', { data: {}})
+  .value('template', { 
+    addTemplate: '',
+    doneTemplate: ''
+  })
+  .value('userGoalData', { 
+      data: {},
+      doneData: {}
+  })
   .value('refreshingDate', {
     userId: '',
     goalId: ''

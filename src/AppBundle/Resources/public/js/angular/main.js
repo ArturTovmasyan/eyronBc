@@ -69,16 +69,6 @@ angular.module('main',['mgcrea.ngStrap.modal',
                 angular.element('.navbar-toggle').click();
             }, 500);
         };
-
-        $scope.popoverByDesktop = function(){
-            $timeout(function(){
-                loginPopoverService.openLoginPopover();
-            }, 50);
-        };
-
-        $scope.addDone = function(path){
-            $http.get(path);
-        };
     }])
     .controller('mobileModal',['$scope', 'deviceDetector', function($scope, deviceDetector) {
         $scope.deviceDetector = deviceDetector;

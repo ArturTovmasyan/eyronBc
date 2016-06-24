@@ -3,12 +3,13 @@
 angular.module('goalManage')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', '$timeout', '$rootScope', 'refreshCacheService', 'UserContext', 'refreshingDate',
     function($resource, envPrefix, $analytics, $timeout, $rootScope, refreshCacheService, UserContext, refreshingDate){
-    return $resource( envPrefix + 'api/v1.0/usergoals/:id/:where/:what', {}, {
-      creates: {method:'PUT', transformResponse: function (object) {
+    return $resource( envPrefix + 'api/v1.0/:path/:id/:where/:what', {}, {
+      get: {method:'GET', params:{ path:'usergoals'}},
+      creates: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           $analytics.eventTrack('Goal create', {  category: 'Goal', label: 'Goal create from Web' });
           return angular.fromJson(object);
       }},
-      add: {method:'PUT', transformResponse: function (object) {
+      add: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
             $rootScope.$broadcast('addGoal');
@@ -16,19 +17,26 @@ angular.module('goalManage')
           $analytics.eventTrack('Goal add', {  category: 'Goal', label: 'Goal add from Web' });
           return angular.fromJson(object);
       }},
-      manage: {method:'PUT', transformResponse: function (object) {
+      manage: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           $analytics.eventTrack('Goal manage', {  category: 'Goal', label: 'Goal manage from Web' });
           return angular.fromJson(object);
       }},
-      done: {method:'GET', params:{where: 'dones', what: true }, transformResponse: function (object) {
+      done: {method:'GET', params:{ path:'usergoals',where: 'dones', what: true }, transformResponse: function (object) {
+        if(object == 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
             $rootScope.$broadcast('doneGoal');
           },600);
-          $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
+          $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' }); 
+        }
           return angular.fromJson(object);
       }},
-      delete: {method:'DELETE', transformResponse: function (object) {
+      getStory: {method:'GET', params:{ path:'story'}},
+      editStory: {method:'PUT', params:{ path:'goals', where: 'story'}, transformResponse: function (object) {
+          $analytics.eventTrack('Success story', {  category: 'Success story', label: 'Add success story from Web' });
+          return object;
+      }},
+      delete: {method:'DELETE', params:{ path:'usergoals'}, transformResponse: function (object) {
           refreshCacheService.refreshCache(UserContext.id);
           $analytics.eventTrack('Goal unlisted', {  category: 'Goal', label: 'Goal unlisted from Web' });
           return object;
