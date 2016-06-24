@@ -1,19 +1,6 @@
 {% extends "AppBundle:BucketList:baseList.html.twig" %}
 
 {% block content_container %}
-    <div class="slide map-marker ng-hide" data-ng-cloak data-ng-hide="!showMap">
-        <div data-simple-map-marker
-             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
-             {#data-on-marker-click="onMarkerClick(goal)"#}
-             data-is-bounded="true"
-             data-item-page-url="{{ env_prefix  }}/goal/"
-             {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
-             data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
-             data-refresh="showMap"
-             class="google-map "
-             style="width: 100%; height: 300px">
-        </div>
-    </div>
 
     <div class="bucketlist">
         <div class="container">
@@ -39,14 +26,27 @@
                         <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
-                        <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
-                            <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
-                            <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
+                        <a href="javascript:void(0)" data-ng-class="{'map-marker-active': showMap}"
+                           data-ng-click="showMap=!showMap; triggerMap('.google-map')" class="map-marker-new">
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
+        <div class="slide map-marker ng-hide" data-ng-cloak data-ng-hide="!showMap">
+            <div data-simple-map-marker
+                 data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
+                    {#data-on-marker-click="onMarkerClick(goal)"#}
+                 data-is-bounded="true"
+                 data-item-page-url="{{ env_prefix  }}/goal/"
+                    {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
+                 data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                 data-refresh="showMap"
+                 class="google-map "
+                 style="width: 100%; height: 300px">
+            </div>
+        </div>
+
         <hr/>
         <div class="container">
             <div class="row">
