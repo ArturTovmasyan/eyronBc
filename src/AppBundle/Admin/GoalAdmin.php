@@ -13,6 +13,9 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\GoalImageType;
+use AppBundle\Form\Type\BlMultipleFileType;
+use AppBundle\Form\Type\BlMultipleVideoType;
+use AppBundle\Form\Type\LocationType;
 use AppBundle\Model\PublishAware;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -21,6 +24,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class GoalAdmin
@@ -67,17 +71,17 @@ class GoalAdmin extends AbstractAdmin
 
         $formMapper
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
-            ->add('description', 'textarea', array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
+            ->add('description', TextareaType::class, array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
 //            , 'attr' => array('class' => 'tinymce')
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
-            ->add('rawLocation', 'bl_location', array('label' => false))
-            ->add('videoLink', 'bl_multiple_video', array('label' => false))
-            ->add('language', 'lng', array('required' => true))
-            ->add('bl_multiple_file', 'bl_multiple_file', array('label'=>'admin.label.name.images', 'required' => false));
+            ->add('rawLocation', LocationType::class, array('label' => false))
+            ->add('videoLink', BlMultipleVideoType::class, array('label' => false))
+            ->add('language', TextareaType::class, array('required' => true))
+            ->add('bl_multiple_file', BlMultipleFileType::class, array('label'=>'admin.label.name.images', 'required' => false));
     }
 
     // Fields to be shown on filter forms
