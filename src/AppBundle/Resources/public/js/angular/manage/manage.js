@@ -171,42 +171,30 @@ angular.module('manage', ['Interpolation',
                               //for refresh cache event
                               refreshingDate.userId = scope.lsUserId;
                           }
-    
-                          if(scope.lsInitialRun){
-                              UserGoalDataManager.getStory({id: scope.lsGoalId}, function (goal){
-                                  if(goal){
-                                      scope.runCallback(goal);
-                                  }
-                                  else {
-                                      UserGoalDataManager.done({id: scope.lsGoalId}, function (){
-                                          UserGoalDataManager.getStory({id: scope.lsGoalId}, function (goal) {
-                                              scope.runCallback(goal);
-                                          });
-                                      })
-                                  }
-                              })
-                          }
-                          else {
-                              UserGoalDataManager.done({id: scope.lsGoalId}, function (){
-                                  UserGoalDataManager.getStory({id: scope.lsGoalId}, function (goal) {
-                                      scope.runCallback(goal);
-                                  });
-                              }, function(res){
-                                  if(res.status === 401){
-                                      loginPopoverService.openLoginPopover();
-                                  }
+                          
+                          UserGoalDataManager.done({id: scope.lsGoalId}, function (){
+                              UserGoalDataManager.getStory({id: scope.lsGoalId}, function (goal) {
+                                  scope.runCallback(goal);
                               });
-                          }
+                          }, function(res){
+                              if(res.status === 401){
+                                  loginPopoverService.openLoginPopover();
+                              }
+                          });
                       }
                   };
     
                   scope.runCallback = function(uGoal){
                       userGoalData.doneData = uGoal;
-                      // userGoalData.doneData.story.videos_array = [];
+                      userGoalData.doneData.videos_array = [];
 
-                      // angular.forEach(userGoalData.doneData.story.video_link, function(v){
-                      //     userGoalData.doneData.story.videos_array.push({link: v});
-                      // });
+                      if(uGoal.story && uGoal.story.video_link.length > 0){
+                          angular.forEach(userGoalData.doneData.story.video_link, function(v){
+                              userGoalData.doneData.videos_array.push({link: v});
+                          });
+                      }else {
+                          userGoalData.doneData.videos_array.push({});
+                      }
     
                       var tmp = $compile(template.doneTemplate)(scope);
                       scope.openModal(tmp);

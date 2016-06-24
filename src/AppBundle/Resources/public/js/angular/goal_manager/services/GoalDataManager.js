@@ -22,15 +22,17 @@ angular.module('goalManage')
           return angular.fromJson(object);
       }},
       done: {method:'GET', params:{ path:'usergoals',where: 'dones', what: true }, transformResponse: function (object) {
+        if(object === 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
             $rootScope.$broadcast('doneGoal');
           },600);
-          $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
+          $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' }); 
+        }
           return angular.fromJson(object);
       }},
       getStory: {method:'GET', params:{ path:'story'}},
-      editStory: {method:'PUT', params:{ path:'story'}, transformResponse: function (object) {
+      editStory: {method:'PUT', params:{ path:'goals', where: 'story'}, transformResponse: function (object) {
           $analytics.eventTrack('Success story', {  category: 'Success story', label: 'Add success story from Web' });
           return object;
       }},

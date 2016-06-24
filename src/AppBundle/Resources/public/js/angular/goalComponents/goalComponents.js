@@ -166,15 +166,19 @@ angular.module('goalComponents', ['Interpolation',
       $scope.files = [];
       $scope.successStory = {};
       
+      //todo must say user to write success story
       $scope.save = function () {
+        if(angular.isUndefined($scope.userGoal.story) || $scope.userGoal.story.story.length < 3){
+          return;
+        }
         $timeout(function(){
           $scope.userGoal.files = $scope.files;
-          // var data = {
-          //   story: $scope.userGoal.story.story,
-          //   files: $scope.files,
-          //   links: $scope.userGoal.story.videos_array
-          // };
-          //
+          $scope.userGoal.story.video_link = [];
+          angular.forEach($scope.userGoal.videos_array, function (d) {
+            if(!angular.isUndefined(d.link) && d.link){
+              $scope.userGoal.story.video_link.push(d.link);
+            }
+          });
           UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
             angular.element('#cancel').click();
           });

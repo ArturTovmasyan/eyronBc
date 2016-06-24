@@ -1,7 +1,7 @@
 <div id="story-modal" data-ng-controller="goalDone">
     <div class="modal-top">
-        <figure data-ng-if="userGoal.goal.image_path">
-            <img data-ng-src="[[ userGoal.goal.image_path]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+        <figure data-ng-if="userGoal.goal.cached_image">
+            <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
         </figure>
 
         <span class="overlay"></span>
@@ -71,11 +71,11 @@
 
                     <div class="form-group">
                         <label class="text-dark-gray">Video</label>
-                        <video-link data-ng-repeat="(k, video) in userGoal.story.video_link"
+                        <video-link data-ng-repeat="(k, video) in userGoal.videos_array"
                             data-key="k"
                             data-limit="3"
                             data-link="video.link"
-                            data-array="userGoal.story.video_link">
+                            data-array="userGoal.videos_array">
                         </video-link>
                     </div>
 
