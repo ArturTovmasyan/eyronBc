@@ -162,7 +162,7 @@ class GoalAdmin extends AbstractAdmin
     {
         $original = $this->getModelManager()->getEntityManager($this->getClass())->getUnitOfWork()->getOriginalEntityData($object);
 
-        if($original['publish'] != $object->getPublish() && $object->getPublish() == PublishAware::PUBLISH){
+        if((!isset($original['publish']) || $original['publish'] != $object->getPublish()) && $object->getPublish() == PublishAware::PUBLISH){
             $this->getRequest()->getSession()
                 ->getFlashBag()
                 ->set('goalPublished','Goal published from Web')
