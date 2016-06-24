@@ -8,8 +8,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ImageableInterface;
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
@@ -23,7 +25,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="goal_image")
  * @ORM\HasLifecycleCallbacks()
  */
-class GoalImage
+class GoalImage implements ImageableInterface
 {
     // use file trait
     use File;
@@ -75,14 +77,30 @@ class GoalImage
      */
     protected $updated;
 
+    /**
+     * @SerializedName("image_path")
+     * @Groups({"image"})
+     */
+    protected $mobilePhotoPath;
+
 
     /**
-     * @VirtualProperty
-     * @Groups({"image"})
+     * @return string
      */
     public function getImagePath()
     {
         return $this->getDownloadLink();
+    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setMobileImagePath($path)
+    {
+        $this->mobilePhotoPath = $path;
+
+        return $this;
     }
 
     /**
@@ -126,26 +144,6 @@ class GoalImage
     protected function getPath()
     {
         return 'images';
-    }
-
-    /**
-     * Override getPath function in file trait
-     *
-     * @return string
-     */
-    protected function getMobilePath()
-    {
-        return $this->getPath() . '/mobile';
-    }
-
-    /**
-     * Override getPath function in file trait
-     *
-     * @return string
-     */
-    protected function getTabletPath()
-    {
-        return $this->getPath() . '/tablet';
     }
 
     /**
@@ -237,22 +235,6 @@ class GoalImage
         // check file and remove
         if (file_exists($filePath) && is_file($filePath)){
             unlink($filePath);
-        }
-
-        // get mobile file path
-        $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($mobileFilePath) && is_file($mobileFilePath)){
-            unlink($mobileFilePath);
-        }
-
-        // get tablet file path
-        $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
-            unlink($tabletFilePath);
         }
     }
 }

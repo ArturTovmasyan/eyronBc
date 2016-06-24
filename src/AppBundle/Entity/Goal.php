@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\ActivityableInterface;
 use AppBundle\Model\ArchivedGoalInterface;
+use AppBundle\Model\ImageableInterface;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
@@ -31,7 +32,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
  * })
  */
-class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface
+class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;
@@ -230,6 +231,12 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @var integer
      */
     private $mergedGoalId;
+
+    /**
+     * @SerializedName("image_path")
+     * @Groups({"tiny_goal", "goal", "image_link"})
+     */
+    private $mobileImagePath;
 
     /**
      * Get id
@@ -515,10 +522,26 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     }
 
     /**
-     * @VirtualProperty
-     * @SerializedName("image_path")
      * @return null
-     * @Groups({"tiny_goal", "goal", "image_link"})
+     */
+    public function getImagePath()
+    {
+        return $this->getListPhotoDownloadLink();
+    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setMobileImagePath($path)
+    {
+        $this->mobileImagePath = $path;
+
+        return $this;
+    }
+
+    /**
+     * @return null
      */
     public function getListPhotoDownloadLink()
     {
