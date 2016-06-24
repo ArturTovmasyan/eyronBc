@@ -789,6 +789,7 @@ class GoalController extends FOSRestController
      *      {"name"="userId", "dataType"="integer", "required"=true, "description"="User id"},
      *  }
      * )
+     * )
      *
      * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
      * @param $id
@@ -860,6 +861,40 @@ class GoalController extends FOSRestController
         }
 
         return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This action is used to get goal success story by current user",
+     *  statusCodes={
+     *         200="Returned when return success story",
+     *         404="Returned when goal not found",
+     *  },
+     * )
+     *
+     * @Rest\Get("/story/{id}", requirements={"id"="\d+"}, name="app_rest_goal_getsuccessstory", options={"method_prefix"=false})
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
+     * @Rest\View(serializerGroups={"tiny_goal", "goal_author", "tiny_user", "successStory", "successStory_storyImage", "storyImage"})
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function getSuccessStoryAction(Goal $goal)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $story = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        if ($goal->getListPhotoDownloadLink()) {
+            $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_big'));
+        }
+
+        return [
+            'goal' => $goal,
+            'story' => count($story) ? $story[0] : null
+        ];
     }
 
     /**
