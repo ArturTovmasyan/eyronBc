@@ -156,7 +156,7 @@ angular.module('manage', ['Interpolation',
                       $(".modal-loading").show();
     
                       if(scope.lsType){
-                          UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
+                          UserGoalDataManager.getStory({id: scope.lsGoalId}, function (uGoal){
                               scope.runCallback(uGoal);
                           }, function(res){
                               if(res.status === 401){
