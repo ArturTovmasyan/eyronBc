@@ -22,7 +22,7 @@ angular.module('goalManage')
           return angular.fromJson(object);
       }},
       done: {method:'GET', params:{ path:'usergoals',where: 'dones', what: true }, transformResponse: function (object) {
-        if(object === 1){
+        if(object == 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
             $rootScope.$broadcast('doneGoal');
