@@ -28,22 +28,7 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-        //get entity manager
         $em = $this->getDoctrine()->getManager();
-
-//        $goal = $em->getRepository("AppBundle:Goal")->find(1);
-//
-//        return $this->render('@App/Main/userNotifyEmail.html.twig', array(
-//            'goal'=> $goal,
-//            'user' => $this->getUser(),
-//            'mailText' => 'notify_comment',
-//            'language' => 'en',
-//            'eventText' => 'This is text'
-//        ));
-//        exit;
-
-        //get current user
         $user = $this->getUser();
 
         //check if user not exist
@@ -90,7 +75,7 @@ class MainController extends Controller
         if($slug == 'contact-us')
         {
             // create form type
-            $form  = $this->createForm(new ContactUsType());
+            $form  = $this->createForm(ContactUsType::class);
 
             // check request method
             if($request->isMethod("POST")){

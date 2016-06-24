@@ -8,7 +8,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\BlMultipleVideoType;
+use AppBundle\Form\Type\LngType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,12 +32,12 @@ class GoalType extends AbstractType
     {
         $builder
             ->add('title', null, array('required' => true))
-            ->add('description', 'textarea', array('required' => true))
+            ->add('description', TextareaType::class, array('required' => true))
             ->add('status')
-            ->add('files', 'hidden', array('mapped' => false))
-            ->add('hashTags', 'hidden', array('mapped' => false))
-            ->add('videoLink', 'bl_multiple_video', array('required' => false))
-            ->add('language', 'lng', array('required' => true, 'label' => 'language'))
+            ->add('files', HiddenType::class, array('mapped' => false))
+            ->add('hashTags', HiddenType::class, array('mapped' => false))
+            ->add('videoLink', BlMultipleVideoType::class, array('required' => false))
+            ->add('language', LngType::class, array('required' => true, 'label' => 'language'))
         ;
     }
 
@@ -51,7 +55,7 @@ class GoalType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_goal';
     }

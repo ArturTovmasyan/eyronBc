@@ -14,6 +14,7 @@ use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\ActivityableInterface;
+use AppBundle\Model\ImageableInterface;
 use Application\CommentBundle\Entity\Comment;
 use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -71,10 +72,10 @@ class DoctrineListener
      */
     public function postLoad(LifecycleEventArgs $event)
     {
-        if ($token = $this->container->get('security.token_storage')->getToken()){
+        $em = $this->container->get('doctrine')->getManager();
+        $entity = $event->getObject();
 
-            $em = $this->container->get('doctrine')->getManager();
-            $entity = $event->getObject();
+        if ($token = $this->container->get('security.token_storage')->getToken()){
 
             if ($entity instanceof Goal){
 
@@ -100,7 +101,27 @@ class DoctrineListener
                 if ($this->loadUserStats){
                     $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
+            }
+        }
 
+        $request = $this->container->get('request');
+        $route = $this->container->get('router');
+        $liipManager = $this->container->get('liip_imagine.cache.manager');
+
+        if ($entity instanceof ImageableInterface){
+            if ($request->get('_format') == "json" && $entity->getImagePath()){
+                $liipManager->getBrowserPath($entity->getImagePath(), 'mobile_goal');
+                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'mobile_goal'];
+                $filterUrl = $route->generate('liip_imagine_filter', $params);
+                $entity->setMobileImagePath($filterUrl);
+            }
+        }
+        elseif($entity instanceof User){
+            if ($request->get('_format') == "json" && $entity->getImagePath()){
+                $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
+                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_goal'];
+                $filterUrl = $route->generate('liip_imagine_filter', $params);
+                $entity->setMobileImagePath($filterUrl);
             }
         }
     }

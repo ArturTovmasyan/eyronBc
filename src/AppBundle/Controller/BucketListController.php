@@ -109,6 +109,11 @@ class BucketListController extends Controller
             UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filter.not_import_not_urgent',
         );
 
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
+
         // get drafts
         $myIdeasCount =  $em->getRepository("AppBundle:Goal")->findMyIdeasCount($user);
 

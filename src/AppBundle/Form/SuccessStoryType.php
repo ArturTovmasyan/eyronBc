@@ -8,7 +8,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\BlMultipleVideoType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,9 +29,9 @@ class SuccessStoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('story', 'textarea')
-            ->add('videoLink', 'bl_multiple_video', array('required' => false))
-            ->add('files', 'hidden', array('mapped' => false))
+            ->add('story', TextareaType::class)
+            ->add('videoLink', BlMultipleVideoType::class, array('required' => false))
+            ->add('files', HiddenType::class, array('mapped' => false))
         ;
     }
 
@@ -45,7 +48,7 @@ class SuccessStoryType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_success_story_type';
     }

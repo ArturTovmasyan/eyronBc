@@ -82,7 +82,7 @@ class GoalController extends Controller
         $goal->setAuthor($currentUser);
 
 
-        $form  = $this->createForm(new GoalType(), $goal);
+        $form  = $this->createForm(GoalType::class, $goal);
 
         if($request->isMethod("POST"))
         {
@@ -182,6 +182,13 @@ class GoalController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             9/*limit per page*/
         );
+
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         return array(
             'goals'       => $pagination,
@@ -359,7 +366,7 @@ class GoalController extends Controller
         $userId = $user->getId();
 
         // create form
-        $form = $this->createForm(new SuccessStoryType(), $story);
+        $form = $this->createForm(SuccessStoryType::class, $story);
 
         // check method
         if($request->isMethod("POST")) {

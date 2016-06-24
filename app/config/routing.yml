@@ -50,13 +50,13 @@ hwi_oauth_login:
     prefix:   /login
 
 facebook_login:
-    pattern: /login/check-facebook
+    path: /login/check-facebook
 
 google_login:
-    pattern: /login/check-google
+    path: /login/check-google
 
 twitter_login:
-    pattern: /login/check-twitter
+    path: /login/check-twitter
 
 # for fos comment
 fos_comment_api:

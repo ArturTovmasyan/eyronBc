@@ -10,6 +10,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\UserGoal;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,10 +28,10 @@ class UserGoalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('targetDate', 'hidden', array('mapped' => false))
+            ->add('targetDate', HiddenType::class, array('mapped' => false))
             ->add('note')
-            ->add('location', 'hidden', array('mapped' => false))
-            ->add('birthday', 'hidden', array('mapped' => false))
+            ->add('location', HiddenType::class, array('mapped' => false))
+            ->add('birthday', HiddenType::class, array('mapped' => false))
             ->add('isVisible')
         ;
     }
@@ -48,7 +49,7 @@ class UserGoalType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_user_goal';
     }
