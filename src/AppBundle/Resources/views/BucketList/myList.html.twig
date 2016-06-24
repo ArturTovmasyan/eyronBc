@@ -87,8 +87,15 @@
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
                                 <div class="col-sm-2 no-right">
-                                    <div class="date-left hidden-xs" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
-                                        <div class="img-circle" data-ng-if="change{{ goal.id }} == 0">
+                                    <div class="date-left" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
+
+                                        <p data-ng-if="isMobile">
+                                            {% if userGoals[0].id == userGoal.id %}
+                                                    <span class="hidden-sm hidden-mg hidden-lg space"></span>
+                                            {% endif %}
+                                        </p>
+
+                                        <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0">
                                             {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
                                                 {{ userGoal.doDate|date('d') }}
                                             {% elseif userGoal.completionDate is not null%}
@@ -99,20 +106,22 @@
                                                 </i>
                                             {% endif %}
                                         </div>
-                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
+
+                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
                                         </div>
-                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
+
+                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
                                             [[ doDate{{ goal.id }} | date:'dd']]
                                         </div>
 
                                         {% if userGoals[lastIndex].id == userGoal.id %}
-                                            <span></span>
+                                            <span class="hidden-xs"></span>
                                         {% endif %}
                                         <div class="elipse">
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} == 0">
+                                            <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0">
                                                 {% if userGoal.doDate is not null %}
                                                     {{ userGoal.doDate|date('M, Y') }}
                                                 {% elseif userGoal.completionDate is not null%}
@@ -124,9 +133,11 @@
                                             <div class="text-gray" data-ng-if="change{{ goal.id }} === 1">
                                                 {{ 'dreaming'|trans }}
                                             </div>
+
                                             <div class="text-gray" data-ng-if="change{{ goal.id }} === 2" >
                                                 [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
                                             </div>
+
                                         </div>
 
                                     </div>
