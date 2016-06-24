@@ -62,10 +62,42 @@
     margin-right:-9px;
   }
 
+  .settings-icon{
+    display: inline-block;
+    width: 43px;
+    height: 43px;
+    background: url('../images/settings.png') no-repeat center center;
+    background-size: 100%;
+
+    &:hover{
+      background: url('../images/settings_hover.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
+
+  .question-icon-new{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin:2px 0 2px 3px;
+    background: url('../images/question.png') no-repeat center center;
+    background-size: 100%;
+
+    &:hover{
+      background: url('../images/question_hover.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
+
   .mobile-settings{
     position: absolute;
     right:20px;
     overflow: initial;
+    display: inline-block;
+    width: 43px;
+    height: 43px;
+    background: url('../images/settings_hover.png') no-repeat center center;
+    background-size: 100%;
   }
 
   figure{
@@ -257,8 +289,8 @@
       cursor: pointer;
     }
     a.text-gray{
-      margin-left:8px;
-
+      margin-left: 14px;
+      display: block;
     }
   }
 }
@@ -278,7 +310,7 @@
       font-size:13px;
       a{
         color:#666666;
-        font-size:13px;
+        font-size:14px;
         line-height: 23px;
 
         &:hover,&:focus{
@@ -302,8 +334,11 @@
         }
       }
 
-      &:last-child:hover{
-        border-bottom:0;
+      &:last-child{
+        padding:3px 20px;
+        &:hover{
+          border-bottom:0;
+        }
       }
     }
     .active{
@@ -312,6 +347,27 @@
         color:#7724f6;
       }
     }
+  }
+
+  .map-marker-new{
+    display: inline-block;
+    width: 22px;
+    height: 29px;
+    background: url('../images/map-icon.png') no-repeat center center;
+    background-size: 100%;
+
+    &:hover{
+      background: url('../images/map-icon-active.png') no-repeat center center;
+      background-size: 100%;
+    }
+  }
+
+  .map-marker-active{
+    display: inline-block;
+    width: 25px;
+    height: 33px;
+    background: url('../images/map-icon-active.png') no-repeat center center;
+    background-size: 100%;
   }
 
   hr{
@@ -430,7 +486,10 @@
           }
         }
       }
+    }
 
+    .settings-icon{
+      margin-right: -10px;
     }
     #settings-form{
       figure{
@@ -522,9 +581,14 @@
         }
 
         &:last-child{
-          padding: 9px 15px 8px;
+          padding: 2px 5px 4px;
         }
       }
+    }
+
+    .map-marker-new{
+      width: 25px;
+      height: 33px;
     }
 
     hr{
@@ -575,6 +639,10 @@
   .profile{
     margin-top:10px;
     padding:20px 0 0 0;
+
+    .settings-icon{
+      margin-right: 0;
+    }
 
     figure{
       padding:20px 0;
@@ -678,7 +746,7 @@
       margin:110px auto 0;
 
       a.text-gray{
-        margin-left:20px;
+        margin-left:30px;
 
       }
     }
@@ -703,7 +771,9 @@
             font-size: 28px;
           }
         }
-
+        &:last-child{
+          padding: 2px 15px 4px;
+        }
       }
     }
 
