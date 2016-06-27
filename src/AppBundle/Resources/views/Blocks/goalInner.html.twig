@@ -118,7 +118,7 @@
                                            data-ng-cloak
                                            data-ls-goal-manage
                                            data-ls-goal-id="{{ goal.id }}"
-                                           data-ng-click="added = true; refreshCache('{{ userId }}','{{ goal.id }}'){% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                           data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                             <span class="text">{{ 'add'|trans }}</span>
                                         </a>
@@ -133,10 +133,11 @@
                                 <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal != 2 %}{transparent: !completed}{% endif %}">
                                     {% if goal.isMyGoal != 2 %}
                                         <a href="javascript:void(0)"
-                                           data-ng-init="completed=true"
-                                                {% if app.user %} data-ng-click="addDone('{{ env_prefix }}/goal/done/{{ goal.id }}?ajax=true', 'addSuccesstory{{ goal.id }}'); refreshCache('{{ userId }}', '{{ goal.id }}')"
-                                                {% elseif isMobile() %} data-ng-click="popoverByMobile(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')" {% else %}data-ng-click="popoverByDesktop(); addDone('{{ env_prefix }}/goal/done/{{ goal.id }}')"{% endif %}
-                                           data-ng-show="completed">
+                                           data-ng-init="completed=true" data-ng-show="completed"
+                                           data-ng-cloak
+                                           data-ls-user-goal-manage
+                                           data-ls-goal-id="{{ goal.id }}"
+                                           data-ng-click="completed = false; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                                             <span class="text">{{ 'done'|trans }}</span>
                                         </a>
@@ -146,13 +147,6 @@
                                              <span class="text">{{ 'completed'|trans | capitalize}}</span>
                                         </span>
 
-                                        <a  href="javascript:void(0)"
-                                            data-ng-show="false"
-                                            data-ls-jquery-modal
-                                            data-ls-template-url="{{ env_prefix }}/goal/add-story/{{ goal.id  }}"
-                                            data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
-                                            id="addSuccesstory{{ goal.id }}">
-                                        </a>
                                     {% else %}
                                         <span>
                                              <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>

@@ -470,15 +470,12 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'refreshCacheService', '$http', 'loginPopoverService', '$analytics',
-        function($scope, $filter, $timeout, lsInfiniteItems, refreshCacheService, $http, loginPopoverService, $analytics){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems',
+        function($scope, $filter, $timeout, lsInfiniteItems){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
-        $scope.refreshCache = function(userId, goalId){
-            refreshCacheService.refreshCache(userId, goalId);
-        };
 
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
             var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
@@ -518,21 +515,6 @@ angular.module('goal', ['Interpolation',
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
-        };
-
-        $scope.popoverByDesktop = function(){
-            $timeout(function(){
-                loginPopoverService.openLoginPopover();
-            }, 50);
-        };
-
-        $scope.addDone = function(path, id){
-            $http.get(path)
-                .success(function(){
-                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
-                    $scope.completed = false;
-                    angular.element('#'+id).click();
-                });
         };
 
         $scope.openSignInPopover = function(){
@@ -702,51 +684,30 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout', 'loginPopoverService', '$analytics',
-        function($scope, $http, refreshCacheService, $timeout, loginPopoverService, $analytics){
+    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout',
+        function($scope, $http, refreshCacheService, $timeout){
         $scope.completed = true;
-        $scope.refreshCache = function(userId, goalId){
-            refreshCacheService.refreshCache(userId, goalId);
-        };
 
         $scope.popoverByMobile = function(){
             $timeout(function(){
                 angular.element('.navbar-toggle').click();
             }, 500);
         };
-
-        $scope.popoverByDesktop = function(){
-            $timeout(function(){
-                loginPopoverService.openLoginPopover();
-            }, 50);
-        };
-
-        $scope.addDone = function(path, id){
-            $http.get(path)
-                .success(function(res){
-                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
-                    $scope.completed = false;
-                    angular.element('#'+id).click();
-                });
-        };
     }])
-    .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', function($scope, $http, $compile, $analytics){
+    .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', 'refreshingDate',
+        function($scope, $http, $compile, $analytics, refreshingDate){
         $scope.isMobile =false;
         $scope.isMobile = window.innerWidth < 767? true : false;
         var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
-        $scope.addDone = function(path, id){
-            $http.get(path)
-                .success(function(){
-                    //changing date
-                    $scope['change' + $scope.goalId] = 2;
-                    angular.element('.goal' + $scope.goalId).removeClass("active-idea");
-                    $scope['doDate' + $scope.goalId] = new Date();
 
-                    $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' });
-                    $scope[id] = true;
-                    angular.element('#'+id).click();
-                });
-        };
+        $scope.$on('doneGoal', function(){
+            //changing date
+            $scope['change' + refreshingDate.goalId] = 2;
+            angular.element('.goal' + refreshingDate.goalId).removeClass("active-idea");
+            $scope['doDate' + refreshingDate.goalId] = new Date();
+
+            $scope['success'+refreshingDate.goalId] = true;
+        });
 
         $scope.onMarkerClick = function(goal){
             $http.get(mapModalTemplateUrl)
@@ -858,6 +819,60 @@ angular.module('goal', ['Interpolation',
                 };
             }
         }
+    }])
+    .directive('videoLink', ['$sce', function($sce){
+      return {
+          restrict: 'EA',
+          scope: {
+              array: '=',
+              key: '=',
+              link: '=',
+              limit: '='
+          },
+          templateUrl: '/bundles/app/htmls/videoLink.html',
+          link: function(scope){
+
+              scope.lm = scope.limit ? scope.limit : 3;
+
+              scope.$watch('link',function(d){
+                  if(angular.isUndefined(d)){
+                      return;
+                  }
+
+                  if(d === ''){
+                      scope.removeItem();
+                  }
+                  else {
+                      if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.lm){
+                          scope.array[scope.key + 1] = {};
+                      }
+                  }
+              }, true);
+
+              scope.removeItem = function(){
+                  if(scope.array[scope.array.length - 1].link){
+                      scope.array[scope.array.length] = {};
+                  }
+
+                  if(scope.key === 0){
+                      if(scope.array.length > 1){
+                          scope.array.splice(scope.key, 1);
+                      }
+                  }
+                  else {
+                      scope.array.splice(scope.key, 1);
+                  }
+              };
+
+              scope.isVideoLink = function(url){
+                  return !(!angular.isString(url) || url.indexOf("https:/") == -1);
+              };
+
+              scope.trustedUrl = function(url){
+                  return $sce.trustAsResourceUrl(url);
+              };
+          }
+      }
     }])
     .directive('step',[function(){
         return {

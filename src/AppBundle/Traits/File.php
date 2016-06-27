@@ -192,22 +192,6 @@ trait File
     }
 
     /**
-     * @return string
-     */
-    public function getAbsoluteMobilePath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getMobilePath() .'/';
-    }
-
-    /**
-     * @return string
-     */
-    public function getAbsoluteTabletPath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getTabletPath() .'/';
-    }
-
-    /**
      * This function is used to return file web path
      *
      * @return string
@@ -226,23 +210,6 @@ trait File
     }
 
     /**
-     * @return string
-     */
-    protected function getTabletPath()
-    {
-        return 'tablet';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getMobilePath()
-    {
-        return 'mobile';
-    }
-
-
-    /**
      * Upload folder name
      *
      * @return string
@@ -251,7 +218,6 @@ trait File
     {
         return 'uploads';
     }
-
 
     /**
      * @ORM\PreRemove
@@ -264,22 +230,6 @@ trait File
         // check file and remove
         if (file_exists($filePath) && is_file($filePath)){
             unlink($filePath);
-        }
-
-        // get mobile file path
-        $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($mobileFilePath) && is_file($mobileFilePath)){
-            unlink($mobileFilePath);
-        }
-
-        // get tablet file path
-        $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
-            unlink($tabletFilePath);
         }
     }
 

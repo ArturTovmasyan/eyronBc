@@ -2,7 +2,7 @@
 
 {% block fos_comment_comment %}
 
-    {% if _key is defined and _key == 0 %}
+    {% if _key is defined and _key == 0 and  comments|length > 2 %}
         <div class="text-right">
             <a href="javascript:void(0)"
                class="view-more-comments text-purple"

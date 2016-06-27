@@ -8,8 +8,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ImageableInterface;
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
@@ -22,7 +24,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\StoryImageRepository")
  * @ORM\Table(name="story_image")
  */
-class StoryImage
+class StoryImage implements ImageableInterface
 {
     // use file trait
     use File;
@@ -58,6 +60,11 @@ class StoryImage
      */
     protected $updated;
 
+    /**
+     * @SerializedName("image_path")
+     * @Groups({"storyImage"})
+     */
+    protected $mobilePhotoPath;
 
     /**
      * Override getPath function in file trait
@@ -67,26 +74,6 @@ class StoryImage
     protected function getPath()
     {
         return 'stories';
-    }
-
-    /**
-     * Override getPath function in file trait
-     *
-     * @return string
-     */
-    protected function getMobilePath()
-    {
-        return $this->getPath() . '/mobile';
-    }
-
-    /**
-     * Override getPath function in file trait
-     *
-     * @return string
-     */
-    protected function getTabletPath()
-    {
-        return $this->getPath() . '/tablet';
     }
 
     /**
@@ -157,12 +144,20 @@ class StoryImage
 
     /**
      * @return string
-     *
-     * @VirtualProperty()
-     * @Groups({"storyImage"})
      */
     public function getImagePath()
     {
         return $this->getDownloadLink();
+    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setMobileImagePath($path)
+    {
+        $this->mobilePhotoPath = $path;
+
+        return $this;
     }
 }

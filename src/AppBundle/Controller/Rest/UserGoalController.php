@@ -341,6 +341,8 @@ class UserGoalController extends FOSRestController
             $completionDate = null;
         }
 
+        $newDone = true;
+
         // get user goal
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
@@ -350,6 +352,10 @@ class UserGoalController extends FOSRestController
             $userGoal->setGoal($goal);
             $userGoal->setUser($this->getUser());
         }
+        else {
+            $newDone = !($userGoal->getStatus() == UserGoal::COMPLETED);
+        }
+
 
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
@@ -357,7 +363,7 @@ class UserGoalController extends FOSRestController
         $em->persist($userGoal);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+        return new Response((int) $newDone, Response::HTTP_OK);
     }
 
     /**

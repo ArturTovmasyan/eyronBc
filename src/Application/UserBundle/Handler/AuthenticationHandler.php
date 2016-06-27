@@ -168,7 +168,8 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $referrerUrl = $request->headers->get('referer');
 
         $routeNames = [
-            "rest_put_usergoal"
+            "rest_put_usergoal",
+            "rest_get_usergoal_done"
         ];
 
         if (in_array($routeName, $routeNames)) {

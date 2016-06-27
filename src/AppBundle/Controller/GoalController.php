@@ -459,6 +459,16 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("goal/done-modal", name="done_modal")
+     * @Template()
+     * @return array
+     */
+    public function doneModalAction()
+    {
+        return $this->render('@App/Goal/addSuccessStory.html.twig');
+    }
+
+    /**
      * @Route("ideas/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
