@@ -68,4 +68,12 @@ class RegistrationType extends AbstractType
     {
         return 'bl_user_registration';
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'bl_user_registration';
+    }
 }
