@@ -170,8 +170,8 @@ angular.module('goalComponents', ['Interpolation',
         imageCount = 6 - $scope.userGoal.story.files.length
       }
 
-      $('body').on('focus', '#story', function() {
-        $('#story').removeClass('border-red')
+      $('body').on('focus', 'textarea[name=story]', function() {
+        $('textarea[name=story]').removeClass('border-red')
       });
 
       $scope.isInValid = function () {
@@ -179,7 +179,7 @@ angular.module('goalComponents', ['Interpolation',
           || angular.isUndefined($scope.userGoal.story.story)
           || $scope.userGoal.story.story.length < 3 )return true;
         var words = $scope.userGoal.story.story.split(' ');
-        if((angular.isUndefined($scope.userGoal.story.video_link) || !$scope.userGoal.story.video_link.length )&&
+        if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
           (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3){
           return true;
         }
@@ -189,7 +189,7 @@ angular.module('goalComponents', ['Interpolation',
       
       $scope.save = function () {
         if($scope.isInValid()){
-          angular.element("#story").addClass('border-red');
+          angular.element('textarea[name=story]').addClass('border-red');
           return;
         }
         $timeout(function(){
