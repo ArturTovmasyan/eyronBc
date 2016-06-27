@@ -203,7 +203,6 @@ class MainController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
      *   "repository_method" = "findOneBySlug" })
-     * @Template()
      *
      * @param Goal $goal
      * @param Request $request

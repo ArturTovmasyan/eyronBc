@@ -8,9 +8,12 @@
 
 namespace AppBundle\Listener;
 
+use AppBundle\Controller\Rest\MainRestController;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -20,9 +23,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class RequestListener //implements EventSubscriberInterface
 {
-    const IOS_REQUEST_PARAM     = 'ios';
-    const ANDROID_REQUEST_PARAM = 'android';
-
     /**
      * @var string
      */
@@ -70,17 +70,24 @@ class RequestListener //implements EventSubscriberInterface
             }
         }
 
-//        $mobileAppVersion  = $request->query->get('mobileAppVersion');
-//        $mobileAppPlatform = $request->query->get('mobileAppPlatform');
-//
-//        if ($mobileAppVersion && $mobileAppPlatform){
-//            switch($mobileAppPlatform){
-//                case self::IOS_REQUEST_PARAM:
-//
-//            }
-//            if ($mobileAppPlatform == self::IOS_REQUEST_PARAM){
-//
-//            }
-//        }
+        $mobileAppVersion  = $request->query->get('mobileAppVersion');
+        $mobileAppPlatform = $request->query->get('mobileAppPlatform');
+
+        if ($mobileAppVersion && $mobileAppPlatform){
+            switch($mobileAppPlatform){
+                case MainRestController::IOS_REQUEST_PARAM:
+                    $mandatoryVersion = $this->container->getParameter('ios_mandatory_version');
+                    break;
+                case MainRestController::ANDROID_REQUEST_PARAM:
+                    $mandatoryVersion = $this->container->getParameter('android_mandatory_version');
+                    break;
+                default:
+                    return;
+            }
+
+            if(version_compare($mobileAppVersion, $mandatoryVersion) == -1){
+                throw new HttpException(Response::HTTP_UPGRADE_REQUIRED, 'Need to update your app');
+            }
+        }
     }
 }
