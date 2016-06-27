@@ -165,6 +165,10 @@ angular.module('goalComponents', ['Interpolation',
       $scope.userGoal = userGoalData.doneData;
       $scope.files = [];
       $scope.successStory = {};
+      var imageCount = 6;
+      if(!angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files){
+        imageCount = 6 - $scope.userGoal.story.files.length
+      }
       
       //todo must say user to write success story
       $scope.save = function () {
@@ -200,7 +204,7 @@ angular.module('goalComponents', ['Interpolation',
             addRemoveLinks: true,
             uploadMultiple: false,
             maxThumbnailFilesize: 6,
-            maxFiles: 6,
+            maxFiles: imageCount,
             removedfile: function(d){
               angular.element(d.previewElement).remove();
               var id = JSON.parse(d.xhr.responseText);
@@ -220,6 +224,19 @@ angular.module('goalComponents', ['Interpolation',
               $scope.$apply();
             }
           });
+          if(!angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
+            var existingFiles = $scope.userGoal.story.files;
+
+            angular.forEach(existingFiles, function (value) {
+
+              $scope.files.push(value.id);
+
+              var mockFile = {name: value.file_original_name, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
+
+              $scope.goalDropzone.emit("addedfile", mockFile);
+              $scope.goalDropzone.emit("thumbnail", mockFile, value.image_path);
+            });
+          }
         }, 500);
       };
 

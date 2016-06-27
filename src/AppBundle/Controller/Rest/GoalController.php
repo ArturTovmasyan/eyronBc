@@ -806,6 +806,7 @@ class GoalController extends FOSRestController
 
         $lastStory = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
 
+        $imageIds = $content->files;
         if (count($lastStory) == 0){
             $successStory = new SuccessStory();
             $successStory->setGoal($goal);
@@ -813,22 +814,21 @@ class GoalController extends FOSRestController
         }
         else {
             $successStory = $lastStory[0];
+            foreach($successStory->getFiles() as $file){
+                if (!in_array($file->getId(), $imageIds)){
+                    $em->remove($file);
+                    $successStory->removeFile($file);
+                }
+            }
         }
 
         $successStory->setVideoLink($videoLink);
         $successStory->setStory($story);
 
+        if($imageIds){
 
-        //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
-        }
-
-        $images = $content->files;
-        if($images){
-
-            $images = array_unique($images);
-            $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($images);
+            $imageIds = array_unique($imageIds);
+            $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($imageIds);
 
             if(count($storyImages) != 0){
                 foreach($storyImages as $storyImage){
@@ -846,6 +846,11 @@ class GoalController extends FOSRestController
 
         $em->persist($successStory);
         $em->flush();
+
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
+        }
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
     }

@@ -40,7 +40,7 @@ class SuccessStory implements ActivityableInterface
     protected $goal;
 
     /**
-     * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"}, indexBy="id")
      * @Groups({"successStory_storyImage"})
      * @Assert\Valid()
      */
@@ -178,8 +178,10 @@ class SuccessStory implements ActivityableInterface
      */
     public function addFile(\AppBundle\Entity\StoryImage $files)
     {
-        $this->files[] = $files;
-        $files->setStory($this);
+        if (!isset($this->files[$files->getId()])){
+            $this->files[$files->getId()] = $files;
+            $files->setStory($this);
+        }
 
         return $this;
     }
