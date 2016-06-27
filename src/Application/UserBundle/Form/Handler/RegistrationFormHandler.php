@@ -31,15 +31,15 @@ class RegistrationFormHandler extends BaseHandler
 
     /**
      * @param FormInterface $form
-     * @param Request $request
      * @param UserManagerInterface $userManager
      * @param MailerInterface $mailer
      * @param TokenGeneratorInterface $tokenGenerator
      * @param $container
      */
-    public function __construct(FormInterface $form, Request $request, UserManagerInterface $userManager,
+    public function __construct(FormInterface $form, UserManagerInterface $userManager,
                                 MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, Container $container)
     {
+        $request = $container->get('request');
         // get parent  constructor
         parent::__construct($form, $request, $userManager, $mailer, $tokenGenerator);
 

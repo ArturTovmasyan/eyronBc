@@ -18,8 +18,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Class LocaleListener
  * @package AppBundle\Listener
  */
-class LocaleListener //implements EventSubscriberInterface
+class RequestListener //implements EventSubscriberInterface
 {
+    const IOS_REQUEST_PARAM     = 'ios';
+    const ANDROID_REQUEST_PARAM = 'android';
+
     /**
      * @var string
      */
@@ -66,5 +69,18 @@ class LocaleListener //implements EventSubscriberInterface
                 $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
             }
         }
+
+//        $mobileAppVersion  = $request->query->get('mobileAppVersion');
+//        $mobileAppPlatform = $request->query->get('mobileAppPlatform');
+//
+//        if ($mobileAppVersion && $mobileAppPlatform){
+//            switch($mobileAppPlatform){
+//                case self::IOS_REQUEST_PARAM:
+//
+//            }
+//            if ($mobileAppPlatform == self::IOS_REQUEST_PARAM){
+//
+//            }
+//        }
     }
 }

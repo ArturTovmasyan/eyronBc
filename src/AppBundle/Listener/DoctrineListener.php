@@ -287,21 +287,18 @@ class DoctrineListener
         if($env != "test"){
 
             try{
-                // get request
                 $request = $this->container->get('request');
-
-                // get session
                 $session = $request->getSession();
 
-                // get locale
-                $locale = $session->get("_locale");
+                if (!$session){
+                    return;
+                }
 
-                // get language
+                $locale = $session->get("_locale");
                 $userLocale = $entity->getLanguage();
 
                 // check user local with default locale
                 if($userLocale && $userLocale != $locale){
-
                     // set session locale
                     $session->set('_locale', $userLocale);
                 }
