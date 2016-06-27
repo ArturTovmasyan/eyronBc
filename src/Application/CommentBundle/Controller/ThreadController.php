@@ -48,7 +48,7 @@ class ThreadController extends BaseController
         //get current user id
         $userId = $user->getId();
 
-        $this->container->get('request')->getSession()
+        $this->container->get('request_stack')->getCurrentRequest()->getSession()
             ->getFlashBag()
             ->set('comments','Add comment from Web');
 

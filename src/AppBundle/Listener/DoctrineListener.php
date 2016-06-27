@@ -104,12 +104,12 @@ class DoctrineListener
             }
         }
 
-        $request = $this->container->get('request');
+        $request = $this->container->get('request_stack')->getCurrentRequest();
         $route = $this->container->get('router');
         $liipManager = $this->container->get('liip_imagine.cache.manager');
 
         if ($entity instanceof ImageableInterface){
-            if ($request->get('_format') == "json" && $entity->getImagePath()){
+            if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
                 $liipManager->getBrowserPath($entity->getImagePath(), 'mobile_goal');
                 $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'mobile_goal'];
                 $filterUrl = $route->generate('liip_imagine_filter', $params);
@@ -117,7 +117,7 @@ class DoctrineListener
             }
         }
         elseif($entity instanceof User){
-            if ($request->get('_format') == "json" && $entity->getImagePath()){
+            if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
                 $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
                 $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_goal'];
                 $filterUrl = $route->generate('liip_imagine_filter', $params);
@@ -287,7 +287,7 @@ class DoctrineListener
         if($env != "test"){
 
             try{
-                $request = $this->container->get('request');
+                $request = $this->container->get('request_stack')->getCurrentRequest();
                 $session = $request->getSession();
 
                 if (!$session){

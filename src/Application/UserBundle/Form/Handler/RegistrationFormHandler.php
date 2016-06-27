@@ -16,6 +16,7 @@ use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class RegistrationFormHandler
@@ -36,10 +37,10 @@ class RegistrationFormHandler extends BaseHandler
      * @param TokenGeneratorInterface $tokenGenerator
      * @param $container
      */
-    public function __construct(FormInterface $form, UserManagerInterface $userManager,
+    public function __construct(FormInterface $form, RequestStack $requestStack, UserManagerInterface $userManager,
                                 MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, Container $container)
     {
-        $request = $container->get('request');
+        $request = $requestStack->getCurrentRequest();
         // get parent  constructor
         parent::__construct($form, $request, $userManager, $mailer, $tokenGenerator);
 

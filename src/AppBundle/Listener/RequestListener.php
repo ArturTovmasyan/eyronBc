@@ -74,16 +74,16 @@ class RequestListener //implements EventSubscriberInterface
             }
         }
 
-        $mobileAppVersion  = $request->query->get('mobileAppVersion');
-        $mobileAppPlatform = $request->query->get('mobileAppPlatform');
-
-        if ($mobileAppVersion && $mobileAppPlatform){
-
-            if(isset($this->mandatoryVersions[$mobileAppPlatform]) &&
-                version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1)
-            {
-                $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
-            }
-        }
+//        $mobileAppVersion  = $request->query->get('mobileAppVersion');
+//        $mobileAppPlatform = $request->query->get('mobileAppPlatform');
+//
+//        if ($mobileAppVersion && $mobileAppPlatform){
+//
+//            if(isset($this->mandatoryVersions[$mobileAppPlatform]) &&
+//                version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1)
+//            {
+//                $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
+//            }
+//        }
     }
 }

@@ -43,7 +43,8 @@ class ImageFilterExtension extends \Twig_Extension
         if(strpos($path, 'http') === false){
 
             try{
-                $this->container->get('liip_imagine.controller')->filterAction($this->container->get('request'), $path, $filter);
+                $request = $this->container->get('request_stack')->getCurrentRequest();
+                $this->container->get('liip_imagine.controller')->filterAction($request, $path, $filter);
                 $cacheManager = $this->container->get('liip_imagine.cache.manager');
                 $srcPath = $cacheManager->getBrowserPath($path, $filter);
 
