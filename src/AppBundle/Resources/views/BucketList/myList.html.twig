@@ -139,21 +139,21 @@
                                                     {{ 'dreaming'|trans }}
                                                 {% endif %}
                                             </div>
-                                            <div class="text-gray ng-hide" data-ng-if="change{{ goal.id }} === 1 && !isMobile">
+                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 1 && !isMobile">
                                                 {{ 'dreaming'|trans }}
                                             </div>
 
-                                            <div class="text-purple ng-hide" data-ng-if="change{{ goal.id }} === 1 && isMobile">
+                                            <div class="text-purple " data-ng-if="change{{ goal.id }} === 1 && isMobile">
                                                 <i class="dreaming">
                                                     <i class="icon-dreaming"></i>
                                                 </i>
                                             </div>
 
-                                            <div class="text-gray ng-hide" data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
+                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
                                                 [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
                                             </div>
 
-                                            <div class="text-purple ng-hide" data-ng-if="change{{ goal.id }} === 2 && isMobile" >
+                                            <div class="text-purple " data-ng-if="change{{ goal.id }} === 2 && isMobile" >
                                                 [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
                                             </div>
 
