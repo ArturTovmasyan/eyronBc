@@ -85,11 +85,11 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    protected function initializeContainer() {
-        parent::initializeContainer();
-        if (PHP_SAPI == 'cli') {
-            $this->getContainer()->enterScope('request');
-            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        }
-    }
+//    protected function initializeContainer() {
+//        parent::initializeContainer();
+//        if (PHP_SAPI == 'cli') {
+//            $this->getContainer()->enterScope('request');
+//            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
+//        }
+//    }
 }

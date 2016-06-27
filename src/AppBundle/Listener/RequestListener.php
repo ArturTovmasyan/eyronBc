@@ -9,8 +9,6 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -31,25 +29,31 @@ class RequestListener //implements EventSubscriberInterface
     /**
      * @var
      */
-    private $container;
+    private $mandatoryVersions;
 
     /**
-     * @param $defaultLocale
-     * @param Container $container
+     * RequestListener constructor.
+     * @param string $defaultLocale
+     * @param $iosMandatoryVersion
+     * @param $androidMandatoryVersion
      */
-    public function __construct($defaultLocale = "en", Container $container)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion)
     {
         $this->defaultLocale = $defaultLocale;
-        $this->container = $container;
+
+        $this->mandatoryVersions = [
+            MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
+            MainRestController::ANDROID_REQUEST_PARAM => $androidMandatoryVersion
+        ];
     }
 
     /**
-     *
+     * @param GetResponseEvent $event
      */
-    public function onKernelRequest()
+    public function onKernelRequest(GetResponseEvent $event)
     {
         // get request
-        $request = $this->container->get("request");
+        $request = $event->getRequest();
 
         //get current url
         $currentUrl = $request->getUri();
@@ -74,19 +78,11 @@ class RequestListener //implements EventSubscriberInterface
         $mobileAppPlatform = $request->query->get('mobileAppPlatform');
 
         if ($mobileAppVersion && $mobileAppPlatform){
-            switch($mobileAppPlatform){
-                case MainRestController::IOS_REQUEST_PARAM:
-                    $mandatoryVersion = $this->container->getParameter('ios_mandatory_version');
-                    break;
-                case MainRestController::ANDROID_REQUEST_PARAM:
-                    $mandatoryVersion = $this->container->getParameter('android_mandatory_version');
-                    break;
-                default:
-                    return;
-            }
 
-            if(version_compare($mobileAppVersion, $mandatoryVersion) == -1){
-                throw new HttpException(Response::HTTP_UPGRADE_REQUIRED, 'Need to update your app');
+            if(isset($this->mandatoryVersions[$mobileAppPlatform]) &&
+                version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1)
+            {
+                $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
             }
         }
     }
