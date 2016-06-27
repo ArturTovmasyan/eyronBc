@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class SuccessStory
@@ -24,6 +25,8 @@ use JMS\Serializer\Annotation\Groups;
  */
 class SuccessStory implements ActivityableInterface
 {
+    const MIN_WORDS_IN_STORY = 3;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -43,6 +46,10 @@ class SuccessStory implements ActivityableInterface
      * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"})
      * @Groups({"successStory_storyImage"})
      * @Assert\Valid()
+     * @Assert\Count(
+     *      max = "6",
+     *      maxMessage = "success_story.max_files"
+     * )
      */
     protected $files;
 
@@ -271,5 +278,23 @@ class SuccessStory implements ActivityableInterface
     public function getVideoLink()
     {
         return $this->videoLink;
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     *
+     * @Assert\Callback()
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $hasFiles  = (count($this->files) != 0);
+        $hasVideos = (count($this->videoLink) != 0);
+        $wordCountInStory = count(explode(' ', $this->story));
+
+        if (!$hasFiles && !$hasVideos && $wordCountInStory < self::MIN_WORDS_IN_STORY) {
+            $context->buildViolation("Success story must has min " . self::MIN_WORDS_IN_STORY . " words")
+                ->atPath('story')
+                ->addViolation();
+        }
     }
 }
