@@ -122,7 +122,16 @@
                                         {% endif %}
                                         <div class="elipse">
                                             <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0">
-                                                {% if userGoal.doDate is not null %}
+                                                {% if isMobile() %}
+                                                    {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
+                                                    {% if goalDate != 'dreaming' %}
+                                                        {{ goalDate|date('d F Y') }}
+                                                    {% else %}
+                                                        <i class="dreaming">
+                                                            <i class="icon-dreaming"></i>
+                                                        </i>
+                                                    {% endif %}
+                                                {% elseif userGoal.doDate is not null %}
                                                     {{ userGoal.doDate|date('M, Y') }}
                                                 {% elseif userGoal.completionDate is not null%}
                                                     {{ userGoal.completionDate|date('M, Y') }}
@@ -130,12 +139,22 @@
                                                     {{ 'dreaming'|trans }}
                                                 {% endif %}
                                             </div>
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} === 1">
+                                            <div class="text-gray ng-hide" data-ng-if="change{{ goal.id }} === 1 && !isMobile">
                                                 {{ 'dreaming'|trans }}
                                             </div>
 
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} === 2" >
+                                            <div class="text-purple ng-hide" data-ng-if="change{{ goal.id }} === 1 && isMobile">
+                                                <i class="dreaming">
+                                                    <i class="icon-dreaming"></i>
+                                                </i>
+                                            </div>
+
+                                            <div class="text-gray ng-hide" data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
                                                 [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
+                                            </div>
+
+                                            <div class="text-purple ng-hide" data-ng-if="change{{ goal.id }} === 2 && isMobile" >
+                                                [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
                                             </div>
 
                                         </div>
