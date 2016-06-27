@@ -166,13 +166,30 @@ angular.module('goalComponents', ['Interpolation',
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;
-      if(!angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files){
+      if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files)){
         imageCount = 6 - $scope.userGoal.story.files.length
       }
+
+      $('body').on('focus', '#story', function() {
+        $('#story').removeClass('border-red')
+      });
+
+      $scope.isInValid = function () {
+        if(angular.isUndefined($scope.userGoal.story)
+          || angular.isUndefined($scope.userGoal.story.story)
+          || $scope.userGoal.story.story.length < 3 )return true;
+        var words = $scope.userGoal.story.story.split(' ');
+        if((angular.isUndefined($scope.userGoal.story.video_link) || !$scope.userGoal.story.video_link.length )&&
+          (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3){
+          return true;
+        }
+
+        return false;
+      };
       
-      //todo must say user to write success story
       $scope.save = function () {
-        if(angular.isUndefined($scope.userGoal.story) || $scope.userGoal.story.story.length < 3){
+        if($scope.isInValid()){
+          angular.element("#story").addClass('border-red');
           return;
         }
         $timeout(function(){
@@ -224,7 +241,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.$apply();
             }
           });
-          if(!angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
+          if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
             var existingFiles = $scope.userGoal.story.files;
 
             angular.forEach(existingFiles, function (value) {
