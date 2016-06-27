@@ -121,6 +121,9 @@ trait File
      * Get fileOriginalName
      *
      * @return string
+     *
+     * @VirtualProperty()
+     * @Groups({"image"})
      */
     public function getFileOriginalName()
     {
