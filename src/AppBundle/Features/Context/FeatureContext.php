@@ -51,11 +51,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->getDriver()->maximizeWindow();
     }
 
-    /** @BeforeSuite */
-    public static function callFixturesCommand(BeforeSuiteScope $scope)
-    {
-        $scope->output = shell_exec('./bin/behat.sh');
-    }
+//    /** @BeforeSuite */
+//    public static function callFixturesCommand(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./bin/behat.sh');
+//    }
 
     /**
      * @Given I am logged in as :user
