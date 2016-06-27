@@ -86,7 +86,9 @@
                         {% if profileUser.id == app.user.id or userGoal.isVisible %}
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
-                                <div class="col-sm-2 no-right">
+                                <div class="col-sm-2 no-right" data-ng-class="{'no-left' : isMobile}">
+
+
                                     <div class="date-left" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
 
                                         <p data-ng-if="isMobile">
@@ -94,6 +96,37 @@
                                                     <span class="hidden-sm hidden-mg hidden-lg space"></span>
                                             {% endif %}
                                         </p>
+
+                                        <div class="data-mobile" data-ng-if="isMobile">
+
+                                            <div></div>
+                                            <div>
+                                                {#{% if isMobile() %}#}
+                                                    {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
+                                                    {% if goalDate != 'dreaming' %}
+                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">{{ goalDate|date('d F Y') }}</p>
+                                                    {% else %}
+                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">
+                                                            <i class="dreaming-mobile">
+                                                                <i class="icon-dreaming text-purple"></i>
+                                                            </i>
+                                                        </p>
+                                                    {% endif %}
+                                                {#{% endif %}#}
+
+                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 2 && isMobile" >
+                                                    [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
+                                                </p>
+
+
+                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 1 && isMobile">
+                                                    <i class="dreaming-mobile">
+                                                        <i class="icon-dreaming text-purple"></i>
+                                                    </i>
+                                                </p>
+
+                                            </div>
+                                        </div>
 
                                         <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0">
                                             {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
@@ -121,41 +154,45 @@
                                             <span class="hidden-xs"></span>
                                         {% endif %}
                                         <div class="elipse">
-                                            <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0">
-                                                {% if isMobile() %}
-                                                    {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
-                                                    {% if goalDate != 'dreaming' %}
-                                                        {{ goalDate|date('d F Y') }}
-                                                    {% else %}
-                                                        <i class="dreaming">
-                                                            <i class="icon-dreaming"></i>
-                                                        </i>
-                                                    {% endif %}
-                                                {% elseif userGoal.doDate is not null %}
-                                                    {{ userGoal.doDate|date('M, Y') }}
-                                                {% elseif userGoal.completionDate is not null%}
-                                                    {{ userGoal.completionDate|date('M, Y') }}
-                                                {% else %}
-                                                    {{ 'dreaming'|trans }}
-                                                {% endif %}
-                                            </div>
+
+                                                {#{% if isMobile() %}#}
+                                                    {#{% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}#}
+                                                    {#{% if goalDate != 'dreaming' %}#}
+                                                        {#<p style="margin-bottom:0;">{{ goalDate|date('d F Y') }}</p>#}
+                                                    {#{% else %}#}
+                                                        {#<i class="dreaming-mobile">#}
+                                                            {#<i class="icon-dreaming text-purple"></i>#}
+                                                        {#</i>#}
+                                                    {#{% endif %}#}
+                                        {#{% if not isMobile() %}#}
+                                            <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0 && !isMobile">
+                                            {% if userGoal.doDate is not null %}
+                                                {{ userGoal.doDate|date('M, Y') }}
+                                            {% elseif userGoal.completionDate is not null%}
+                                                {{ userGoal.completionDate|date('M, Y') }}
+                                            {% else %}
+                                                {{ 'dreaming'|trans }}
+                                            {% endif %}
+                                             </div>
+                                        {#{% endif %}#}
+
                                             <div class="text-gray " data-ng-if="change{{ goal.id }} === 1 && !isMobile">
                                                 {{ 'dreaming'|trans }}
                                             </div>
 
-                                            <div class="text-purple " data-ng-if="change{{ goal.id }} === 1 && isMobile">
-                                                <i class="dreaming">
-                                                    <i class="icon-dreaming"></i>
-                                                </i>
-                                            </div>
+                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 1 && isMobile">#}
+                                                {#<i class="dreaming-mobile">#}
+                                                    {#<i class="icon-dreaming text-purple"></i>#}
+                                                {#</i>#}
+                                            {#</div>#}
 
                                             <div class="text-gray " data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
                                                 [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
                                             </div>
 
-                                            <div class="text-purple " data-ng-if="change{{ goal.id }} === 2 && isMobile" >
-                                                [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
-                                            </div>
+                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 2 && isMobile" >#}
+                                                {#[[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]#}
+                                            {#</div>#}
 
                                         </div>
 
