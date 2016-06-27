@@ -11,11 +11,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\StoryImage;
-use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
-use AppBundle\Form\SuccessStoryType;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -220,37 +218,33 @@ class GoalController extends Controller
      *
      * @param Request $request
      * @return array
+     * @deprecated
      */
     public function addSuccessStoryImage(Request $request)
     {
         $file = $request->files->get('file');
 
-        if($file){
-
-            $validator     = $this->get('validator');
-            $em            = $this->getDoctrine()->getManager();
-            $bucketService = $this->get('bl_service');
-
-            $storyImage = new StoryImage();
-            $storyImage->setFile($file);
-
-            $error = $validator->validate($storyImage);
-
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-
-            }
-            else {
-                $bucketService->uploadFile($storyImage);
-                $em->persist($storyImage);
-            }
-
-            $em->flush();
-
-            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
+        if(!$file) {
+            return new JsonResponse('', Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
+        $validator     = $this->get('validator');
+        $em            = $this->getDoctrine()->getManager();
+        $bucketService = $this->get('bl_service');
+
+        $storyImage = new StoryImage();
+        $storyImage->setFile($file);
+
+        $error = $validator->validate($storyImage);
+        if(count($error) > 0){
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $bucketService->uploadFile($storyImage);
+        $em->persist($storyImage);
+        $em->flush();
+
+        return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
     }
 
     /**
@@ -329,116 +323,6 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/add-story/{id}", name="add_story")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @param Goal $goal
-     * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Secure(roles="ROLE_USER")
-     */
-    public function addSuccessStoryAction(Goal $goal, Request $request)
-    {
-        //get session
-        $session = $request->getSession();
-
-        //check if user and session url exist
-        if ($session->has('addUrl')) {
-            $session->remove('addUrl');
-        }
-
-        // create new success story object
-        $story = new SuccessStory();
-
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get users that done this goal
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::COMPLETED);
-
-        // get users that listed this goal
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
-
-        // get current user
-        $user = $this->getUser();
-
-        //get current user id
-        $userId = $user->getId();
-
-        // create form
-        $form = $this->createForm(SuccessStoryType::class, $story);
-
-        // check method
-        if($request->isMethod("POST")) {
-
-            // get data from request
-            $form->handleRequest($request);
-
-            // check data
-            if($form->isValid()){
-
-                if ($videoLinks = $story->getVideoLink()){
-                    $videoLinks = array_values($videoLinks);
-                    $videoLinks = array_filter($videoLinks);
-
-                    $story->setVideoLink($videoLinks);
-                }
-
-                //check if goal author not admin and not null
-                if($goal->hasAuthorForNotify($userId)) {
-
-                    //send success story notify
-                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story->getStory());
-                }
-
-                // get images ids
-                $images = $form->get('files')->getData();
-
-                if($images){
-
-                    // get json from request
-                    $images = json_decode($images);
-
-                    // remove duplicate
-                    $images = array_unique($images);
-
-                    // get goal images form bd
-                    $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($images);
-
-                    // check story images
-                    if($storyImages){
-
-                        // loop for story images
-                        foreach($storyImages as $storyImage){
-
-                            // add to story
-                            $story->addFile($storyImage);
-                        }
-                    }
-                }
-
-                // add user
-                $story->setUser($user);
-
-                // add success story to goal
-                $goal->addSuccessStory($story);
-                $em->persist($story);
-
-                $em->flush();
-
-                return new Response('ok');
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'goal' => $goal,
-            'doneByUsers' => $doneByUsers,
-            'listedByUsers' => $listedByUsers,
-        );
-    }
-
-    /**
      * @Route("goal/add-modal", name="add_modal")
      * @Template()
      * @return array
@@ -460,12 +344,11 @@ class GoalController extends Controller
 
     /**
      * @Route("goal/done-modal", name="done_modal")
-     * @Template()
      * @return array
      */
     public function doneModalAction()
     {
-        return $this->render('@App/Goal/addSuccessStory.html.twig');
+        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
     }
 
     /**

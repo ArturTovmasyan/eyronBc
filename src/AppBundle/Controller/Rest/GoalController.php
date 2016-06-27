@@ -883,6 +883,8 @@ class GoalController extends FOSRestController
      */
     public function addSuccessStoryImagesAction($id = null, $userId = null, Request $request)
     {
+        //TODO: need for some changes to work for mobile and web
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
