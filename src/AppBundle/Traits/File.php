@@ -69,17 +69,19 @@ trait File
 
     /**
      * @ORM\Column(name="file_original_name", type="string", length=255, nullable=true)
+     * @Groups({"image"})
      */
     protected $fileOriginalName;
 
     /**
      * @ORM\Column(name="file_name", type="string", length=255, nullable=true)
+     * @Groups({"image"})
      */
     protected $fileName;
 
     /**
      * @var integer
-     *
+     * @Groups({"image"})
      * @ORM\Column(name="file_size", type="integer", nullable=true)
      */
     protected $fileSize;

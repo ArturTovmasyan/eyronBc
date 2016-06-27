@@ -49,7 +49,6 @@ class SuccessStoryRepository extends EntityRepository
             ->setParameter('userId', $userId)
             ->setParameter('goalId', $goalId)
             ->setFirstResult(0)
-            ->setMaxResults(1)
             ->getResult();
     }
 }
