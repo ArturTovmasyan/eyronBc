@@ -22,7 +22,7 @@ class MainRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="Goal",
+     *  section="Main",
      *  description="This function is used to get mobile last versions",
      *  statusCodes={
      *         200="Returned when goals was returned",
