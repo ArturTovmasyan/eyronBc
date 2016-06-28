@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: aram
- * Date: 10/21/15
- * Time: 5:24 PM
+ * User: artur
+ * Date: 28/06/2016
+ * Time: 14:24 PM
  */
 
-namespace Application\UserBundle\Admin;
+namespace Application\UserBundle\Admin\Model;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -15,9 +15,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use FOS\UserBundle\Model\UserManagerInterface;
+
 
 class UserAdmin extends AbstractAdmin
 {
+//    protected $translationDomain = 'messages'; // default is 'messages'
     protected $baseRouteName    = 'admin-user';
     protected $baseRoutePattern = 'admin-user';
     public    $usersCount       = 0;
@@ -37,6 +40,7 @@ class UserAdmin extends AbstractAdmin
             ->add('picture', null, array('template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
             ->add('profile', null, array('template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
             ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'))
+            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
             ->add('listedGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
             ->add('createdGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
             ->add('successStory count', null, array('template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
@@ -73,11 +77,6 @@ class UserAdmin extends AbstractAdmin
             ->add('email', null, array('label'=>'admin.label.name.email_username','show_filter' => true))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName','show_filter' => true))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName','show_filter' => true))
-//            ->add('created', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker', 'show_filter' => true),null,
-//                array('widget' => 'single_text',
-//                      'format' => 'yyyy-MM-dd',
-//                      'required' => false)
-//            );
             ->add('created','doctrine_orm_date_range', array('show_filter' => true),'sonata_type_date_range_picker',
                 array('field_options_start' => array('format' => 'yyyy-MM-dd'),
                       'field_options_end' => array('format' => 'yyyy-MM-dd'))
@@ -133,4 +132,21 @@ class UserAdmin extends AbstractAdmin
         $object->addRole("ROLE_ADMIN");
         $object->addRole("ROLE_SUPER_ADMIN");
     }
+
+    /**
+     * @param UserManagerInterface $userManager
+     */
+    public function setUserManager(UserManagerInterface $userManager)
+    {
+        $this->userManager = $userManager;
+    }
+
+    /**
+     * @return UserManagerInterface
+     */
+    public function getUserManager()
+    {
+        return $this->userManager;
+    }
+
 }
