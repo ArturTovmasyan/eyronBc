@@ -337,6 +337,7 @@ admin:
       author_name: Author
       email_username: Email\Username
       messages: Message
+      enabled: Enabled
 
 # end sonata admin lable
 
