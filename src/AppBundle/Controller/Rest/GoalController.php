@@ -354,7 +354,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if(!$file) {
+        if(is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
@@ -774,12 +774,12 @@ class GoalController extends FOSRestController
         $validator = $this->container->get('validator');
 
         $content = json_decode($request->getContent());
-        if (!isset($content->story) || !isset($content->story->story)){
+        if (!isset($content->story)){
             return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
         }
 
-        $story = $content->story->story;
-        $videoLink = isset($content->story->video_link) ? $content->story->video_link : null;
+        $story     = $content->story;
+        $videoLink = $content->videoLink;
         $videoLink = array_values($videoLink);
         $videoLink = array_filter($videoLink);
 
@@ -882,7 +882,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if (!$file) {
+        if (is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 

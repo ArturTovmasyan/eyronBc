@@ -204,7 +204,7 @@ angular.module('goalComponents', ['Interpolation',
             }
           });
           var data = {
-            'story'     : $scope.userGoal.story,
+            'story'     : $scope.userGoal.story.story,
             'videoLink' : $scope.video_link,
             'files'     : $scope.files
           };
