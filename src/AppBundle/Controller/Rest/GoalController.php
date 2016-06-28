@@ -334,7 +334,7 @@ class GoalController extends FOSRestController
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addImagesAction(Goal $goal = null, User $user = null, Request $request)
+    public function addImagesAction(Request $request, Goal $goal = null, User $user = null)
     {
         //TODO this rest non secured
         $em = $this->getDoctrine()->getManager();
@@ -354,7 +354,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if(!$file) {
+        if(is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
@@ -774,12 +774,12 @@ class GoalController extends FOSRestController
         $validator = $this->container->get('validator');
 
         $content = json_decode($request->getContent());
-        if (!isset($content->story) || !isset($content->story->story)){
+        if (!isset($content->story)){
             return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
         }
 
-        $story = $content->story->story;
-        $videoLink = isset($content->story->video_link) ? $content->story->video_link : null;
+        $story     = $content->story;
+        $videoLink = $content->videoLink;
         $videoLink = array_values($videoLink);
         $videoLink = array_filter($videoLink);
 
@@ -853,17 +853,18 @@ class GoalController extends FOSRestController
      * )
      * )
      *
-     * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
-     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"id" = "userId"})
+     * @Rest\Post("/success-story/{id}/add-images/{userId}", requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/success-story/add-images")
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"mapping" = {"userId" = "id"}})
+     * @ParamConverter("successStory", class="AppBundle:SuccessStory", options={"mapping" = {"id" = "id"}})
      * @param $successStory
      * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addSuccessStoryImagesAction(SuccessStory $successStory = null, User $user = null, Request $request)
+    public function addSuccessStoryImagesAction(Request $request, SuccessStory $successStory = null, User $user = null)
     {
-        //TODO: need for some changes to work for mobile and web
         $em = $this->getDoctrine()->getManager();
 
         if (is_null($user)){
@@ -881,7 +882,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if (!$file) {
+        if (is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
@@ -905,7 +906,7 @@ class GoalController extends FOSRestController
         $em->persist($storyImage);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+        return $storyImage->getId();
     }
 
     /**

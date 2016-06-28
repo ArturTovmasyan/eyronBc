@@ -166,6 +166,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;
+      var clickable = true;
       if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files)){
         imageCount = 6 - $scope.userGoal.story.files.length
       }
@@ -192,15 +193,23 @@ angular.module('goalComponents', ['Interpolation',
           angular.element('textarea[name=story]').addClass('border-red');
           return;
         }
+        if(!clickable){
+          return;
+        }
         $timeout(function(){
-          $scope.userGoal.files = $scope.files;
-          $scope.userGoal.story.video_link = [];
+          // $scope.userGoal.files = $scope.files;
+          $scope.video_link = [];
           angular.forEach($scope.userGoal.videos_array, function (d) {
             if(!angular.isUndefined(d.link) && d.link){
-              $scope.userGoal.story.video_link.push(d.link);
+              $scope.video_link.push(d.link);
             }
           });
-          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
+          var data = {
+            'story'     : $scope.userGoal.story.story,
+            'videoLink' : $scope.video_link,
+            'files'     : $scope.files
+          };
+          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
             angular.element('#cancel').click();
           });
         }, 100)
@@ -222,6 +231,9 @@ angular.module('goalComponents', ['Interpolation',
             uploadMultiple: false,
             maxThumbnailFilesize: 6,
             maxFiles: imageCount,
+            sending: function(){
+              clickable = false;
+            },
             removedfile: function(d){
               angular.element(d.previewElement).remove();
               var id = JSON.parse(d.xhr.responseText);
@@ -233,6 +245,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.$apply();
             },
             complete: function(res){
+              clickable = true;
               if(res.xhr.status !== 200){
                 return;
               }
