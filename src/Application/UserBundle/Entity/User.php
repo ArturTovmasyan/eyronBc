@@ -268,9 +268,9 @@ class User extends BaseUser
     protected $activeDayOfWeek;
 
     /**
-     * @ORM\Column(name="last_push_note_data", type="datetime", nullable=true)
+     * @ORM\Column(name="last_push_note_date", type="datetime", nullable=true)
      */
-    protected $lastPushNoteData;
+    protected $lastPushNoteDate;
 
     /**
      * @Groups({"tiny_goal"})
@@ -1789,16 +1789,16 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getLastPushNoteData()
+    public function getLastPushNoteDate()
     {
-        return $this->lastPushNoteData;
+        return $this->lastPushNoteDate;
     }
 
     /**
-     * @param mixed $lastPushNoteData
+     * @param mixed $lastPushNoteDate
      */
-    public function setLastPushNoteData($lastPushNoteData)
+    public function setLastPushNoteData($lastPushNoteDate)
     {
-        $this->lastPushNoteData = $lastPushNoteData;
+        $this->lastPushNoteDate = $lastPushNoteDate;
     }
 }

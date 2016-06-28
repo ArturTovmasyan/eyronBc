@@ -49,8 +49,8 @@
         <!-- service locale listener -->
         <service id="bl.request.listener" class="AppBundle\Listener\RequestListener">
             <argument>%kernel.default_locale%</argument>
-            <argument>%android_mandatory_version%</argument>
             <argument>%ios_mandatory_version%</argument>
+            <argument>%android_mandatory_version%</argument>
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
         </service>
 

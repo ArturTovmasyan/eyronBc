@@ -316,7 +316,7 @@ class UserRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT u
                            FROM ApplicationUserBundle:User u
-                           WHERE DATE_DIFF(CURRENT_DATE(), DATE(u.lastPushNoteData)) >= 7
+                           WHERE DATE_DIFF(CURRENT_DATE(), DATE(u.lastPushNoteDate)) >= 7
                            AND u.activeTime = HOUR(CURRENT_TIME())
                            AND u.activeDayOfWeek = DAYOFWEEK(CURRENT_DATE()) - 1")
             ->getResult();

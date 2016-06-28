@@ -129,8 +129,15 @@
 
         {% set goalAction = getSession('goal_action') %}
 
-        <img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>
-
+        {#<img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>#}
+        <div style="display:none;position: fixed;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading">
+            <div id="load1" class="load-img">
+            </div>
+            <div id="load2" class="load-img"></div>
+            <div id="load3" class="load-img"></div>
+            <div id="load4" class="load-img"></div>
+            <div id="load5" class="load-img"></div>
+        </div>
         {% if app.user and goalAction is not null %}
             {% if goalAction['action'] == "rest_put_usergoal" %}
                 <div data-ls-goal-manage
