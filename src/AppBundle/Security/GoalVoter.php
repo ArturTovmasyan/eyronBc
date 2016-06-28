@@ -63,15 +63,29 @@ class GoalVoter extends Voter
      */
     private function canView(Goal $goal, $user)
     {
-        if ($goal->getPublish() == PublishAware::PUBLISH || $user instanceof User){
+        return ($goal->getPublish() == PublishAware::PUBLISH || $user instanceof User);
+    }
+
+    /**
+     * @param Goal $goal
+     * @param $user
+     * @return bool
+     */
+    private function canEdit(Goal $goal, $user)
+    {
+        if (!$user instanceof User){
+            return false;
+        }
+
+        if ($user->isAdmin()){
+            return true;
+        }
+
+        if ($goal->getPublish() == PublishAware::NOT_PUBLISH &&
+            !is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId()){
             return true;
         }
 
         return false;
-    }
-
-    private function canEdit(Goal $goal, $user)
-    {
-        return $user === $post->getOwner();
     }
 }
