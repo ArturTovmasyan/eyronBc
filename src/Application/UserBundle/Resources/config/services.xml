@@ -12,9 +12,9 @@
         </service>
 
         <!--  Service for registration form handler -->
-        <service id="bl_user.form.handler.registration" class="Application\UserBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
+        <service id="bl_user.form.handler.registration" class="Application\UserBundle\Form\Handler\RegistrationFormHandler" public="false">
             <argument type="service" id="fos_user.registration.form" />
-            <argument type="service" id="request" />
+            <argument type="service" id="request_stack" />
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="fos_user.mailer" />
             <argument type="service" id="fos_user.util.token_generator" />

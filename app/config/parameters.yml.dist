@@ -36,4 +36,9 @@ parameters:
     user_notify: false
     production: false
 
+    android_optional_version:  1.0.0
+    android_mandatory_version: 1.0.0
+    ios_optional_version:      1.0.0
+    ios_mandatory_version:     1.0.0
+
 

@@ -127,7 +127,7 @@ class UserController extends FOSRestController
         $session->set($providerKey, serialize($token));
         $session->save();
         // get request
-        $request = $this->get('request');
+        $request = $this->get('request_stack')->getCurrentRequest();
         // get cookie
         $cookie = $request->cookies;
         // get session id from cookie

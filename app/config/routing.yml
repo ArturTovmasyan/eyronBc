@@ -90,6 +90,11 @@ app_new_feed_rest:
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /
 
+app_main_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\MainRestController
+    prefix:   /
+
 app_emails_remove_rest:
     type:     rest
     resource: Application\UserBundle\Controller\Rest\SettingsController

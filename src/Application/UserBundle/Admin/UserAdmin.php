@@ -60,6 +60,7 @@ class UserAdmin extends AbstractAdmin
                 'second_options' => array('label' => 'admin.label.name.repeat_password')))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
         ;
     }
 
@@ -90,6 +91,7 @@ class UserAdmin extends AbstractAdmin
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
+            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
             ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
