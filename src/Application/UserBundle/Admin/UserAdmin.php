@@ -30,12 +30,13 @@ class UserAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label' =>' admin.label.name.id'))
+            ->add('id', null, array('label' =>'admin.label.name.id'))
             ->add('email', null, array('label' => 'admin.label.name.email'))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label' => 'admin.label.name.lastName'))
             ->add('picture', null, array('template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
             ->add('profile', null, array('template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
+            ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'))
             ->add('listedGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
             ->add('createdGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
             ->add('successStory count', null, array('template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
@@ -60,6 +61,7 @@ class UserAdmin extends AbstractAdmin
                 'second_options' => array('label' => 'admin.label.name.repeat_password')))
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
+            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
         ;
     }
 
@@ -90,6 +92,7 @@ class UserAdmin extends AbstractAdmin
             ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
             ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
             ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
+            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
             ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
