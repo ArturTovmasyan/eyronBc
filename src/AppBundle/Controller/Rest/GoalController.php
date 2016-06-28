@@ -354,7 +354,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if(!$file) {
+        if(is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
@@ -882,7 +882,7 @@ class GoalController extends FOSRestController
 
         $file = $request->files->get('file');
 
-        if (!$file) {
+        if (is_null($file)) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
