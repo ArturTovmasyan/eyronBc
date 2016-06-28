@@ -211,43 +211,6 @@ class GoalController extends Controller
     }
 
     /**
-     * This action is used for upload images from drag and drop
-     *
-     * @Route("goal/story/add-images", name="add_story_images")
-     * @Method({"POST"})
-     *
-     * @param Request $request
-     * @return array
-     * @deprecated
-     */
-    public function addSuccessStoryImage(Request $request)
-    {
-        $file = $request->files->get('file');
-
-        if(!$file) {
-            return new JsonResponse('', Response::HTTP_NOT_FOUND);
-        }
-
-        $validator     = $this->get('validator');
-        $em            = $this->getDoctrine()->getManager();
-        $bucketService = $this->get('bl_service');
-
-        $storyImage = new StoryImage();
-        $storyImage->setFile($file);
-
-        $error = $validator->validate($storyImage);
-        if(count($error) > 0){
-            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-        }
-
-        $bucketService->uploadFile($storyImage);
-        $em->persist($storyImage);
-        $em->flush();
-
-        return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
-    }
-
-    /**
      * @Template("AppBundle:Blocks:goalInner.html.twig")
      * @ParamConverter("goal", class="AppBundle:Goal")
      *

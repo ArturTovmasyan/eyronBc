@@ -334,7 +334,7 @@ class GoalController extends FOSRestController
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addImagesAction(Goal $goal = null, User $user = null, Request $request)
+    public function addImagesAction(Request $request, Goal $goal = null, User $user = null)
     {
         //TODO this rest non secured
         $em = $this->getDoctrine()->getManager();
@@ -855,17 +855,16 @@ class GoalController extends FOSRestController
      *
      * @Rest\Post("/success-story/{id}/add-images/{userId}", requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
      * @Rest\Post("/success-story/add-images")
-     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"mapping" = {"userId" = "id"}}, isOptional="true")
-     * @ParamConverter("successStory", class="AppBundle:SuccessStory", options={"mapping" = {"id" = "id"}}, isOptional="true")
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"mapping" = {"userId" = "id"}})
+     * @ParamConverter("successStory", class="AppBundle:SuccessStory", options={"mapping" = {"id" = "id"}})
      * @param $successStory
      * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addSuccessStoryImagesAction(SuccessStory $successStory = null, User $user = null, Request $request)
+    public function addSuccessStoryImagesAction(Request $request, SuccessStory $successStory = null, User $user = null)
     {
-        //TODO: need for some changes to work for mobile and web
         $em = $this->getDoctrine()->getManager();
 
         if (is_null($user)){
