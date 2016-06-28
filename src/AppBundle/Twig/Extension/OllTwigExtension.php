@@ -233,7 +233,8 @@ class OllTwigExtension extends \Twig_Extension
      */
     public function getReferer()
     {
-        $referer = $this->container->get('request')->headers->get('referer');
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $referer = $request->headers->get('referer');
 
         if($referer){
             return $referer;

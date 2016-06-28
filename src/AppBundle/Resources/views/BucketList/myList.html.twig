@@ -1,19 +1,6 @@
 {% extends "AppBundle:BucketList:baseList.html.twig" %}
 
 {% block content_container %}
-    <div class="slide map-marker ng-hide" data-ng-cloak data-ng-hide="!showMap">
-        <div data-simple-map-marker
-             data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
-             {#data-on-marker-click="onMarkerClick(goal)"#}
-             data-is-bounded="true"
-             data-item-page-url="{{ env_prefix  }}/goal/"
-             {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
-             data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
-             data-refresh="showMap"
-             class="google-map "
-             style="width: 100%; height: 300px">
-        </div>
-    </div>
 
     <div class="bucketlist">
         <div class="container">
@@ -39,14 +26,27 @@
                         <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
                     <li class="pull-right">
-                        <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap; triggerMap('.google-map')"> {{ 'menu.map'|trans }}
-                            <i class="icon-icon-up" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
-                            <i class="icon-scroll-down ng-hide" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
+                        <a href="javascript:void(0)" data-ng-class="{'map-marker-active': showMap}"
+                           data-ng-click="showMap=!showMap; triggerMap('.google-map')" class="map-marker-new">
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
+        <div class="slide map-marker ng-hide" data-ng-cloak data-ng-hide="!showMap">
+            <div data-simple-map-marker
+                 data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
+                    {#data-on-marker-click="onMarkerClick(goal)"#}
+                 data-is-bounded="true"
+                 data-item-page-url="{{ env_prefix  }}/goal/"
+                    {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
+                 data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                 data-refresh="showMap"
+                 class="google-map "
+                 style="width: 100%; height: 300px">
+            </div>
+        </div>
+
         <hr/>
         <div class="container">
             <div class="row">
@@ -86,9 +86,49 @@
                         {% if profileUser.id == app.user.id or userGoal.isVisible %}
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
-                                <div class="col-sm-2 no-right">
-                                    <div class="date-left hidden-xs" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
-                                        <div class="img-circle" data-ng-if="change{{ goal.id }} == 0">
+                                <div class="col-sm-2 no-right" data-ng-class="{'no-left' : isMobile}">
+
+
+                                    <div class="date-left" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
+
+                                        <p data-ng-if="isMobile">
+                                            {% if userGoals[0].id == userGoal.id %}
+                                                    <span class="hidden-sm hidden-mg hidden-lg space"></span>
+                                            {% endif %}
+                                        </p>
+
+                                        <div class="data-mobile" data-ng-if="isMobile">
+
+                                            <div></div>
+                                            <div>
+                                                {#{% if isMobile() %}#}
+                                                    {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
+                                                    {% if goalDate != 'dreaming' %}
+                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">{{ goalDate|date('d F Y') }}</p>
+                                                    {% else %}
+                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">
+                                                            <i class="dreaming-mobile">
+                                                                <i class="icon-dreaming text-purple"></i>
+                                                            </i>
+                                                        </p>
+                                                    {% endif %}
+                                                {#{% endif %}#}
+
+                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 2 && isMobile" >
+                                                    [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
+                                                </p>
+
+
+                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 1 && isMobile">
+                                                    <i class="dreaming-mobile">
+                                                        <i class="icon-dreaming text-purple"></i>
+                                                    </i>
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0">
                                             {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
                                                 {{ userGoal.doDate|date('d') }}
                                             {% elseif userGoal.completionDate is not null%}
@@ -99,34 +139,61 @@
                                                 </i>
                                             {% endif %}
                                         </div>
-                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
+
+                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
                                         </div>
-                                        <div class="img-circle" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
+
+                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
                                             [[ doDate{{ goal.id }} | date:'dd']]
                                         </div>
 
                                         {% if userGoals[lastIndex].id == userGoal.id %}
-                                            <span></span>
+                                            <span class="hidden-xs"></span>
                                         {% endif %}
                                         <div class="elipse">
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} == 0">
-                                                {% if userGoal.doDate is not null %}
-                                                    {{ userGoal.doDate|date('M, Y') }}
-                                                {% elseif userGoal.completionDate is not null%}
-                                                    {{ userGoal.completionDate|date('M, Y') }}
-                                                {% else %}
-                                                    {{ 'dreaming'|trans }}
-                                                {% endif %}
-                                            </div>
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} === 1">
+
+                                                {#{% if isMobile() %}#}
+                                                    {#{% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}#}
+                                                    {#{% if goalDate != 'dreaming' %}#}
+                                                        {#<p style="margin-bottom:0;">{{ goalDate|date('d F Y') }}</p>#}
+                                                    {#{% else %}#}
+                                                        {#<i class="dreaming-mobile">#}
+                                                            {#<i class="icon-dreaming text-purple"></i>#}
+                                                        {#</i>#}
+                                                    {#{% endif %}#}
+                                        {#{% if not isMobile() %}#}
+                                            <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0 && !isMobile">
+                                            {% if userGoal.doDate is not null %}
+                                                {{ userGoal.doDate|date('M, Y') }}
+                                            {% elseif userGoal.completionDate is not null%}
+                                                {{ userGoal.completionDate|date('M, Y') }}
+                                            {% else %}
+                                                {{ 'dreaming'|trans }}
+                                            {% endif %}
+                                             </div>
+                                        {#{% endif %}#}
+
+                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 1 && !isMobile">
                                                 {{ 'dreaming'|trans }}
                                             </div>
-                                            <div class="text-gray" data-ng-if="change{{ goal.id }} === 2" >
+
+                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 1 && isMobile">#}
+                                                {#<i class="dreaming-mobile">#}
+                                                    {#<i class="icon-dreaming text-purple"></i>#}
+                                                {#</i>#}
+                                            {#</div>#}
+
+                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
                                                 [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
                                             </div>
+
+                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 2 && isMobile" >#}
+                                                {#[[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]#}
+                                            {#</div>#}
+
                                         </div>
 
                                     </div>
@@ -259,18 +326,20 @@
                                                                 <a href="javascript:void(0)"
                                                                    data-ng-cloak
                                                                    data-ng-show="!success{{ goal.id }}"
-                                                                   data-ng-click="goalId = '{{ goal.id }}'; addDone('{{ path("done_goal", {'id' : goal.id }) }}', 'success{{ goal.id }}')"
-                                                                   class="btn btn-transparent ng-hide"
-                                                                   id="done{{ goal.id }}">
+                                                                   data-ng-click="goalId = '{{ goal.id }}';success{{ goal.id }} = true"
+                                                                   data-ls-goal-id="{{ goal.id }}"
+                                                                   data-ls-user-goal-manage
+                                                                   id="done{{ goal.id }}"
+                                                                   class="btn btn-transparent ng-hide">
                                                                     <i class="icon done-icon"></i>
                                                                     {{ 'done'|trans | capitalize }}
                                                                 </a>
                                                                 <a  href="javascript:void(0)"
                                                                     data-ng-show="success{{ goal.id }}"
-                                                                    data-ls-jquery-modal
+                                                                    data-ls-user-goal-manage
+                                                                    data-ls-type="manage"
                                                                     data-ng-cloak
-                                                                    data-ls-template-url="{{ path("add_story", { 'id' : goal.id }) }}"
-                                                                    data-ls-identity="goalAddSuccessStoryModal{{ goal.id }}"
+                                                                    data-ls-goal-id="{{ goal.id }}"
                                                                     class="btn btn-transparent successtory ng-hide"
                                                                     id="success{{ goal.id }}">
                                                                     <i class="icon ok-icon-green"></i>
@@ -318,41 +387,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="right-block">
-                    <div class="right-menu">
-                        <div class="row">
-                            <div class="col-xs-7">
-                                <i class="icon-creat-icon"></i>
-                                <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
-                            </div>
-                            <div class="col-xs-5 text-right">
-                                {% if profileUser.id == app.user.id %}
-                                    <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <hr/>
-
-                        <div class="row padding-top">
-                            <div class="col-xs-10">
-                                <span>
-                                    <i class="icon-suggest-icon"></i>
-                                    <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
-                                </span>
-                            </div>
-
-                            <div class="col-xs-2 text-right">
-                                <a href="#" class="load" id="popularLoad" data-ng-class="{'load-animate': load}" data-ng-click="load=!load"></a>
-                            </div>
-                        </div>
-
-                        <hr/>
-                    </div>
-                    <div class="row">
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2}  %}
-                    </div>
-                </div>
-
+                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2, 'isProfile': true}  %}
             </div>
         </div>
     </div>

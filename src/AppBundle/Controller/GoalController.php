@@ -11,13 +11,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\StoryImage;
-use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
-use AppBundle\Form\SuccessStoryType;
-use AppBundle\Form\UserGoalType;
-use Application\UserBundle\Entity\User;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -42,66 +38,56 @@ class GoalController extends Controller
     const STAGE_URL = 'http://stage.bucketlist127.com/';
     const STAGE_CACHE_PREFIX = '-stage';
     const PROD_CACHE_PREFIX = '-prod';
+
     /**
      * @Route("goal/create", name="add_goal")
      * @Template()
+     * @Secure(roles="ROLE_USER")
+     *
      * @param Request $request
      * @return array
-     * @Secure(roles="ROLE_USER")
      * @throws
      */
     public function addAction(Request $request)
     {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get current user
+        $em          = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
 
-        // get clone id?
-        $goalId = $request->get('id');
+        $goalId      = $request->get('id');
+        $cloneTrue   = $request->get('clone');
 
-        //get clone param in get request
-        $cloneTrue = $request->get('clone');
 
-        // check is clones
-        if($goalId){
-
+        //If we clone or edit any goal
+        if($goalId)
+        {
             $goal = $em->getRepository("AppBundle:Goal")->findGoalWithAuthor($goalId);
+
             if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
-                throw new HttpException(Response::HTTP_FORBIDDEN);
+                throw $this->createAccessDeniedException("It isn't your goal");
             }
 
-            // check clone goal
-            if(!$goal){
-                throw $this->createNotFoundException("Goal from clone not found");
+            if(is_null($goal)){
+                throw $this->createNotFoundException("Goal not found");
             }
 
-            // if clone, clone from object, elsi edit exist object
             $goal = $cloneTrue ? clone $goal : $goal;
-
         }
-        else{
-            // create new object
+        else {
             $goal = new Goal();
         }
 
-        // set goal language from user
         $goal->setLanguage($currentUser->getLanguage());
+        $goal->setAuthor($currentUser);
 
-        // create goal form
-        $form  = $this->createForm(new GoalType(), $goal);
 
-        // check request method
-        if($request->isMethod("POST")){
+        $form  = $this->createForm(GoalType::class, $goal);
 
-            // get data from request
+        if($request->isMethod("POST"))
+        {
             $form->handleRequest($request);
 
-            // check valid
-            if($form->isValid()){
-
-                //Delete last empty link
+            if($form->isValid())
+            {
                 if ($videoLinks = $goal->getVideoLink()){
                     $videoLinks = array_values($videoLinks);
                     $videoLinks = array_filter($videoLinks);
@@ -109,65 +95,34 @@ class GoalController extends Controller
                     $goal->setVideoLink($videoLinks);
                 }
 
-                // get tags from form
                 $tags = $form->get('hashTags')->getData();
-
-                // add tags
                 $this->getAndAddTags($goal, $tags);
 
                 // get images ids
                 $images = $form->get('files')->getData();
 
-                // remove all images that older one day
-                $this->removeAllOldImages();
-
                 if($images){
-
-                    // get json from request
-                    $images = json_decode($images);
-
-                    // remove duplicate
-                    $images = array_unique($images);
-
-                    // get goal images form bd
+                    $images     = json_decode($images);
+                    $images     = array_unique($images);
                     $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
 
-                    // check goal images
                     if($goalImages){
-
-                        // loop for goal images
                         foreach($goalImages as $goalImage){
-
-                            // add to goal
                             $goal->addImage($goalImage);
                         }
                     }
                 }
 
-                // set author
-                $goal->setAuthor($currentUser);
-
-                //generate url
                 if (!is_null($request->get("btn_publish"))) {
 
-                    //get goal description
-                    $description = $goal->getDescription();
-
-                    if($description) {
-                        //cleare # tag in description
-                        $description = str_replace('#', '', $description);
-                    }
-
-                    //set description
-                    $goal->setDescription($description);
+                    $goal->setDescription(str_replace('#', '', $goal->getDescription()));
 
                     $em->persist($goal);
                     $em->flush();
 
                     $request->getSession()
                         ->getFlashBag()
-                        ->set('success','Your Goal has been Successfully Published')
-                    ;
+                        ->set('success','Your Goal has been Successfully Published');
 
                     return new Response($goal->getId());
                 }
@@ -175,20 +130,18 @@ class GoalController extends Controller
                 $em->persist($goal);
                 $em->flush();
 
-                // redirect to view
-                 return  $this->redirectToRoute('view_goal', array('slug'=> $goal->getSlug()));
+                return  $this->redirectToRoute('view_goal', ['slug'=> $goal->getSlug()]);
             }
         }
-        
+
         $slug = $request->get('slug', null);
-        $isPrivate = ($slug == "drafts" || $slug == null)?false:true;
+        $isPrivate = ($slug == "drafts" || $slug == null) ? false : true;
 
         if($isPrivate){
             $request->getSession()
                 ->getFlashBag()
-                ->set('private','Edit my private idea from Web')
-            ;
-        }elseif ($goalId){
+                ->set('private','Edit my private idea from Web');
+        } elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
                 ->set('draft','Edit my draft  from Web')
@@ -199,48 +152,14 @@ class GoalController extends Controller
         return array('form' => $form->createView(), 'currentUser' => $currentUser, 'isPrivate' => $isPrivate, 'id' => $goalId);
     }
 
-
-    /**
-     * This function is used to remove files and goal images from db
-     * @deprecated must be removed
-     */
-    private function removeAllOldImages()
-    {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get all old images
-        $goalImages = $em->getRepository('AppBundle:GoalImage')->findAllOlder();
-
-        // loop for images
-        if($goalImages){
-
-            // loop for images
-            foreach($goalImages as $goalImage){
-                $em->remove($goalImage);
-            }
-        }
-
-        // get all old story images
-        $storyImages = $em->getRepository('AppBundle:StoryImage')->findAllOlder();
-
-        // loop for images
-        if($storyImages){
-
-            // loop for images
-            foreach($storyImages as $storyImage){
-                $em->remove($storyImage);
-            }
-        }
-    }
-
     /**
      * @Route("goal/my-ideas/{slug}", defaults={"slug" = null}, name="my_ideas")
      * @Template()
+     * @Secure(roles="ROLE_USER")
+     *
      * @return array
      * @param $slug
      * @param Request $request
-     * @Secure(roles="ROLE_USER")
      */
     public function myIdeasAction($slug = null, Request $request)
     {
@@ -254,21 +173,26 @@ class GoalController extends Controller
             $goals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser());
         }
 
-        // get paginator
         $paginator  = $this->get('knp_paginator');
 
-        // paginate data
         $pagination = $paginator->paginate(
             $goals,
             $request->query->getInt('page', 1)/*page number*/,
             9/*limit per page*/
         );
 
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
+
         return array(
             'goals'       => $pagination,
             'slug'        => $slug,
-            'profileUser' => $this->getUser());
-
+            'profileUser' => $this->getUser()
+        );
     }
 
     /**
@@ -277,6 +201,7 @@ class GoalController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
      *   "repository_method" = "findBySlugWithRelations" })
+     *
      * @param Goal $goal
      * @return array
      */
@@ -286,71 +211,15 @@ class GoalController extends Controller
     }
 
     /**
-     * This action is used for upload images from drag and drop
-     *
-     * @Route("goal/story/add-images", name="add_story_images")
-     * @Method({"POST"})
-     * @param Request $request
-     * @return array
-     */
-    public function addSuccessStoryImage(Request $request)
-    {
-        // get all files form request
-        $file = $request->files->get('file');
-
-        // check file
-        if($file){
-
-            // get validator
-            $validator = $this->get('validator');
-
-            // get entity manager
-            $em = $this->getDoctrine()->getManager();
-
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new story image object
-            $storyImage = new StoryImage();
-
-            // set file
-            $storyImage->setFile($file);
-
-            // validate goal image
-            $error = $validator->validate($storyImage);
-
-            // check in error
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-
-            }
-            else{ // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($storyImage);
-
-                $em->persist($storyImage);
-            }
-
-            // flush data
-            $em->flush();
-            return new JsonResponse($storyImage->getId(), Response::HTTP_OK);
-
-        }
-
-        return new JsonResponse('', Response::HTTP_NOT_FOUND);
-    }
-
-    /**
      * @Template("AppBundle:Blocks:goalInner.html.twig")
      * @ParamConverter("goal", class="AppBundle:Goal")
+     *
      * @param Goal $goal
      * @param $page
      * @return array
      */
     public function innerContentAction(Goal $goal, $page = Goal::INNER)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
@@ -363,10 +232,10 @@ class GoalController extends Controller
         $aphorisms = $em->getRepository('AppBundle:Aphorism')->findOneRandom($goal);
 
         return array(
-            'goal' => $goal,
-            'page' => $page,
-            'aphorisms' => $aphorisms,
-            'doneByUsers' => $doneByUsers,
+            'goal'          => $goal,
+            'page'          => $page,
+            'aphorisms'     => $aphorisms,
+            'doneByUsers'   => $doneByUsers,
             'listedByUsers' => $listedByUsers
         );
     }
@@ -375,6 +244,7 @@ class GoalController extends Controller
      * @Route("goal/done/{id}", name="done_goal")
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal")
+     *
      * @param Goal $goal
      * @param Request $request
      * @return array
@@ -416,119 +286,6 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/add-story/{id}", name="add_story")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @param Goal $goal
-     * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Secure(roles="ROLE_USER")
-     */
-    public function addSuccessStoryAction(Goal $goal, Request $request)
-    {
-        //get session
-        $session = $request->getSession();
-
-        //check if user and session url exist
-        if ($session->has('addUrl')) {
-            $session->remove('addUrl');
-        }
-
-        // create new success story object
-        $story = new SuccessStory();
-
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get users that done this goal
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::COMPLETED);
-
-        // get users that listed this goal
-        $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE);
-
-        // get current user
-        $user = $this->getUser();
-
-        //get current user id
-        $userId = $user->getId();
-
-        // create form
-        $form = $this->createForm(new SuccessStoryType(), $story);
-
-        // check method
-        if($request->isMethod("POST")) {
-
-            // get data from request
-            $form->handleRequest($request);
-
-            // check data
-            if($form->isValid()){
-
-                if ($videoLinks = $story->getVideoLink()){
-                    $videoLinks = array_values($videoLinks);
-                    $videoLinks = array_filter($videoLinks);
-
-                    $story->setVideoLink($videoLinks);
-                }
-
-                //check if goal author not admin and not null
-                if($goal->hasAuthorForNotify($userId)) {
-
-                    //send success story notify
-                    $this->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story->getStory());
-                }
-
-                // get images ids
-                $images = $form->get('files')->getData();
-
-                // remove all images that older one day
-                $this->removeAllOldImages();
-
-                if($images){
-
-                    // get json from request
-                    $images = json_decode($images);
-
-                    // remove duplicate
-                    $images = array_unique($images);
-
-                    // get goal images form bd
-                    $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($images);
-
-                    // check story images
-                    if($storyImages){
-
-                        // loop for story images
-                        foreach($storyImages as $storyImage){
-
-                            // add to story
-                            $story->addFile($storyImage);
-                        }
-                    }
-                }
-
-                // add user
-                $story->setUser($user);
-
-                // add success story to goal
-                $goal->addSuccessStory($story);
-                $em->persist($story);
-
-                $em->flush();
-
-                return new Response('ok');
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'goal' => $goal,
-            'doneByUsers' => $doneByUsers,
-            'listedByUsers' => $listedByUsers,
-        );
-    }
-
-    /**
      * @Route("goal/add-modal", name="add_modal")
      * @Template()
      * @return array
@@ -549,162 +306,12 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/add-to-me/{id}/{userGoalId}", defaults={"userGoalId" = null}, name="add_to_me_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     * @param Goal $goal
-     * @param Request $request
-     * @param Request $userGoalId
+     * @Route("goal/done-modal", name="done_modal")
      * @return array
-     * @Secure(roles="ROLE_USER")
-     * @throws
      */
-    public function addToMeAction(Request $request, Goal $goal, $userGoalId = null)
+    public function doneModalAction()
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-
-        //get current user
-        $user = $this->getUser();
-
-        // create filter
-        $filters = array(
-            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
-            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
-            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
-        );
-
-        //set default value
-        $urgent = null;
-        $important = null;
-
-        //get priority data in request
-        $priorityData = $request->request->get('test');
-
-        //check if priorityData exist
-        if($priorityData) {
-            switch ($priorityData) {
-                case UserGoal::NOT_URGENT_IMPORTANT:
-                    $urgent = false;
-                    $important = true;
-                    break;
-                case UserGoal::URGENT_IMPORTANT:
-                    $urgent = true;
-                    $important = true;
-                    break;
-                case UserGoal::NOT_URGENT_NOT_IMPORTANT:
-                    $urgent = false;
-                    $important = false;
-                    break;
-                case UserGoal::URGENT_NOT_IMPORTANT:
-                    $urgent = true;
-                    $important = false;
-                    break;
-                default:
-                    $urgent = null;
-                    $important = null;
-            }
-        }
-
-        // empty data
-        $steps = array();
-        $newAdded = false;
-
-        // check userGoalId
-        if($userGoalId){
-
-            $userGoal = $em->getRepository("AppBundle:UserGoal")->find($userGoalId);
-
-            // check user goal, and return not found exception
-            if(!$userGoal){
-                throw $this->createNotFoundException('usergoal not found');
-            }
-        }
-        else {
-
-            $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
-
-            if (!$userGoal) {
-                $userGoal = new UserGoal();
-                $userGoal->setGoal($goal);
-                $userGoal->setStatus(UserGoal::ACTIVE);
-                $userGoal->setListedDate(new \DateTime());
-                $userGoal->setUser($user);
-
-                if($goal->getReadinessStatus() != Goal::DRAFT){
-                    $newAdded = true;
-                    $em->persist($userGoal);
-                    $em->flush();
-                }
-            }
-        }
-
-
-        $form  = $this->createForm(new UserGoalType(), $userGoal);
-
-        if($request->isMethod("POST"))
-        {
-            $form->handleRequest($request);
-
-            if($form->isValid())
-            {
-                $goalStatus = $request->get('goal_status');
-
-                if($userGoal->getStatus() == UserGoal::COMPLETED && !$goalStatus){
-                    $userGoal->setCompletionDate(null);
-                }
-                elseif ($userGoal->getStatus() != UserGoal::COMPLETED && $goalStatus){
-                    $userGoal->setCompletionDate(new \DateTime());
-                }
-
-                $userGoal->setStatus($goalStatus ? UserGoal::COMPLETED : UserGoal::ACTIVE);
-
-                if($stepTexts = $request->get('stepText'))
-                {
-                    $switch = $request->get('switch');
-                    foreach($stepTexts as $key => $stepText){
-                        if(strlen($stepText) > 0 ){
-                            $name = $stepText;
-                            $status = is_array($switch) && array_key_exists($key, $switch) ? UserGoal::DONE : UserGoal::TO_DO;
-                            $steps[$name] = $status;
-                        }
-                    }
-                }
-
-                if($location = json_decode($form->get('location')->getData())){
-                    $userGoal->setAddress($location->address);
-                    $userGoal->setLat($location->location->latitude);
-                    $userGoal->setLng($location->location->longitude);
-                }
-
-                if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT ){
-                    $goal->setReadinessStatus(Goal::TO_PUBLISH);
-                    $em->persist($goal);
-                }
-
-                $userGoal->setSteps($steps);
-                $userGoal->setUrgent($urgent);
-                $userGoal->setImportant($important);
-
-                if($doDate = $form->get('birthday')->getData()){
-                    $doDate= \DateTime::createFromFormat('m/d/Y', $doDate);
-                    $userGoal->setDoDate($doDate);
-                }
-
-                $em->persist($userGoal);
-                $em->flush();
-
-                if (!$user->getActivity()){
-                    $this->get('bl_service')->setUserActivity($user, $inLogin = false);
-                }
-
-                return new Response('ok');
-            }
-        }
-
-        return  array('form' => $form->createView(), 'data' => $userGoal, 'filters' => $filters, 'newAdded' => $newAdded);
+        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
     }
 
     /**
@@ -729,7 +336,7 @@ class GoalController extends Controller
         // get search key
         $search = $request->get('search');
 
-        $cachePrefix = (strpos($request->getUri(), self::STAGE_URL) === false)?self::PROD_CACHE_PREFIX: self::STAGE_CACHE_PREFIX;
+        $cachePrefix = (strpos($request->getUri(), self::STAGE_URL) === false) ? self::PROD_CACHE_PREFIX : self::STAGE_CACHE_PREFIX;
 
         // get categories
         $categories  = $em->getRepository('AppBundle:Category')->getAllCached($cachePrefix);

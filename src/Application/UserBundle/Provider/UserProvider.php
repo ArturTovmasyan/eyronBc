@@ -164,7 +164,7 @@ class UserProvider extends  BaseProvider
             //get registration social name		
             $socialName = $user->getSocialsName();
 
-            $this->container->get('request')->getSession()
+            $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web')
             ;
@@ -226,7 +226,7 @@ class UserProvider extends  BaseProvider
             //get registration social name		
             $socialName = $user->getSocialsName();
 
-            $this->container->get('request')->getSession()
+            $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web')
             ;
@@ -283,7 +283,7 @@ class UserProvider extends  BaseProvider
             //get registration social name		
             $socialName = $user->getSocialsName();
 
-            $this->container->get('request')->getSession()
+            $this->container->get('request_stack')->getCurrentRequest()->getSession()
                 ->getFlashBag()
                 ->set('userRegistration','User registration by '.$socialName.' from Web')
             ;

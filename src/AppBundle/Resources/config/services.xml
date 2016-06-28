@@ -42,23 +42,20 @@
             <tag name="doctrine.event_listener" event = "postLoad" method="postLoad"/>
             <tag name="doctrine.event_listener" event = "postUpdate" method="postUpdate"/>
             <tag name="doctrine.event_listener" event = "postPersist" method="postPersist"/>
+            <tag name="doctrine.event_listener" event = "preRemove" method="preRemove"/>
         </service>
 
 
         <!-- service locale listener -->
-        <service id="bl.locale.listener" class="AppBundle\Listener\LocaleListener">
+        <service id="bl.request.listener" class="AppBundle\Listener\RequestListener">
             <argument>%kernel.default_locale%</argument>
-            <argument type="service" id="service_container" />
+            <argument>%android_mandatory_version%</argument>
+            <argument>%ios_mandatory_version%</argument>
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
         </service>
 
 
         <service id="bl.settings.listener.resolver" class="AppBundle\Listener\MyEntityListenerResolver">
-            <argument type="service" id="service_container" />
-        </service>
-
-        <!-- NewsFeed service -->
-        <service id="bl_news_feed_service" class="AppBundle\Services\NewsFeedService">
             <argument type="service" id="service_container" />
         </service>
 

@@ -23,6 +23,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
@@ -40,7 +41,7 @@
             'bundles/app/less/modal.less'
             'bundles/app/less/profile.less'
             'bundles/app/less/comments.less'
-            'bundles/app/less/icons.css'
+            'bundles/app/less/animation.css'
             filter='less,cssrewrite' %}
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -128,11 +129,25 @@
 
         {% set goalAction = getSession('goal_action') %}
 
-        <img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>
-
+        {#<img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>#}
+        <div style="display:none;position: fixed;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading">
+            <div id="load1" class="load-img">
+            </div>
+            <div id="load2" class="load-img"></div>
+            <div id="load3" class="load-img"></div>
+            <div id="load4" class="load-img"></div>
+            <div id="load5" class="load-img"></div>
+        </div>
         {% if app.user and goalAction is not null %}
             {% if goalAction['action'] == "rest_put_usergoal" %}
                 <div data-ls-goal-manage
+                     style="display: none"
+                     data-ls-initial-run="true"
+                     data-ls-user-id="{{ app.user.id }}"
+                     data-ls-goal-id="{{ goalAction['goal_id'] }}">
+                </div>
+            {% elseif goalAction['action'] == "rest_get_usergoal_done" %}
+                <div data-ls-user-goal-manage
                      style="display: none"
                      data-ls-initial-run="true"
                      data-ls-user-id="{{ app.user.id }}"
@@ -148,7 +163,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container">
+                        <div class="container" id="main-nav" style="display: none">
                             <div class="navbar-header">
                                 <button type="button"
                                         data-ls-mobile-on-menu-click
@@ -333,8 +348,12 @@
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
                 'bundles/applicationuser/js/angular/user.js'
+                'bundles/app/js/angular/goal_manager/goalManager.js'
                 'bundles/app/js/angular/manage/manage.js'
-                'bundles/app/js/angular/managers/goal_manager/services/GoalDataManager.js'
+                'bundles/app/js/angular/goalComponents/goalComponents.js'
+                'bundles/app/js/angular/goal_manager/services/GoalDataManager.js'
+                'bundles/app/js/angular/goal_manager/constants/goalConstant.js'
+                'bundles/app/js/angular/goal_manager/constants/userGoalConstant.js'
                 'bundles/app/js/angular/main.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 %}
@@ -342,6 +361,9 @@
             {% endjavascripts %}
 
             <script>
+                angular.module('Components').constant('UserContext',{
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+                });
 
                 function autoResizeDiv()
                 {
@@ -354,7 +376,9 @@
 
 
                 $(function () {
-                    $('[data-toggle="popover"]').popover()
+                    $('[data-toggle="popover"]').popover();
+
+                    $('#main-nav').fadeIn(350);
                 });
 
                 function openSettingsModal(){

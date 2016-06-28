@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('goal').constant('UserGoalConstant',{
+angular.module('goalManage').constant('UserGoalConstant',{
   // constants for status
   ACTIVE: 1,
   COMPLETED: 2,

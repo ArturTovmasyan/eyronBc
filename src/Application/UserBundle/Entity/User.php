@@ -324,6 +324,11 @@ class User extends BaseUser
      */
     private $isProgressPushNote = true;
 
+    /**
+     * @SerializedName("image_path")
+     * @Groups({"user", "tiny_user", "settings"})
+     */
+    private $mobileImagePath;
 
     /**
      * @return mixed
@@ -342,12 +347,22 @@ class User extends BaseUser
     }
 
     /**
-     * @VirtualProperty
-     * @Groups({"user", "tiny_user", "settings"})
+     * @return string
      */
     public function getImagePath()
     {
         return $this->getDownloadLink();
+    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setMobileImagePath($path)
+    {
+        $this->mobileImagePath = $path;
+
+        return $this;
     }
 
     /**
@@ -733,7 +748,7 @@ class User extends BaseUser
 
     /**
      * @return bool
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      * @VirtualProperty()
      */
     public function isAdmin()

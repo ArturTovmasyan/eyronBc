@@ -14,6 +14,7 @@ use AppBundle\Entity\SuccessStory;
 use AppBundle\Form\GoalType;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
+use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -97,6 +98,7 @@ class GoalController extends FOSRestController
 
     /**
      * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{count}/suggest", requirements={"count"="\d+"})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
@@ -248,7 +250,7 @@ class GoalController extends FOSRestController
             $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
             $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
         }else{
-            $form = $this->createForm(new GoalType(), $goal);
+            $form = $this->createForm(GoalType::class, $goal);
 
             // get data from request
             $form->handleRequest($request);
@@ -326,80 +328,58 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/goals/add-images/{id}/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
-     * @param $id
-     * @param $userId
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"id" = "userId"})
+     * @param $goal
+     * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addImagesAction($id = null, $userId = null, Request $request)
+    public function addImagesAction(Request $request, Goal $goal = null, User $user = null)
     {
-        // get entity manager
+        //TODO this rest non secured
         $em = $this->getDoctrine()->getManager();
 
-        if ($id){
-
-            //get user goal by goal id
-            $goal = $em->getRepository('AppBundle:Goal')->find($id);
-
-            //check ig goal is not exist
-            if (!$goal){
-                return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        if (is_null($user)){
+            $user = $this->getUser();
+            if (is_null($user) || !is_object($user)){
+                return new Response("there aren't any user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        if ($userId) {
-
-            //get user by id
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-
-            //check if user not exist
-            if (!$user){
-                return new Response('User not found', Response::HTTP_NOT_FOUND);
-            }
-
-            if ($id){
-                if ($user != $goal->getAuthor()){
-                    return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
-                }
+        if (!is_null($goal)){
+            if (is_null($goal->getAuthor()) || $user->getId() != $goal->getAuthor()->getId()){
+                return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        // get all files form request
         $file = $request->files->get('file');
 
-        // check file
-        if($file){
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new goal image object
-            $goalImage = new GoalImage();
-            $goalImage->setFile($file);
-
-            // validate goal image
-            $validator = $this->get('validator');
-            $error = $validator->validate($goalImage, null, array('goal'));
-
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
-
-            // upload file
-            $bucketService->uploadFile($goalImage);
-
-            if (isset($goal)){
-                $goalImage->setGoal($goal);
-                $goal->addImage($goalImage);
-            }
-
-            $em->persist($goalImage);
-            $em->flush();
-
-            return $goalImage->getId();
+        if(is_null($file)) {
+            return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        return new Response('', Response::HTTP_NOT_FOUND);
+        $goalImage = new GoalImage();
+        $goalImage->setFile($file);
+
+        if (!is_null($goal)){
+            $goalImage->setGoal($goal);
+            $goal->addImage($goalImage);
+        }
+
+        $validator = $this->get('validator');
+        $error = $validator->validate($goalImage, null, array('goal'));
+
+        if(count($error) > 0){
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->get('bl_service')->uploadFile($goalImage);
+
+        $em->persist($goalImage);
+        $em->flush();
+
+        return $goalImage->getId();
     }
 
     /**
@@ -455,13 +435,7 @@ class GoalController extends FOSRestController
     public function getDraftsAction($first, $count)
     {
         $em = $this->getDoctrine()->getManager();
-
-        // find all drafts goal
-        $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-
-        if (is_numeric($first) && is_numeric($count)) {
-            $draftGoals = array_slice($draftGoals, $first, $count);
-        }
+        $draftGoals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser(), $first, $count);
 
         return $draftGoals;
     }
@@ -541,15 +515,22 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count)
     {
-        // check search data
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-        // get goal friends
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, false);
 
-        if (is_numeric($first) && is_numeric($count)) {
-            $goalFriends = array_slice($goalFriends, $first, $count);
+
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+
+        $goalFriendsIds = array_keys($goalFriends);
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
+
+        foreach($goalFriends as &$user) {
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active" => $stats[$user->getId()]['listedBy'],
+                "doneBy" => $stats[$user->getId()]['doneBy']
+            ]);
         }
 
         return $goalFriends;
@@ -722,13 +703,12 @@ class GoalController extends FOSRestController
      * @param Goal $goal
      * @param Request $request
      * @return JsonResponse|Response
+     * @deprecated
+     * TODO will be changed after mobile changes
      */
     public function putSuccessstoryAction(Goal $goal, Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        // get validator
         $validator = $this->container->get('validator');
 
         // get date from request parameters
@@ -741,32 +721,116 @@ class GoalController extends FOSRestController
         $successStory->setGoal($goal);
         $successStory->setUser($this->getUser());
         $successStory->setStory($story);
-
-        // check validation
+        
+        
         $errors = $validator->validate($successStory);
-
         if(count($errors) > 0) {
             $errorsString = (string)$errors;
 
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        //get current user
-        $user = $this->getUser();
-
-        //get current user id
-        $userId = $user->getId();
-
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userId)) {
-
+        if($goal->hasAuthorForNotify($this->getUser()->getId())) {
             //send success story notify
-            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
         }
-
-        // persist and flush object
+        
         $em->persist($successStory);
         $em->flush();
+
+        return new JsonResponse($successStory->getId(), Response::HTTP_OK);
+    }
+
+
+    /**
+     * TODO: Will be change all to this
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function create/edit success story",
+     *  statusCodes={
+     *         200="Returned when created",
+     *         400="Return when content not correct",
+     *         401="Return when user not found",
+     *         404="Return when goal by goalId not found",
+     *     },
+     *  parameters={
+     *      {"name"="story", "dataType"="text", "required"=true, "description"="story body"},
+     *      {"name"="videoLink[0]", "dataType"="string", "required"=false, "description"="video link"},
+     * }
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
+     *
+     * @param Goal $goal
+     * @param Request $request
+     * @return JsonResponse|Response
+     */
+    public function putStoryAction(Goal $goal, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $validator = $this->container->get('validator');
+
+        $content = json_decode($request->getContent());
+        if (!isset($content->story)){
+            return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
+        }
+
+        $story     = $content->story;
+        $videoLink = $content->videoLink;
+        $videoLink = array_values($videoLink);
+        $videoLink = array_filter($videoLink);
+
+        $lastStory = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
+
+        $imageIds = $content->files;
+        if (count($lastStory) == 0){
+            $successStory = new SuccessStory();
+            $successStory->setGoal($goal);
+            $successStory->setUser($this->getUser());
+        }
+        else {
+            $successStory = $lastStory[0];
+            foreach($successStory->getFiles() as $file){
+                if (!in_array($file->getId(), $imageIds)){
+                    $em->remove($file);
+                    $successStory->removeFile($file);
+                }
+            }
+        }
+
+        $successStory->setVideoLink($videoLink);
+        $successStory->setStory($story);
+
+        if($imageIds){
+
+            $imageIds = array_unique($imageIds);
+            $storyImages = $em->getRepository('AppBundle:StoryImage')->findByIDs($imageIds);
+
+            if(count($storyImages) != 0){
+                foreach($storyImages as $storyImage){
+                    $successStory->addFile($storyImage);
+                }
+            }
+        }
+
+        $errors = $validator->validate($successStory);
+        if(count($errors) > 0) {
+            $errorsString = (string)$errors;
+
+            return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
+        }
+
+        $em->persist($successStory);
+        $em->flush();
+
+        //check if goal author not admin and not null
+        if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
+            $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
+        }
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
     }
@@ -788,77 +852,98 @@ class GoalController extends FOSRestController
      *      {"name"="userId", "dataType"="integer", "required"=true, "description"="User id"},
      *  }
      * )
+     * )
      *
-     * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
-     * @param $id
-     * @param $userId
+     * @Rest\Post("/success-story/{id}/add-images/{userId}", requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/success-story/add-images")
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"mapping" = {"userId" = "id"}})
+     * @ParamConverter("successStory", class="AppBundle:SuccessStory", options={"mapping" = {"id" = "id"}})
+     * @param $successStory
+     * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addSuccessStoryImagesAction($id = null, $userId = null, Request $request)
+    public function addSuccessStoryImagesAction(Request $request, SuccessStory $successStory = null, User $user = null)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //check if success story id exist
-        if ($id && $userId) {
-
-            //get success story by id
-            $successStory = $em->getRepository('AppBundle:SuccessStory')->find($id);
-
-            //get user by id
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-
-            //check if success story not exist
-            if (!$successStory) {
-                return new Response('Success story not found', Response::HTTP_NOT_FOUND);
-            }
-
-            //check if user not exist
-            if (!$user) {
-                return new Response('User not found', Response::HTTP_NOT_FOUND);
-            }
-
-            //check if success story isn`t current user
-            if ($user != $successStory->getUser()) {
-                return new Response("Success story isn't of current user", Response::HTTP_FORBIDDEN);
+        if (is_null($user)){
+            $user = $this->getUser();
+            if (is_null($user) || !is_object($user)){
+                return new Response("there aren't any user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        // get all files form request
+        if (!is_null($successStory)){
+            if ($user->getId() != $successStory->getUser()->getId()){
+                return new Response("It isn't user's successStory", Response::HTTP_FORBIDDEN);
+            }
+        }
+
         $file = $request->files->get('file');
 
-        // check file
-        if ($file) {
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new goal image object
-            $storyImage = new StoryImage();
-            $storyImage->setFile($file);
-            $storyImage->setStory($successStory);
-
-            // validate goal image
-            $validator = $this->get('validator');
-            $error = $validator->validate($storyImage, null, null);
-
-            if (count($error) > 0) {
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
-            else { // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($storyImage);
-
-                $em->persist($storyImage);
-                $em->flush();
-            }
-
-            return new Response('', Response::HTTP_OK);
+        if (is_null($file)) {
+            return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        return new Response('', Response::HTTP_NOT_FOUND);
+        $storyImage = new StoryImage();
+        $storyImage->setFile($file);
+
+        if (!is_null($successStory)){
+            $storyImage->setStory($successStory);
+            $successStory->addFile($storyImage);
+        }
+
+        $validator = $this->get('validator');
+        $error = $validator->validate($storyImage, null, null);
+
+        if (count($error) > 0) {
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->get('bl_service')->uploadFile($storyImage);
+
+        $em->persist($storyImage);
+        $em->flush();
+
+        return $storyImage->getId();
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This action is used to get goal success story by current user",
+     *  statusCodes={
+     *         200="Returned when return success story",
+     *         404="Returned when goal not found",
+     *  },
+     * )
+     *
+     * @Rest\Get("/story/{id}", requirements={"id"="\d+"}, name="app_rest_goal_getsuccessstory", options={"method_prefix"=false})
+     * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
+     * @Rest\View(serializerGroups={"tiny_goal", "goal_author", "tiny_user", "successStory", "successStory_storyImage", "storyImage", "image"})
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function getSuccessStoryAction(Goal $goal)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $story = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
+
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        if ($goal->getListPhotoDownloadLink()) {
+            $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_big'));
+        }
+
+        return [
+            'goal' => $goal,
+            'story' => count($story) ? $story[0] : null
+        ];
     }
 
     /**

@@ -10,15 +10,13 @@ Feature: My Bucket list
     When I am logged in as "user1"
     And I follow "user1"
     And I follow "My Bucketlist"
+    And I am on "/profile"
+    And I wait for angular
     Then I should see "Active"
     And I should see "user1 useryan"
     And I should see "Listed"
     And I should see "Completed"
-    When I follow "user1"
-    And I follow "Settings"
-    And I wait for angular
-    And I am on "/profile"
-    And I follow "Map"
+    When I click on "map-marker-new"
     And I wait for angular
     Then I should see "Satellite"
 

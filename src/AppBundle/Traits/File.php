@@ -69,17 +69,19 @@ trait File
 
     /**
      * @ORM\Column(name="file_original_name", type="string", length=255, nullable=true)
+     * @Groups({"image"})
      */
     protected $fileOriginalName;
 
     /**
      * @ORM\Column(name="file_name", type="string", length=255, nullable=true)
+     * @Groups({"image"})
      */
     protected $fileName;
 
     /**
      * @var integer
-     *
+     * @Groups({"image"})
      * @ORM\Column(name="file_size", type="integer", nullable=true)
      */
     protected $fileSize;
@@ -192,22 +194,6 @@ trait File
     }
 
     /**
-     * @return string
-     */
-    public function getAbsoluteMobilePath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getMobilePath() .'/';
-    }
-
-    /**
-     * @return string
-     */
-    public function getAbsoluteTabletPath()
-    {
-        return $this->getUploadRootDir() . '/' . $this->getTabletPath() .'/';
-    }
-
-    /**
      * This function is used to return file web path
      *
      * @return string
@@ -226,23 +212,6 @@ trait File
     }
 
     /**
-     * @return string
-     */
-    protected function getTabletPath()
-    {
-        return 'tablet';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getMobilePath()
-    {
-        return 'mobile';
-    }
-
-
-    /**
      * Upload folder name
      *
      * @return string
@@ -251,7 +220,6 @@ trait File
     {
         return 'uploads';
     }
-
 
     /**
      * @ORM\PreRemove
@@ -264,22 +232,6 @@ trait File
         // check file and remove
         if (file_exists($filePath) && is_file($filePath)){
             unlink($filePath);
-        }
-
-        // get mobile file path
-        $mobileFilePath = $this->getAbsoluteMobilePath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($mobileFilePath) && is_file($mobileFilePath)){
-            unlink($mobileFilePath);
-        }
-
-        // get tablet file path
-        $tabletFilePath = $this->getAbsoluteTabletPath() . $this->getFileName();
-
-        // check file and remove
-        if (file_exists($tabletFilePath) && is_file($tabletFilePath)){
-            unlink($tabletFilePath);
         }
     }
 

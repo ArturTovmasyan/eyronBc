@@ -8,19 +8,19 @@
                 <div class="col-xs-10">
                     <a href="{{ path('goal_friends') }}" class="heading text-gray">
                         <i class="icon-goalfrined-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                        <span class="text">{{ 'goalfriends'|trans }} [[ ::length ]]</span>
+                        <span class="text">{{ 'goalfriends'|trans }} [[ length ]]</span>
                     </a>
                 </div>
 
                 <div class="col-xs-2 text-right">
-                    <a href="javascript:void(0)" data-ng-click="refreshGoalFriends();load=!load" class="load" data-ng-class="{'load-animate': load}"></a>
+                    <a href="javascript:void(0)" data-ng-click="refreshGoalFriends()" class="load" id="goalFriendLoad"></a>
                 </div>
             </div>
 
             <hr/>
 
             <ul class="list">
-                <li class="clearfix"
+                <li class="clearfix friends-animate"
                     data-ng-cloak
                     data-ng-repeat="goalFriend in goalFriends">
                     <a href="{{ env_prefix }}/profile/[[ ::goalFriend.u_id ]]/all">

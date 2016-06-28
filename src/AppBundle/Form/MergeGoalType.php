@@ -8,6 +8,7 @@ namespace AppBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
@@ -48,17 +49,17 @@ class MergeGoalType extends AbstractType
                     ->setParameter('goalId', $goalId);
                 },
                 ))
-            ->add('tags', 'checkbox', array('required' => false))
-            ->add('successStory', 'checkbox', array('required' => false, 'attr' => array('checked' => 'checked')))
-            ->add('comment', 'checkbox', array('required' => false, 'attr' => array('checked' => 'checked')))
-            ->add('user', 'checkbox', array('required' => false, 'attr' => array('checked' => 'checked')))
+            ->add('tags', CheckboxType::class, array('required' => false))
+            ->add('successStory', CheckboxType::class, array('required' => false, 'attr' => array('checked' => 'checked')))
+            ->add('comment', CheckboxType::class, array('required' => false, 'attr' => array('checked' => 'checked')))
+            ->add('user', CheckboxType::class, array('required' => false, 'attr' => array('checked' => 'checked')))
         ;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_merge_goal';
     }

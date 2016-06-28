@@ -30,12 +30,12 @@ Feature: Activity
     Then I should see "SUCCESS STORY"
     When I click on "btn btn-transparent successtory ng-isolate-scope"
     And I wait for angular
-    And I fill in "app_bundle_success_story_type[story]" with "STORY1"
-    And I fill in "app_bundle_success_story_type[videoLink][ 0 ]" with "www.google.com"
+    And I fill in "story" with "STORY1"
+    And I fill in "videoLink0" with "www.google.com"
     And I wait for view
-    And I fill in "app_bundle_success_story_type_videoLink[ 1 ]" with "www.google.com"
+    And I fill in "videoLink1" with "www.google.am"
     And I wait for view
-    And I fill in "app_bundle_success_story_type_videoLink[ 2 ]" with "www.google.com"
+    And I fill in "videoLink2" with "www.google.ru"
     And I wait for view
     And I click on "btn btn-purple button-lg"
     And I wait for angular
@@ -139,12 +139,12 @@ Feature: Activity
     And I wait
     When I am logged in as "user1"
     And I am on "/profile"
-    And I click on "icon-question-icon"
+    And I click on "question-icon-new"
     And I wait for angular
     And I follow "Upload an image"
     And I wait for angular
     And I am on "/profile"
-    And I click on "icon-question-icon"
+    And I click on "question-icon-new"
     And I wait for angular
     And I follow "Add some goals"
     Then I should be on "/goal/create"

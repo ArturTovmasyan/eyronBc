@@ -28,22 +28,7 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-        //get entity manager
         $em = $this->getDoctrine()->getManager();
-
-//        $goal = $em->getRepository("AppBundle:Goal")->find(1);
-//
-//        return $this->render('@App/Main/userNotifyEmail.html.twig', array(
-//            'goal'=> $goal,
-//            'user' => $this->getUser(),
-//            'mailText' => 'notify_comment',
-//            'language' => 'en',
-//            'eventText' => 'This is text'
-//        ));
-//        exit;
-
-        //get current user
         $user = $this->getUser();
 
         //check if user not exist
@@ -90,7 +75,7 @@ class MainController extends Controller
         if($slug == 'contact-us')
         {
             // create form type
-            $form  = $this->createForm(new ContactUsType());
+            $form  = $this->createForm(ContactUsType::class);
 
             // check request method
             if($request->isMethod("POST")){
@@ -188,7 +173,7 @@ class MainController extends Controller
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, null, $search, true);
+        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, true);
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
         $paginator  = $this->get('knp_paginator');
@@ -218,7 +203,6 @@ class MainController extends Controller
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
      *   "repository_method" = "findOneBySlug" })
-     * @Template()
      *
      * @param Goal $goal
      * @param Request $request

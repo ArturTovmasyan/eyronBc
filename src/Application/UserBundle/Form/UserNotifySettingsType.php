@@ -10,6 +10,8 @@ namespace Application\UserBundle\Form;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,9 +30,9 @@ class UserNotifySettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('isCommentNotify', 'checkbox', array('required'=> false))
-            ->add('isSuccessStoryNotify', 'checkbox', array('required'=> false))
-            ->add('file', 'file', array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
+            ->add('isCommentNotify', CheckboxType::class, array('required'=> false))
+            ->add('isSuccessStoryNotify', CheckboxType::class, array('required'=> false))
+            ->add('file', FileType::class, array('required' => false, 'label' => 'form.file', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
@@ -48,7 +50,7 @@ class UserNotifySettingsType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bl_user_notify_settings';
     }

@@ -14,6 +14,7 @@ use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\ActivityableInterface;
+use AppBundle\Model\ImageableInterface;
 use Application\CommentBundle\Entity\Comment;
 use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -71,10 +72,10 @@ class DoctrineListener
      */
     public function postLoad(LifecycleEventArgs $event)
     {
-        if ($token = $this->container->get('security.token_storage')->getToken()){
+        $em = $this->container->get('doctrine')->getManager();
+        $entity = $event->getObject();
 
-            $em = $this->container->get('doctrine')->getManager();
-            $entity = $event->getObject();
+        if ($token = $this->container->get('security.token_storage')->getToken()){
 
             if ($entity instanceof Goal){
 
@@ -100,7 +101,27 @@ class DoctrineListener
                 if ($this->loadUserStats){
                     $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
+            }
+        }
 
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $route = $this->container->get('router');
+        $liipManager = $this->container->get('liip_imagine.cache.manager');
+
+        if ($entity instanceof ImageableInterface){
+            if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
+                $liipManager->getBrowserPath($entity->getImagePath(), 'mobile_goal');
+                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'mobile_goal'];
+                $filterUrl = $route->generate('liip_imagine_filter', $params);
+                $entity->setMobileImagePath($filterUrl);
+            }
+        }
+        elseif($entity instanceof User){
+            if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
+                $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
+                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_goal'];
+                $filterUrl = $route->generate('liip_imagine_filter', $params);
+                $entity->setMobileImagePath($filterUrl);
             }
         }
     }
@@ -158,14 +179,36 @@ class DoctrineListener
 
             if (is_object($user)) {
                 $changeSet = $uow->getEntityChangeSet($entity);
-                if (isset($changeSet['status']) && $changeSet['status'][1] = UserGoal::COMPLETED) {
-                    $goal = $entity->getGoal();
-                    $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                    $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
-                    $em->persist($newFeed);
-                    $em->flush();
+                if (isset($changeSet['status'])){
+                    if($changeSet['status'][1] == UserGoal::COMPLETED) {
+                        $goal = $entity->getGoal();
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+                        $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        $em->persist($newFeed);
+                        $em->flush();
+                    }
+                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
+                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $event
+     */
+    public function preRemove(LifecycleEventArgs $event)
+    {
+        $entity = $event->getObject();
+        $em = $event->getObjectManager();
+
+        if ($entity instanceof UserGoal){
+            if ($entity->getStatus() == UserGoal::COMPLETED){
+                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+            }
+
+            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
         }
     }
 
@@ -244,21 +287,18 @@ class DoctrineListener
         if($env != "test"){
 
             try{
-                // get request
-                $request = $this->container->get('request');
-
-                // get session
+                $request = $this->container->get('request_stack')->getCurrentRequest();
                 $session = $request->getSession();
 
-                // get locale
-                $locale = $session->get("_locale");
+                if (!$session){
+                    return;
+                }
 
-                // get language
+                $locale = $session->get("_locale");
                 $userLocale = $entity->getLanguage();
 
                 // check user local with default locale
                 if($userLocale && $userLocale != $locale){
-
                     // set session locale
                     $session->set('_locale', $userLocale);
                 }

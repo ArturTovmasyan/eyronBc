@@ -80,7 +80,7 @@
 
                          <div class="row bg-white">
                              <div class="col-xs-10 col-xs-offset-1">
-                                 <div class="form-group">
+                                 <div class="form-group" {% if form.vars.value.title %}data-ng-init="addTitle ='{{ form.vars.value.title }}'" {% endif %}>
                                      {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",
                                          'data-ng-change' : "searchGoal($event)"} }) }}
                                  </div>

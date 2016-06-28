@@ -50,13 +50,13 @@ hwi_oauth_login:
     prefix:   /login
 
 facebook_login:
-    pattern: /login/check-facebook
+    path: /login/check-facebook
 
 google_login:
-    pattern: /login/check-google
+    path: /login/check-google
 
 twitter_login:
-    pattern: /login/check-twitter
+    path: /login/check-twitter
 
 # for fos comment
 fos_comment_api:
@@ -90,14 +90,19 @@ app_new_feed_rest:
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /
 
+app_main_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\MainRestController
+    prefix:   /
+
 app_emails_remove_rest:
     type:     rest
-    resource: @ApplicationUserBundle/Controller/Rest/SettingsController.php
+    resource: Application\UserBundle\Controller\Rest\SettingsController
     prefix:   /
 
 application_user_rest:
     type:     rest
-    resource: @ApplicationUserBundle/Controller/Rest/UserController.php
+    resource: Application\UserBundle\Controller\Rest\UserController
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

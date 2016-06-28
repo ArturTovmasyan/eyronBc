@@ -8,8 +8,14 @@
 
 namespace Application\UserBundle\Form;
 
+use AppBundle\Form\Type\LngType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,18 +36,18 @@ class SettingsMobileType extends AbstractType
     {
 
         $builder
-            ->add('firstName', 'text', array('required'=>true))
-            ->add('lastName', 'text', array('required'=>true))
-            ->add('addEmail', 'email', array('required' => false))
-            ->add('birthDate', 'date', array('required' => false,  'widget' => 'single_text', 'format' => 'yyyy/MM/dd'))
-            ->add('primary', 'email', array('required' => false))
-            ->add('language', 'lng', array('required' => true, 'label' => 'form.language'))
-            ->add('file', 'file', array('required' => false))
-            ->add('isCommentNotify', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
-            ->add('isSuccessStoryNotify', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
-            ->add('isCommentPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
-            ->add('isSuccessStoryPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
-            ->add('isProgressPushNote', 'choice', array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('firstName', TextType::class, array('required'=>true))
+            ->add('lastName', TextType::class, array('required'=>true))
+            ->add('addEmail', EmailType::class, array('required' => false))
+            ->add('birthDate', DateType::class, array('required' => false,  'widget' => 'single_text', 'format' => 'yyyy/MM/dd'))
+            ->add('primary', EmailType::class, array('required' => false))
+            ->add('language', LngType::class, array('required' => true, 'label' => 'form.language'))
+            ->add('file', FileType::class, array('required' => false))
+            ->add('isCommentNotify', ChoiceType::class, array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isSuccessStoryNotify', ChoiceType::class, array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isCommentPushNote', ChoiceType::class, array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isSuccessStoryPushNote', ChoiceType::class, array('required' => false, 'choices' => array(0 => false, 1 => true)))
+            ->add('isProgressPushNote', ChoiceType::class, array('required' => false, 'choices' => array(0 => false, 1 => true)))
         ;
     }
 
@@ -60,7 +66,7 @@ class SettingsMobileType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bl_mobile_user_settings';
     }
