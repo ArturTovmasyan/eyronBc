@@ -32,25 +32,6 @@
             <argument type="service" id="router" />
         </service>
 
-         <!--User-->
-        <service id="sonata.user.admin.user" class="Application\UserBundle\Admin\Model\UserAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="group_name_user" label="admin.label.name.user"/>
-            <argument/>
-            <argument>Application\UserBundle\Entity\User</argument>
-            <argument/>
-            <call method="setTemplate">
-                <argument>list</argument>
-                <argument>ApplicationUserBundle:Admin:user_list.html.twig</argument>
-            </call>
-            <call method="setTemplate">
-                <argument>show</argument>
-                <argument>ApplicationUserBundle:Admin:user_show.html.twig</argument>
-            </call>
-            <call method="setTranslationDomain">
-                <argument>messages</argument>
-            </call>
-        </service>
-
         <service id="bl.email.sender" class="Application\UserBundle\Services\EmailSenderService">
             <argument type="service" id="service_container" />
         </service>

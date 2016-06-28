@@ -20,10 +20,29 @@ use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserAdmin extends AbstractAdmin
 {
-//    protected $translationDomain = 'messages'; // default is 'messages'
+
     protected $baseRouteName    = 'admin-user';
     protected $baseRoutePattern = 'admin-user';
     public    $usersCount       = 0;
+
+    /**
+     * @param string $name
+     * @return mixed|null|string
+     */
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'ApplicationUserBundle:Admin:user_list.html.twig';
+                break;
+            case 'show':
+                return 'ApplicationUserBundle:Admin:user_show.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -33,17 +52,17 @@ class UserAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label' =>'admin.label.name.id'))
-            ->add('email', null, array('label' => 'admin.label.name.email'))
-            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
-            ->add('lastName', null, array('label' => 'admin.label.name.lastName'))
-            ->add('picture', null, array('template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
-            ->add('profile', null, array('template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
-            ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'))
-            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
-            ->add('listedGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
-            ->add('createdGoals', null, array('template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
-            ->add('successStory count', null, array('template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
+            ->add('id', null, array('label' =>'Id'))
+            ->add('email', null, array('label' => 'Email'))
+            ->add('firstName', null, array('label'=>'First Name'))
+            ->add('lastName', null, array('label' => 'Last Name'))
+            ->add('picture', null, array('label' => 'Picture', 'template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
+            ->add('profile', null, array('label' => 'Profile','template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
+            ->add('userSocial', null, array('label' => 'User Social','template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'))
+            ->add('enabled', null, array('label' => 'Enabled'))
+            ->add('listedGoals', null, array('label' => 'Listed Goals', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
+            ->add('createdGoals', null, array('label' => 'Created Goals', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
+            ->add('successStory count', null, array('label' => 'Success Story Count', 'template' => 'ApplicationUserBundle:Admin:user_show_goal_story.html.twig'))
             ->add('sex', null, array('label' => 'Sex'))
             ->add('lastLogin', null, array('label' => 'Last login'))
             ->add('created', 'datetime', array('label' =>'Date of registration'))
@@ -55,17 +74,17 @@ class UserAdmin extends AbstractAdmin
     {
 
         $formMapper
-            ->add('email', null, array('label'=>'admin.label.name.email'))
+            ->add('email', null, array('label'=>'Email'))
             ->add('plainPassword', 'repeated', array('first_name' => 'password',
                 'required' => true,
                 'second_name' => 'confirm',
                 'type' => 'password',
                 'invalid_message' => 'Passwords do not match',
-                'first_options' => array('label' => 'admin.label.name.password'),
-                'second_options' => array('label' => 'admin.label.name.repeat_password')))
-            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
-            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
+                'first_options' => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password')))
+            ->add('firstName', null, array('label'=>'First Name'))
+            ->add('lastName', null, array('label'=>'Last Name'))
+            ->add('enabled', null, array('label'=>'Enabled'))
         ;
     }
 
@@ -73,11 +92,11 @@ class UserAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
-            ->add('email', null, array('label'=>'admin.label.name.email_username','show_filter' => true))
-            ->add('firstName', null, array('label'=>'admin.label.name.firstName','show_filter' => true))
-            ->add('lastName', null, array('label'=>'admin.label.name.lastName','show_filter' => true))
-            ->add('created','doctrine_orm_date_range', array('show_filter' => true),'sonata_type_date_range_picker',
+            ->add('id', null, array('label'=>'Id','show_filter' => true))
+            ->add('email', null, array('label'=>'Email\Username','show_filter' => true))
+            ->add('firstName', null, array('label'=>'First Name','show_filter' => true))
+            ->add('lastName', null, array('label'=>'Last Name','show_filter' => true))
+            ->add('created','doctrine_orm_date_range', array('label' => 'Created', 'show_filter' => true), 'sonata_type_date_range_picker',
                 array('field_options_start' => array('format' => 'yyyy-MM-dd'),
                       'field_options_end' => array('format' => 'yyyy-MM-dd'))
                 );
@@ -86,13 +105,13 @@ class UserAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id', null, array('label' => 'admin.label.name.employee_id'))
-            ->add('username', null, array('label'=>'admin.label.name.username'))
-            ->add('firstName', null, array('label'=>'admin.label.name.firstName'))
-            ->add('lastName', null, array('label'=>'admin.label.name.lastName'))
-            ->add('userSocial', null, array('template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
-            ->add('enabled', null, array('label'=>'admin.label.name.enabled'))
-            ->add('created', 'datetime', array('label' => 'admin.label.name.created'))
+            ->add('id', null, array('label' => 'Employee ID'))
+            ->add('username', null, array('label'=>'Username'))
+            ->add('firstName', null, array('label'=>'First Name'))
+            ->add('lastName', null, array('label'=>'Last Name'))
+            ->add('userSocial', null, array('label'=>'User Social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
+            ->add('enabled', null, array('label'=>'Enabled'))
+            ->add('created', 'datetime', array('label' => 'Created'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
