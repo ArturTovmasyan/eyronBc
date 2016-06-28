@@ -77,6 +77,10 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         {
             $userName = 'user2@user.com';
         }
+        elseif($user == 'user5')
+        {
+            $userName = 'user15@user.com';
+        }
 
         //set password
         $password = 'Test1234';
