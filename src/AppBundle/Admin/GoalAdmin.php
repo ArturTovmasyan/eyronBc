@@ -96,6 +96,9 @@ class GoalAdmin extends AbstractAdmin
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))
             ->add('archived', null, array('label'=>'admin.label.name.archived','show_filter' => true))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id','show_filter' => true))
+
+            ->add('status', null, array('label'=>'admin.label.name.goal_public', 'show_filter' => true, 'editable' => true))
+
             ->add('created', 'doctrine_orm_callback', array(
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
