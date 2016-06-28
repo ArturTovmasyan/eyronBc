@@ -77,6 +77,20 @@ Feature: Activity
     And I wait
     And I should see "Dreams"
 
+  @javascript @userProfileGoalText
+  Scenario: Other user profile empty goal text checking
+    Given I am on "/logout"
+    When I am logged in as "user1"
+    And I should see "user1 useryan"
+    And I am on "/profile/777777"
+    And I wait
+    Then I should not see "What are you doing here? Come on, add some goals"
+    When I follow "Active"
+    Then I should not see "Your life needs goals, add some more."
+    When I follow "Completed"
+    Then I should not see "It’s time to act and complete some goals."
+    And I wait
+
   @javascript @activity
   Scenario: Open the page and show me my goal friends activities.
     Given I am on "/logout"

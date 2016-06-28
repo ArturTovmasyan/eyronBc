@@ -366,6 +366,7 @@
                             {% set link = path('user_profile_single', {'status': active }) %}
                         {% endif %}
 
+                    {% if profileUser.id == app.user.id %}
                         {% if dream %}
                             {{ 'dream'|trans }}
                         {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
@@ -377,6 +378,7 @@
                         {% else %}
                             {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
                         {% endif %}
+                    {% endif %}
                     </p>
 
                 {% endif %}
