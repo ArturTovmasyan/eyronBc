@@ -7,64 +7,71 @@
  */
 namespace AppBundle\Security;
 
+use AppBundle\Entity\Goal;
+use AppBundle\Model\PublishAware;
+use Application\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class GoalVoter extends Voter
 {
+    const VIEW = 'view';
+    const EDIT = 'edit';
+
+    /**
+     * @param string $attribute
+     * @param mixed $subject
+     * @return bool
+     */
     protected function supports($attribute, $subject)
     {
-        // if the attribute isn't one we support, return false
         if (!in_array($attribute, array(self::VIEW, self::EDIT))) {
             return false;
         }
 
-        // only vote on Post objects inside this voter
-        if (!$subject instanceof Post) {
+        if (!$subject instanceof Goal) {
             return false;
         }
 
         return true;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    /**
+     * @param string $attribute
+     * @param mixed $goal
+     * @param TokenInterface $token
+     * @return bool
+     */
+    protected function voteOnAttribute($attribute, $goal, TokenInterface $token)
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
-            return false;
-        }
-
-        // you know $subject is a Post object, thanks to supports
-        /** @var Post $post */
-        $post = $subject;
-
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($post, $user);
+                return $this->canView($goal, $user);
             case self::EDIT:
-                return $this->canEdit($post, $user);
+                return $this->canEdit($goal, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Post $post, User $user)
+    /**
+     * @param Goal $goal
+     * @param $user
+     * @return bool
+     */
+    private function canView(Goal $goal, $user)
     {
-        // if they can edit, they can view
-        if ($this->canEdit($post, $user)) {
+        if ($goal->getPublish() == PublishAware::PUBLISH || $user instanceof User){
             return true;
         }
 
-        // the Post object could have, for example, a method isPrivate()
-        // that checks a boolean $private property
-        return !$post->isPrivate();
+        return false;
     }
 
-    private function canEdit(Post $post, User $user)
+    private function canEdit(Goal $goal, $user)
     {
-        // this assumes that the data object has a getOwner() method
-        // to get the entity of the user who owns this data object
         return $user === $post->getOwner();
     }
 }
