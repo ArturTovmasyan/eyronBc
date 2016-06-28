@@ -42,6 +42,10 @@
                 <argument>list</argument>
                 <argument>ApplicationUserBundle:Admin:user_list.html.twig</argument>
             </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>ApplicationUserBundle:Admin:user_show.html.twig</argument>
+            </call>
         </service>
 
         <service id="bl.email.sender" class="Application\UserBundle\Services\EmailSenderService">

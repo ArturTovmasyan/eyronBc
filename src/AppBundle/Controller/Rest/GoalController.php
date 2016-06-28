@@ -14,6 +14,7 @@ use AppBundle\Entity\SuccessStory;
 use AppBundle\Form\GoalType;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
+use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -326,80 +327,58 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/goals/add-images/{id}/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_goal_addimages", options={"method_prefix"=false})
-     * @param $id
-     * @param $userId
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"id" = "userId"})
+     * @param $goal
+     * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addImagesAction($id = null, $userId = null, Request $request)
+    public function addImagesAction(Goal $goal = null, User $user = null, Request $request)
     {
-        // get entity manager
+        //TODO this rest non secured
         $em = $this->getDoctrine()->getManager();
 
-        if ($id){
-
-            //get user goal by goal id
-            $goal = $em->getRepository('AppBundle:Goal')->find($id);
-
-            //check ig goal is not exist
-            if (!$goal){
-                return new Response('Goal not found', Response::HTTP_NOT_FOUND);
+        if (is_null($user)){
+            $user = $this->getUser();
+            if (is_null($user) || !is_object($user)){
+                return new Response("there aren't any user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        if ($userId) {
-
-            //get user by id
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-
-            //check if user not exist
-            if (!$user){
-                return new Response('User not found', Response::HTTP_NOT_FOUND);
-            }
-
-            if ($id){
-                if ($user != $goal->getAuthor()){
-                    return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
-                }
+        if (!is_null($goal)){
+            if (is_null($goal->getAuthor()) || $user->getId() != $goal->getAuthor()->getId()){
+                return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        // get all files form request
         $file = $request->files->get('file');
 
-        // check file
-        if($file){
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new goal image object
-            $goalImage = new GoalImage();
-            $goalImage->setFile($file);
-
-            // validate goal image
-            $validator = $this->get('validator');
-            $error = $validator->validate($goalImage, null, array('goal'));
-
-            if(count($error) > 0){
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
-
-            // upload file
-            $bucketService->uploadFile($goalImage);
-
-            if (isset($goal)){
-                $goalImage->setGoal($goal);
-                $goal->addImage($goalImage);
-            }
-
-            $em->persist($goalImage);
-            $em->flush();
-
-            return $goalImage->getId();
+        if(!$file) {
+            return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        return new Response('', Response::HTTP_NOT_FOUND);
+        $goalImage = new GoalImage();
+        $goalImage->setFile($file);
+
+        if (!is_null($goal)){
+            $goalImage->setGoal($goal);
+            $goal->addImage($goalImage);
+        }
+
+        $validator = $this->get('validator');
+        $error = $validator->validate($goalImage, null, array('goal'));
+
+        if(count($error) > 0){
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->get('bl_service')->uploadFile($goalImage);
+
+        $em->persist($goalImage);
+        $em->flush();
+
+        return $goalImage->getId();
     }
 
     /**
@@ -875,77 +854,58 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
-     * @param $id
-     * @param $userId
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"id" = "userId"})
+     * @param $successStory
+     * @param $user
      * @param Request $request
      * @return JsonResponse
      * @Rest\View()
      */
-    public function addSuccessStoryImagesAction($id = null, $userId = null, Request $request)
+    public function addSuccessStoryImagesAction(SuccessStory $successStory = null, User $user = null, Request $request)
     {
         //TODO: need for some changes to work for mobile and web
-
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //check if success story id exist
-        if ($id && $userId) {
-
-            //get success story by id
-            $successStory = $em->getRepository('AppBundle:SuccessStory')->find($id);
-
-            //get user by id
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-
-            //check if success story not exist
-            if (!$successStory) {
-                return new Response('Success story not found', Response::HTTP_NOT_FOUND);
-            }
-
-            //check if user not exist
-            if (!$user) {
-                return new Response('User not found', Response::HTTP_NOT_FOUND);
-            }
-
-            //check if success story isn`t current user
-            if ($user != $successStory->getUser()) {
-                return new Response("Success story isn't of current user", Response::HTTP_FORBIDDEN);
+        if (is_null($user)){
+            $user = $this->getUser();
+            if (is_null($user) || !is_object($user)){
+                return new Response("there aren't any user", Response::HTTP_FORBIDDEN);
             }
         }
 
-        // get all files form request
+        if (!is_null($successStory)){
+            if ($user->getId() != $successStory->getUser()->getId()){
+                return new Response("It isn't user's successStory", Response::HTTP_FORBIDDEN);
+            }
+        }
+
         $file = $request->files->get('file');
 
-        // check file
-        if ($file) {
-            // get bucket list service
-            $bucketService = $this->get('bl_service');
-
-            // create new goal image object
-            $storyImage = new StoryImage();
-            $storyImage->setFile($file);
-            $storyImage->setStory($successStory);
-
-            // validate goal image
-            $validator = $this->get('validator');
-            $error = $validator->validate($storyImage, null, null);
-
-            if (count($error) > 0) {
-                return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
-            else { // upload image id there is no error
-
-                // upload file
-                $bucketService->uploadFile($storyImage);
-
-                $em->persist($storyImage);
-                $em->flush();
-            }
-
-            return new Response('', Response::HTTP_OK);
+        if (!$file) {
+            return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        return new Response('', Response::HTTP_NOT_FOUND);
+        $storyImage = new StoryImage();
+        $storyImage->setFile($file);
+
+        if (!is_null($successStory)){
+            $storyImage->setStory($successStory);
+            $successStory->addFile($storyImage);
+        }
+
+        $validator = $this->get('validator');
+        $error = $validator->validate($storyImage, null, null);
+
+        if (count($error) > 0) {
+            return new JsonResponse($error[0]->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->get('bl_service')->uploadFile($storyImage);
+
+        $em->persist($storyImage);
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
     }
 
     /**
