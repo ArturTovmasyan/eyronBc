@@ -487,6 +487,14 @@ angular.module('goal', ['Interpolation',
             }
         }
 
+        $('body').on('keydown', '#fos_comment_comment_body', function(ev) {
+            if(ev.which === 13) {
+                ev.preventDefault();
+                ev.stopPropagation();
+            }
+        });
+
+
         if(window.innerWidth > 991 && window.innerWidth < 1200){
             angular.element('#main-slider img').addClass("full-height");
         }else{
