@@ -853,8 +853,10 @@ class GoalController extends FOSRestController
      * )
      * )
      *
-     * @Rest\Post("/success-story/{id}/add-images/{userId}", defaults={"id"=null, "userId"=null}, requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
-     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"id" = "userId"})
+     * @Rest\Post("/success-story/{id}/add-images/{userId}", requirements={"id"="\d+", "userId"="\d+"}, name="app_rest_success_story_addimages", options={"method_prefix"=false})
+     * @Rest\Post("/success-story/add-images")
+     * @ParamConverter("user", class="ApplicationUserBundle:User", options={"mapping" = {"userId" = "id"}}, isOptional="true")
+     * @ParamConverter("successStory", class="AppBundle:SuccessStory", options={"mapping" = {"id" = "id"}}, isOptional="true")
      * @param $successStory
      * @param $user
      * @param Request $request
@@ -905,7 +907,7 @@ class GoalController extends FOSRestController
         $em->persist($storyImage);
         $em->flush();
 
-        return new Response('', Response::HTTP_OK);
+        return $storyImage->getId();
     }
 
     /**
