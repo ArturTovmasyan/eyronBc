@@ -288,9 +288,8 @@ class DoctrineListener
 
             try{
                 $request = $this->container->get('request_stack')->getCurrentRequest();
-                $session = $request->getSession();
 
-                if (!$session){
+                if (is_null($request) || is_null($session = $request->getSession())){
                     return;
                 }
 
