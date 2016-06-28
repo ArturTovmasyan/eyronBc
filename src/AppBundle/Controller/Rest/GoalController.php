@@ -98,6 +98,7 @@ class GoalController extends FOSRestController
 
     /**
      * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{count}/suggest", requirements={"count"="\d+"}, name="app_rest_top_ideas")
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
