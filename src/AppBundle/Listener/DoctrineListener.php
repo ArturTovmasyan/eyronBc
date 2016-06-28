@@ -149,7 +149,10 @@ class DoctrineListener
                 }
                 while($isUser);
 
-                $entity->setUId($string);
+                //check if user don't have uId
+                if(!$entity->getUId()) {
+                    $entity->setUId($string);
+                }
                 $metadata = $em->getMetadataFactory()->getMetadataFor('ApplicationUserBundle:User');
                 $uow->recomputeSingleEntityChangeSet($metadata, $entity);
             }
