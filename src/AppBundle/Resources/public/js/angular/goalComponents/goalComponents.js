@@ -197,14 +197,19 @@ angular.module('goalComponents', ['Interpolation',
           return;
         }
         $timeout(function(){
-          $scope.userGoal.files = $scope.files;
-          $scope.userGoal.story.video_link = [];
+          // $scope.userGoal.files = $scope.files;
+          $scope.video_link = [];
           angular.forEach($scope.userGoal.videos_array, function (d) {
             if(!angular.isUndefined(d.link) && d.link){
-              $scope.userGoal.story.video_link.push(d.link);
+              $scope.video_link.push(d.link);
             }
           });
-          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
+          var data = {
+            'story'     : $scope.userGoal.story,
+            'videoLink' : $scope.video_link,
+            'files'     : $scope.files
+          };
+          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
             angular.element('#cancel').click();
           });
         }, 100)
