@@ -166,6 +166,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;
+      var clickable = true;
       if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files)){
         imageCount = 6 - $scope.userGoal.story.files.length
       }
@@ -190,6 +191,9 @@ angular.module('goalComponents', ['Interpolation',
       $scope.save = function () {
         if($scope.isInValid()){
           angular.element('textarea[name=story]').addClass('border-red');
+          return;
+        }
+        if(!clickable){
           return;
         }
         $timeout(function(){
@@ -222,6 +226,9 @@ angular.module('goalComponents', ['Interpolation',
             uploadMultiple: false,
             maxThumbnailFilesize: 6,
             maxFiles: imageCount,
+            sending: function(){
+              clickable = false;
+            },
             removedfile: function(d){
               angular.element(d.previewElement).remove();
               var id = JSON.parse(d.xhr.responseText);
@@ -233,6 +240,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.$apply();
             },
             complete: function(res){
+              clickable = true;
               if(res.xhr.status !== 200){
                 return;
               }
