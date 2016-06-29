@@ -14,6 +14,7 @@ use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
+use AppBundle\Model\PublishAware;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -454,13 +455,17 @@ class GoalController extends Controller
         $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
 
         //check if user goal exist and 1
-        if(count($userGoal) == 1){
+        if($userGoal){
             // remove from bd
             $em->remove($userGoal);
         }
 
         //get goal draft by goal id
         $goalDraft = $em->getRepository('AppBundle:Goal')->find($goal);
+
+        if (is_null($goalDraft->getAuthor()) || $goalDraft->getAuthor()->getId() != $user->getId() || $goal->getPublish() == PublishAware::PUBLISH){
+            throw new HttpException(Response::HTTP_NOT_FOUND, "It isn't your goal or it is public goal");
+        }
 
         //check user goal
         if(!$goalDraft){
