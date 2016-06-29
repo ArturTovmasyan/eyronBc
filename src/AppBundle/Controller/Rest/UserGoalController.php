@@ -234,29 +234,14 @@ class UserGoalController extends FOSRestController
      */
     public function postBucketlistAction(Request $request)
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //get userId in request
-        $userId = $request->get('userId');
-
-        //check if userId don't sent
-        if($userId) {
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-        }
-        else{
-            $user = $this->getUser();
-        }
-
-        //get userGoals
+        $em        = $this->getDoctrine()->getManager();
+        $userId    = $request->get('userId');
+        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
         $userGoals = $this->getUserGoalsForBucketList($request, $user);
 
-        //generate user stats
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
-        // return user goals
-        return [
-            'user_goals' => $userGoals, 'user' => $user];
+        return ['user_goals' => $userGoals, 'user' => $user];
     }
 
     /**
@@ -289,24 +274,11 @@ class UserGoalController extends FOSRestController
      */
     public function postLocationsAction(Request $request)
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //get userId in request
-        $userId = $request->get('userId');
-
-        //check if userId don't sent
-        if($userId) {
-            $user = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-        }
-        else{
-            $user = $this->getUser();
-        }
-
-        //get userGoals
+        $em        = $this->getDoctrine()->getManager();
+        $userId    = $request->get('userId');
+        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
         $userGoals = $this->getUserGoalsForBucketList($request, $user);
 
-        // return user goals
         return $userGoals;
     }
 
@@ -342,11 +314,8 @@ class UserGoalController extends FOSRestController
         }
 
         $newDone = true;
-
-        // get user goal
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
-        // check user goal and create if noc exist
         if(!$userGoal){
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
@@ -355,7 +324,6 @@ class UserGoalController extends FOSRestController
         else {
             $newDone = !($userGoal->getStatus() == UserGoal::COMPLETED);
         }
-
 
         $userGoal->setStatus($status);
         $userGoal->setCompletionDate($completionDate);
@@ -368,6 +336,10 @@ class UserGoalController extends FOSRestController
 
     /**
      * This function is used to get user goals data for bucket list page
+     *
+     * @param $request
+     * @param $user
+     * @return array
      */
     private function getUserGoalsForBucketList($request, $user)
     {
