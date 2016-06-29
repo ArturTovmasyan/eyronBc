@@ -74,7 +74,17 @@ angular.module('Authenticator', ['PathPrefix'])
       }
     }
   }])
-  .controller('AuthenticatorLoginController', ['$scope', 'AuthenticatorLogin', function($scope, AuthenticatorLogin){
+  .controller('AuthenticatorLoginController', [
+    '$scope',
+    'AuthenticatorLogin',
+    'envPrefix',
+    function(
+      $scope,
+      AuthenticatorLogin,
+      envPrefix
+    ){
+
+    $scope.envPrefix  = envPrefix;
     $scope.login_form = {};
 
     $scope.login = function(){

@@ -7,13 +7,13 @@
         <div class="form-group">
             <input type="password" data-ng-model="login_form.password" class="form-control" id="password" placeholder="Password" name="_password" required="required">
         </div>
-        <a href="/app_dev.php/resetting/check-email">Forgot password?</a>
+        <a data-ng-href="[[ envPrefix ]]resetting/check-email">Forgot password?</a>
         <div class="form-group">
             <button data-ng-click="login()" class="btn btn-purple">SIGN IN</button>
         </div>
     </form>
     <div class="divider"></div>
-    <a href="/app_dev.php/register/" class="sign-up">
+    <a data-ng-href="[[ envPrefix ]]register/" class="sign-up">
         <span class="icon-user"></span>SIGN UP
     </a>
     <div class="divider"></div>
@@ -21,9 +21,9 @@
     <ul class="social">
         <meta charset="UTF-8">
         <div>
-            <li><a class="facebook" href="http://bucketlist.loc/app_dev.php/connect/facebook"></a></li>
-            <li><a class="google" href="http://bucketlist.loc/app_dev.php/connect/google"></a></li>
-            <li><a class="twitter" href="http://bucketlist.loc/app_dev.php/connect/twitter"></a></li>
+            <li><a class="facebook" data-ng-href="[[ envPrefix ]]connect/facebook"></a></li>
+            <li><a class="google" data-ng-href="[[ envPrefix ]]connect/google"></a></li>
+            <li><a class="twitter" data-ng-href="[[ envPrefix ]]connect/twitter"></a></li>
         </div>
     </ul>
 </div>
