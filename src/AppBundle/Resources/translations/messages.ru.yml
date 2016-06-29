@@ -70,6 +70,9 @@ goal:
       create_goal: Поздравляем, ваша цель была успешно добавлена
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
+      deadline: Deadline
+      priority: Приоритет
+      steps: Steps
 activities:
       title: Действия
       description: Описание действий

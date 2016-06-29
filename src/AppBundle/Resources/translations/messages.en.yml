@@ -76,6 +76,9 @@ goal:
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
       empty_private_ideas: Currently there are no Private goals in your Private goal list
+      deadline: Deadline
+      priority: Priority
+      steps: Steps
 activities:
       title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
