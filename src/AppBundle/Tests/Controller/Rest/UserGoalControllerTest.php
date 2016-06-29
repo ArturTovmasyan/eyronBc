@@ -137,20 +137,36 @@ class UserGoalControllerTest extends BaseClass
         $url = sprintf('/api/v1.0/usergoals/%s', $userGoalId);
 
         // try to delete user goals
-        $this->client->request('DELETE', $url);
-        // check page opened status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not delete user-goal rest!");
-        // check response result content type
-        $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
-        );
-        // check database query count
-        if ($profile = $this->client->getProfile()) {
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
+        $this->client4->request('DELETE', $url);
+
+        //get user goal by id
+        $userGoal = $this->em->getRepository('AppBundle:UserGoal')->find($userGoalId);
+
+        //get goal
+        $goal = $userGoal->getGoal();
+
+        //get current user
+        $currentUser = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'user4@user.com'));
+
+        //check if goal published and author current user
+        if($goal->isAuthor($currentUser) && !$goal->getPublish()) {
+
+            // check page opened status code
+            $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not delete user-goal rest!");
         }
 
+        // check response result content type
+        $this->assertTrue(
+            $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client4->getResponse()->headers
+        );
+
+
+        // check database query count
+        if ($profile = $this->client4->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
+        }
     }
 
 }

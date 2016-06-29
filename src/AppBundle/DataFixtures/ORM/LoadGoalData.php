@@ -180,7 +180,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal10->setAddress('Armenia');
 
         $goal10->setAuthor($user5);
-        $goal10->setPublish(true);
+        $goal10->setPublish(false);
         $manager->persist($goal10);
 
 
