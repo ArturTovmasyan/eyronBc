@@ -7,7 +7,8 @@ angular.module('goalComponents', ['Interpolation',
   'goalManage',
   'angulartics',
   'angulartics.google.analytics',
-  'PathPrefix'
+  'PathPrefix',
+  'Facebook'
   ])
   .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
@@ -161,8 +162,10 @@ angular.module('goalComponents', ['Interpolation',
     '$window',
     'userGoalData',
     'UserGoalDataManager',
-    function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager){
+    'envPrefix',
+    function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
       $scope.userGoal = userGoalData.doneData;
+      $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;

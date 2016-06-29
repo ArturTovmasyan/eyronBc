@@ -21,6 +21,11 @@ logout: Logout
 my_bucketlist: My Bucketlist
 statistic_view: Statistic
 
+#Share
+message_on_top_of_the_page: Congrats! You have successfully completed the goal!
+share_title: Share your achievement
+facebook_post_text: I have completed another goal on Bucket List 127. This is how dreams turn into memories! It’s time to take on some more.
+
 # goal
 goal:
       user_description: User goal description
@@ -126,7 +131,9 @@ user_goal:
 
 # success story form
 success_story:
+      completion_date: Completion date
       complete_text: Write a success story
+      complete_edit_text: Please, specify the date when you completed your goal.
       title: Write a success story,please !
       description: Success story ...
       files: Files

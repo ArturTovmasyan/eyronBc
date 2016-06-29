@@ -20,6 +20,11 @@ settings: Настройки
 logout: Выход
 my_bucketlist: Мой список целей
 
+#Share
+message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!
+share_title: Поделитесь своим достижением
+facebook_post_text: Я достиг очередной цели на Bucket List 127. Вот как мечты превращаются в воспоминания. Пора поставить новые цели.
+
 # goal
 goal:
       user_description: Описание цели пользователя
@@ -116,7 +121,9 @@ user_goal:
 
 # success story form
 success_story:
+      completion_date: Дата достижение цели
       complete_text: Разместите историю успеха
+      complete_edit_text: Пожалуйста, укажите дату, когда ваша цель была достигнута.
       title: Пожалуйста, разместите историю успеха!
       description: История успеха ...
       files: Файлы
