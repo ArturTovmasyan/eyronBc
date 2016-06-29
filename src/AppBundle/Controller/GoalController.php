@@ -26,6 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -206,6 +207,8 @@ class GoalController extends Controller
      */
     public function viewAction(Goal $goal)
     {
+        $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
+
         return array('goal' => $goal);
     }
 
@@ -219,6 +222,8 @@ class GoalController extends Controller
      */
     public function innerContentAction(Goal $goal, $page = Goal::INNER)
     {
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
         $em = $this->getDoctrine()->getManager();
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
@@ -331,49 +336,25 @@ class GoalController extends Controller
      */
     public function removeDraftGoal(Goal $goal, $slug = null, Request $request)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
-        // get current user
-        $user = $this->getUser();
-
-        // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
-
-        //check if user goal exist and 1
-        if($userGoal){
-            // remove from bd
+        if(!is_null($userGoal)){
             $em->remove($userGoal);
         }
 
-        //get goal draft by goal id
-        $goalDraft = $em->getRepository('AppBundle:Goal')->find($goal);
-
-        if (is_null($goalDraft->getAuthor()) || $goalDraft->getAuthor()->getId() != $user->getId() || $goal->getPublish() == PublishAware::PUBLISH){
-            throw new HttpException(Response::HTTP_NOT_FOUND, "It isn't your goal or it is public goal");
-        }
-
-        //check user goal
-        if(!$goalDraft){
-
-            // return Exception
-            throw $this->createNotFoundException("This draft goal by id $goal not found");
-        }
-
-        // remove from bd
-        $em->remove($goalDraft);
+        $this->denyAccessUnlessGranted('delete', $goal, $this->get('translator')->trans('goal.delete_access_denied'));
+        $em->remove($goal);
         $em->flush();
 
         if($slug == "drafts"){
             $request->getSession()
                 ->getFlashBag()
-                ->set('draft','Delete my draft from Web')
-            ;
+                ->set('draft','Delete my draft from Web');
         }else{
             $request->getSession()
                 ->getFlashBag()
-                ->set('private','Delete my private idea from Web')
-            ;
+                ->set('private','Delete my private idea from Web');
         }
 
         return $this->redirectToRoute("my_ideas", array('slug' => $slug));
@@ -391,25 +372,26 @@ class GoalController extends Controller
      */
     public function removeImage(GoalImage $goalImage)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        $goalImage->getGoal()->removeImage($goalImage);
-        $goalImages = $goalImage->getGoal()->getImages();
-        if ($goalImage->getList() && $goalImages->first()){
-            $goalImages->first()->setList(true);
-        }
-        if ($goalImage->getCover() && $goalImages->first()){
-            $goalImages->first()->setCover(true);
+        if (!is_null($goal = $goalImage->getGoal()))
+        {
+            $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
+
+            $goal->removeImage($goalImage);
+            $goalImages = $goal->getImages();
+            if ($goalImage->getList() && $goalImages->first()){
+                $goalImages->first()->setList(true);
+            }
+            if ($goalImage->getCover() && $goalImages->first()){
+                $goalImages->first()->setCover(true);
+            }
         }
 
-        // remove from bd
         $em->remove($goalImage);
-
         $em->flush();
 
         if (isset($_SERVER['HTTP_REFERER'])){
-
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
@@ -428,6 +410,8 @@ class GoalController extends Controller
      */
     public function showAction(Goal $goal)
     {
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
         return array('goal' => $goal);
     }
 
@@ -444,16 +428,14 @@ class GoalController extends Controller
      */
     public function cloneAction(Goal $goal)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-        // clone goal
+
         $object = clone $goal;
-        // persist goal
+
         $em->persist($object);
         $em->flush();
 
-        // redirect to goal add
-        return $this->redirectToRoute('add_goal', array('id'=>$object->getId()));
+        return $this->redirectToRoute('add_goal', array('id' => $object->getId()));
     }
 
     /**
@@ -470,7 +452,7 @@ class GoalController extends Controller
             UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
         );
 
-        return $this->render('@App/Goal/addToMe.html.twig', array(
+        return $this->render('AppBundle:Goal:addToMe.html.twig', array(
             'filters' => $filters
         ));
     }
