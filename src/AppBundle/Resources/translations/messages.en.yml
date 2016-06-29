@@ -76,6 +76,11 @@ goal:
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
       empty_private_ideas: Currently there are no Private goals in your Private goal list
+
+      view_access_denied: You can't view this goal
+      edit_access_denied: You can't edit this goal
+      delete_access_denied: You can't delete this goal
+
 activities:
       title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
@@ -131,6 +136,10 @@ success_story:
       description: Success story ...
       files: Files
       url: Video URL: https://www...
+
+      view_access_denied: You can't view this success story
+      edit_access_denied: You can't edit this success story
+      delete_access_denied: You can't delete this success story
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 

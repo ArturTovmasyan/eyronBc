@@ -208,7 +208,7 @@
                                  <div class="row">
                                      {% for image in images %}
                                              <div class="col-sm-2">
-                                                 <a href="{{ path("remove_image", {'filename' : image.filename }) }}">
+                                                 <a href="{{ path("app_get_rest_goal_removeimage", {'id' : image.id }) }}">
                                                      {#<i class="icon remove-icon"></i>#}
                                                      <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                  </a>
