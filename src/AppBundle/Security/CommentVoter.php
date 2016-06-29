@@ -16,8 +16,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CommentVoter extends Voter
 {
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const VIEW   = 'view';
+    const EDIT   = 'edit';
+    const DELETE = 'delete';
 
     /**
      * @param string $attribute
@@ -26,7 +27,7 @@ class CommentVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::VIEW, self::EDIT))) {
+        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
             return false;
         }
 
@@ -39,19 +40,21 @@ class CommentVoter extends Voter
 
     /**
      * @param string $attribute
-     * @param mixed $goal
+     * @param mixed $comment
      * @param TokenInterface $token
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $goal, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $comment, TokenInterface $token)
     {
         $user = $token->getUser();
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($goal, $user);
+                return $this->canView($comment, $user);
             case self::EDIT:
-                return $this->canEdit($goal, $user);
+                return $this->canEdit($comment, $user);
+            case self::DELETE:
+                return $this->canDelete($comment, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -87,5 +90,15 @@ class CommentVoter extends Voter
         }
 
         return false;
+    }
+
+    /**
+     * @param Comment $comment
+     * @param $user
+     * @return bool
+     */
+    public function canDelete(Comment $comment, $user)
+    {
+        return $this->canEdit($comment, $user);
     }
 }

@@ -8,12 +8,13 @@
 namespace AppBundle\Security;
 
 use AppBundle\Entity\Goal;
+use AppBundle\Entity\UserGoal;
 use AppBundle\Model\PublishAware;
 use Application\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class GoalVoter extends Voter
+class UserGoalVoter extends Voter
 {
     const VIEW   = 'view';
     const EDIT   = 'edit';
@@ -30,7 +31,7 @@ class GoalVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof Goal) {
+        if (!$subject instanceof UserGoal) {
             return false;
         }
 
@@ -39,42 +40,50 @@ class GoalVoter extends Voter
 
     /**
      * @param string $attribute
-     * @param mixed $goal
+     * @param mixed $userGoal
      * @param TokenInterface $token
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $goal, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $userGoal, TokenInterface $token)
     {
         $user = $token->getUser();
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($goal, $user);
+                return $this->canView($userGoal, $user);
             case self::EDIT:
-                return $this->canEdit($goal, $user);
+                return $this->canEdit($userGoal, $user);
             case self::DELETE:
-                return $this->canDelete($goal, $user);
+                return $this->canDelete($userGoal, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
     /**
-     * @param Goal $goal
+     * @param UserGoal $userGoal
      * @param $user
      * @return bool
      */
-    private function canView(Goal $goal, $user)
+    private function canView(UserGoal $userGoal, $user)
     {
-        return ($goal->getPublish() == PublishAware::PUBLISH || $user instanceof User);
+        if (!$user instanceof User){
+            return false;
+        }
+
+        if ($userGoal->getIsVisible() || $userGoal->getUser()->getId() == $user->getId()){
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     * @param Goal $goal
+     * @param UserGoal $userGoal
      * @param $user
      * @return bool
      */
-    private function canEdit(Goal $goal, $user)
+    private function canEdit(UserGoal $userGoal, $user)
     {
         if (!$user instanceof User){
             return false;
@@ -84,8 +93,7 @@ class GoalVoter extends Voter
             return true;
         }
 
-        if ($goal->getPublish() == PublishAware::NOT_PUBLISH &&
-            !is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId()){
+        if ($user->getId() == $userGoal->getUser()->getId()){
             return true;
         }
 
@@ -93,12 +101,12 @@ class GoalVoter extends Voter
     }
 
     /**
-     * @param Goal $goal
+     * @param UserGoal $userGoal
      * @param $user
      * @return bool
      */
-    public function canDelete(Goal $goal, $user)
+    public function canDelete(UserGoal $userGoal, $user)
     {
-        return $this->canEdit($goal, $user);
+        return $this->canEdit($userGoal, $user);
     }
 }

@@ -62,12 +62,12 @@ class GoalController extends Controller
         {
             $goal = $em->getRepository("AppBundle:Goal")->findGoalWithAuthor($goalId);
 
-            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
-                throw $this->createAccessDeniedException("It isn't your goal");
-            }
-
             if(is_null($goal)){
                 throw $this->createNotFoundException("Goal not found");
+            }
+
+            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
+                throw $this->createAccessDeniedException("It isn't your goal");
             }
 
             $goal = $cloneTrue ? clone $goal : $goal;
@@ -82,12 +82,10 @@ class GoalController extends Controller
 
         $form  = $this->createForm(GoalType::class, $goal);
 
-        if($request->isMethod("POST"))
-        {
+        if($request->isMethod("POST")){
             $form->handleRequest($request);
 
-            if($form->isValid())
-            {
+            if($form->isValid()){
                 if ($videoLinks = $goal->getVideoLink()){
                     $videoLinks = array_values($videoLinks);
                     $videoLinks = array_filter($videoLinks);
@@ -141,11 +139,11 @@ class GoalController extends Controller
             $request->getSession()
                 ->getFlashBag()
                 ->set('private','Edit my private idea from Web');
-        } elseif ($goalId){
+        }
+        elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
-                ->set('draft','Edit my draft  from Web')
-            ;
+                ->set('draft','Edit my draft  from Web');
         }
 
 
@@ -168,7 +166,7 @@ class GoalController extends Controller
         if($slug == 'drafts'){
             // find all drafts goal
             $goals = $em->getRepository("AppBundle:Goal")->findMyDrafts($this->getUser());
-        } else{
+        } else {
             // find all private goals
             $goals = $em->getRepository("AppBundle:Goal")->findMyPrivateGoals($this->getUser());
         }
@@ -225,7 +223,7 @@ class GoalController extends Controller
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
-        $doneByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
+        $doneByUsers   = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal->getId(), UserGoal::COMPLETED, 0, 3);
         $listedByUsers = $em->getRepository("AppBundle:Goal")->findGoalUsers($goal, UserGoal::ACTIVE, 0, 3 );
 
         // get aphorism by goal
@@ -241,80 +239,6 @@ class GoalController extends Controller
     }
 
     /**
-     * @Route("goal/done/{id}", name="done_goal")
-     * @Template()
-     * @ParamConverter("goal", class="AppBundle:Goal")
-     *
-     * @param Goal $goal
-     * @param Request $request
-     * @return array
-     * @Secure(roles="ROLE_USER")
-     */
-    public function doneAction(Goal $goal, Request $request)
-    {
-        // get current user
-        $user = $this->getUser();
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get user goal
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
-
-        // check user goal and create if noc exist
-        if(!$userGoal){
-            $userGoal = new UserGoal();
-            $userGoal->setGoal($goal);
-            $userGoal->setUser($user);
-        }
-
-        // set status to done
-        $userGoal->setStatus(UserGoal::COMPLETED);
-
-        // set date
-        $userGoal->setCompletionDate(new \DateTime());
-
-        $em->persist($userGoal);
-        $em->flush();
-
-        if ($request->query->get('ajax')){
-            return new Response('ok');
-        }
-
-        return $this->redirectToRoute("user_profile_single", array('status' => 'completed-goals'));
-    }
-
-    /**
-     * @Route("goal/add-modal", name="add_modal")
-     * @Template()
-     * @return array
-     */
-    public function addModalAction()
-    {
-        // create filter
-        $filters = array(
-            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
-            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
-            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
-        );
-
-        return $this->render('@App/Goal/addToMe.html.twig', array(
-            'filters' => $filters
-        ));
-    }
-
-    /**
-     * @Route("goal/done-modal", name="done_modal")
-     * @return array
-     */
-    public function doneModalAction()
-    {
-        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
-    }
-
-    /**
      * @Route("ideas/{category}", defaults={"category" = null}, name="goals_list")
      * @param Request $request
      * @param $category
@@ -323,7 +247,6 @@ class GoalController extends Controller
      */
     public function listAction(Request $request, $category = null)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
         
         if($category){
@@ -333,12 +256,9 @@ class GoalController extends Controller
             ;
         }
 
-        // get search key
         $search = $request->get('search');
-
         $cachePrefix = (strpos($request->getUri(), self::STAGE_URL) === false) ? self::PROD_CACHE_PREFIX : self::STAGE_CACHE_PREFIX;
 
-        // get categories
         $categories  = $em->getRepository('AppBundle:Category')->getAllCached($cachePrefix);
 
         $serializer = $this->get('serializer');
@@ -354,76 +274,42 @@ class GoalController extends Controller
      */
     private function getAndAddTags(&$object, $tags)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
-
-        // get environment
         $env = $this->container->getParameter("kernel.environment");
 
-        // check environment
         if($env == "test") {
-            $tags = array();
+            $tags = [];
         }
 
-        // check tags
         if($tags){
 
-            // remove # from json
             $tags = str_replace('#', '', $tags);
-
-            // get array
             $tags = json_decode($tags);
 
-            // get tags from db
             $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
 
-            // get new tags
             $newTags = array_diff($tags, $dbTags);
 
-            // loop for array
-            foreach($newTags as $tagString){
-
-                // create new tag
+            foreach($newTags as $tagString)
+            {
                 $tag = new Tag();
-
                 $title = strtolower($tagString);
-
-                // replace ',' symbols
                 $title = str_replace(',', '', $title);
-
-                // replace ':' symbols
                 $title = str_replace(':', '', $title);
-
-                // replace '.' symbols
                 $title = str_replace('.', '', $title);
 
-                // set tag title
                 $tag->setTag($title);
-
-                // add tag
                 $object->addTag($tag);
 
-                // persist tag
                 $em->persist($tag);
-
             }
 
-            // tags that is already exist in database
             $existTags = array_diff($tags, $newTags);
-
-            // get tags from database
             $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
 
-            // loop for tags n database
             foreach($oldTags as $oldTag){
-
-                // check tag in collection
                 if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
-
-                    // add tag
                     $object->addTag($oldTag);
-
-                    // persist tag
                     $em->persist($oldTag);
                 }
             }
@@ -563,6 +449,33 @@ class GoalController extends Controller
 
         // redirect to goal add
         return $this->redirectToRoute('add_goal', array('id'=>$object->getId()));
+    }
 
+    /**
+     * @Route("goal/add-modal", name="add_modal")
+     * @return array
+     */
+    public function addModalAction()
+    {
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
+        );
+
+        return $this->render('@App/Goal/addToMe.html.twig', array(
+            'filters' => $filters
+        ));
+    }
+
+    /**
+     * @Route("goal/done-modal", name="done_modal")
+     * @return array
+     */
+    public function doneModalAction()
+    {
+        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
     }
 }

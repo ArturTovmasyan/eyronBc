@@ -15,8 +15,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SuccessStoryVoter extends Voter
 {
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const VIEW   = 'view';
+    const EDIT   = 'edit';
+    const DELETE = 'delete';
 
     /**
      * @param string $attribute
@@ -25,7 +26,7 @@ class SuccessStoryVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::VIEW, self::EDIT))) {
+        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
             return false;
         }
 
@@ -38,19 +39,21 @@ class SuccessStoryVoter extends Voter
 
     /**
      * @param string $attribute
-     * @param mixed $goal
+     * @param mixed $successStory
      * @param TokenInterface $token
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $goal, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $successStory, TokenInterface $token)
     {
         $user = $token->getUser();
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($goal, $user);
+                return $this->canView($successStory, $user);
             case self::EDIT:
-                return $this->canEdit($goal, $user);
+                return $this->canEdit($successStory, $user);
+            case self::DELETE:
+                return $this->canDelete($successStory, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -86,5 +89,15 @@ class SuccessStoryVoter extends Voter
         }
 
         return false;
+    }
+
+    /**
+     * @param SuccessStory $story
+     * @param $user
+     * @return bool
+     */
+    public function canDelete(SuccessStory $story, $user)
+    {
+        return $this->canEdit($story, $user);
     }
 }
