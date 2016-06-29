@@ -137,6 +137,10 @@ success_story:
       files: Files
       url: Video URL: https://www...
 
+      view_access_denied: You can't view this success story
+      edit_access_denied: You can't edit this success story
+      delete_access_denied: You can't delete this success story
+
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
 filters:

@@ -839,9 +839,7 @@ class GoalController extends FOSRestController
         }
 
         if (!is_null($successStory)){
-            if ($user->getId() != $successStory->getUser()->getId()){
-                return new Response("It isn't user's successStory", Response::HTTP_FORBIDDEN);
-            }
+            $this->denyAccessUnlessGranted('edit', $successStory, $this->get('translator')->trans('success_story.edit_access_denied'));
         }
 
         $file = $request->files->get('file');
@@ -893,6 +891,8 @@ class GoalController extends FOSRestController
      */
     public function getSuccessStoryAction(Goal $goal)
     {
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
         $em = $this->getDoctrine()->getManager();
         $story = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
 
@@ -924,98 +924,11 @@ class GoalController extends FOSRestController
      * @Rest\Get("/goals/image/{id}", requirements={"id"="\d+"}, name="app_rest_goal_image", options={"method_prefix"=false})
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param $id
+     * @param Goal $goal
      * @return array
      */
-    public function getImageAction($id)
+    public function getImageAction(Goal $goal)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        // find goal by id
-        $goal = $em->getRepository("AppBundle:Goal")->find($id);
-
         return $goal;
-    }
-
-    /**
-     * @param $object
-     * @param $tags
-     */
-    private function getAndAddTags(&$object, $tags)
-    {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get environment
-        $env = $this->container->getParameter("kernel.environment");
-
-        // check environment
-        if($env == "test") {
-            $tags = array();
-        }
-
-        // check tags
-        if($tags){
-
-            // remove # from json
-            $tags = str_replace('#', '', $tags);
-
-            // get array
-            $tags = json_decode($tags);
-
-            // get tags from db
-            $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
-
-            // get new tags
-            $newTags = array_diff($tags, $dbTags);
-
-            // loop for array
-            foreach($newTags as $tagString){
-
-                // create new tag
-                $tag = new Tag();
-
-                $title = strtolower($tagString);
-
-                // replace ',' symbols
-                $title = str_replace(',', '', $title);
-
-                // replace ':' symbols
-                $title = str_replace(':', '', $title);
-
-                // replace '.' symbols
-                $title = str_replace('.', '', $title);
-
-                // set tag title
-                $tag->setTag($title);
-
-                // add tag
-                $object->addTag($tag);
-
-                // persist tag
-                $em->persist($tag);
-
-            }
-
-            // tags that is already exist in database
-            $existTags = array_diff($tags, $newTags);
-
-            // get tags from database
-            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
-
-            // loop for tags n database
-            foreach($oldTags as $oldTag){
-
-                // check tag in collection
-                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
-
-                    // add tag
-                    $object->addTag($oldTag);
-
-                    // persist tag
-                    $em->persist($oldTag);
-                }
-            }
-        }
     }
 }
