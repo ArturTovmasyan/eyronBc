@@ -91,6 +91,19 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="app.goal_voter" class="AppBundle\Security\GoalVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+        <service id="app.success_story_voter" class="AppBundle\Security\SuccessStoryVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+        <service id="app.comment_voter" class="AppBundle\Security\CommentVoter" public="false">
+            <tag name="security.voter" />
+        </service>
+
+
     </services>
 
 </container>
