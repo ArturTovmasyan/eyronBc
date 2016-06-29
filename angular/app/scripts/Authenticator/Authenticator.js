@@ -11,8 +11,11 @@ angular.module('Authenticator', [])
       AuthenticatorLogin.login();
     }, 5000)
   }])
-  .service('AuthenticatorLogin', ['$http', '$compile', function($http){
+  .service('AuthenticatorLogin', ['$http', '$compile', '$rootScope', function($http, $compile, $rootScope){
     function openModal(tmp){
+      var scope = $rootScope.$new();
+
+      tmp = $compile(tmp)(scope);
 
       angular.element('body').append(tmp);
       tmp.modal({
@@ -45,4 +48,36 @@ angular.module('Authenticator', [])
         return config
       }
     }
+  }])
+  .controller('AuthenticatorLoginController', ['$scope', function($scope){
+    console.log($scope, 'login controller');
+    $scope.login_form = {};
+
+    $scope.login = function(){
+      console.log($scope.login_form);
+    }
   }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
