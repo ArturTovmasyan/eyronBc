@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Authenticator', [])
+angular.module('Authenticator', ['PathPrefix'])
   .config(['$httpProvider', function($httpProvider){
     $httpProvider.interceptors.push('AuthenticatorInterceptor');
   }])
@@ -8,10 +8,23 @@ angular.module('Authenticator', [])
     console.log("run");
 
     $timeout(function(){
-      AuthenticatorLogin.login();
+      AuthenticatorLogin.openLoginPopup();
     }, 5000)
   }])
-  .service('AuthenticatorLogin', ['$http', '$compile', '$rootScope', function($http, $compile, $rootScope){
+  .service('AuthenticatorLogin', [
+    '$http',
+    '$compile',
+    '$rootScope',
+    'envPrefix',
+    '$httpParamSerializer',
+    function(
+      $http,
+      $compile,
+      $rootScope,
+      envPrefix,
+      $httpParamSerializer
+    ){
+
     function openModal(tmp){
       var scope = $rootScope.$new();
 
@@ -28,11 +41,19 @@ angular.module('Authenticator', [])
     }
 
     return {
-      login: function(){
+      openLoginPopup: function(){
         $http.get('/app/scripts/Authenticator/login.html')
           .success(function(res){
             openModal(angular.element(res));
           });
+      },
+      login: function(data){
+        return $http({
+          method: 'POST',
+          url: envPrefix + 'api/v1.0/users/logins',
+          data: $httpParamSerializer(data),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
       }
     }
   }])
@@ -49,12 +70,14 @@ angular.module('Authenticator', [])
       }
     }
   }])
-  .controller('AuthenticatorLoginController', ['$scope', function($scope){
-    console.log($scope, 'login controller');
+  .controller('AuthenticatorLoginController', ['$scope', 'AuthenticatorLogin', function($scope, AuthenticatorLogin){
     $scope.login_form = {};
 
     $scope.login = function(){
-      console.log($scope.login_form);
+      AuthenticatorLogin.login($scope.login_form)
+        .success(function(res){
+          console.log(res, 'success login')
+        });
     }
   }]);
 
