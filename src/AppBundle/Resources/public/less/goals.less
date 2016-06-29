@@ -283,11 +283,28 @@
     position: absolute;
     width:100%;
   }
+
+  .nice-select{
+    width:100%;
+
+    span{
+      color: #A4A4A4;
+    }
+
+    .list{
+      width:100%;
+      max-height: 160px;
+      overflow-y: auto !important;
+    }
+
+    &:hover,&:focus,&:active,.open{
+      border-color: #7724F6;
+    }
+  }
 }
 
 .goal-end{
   background-color: #ffffff;
-  //padding:10px 10px 40px;
   padding:10px 10px 0;
   .rounded-corners(6px);
   margin-bottom: 50px;
@@ -300,6 +317,10 @@
   h4{
     font-size:14px;
     color:#3d3d3d;
+
+    &.text-dark-gray{
+      color: #666666;
+    }
   }
 
   label.text-purple{
@@ -1171,13 +1192,13 @@
   }
 
   .goal-container{
-    min-height:1025px;
+    min-height:925px;
     height:auto !important;
-    height:1025px;
+    height:925px;
   }
 
   .goal-end{
-    margin-bottom:100px;
+    margin-bottom:70px;
     padding-bottom:5px;
 
     label.text-purple{
