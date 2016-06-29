@@ -19,6 +19,7 @@ create_goal: Поставить цель
 settings: Настройки
 logout: Выход
 my_bucketlist: Мой список целей
+bucketlist: Bucket List 127
 
 # goal
 goal:
