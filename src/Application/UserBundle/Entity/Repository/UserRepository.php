@@ -125,13 +125,13 @@ class UserRepository extends EntityRepository
 
         switch ($type) {
             case 'facebook':
-                $query->andWhere('u.facebookId =:id');
+                $query->andWhere('u.facebookUId =:id');
                 break;
             case 'twitter':
-                $query->andWhere('u.twitterId =:id');
+                $query->andWhere('u.twitterUId =:id');
                 break;
             case 'google':
-                $query->andWhere('u.googleId =:id');
+                $query->andWhere('u.gplusUid =:id');
                 break;
         }
 

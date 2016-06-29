@@ -102,19 +102,12 @@ class User extends BaseUser
 
     /**
      * @var
-     * @ORM\Column(name="first_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
-    protected $firstName;
-
-    /**
-     * @ORM\Column(name="language", type="string", length=3, nullable=true)
-     * @var
-     */
-    protected $language;
+    protected $firstname;
 
     /**
      * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
@@ -144,45 +137,26 @@ class User extends BaseUser
 
     /**
      * @var
-     * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      * @Assert\Date
      * @Groups({"settings"})
      * @Type("DateTime<'Y-m-d'>")
      */
-    protected $birthDate;
+    protected $dateOfBirth;
 
     /**
      * @var
-     * @ORM\Column(name="last_name", type="string", length=50, nullable=true)
      * @Groups({"user", "tiny_user", "settings"})
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
-    protected $lastName;
+    protected $lastname;
 
     /**
      * @var
      * @ORM\Column(name="about_me", type="string", nullable=true)
      */
     protected $aboutMe;
-
-    /**
-     * @var
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    protected $facebookId;
-    /**
-     * @var
-     * @ORM\Column(type="string", length=50,  nullable=true)
-     */
-    protected $twitterId;
-
-    /**
-     * @var
-     * @ORM\Column(type="string", length=50,  nullable=true)
-     */
-    protected $googleId;
 
     /**
      * @var
@@ -218,22 +192,6 @@ class User extends BaseUser
      * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
     public $primary;
-
-    /**
-     * @var date $created
-     *
-     * @ORM\Column(name="created", type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created;
-
-    /**
-     * @var
-     *
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated;
 
     /**
      * @var
@@ -413,7 +371,7 @@ class User extends BaseUser
      */
     public function setFirstName($firstName)
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstName;
 
         return $this;
     }
@@ -425,7 +383,7 @@ class User extends BaseUser
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     /**
@@ -436,7 +394,7 @@ class User extends BaseUser
      */
     public function setLastName($lastName)
     {
-        $this->lastName = $lastName;
+        $this->lastname = $lastName;
 
         return $this;
     }
@@ -448,7 +406,7 @@ class User extends BaseUser
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     /**
@@ -476,15 +434,8 @@ class User extends BaseUser
 
     public function getAge()
     {
-        // get birthDate
-        $birthDate = $this->getBirthDate();
-
-        // check birthDate
-        if($birthDate){
-
-            // get year
+        if($birthDate = $this->getDateOfBirth()){
             $now = new \DateTime();
-
             return $birthDate->diff($now)->y;
         }
 
@@ -576,7 +527,7 @@ class User extends BaseUser
      */
     public function setFacebookId($facebookId)
     {
-        $this->facebookId = $facebookId;
+        $this->facebookUid = $facebookId;
 
         return $this;
     }
@@ -588,7 +539,7 @@ class User extends BaseUser
      */
     public function getFacebookId()
     {
-        return $this->facebookId;
+        return $this->facebookUid;
     }
 
     /**
@@ -599,7 +550,7 @@ class User extends BaseUser
      */
     public function setGoogleId($googleId)
     {
-        $this->googleId = $googleId;
+        $this->gplusUid = $googleId;
 
         return $this;
     }
@@ -611,7 +562,7 @@ class User extends BaseUser
      */
     public function getGoogleId()
     {
-        return $this->googleId;
+        return $this->gplusUid;
     }
 
     /**
@@ -645,7 +596,7 @@ class User extends BaseUser
      */
     public function setTwitterId($twitterId)
     {
-        $this->twitterId = $twitterId;
+        $this->twitterUid = $twitterId;
 
         return $this;
     }
@@ -657,18 +608,18 @@ class User extends BaseUser
      */
     public function getTwitterId()
     {
-        return $this->twitterId;
+        return $this->twitterUid;
     }
 
     /**
      * Set birthDate
      *
-     * @param \DateTime $birthDate
+     * @param \DateTime $dateOfBirth
      * @return User
      */
-    public function setBirthDate($birthDate)
+    public function setBirthDate($dateOfBirth)
     {
-        $this->birthDate = $birthDate;
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }
@@ -680,7 +631,7 @@ class User extends BaseUser
      */
     public function getBirthDate()
     {
-        return $this->birthDate;
+        return $this->dateOfBirth;
     }
 
 
@@ -1039,26 +990,6 @@ class User extends BaseUser
     }
 
     /**
-     * @return $this
-     */
-    public function setCreated($created)
-    {
-        $this->created =  $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
      * This function is used to set primary email and change username
      *
      * @ORM\PreUpdate()
@@ -1185,7 +1116,7 @@ class User extends BaseUser
      */
     public function getLanguage()
     {
-        return $this->language;
+        return $this->locale;
     }
 
     /**
@@ -1193,7 +1124,7 @@ class User extends BaseUser
      */
     public function setLanguage($language)
     {
-        $this->language = $language;
+        $this->locale = $language;
     }
 
 
@@ -1213,29 +1144,6 @@ class User extends BaseUser
         $userEmail = end($userEmails);
 
         return $userEmail;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return User
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime 
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**
@@ -1351,11 +1259,11 @@ class User extends BaseUser
         $successStories = $this->getSuccessStories();
         if($successStories){
             foreach($successStories as $story){
-                if($story->getUpdated()){
-                    $time = $story->getUpdated()->format('H');
+                if($story->getUpdatedAt()){
+                    $time = $story->getUpdatedAt()->format('H');
                     $timesAdd[$time] = isset($timesAdd[$time]) ? $timesAdd[$time] + 1 : 1;
 
-                    $dayOfWeek = $story->getUpdated()->format('w');
+                    $dayOfWeek = $story->getUpdatedAt()->format('w');
                     $daysAdd[$dayOfWeek] = isset($daysAdd[$dayOfWeek]) ? $daysAdd[$dayOfWeek] + 1 : 1;
                 };
             }

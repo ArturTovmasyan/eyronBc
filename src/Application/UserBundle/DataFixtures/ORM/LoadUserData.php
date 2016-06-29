@@ -36,9 +36,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $user->setEnabled(true);
         $user->setPlainPassword('Test1234');
-        $user->setBirthDate(new \DateTime('now'));
+        $user->setDateOfBirth(new \DateTime('now'));
         $user->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1gad');
-        $user->setCreated(new \DateTime('now'));
+        $user->setCreatedAt(new \DateTime('now'));
         $user->setUserEmails(array('admin1@test.ru'=>
                 array('userEmails'=>'admin1@test.ru',
                     'token'=>'f1acf697a3a6477ec984b740701475d9',
@@ -53,9 +53,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1->setEmail('user1@user.com');
         $user1->setEnabled(true);
         $user1->setPlainPassword('Test1234');
-        $user1->setBirthDate(new \DateTime('now'));
+        $user1->setDateOfBirth(new \DateTime('now'));
         $user1->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dag');
-        $user1->setCreated(new \DateTime('now'));
+        $user1->setCreatedAt(new \DateTime('now'));
         $user1->setUserEmails(array('test@test.ru'=>
                                     array('userEmails'=>'test@test.ru',
                                         'token'=>'f1acf697a3a6477ec984b740701475d9',
@@ -72,7 +72,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user2->setEnabled(true);
         $user2->setPlainPassword('Test1234');
         $user2->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dagd');
-        $user2->setCreated(new \DateTime('now')
+        $user2->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user2);
@@ -85,7 +85,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user3->setEnabled(true);
         $user3->setPlainPassword('Test1234');
         $user3->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1duid');
-        $user3->setCreated(new \DateTime('now')
+        $user3->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user3);
@@ -98,7 +98,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user4->setEnabled(true);
         $user4->setPlainPassword('Test1234');
         $user4->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1duqw');
-        $user4->setCreated(new \DateTime('now')
+        $user4->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user4);
@@ -111,7 +111,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user5->setEnabled(true);
         $user5->setPlainPassword('Test1234');
         $user5->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dugh');
-        $user5->setCreated(new \DateTime('now')
+        $user5->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user5);
@@ -124,7 +124,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user6->setEnabled(true);
         $user6->setPlainPassword('Test1234');
         $user6->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1dkuh');
-        $user6->setCreated(new \DateTime('now')
+        $user6->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user6);
@@ -137,7 +137,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user7->setEnabled(true);
         $user7->setPlainPassword('Test1234');
         $user7->setRegistrationToken('a4b9e332d75ac0e99b54bf09h3de1dugh');
-        $user7->setCreated(new \DateTime('now')
+        $user7->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user7);
@@ -150,7 +150,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user8->setEnabled(true);
         $user8->setPlainPassword('Test1234');
         $user8->setRegistrationToken('a4b9e332d75ac0m99b54bf09d2de1dugh');
-        $user8->setCreated(new \DateTime('now')
+        $user8->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user8);
@@ -163,7 +163,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user9->setEnabled(true);
         $user9->setPlainPassword('Test1234');
         $user9->setRegistrationToken('a4b9e332d75ac0o99b54bf09d2de1dugh');
-        $user9->setCreated(new \DateTime('now')
+        $user9->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user9);
@@ -176,7 +176,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user10->setEnabled(true);
         $user10->setPlainPassword('Test1234');
         $user10->setRegistrationToken('a4b9e382d75ac0e99b54bf09d2de1dugh');
-        $user10->setCreated(new \DateTime('now')
+        $user10->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user10);
@@ -190,7 +190,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user15->setUId('777777');
         $user15->setPlainPassword('Test1234');
         $user15->setRegistrationToken('a4b9e332d75ac0e99b54bfp9d2de1dugh');
-        $user15->setCreated(new \DateTime('now')
+        $user15->setCreatedAt(new \DateTime('now')
         );
 
         $manager->persist($user15);

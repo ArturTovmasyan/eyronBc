@@ -107,7 +107,7 @@ class UserProvider extends  BaseProvider
     private function createGoogleUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('googleId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('gplusUid'=>$response['id']));
 
         if (!$user && isset($response['email'])){
             $user = $this->userManager->findUserBy(array('email' => $response['email']));
@@ -184,7 +184,7 @@ class UserProvider extends  BaseProvider
     private function createFacebookUserUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('facebookId' => $response['id']));
+        $user = $this->userManager->findUserBy(array('facebookUid' => $response['id']));
 
         if (!$user && isset($response['email'])){
             $user = $this->userManager->findUserBy(array('email' => $response['email']));
@@ -245,7 +245,7 @@ class UserProvider extends  BaseProvider
     private function createTwitterUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('twitterId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('twitterUid'=>$response['id']));
 
         // if user not found in bd, create
         if(!$user) {
