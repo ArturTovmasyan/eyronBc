@@ -170,7 +170,6 @@ class UserNotifyService
                 ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
                 ->setTo($email)
-//                ->setTo('anulimanukyan@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 
