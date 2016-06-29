@@ -12,11 +12,11 @@
         'app/bower_components/icheck/skins/square/_all.css'
         'app/bower_components/icheck/skins/minimal/_all.css'
         'app/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'
-        'app/bower_components/dropzone/downloads/css/dropzone.css'
         'bundles/app/less/taggle_button.css'
         %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
+    <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}

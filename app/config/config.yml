@@ -38,7 +38,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v347
+        assets_version: v348
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -101,13 +101,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
-
+        types:
+            json: Sonata\Doctrine\Types\JsonType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -159,6 +154,11 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Application\UserBundle\Entity\User
+    group:
+        group_class:   Application\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+    service:
+        user_manager: sonata.user.orm.user_manager
     registration:
             form:
                 type: bl_user_registration
@@ -237,6 +237,16 @@ sonata_admin:
             - { position: left, type: sonata.admin.block.admin_list }
     show_mosaic_button: true
 
+
+sonata_user:
+    security_acl:     false
+    impersonating_route:    sonata_admin_dashboard
+    class:
+        user:         Application\UserBundle\Entity\User
+        group:        Application\UserBundle\Entity\Group
+    admin:
+        user:
+            class: Application\UserBundle\Admin\Model\UserAdmin
 
 # stfo doctrine extensions
 stof_doctrine_extensions:

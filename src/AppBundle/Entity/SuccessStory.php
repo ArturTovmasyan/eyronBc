@@ -43,7 +43,7 @@ class SuccessStory implements ActivityableInterface
     protected $goal;
 
     /**
-     * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"}, indexBy="id")
+     * @ORM\OneToMany(targetEntity="StoryImage", mappedBy="story", cascade={"persist", "remove"})
      * @Groups({"successStory_storyImage"})
      * @Assert\Valid()
      * @Assert\Count(
@@ -185,8 +185,8 @@ class SuccessStory implements ActivityableInterface
      */
     public function addFile(\AppBundle\Entity\StoryImage $files)
     {
-        if (!isset($this->files[$files->getId()])){
-            $this->files[$files->getId()] = $files;
+        if (!$this->files->contains($files)){
+            $this->files[] = $files;
             $files->setStory($this);
         }
 

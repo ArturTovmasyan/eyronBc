@@ -10,7 +10,7 @@ namespace Application\UserBundle\Entity;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Traits\File;
-use FOS\UserBundle\Entity\User as BaseUser;
+use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
@@ -109,12 +109,6 @@ class User extends BaseUser
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
     protected $firstName;
-
-    /**
-     * @ORM\Column(name="gender", type="smallint", nullable=true)
-     * @var
-     */
-    protected $gender;
 
     /**
      * @ORM\Column(name="language", type="string", length=3, nullable=true)
@@ -268,9 +262,9 @@ class User extends BaseUser
     protected $activeDayOfWeek;
 
     /**
-     * @ORM\Column(name="last_push_note_data", type="datetime", nullable=true)
+     * @ORM\Column(name="last_push_note_date", type="datetime", nullable=true)
      */
-    protected $lastPushNoteData;
+    protected $lastPushNoteDate;
 
     /**
      * @Groups({"tiny_goal"})
@@ -641,29 +635,6 @@ class User extends BaseUser
     public function getSocialPhotoLink()
     {
         return $this->socialPhotoLink;
-    }
-
-    /**
-     * Set gender
-     *
-     * @param integer $gender
-     * @return User
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * Get gender
-     *
-     * @return integer
-     */
-    public function getGender()
-    {
-        return $this->gender;
     }
 
     /**
@@ -1789,16 +1760,16 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getLastPushNoteData()
+    public function getLastPushNoteDate()
     {
-        return $this->lastPushNoteData;
+        return $this->lastPushNoteDate;
     }
 
     /**
-     * @param mixed $lastPushNoteData
+     * @param mixed $lastPushNoteDate
      */
-    public function setLastPushNoteData($lastPushNoteData)
+    public function setLastPushNoteData($lastPushNoteDate)
     {
-        $this->lastPushNoteData = $lastPushNoteData;
+        $this->lastPushNoteDate = $lastPushNoteDate;
     }
 }
