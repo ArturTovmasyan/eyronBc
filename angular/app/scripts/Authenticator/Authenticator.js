@@ -4,10 +4,32 @@ angular.module('Authenticator', [])
   .config(['$httpProvider', function($httpProvider){
     $httpProvider.interceptors.push('AuthenticatorInterceptor');
   }])
-  .service('AuthenticatorLogin', ['$http', function($http){
+  .run(['$rootScope', 'AuthenticatorLogin', '$timeout', function($rootScope, AuthenticatorLogin, $timeout){
+    console.log("run");
+
+    $timeout(function(){
+      AuthenticatorLogin.login();
+    }, 5000)
+  }])
+  .service('AuthenticatorLogin', ['$http', '$compile', function($http){
+    function openModal(tmp){
+
+      angular.element('body').append(tmp);
+      tmp.modal({
+        fadeDuration: 300
+      });
+
+      tmp.on($.modal.CLOSE, function(){
+        tmp.remove();
+      });
+    }
+
     return {
       login: function(){
-        
+        $http.get('/app/scripts/Authenticator/login.html')
+          .success(function(res){
+            openModal(angular.element(res));
+          });
       }
     }
   }])
