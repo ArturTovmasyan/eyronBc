@@ -2,6 +2,7 @@
 
     {% if app.user %}
         {{ app.user }}
-        - <a href="{{ url('fos_user_security_logout') }}">logout</a>
+        - <a href="{{ path('sonata_user_admin_security_logout') }}">logout</a>
     {% endif %}
+
 {% endblock %}
