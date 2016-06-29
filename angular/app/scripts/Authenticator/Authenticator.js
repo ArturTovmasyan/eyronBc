@@ -7,6 +7,10 @@ angular.module('Authenticator', ['PathPrefix'])
   .run(['$rootScope', 'AuthenticatorLogin', '$timeout', function($rootScope, AuthenticatorLogin, $timeout){
     console.log("run");
 
+    $rootScope.$on('openLoginPopup', function(){
+      AuthenticatorLogin.openLoginPopup();
+    });
+
     $timeout(function(){
       AuthenticatorLogin.openLoginPopup();
     }, 5000)
