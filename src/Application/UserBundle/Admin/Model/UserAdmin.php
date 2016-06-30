@@ -59,6 +59,7 @@ class UserAdmin extends AbstractAdmin
             ->add('picture', null, array('label' => 'Picture', 'template' => 'ApplicationUserBundle:Admin:user_show_picture.html.twig'))
             ->add('profile', null, array('label' => 'Profile','template' => 'ApplicationUserBundle:Admin:user_show_profile_link.html.twig'))
             ->add('userSocial', null, array('label' => 'User Social','template' => 'ApplicationUserBundle:Admin:user_social_icon_show.html.twig'))
+            ->add('userMobileOs', null, array('label' => 'User Mobile OS','template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_show.html.twig'))
             ->add('enabled', null, array('label' => 'Enabled'))
             ->add('listedGoals', null, array('label' => 'Listed Goals', 'template' => 'ApplicationUserBundle:Admin:user_show_listed_goal_count.html.twig'))
             ->add('createdGoals', null, array('label' => 'Created Goals', 'template' => 'ApplicationUserBundle:Admin:user_show_created_goal.html.twig'))
@@ -110,6 +111,7 @@ class UserAdmin extends AbstractAdmin
             ->add('firstname', null, array('label'=>'First Name'))
             ->add('lastame', null, array('label'=>'Last Name'))
             ->add('userSocial', null, array('label'=>'User Social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
+            ->add('userMobileOs', null, array('label' => 'User Mobile OS','template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_list.html.twig'))
             ->add('enabled', null, array('label'=>'Enabled'))
             ->add('createdAt', 'datetime', array('label' => 'Created'))
             ->add('_action', 'actions', array(
