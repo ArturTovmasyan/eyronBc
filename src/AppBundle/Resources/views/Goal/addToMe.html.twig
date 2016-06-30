@@ -75,33 +75,92 @@
 
                 </div>
 
-                <div class="clearfix ng-hide" data-ng-show="complete.switch">
-                    <strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;
-                    <span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>
-                </div>
+                {#<div class="clearfix ng-hide" data-ng-show="complete.switch">#}
+                    {#<strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;#}
+                    {#<span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>#}
+                {#</div>#}
                 <hr/>
 
-                <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center">{{ "dream"|trans }}</h4>
+                <h3 data-ng-class="ng-hide" data-ng-show="!complete.switch || userGoal.do_date">{{ "goal.deadline"|trans }} <span class="text-purple" class="ng-hide" data-ng-show="complete.switch && userGoal.do_date">: [[ momentDateFormat(userGoal.do_date, 'DD MMM YYYY') ]]</span></h3>
+                <h3 class="ng-hide" data-ng-show="complete.switch">{{ "completed"|trans }}</h3>
+                <div class="row form-group ng-hide" data-ng-show="complete.switch">
+                    <label class="col-sm-12 control-label text-left">
+                        <span class="small-size">{{ "success_story.complete_edit_text"|trans }}</span>
+                    </label>
+                </div>
+                {#<div class="row">#}
+                    {#<div class="col-sm-6">#}
+                        {#<div id="datepicker"#}
+                             {#data-ng-hide="complete.switch"#}
+                             {#data-date="[[ momentDateFormat(userGoal.do_date, 'MM/DD/YYYY') ]]"#}
+                             {#style="color: black"></div>#}
+                    {#</div>#}
+                    {#<div class="col-sm-6">#}
+                        {#<div id="secondPicker"#}
+                             {#data-ng-hide="complete.switch"#}
+                             {#data-date="[[ getSecondPickerDate(userGoal.do_date, 'MM/DD/YYYY') ]]"#}
+                             {#style="color: black">#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div id="datepicker"
-                             data-ng-hide="complete.switch"
-                             data-date="[[ momentDateFormat(userGoal.do_date, 'MM/DD/YYYY') ]]"
-                             style="color: black"></div>
+                <div class="form-group row">
+
+                    <div class="col-sm-4 date">
+                        <select name="year" data-ng-model="year">
+                            <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                            {% set maxYear = "now"|date_modify("+50 year")|date("Y") %}
+                            {#todo true date #}
+                            {% for year in maxYear..1916 %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="col-sm-6">
-                        <div id="secondPicker"
-                             data-ng-hide="complete.switch"
-                             data-date="[[ getSecondPickerDate(userGoal.do_date, 'MM/DD/YYYY') ]]"
-                             style="color: black">
-                        </div>
+
+                    <div class="col-sm-4 date">
+
+                        {% set arrayMonth = {
+                            1:'form.month_january'|trans({}, 'FOSUserBundle'),
+                            2:'form.month_february'|trans({}, 'FOSUserBundle'),
+                            3:'form.month_march'|trans({}, 'FOSUserBundle'),
+                            4:'form.month_april'|trans({}, 'FOSUserBundle'),
+                            5:'form.month_may'|trans({}, 'FOSUserBundle'),
+                            6:'form.month_june'|trans({}, 'FOSUserBundle'),
+                            7:'form.month_july'|trans({}, 'FOSUserBundle'),
+                            8:'form.month_august'|trans({}, 'FOSUserBundle'),
+                            9:'form.month_september'|trans({}, 'FOSUserBundle'),
+                            10:'form.month_october'|trans({}, 'FOSUserBundle'),
+                            11:'form.month_november'|trans({}, 'FOSUserBundle'),
+                            12:'form.month_december'|trans({}, 'FOSUserBundle') }
+                        %}
+
+                        {#{% set months = form.birthDate.month.vars.choices %}#}
+
+                        <select name="months" data-ng-model="month">
+                            <option value="">{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                            {% for key, month in arrayMonth %}
+                                <option value="{{ key }}">{{ month }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4 date">
+
+                        <select name="days" data-ng-model="day">
+
+                            <option value="">{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+
+                            {% for day in 1..31 %}
+                                <option value="{{ day }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
+
+                <h4 data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
 
                 <h6 class="text-gray text-center"
                     data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
-                    <i class="icon info-icon"></i>
+                    <i class="icon-info text-purple"></i>
                     {{ "goal.missed_deadline"|trans }}
                 </h6>
 
@@ -131,9 +190,16 @@
 
                 <div class="form-group row">
                     <div class="col-xs-12">
-                        <h3>{{ 'goal.as_priority'|trans() }} </h3>
+                        <h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>
+                        <h3 class="ng-hide" data-ng-show="complete.switch">
+                            {{ 'goal.priority'|trans() }}: {% for id, name in filters %}
+                            <strong class="text-purple priority-types ng-hide" data-ng-show="getPriority(userGoal)=={{ id }}">
+                                {{ name | trans | raw }}
+                            </strong>
+                            {% endfor %}
+                        </h3>
 
-                        <div class="priority">
+                        <div class="priority ng-hide" data-ng-show="!complete.switch">
                             <div class="row no-gutter">
                                 <div class="col-xs-1">
                                     <h5 class="text-gray hidden-xs">Importance</h5>
@@ -201,26 +267,29 @@
                     </div>
                 </div>
 
-                <h4>{{ "goal.complete_step"|trans }}</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped"
-                             role="progressbar"
-                             aria-valuenow="45"
-                             aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width:[[ getCompleted(userGoal) | number:1 ]]%">
-                            [[ getCompleted(userGoal) | number:1 ]]% Complete
-                        </div>
+                <h4 class="ng-hide" data-ng-show="!complete.switch">{{ "goal.complete_step"|trans }}</h4>
+
+                <h3 class="ng-hide" data-ng-show="complete.switch">{{ "goal.steps"|trans }}</h3>
+
+                <div class="progress ng-hide" data-ng-show="!complete.switch">
+                    <div class="progress-bar progress-bar-striped"
+                         role="progressbar"
+                         aria-valuenow="45"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width:[[ getCompleted(userGoal) | number:1 ]]%">
+                        [[ getCompleted(userGoal) | number:1 ]]% Complete
                     </div>
+                </div>
 
                 <div class="form-group row" data-ng-repeat="(k, step) in userGoal.formatted_steps">
 
-                    <label class="col-sm-2 control-label">
+                    <label class="col-sm-2 control-label" data-ng-show="!complete.switch">
                         <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
                         <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
                     </label>
 
-                    <div class="col-xs-8 col-sm-8">
+                    <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
                         <div class="to-do-list">
                             <i title="Notes" class="icon-step-list"></i>
                             <input type="text"
@@ -235,7 +304,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-4 col-sm-2">
+                    <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
                         <div class="onoffswitch">
                             <input type="checkbox"
                                    name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
@@ -252,6 +321,8 @@
                         </div>
                     </div>
                 </div>
+
+                <hr />
 
                 <div class="form-group row no-marginb">
 
@@ -290,16 +361,19 @@
                     <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
                 {% if app.user %}
-                    <p class="text-gray clearfix"
-                       data-ng-if="userGoal.id && userGoal.author && userGoal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
-                        <strong class="text-dark-gray pull-left">
-                            <i class="icon lock-icon"></i>
-                            {{ 'user_goal.private' |trans }}
-                        </strong> &nbsp;
-                        <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
-                    </p>
+                    <div data-ng-if="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
+                        <hr />
+                        <p class="text-gray clearfix">
+                            <strong class="text-dark-gray pull-left">
+                                <i class="icon-lock-white"></i>
+                                <span>{{ 'user_goal.private' |trans }}</span>
+                            </strong> &nbsp;
+                            <span class="text-right pull-right">{{ 'goal.private_text'|trans }}</span>
+
+                        </p>
+                        <br />
+                    </div>
                 {% endif %}
-                <hr />
 
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>

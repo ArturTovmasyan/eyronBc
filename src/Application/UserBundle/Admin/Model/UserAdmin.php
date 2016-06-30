@@ -115,6 +115,7 @@ class UserAdmin extends AbstractAdmin
             ->add('enabled', null, array('label'=>'Enabled'))
             ->add('createdAt', 'datetime', array('label' => 'Created'))
             ->add('_action', 'actions', array(
+                'label' => 'Actions',
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),

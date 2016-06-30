@@ -21,6 +21,11 @@ logout: Выход
 my_bucketlist: Мой список целей
 bucketlist: Bucket List 127
 
+#Share
+message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!
+share_title: Поделитесь своим достижением
+facebook_post_text: Я достиг очередной цели на Bucket List 127. Вот как мечты превращаются в воспоминания. Пора поставить новые цели.
+
 # goal
 goal:
       user_description: Описание цели пользователя
@@ -71,7 +76,9 @@ goal:
       create_goal: Поздравляем, ваша цель была успешно добавлена
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
-
+      deadline: Deadline
+      priority: Приоритет
+      steps: Steps
       view_access_denied: Вы не имеете доступ просмотра этой идеи
       edit_access_denied: Вы не имеете доступ изменения этой идеи
       delete_access_denied: Вы не имеете доступ удаления этой идеи
@@ -122,7 +129,9 @@ user_goal:
 
 # success story form
 success_story:
+      completion_date: Дата достижение цели
       complete_text: Разместите историю успеха
+      complete_edit_text: Пожалуйста, укажите дату, когда ваша цель была достигнута.
       title: Пожалуйста, разместите историю успеха!
       description: История успеха ...
       files: Файлы
