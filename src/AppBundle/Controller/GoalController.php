@@ -9,24 +9,18 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goal;
-use AppBundle\Entity\GoalImage;
-use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Form\GoalType;
-use AppBundle\Model\PublishAware;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -40,6 +34,35 @@ class GoalController extends Controller
     const STAGE_URL = 'http://stage.bucketlist127.com/';
     const STAGE_CACHE_PREFIX = '-stage';
     const PROD_CACHE_PREFIX = '-prod';
+
+
+    /**
+     * @Route("goal/add-modal", name="add_modal")
+     * @return array
+     */
+    public function addModalAction()
+    {
+        // create filter
+        $filters = array(
+            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
+            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
+            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
+            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
+        );
+
+        return $this->render('AppBundle:Goal:addToMe.html.twig', array(
+            'filters' => $filters
+        ));
+    }
+
+    /**
+     * @Route("goal/done-modal", name="done_modal")
+     * @return array
+     */
+    public function doneModalAction()
+    {
+        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
+    }
 
     /**
      * @Route("goal/create", name="add_goal")
@@ -360,33 +383,5 @@ class GoalController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('add_goal', array('id' => $object->getId()));
-    }
-
-    /**
-     * @Route("goal/add-modal", name="add_modal")
-     * @return array
-     */
-    public function addModalAction()
-    {
-        // create filter
-        $filters = array(
-            UserGoal::NOT_URGENT_IMPORTANT => 'filters.import_not_urgent',
-            UserGoal::URGENT_IMPORTANT => 'filters.import_urgent',
-            UserGoal::NOT_URGENT_NOT_IMPORTANT => 'filters.not_import_not_urgent',
-            UserGoal::URGENT_NOT_IMPORTANT => 'filters.not_import_urgent',
-        );
-
-        return $this->render('AppBundle:Goal:addToMe.html.twig', array(
-            'filters' => $filters
-        ));
-    }
-
-    /**
-     * @Route("goal/done-modal", name="done_modal")
-     * @return array
-     */
-    public function doneModalAction()
-    {
-        return $this->render('AppBundle:Goal:addSuccessStory.html.twig');
     }
 }
