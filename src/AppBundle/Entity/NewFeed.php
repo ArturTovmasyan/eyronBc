@@ -43,12 +43,11 @@ class NewFeed
     protected $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Goal")
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORm\Column(name="goals", type="array", nullable=false)
      *
      * @Groups({"new_feed"})
      */
-    protected $goal;
+    protected $goals;
 
     /**
      * @ORM\Column(name="listed_by", type="integer", nullable=false)
@@ -110,10 +109,10 @@ class NewFeed
     {
         $this->setUser($user);
         $this->setAction($action);
-        $this->setGoal($goal);
         $this->setSuccessStory($story);
         $this->setComment($comment);
         $this->setDatetime(new \DateTime());
+        $this->setGoals([$goal->getId() => $goal]);
     }
 
     /**
@@ -193,33 +192,6 @@ class NewFeed
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set goal
-     *
-     * @param \AppBundle\Entity\Goal $goal
-     * @return NewFeed
-     */
-    public function setGoal(\AppBundle\Entity\Goal $goal = null)
-    {
-        $this->goal = $goal;
-
-        $stats = $goal->getStats();
-        $this->listedBy    = isset($stats['listedBy']) ? $stats['listedBy'] : 0;
-        $this->completedBy = isset($stats['doneBy'])   ? $stats['doneBy']   : 0;
-
-        return $this;
-    }
-
-    /**
-     * Get goal
-     *
-     * @return \AppBundle\Entity\Goal 
-     */
-    public function getGoal()
-    {
-        return $this->goal;
     }
 
     /**
@@ -360,5 +332,29 @@ class NewFeed
     public function getCompletedBy()
     {
         return $this->completedBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoals()
+    {
+        return $this->goals;
+    }
+
+    /**
+     * @param mixed $goals
+     */
+    public function setGoals($goals)
+    {
+        $this->goals = $goals;
+    }
+
+    /**
+     * @param $goal
+     */
+    public function addGoal($goal)
+    {
+        $this->goals[$goal->getId()] = $goal;
     }
 }
