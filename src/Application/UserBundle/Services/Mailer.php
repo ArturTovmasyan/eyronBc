@@ -8,9 +8,20 @@
 namespace Application\UserBundle\Services;
 
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class Mailer extends BaseMailer
 {
+    protected $translator;
+
+    public function __construct($translator, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
+    {
+        $this->translator = $translator;
+
+        parent::__construct($mailer, $router, $templating, $parameters);
+    }
+
     /**
      * @param string $renderedTemplate
      * @param $fromEmail
@@ -22,10 +33,11 @@ class Mailer extends BaseMailer
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
+        $projectName = $this->translator->trans('bucketlist', array(), 'messages');
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom($fromEmail)
+            ->setFrom($fromEmail, $projectName)
             ->setTo($toEmail)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($body);

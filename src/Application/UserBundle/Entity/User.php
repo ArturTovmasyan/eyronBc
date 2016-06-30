@@ -72,6 +72,16 @@ class User extends BaseUser
     protected $registrationIds;
 
     /**
+     * @ORM\Column(name="ios_version", type="string", length=10, nullable=true)
+     */
+    protected $iosVersion;
+
+    /**
+     * @ORM\Column(name="android_version", type="string", length=10, nullable=true)
+     */
+    protected $androidVersion;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserGoal", indexBy="goal_id", mappedBy="user", cascade={"persist"})
      **/
     protected $userGoal;
@@ -103,6 +113,7 @@ class User extends BaseUser
     /**
      * @var
      * @Groups({"user", "tiny_user", "settings"})
+     * @SerializedName("first_name")
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
@@ -146,6 +157,7 @@ class User extends BaseUser
     /**
      * @var
      * @Groups({"user", "tiny_user", "settings"})
+     * @SerializedName("last_name")
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
@@ -1679,5 +1691,38 @@ class User extends BaseUser
     public function setLastPushNoteData($lastPushNoteDate)
     {
         $this->lastPushNoteDate = $lastPushNoteDate;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIosVersion()
+    {
+        return $this->iosVersion;
+    }
+
+    /**
+     * @param mixed $iosVersion
+     */
+    public function setIosVersion($iosVersion)
+    {
+        $this->iosVersion = $iosVersion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAndroidVersion()
+    {
+        return $this->androidVersion;
+    }
+
+    /**
+     * @param mixed $androidVersion
+     */
+    public function setAndroidVersion($androidVersion)
+    {
+        $this->androidVersion = $androidVersion;
     }
 }
