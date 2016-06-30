@@ -37,6 +37,7 @@
         </service>
 
         <service id="bl.user.mailer" class="Application\UserBundle\Services\Mailer" public="false">
+            <argument type="service" id="translator"/>
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
