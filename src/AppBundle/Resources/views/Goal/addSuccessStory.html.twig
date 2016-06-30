@@ -1,4 +1,5 @@
 <div id="story-modal" data-ng-controller="goalDone">
+    <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans }}</div>
     <div class="modal-top">
         <figure data-ng-if="userGoal.goal.cached_image">
             <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>

@@ -165,6 +165,7 @@ angular.module('goalComponents', ['Interpolation',
     'envPrefix',
     function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
       $scope.userGoal = userGoalData.doneData;
+      $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
       $scope.files = [];
       $scope.successStory = {};
