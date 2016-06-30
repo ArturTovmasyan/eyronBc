@@ -164,6 +164,11 @@ angular.module('goalComponents', ['Interpolation',
     'UserGoalDataManager',
     'envPrefix',
     function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
+
+      $timeout(function(){
+        angular.element("#story-modal select").niceSelect();
+      }, 300);
+
       $scope.userGoal = userGoalData.doneData;
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
@@ -193,6 +198,16 @@ angular.module('goalComponents', ['Interpolation',
       };
       
       $scope.save = function () {
+        if($scope.year && $scope.month && $scope.day){
+            $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+          var comletion_date = {
+            'goal_status'    : true,
+            'completion_date': $scope.completion_date
+          }
+            UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
+              if($scope.isInValid)angular.element('#cancel').click();
+            });
+        }
         if($scope.isInValid()){
           angular.element('textarea[name=story]').addClass('border-red');
           return;

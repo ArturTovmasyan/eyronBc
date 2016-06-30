@@ -111,7 +111,7 @@
                             <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
                             {% set maxYear = "now"|date_modify("+50 year")|date("Y") %}
                             {#todo true date #}
-                            {% for year in maxYear..1916 %}
+                            {% for year in maxYear..1966 %}
                                 <option value="{{ year }}">{{ year }}</option>
                             {% endfor %}
                         </select>
