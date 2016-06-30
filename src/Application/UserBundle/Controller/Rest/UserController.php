@@ -231,6 +231,7 @@ class UserController extends FOSRestController
             case "facebook":
                 try{
                     $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken . '&fields=id,email,first_name,last_name,gender,birthday,picture');
+                    $newUser->setFacebookData($data);
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setFacebookId($id);
@@ -249,6 +250,7 @@ class UserController extends FOSRestController
             case "google":
                 try{
                     $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
+                    $newUser->setGplusData($data);
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setGoogleId($id);
@@ -278,6 +280,7 @@ class UserController extends FOSRestController
                 $newUser->setTwitterId($id);
 
                 $data = $this->getTwitterData($id, $accessToken, $tokenSecret);
+                $newUser->setTwitterData(json_encode($data));
 
                 if (!isset($data->id)){
                     $id = null;
