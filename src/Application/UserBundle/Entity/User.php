@@ -113,6 +113,7 @@ class User extends BaseUser
     /**
      * @var
      * @Groups({"user", "tiny_user", "settings"})
+     * @SerializedName("first_name")
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
@@ -156,6 +157,7 @@ class User extends BaseUser
     /**
      * @var
      * @Groups({"user", "tiny_user", "settings"})
+     * @SerializedName("last_name")
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
