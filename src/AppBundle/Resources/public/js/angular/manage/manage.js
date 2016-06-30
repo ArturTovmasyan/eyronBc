@@ -8,7 +8,8 @@ angular.module('manage', ['Interpolation',
     'ngResource',
     'goalManage',
     'angulartics.google.analytics',
-    'PathPrefix'
+    'PathPrefix',
+    'Authenticator'
     ])
     .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
         var addUrl = envPrefix + "goal/add-modal";
@@ -24,13 +25,13 @@ angular.module('manage', ['Interpolation',
     .directive('lsGoalManage',['$compile',
         '$http',
         '$rootScope',
-        'loginPopoverService',
+        'AuthenticatorLoginService',
         'template',
         'userGoalData',
         'UserGoalDataManager',
         '$timeout',
         'refreshingDate',
-        function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager, $timeout, refreshingDate){
+        function($compile, $http, $rootScope, AuthenticatorLoginService, template, userGoalData, UserGoalDataManager, $timeout, refreshingDate){
             return {
                 restrict: 'EA',
                 scope: {
@@ -59,7 +60,7 @@ angular.module('manage', ['Interpolation',
                                 scope.runCallback(uGoal);
                             }, function(res){
                                 if(res.status === 401){
-                                    loginPopoverService.openLoginPopover();
+                                    AuthenticatorLoginService.openLoginPopup();
                                 }
                             });
                         }
@@ -88,7 +89,7 @@ angular.module('manage', ['Interpolation',
                                     scope.runCallback(uGoal);
                                 }, function(res){
                                     if(res.status === 401){
-                                        loginPopoverService.openLoginPopover();
+                                        AuthenticatorLoginService.openLoginPopup();
                                     }
                                 });
                             }
@@ -125,14 +126,13 @@ angular.module('manage', ['Interpolation',
   .directive('lsUserGoalManage',['$compile',
       '$http',
       '$rootScope',
-      'loginPopoverService',
+      'AuthenticatorLoginService',
       'template',
       'userGoalData',
       'UserGoalDataManager',
       '$timeout',
       'refreshingDate',
-      'UserGoalConstant',
-      function($compile, $http, $rootScope, loginPopoverService, template, userGoalData, UserGoalDataManager, $timeout, refreshingDate, UserGoalConstant){
+      function($compile, $http, $rootScope, AuthenticatorLoginService, template, userGoalData, UserGoalDataManager, $timeout, refreshingDate){
           return {
               restrict: 'EA',
               scope: {
@@ -162,7 +162,7 @@ angular.module('manage', ['Interpolation',
                               scope.runCallback(uGoal);
                           }, function(res){
                               if(res.status === 401){
-                                  loginPopoverService.openLoginPopover();
+                                  AuthenticatorLoginService.openLoginPopup();
                               }
                           });
                       }
@@ -181,7 +181,7 @@ angular.module('manage', ['Interpolation',
                               });
                           }, function(res){
                               if(res.status === 401){
-                                  loginPopoverService.openLoginPopover();
+                                  AuthenticatorLoginService.openLoginPopup();
                               }
                           });
                       }
