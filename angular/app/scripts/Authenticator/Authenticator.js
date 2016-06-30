@@ -2,20 +2,17 @@
 
 angular.module('Authenticator', ['PathPrefix'])
   .config(['$httpProvider', function($httpProvider){
-    $httpProvider.interceptors.push('AuthenticatorInterceptor');
+    //$httpProvider.interceptors.push('AuthenticatorInterceptor');
   }])
-  .run(['$rootScope', 'AuthenticatorLogin', '$timeout', function($rootScope, AuthenticatorLogin, $timeout){
+  .run(['$rootScope', 'AuthenticatorLoginService', function($rootScope, AuthenticatorLoginService){
     console.log("run");
 
     $rootScope.$on('openLoginPopup', function(){
-      AuthenticatorLogin.openLoginPopup();
+      AuthenticatorLoginService.openLoginPopup();
     });
 
-    $timeout(function(){
-      AuthenticatorLogin.openLoginPopup();
-    }, 5000)
   }])
-  .service('AuthenticatorLogin', [
+  .service('AuthenticatorLoginService', [
     '$http',
     '$compile',
     '$rootScope',
@@ -61,7 +58,7 @@ angular.module('Authenticator', ['PathPrefix'])
       }
     }
   }])
-  .service('AuthenticatorInterceptor', [function(){
+  .service('AuthenticatorInterceptor', ['$q', function($q){
     return {
       request: function(config){
         return config;
@@ -70,17 +67,32 @@ angular.module('Authenticator', ['PathPrefix'])
         return config;
       },
       responseError: function(config){
-        return config
+        return $q.reject(config)
+      }
+    }
+  }])
+  .directive('authenticatorLoginTrigger',[
+    'AuthenticatorLoginService',
+    function(
+      AuthenticatorLoginService
+    ){
+    return {
+      restrict: 'EA',
+      scope: {},
+      link: function(scope, el){
+        el.click(function(){
+          AuthenticatorLoginService.openLoginPopup();
+        });
       }
     }
   }])
   .controller('AuthenticatorLoginController', [
     '$scope',
-    'AuthenticatorLogin',
+    'AuthenticatorLoginService',
     'envPrefix',
     function(
       $scope,
-      AuthenticatorLogin,
+      AuthenticatorLoginService,
       envPrefix
     ){
 
@@ -88,9 +100,9 @@ angular.module('Authenticator', ['PathPrefix'])
     $scope.login_form = {};
 
     $scope.login = function(){
-      AuthenticatorLogin.login($scope.login_form)
-        .success(function(res){
-          console.log(res, 'success login')
+      AuthenticatorLoginService.login($scope.login_form)
+        .success(function(){
+          window.location.reload();
         });
     }
   }]);

@@ -29,7 +29,7 @@
         {% endif %}
 
         <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
-            <br class="hidden-xs"/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
+        <br class="hidden-xs"/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
 
         {% if not isMobile() %}
             <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
@@ -44,23 +44,8 @@
     {% if app.user %}
         style="display: none"
     {% endif %}
-    data-ng-init="joinToggle2 = false"
-    class="sign-in-popover"
-    data-auto-close="true"
-    data-ng-class="{'join-class': joinToggle2}"
-    data-placement="bottom-left"
-    data-html="true"
-    data-ng-click="joinToggle2 = !joinToggle2"
-    data-content='{{ include("FOSUserBundle:Security:login.html.twig") }}'
-    data-animation="am-fade-and-scale"
-    data-bs-popover>
+    data-authenticator-login-trigger
+    class="sign-in-popover">
     <i class="icon-join-icon"></i>
     {{ 'join'|trans }}
 </a>
-
-{% if not app.user and (isMobile() or
-       (app.session.flashBag.peekAll|length and
-        app.session.flashBag.peekAll['error'] is defined and
-        app.session.flashBag.get('error') is not null)) %}
-    <div data-open-popover></div>
-{% endif %}
