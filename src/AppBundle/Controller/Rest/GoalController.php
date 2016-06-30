@@ -130,7 +130,7 @@ class GoalController extends FOSRestController
 
         }
 
-        return $topIdeas;
+        return array_values($topIdeas);
     }
 
     /**
