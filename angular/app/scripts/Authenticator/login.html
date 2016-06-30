@@ -1,5 +1,6 @@
 <div id="signin" data-ng-controller="AuthenticatorLoginController">
-    <div class="divider"></div>
+    <h2>Join</h2>
+    <a class="close-icon" rel="modal:close"></a>
     <form>
         <div class="form-group">
             <input type="email" data-ng-model="login_form.username" class="form-control" id="username" name="_username" required="required" placeholder="Email">
@@ -12,18 +13,19 @@
             [[ error ]]
         </div>
 
-        <a data-ng-href="[[ envPrefix ]]resetting/check-email">Forgot password?</a>
+        <a data-ng-href="[[ envPrefix ]]resetting/check-email" class="text-dark-gray">Forgot password?</a>
 
         <div class="form-group">
             <button data-ng-click="login()" class="btn btn-purple">SIGN IN</button>
         </div>
     </form>
-    <div class="divider"></div>
+
     <a data-ng-href="[[ envPrefix ]]register/" class="sign-up">
         <span class="icon-user"></span>SIGN UP
     </a>
-    <div class="divider"></div>
+
     <h4>CONNECT WITH</h4>
+
     <ul class="social">
         <meta charset="UTF-8">
         <div>
