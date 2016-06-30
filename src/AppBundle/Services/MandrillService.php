@@ -29,10 +29,11 @@ class MandrillService
      * @param $name
      * @param $subject
      * @param $message
+     * @param $language
      * @throws \Exception
      * @throws \Mandrill_Error
      */
-    public function sendEmail($email, $name, $subject, $message)
+    public function sendEmail($email, $name, $subject, $message, $language)
     {
         // get mandrill app key
         $mandrillAppKey = $this->container->getParameter('mandrill_api_key');
@@ -42,6 +43,8 @@ class MandrillService
 
         // get get environment
         $env = $this->container->get('kernel')->getEnvironment();
+
+        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
 
         // check environment
         if($env == "test"){
@@ -55,7 +58,7 @@ class MandrillService
                 'html' => $message,
                 'subject' => $subject,
                 'from_email' => $fromEmail,
-                'from_name' => 'BucketList127.com',
+                'from_name' => $projectName,
                 'to' => array(
                     array(
                         'email' => $email,

@@ -61,7 +61,7 @@ class SettingsListener implements ContainerAwareInterface
             $userName = $user->showName();
 
             //get send activation email service
-            $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName);
+            $this->container->get('bl.email.sender')->sendActivationUserEmail($addEmail, $emailToken, $userName, $user->getLanguage());
 
             //set user emails
             $user->setUserEmails($userEmails);
