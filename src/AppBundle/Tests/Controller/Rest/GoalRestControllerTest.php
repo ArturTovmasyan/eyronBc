@@ -171,9 +171,11 @@ class GoalRestControllerTest extends BaseClass
         $authorId = $goal->getAuthor()->getId();
 
         //get current user id
-        $currentUserId = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'user4@user.com'))->getId();
+        $currentUser = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'user4@user.com'));
 
-        $url = sprintf('/api/v1.0/goals/add-images/%s', $golId);
+        $currentUserId = $currentUser->getId();
+
+        $url = sprintf('/api/v1.0/goals/add-images/%s/%s', $golId, $currentUserId);
         // try to get goal by id
 
         $maindir = $this->container->getParameter('kernel.root_dir');
