@@ -169,7 +169,7 @@ fos_user:
 
     from_email:
         address: "info@%project_name%.com"
-        sender_name: "%project_name%"
+        sender_name: "%email_sender%"
 
 
 # fos comment bundle

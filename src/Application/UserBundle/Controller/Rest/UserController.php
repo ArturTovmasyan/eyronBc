@@ -88,7 +88,7 @@ class UserController extends FOSRestController
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
-        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName(), $user->getLanguage());
+        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
         $em->persist($user);
         $em->flush();

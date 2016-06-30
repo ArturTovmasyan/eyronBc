@@ -92,7 +92,7 @@ class UserNotifyService
             array('eventText' => $commentText, 'goal' => $goal, 'type' => 'comments', 'user' => $user, 'mailText' => 'notify_comment', 'language' => $language)
         );
         
-        $this->sendEmail($email, $content, $subject, $language);
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
@@ -146,24 +146,23 @@ class UserNotifyService
             array('eventText' => $storyText, 'goal' => $goal, 'type' => 'success_story', 'user' => $user, 'mailText' => 'notify_success_story', 'language' => $language)
         );
 
-        $this->sendEmail($email, $content, $subject, $language);
+        $this->sendEmail($email, $content, $subject);
     }
 
     /**
      * @param $email
      * @param $content
      * @param $subject
-     * @param $language
      * @throws \Exception
      * @throws \Swift_TransportException
      */
-    public function sendEmail($email, $content, $subject, $language)
+    public function sendEmail($email, $content, $subject)
     {
         //get no-reply email
         $noReplyEmail = $this->container->getParameter('no_reply');
 
         //get project name
-        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
+        $projectName = $this->container->getParameter('email_sender');
 
         try {
             //calculate message
