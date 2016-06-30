@@ -238,7 +238,7 @@ angular.module('goal', ['Interpolation',
     .controller('goalAdd', ['$scope', 
         '$sce',
         '$timeout',
-        'loginPopoverService',
+        'AuthenticatorLoginService',
         '$window',
         'envPrefix',
         'UserGoalDataManager',
@@ -246,7 +246,7 @@ angular.module('goal', ['Interpolation',
         'userGoalData',
         '$analytics',
         'lsInfiniteItems',
-        function($scope, $sce, $timeout, loginPopoverService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
+        function($scope, $sce, $timeout, AuthenticatorLoginService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
 
@@ -296,7 +296,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.$watch('Ideas.items', function(d) {
             if(d.length){
-                $scope.isMore = d.length > 3? true: false;
+                $scope.isMore = d.length > 3;
                 $scope.haveIdeas = $scope.addTitle? true: false;
             }else {
                 $scope.isMore = false;
@@ -304,14 +304,8 @@ angular.module('goal', ['Interpolation',
             }
         });
 
-        $scope.openSignInPopover = function(){
-            var middleScope = angular.element(".sign-in-popover").scope();
-            var popoverScope = middleScope.$$childHead;
-
-            if(!popoverScope.$isShown){
-                popoverScope.$show();
-                middleScope.joinToggle2 = !middleScope.joinToggle2;
-            }
+        $scope.openSignInPopup = function(){
+            AuthenticatorLoginService.openLoginPopup();
         };
 
         $timeout(function(){
@@ -407,9 +401,9 @@ angular.module('goal', ['Interpolation',
                 beforeSubmit: function(){
                     $scope.$apply();
                 },
-                error: function(res, text, header){
+                error: function(res){
                     if(res.status === 401) {
-                        loginPopoverService.openLoginPopover();
+                        AuthenticatorLoginService.openLoginPopup();
                     }
                 },
                 success: function(res, text, header){
@@ -433,9 +427,9 @@ angular.module('goal', ['Interpolation',
                     $scope.loading = true;
                     $scope.$apply();
                 },
-                error: function(res, text, header){
+                error: function(res){
                     if(res.status === 401) {
-                        loginPopoverService.openLoginPopover();
+                        AuthenticatorLoginService.openLoginPopup();
                     }
                 },
                 success: function(res, text, header){
@@ -471,8 +465,8 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems',
-        function($scope, $filter, $timeout, lsInfiniteItems){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService',
+        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -526,14 +520,8 @@ angular.module('goal', ['Interpolation',
             }, 500);
         };
 
-        $scope.openSignInPopover = function(){
-            var middleScope = angular.element(".sign-in-popover").scope();
-            var popoverScope = middleScope.$$childHead;
-
-            if(!popoverScope.$isShown){
-                popoverScope.$show();
-                middleScope.joinToggle2 = !middleScope.joinToggle2;
-            }
+        $scope.openSignInPopup = function(){
+            AuthenticatorLoginService.openLoginPopup();
         };
 
         $scope.showMoreSuccessStory = function(storiesLength){
