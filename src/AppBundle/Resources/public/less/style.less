@@ -586,34 +586,57 @@ label{
 
 #signin{
     text-align: center;
-    background-color: #2b2b2b;
-    padding-bottom: 30px;
+    background-color: #f4f4f4;
+    padding: 30px;
+    width: 280px;
+
+    .close-icon{
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 38px;
+      right: 35px;
+      cursor:pointer;
+      background: url('../images/close.svg') no-repeat center center;
+    }
+
+    h2{
+      padding: 0;
+      margin: 0 0 20px;
+      font-size: 32px;
+      color: #021523;
+    }
 
     a{
       display: block;
-      padding:10px 0;
+      padding: 10px 0;
+      color: #333333;
+      font-size:14px;
       &:hover {
         background-color: transparent;
 
       }
       span{
-        padding-right:10px;
+        padding-right:5px;
       }
     }
 
     form{
-      padding: 10px 20px 20px;
+      //padding: 10px 20px 20px;
 
       .form-group{
         margin-bottom: 10px;
 
         input{
           color:#999999;
+          &:active,&:hover{
+            border: 1px solid #7724F6;
+          }
         }
       }
 
       a{
-        padding:0 0 16px 0;
+        padding:12px 0 16px 0;
         border:0;
         font-weight: 500;
 
@@ -634,8 +657,11 @@ label{
     }
 
     .sign-up{
-      padding:12px 0;
-
+      padding:12px 0 10px;
+      color: #666666;
+      font-size: 16px;
+      font-weight: 500;
+      
       span{
         display: inline-block;
         height: 29px;
@@ -643,18 +669,20 @@ label{
         font-size:28px;
       }
 
-      &:hover{
-        background-color:#7724F6;
-      }
+      //&:hover{
+      //  background-color:#7724F6;
+      //}
     }
     h4{
-      color:#ffffff;
-      font-size:14px;
-      padding:20px 0;
+      color: #021523;
+      font-size: 21px;
+      padding: 20px 0 10px;
+      margin: 0;
       font-weight: 500;
     }
     .social{
         padding-left:0;
+        margin-bottom:0;
         li{
           margin-top:10px;
           border-left:0;
@@ -1851,8 +1879,7 @@ footer{
 
 
   #signin{
-    width:210px;
-    padding-bottom:20px;
+    width: 330px;
   }
 
   .divider{
@@ -2239,7 +2266,7 @@ footer{
     padding-top:20px;
   }
   #signin{
-    min-width:235px;
+    //min-width:270px;
     overflow: hidden;
 
     .text-danger{
