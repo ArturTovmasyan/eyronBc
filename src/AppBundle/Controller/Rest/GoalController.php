@@ -98,6 +98,7 @@ class GoalController extends FOSRestController
 
     /**
      * @Rest\Get("/top-ideas/{count}", requirements={"count"="\d+"}, name="app_rest_top_ideas", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{count}/suggest", requirements={"count"="\d+"})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
@@ -129,7 +130,7 @@ class GoalController extends FOSRestController
 
         }
 
-        return $topIdeas;
+        return array_values($topIdeas);
     }
 
     /**
@@ -154,6 +155,7 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
         if (!$goal){
             return new Response('Goal not found', Response::HTTP_NOT_FOUND);
@@ -237,63 +239,18 @@ class GoalController extends FOSRestController
             if (!$goal){
                 return new Response("Goal wasn't found", Response::HTTP_NOT_FOUND);
             }
+
+            $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
         }
         else {
             $goal = new Goal();
         }
 
-        if($request->isMethod('PUT')){
-            $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
-            $goal->setTitle(array_key_exists('title', $data)                             ? $data['title']       : null);
-            $goal->setDescription(array_key_exists('description', $data)                 ? $data['description'] : null);
-            $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
-            $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
-        }else{
-            $form = $this->createForm(GoalType::class, $goal);
-
-            // get data from request
-            $form->handleRequest($request);
-
-            //Delete last empty link
-            if ($videoLinks = $goal->getVideoLink()){
-                $videoLinks = array_values($videoLinks);
-                $videoLinks = array_filter($videoLinks);
-
-                $goal->setVideoLink($videoLinks);
-            }
-
-            $tags = $form->get('hashTags')->getData();
-
-            $this->getAndAddTags($goal, $tags);
-
-            $images = $form->get('files')->getData();
-
-            // remove all images that older one day
-//            $this->removeAllOldImages();
-
-            if($images){
-
-                $images = json_decode($images);
-                $images = array_unique($images);
-                $goalImages = $em->getRepository('AppBundle:GoalImage')->findByIDs($images);
-
-                if($goalImages){
-
-                    foreach($goalImages as $goalImage){
-                        $goal->addImage($goalImage);
-                    }
-                }
-            }
-
-            $description = $goal->getDescription();
-
-            if($description) {
-                $description = str_replace('#', '', $description);
-            }
-
-            $goal->setDescription($description);
-        }
-
+        $goal->setStatus(array_key_exists('is_public', $data) && $data['is_public']  ? Goal::PUBLIC_PRIVACY : Goal::PRIVATE_PRIVACY);
+        $goal->setTitle(array_key_exists('title', $data)                             ? $data['title']       : null);
+        $goal->setDescription(array_key_exists('description', $data)                 ? $data['description'] : null);
+        $goal->setVideoLink(array_key_exists('video_links', $data)                   ? $data['video_links'] : null);
+        $goal->setLanguage(array_key_exists('language', $data)                       ? $data['language']    : "en");
         $goal->setReadinessStatus(Goal::DRAFT);
         $goal->setAuthor($this->getUser());
 
@@ -336,7 +293,7 @@ class GoalController extends FOSRestController
      */
     public function addImagesAction(Request $request, Goal $goal = null, User $user = null)
     {
-        //TODO this rest non secured
+        //TODO this rest non secured will be changed after tokens strategy
         $em = $this->getDoctrine()->getManager();
 
         if (is_null($user)){
@@ -347,9 +304,7 @@ class GoalController extends FOSRestController
         }
 
         if (!is_null($goal)){
-            if (is_null($goal->getAuthor()) || $user->getId() != $goal->getAuthor()->getId()){
-                return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
-            }
+            $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
         }
 
         $file = $request->files->get('file');
@@ -394,20 +349,36 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\Post("/goals/remove-images/{id}", requirements={"id"="\d+"}, name="app_rest_goal_removeimage", options={"method_prefix"=false})
+     * @Rest\Get("/goals/remove-images/{id}", requirements={"id"="\d+"}, name="app_get_rest_goal_removeimage", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      *
      * @param GoalImage $goalImage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function removeImageAction(GoalImage $goalImage)
+    public function removeImageAction(GoalImage $goalImage, Request $request)
     {
-        if(!$goalImage->getGoal() || (!is_null($goalImage->getGoal()->getAuthor()) && $this->getUser()->getId() != $goalImage->getGoal()->getAuthor()->getId())){
-            return new Response("Goal image hasn't goal or it isn't an image of current user", Response::HTTP_BAD_REQUEST);
+        $em = $this->getDoctrine()->getManager();
+
+        if (!is_null($goal = $goalImage->getGoal()))
+        {
+            $this->denyAccessUnlessGranted('edit', $goal, $this->get('translator')->trans('goal.edit_access_denied'));
+
+            $goal->removeImage($goalImage);
+            $goalImages = $goal->getImages();
+            if ($goalImage->getList() && $goalImages->first()){
+                $goalImages->first()->setList(true);
+            }
+            if ($goalImage->getCover() && $goalImages->first()){
+                $goalImages->first()->setCover(true);
+            }
         }
 
-        $em = $this->getDoctrine()->getManager();
         $em->remove($goalImage);
         $em->flush();
+
+        if ($request->get('_route') == 'app_get_rest_goal_removeimage' && isset($_SERVER['HTTP_REFERER'])){
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
 
         return new Response('', Response::HTTP_OK);
     }
@@ -453,47 +424,40 @@ class GoalController extends FOSRestController
      * @Rest\View()
      * @Security("has_role('ROLE_USER')")
      * @ParamConverter("goal", class="AppBundle:Goal")
+     * @param $request
      * @param $goal
+     * @param $slug
      * @return array
+     *
+     * @Rest\Delete("/goals/{goal}/drafts", requirements={"goal"="\d+"}, name="delete_goal_drafts", options={"method_prefix"=false})
+     * @Rest\Get("/goal/remove-ideas/{goal}/{slug}", requirements={"goal"="\d+"}, defaults={"slug" = null}, name="remove_my_ideas", options={"method_prefix"=false})
      */
-    public function deleteDraftsAction(Goal $goal)
+    public function deleteDraftsAction(Request $request, Goal $goal, $slug = null)
     {
-        // get entity manager
         $em = $this->getDoctrine()->getManager();
+        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
-        // get current user
-        $user = $this->getUser();
-
-        //check if user not exist
-        if (!$user){
-            return new Response('User not found', Response::HTTP_NOT_FOUND);
-        }
-
-        if ($user != $goal->getAuthor()){
-            return new Response("Goal isn't a goal of current user", Response::HTTP_FORBIDDEN);
-        }
-
-        // get user goal
-        $userGoal = $em->getRepository('AppBundle:UserGoal')->findByUserAndGoal($user->getId(), $goal->getId());
-
-        //check if user goal exist and 1
-        if(count($userGoal) == 1){
-
-            // remove from bd
+        if(!is_null($userGoal)){
             $em->remove($userGoal);
         }
 
-        //get goal draft by goal id
-        $goalDraft = $em->getRepository('AppBundle:Goal')->find($goal);
-
-        //check if success story not exist
-        if (!$goalDraft) {
-            return new Response('Goal draft not found', Response::HTTP_NOT_FOUND);
-        }
-
-        // remove from bd
-        $em->remove($goalDraft);
+        $this->denyAccessUnlessGranted('delete', $goal, $this->get('translator')->trans('goal.delete_access_denied'));
+        $em->remove($goal);
         $em->flush();
+
+        if ($request->get('_route') == "remove_my_ideas") {
+            if ($slug == "drafts") {
+                $request->getSession()
+                    ->getFlashBag()
+                    ->set('draft', 'Delete my draft from Web');
+            } else {
+                $request->getSession()
+                    ->getFlashBag()
+                    ->set('private', 'Delete my private idea from Web');
+            }
+
+            return $this->redirectToRoute("my_ideas", array('slug' => $slug));
+        }
 
         return new Response('', Response::HTTP_OK);
     }
@@ -527,8 +491,8 @@ class GoalController extends FOSRestController
         foreach($goalFriends as &$user) {
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
-                "active" => $stats[$user->getId()]['listedBy'],
-                "doneBy" => $stats[$user->getId()]['doneBy']
+                "active"   => $stats[$user->getId()]['listedBy'],
+                "doneBy"   => $stats[$user->getId()]['doneBy']
             ]);
         }
 
@@ -875,9 +839,7 @@ class GoalController extends FOSRestController
         }
 
         if (!is_null($successStory)){
-            if ($user->getId() != $successStory->getUser()->getId()){
-                return new Response("It isn't user's successStory", Response::HTTP_FORBIDDEN);
-            }
+            $this->denyAccessUnlessGranted('edit', $successStory, $this->get('translator')->trans('success_story.edit_access_denied'));
         }
 
         $file = $request->files->get('file');
@@ -929,6 +891,8 @@ class GoalController extends FOSRestController
      */
     public function getSuccessStoryAction(Goal $goal)
     {
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+
         $em = $this->getDoctrine()->getManager();
         $story = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
 
@@ -960,98 +924,11 @@ class GoalController extends FOSRestController
      * @Rest\Get("/goals/image/{id}", requirements={"id"="\d+"}, name="app_rest_goal_image", options={"method_prefix"=false})
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param $id
+     * @param Goal $goal
      * @return array
      */
-    public function getImageAction($id)
+    public function getImageAction(Goal $goal)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        // find goal by id
-        $goal = $em->getRepository("AppBundle:Goal")->find($id);
-
         return $goal;
-    }
-
-    /**
-     * @param $object
-     * @param $tags
-     */
-    private function getAndAddTags(&$object, $tags)
-    {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        // get environment
-        $env = $this->container->getParameter("kernel.environment");
-
-        // check environment
-        if($env == "test") {
-            $tags = array();
-        }
-
-        // check tags
-        if($tags){
-
-            // remove # from json
-            $tags = str_replace('#', '', $tags);
-
-            // get array
-            $tags = json_decode($tags);
-
-            // get tags from db
-            $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
-
-            // get new tags
-            $newTags = array_diff($tags, $dbTags);
-
-            // loop for array
-            foreach($newTags as $tagString){
-
-                // create new tag
-                $tag = new Tag();
-
-                $title = strtolower($tagString);
-
-                // replace ',' symbols
-                $title = str_replace(',', '', $title);
-
-                // replace ':' symbols
-                $title = str_replace(':', '', $title);
-
-                // replace '.' symbols
-                $title = str_replace('.', '', $title);
-
-                // set tag title
-                $tag->setTag($title);
-
-                // add tag
-                $object->addTag($tag);
-
-                // persist tag
-                $em->persist($tag);
-
-            }
-
-            // tags that is already exist in database
-            $existTags = array_diff($tags, $newTags);
-
-            // get tags from database
-            $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
-
-            // loop for tags n database
-            foreach($oldTags as $oldTag){
-
-                // check tag in collection
-                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
-
-                    // add tag
-                    $object->addTag($oldTag);
-
-                    // persist tag
-                    $em->persist($oldTag);
-                }
-            }
-        }
     }
 }

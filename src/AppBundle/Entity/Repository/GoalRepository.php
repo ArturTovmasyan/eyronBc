@@ -351,10 +351,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $sqlJoin = "";
         if ($search){
             $search = '%' . $search . '%';
-            $sqlJoin = " AND (u.first_name LIKE :search
-                           OR u.last_name LIKE :search
+            $sqlJoin = " AND (u.firstname LIKE :search
+                           OR u.lastname LIKE :search
                            OR u.email LIKE :search
-                           OR CONCAT(u.first_name, u.last_name) LIKE :search) ";
+                           OR CONCAT(u.firstname, u.lastname) LIKE :search) ";
         }
 
         $roleFilter = "";

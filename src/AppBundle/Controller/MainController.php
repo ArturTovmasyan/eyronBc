@@ -31,18 +31,15 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        //check if user not exist
-        if (!$user){
+        if (!is_object($user)){
             $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
             $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
             return array('goals' => $goals);
         }
 
-        //set url
-        $url = 'goals_list';
-        
         //check and set user activity by new feed count
+        $url = 'goals_list';
         $this->get('bl_service')->setUserActivity($user, $inLogin = true, $url);
         
         return $this->redirectToRoute($url);
@@ -58,85 +55,53 @@ class MainController extends Controller
      */
     public function pageAction(Request $request, $slug)
     {
-        // get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        $env = $this->get('kernel')->getEnvironment();
-
-        // get page
+        $em   = $this->getDoctrine()->getManager();
+        $env  = $this->get('kernel')->getEnvironment();
         $page = $em->getRepository("AppBundle:Page")->findOneBy(array('slug' => $slug));
 
-        // check page
         if(!$page){
             throw $this->createNotFoundException("Page has not been found!");
         }
 
-        // check if page contact us
-        if($slug == 'contact-us')
-        {
-            // create form type
-            $form  = $this->createForm(ContactUsType::class);
+        if($slug == 'contact-us'){
+            $form = $this->createForm(ContactUsType::class);
 
-            // check request method
             if($request->isMethod("POST")){
-
-                // get data from request
                 $form->handleRequest($request);
 
-                // check valid
                 if($form->isValid()){
-                    // get form data
                     $formData = $form->getData();
-                    // get admins
                     $admins = $em->getRepository('ApplicationUserBundle:User')->findAdmins('ROLE_SUPER_ADMIN');
 
-                    // calculate data form form
-                    $contactUsData = array();
-
-                    $contactUsData['fullName'] = $formData['fullName'];
-                    $contactUsData['email'] = $formData['email'];
-                    $contactUsData['subject'] = $formData['subject'];
-                    $contactUsData['message'] = $formData['message'];
-                    // send messages to admins by contact us content
-                    foreach($admins as $admin )
-                    {   // call send mailer service for calculate message content
-                        $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $contactUsData);
+                    foreach($admins as $admin){
+                        $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $formData, $admin['locale']);
                     }
-                    // return data after send
-                    return array('page'=> $page, 'isSend'=>true);
+
+                    return ['page' => $page, 'isSend' => true];
                 }
             }
 
-            // write form
-            return array('page'=> $page, 'isSend'=>false, 'form' => $form->createView());
+            return ['page' => $page, 'isSend' => false, 'form' => $form->createView()];
         }
 
 
-        // new response
         $response = new Response();
 
-        //check environment
-        if($env == 'prod') {
-
+        if($env == 'prod')
+        {
             // set last modified data
             $response->setLastModified($page->getUpdated());
-
             // Set response as public. Otherwise it will be private by default.
             $response->setPublic();
 
             // Check that the Response is not modified for the given Request
             if ($response->isNotModified($request)) {
-
                 // return the 304 Response immediately
                 return $response;
             }
         }
 
-        //get response
-        $response = $this->render('AppBundle:Main:page.html.twig', array('page' => $page), $response);
-
-        return $response;
-
+        return $this->render('AppBundle:Main:page.html.twig', array('page' => $page), $response);
     }
 
     /**
@@ -171,8 +136,9 @@ class MainController extends Controller
     public function goalFriendsAction(Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $search = $request->get('search') ? $request->get('search') : null;
-        $em = $this->getDoctrine()->getManager();
+        $em          = $this->getDoctrine()->getManager();
+        $search      = $request->get('search') ? $request->get('search') : null;
+
         $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, true);
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
 
@@ -189,8 +155,8 @@ class MainController extends Controller
         foreach($pagination->getItems() as &$user){
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
-                "active" => $stats[$user->getId()]['listedBy'],
-                "doneBy" => $stats[$user->getId()]['doneBy']
+                "active"   => $stats[$user->getId()]['listedBy'],
+                "doneBy"   => $stats[$user->getId()]['doneBy']
             ]);
         }
 
@@ -232,14 +198,14 @@ class MainController extends Controller
         foreach($pagination->getItems() as &$user){
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
-                "active" => $stats[$user->getId()]['listedBy'],
-                "doneBy" => $stats[$user->getId()]['doneBy']
+                "active"   => $stats[$user->getId()]['listedBy'],
+                "doneBy"   => $stats[$user->getId()]['doneBy']
             ]);
         }
 
         return $this->render('AppBundle:Main:goalFriends.html.twig', array(
             'pagination' => $pagination,
-            'title' => $goal->getTitle()));
+            'title'      => $goal->getTitle()));
     }
 
     /**
@@ -626,8 +592,6 @@ class MainController extends Controller
             'updateResult'   => $updatedResult,
             'updateAverage'  => $updateAverage,
             'updateCount'    => $updateCount,
-
-
         );
     }
 }

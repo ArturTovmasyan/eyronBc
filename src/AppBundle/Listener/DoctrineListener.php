@@ -149,7 +149,10 @@ class DoctrineListener
                 }
                 while($isUser);
 
-                $entity->setUId($string);
+                //check if user don't have uId
+                if(!$entity->getUId()) {
+                    $entity->setUId($string);
+                }
                 $metadata = $em->getMetadataFactory()->getMetadataFor('ApplicationUserBundle:User');
                 $uow->recomputeSingleEntityChangeSet($metadata, $entity);
             }
@@ -288,9 +291,8 @@ class DoctrineListener
 
             try{
                 $request = $this->container->get('request_stack')->getCurrentRequest();
-                $session = $request->getSession();
 
-                if (!$session){
+                if (is_null($request) || is_null($session = $request->getSession())){
                     return;
                 }
 

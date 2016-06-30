@@ -164,13 +164,23 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testAddImages($golId)
     {
+        //get goal by id
+        $goal = $this->em->getRepository('AppBundle:Goal')->find($golId);
 
-        $url = sprintf('/api/v1.0/goals/add-images/%s', $golId);
+        //get goal author id
+        $authorId = $goal->getAuthor()->getId();
+
+        //get current user id
+        $currentUser = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'user4@user.com'));
+
+        $currentUserId = $currentUser->getId();
+
+        $url = sprintf('/api/v1.0/goals/add-images/%s/%s', $golId, $currentUserId);
         // try to get goal by id
 
-        $maidir = $this->container->getParameter('kernel.root_dir');
+        $maindir = $this->container->getParameter('kernel.root_dir');
 
-        $oldPhotoPath = $maidir.'/../src/AppBundle/Tests/Controller/old_photo.jpg';
+        $oldPhotoPath = $maindir.'/../src/AppBundle/Tests/Controller/old_photo.jpg';
         $photoPath = __DIR__ . '/photo.jpg';
         // copy photo path
         copy($oldPhotoPath, $photoPath);
@@ -183,16 +193,23 @@ class GoalRestControllerTest extends BaseClass
             123
         );
 
-        $this->client->request('POST', $url, array(), array('file' => $photo));
+        $this->client4->request('POST', $url, array(), array('file' => $photo));
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal AddImagesAction rest!");
+        //check if goal author is current user
+        if($authorId == $currentUserId && !$goal->getPublish()) {
+            $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal AddImagesAction rest!");
+
+        }
+        else {
+            $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_FORBIDDEN, "can not get goal AddImagesAction rest!");
+        }
 
         $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
+            $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client4->getResponse()->headers
         );
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->client4->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal AddImagesAction rest!");
         }

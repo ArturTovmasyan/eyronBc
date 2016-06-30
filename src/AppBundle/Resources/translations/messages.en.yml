@@ -20,6 +20,8 @@ settings: Settings
 logout: Logout
 my_bucketlist: My Bucketlist
 statistic_view: Statistic
+bucketlist: Bucket List 127
+
 
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!
@@ -84,6 +86,10 @@ goal:
       deadline: Deadline
       priority: Priority
       steps: Steps
+      view_access_denied: You can't view this goal
+      edit_access_denied: You can't edit this goal
+      delete_access_denied: You can't delete this goal
+
 activities:
       title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
@@ -141,6 +147,10 @@ success_story:
       description: Success story ...
       files: Files
       url: Video URL: https://www...
+
+      view_access_denied: You can't view this success story
+      edit_access_denied: You can't edit this success story
+      delete_access_denied: You can't delete this success story
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
@@ -348,6 +358,7 @@ admin:
       email_username: Email\Username
       messages: Message
       enabled: Enabled
+      goal_public: Public goal
 
 # end sonata admin lable
 

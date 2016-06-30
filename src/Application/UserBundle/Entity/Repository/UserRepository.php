@@ -125,13 +125,13 @@ class UserRepository extends EntityRepository
 
         switch ($type) {
             case 'facebook':
-                $query->andWhere('u.facebookId =:id');
+                $query->andWhere('u.facebookUId =:id');
                 break;
             case 'twitter':
-                $query->andWhere('u.twitterId =:id');
+                $query->andWhere('u.twitterUId =:id');
                 break;
             case 'google':
-                $query->andWhere('u.googleId =:id');
+                $query->andWhere('u.gplusUid =:id');
                 break;
         }
 
@@ -207,7 +207,7 @@ class UserRepository extends EntityRepository
     public function findAdmins($role)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstName, ''), ' ', COALESCE(u.lastName, '')) as fullName
+            ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstName, ''), ' ', COALESCE(u.lastName, '')) as fullName, u.locale
                             FROM ApplicationUserBundle:User u
                             WHERE u.roles LIKE :role ")
             ->setParameter('role', '%' . 'ROLE_SUPER_ADMIN' . '%')
@@ -316,7 +316,7 @@ class UserRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT u
                            FROM ApplicationUserBundle:User u
-                           WHERE DATE_DIFF(CURRENT_DATE(), DATE(u.lastPushNoteData)) >= 7
+                           WHERE DATE_DIFF(CURRENT_DATE(), DATE(u.lastPushNoteDate)) >= 7
                            AND u.activeTime = HOUR(CURRENT_TIME())
                            AND u.activeDayOfWeek = DAYOFWEEK(CURRENT_DATE()) - 1")
             ->getResult();

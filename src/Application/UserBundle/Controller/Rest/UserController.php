@@ -60,7 +60,7 @@ class UserController extends FOSRestController
         $user->setPlainPassword(array_key_exists('plainPassword', $data) ? $data['plainPassword'] : null);
         $user->setFirstName(array_key_exists('firstName', $data) ? $data['firstName'] : null);
         $user->setLastName(array_key_exists('lastName', $data) ? $data['lastName'] : null);
-        $user->setBirthDate(array_key_exists('birthday', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthday'])  : null);
+        $user->setDateOfBirth(array_key_exists('birthday', $data) ? \DateTime::createFromFormat('d/m/Y', $data['birthday'])  : null);
 
         $validator = $this->get('validator');
         $errors = $validator->validate($user, null, array('Register', 'Default'));
@@ -88,7 +88,7 @@ class UserController extends FOSRestController
         $token = md5(microtime());
         $user->setRegistrationToken($token);
 
-        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
+        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName(), $user->getLanguage());
 
         $em->persist($user);
         $em->flush();

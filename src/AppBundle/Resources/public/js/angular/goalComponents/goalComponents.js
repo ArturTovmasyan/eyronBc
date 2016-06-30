@@ -200,7 +200,6 @@ angular.module('goalComponents', ['Interpolation',
           return;
         }
         $timeout(function(){
-          // $scope.userGoal.files = $scope.files;
           $scope.video_link = [];
           angular.forEach($scope.userGoal.videos_array, function (d) {
             if(!angular.isUndefined(d.link) && d.link){
