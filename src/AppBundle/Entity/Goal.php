@@ -68,7 +68,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(message = "Goal description can't be blank")
      * @ORM\Column(name="description", type="text", length=10000, nullable=false)
-     * @Groups({"goal"})
+     * @Groups({"goal", "goal_description"})
      */
     protected $description;
 

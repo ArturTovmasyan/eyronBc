@@ -101,7 +101,8 @@ angular.module('manage', ['Interpolation',
                             userGoalData.data.do_date = moment(userGoalData.data.do_date).format('MM-DD-YYYY');
                         }
 
-                        var tmp = $compile(template.addTemplate)(scope);
+                        var sc = $rootScope.$new();
+                        var tmp = $compile(template.addTemplate)(sc);
                         scope.openModal(tmp);
                         $(".modal-loading").hide();
                     };
@@ -157,6 +158,7 @@ angular.module('manage', ['Interpolation',
     
                       if(scope.lsType){
                           UserGoalDataManager.getStory({id: scope.lsGoalId}, function (uGoal){
+                              userGoalData.manage = "done";
                               scope.runCallback(uGoal);
                           }, function(res){
                               if(res.status === 401){
@@ -165,6 +167,7 @@ angular.module('manage', ['Interpolation',
                           });
                       }
                       else {
+                          userGoalData.manage = "";
                           refreshingDate.goalId = scope.lsGoalId;
     
                           if(scope.lsUserId){
@@ -195,8 +198,9 @@ angular.module('manage', ['Interpolation',
                       }else {
                           userGoalData.doneData.videos_array.push({});
                       }
-    
-                      var tmp = $compile(template.doneTemplate)(scope);
+
+                      var sc = $rootScope.$new();
+                      var tmp = $compile(template.doneTemplate)(sc);
                       scope.openModal(tmp);
                       $(".modal-loading").hide();
                   };

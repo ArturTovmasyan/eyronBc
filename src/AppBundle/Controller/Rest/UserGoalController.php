@@ -113,7 +113,33 @@ class UserGoalController extends FOSRestController
 
         if (!is_null($request->get('goal_status'))){
             $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+
+            if($userGoal->getStatus() == UserGoal::COMPLETED)
+            {
+                $completionDateRaw = $request->get('completion_date');
+                if($completionDateRaw){
+                    $completionDate = \DateTime::createFromFormat('d/m/Y', $completionDateRaw);
+
+                    if(!$completionDate){
+                        $completionDate = \DateTime::createFromFormat('m-d-Y', $completionDateRaw);
+                    }
+
+                    if(!$completionDate){
+                        return new Response('Error do date', Response::HTTP_BAD_REQUEST);
+                    }
+                }
+                else {
+                    $completionDate = new \DateTime();
+                }
+
+                $userGoal->setCompletionDate($completionDate);
+            }
+            elseif($userGoal->getStatus() == UserGoal::ACTIVE){
+                $userGoal->setCompletionDate(null);
+            }
         }
+
+
 
         if (!is_null($request->get('is_visible'))){
             $userGoal->setIsVisible($request->get('is_visible') ? true : false);
@@ -163,9 +189,6 @@ class UserGoalController extends FOSRestController
             }
 
             $userGoal->setDoDate($doDate);
-        }
-        if($request->get('goal_status')){
-            $userGoal->setCompletionDate(new \DateTime('now'));
         }
 
         $liipManager = $this->get('liip_imagine.cache.manager');
