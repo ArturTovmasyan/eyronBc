@@ -196,7 +196,7 @@ class GoalRestControllerTest extends BaseClass
         $this->client4->request('POST', $url, array(), array('file' => $photo));
 
         //check if goal author is current user
-        if($authorId == $currentUserId) {
+        if($authorId == $currentUserId && !$goal->getPublish()) {
             $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal AddImagesAction rest!");
 
         }

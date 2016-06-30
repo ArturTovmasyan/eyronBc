@@ -133,7 +133,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal7->setVideoLink(null);
         $goal7->setReadinessStatus(Goal::TO_PUBLISH);
         $goal7->setAuthor($user4);
-        $goal7->setPublish(true);
+        $goal7->setPublish(false);
         $manager->persist($goal7);
 
         // create goal
@@ -180,8 +180,19 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal10->setAddress('Armenia');
 
         $goal10->setAuthor($user5);
-        $goal10->setPublish(false);
+        $goal10->setPublish(true);
         $manager->persist($goal10);
+
+        // create goal
+        $goal11 = new Goal();
+        $goal11->setDescription('goal11 goal11');
+        $goal11->setTitle('goal11');
+        $goal11->setStatus(1);
+        $goal11->setVideoLink(null);
+        $goal11->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal11->setAuthor($user4);
+        $goal11->setPublish(false);
+        $manager->persist($goal11);
 
 
         // create goal

@@ -54,7 +54,7 @@ class UserNotifyService
         $enabled = $author->getIsCommentNotify();
 
         //check if user notify is disabled
-        if(!$enabledByConfig || !$enabled) {
+        if(!$enabledByConfig || $notProd || !$enabled) {
             return;
         }
 
