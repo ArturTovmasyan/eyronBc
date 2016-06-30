@@ -1,0 +1,13 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% set osName = object.registrationIds|keys|first %}
+
+    {% if osName == 'android' %}
+        <i class="android"></i>
+    {% endif %}
+
+    {% if osName == 'ios' %}
+        <i class="ios"></i>
+    {% endif %}
+{% endblock %}
