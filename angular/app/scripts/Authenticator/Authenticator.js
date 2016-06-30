@@ -46,6 +46,7 @@ angular.module('Authenticator', ['PathPrefix'])
         $http.get('/app/scripts/Authenticator/login.html')
           .success(function(res){
             openModal(angular.element(res));
+            $rootScope.$broadcast('showAuthenticatorLoginButton', true)
           });
       },
       login: function(data){
@@ -80,6 +81,17 @@ angular.module('Authenticator', ['PathPrefix'])
       restrict: 'EA',
       scope: {},
       link: function(scope, el){
+        scope.$on('showAuthenticatorLoginButton', function(event, data){
+          if(data){
+            el.fadeIn(300);
+            $('.user-popover').hide();
+          }
+          else {
+            el.fadeOut(300);
+            $('.user-popover').show();
+          }
+        });
+
         el.click(function(){
           AuthenticatorLoginService.openLoginPopup();
         });
