@@ -394,7 +394,7 @@ class MainController extends Controller
                 $user->primary = $primaryEmail;
 
                 //set updated for preUpdate event
-                $user->setUpdated(new \DateTime());
+                $user->setUpdatedAt(new \DateTime());
 
                 //get uploadFile service
                 $this->get('bl_service')->uploadFile($user);

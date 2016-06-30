@@ -107,7 +107,7 @@ class UserProvider extends  BaseProvider
     private function createGoogleUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('googleId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('gplusUid'=>$response['id']));
 
         if (!$user && isset($response['email'])){
             $user = $this->userManager->findUserBy(array('email' => $response['email']));
@@ -124,44 +124,26 @@ class UserProvider extends  BaseProvider
         // if user not found in bd, create
         if(!$user) {
 
-            // create new user
             $user = new User();
-
-            // set google id
             $user->setGoogleId($response['id']);
-
-            // set email
             $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
-
-            // set email
             $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
-
-            // set first name
             $user->setFirstName($response['given_name']);
-
-            // set last name
             $user->setLastName($response['family_name']);
+            $user->setGplusData(json_encode($response));
 
-            // set gender
             if (isset($response['gender'])) {
                 $user->setGender($response['gender'] == "male" ? User::MALE : User::FEMALE);
             }
 
-            // set photo link
             $photoPath = $response['picture'];
             if (strpos($photoPath, "?")){
                 $photoPath = substr($photoPath, 0, strpos($photoPath, "?"));
             }
             $user->setSocialPhotoLink($photoPath);
-
-            // set password
             $user->setPassword('');
 
-            // update user
             $this->userManager->updateUser($user);
-
-
-            //get registration social name		
             $socialName = $user->getSocialsName();
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()
@@ -184,7 +166,7 @@ class UserProvider extends  BaseProvider
     private function createFacebookUserUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('facebookId' => $response['id']));
+        $user = $this->userManager->findUserBy(array('facebookUid' => $response['id']));
 
         if (!$user && isset($response['email'])){
             $user = $this->userManager->findUserBy(array('email' => $response['email']));
@@ -197,28 +179,15 @@ class UserProvider extends  BaseProvider
         // if user not found in bd, create
         if(!$user) {
 
-            // create new user
             $user = new User();
-
-            // set google id
             $user->setFacebookId($response['id']);
-
-            // set email
             $user->setEmail(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
-
-            // set email
             $user->setUsername(isset($response['email']) ? $response['email'] : $user->getSocialFakeEmail());
-
-            // set first name
             $user->setFirstName($response['first_name']);
-
-            // set last name
             $user->setLastName($response['last_name']);
-
-            // set password
             $user->setPassword('');
-
             $user->setSocialPhotoLink("https://graph.facebook.com/" . $response['id'] . "/picture?type=large");
+            $user->setFacebookData(json_encode($response));
 
             // update user
             $this->userManager->updateUser($user);
@@ -245,42 +214,23 @@ class UserProvider extends  BaseProvider
     private function createTwitterUser($response)
     {
         // check is user in our bd
-        $user = $this->userManager->findUserBy(array('twitterId'=>$response['id']));
+        $user = $this->userManager->findUserBy(array('twitterUid'=>$response['id']));
 
         // if user not found in bd, create
         if(!$user) {
 
-            // create new user
             $user = new User();
-
-            // set google id
             $user->setTwitterId($response['id']);
-
-            // set email
             $user->setEmail($user->getSocialFakeEmail());
-
-            // set email
             $user->setUsername($user->getSocialFakeEmail());
-
-            // get fullName
             $fullName = explode(' ', $response['name']);
-
-            // set first name
             $user->setFirstName($fullName[0]);
-
-            // set last name
             $user->setLastName($fullName[0]);
-
-            // set photo link
             $user->setSocialPhotoLink(str_replace('_normal', '', $response['profile_image_url']));
-
-            // set password
+            $user->setTwitterData(json_encode($response));
             $user->setPassword('');
 
-            // update user
             $this->userManager->updateUser($user);
-
-            //get registration social name		
             $socialName = $user->getSocialsName();
 
             $this->container->get('request_stack')->getCurrentRequest()->getSession()

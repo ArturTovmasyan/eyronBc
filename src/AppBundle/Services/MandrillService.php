@@ -43,6 +43,8 @@ class MandrillService
         // get get environment
         $env = $this->container->get('kernel')->getEnvironment();
 
+        $projectName = $this->container->getParameter('email_sender');
+
         // check environment
         if($env == "test"){
             return;
@@ -55,7 +57,7 @@ class MandrillService
                 'html' => $message,
                 'subject' => $subject,
                 'from_email' => $fromEmail,
-                'from_name' => 'BucketList127.com',
+                'from_name' => $projectName,
                 'to' => array(
                     array(
                         'email' => $email,

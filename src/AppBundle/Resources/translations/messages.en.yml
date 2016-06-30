@@ -20,6 +20,13 @@ settings: Settings
 logout: Logout
 my_bucketlist: My Bucketlist
 statistic_view: Statistic
+bucketlist: Bucket List 127
+
+
+#Share
+message_on_top_of_the_page: Congrats! You have successfully completed the goal!
+share_title: Share your achievement
+facebook_post_text: I have completed another goal on Bucket List 127. This is how dreams turn into memories! It’s time to take on some more.
 
 # goal
 goal:
@@ -76,6 +83,13 @@ goal:
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
       empty_private_ideas: Currently there are no Private goals in your Private goal list
+      deadline: Deadline
+      priority: Priority
+      steps: Steps
+      view_access_denied: You can't view this goal
+      edit_access_denied: You can't edit this goal
+      delete_access_denied: You can't delete this goal
+
 activities:
       title: Bucket List 127-Activity
       description: It is the list of goals that your goalfriends have listed, done or completed. Be aware of your goalfriends' activity, it may end up on yours.
@@ -126,11 +140,17 @@ user_goal:
 
 # success story form
 success_story:
+      completion_date: Completion date
       complete_text: Write a success story
+      complete_edit_text: Please, specify the date when you completed your goal.
       title: Write a success story,please !
       description: Success story ...
       files: Files
       url: Video URL: https://www...
+
+      view_access_denied: You can't view this success story
+      edit_access_denied: You can't edit this success story
+      delete_access_denied: You can't delete this success story
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
@@ -338,6 +358,7 @@ admin:
       email_username: Email\Username
       messages: Message
       enabled: Enabled
+      goal_public: Public goal
 
 # end sonata admin lable
 

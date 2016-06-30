@@ -97,3 +97,19 @@
     display: block;
     background-size: 100%;
 }
+
+.android{
+    background: url('../images/android.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}
+
+.ios{
+    background: url('../images/ios.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-size: 100%;
+}

@@ -13,6 +13,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'Google',
     'angular-cache',
     'PathPrefix',
+    'Authenticator',
     'ngSanitize'])
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {

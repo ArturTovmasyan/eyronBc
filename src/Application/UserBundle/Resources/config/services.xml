@@ -32,27 +32,12 @@
             <argument type="service" id="router" />
         </service>
 
-        <!-- Aphorism -->
-        <service id="sonata.admin.app.usre" class="Application\UserBundle\Admin\UserAdmin">
-            <tag name="sonata.admin" manager_type="orm" group="group_name_user" label="admin.label.name.user"/>
-            <argument/>
-            <argument>Application\UserBundle\Entity\User</argument>
-            <argument/>
-            <call method="setTemplate">
-                <argument>list</argument>
-                <argument>ApplicationUserBundle:Admin:user_list.html.twig</argument>
-            </call>
-            <call method="setTemplate">
-                <argument>show</argument>
-                <argument>ApplicationUserBundle:Admin:user_show.html.twig</argument>
-            </call>
-        </service>
-
         <service id="bl.email.sender" class="Application\UserBundle\Services\EmailSenderService">
             <argument type="service" id="service_container" />
         </service>
 
         <service id="bl.user.mailer" class="Application\UserBundle\Services\Mailer" public="false">
+            <argument type="service" id="translator"/>
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />

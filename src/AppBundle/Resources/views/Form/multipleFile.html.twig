@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <a class="delete-link" href="{{ path("remove_image", {'filename' : child.vars.value.filename } ) }}" >{{ 'btn_delete'|trans }}</a>
+                                <a class="delete-link" href="{{ path("app_get_rest_goal_removeimage", {'id' : child.vars.value.id } ) }}" >{{ 'btn_delete'|trans }}</a>
                             </div>
 
                         </figcaption>

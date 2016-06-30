@@ -25,10 +25,17 @@ class EmailSenderService
         $this->container = $container;
     }
 
+    /**
+     * @param $email
+     * @param $registrationToken
+     * @param $name
+     * @throws \Throwable
+     * @throws \Twig_Error
+     */
     public function sendConfirmEmail($email, $registrationToken, $name)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->getParameter('email_sender');
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -52,10 +59,17 @@ class EmailSenderService
         $this->container->get('mailer')->send($message);
     }
 
+    /**
+     * @param $newUserEmail
+     * @param $emailToken
+     * @param $userName
+     * @throws \Throwable
+     * @throws \Twig_Error
+     */
     public function sendActivationUserEmail($newUserEmail, $emailToken, $userName)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->getParameter('email_sender');
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -90,14 +104,17 @@ class EmailSenderService
     public function sendContactUsEmail($email, $name, $data)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->getParameter('email_sender');
+
+        $fromEmail = 'confirmEmail@' . $this->container->getParameter('project_name') . '.com';
+
         // generate url
         $helpLink = $this->container->get('router')->generate('homepage', array(), true);
 
         // calculate message
         $message = \Swift_Message::newInstance()
             ->setSubject('You have a message from ' . $projectName )
-            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setFrom($fromEmail, $projectName)
             ->setCc($email)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(

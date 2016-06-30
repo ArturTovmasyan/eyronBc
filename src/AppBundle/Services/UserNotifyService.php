@@ -162,7 +162,7 @@ class UserNotifyService
         $noReplyEmail = $this->container->getParameter('no_reply');
 
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->getParameter('email_sender');
 
         try {
             //calculate message
@@ -170,7 +170,6 @@ class UserNotifyService
                 ->setSubject($subject)
                 ->setFrom($noReplyEmail, $projectName)
                 ->setTo($email)
-//                ->setTo('anulimanukyan@gmail.com')
                 ->setContentType('text/html; charset=UTF-8')
                 ->setBody($content, 'text/html');
 

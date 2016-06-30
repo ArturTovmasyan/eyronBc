@@ -8,9 +8,20 @@
 namespace Application\UserBundle\Services;
 
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class Mailer extends BaseMailer
 {
+    protected $translator;
+
+    public function __construct($translator, $mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
+    {
+        $this->translator = $translator;
+
+        parent::__construct($mailer, $router, $templating, $parameters);
+    }
+
     /**
      * @param string $renderedTemplate
      * @param $fromEmail

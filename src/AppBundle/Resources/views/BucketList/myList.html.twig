@@ -91,7 +91,7 @@
 
                                     <div class="date-left" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
 
-                                        <p data-ng-if="isMobile">
+                                        <p data-ng-if="isMobile" >
                                             {% if userGoals[0].id == userGoal.id %}
                                                     <span class="hidden-sm hidden-mg hidden-lg space"></span>
                                             {% endif %}
@@ -100,7 +100,7 @@
                                         <div class="data-mobile" data-ng-if="isMobile">
 
                                             <div></div>
-                                            <div>
+                                            <div data-ng-cloak>
                                                 {#{% if isMobile() %}#}
                                                     {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
                                                     {% if goalDate != 'dreaming' %}
@@ -128,7 +128,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0">
+                                        <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0" data-ng-cloak>
                                             {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
                                                 {{ userGoal.doDate|date('d') }}
                                             {% elseif userGoal.completionDate is not null%}
@@ -153,7 +153,7 @@
                                         {% if userGoals[lastIndex].id == userGoal.id %}
                                             <span class="hidden-xs"></span>
                                         {% endif %}
-                                        <div class="elipse">
+                                        <div class="elipse" data-ng-cloak>
 
                                                 {#{% if isMobile() %}#}
                                                     {#{% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}#}
@@ -366,6 +366,7 @@
                             {% set link = path('user_profile_single', {'status': active }) %}
                         {% endif %}
 
+                    {% if profileUser.id == app.user.id %}
                         {% if dream %}
                             {{ 'dream'|trans }}
                         {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
@@ -377,6 +378,7 @@
                         {% else %}
                             {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
                         {% endif %}
+                    {% endif %}
                     </p>
 
                 {% endif %}
