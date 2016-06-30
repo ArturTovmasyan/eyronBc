@@ -7,7 +7,13 @@
         <div class="form-group">
             <input type="password" data-ng-model="login_form.password" class="form-control" id="password" placeholder="Password" name="_password" required="required">
         </div>
+
+        <div class="error-message" data-ng-if="error">
+            [[ error ]]
+        </div>
+
         <a data-ng-href="[[ envPrefix ]]resetting/check-email">Forgot password?</a>
+
         <div class="form-group">
             <button data-ng-click="login()" class="btn btn-purple">SIGN IN</button>
         </div>

@@ -103,6 +103,9 @@ angular.module('Authenticator', ['PathPrefix'])
       AuthenticatorLoginService.login($scope.login_form)
         .success(function(){
           window.location.reload();
+        })
+        .error(function(res){
+          $scope.error = res;
         });
     }
   }]);
