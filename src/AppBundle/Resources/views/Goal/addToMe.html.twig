@@ -156,7 +156,7 @@
                     </div>
                 </div>
 
-                <h4 data-ng-hide="datepicker_title || complete.switch" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
+                <h4 data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
 
                 <h6 class="text-gray text-center"
                     data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
