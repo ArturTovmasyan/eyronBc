@@ -74,7 +74,7 @@ class MainController extends Controller
                     $admins = $em->getRepository('ApplicationUserBundle:User')->findAdmins('ROLE_SUPER_ADMIN');
 
                     foreach($admins as $admin){
-                        $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $formData);
+                        $this->get('bl.email.sender')->sendContactUsEmail($admin['email'], $admin['fullName'], $formData, $admin['locale']);
                     }
 
                     return ['page' => $page, 'isSend' => true];

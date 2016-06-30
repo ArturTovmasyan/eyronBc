@@ -25,10 +25,18 @@ class EmailSenderService
         $this->container = $container;
     }
 
-    public function sendConfirmEmail($email, $registrationToken, $name)
+    /**
+     * @param $email
+     * @param $registrationToken
+     * @param $name
+     * @param $language
+     * @throws \Throwable
+     * @throws \Twig_Error
+     */
+    public function sendConfirmEmail($email, $registrationToken, $name, $language)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -52,10 +60,18 @@ class EmailSenderService
         $this->container->get('mailer')->send($message);
     }
 
-    public function sendActivationUserEmail($newUserEmail, $emailToken, $userName)
+    /**
+     * @param $newUserEmail
+     * @param $emailToken
+     * @param $userName
+     * @param $language
+     * @throws \Throwable
+     * @throws \Twig_Error
+     */
+    public function sendActivationUserEmail($newUserEmail, $emailToken, $userName, $language)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -85,19 +101,23 @@ class EmailSenderService
      * @param $email
      * @param $name
      * @param $data
+     * @param $language
      * @throws \Twig_Error
      */
-    public function sendContactUsEmail($email, $name, $data)
+    public function sendContactUsEmail($email, $name, $data, $language)
     {
         //get project name
-        $projectName = $this->container->getParameter('project_name');
+        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
+
+        $fromEmail = 'confirmEmail@' . $this->container->getParameter('project_name') . '.com';
+
         // generate url
         $helpLink = $this->container->get('router')->generate('homepage', array(), true);
 
         // calculate message
         $message = \Swift_Message::newInstance()
             ->setSubject('You have a message from ' . $projectName )
-            ->setFrom('confirmEmail@'. $projectName . '.com')
+            ->setFrom($fromEmail, $projectName)
             ->setCc($email)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($this->container->get('templating')->render(
