@@ -150,6 +150,7 @@ class User extends BaseUser
      * @var
      * @Assert\Date
      * @Groups({"settings"})
+     * @SerializedName("birth_date")
      * @Type("DateTime<'Y-m-d'>")
      */
     protected $dateOfBirth;
