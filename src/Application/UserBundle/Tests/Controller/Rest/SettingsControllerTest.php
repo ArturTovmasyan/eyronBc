@@ -81,7 +81,7 @@ class SettingsControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
 
-        $this->assertArrayHasKey('date_of_birth', $responseResults, 'Invalid listedBy date_of_birth in get user settings rest json structure');
+        $this->assertArrayHasKey('birth_date', $responseResults, 'Invalid birth_date in get user settings rest json structure');
         $this->assertArrayHasKey('first_name', $responseResults, 'Invalid first_name key in get user settings rest json structure');
         $this->assertArrayHasKey('last_name', $responseResults, 'Invalid last_name key in get user settings rest json structure');
         $this->assertArrayHasKey('is_comment_notify', $responseResults, 'Invalid is_comment_notify key in get user settings rest json structure');
@@ -96,6 +96,11 @@ class SettingsControllerTest extends BaseClass
         $this->assertArrayHasKey('userEmails', $lastUserEmail, 'Invalid userEmails key in get user settings rest json structure');
         $this->assertArrayHasKey('token', $lastUserEmail, 'Invalid token key in get user settings rest json structure');
         $this->assertArrayHasKey('primary', $lastUserEmail, 'Invalid primary key in get user settings rest json structure');
+
+        if(array_key_exists('image_path', $responseResults)) {
+
+            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in Login rest json structure');
+        }
     }
 
     /**
