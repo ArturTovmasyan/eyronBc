@@ -91,11 +91,14 @@ class SettingsControllerTest extends BaseClass
         $this->assertArrayHasKey('is_progress_push_note', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
         $this->assertArrayHasKey('lastUserEmail', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
 
-        $lastUserEmail = $responseResults['lastUserEmail'];
+        if(array_key_exists('lastUserEmail', $responseResults)) {
 
-        $this->assertArrayHasKey('userEmails', $lastUserEmail, 'Invalid userEmails key in get user settings rest json structure');
-        $this->assertArrayHasKey('token', $lastUserEmail, 'Invalid token key in get user settings rest json structure');
-        $this->assertArrayHasKey('primary', $lastUserEmail, 'Invalid primary key in get user settings rest json structure');
+            $lastUserEmail = $responseResults['lastUserEmail'];
+            $this->assertArrayHasKey('lastUserEmail', $responseResults, 'Invalid image_path key in Login rest json structure');
+            $this->assertArrayHasKey('userEmails', $lastUserEmail, 'Invalid userEmails key in get user settings rest json structure');
+            $this->assertArrayHasKey('token', $lastUserEmail, 'Invalid token key in get user settings rest json structure');
+            $this->assertArrayHasKey('primary', $lastUserEmail, 'Invalid primary key in get user settings rest json structure');
+        }
 
         if(array_key_exists('image_path', $responseResults)) {
 
