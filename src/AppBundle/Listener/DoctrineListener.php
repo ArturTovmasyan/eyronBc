@@ -273,7 +273,18 @@ class DoctrineListener
 
             if (!is_null($action)) {
                 $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                return $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
+                if (in_array($action, NewFeed::$groupedActions)){
+                    $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), $action);
+                }
+
+                if (!isset($newFeed) || is_null($newFeed)){
+                    $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
+                }
+                else {
+                    $newFeed->addGoal($goal);
+                }
+
+                return $newFeed;
             }
         }
 

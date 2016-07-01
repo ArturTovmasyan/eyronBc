@@ -1,0 +1,72 @@
+<?php
+
+namespace AppBundle\Command;
+
+use AppBundle\Entity\NewFeed;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class ActivityCommand extends ContainerAwareCommand
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('bl:activity:group')
+            ->setDescription('This command change existing activities to grouped activities');
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $first = 0;
+        $count = 100;
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $newFeedCount = $em->createQuery("SELECT COUNT(n) FROM AppBundle:NewFeed n")->getSingleScalarResult();
+
+        $progress = new ProgressBar($output, $newFeedCount);
+        $progress->start();
+
+        do {
+
+            $query = $em->createQuery("SELECT n, g
+                                     FROM AppBundle:NewFeed n
+                                     JOIN n.goal g
+                                     WHERE n.action IN (:groupedAction)")
+                ->setParameter('groupedAction', NewFeed::$groupedActions)
+                ->setFirstResult($first)
+                ->setMaxResults($count);
+
+            $newFeeds = new Paginator($query, $fetchJoinCollection = true);
+
+            foreach ($newFeeds AS $newFeed) {
+                $goal = $newFeed->getGoal();
+                $goal->setStats([
+                   'listedBy' => $newFeed->getListedBy(),
+                   'doneBy'   => $newFeed->getCompletedBy(),
+                ]);
+
+                $newFeed->addGoal($newFeed->getGoal());
+
+                $em->flush();
+                $progress->advance();
+            }
+
+            $em->flush();
+            $first += $count;
+        }
+        while(count($newFeeds) > 0);
+
+        $progress->finish();
+        $output->writeln('success');
+    }
+}

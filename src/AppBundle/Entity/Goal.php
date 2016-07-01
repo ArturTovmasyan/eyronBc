@@ -1092,14 +1092,14 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      */
     public function serialize()
     {
-        return [
+        return json_encode([
             'id'        => $this->getId(),
             'slug'      => $this->getSlug(),
             'title'     => $this->getTitle(),
             'image'     => $this->getListPhotoDownloadLink(),
             'listedBy'  => $this->getStats()['listedBy'],
             'doneBy'    => $this->getStats()['doneBy']
-        ];
+        ]);
     }
 
     /**
@@ -1108,12 +1108,13 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      */
     public function unserialize($data)
     {
-        $this->id = $data['id'];
-        $this->setSlug($data['slug']);
-        $this->setTitle($data['title']);
-        $this->setStats(['listedBy' => $data['listedBy'], 'doneBy' => $data['doneBy'] ]);
+        $data = json_decode($data);
+        $this->id = $data->id;
+        $this->setSlug($data->slug);
+        $this->setTitle($data->title);
+        $this->setStats(['listedBy' => $data->listedBy, 'doneBy' => $data->doneBy]);
 
-        $this->listPhotoDownloadLink = $data['image'];
+        $this->listPhotoDownloadLink = $data->image;
 
         return $this;
     }

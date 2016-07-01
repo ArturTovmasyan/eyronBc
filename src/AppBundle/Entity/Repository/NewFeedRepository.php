@@ -99,6 +99,12 @@ class NewFeedRepository extends EntityRepository
             ->execute();
     }
 
+    /**
+     * @param $userId
+     * @param $action
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findLastGroupByUserAction($userId, $action)
     {
         return $this->getEntityManager()

@@ -25,6 +25,8 @@ class NewFeed
     const SUCCESS_STORY = 3;
     const COMMENT       = 4;
 
+    static $groupedActions = [NewFeed::GOAL_ADD, NewFeed::GOAL_COMPLETE];
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -47,7 +49,15 @@ class NewFeed
      *
      * @Groups({"new_feed"})
      */
-    protected $goals;
+    protected $goals = [];
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Goal")
+     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @Groups({"new_feed"})
+     */
+    protected $goal;
 
     /**
      * @ORM\Column(name="listed_by", type="integer", nullable=false)
@@ -123,6 +133,33 @@ class NewFeed
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set goal
+     *
+     * @param \AppBundle\Entity\Goal $goal
+     * @return NewFeed
+     */
+    public function setGoal(\AppBundle\Entity\Goal $goal = null)
+    {
+        $this->goal = $goal;
+
+        $stats = $goal->getStats();
+        $this->listedBy    = isset($stats['listedBy']) ? $stats['listedBy'] : 0;
+        $this->completedBy = isset($stats['doneBy'])   ? $stats['doneBy']   : 0;
+
+        return $this;
+    }
+
+    /**
+     * Get goal
+     *
+     * @return \AppBundle\Entity\Goal
+     */
+    public function getGoal()
+    {
+        return $this->goal;
     }
 
     /**
