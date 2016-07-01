@@ -29,6 +29,11 @@ class MainController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $t = $em->getRepository('AppBundle:NewFeed')->findLastGroupByUserAction(1301, 2);
+
+        dump($t); exit;
+
         $user = $this->getUser();
 
         if (!is_object($user)){

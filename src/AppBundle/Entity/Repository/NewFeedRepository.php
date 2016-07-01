@@ -98,4 +98,17 @@ class NewFeedRepository extends EntityRepository
             ->setParameter('user',   $userId)
             ->execute();
     }
+
+    public function findLastGroupByUserAction($userId, $action)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT NOW()
+                           FROM AppBundle:NewFeed n
+                           JOIN n.user u
+                           WHERE u.id = :userId AND n.action = :action")
+            ->setParameter('userId', $userId)
+            ->setParameter('action', $action)
+            ->getOneOrNullResult();
+
+    }
 }
