@@ -447,4 +447,31 @@ class UserControllerTest extends WebTestCase
         $this->assertArrayHasKey('doneBy', $responseResults, 'Invalid doneBy key in get user stats rest json structure');
 
     }
+
+    /**
+     * This function is used to check testRegisteredUserEmail function in rest
+     */
+    public function testRegisteredUserEmail()
+    {
+        $url = sprintf('/api/v1.0/users/%s/registered', 'user1@user.com');
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('registered', $responseResults, 'Invalid registered key in registered user email rest json structure');
+
+        if(array_key_exists('image_path', $responseResults)) {
+            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in registered user email rest json structure');
+        }
+    }
 }
