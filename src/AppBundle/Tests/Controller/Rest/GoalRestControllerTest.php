@@ -414,6 +414,9 @@ class GoalRestControllerTest extends BaseClass
 
                 $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Random friends rest json structure');
 
+                if(array_key_exists('image_path', $response)) {
+                    $this->assertArrayHasKey('image_path', $response, 'Invalid image_path key in Random friends rest json structure');
+                }
             }
         }
     }
