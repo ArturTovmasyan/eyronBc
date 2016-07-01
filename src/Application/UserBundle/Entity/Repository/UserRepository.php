@@ -207,7 +207,7 @@ class UserRepository extends EntityRepository
     public function findAdmins($role)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstName, ''), ' ', COALESCE(u.lastName, '')) as fullName, u.locale
+            ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstname, ''), ' ', COALESCE(u.lastname, '')) as fullName, u.locale
                             FROM ApplicationUserBundle:User u
                             WHERE u.roles LIKE :role ")
             ->setParameter('role', '%' . 'ROLE_SUPER_ADMIN' . '%')
@@ -265,7 +265,7 @@ class UserRepository extends EntityRepository
     public function findAllForMandrill()
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT u.email, u.firstName, u.lastName
+            ->createQuery("SELECT u.email, u.firstname, u.lastname
                             FROM ApplicationUserBundle:User u")
             ->setMaxResults()
             ->getResult()
