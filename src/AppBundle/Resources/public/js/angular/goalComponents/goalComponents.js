@@ -168,8 +168,15 @@ angular.module('goalComponents', ['Interpolation',
       $timeout(function(){
         angular.element("#story-modal select").niceSelect();
       }, 300);
+      var date = new Date();
+
+      $scope.month = moment(date).format('M');
+      $scope.day = moment(date).format('D');
+      $scope.year = moment(date).format('YYYY');
 
       $scope.userGoal = userGoalData.doneData;
+      $scope.noFile = false;
+      $scope.noStory = false;
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
       $scope.files = [];
@@ -181,16 +188,33 @@ angular.module('goalComponents', ['Interpolation',
       }
 
       $('body').on('focus', 'textarea[name=story]', function() {
-        $('textarea[name=story]').removeClass('border-red')
+        $('textarea[name=story]').removeClass('border-red');
+        $scope.noFile = false;
+        $scope.noStory = false;
       });
 
       $scope.isInValid = function () {
-        if(angular.isUndefined($scope.userGoal.story)
-          || angular.isUndefined($scope.userGoal.story.story)
-          || $scope.userGoal.story.story.length < 3 )return true;
-        var words = $scope.userGoal.story.story.split(' ');
-        return ((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
-          (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3)
+        $scope.noFile = false;
+        $scope.noStory = false;
+        var noDate = $scope.noData();
+        if(!noDate){
+          if(angular.isUndefined($scope.userGoal.story)
+            || angular.isUndefined($scope.userGoal.story.story)
+            || $scope.userGoal.story.story.length < 3 )$scope.noStory = true;
+          if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
+            (angular.isUndefined($scope.files) || !$scope.files.length )){
+            if(!$scope.noStory){
+              var words = $scope.userGoal.story.story.split(' ');
+              $scope.noFile = ( words.length < 3 );
+            }else{
+              $scope.noFile = true;
+              $scope.noStory = false;
+            }
+          }
+
+        }else {
+          $scope.noFile = !$scope.newAdded;
+        }
       };
 
       $scope.noData = function () {
@@ -200,7 +224,8 @@ angular.module('goalComponents', ['Interpolation',
       };
       
       $scope.save = function () {
-        if($scope.year && $scope.month && $scope.day){
+        $scope.isInValid();
+        if($scope.year && $scope.month && $scope.day && $scope.newAdded){
             $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             var comletion_date = {
               'goal_status'    : true,
@@ -213,10 +238,14 @@ angular.module('goalComponents', ['Interpolation',
                 parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.completion_date);
               }
 
-              if($scope.noData())angular.element('#cancel').click();
+              if($scope.noData()){
+                $scope.noStory = false;
+                $scope.noFile = false;
+                angular.element('#cancel').click();
+              }
             });
         }
-        if($scope.isInValid()){
+        if($scope.noStory || $scope.noFile){
           angular.element('textarea[name=story]').addClass('border-red');
           return;
         }

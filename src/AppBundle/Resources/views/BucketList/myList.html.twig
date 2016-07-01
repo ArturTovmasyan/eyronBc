@@ -7,11 +7,13 @@
             <div class="row">
                 <ul class="menu">
                     {% set dream = app.request.get('d') %}
+                    {% set myProfile = true %}
                     {% set activeGoals = profileUser.getStats.active %}
                     {% set my_router_params =  app.request.query.all %}
                     {% set userUId = {} %}
                     {% set routeName = 'user_profile_single' %}
                     {% if profileUser.id != app.user.id %}
+                        {% set myProfile = false %}
                         {% set userUId = {'user' : profileUser.uId} %}
                         {% set routeName = 'user_profile' %}
                     {% endif %}
@@ -83,7 +85,7 @@
 
                         {% set lastIndex = userGoals|length - 1 %}
 
-                        {% if profileUser.id == app.user.id or userGoal.isVisible %}
+                        {% if myProfile or userGoal.isVisible %}
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
                                 <div class="col-sm-2 no-right" data-ng-class="{'no-left' : isMobile}">
@@ -305,7 +307,7 @@
                                                         </li>
                                                     {% endif %}
                                                 </ul>
-                                                {% if profileUser.id == app.user.id %}
+                                                {% if myProfile %}
                                                     <div class="row">
                                                         <div class="col-xs-5">
                                                             <a href="javascript:void(0)"
@@ -366,7 +368,7 @@
                             {% set link = path('user_profile_single', {'status': active }) %}
                         {% endif %}
 
-                    {% if profileUser.id == app.user.id %}
+                    {% if myProfile %}
                         {% if dream %}
                             {{ 'dream'|trans }}
                         {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
