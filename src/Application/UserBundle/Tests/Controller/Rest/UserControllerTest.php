@@ -474,4 +474,29 @@ class UserControllerTest extends WebTestCase
             $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in registered user email rest json structure');
         }
     }
+
+    /**
+     * This function is used to check testGetLastMobileVersion function in rest
+     */
+    public function testGetLastMobileVersion()
+    {
+        $url = sprintf('/api/v1.0/apps/%s/version', 'ios');
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('mandatory', $responseResults, 'Invalid mandatory key in get last mobile version rest json structure');
+
+        $this->assertArrayHasKey('optional', $responseResults, 'Invalid optional key in get last mobile version rest json structure');
+    }
 }
