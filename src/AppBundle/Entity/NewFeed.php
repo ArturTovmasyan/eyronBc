@@ -43,7 +43,7 @@ class NewFeed
     protected $user;
 
     /**
-     * @ORm\Column(name="goals", type="array", nullable=false)
+     * @ORM\Column(name="goals", type="array", nullable=false)
      *
      * @Groups({"new_feed"})
      */
