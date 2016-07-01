@@ -419,4 +419,32 @@ class UserControllerTest extends WebTestCase
             $this->clientAuthorized->getResponse()->getContent()
         );
     }
+
+    /**
+     * This function is used to check testGetUserStats function in rest
+     */
+    public function testGetUserStats()
+    {
+        // get user
+        $userId = $this->em->getRepository('ApplicationUserBundle:User')->findOneByEmail('user1@user.com')->getId();
+
+        $url = sprintf('/api/v1.0/users/%s/states', $userId);
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('listedBy', $responseResults, 'Invalid listedBy key in get user stats rest json structure');
+        $this->assertArrayHasKey('doneBy', $responseResults, 'Invalid doneBy key in get user stats rest json structure');
+
+    }
 }
