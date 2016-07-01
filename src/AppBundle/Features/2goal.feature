@@ -8,6 +8,17 @@ Feature: Goal page
     And I wait for view
     And I am logged in as "user1"
 
+  @javascript @goalFriends
+  Scenario: Open goal friends page and try search friends
+    When I am on "/goal-friends"
+    And I wait
+    Then I should see "user7 user7"
+    And I should see "user10 user10"
+    When I fill in "inputEmail3" with "user7 user7"
+    And I am on "/goal-friends?search=user7+user7#"
+    And I wait for view
+    Then I should see "user7 user7"
+
   @javascript @goalActiveCompleted
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
     When I follow "user1"
