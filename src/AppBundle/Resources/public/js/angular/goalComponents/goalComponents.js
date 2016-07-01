@@ -178,7 +178,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.noFile = false;
       $scope.noStory = false;
       $scope.newAdded = userGoalData.manage? false: true;
-      $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
+      $scope.goalLink = window.location.origin + envPrefix + 'goal' +$scope.userGoal.goal.slug;
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;
