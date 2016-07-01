@@ -58,26 +58,44 @@ class SettingsControllerTest extends BaseClass
      */
     public function testGetUserFromSettings()
     {
-        // get user
-        $userId = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user@user.com')->getId();
-        // calculate url by user4
-//        $url = sprintf('/api/v1.0/settings/%s/user/from/settings', $userId);
         $url = '/api/v1.0/settings/user/from/settings';
 
         // try to get user-settings
-        $this->clientSecond->request('GET', $url, array());
+        $this->client2->request('GET', $url, array());
+
         // check response status code
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user-settings in getUserFromSettingsAction rest!");
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user-settings in getUserFromSettingsAction rest!");
+
         // check response content type
         $this->assertTrue(
-            $this->clientSecond->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->clientSecond->getResponse()->headers
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
         );
+
         // check database query count
-        if ($profile = $this->clientSecond->getProfile()) {
+        if ($profile = $this->client2->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-settings getUserFromSettingsAction rest!");
         }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('date_of_birth', $responseResults, 'Invalid listedBy date_of_birth in get user settings rest json structure');
+        $this->assertArrayHasKey('first_name', $responseResults, 'Invalid first_name key in get user settings rest json structure');
+        $this->assertArrayHasKey('last_name', $responseResults, 'Invalid last_name key in get user settings rest json structure');
+        $this->assertArrayHasKey('is_comment_notify', $responseResults, 'Invalid is_comment_notify key in get user settings rest json structure');
+        $this->assertArrayHasKey('is_success_story_notify', $responseResults, 'Invalid is_success_story_notify key in get user settings rest json structure');
+        $this->assertArrayHasKey('is_comment_push_note', $responseResults, 'Invalid is_comment_push_note key in get user settings rest json structure');
+        $this->assertArrayHasKey('is_success_story_push_note', $responseResults, 'Invalid is_success_story_push_note key in get user settings rest json structure');
+        $this->assertArrayHasKey('is_progress_push_note', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
+        $this->assertArrayHasKey('lastUserEmail', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
+
+        $lastUserEmail = $responseResults['lastUserEmail'];
+
+        $this->assertArrayHasKey('userEmails', $lastUserEmail, 'Invalid userEmails key in get user settings rest json structure');
+        $this->assertArrayHasKey('token', $lastUserEmail, 'Invalid token key in get user settings rest json structure');
+        $this->assertArrayHasKey('primary', $lastUserEmail, 'Invalid primary key in get user settings rest json structure');
     }
 
     /**
