@@ -259,7 +259,8 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testGetDrafts()
     {
-        $url = sprintf('/api/v1.0/goals/drafts/%s/%s', 1,2 );
+        $url = sprintf('/api/v1.0/goals/drafts/%s/%s',0,2);
+
         // try to get goal by id
         $this->client->request('GET', $url);
 
@@ -273,6 +274,16 @@ class GoalRestControllerTest extends BaseClass
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal GetDraftsAction rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        foreach ($responseResults as $responseData)
+        {
+            $this->assertArrayHasKey('id', $responseData, 'Invalid id key in drafts rest json structure');
+            $this->assertArrayHasKey('title', $responseData, 'Invalid title key in drafts rest json structure');
+            $this->assertArrayHasKey('created', $responseData, 'Invalid created key in drafts rest json structure');
         }
     }
 
