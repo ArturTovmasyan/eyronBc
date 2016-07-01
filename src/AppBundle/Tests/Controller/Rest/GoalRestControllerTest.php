@@ -120,31 +120,6 @@ class GoalRestControllerTest extends BaseClass
         // try to get goal by id
         $this->client->request('GET', $url);
 
-        //get response content
-        $responseResults = json_decode($this->client->getResponse()->getContent());
-
-        //set default status value
-        $status = true;
-
-        foreach ($responseResults as $key => $responseData)
-        {
-            $idKey = property_exists($responseData, 'id');
-
-            $imageKey = property_exists($responseData, 'image_download_link');
-
-            $titleKey = property_exists($responseData, 'title');
-
-            $slugKey = property_exists($responseData, 'slug');
-
-            //check if json response data keys is not valid
-            if(!$idKey || !$imageKey || !$titleKey || !$slugKey)
-            {
-                $status = false;
-            }
-        }
-
-        $this->assertTrue($status, "Categories rest json response structure is not valid");
-
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get GetCategoriesAction rest!");
 
         $this->assertTrue(
@@ -157,6 +132,16 @@ class GoalRestControllerTest extends BaseClass
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on GetCategoriesAction rest!");
         }
 
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        foreach ($responseResults as $key => $responseData)
+        {
+            $this->assertArrayHasKey('image_download_link', $responseData, 'Invalid image_download_link key in category rest json structure');
+            $this->assertArrayHasKey('id', $responseData, 'Invalid id key in category rest json structure');
+            $this->assertArrayHasKey('title', $responseData, 'Invalid title key in category rest json structure');
+            $this->assertArrayHasKey('slug', $responseData, 'Invalid slug key in category rest json structure');
+        }
     }
 
     /**
@@ -360,6 +345,76 @@ class GoalRestControllerTest extends BaseClass
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
+        }
+    }
+
+    /**
+     * This function test testGetRandomFriends
+     */
+    public function testGetRandomFriends()
+    {
+        $url = sprintf('/api/v1.0/goal/random/friends');
+
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get random friends rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on GetCategoriesAction rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        $lengthKey = array_key_exists('length', $responseResults);
+
+        //check if length key exists in array
+        if($lengthKey){
+            unset($responseResults['length']);
+        }
+
+        foreach ($responseResults as $responseData)
+        {
+
+            foreach ($responseData as $response)
+            {
+
+                $this->assertArrayHasKey('id', $response, 'Invalid id key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('username', $response, 'Invalid username key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('first_name', $response, 'Invalid first_name key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('last_name', $response, 'Invalid last_name key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('is_confirmed', $response, 'Invalid is_confirmed key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('show_name', $response, 'Invalid show_name key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('is_admin', $response, 'Invalid is_admin key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('cached_image', $response, 'Invalid cached_image key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('u_id', $response, 'Invalid u_id key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('stats', $response, 'Invalid stats key in Random friends rest json structure');
+
+                $stats = $response['stats'];
+
+                $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('active', $stats, 'Invalid active key in Random friends rest json structure');
+
+                $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Random friends rest json structure');
+
+            }
         }
     }
 }
