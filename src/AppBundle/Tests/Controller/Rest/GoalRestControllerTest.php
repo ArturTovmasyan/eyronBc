@@ -384,6 +384,8 @@ class GoalRestControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
 
+        $this->assertArrayHasKey('length', $responseResults, 'Invalid length key in Random friends rest json structure');
+
         $lengthKey = array_key_exists('length', $responseResults);
 
         //check if length key exists in array
@@ -393,10 +395,8 @@ class GoalRestControllerTest extends BaseClass
 
         foreach ($responseResults as $responseData)
         {
-
             foreach ($responseData as $response)
             {
-
                 $this->assertArrayHasKey('id', $response, 'Invalid id key in Random friends rest json structure');
 
                 $this->assertArrayHasKey('username', $response, 'Invalid username key in Random friends rest json structure');
