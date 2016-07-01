@@ -189,23 +189,31 @@ angular.module('goalComponents', ['Interpolation',
           || angular.isUndefined($scope.userGoal.story.story)
           || $scope.userGoal.story.story.length < 3 )return true;
         var words = $scope.userGoal.story.story.split(' ');
-        if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
-          (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3){
-          return true;
-        }
+        return ((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
+          (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3)
+      };
 
-        return false;
+      $scope.noData = function () {
+        return ((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
+              (angular.isUndefined($scope.files) || !$scope.files.length )&&
+              ( angular.isUndefined($scope.userGoal.story) || angular.isUndefined($scope.userGoal.story.story)))
       };
       
       $scope.save = function () {
         if($scope.year && $scope.month && $scope.day){
             $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
-          var comletion_date = {
-            'goal_status'    : true,
-            'completion_date': $scope.completion_date
-          }
+            var comletion_date = {
+              'goal_status'    : true,
+              'completion_date': $scope.completion_date
+            };
             UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
-              if($scope.isInValid)angular.element('#cancel').click();
+              var selector = 'success' + $scope.userGoal.goal.id;
+              if(angular.element('#'+ selector).length > 0) {
+                var parentScope = angular.element('#' + selector).scope();
+                parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.completion_date);
+              }
+
+              if($scope.noData())angular.element('#cancel').click();
             });
         }
         if($scope.isInValid()){
