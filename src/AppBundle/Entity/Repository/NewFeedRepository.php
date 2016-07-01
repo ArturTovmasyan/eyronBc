@@ -108,7 +108,7 @@ class NewFeedRepository extends EntityRepository
     public function findLastGroupByUserAction($userId, $action)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT n.id
+            ->createQuery("SELECT n
                            FROM AppBundle:NewFeed n
                            JOIN n.user u
                            WHERE u.id = :userId AND n.action = :action

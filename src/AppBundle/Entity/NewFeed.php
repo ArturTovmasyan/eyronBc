@@ -60,14 +60,14 @@ class NewFeed
     protected $goal;
 
     /**
-     * @ORM\Column(name="listed_by", type="integer", nullable=false)
+     * @ORM\Column(name="listed_by", type="integer", nullable=true)
      *
      * @Groups({"new_feed"})
      */
     protected $listedBy;
 
     /**
-     * @ORM\Column(name="completed_by", type="integer", nullable=false)
+     * @ORM\Column(name="completed_by", type="integer", nullable=true)
      *
      * @Groups({"new_feed"})
      */
@@ -393,5 +393,6 @@ class NewFeed
     public function addGoal($goal)
     {
         $this->goals[$goal->getId()] = $goal;
+        $this->setDatetime(new \DateTime());
     }
 }

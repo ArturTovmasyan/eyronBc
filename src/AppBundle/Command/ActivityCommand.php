@@ -28,7 +28,7 @@ class ActivityCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $first = 0;
-        $count = 100;
+        $count = 150;
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $newFeedCount = $em->createQuery("SELECT COUNT(n) FROM AppBundle:NewFeed n")->getSingleScalarResult();
@@ -56,12 +56,11 @@ class ActivityCommand extends ContainerAwareCommand
                 ]);
 
                 $newFeed->addGoal($newFeed->getGoal());
-
-                $em->flush();
                 $progress->advance();
             }
 
             $em->flush();
+            $em->clear();
             $first += $count;
         }
         while(count($newFeeds) > 0);
