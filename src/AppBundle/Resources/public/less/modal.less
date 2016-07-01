@@ -129,7 +129,7 @@ a.close-modal{
 
 
 .story-title{
-  color:#7724F6;
+  //color:#333333;
   margin: 10px 0 15px;
   font-size: 18px;
   line-height: normal;
@@ -143,6 +143,24 @@ a.close-modal{
   .button-lg{
     margin-right:15px;
     margin-bottom:10px;
+  }
+
+  .nice-select{
+    width:100%;
+
+    span{
+      color: #A4A4A4;
+    }
+
+    .list{
+      width:100%;
+      max-height: 160px;
+      overflow-y: auto !important;
+    }
+
+    &:hover,&:focus,&:active,.open{
+      border-color: #7724F6;
+    }
   }
 
   .modal-container{
@@ -182,9 +200,14 @@ a.close-modal{
 
 #story-modal{
 
-  h2.text-dark-gray{
+  h2.text-grey-dark{
     font-size: 20px;
     margin-top: 10px;
+    font-weight: 400;
+  }
+
+  hr{
+    margin-bottom: 0;
   }
 
   .fb-share-button{
@@ -195,30 +218,10 @@ a.close-modal{
     cursor: pointer;
   }
 
-
-
   .remove-icon{
     position: absolute;
     top:0;
     right:2px;
-  }
-
-  .nice-select{
-    width:100%;
-
-    span{
-      color: #A4A4A4;
-    }
-
-    .list{
-      width:100%;
-      max-height: 160px;
-      overflow-y: auto !important;
-    }
-
-    &:hover,&:focus,&:active,.open{
-      border-color: #7724F6;
-    }
   }
 }
 
@@ -658,7 +661,7 @@ a.close-modal{
 
   #story-modal{
 
-    h2.text-dark-gray{
+    h2.text-grey-dark{
       font-size: 23px;
       padding: 11px 0;
       margin: 10px 0;
@@ -799,7 +802,7 @@ a.close-modal{
 
   #story-modal{
 
-    h2.text-dark-gray{
+    h2.text-grey-dark{
       font-size: 24px;
       padding: 10px 0;
     }

@@ -39,7 +39,7 @@
         <div class="col-xs-10 col-xs-offset-1">
             <div class="row">
                 <div class="col-sm-8">
-                    <h2 class="text-dark-gray">{{ 'share_title'|trans }}</h2>
+                    <h2 class="text-grey-dark">{{ 'share_title'|trans }}</h2>
                 </div>
                 <div class="col-sm-4" data-ng-cloak>
                     <div fb-share class="fb-share-button"
@@ -58,7 +58,9 @@
     <div data-ng-show="newAdded" class="ng-hide">
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
-                <h3>{{ "success_story.completion_date"|trans }}</h3>
+
+                <h3 class="text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
+
                 <div class="form-group row">
                     <div class="col-sm-4 date">
                         <select name="year" data-ng-model="year">
@@ -115,7 +117,7 @@
     </div>
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            <h3 class="story-title">{{ 'success_story.title'|trans }}</h3>
+            <h3 class="story-title text-grey-dark">{{ 'success_story.title'|trans }}</h3>
 
             <div>
                 {#{{ form_errors(form) }}#}
