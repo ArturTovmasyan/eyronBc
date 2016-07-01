@@ -496,7 +496,7 @@ class GoalController extends FOSRestController
             ]);
         }
 
-        return $goalFriends;
+        return array_values($goalFriends);
     }
 
     /**
