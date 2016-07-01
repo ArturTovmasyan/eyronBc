@@ -88,8 +88,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //open login form
         $this->clickLink('JOIN');
 
+        $this->iWaitForView();
+
         //set data in login form
         $this->iSetUsernameAndPassword($userName, $password);
+
+        $this->iWaitForView();
 
         //check if user admin
         if($user == 'admin') {
@@ -146,14 +150,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //find password
         $page->fillField('_password', $password);
 
-        //get value in opt
-        $button = $page->find(
-            'xpath',
-            $session->getSelectorsHandler()->selectorToXpath('xpath', '//button[@class="btn btn-purple"]')
-        );
-
-        //press button
-        $button->click();
+        $page->pressButton('submit');
     }
 
     /**
