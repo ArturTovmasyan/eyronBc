@@ -457,10 +457,10 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ;
 
         if ($search){
-            $query->andWhere("u.firstName LIKE :search
-                           or u.lastName LIKE :search
+            $query->andWhere("u.firstname LIKE :search
+                           or u.lastname LIKE :search
                            or u.email LIKE :search
-                           or CONCAT(u.firstName, u.lastName) LIKE :search")
+                           or CONCAT(u.firstname, u.lastname) LIKE :search")
                 ->setParameter('search', '%' . $search . '%');
         }
 

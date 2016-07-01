@@ -33,11 +33,10 @@ class Mailer extends BaseMailer
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
-        $projectName = $this->translator->trans('bucketlist', array(), 'messages');
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom($fromEmail, $projectName)
+            ->setFrom($fromEmail)
             ->setTo($toEmail)
             ->setContentType("text/html; charset=UTF-8")
             ->setBody($body);

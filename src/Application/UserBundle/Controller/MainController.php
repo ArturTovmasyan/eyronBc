@@ -182,7 +182,7 @@ class MainController extends Controller
     {
         $user = $this->getUser();
         if ($user->getRegistrationToken()) {
-            $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName(), $user->getLanguage());
+            $this->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $user->getRegistrationToken(), $user->getFirstName());
 
             return array();
         }
@@ -231,7 +231,7 @@ class MainController extends Controller
                 $this->getUser()->setRegistrationToken($token);
                 $this->getUser()->setEmail($email);
 
-                $this->get('bl.email.sender')->sendConfirmEmail($email, $token, $this->getUser()->getFirstName(), $this->getUser()->getLanguage());
+                $this->get('bl.email.sender')->sendConfirmEmail($email, $token, $this->getUser()->getFirstName());
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();

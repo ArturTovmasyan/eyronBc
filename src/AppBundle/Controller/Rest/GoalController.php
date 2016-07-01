@@ -496,7 +496,7 @@ class GoalController extends FOSRestController
             ]);
         }
 
-        return $goalFriends;
+        return array_values($goalFriends);
     }
 
     /**
@@ -787,13 +787,15 @@ class GoalController extends FOSRestController
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        $em->persist($successStory);
-        $em->flush();
-
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
             $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
         }
+
+        $em->persist($successStory);
+        $em->flush();
+
+
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
     }

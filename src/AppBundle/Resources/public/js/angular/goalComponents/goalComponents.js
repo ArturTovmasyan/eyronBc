@@ -311,7 +311,19 @@ angular.module('goalComponents', ['Interpolation',
     'userGoalData',
     'UserGoalDataManager',
     '$analytics',
-    function($scope, $timeout, $window, UserGoalConstant, GoalConstant, $http, userGoalData, UserGoalDataManager, $analytics){
+    'AuthenticatorLoginService',
+    function(
+      $scope,
+      $timeout,
+      $window,
+      UserGoalConstant,
+      GoalConstant,
+      $http,
+      userGoalData,
+      UserGoalDataManager,
+      $analytics,
+      AuthenticatorLoginService
+    ){
 
       $timeout(function(){
         angular.element("#goal-modal select").niceSelect();
@@ -387,14 +399,8 @@ angular.module('goalComponents', ['Interpolation',
         }
       });
 
-      $scope.openSignInPopover = function(){
-        var middleScope = angular.element(".sign-in-popover").scope();
-        var popoverScope = middleScope.$$childHead;
-
-        if(!popoverScope.$isShown){
-          popoverScope.$show();
-          middleScope.joinToggle2 = !middleScope.joinToggle2;
-        }
+      $scope.openSignInPopup = function(){
+        AuthenticatorLoginService.openLoginPopup()
       };
 
       $scope.compareDates = function(date1, date2){
@@ -587,7 +593,7 @@ angular.module('goalComponents', ['Interpolation',
           if(resource[0] == 1){
             $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
           }
-          $window.location.href = $window.location.href;
+          window.location.reload();
         });
       };
 

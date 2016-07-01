@@ -71,7 +71,7 @@ class RegistrationFormHandler extends BaseHandler
         // set token
         $user->setRegistrationToken($token);
 
-        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName(), $user->getLanguage());
+        $this->container->get('bl.email.sender')->sendConfirmEmail($user->getEmail(), $token, $user->getFirstName());
 
         // Note: if you plan on modifying the user then do it before calling the
         // parent method as the parent method will flush the changes
