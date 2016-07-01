@@ -174,7 +174,9 @@ class UserGoalController extends FOSRestController
             $em->persist($goal);
         }
 
-        $userGoal->setListedDate(new \DateTime());
+        if (is_null($userGoal->getId())){
+            $userGoal->setListedDate(new \DateTime());
+        }
 
         $doDateRaw = $request->get('do_date');
         if($doDateRaw){
