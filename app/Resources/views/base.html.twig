@@ -350,8 +350,10 @@
                 'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
                 'app/bower_components/slick-carousel/slick/slick.min.js'
                 'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
+                'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
                 'app/scripts/PathPrefix/PathPrefix.js'
+                'app/scripts/Authenticator/Authenticator.js'
                 'app/scripts/Components/Components.js'
                 'app/scripts/Confirm/Confirm.js'
                 'app/scripts/Google/Google.js'
@@ -364,7 +366,6 @@
                 'bundles/app/js/angular/goal_manager/constants/goalConstant.js'
                 'bundles/app/js/angular/goal_manager/constants/userGoalConstant.js'
                 'bundles/app/js/angular/main.js'
-                'app/scripts/jquery-modal/jquery.modal.js'
                 %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
@@ -373,6 +374,16 @@
                 angular.module('Components').constant('UserContext',{
                     id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
                 });
+
+                {% if not app.user and (app.session.flashBag.peekAll|length and
+                    app.session.flashBag.peekAll['error'] is defined and
+                    app.session.flashBag.get('error') is not null) %}
+
+                    angular.module('Authenticator').run(['AuthenticatorLoginService', '$timeout', function(AuthenticatorLoginService, $timeout){
+                        $timeout(AuthenticatorLoginService.openLoginPopup, 1000);
+                    }]);
+
+                {% endif %}
 
                 function autoResizeDiv()
                 {
@@ -396,9 +407,6 @@
 
                 {% set error = app.session.get('jsForm') %}
 
-                {% if error is not null  %}
-                    setTimeout(openSettingsModal, 500);
-                {% endif %}
 
             </script>
 

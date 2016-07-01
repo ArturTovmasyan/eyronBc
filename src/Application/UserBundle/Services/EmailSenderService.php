@@ -29,14 +29,13 @@ class EmailSenderService
      * @param $email
      * @param $registrationToken
      * @param $name
-     * @param $language
      * @throws \Throwable
      * @throws \Twig_Error
      */
-    public function sendConfirmEmail($email, $registrationToken, $name, $language)
+    public function sendConfirmEmail($email, $registrationToken, $name)
     {
         //get project name
-        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
+        $projectName = $this->container->getParameter('email_sender');
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -64,14 +63,13 @@ class EmailSenderService
      * @param $newUserEmail
      * @param $emailToken
      * @param $userName
-     * @param $language
      * @throws \Throwable
      * @throws \Twig_Error
      */
-    public function sendActivationUserEmail($newUserEmail, $emailToken, $userName, $language)
+    public function sendActivationUserEmail($newUserEmail, $emailToken, $userName)
     {
         //get project name
-        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
+        $projectName = $this->container->getParameter('email_sender');
 
         //get set from email in parameters
         $setFrom =  $this->container->getParameter('no_reply');
@@ -101,13 +99,12 @@ class EmailSenderService
      * @param $email
      * @param $name
      * @param $data
-     * @param $language
      * @throws \Twig_Error
      */
-    public function sendContactUsEmail($email, $name, $data, $language)
+    public function sendContactUsEmail($email, $name, $data)
     {
         //get project name
-        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages', $language);
+        $projectName = $this->container->getParameter('email_sender');
 
         $fromEmail = 'confirmEmail@' . $this->container->getParameter('project_name') . '.com';
 
