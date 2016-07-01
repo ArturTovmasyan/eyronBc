@@ -109,9 +109,9 @@ class UserAdmin extends AbstractAdmin
             ->add('id', null, array('label' => 'Employee ID'))
             ->add('username', null, array('label'=>'Username'))
             ->add('firstname', null, array('label'=>'First Name'))
-            ->add('lastame', null, array('label'=>'Last Name'))
-            ->add('userSocial', null, array('label'=>'User Social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
-            ->add('userMobileOs', null, array('label' => 'User Mobile OS','template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_list.html.twig'))
+            ->add('lastname', null, array('label'=>'Last Name'))
+            ->add('userSocial', null, array('label'=>'Social', 'template' => 'ApplicationUserBundle:Admin:user_social_icon.html.twig'))
+            ->add('userMobileOs', null, array('label' => 'Mobile','template' => 'ApplicationUserBundle:Admin:user_mobile_os_icon_list.html.twig'))
             ->add('enabled', null, array('label'=>'Enabled'))
             ->add('createdAt', 'datetime', array('label' => 'Created'))
             ->add('_action', 'actions', array(
