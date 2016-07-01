@@ -338,6 +338,47 @@ class UserControllerTest extends WebTestCase
             $this->clientAuthorized->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->clientAuthorized->getResponse()->headers
         );
+
+        //get response content
+        $responseResults = json_decode($this->clientAuthorized->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('sessionId', $responseResults, 'Invalid sessionId key in Registration rest json structure');
+
+        $userInfo = $responseResults['userInfo'];
+
+        $this->assertArrayHasKey('id', $userInfo, 'Invalid id key in Login rest json structure');
+
+        $this->assertArrayHasKey('username', $userInfo, 'Invalid username key in Login rest json structure');
+
+        $this->assertArrayHasKey('first_name', $userInfo, 'Invalid first_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('last_name', $userInfo, 'Invalid last_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('is_confirmed', $userInfo, 'Invalid is_confirmed key in Login rest json structure');
+
+        $this->assertArrayHasKey('show_name', $userInfo, 'Invalid show_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('is_admin', $userInfo, 'Invalid is_admin key in Login rest json structure');
+
+        $this->assertArrayHasKey('u_id', $userInfo, 'Invalid u_id key in Login rest json structure');
+
+        $this->assertArrayHasKey('stats', $userInfo, 'Invalid stats key in Login rest json structure');
+
+        $stats = $userInfo['stats'];
+
+        $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in Login rest json structure');
+
+        $this->assertArrayHasKey('active', $stats, 'Invalid active key in Login rest json structure');
+
+        $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Login rest json structure');
+
+        $this->assertArrayHasKey('draft_count', $userInfo, 'Invalid draft_count key in Login rest json structure');
+
+        if(array_key_exists('image_path', $userInfo)) {
+
+            $this->assertArrayHasKey('image_path', $userInfo, 'Invalid image_path key in Login rest json structure');
+        }
+
     }
 
     /**
