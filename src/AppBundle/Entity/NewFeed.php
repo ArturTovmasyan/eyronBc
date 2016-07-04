@@ -9,6 +9,8 @@ namespace AppBundle\Entity;
 
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Class NewFeed
@@ -46,8 +48,6 @@ class NewFeed
 
     /**
      * @ORM\Column(name="goals", type="array", nullable=false)
-     *
-     * @Groups({"new_feed"})
      */
     protected $goals = [];
 
@@ -394,5 +394,15 @@ class NewFeed
     {
         $this->goals[$goal->getId()] = $goal;
         $this->setDatetime(new \DateTime());
+    }
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"new_feed"})
+     * @SerializedName("goals")
+     */
+    public function getGoalsArray()
+    {
+        return array_values($this->goals);
     }
 }

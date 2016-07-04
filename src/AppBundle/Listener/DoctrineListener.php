@@ -183,7 +183,7 @@ class DoctrineListener
             if (is_object($user)) {
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status'])){
-                    if($changeSet['status'][1] == UserGoal::COMPLETED) {
+                    if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible()) {
                         $goal = $entity->getGoal();
                         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                         $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
