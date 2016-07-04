@@ -54,15 +54,18 @@
                                             </a>
 
                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
-                                                {{ 'goal.create'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.create'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.create_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                             </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
-                                                {{ 'goal.add'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.add'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.add_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                              </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
-                                                {{ 'goal.complete'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.complete'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.complete_goals'|trans({},'newsFeed') }}[[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                              </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
