@@ -117,6 +117,10 @@ class NewsFeedController extends FOSRestController
                 $oldNewFeed->setGoals(null);
                 $oldNewFeed->setGoal($goal);
 
+                $stats = $goal->getStats();
+                $oldNewFeed->setListedBy($stats['listedBy']);
+                $oldNewFeed->setCompletedBy($stats['doneBy']);
+
                 $oldNewFeeds[] = $oldNewFeed;
             }
         }
