@@ -403,6 +403,6 @@ class NewFeed
      */
     public function getGoalsArray()
     {
-        return array_values($this->goals);
+        return $this->getGoals() ? array_values($this->getGoals()) : [];
     }
 }

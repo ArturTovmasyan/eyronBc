@@ -72,22 +72,19 @@ class DoctrineListener
      */
     public function postLoad(LifecycleEventArgs $event)
     {
-        $em = $this->container->get('doctrine')->getManager();
+        $em     = $this->container->get('doctrine')->getManager();
         $entity = $event->getObject();
 
-        if ($token = $this->container->get('security.token_storage')->getToken()){
-
+        if ($token = $this->container->get('security.token_storage')->getToken())
+        {
             if ($entity instanceof Goal){
-
                 $user = $token->getUser();
-
                 $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
                 $entity->setShareLink($shareLink);
 
+                //Set goal is_my_goal fields
                 if ($user instanceof User && $this->setIsMyGoal) {
-
                     $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($user->getId());
-
                     if (count($userGoalsArray) > 0) {
                         if (array_key_exists($entity->getId(), $userGoalsArray)) {
                             $entity->setIsMyGoal($userGoalsArray[$entity->getId()]['status'] == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
@@ -97,13 +94,16 @@ class DoctrineListener
                     }
                 }
             }
-            if ($entity instanceof User){
+
+            //Set user stats
+            elseif ($entity instanceof User){
                 if ($this->loadUserStats){
                     $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
             }
         }
 
+        //Set Cached image paths
         $request = $this->container->get('request_stack')->getCurrentRequest();
         $route = $this->container->get('router');
         $liipManager = $this->container->get('liip_imagine.cache.manager');
@@ -132,25 +132,21 @@ class DoctrineListener
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-        // get entity manager
         $em = $args->getEntityManager();
-
-        // get unit work
         $uow = $em->getUnitOfWork();
 
-        // for insert
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
-                do{
-                    $string = $this->container->get('bl_random_id_service')->randomString()?$this->container->get('bl_random_id_service')->randomString():"";
-                    $isUser = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $string));
-                }
-                while($isUser);
 
                 //check if user don't have uId
                 if(!$entity->getUId()) {
+                    do {
+                        $string = $this->container->get('bl_random_id_service')->randomString()?$this->container->get('bl_random_id_service')->randomString():"";
+                        $isUser = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $string));
+                    }
+                    while($isUser);
+
                     $entity->setUId($string);
                 }
                 $metadata = $em->getMetadataFactory()->getMetadataFor('ApplicationUserBundle:User');
@@ -167,6 +163,9 @@ class DoctrineListener
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postUpdate(LifecycleEventArgs $event)
     {
         $entity = $event->getObject();
@@ -186,7 +185,14 @@ class DoctrineListener
                     if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible()) {
                         $goal = $entity->getGoal();
                         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                        $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_COMPLETE);
+                        if (is_null($newFeed)) {
+                            $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        }
+                        else {
+                            $newFeed->addGoal($goal);
+                        }
+
                         $em->persist($newFeed);
                         $em->flush();
                     }
@@ -215,6 +221,9 @@ class DoctrineListener
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postPersist(LifecycleEventArgs $event)
     {
         $entity = $event->getObject();
@@ -272,6 +281,12 @@ class DoctrineListener
             }
 
             if (!is_null($action)) {
+
+                $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
+                if (!is_null($userGoal) && !$userGoal->getIsVisible()){
+                    return null;
+                }
+
                 $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                 if (in_array($action, NewFeed::$groupedActions)){
                     $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), $action);

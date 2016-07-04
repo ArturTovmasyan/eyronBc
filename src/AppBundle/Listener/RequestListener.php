@@ -9,11 +9,13 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class LocaleListener
@@ -21,25 +23,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class RequestListener //implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
     private $defaultLocale;
-
-    /**
-     * @var
-     */
     private $mandatoryVersions;
+    private $tokenStorage;
+    private $em;
 
     /**
      * RequestListener constructor.
      * @param string $defaultLocale
      * @param $iosMandatoryVersion
      * @param $androidMandatoryVersion
+     * @param $tokenStorage
+     * @param $entityManager
      */
-    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager)
     {
         $this->defaultLocale = $defaultLocale;
+        $this->tokenStorage  = $tokenStorage;
+        $this->em            = $entityManager;
 
         $this->mandatoryVersions = [
             MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
@@ -84,6 +85,12 @@ class RequestListener //implements EventSubscriberInterface
             {
                 $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
             }
+        }
+
+        $token = $this->tokenStorage->getToken();
+        if ($token && is_object($user = $token->getUser())){
+            $filter = $this->em->getFilters()->getFilter('visibility_filter');
+            $filter->setParameter('userId', $user->getId());
         }
     }
 }
