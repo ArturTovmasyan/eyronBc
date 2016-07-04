@@ -108,30 +108,19 @@ class NewsFeedController extends FOSRestController
      */
     public function getOldAction($first, $count, Request $request)
     {
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $em = $this->getDoctrine()->getManager();
+        $newsFeeds = $this->getAction($first, $count, $request);
 
-        $lastId = $request->query->get('id', null);
+        $oldNewFeeds = [];
+        foreach($newsFeeds as $newFeed){
+            foreach($newFeed->getGOals() as $goal){
+                $oldNewFeed = clone $newFeed;
+                $oldNewFeed->setGoals(null);
+                $oldNewFeed->setGoal($goal);
 
-        //If user is logged in then show news feed
-        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId);
-
-        $liipManager = $this->get('liip_imagine.cache.manager');
-        foreach($newsFeeds as $newsFeed){
-            /** @var  $newsFeed \AppBundle\Entity\NewFeed */
-            try {
-                $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            } catch (\Exception $e){
-                $newsFeed->getGoal()->setCachedImage("");
-            }
-
-            try {
-                $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
-            } catch (\Exception $e){
-                $newsFeed->getUser()->setCachedImage("");
+                $oldNewFeeds[] = $oldNewFeed;
             }
         }
 
-        return $newsFeeds;
+        return $oldNewFeeds;
     }
 }
