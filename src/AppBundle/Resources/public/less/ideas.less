@@ -140,13 +140,18 @@
 
 .inner-content{
   overflow: hidden;
-  margin:0 0 15px 0;
+  //margin:0 0 15px 0;
 
   .overlay{
     &:hover{
       background: rgba(0, 0, 0, 0.2);
     }
   }
+
+  .twitter-hashtag-button{
+    margin:7px 0;
+  }
+
   .fb-like{
     margin: 8px 0 0 15px;
     display:inline-block;
@@ -169,7 +174,7 @@
   }
 
   .addthis_native_toolbox{
-    padding-right: 15px;
+    padding: 0 15px;
   }
   #main-slider{
     position: relative;
@@ -845,8 +850,20 @@
   }
 
   .inner-content{
+
+    //margin:0 0 15px 0;
     .fb-like{
-      margin: 8px 0 0 20px;
+      //margin: 8px 0 0 20px;
+      margin: 13px 0 0 20px;
+    }
+
+    .twitter-hashtag-button{
+      margin:13px 0 0;
+    }
+
+    .addthis_native_toolbox{
+      text-align: right;
+      margin:2px 0 0;
     }
 
     .addthis_counter{
@@ -1061,6 +1078,10 @@
       padding-right: 0;
     }
 
+    .twitter-hashtag-button{
+      margin: 9px 17px 0;
+    }
+
     #main-slider{
       height:435px;
 
@@ -1153,6 +1174,13 @@
       &:last-child{
         text-align:center;
       }
+    }
+
+  }
+
+  .inner-content{
+    .twitter-hashtag-button{
+      margin: 9px 10px 0;
     }
 
   }
