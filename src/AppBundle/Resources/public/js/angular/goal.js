@@ -151,7 +151,7 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v1.0/activities/{first}/{count}' && !category && !search) {
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v2.0/activities/{first}/{count}' && !category && !search) {
                 var data = localStorageService.get('active_data'+userId);
                 this.items = this.items.concat(data);
 
@@ -667,6 +667,12 @@ angular.module('goal', ['Interpolation',
 
     }])
     .controller('ActivityController', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+
+        $scope.slickConfig = {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            method: {}
+        };
         
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;

@@ -11,7 +11,7 @@
     <div id="news-feed">
         <div class="container">
             <div class="row"
-                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
+                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v2.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
 
@@ -93,9 +93,51 @@
                             </div>
 
                             <div data-ng-show="!activity.comment && !activity.success_story">
-                                {{ _self.goal(env_prefix) }}
-                            </div>
+                                <slick settings="slickConfig" class="row idea-item">
+                                    <div class="col-sm-6 col-md-4 goals-animate"
+                                         data-ng-cloak
+                                         data-ng-repeat="singleGoal in activity.goals">
+                                        <figure>
+                                            <h3>
+                                                <a data-ng-href="{{ env_prefix }}/goal/[[ singleGoal.slug ]]">[[ singleGoal.title ]]</a>
+                                            </h3>
 
+                                            <a data-ng-href="{{ env_prefix }}/goal/[[ singleGoal.slug ]]"
+                                               class="goalTitle">
+                                                <span class="overlay"></span>
+                                                <img data-ng-src="[[ singleGoal.cached_image ]]" alt="[[ singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
+                                            </a>
+
+                                            <div class="absolute">
+                                                <ul>
+                                                    <li>
+                                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                        [[ singleGoal.stats.listedBy ]]
+                                                    </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                        [[ singleGoal.stats.doneBy ]]
+                                                    </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <figcaption>
+                                                {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </slick>
+                            </div>
                         </div>
                         <br/>
                     </div>
@@ -104,7 +146,7 @@
                         <a href="javascript:void(0)"
                            data-ng-cloak
                            data-ng-show="!Activities.busy && Activities.request >= 1"
-                           data-ng-click='Activities.getReserve("{{ env_prefix }}/api/v1.0/activities/{first}/{count}")'
+                           data-ng-click='Activities.getReserve("{{ env_prefix }}/api/v2.0/activities/{first}/{count}")'
                            class="show-more ng-hide">
                             <span></span>
                             <span></span>
@@ -128,24 +170,24 @@
 {% macro goal(env_prefix) %}
     <div class="row">
         <div class="col-sm-12 idea-item round">
-            <figure>
-                <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
+            <figure data-ng-repeat="singleGoal in activity.goals">
+                <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
-                <a data-ng-href="{{ env_prefix }}/goal/[[ ::activity.goal.slug ]]" class="goalTitle">
+                <a data-ng-href="{{ env_prefix }}/goal/[[ ::singleGoal.slug ]]" class="goalTitle">
                     <span class="overlay"></span>
-                    <h3>[[ ::activity.goal.title ]]</h3>
-                    <img data-ng-if="activity.goal.image_path" data-ng-src="[[ ::activity.goal.cached_image ]]" alt="[[ ::activity.goal.title ]]"/>
+                    <h3>[[ ::singleGoal.title ]]</h3>
+                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
 
                     <div class="absolute">
                         <ul>
                             <li>
-                                <a href="{{ env_prefix }}/listed-users/[[ ::activity.goal.slug ]]" class="ng-scope">
+                                <a href="{{ env_prefix }}/listed-users/[[ ::singleGoal.slug ]]" class="ng-scope">
                                     <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::activity.listed_by ]] </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ env_prefix }}/done-users/[[ ::activity.goal.slug ]]" class="ng-scope">
+                                <a href="{{ env_prefix }}/done-users/[[ ::singleGoal.slug ]]" class="ng-scope">
                                     <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::activity.completed_by ]]</span>
                                     <i class="icon-user-small"></i>
                                 </a>

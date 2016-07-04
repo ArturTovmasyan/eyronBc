@@ -61,7 +61,7 @@ class NewsFeedController extends FOSRestController
             foreach($newsFeed->getGoals() as $goal)
             {
                 try {
-                    $goal->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
                 } catch (\Exception $e) {
                     $goal->setCachedImage("");
                 }

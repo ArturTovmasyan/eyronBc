@@ -1,35 +1,35 @@
 <ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter">
 
-    <li class="col-xs-6" ng-class="{transparent: (activity.goal.is_my_goal && activity.goal.is_my_goal !== 0) || !completed}">
+    <li class="col-xs-6" ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal !== 0) || !completed}">
         <a href="javascript:void(0)"
            data-ng-cloak
            data-ls-goal-manage
-           data-ls-goal-id="[[ ::activity.goal.id ]]"
-           data-ng-show="!activity.goal.is_my_goal && completed"
-           data-ng-click="activity.goal.is_my_goal = 1"
+           data-ls-goal-id="[[ singleGoal.id ]]"
+           data-ng-show="!singleGoal.is_my_goal && completed"
+           data-ng-click="singleGoal.is_my_goal = 1"
            class="ng-hide">
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'add'|trans | capitalize}}</span>
         </a>
-        <span class="ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal !== 0)|| !completed">
+        <span class="ng-hide" data-ng-show="(singleGoal.is_my_goal && singleGoal.is_my_goal !== 0)|| !completed">
             <i class="icon-green-plus"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
             <span class="text">{{ 'added'|trans | capitalize}}</span>
         </span>
     </li>
 
-    <li class="col-xs-6" ng-class="{transparent: (activity.goal.is_my_goal && activity.goal.is_my_goal === 2 )|| !completed}">
-        <span class="ng-hide" data-ng-show="activity.goal.is_my_goal !== 2 && completed">
+    <li class="col-xs-6" ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal === 2 )|| !completed}">
+        <span class="ng-hide" data-ng-show="singleGoal.is_my_goal !== 2 && completed">
             <a href="javascript:void(0)"
                data-ng-cloak
                data-ls-user-goal-manage
-               data-ls-goal-id="[[ ::activity.goal.id ]]"
+               data-ls-goal-id="[[ singleGoal.id ]]"
                data-ng-click="completed = false">
                  <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
                  <span class="text">{{ 'done'|trans | capitalize }}</span>
              </a>
         </span>
 
-        <span  class="ng-hide" data-ng-show="(activity.goal.is_my_goal && activity.goal.is_my_goal === 2)|| !completed">
+        <span  class="ng-hide" data-ng-show="(singleGoal.is_my_goal && singleGoal.is_my_goal === 2)|| !completed">
             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'completed'|trans | capitalize}}</span>
         </span>
