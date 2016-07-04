@@ -130,6 +130,9 @@ doctrine:
             archived_goal_filter:
                 class:                AppBundle\Filter\ArchivedGoalFilter
                 enabled:              true
+            visibility_filter:
+                class:                AppBundle\Filter\VisibilityFilter
+                enabled:              true
 
         mappings:
             loggable:
