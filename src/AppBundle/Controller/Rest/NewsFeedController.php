@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Rest;
 
+use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -53,18 +54,30 @@ class NewsFeedController extends FOSRestController
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId);
 
+        $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
+
         $liipManager = $this->get('liip_imagine.cache.manager');
         foreach($newsFeeds as $newsFeed){
-            /** @var  $newsFeed \AppBundle\Entity\NewFeed */
-            try {
-                $newsFeed->getGoal()->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-            } catch (\Exception $e){
-                $newsFeed->getGoal()->setCachedImage("");
+            foreach($newsFeed->getGoals() as $goal)
+            {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($newsFeed->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+
+                if (count($userGoalsArray) > 0) {
+                    if (array_key_exists($goal->getId(), $userGoalsArray)) {
+                        $goal->setIsMyGoal($userGoalsArray[$goal->getId()]['status'] == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
+                    } else {
+                        $goal->setIsMyGoal(0);
+                    }
+                }
             }
 
             try {
                 $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 $newsFeed->getUser()->setCachedImage("");
             }
         }
@@ -73,7 +86,7 @@ class NewsFeedController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/v1.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
+     * @Rest\Get("/api/v1.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get_old", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",

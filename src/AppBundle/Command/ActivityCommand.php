@@ -31,22 +31,21 @@ class ActivityCommand extends ContainerAwareCommand
         $count = 150;
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        $newFeedCount = $em->createQuery("SELECT COUNT(n) FROM AppBundle:NewFeed n")->getSingleScalarResult();
+        $newFeedCount = $em->createQuery("SELECT COUNT(n) FROM AppBundle:NewFeed n JOIN n.goal g")->getSingleScalarResult();
 
         $progress = new ProgressBar($output, $newFeedCount);
         $progress->start();
 
         do {
 
-            $query = $em->createQuery("SELECT n, g
-                                     FROM AppBundle:NewFeed n
-                                     JOIN n.goal g
-                                     WHERE n.action IN (:groupedAction)")
-                ->setParameter('groupedAction', NewFeed::$groupedActions)
+            $newFeeds = $em
+                ->createQuery("SELECT n, g
+                               FROM AppBundle:NewFeed n
+                               JOIN n.goal g")
                 ->setFirstResult($first)
-                ->setMaxResults($count);
+                ->setMaxResults($count)
+                ->getResult();
 
-            $newFeeds = new Paginator($query, $fetchJoinCollection = true);
 
             foreach ($newFeeds AS $newFeed) {
                 $goal = $newFeed->getGoal();
