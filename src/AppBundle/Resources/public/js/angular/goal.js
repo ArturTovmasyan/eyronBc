@@ -151,13 +151,13 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v2.0/activities/{first}/{count}' && !category && !search) {
-                var data = localStorageService.get('active_data'+userId);
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_cache'+userId) && url == envPrefix + 'api/v2.0/activities/{first}/{count}' && !category && !search) {
+                var data = localStorageService.get('active_cache'+userId);
                 this.items = this.items.concat(data);
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set('active_data'+userId, newData);
+                    localStorageService.set('active_cache'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
                         for(var i = this.count -1; i >= 0; i--){
@@ -206,8 +206,8 @@ angular.module('goal', ['Interpolation',
                 url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
-                        localStorageService.set('active_data' + userId, data);
+                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v2.0/activities/0/'+this.count+'?search=&category=') {
+                        localStorageService.set('active_cache' + userId, data);
                     }
                     //if get empty
                     if(!data.length){

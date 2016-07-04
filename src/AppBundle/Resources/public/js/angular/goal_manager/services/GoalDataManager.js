@@ -43,10 +43,11 @@ angular.module('goalManage')
       }}
     });
   }])
-  .service('refreshCacheService', ['$timeout', 'CacheFactory', function($timeout, CacheFactory){
+  .service('refreshCacheService', ['$timeout', 'CacheFactory', 'localStorageService', function($timeout, CacheFactory, localStorageService){
     function refreshCache(userId, goalId){
       var profileCache = CacheFactory.get('bucketlist');
       var popularCache = CacheFactory.get('bucketlist_by_popular');
+      var activityCache = localStorageService.get('active_cache'+userId);
 
       if(!profileCache){
         profileCache = CacheFactory('bucketlist');
@@ -61,6 +62,15 @@ angular.module('goalManage')
 
       //remove top ideas in cache if they are changed
       if(goalId){
+        if(activityCache){
+          angular.forEach(activityCache, function(activity) {
+            angular.forEach(activity.goals, function(item) {
+              if(item.id == goalId){
+                localStorageService.remove('active_cache'+userId);
+              }
+            });
+          });
+        }
         var cache = popularCache.get('top-ideas' + userId);
         angular.forEach(cache, function(item) {
           if(item.id == goalId){
