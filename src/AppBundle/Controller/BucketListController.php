@@ -70,6 +70,9 @@ class BucketListController extends Controller
             case 'completed-goals':
                 $status = 2;
                 break;
+            case 'common-goals':
+                $status = 3;
+                break;
             default:
                 $status = 0;
         }

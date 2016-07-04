@@ -23,7 +23,7 @@
                 <li class="clearfix friends-animate"
                     data-ng-cloak
                     data-ng-repeat="goalFriend in goalFriends">
-                    <a href="{{ env_prefix }}/profile/[[ ::goalFriend.u_id ]]/all">
+                    <a href="{{ env_prefix }}/profile/[[ ::goalFriend.u_id ]]">
 
                         <figure class="image">
                             <img data-ng-if="goalFriend.cached_image.length != 2"  data-ng-src="[[ ::goalFriend.cached_image ]]" alt="[[ ::goalFriend.first_name ]]" class="img-circle img-responsive"/>

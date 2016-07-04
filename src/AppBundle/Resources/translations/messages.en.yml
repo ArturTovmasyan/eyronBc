@@ -196,6 +196,7 @@ menu:
   active: Active
   completed: Completed
   map: Map
+  common: In common
 
 right_menu:
   my_ideas: My Ideas

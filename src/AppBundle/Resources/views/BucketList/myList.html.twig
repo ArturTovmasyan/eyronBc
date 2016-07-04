@@ -19,7 +19,7 @@
                     {% endif %}
 
                     <li {% if status == all %} class="active" {% endif %} >
-                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
+                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : all})) }}">{% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}</a>
                     </li>
                     <li {% if status == active %} class="active" {% endif %}>
                         <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
@@ -27,6 +27,12 @@
                     <li {% if status == completed %} class="active" {% endif %}>
                         <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
                     </li>
+                    {#todo common goals#}
+                    {% if not  myProfile%}
+                        <li {% if status == common %} class="active" {% endif %}>
+                            <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : common })) }}">{{ 'menu.common'|trans }}</a>
+                        </li>
+                    {% endif %}
                     <li class="pull-right">
                         <a href="javascript:void(0)" data-ng-class="{'map-marker-active': showMap}"
                            data-ng-click="showMap=!showMap; triggerMap('.google-map')" class="map-marker-new">
@@ -48,7 +54,7 @@
                  style="width: 100%; height: 300px">
             </div>
         </div>
-
+    {% if myProfile %}
         <hr/>
         <div class="container">
             <div class="row">
@@ -72,6 +78,7 @@
 
             </div>
         </div>
+    {% endif %}
     </div>
 
     <div class="container">
@@ -85,7 +92,7 @@
 
                         {% set lastIndex = userGoals|length - 1 %}
 
-                        {% if myProfile or userGoal.isVisible %}
+                        {% if myProfile %}
 
                             <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
                                 <div class="col-sm-2 no-right" data-ng-class="{'no-left' : isMobile}">
@@ -356,6 +363,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% elseif userGoal.isVisible%}
+                            {#todo user profile goals#}
                         {% endif %}
                     {% endfor %}
                 {% else %}
