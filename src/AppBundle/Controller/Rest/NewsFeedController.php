@@ -49,10 +49,11 @@ class NewsFeedController extends FOSRestController
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
 
-        $lastId = $request->query->get('id', null);
+        $lastId   = $request->query->get('id', null);
+        $lastDate = $request->query->get('time', null);
 
         //If user is logged in then show news feed
-        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId);
+        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate);
 
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 
