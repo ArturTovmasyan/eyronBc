@@ -269,7 +269,7 @@ class DoctrineListener
         }
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
-            if ($entity instanceof Goal){
+            if ($entity instanceof Goal && $entity->getReadinessStatus() == Goal::TO_PUBLISH){
                 $action = NewFeed::GOAL_CREATE;
                 $goal = $entity;
             }

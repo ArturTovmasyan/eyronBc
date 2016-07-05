@@ -686,4 +686,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
         return $query->getQuery();
     }
+
+    /**
+     * @param $user1Id
+     * @param $user2Id
+     * @return array
+     */
+    public function findCommonGoals($user1Id, $user2Id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g
+                           FROM AppBundle:Goal g
+                           JOIN g.userGoal ug WITH ug.user = :user1Id
+                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
+            ->setParameter('user1Id', $user1Id)
+            ->setParameter('user2Id', $user2Id)
+            ->getResult();
+    }
 }

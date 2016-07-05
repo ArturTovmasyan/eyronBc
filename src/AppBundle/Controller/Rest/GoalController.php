@@ -30,6 +30,31 @@ class GoalController extends FOSRestController
 {
     const RandomGoalFriendCounts = 3;
 
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get common goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     *
+     * )
+     *
+     * @param int $userId
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getCommonAction($userId, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId);
+
+        return  $commonGoals;
+    }
+
     /**
      * @Rest\Get("/goals/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_goal_getall", options={"method_prefix"=false})
      * @ApiDoc(
