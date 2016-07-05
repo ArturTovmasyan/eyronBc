@@ -67,6 +67,7 @@ Feature: Activity
   @javascript @goalFriend
   Scenario: Show me the my goalfriends and when I click on them let me see their inner pages
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I should see "user1 useryan"
     When I follow "Goalfriends"
@@ -80,6 +81,7 @@ Feature: Activity
   @javascript @userProfileGoalText
   Scenario: Other user profile empty goal text checking
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I should see "user1 useryan"
     And I am on "/profile/777777"
@@ -94,6 +96,7 @@ Feature: Activity
   @javascript @activity
   Scenario: Open the page and show me my goal friends activities.
     Given I am on "/logout"
+    And I wait
       When I am logged in as "user1"
       Then I should be on "/activity"
       And I wait for view

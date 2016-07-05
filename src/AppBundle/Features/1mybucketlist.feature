@@ -6,7 +6,7 @@ Feature: My Bucket list
   @javascript @myBucketList
   Scenario: Open My BucketList and show me my all goals
     Given I am on "/logout"
-    And I wait for view
+    And I wait
     When I am logged in as "user1"
     And I follow "user1"
     And I follow "My Bucketlist"
@@ -105,6 +105,7 @@ Feature: My Bucket list
   @javascript @comments
   Scenario: show comments in inner page
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I follow "user1"
     And I follow "My Bucketlist"

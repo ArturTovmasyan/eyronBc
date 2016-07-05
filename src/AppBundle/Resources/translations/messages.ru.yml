@@ -132,6 +132,8 @@ user_goal:
 
 # success story form
 success_story:
+      error_without_file: Пожалуйста, введите не менее 3 слов, ибо нет изображения или видео!
+      error_widht_file:  Пожалуйста, напишите историю успеха!
       completion_date: Дата достижение цели
       complete_text: Разместите историю успеха
       complete_edit_text: Пожалуйста, укажите дату, когда ваша цель была достигнута.
