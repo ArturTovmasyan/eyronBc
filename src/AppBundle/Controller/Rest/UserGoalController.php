@@ -400,7 +400,7 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $userGoals = $em->getRepository('AppBundle:UserGoal')
-            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, false, $first, $count);
+            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count);
 
         //This part is used to calculate goal stats
         $goalIds = [];
