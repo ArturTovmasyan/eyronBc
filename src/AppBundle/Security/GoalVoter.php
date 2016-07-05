@@ -115,7 +115,11 @@ class GoalVoter extends Voter
      */
     public function canAdd(Goal $goal, $user)
     {
-        return $goal->getPublish();
+        if (!$user instanceof User){
+            return false;
+        }
+
+        return $goal->getPublish() || (!is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId());
     }
 
     /**
@@ -125,6 +129,6 @@ class GoalVoter extends Voter
      */
     public function canComplete(Goal $goal, $user)
     {
-        return $goal->getPublish();
+        return $this->canAdd($goal, $user);
     }
 }
