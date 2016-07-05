@@ -89,6 +89,8 @@ goal:
       view_access_denied: You can't view this goal
       edit_access_denied: You can't edit this goal
       delete_access_denied: You can't delete this goal
+      add_access_denied: You can't add this goal
+      done_access_denied: You can't complete this goal
 
 activities:
       title: Bucket List 127-Activity
@@ -140,6 +142,8 @@ user_goal:
 
 # success story form
 success_story:
+      error_without_file: Please, enter at least 3 words if there is no image or video!
+      error_widht_file:  Please, write success story!
       completion_date: Completion date
       complete_text: Write a success story
       complete_edit_text: Please, specify the date when you completed your goal.

@@ -151,6 +151,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @Groups({"tiny_goal"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
 
@@ -1097,6 +1098,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
             'slug'      => $this->getSlug(),
             'title'     => $this->getTitle(),
             'image'     => $this->getListPhotoDownloadLink(),
+            'publish'   => $this->getPublish(),
             'listedBy'  => $this->getStats()['listedBy'],
             'doneBy'    => $this->getStats()['doneBy']
         ]);
@@ -1112,6 +1114,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         $this->id = $data->id;
         $this->setSlug($data->slug);
         $this->setTitle($data->title);
+        $this->setPublish(isset($data->publish) ? $data->publish : true);
         $this->setStats(['listedBy' => $data->listedBy, 'doneBy' => $data->doneBy]);
 
         $this->listPhotoDownloadLink = $data->image;

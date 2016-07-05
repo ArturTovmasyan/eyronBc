@@ -97,6 +97,9 @@ class UserGoalController extends FOSRestController
      */
     public function putAction(Goal $goal, Request $request)
     {
+
+        $this->denyAccessUnlessGranted('add', $goal, $this->get('translator')->trans('goal.add_access_denied'));
+
         $em = $this->getDoctrine()->getManager();
         if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
             $content = $request->getContent();
@@ -116,6 +119,8 @@ class UserGoalController extends FOSRestController
 
             if($userGoal->getStatus() == UserGoal::COMPLETED)
             {
+                $this->denyAccessUnlessGranted('done', $goal, $this->get('translator')->trans('goal.add_access_denied'));
+
                 $completionDateRaw = $request->get('completion_date');
                 if($completionDateRaw){
                     $completionDate = \DateTime::createFromFormat('d/m/Y', $completionDateRaw);
@@ -174,7 +179,9 @@ class UserGoalController extends FOSRestController
             $em->persist($goal);
         }
 
-        $userGoal->setListedDate(new \DateTime());
+        if (is_null($userGoal->getId())){
+            $userGoal->setListedDate(new \DateTime());
+        }
 
         $doDateRaw = $request->get('do_date');
         if($doDateRaw){
@@ -325,6 +332,7 @@ class UserGoalController extends FOSRestController
      */
     public function getDoneAction(Goal $goal, $isDone = null)
     {
+        $this->denyAccessUnlessGranted('done', $goal, $this->get('translator')->trans('goal.add_access_denied'));
         $em = $this->getDoctrine()->getManager();
 
         if($isDone){
@@ -343,6 +351,7 @@ class UserGoalController extends FOSRestController
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
             $userGoal->setUser($this->getUser());
+            $userGoal->setIsVisible(true);
         }
         else {
             $newDone = !($userGoal->getStatus() == UserGoal::COMPLETED);
@@ -393,7 +402,7 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $request->get('notUrgentNotImportant') ? true : false;
 
         $userGoals = $em->getRepository('AppBundle:UserGoal')
-            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, false, $first, $count);
+            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count);
 
         //This part is used to calculate goal stats
         $goalIds = [];

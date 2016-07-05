@@ -202,7 +202,7 @@ class DoctrineListener
                 }
 
                 if (isset($changeSet['isVisible'])){
-                    if($changeSet['isVisible'][1] == true && $entity->getIsVisible()) {
+                    if($changeSet['isVisible'][1] == true && $entity->getGoal()->getPublish()) {
                         $goal = $entity->getGoal();
                         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                         $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_ADD);
@@ -269,7 +269,7 @@ class DoctrineListener
         }
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
-            if ($entity instanceof Goal){
+            if ($entity instanceof Goal && $entity->getReadinessStatus() == Goal::TO_PUBLISH){
                 $action = NewFeed::GOAL_CREATE;
                 $goal = $entity;
             }
@@ -283,7 +283,7 @@ class DoctrineListener
 
                 $goal = $entity->getGoal();
             }
-            elseif($entity instanceof SuccessStory && str_replace(" ", "", $entity->getStory()) != ""){
+            elseif($entity instanceof SuccessStory && str_replace(" ", "", $entity->getStory()) != "" && $entity->getGoal()->getPublish()){
                 $action = NewFeed::SUCCESS_STORY;
                 $goal = $entity->getGoal();
                 $story = $entity;
@@ -291,14 +291,14 @@ class DoctrineListener
             elseif($entity instanceof Comment){
                 $goalId = $entity->getThread()->getId();
                 $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-                if (!is_null($goal)){
+                if (!is_null($goal) && $goal->getPublish()){
                     $comment = $entity;
                     $action = NewFeed::COMMENT;
                 }
             }
 
-            if (!is_null($action)) {
-
+            if (!is_null($action))
+            {
                 $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
                 if (!is_null($userGoal) && !$userGoal->getIsVisible()){
                     return null;

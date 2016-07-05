@@ -18,6 +18,8 @@ class GoalVoter extends Voter
     const VIEW   = 'view';
     const EDIT   = 'edit';
     const DELETE = 'delete';
+    const ADD    = 'add';
+    const DONE   = 'done';
 
     /**
      * @param string $attribute
@@ -26,7 +28,7 @@ class GoalVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE))) {
+        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::DELETE, self::ADD, self::DONE))) {
             return false;
         }
 
@@ -54,6 +56,10 @@ class GoalVoter extends Voter
                 return $this->canEdit($goal, $user);
             case self::DELETE:
                 return $this->canDelete($goal, $user);
+            case self::ADD:
+                return $this->canAdd($goal, $user);
+            case self::DONE:
+                return $this->canComplete($goal, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -66,7 +72,7 @@ class GoalVoter extends Voter
      */
     private function canView(Goal $goal, $user)
     {
-        return ($goal->getPublish() == PublishAware::PUBLISH || $user instanceof User);
+        return ($goal->getPublish() == PublishAware::PUBLISH || ($user instanceof User && !is_null($goal->getAuthor()) && $goal->getAuthor()->getId() == $user->getId()));
     }
 
     /**
@@ -100,5 +106,29 @@ class GoalVoter extends Voter
     public function canDelete(Goal $goal, $user)
     {
         return $this->canEdit($goal, $user);
+    }
+
+    /**
+     * @param Goal $goal
+     * @param $user
+     * @return bool
+     */
+    public function canAdd(Goal $goal, $user)
+    {
+        if (!$user instanceof User){
+            return false;
+        }
+
+        return $goal->getPublish() || (!is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId());
+    }
+
+    /**
+     * @param Goal $goal
+     * @param $user
+     * @return bool
+     */
+    public function canComplete(Goal $goal, $user)
+    {
+        return $this->canAdd($goal, $user);
     }
 }

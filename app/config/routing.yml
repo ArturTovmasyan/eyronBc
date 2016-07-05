@@ -98,6 +98,11 @@ app_new_feed_rest:
     resource: AppBundle\Controller\Rest\NewsFeedController
     prefix:   /
 
+app_success_story_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\SuccessStoryController
+    prefix:   /
+
 app_main_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\MainRestController

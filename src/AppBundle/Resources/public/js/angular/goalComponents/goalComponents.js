@@ -164,9 +164,21 @@ angular.module('goalComponents', ['Interpolation',
     'UserGoalDataManager',
     'envPrefix',
     function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
+
+      $timeout(function(){
+        angular.element("#story-modal select").niceSelect();
+      }, 300);
+      var date = new Date();
+
+      $scope.month = moment(date).format('M');
+      $scope.day = moment(date).format('D');
+      $scope.year = moment(date).format('YYYY');
+
       $scope.userGoal = userGoalData.doneData;
+      $scope.noFile = false;
+      $scope.noStory = false;
       $scope.newAdded = userGoalData.manage? false: true;
-      $scope.goalLink = window.location.origin + envPrefix + $scope.userGoal.goal.slug;
+      $scope.goalLink = window.location.origin + envPrefix + 'goal/' +$scope.userGoal.goal.slug;
       $scope.files = [];
       $scope.successStory = {};
       var imageCount = 6;
@@ -176,24 +188,64 @@ angular.module('goalComponents', ['Interpolation',
       }
 
       $('body').on('focus', 'textarea[name=story]', function() {
-        $('textarea[name=story]').removeClass('border-red')
+        $('textarea[name=story]').removeClass('border-red');
+        $scope.noFile = false;
+        $scope.noStory = false;
       });
 
       $scope.isInValid = function () {
-        if(angular.isUndefined($scope.userGoal.story)
-          || angular.isUndefined($scope.userGoal.story.story)
-          || $scope.userGoal.story.story.length < 3 )return true;
-        var words = $scope.userGoal.story.story.split(' ');
-        if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
-          (angular.isUndefined($scope.files) || !$scope.files.length )&& words.length < 3){
-          return true;
-        }
+        $scope.noFile = false;
+        $scope.noStory = false;
+        var noDate = $scope.noData();
+        if(!noDate){
+          if(angular.isUndefined($scope.userGoal.story)
+            || angular.isUndefined($scope.userGoal.story.story)
+            || $scope.userGoal.story.story.length < 3 )$scope.noStory = true;
+          if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
+            (angular.isUndefined($scope.files) || !$scope.files.length )){
+            if(!$scope.noStory){
+              var words = $scope.userGoal.story.story.split(' ');
+              $scope.noFile = ( words.length < 3 );
+            }else{
+              $scope.noFile = true;
+              $scope.noStory = false;
+            }
+          }
 
-        return false;
+        }else {
+          $scope.noFile = !$scope.newAdded;
+        }
+      };
+
+      $scope.noData = function () {
+        return ((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
+              (angular.isUndefined($scope.files) || !$scope.files.length )&&
+              ( angular.isUndefined($scope.userGoal.story) || angular.isUndefined($scope.userGoal.story.story)))
       };
       
       $scope.save = function () {
-        if($scope.isInValid()){
+        $scope.isInValid();
+        if($scope.year && $scope.month && $scope.day && $scope.newAdded){
+            $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+            var comletion_date = {
+              'goal_status'    : true,
+              'completion_date': $scope.completion_date
+            };
+            UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
+              var selector = 'success' + $scope.userGoal.goal.id;
+              if(angular.element('#'+ selector).length > 0) {
+                var parentScope = angular.element('#' + selector).scope();
+                parentScope['doDate' + $scope.userGoal.goal.id] = new Date($scope.completion_date);
+              }
+
+              if($scope.noData()){
+                $scope.noStory = false;
+                $scope.noFile = false;
+                angular.element('#cancel').click();
+              }
+            });
+        }
+        if($scope.noStory || $scope.noFile){
           angular.element('textarea[name=story]').addClass('border-red');
           return;
         }
