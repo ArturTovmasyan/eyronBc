@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\NewFeed;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * NewFeedRepository
@@ -63,15 +63,18 @@ class NewFeedRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('nf, u, ss, si, cmt')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
+            ->join('nf.user', 'u')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('ss.files', 'si')
             ->leftJoin('nf.comment', 'cmt')
             ->where('nf.id IN (:ids)')
+            ->andWhere('(nf.action = :successStory AND ss.id IS NOT NULL)
+                     OR (nf.action = :comment AND cmt.id IS NOT NULL)
+                     OR (nf.action != :successStory AND nf.action != :comment)')
             ->orderBy('nf.datetime', 'DESC')
-            ->setParameter('user', $userId)
-            ->setParameter('simpleRole', 'a:0:{}')
             ->setParameter('ids', $newFeedIds)
+            ->setParameter('successStory', NewFeed::SUCCESS_STORY)
+            ->setParameter('comment', NewFeed::COMMENT)
             ->getQuery()
             ->getResult();
     }

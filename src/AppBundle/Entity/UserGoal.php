@@ -65,7 +65,7 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $isVisible = true;
+    protected $isVisible = false;
 
     /**
      * @var

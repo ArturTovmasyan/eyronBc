@@ -25,7 +25,7 @@ class VisibilityFilter extends SQLFilter
      */
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
-        $userId  = null;
+        $userId  = -1;
         if ($this->hasParameter('userId')){
             $userId = $this->getParameter('userId');
         }
@@ -35,6 +35,9 @@ class VisibilityFilter extends SQLFilter
         }
         elseif ($targetEntity->name == 'Application\CommentBundle\Entity\Comment') {
             return "COALESCE((SELECT ug.is_visible FROM users_goals as ug WHERE ug.user_id = $targetTableAlias.author_id AND ug.goal_id = $targetTableAlias.thread_id), true) = true OR $targetTableAlias.author_id = $userId";
+        }
+        elseif ($targetEntity->name == 'AppBundle\Entity\UserGoal') {
+            return "$targetTableAlias.is_visible = true OR $targetTableAlias.user_id = $userId";
         }
 
         return "";

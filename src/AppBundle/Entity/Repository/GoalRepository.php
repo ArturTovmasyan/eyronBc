@@ -371,7 +371,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                                            WHERE ug.goal_id IN (SELECT ug1.goal_id
                                                                 FROM users_goals AS ug1
                                                                 WHERE ug1.user_id = :userId)
-                                           AND ug.user_id != :userId");
+                                           AND ug.user_id != :userId AND ug.is_visible = true");
         $statement->bindValue('userId', $userId);
 
         if (!$getAll){

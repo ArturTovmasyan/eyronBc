@@ -196,8 +196,25 @@ class DoctrineListener
                         $em->persist($newFeed);
                         $em->flush();
                     }
-                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
-                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
+//                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//                    }
+                }
+
+                if (isset($changeSet['isVisible'])){
+                    if($changeSet['isVisible'][1] == true && $entity->getIsVisible()) {
+                        $goal = $entity->getGoal();
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+                        $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_ADD);
+                        if (is_null($newFeed)) {
+                            $newFeed = new NewFeed(NewFeed::GOAL_ADD, $user, $goal);
+                        }
+                        else {
+                            $newFeed->addGoal($goal);
+                        }
+
+                        $em->persist($newFeed);
+                        $em->flush();
                     }
                 }
             }
@@ -209,16 +226,16 @@ class DoctrineListener
      */
     public function preRemove(LifecycleEventArgs $event)
     {
-        $entity = $event->getObject();
-        $em = $event->getObjectManager();
-
-        if ($entity instanceof UserGoal){
-            if ($entity->getStatus() == UserGoal::COMPLETED){
-                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
-            }
-
-            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
-        }
+//        $entity = $event->getObject();
+//        $em = $event->getObjectManager();
+//
+//        if ($entity instanceof UserGoal){
+//            if ($entity->getStatus() == UserGoal::COMPLETED){
+//                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//            }
+//
+//            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//        }
     }
 
     /**
