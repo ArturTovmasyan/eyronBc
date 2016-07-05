@@ -71,6 +71,22 @@ angular.module('goal', ['Interpolation',
             //this.oldChache = false;
         };
 
+        // lsInfiniteItems.prototype.newActivity = function(time){
+        //     var url = "";
+        //     $http.get(url).success(function(data) {
+        //         return data
+        //     });
+        //     return null;
+        // };
+
+        lsInfiniteItems.prototype.addNewActivity = function(data){
+            angular.element('#activities').addClass('comingByTop');
+            for(var i = data.length -1; i >= 0; i--){
+                this.items.unshift(newData[i]);
+            }
+            angular.element('#activities').removeClass('comingByTop');
+        };
+
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
             angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
@@ -535,12 +551,13 @@ angular.module('goal', ['Interpolation',
                 $scope.successStoryActiveIndex = storiesLength - 2;
             }
 
+            startIndex = $scope.successStoryActiveIndex;
+            
             if($scope.successStoryActiveIndex > 4){
-                startIndex = $scope.successStoryActiveIndex;
                 $scope.successStoryActiveIndex -= 5;
+                $scope.storyLength -= 5;
             }
             else {
-                startIndex = $scope.successStoryActiveIndex;
                 $scope.successStoryActiveIndex = 0;
             }
 
@@ -666,14 +683,30 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', function($scope, lsInfiniteItems, $interval){
 
         $scope.slickConfig = {
             slidesToShow: 1,
             slidesToScroll: 1,
             method: {}
         };
-        
+        // function newActivity() {
+        //     $scope.newData = $scope.Activities.newActivity($scope.Activities.items[0].datetime);
+        //     if(newData){
+        //         $scope.newActivity = true;
+        //         $interval.cancel(interval);
+        //     }
+        // }
+        //
+        // var interval = $interval(newActivity,1200);
+        //
+        // $scope.addNew = function () {
+        //     $scope.newActivity = false;
+        //     //todo scroll to top
+        //     $scope.Activities.addNewActivity($scope.newData);
+        //     interval = $interval(newActivity,1200);
+        // };
+
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
 
