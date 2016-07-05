@@ -3,7 +3,17 @@
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="ActivityController" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
 
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {% stylesheets output='css/layout_activity.css'
+    'app/bower_components/swiper/dist/css/swiper.min.css'
+    filter='less,cssrewrite'
+    %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
 
 {% block content %}
     {{ parent() }}
@@ -95,9 +105,9 @@
 
                             </div>
 
-                            <div data-ng-show="!activity.comment && !activity.success_story">
-                                <slick settings="slickConfig" class="row idea-item">
-                                    <div class="col-sm-6 col-md-4 goals-animate"
+                            <div data-ng-show="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
+                                <div class="idea-item swiper-wrapper goals-animate">
+                                    <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.goals">
                                         <figure>
@@ -139,7 +149,14 @@
                                             </figcaption>
                                         </figure>
                                     </div>
-                                </slick>
+                                </div>
+
+                                <div data-ng-show="activity.goals.length > 1">
+                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                    <!-- Add Arrows -->
+                                    <div class="swiper-button-next swiper-button-white"></div>
+                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                </div>
                             </div>
                         </div>
                         <br/>
@@ -206,6 +223,17 @@
         </div>
     </div>
 {% endmacro %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_activity.js'
+    'app/bower_components/swiper/dist/js/swiper.min.js'
+    'bundles/app/js/swiper-inner.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
 {%- block title -%}
     {{ 'activities.title'|trans }}

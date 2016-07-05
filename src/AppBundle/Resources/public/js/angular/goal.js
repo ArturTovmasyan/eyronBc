@@ -136,10 +136,12 @@ angular.module('goal', ['Interpolation',
                         var img = new Image();
                         img.src = item.cached_image;
                     }else {
-                        if(item.goal.cached_image){
-                            var img = new Image();
-                            img.src = item.goal.cached_image;
-                        }
+                        angular.forEach(item.goals, function(goal) {
+                            if (goal.cached_image) {
+                                var img = new Image();
+                                img.src = goal.cached_image;
+                            }
+                        })
                     }
                 });
                 this.start += this.count;
@@ -683,13 +685,8 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', function($scope, lsInfiniteItems, $interval){
-
-        $scope.slickConfig = {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            method: {}
-        };
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
+        
         // function newActivity() {
         //     $scope.newData = $scope.Activities.newActivity($scope.Activities.items[0].datetime);
         //     if(newData){
@@ -706,6 +703,17 @@ angular.module('goal', ['Interpolation',
         //     $scope.Activities.addNewActivity($scope.newData);
         //     interval = $interval(newActivity,1200);
         // };
+        function slideInsert(){
+            var activity_swiper = new Swiper('.activity-slider', {
+                pagination: '.swiper-pagination',
+                observer: true,
+                autoHeight: true,
+                loop: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                spaceBetween: 30
+            })
+        }
 
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
@@ -716,6 +724,10 @@ angular.module('goal', ['Interpolation',
                     $scope.showNoActivities = true;
                     angular.element('#non-activity').css('display', 'block');
                 }
+            }else {
+                $timeout(function(){
+                    slideInsert();
+                }, 500);
             }
         });
 
