@@ -125,8 +125,8 @@ angular.module('goal', ['Interpolation',
             this.busy = true;
             this.page = (url.indexOf('activities') != -1)?'activity': 'list';
             var lastId = this.items[this.items.length -1].id;
-            var lastDate = moment(this.items[this.items.length -1].datetime).format('MM-DD-YYYY H:mm:ss');
-            var first = (this.page == 'activities' && lastId)?0:this.start;
+            var lastDate = moment(this.items[this.items.length -1].datetime).format('YYYY-MM-DD H:mm:ss');
+            var first = (this.page == 'activity' && lastId)?0:this.start;
             url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
             if(!first && lastId){

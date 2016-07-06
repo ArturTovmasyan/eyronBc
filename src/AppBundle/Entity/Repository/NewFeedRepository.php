@@ -19,9 +19,10 @@ class NewFeedRepository extends EntityRepository
      * @param null $first
      * @param null $count
      * @param null $lastId
+     * @param null $lastDate
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null, $lastDate = null)
     {
         $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
@@ -32,13 +33,15 @@ class NewFeedRepository extends EntityRepository
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
             ->orderBy('nf.datetime', 'DESC')
+            ->addOrderBy('nf.id', 'DESC')
             ->setParameter('user', $userId)
             ->setParameter('simpleRole', 'a:0:{}');
 
-        if ($lastId) {
+        if ($lastDate && $lastId) {
             $newFeedIdsQuery
-                ->andWhere('nf.id < :lastId')
-                ->setParameter('lastId', $lastId);
+                ->andWhere("nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate)")
+                ->setParameter('lastId', $lastId)
+                ->setParameter('lastDate', $lastDate);
         }
 
         if (is_numeric($first) && is_numeric($count)) {
@@ -72,6 +75,7 @@ class NewFeedRepository extends EntityRepository
                      OR (nf.action = :comment AND cmt.id IS NOT NULL)
                      OR (nf.action != :successStory AND nf.action != :comment)')
             ->orderBy('nf.datetime', 'DESC')
+            ->addOrderBy('nf.id', 'DESC')
             ->setParameter('ids', $newFeedIds)
             ->setParameter('successStory', NewFeed::SUCCESS_STORY)
             ->setParameter('comment', NewFeed::COMMENT)
