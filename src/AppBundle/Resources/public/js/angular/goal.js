@@ -72,18 +72,19 @@ angular.module('goal', ['Interpolation',
             //this.oldChache = false;
         };
 
-        // lsInfiniteItems.prototype.newActivity = function(time){
-        //     var url = "";
-        //     $http.get(url).success(function(data) {
-        //         return data
-        //     });
-        //     return null;
-        // };
+        lsInfiniteItems.prototype.newActivity = function(time, cb){
+            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + moment(time).format('MM-DD-YYYY H:mm:ss');
+            $http.get(url).success(function(data) {
+                if(angular.isFunction(cb)){
+                    cb(data);
+                }
+            });
+        };
 
         lsInfiniteItems.prototype.addNewActivity = function(data){
             angular.element('#activities').addClass('comingByTop');
             for(var i = data.length -1; i >= 0; i--){
-                this.items.unshift(newData[i]);
+                this.items.unshift(data[i]);
             }
             angular.element('#activities').removeClass('comingByTop');
         };
@@ -138,7 +139,7 @@ angular.module('goal', ['Interpolation',
                     if(item.cached_image){
                         var img = new Image();
                         img.src = item.cached_image;
-                    }else {
+                    } else {
                         angular.forEach(item.goals, function(goal) {
                             if (goal.cached_image) {
                                 var img = new Image();
@@ -689,23 +690,28 @@ angular.module('goal', ['Interpolation',
 
     }])
     .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
+        $scope.newActivity = false;
         
-        // function newActivity() {
-        //     $scope.newData = $scope.Activities.newActivity($scope.Activities.items[0].datetime);
-        //     if(newData){
-        //         $scope.newActivity = true;
-        //         $interval.cancel(interval);
-        //     }
-        // }
-        //
-        // var interval = $interval(newActivity,1200);
-        //
-        // $scope.addNew = function () {
-        //     $scope.newActivity = false;
-        //     //todo scroll to top
-        //     $scope.Activities.addNewActivity($scope.newData);
-        //     interval = $interval(newActivity,1200);
-        // };
+        function newActivity() {
+            $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
+                if(data){
+                    $scope.newData = data;
+                    $scope.newActivity = true;
+                    $interval.cancel(interval);
+                }
+            });
+        }
+
+        var interval = $interval(newActivity,120000);
+
+        $scope.addNew = function () {
+            $scope.newActivity = false;
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $timeout(function(){
+                $scope.Activities.addNewActivity($scope.newData);
+            }, 1000);
+            interval = $interval(newActivity,120000);
+        };
         function slideInsert(){
             var activity_swiper = new Swiper('.activity-slider', {
                 pagination: '.swiper-pagination',

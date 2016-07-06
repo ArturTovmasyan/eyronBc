@@ -1,4 +1,4 @@
-<ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter">
+<ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter ng-hide" data-ng-show="singleGoal.publish">
 
     <li class="col-xs-6" ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal !== 0) || !completed}">
         <a href="javascript:void(0)"
@@ -35,4 +35,9 @@
         </span>
     </li>
     
+</ul>
+<ul data-ng-show="!singleGoal.publish" class="ng-hide row">
+    <li class="col-xs-12">
+        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
+    </li>
 </ul>

@@ -24,6 +24,9 @@
                  data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v2.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
+                <div class="new-activity ng-hide" data-ng-show="newActivity">
+                   <a href="javascript:void(0)" data-ng-click="addNew()">New Activity</a>
+                </div>
 
                 <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
@@ -112,16 +115,16 @@
                                          data-ng-repeat="singleGoal in activity.goals">
                                         <figure>
                                             <h3>
-                                                <a data-ng-href="{{ env_prefix }}/goal/[[ singleGoal.slug ]]">[[ singleGoal.title ]]</a>
+                                                <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
 
-                                            <a data-ng-href="{{ env_prefix }}/goal/[[ singleGoal.slug ]]"
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]"
                                                class="goalTitle">
                                                 <span class="overlay"></span>
                                                 <img data-ng-src="[[ singleGoal.cached_image ]]" alt="[[ singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
                                             </a>
 
-                                            <div class="absolute">
+                                            <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
                                                 <ul>
                                                     <li>
                                                         <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
@@ -193,22 +196,22 @@
             <figure data-ng-repeat="singleGoal in activity.goals">
                 <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
-                <a data-ng-href="{{ env_prefix }}/goal/[[ ::singleGoal.slug ]]" class="goalTitle">
+                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]" class="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ ::singleGoal.title ]]</h3>
                     <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
 
-                    <div class="absolute">
+                    <div class="absolute" data-ng-show="singleGoal.listed_by && singleGoal.completed_by">
                         <ul>
                             <li>
                                 <a href="{{ env_prefix }}/listed-users/[[ ::singleGoal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::activity.listed_by ]] </span>
+                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.listed_by ]] </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ env_prefix }}/done-users/[[ ::singleGoal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::activity.completed_by ]]</span>
+                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.completed_by ]]</span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
