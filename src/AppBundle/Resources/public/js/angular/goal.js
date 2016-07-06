@@ -40,6 +40,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
+            this.page = "";
             //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
@@ -69,6 +70,23 @@ angular.module('goal', ['Interpolation',
             this.request = 0;
             this.start = 0;
             //this.oldChache = false;
+        };
+
+        lsInfiniteItems.prototype.newActivity = function(time, cb){
+            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + moment(time).format('YYYY-MM-DD H:mm:ss');
+            $http.get(url).success(function(data) {
+                if(angular.isFunction(cb)){
+                    cb(data);
+                }
+            });
+        };
+
+        lsInfiniteItems.prototype.addNewActivity = function(data){
+            angular.element('#activities').addClass('comingByTop');
+            for(var i = data.length -1; i >= 0; i--){
+                this.items.unshift(data[i]);
+            }
+            angular.element('#activities').removeClass('comingByTop');
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -105,12 +123,14 @@ angular.module('goal', ['Interpolation',
             }
 
             this.busy = true;
+            this.page = (url.indexOf('activities') != -1)?'activity': 'list';
             var lastId = this.items[this.items.length -1].id;
-            var first = (url.indexOf('activities') != -1 && lastId)?0:this.start;
+            var lastDate = moment(this.items[this.items.length -1].datetime).format('YYYY-MM-DD H:mm:ss');
+            var first = (this.page == 'activity' && lastId)?0:this.start;
             url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;
             if(!first && lastId){
-                url += '&id=' + lastId
+                url += '&id=' + lastId + '&time=' + lastDate;
             }
             $http.get(url).success(function(data) {
                 this.reserve = data;
@@ -119,11 +139,13 @@ angular.module('goal', ['Interpolation',
                     if(item.cached_image){
                         var img = new Image();
                         img.src = item.cached_image;
-                    }else {
-                        if(item.goal.cached_image){
-                            var img = new Image();
-                            img.src = item.goal.cached_image;
-                        }
+                    } else {
+                        angular.forEach(item.goals, function(goal) {
+                            if (goal.cached_image) {
+                                var img = new Image();
+                                img.src = goal.cached_image;
+                            }
+                        })
                     }
                 });
                 this.start += this.count;
@@ -151,13 +173,13 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_data'+userId) && url == envPrefix + 'api/v1.0/activities/{first}/{count}' && !category && !search) {
-                var data = localStorageService.get('active_data'+userId);
+            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_cache'+userId) && url == envPrefix + 'api/v2.0/activities/{first}/{count}' && !category && !search) {
+                var data = localStorageService.get('active_cache'+userId);
                 this.items = this.items.concat(data);
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set('active_data'+userId, newData);
+                    localStorageService.set('active_cache'+userId, newData);
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
                         for(var i = this.count -1; i >= 0; i--){
@@ -206,8 +228,8 @@ angular.module('goal', ['Interpolation',
                 url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v1.0/activities/0/'+this.count+'?search=&category=') {
-                        localStorageService.set('active_data' + userId, data);
+                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v2.0/activities/0/'+this.count+'?search=&category=') {
+                        localStorageService.set('active_cache' + userId, data);
                     }
                     //if get empty
                     if(!data.length){
@@ -535,12 +557,13 @@ angular.module('goal', ['Interpolation',
                 $scope.successStoryActiveIndex = storiesLength - 2;
             }
 
+            startIndex = $scope.successStoryActiveIndex;
+            
             if($scope.successStoryActiveIndex > 4){
-                startIndex = $scope.successStoryActiveIndex;
                 $scope.successStoryActiveIndex -= 5;
+                $scope.storyLength -= 5;
             }
             else {
-                startIndex = $scope.successStoryActiveIndex;
                 $scope.successStoryActiveIndex = 0;
             }
 
@@ -666,8 +689,41 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', function($scope, lsInfiniteItems){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
+        $scope.newActivity = false;
         
+        function newActivity() {
+            $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
+                if(data && data.length != 0){
+                    $scope.newData = data;
+                    $scope.newActivity = true;
+                    $interval.cancel(interval);
+                }
+            });
+        }
+
+        var interval = $interval(newActivity,120000);
+
+        $scope.addNew = function () {
+            $scope.newActivity = false;
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $timeout(function(){
+                $scope.Activities.addNewActivity($scope.newData);
+            }, 1000);
+            interval = $interval(newActivity,120000);
+        };
+        function slideInsert(){
+            var activity_swiper = new Swiper('.activity-slider', {
+                pagination: '.swiper-pagination',
+                observer: true,
+                autoHeight: true,
+                loop: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                spaceBetween: 30
+            })
+        }
+
         $scope.Activities = new lsInfiniteItems(10);
         $scope.showNoActivities = false;
 
@@ -677,6 +733,10 @@ angular.module('goal', ['Interpolation',
                     $scope.showNoActivities = true;
                     angular.element('#non-activity').css('display', 'block');
                 }
+            }else {
+                $timeout(function(){
+                    slideInsert();
+                }, 500);
             }
         });
 

@@ -78,12 +78,11 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
      * @param $status
      * @param $dream
      * @param $requestFilters
-     * @param bool|false $isCurrentUser
      * @param null $first
      * @param null $count
      * @return array
      */
-    public function findAllByUser($userId, $status, $dream, $requestFilters, $isCurrentUser = false, $first = null, $count = null)
+    public function findAllByUser($userId, $status, $dream, $requestFilters, $first = null, $count = null)
     {
         $query =
             $this->getEntityManager()
@@ -105,11 +104,6 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
             $query
                 ->andWhere('ug.status =:status')
                 ->setParameter('status', $status);
-        }
-        //if it is not self page
-        if(!$isCurrentUser){
-            $query
-                ->andWhere('ug.isVisible = true');
         }
 
 

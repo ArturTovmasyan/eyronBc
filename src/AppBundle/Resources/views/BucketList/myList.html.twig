@@ -207,14 +207,15 @@
 
                                                 <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
 
-                                                <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}">
+
+                                                <a href="{% if goal.publish %}{{ path('inner_goal', {'slug' : goal.slug }) }}{% else %}#{% endif %}">
                                                     <span class="overlay"></span>
 
                                                     {% if goal.getListPhotoDownloadLink() %}
                                                         <img src="{{ goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" />
                                                     {% endif %}
-
                                                 </a>
+
 
                                                 <figcaption>
                                                     <div class="row">
