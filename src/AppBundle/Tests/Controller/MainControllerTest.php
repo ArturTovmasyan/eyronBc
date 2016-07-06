@@ -111,7 +111,7 @@ class MainControllerTest extends BaseClass
         // check db request count
         if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on g goal friends search page!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal friends search page!");
         }
     }
 //
