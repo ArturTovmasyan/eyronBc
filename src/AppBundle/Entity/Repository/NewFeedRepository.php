@@ -43,6 +43,11 @@ class NewFeedRepository extends EntityRepository
                 ->setParameter('lastId', $lastId)
                 ->setParameter('lastDate', $lastDate);
         }
+        elseif ($lastDate){
+            $newFeedIdsQuery
+                ->andWhere("nf.datetime > :lastDate")
+                ->setParameter('lastDate', $lastDate);
+        }
 
         if (is_numeric($first) && is_numeric($count)) {
             $newFeedIdsQuery
