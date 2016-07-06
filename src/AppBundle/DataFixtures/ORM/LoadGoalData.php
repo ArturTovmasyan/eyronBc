@@ -3,6 +3,8 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Aphorism;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\StoryImage;
+use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\UserGoal;
 use Application\CommentBundle\Entity\Comment;
@@ -196,6 +198,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal11->setLat(40.069099);
         $goal11->setLng(45.038189);
         $goal11->setAddress('Armenian');
+
+
         $manager->persist($goal11);
 
 
@@ -820,6 +824,13 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $comment->setBody("Comment5");
         $comment->setThread($thread);
         $manager->persist($comment);
+
+        $successStory = new SuccessStory();
+        $successStory->setUser($user1);
+        $successStory->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
+        $successStory->setStory("THIS IS MY TEST STORY");
+        $successStory->setGoal($goal11);
+        $manager->persist($successStory);
 
         $manager->flush();
 
