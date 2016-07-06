@@ -169,14 +169,13 @@ class UserGoalControllerTest extends BaseClass
         }
     }
 
-
     /**
      * This function use to test get top ideas action
      *
      */
     public function testGetTopIdeas()
     {
-        $url = sprintf('/api/v1.0/top-ideas/%s', 1);
+        $url = sprintf('/api/v1.0/top-ideas/%s', 2);
 
         // try to get goal by id
         $this->client2->request('GET', $url);

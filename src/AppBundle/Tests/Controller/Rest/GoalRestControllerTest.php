@@ -293,20 +293,57 @@ class GoalRestControllerTest extends BaseClass
     public function testGetFriends()
     {
         // GET /api/v1.0/goals/{first}/friends/{count}
-        $url = sprintf('/api/v1.0/goals/%s/friends/%s', 1,2 );
-        // try to get goal by id
-        $this->client->request('GET', $url);
+        $url = sprintf('/api/v1.0/goals/%s/friends/%s', 1,2);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal in GetFriendsAction rest!");
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal in GetFriendsAction rest!");
 
         $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
         );
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->client2->getProfile()) {
             // check the number of requests
             $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal GetFriendsAction rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        foreach ($responseResults as $responseData)
+        {
+            $this->assertArrayHasKey('u_id', $responseData, 'Invalid u_id key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('id', $responseData, 'Invalid id key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('username', $responseData, 'Invalid username key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('first_name', $responseData, 'Invalid first_name key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('last_name', $responseData, 'Invalid last_name key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('is_confirmed', $responseData, 'Invalid is_confirmed key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('show_name', $responseData, 'Invalid show_name key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('is_admin', $responseData, 'Invalid is_admin key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('stats', $responseData, 'Invalid stats key in goal friends rest json structure');
+
+            $stats = $responseData['stats'];
+
+            $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('active', $stats, 'Invalid active key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in goal friends rest json structure');
+
+            if(array_key_exists('image_path', $responseData)) {
+                $this->assertArrayHasKey('image_path', $responseData, 'Invalid image_path key in goal friends rest json structure');
+            }
         }
     }
 
