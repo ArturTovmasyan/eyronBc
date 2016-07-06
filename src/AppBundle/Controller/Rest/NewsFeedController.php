@@ -67,7 +67,7 @@ class NewsFeedController extends FOSRestController
 
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')
-            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, isset($date) ? $date->format('Y-m-d H:i:s') : null);
+            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate);
 
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 
