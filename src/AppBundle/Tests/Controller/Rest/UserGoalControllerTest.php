@@ -126,7 +126,7 @@ class UserGoalControllerTest extends BaseClass
     }
 
     /**
-     * this function use to test user-goal delete action
+     * This function use to test user-goal delete action
      *
      * @dataProvider userGoalProvider
      * @depends testPostBucketlist
@@ -169,4 +169,75 @@ class UserGoalControllerTest extends BaseClass
         }
     }
 
+
+    /**
+     * This function use to test get top ideas action
+     *
+     */
+    public function testGetTopIdeas()
+    {
+        $url = sprintf('/api/v1.0/top-ideas/%s', 1);
+
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get top ideas rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetTopIdeas rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        foreach ($responseResults as $responseData)
+        {
+            $imageSizeKey = array_key_exists('image_size', $responseResults);
+
+            //check if imageSizeKey exists in array
+            if($imageSizeKey){
+
+                $imageSize = $responseData['image_size'];
+
+                $width = array_key_exists('width', $imageSize);
+
+                $height = array_key_exists('height', $imageSize);
+
+                if($width && $height) {
+
+                    $this->assertArrayHasKey('width', $imageSize, 'Invalid width key in top ideas rest json structure');
+
+                    $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in top ideas rest json structure');
+                }
+
+                unset($responseResults['image_size']);
+            }
+
+                $this->assertArrayHasKey('id', $responseData, 'Invalid id key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('title', $responseData, 'Invalid title key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('status', $responseData, 'Invalid status key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('is_my_goal', $responseData, 'Invalid is_my_goal key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('share_link', $responseData, 'Invalid share_link key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('slug', $responseData, 'Invalid slug key in top ideas rest json structure');
+
+                if(array_key_exists('cached_image', $responseData)) {
+                    $this->assertArrayHasKey('cached_image', $responseData, 'Invalid cached_image key in top ideas rest json structure');
+                }
+
+                if(array_key_exists('image_path', $responseData)) {
+                    $this->assertArrayHasKey('image_path', $responseData, 'Invalid image_path key in top ideas rest json structure');
+                }
+        }
+    }
 }
