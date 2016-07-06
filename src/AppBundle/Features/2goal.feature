@@ -8,7 +8,7 @@ Feature: Goal page
     And I wait for view
     And I am logged in as "user1"
 
-  @javascript @goalFriends
+  @javascript @goalFriendsSearch
   Scenario: Open goal friends page and try search friends
     When I am on "/goal-friends"
     And I wait
