@@ -8,6 +8,17 @@ Feature: Goal page
     And I wait for view
     And I am logged in as "user1"
 
+  @javascript @goalFriends
+  Scenario: Open goal friends page and try search friends
+    When I am on "/goal-friends"
+    And I wait
+    Then I should see "user7 user7"
+    And I should see "user10 user10"
+    When I fill in "inputEmail3" with "user7 user7"
+    And I am on "/goal-friends?search=user7+user7#"
+    And I wait for view
+    Then I should see "user7 user7"
+
   @javascript @goalActiveCompleted
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
     When I follow "user1"
@@ -39,7 +50,7 @@ Feature: Goal page
     And I follow "Manage"
     And I wait for angular
     Then I should see "Goal is active"
-    When I change date
+    When I select date fields
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
@@ -120,21 +131,6 @@ Feature: Goal page
     And I wait for view
     Then I should see "SUCCESS STORY"
 
-    #TODO DON'T USE
-#  @javascript @shareGoal
-#  Scenario: Share a goal
-#    Given I am on "/ideas"
-#    When I wait for angular
-#    And I click on "atc_s addthis_button_compact"
-#    And I wait
-#    And I click on "at3winsvc_facebook top-service"
-##    And I switch to iframe "#at3winshare-iframe"
-#    And I wait for view
-#    And I switch to window
-#    And I fill in "email" with "test@test.am"
-#    And I fill in "pass" with "test1234567"
-#    And I press "login"
-
   @javascript @goalCreatePage
   Scenario: Open the page and show all the features
     When I follow "user1"
@@ -146,6 +142,7 @@ Feature: Goal page
     And I press "btn_publish"
     And I wait for view
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
+    And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
@@ -179,7 +176,7 @@ Feature: Goal page
     And I wait
     And I scroll page to "top"
     And I change switch "0"
-    And I change date
+    And I select date fields
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "3"
