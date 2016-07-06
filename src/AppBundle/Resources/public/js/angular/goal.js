@@ -82,8 +82,20 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.addNewActivity = function(data){
+            var itemIds = [];
+            angular.forEach(this.items, function (d) {
+                itemIds.push(d.id);
+            });
+
+            var removingCount = 0,k;
+
             angular.element('#activities').addClass('comingByTop');
-            for(var i = data.length -1; i >= 0; i--){
+            for(var i = data.length -1,j=0; i >= 0; i--,j++){
+                k = itemIds.indexOf(data[i].id);
+                if(k !== -1){
+                    this.items.splice(k + j - removingCount, 1);
+                    removingCount++;
+                }
                 this.items.unshift(data[i]);
             }
             angular.element('#activities').removeClass('comingByTop');
