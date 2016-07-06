@@ -53,7 +53,7 @@ class NewFeedRepository extends EntityRepository
         else {
             $newFeedIdsQuery
                 ->andWhere("timestampdiff('DAY', nf.datetime, CURRENT_TIMESTAMP()) < :numberOfDays")
-                ->setParameter(':numberOfDays', 6);
+                ->setParameter(':numberOfDays', $getCount ? 30 : 6);
         }
 
         if (is_numeric($first) && is_numeric($count)) {
