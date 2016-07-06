@@ -24,8 +24,8 @@
                  data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v2.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
-                <div class="new-activity ng-hide" data-ng-show="newActivity">
-                   <a href="javascript:void(0)" data-ng-click="addNew()">New Activity</a>
+                <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
+                   <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
                 </div>
 
                 <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
@@ -115,7 +115,7 @@
                                          data-ng-repeat="singleGoal in activity.goals">
                                         <figure>
                                             <h3>
-                                                <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]">[[ singleGoal.title ]]</a>
+                                                <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
 
                                             <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
@@ -196,7 +196,7 @@
             <figure data-ng-repeat="singleGoal in activity.goals">
                 <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
-                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]" class="goalTitle">
+                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]" class="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ ::singleGoal.title ]]</h3>
                     <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
