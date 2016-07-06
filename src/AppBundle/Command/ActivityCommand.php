@@ -48,6 +48,7 @@ class ActivityCommand extends ContainerAwareCommand
 
 
             foreach ($newFeeds AS $newFeed) {
+                $date = $newFeed->getDatetime();
                 $goal = $newFeed->getGoal();
                 $goal->setStats([
                    'listedBy' => $newFeed->getListedBy(),
@@ -55,6 +56,7 @@ class ActivityCommand extends ContainerAwareCommand
                 ]);
 
                 $newFeed->addGoal($newFeed->getGoal());
+                $newFeed->setDatetime($date);
                 $progress->advance();
             }
 

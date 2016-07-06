@@ -39,7 +39,7 @@ class NewFeedRepository extends EntityRepository
 
         if ($lastDate && $lastId) {
             $newFeedIdsQuery
-                ->andWhere("nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate) AND timestampdiff('DAY', nf.datetime, :lastDate) < :numberOfDays")
+                ->andWhere("(nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate)) AND timestampdiff(DAY, nf.datetime, :lastDate) < :numberOfDays")
                 ->setParameter('lastId', $lastId)
                 ->setParameter('lastDate', $lastDate)
                 ->setParameter(':numberOfDays', 2)
