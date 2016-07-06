@@ -55,8 +55,19 @@ class UserGoalControllerTest extends BaseClass
                                 'steps[write step text here]'=>true, "location['address']"=>'Armenia Yerevan',
                                 "location['latitude']"=>43.222, "location['longitude']"=>40.44, 'urgent'=>true,
                                 'important'=>true, 'do_date'=>'01/01/2016'));
-        // check page opened status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create user-goal in putAction rest!");
+
+        //get goal by id
+        $goal = $this->em->getRepository('AppBundle:Goal')->find($goalId);
+
+        //get user by username
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'admin@admin.com'));
+
+        if($goal->getPublish() || (!is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId())) {
+
+            // check page opened status code
+            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create user-goal in putAction rest!");
+        }
+
         // check response result content type
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -82,13 +93,25 @@ class UserGoalControllerTest extends BaseClass
 
         // try to get done Action
         $this->client->request('GET', $url);
-        // check page opened status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not in getDoneAction rest!");
+
+        //get goal by id
+        $goal = $this->em->getRepository('AppBundle:Goal')->find($goalId);
+
+        //get user by username
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'admin@admin.com'));
+
+        if($goal->getPublish() || (!is_null($author = $goal->getAuthor()) && $user->getId() == $author->getId())) {
+
+            // check page opened status code
+            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not in getDoneAction rest!");
+        }
+
         // check response result content type
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
+
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
@@ -168,5 +191,4 @@ class UserGoalControllerTest extends BaseClass
             $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
         }
     }
-
 }
