@@ -31,6 +31,11 @@ class UserControllerTest extends WebTestCase
     /**
      * @var null
      */
+    protected $client2 = null;
+
+    /**
+     * @var null
+     */
     protected $clientAuthorized = null;
 
     /**
@@ -50,6 +55,12 @@ class UserControllerTest extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->clientAuthorized->enableProfiler();
+
+        $this->client2 = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user1@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client2->enableProfiler();
     }
 
     /**
@@ -498,5 +509,52 @@ class UserControllerTest extends WebTestCase
         $this->assertArrayHasKey('mandatory', $responseResults, 'Invalid mandatory key in get last mobile version rest json structure');
 
         $this->assertArrayHasKey('optional', $responseResults, 'Invalid optional key in get last mobile version rest json structure');
+    }
+
+    /**
+     * THis function use to test testGetCurrentUser
+     */
+    public function testGetCurrentUser()
+    {
+        $url = sprintf('/api/v1.0/user');
+
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user in testGetCurrentUser rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('id', $responseResults, 'Invalid id key in get current user rest json structure');
+        $this->assertArrayHasKey('username', $responseResults, 'Invalid username key in get current user rest json structure');
+        $this->assertArrayHasKey('first_name', $responseResults, 'Invalid first_name key in get current user rest json structure');
+        $this->assertArrayHasKey('last_name', $responseResults, 'Invalid last_name key in get current user rest json structure');
+        $this->assertArrayHasKey('is_confirmed', $responseResults, 'Invalid is_confirmed key in get current user rest json structure');
+        $this->assertArrayHasKey('show_name', $responseResults, 'Invalid show_name key in get current user rest json structure');
+        $this->assertArrayHasKey('is_admin', $responseResults, 'Invalid is_admin key in get current user rest json structure');
+        $this->assertArrayHasKey('u_id', $responseResults, 'Invalid u_id key in get current user rest json structure');
+        $this->assertArrayHasKey('draft_count', $responseResults, 'Invalid draft_count key in get current user rest json structure');
+        $this->assertArrayHasKey('stats', $responseResults, 'Invalid stats key in get current user rest json structure');
+
+        $stats = $responseResults['stats'];
+
+        $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in get current user rest json structure');
+        $this->assertArrayHasKey('active', $stats, 'Invalid active key in get current user rest json structure');
+        $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in get current user rest json structure');
+
+        if(array_key_exists('image_path', $responseResults)) {
+            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in get current user rest json structure');
+        }
     }
 }
