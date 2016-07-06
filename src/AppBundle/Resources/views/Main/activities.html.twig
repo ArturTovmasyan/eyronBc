@@ -201,17 +201,17 @@
                     <h3>[[ ::singleGoal.title ]]</h3>
                     <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
 
-                    <div class="absolute" data-ng-show="singleGoal.listed_by && singleGoal.completed_by">
+                    <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
                         <ul>
                             <li>
                                 <a href="{{ env_prefix }}/listed-users/[[ ::singleGoal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.listed_by ]] </span>
+                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ env_prefix }}/done-users/[[ ::singleGoal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.completed_by ]]</span>
+                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.stats.doneBy ]]</span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
