@@ -81,7 +81,7 @@ angular.module('goal', ['Interpolation',
             });
         };
 
-        lsInfiniteItems.prototype.addNewActivity = function(data){
+        lsInfiniteItems.prototype.addNewActivity = function(data, cb){
             var itemIds = [];
             angular.forEach(this.items, function (d) {
                 itemIds.push(d.id);
@@ -97,6 +97,9 @@ angular.module('goal', ['Interpolation',
                     removingCount++;
                 }
                 this.items.unshift(data[i]);
+            }
+            if(angular.isFunction(cb)){
+                cb();
             }
             angular.element('#activities').removeClass('comingByTop');
         };
@@ -720,20 +723,22 @@ angular.module('goal', ['Interpolation',
             $scope.newActivity = false;
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $timeout(function(){
-                $scope.Activities.addNewActivity($scope.newData);
+                $scope.Activities.addNewActivity($scope.newData, slideInsert);
             }, 1000);
             interval = $interval(newActivity,120000);
         };
         function slideInsert(){
-            var activity_swiper = new Swiper('.activity-slider', {
-                pagination: '.swiper-pagination',
-                observer: true,
-                autoHeight: true,
-                loop: true,
-                nextButton: '.swiper-button-next',
-                prevButton: '.swiper-button-prev',
-                spaceBetween: 30
-            })
+            $timeout(function(){
+                var activity_swiper = new Swiper('.activity-slider', {
+                    pagination: '.swiper-pagination',
+                    observer: true,
+                    autoHeight: true,
+                    loop: true,
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    spaceBetween: 30
+                })
+            }, 500);
         }
 
         $scope.Activities = new lsInfiniteItems(10);
@@ -746,9 +751,7 @@ angular.module('goal', ['Interpolation',
                     angular.element('#non-activity').css('display', 'block');
                 }
             }else {
-                $timeout(function(){
                     slideInsert();
-                }, 500);
             }
         });
 
