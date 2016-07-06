@@ -33,7 +33,68 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+
+        foreach ($responseResults as $responseData)
+        {
+            $imageSizeKey = array_key_exists('image_size', $responseResults);
+
+            //check if imageSizeKey exists in array
+            if($imageSizeKey){
+
+                $imageSize = $responseData['image_size'];
+
+                $width = array_key_exists('width', $imageSize);
+
+                $height = array_key_exists('height', $imageSize);
+
+                if($width && $height) {
+
+                    $this->assertArrayHasKey('width', $imageSize, 'Invalid width key in top ideas rest json structure');
+
+                    $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in top ideas rest json structure');
+                }
+            }
+
+            $this->assertArrayHasKey('id', $responseData, 'Invalid id key in top ideas rest json structure');
+
+            $this->assertArrayHasKey('title', $responseData, 'Invalid title key in top ideas rest json structure');
+
+            $this->assertArrayHasKey('status', $responseData, 'Invalid status key in top ideas rest json structure');
+
+            $this->assertArrayHasKey('share_link', $responseData, 'Invalid share_link key in top ideas rest json structure');
+
+            $this->assertArrayHasKey('slug', $responseData, 'Invalid slug key in top ideas rest json structure');
+
+            $this->assertArrayHasKey('stats', $responseData, 'Invalid stats key in goal friends rest json structure');
+
+            $stats = $responseData['stats'];
+
+            $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in goal friends rest json structure');
+
+            $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in goal friends rest json structure');
+
+
+            if(array_key_exists('location', $responseData)) {
+
+                $location = $responseData['location'];
+                $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in top ideas rest json structure');
+                $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in top ideas rest json structure');
+                $this->assertArrayHasKey('address', $location, 'Invalid address key in top ideas rest json structure');
+            }
+
+            if(array_key_exists('image_path', $responseData)) {
+                $this->assertArrayHasKey('image_path', $responseData, 'Invalid image_path key in top ideas rest json structure');
+            }
+
+            if(array_key_exists('is_my_goal', $responseData)) {
+                $this->assertArrayHasKey('is_my_goal', $responseData, 'Invalid is_my_goal key in top ideas rest json structure');
+            }
         }
     }
 
@@ -426,14 +487,12 @@ class GoalRestControllerTest extends BaseClass
         $lengthKey = array_key_exists('length', $responseResults);
 
         //check if length key exists in array
-        if($lengthKey){
+        if ($lengthKey) {
             unset($responseResults['length']);
         }
 
-        foreach ($responseResults as $responseData)
-        {
-            foreach ($responseData as $response)
-            {
+        foreach ($responseResults as $responseData) {
+            foreach ($responseData as $response) {
                 $this->assertArrayHasKey('id', $response, 'Invalid id key in Random friends rest json structure');
 
                 $this->assertArrayHasKey('username', $response, 'Invalid username key in Random friends rest json structure');
@@ -462,7 +521,7 @@ class GoalRestControllerTest extends BaseClass
 
                 $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Random friends rest json structure');
 
-                if(array_key_exists('image_path', $response)) {
+                if (array_key_exists('image_path', $response)) {
                     $this->assertArrayHasKey('image_path', $response, 'Invalid image_path key in Random friends rest json structure');
                 }
             }

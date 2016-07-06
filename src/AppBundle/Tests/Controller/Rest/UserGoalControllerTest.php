@@ -214,8 +214,6 @@ class UserGoalControllerTest extends BaseClass
 
                     $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in top ideas rest json structure');
                 }
-
-                unset($responseResults['image_size']);
             }
 
                 $this->assertArrayHasKey('id', $responseData, 'Invalid id key in top ideas rest json structure');
