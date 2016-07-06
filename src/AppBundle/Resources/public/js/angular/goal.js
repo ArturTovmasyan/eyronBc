@@ -73,7 +73,7 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.newActivity = function(time, cb){
-            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + moment(time).format('YYYY-MM-DD H:mm:ss');
+            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + time;
             $http.get(url).success(function(data) {
                 if(angular.isFunction(cb)){
                     cb(data);
@@ -125,7 +125,7 @@ angular.module('goal', ['Interpolation',
             this.busy = true;
             this.page = (url.indexOf('activities') != -1)?'activity': 'list';
             var lastId = this.items[this.items.length -1].id;
-            var lastDate = moment(this.items[this.items.length -1].datetime).format('YYYY-MM-DD H:mm:ss');
+            var lastDate = this.items[this.items.length -1].datetime;
             var first = (this.page == 'activity' && lastId)?0:this.start;
             url = url.replace('{first}', first).replace('{count}', this.count);
             url += '?search=' + search+ '&category=' + category;

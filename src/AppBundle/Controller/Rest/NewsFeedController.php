@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @Rest\RouteResource("Activity")
@@ -50,10 +51,23 @@ class NewsFeedController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         $lastId   = $request->query->get('id', null);
+        if (!is_null($lastId) && !is_numeric($lastId)){
+            throw new HttpException(Response::HTTP_BAD_REQUEST);
+        }
+
         $lastDate = $request->query->get('time', null);
+        if (!is_null($lastDate)){
+            try {
+                $date = new \DateTime($lastDate);
+            }
+            catch(\Exception $e) {
+                throw new HttpException(Response::HTTP_BAD_REQUEST);
+            }
+        }
 
         //If user is logged in then show news feed
-        $newsFeeds = $em->getRepository('AppBundle:NewFeed')->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate);
+        $newsFeeds = $em->getRepository('AppBundle:NewFeed')
+            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, isset($date) ? $date->format('Y-m-d H:i:s') : null);
 
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 
