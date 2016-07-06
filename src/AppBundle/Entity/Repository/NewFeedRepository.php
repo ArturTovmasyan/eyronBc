@@ -124,14 +124,16 @@ class NewFeedRepository extends EntityRepository
      */
     public function findLastGroupByUserAction($userId, $action)
     {
+        $currentDate = new \DateTime();
         $newFeed = $this->getEntityManager()
             ->createQuery("SELECT n
                            FROM AppBundle:NewFeed n
                            JOIN n.user u
                            WHERE u.id = :userId AND n.action = :action
-                           AND timestampdiff('MINUTE', n.datetime, CURRENT_TIMESTAMP()) < 30")
+                           AND timestampdiff('MINUTE', n.datetime, :currentDate) < 30")
             ->setParameter('userId', $userId)
             ->setParameter('action', $action)
+            ->setParameter('currentDate', $currentDate->format('Y-m-d H:i:s'))
             ->getResult();
 
         if (count($newFeed) == 0){
