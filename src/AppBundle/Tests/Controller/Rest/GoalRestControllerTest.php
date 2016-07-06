@@ -272,6 +272,7 @@ class GoalRestControllerTest extends BaseClass
     {
         // GET /api/v1.0/goals/{first}/friends/{count}
         $url = sprintf('/api/v1.0/goals/%s/friends/%s', 1,2 );
+        
         // try to get goal by id
         $this->client->request('GET', $url);
 

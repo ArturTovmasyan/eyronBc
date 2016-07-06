@@ -99,15 +99,14 @@ class MainControllerTest extends BaseClass
 //    }
 //
     /**
-     * This function is used to check goal friends page
+     * This function is used to check goal friends search action
      */
-    public function testGoalFriends()
+    public function testGoalFriendsSearch()
     {
-
         // try to open goal add-to-me page
         $this->clientSecond->request('GET', '/goal-friends', array('search' => 'user10'));
 
-        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends page!');
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends search page!');
 
         // check db request count
         if ($profile = $this->clientSecond->getProfile()) {
