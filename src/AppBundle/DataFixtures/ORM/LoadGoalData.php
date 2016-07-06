@@ -192,6 +192,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal11->setReadinessStatus(Goal::TO_PUBLISH);
         $goal11->setAuthor($user4);
         $goal11->setPublish(false);
+        $goal11->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
         $manager->persist($goal11);
 
 
