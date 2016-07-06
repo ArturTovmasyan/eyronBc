@@ -36,7 +36,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on get user goal page!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on get user goal page!");
         }
     }
 
@@ -65,7 +65,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-goal create rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-goal create rest!");
         }
 
     }
@@ -92,7 +92,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-goal getDoneAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-goal getDoneAction rest!");
         }
     }
 
@@ -120,7 +120,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistAction rest!");
         }
 
     }
@@ -165,7 +165,7 @@ class UserGoalControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client4->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-goal rest!");
         }
     }
 
