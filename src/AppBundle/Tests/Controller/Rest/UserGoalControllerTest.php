@@ -51,11 +51,11 @@ class UserGoalControllerTest extends BaseClass
         $url = sprintf('/api/v1.0/usergoals/%s', $goalId);
 
         // try to put date
-        $this->client->request('PUT', $url, array('goal_status'=>true, 'is_visible'=>true, 'note'=>'userGoal note',
-                                'steps' => array("test" => 1),
-                                "location['address']"=>'Armenia Yerevan',
-                                "location['latitude']"=>43.222, "location['longitude']"=>40.44, 'urgent'=>true,
-                                'important'=>true, 'do_date'=>'01/01/2016'));
+        $this->client->request('PUT', $url, array('goal_status' => true, 'is_visible' => true, 'note' => 'userGoal note',
+            'steps' => array("test" => 1),
+            "location['address']" => 'Armenia Yerevan',
+            "location['latitude']" => 43.222, "location['longitude']" => 40.44, 'urgent' => true,
+            'important' => true, 'do_date' => '01/01/2016'));
         // check page opened status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create user-goal in putAction rest!");
         // check response result content type
@@ -98,7 +98,7 @@ class UserGoalControllerTest extends BaseClass
 
     /**
      * this function try to test postBucketlistAction
-     *
+     * @depends testGetDone
      */
     public function testPostBucketlist()
     {
@@ -317,6 +317,87 @@ class UserGoalControllerTest extends BaseClass
                 if(array_key_exists('image_path', $responseData)) {
                     $this->assertArrayHasKey('image_path', $responseData, 'Invalid image_path key in top ideas rest json structure');
                 }
+        }
+    }
+
+
+    /**
+     * this function try to test testPostBucketlistLocation
+     */
+    public function testPostBucketlistLocation()
+    {
+        // generate postBucketlistAction rest url
+        $url = sprintf('/api/v1.0/usergoals/locations');
+
+        // try to post BucketlistAction
+        $this->client->request('POST', $url, array('first' => 0, 'count' => 2));
+
+        // check page opened status code
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not testPostBucketlistLocation rest!");
+
+        // check response result content type
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        // check database query count
+        if ($profile = $this->client->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on  user-goal postBucketlistLocationAction rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+
+        foreach ($responseResults as $responseResult) {
+
+            if(array_key_exists('location', $responseResult)) {
+
+                $this->assertArrayHasKey('location', $responseResult, 'Invalid location key in bucketLists location rest json structure');
+
+                $location = $responseResult['location'];
+
+                $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('address', $location, 'Invalid address key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('editable', $location, 'Invalid editable key in bucketLists location rest json structure');
+            }
+
+            $this->assertArrayHasKey('id', $responseResult, 'Invalid id key in bucketLists location rest json structure');
+
+            if(array_key_exists('goal', $responseResult)) {
+
+                $goal = $responseResult['goal'];
+
+                $this->assertArrayHasKey('id', $goal, 'Invalid id key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('title', $goal, 'Invalid title key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('status', $goal, 'Invalid status key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('is_my_goal', $goal, 'Invalid is_my_goal key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('share_link', $goal, 'Invalid share_link key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('slug', $goal, 'Invalid slug key in bucketLists location rest json structure');
+
+                if(array_key_exists('image_path', $goal)) {
+                    $this->assertArrayHasKey('image_path', $goal, 'Invalid image_path key in bucketLists location rest json structure');
+                }
+
+                $this->assertArrayHasKey('stats', $goal, 'Invalid stats key in bucketLists location rest json structure');
+
+                $stats = $goal['stats'];
+
+                $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in bucketLists location rest json structure');
+
+                if(array_key_exists('location', $goal)) {
+
+                    $goalLocation = $goal['location'];
+
+                    $this->assertArrayHasKey('latitude', $goalLocation, 'Invalid latitude key in bucketLists location rest json structure');
+                    $this->assertArrayHasKey('longitude', $goalLocation, 'Invalid longitude key in bucketLists location rest json structure');
+                    $this->assertArrayHasKey('address', $goalLocation, 'Invalid address key in bucketLists location rest json structure');
+                }
+            }
         }
     }
 }
