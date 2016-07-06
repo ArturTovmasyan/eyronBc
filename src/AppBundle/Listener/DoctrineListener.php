@@ -172,14 +172,16 @@ class DoctrineListener
         $em = $event->getObjectManager();
         $uow = $em->getUnitOfWork();
 
-        if ($entity instanceof UserGoal){
-            $token = $this->tokeStorage->getToken();
-            $user = null;
-            if ($token){
-                $user = $token->getUser();
-            }
+        $token = $this->tokeStorage->getToken();
+        $user = null;
+        if ($token){
+            $user = $token->getUser();
+        }
 
-            if (is_object($user)) {
+        if (is_object($user)) {
+
+            if ($entity instanceof UserGoal){
+
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status'])){
                     if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible()) {
@@ -196,9 +198,6 @@ class DoctrineListener
                         $em->persist($newFeed);
                         $em->flush();
                     }
-//                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
-//                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
-//                    }
                 }
 
                 if (isset($changeSet['isVisible'])){
@@ -212,6 +211,19 @@ class DoctrineListener
                         else {
                             $newFeed->addGoal($goal);
                         }
+
+                        $em->persist($newFeed);
+                        $em->flush();
+                    }
+                }
+            }
+
+            if ($entity instanceof Goal){
+                $changeSet = $uow->getEntityChangeSet($entity);
+                if (isset($changeSet['readinessStatus'])) {
+                    if ($changeSet['readinessStatus'][1] == Goal::TO_PUBLISH) {
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($entity);
+                        $newFeed = new NewFeed(NewFeed::GOAL_CREATE, $user, $entity);
 
                         $em->persist($newFeed);
                         $em->flush();
@@ -269,11 +281,7 @@ class DoctrineListener
         }
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
-            if ($entity instanceof Goal && $entity->getReadinessStatus() == Goal::TO_PUBLISH){
-                $action = NewFeed::GOAL_CREATE;
-                $goal = $entity;
-            }
-            elseif($entity instanceof UserGoal &&
+            if($entity instanceof UserGoal &&
                 (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId() || $entity->getStatus() == UserGoal::COMPLETED))
             {
                 $action = NewFeed::GOAL_ADD;

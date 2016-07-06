@@ -118,7 +118,7 @@
                                                 <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
 
-                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : 'javascript:void(0)' ]]"
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
                                                class="goalTitle">
                                                 <span class="overlay"></span>
                                                 <img data-ng-src="[[ singleGoal.cached_image ]]" alt="[[ singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>

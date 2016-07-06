@@ -39,14 +39,21 @@ class NewFeedRepository extends EntityRepository
 
         if ($lastDate && $lastId) {
             $newFeedIdsQuery
-                ->andWhere("nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate)")
+                ->andWhere("nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate) AND timestampdiff('DAY', nf.datetime, :lastDate) < :numberOfDays")
                 ->setParameter('lastId', $lastId)
-                ->setParameter('lastDate', $lastDate);
+                ->setParameter('lastDate', $lastDate)
+                ->setParameter(':numberOfDays', 2)
+            ;
         }
         elseif ($lastDate){
             $newFeedIdsQuery
                 ->andWhere("nf.datetime > :lastDate")
                 ->setParameter('lastDate', $lastDate);
+        }
+        else {
+            $newFeedIdsQuery
+                ->andWhere("timestampdiff('DAY', nf.datetime, CURRENT_TIMESTAMP()) < :numberOfDays")
+                ->setParameter(':numberOfDays', 6);
         }
 
         if (is_numeric($first) && is_numeric($count)) {
@@ -63,8 +70,12 @@ class NewFeedRepository extends EntityRepository
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
-        if (count($newFeedIds) == 0) {
-            return [];
+        if (count($newFeedIds) < 10 && !($lastDate && !$lastId)) {
+            $newFeedIdsQuery->getParameter('numberOfDays')->setValue(30);
+            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+            if (count($newFeedIds) == 0){
+                   return [];
+            }
         }
 
         return $this->getEntityManager()

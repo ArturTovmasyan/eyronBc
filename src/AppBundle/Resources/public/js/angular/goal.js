@@ -694,7 +694,7 @@ angular.module('goal', ['Interpolation',
         
         function newActivity() {
             $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
-                if(data){
+                if(data && data.length != 0){
                     $scope.newData = data;
                     $scope.newActivity = true;
                     $interval.cancel(interval);
