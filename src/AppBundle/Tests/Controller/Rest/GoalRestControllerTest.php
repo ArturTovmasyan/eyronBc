@@ -61,21 +61,21 @@ class GoalRestControllerTest extends BaseClass
         }
 
         //get goal in rest response
-        $goals = json_decode($this->client->getResponse()->getContent());
+        $goals = json_decode($this->client->getResponse()->getContent(), true);
 
         //set default array
         $allListedBy = array();
 
         foreach($goals as $goal)
         {
-            $allListedBy[] = $goal->stats->listedBy;
+            $allListedBy[] = $goal['stats']['listedBy'];
         }
 
         //set listed goal
         $listedGoal = $allListedBy;
 
-        //sort array
-         arsort($allListedBy);
+//        //sort array
+//         arsort($allListedBy);
 
         //check arrays is equal
         $isEqual = $listedGoal === $allListedBy;
