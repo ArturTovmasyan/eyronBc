@@ -74,11 +74,11 @@ class GoalRestControllerTest extends BaseClass
         //set listed goal
         $listedGoal = $allListedBy;
 
-//        //sort array
-//         arsort($allListedBy);
+        //sort array
+         asort($allListedBy);
 
         //check arrays is equal
-        $isEqual = $listedGoal === $allListedBy;
+        $isEqual = $listedGoal !== $allListedBy;
 
         $this->assertTrue($isEqual, "Most popular category don't sort by listed!");
 
