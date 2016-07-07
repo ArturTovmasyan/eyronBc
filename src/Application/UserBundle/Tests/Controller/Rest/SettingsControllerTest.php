@@ -26,7 +26,7 @@ class SettingsControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
         }
     }
 
@@ -49,7 +49,7 @@ class SettingsControllerTest extends BaseClass
         // check database query count
         if ($profile = $data['client']->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postChangePasswordAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postChangePasswordAction rest!");
         }
     }
 
@@ -75,7 +75,7 @@ class SettingsControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-settings getUserFromSettingsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-settings getUserFromSettingsAction rest!");
         }
 
         //get response content
@@ -123,7 +123,7 @@ class SettingsControllerTest extends BaseClass
         // check database query count
         if ($profile = $this->clientSecond->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-emails rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on delete user-emails rest!");
         }
     }
 }

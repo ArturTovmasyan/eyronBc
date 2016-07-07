@@ -15,6 +15,6 @@ Feature: Registration
     And I select date fields
     And I press "SIGN UP"
     And I wait for view
-    Then I should be on "/activity"
+    Then I should be on "/ideas"
     And I should see "Tovmasyan"
 

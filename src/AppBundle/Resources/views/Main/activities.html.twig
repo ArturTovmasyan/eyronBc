@@ -3,7 +3,17 @@
 {% block angularApp %}
 <html data-ng-app="goal" data-ng-controller="ActivityController" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
 
+    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
+    {% stylesheets output='css/layout_activity.css'
+    'app/bower_components/swiper/dist/css/swiper.min.css'
+    filter='less,cssrewrite'
+    %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
 
 {% block content %}
     {{ parent() }}
@@ -11,9 +21,12 @@
     <div id="news-feed">
         <div class="container">
             <div class="row"
-                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v1.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
+                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v2.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
                  data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
                  data-infinite-scroll-distance='2'>
+                <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
+                   <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
+                </div>
 
                 <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
@@ -54,15 +67,18 @@
                                             </a>
 
                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
-                                                {{ 'goal.create'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.create'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.create_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                             </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
-                                                {{ 'goal.add'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.add'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.add_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                              </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
-                                                {{ 'goal.complete'|trans({},'newsFeed') }}
+                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.complete'|trans({},'newsFeed') }}</span>
+                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.complete_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
                                              </span>
 
                                              <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
@@ -92,10 +108,59 @@
 
                             </div>
 
-                            <div data-ng-show="!activity.comment && !activity.success_story">
-                                {{ _self.goal(env_prefix) }}
-                            </div>
+                            <div data-ng-show="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
+                                <div class="idea-item swiper-wrapper goals-animate">
+                                    <div class="swiper-slide"
+                                         data-ng-cloak
+                                         data-ng-repeat="singleGoal in activity.goals">
+                                        <figure>
+                                            <h3>
+                                                <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                                            </h3>
 
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                                               class="goalTitle">
+                                                <span class="overlay"></span>
+                                                <img data-ng-src="[[ singleGoal.cached_image ]]" alt="[[ singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
+                                            </a>
+
+                                            <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
+                                                <ul>
+                                                    <li>
+                                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
+                                                    <span>
+                                                        {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                        [[ singleGoal.stats.listedBy ]]
+                                                    </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
+                                                    <span>
+                                                        {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                        [[ singleGoal.stats.doneBy ]]
+                                                    </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <figcaption>
+                                                {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+
+                                <div data-ng-show="activity.goals.length > 1">
+                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                    <!-- Add Arrows -->
+                                    <div class="swiper-button-next swiper-button-white"></div>
+                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                </div>
+                            </div>
                         </div>
                         <br/>
                     </div>
@@ -104,7 +169,7 @@
                         <a href="javascript:void(0)"
                            data-ng-cloak
                            data-ng-show="!Activities.busy && Activities.request >= 1"
-                           data-ng-click='Activities.getReserve("{{ env_prefix }}/api/v1.0/activities/{first}/{count}")'
+                           data-ng-click='Activities.getReserve("{{ env_prefix }}/api/v2.0/activities/{first}/{count}")'
                            class="show-more ng-hide">
                             <span></span>
                             <span></span>
@@ -128,25 +193,25 @@
 {% macro goal(env_prefix) %}
     <div class="row">
         <div class="col-sm-12 idea-item round">
-            <figure>
-                <i class="icon-lock-white" data-ng-show="!activity.goal.status"></i>
+            <figure data-ng-repeat="singleGoal in activity.goals">
+                <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
-                <a data-ng-href="{{ env_prefix }}/goal/[[ ::activity.goal.slug ]]" class="goalTitle">
+                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]" class="goalTitle">
                     <span class="overlay"></span>
-                    <h3>[[ ::activity.goal.title ]]</h3>
-                    <img data-ng-if="activity.goal.image_path" data-ng-src="[[ ::activity.goal.cached_image ]]" alt="[[ ::activity.goal.title ]]"/>
+                    <h3>[[ ::singleGoal.title ]]</h3>
+                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
 
-                    <div class="absolute">
+                    <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
                         <ul>
                             <li>
-                                <a href="{{ env_prefix }}/listed-users/[[ ::activity.goal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::activity.listed_by ]] </span>
+                                <a href="{{ env_prefix }}/listed-users/[[ ::singleGoal.slug ]]" class="ng-scope">
+                                    <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ env_prefix }}/done-users/[[ ::activity.goal.slug ]]" class="ng-scope">
-                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::activity.completed_by ]]</span>
+                                <a href="{{ env_prefix }}/done-users/[[ ::singleGoal.slug ]]" class="ng-scope">
+                                    <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.stats.doneBy ]]</span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
@@ -161,6 +226,17 @@
         </div>
     </div>
 {% endmacro %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_activity.js'
+    'app/bower_components/swiper/dist/js/swiper.min.js'
+    'bundles/app/js/swiper-inner.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
 {%- block title -%}
     {{ 'activities.title'|trans }}

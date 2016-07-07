@@ -118,7 +118,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
         //get goal in rest response
@@ -154,19 +154,28 @@ class GoalRestControllerTest extends BaseClass
     {
         // get user goal
         $url = sprintf('/api/v1.0/goals/%s', $goalId);
+
         // try to get goal by id
         $this->client->request('GET', $url);
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getAction rest!");
+        //get goal by id
+        $goal = $this->em->getRepository('AppBundle:Goal')->find($goalId);
+
+        //get user by username
+        $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneBy(array('email' => 'user4@user.com'));
+
+        if($goal->getPublish() && !is_null($goal->getAuthor()) && $goal->getAuthor()->getId() == $user->getId()) {
+            $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal by id in getAction rest!");
+        }
 
         $this->assertTrue(
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
-
+        
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal getAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal getAction rest!");
         }
     }
 
@@ -368,7 +377,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal GetFriendsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal getAction rest!");
         }
 
         //get response content
@@ -428,7 +437,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(11, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest!");
         }
 
     }
@@ -453,7 +462,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
         }
     }
 

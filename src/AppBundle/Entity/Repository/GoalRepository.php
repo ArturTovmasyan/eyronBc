@@ -371,7 +371,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                                            WHERE ug.goal_id IN (SELECT ug1.goal_id
                                                                 FROM users_goals AS ug1
                                                                 WHERE ug1.user_id = :userId)
-                                           AND ug.user_id != :userId");
+                                           AND ug.user_id != :userId AND ug.is_visible = true");
         $statement->bindValue('userId', $userId);
 
         if (!$getAll){
@@ -685,5 +685,22 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         ;
 
         return $query->getQuery();
+    }
+
+    /**
+     * @param $user1Id
+     * @param $user2Id
+     * @return array
+     */
+    public function findCommonGoals($user1Id, $user2Id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g
+                           FROM AppBundle:Goal g
+                           JOIN g.userGoal ug WITH ug.user = :user1Id
+                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
+            ->setParameter('user1Id', $user1Id)
+            ->setParameter('user2Id', $user2Id)
+            ->getResult();
     }
 }
