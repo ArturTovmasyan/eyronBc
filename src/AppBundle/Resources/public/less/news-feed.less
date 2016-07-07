@@ -1,7 +1,48 @@
 @import "../../../app/bower_components/bootstrap/less/variables.less";
 @import "function.less";
 
+.goalfrineds-menu{
+  ul{
+    padding-left:0;
+    li{
+      display: inline-block;
+
+      a{
+        padding: 5px 10px;
+        color: #666666;
+
+        &:hover{
+          color: #7724F6;
+        }
+      }
+    }
+  }
+}
 #news-feed,#goal-friends{
+
+
+  form{
+    .icon-search-icon{
+      position: absolute;
+      font-size: 28px;
+      color: #cccccc;
+    }
+
+    input{
+      border: 0;
+      font-size:16px;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 1px solid #cccccc;
+      padding: 2px 5px 5px 35px;
+      color:#333333;
+      &:hover,&:active{
+        border-bottom: 1px solid #7724F6;
+      }
+    }
+  }
+
+
 
   .users-list{
     background-color: #ffffff;
@@ -14,7 +55,6 @@
   }
 
   .icon-lock-white {
-    //position: absolute;
     right: 15px;
     top: 15px;
     color: #B3B3B3;

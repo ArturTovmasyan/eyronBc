@@ -15,17 +15,39 @@
                             <form role="search" action="#" method="GET">
                                 <div class="form-group row">
 
-                                    <div class="col-xs-10 col-sm-11">
+                                    {#<div class="col-xs-10 col-sm-11">#}
+                                        {#<input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">#}
+                                    {#</div>#}
+                                    {#<div  class="col-xs-2 col-sm-1">#}
+                                        {#<a href="{{ path('goal_friends') }}" class="text-gray">#}
+                                            {#<i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+                                        {#</a>#}
+                                    {#</div>#}
+
+                                    <div class="col-sm-12">
+                                        <span class="icon-search-icon"></span>
                                         <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
-                                    </div>
-                                    <div  class="col-xs-2 col-sm-1">
-                                        <a href="{{ path('goal_friends') }}" class="text-gray">
-                                            {#<i class="icon remove-icon"></i>#}
-                                            <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                        </a>
                                     </div>
                                 </div>
                             </form>
+
+                            <ul class="goalfrineds-menu">
+                                <li>
+                                    <a>All</a>
+                                </li>
+
+                                <li>
+                                    <a>Recently Matched</a>
+                                </li>
+
+                                <li>
+                                    <a>Most Matching</a>
+                                </li>
+
+                                <li>
+                                    <a>Most active</a>
+                                </li>
+                            </ul>
                         </div>
 
                     {% endif %}
@@ -68,6 +90,7 @@
                                                         {% set stats = goalFriend.getStats %}
                                                         <span class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</span> |
                                                         <span class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</span>
+                                                        <span class="text-gray">In Common</span>
                                                     </div>
                                                 </div>
                                             </div>
