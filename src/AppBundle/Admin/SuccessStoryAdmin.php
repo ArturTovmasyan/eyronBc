@@ -11,6 +11,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class SuccessStoryAdmin extends AbstractAdmin
 {
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'updated',
+    );
+
     /**
      * @param DatagridMapper $datagridMapper
      */

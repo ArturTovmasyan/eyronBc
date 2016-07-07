@@ -29,9 +29,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 /**
  * Class ModeratorGoalAdmin
  * @package AppBundle\Admin
+ * TODO: if all ok need to have parent goalAdmin class
  */
 class ModeratorGoalAdmin extends AbstractAdmin
 {
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'updated',
+    );
+
     protected $formOptions = array(
         'validation_groups' => array('goal')
     );
@@ -135,6 +142,7 @@ class ModeratorGoalAdmin extends AbstractAdmin
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('created', null, array('label'=>'admin.label.name.created'))
+            ->add('updated', null, array('label'=>'admin.label.name.updated'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),

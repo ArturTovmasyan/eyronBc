@@ -354,6 +354,7 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
+      updated: Updated
       goal_link: Goal link
       action_merge: Merge
       goal_status: Goal Status
