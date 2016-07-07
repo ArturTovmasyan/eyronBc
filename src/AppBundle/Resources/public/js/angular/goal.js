@@ -508,6 +508,7 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+        var imageHeight;
 
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
             var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
@@ -526,19 +527,26 @@ angular.module('goal', ['Interpolation',
             }
         });
 
-
-        if(window.innerWidth > 991 && window.innerWidth < 1200){
-            angular.element('#main-slider img').addClass("full-height");
-        }else{
-            angular.element('#main-slider img').removeClass("full-height")
-        }
-
-        $(window).resize(function(){
-            if(window.innerWidth > 991 && window.innerWidth < 1200){
+        var imageResize = function () {
+            imageHeight = angular.element('#main-slider img').height();
+            if( (window.innerWidth < 768 && imageHeight < 190) ||
+              (window.innerWidth > 767 && window.innerWidth < 992 && imageHeight < 414) ||
+              (window.innerWidth > 991 && imageHeight < 435)){
                 angular.element('#main-slider img').addClass("full-height");
-            }else{
+            } else {
                 angular.element('#main-slider img').removeClass("full-height")
             }
+        };
+
+        imageResize();
+
+        $(window).resize(function(){
+            // if(window.innerWidth > 991 && window.innerWidth < 1200){
+            //     angular.element('#main-slider img').addClass("full-height");
+            // }else{
+            //     angular.element('#main-slider img').removeClass("full-height")
+            // }
+            imageResize();
 
             if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
                 goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight();

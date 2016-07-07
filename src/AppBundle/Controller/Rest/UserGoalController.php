@@ -108,10 +108,12 @@ class UserGoalController extends FOSRestController
         
         $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
 
+        $suggestAsVisible = false;
         if (!$userGoal) {
             $userGoal = new UserGoal();
             $userGoal->setGoal($goal);
             $userGoal->setUser($this->getUser());
+            $suggestAsVisible = true;
         }
 
         if (!is_null($request->get('goal_status'))){
@@ -206,6 +208,10 @@ class UserGoalController extends FOSRestController
         $em->persist($userGoal);
         $em->flush();
 
+        if ($suggestAsVisible){
+            $userGoal->setIsVisible(true);
+        }
+        
         return $userGoal;
     }
 
