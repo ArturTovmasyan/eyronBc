@@ -290,6 +290,7 @@ admin:
       category: Категория
       aphorism: Афоризм
       time_sentence: Time Sentence
+      success_story: История успеха
       page: Страница
       goal: Цель
       id: Идентификатор

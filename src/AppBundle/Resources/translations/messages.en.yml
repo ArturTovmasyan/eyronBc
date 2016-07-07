@@ -325,6 +325,7 @@ admin:
       category: Category
       aphorism: Aphorism
       time_sentence: Time Sentence
+      success_story: Success Story
       page: Page
       goal: Goal
       id: Id
