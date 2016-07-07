@@ -594,7 +594,6 @@ class GoalRestControllerTest extends BaseClass
                 $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in goal story rest json structure');
                 $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in goal story rest json structure');
                 $this->assertArrayHasKey('stats', $author, 'Invalid stats key in goal story rest json structure');
-                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in goal story rest json structure');
 
                 $authorStats = $author['stats'];
 

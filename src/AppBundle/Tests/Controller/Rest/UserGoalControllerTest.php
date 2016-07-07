@@ -422,4 +422,111 @@ class UserGoalControllerTest extends BaseClass
             }
         }
     }
+
+    /**
+     * this function try to test testGetUserGoalInfo
+     */
+    public function testGetUserGoalInfo()
+    {
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal11'))->getId();
+
+        // generate postBucketlistAction rest url
+        $url = sprintf('/api/v1.0/usergoals/%s', $goalId);
+
+        // try to post BucketlistAction
+        $this->client2->request('GET', $url);
+
+        // check page opened status code
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not testGetUserGoalInfo rest!");
+
+        // check response result content type
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        // check database query count
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetUserGoalInfo rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+//        dump($responseResults);exit;
+
+        $this->assertArrayHasKey('steps', $responseResults, 'Invalid steps key in bucketlists rest json structure');
+        $this->assertArrayHasKey('formatted_steps', $responseResults, 'Invalid formatted_steps key in bucketlists rest json structure');
+
+        if(array_key_exists('location', $responseResults)) {
+
+            $location = $responseResults['location'];
+
+            $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in top ideas rest json structure');
+            $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in top ideas rest json structure');
+            $this->assertArrayHasKey('address', $location, 'Invalid address key in top ideas rest json structure');
+            $this->assertArrayHasKey('editable', $location, 'Invalid editable key in top ideas rest json structure');
+        }
+
+        $this->assertArrayHasKey('status', $responseResults, 'Invalid status key in bucketlists rest json structure');
+        $this->assertArrayHasKey('is_visible', $responseResults, 'Invalid is_visible key in bucketlists rest json structure');
+        $this->assertArrayHasKey('urgent', $responseResults, 'Invalid urgent key in bucketlists rest json structure');
+        $this->assertArrayHasKey('important', $responseResults, 'Invalid important key in bucketlists rest json structure');
+
+        if(array_key_exists('goal', $responseResults)) {
+
+            $this->assertArrayHasKey('goal', $responseResults, 'Invalid goal key in bucketlists rest json structure');
+
+            //get goal in array
+            $goal = $responseResults['goal'];
+
+            $this->assertArrayHasKey('id', $goal, 'Invalid id key in bucketlists rest json structure');
+            $this->assertArrayHasKey('description', $goal, 'Invalid description key in bucketlists rest json structure');
+            $this->assertArrayHasKey('title', $goal, 'Invalid title key in bucketlists rest json structure');
+            $this->assertArrayHasKey('video_link', $goal, 'Invalid video_link key in bucketlists rest json structure');
+
+            $this->assertArrayHasKey('status', $goal, 'Invalid status key in bucketlists rest json structure');
+            $this->assertArrayHasKey('publish', $goal, 'Invalid publish key in bucketlists rest json structure');
+            $this->assertArrayHasKey('created', $goal, 'Invalid created key in bucketlists rest json structure');
+
+            $this->assertArrayHasKey('is_my_goal', $goal, 'Invalid is_my_goal key in bucketlists rest json structure');
+            $this->assertArrayHasKey('share_link', $goal, 'Invalid share_link key in bucketlists rest json structure');
+            $this->assertArrayHasKey('slug', $goal, 'Invalid slug key in bucketlists rest json structure');
+            $this->assertArrayHasKey('stats', $goal, 'Invalid stats key in bucketlists rest json structure');
+
+            $goalStats = $goal['stats'];
+
+            $this->assertArrayHasKey('listedBy', $goalStats, 'Invalid listedBy key in bucketlists rest json structure');
+            $this->assertArrayHasKey('doneBy', $goalStats, 'Invalid doneBy key in bucketlists rest json structure');
+
+            if(array_key_exists('image_path', $goal)) {
+                $this->assertArrayHasKey('image_path', $goal, 'Invalid image_path key in bucketlists rest json structure');
+            }
+
+            if(array_key_exists('author', $goal)) {
+
+                $this->assertArrayHasKey('author', $goal, 'Invalid author key in goal story rest json structure');
+
+                $author = $goal['author'];
+
+                $this->assertArrayHasKey('id', $author, 'Invalid id key in goal story rest json structure');
+                $this->assertArrayHasKey('username', $author, 'Invalid username key in goal story rest json structure');
+                $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in goal story rest json structure');
+                $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in goal story rest json structure');
+                $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in goal story rest json structure');
+                $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in goal story rest json structure');
+                $this->assertArrayHasKey('is_confirmed', $author, 'Invalid is_confirmed key in goal story rest json structure');
+                $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in goal story rest json structure');
+
+                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in goal story rest json structure');
+
+                $authorStats = $author['stats'];
+
+                $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in goal story rest json structure');
+                $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in goal story rest json structure');
+                $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in goal story rest json structure');
+            }
+        }
+    }
 }
