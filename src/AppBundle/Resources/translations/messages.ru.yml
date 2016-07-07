@@ -82,6 +82,9 @@ goal:
       view_access_denied: Вы не имеете доступ просмотра этой идеи
       edit_access_denied: Вы не имеете доступ изменения этой идеи
       delete_access_denied: Вы не имеете доступ удаления этой идеи
+      add_access_denied: Вы не имеете доступ для добавления этой идеи
+      done_access_denied: Вы не имеете доступ для завершения этой идеи
+
 
 activities:
       title: Действия
@@ -129,6 +132,8 @@ user_goal:
 
 # success story form
 success_story:
+      error_without_file: Пожалуйста, введите не менее 3 слов, ибо нет изображения или видео!
+      error_widht_file:  Пожалуйста, напишите историю успеха!
       completion_date: Дата достижение цели
       complete_text: Разместите историю успеха
       complete_edit_text: Пожалуйста, укажите дату, когда ваша цель была достигнута.

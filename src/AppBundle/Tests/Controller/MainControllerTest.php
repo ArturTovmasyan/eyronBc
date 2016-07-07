@@ -39,7 +39,7 @@ class MainControllerTest extends BaseClass
 
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal inner page!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal inner page!");
         }
     }
 
@@ -98,23 +98,22 @@ class MainControllerTest extends BaseClass
 //
 //    }
 //
-//    /**
-//     * This function is used to check goal friends page
-//     */
-//    public function testGoalFriends()
-//    {
-//
-//        // try to open goal add-to-me page
-//        $this->clientSecond->request('GET', '/goal-friends', array('search'=>'goal3'));
-//
-//        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends page!');
-//
-//        // check db request count
-//        if ($profile = $this->clientSecond->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
-//        }
-//    }
+    /**
+     * This function is used to check goal friends search action
+     */
+    public function testGoalFriendsSearch()
+    {
+        // try to open goal add-to-me page
+        $this->clientSecond->request('GET', '/goal-friends', array('search' => 'user10'));
+
+        $this->assertEquals($this->clientSecond->getResponse()->getStatusCode(), Response::HTTP_OK, 'can not open goal goal friends search page!');
+
+        // check db request count
+        if ($profile = $this->clientSecond->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal friends search page!");
+        }
+    }
 //
 //    /**
 //     * This function is used to check Goal Users page

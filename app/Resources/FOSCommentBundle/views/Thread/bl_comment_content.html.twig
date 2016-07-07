@@ -5,8 +5,9 @@
     {% if _key is defined and _key == 0 and  comments|length > 2 %}
         <div class="text-right">
             <a href="javascript:void(0)"
+               id="showMore"
                class="view-more-comments text-purple"
-               data-last-index="{{ comments|length - 1 }}">Show More +5</a>
+               data-last-index="{{ comments|length - 1 }}">Show More +<span id="commentsCount">{{ comments|length - 2 }}</span></a>
         </div>
     {% endif %}
 

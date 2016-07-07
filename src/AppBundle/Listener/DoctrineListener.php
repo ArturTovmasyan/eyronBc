@@ -72,22 +72,19 @@ class DoctrineListener
      */
     public function postLoad(LifecycleEventArgs $event)
     {
-        $em = $this->container->get('doctrine')->getManager();
+        $em     = $this->container->get('doctrine')->getManager();
         $entity = $event->getObject();
 
-        if ($token = $this->container->get('security.token_storage')->getToken()){
-
+        if ($token = $this->container->get('security.token_storage')->getToken())
+        {
             if ($entity instanceof Goal){
-
                 $user = $token->getUser();
-
                 $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
                 $entity->setShareLink($shareLink);
 
+                //Set goal is_my_goal fields
                 if ($user instanceof User && $this->setIsMyGoal) {
-
                     $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($user->getId());
-
                     if (count($userGoalsArray) > 0) {
                         if (array_key_exists($entity->getId(), $userGoalsArray)) {
                             $entity->setIsMyGoal($userGoalsArray[$entity->getId()]['status'] == UserGoal::COMPLETED ? UserGoal::COMPLETED : UserGoal::ACTIVE);
@@ -97,13 +94,16 @@ class DoctrineListener
                     }
                 }
             }
-            if ($entity instanceof User){
+
+            //Set user stats
+            elseif ($entity instanceof User){
                 if ($this->loadUserStats){
                     $em->getRepository('ApplicationUserBundle:User')->setUserStats($entity);
                 }
             }
         }
 
+        //Set Cached image paths
         $request = $this->container->get('request_stack')->getCurrentRequest();
         $route = $this->container->get('router');
         $liipManager = $this->container->get('liip_imagine.cache.manager');
@@ -132,25 +132,21 @@ class DoctrineListener
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-        // get entity manager
         $em = $args->getEntityManager();
-
-        // get unit work
         $uow = $em->getUnitOfWork();
 
-        // for insert
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
-                do{
-                    $string = $this->container->get('bl_random_id_service')->randomString()?$this->container->get('bl_random_id_service')->randomString():"";
-                    $isUser = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $string));
-                }
-                while($isUser);
 
                 //check if user don't have uId
                 if(!$entity->getUId()) {
+                    do {
+                        $string = $this->container->get('bl_random_id_service')->randomString()?$this->container->get('bl_random_id_service')->randomString():"";
+                        $isUser = $em->getRepository('ApplicationUserBundle:User')->findOneBy(array('uId' => $string));
+                    }
+                    while($isUser);
+
                     $entity->setUId($string);
                 }
                 $metadata = $em->getMetadataFactory()->getMetadataFor('ApplicationUserBundle:User');
@@ -167,31 +163,70 @@ class DoctrineListener
         }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postUpdate(LifecycleEventArgs $event)
     {
         $entity = $event->getObject();
         $em = $event->getObjectManager();
         $uow = $em->getUnitOfWork();
 
-        if ($entity instanceof UserGoal){
-            $token = $this->tokeStorage->getToken();
-            $user = null;
-            if ($token){
-                $user = $token->getUser();
-            }
+        $token = $this->tokeStorage->getToken();
+        $user = null;
+        if ($token){
+            $user = $token->getUser();
+        }
 
-            if (is_object($user)) {
+        if (is_object($user)) {
+
+            if ($entity instanceof UserGoal){
+
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status'])){
-                    if($changeSet['status'][1] == UserGoal::COMPLETED) {
+                    if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible()) {
                         $goal = $entity->getGoal();
                         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                        $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_COMPLETE);
+                        if (is_null($newFeed)) {
+                            $newFeed = new NewFeed(NewFeed::GOAL_COMPLETE, $user, $goal);
+                        }
+                        else {
+                            $newFeed->addGoal($goal);
+                        }
+
                         $em->persist($newFeed);
                         $em->flush();
                     }
-                    elseif($changeSet['status'][1] == UserGoal::ACTIVE) {
-                        $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+                }
+
+                if (isset($changeSet['isVisible'])){
+                    if($changeSet['isVisible'][1] == true && $entity->getGoal()->getPublish()) {
+                        $goal = $entity->getGoal();
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
+                        $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_ADD);
+                        if (is_null($newFeed)) {
+                            $newFeed = new NewFeed(NewFeed::GOAL_ADD, $user, $goal);
+                        }
+                        else {
+                            $newFeed->addGoal($goal);
+                        }
+
+                        $em->persist($newFeed);
+                        $em->flush();
+                    }
+                }
+            }
+
+            if ($entity instanceof Goal){
+                $changeSet = $uow->getEntityChangeSet($entity);
+                if (isset($changeSet['readinessStatus'])) {
+                    if ($changeSet['readinessStatus'][1] == Goal::TO_PUBLISH) {
+                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($entity);
+                        $newFeed = new NewFeed(NewFeed::GOAL_CREATE, $user, $entity);
+
+                        $em->persist($newFeed);
+                        $em->flush();
                     }
                 }
             }
@@ -203,18 +238,21 @@ class DoctrineListener
      */
     public function preRemove(LifecycleEventArgs $event)
     {
-        $entity = $event->getObject();
-        $em = $event->getObjectManager();
-
-        if ($entity instanceof UserGoal){
-            if ($entity->getStatus() == UserGoal::COMPLETED){
-                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
-            }
-
-            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
-        }
+//        $entity = $event->getObject();
+//        $em = $event->getObjectManager();
+//
+//        if ($entity instanceof UserGoal){
+//            if ($entity->getStatus() == UserGoal::COMPLETED){
+//                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//            }
+//
+//            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
+//        }
     }
 
+    /**
+     * @param LifecycleEventArgs $event
+     */
     public function postPersist(LifecycleEventArgs $event)
     {
         $entity = $event->getObject();
@@ -243,11 +281,7 @@ class DoctrineListener
         }
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
-            if ($entity instanceof Goal){
-                $action = NewFeed::GOAL_CREATE;
-                $goal = $entity;
-            }
-            elseif($entity instanceof UserGoal &&
+            if($entity instanceof UserGoal &&
                 (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId() || $entity->getStatus() == UserGoal::COMPLETED))
             {
                 $action = NewFeed::GOAL_ADD;
@@ -257,7 +291,7 @@ class DoctrineListener
 
                 $goal = $entity->getGoal();
             }
-            elseif($entity instanceof SuccessStory && str_replace(" ", "", $entity->getStory()) != ""){
+            elseif($entity instanceof SuccessStory && str_replace(" ", "", $entity->getStory()) != "" && $entity->getGoal()->getPublish()){
                 $action = NewFeed::SUCCESS_STORY;
                 $goal = $entity->getGoal();
                 $story = $entity;
@@ -265,15 +299,32 @@ class DoctrineListener
             elseif($entity instanceof Comment){
                 $goalId = $entity->getThread()->getId();
                 $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-                if (!is_null($goal)){
+                if (!is_null($goal) && $goal->getPublish()){
                     $comment = $entity;
                     $action = NewFeed::COMMENT;
                 }
             }
 
-            if (!is_null($action)) {
+            if (!is_null($action))
+            {
+                $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($user->getId(), $goal->getId());
+                if (!is_null($userGoal) && !$userGoal->getIsVisible()){
+                    return null;
+                }
+
                 $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-                return $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
+                if (in_array($action, NewFeed::$groupedActions)){
+                    $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), $action);
+                }
+
+                if (!isset($newFeed) || is_null($newFeed)){
+                    $newFeed = new NewFeed($action, $user, $goal, $story, $comment);
+                }
+                else {
+                    $newFeed->addGoal($goal);
+                }
+
+                return $newFeed;
             }
         }
 
