@@ -1,0 +1,6 @@
+services:
+    application_comment.admin.comment:
+        class: Application\CommentBundle\Admin\CommentAdmin
+        arguments: [~, Application\CommentBundle\Entity\Comment, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Comment }
