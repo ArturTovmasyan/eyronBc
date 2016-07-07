@@ -39,11 +39,15 @@
         </service>
 
         <!-- SuccessStory -->
-        <service id="sonata.admin.app.time.success.story" class="AppBundle\Admin\SuccessStoryAdmin">
+        <service id="sonata.admin.app.success.story" class="AppBundle\Admin\SuccessStoryAdmin">
             <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.success_story"/>
             <argument/>
             <argument>AppBundle\Entity\SuccessStory</argument>
             <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:success_story_edit.html.twig</argument>
+            </call>
         </service>
 
         <!-- page -->
@@ -61,6 +65,26 @@
         <!-- Goal -->
         <service id="sonata.admin.app.goal" class="AppBundle\Admin\GoalAdmin">
             <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.goal"/>
+            <argument/>
+            <argument>AppBundle\Entity\Goal</argument>
+            <argument>AppBundle:Admin/CRUD</argument>
+            <argument/>
+            <call method="setTemplate">
+                <argument>edit</argument>
+                <argument>AppBundle:Admin:goal_edit.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:goal_show.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>merge</argument>
+                <argument>AppBundle:Admin:goal_merge.html.twig</argument>
+            </call>
+        </service>
+
+        <service id="sonata.moderator.app.goal" class="AppBundle\Admin\ModeratorGoalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.goal"/>
             <argument/>
             <argument>AppBundle\Entity\Goal</argument>
             <argument>AppBundle:Admin/CRUD</argument>

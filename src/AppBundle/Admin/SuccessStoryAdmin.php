@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Form\Type\BlMultipleVideoType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -20,7 +21,6 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
-            ->add('videoLink')
         ;
     }
 
@@ -34,7 +34,6 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
-            ->add('videoLink')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -51,11 +50,10 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
             ->add('created')
             ->add('updated')
             ->add('story')
-            ->add('videoLink')
+            ->add('videoLink', BlMultipleVideoType::class)
         ;
     }
 

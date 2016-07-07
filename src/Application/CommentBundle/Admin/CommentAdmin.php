@@ -16,12 +16,10 @@ class CommentAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
             ->add('body')
-            ->add('ancestors')
-            ->add('depth')
             ->add('createdAt')
             ->add('state')
-            ->add('id')
         ;
     }
 
@@ -31,12 +29,11 @@ class CommentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('id')
             ->add('body')
-            ->add('ancestors')
             ->add('depth')
             ->add('createdAt')
             ->add('state')
-            ->add('id')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -54,11 +51,9 @@ class CommentAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('body')
-            ->add('ancestors')
             ->add('depth')
             ->add('createdAt')
             ->add('state')
-            ->add('id')
         ;
     }
 
@@ -68,12 +63,12 @@ class CommentAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('id')
             ->add('body')
             ->add('ancestors')
             ->add('depth')
             ->add('createdAt')
             ->add('state')
-            ->add('id')
         ;
     }
 }
