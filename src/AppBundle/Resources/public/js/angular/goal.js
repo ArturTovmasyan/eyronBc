@@ -508,6 +508,17 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+
+        $timeout(function(){
+            if(window.location.hash && window.location.hash == "#/comments"){
+
+                $('html, body').stop().animate( {
+                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                }, 900);
+            }
+        }, 5000);
+
+
         var imageHeight;
 
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
