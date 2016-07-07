@@ -738,7 +738,7 @@ angular.module('goal', ['Interpolation',
                     prevButton: '.swiper-button-prev',
                     spaceBetween: 30
                 })
-            }, 500);
+            }, 1000);
         }
 
         $scope.Activities = new lsInfiniteItems(10);

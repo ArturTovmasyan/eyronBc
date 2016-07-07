@@ -299,6 +299,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal8->setNote('goal9');
         $userGoal8->setImportant(true);
         $userGoal8->setUrgent(true);
+        $userGoal8->setIsVisible(true);
         $userGoal8->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal8);
 
