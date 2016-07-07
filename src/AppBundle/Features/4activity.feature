@@ -16,6 +16,7 @@ Feature: Activity
     And I wait for view
     And I change switch "2"
     And I wait for view
+    And I change switch "2"
     And  I click on "btn btn-purple"
     And I wait for angular
     And I am on "/profile"
