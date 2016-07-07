@@ -111,7 +111,7 @@ Feature: My Bucket list
     And I follow "My Bucketlist"
     And I am on "/goal/goal9"
     Then I should see "Comments"
-    And should see "Show More +5"
+    And should see "Show More"
     And I fill in "fos_comment_comment[body]" with "GOOD COMMENT"
     And I wait for view
     And I follow "Show More"
