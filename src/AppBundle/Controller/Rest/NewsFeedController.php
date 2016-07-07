@@ -72,10 +72,17 @@ class NewsFeedController extends FOSRestController
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 
         $liipManager = $this->get('liip_imagine.cache.manager');
+        $route = $this->get('router');
         foreach($newsFeeds as $newsFeed){
             foreach($newsFeed->getGoals() as $goal)
             {
                 try {
+
+                    $liipManager->getBrowserPath($goal->getImagePath(), 'mobile_goal');
+                    $params = ['path' => ltrim($goal->getImagePath(), '/'), 'filter' => 'mobile_goal'];
+                    $filterUrl = $route->generate('liip_imagine_filter', $params);
+                    $goal->setMobileImagePath($filterUrl);
+
                     $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
                 } catch (\Exception $e) {
                     $goal->setCachedImage("");
