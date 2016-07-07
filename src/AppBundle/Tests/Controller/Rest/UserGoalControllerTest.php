@@ -454,8 +454,6 @@ class UserGoalControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
 
-//        dump($responseResults);exit;
-
         $this->assertArrayHasKey('steps', $responseResults, 'Invalid steps key in bucketlists rest json structure');
         $this->assertArrayHasKey('formatted_steps', $responseResults, 'Invalid formatted_steps key in bucketlists rest json structure');
 
