@@ -9,6 +9,8 @@ namespace AppBundle\Entity;
 
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Class NewFeed
@@ -24,6 +26,8 @@ class NewFeed
     const GOAL_COMPLETE = 2;
     const SUCCESS_STORY = 3;
     const COMMENT       = 4;
+
+    static $groupedActions = [NewFeed::GOAL_ADD, NewFeed::GOAL_COMPLETE];
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -43,6 +47,11 @@ class NewFeed
     protected $user;
 
     /**
+     * @ORM\Column(name="goals", type="array", nullable=false)
+     */
+    protected $goals = [];
+
+    /**
      * @ORM\ManyToOne(targetEntity="Goal")
      * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", onDelete="CASCADE")
      *
@@ -51,14 +60,14 @@ class NewFeed
     protected $goal;
 
     /**
-     * @ORM\Column(name="listed_by", type="integer", nullable=false)
+     * @ORM\Column(name="listed_by", type="integer", nullable=true)
      *
      * @Groups({"new_feed"})
      */
     protected $listedBy;
 
     /**
-     * @ORM\Column(name="completed_by", type="integer", nullable=false)
+     * @ORM\Column(name="completed_by", type="integer", nullable=true)
      *
      * @Groups({"new_feed"})
      */
@@ -110,10 +119,10 @@ class NewFeed
     {
         $this->setUser($user);
         $this->setAction($action);
-        $this->setGoal($goal);
         $this->setSuccessStory($story);
         $this->setComment($comment);
         $this->setDatetime(new \DateTime());
+        $this->setGoals([$goal->getId() => $goal]);
     }
 
     /**
@@ -124,6 +133,33 @@ class NewFeed
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set goal
+     *
+     * @param \AppBundle\Entity\Goal $goal
+     * @return NewFeed
+     */
+    public function setGoal(\AppBundle\Entity\Goal $goal = null)
+    {
+        $this->goal = $goal;
+
+        $stats = $goal->getStats();
+        $this->listedBy    = isset($stats['listedBy']) ? $stats['listedBy'] : 0;
+        $this->completedBy = isset($stats['doneBy'])   ? $stats['doneBy']   : 0;
+
+        return $this;
+    }
+
+    /**
+     * Get goal
+     *
+     * @return \AppBundle\Entity\Goal
+     */
+    public function getGoal()
+    {
+        return $this->goal;
     }
 
     /**
@@ -193,33 +229,6 @@ class NewFeed
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set goal
-     *
-     * @param \AppBundle\Entity\Goal $goal
-     * @return NewFeed
-     */
-    public function setGoal(\AppBundle\Entity\Goal $goal = null)
-    {
-        $this->goal = $goal;
-
-        $stats = $goal->getStats();
-        $this->listedBy    = isset($stats['listedBy']) ? $stats['listedBy'] : 0;
-        $this->completedBy = isset($stats['doneBy'])   ? $stats['doneBy']   : 0;
-
-        return $this;
-    }
-
-    /**
-     * Get goal
-     *
-     * @return \AppBundle\Entity\Goal 
-     */
-    public function getGoal()
-    {
-        return $this->goal;
     }
 
     /**
@@ -360,5 +369,40 @@ class NewFeed
     public function getCompletedBy()
     {
         return $this->completedBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoals()
+    {
+        return $this->goals;
+    }
+
+    /**
+     * @param mixed $goals
+     */
+    public function setGoals($goals)
+    {
+        $this->goals = $goals;
+    }
+
+    /**
+     * @param $goal
+     */
+    public function addGoal($goal)
+    {
+        $this->goals[$goal->getId()] = $goal;
+        $this->setDatetime(new \DateTime());
+    }
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"new_feed"})
+     * @SerializedName("goals")
+     */
+    public function getGoalsArray()
+    {
+        return $this->getGoals() ? array_values($this->getGoals()) : [];
     }
 }

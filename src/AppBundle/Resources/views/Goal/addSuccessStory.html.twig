@@ -1,4 +1,5 @@
 <div id="story-modal" data-ng-controller="goalDone">
+    <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans }}</div>
     <div class="modal-top">
         <figure data-ng-if="userGoal.goal.cached_image">
             <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
@@ -33,10 +34,90 @@
             </ul>
         </div>
     </div>
+    <div id="fb-root"></div>
+    <div class="row bg-grey">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2 class="text-grey-dark">{{ 'share_title'|trans }}</h2>
+                </div>
+                <div class="col-sm-4" data-ng-cloak>
+                    <div fb-share class="fb-share-button"
+                         data-fb-name="userGoal.goal.slug"
+                         data-fb-link="goalLink"
+                         data-fb-caption="BUCKETLIST127.COM"
+                         data-fb-picture="userGoal.goal.cached_image"
+                         data-fb-message="{{ 'facebook_post_text'|trans }}"
+                         data-fb-description="userGoal.goal.description">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div data-ng-show="newAdded" class="ng-hide">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+
+                <h3 class="text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
+
+                <div class="form-group row">
+                    <div class="col-sm-4 date">
+                        <select name="year" data-ng-model="year">
+                            <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                            {% set maxYear = "now"|date_modify("+50 year")|date("Y") %}
+                            {#todo true date #}
+                            {% for year in maxYear..1966 %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4 date">
+
+                        {% set arrayMonth = {
+                        1:'form.month_january'|trans({}, 'FOSUserBundle'),
+                        2:'form.month_february'|trans({}, 'FOSUserBundle'),
+                        3:'form.month_march'|trans({}, 'FOSUserBundle'),
+                        4:'form.month_april'|trans({}, 'FOSUserBundle'),
+                        5:'form.month_may'|trans({}, 'FOSUserBundle'),
+                        6:'form.month_june'|trans({}, 'FOSUserBundle'),
+                        7:'form.month_july'|trans({}, 'FOSUserBundle'),
+                        8:'form.month_august'|trans({}, 'FOSUserBundle'),
+                        9:'form.month_september'|trans({}, 'FOSUserBundle'),
+                        10:'form.month_october'|trans({}, 'FOSUserBundle'),
+                        11:'form.month_november'|trans({}, 'FOSUserBundle'),
+                        12:'form.month_december'|trans({}, 'FOSUserBundle') }
+                        %}
+
+                        <select name="months" data-ng-model="month">
+                            <option value="">{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
+                            {% for key, month in arrayMonth %}
+                                <option value="{{ key }}">{{ month }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4 date">
+
+                        <select name="days" data-ng-model="day">
+
+                            <option value="">{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+
+                            {% for day in 1..31 %}
+                                <option value="{{ day }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="text-gray small-size">{{ "success_story.complete_edit_text"|trans }}</div>
+            </div>
+        </div>
+
+        <hr/>
+    </div>
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            <h3 class="story-title">{{ 'success_story.title'|trans }}</h3>
+            <h3 class="story-title text-grey-dark">{{ 'success_story.title'|trans }}</h3>
 
             <div>
                 {#{{ form_errors(form) }}#}
@@ -78,7 +159,8 @@
                             data-array="userGoal.videos_array">
                         </video-link>
                     </div>
-
+                    <p style="color: red" data-ng-if="noFile">{{ 'success_story.error_without_file'|trans }}</p>
+                    <p style="color: red" data-ng-if="noStory">{{ 'success_story.error_widht_file'|trans }}</p>
                     <div class="form-group text-center bottom">
                         <a href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple button-lg">{{ 'btn_save'|trans }}</a>
                         <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>

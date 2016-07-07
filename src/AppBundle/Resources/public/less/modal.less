@@ -49,7 +49,7 @@
 
   .location{
     position: relative;
-    z-index: 100005;
+    z-index: inherit;
     i{
       position: absolute;
       top:2px;
@@ -77,6 +77,10 @@
 
   h6{
     font-size:14px;
+
+    i{
+      margin-right: 0;
+    }
   }
 
   i{
@@ -85,6 +89,19 @@
     display: inline-block;
     vertical-align: middle;
     color:#a3a3a3;
+  }
+
+  strong{
+    .icon-lock-white{
+      font-size:25px;
+      margin-right:0;
+    }
+
+    span{
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+    }
   }
 
   .icon-remove-email{
@@ -112,9 +129,10 @@ a.close-modal{
 
 
 .story-title{
-  color:#7724F6;
-  margin: 10px 0px 15px;
+  //color:#333333;
+  margin: 10px 0 15px;
   font-size: 18px;
+  line-height: normal;
 }
 
 #goal-modal,#settings-modal,#story-modal,#draft-delete{
@@ -125,6 +143,29 @@ a.close-modal{
   .button-lg{
     margin-right:15px;
     margin-bottom:10px;
+  }
+
+  hr{
+    margin:5px 0;
+  }
+
+  .nice-select{
+    width:100%;
+    margin: 5px 0;
+
+    span{
+      color: #A4A4A4;
+    }
+
+    .list{
+      width:100%;
+      max-height: 160px;
+      overflow-y: auto !important;
+    }
+
+    &:hover,&:focus,&:active,.open{
+      border-color: #7724F6;
+    }
   }
 
   .modal-container{
@@ -163,6 +204,23 @@ a.close-modal{
 }
 
 #story-modal{
+
+  h2.text-grey-dark{
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+
+
+
+  .fb-share-button{
+    width: 93px;
+    height: 33px;
+    background: url('../images/fb-share.svg') no-repeat center center;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
   .remove-icon{
     position: absolute;
     top:0;
@@ -282,6 +340,13 @@ a.close-modal{
   }
 }
 
+.priority-types{
+  font-weight: normal;
+  display:inline-block;
+  br{
+    display: none;
+  }
+}
 .modal-top{
   position: relative;
   overflow: hidden;
@@ -575,6 +640,10 @@ a.close-modal{
     top:25px;
     width:530px;
 
+    hr{
+      margin:10px 0;
+    }
+
     .modal-container{
       min-height:520px;
 
@@ -592,12 +661,24 @@ a.close-modal{
       }
     }
     .modal-bottom{
-      padding: 35px 0 ;
+      padding: 20px 0 ;
     }
 
   }
 
   #story-modal{
+
+    h2.text-grey-dark{
+      font-size: 23px;
+      padding: 11px 0;
+      margin: 10px 0;
+    }
+
+    .fb-share-button{
+      float: right;
+      margin: 18px 0 15px;
+    }
+
     .dropzone {
       .dz-message{
         h3{
@@ -725,4 +806,18 @@ a.close-modal{
       font-size: 27px;
     }
   }
+
+  #story-modal{
+
+    h2.text-grey-dark{
+      font-size: 24px;
+      padding: 10px 0;
+    }
+
+    .fb-share-button{
+      margin: 16px 0 14px;;
+    }
+
+  }
+
 }

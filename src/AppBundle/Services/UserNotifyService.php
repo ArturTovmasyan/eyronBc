@@ -54,7 +54,7 @@ class UserNotifyService
         $enabled = $author->getIsCommentNotify();
 
         //check if user notify is disabled
-        if(!$enabledByConfig || !$enabled) {
+        if(!$enabledByConfig || $notProd || !$enabled) {
             return;
         }
 
@@ -162,7 +162,7 @@ class UserNotifyService
         $noReplyEmail = $this->container->getParameter('no_reply');
 
         //get project name
-        $projectName = $this->container->get('translator')->trans('bucketlist', array(), 'messages');
+        $projectName = $this->container->getParameter('email_sender');
 
         try {
             //calculate message

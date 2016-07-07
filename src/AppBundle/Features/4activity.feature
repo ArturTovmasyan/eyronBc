@@ -16,7 +16,6 @@ Feature: Activity
     And I wait for view
     And I change switch "2"
     And I wait for view
-    And I change switch "2"
     And  I click on "btn btn-purple"
     And I wait for angular
     And I am on "/profile"
@@ -45,15 +44,15 @@ Feature: Activity
     Then I should see "user1"
     And I should be on "/activity"
 
-    When I follow "My Bucketlist"
+    When I follow "user1 useryan"
+    And I follow "My Bucketlist"
+    And I wait
     Then I should be on "/profile"
     And I should see "Active"
     And I should see "Completed"
-    When I am on "/"
-    And I follow "Goalfriends"
+    When I am on "/goal-friends"
     And I wait
     Then I should see "user2 useryan"
-    And I should be on "/goal-friends"
     And I scroll page to "icon-top-idea"
     And I should see "Top Ideas"
     When I follow "Top Ideas"
@@ -67,6 +66,7 @@ Feature: Activity
   @javascript @goalFriend
   Scenario: Show me the my goalfriends and when I click on them let me see their inner pages
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I should see "user1 useryan"
     When I follow "Goalfriends"
@@ -80,6 +80,7 @@ Feature: Activity
   @javascript @userProfileGoalText
   Scenario: Other user profile empty goal text checking
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I should see "user1 useryan"
     And I am on "/profile/777777"
@@ -94,6 +95,7 @@ Feature: Activity
   @javascript @activity
   Scenario: Open the page and show me my goal friends activities.
     Given I am on "/logout"
+    And I wait
       When I am logged in as "user1"
       Then I should be on "/activity"
       And I wait for view

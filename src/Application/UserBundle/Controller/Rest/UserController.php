@@ -231,6 +231,7 @@ class UserController extends FOSRestController
             case "facebook":
                 try{
                     $data = file_get_contents("https://graph.facebook.com/me?access_token=" . $accessToken . '&fields=id,email,first_name,last_name,gender,birthday,picture');
+                    $newUser->setFacebookData($data);
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setFacebookId($id);
@@ -249,6 +250,7 @@ class UserController extends FOSRestController
             case "google":
                 try{
                     $data = file_get_contents("https://www.googleapis.com/plus/v1/people/me?access_token=" . $accessToken);
+                    $newUser->setGplusData($data);
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setGoogleId($id);
@@ -278,6 +280,7 @@ class UserController extends FOSRestController
                 $newUser->setTwitterId($id);
 
                 $data = $this->getTwitterData($id, $accessToken, $tokenSecret);
+                $newUser->setTwitterData(json_encode($data));
 
                 if (!isset($data->id)){
                     $id = null;
@@ -620,10 +623,12 @@ class UserController extends FOSRestController
      * parameters={
      *      {"name"="registrationId", "dataType"="string", "required"=true, "description"="Device Id"},
      *      {"name"="mobileOc", "dataType"="string", "required"=true, "description"="Mobile OC"},
+     *      {"name"="version", "dataType"="string", "required"=false, "description"="App Version"},
      * }
      * )
      *
      * @return Response
+     * @Secure(roles="ROLE_USER")
      * @Rest\View()
      */
     public function putDeviceIdAction(Request $request)
@@ -631,37 +636,36 @@ class UserController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
 
-        if(!is_object($currentUser)) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
-        }
-
-        $data = $request->request->all();
+        $data            = $request->request->all();
         $registrationIds = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
-
         $registrationIds = preg_replace('/\|ID\|\d\|:/', '', $registrationIds);
+        $mobileOc        = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
 
-        $mobileOc = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
-        if(!$registrationIds || !$mobileOc){
+        if(!$registrationIds || !$mobileOc || !in_array($mobileOc, ['ios', 'android'])){
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Empty parameters value");
         }
 
         $regData = $currentUser->getRegistrationIds();
 
-        // check is mobile device exist
         if(array_key_exists($mobileOc, $regData)){
             $device = $regData[$mobileOc];
-
             if(!in_array($registrationIds, $device)){
                 array_push($device, $registrationIds);
             }
 
             $regData[$mobileOc] = $device;
         }
-        else{
+        else {
             $regData[$mobileOc][] =  $registrationIds;
         }
-        // set register ids
+
         $currentUser->setRegistrationIds($regData);
+        $version = array_key_exists('version', $data) ? $data['version'] : null;
+        if ($version){
+            $setterName = 'set' . ucfirst($mobileOc) . 'Version';
+            $currentUser->$setterName($version);
+        }
+
         $em->persist($currentUser);
         $em->flush();
         return new JsonResponse(Response::HTTP_NO_CONTENT);

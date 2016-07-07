@@ -38,7 +38,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v349
+        assets_version: v359
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -130,6 +130,9 @@ doctrine:
             archived_goal_filter:
                 class:                AppBundle\Filter\ArchivedGoalFilter
                 enabled:              true
+            visibility_filter:
+                class:                AppBundle\Filter\VisibilityFilter
+                enabled:              true
 
         mappings:
             loggable:
@@ -169,7 +172,7 @@ fos_user:
 
     from_email:
         address: "info@%project_name%.com"
-        sender_name: "%project_name%"
+        sender_name: "%email_sender%"
 
 
 # fos comment bundle
