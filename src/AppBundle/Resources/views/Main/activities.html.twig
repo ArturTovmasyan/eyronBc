@@ -115,7 +115,7 @@
                                          data-ng-repeat="singleGoal in activity.goals">
                                         <figure>
                                             <h3>
-                                                <a data-ng-show="!singleGoal.publish" data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                                                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
 
                                             <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
