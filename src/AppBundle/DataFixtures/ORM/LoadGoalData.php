@@ -828,7 +828,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $successStory = new SuccessStory();
         $successStory->setUser($user1);
         $successStory->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
-        $successStory->setStory("THIS IS MY TEST STORY");
+        $successStory->setStory("STORY");
         $successStory->setGoal($goal11);
         $manager->persist($successStory);
 

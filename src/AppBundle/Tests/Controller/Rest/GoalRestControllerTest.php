@@ -172,7 +172,7 @@ class GoalRestControllerTest extends BaseClass
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
-        
+
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
             $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal getAction rest!");
@@ -534,6 +534,108 @@ class GoalRestControllerTest extends BaseClass
                     $this->assertArrayHasKey('image_path', $response, 'Invalid image_path key in Random friends rest json structure');
                 }
             }
+        }
+    }
+
+    /**
+     * This function try to test testGetGoalStory rest
+     */
+    public function testGetGoalStory()
+    {
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal11'))->getId();
+
+        // GET /api/v1.0/goals/{first}/friends/{count}
+        $url = sprintf('/api/v1.0/story/%s', $goalId);
+
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goal in testGetGoalStory rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on testGetGoalStory rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        if(array_key_exists('goal', $responseResults)) {
+
+            $goal = $responseResults['goal'];
+
+            if(array_key_exists('location', $goal)) {
+
+                $this->assertArrayHasKey('location', $goal, 'Invalid location key in goal story rest json structure');
+                $location = $goal['location'];
+                $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in goal story rest json structure');
+                $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in goal story rest json structure');
+                $this->assertArrayHasKey('address', $location, 'Invalid address key in goal story rest json structure');
+            }
+
+            if(array_key_exists('author', $goal)) {
+
+                $this->assertArrayHasKey('author', $goal, 'Invalid author key in goal story rest json structure');
+
+                $author = $goal['author'];
+
+                $this->assertArrayHasKey('id', $author, 'Invalid id key in goal story rest json structure');
+                $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in goal story rest json structure');
+                $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in goal story rest json structure');
+                $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in goal story rest json structure');
+
+
+                $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in goal story rest json structure');
+                $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in goal story rest json structure');
+                $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in goal story rest json structure');
+                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in goal story rest json structure');
+                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in goal story rest json structure');
+
+                $authorStats = $author['stats'];
+
+                $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in goal story rest json structure');
+                $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in goal story rest json structure');
+                $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in goal story rest json structure');
+            }
+
+            $this->assertArrayHasKey('id', $goal, 'Invalid id key in goal story rest json structure');
+            $this->assertArrayHasKey('description', $goal, 'Invalid description key in goal story rest json structure');
+            $this->assertArrayHasKey('title', $goal, 'Invalid title key in goal story rest json structure');
+            $this->assertArrayHasKey('status', $goal, 'Invalid status key in goal story rest json structure');
+            $this->assertArrayHasKey('publish', $goal, 'Invalid publish key in goal story rest json structure');
+            $this->assertArrayHasKey('is_my_goal', $goal, 'Invalid is_my_goal key in goal story rest json structure');
+            $this->assertArrayHasKey('share_link', $goal, 'Invalid share_link key in goal story rest json structure');
+            $this->assertArrayHasKey('slug', $goal, 'Invalid slug key in goal story rest json structure');
+            $this->assertArrayHasKey('stats', $goal, 'Invalid stats key in goal story rest json structure');
+
+            $goalStats = $goal['stats'];
+
+            $this->assertArrayHasKey('listedBy', $goalStats, 'Invalid listedBy key in goal story rest json structure');
+            $this->assertArrayHasKey('doneBy', $goalStats, 'Invalid doneBy key in goal story rest json structure');
+
+            if(array_key_exists('image_path', $goal)) {
+                $this->assertArrayHasKey('image_path', $goal, 'Invalid image_path key in goal story rest json structure');
+            }
+
+            if(array_key_exists('cached_image', $goal)) {
+                $this->assertArrayHasKey('cached_image', $goal, 'Invalid cached_image key in goal story rest json structure');
+            }
+        }
+
+        if(array_key_exists('story', $responseResults)) {
+
+            $story = $responseResults['story'];
+
+            $this->assertArrayHasKey('id', $story, 'Invalid id key in goal story rest json structure');
+            $this->assertArrayHasKey('files', $story, 'Invalid files key in goal story rest json structure');
+            $this->assertArrayHasKey('created', $story, 'Invalid created key in goal story rest json structure');
+            $this->assertArrayHasKey('story', $story, 'Invalid story key in goal story rest json structure');
+            $this->assertArrayHasKey('video_link', $story, 'Invalid video_link key in goal story rest json structure');
         }
     }
 }
