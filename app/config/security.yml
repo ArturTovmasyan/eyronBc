@@ -8,8 +8,24 @@ security:
             id: hwi_oauth.user.provider
     role_hierarchy:
         ROLE_GOD:         ROLE_USER, ROLE_SONATA_ADMIN
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       ROLE_USER, ROLE_MODERATOR
         ROLE_SUPER_ADMIN: ROLE_ADMIN, ROLE_SONATA_ADMIN
+
+        ROLE_MODERATOR:
+            - ROLE_GOAL_MODERATOR_VIEW
+            - ROLE_GOAL_MODERATOR_LIST
+            - ROLE_GOAL_MODERATOR_EDIT
+            - ROLE_GOAL_MODERATOR_DELETE
+
+            - ROLE_SUCCESS_STORY_MODERATOR_VIEW
+            - ROLE_SUCCESS_STORY_MODERATOR_LIST
+            - ROLE_SUCCESS_STORY_MODERATOR_EDIT
+            - ROLE_SUCCESS_STORY_MODERATOR_DELETE
+
+            - ROLE_COMMENT_MODERATOR_VIEW
+            - ROLE_COMMENT_MODERATOR_LIST
+            - ROLE_COMMENT_MODERATOR_EDIT
+            - ROLE_COMMENT_MODERATOR_DELETE
 
     firewalls:
         main:
@@ -47,4 +63,4 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin(.*), role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_GOD] }
+        - { path: ^/admin(.*), role: [ROLE_MODERATOR, ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_GOD] }

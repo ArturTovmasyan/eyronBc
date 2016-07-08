@@ -39,7 +39,7 @@
         </service>
 
         <!-- SuccessStory -->
-        <service id="sonata.admin.app.success.story" class="AppBundle\Admin\SuccessStoryAdmin">
+        <service id="success.story.moderator" class="AppBundle\Admin\SuccessStoryAdmin">
             <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.success_story"/>
             <argument/>
             <argument>AppBundle\Entity\SuccessStory</argument>
@@ -47,6 +47,10 @@
             <call method="setTemplate">
                 <argument>edit</argument>
                 <argument>AppBundle:Admin:success_story_edit.html.twig</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>show</argument>
+                <argument>AppBundle:Admin:success_story_show.html.twig</argument>
             </call>
         </service>
 
@@ -83,7 +87,7 @@
             </call>
         </service>
 
-        <service id="sonata.moderator.app.goal" class="AppBundle\Admin\ModeratorGoalAdmin">
+        <service id="goal.moderator" class="AppBundle\Admin\ModeratorGoalAdmin">
             <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.goal"/>
             <argument/>
             <argument>AppBundle\Entity\Goal</argument>

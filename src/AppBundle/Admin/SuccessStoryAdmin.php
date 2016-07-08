@@ -73,7 +73,7 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
-            ->add('videoLink')
+            ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
         ;
     }
 }

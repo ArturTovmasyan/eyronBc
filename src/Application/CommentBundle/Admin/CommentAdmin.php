@@ -57,9 +57,6 @@ class CommentAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('body')
-            ->add('depth')
-            ->add('createdAt')
-            ->add('state')
         ;
     }
 
