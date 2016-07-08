@@ -735,6 +735,12 @@ angular.module('goal', ['Interpolation',
             });
         }
 
+        $scope.loadImage = function (goals) {
+            angular.forEach(goals, function (d) {
+                d.imageLoad = 0;
+            });
+        };
+
         var interval = $interval(newActivity,120000);
 
         $scope.addNew = function () {

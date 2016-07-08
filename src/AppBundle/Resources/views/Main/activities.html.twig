@@ -113,7 +113,7 @@
                                     <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.goals">
-                                        <figure>
+                                        <figure data-ng-init="singleGoal.imageLoad = 1">
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
@@ -121,7 +121,10 @@
                                             <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
                                                class="goalTitle">
                                                 <span class="overlay"></span>
-                                                <img data-ng-src="[[ singleGoal.cached_image ]]" alt="[[ singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
+                                                <img
+                                                    data-ng-src="[[ ($index * singleGoal.imageLoad == 0 || $index == 1 || $index == activity.goals.length -1)?singleGoal.cached_image: '' ]]"
+                                                    alt="[[ singleGoal.title ]]"
+                                                    data-ng-if="singleGoal.cached_image"/>
                                             </a>
 
                                             <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
@@ -157,8 +160,8 @@
                                 <div data-ng-show="activity.goals.length > 1">
                                     <div class="swiper-pagination swiper-pagination-white"></div>
                                     <!-- Add Arrows -->
-                                    <div class="swiper-button-next swiper-button-white"></div>
-                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
+                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
                                 </div>
                             </div>
                         </div>
