@@ -138,6 +138,7 @@ class DoctrineListener
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             if($entity instanceof User){
                 $this->setLocale($entity);
+                $entity->setIsAdmin($entity->hasRole('ROLE_ADMIN') || $entity->hasRole('ROLE_SUPER_ADMIN'));
 
                 //check if user don't have uId
                 if(!$entity->getUId()) {
@@ -159,6 +160,7 @@ class DoctrineListener
             // check entity
             if($entity instanceof User){
                 $this->setLocale($entity);
+                $entity->setIsAdmin($entity->hasRole('ROLE_ADMIN') || $entity->hasRole('ROLE_SUPER_ADMIN'));
             }
         }
     }
