@@ -6,7 +6,7 @@ Feature: My Bucket list
   @javascript @myBucketList
   Scenario: Open My BucketList and show me my all goals
     Given I am on "/logout"
-    And I wait for view
+    And I wait
     When I am logged in as "user1"
     And I follow "user1"
     And I follow "My Bucketlist"
@@ -105,12 +105,13 @@ Feature: My Bucket list
   @javascript @comments
   Scenario: show comments in inner page
     Given I am on "/logout"
+    And I wait
     When I am logged in as "user1"
     And I follow "user1"
     And I follow "My Bucketlist"
     And I am on "/goal/goal9"
     Then I should see "Comments"
-    And should see "Show More +5"
+    And should see "Show More"
     And I fill in "fos_comment_comment[body]" with "GOOD COMMENT"
     And I wait for view
     And I follow "Show More"

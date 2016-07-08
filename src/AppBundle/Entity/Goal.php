@@ -32,7 +32,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
  * })
  */
-class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface
+class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface, \Serializable
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;
@@ -151,6 +151,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @Groups({"tiny_goal"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
 
@@ -237,6 +238,11 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @Groups({"tiny_goal", "goal", "image_link"})
      */
     private $mobileImagePath;
+
+    /**
+     * @var
+     */
+    private $listPhotoDownloadLink;
 
     /**
      * Get id
@@ -545,6 +551,10 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      */
     public function getListPhotoDownloadLink()
     {
+        if ($this->listPhotoDownloadLink){
+            return $this->listPhotoDownloadLink;
+        }
+
         // get list image
         $image = $this->getListPhoto();
 
@@ -1076,5 +1086,39 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         }
         
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function serialize()
+    {
+        return json_encode([
+            'id'        => $this->getId(),
+            'slug'      => $this->getSlug(),
+            'title'     => $this->getTitle(),
+            'image'     => $this->getListPhotoDownloadLink(),
+            'publish'   => $this->getPublish(),
+            'listedBy'  => $this->getStats()['listedBy'],
+            'doneBy'    => $this->getStats()['doneBy']
+        ]);
+    }
+
+    /**
+     * @param string $data
+     * @return $this
+     */
+    public function unserialize($data)
+    {
+        $data = json_decode($data);
+        $this->id = $data->id;
+        $this->setSlug($data->slug);
+        $this->setTitle($data->title);
+        $this->setPublish(isset($data->publish) ? $data->publish : true);
+        $this->setStats(['listedBy' => $data->listedBy, 'doneBy' => $data->doneBy]);
+
+        $this->listPhotoDownloadLink = $data->image;
+
+        return $this;
     }
 }

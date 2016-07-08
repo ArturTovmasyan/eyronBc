@@ -85,11 +85,13 @@
                                 {% endfor %}
                             </div>
 
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination swiper-pagination-white"></div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next swiper-button-white"></div>
-                            <div class="swiper-button-prev swiper-button-white"></div>
+                            {% if images| length > 1 %}
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination swiper-pagination-white"></div>
+                                <!-- Add Arrows -->
+                                <div class="swiper-button-next swiper-button-white"></div>
+                                <div class="swiper-button-prev swiper-button-white"></div>
+                            {% endif %}
                         </div>
                     {% else%}
                         <figure class="goal-preview" id="main-slider">
@@ -251,21 +253,54 @@
             </div>
 
             {% if page != view %}
+                {#<div class="row padding-top bg-white">#}
+                    {#<div class="col-xs-4 col-md-4">#}
+                        {#<div class="fb-like"#}
+                             {#data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"#}
+                             {#data-layout="button_count"#}
+                             {#data-action="like"#}
+                             {#data-show-faces="false"#}
+                             {#data-share="false">#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="col-xs-8 col-md-4 text-right">#}
+                        {#<div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>#}
+                    {#</div>#}
+                    {#<div class="col-md-4"></div>#}
+                {#</div>#}
+
                 <div class="row padding-top bg-white">
-                    <div class="col-xs-4 col-md-4">
-                        <div class="fb-like"
-                             data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
-                             data-layout="button_count"
-                             data-action="like"
-                             data-show-faces="false"
-                             data-share="false">
+
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                                        <div class="fb-like"
+                                             data-href="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}"
+                                             data-layout="button_count"
+                                             data-action="like"
+                                             data-show-faces="false"
+                                             data-share="false">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8 col-sm-9 col-md-9">
+                                        <a href="https://twitter.com/intent/tweet?button_hashtag=BucketList127&text={{ goal.title }}" class="twitter-hashtag-button" data-related="BucketList127" data-url="{{ app.request.getSchemeAndHttpHost ~ goal.shareLink }}" data-dnt="true">Tweet #BucketList127</a>
+                                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-8 col-md-4 text-right">
-                        <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
-                    </div>
-                    <div class="col-md-4"></div>
+
+                    <div class="col-md-4 hidden-xs"></div>
+
                 </div>
+
             {% endif %}
 
             <div class="inner bg-white">
@@ -334,8 +369,9 @@
                                         <a href="javascript:void(0)"
                                            data-ng-show="successStoryActiveIndex !== 0"
                                            data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                           data-ng-init="storyLength={{ stories|length - 2}}"
                                            class="text-purple view-more-comments">
-                                            Show More +5
+                                            Show More +<span data-ng-bind="storyLength"></span>
                                         </a>
                                     </div>
                                 {% endif %}

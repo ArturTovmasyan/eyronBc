@@ -88,8 +88,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //open login form
         $this->clickLink('JOIN');
 
+        $this->iWaitForView();
+
         //set data in login form
         $this->iSetUsernameAndPassword($userName, $password);
+
+        $this->iWaitForView();
 
         //check if user admin
         if($user == 'admin') {
@@ -133,28 +137,20 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //get page
         $page = $session->getPage();
 
-        //get login block
-        $loginBlock = $page->find('css', '.popover-content');
-
-        if (null === $loginBlock) {
-            throw new \LogicException('Could not find the element');
-        }
+//        //get login block
+//        $loginBlock = $page->find('css', '.popover-content');
+//
+//        if (null === $loginBlock) {
+//            throw new \LogicException('Could not find the element');
+//        }
 
         //find username and set data
-        $loginBlock->fillField('_username', $userName);
+        $page->fillField('_username', $userName);
 
         //find password
-        $loginBlock->fillField('_password', $password);
+        $page->fillField('_password', $password);
 
-        //AND JAN PUSH KANES DEVELOPI VRA ELI
-        //get value in opt
-        $button = $loginBlock->find(
-            'xpath',
-            $session->getSelectorsHandler()->selectorToXpath('xpath', '//button[@type="submit"]')
-        );
-
-        //press button
-        $button->click();
+        $page->pressButton('submit');
     }
 
     /**

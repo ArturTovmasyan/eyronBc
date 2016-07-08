@@ -565,8 +565,12 @@
         });
     }
 
-    $(document).on('click', '.view-more-comments', function(){
-
+    $(document).on('click', '#showMore', function(){
+      var commentsCount = $('#commentsCount').text();
+      if(commentsCount > 5){
+        commentsCount = commentsCount - 5;
+        $('#commentsCount').text(commentsCount);
+      }
         var comments = $(".user-comment");
         var showStepCount = 5;
         var forEnd = 0;

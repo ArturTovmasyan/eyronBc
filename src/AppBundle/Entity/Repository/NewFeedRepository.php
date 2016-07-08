@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\NewFeed;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * NewFeedRepository
@@ -19,9 +19,10 @@ class NewFeedRepository extends EntityRepository
      * @param null $first
      * @param null $count
      * @param null $lastId
+     * @param null $lastDate
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null, $lastDate = null)
     {
         $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
@@ -31,17 +32,28 @@ class NewFeedRepository extends EntityRepository
             ->join('u.userGoal', 'gfUserGoal')
             ->join('gfUserGoal.goal', 'gfGoal')
             ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
-            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
-            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
-            ->where('(ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE')
             ->orderBy('nf.datetime', 'DESC')
+            ->addOrderBy('nf.id', 'DESC')
             ->setParameter('user', $userId)
             ->setParameter('simpleRole', 'a:0:{}');
 
-        if ($lastId) {
+        if ($lastDate && $lastId) {
             $newFeedIdsQuery
-                ->andWhere('nf.id < :lastId')
-                ->setParameter('lastId', $lastId);
+                ->andWhere("(nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate)) AND timestampdiff(DAY, nf.datetime, :lastDate) < :numberOfDays")
+                ->setParameter('lastId', $lastId)
+                ->setParameter('lastDate', $lastDate)
+                ->setParameter(':numberOfDays', 2)
+            ;
+        }
+        elseif ($lastDate){
+            $newFeedIdsQuery
+                ->andWhere("nf.datetime > :lastDate")
+                ->setParameter('lastDate', $lastDate);
+        }
+        else {
+            $newFeedIdsQuery
+                ->andWhere("timestampdiff('DAY', nf.datetime, CURRENT_TIMESTAMP()) < :numberOfDays")
+                ->setParameter(':numberOfDays', $getCount ? 30 : 6);
         }
 
         if (is_numeric($first) && is_numeric($count)) {
@@ -58,26 +70,31 @@ class NewFeedRepository extends EntityRepository
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
-        if (count($newFeedIds) == 0) {
-            return [];
+        if (count($newFeedIds) < 10 && !($lastDate && !$lastId)) {
+            $newFeedIdsQuery->getParameter('numberOfDays')->setValue(30);
+            $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
+            if (count($newFeedIds) == 0){
+                   return [];
+            }
         }
 
         return $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('nf, u, g, gi, ss, si, cmt')
+            ->select('nf, u, ss, si, cmt')
             ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
-            ->join('nf.goal', 'g', 'WITH', 'g.readinessStatus = true')
-            ->leftJoin('g.images', 'gi')
-            ->leftJoin('u.userGoal', 'ug', 'WITH', 'ug.goal = g')
+            ->join('nf.user', 'u')
             ->leftJoin('nf.successStory', 'ss')
             ->leftJoin('ss.files', 'si')
             ->leftJoin('nf.comment', 'cmt')
-            ->where('(ug.id IS NULL OR ug.isVisible = true) AND g.publish = TRUE AND nf.id IN (:ids)')
+            ->where('nf.id IN (:ids)')
+            ->andWhere('(nf.action = :successStory AND ss.id IS NOT NULL)
+                     OR (nf.action = :comment AND cmt.id IS NOT NULL)
+                     OR (nf.action != :successStory AND nf.action != :comment)')
             ->orderBy('nf.datetime', 'DESC')
-            ->setParameter('user', $userId)
-            ->setParameter('simpleRole', 'a:0:{}')
+            ->addOrderBy('nf.id', 'DESC')
             ->setParameter('ids', $newFeedIds)
+            ->setParameter('successStory', NewFeed::SUCCESS_STORY)
+            ->setParameter('comment', NewFeed::COMMENT)
             ->getQuery()
             ->getResult();
     }
@@ -97,5 +114,32 @@ class NewFeedRepository extends EntityRepository
             ->setParameter('goal',   $goalId)
             ->setParameter('user',   $userId)
             ->execute();
+    }
+
+    /**
+     * @param $userId
+     * @param $action
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastGroupByUserAction($userId, $action)
+    {
+        $currentDate = new \DateTime();
+        $newFeed = $this->getEntityManager()
+            ->createQuery("SELECT n
+                           FROM AppBundle:NewFeed n
+                           JOIN n.user u
+                           WHERE u.id = :userId AND n.action = :action
+                           AND timestampdiff('MINUTE', n.datetime, :currentDate) < 30")
+            ->setParameter('userId', $userId)
+            ->setParameter('action', $action)
+            ->setParameter('currentDate', $currentDate->format('Y-m-d H:i:s'))
+            ->getResult();
+
+        if (count($newFeed) == 0){
+            return null;
+        }
+
+        return $newFeed[0];
     }
 }
