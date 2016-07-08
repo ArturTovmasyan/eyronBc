@@ -177,6 +177,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.userGoal = userGoalData.doneData;
       $scope.noFile = false;
       $scope.noStory = false;
+      $scope.invalidYear = false;
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + 'goal/' +$scope.userGoal.goal.slug;
       $scope.files = [];
@@ -191,6 +192,7 @@ angular.module('goalComponents', ['Interpolation',
         $('textarea[name=story]').removeClass('border-red');
         $scope.noFile = false;
         $scope.noStory = false;
+        $scope.invalidYear = false;
       });
 
       $scope.isInValid = function () {
@@ -217,6 +219,25 @@ angular.module('goalComponents', ['Interpolation',
         }
       };
 
+      $scope.compareDates = function(date1, date2){
+        if(!date1){
+          return null;
+        }
+
+        var d1 = new Date(date1);
+        var d2 = date2 ? new Date(date2): new Date();
+
+        if(d1 < d2){
+          return -1;
+        }
+        else if(d1 === d2){
+          return 0;
+        }
+        else {
+          return 1;
+        }
+      };
+
       $scope.noData = function () {
         return ((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
               (angular.isUndefined($scope.files) || !$scope.files.length )&&
@@ -231,6 +252,14 @@ angular.module('goalComponents', ['Interpolation',
               'goal_status'    : true,
               'completion_date': $scope.completion_date
             };
+
+            if($scope.compareDates($scope.completion_date) === 1){
+              $scope.invalidYear = true;
+              return;
+            } else {
+              $scope.invalidYear = false;
+            }
+
             UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
               var selector = 'success' + $scope.userGoal.goal.id;
               if(angular.element('#'+ selector).length > 0) {
@@ -372,6 +401,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.userGoal = userGoalData.data;
       if(!angular.isUndefined($scope.userGoal.completion_date) && $scope.userGoal.status == UserGoalConstant['COMPLETED']){
         $scope.updateDate($scope.userGoal.completion_date);
+        $scope.userGoal.completion_date = moment($scope.userGoal.completion_date).format('MM-DD-YYYY');
       } else{
         if(!angular.isUndefined($scope.userGoal.do_date)){
           $scope.updateDate($scope.userGoal.do_date);
@@ -540,6 +570,12 @@ angular.module('goalComponents', ['Interpolation',
             }else{
               $scope.userGoal.do_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             }
+          }
+          if($scope.userGoal.completion_date && $scope.compareDates($scope.userGoal.completion_date) === 1){
+            $scope.invalidYear = true;
+            return;
+          } else {
+            $scope.invalidYear = false;
           }
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
