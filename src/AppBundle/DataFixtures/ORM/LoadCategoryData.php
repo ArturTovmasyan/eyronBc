@@ -32,34 +32,50 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
 
         $category1 = new Category();
         $category1->setTitle('Travel');
+        $category1->setFileOriginalName('ios.png');
+        $category1->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category1);
 
         $category2 = new Category();
         $category2->setTitle('Adventure');
+        $category2->setFileOriginalName('ios.png');
+        $category2->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category2);
 
         $category3 = new Category();
         $category3->setTitle('Experience');
+        $category3->setFileOriginalName('ios.png');
+        $category3->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category3);
 
         $category4 = new Category();
         $category4->setTitle('New Skills');
+        $category4->setFileOriginalName('ios.png');
+        $category4->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category4);
 
         $category5 = new Category();
         $category5->setTitle('Wellness');
+        $category5->setFileOriginalName('ios.png');
+        $category5->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category5);
 
         $category6 = new Category();
         $category6->setTitle('Social');
+        $category6->setFileOriginalName('ios.png');
+        $category6->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category6);
 
         $category7 = new Category();
         $category7->setTitle('Personal');
+        $category7->setFileOriginalName('ios.png');
+        $category7->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category7);
 
         $category8 = new Category();
         $category8->setTitle('Most Popular');
+        $category8->setFileOriginalName('ios.png');
+        $category8->setFileName('481cf3efac0ca2ec0835e82d55f28d58.png');
         $manager->persist($category8);
 
 

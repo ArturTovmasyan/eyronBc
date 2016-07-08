@@ -160,6 +160,11 @@ class MainController extends Controller
             ]);
         }
 
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
+        }
+
         return array('pagination' => $pagination);
     }
 
@@ -201,6 +206,11 @@ class MainController extends Controller
                 "active"   => $stats[$user->getId()]['listedBy'],
                 "doneBy"   => $stats[$user->getId()]['doneBy']
             ]);
+        }
+
+        //This part is used for profile completion percent calculation
+        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
 
         return $this->render('AppBundle:Main:goalFriends.html.twig', array(

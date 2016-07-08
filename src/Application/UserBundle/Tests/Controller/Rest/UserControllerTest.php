@@ -31,6 +31,11 @@ class UserControllerTest extends WebTestCase
     /**
      * @var null
      */
+    protected $client2 = null;
+
+    /**
+     * @var null
+     */
     protected $clientAuthorized = null;
 
     /**
@@ -50,6 +55,12 @@ class UserControllerTest extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->clientAuthorized->enableProfiler();
+
+        $this->client2 = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user1@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client2->enableProfiler();
     }
 
     /**
@@ -277,6 +288,43 @@ class UserControllerTest extends WebTestCase
             $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->client->getResponse()->headers
         );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('sessionId', $responseResults, 'Invalid sessionId key in Registration rest json structure');
+
+        $userInfo = $responseResults['userInfo'];
+
+        $this->assertArrayHasKey('id', $userInfo, 'Invalid id key in Registration rest json structure');
+
+        $this->assertArrayHasKey('username', $userInfo, 'Invalid username key in Registration rest json structure');
+
+        $this->assertArrayHasKey('first_name', $userInfo, 'Invalid first_name key in Registration rest json structure');
+
+        $this->assertArrayHasKey('last_name', $userInfo, 'Invalid last_name key in Registration rest json structure');
+
+        $this->assertArrayHasKey('is_confirmed', $userInfo, 'Invalid is_confirmed key in Registration rest json structure');
+
+        $this->assertArrayHasKey('show_name', $userInfo, 'Invalid show_name key in Registration rest json structure');
+
+        $this->assertArrayHasKey('is_admin', $userInfo, 'Invalid is_admin key in Registration rest json structure');
+
+        $this->assertArrayHasKey('u_id', $userInfo, 'Invalid u_id key in Registration rest json structure');
+
+        $this->assertArrayHasKey('stats', $userInfo, 'Invalid stats key in Registration rest json structure');
+
+        $stats = $userInfo['stats'];
+
+        $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in Registration rest json structure');
+
+        $this->assertArrayHasKey('active', $stats, 'Invalid active key in Registration rest json structure');
+
+        $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Registration rest json structure');
+
+        if(array_key_exists('draft_count', $userInfo)) {
+            $this->assertArrayHasKey('draft_count', $userInfo, 'Invalid draft_count key in Registration rest json structure');
+        }
     }
 
     /**
@@ -301,6 +349,47 @@ class UserControllerTest extends WebTestCase
             $this->clientAuthorized->getResponse()->headers->contains('Content-Type', 'application/json'),
             $this->clientAuthorized->getResponse()->headers
         );
+
+        //get response content
+        $responseResults = json_decode($this->clientAuthorized->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('sessionId', $responseResults, 'Invalid sessionId key in Registration rest json structure');
+
+        $userInfo = $responseResults['userInfo'];
+
+        $this->assertArrayHasKey('id', $userInfo, 'Invalid id key in Login rest json structure');
+
+        $this->assertArrayHasKey('username', $userInfo, 'Invalid username key in Login rest json structure');
+
+        $this->assertArrayHasKey('first_name', $userInfo, 'Invalid first_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('last_name', $userInfo, 'Invalid last_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('is_confirmed', $userInfo, 'Invalid is_confirmed key in Login rest json structure');
+
+        $this->assertArrayHasKey('show_name', $userInfo, 'Invalid show_name key in Login rest json structure');
+
+        $this->assertArrayHasKey('is_admin', $userInfo, 'Invalid is_admin key in Login rest json structure');
+
+        $this->assertArrayHasKey('u_id', $userInfo, 'Invalid u_id key in Login rest json structure');
+
+        $this->assertArrayHasKey('stats', $userInfo, 'Invalid stats key in Login rest json structure');
+
+        $stats = $userInfo['stats'];
+
+        $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in Login rest json structure');
+
+        $this->assertArrayHasKey('active', $stats, 'Invalid active key in Login rest json structure');
+
+        $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Login rest json structure');
+
+        $this->assertArrayHasKey('draft_count', $userInfo, 'Invalid draft_count key in Login rest json structure');
+
+        if(array_key_exists('image_path', $userInfo)) {
+
+            $this->assertArrayHasKey('image_path', $userInfo, 'Invalid image_path key in Login rest json structure');
+        }
+
     }
 
     /**
@@ -340,5 +429,132 @@ class UserControllerTest extends WebTestCase
             'false',
             $this->clientAuthorized->getResponse()->getContent()
         );
+    }
+
+    /**
+     * This function is used to check testGetUserStats function in rest
+     */
+    public function testGetUserStats()
+    {
+        // get user
+        $userId = $this->em->getRepository('ApplicationUserBundle:User')->findOneByEmail('user1@user.com')->getId();
+
+        $url = sprintf('/api/v1.0/users/%s/states', $userId);
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('listedBy', $responseResults, 'Invalid listedBy key in get user stats rest json structure');
+        $this->assertArrayHasKey('doneBy', $responseResults, 'Invalid doneBy key in get user stats rest json structure');
+
+    }
+
+    /**
+     * This function is used to check testRegisteredUserEmail function in rest
+     */
+    public function testRegisteredUserEmail()
+    {
+        $url = sprintf('/api/v1.0/users/%s/registered', 'user1@user.com');
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('registered', $responseResults, 'Invalid registered key in registered user email rest json structure');
+
+        if(array_key_exists('image_path', $responseResults)) {
+            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in registered user email rest json structure');
+        }
+    }
+
+    /**
+     * This function is used to check testGetLastMobileVersion function in rest
+     */
+    public function testGetLastMobileVersion()
+    {
+        $url = sprintf('/api/v1.0/apps/%s/version', 'ios');
+
+        // try to register new user
+        $this->client->request('GET', $url);
+
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "Can not get user stats in rest!");
+
+        $this->assertTrue(
+            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client->getResponse()->headers
+        );
+
+        //get response content
+        $responseResults = json_decode($this->client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('mandatory', $responseResults, 'Invalid mandatory key in get last mobile version rest json structure');
+
+        $this->assertArrayHasKey('optional', $responseResults, 'Invalid optional key in get last mobile version rest json structure');
+    }
+
+    /**
+     * THis function use to test testGetCurrentUser
+     */
+    public function testGetCurrentUser()
+    {
+        $url = sprintf('/api/v1.0/user');
+
+        // try to get goal by id
+        $this->client2->request('GET', $url);
+
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user in testGetCurrentUser rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal testGetCurrentUser rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('id', $responseResults, 'Invalid id key in get current user rest json structure');
+        $this->assertArrayHasKey('username', $responseResults, 'Invalid username key in get current user rest json structure');
+        $this->assertArrayHasKey('first_name', $responseResults, 'Invalid first_name key in get current user rest json structure');
+        $this->assertArrayHasKey('last_name', $responseResults, 'Invalid last_name key in get current user rest json structure');
+        $this->assertArrayHasKey('is_confirmed', $responseResults, 'Invalid is_confirmed key in get current user rest json structure');
+        $this->assertArrayHasKey('show_name', $responseResults, 'Invalid show_name key in get current user rest json structure');
+        $this->assertArrayHasKey('is_admin', $responseResults, 'Invalid is_admin key in get current user rest json structure');
+        $this->assertArrayHasKey('u_id', $responseResults, 'Invalid u_id key in get current user rest json structure');
+        $this->assertArrayHasKey('draft_count', $responseResults, 'Invalid draft_count key in get current user rest json structure');
+        $this->assertArrayHasKey('stats', $responseResults, 'Invalid stats key in get current user rest json structure');
+
+        $stats = $responseResults['stats'];
+
+        $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in get current user rest json structure');
+        $this->assertArrayHasKey('active', $stats, 'Invalid active key in get current user rest json structure');
+        $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in get current user rest json structure');
+
+        if(array_key_exists('image_path', $responseResults)) {
+            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in get current user rest json structure');
+        }
     }
 }
