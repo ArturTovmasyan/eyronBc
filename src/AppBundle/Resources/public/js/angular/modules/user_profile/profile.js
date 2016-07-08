@@ -1,3 +1,12 @@
-/**
- * Created by gevor on 7/8/16.
- */
+'use strict';
+
+angular.module('profile', ['Interpolation',
+  'Components',
+  'angular-cache',
+  'ngSanitize',
+  'goalManage',
+  'PathPrefix'
+  ])
+  .controller('profileController',['$scope', function ($scope) {
+    
+  }]);
