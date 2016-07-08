@@ -100,12 +100,22 @@
                     {#</div>#}
                 {#</div>#}
 
-                <div class="form-group row">
+                <div data-ng-cloak class="form-group row" >
 
-                    <div class="col-sm-4 date">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
                         <select name="year" data-ng-model="year">
                             <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
                             {% set maxYear = "now"|date_modify("+50 year")|date("Y") %}
+                            {#todo true date #}
+                            {% for year in maxYear..1966 %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                        <select name="year" data-ng-model="year">
+                            <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
+                            {% set maxYear = "now"|date("Y") %}
                             {#todo true date #}
                             {% for year in maxYear..1966 %}
                                 <option value="{{ year }}">{{ year }}</option>
@@ -371,6 +381,7 @@
                     </div>
                 {% endif %}
 
+                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_year'|trans }}</p>
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
