@@ -173,7 +173,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal10->setDescription('goal10 goal10');
         $goal10->setTitle('goal10');
         $goal10->setStatus(1);
-        $goal10->setVideoLink(null);
+        $goal10->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
         $goal10->setReadinessStatus(Goal::TO_PUBLISH);
         $goal10->addTag($tag);
 
@@ -790,6 +790,15 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($thread);
 
+        $thread1 = new Thread();
+        $thread1->setId($goal10->getId());
+        $thread1->setPermalink("http://behat.bucketlist.loc/goal/goal11");
+        $thread1->setCommentable(true);
+        $thread1->setNumComments(3);
+        $thread1->setLastCommentAt(new \DateTime('now'));
+
+        $manager->persist($thread1);
+
         $comment = new Comment();
         $comment->setAuthor($user1);
         $comment->setBody("Comment1");
@@ -826,12 +835,25 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $comment->setThread($thread);
         $manager->persist($comment);
 
+        $comment = new Comment();
+        $comment->setAuthor($user1);
+        $comment->setBody("Comment7");
+        $comment->setThread($thread1);
+        $manager->persist($comment);
+
         $successStory = new SuccessStory();
         $successStory->setUser($user1);
         $successStory->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
         $successStory->setStory("STORY");
         $successStory->setGoal($goal11);
         $manager->persist($successStory);
+
+        $successStory1 = new SuccessStory();
+        $successStory1->setUser($user1);
+        $successStory1->setVideoLink(array("https:\/\/www.youtube.com\/watch?v=KUOhpQDDME4"));
+        $successStory1->setStory("STORY10");
+        $successStory1->setGoal($goal10);
+        $manager->persist($successStory1);
 
         $manager->flush();
 

@@ -279,7 +279,7 @@ class UserGoalControllerTest extends BaseClass
      */
     public function testGetTopIdeas()
     {
-        $url = sprintf('/api/v1.0/top-ideas/%s', 2);
+        $url = sprintf('/api/v1.0/top-ideas/%s', 1);
 
         // try to get goal by id
         $this->client2->request('GET', $url);
@@ -299,46 +299,45 @@ class UserGoalControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
 
-        foreach ($responseResults as $responseData)
-        {
-            $imageSizeKey = array_key_exists('image_size', $responseResults);
+        $responseResult = $responseResults[0];
 
-            //check if imageSizeKey exists in array
-            if($imageSizeKey){
+        $imageSizeKey = array_key_exists('image_size', $responseResult);
 
-                $imageSize = $responseData['image_size'];
+        //check if imageSizeKey exists in array
+        if($imageSizeKey){
 
-                $width = array_key_exists('width', $imageSize);
+            $imageSize = $responseResult['image_size'];
 
-                $height = array_key_exists('height', $imageSize);
+            $width = array_key_exists('width', $imageSize);
 
-                if($width && $height) {
+            $height = array_key_exists('height', $imageSize);
 
-                    $this->assertArrayHasKey('width', $imageSize, 'Invalid width key in top ideas rest json structure');
+            if($width && $height) {
 
-                    $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in top ideas rest json structure');
-                }
+                $this->assertArrayHasKey('width', $imageSize, 'Invalid width key in top ideas rest json structure');
+
+                $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in top ideas rest json structure');
             }
+        }
 
-                $this->assertArrayHasKey('id', $responseData, 'Invalid id key in top ideas rest json structure');
+        $this->assertArrayHasKey('id', $responseResult, 'Invalid id key in top ideas rest json structure');
 
-                $this->assertArrayHasKey('title', $responseData, 'Invalid title key in top ideas rest json structure');
+        $this->assertArrayHasKey('title', $responseResult, 'Invalid title key in top ideas rest json structure');
 
-                $this->assertArrayHasKey('status', $responseData, 'Invalid status key in top ideas rest json structure');
+        $this->assertArrayHasKey('status', $responseResult, 'Invalid status key in top ideas rest json structure');
 
-                $this->assertArrayHasKey('is_my_goal', $responseData, 'Invalid is_my_goal key in top ideas rest json structure');
+        $this->assertArrayHasKey('is_my_goal', $responseResult, 'Invalid is_my_goal key in top ideas rest json structure');
 
-                $this->assertArrayHasKey('share_link', $responseData, 'Invalid share_link key in top ideas rest json structure');
+        $this->assertArrayHasKey('share_link', $responseResult, 'Invalid share_link key in top ideas rest json structure');
 
-                $this->assertArrayHasKey('slug', $responseData, 'Invalid slug key in top ideas rest json structure');
+        $this->assertArrayHasKey('slug', $responseResult, 'Invalid slug key in top ideas rest json structure');
 
-                if(array_key_exists('cached_image', $responseData)) {
-                    $this->assertArrayHasKey('cached_image', $responseData, 'Invalid cached_image key in top ideas rest json structure');
-                }
+        if(array_key_exists('cached_image', $responseResult)) {
+            $this->assertArrayHasKey('cached_image', $responseResult, 'Invalid cached_image key in top ideas rest json structure');
+        }
 
-                if(array_key_exists('image_path', $responseData)) {
-                    $this->assertArrayHasKey('image_path', $responseData, 'Invalid image_path key in top ideas rest json structure');
-                }
+        if(array_key_exists('image_path', $responseResult)) {
+            $this->assertArrayHasKey('image_path', $responseResult, 'Invalid image_path key in top ideas rest json structure');
         }
     }
 
@@ -352,7 +351,7 @@ class UserGoalControllerTest extends BaseClass
         $url = sprintf('/api/v1.0/usergoals/locations');
 
         // try to post BucketlistAction
-        $this->client->request('POST', $url, array('first' => 0, 'count' => 2));
+        $this->client->request('POST', $url, array('first' => 0, 'count' => 1));
 
         // check page opened status code
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not testPostBucketlistLocation rest!");
@@ -372,53 +371,51 @@ class UserGoalControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client->getResponse()->getContent(), true);
 
+        $responseResult = $responseResults[0];
 
-        foreach ($responseResults as $responseResult) {
+        if(array_key_exists('location', $responseResult)) {
 
-            if(array_key_exists('location', $responseResult)) {
+            $this->assertArrayHasKey('location', $responseResult, 'Invalid location key in bucketLists location rest json structure');
 
-                $this->assertArrayHasKey('location', $responseResult, 'Invalid location key in bucketLists location rest json structure');
+            $location = $responseResult['location'];
 
-                $location = $responseResult['location'];
+            $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('address', $location, 'Invalid address key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('editable', $location, 'Invalid editable key in bucketLists location rest json structure');
+        }
 
-                $this->assertArrayHasKey('latitude', $location, 'Invalid latitude key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('longitude', $location, 'Invalid longitude key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('address', $location, 'Invalid address key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('editable', $location, 'Invalid editable key in bucketLists location rest json structure');
+        $this->assertArrayHasKey('id', $responseResult, 'Invalid id key in bucketLists location rest json structure');
+
+        if(array_key_exists('goal', $responseResult)) {
+
+            $goal = $responseResult['goal'];
+
+            $this->assertArrayHasKey('id', $goal, 'Invalid id key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('title', $goal, 'Invalid title key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('status', $goal, 'Invalid status key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('is_my_goal', $goal, 'Invalid is_my_goal key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('share_link', $goal, 'Invalid share_link key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('slug', $goal, 'Invalid slug key in bucketLists location rest json structure');
+
+            if(array_key_exists('image_path', $goal)) {
+                $this->assertArrayHasKey('image_path', $goal, 'Invalid image_path key in bucketLists location rest json structure');
             }
 
-            $this->assertArrayHasKey('id', $responseResult, 'Invalid id key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('stats', $goal, 'Invalid stats key in bucketLists location rest json structure');
 
-            if(array_key_exists('goal', $responseResult)) {
+            $stats = $goal['stats'];
 
-                $goal = $responseResult['goal'];
+            $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in bucketLists location rest json structure');
+            $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in bucketLists location rest json structure');
 
-                $this->assertArrayHasKey('id', $goal, 'Invalid id key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('title', $goal, 'Invalid title key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('status', $goal, 'Invalid status key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('is_my_goal', $goal, 'Invalid is_my_goal key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('share_link', $goal, 'Invalid share_link key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('slug', $goal, 'Invalid slug key in bucketLists location rest json structure');
+            if(array_key_exists('location', $goal)) {
 
-                if(array_key_exists('image_path', $goal)) {
-                    $this->assertArrayHasKey('image_path', $goal, 'Invalid image_path key in bucketLists location rest json structure');
-                }
+                $goalLocation = $goal['location'];
 
-                $this->assertArrayHasKey('stats', $goal, 'Invalid stats key in bucketLists location rest json structure');
-
-                $stats = $goal['stats'];
-
-                $this->assertArrayHasKey('listedBy', $stats, 'Invalid listedBy key in bucketLists location rest json structure');
-                $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in bucketLists location rest json structure');
-
-                if(array_key_exists('location', $goal)) {
-
-                    $goalLocation = $goal['location'];
-
-                    $this->assertArrayHasKey('latitude', $goalLocation, 'Invalid latitude key in bucketLists location rest json structure');
-                    $this->assertArrayHasKey('longitude', $goalLocation, 'Invalid longitude key in bucketLists location rest json structure');
-                    $this->assertArrayHasKey('address', $goalLocation, 'Invalid address key in bucketLists location rest json structure');
-                }
+                $this->assertArrayHasKey('latitude', $goalLocation, 'Invalid latitude key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('longitude', $goalLocation, 'Invalid longitude key in bucketLists location rest json structure');
+                $this->assertArrayHasKey('address', $goalLocation, 'Invalid address key in bucketLists location rest json structure');
             }
         }
     }
