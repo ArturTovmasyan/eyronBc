@@ -112,7 +112,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                    <div class="col-sm-4 ng-hide" data-ng-show="complete.switch">
                         <select name="year" data-ng-model="year">
                             <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
                             {% set maxYear = "now"|date("Y") %}
