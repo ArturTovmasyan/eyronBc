@@ -238,10 +238,15 @@ class User extends BaseUser
     protected $lastPushNoteDate;
 
     /**
+     * @ORM\Column(name="is_admin", type="boolean", nullable=false)
+     * @Groups({"user", "tiny_user"})
+     */
+    protected $isAdmin = false;
+
+    /**
      * @Groups({"tiny_goal"})
      */
     private $cachedImage;
-
 
     /**
      * This fields are used for optimization or profile completion
@@ -683,20 +688,10 @@ class User extends BaseUser
 
     /**
      * @return bool
-     * @Groups({"user", "tiny_user"})
-     * @VirtualProperty()
      */
     public function isAdmin()
     {
-        // get roles
-        $roles = $this->getRoles();
-
-        // check roles
-        if($roles && is_array($roles) && ((in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPER_ADMIN', $roles)))){
-            return true;
-        }
-
-        return false;
+        return $this->getIsAdmin();
     }
 
     /**
@@ -1009,56 +1004,31 @@ class User extends BaseUser
      */
     public function calculationSettingsProcess()
     {
-        //set default array
         $userEmailsInDb = array();
-
-        //get primary email
         $primaryEmail = $this->primary;
-
-        //get current email
         $currentEmail = $this->getEmail();
-
-        //get user emails
         $userEmails = $this->getUserEmails();
 
-        //check if primary email exist
         if ($primaryEmail && $primaryEmail !== $currentEmail) {
-
-            //set primary email
             $this->setEmail($primaryEmail);
         }
 
-        //check if userEmails exist
         if ($userEmails) {
-
-            //get user emails in db
-            $userEmailsInDb = array_map(
-                function ($item)
-                {
-                 return $item['userEmails'] ;
-                },
-                $userEmails
-            );
+            $userEmailsInDb = array_map(function ($item){return $item['userEmails'];}, $userEmails);
         }
 
-        //check if primary email exist in $userEmailsInDb
-        if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false) {
-
+        if ($primaryEmail && $userEmailsInDb && ($key = array_search($primaryEmail, $userEmailsInDb)) !== false){
             unset($userEmails[$key]);
         }
 
-        //check if set another primary email
-        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail && (array_search($currentEmail, $userEmailsInDb) == false)
-                && $currentEmail != $this->getSocialFakeEmail()) {
-
-            //set user emails in array with token and primary value
-            $currentEmailData = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
-
-            //set current email data in userEmails array
+        if ($userEmailsInDb && $primaryEmail && $primaryEmail !== $currentEmail
+            && (array_search($currentEmail, $userEmailsInDb) == false)
+            && $currentEmail != $this->getSocialFakeEmail())
+        {
+            $currentEmailData          = ['userEmails' => $currentEmail, 'token' => null, 'primary' => false];
             $userEmails[$currentEmail] = $currentEmailData;
         }
 
-        //set user emails
         $this->setUserEmails($userEmails);
     }
 
@@ -1725,5 +1695,21 @@ class User extends BaseUser
     public function setAndroidVersion($androidVersion)
     {
         $this->androidVersion = $androidVersion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
     }
 }

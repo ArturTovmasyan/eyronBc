@@ -69,7 +69,7 @@
         </li>
         <li>
             <a href="{{ path('add_goal') }}"><strong>{{ 'my_bucket_list.add_goal'|trans |capitalize }}</strong>
-                {% if user.userGoal|length > 0 %}
+                {% if user.userGoalCount > 0 %}
                     <i class="icon-ok-only"></i>
                 {% else %}
                     <i class="icon-question-only"></i>
