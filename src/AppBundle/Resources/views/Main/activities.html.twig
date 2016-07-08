@@ -113,7 +113,7 @@
                                     <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.goals">
-                                        <figure data-ng-init="singleGoal.imageLoad = 1">
+                                        <figure data-ng-init="singleGoal.imageLoad = ($index < 2 || $index == activity.goals.length - 1)? singleGoal.cached_image: ''">
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
@@ -122,7 +122,7 @@
                                                class="goalTitle">
                                                 <span class="overlay"></span>
                                                 <img
-                                                    data-ng-src="[[ ($index * singleGoal.imageLoad == 0 || $index == 1 || $index == activity.goals.length -1)?singleGoal.cached_image: '' ]]"
+                                                    data-ng-src="[[ singleGoal.imageLoad ]]"
                                                     alt="[[ singleGoal.title ]]"
                                                     data-ng-if="singleGoal.cached_image"/>
                                             </a>
@@ -199,10 +199,12 @@
             <figure data-ng-repeat="singleGoal in activity.goals">
                 <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
-                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]" class="goalTitle">
+                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                   class="goalTitle"
+                   data-ng-init="singleGoal.imageLoad = (activity.goals.length < 2)? singleGoal.cached_image: ''">
                     <span class="overlay"></span>
                     <h3>[[ ::singleGoal.title ]]</h3>
-                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
+                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.imageLoad ]]" alt="[[ ::singleGoal.title ]]"/>
 
                     <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
                         <ul>
