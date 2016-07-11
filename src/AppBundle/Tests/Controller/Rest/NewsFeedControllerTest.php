@@ -20,22 +20,22 @@ class NewsFeedControllerTest extends BaseClass
         $url = sprintf('/api/v1.0/activities/%s/%s', 0, 1);
 
         // try to get news-feed
-        $this->client4->request('GET', $url);
+        $this->client11->request('GET', $url);
 
-        $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get news-feed in getAction rest!");
+        $this->assertEquals($this->client11->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get news-feed in getAction rest!");
 
         $this->assertTrue(
-            $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client4->getResponse()->headers
+            $this->client11->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client11->getResponse()->headers
         );
 
-        if ($profile = $this->client4->getProfile()) {
+        if ($profile = $this->client11->getProfile()) {
             // check the number of requests
             $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on $url api");
         }
 
         //get response content
-        $responseResults = json_decode($this->client4->getResponse()->getContent(), true);
+        $responseResults = json_decode($this->client11->getResponse()->getContent(), true);
 
         $responseResult = $responseResults[0];
 
