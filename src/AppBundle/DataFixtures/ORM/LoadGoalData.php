@@ -216,6 +216,17 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goal12);
 
         // create goal
+        $goal13 = new Goal();
+        $goal13->setDescription('goal13 goal13');
+        $goal13->setTitle('goal13');
+        $goal13->setStatus(1);
+        $goal13->setVideoLink(null);
+        $goal13->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal13->setAuthor($user4);
+        $goal13->setPublish(true);
+        $manager->persist($goal13);
+
+        // create goal
         $userGoal1 = new UserGoal();
         $userGoal1->setUser($user);
         $userGoal1->setGoal($goal1);
@@ -435,6 +446,28 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal20->setUrgent(true);
         $userGoal20->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal20);
+
+        // create goal
+        $userGoal29 = new UserGoal();
+        $userGoal29->setUser($user5);
+        $userGoal29->setGoal($goal13);
+        $userGoal29->setIsVisible(true);
+        $userGoal29->setNote('goal13');
+        $userGoal29->setImportant(true);
+        $userGoal29->setUrgent(true);
+        $userGoal29->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal29);
+
+        // create goal
+        $userGoal30 = new UserGoal();
+        $userGoal30->setUser($user4);
+        $userGoal30->setGoal($goal13);
+        $userGoal30->setIsVisible(true);
+        $userGoal30->setNote('goal9');
+        $userGoal30->setImportant(true);
+        $userGoal30->setUrgent(true);
+        $userGoal30->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal30);
 
         // create goal
         $userGoal21 = new UserGoal();
@@ -778,7 +811,30 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goalImage11->setFileSize($photo->getSize());
         $goalImage11->setFileOriginalName($photo->getFilename());
 
-        $manager->persist($goalImage);
+        $manager->persist($goalImage11);
+
+        $oldPhotoPath13 = __DIR__ . '/images/image6.jpg';
+        $photoPath13 = __DIR__ . '/../../../../web/uploads/images/photo13.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath13, $photoPath13);
+
+        // new uploaded file
+        $photo13 = new UploadedFile(
+            $photoPath11,
+            'photo13.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage13 = new GoalImage();
+        $goalImage13->setGoal($goal13);
+        $goal13->addImage($goalImage11);
+        $goalImage13->setFile($photo13);
+        $goalImage13->setFileName($photo13->getClientOriginalName());
+        $goalImage13->setFileSize($photo13->getSize());
+        $goalImage13->setFileOriginalName($photo13->getFilename());
+
+        $manager->persist($goalImage13);
 
         $manager->flush();
 
@@ -857,11 +913,11 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($successStory1);
 
         //create newFeed object for activity json structure test
-        $newFeed = new NewFeed(null, null, $goal4);
+        $newFeed = new NewFeed(null, null, $goal13);
         $newFeed->setUser($user5);
         $newFeed->setAction(true);
         $newFeed->setDatetime(new \DateTime('now'));
-        $newFeed->addGoal($goal4);
+        $newFeed->addGoal($goal13);
         $manager->persist($newFeed);
         
         $manager->flush();
