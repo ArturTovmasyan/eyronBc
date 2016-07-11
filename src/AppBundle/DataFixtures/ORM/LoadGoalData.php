@@ -3,6 +3,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Aphorism;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
@@ -855,6 +856,14 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $successStory1->setGoal($goal10);
         $manager->persist($successStory1);
 
+        //create newFeed object for activity json structure test
+        $newFeed = new NewFeed(null, null, $goal4);
+        $newFeed->setUser($user5);
+        $newFeed->setAction(true);
+        $newFeed->setDatetime(new \DateTime('now'));
+        $newFeed->addGoal($goal4);
+        $manager->persist($newFeed);
+        
         $manager->flush();
 
         $this->addReference('goal1', $goal1);
