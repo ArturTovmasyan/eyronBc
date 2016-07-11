@@ -61,7 +61,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:location.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig', 'SonataCoreBundle:Form:datepicker.html.twig']
+        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:storyMultipleFile.html.twig', 'AppBundle:Form:location.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig', 'SonataCoreBundle:Form:datepicker.html.twig']
 
     globals:
         production: %production%

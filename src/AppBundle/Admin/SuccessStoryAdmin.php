@@ -2,12 +2,16 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\StoryImage;
+use AppBundle\Form\StoryImageType;
 use AppBundle\Form\Type\BlMultipleVideoType;
+use AppBundle\Form\Type\StoryMultipleFileType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class SuccessStoryAdmin extends AbstractAdmin
 {
@@ -40,6 +44,7 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
+            ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_list.html.twig'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -56,10 +61,11 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('created')
-            ->add('updated')
+            ->add('created', DateType::class, array('widget' => 'single_text'))
+            ->add('updated', DateType::class, array('widget' => 'single_text'))
             ->add('story')
             ->add('videoLink', BlMultipleVideoType::class)
+            ->add('files', StoryMultipleFileType::class)
         ;
     }
 
@@ -73,7 +79,37 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
+            ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_show.html.twig'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
         ;
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function preUpdate($object)
+    {
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
+        $images = $object->getFiles();
+
+        if($images) {
+            foreach($images as $image) {
+                if (!($image instanceof StoryImage)){
+                    $object->removeFile($image);
+                    continue;
+                }
+
+                $bucketService->uploadFile($image);
+                $image->setStory($object);
+            }
+        }
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function prePersist($object)
+    {
+        $this->preUpdate($object);
     }
 }
