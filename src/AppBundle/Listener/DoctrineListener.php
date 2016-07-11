@@ -15,6 +15,7 @@ use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Model\ActivityableInterface;
 use AppBundle\Model\ImageableInterface;
+use AppBundle\Model\PublishAware;
 use Application\CommentBundle\Entity\Comment;
 use Application\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -188,8 +189,9 @@ class DoctrineListener
 
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['status'])){
-                    if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible()) {
-                        $goal = $entity->getGoal();
+                    $goal = $entity->getGoal();
+                    if($changeSet['status'][1] == UserGoal::COMPLETED && $entity->getIsVisible() && $goal->getPublish()) {
+
                         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
                         $newFeed = $em->getRepository("AppBundle:NewFeed")->findLastGroupByUserAction($user->getId(), NewFeed::GOAL_COMPLETE);
                         if (is_null($newFeed)) {
@@ -215,19 +217,6 @@ class DoctrineListener
                         else {
                             $newFeed->addGoal($goal);
                         }
-
-                        $em->persist($newFeed);
-                        $em->flush();
-                    }
-                }
-            }
-
-            if ($entity instanceof Goal){
-                $changeSet = $uow->getEntityChangeSet($entity);
-                if (isset($changeSet['readinessStatus'])) {
-                    if ($changeSet['readinessStatus'][1] == Goal::TO_PUBLISH) {
-                        $em->getRepository("AppBundle:Goal")->findGoalStateCount($entity);
-                        $newFeed = new NewFeed(NewFeed::GOAL_CREATE, $user, $entity);
 
                         $em->persist($newFeed);
                         $em->flush();
@@ -286,7 +275,7 @@ class DoctrineListener
         if (is_object($user)){
             $action = $goal = $story = $comment = null;
             if($entity instanceof UserGoal &&
-                (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId() || $entity->getStatus() == UserGoal::COMPLETED))
+                (is_null($entity->getGoal()->getAuthor()) || $entity->getGoal()->getAuthor()->getId() != $user->getId()))
             {
                 $action = NewFeed::GOAL_ADD;
                 if ($entity->getStatus() == UserGoal::COMPLETED){
