@@ -2,6 +2,6 @@
 
 {% block field %}
     {% for image in value %}
-        <img src="{{ image.imagePath }}" height="200px"/>
+        <img src="{{ image.imagePath|blImageFilter('user_goal') }}" height="200px"/>
     {% endfor %}
 {% endblock %}
