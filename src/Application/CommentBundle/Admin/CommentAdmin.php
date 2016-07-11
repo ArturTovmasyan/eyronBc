@@ -68,7 +68,6 @@ class CommentAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('body')
-            ->add('ancestors')
             ->add('depth')
             ->add('createdAt')
             ->add('state')
