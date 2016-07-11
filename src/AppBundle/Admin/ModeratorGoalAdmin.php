@@ -62,7 +62,7 @@ class ModeratorGoalAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('id', null, array('label'=>'admin.label.name.id', 'template' => 'AppBundle:Admin:goal_show_link.html.twig'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_show.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('description', null, array('label'=>'admin.label.name.description'))

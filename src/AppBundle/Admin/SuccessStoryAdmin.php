@@ -50,6 +50,7 @@ class SuccessStoryAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'goal_link' => array('template' => 'AppBundle:Admin:success_story_list_action_link.html.twig'),
                 )
             ))
         ;
@@ -76,6 +77,7 @@ class SuccessStoryAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
+            ->add('story_goal', null, array('template' => 'AppBundle:Admin:success_story_show_link.html.twig', 'mapped' => false))
             ->add('created')
             ->add('updated')
             ->add('story')
@@ -89,6 +91,9 @@ class SuccessStoryAdmin extends AbstractAdmin
      */
     public function preUpdate($object)
     {
+        $videoLink = array_values($object->getVideoLink());
+        $object->setVideoLink(array_filter($videoLink));
+
         $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
         $images = $object->getFiles();
 
