@@ -299,4 +299,12 @@ class SuccessStory implements ActivityableInterface
                 ->addViolation();
         }
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return 'Story of ' . $this->getGoal()->getTitle();
+    }
 }

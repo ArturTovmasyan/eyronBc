@@ -79,8 +79,10 @@ class DoctrineListener
         {
             if ($entity instanceof Goal){
                 $user = $token->getUser();
-                $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
-                $entity->setShareLink($shareLink);
+                if ($entity->getSlug()) {
+                    $shareLink = $this->container->get('router')->generate('inner_goal', array('slug' => $entity->getSlug()));
+                    $entity->setShareLink($shareLink);
+                }
 
                 //Set goal is_my_goal fields
                 if ($user instanceof User && $this->setIsMyGoal) {
