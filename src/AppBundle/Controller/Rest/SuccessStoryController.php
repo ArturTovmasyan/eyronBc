@@ -278,7 +278,7 @@ class SuccessStoryController extends FOSRestController
      */
     public function getSuccessStoryAction(Goal $goal)
     {
-        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
+//        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
         $em = $this->getDoctrine()->getManager();
         $story = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());

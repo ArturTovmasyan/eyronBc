@@ -113,7 +113,7 @@ class UserRepository extends EntityRepository
     /**
      * @param $type
      * @param $id
-     * @param $email
+     * @param null $email
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

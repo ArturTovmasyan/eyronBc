@@ -150,17 +150,16 @@ angular.module('goal', ['Interpolation',
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
+                var img;
                 angular.forEach(this.reserve, function(item) {
                     if(item.cached_image){
-                        var img = new Image();
+                        img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        angular.forEach(item.goals, function(goal) {
-                            if (goal.cached_image) {
-                                var img = new Image();
-                                img.src = goal.cached_image;
-                            }
-                        })
+                        if (item.goals[0].cached_image) {
+                            img = new Image();
+                            img.src = item.goals[0].cached_image;
+                        }
                     }
                 });
                 this.start += this.count;
@@ -508,6 +507,17 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+
+        $timeout(function(){
+            if(window.location.hash && window.location.hash == "#/comments"){
+
+                $('html, body').stop().animate( {
+                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                }, 900);
+            }
+        }, 5000);
+
+
         var imageHeight;
 
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
@@ -724,6 +734,23 @@ angular.module('goal', ['Interpolation',
                 }
             });
         }
+
+        $scope.loadImage = function (goals, direction) {
+            if(direction){
+                angular.forEach(goals, function (d) {
+                    if(!d.imageLoad.length){
+                        d.imageLoad = d.cached_image;
+                    }
+                });
+            } else {
+                for(var i = goals.length - 1;i >= 0; i--){
+                    if(!goals[i].imageLoad.length){
+                        goals[i].imageLoad = goals[i].cached_image;
+                    }
+                }
+            }
+
+        };
 
         var interval = $interval(newActivity,120000);
 
