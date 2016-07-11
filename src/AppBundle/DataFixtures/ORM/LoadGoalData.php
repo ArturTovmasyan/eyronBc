@@ -448,28 +448,6 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($userGoal20);
 
         // create goal
-        $userGoal29 = new UserGoal();
-        $userGoal29->setUser($user5);
-        $userGoal29->setGoal($goal13);
-        $userGoal29->setIsVisible(true);
-        $userGoal29->setNote('goal13');
-        $userGoal29->setImportant(true);
-        $userGoal29->setUrgent(true);
-        $userGoal29->setDoDate(new \DateTime('now'));
-        $manager->persist($userGoal29);
-
-        // create goal
-        $userGoal30 = new UserGoal();
-        $userGoal30->setUser($user4);
-        $userGoal30->setGoal($goal13);
-        $userGoal30->setIsVisible(true);
-        $userGoal30->setNote('goal9');
-        $userGoal30->setImportant(true);
-        $userGoal30->setUrgent(true);
-        $userGoal30->setDoDate(new \DateTime('now'));
-        $manager->persist($userGoal30);
-
-        // create goal
         $userGoal21 = new UserGoal();
         $userGoal21->setUser($user7);
         $userGoal21->setGoal($goal4);
@@ -556,6 +534,28 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal28->setUrgent(true);
         $userGoal28->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal28);
+
+        // create goal
+        $userGoal29 = new UserGoal();
+        $userGoal29->setUser($user5);
+        $userGoal29->setGoal($goal13);
+        $userGoal29->setIsVisible(true);
+        $userGoal29->setNote('goal13');
+        $userGoal29->setImportant(true);
+        $userGoal29->setUrgent(true);
+        $userGoal29->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal29);
+
+        // create goal
+        $userGoal30 = new UserGoal();
+        $userGoal30->setUser($user4);
+        $userGoal30->setGoal($goal13);
+        $userGoal30->setIsVisible(true);
+        $userGoal30->setNote('goal9');
+        $userGoal30->setImportant(true);
+        $userGoal30->setUrgent(true);
+        $userGoal30->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal30);
 
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
@@ -804,12 +804,12 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         );
 
         $goalImage11 = new GoalImage();
-        $goalImage11->setGoal($goal1);
+        $goalImage11->setGoal($goal10);
         $goal10->addImage($goalImage11);
         $goalImage11->setFile($photo10);
-        $goalImage11->setFileName($photo->getClientOriginalName());
-        $goalImage11->setFileSize($photo->getSize());
-        $goalImage11->setFileOriginalName($photo->getFilename());
+        $goalImage11->setFileName($photo10->getClientOriginalName());
+        $goalImage11->setFileSize($photo10->getSize());
+        $goalImage11->setFileOriginalName($photo10->getFilename());
 
         $manager->persist($goalImage11);
 
@@ -828,7 +828,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $goalImage13 = new GoalImage();
         $goalImage13->setGoal($goal13);
-        $goal13->addImage($goalImage11);
+        $goal13->addImage($goalImage13);
         $goalImage13->setFile($photo13);
         $goalImage13->setFileName($photo13->getClientOriginalName());
         $goalImage13->setFileSize($photo13->getSize());
