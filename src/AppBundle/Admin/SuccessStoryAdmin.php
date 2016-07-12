@@ -28,8 +28,22 @@ class SuccessStoryAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('created')
-            ->add('updated')
+            ->add('created', 'doctrine_orm_callback', array(
+                'show_filter' => true,
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+
+                    $queryBuilder
+                        ->andWhere("DATE(" . $alias . ".created) = DATE(:value)")
+                        ->setParameter('value', $value['value'])
+                    ;
+
+                    return true;
+                },
+                'label'=>'admin.label.name.created'
+            ), 'date', array('widget' => 'single_text'))
             ->add('story')
         ;
     }
