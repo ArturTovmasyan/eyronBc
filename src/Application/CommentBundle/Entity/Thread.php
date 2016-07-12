@@ -28,6 +28,12 @@ class Thread
     protected $comments;
 
     /**
+     * @ORM\OneToOne(targetEntity="Application\CommentBundle\Model\CommentableInterface")
+     * @ORM\JoinColumn(name="commentable_entity_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $commentableEntity;
+
+    /**
      * @ORM\Column(name="num_comments", type="integer")
      */
     protected $numComments = 0;
@@ -120,5 +126,29 @@ class Thread
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set commentableEntity
+     *
+     * @param \Application\CommentBundle\Model\CommentableInterface $commentableEntity
+     *
+     * @return Thread
+     */
+    public function setCommentableEntity(\Application\CommentBundle\Model\CommentableInterface $commentableEntity = null)
+    {
+        $this->commentableEntity = $commentableEntity;
+
+        return $this;
+    }
+
+    /**
+     * Get commentableEntity
+     *
+     * @return \Application\CommentBundle\Model\CommentableInterface
+     */
+    public function getCommentableEntity()
+    {
+        return $this->commentableEntity;
     }
 }

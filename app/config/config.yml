@@ -404,3 +404,6 @@ monolog:
             type:  stream
             path:  "%kernel.logs_dir%/mandrill.log"
             channels: [mandrill]
+
+application_comment:
+    commentable_entity: 'AppBundle\Entity\Goal'

@@ -14,6 +14,7 @@ use AppBundle\Model\ImageableInterface;
 use AppBundle\Model\MultipleFileInterface;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\Location;
+use Application\CommentBundle\Model\CommentableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
@@ -32,7 +33,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
  * })
  */
-class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface, \Serializable
+class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface, \Serializable, CommentableInterface
 {
     // constants for privacy status
     const PUBLIC_PRIVACY = true;

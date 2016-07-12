@@ -60,14 +60,14 @@ class Comment implements ActivityableInterface
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created_at", type="dateTime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      * @Groups({"comment"})
      */
     protected $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated_at", type="dateTime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      * @Groups({"comment"})
      */
     protected $updatedAt;
