@@ -39,11 +39,12 @@ class CommentController extends FOSRestController
      *         400="Body is empty or parent's thread isn't given parent"
      *     },
      *  parameters={
-     *      {"name"="body", "dataType"="string", "required"=true, "description"="Comment body"},
+     *      {"name"="commentBody", "dataType"="string", "required"=true, "description"="Comment body"},
      * }
      * )
      *
      * @Rest\Get("/comments/{goal}/{parentComment}", requirements={"goal"="\d+", "parentComment"="\d+"}, name="put_comment", options={"method_prefix"=false})
+     * @Rest\PUT("/goals/{goal}/comment", requirements={"goal"="\d+", "parentComment"="\d+"}, name="mobile_put_comment", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
      *
@@ -55,10 +56,11 @@ class CommentController extends FOSRestController
     public function putAction(Request $request, Goal $goal, Comment $parentComment = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($goal->getId());
+        $threadId = 'goal_' . $goal->getSlug();
+        $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($threadId);
         if (is_null($thread)){
             $thread = new Thread();
-            $thread->setId($goal->getId());
+            $thread->setId($threadId);
             $thread->setCommentableEntity($goal);
 
             $em->persist($thread);
@@ -70,7 +72,7 @@ class CommentController extends FOSRestController
             }
         }
 
-        $body = $request->get('body', null);
+        $body = $request->get('commentBody', null);
         if (is_null($body)){
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Body can not be empty');
         }
