@@ -17,7 +17,6 @@ class ThreadAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('commentableEntity.title')
         ;
     }
 
@@ -28,7 +27,6 @@ class ThreadAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('commentableEntity.title')
             ->add('numComments')
             ->add('_action', null, array(
                 'actions' => array(
@@ -60,7 +58,6 @@ class ThreadAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('commentableEntity.title')
             ->add('numComments')
         ;
     }

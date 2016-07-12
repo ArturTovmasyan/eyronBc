@@ -90,8 +90,10 @@ class RequestListener //implements EventSubscriberInterface
         $token = $this->tokenStorage->getToken();
         if ($token && is_object($user = $token->getUser())){
 
-            if ($user->hasRole('ROLE_MODERATOR') || $user->hasRole('ROLE_ADMIN')){
-                $this->em->getFilters()->disable('visibility_filter');
+            if (strpos($t = $request->get('_route'), 'sonata_admin') === 0){
+                if ($this->em->getFilters()->isEnabled('visibility_filter')) {
+                    $this->em->getFilters()->disable('visibility_filter');
+                }
             }
             else {
                 $filter = $this->em->getFilters()->getFilter('visibility_filter');

@@ -28,12 +28,6 @@ class Thread
     protected $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\CommentBundle\Model\CommentableInterface")
-     * @ORM\JoinColumn(name="commentable_entity_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    protected $commentableEntity;
-
-    /**
      * @ORM\Column(name="num_comments", type="integer")
      */
     protected $numComments = 0;

@@ -15,10 +15,12 @@ class Version20160712164101 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->addSql('UPDATE thread as t SET t.commentable_entity_id = t.id WHERE EXISTS (SELECT * FROM goal as g WHERE g.id = t.id)');
-        $this->addSql('UPDATE thread as t SET t.num_comments = (SELECT COUNT(*) FROM comment as c WHERE c.thread_id = t.id)');
-        $this->addSql('DELETE FROM comment WHERE thread_id IN (SELECT id FROM thread WHERE commentable_entity_id IS NULL)');
-        $this->addSql('DELETE FROM thread WHERE commentable_entity_id IS NULL');
+        $this->addSql('SET FOREIGN_KEY_CHECKS=0');
+        $this->addSql('DELETE FROM comment WHERE NOT EXISTS (SELECT g.id FROM goal as g WHERE g.id = comment.thread_id)');
+        $this->addSql('DELETE FROM thread WHERE NOT EXISTS (SELECT g.id FROM goal as g WHERE g.id = thread.id)');
+        $this->addSql('UPDATE comment as c SET c.thread_id = CONCAT("goal_", (select g.slug from goal as g where g.id = c.thread_id)) WHERE EXISTS (select g.slug from goal as g where g.id = c.thread_id)');
+        $this->addSql('UPDATE thread as t SET t.id = CONCAT("goal_", (select g.slug from goal as g where g.id = t.id)) WHERE EXISTS (select g.slug from goal as g where g.id = t.id)');
+        $this->addSql('SET FOREIGN_KEY_CHECKS=1');
         // this up() migration is auto-generated, please modify it to your needs
 
     }

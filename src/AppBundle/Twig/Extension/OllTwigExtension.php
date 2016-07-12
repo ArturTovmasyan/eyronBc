@@ -20,6 +20,11 @@ use AppBundle\Entity\UserGoal;
 class OllTwigExtension extends \Twig_Extension
 {
     /**
+     * @var
+     */
+    protected $environment;
+
+    /**
      * @var Container
      */
     protected $container;
@@ -33,6 +38,15 @@ class OllTwigExtension extends \Twig_Extension
         $this->container = $container;
         $this->session   = $container->get('session');
     }
+
+    /**
+     * @param \Twig_Environment $environment
+     */
+    public function initRuntime(\Twig_Environment $environment)
+    {
+        $this->environment = $environment;
+    }
+
 
     /**
      * @return array
@@ -57,7 +71,8 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isTablet', array($this, 'isTablet')),
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
-            new \Twig_SimpleFunction('getReferer', array($this, 'getReferer'))
+            new \Twig_SimpleFunction('getReferer', array($this, 'getReferer')),
+            new \Twig_SimpleFunction('getThreadInnerLink', array($this, 'getThreadInnerLink'))
         );
     }
     /**
@@ -240,6 +255,24 @@ class OllTwigExtension extends \Twig_Extension
             return $referer;
         }
         return "";
+    }
+
+    /**
+     * @param $threadId
+     * @return string
+     * @throws \Throwable
+     */
+    public function getThreadInnerLink($threadId)
+    {
+        $router = $this->container->get('router');
+        if ($startPos = strpos($threadId, 'goal_') === 0){
+            $slug = substr($threadId, 5);
+        }
+        elseif($t = preg_match('^/success_story_[\d+]+_/', $threadId, $matches, PREG_OFFSET_CAPTURE)){
+            $slug = preg_replace('^/success_story_[\d+]+_/', '', $threadId);
+        }
+
+        return isset($slug) ? $router->generate('inner_goal', ['slug' => $slug]) : '#';
     }
 
     public function getName()
