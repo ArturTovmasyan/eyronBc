@@ -321,6 +321,7 @@ admin:
       created: Поставлена
       updated: Обнавлена
       goal_link: Ссылка
+      comments: Комментарии
 
 # end sonata admin lable
 

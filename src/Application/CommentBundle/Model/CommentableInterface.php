@@ -13,5 +13,13 @@ namespace Application\CommentBundle\Model;
  */
 interface CommentableInterface
 {
+    /**
+     * @return mixed
+     */
     public function getId();
+
+    /**
+     * @return mixed
+     */
+    public function getTitle();
 }

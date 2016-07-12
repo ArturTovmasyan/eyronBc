@@ -89,8 +89,14 @@ class RequestListener //implements EventSubscriberInterface
 
         $token = $this->tokenStorage->getToken();
         if ($token && is_object($user = $token->getUser())){
-            $filter = $this->em->getFilters()->getFilter('visibility_filter');
-            $filter->setParameter('userId', $user->getId());
+
+            if ($user->hasRole('ROLE_MODERATOR') || $user->hasRole('ROLE_ADMIN')){
+                $this->em->getFilters()->disable('visibility_filter');
+            }
+            else {
+                $filter = $this->em->getFilters()->getFilter('visibility_filter');
+                $filter->setParameter('userId', $user->getId());
+            }
         }
     }
 }

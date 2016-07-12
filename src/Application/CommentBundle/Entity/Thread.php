@@ -47,6 +47,20 @@ class Thread
     }
 
     /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        try {
+            return $this->getCommentableEntity()->getTitle();
+        }
+        catch(\Exception $e){
+            return '';
+        }
+
+    }
+
+    /**
      * Set id
      *
      * @param integer $id

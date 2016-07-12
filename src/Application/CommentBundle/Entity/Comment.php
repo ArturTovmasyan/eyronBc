@@ -53,7 +53,7 @@ class Comment implements ActivityableInterface
     protected $parent;
 
     /**
-     * @ORM\Column(name="bode", type="text", length=2000, nullable=false)
+     * @ORM\Column(name="body", type="text", length=2000, nullable=false)
      * @Groups({"comment"})
      */
     protected $body;

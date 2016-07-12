@@ -7,11 +7,19 @@
 
     <services>
 
-        <!-- SuccessStory -->
+        <!-- Comment -->
         <service id="comment.moderator" class="Application\CommentBundle\Admin\CommentAdmin">
             <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.comment"/>
             <argument/>
             <argument>Application\CommentBundle\Entity\Comment</argument>
+            <argument/>
+        </service>
+
+        <!-- Thread -->
+        <service id="thread.moderator" class="Application\CommentBundle\Admin\ThreadAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.thread"/>
+            <argument/>
+            <argument>Application\CommentBundle\Entity\Thread</argument>
             <argument/>
         </service>
 
