@@ -104,6 +104,7 @@ class Thread
     public function addComment(\Application\CommentBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
+        $this->numComments++;
 
         return $this;
     }
