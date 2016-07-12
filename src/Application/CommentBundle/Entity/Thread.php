@@ -45,13 +45,7 @@ class Thread
      */
     public function __toString()
     {
-        try {
-            return $this->getCommentableEntity()->getTitle();
-        }
-        catch(\Exception $e){
-            return '';
-        }
-
+        return $this->getId();
     }
 
     /**
@@ -135,29 +129,5 @@ class Thread
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Set commentableEntity
-     *
-     * @param \Application\CommentBundle\Model\CommentableInterface $commentableEntity
-     *
-     * @return Thread
-     */
-    public function setCommentableEntity(\Application\CommentBundle\Model\CommentableInterface $commentableEntity = null)
-    {
-        $this->commentableEntity = $commentableEntity;
-
-        return $this;
-    }
-
-    /**
-     * Get commentableEntity
-     *
-     * @return \Application\CommentBundle\Model\CommentableInterface
-     */
-    public function getCommentableEntity()
-    {
-        return $this->commentableEntity;
     }
 }
