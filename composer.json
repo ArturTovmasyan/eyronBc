@@ -40,7 +40,6 @@
         "jms/serializer-bundle": "1.1.*",
         "jms/security-extra-bundle": "1.6.*",
 
-        "friendsofsymfony/comment-bundle": "2.0.*",
         "knplabs/knp-paginator-bundle": "2.5.*",
         "stfalcon/tinymce-bundle": "2.*",
         "a2lix/translation-form-bundle": "1.*",
