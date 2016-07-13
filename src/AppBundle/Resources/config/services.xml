@@ -109,6 +109,9 @@
             <tag name="security.voter" />
         </service>
 
+        <service id="app.post_processor.opt_post_processor" class="AppBundle\LiipFilters\PostProcessor\OptPostProcessor">
+            <tag name="liip_imagine.filter.post_processor" post_processor="opt_post_processor" />
+        </service>
 
     </services>
 
