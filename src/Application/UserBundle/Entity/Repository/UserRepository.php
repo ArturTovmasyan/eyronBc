@@ -151,7 +151,7 @@ class UserRepository extends EntityRepository
                 ->setParameter('email', $email)
                 ->getQuery()
                 ->getOneOrNullResult()
-                ;
+            ;
         }
 
         return $user;

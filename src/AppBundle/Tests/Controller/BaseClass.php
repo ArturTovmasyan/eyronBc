@@ -32,6 +32,11 @@ class BaseClass extends WebTestCase
      * @var null
      */
     protected $client4 = null;
+
+    /**
+     * @var null
+     */
+    protected $client11 = null;
     
     /**
      * @var null
@@ -68,6 +73,12 @@ class BaseClass extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client4->enableProfiler();
+
+        $this->client11 = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user11@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+        $this->client11->enableProfiler();
         
         $this->clientSecond = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'user@user.com',
