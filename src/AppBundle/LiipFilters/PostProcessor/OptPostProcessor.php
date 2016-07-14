@@ -46,6 +46,12 @@ class OptPostProcessor implements PostProcessorInterface
 
         unlink($input);
 
+        if ($process->getOutput() != 'ok\n'){
+            return $binary;
+        }
+
+
         return $result;
+
     }
 }
