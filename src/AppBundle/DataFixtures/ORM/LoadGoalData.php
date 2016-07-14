@@ -3,6 +3,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Aphorism;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\StoryImage;
 use AppBundle\Entity\SuccessStory;
 use AppBundle\Entity\Tag;
@@ -50,6 +51,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $user8 = $this->getReference('user8');
         $user9 = $this->getReference('user9');
         $user10 = $this->getReference('user10');
+        $user11 = $this->getReference('user11');
+        $user12 = $this->getReference('user12');
 
 
         $tag = new Tag();
@@ -213,6 +216,17 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal12->setAuthor($user);
         $goal12->setPublish(false);
         $manager->persist($goal12);
+
+        // create goal
+        $goal13 = new Goal();
+        $goal13->setDescription('goal13 goal13');
+        $goal13->setTitle('goal13');
+        $goal13->setStatus(1);
+        $goal13->setVideoLink(null);
+        $goal13->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal13->setAuthor($user11);
+        $goal13->setPublish(true);
+        $manager->persist($goal13);
 
         // create goal
         $userGoal1 = new UserGoal();
@@ -523,6 +537,28 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal28->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal28);
 
+        // create goal
+        $userGoal29 = new UserGoal();
+        $userGoal29->setUser($user12);
+        $userGoal29->setGoal($goal13);
+        $userGoal29->setIsVisible(true);
+        $userGoal29->setNote('goal13');
+        $userGoal29->setImportant(true);
+        $userGoal29->setUrgent(true);
+        $userGoal29->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal29);
+
+        // create goal
+        $userGoal30 = new UserGoal();
+        $userGoal30->setUser($user11);
+        $userGoal30->setGoal($goal13);
+        $userGoal30->setIsVisible(true);
+        $userGoal30->setNote('goal9');
+        $userGoal30->setImportant(true);
+        $userGoal30->setUrgent(true);
+        $userGoal30->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal30);
+
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
 
@@ -770,14 +806,37 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         );
 
         $goalImage11 = new GoalImage();
-        $goalImage11->setGoal($goal1);
+        $goalImage11->setGoal($goal10);
         $goal10->addImage($goalImage11);
         $goalImage11->setFile($photo10);
-        $goalImage11->setFileName($photo->getClientOriginalName());
-        $goalImage11->setFileSize($photo->getSize());
-        $goalImage11->setFileOriginalName($photo->getFilename());
+        $goalImage11->setFileName($photo10->getClientOriginalName());
+        $goalImage11->setFileSize($photo10->getSize());
+        $goalImage11->setFileOriginalName($photo10->getFilename());
 
-        $manager->persist($goalImage);
+        $manager->persist($goalImage11);
+
+        $oldPhotoPath13 = __DIR__ . '/images/image6.jpg';
+        $photoPath13 = __DIR__ . '/../../../../web/uploads/images/photo13.jpg';
+
+        // copy photo path
+        copy($oldPhotoPath13, $photoPath13);
+
+        // new uploaded file
+        $photo13 = new UploadedFile(
+            $photoPath11,
+            'photo13.jpg',
+            'image/jpeg'
+        );
+
+        $goalImage13 = new GoalImage();
+        $goalImage13->setGoal($goal13);
+        $goal13->addImage($goalImage13);
+        $goalImage13->setFile($photo13);
+        $goalImage13->setFileName($photo13->getClientOriginalName());
+        $goalImage13->setFileSize($photo13->getSize());
+        $goalImage13->setFileOriginalName($photo13->getFilename());
+
+        $manager->persist($goalImage13);
 
         $manager->flush();
 
@@ -855,6 +914,14 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $successStory1->setGoal($goal10);
         $manager->persist($successStory1);
 
+        //create newFeed object for activity json structure test
+        $newFeed = new NewFeed(null, null, $goal13);
+        $newFeed->setUser($user12);
+        $newFeed->setAction(true);
+        $newFeed->setDatetime(new \DateTime('now'));
+        $newFeed->addGoal($goal13);
+        $manager->persist($newFeed);
+        
         $manager->flush();
 
         $this->addReference('goal1', $goal1);
