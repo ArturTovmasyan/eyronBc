@@ -260,6 +260,11 @@ class User extends BaseUser
     private $userGoalCount    = null;
 
     /**
+     * @Groups({"user"})
+     */
+    private $commonGoalsCount = null;
+
+    /**
      * @ORM\Column(name="is_comment_notify", type="boolean", nullable=true)
      * @var
      * @Groups({"settings"})
@@ -1711,5 +1716,21 @@ class User extends BaseUser
     public function setIsAdmin($isAdmin)
     {
         $this->isAdmin = $isAdmin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommonGoalsCount()
+    {
+        return $this->commonGoalsCount;
+    }
+
+    /**
+     * @param mixed $commonGoalsCount
+     */
+    public function setCommonGoalsCount($commonGoalsCount)
+    {
+        $this->commonGoalsCount = $commonGoalsCount;
     }
 }

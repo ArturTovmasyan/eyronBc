@@ -525,7 +525,11 @@ class GoalController extends FOSRestController
         $userIds = array_keys($users);
         $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($userIds);
 
+        $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), $userIds);
+
         foreach($users as &$user) {
+            $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
                 "active"   => $stats[$user->getId()]['listedBy'],
