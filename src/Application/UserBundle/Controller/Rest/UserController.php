@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 
 
 /**
@@ -95,53 +96,81 @@ class UserController extends FOSRestController
 
         if($this->container->get('kernel')->getEnvironment() != 'test')
         {
-            $sessionId = $this->loginAction($user);
+            $response = $this->loginAction($user);
         }
         else {
-            $sessionId = 'test';
+            $response = 'test';
         }
 
-        $result = array(
-            'sessionId' => $sessionId,
-            'userInfo' => $user
-        );
-
-        return $result;
+        return $response;
     }
 
     /**
-     * @param $user
+     * @param User $user
+     * @param $isRegistred
      * @return mixed
      */
-    private function loginAction(User $user)
+    private function loginAction(User $user, $isRegistred = null)
     {
-        // get firewall name
-        $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        // create new token
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
-        // set token
-        $this->get('security.token_storage')->setToken($token);
-        // get session
-        $session = $this->get('session');
-        // set to session
-        $session->set($providerKey, serialize($token));
-        $session->save();
+        $response = new Response();
+
         // get request
         $request = $this->get('request_stack')->getCurrentRequest();
+
+        // get firewall name
+        $providerKey = $this->container->getParameter('fos_user.firewall_name');
+
+        // get secret key
+        $secretKey = $this->container->getParameter('secret');
+
+        // create new token
+        $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
+
+        $rememberMeService = new TokenBasedRememberMeServices(
+            array($user),
+            $secretKey,
+            $providerKey,
+            array(
+                'path' => '/',
+                'name' => 'REMEMBERME',
+                'domain' => null,
+                'secure' => false,
+                'httponly' => true,
+                'lifetime' => 2592000, // 30 days
+                'always_remember_me' => true,
+                'remember_me_parameter' => '_remember_me')
+        );
+
         // get cookie
         $cookie = $request->cookies;
+
         // get session id from cookie
         $phpSessionId = $cookie->get('PHPSESSID');
+
+        // get session
+        $session = $this->get('session');
+
         // if cookie is not set
         if(!$phpSessionId){
             // get session id
             $phpSessionId = $session->getId();
         }
 
+        //call remember me service
+        $rememberMeService->loginSuccess($request, $response, $token);
+
+        $content =  array(
+            'sessionId' => $phpSessionId,
+            'userInfo'  => $user,
+            'registered' => $isRegistred
+        );
+
+        $response->setContent(json_encode($content));
+
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
-        return $phpSessionId;
+        return $response;
     }
 
     /**
@@ -180,12 +209,9 @@ class UserController extends FOSRestController
 
             if($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())){
 
-                $phpSessionId = $this->loginAction($user);
+                $response = $this->loginAction($user);
 
-                return array(
-                    'sessionId' => $phpSessionId,
-                    'userInfo'  => $user
-                );
+                return $response;
             }
         }
 
@@ -329,14 +355,10 @@ class UserController extends FOSRestController
 
         }
 
-        //get session id
-        $sessionId = $this->loginAction($user);
+        //get response
+        $response = $this->loginAction($user, $isRegistred);
 
-        return  array(
-            'sessionId' => $sessionId,
-            'registred' => $isRegistred,
-            'userInfo'  => $user
-        );
+        return $response;
     }
 
     /**
