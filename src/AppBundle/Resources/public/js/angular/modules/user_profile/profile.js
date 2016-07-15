@@ -5,8 +5,7 @@ angular.module('profile', ['Interpolation',
   'angular-cache',
   'ngSanitize',
   'goalManage',
+  'goalComponents',
+  'goal',
   'PathPrefix'
-  ])
-  .controller('profileController',['$scope', function ($scope) {
-    
-  }]);
+]);

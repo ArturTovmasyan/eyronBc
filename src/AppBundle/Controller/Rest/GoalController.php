@@ -9,6 +9,7 @@ namespace AppBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use AppBundle\Entity\UserGoal;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -52,7 +53,7 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId);
 
-        return  $commonGoals;
+        return  ['userGoal' => $commonGoals ];
     }
 
     /**
@@ -486,6 +487,9 @@ class GoalController extends FOSRestController
 
 
     /**
+     * @Rest\Get("/goals/{first}/friends/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
+     * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2"}, name="get_goal_user_list")
+     *
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -496,21 +500,32 @@ class GoalController extends FOSRestController
      * )
      * @Rest\View(serializerGroups={"user"})
      * @Security("has_role('ROLE_USER')")
+     *
+     * @param Request $request
+     * @param $first
+     * @param $count
+     * @param null $goalId
+     * @param null $slug
      * @return array
      */
-    public function getFriendsAction(Request $request, $first, $count)
+    public function getFriendsAction(Request $request, $first, $count, $goalId = null, $slug = null)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
 
+        if (!is_null($goalId)){
+            $users = $em->getRepository('AppBundle:Goal')
+                ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
+        }
+        else {
+            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+        }
 
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+        $userIds = array_keys($users);
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($userIds);
 
-        $goalFriendsIds = array_keys($goalFriends);
-        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
-
-        foreach($goalFriends as &$user) {
+        foreach($users as &$user) {
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
                 "active"   => $stats[$user->getId()]['listedBy'],
@@ -518,7 +533,7 @@ class GoalController extends FOSRestController
             ]);
         }
 
-        return array_values($goalFriends);
+        return array_values($users);
     }
 
     /**

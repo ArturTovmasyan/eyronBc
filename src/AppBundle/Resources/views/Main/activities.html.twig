@@ -94,6 +94,10 @@
                                         <p>[[ ::activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ ::activity.datetime | date:'HH:mm' ]]</p>
 
                                     </div>
+                                    {#todo styly visible#}
+                                    <div class="pull-right" data-ng-show="activity.goals.length > 1">
+                                        <div class="swiper-pagination"></div>
+                                    </div>
                                 </div>
 
                                 <div class="comment-place ng-hide" data-ng-show="activity.comment">
@@ -113,7 +117,7 @@
                                     <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.goals">
-                                        <figure data-ng-init="singleGoal.imageLoad = ($index < 2 || $index == activity.goals.length - 1)? singleGoal.cached_image: ''">
+                                        <figure data-ng-init="singleGoal.imageLoad = ($index < 1)? singleGoal.cached_image: ''">
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
@@ -158,7 +162,6 @@
                                 </div>
 
                                 <div data-ng-show="activity.goals.length > 1">
-                                    <div class="swiper-pagination swiper-pagination-white"></div>
                                     <!-- Add Arrows -->
                                     <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
                                     <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
