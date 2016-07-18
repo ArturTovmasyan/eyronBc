@@ -178,7 +178,7 @@
 
                                             <a data-ng-href="[[ innerPath]]">
                                                 <span class="overlay"></span>
-                                                <img data-ng-if="goal.image_path" data-ng-src="[[ ::goal.image_path ]]" alt= "[[ ::goal.title ]]" />
+                                                <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt= "[[ ::goal.title ]]" />
                                             </a>
 
 
@@ -318,9 +318,11 @@
                          data-ng-repeat="userGoal in ProfileItems.userGoals"
                          {#data-ng-show="userGoal.is_visible"#}
                          data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal">
+
                         <div class="col-sm-12">
                             <div class="bg-white round">
                                 <div class="idea-item">
+
                                     <figure>
                                         <h3>
                                             <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
@@ -329,26 +331,27 @@
                                         <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
                                            class="goalTitle">
                                             <span class="overlay"></span>
-                                            <img data-ng-src="[[ ::singleGoal.image_path ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.image_path"/>
+                                            <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
                                         </a>
 
                                         <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
                                             <ul>
                                                 <li>
                                                     <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
-                                                        <span>
-                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                            [[ singleGoal.stats.listedBy ]]
-                                                        </span>
+                                                            <span>
+                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.listedBy ]]
+                                                            </span>
                                                         <i class="icon-user-small"></i>
                                                     </a>
                                                 </li>
+
                                                 <li>
                                                     <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
-                                                        <span>
-                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                            [[ singleGoal.stats.doneBy ]]
-                                                        </span>
+                                                            <span>
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.doneBy ]]
+                                                            </span>
                                                         <i class="icon-user-small"></i>
                                                     </a>
                                                 </li>

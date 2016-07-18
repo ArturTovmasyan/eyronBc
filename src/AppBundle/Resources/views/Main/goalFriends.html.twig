@@ -115,14 +115,15 @@
                                         <div class="col-xs-9">
                                             <div class="text-gray">
                                                 <h4 class="text-dark-gray">
-                                                    [[ user.first_name ]] [[ user.last_name ]]
+                                                    [[ ::user.first_name ]] [[ ::user.last_name ]]
                                                 </h4>
                                                 <span class="text-gray">{{ 'listed_by'|trans }} [[ ::user.stats.listedBy ]]</span> |
-                                                <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span>
+                                                <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
+                                                <a href="javascript:void(0)"
+                                                   data-ls-common-manage
+                                                   data-ls-user="[[ ::user.id ]]"
+                                                   data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
                                             </div>
-
-                                            <span class="text-gray">{{ 'common'|trans }} [[ ::user.common_goals_count ]]</span>
-
                                         </div>
                                     </div>
                                 </a>
