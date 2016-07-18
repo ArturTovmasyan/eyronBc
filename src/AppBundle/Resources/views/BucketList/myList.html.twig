@@ -105,7 +105,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 goals-information"
+            <div class="col-md-8 {% if myProfile %} goals-information{% endif %}"
                  data-ng-cloak
                  data-infinite-scroll='ProfileItems.nextPage(profile)'
                  data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'>
@@ -229,23 +229,23 @@
                                             </div>
 
                                             <ul class="clearfix">
-                                                <span data-ng-if="!isEmpty(userGoal.steps)">
-                                                    <li>
-                                                        <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-                                                    </li>
-                                                    <li>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-striped"
-                                                            role="progressbar"
-                                                            aria-valuenow="45"
-                                                            aria-valuemin="0"
-                                                            aria-valuemax="100"
-                                                            style="width: [[ Math.round(userGoal.completed) ]]%">
-                                                            [[ Math.round(userGoal.completed) ]]%
-                                                            </div>
+
+                                                <li data-ng-if="!isEmpty(userGoal.steps)">
+                                                    <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
+                                                </li>
+                                                
+                                                <li data-ng-if="!isEmpty(userGoal.steps)">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped"
+                                                        role="progressbar"
+                                                        aria-valuenow="45"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        style="width: [[ Math.round(userGoal.completed) ]]%">
+                                                        [[ Math.round(userGoal.completed) ]]%
                                                         </div>
-                                                    </li>
-                                                </span>
+                                                    </div>
+                                                </li>
 
                                                 <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}'">
                                                     <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon-pencil"></i>
@@ -313,49 +313,59 @@
                             </div>
                         </div>
                     {% else%}
-                    <div class="row bg-white round padding"
+                    <div class="row goals-animate"
                          data-ng-cloak
                          data-ng-repeat="userGoal in ProfileItems.userGoals"
                          {#data-ng-show="userGoal.is_visible"#}
                          data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal">
-                        <figure>
-                            <h3>
-                                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
-                            </h3>
 
-                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
-                               class="goalTitle">
-                                <span class="overlay"></span>
-                                <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
-                            </a>
+                        <div class="col-sm-12">
+                            <div class="bg-white round">
+                                <div class="idea-item">
 
-                            <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
-                                <ul>
-                                    <li>
-                                        <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
-                                                <span>
-                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                    [[ singleGoal.stats.listedBy ]]
-                                                </span>
-                                            <i class="icon-user-small"></i>
+                                    <figure>
+                                        <h3>
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                                        </h3>
+
+                                        <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                                           class="goalTitle">
+                                            <span class="overlay"></span>
+                                            <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
-                                                <span>
-                                                    {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                    [[ singleGoal.stats.doneBy ]]
-                                                </span>
-                                            <i class="icon-user-small"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+
+                                        <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
+                                            <ul>
+                                                <li>
+                                                    <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
+                                                            <span>
+                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.listedBy ]]
+                                                            </span>
+                                                        <i class="icon-user-small"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
+                                                            <span>
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.doneBy ]]
+                                                            </span>
+                                                        <i class="icon-user-small"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <figcaption>
+                                            {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                                        </figcaption>
+                                    </figure>
+                                </div>
                             </div>
+                        </div>
 
-                            <figcaption>
-                                {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
-                            </figcaption>
-                        </figure>
                     </div>
                     {% endif %}
                 </div>
