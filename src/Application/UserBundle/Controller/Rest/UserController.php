@@ -107,10 +107,9 @@ class UserController extends FOSRestController
 
     /**
      * @param User $user
-     * @param $isRegistred
      * @return mixed
      */
-    private function loginAction(User $user, $isRegistred = null)
+    private function loginAction(User $user)
     {
         $response = new Response();
 
@@ -161,8 +160,7 @@ class UserController extends FOSRestController
 
         $content =  array(
             'sessionId' => $phpSessionId,
-            'userInfo'  => $user,
-            'registered' => $isRegistred
+            'userInfo'  => $user
         );
 
         $response->setContent(json_encode($content));
@@ -352,13 +350,24 @@ class UserController extends FOSRestController
 
             //set reg status for mobile
             $isRegistred = true;
-
         }
 
         //get response
-        $response = $this->loginAction($user, $isRegistred);
+        $responseData = $this->loginAction($user);
 
-        return $response;
+        //get response content
+        $content = json_decode($responseData->getContent(), true);
+
+        //set registred value
+        $registredArray = array('registred' => $isRegistred);
+
+        //merge registerd value in response content
+        $content = array_merge($content, $registredArray);
+
+        //set content in response data
+        $responseData->setContent(json_encode($content));
+
+        return $responseData;
     }
 
     /**
