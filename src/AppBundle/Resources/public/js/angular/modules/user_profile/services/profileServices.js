@@ -108,10 +108,10 @@ angular.module('profile')
     lsInfiniteGoals.prototype.common = function(id) {
       UserGoalDataManager.common({id: id}, function (newData) {
         // if get empty
-        if(!newData.userGoal.length){
+        if(!newData.goals.length){
           this.noItem = true;
         } else {
-          this.userGoals = this.userGoals.concat(newData.userGoal);
+          this.userGoals = this.userGoals.concat(newData.goals);
         }
       }.bind(this));
     };

@@ -120,7 +120,7 @@ angular.module('profile')
 
     }
   ])
-  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate',
+  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals',
     function ($scope, $timeout, lsInfiniteGoals) {
       $scope.Friends = new lsInfiniteGoals(20);
       $scope.slug = (window.location.pathname.indexOf('listed-users') != -1)?1: 2;
@@ -139,5 +139,10 @@ angular.module('profile')
           $scope.resetFriends();
         }
       };
+    }
+  ])
+  .controller('commonController',['$scope', 'userData',
+    function ($scope, userData) {
+    $scope.goals = userData.data;
     }
   ]);

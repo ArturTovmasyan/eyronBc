@@ -14,12 +14,17 @@ angular.module('manage', ['Interpolation',
     .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
         var addUrl = envPrefix + "goal/add-modal";
         var doneUrl = envPrefix + "goal/done-modal";
+        var commonUrl = envPrefix + "user/common";
         $http.get(addUrl).success(function(data) {
             template.addTemplate = data;
         });
         
         $http.get(doneUrl).success(function(data) {
             template.doneTemplate = data;
+        });
+
+        $http.get(commonUrl).success(function(data) {
+            template.commonTemplate = data;
         })
     }])
     .directive('lsGoalManage',['$compile',
@@ -219,4 +224,59 @@ angular.module('manage', ['Interpolation',
     
               }
           }
-  }]);
+  }])
+  .directive('lsCommonManage',['$compile',
+      '$http',
+      '$rootScope',
+      'AuthenticatorLoginService',
+      'template',
+      'userData',
+      'UserGoalDataManager',
+      function($compile, $http, $rootScope, AuthenticatorLoginService, template, userData, UserGoalDataManager){
+          return {
+              restrict: 'EA',
+              scope: {
+                  lsUser: '@'
+              },
+              link: function(scope, el){
+
+                  el.bind('click', function(){
+                      scope.run();
+                  });
+
+                  scope.run = function(){
+                      $(".modal-loading").show();
+
+                      UserGoalDataManager.common({id: scope.lsUser}, function (data){
+                          userData.data = data.goals;
+                          scope.runCallback();
+                      }, function(res){
+                          if(res.status === 401){
+                              AuthenticatorLoginService.openLoginPopup();
+                          }
+                      });
+                  };
+
+                  scope.runCallback = function(){
+                      var sc = $rootScope.$new();
+                      var tmp = $compile(template.commonTemplate)(sc);
+                      scope.openModal(tmp);
+                      $(".modal-loading").hide();
+                  };
+
+                  scope.openModal = function(tmp){
+
+                      angular.element('body').append(tmp);
+                      tmp.modal({
+                          fadeDuration: 300
+                      });
+
+                      tmp.on($.modal.CLOSE, function(){
+                          tmp.remove();
+                      })
+                  }
+
+              }
+          }
+      }
+  ]);

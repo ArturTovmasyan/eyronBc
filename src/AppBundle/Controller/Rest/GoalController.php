@@ -52,8 +52,10 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId);
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($commonGoals);
 
-        return  ['userGoal' => $commonGoals ];
+
+        return  ['goals' => array_values($commonGoals) ];
     }
 
     /**
