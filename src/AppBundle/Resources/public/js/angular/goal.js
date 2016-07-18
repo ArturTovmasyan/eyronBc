@@ -766,9 +766,10 @@ angular.module('goal', ['Interpolation',
             $timeout(function(){
                 var activity_swiper = new Swiper('.activity-slider', {
                     pagination: '.swiper-pagination',
+                    paginationType: 'fraction',
                     observer: true,
                     autoHeight: true,
-                    loop: true,
+                    // loop: true,
                     nextButton: '.swiper-button-next',
                     prevButton: '.swiper-button-prev',
                     spaceBetween: 30
@@ -800,40 +801,6 @@ angular.module('goal', ['Interpolation',
                 angular.element('.navbar-toggle').click();
             }, 500);
         };
-    }])
-    .controller('goalMyBucketList', ['$scope', '$http', '$compile', '$analytics', 'refreshingDate',
-        function($scope, $http, $compile, $analytics, refreshingDate){
-        $scope.isMobile =false;
-        $scope.isMobile = window.innerWidth < 767? true : false;
-        var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
-
-        $scope.$on('doneGoal', function(){
-            //changing date
-            $scope['change' + refreshingDate.goalId] = 2;
-            angular.element('.goal' + refreshingDate.goalId).removeClass("active-idea");
-            $scope['doDate' + refreshingDate.goalId] = new Date();
-
-            $scope['success'+refreshingDate.goalId] = true;
-        });
-
-        $scope.onMarkerClick = function(goal){
-            $http.get(mapModalTemplateUrl)
-                .success(function(res){
-
-                    var newSc = $scope.$new();
-                    newSc.goal = goal;
-
-                    var tmp = $compile(res)(newSc);
-                    angular.element('body').append(tmp);
-                    tmp.modal({
-                        fadeDuration: 500
-                    });
-                    tmp.on($.modal.CLOSE, function(){
-                        tmp.remove();
-                    })
-                });
-        }
-
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {

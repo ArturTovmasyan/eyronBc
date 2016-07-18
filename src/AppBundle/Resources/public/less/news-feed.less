@@ -3,10 +3,58 @@
 
 #news-feed,#goal-friends{
 
+  .goalfrineds-menu{
+    padding:5px 0 0;
+    margin-bottom:0;
+
+    li{
+      display: inline-block;
+
+      a{
+        padding: 5px 10px;
+        color: #333333;
+        font-size:15px;
+
+        &:hover{
+          color: #7724F6;
+        }
+      }
+    }
+  }
+
+  .common-goals{
+    display: block;
+  }
+
+  form{
+    .icon-search-icon{
+      position: absolute;
+      font-size: 24px;
+      color: #cccccc;
+    }
+
+    input{
+      border: 0;
+      font-size:14px;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 1px solid #cccccc;
+      padding: 0 5px 9px 35px;
+      color:#333333;
+      &:hover,&:active{
+        border-bottom: 1px solid #7724F6;
+      }
+    }
+  }
+
   .users-list{
     background-color: #ffffff;
     padding:15px 10px 15px 15px;
     margin-bottom:10px;
+
+    h4{
+      padding: 3px 0 1px 0;
+    }
 
     span{
       font-size:13px;
@@ -14,7 +62,6 @@
   }
 
   .icon-lock-white {
-    //position: absolute;
     right: 15px;
     top: 15px;
     color: #B3B3B3;
@@ -381,19 +428,33 @@
     }
 
     .image-goalfrinds{
-      margin: 5px auto 0;
-      width:45px;
-      height:45px;
+      //margin: 5px auto 0;
+      //width:45px;
+      //height:45px;
+      //
+      //img{
+      //  width:45px;
+      //  height:45px;
+      //}
+      //
+      //.no-image{
+      //  height: 45px;
+      //  width:45px;
+      //  line-height: 40px;
+      //}
+      width: 60px;
+      height: 60px;
 
       img{
-        width:45px;
-        height:45px;
+        width: 60px;
+        height: 60px;
       }
 
       .no-image{
-        height: 45px;
-        width:45px;
-        line-height: 40px;
+        height: 60px;
+        width:60px;
+        line-height: 50px;
+        font-size:16px;
       }
     }
 

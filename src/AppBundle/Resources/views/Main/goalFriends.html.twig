@@ -1,111 +1,154 @@
 {% extends "AppBundle::layout.html.twig" %}
 
+{% block angularApp %}
+<html data-ng-app="profile" data-ng-controller="friendsController">
+{% endblock %}
+{% set friend = (app.request.get('_route') == 'goal_friends') %}
+{% if app.request.get('slug') is defined %}
+    {% set slug = app.request.get('slug') %}
+{% else %}
+    {% set slug = false %}
+{% endif %}
+
 {% block content %}
     {{ parent() }}
 
     <div id="goal-friends">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8"
+                     data-ng-init="goalId = {{ (goalId is defined and goalId)?goalId: 0 }}"
+                     data-ng-cloak
+                     data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId)'
+                     data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>
 
-                    {% if app.request.get('_route') == 'goal_friends' %}
+                    {% if friend %}
 
                         <div class="bg-white padding round">
 
                             <form role="search" action="#" method="GET">
                                 <div class="form-group row">
 
-                                    <div class="col-xs-10 col-sm-11">
-                                        <input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">
-                                    </div>
-                                    <div  class="col-xs-2 col-sm-1">
-                                        <a href="{{ path('goal_friends') }}" class="text-gray">
+                                    {#<div class="col-xs-10 col-sm-11">#}
+                                        {#<input type="text" name="search"#}
+                                               {#data-ng-model="friendName"#}
+                                               {#class="form-control"#}
+                                               {#id="inputEmail3"#}
+                                               {#&#123;&#35;value="{{ app.request.get('search') }}"&#35;&#125;#}
+                                               {#data-ng-keypress="doSearch($event)">#}
+                                    {#</div>#}
+                                    {#<div  class="col-xs-2 col-sm-1">#}
+                                        {#<a href="#" data-ng-click="friendName = ''; resetFriends()" class="text-gray">#}
                                             {#<i class="icon remove-icon"></i>#}
-                                            <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                        </a>
+                                            {#<i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+                                        {#</a>#}
+                                    {#</div>#}
+
+                                    {#<div class="col-xs-10 col-sm-11">#}
+                                        {#<input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">#}
+                                    {#</div>#}
+                                    {#<div  class="col-xs-2 col-sm-1">#}
+                                        {#<a href="{{ path('goal_friends') }}" class="text-gray">#}
+                                            {#<i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+                                        {#</a>#}
+                                    {#</div>#}
+
+                                    <div class="col-sm-12">
+                                        <span class="icon-search-icon"></span>
+                                        <input type="text" name="search"
+                                               data-ng-model="friendName"
+                                               data-ng-keypress="doSearch($event)"
+                                               class="form-control"
+                                               id="searchInput"
+                                               placeholder="{{ 'search_placeholder'|trans }}"
+                                               {#value="{{ app.request.get('search') }}"#}>
                                     </div>
+
                                 </div>
                             </form>
+
+                            <ul class="goalfrineds-menu ng-hide">
+                                <li>
+                                    <a class="text-purple">All</a>
+                                </li>
+
+                                <li>
+                                    <a>Recently Matched</a>
+                                </li>
+
+                                <li>
+                                    <a>Most Matching</a>
+                                </li>
+
+                                <li>
+                                    <a>Most active</a>
+                                </li>
+                            </ul>
                         </div>
 
                     {% endif %}
 
-                    {% if app.request.get('slug') is defined  and app.request.get('slug') %}
+                    {% if slug %}
                         <div>
-                            <a href="{{ path('inner_goal', {'slug': app.request.get('slug')}) }}" class="row text-gray heading"> &laquo; Back to {{ title }}</a>
+                            <a href="{{ path('inner_goal', {'slug': slug}) }}" class="row text-gray heading"> &laquo; Back to {{ title }}</a>
                         </div>
                     {% endif %}
 
-                    {% set counter = 0 %}
-                    {% for goalFriend in pagination %}
+                    <div data-ng-cloak
+                         class="goals-animate"
+                         data-ng-repeat="user in Friends.users"
+                         data-ng-class-even="row"
+                         {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
 
-                        {% if counter is divisible by(2) %}
-                            <div class="row {% if app.request.get('_route') == 'goal_friends' and counter == 0 %} margin-top{% endif %}" >
-                        {% endif %}
+                        <div class="col-sm-6">
+                            <div class="users-list round clearfix">
+                                 <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;">
+                                    <div class="row no-gutter">
+                                        <div class="col-xs-3">
+                                            <figure class="image-goalfrinds">
+                                                <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
+                                                {% set className = "user-no" ~ random(4) %}
+                                                <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>
+                                            </figure>
+                                        </div>
 
-                                <div class="col-sm-6">
-                                    <div class="users-list round clearfix">
-                                         <a href="{{ path('user_profile', {'user': goalFriend.uId}) }}" style="display:block;">
-                                            <div class="row no-gutter">
-                                                <div class="col-xs-3">
-                                                    <figure class="image-goalfrinds">
-
-                                                    {% if goalFriend.getPhotoLink() %}
-                                                        <img src="{{ goalFriend.getPhotoLink()|blImageFilter('user_icon') }}" alt="{{ goalFriend.firstName }}" class="img-circle img-responsive" />
-                                                    {% else %}
-                                                        {% set nameOnImage = goalFriend.firstName|slice(0,1) ~ goalFriend.lastName|slice(0,1) %}
-                                                        {% set className = "user-no" ~ random(4) %}
-                                                        <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
-                                                    {% endif %}
-                                                    </figure>
-                                                </div>
-
-                                                <div class="col-xs-9">
-                                                    <div class="text-gray">
-                                                        <h4 class="text-dark-gray">
-                                                            {{ goalFriend.firstname }} {{ goalFriend.lastname }}
-                                                        </h4>
-                                                        {% set stats = goalFriend.getStats %}
-                                                        <span class="text-gray">{{ 'listed_by'|trans }} {{ stats.listedBy }}</span> |
-                                                        <span class="text-gray">{{ 'completed'|trans }} {{ stats.doneBy }}</span>
-                                                    </div>
-                                                </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-gray">
+                                                <h4 class="text-dark-gray">
+                                                    [[ ::user.first_name ]] [[ ::user.last_name ]]
+                                                </h4>
+                                                <span class="text-gray">{{ 'listed_by'|trans }} [[ ::user.stats.listedBy ]]</span> |
+                                                <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
+                                                <a href="javascript:void(0)"
+                                                   data-ls-common-manage
+                                                   data-ls-user="[[ ::user.id ]]"
+                                                   data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
-                                </div>
-
-                        {% if counter is not divisible by(2) %}
+                                </a>
                             </div>
-                        {% endif %}
-                        {% set counter = counter + 1 %}
-
-                    {% endfor %}
-
-                    {% if counter is not divisible by(2) and counter != 0  %}
                         </div>
-                    {% endif %}
-                        <br />
 
-                        <div class="navigation">
-                            {{ knp_pagination_render(pagination) }}
-                        </div>
                     </div>
 
-                {% if app.user %}
-                    <div class="col-md-4">
-                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                    </div>
-                {% endif %}
+                    <br />
+                </div>
+
+            {% if app.user %}
+                <div class="col-md-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                </div>
+            {% endif %}
             </div>
         </div>
    </div>
 {% endblock %}
 
 {%- block title -%}
-    {% if app.request.get('_route') == 'goal_friends' %}
+    {% if friend %}
         {{- 'goal.friends_title'|trans -}}
     {% else %}
         {{- 'goal.user_title'|trans -}}{% if title %} {{ title }}{% endif %}
@@ -113,7 +156,7 @@
 {%- endblock -%}
 
 {%- block meta_description -%}
-    {% if app.request.get('_route') == 'goal_friends' %}
+    {% if friend %}
         {{- 'goal.friends_description'|trans -}}
     {% else %}
         {{- 'goal.user_description'|trans -}}{% if title %} {{ title }}{% endif %}

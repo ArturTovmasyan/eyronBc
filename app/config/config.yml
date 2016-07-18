@@ -22,6 +22,7 @@ parameters:
     cover:
         with: 1280
         height: 720
+    remember_me_lifetime: 2592000 #one month
 
 framework:
     esi:            { enabled: true }
@@ -38,7 +39,8 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v362
+        assets_version: v364
+
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~

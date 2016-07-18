@@ -56,7 +56,7 @@
 
                         <a href="{{ env_prefix }}/goal/[[ ::popularGoal.slug]]" class="goalTitle">
                             <span class="overlay"></span>
-                            <img data-ng-src="[[ ::popularGoal.cached_image ]]" alt="[[ ::popularGoal.title ]]"/>
+                            <img data-ng-if="popularGoal.cached_image" data-ng-src="[[ ::popularGoal.cached_image ]]" alt="[[ ::popularGoal.title ]]"/>
                         </a>
 
                         <div class="absolute">

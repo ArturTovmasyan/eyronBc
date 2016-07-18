@@ -26,7 +26,7 @@
 
     </li>
     
-    <li class="col-xs-6" ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )|| !completed}">
+    <li class="col-xs-6" ng-class="{transparent: (goal.is_my_goal && goal.is_my_goal === 2 )|| !completed}" data-ng-init="success[ goal.id ] = false">
         <span class="ng-hide" data-ng-show="goal.is_my_goal !== 2 && completed">
             <a href="javascript:void(0)"
                data-ng-cloak

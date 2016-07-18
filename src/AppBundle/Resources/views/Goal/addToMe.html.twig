@@ -382,6 +382,7 @@
                 {% endif %}
 
                 <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_year'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>

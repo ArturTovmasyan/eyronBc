@@ -11,12 +11,14 @@ use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 
 
 /**
@@ -93,55 +95,90 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        if($this->container->get('kernel')->getEnvironment() != 'test')
-        {
-            $sessionId = $this->loginAction($user);
-        }
-        else {
-            $sessionId = 'test';
-        }
+        $response = $this->loginAction($user, array('user'));
 
-        $result = array(
-            'sessionId' => $sessionId,
-            'userInfo' => $user
-        );
-
-        return $result;
+        return $response;
     }
 
     /**
-     * @param $user
+     * @param User $user
+     * @param $group
+     * @param $isRegistered
      * @return mixed
      */
-    private function loginAction(User $user)
+    private function loginAction(User $user, array $group, $isRegistered = null)
     {
-        // get firewall name
-        $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        // create new token
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
-        // set token
-        $this->get('security.token_storage')->setToken($token);
-        // get session
-        $session = $this->get('session');
-        // set to session
-        $session->set($providerKey, serialize($token));
-        $session->save();
+        $response = new JsonResponse();
         // get request
         $request = $this->get('request_stack')->getCurrentRequest();
+
+        // get firewall name
+        $providerKey = $this->container->getParameter('fos_user.firewall_name');
+
+        // get secret key
+        $secretKey = $this->container->getParameter('secret');
+
+        // create new token
+        $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
+
+        //get remember me lifetime
+        $lifeTime = $this->getParameter('remember_me_lifetime');
+
+        $rememberMeService = new TokenBasedRememberMeServices(
+            array($user),
+            $secretKey,
+            $providerKey,
+            array(
+                'path' => '/',
+                'name' => 'REMEMBERME',
+                'domain' => null,
+                'secure' => false,
+                'httponly' => true,
+                'lifetime' => $lifeTime, // 30 days
+                'always_remember_me' => true,
+                'remember_me_parameter' => '_remember_me')
+        );
+
         // get cookie
         $cookie = $request->cookies;
+
         // get session id from cookie
         $phpSessionId = $cookie->get('PHPSESSID');
+
+        // get session
+        $session = $this->get('session');
+
         // if cookie is not set
         if(!$phpSessionId){
             // get session id
             $phpSessionId = $session->getId();
         }
 
+        //call remember me service
+        $rememberMeService->loginSuccess($request, $response, $token);
+
+        $content =  array(
+            'sessionId' => $phpSessionId,
+            'userInfo'  => $user
+        );
+
+        if($isRegistered != null){
+            $content['registred'] = $isRegistered;
+        }
+
+        //get serializer service
+        $serializer = $this->get('serializer');
+
+        //serialize content by group
+        $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
+
+        //set content in response
+        $response->setContent($contentJson);
+
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
-        return $phpSessionId;
+        return $response;
     }
 
     /**
@@ -180,12 +217,9 @@ class UserController extends FOSRestController
 
             if($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())){
 
-                $phpSessionId = $this->loginAction($user);
+                $response = $this->loginAction($user, array('user'));
 
-                return array(
-                    'sessionId' => $phpSessionId,
-                    'userInfo'  => $user
-                );
+                return $response;
             }
         }
 
@@ -326,17 +360,12 @@ class UserController extends FOSRestController
 
             //set reg status for mobile
             $isRegistred = true;
-
         }
 
-        //get session id
-        $sessionId = $this->loginAction($user);
+        //get response
+        $responseData = $this->loginAction($user,  array('user'), $isRegistred);
 
-        return  array(
-            'sessionId' => $sessionId,
-            'registred' => $isRegistred,
-            'userInfo'  => $user
-        );
+        return $responseData;
     }
 
     /**
