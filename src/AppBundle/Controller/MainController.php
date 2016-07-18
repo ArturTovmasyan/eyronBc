@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Form\ContactUsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -209,7 +210,7 @@ class MainController extends Controller
         }
 
         //This part is used for profile completion percent calculation
-        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+        if ($this->getUser() instanceof User && $this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
 
