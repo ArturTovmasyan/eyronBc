@@ -296,4 +296,36 @@ class SuccessStoryController extends FOSRestController
         ];
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to remove goal image",
+     *  statusCodes={
+     *         200="Returned when image was removed",
+     *         400="Returned when image hasn't goal or it's goal isn't current user's goal",
+     *         404="Returned when goalImage not found",
+     *  },
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\Get("/success-story/remove-images/{id}", requirements={"id"="\d+"}, name="get_goal_remove_story_image", options={"method_prefix"=false})
+     *
+     * @param StoryImage $storyImage
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getRemoveStoryImageAction(StoryImage $storyImage, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $this->denyAccessUnlessGranted('edit', $storyImage->getStory(), $this->get('translator')->trans('success_story.edit_access_denied'));
+
+        $em->remove($storyImage);
+        $em->flush();
+
+        if ($request->get('_route') == 'get_goal_remove_story_image' && isset($_SERVER['HTTP_REFERER'])){
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        return new Response('', Response::HTTP_OK);
+    }
 }

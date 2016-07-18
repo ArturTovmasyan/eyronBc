@@ -424,6 +424,11 @@
                 <target>General</target>
             </trans-unit>
 
+            <trans-unit id="moderator">
+                <source>moderator</source>
+                <target>Moderator</target>
+            </trans-unit>
+
             <trans-unit id="group_name_user">
                 <source>group_name_user</source>
                 <target>User</target>

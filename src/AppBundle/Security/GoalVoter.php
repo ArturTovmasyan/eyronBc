@@ -72,6 +72,10 @@ class GoalVoter extends Voter
      */
     private function canView(Goal $goal, $user)
     {
+        if ($user->isAdmin() || $user->hasRole('ROLE_MODERATOR')){
+            return true;
+        }
+
         return ($goal->getPublish() == PublishAware::PUBLISH || ($user instanceof User && !is_null($goal->getAuthor()) && $goal->getAuthor()->getId() == $user->getId()));
     }
 

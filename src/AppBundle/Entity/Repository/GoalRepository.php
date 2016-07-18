@@ -709,4 +709,28 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
             ->setParameter('user2Id', $user2Id)
             ->getResult();
     }
+
+    /**
+     * @param $userId
+     * @param $userIds
+     * @return array
+     */
+    public function findCommonCounts($userId, $userIds)
+    {
+        if (count($userIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT u.id, COUNT(mug.id) as commonGoals
+                           FROM ApplicationUserBundle:User u
+                           INDEX BY u.id
+                           LEFT JOIN u.userGoal ug
+                           LEFT JOIN AppBundle:UserGoal mug WITH mug.goal = ug.goal AND mug.user = :userId
+                           WHERE u.id IN (:userIds)
+                           GROUP BY u.id")
+            ->setParameter('userId', $userId)
+            ->setParameter('userIds', $userIds)
+            ->getResult();
+    }
 }

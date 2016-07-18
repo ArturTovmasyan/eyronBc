@@ -305,8 +305,9 @@ complete_message: Complete your profile
 
 added: Added
 completed: Completed
+common: In Common
 submit: Submit
-search_placeholder: Search for Goalfriends
+search_placeholder: Search for Goalfriends ...
 
 deadline:
   complete_text: Set a deadline
@@ -327,6 +328,7 @@ admin:
       category: Category
       aphorism: Aphorism
       time_sentence: Time Sentence
+      success_story: Success Story
       page: Page
       goal: Goal
       id: Id
@@ -355,6 +357,7 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
+      updated: Updated
       goal_link: Goal link
       action_merge: Merge
       goal_status: Goal Status

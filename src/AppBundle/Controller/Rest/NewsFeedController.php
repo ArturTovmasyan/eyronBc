@@ -134,16 +134,23 @@ class NewsFeedController extends FOSRestController
 
         $oldNewFeeds = [];
         foreach($newsFeeds as $newFeed){
-            foreach($newFeed->getGOals() as $goal){
-                $oldNewFeed = clone $newFeed;
-                $oldNewFeed->setGoals(null);
-                $oldNewFeed->setGoal($goal);
+            $count = 0;
+            foreach($newFeed->getGoals() as $goal){
+                if ($count < 2) {
+                    $oldNewFeed = clone $newFeed;
+                    $oldNewFeed->setGoals(null);
+                    $oldNewFeed->setGoal($goal);
 
-                $stats = $goal->getStats();
-                $oldNewFeed->setListedBy($stats['listedBy']);
-                $oldNewFeed->setCompletedBy($stats['doneBy']);
+                    $stats = $goal->getStats();
+                    $oldNewFeed->setListedBy($stats['listedBy']);
+                    $oldNewFeed->setCompletedBy($stats['doneBy']);
 
-                $oldNewFeeds[] = $oldNewFeed;
+                    $oldNewFeeds[] = $oldNewFeed;
+                    $count++;
+                }
+                else {
+                    break;
+                }
             }
         }
 

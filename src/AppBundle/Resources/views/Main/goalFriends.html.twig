@@ -29,22 +29,61 @@
                             <form role="search" action="#" method="GET">
                                 <div class="form-group row">
 
-                                    <div class="col-xs-10 col-sm-11">
+                                    {#<div class="col-xs-10 col-sm-11">#}
+                                        {#<input type="text" name="search"#}
+                                               {#data-ng-model="friendName"#}
+                                               {#class="form-control"#}
+                                               {#id="inputEmail3"#}
+                                               {#&#123;&#35;value="{{ app.request.get('search') }}"&#35;&#125;#}
+                                               {#data-ng-keypress="doSearch($event)">#}
+                                    {#</div>#}
+                                    {#<div  class="col-xs-2 col-sm-1">#}
+                                        {#<a href="#" data-ng-click="friendName = ''; resetFriends()" class="text-gray">#}
+                                            {#<i class="icon remove-icon"></i>#}
+                                            {#<i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+                                        {#</a>#}
+                                    {#</div>#}
+
+                                    {#<div class="col-xs-10 col-sm-11">#}
+                                        {#<input type="text" name="search" class="form-control" id="inputEmail3" placeholder="{{ 'search_placeholder'|trans }}" value="{{ app.request.get('search') }}">#}
+                                    {#</div>#}
+                                    {#<div  class="col-xs-2 col-sm-1">#}
+                                        {#<a href="{{ path('goal_friends') }}" class="text-gray">#}
+                                            {#<i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>#}
+                                        {#</a>#}
+                                    {#</div>#}
+
+                                    <div class="col-sm-12">
+                                        <span class="icon-search-icon"></span>
                                         <input type="text" name="search"
                                                data-ng-model="friendName"
+                                               data-ng-keypress="doSearch($event)"
                                                class="form-control"
-                                               id="inputEmail3"
-                                               {#value="{{ app.request.get('search') }}"#}
-                                               data-ng-keypress="doSearch($event)">
+                                               id="searchInput"
+                                               placeholder="{{ 'search_placeholder'|trans }}"
+                                               {#value="{{ app.request.get('search') }}"#}>
                                     </div>
-                                    <div  class="col-xs-2 col-sm-1">
-                                        <a href="#" data-ng-click="friendName = ''; resetFriends()" class="text-gray">
-                                            <i class="icon remove-icon"></i>
-                                            <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </form>
+
+                            <ul class="goalfrineds-menu ng-hide">
+                                <li>
+                                    <a class="text-purple">All</a>
+                                </li>
+
+                                <li>
+                                    <a>Recently Matched</a>
+                                </li>
+
+                                <li>
+                                    <a>Most Matching</a>
+                                </li>
+
+                                <li>
+                                    <a>Most active</a>
+                                </li>
+                            </ul>
                         </div>
 
                     {% endif %}
@@ -59,7 +98,8 @@
                          class="goals-animate"
                          data-ng-repeat="user in Friends.users"
                          data-ng-class-even="row"
-                        {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
+                         {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
+
                         <div class="col-sm-6">
                             <div class="users-list round clearfix">
                                  <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;">
@@ -84,12 +124,17 @@
                                                    data-ls-user="[[ ::user.id ]]"
                                                    data-ng-cloak class="text-gray">{{ 'menu.common'|trans }}</a>
                                             </div>
+
+                                            <span class="text-gray">{{ 'common'|trans }} [[ ::user.common_goals_count ]]</span>
+
                                         </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+
                     </div>
+
                     <br />
                 </div>
 

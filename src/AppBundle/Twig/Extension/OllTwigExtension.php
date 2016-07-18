@@ -57,7 +57,8 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isTablet', array($this, 'isTablet')),
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
-            new \Twig_SimpleFunction('getReferer', array($this, 'getReferer'))
+            new \Twig_SimpleFunction('getReferer', array($this, 'getReferer')),
+            new \Twig_SimpleFunction('csrfToken', array($this, 'csrfToken'))
         );
     }
     /**
@@ -112,6 +113,14 @@ class OllTwigExtension extends \Twig_Extension
     public function isTablet()
     {
         return $this->container->get('mobile_detect.mobile_detector')->isTablet();
+    }
+
+    /**
+     * @return bool
+     */
+    public function csrfToken()
+    {
+        return $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
     }
 
     /**

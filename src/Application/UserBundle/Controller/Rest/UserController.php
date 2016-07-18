@@ -307,7 +307,7 @@ class UserController extends FOSRestController
             return new JsonResponse("Wrong access token", Response::HTTP_BAD_REQUEST);
         }
 
-        $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id);
+        $user = $em->getRepository('ApplicationUserBundle:User')->findBySocial($type, $id, $newUser->getEmail());
 
         if(!$user){
             $fileName = md5(microtime()) . '.jpg';

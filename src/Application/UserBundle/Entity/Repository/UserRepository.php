@@ -113,10 +113,11 @@ class UserRepository extends EntityRepository
     /**
      * @param $type
      * @param $id
+     * @param null $email
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findBySocial($type, $id)
+    public function findBySocial($type, $id, $email = null)
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -135,11 +136,25 @@ class UserRepository extends EntityRepository
                 break;
         }
 
-        return $query
+        $user = $query
             ->setParameter('id', $id)
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
+
+        if (is_null($user) && !is_null($email)){
+            return $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('u')
+                ->from('ApplicationUserBundle:User', 'u')
+                ->where('u.email = :email')
+                ->setParameter('email', $email)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+
+        return $user;
     }
 
     /**
