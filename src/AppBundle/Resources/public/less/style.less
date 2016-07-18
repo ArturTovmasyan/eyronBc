@@ -593,23 +593,11 @@ label{
   background: url('../images/no-image-profile.png') no-repeat 0 0;
 }
 
-
-
 #signin{
     text-align: center;
     background-color: #f4f4f4;
     padding: 30px;
     width: 280px;
-
-    .close-icon{
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      top: 38px;
-      right: 35px;
-      cursor:pointer;
-      background: url('../images/close.svg') no-repeat center center;
-    }
 
     h2{
       padding: 0;
@@ -724,6 +712,26 @@ label{
 
       }
     }
+
+
+#signin,#common-modal{
+  .close-icon{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 38px;
+    right: 35px;
+    cursor:pointer;
+    background: url('../images/close.svg') no-repeat center center;
+  }
+}
+
+#common-modal{
+  .close-icon{
+    top: 20px;
+    right: 20px;
+  }
+}
 
 .icon{
   display: inline-block;
@@ -1630,7 +1638,7 @@ footer{
 }
 
 .bg-grey{
-  background-color: #f4f4f4;
+  background-color: #f4f4f4 !important;
 }
 
 #app_bundle_success_story_type_videoLink{
