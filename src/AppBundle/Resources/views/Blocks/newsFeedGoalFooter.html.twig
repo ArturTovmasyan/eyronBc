@@ -37,7 +37,8 @@
     
 </ul>
 <ul data-ng-show="!singleGoal.publish" class="ng-hide row">
-    <li class="col-xs-12">
-        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
+    <li class="col-xs-12 transparent">
+        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white text-gray"></i>
+        <span class="text text-gray">{{ 'user_goal.private' | trans }}</span>
     </li>
 </ul>
