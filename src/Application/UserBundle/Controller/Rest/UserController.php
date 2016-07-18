@@ -11,6 +11,7 @@ use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,25 +95,20 @@ class UserController extends FOSRestController
         $em->persist($user);
         $em->flush();
 
-        if($this->container->get('kernel')->getEnvironment() != 'test')
-        {
-            $response = $this->loginAction($user);
-        }
-        else {
-            $response = 'test';
-        }
+        $response = $this->loginAction($user, array('user'));
 
         return $response;
     }
 
     /**
      * @param User $user
+     * @param $group
+     * @param $isRegistered
      * @return mixed
      */
-    private function loginAction(User $user)
+    private function loginAction(User $user, array $group, $isRegistered = null)
     {
-        $response = new Response();
-
+        $response = new JsonResponse();
         // get request
         $request = $this->get('request_stack')->getCurrentRequest();
 
@@ -125,6 +121,9 @@ class UserController extends FOSRestController
         // create new token
         $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
 
+        //get remember me lifetime
+        $lifeTime = $this->getParameter('remember_me_lifetime');
+
         $rememberMeService = new TokenBasedRememberMeServices(
             array($user),
             $secretKey,
@@ -135,7 +134,7 @@ class UserController extends FOSRestController
                 'domain' => null,
                 'secure' => false,
                 'httponly' => true,
-                'lifetime' => 2592000, // 30 days
+                'lifetime' => $lifeTime, // 30 days
                 'always_remember_me' => true,
                 'remember_me_parameter' => '_remember_me')
         );
@@ -163,7 +162,18 @@ class UserController extends FOSRestController
             'userInfo'  => $user
         );
 
-        $response->setContent(json_encode($content));
+        if($isRegistered != null){
+            $content['registred'] = $isRegistered;
+        }
+
+        //get serializer service
+        $serializer = $this->get('serializer');
+
+        //serialize content by group
+        $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
+
+        //set content in response
+        $response->setContent($contentJson);
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
@@ -207,7 +217,7 @@ class UserController extends FOSRestController
 
             if($encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())){
 
-                $response = $this->loginAction($user);
+                $response = $this->loginAction($user, array('user'));
 
                 return $response;
             }
@@ -353,19 +363,7 @@ class UserController extends FOSRestController
         }
 
         //get response
-        $responseData = $this->loginAction($user);
-
-        //get response content
-        $content = json_decode($responseData->getContent(), true);
-
-        //set registred value
-        $registredArray = array('registred' => $isRegistred);
-
-        //merge registerd value in response content
-        $content = array_merge($content, $registredArray);
-
-        //set content in response data
-        $responseData->setContent(json_encode($content));
+        $responseData = $this->loginAction($user,  array('user'), $isRegistred);
 
         return $responseData;
     }
