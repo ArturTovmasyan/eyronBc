@@ -126,22 +126,6 @@
                                         <span class="hidden-sm hidden-mg hidden-lg space"></span>
                                     </p>
 
-                                    {#todo mobile is crush#}
-                                    <div class="data-mobile ng-hide" data-ng-show="isMobile">
-
-                                        <div></div>
-                                        <div data-ng-cloak>
-                                            {% if isMobile() %}
-                                            <p data-ng-show="goalDate[ goal.id ] != 'dreaming'" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
-                                            <p data-ng-show="goalDate[ goal.id ] == 'dreaming'" class="ng-hide">
-                                                <i class="dreaming-mobile">
-                                                    <i class="icon-dreaming text-purple"></i>
-                                                </i>
-                                            </p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-
                                     <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' ">
                                         [[ goalDate[goal.id] | date:'dd' ]]
                                     </div>
@@ -152,6 +136,22 @@
                                         </i>
                                     </div>
 
+                                    {#todo mobile is crush#}
+                                    <div class="data-mobile ng-hide" data-ng-show="isMobile">
+
+                                        <div></div>
+                                        <div data-ng-cloak>
+                                            {% if isMobile() %}
+                                                <p data-ng-show="goalDate[ goal.id ] != 'dreaming'" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                <p data-ng-show="goalDate[ goal.id ] == 'dreaming'" class="ng-hide">
+                                                    <i class="dreaming-mobile">
+                                                        <i class="icon-dreaming text-purple"></i>
+                                                    </i>
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
                                     <span class="hidden-xs" data-ng-if="$index == ProfileItems.userGoals.length -1"></span>
 
                                     <div class="elipse" data-ng-cloak>
@@ -160,19 +160,9 @@
                                             [[ goalDate[goal.id] | date:'MMM, yyyy' ]]
                                         </div>
 
-                                        <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] == 'dreaming' ">
+                                        <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] == 'dreaming' " class="text-gray ng-hide">
                                                 {{ 'dreaming'|trans }}
                                         </div>
-
-                                        {#<div class="text-purple ng-hide" data-ng-show="isMobile && goalDate[ goal.id ] == 'dreaming' ">#}
-                                            {#<i class="dreaming-mobile">#}
-                                                {#<i class="icon-dreaming text-purple"></i>#}
-                                            {#</i>#}
-                                        {#</div>#}
-
-                                        {#<div class="text-purple ng-hide" data-ng-show="isMobile && goalDate[ goal.id ] != 'dreaming' " >#}
-                                            {#[[ goalDate[ goal.id ] | date:'dd MMMM yyyy' ]]#}
-                                        {#</div>#}
 
                                     </div>
 

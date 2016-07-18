@@ -307,7 +307,7 @@ added: Added
 completed: Completed
 common: In Common
 submit: Submit
-search_placeholder: Search for Goalfriends
+search_placeholder: Search for Goalfriends ...
 
 deadline:
   complete_text: Set a deadline
