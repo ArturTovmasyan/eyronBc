@@ -137,35 +137,13 @@ class MainController extends Controller
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em          = $this->getDoctrine()->getManager();
-        $search      = $request->get('search') ? $request->get('search') : null;
-
-        $goalFriends = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, true);
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $goalFriends,
-            $request->query->getInt('page', 1)/*page number*/,
-            30/*limit per page*/
-        );
-
-        $goalFriendsIds = array_keys($pagination->getItems());
-        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($goalFriendsIds);
-
-        foreach($pagination->getItems() as &$user){
-            $user->setStats([
-                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
-                "active"   => $stats[$user->getId()]['listedBy'],
-                "doneBy"   => $stats[$user->getId()]['doneBy']
-            ]);
-        }
 
         //This part is used for profile completion percent calculation
         if ($this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
-
-        return array('pagination' => $pagination);
+        return array();
     }
 
     /**
@@ -183,39 +161,18 @@ class MainController extends Controller
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:Goal')
-            ->findGoalUsers($goal->getId(), $request->get('_route') == 'listed_users' ? null : UserGoal::COMPLETED, null, null, true);
 
         if ($this->getUser()) {
             $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
-        }
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $users,
-            $request->query->getInt('page', 1)/*page number*/,
-            30/*limit per page*/
-        );
-
-        $usersIds = array_keys($pagination->getItems());
-        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($usersIds);
-
-        foreach($pagination->getItems() as &$user){
-            $user->setStats([
-                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
-                "active"   => $stats[$user->getId()]['listedBy'],
-                "doneBy"   => $stats[$user->getId()]['doneBy']
-            ]);
         }
 
         //This part is used for profile completion percent calculation
         if ($this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
-
         return $this->render('AppBundle:Main:goalFriends.html.twig', array(
-            'pagination' => $pagination,
-            'title'      => $goal->getTitle()));
+            'title'  => $goal->getTitle(),
+            'goalId' => $goal->getId()));
     }
 
     /**

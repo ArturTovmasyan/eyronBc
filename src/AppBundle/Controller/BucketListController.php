@@ -68,36 +68,12 @@ class BucketListController extends Controller
             case 'completed-goals':
                 $status = 2;
                 break;
+            case 'common-goals':
+                $status = 3;
+                break;
             default:
                 $status = 0;
         }
-
-        // find all goals
-        $userGoals = $em->getRepository("AppBundle:UserGoal")
-            ->findAllByUser($user, $status, $dream, $requestFilters);
-
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $userGoals,
-            $request->query->getInt('page', 1)/*page number*/,
-            7/*limit per page*/
-        );
-
-
-        $goalIds = [];
-        foreach($pagination as $userGoal){
-            $goalIds[$userGoal->getGoal()->getId()] = 1;
-        }
-
-        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
-
-        foreach($pagination as $userGoal){
-            $userGoal->getGoal()->setStats([
-                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
-                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
-            ]);
-        }
-
 
         // create filter
         $filters = array(
@@ -117,7 +93,6 @@ class BucketListController extends Controller
 
         return array(
             'profileUser'  => $user,
-            'userGoals'    => $pagination,
             'myIdeasCount' => $myIdeasCount,
             'filters'      => $filters
         );

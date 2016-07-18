@@ -531,33 +531,38 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @param $status
      * @param null $first
      * @param null $count
-     * @param bool|false $getQuery
+     * @param null $search
      * @return array|Query
      */
-    public function findGoalUsers($goalId, $status, $first = null, $count = null, $getQuery = false)
+    public function findGoalUsers($goalId, $status, $first = null, $count = null, $search = null)
     {
         $query = $this->getEntityManager()
-            ->createQuery("SELECT u, ug
-                           FROM ApplicationUserBundle:User u
-                           INDEX BY u.id
-                           JOIN u.userGoal ug WITH ug.status = :status OR :status IS NULl
-                           JOIN ug.goal g WITH g.id = :goalId");
+            ->createQueryBuilder()
+            ->select('u, ug')
+            ->from('ApplicationUserBundle:User', 'u', 'u.id')
+            ->join('u.userGoal', 'ug', 'WITH', 'ug.status = :status OR :status IS NULl')
+            ->join('ug.goal', 'g', 'WITH', 'g.id = :goalId')
+            ->setParameter('status', $status)
+            ->setParameter('goalId', $goalId);
+
+        if ($search){
+            $query->andWhere("u.firstname LIKE :search
+                           or u.lastname LIKE :search
+                           or u.email LIKE :search
+                           or CONCAT(u.firstname, u.lastname) LIKE :search")
+                ->setParameter('search', '%' . $search . '%');
+        }
 
         if (is_numeric($first) && is_numeric($count)){
             $query
                 ->setFirstResult($first)
                 ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
         }
 
-        $query
-            ->setParameter('status', $status)
-            ->setParameter('goalId', $goalId);
-
-        if ($getQuery){
-            return $query;
-        }
-
-        return $query->getResult();
+        return $query->getQuery()->getResult();
     }
 
     /**
@@ -697,10 +702,35 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         return $this->getEntityManager()
             ->createQuery("SELECT g
                            FROM AppBundle:Goal g
+                           INDEX BY g.id
                            JOIN g.userGoal ug WITH ug.user = :user1Id
                            JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
+            ->getResult();
+    }
+
+    /**
+     * @param $userId
+     * @param $userIds
+     * @return array
+     */
+    public function findCommonCounts($userId, $userIds)
+    {
+        if (count($userIds) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT u.id, COUNT(mug.id) as commonGoals
+                           FROM ApplicationUserBundle:User u
+                           INDEX BY u.id
+                           LEFT JOIN u.userGoal ug
+                           LEFT JOIN AppBundle:UserGoal mug WITH mug.goal = ug.goal AND mug.user = :userId
+                           WHERE u.id IN (:userIds)
+                           GROUP BY u.id")
+            ->setParameter('userId', $userId)
+            ->setParameter('userIds', $userIds)
             ->getResult();
     }
 }

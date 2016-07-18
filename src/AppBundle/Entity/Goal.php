@@ -151,7 +151,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean", nullable=true)
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_goal", "goal"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
 
@@ -217,7 +217,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $publishedBy;
 
     /**
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_goal", "goal"})
      */
     private $cachedImage;
 

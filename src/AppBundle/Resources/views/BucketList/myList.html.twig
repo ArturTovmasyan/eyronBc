@@ -2,33 +2,54 @@
 
 {% block content_container %}
 
-    <div class="bucketlist">
+    <div
+        class="bucketlist"
+        data-ng-init="
+        profile.status = '{{ status }}';
+        profile.condition = '{{ status? (status == 'completed-goals')? 2: 1: 0}}';
+        profile.isDream = '{{ app.request.get('d')? 'true': 'false' }}';
+        profile.f_1 = '{{ app.request.get('f_1')? 'true': 'false'}}';
+        profile.f_2 = '{{ app.request.get('f_2')? 'true': 'false' }}';
+        profile.f_3 = '{{ app.request.get('f_3')? 'true': 'false' }}';
+        profile.f_4 = '{{ app.request.get('f_4')? 'true': 'false' }}';
+        profile.userId = '{{ profileUser.id }}';
+        activeGoals = '{{ profileUser.getStats.active }}';
+        ">
         <div class="container">
             <div class="row">
                 <ul class="menu">
-                    {% set dream = app.request.get('d') %}
                     {% set myProfile = true %}
-                    {% set activeGoals = profileUser.getStats.active %}
                     {% set my_router_params =  app.request.query.all %}
-                    {% set userUId = {} %}
                     {% set routeName = 'user_profile_single' %}
                     {% if profileUser.id != app.user.id %}
                         {% set myProfile = false %}
-                        {% set userUId = {'user' : profileUser.uId} %}
                         {% set routeName = 'user_profile' %}
                     {% endif %}
 
-                    <li {% if status == all %} class="active" {% endif %} >
-                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : all})) }}">{{ 'menu.bucket'|trans }}</a>
+                    <li data-ng-class="{'active': profile.status == '{{ all }}' }">
+                        <a href="#" data-ng-click="goTo(0); profile.status = '{{ all }}'">
+                            {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
+                        </a>
                     </li>
-                    <li {% if status == active %} class="active" {% endif %}>
-                        <a  href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : active})) }}">{{ 'menu.active'|trans }}</a>
+                    <li data-ng-class="{'active': profile.status == '{{ active }}' }">
+                        <a href="#" data-ng-click="goTo(1); profile.status = '{{ active }}'">
+                            {{ 'menu.active'|trans }}
+                        </a>
                     </li>
-                    <li {% if status == completed %} class="active" {% endif %}>
-                        <a href="{{ path(routeName, my_router_params|merge(userUId)|merge({'status' : completed })) }}">{{ 'menu.completed'|trans }}</a>
+                    <li data-ng-class="{'active': profile.status == '{{ completed }}' }">
+                        <a href="#" data-ng-click="goTo(2); profile.status = '{{ completed }}'">
+                            {{ 'menu.completed'|trans }}
+                        </a>
                     </li>
+                    {% if not  myProfile%}
+                        <li data-ng-class="{'active': profile.status == '{{ common }}' }">
+                            <a href="#" data-ng-click="goTo(3); profile.status = '{{ common }}'">
+                                {{ 'menu.common'|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="pull-right">
-                        <a href="javascript:void(0)" data-ng-class="{'map-marker-active': showMap}"
+                        <a href="#" data-ng-class="{'map-marker-active': showMap}"
                            data-ng-click="showMap=!showMap; triggerMap('.google-map')" class="map-marker-new">
                         </a>
                     </li>
@@ -37,18 +58,18 @@
         </div>
         <div class="slide map-marker ng-hide" data-ng-cloak data-ng-hide="!showMap">
             <div data-simple-map-marker
-                 data-markers="{{ locations(userGoals.getItems()) | json_encode }}"
-                    {#data-on-marker-click="onMarkerClick(goal)"#}
+                 data-markers="locations"
+                 data-on-marker-click="onMarkerClick(goal)"
                  data-is-bounded="true"
                  data-item-page-url="{{ env_prefix  }}/goal/"
-                    {#data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"#}
+                 data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
                  data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                  data-refresh="showMap"
                  class="google-map "
                  style="width: 100%; height: 300px">
             </div>
         </div>
-
+    {% if myProfile %}
         <hr/>
         <div class="container">
             <div class="row">
@@ -56,15 +77,22 @@
                 <div class="col-sm-12">
                     <form class="form-inline" action="#">
                         {# dream filter #}
-                        <label class="radio-inline {% if dream %}checked-label {% endif %}">
-                            <input {% if dream %} checked {% endif %} onchange="submit()" type="checkbox" name="d" value="1"> {{ 'filter.dream'|trans }}
+                        <label class="radio-inline" data-ng-class="{'checked-label': (profile.isDream === 'true')}">
+                            <input data-ng-model="profile.isDream" type="checkbox" name="d" data-ng-true-value="'true'"
+                                   data-ng-false-value="'false'">
+                            {{ 'filter.dream'|trans }}
                         </label>
 
                         {# other filters #}
                         {% for id, name in filters %}
                             {% set queryParameterName = "f_" ~ id %}
-                            <label class="radio-inline {% if app.request.get(queryParameterName) %}checked-label {% endif %}">
-                                <input {% if app.request.get(queryParameterName) %} checked {% endif %} onchange="submit()" type="checkbox" name="f_{{ id }}"> {{ name|trans }}
+                            <label data-ng-class="{'checked-label': (profile['{{ queryParameterName }}'] === 'true') }" class="radio-inline">
+                                <input data-ng-model="profile['{{ queryParameterName }}']"
+                                       type="checkbox"
+                                       name="f_{{ id }}"
+                                       data-ng-true-value="'true'"
+                                       data-ng-false-value="'false'">
+                                {{ name|trans }}
                             </label>
                         {% endfor %}
                     </form>
@@ -72,326 +100,302 @@
 
             </div>
         </div>
+    {% endif %}
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 goals-information">
-                {% if userGoals.items %}
+            <div class="col-md-8 {% if myProfile %} goals-information{% endif %}"
+                 data-ng-cloak
+                 data-infinite-scroll='ProfileItems.nextPage(profile)'
+                 data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'>
+                <div class="ng-hide" data-ng-show="ProfileItems.userGoals.length">
+                    {% if myProfile %}
+                        <div data-ng-class="{'active-idea': (profile.condition != 2 && userGoal.do_date)}" class="row goal[[ goal.id ]] goals-animate"
+                            data-ng-cloak
+                            data-ng-repeat="userGoal in ProfileItems.userGoals"
+                            data-ng-init="goal = userGoal.goal; status = userGoal.status">
+                            <div class="col-sm-2 no-right" data-ng-cloak data-ng-class="{'no-left' : isMobile}">
+                                <div class="date-left"
+                                     data-ng-init="
+                                        change[[ goal.id]] = 0;
+                                        doDate[[ goal.id ]] = null;
+                                        goalDate[ goal.id ] = ((userGoal.do_date && status != '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}')? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))">
 
-                    {% for userGoal in userGoals %}
-                        {% set goal = userGoal.goal %}
-                        {% set status = userGoal.status %}
+                                    <p data-ng-if="isMobile && !$index" >
+                                        <span class="hidden-sm hidden-mg hidden-lg space"></span>
+                                    </p>
 
-                        {% set lastIndex = userGoals|length - 1 %}
+                                    <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' ">
+                                        [[ goalDate[goal.id] | date:'dd' ]]
+                                    </div>
 
-                        {% if myProfile or userGoal.isVisible %}
+                                    <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' ">
+                                        <i class="dreaming">
+                                            <i class="icon-dreaming"></i>
+                                        </i>
+                                    </div>
 
-                            <div class="row{% if status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED") and userGoal.doDate is not null %} active-idea{% endif %} goal{{ goal.id }}">
-                                <div class="col-sm-2 no-right" data-ng-class="{'no-left' : isMobile}">
+                                    {#todo mobile is crush#}
+                                    <div class="data-mobile ng-hide" data-ng-show="isMobile">
 
-
-                                    <div class="date-left" data-ng-init="change{{ goal.id }} = 0;doDate{{ goal.id }} = null">
-
-                                        <p data-ng-if="isMobile" >
-                                            {% if userGoals[0].id == userGoal.id %}
-                                                    <span class="hidden-sm hidden-mg hidden-lg space"></span>
-                                            {% endif %}
-                                        </p>
-
-                                        <div class="data-mobile" data-ng-if="isMobile">
-
-                                            <div></div>
-                                            <div data-ng-cloak>
-                                                {#{% if isMobile() %}#}
-                                                    {% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}
-                                                    {% if goalDate != 'dreaming' %}
-                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">{{ goalDate|date('d F Y') }}</p>
-                                                    {% else %}
-                                                        <p data-ng-if="change{{ goal.id }} == 0 && isMobile">
-                                                            <i class="dreaming-mobile">
-                                                                <i class="icon-dreaming text-purple"></i>
-                                                            </i>
-                                                        </p>
-                                                    {% endif %}
-                                                {#{% endif %}#}
-
-                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 2 && isMobile" >
-                                                    [[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]
-                                                </p>
-
-
-                                                <p class="text-purple" data-ng-if="change{{ goal.id }} === 1 && isMobile">
+                                        <div></div>
+                                        <div data-ng-cloak>
+                                            {% if isMobile() %}
+                                                <p data-ng-show="goalDate[ goal.id ] != 'dreaming'" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                <p data-ng-show="goalDate[ goal.id ] == 'dreaming'" class="ng-hide">
                                                     <i class="dreaming-mobile">
                                                         <i class="icon-dreaming text-purple"></i>
                                                     </i>
                                                 </p>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="img-circle hidden-xs" data-ng-if="change{{ goal.id }} == 0" data-ng-cloak>
-                                            {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
-                                                {{ userGoal.doDate|date('d') }}
-                                            {% elseif userGoal.completionDate is not null%}
-                                                {{ userGoal.completionDate|date('d') }}
-                                            {% else %}
-                                                <i class="dreaming">
-                                                    <i class="icon-dreaming"></i>
-                                                </i>
                                             {% endif %}
                                         </div>
+                                    </div>
 
-                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 1">
-                                            <i class="dreaming">
-                                                <i class="icon-dreaming"></i>
-                                            </i>
+                                    <span class="hidden-xs" data-ng-if="$index == ProfileItems.userGoals.length -1"></span>
+
+                                    <div class="elipse" data-ng-cloak>
+
+                                        <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' " class="text-gray ng-hide">
+                                            [[ goalDate[goal.id] | date:'MMM, yyyy' ]]
                                         </div>
 
-                                        <div class="img-circle hidden-xs" data-ng-cloak data-ng-if="change{{ goal.id }} == 2">
-                                            [[ doDate{{ goal.id }} | date:'dd']]
-                                        </div>
-
-                                        {% if userGoals[lastIndex].id == userGoal.id %}
-                                            <span class="hidden-xs"></span>
-                                        {% endif %}
-                                        <div class="elipse" data-ng-cloak>
-
-                                                {#{% if isMobile() %}#}
-                                                    {#{% set goalDate = userGoal.doDate? userGoal.doDate: userGoal.completionDate? userGoal.completionDate: 'dreaming' %}#}
-                                                    {#{% if goalDate != 'dreaming' %}#}
-                                                        {#<p style="margin-bottom:0;">{{ goalDate|date('d F Y') }}</p>#}
-                                                    {#{% else %}#}
-                                                        {#<i class="dreaming-mobile">#}
-                                                            {#<i class="icon-dreaming text-purple"></i>#}
-                                                        {#</i>#}
-                                                    {#{% endif %}#}
-                                        {#{% if not isMobile() %}#}
-                                            <div data-ng-class="{'text-gray': !isMobile, 'text-purple' : isMobile}" data-ng-if="change{{ goal.id }} == 0 && !isMobile">
-                                            {% if userGoal.doDate is not null and status !=  constant("AppBundle\\Entity\\UserGoal::COMPLETED")%}
-                                                {{ userGoal.doDate|date('M, Y') }}
-                                            {% elseif userGoal.completionDate is not null%}
-                                                {{ userGoal.completionDate|date('M, Y') }}
-                                            {% else %}
+                                        <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] == 'dreaming' " class="text-gray ng-hide">
                                                 {{ 'dreaming'|trans }}
-                                            {% endif %}
-                                             </div>
-                                        {#{% endif %}#}
-
-                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 1 && !isMobile">
-                                                {{ 'dreaming'|trans }}
-                                            </div>
-
-                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 1 && isMobile">#}
-                                                {#<i class="dreaming-mobile">#}
-                                                    {#<i class="icon-dreaming text-purple"></i>#}
-                                                {#</i>#}
-                                            {#</div>#}
-
-                                            <div class="text-gray " data-ng-if="change{{ goal.id }} === 2 && !isMobile" >
-                                                [[ doDate{{ goal.id }} | date:'MMM, yyyy' ]]
-                                            </div>
-
-                                            {#<div class="text-purple " data-ng-if="change{{ goal.id }} === 2 && isMobile" >#}
-                                                {#[[ doDate{{ goal.id }} | date:'dd MMMM yyyy' ]]#}
-                                            {#</div>#}
-
                                         </div>
 
                                     </div>
+
                                 </div>
-                                <div class="col-sm-10 bg-white no-left">
-                                    <div class="row">
-                                        <div class="col-sm-6 no-right">
-                                            <figure>
+                            </div>
+                            <div class="col-sm-10 bg-white no-left">
+                                <div class="row">
+                                    <div class="col-sm-6 no-right">
+                                        <figure  data-ng-init="innerPath = (goal.publish || (goal.author && goal.author.id == '{{ user.id }}'))? '{{ env_prefix  }}/goal/' + goal.slug: '#'">
 
-                                                <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ path('inner_goal', {'slug': goal.slug}) }}"></div>
-
-
-                                                <a href="{% if goal.publish or (goal.author and goal.author.id == user.id) %}{{ path('inner_goal', {'slug' : goal.slug }) }}{% else %}#{% endif %}">
-                                                    <span class="overlay"></span>
-
-                                                    {% if goal.getListPhotoDownloadLink() %}
-                                                        <img src="{{ goal.getListPhoto.getDownloadLink|blImageFilter('goal_bucketlist') }}" alt= "{{ goal.title }}" />
-                                                    {% endif %}
-                                                </a>
+                                            <div class="addthis_native_toolbox" data-url="{{ app.request.host }}{{ env_prefix  }}/goal/[[ ::goal.slug ]]"></div>
 
 
-                                                <figcaption>
-                                                    <div class="row">
-                                                        <div class="col-xs-6">
-                                                            {% if goal.stats.listedBy > 0 %}
-                                                                <a href="{{ path('listed_users', {'slug': goal.slug }) }}">
-                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.stats.listedBy }}</span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </a>
-                                                            {% else %}
-                                                                <span class="text-white">
-                                                                    <span>{{ 'block_listed'|trans | capitalize }} {{ goal.stats.listedBy }}</span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </span>
-                                                            {% endif %}
-                                                        </div>
+                                            <a data-ng-href="[[ innerPath]]">
+                                                <span class="overlay"></span>
+                                                <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt= "[[ ::goal.title ]]" />
+                                            </a>
 
-                                                        <div class="col-xs-6">
-                                                            {% if goal.stats.doneBy > 0 %}
-                                                                <a href="{{ path('done_users', {'slug': goal.slug} ) }}">
-                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.stats.doneBy }}</span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </a>
-                                                            {% else %}
-                                                                <span class="text-white">
-                                                                    <span>{{ 'block_completed'|trans | capitalize }} {{ goal.stats.doneBy }}</span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </span>
-                                                            {% endif %}
-                                                        </div>
+
+                                            <figcaption>
+                                                <div class="row" data-ng-cloak>
+                                                    <div class="col-xs-6">
+                                                        <a data-ng-href="{{ env_prefix  }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                                            <span>
+                                                                {{ 'block_listed'|trans | capitalize }}
+                                                                [[ ::goal.stats.listedBy ]]
+                                                            </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                                            <span>{{ 'block_listed'|trans | capitalize }} [[ ::goal.stats.listedBy ]]</span>
+                                                            <i class="icon-user-small"></i>
+                                                        </span>
                                                     </div>
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <article class="information">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <h3>
-                                                            <a href="{{ path('inner_goal', {'slug' : goal.slug }) }}" class="text-dark-gray">
-                                                                <strong>{{ goal.title }}</strong>
-                                                            </a>
-                                                        </h3>
+
+                                                    <div class="col-xs-6">
+                                                        <a data-ng-href="{{ env_prefix  }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                                            <span>
+                                                                {{ 'block_completed'|trans | capitalize }}
+                                                                [[ ::goal.stats.doneBy ]]
+                                                            </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                                            <span>{{ 'block_completed'|trans | capitalize }} [[ ::goal.stats.doneBy ]]</span>
+                                                            <i class="icon-user-small"></i>
+                                                        </span>
                                                     </div>
                                                 </div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <article class="information">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h3>
+                                                        <a data-ng-href="[[ innerPath]]" class="text-dark-gray">
+                                                            <strong>[[ goal.title ]]</strong>
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                            </div>
 
-                                                <ul class="clearfix">
-                                                    {% if userGoal.steps is not null and userGoal.steps|length > 0 %}
-                                                        <li>
-                                                            <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-                                                        </li>
-                                                        <li>
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-striped"
-                                                                     role="progressbar"
-                                                                     aria-valuenow="45"
-                                                                     aria-valuemin="0"
-                                                                     aria-valuemax="100"
-                                                                     style="width: {{ userGoal.getCompleted|round(1, 'floor') }}%">
-                                                                    {{ userGoal.getCompleted|round(1, 'floor') }}%
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    {% endif %}
+                                            <ul class="clearfix">
 
-                                                    {% if goal.author and goal.author.id == profileUser.id %}
-                                                        <li>
-                                                            <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon-pencil"></i>
-                                                        </li>
-                                                    {% endif %}
-
-                                                    {% if goal.author and goal.author.id == profileUser.id and goal.status == constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') %}
-                                                        <li>
-                                                            <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
-                                                        </li>
-                                                    {% endif %}
-
-
-                                                    {# invisible #}
-                                                    {% if not userGoal.isVisible %}
-                                                        <li>
-                                                            <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
-                                                        </li>
-                                                    {% endif %}
-
-                                                    {# Missed deadline #}
-                                                    {% if userGoal.doDate is not null and userGoal.doDate|date("m/d/Y") < "now"|date("m/d/Y") %}
-                                                        <li>
-                                                            <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info"></i>
-                                                        </li>
-                                                    {% endif %}
-                                                </ul>
-                                                {% if myProfile %}
-                                                    <div class="row">
-                                                        <div class="col-xs-5">
-                                                            <a href="javascript:void(0)"
-                                                               data-ng-cloak
-                                                               data-ls-type="manage"
-                                                               data-ls-goal-id="{{ goal.id }}"
-                                                               data-ls-goal-manage
-                                                               class="text-gray manage-modal">
-                                                                <i class="icon-manage"></i>
-                                                                <span>{{ 'manage'|trans | capitalize }}</span>
-                                                            </a>
-
-                                                        </div>
-
-                                                        <div class="col-xs-7 text-right">
-                                                            {% set  goalStatus = status == constant("AppBundle\\Entity\\UserGoal::COMPLETED") %}
-                                                            <div class="check_status" data-ng-init="success{{ goal.id }} = '{{ goalStatus }}'">
-                                                                <a href="javascript:void(0)"
-                                                                   data-ng-cloak
-                                                                   data-ng-show="!success{{ goal.id }}"
-                                                                   data-ng-click="goalId = '{{ goal.id }}';success{{ goal.id }} = true"
-                                                                   data-ls-goal-id="{{ goal.id }}"
-                                                                   data-ls-user-goal-manage
-                                                                   id="done{{ goal.id }}"
-                                                                   class="btn btn-transparent ng-hide">
-                                                                    <i class="icon done-icon"></i>
-                                                                    {{ 'done'|trans | capitalize }}
-                                                                </a>
-                                                                <a  href="javascript:void(0)"
-                                                                    data-ng-show="success{{ goal.id }}"
-                                                                    data-ls-user-goal-manage
-                                                                    data-ls-type="manage"
-                                                                    data-ng-cloak
-                                                                    data-ls-goal-id="{{ goal.id }}"
-                                                                    class="btn btn-transparent successtory ng-hide"
-                                                                    id="success{{ goal.id }}">
-                                                                    <i class="icon ok-icon-green"></i>
-                                                                    {{ 'successtory'|trans | capitalize }}
-                                                                </a>
-                                                            </div>
+                                                <li data-ng-if="!isEmpty(userGoal.steps)">
+                                                    <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
+                                                </li>
+                                                
+                                                <li data-ng-if="!isEmpty(userGoal.steps)">
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped"
+                                                        role="progressbar"
+                                                        aria-valuenow="45"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                        style="width: [[ Math.round(userGoal.completed) ]]%">
+                                                        [[ Math.round(userGoal.completed) ]]%
                                                         </div>
                                                     </div>
-                                                {% endif %}
-                                            </article>
-                                        </div>
+                                                </li>
+
+                                                <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}'">
+                                                    <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon-pencil"></i>
+                                                </li>
+
+                                                <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">
+                                                    <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
+                                                </li>
+
+                                                {# invisible #}
+                                                <li data-ng-if="!userGoal.is_visible">
+                                                    <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
+                                                </li>
+
+                                                {# Missed deadline #}
+                                                <li data-ng-if="isLate(userGoal.do_date)">
+                                                    <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info"></i>
+                                                </li>
+                                            </ul>
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <a href="javascript:void(0)"
+                                                       data-ng-cloak
+                                                       data-ls-type="manage"
+                                                       data-ls-goal-id="[[ goal.id ]]"
+                                                       data-ls-goal-manage
+                                                       class="text-gray manage-modal">
+                                                        <i class="icon-manage"></i>
+                                                        <span>{{ 'manage'|trans | capitalize }}</span>
+                                                    </a>
+
+                                                </div>
+
+                                                <div class="col-xs-7 text-right"
+                                                    data-ng-init="goalStatus = (status == '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}')">
+                                                    <div class="check_status" data-ng-init="success[ goal.id ] = goalStatus">
+                                                        <a href="javascript:void(0)"
+                                                           data-ng-cloak
+                                                           data-ng-show="!success[ goal.id ]"
+                                                           data-ng-click="goalId = [[ goal.id ]];success[ goal.id ] = true"
+                                                           data-ls-goal-id="[[ goal.id ]]"
+                                                           data-ls-user-goal-manage
+                                                           id="done[[ goal.id ]]"
+                                                           class="btn btn-transparent ng-hide">
+                                                            <i class="icon done-icon"></i>
+                                                            {{ 'done'|trans | capitalize }}
+                                                        </a>
+                                                        <a  href="javascript:void(0)"
+                                                            data-ng-show="success[ goal.id ]"
+                                                            data-ls-user-goal-manage
+                                                            data-ls-type="manage"
+                                                            data-ng-cloak
+                                                            data-ls-goal-id="[[ goal.id ]]"
+                                                            class="btn btn-transparent successtory ng-hide"
+                                                            id="success[[ goal.id ]]">
+                                                            <i class="icon ok-icon-green"></i>
+                                                            {{ 'successtory'|trans | capitalize }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
+                        </div>
+                    {% else%}
+                    <div class="row goals-animate"
+                         data-ng-cloak
+                         data-ng-repeat="userGoal in ProfileItems.userGoals"
+                         {#data-ng-show="userGoal.is_visible"#}
+                         data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal">
 
-                    <p class="empty-text">
+                        <div class="col-sm-12">
+                            <div class="bg-white round">
+                                <div class="idea-item">
 
-                        {% if activeGoals == 0 %}
-                            {% set link = path('goals_list') %}
-                        {% else %}
-                            {% set link = path('user_profile_single', {'status': active }) %}
-                        {% endif %}
+                                    <figure>
+                                        <h3>
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                                        </h3>
 
-                    {% if myProfile %}
-                        {% if dream %}
-                            {{ 'dream'|trans }}
-                        {% elseif app.request.get('f_1') or app.request.get('f_2') or app.request.get('f_3') or app.request.get('f_4') %}
-                            {{ 'my_bucket_list.filter'|trans }}
-                        {% elseif status == completed %}
-                            {{ 'my_bucket_list.complete'|trans }} <a href="{{ link }}" class="text-purple">{{ 'my_bucket_list.some_goal'|trans }}</a>
-                        {% elseif status == active %}
-                            {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
-                        {% else %}
-                            {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
-                        {% endif %}
+                                        <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                                           class="goalTitle">
+                                            <span class="overlay"></span>
+                                            <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
+                                        </a>
+
+                                        <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
+                                            <ul>
+                                                <li>
+                                                    <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
+                                                            <span>
+                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.listedBy ]]
+                                                            </span>
+                                                        <i class="icon-user-small"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
+                                                            <span>
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.doneBy ]]
+                                                            </span>
+                                                        <i class="icon-user-small"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <figcaption>
+                                            {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     {% endif %}
-                    </p>
-
-                {% endif %}
-
-                <div class="navigation">
-                    {{ knp_pagination_render(userGoals) }}
                 </div>
+
+                <p class="empty-text ng-hide"
+                    data-ng-show="!ProfileItems.userGoals.length && ProfileItems.noItem"
+                    data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"
+                    data-ng-cloak>
+
+                {% if myProfile %}
+                    <span data-ng-show="profile.isDream == 'true'">
+                        {{ 'dream'|trans }}
+                    </span>
+                    <span data-ng-show="(profile.isDream == 'false') && (profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3  == 'true' || profile.f_4 == 'true')">
+                        {{ 'my_bucket_list.filter'|trans }}
+                    </span>
+                    <span data-ng-show="(profile.isDream == 'false') && !(profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3 == 'true' || profile.f_4 == 'true') && profile.status == '{{ completed }}'">
+                        {{ 'my_bucket_list.complete'|trans }} <a data-ng-href="[[ link ]]" class="text-purple">{{ 'my_bucket_list.some_goal'|trans }}</a>
+                    </span>
+                    <span data-ng-show="(profile.isDream == 'false') && !(profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3 == 'true' || profile.f_4 == 'true') && profile.status == '{{ active }}'">
+                        {{ 'my_bucket_list.need_goal'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_some'|trans }}</a>
+                    </span>
+                    <span data-ng-show="(profile.isDream == 'false') && !(profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3 == 'true' || profile.f_4 == 'true') && profile.status == '{{ all }}'">
+                        {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                    </span>
+                {% endif %}
+                </p>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" data-ng-cloack>
                 {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2, 'isProfile': true}  %}
             </div>
         </div>
