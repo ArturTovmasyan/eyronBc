@@ -54,6 +54,17 @@ class GoalController extends FOSRestController
         $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($commonGoals);
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        foreach($commonGoals as $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
 
         return  ['goals' => array_values($commonGoals) ];
     }

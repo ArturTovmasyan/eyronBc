@@ -217,7 +217,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $publishedBy;
 
     /**
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_goal", "goal"})
      */
     private $cachedImage;
 

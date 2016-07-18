@@ -12,7 +12,7 @@
 
                 <a href="{{ env_prefix }}/goal/[[ ::goal.slug]]" class="goalTitle">
                     <span class="overlay"></span>
-                    <img data-ng-src="[[ ::goal.image_path ]]" data-ng-if="goal.image_path" alt="[[ ::goal.title ]]"/>
+                    <img data-ng-src="[[ ::goal.cached_image ]]" data-ng-if="goal.cached_image" alt="[[ ::goal.title ]]"/>
                 </a>
 
                 <div class="absolute">
@@ -90,6 +90,6 @@
         </div>
     </div>
     <div data-ng-show="!goals.length" class="ng-hide" data-ng-cloak>
-{#todo translate no common text#}
+        <p>{{ 'no_common'| trans }}</p>
     </div>
 </div>

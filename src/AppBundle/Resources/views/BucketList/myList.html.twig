@@ -178,7 +178,7 @@
 
                                             <a data-ng-href="[[ innerPath]]">
                                                 <span class="overlay"></span>
-                                                <img data-ng-if="goal.image_path" data-ng-src="[[ ::goal.image_path ]]" alt= "[[ ::goal.title ]]" />
+                                                <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt= "[[ ::goal.title ]]" />
                                             </a>
 
 
@@ -326,7 +326,7 @@
                             <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
                                class="goalTitle">
                                 <span class="overlay"></span>
-                                <img data-ng-src="[[ ::singleGoal.image_path ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.image_path"/>
+                                <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
                             </a>
 
                             <div class="absolute" data-ng-show="singleGoal.stats.listedBy">

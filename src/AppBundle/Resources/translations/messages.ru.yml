@@ -267,7 +267,7 @@ complete_message: Дополните ваш профиль
 
 added: Добавлено
 completed: Достигнуто
-common: Обшие идеи
+no_common: У вас нет обшие идеи
 submit: Отправить
 search_placeholder: Искать Единомышленников ...
 mobile_modal: |
