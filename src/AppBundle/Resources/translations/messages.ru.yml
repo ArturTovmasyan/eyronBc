@@ -293,6 +293,7 @@ admin:
       category: Категория
       aphorism: Афоризм
       time_sentence: Time Sentence
+      success_story: История успеха
       page: Страница
       goal: Цель
       id: Идентификатор
@@ -320,6 +321,7 @@ admin:
       employee_id: Employee ID
       username: Имя пользователя
       created: Поставлена
+      updated: Обнавлена
       goal_link: Ссылка
 
 # end sonata admin lable

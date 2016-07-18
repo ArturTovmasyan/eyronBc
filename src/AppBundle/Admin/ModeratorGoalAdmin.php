@@ -27,17 +27,24 @@ use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * Class GoalAdmin
+ * Class ModeratorGoalAdmin
  * @package AppBundle\Admin
+ * TODO: if all ok need to have parent goalAdmin class
  */
-class GoalAdmin extends AbstractAdmin
+class ModeratorGoalAdmin extends AbstractAdmin
 {
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'updated',
+    );
+
     protected $formOptions = array(
         'validation_groups' => array('goal')
     );
 
-    protected  $baseRouteName = 'admin-goal';
-    protected  $baseRoutePattern = 'admin-goal';
+    protected  $baseRouteName = 'moderator-goal';
+    protected  $baseRoutePattern = 'moderator-goal';
 
     /**
      * @param RouteCollection $collection
@@ -55,7 +62,7 @@ class GoalAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label'=>'admin.label.name.id'))
+            ->add('id', null, array('label'=>'admin.label.name.id', 'template' => 'AppBundle:Admin:goal_show_link.html.twig'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_show.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
@@ -89,7 +96,6 @@ class GoalAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('publish', null, array('label'=>'admin.label.name.publish', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
@@ -126,7 +132,7 @@ class GoalAdmin extends AbstractAdmin
 
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
+//            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
 //            ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
@@ -136,6 +142,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_list.html.twig', 'label'=>'admin.label.name.videoLink'))
             ->add('created', null, array('label'=>'admin.label.name.created'))
+            ->add('updated', null, array('label'=>'admin.label.name.updated'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array('template' => 'AppBundle:Admin:goal_list_action_show.html.twig'),
@@ -336,8 +343,8 @@ class GoalAdmin extends AbstractAdmin
      */
     public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
-        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':publishStatus'))
-              ->setParameter('publishStatus', Goal::PUBLIC_PRIVACY);
+        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':privateStatus'))
+            ->setParameter('privateStatus', Goal::PRIVATE_PRIVACY);
         ;
 
         return $query;

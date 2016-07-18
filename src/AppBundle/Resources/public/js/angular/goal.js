@@ -735,10 +735,21 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $scope.loadImage = function (goals) {
-            angular.forEach(goals, function (d) {
-                d.imageLoad = d.cached_image;
-            });
+        $scope.loadImage = function (goals, direction) {
+            if(direction){
+                angular.forEach(goals, function (d) {
+                    if(!d.imageLoad.length){
+                        d.imageLoad = d.cached_image;
+                    }
+                });
+            } else {
+                for(var i = goals.length - 1;i >= 0; i--){
+                    if(!goals[i].imageLoad.length){
+                        goals[i].imageLoad = goals[i].cached_image;
+                    }
+                }
+            }
+
         };
 
         var interval = $interval(newActivity,120000);

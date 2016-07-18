@@ -117,7 +117,9 @@
                                     <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.goals">
+
                                         <figure data-ng-init="singleGoal.imageLoad = ($index < 1)? singleGoal.cached_image: ''">
+
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
@@ -163,8 +165,8 @@
 
                                 <div data-ng-show="activity.goals.length > 1">
                                     <!-- Add Arrows -->
-                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
-                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity.goals)"></div>
+                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity.goals, true)"></div>
+                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity.goals, false)"></div>
                                 </div>
                             </div>
                         </div>

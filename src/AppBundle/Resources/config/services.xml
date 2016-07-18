@@ -25,6 +25,10 @@
             <tag name="form.type" alias="bl_multiple_file" />
         </service>
 
+        <service id="story.multiple.file" class="AppBundle\Form\Type\StoryMultipleFileType">
+            <tag name="form.type" alias="story_multiple_file" />
+        </service>
+
         <service id="bl.multiple.video" class="AppBundle\Form\Type\BlMultipleVideoType">
             <tag name="form.type" alias="bl_multiple_video" />
         </service>
@@ -105,6 +109,9 @@
             <tag name="security.voter" />
         </service>
 
+        <service id="app.post_processor.opt_post_processor" class="AppBundle\LiipFilters\PostProcessor\OptPostProcessor">
+            <tag name="liip_imagine.filter.post_processor" post_processor="opt_post_processor" />
+        </service>
 
     </services>
 
