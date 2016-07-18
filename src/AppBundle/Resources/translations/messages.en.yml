@@ -143,6 +143,7 @@ user_goal:
 # success story form
 success_story:
       error_year: You cannot complete your goal at a future date
+      error_uncomplete_year: Please, select a date that includes all the 3 fields.
       error_without_file: Please, enter at least 3 words if there is no image or video!
       error_widht_file:  Please, write success story!
       completion_date: Completion date

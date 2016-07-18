@@ -178,6 +178,7 @@ angular.module('goalComponents', ['Interpolation',
       $scope.noFile = false;
       $scope.noStory = false;
       $scope.invalidYear = false;
+      $scope.uncompletedYear = false;
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + 'goal/' +$scope.userGoal.goal.slug;
       $scope.files = [];
@@ -193,6 +194,7 @@ angular.module('goalComponents', ['Interpolation',
         $scope.noFile = false;
         $scope.noStory = false;
         $scope.invalidYear = false;
+        $scope.uncompletedYear = false;
       });
 
       $scope.isInValid = function () {
@@ -275,6 +277,9 @@ angular.module('goalComponents', ['Interpolation',
                 angular.element('#cancel').click();
               }
             });
+        } else if(($scope.year || $scope.month || $scope.day) && $scope.newAdded){
+          $scope.uncompletedYear = true;
+          return;
         }
         if($scope.noStory || $scope.noFile){
           angular.element('textarea[name=story]').addClass('border-red');
@@ -562,9 +567,11 @@ angular.module('goalComponents', ['Interpolation',
         angular.element(".location .location-hidden").attr('value',null);
         angular.element(".location .place-autocomplete").val('');
       };
+      $scope.uncompletedYear = false;
 
       $scope.save = function () {
         $timeout(function(){
+          $scope.uncompletedYear = false;
           if($scope.year && $scope.month && $scope.day){
             dateChanged = true;
             if($scope.complete.switch){
@@ -572,6 +579,9 @@ angular.module('goalComponents', ['Interpolation',
             }else{
               $scope.userGoal.do_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             }
+          } else if($scope.year || $scope.month || $scope.day){
+            $scope.uncompletedYear = true;
+            return;
           }
           $scope.invalidYear = false;
           if($scope.userGoal.completion_date && $scope.compareDates($scope.userGoal.completion_date) === 1){
