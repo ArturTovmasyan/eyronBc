@@ -121,6 +121,7 @@
                                                     <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
                                                     <a href="javascript:void(0)"
                                                        data-ls-common-manage
+                                                       data-ng-show="user.common_goals_count != 0"
                                                        data-ls-user="[[ ::user.id ]]"
                                                        data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
                                                 </div>
