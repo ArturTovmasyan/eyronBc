@@ -82,7 +82,7 @@ angular.module('profile')
         if(this.id){
           UserGoalDataManager.friends({id: this.start, where: this.count, what: this.id, param: this.slug, search: this.search}, function (newData) {
             if(!newData.length){
-              this.noItem = true;
+              // this.noItem = true;
             } else {
               this.reserve = newData;
               this.imageLoad(false);
@@ -93,7 +93,7 @@ angular.module('profile')
         } else {//when friends page
           UserGoalDataManager.friends({id: this.start, where: this.count, search: this.search}, function (newData) {
             if(!newData.length){
-              this.noItem = true;
+              // this.noItem = true;
             } else {
               this.reserve = newData;
               this.imageLoad(false);

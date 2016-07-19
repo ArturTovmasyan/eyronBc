@@ -735,19 +735,17 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $scope.loadImage = function (goals, direction) {
+        $scope.loadImage = function (activity, direction) {
             if(direction){
-                angular.forEach(goals, function (d) {
+                activity.activeIndex ++;
+                activity.reserveGoals = activity.goals;
+                angular.forEach(activity.reserveGoals, function (d) {
                     if(!d.imageLoad.length){
                         d.imageLoad = d.cached_image;
                     }
                 });
             } else {
-                for(var i = goals.length - 1;i >= 0; i--){
-                    if(!goals[i].imageLoad.length){
-                        goals[i].imageLoad = goals[i].cached_image;
-                    }
-                }
+                activity.activeIndex --;
             }
 
         };
@@ -765,8 +763,8 @@ angular.module('goal', ['Interpolation',
         function slideInsert(){
             $timeout(function(){
                 var activity_swiper = new Swiper('.activity-slider', {
-                    pagination: '.swiper-pagination',
-                    paginationType: 'fraction',
+                    // pagination: '.swiper-pagination',
+                    // paginationType: 'fraction',
                     observer: true,
                     autoHeight: true,
                     // loop: true,
@@ -787,7 +785,16 @@ angular.module('goal', ['Interpolation',
                     angular.element('#non-activity').css('display', 'block');
                 }
             }else {
-                    slideInsert();
+                angular.forEach(d, function (item) {
+                    if(item.goals.length > 2){
+                        item.reserveGoals = [];
+                        item.reserveGoals = item.reserveGoals.concat(item.goals[0], item.goals[1]);
+                    } else {
+                        item.reserveGoals = item.goals;
+                    }
+                   
+                });
+                slideInsert();
             }
         });
 
