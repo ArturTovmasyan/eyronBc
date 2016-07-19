@@ -292,7 +292,9 @@ class UserGoalController extends FOSRestController
         foreach ($userGoals as $userGoal) {
             if ($userGoal->getGoal()->getListPhotoDownloadLink()) {
                 try {
-                    $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_bucketlist'));
+                    $userGoal->getGoal()
+                        ->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(),
+                                                                      $this->getUser()->getId() == $userId ? 'goal_bucketlist' : 'goal_list_horizontal'));
                 } catch (\Exception $e) {
                     $userGoal->getGoal()->setCachedImage("");
                 }
