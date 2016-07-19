@@ -342,7 +342,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get date
-        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//label[@class="radio-inline"]'));
+        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="iradio_minimal-purple"]'));
 
         //click on icon
         $priority->click();
