@@ -51,11 +51,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->getDriver()->maximizeWindow();
     }
 
-    /** @BeforeSuite */
-    public static function callFixturesCommand(BeforeSuiteScope $scope)
-    {
-        $scope->output = shell_exec('./bin/behat.sh');
-    }
+//    /** @BeforeSuite */
+//    public static function callFixturesCommand(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./bin/behat.sh');
+//    }
 
     /**
      * @Given I am logged in as :user
@@ -342,7 +342,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get date
-        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//label[@class="radio-inline"]'));
+        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="iradio_minimal-purple"]'));
 
         //click on icon
         $priority->click();

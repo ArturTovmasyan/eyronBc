@@ -71,12 +71,13 @@ Feature: Activity
     When I am logged in as "user1"
     And I should see "user1 useryan"
     When I follow "Goalfriends"
-    Then I should see "user2 useryan"
-    And I should see "Listed by"
+    Then I should see "user3 user3"
+    And I should see "Listed"
     And I should see "Completed"
     When I click on "text-dark-gray"
     And I wait
-    And I should see "Dreams"
+    And I should see "All"
+    And I should see "In Common"
 
   @javascript @userProfileGoalText
   Scenario: Other user profile empty goal text checking
