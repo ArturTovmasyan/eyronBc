@@ -6,7 +6,7 @@ Feature: Settings
 
   Background:
     Given I am on "/logout"
-    And I wait
+    And I wait for angular
     And I am logged in as "user2"
 
   @javascript @settings

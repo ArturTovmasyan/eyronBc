@@ -78,7 +78,7 @@
                             <div {% if images| length > 1 %} class="swiper-wrapper" {% endif %}>
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
-                                        <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
+                                        <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox" data-title="{{ goal.title }}">
                                             <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                         </a>
                                     </div>
@@ -429,7 +429,7 @@
                                                             <div class="swiper-wrapper">
                                                                 {% for k,file in files %}
                                                                     <div class="swiper-slide">
-                                                                        <a href="{{ file.downloadLink }}" class="swipebox">
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox">
                                                                             <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
                                                                         </a>
                                                                     </div>
