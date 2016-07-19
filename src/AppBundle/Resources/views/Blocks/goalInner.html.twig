@@ -382,6 +382,15 @@
                                     {% set files = story.files %}
                                     {% set videos = story.videoLink %}
 
+                                    {# TODO: need for front end #}
+                                    {{ dump(story.voters|length) }}
+
+                                    {% if story.isVote(app.user.id) %}
+                                        {{ dump(path('remove_goal_story_vote', {'storyId': story.id })) }}
+                                    {% elseif story.user.id != app.user.id %}
+                                        {{ dump(path('add_goal_story_vote', {'storyId': story.id })) }}
+                                    {% endif %}
+
                                     <div class="comment-place story-fade-in ng-hide"
                                          data-ng-show="successStoryShow[{{ key }}]"
                                          data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 3 ? 'true':'false' }}">

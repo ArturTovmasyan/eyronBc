@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @Rest\RouteResource("Goal")
@@ -327,5 +328,76 @@ class SuccessStoryController extends FOSRestController
         }
 
         return new Response('', Response::HTTP_OK);
+    }
+
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="SuccessStory",
+     *  description="This function is used to add vote to story",
+     *  statusCodes={
+     *         200="Returned when user was added",
+     *         400="Returned when user user want vote his story",
+     *         401="Returned when user not found",
+     *         404="Returned when success story not found",
+     *  },
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\Get("/success-story/add-vote/{storyId}", requirements={"storyId"="\d+"}, name="add_goal_story_vote", options={"method_prefix"=false})
+     *
+     * @param $storyId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addStoryVoteAction($storyId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
+
+        if ($successStory->getUser()->getId() == $this->getUser()->getId()){
+            throw new HttpException(Response::HTTP_BAD_REQUEST);
+        }
+
+        if (is_null($successStory)){
+            throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
+
+        $successStory->addVoter($this->getUser());
+        $em->flush();
+
+        return new Response('Ok');
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="SuccessStory",
+     *  description="This function is used to remove vote to story",
+     *  statusCodes={
+     *         200="Returned when user was removed",
+     *         401="Returned when user not found",
+     *         404="Returned when success story not found",
+     *  },
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\Get("/success-story/remove-vote/{storyId}", requirements={"storyId"="\d+"}, name="remove_goal_story_vote", options={"method_prefix"=false})
+     *
+     * @param $storyId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeStoryVoteAction($storyId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
+        if (is_null($successStory)){
+            throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
+
+        $successStory->removeVoter($this->getUser());
+        $em->flush();
+
+        return new Response('Ok');
     }
 }

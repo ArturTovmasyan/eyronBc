@@ -61,6 +61,16 @@ class SuccessStory implements ActivityableInterface
     protected $user;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
+     * @ORM\JoinTable(name="success_story_voters",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")}
+     * )
+     * @Groups({"successStory_voters"})
+     **/
+    protected $voters;
+
+    /**
      * @var
      *
      * @Gedmo\Timestampable(on="create")
@@ -174,7 +184,8 @@ class SuccessStory implements ActivityableInterface
      */
     public function __construct()
     {
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->voters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -306,5 +317,56 @@ class SuccessStory implements ActivityableInterface
     public function __toString()
     {
         return 'Story of ' . $this->getGoal()->getTitle();
+    }
+
+    /**
+     * Add voter
+     *
+     * @param \Application\UserBundle\Entity\User $voter
+     *
+     * @return SuccessStory
+     */
+    public function addVoter(\Application\UserBundle\Entity\User $voter)
+    {
+        if (!isset($this->voters[$voter->getId()])) {
+            $this->voters[$voter->getId()] = $voter;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove voter
+     *
+     * @param \Application\UserBundle\Entity\User $voter
+     * @return $this
+     */
+    public function removeVoter(\Application\UserBundle\Entity\User $voter)
+    {
+        if (isset($this->voters[$voter->getId()])) {
+            $this->voters->removeElement($voter);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get voters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVoters()
+    {
+        return $this->voters;
+    }
+
+    /**
+     * @param $userId
+     * @return bool
+     */
+    public function isVote($userId)
+    {
+        return isset($this->voters[$userId]);
+
     }
 }
