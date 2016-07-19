@@ -434,6 +434,8 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @return int
+     * @VirtualProperty
+     * @Groups({"userGoal"})
      */
     public function getCompleted()
     {

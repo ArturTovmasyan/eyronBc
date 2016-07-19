@@ -11,10 +11,10 @@ Feature: Goal page
   @javascript @goalFriendSearch
   Scenario: Open goal friends page and try search friends
     When I am on "/goal-friends"
-    And I wait
+    And I wait for angular
     Then I should see "user7 user7"
     And I should see "user10 user10"
-    When I fill in "inputEmail3" with "user7 user7"
+    When I fill in "searchInput" with "user7 user7"
     And I am on "/goal-friends?search=user7+user7#"
     And I wait for view
     Then I should see "user7 user7"
@@ -25,11 +25,13 @@ Feature: Goal page
     And I follow "My Bucketlist"
     Then I should see "goal9"
     When I follow "Active"
+    And I wait for angular
     Then I should see "goal9"
     When I follow "Completed"
+    And I wait for angular
     Then I should see "goal3"
     And I should see "Dreaming"
-    And I wait
+    And I wait for angular
     When I am on "/logout"
     And I wait for view
     And I am logged in as "user2"
@@ -37,8 +39,10 @@ Feature: Goal page
     When I am on "/profile"
     Then I should see "What are you doing here? Come on, add some goals"
     When I follow "Active"
+    And I wait for angular
     Then I should see "Your life needs goals, add some more"
     When I follow "Completed"
+    And I wait for angular
     Then I should see "It’s time to act and complete some goals"
 
   @javascript @manageGoal
@@ -171,20 +175,20 @@ Feature: Goal page
     And I change switch "0"
     And I wait for angular
     Then I should see "If you believe your Goal is still Active, you can undo it"
-    And I wait
+    And I wait for angular
     When I scroll page to ".radio-inline"
-    And I wait
+    And I wait for angular
     And I scroll page to "top"
     And I change switch "0"
     And I select date fields
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "3"
-    And I wait
+    And I wait for angular
     And I change switch "3"
     When I follow "FORGET IT"
     And  I follow "DELETE"
-    And I wait
+    And I wait for angular
     Then I should be on "/goal/goal1"
     And I reload the page
     And I wait for view
@@ -205,7 +209,7 @@ Feature: Goal page
     Then I should be on "/profile"
     When I follow "My Ideas"
     Then I should be on "/goal/my-ideas"
-    And I wait
+    And I wait for angular
     Then I should see "PRIVATE GOALS"
     When I follow "Drafts"
     Then I should be on "/goal/my-ideas/drafts"
@@ -222,7 +226,7 @@ Feature: Goal page
     And I should see "Your Goal has been Successfully Published"
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
-    And I wait
+    And I wait for angular
     And I follow "Delete"
     And I wait for angular
     Then I should see "Your goal will be permanently deleted."

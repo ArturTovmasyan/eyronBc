@@ -114,6 +114,7 @@ class CommentController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
+     * @Rest\Get("/comments/{thread}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_comment", options={"method_prefix"=false})
      *
      * @param Thread $thread
      * @param null $first

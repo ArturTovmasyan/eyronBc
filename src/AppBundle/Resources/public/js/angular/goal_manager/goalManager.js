@@ -17,12 +17,16 @@ angular.module('goalManage', ['Interpolation',
   })
   .value('template', { 
     addTemplate: '',
-    doneTemplate: ''
+    doneTemplate: '',
+    commonTemplate: ''
   })
   .value('userGoalData', { 
       data: {},
       manage: "",
       doneData: {}
+  })
+  .value('userData', {
+    data: {}
   })
   .value('refreshingDate', {
     userId: '',

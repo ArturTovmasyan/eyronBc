@@ -3,7 +3,7 @@
 angular.module('goalManage')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', '$timeout', '$rootScope', 'refreshCacheService', 'UserContext', 'refreshingDate',
     function($resource, envPrefix, $analytics, $timeout, $rootScope, refreshCacheService, UserContext, refreshingDate){
-    return $resource( envPrefix + 'api/v1.0/:path/:id/:where/:what', {}, {
+    return $resource( envPrefix + 'api/v1.0/:path/:id/:where/:what/:param', {}, {
       get: {method:'GET', params:{ path:'usergoals'}},
       creates: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           $analytics.eventTrack('Goal create', {  category: 'Goal', label: 'Goal create from Web' });
@@ -20,6 +20,15 @@ angular.module('goalManage')
       manage: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           $analytics.eventTrack('Goal manage', {  category: 'Goal', label: 'Goal manage from Web' });
           return angular.fromJson(object);
+      }},
+      profile: {method:'POST', params:{ path:'usergoals',id: 'bucketlists'}, transformResponse: function (object) {
+        return angular.fromJson(object);
+      }},
+      common: {method:'GET', params:{ path:'goals',where: 'common'}, transformResponse: function (object) {
+        return angular.fromJson(object);
+      }},
+      friends: {method:'GET', isArray: true, params:{ path:'user-list'}, transformResponse: function (object) {
+        return angular.fromJson(object);
       }},
       done: {method:'GET', params:{ path:'usergoals',where: 'dones', what: true }, transformResponse: function (object) {
         if(object == 1){

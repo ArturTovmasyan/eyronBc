@@ -275,12 +275,29 @@ class UserGoalController extends FOSRestController
      */
     public function postBucketlistAction(Request $request)
     {
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
         $em        = $this->getDoctrine()->getManager();
         $userId    = $request->get('userId');
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
         $userGoals = $this->getUserGoalsForBucketList($request, $user);
 
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach ($userGoals as $userGoal) {
+            if ($userGoal->getGoal()->getListPhotoDownloadLink()) {
+                try {
+                    $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                } catch (\Exception $e) {
+                    $userGoal->getGoal()->setCachedImage("");
+                }
+            }
+        }
 
         return ['user_goals' => $userGoals, 'user' => $user];
     }

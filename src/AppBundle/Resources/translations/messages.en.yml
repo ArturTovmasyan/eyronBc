@@ -143,6 +143,7 @@ user_goal:
 # success story form
 success_story:
       error_year: You cannot complete your goal at a future date
+      error_uncomplete_year: Please, select a date that includes all the 3 fields.
       error_without_file: Please, enter at least 3 words if there is no image or video!
       error_widht_file:  Please, write success story!
       completion_date: Completion date
@@ -199,6 +200,7 @@ menu:
   active: Active
   completed: Completed
   map: Map
+  common: In Common
 
 right_menu:
   my_ideas: My Ideas
@@ -304,8 +306,10 @@ complete_message: Complete your profile
 
 added: Added
 completed: Completed
+no_common: You haven`t common goals
 submit: Submit
-search_placeholder: Search for Goalfriends
+search_placeholder: Search for Goalfriends ...
+no_friends: No search result
 
 deadline:
   complete_text: Set a deadline

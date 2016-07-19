@@ -165,6 +165,7 @@ body{
   text-align: center;
   width: 117px;
   height: 32px;
+  .box-shadow ( 5px , 5px ,5px ,rgba(0,0,0,0.40));
   a{
     color: #7724F6 !important;
   }
@@ -592,23 +593,11 @@ label{
   background: url('../images/no-image-profile.png') no-repeat 0 0;
 }
 
-
-
 #signin{
     text-align: center;
     background-color: #f4f4f4;
     padding: 30px;
     width: 280px;
-
-    .close-icon{
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      top: 38px;
-      right: 35px;
-      cursor:pointer;
-      background: url('../images/close.svg') no-repeat center center;
-    }
 
     h2{
       padding: 0;
@@ -724,6 +713,26 @@ label{
       }
     }
 
+
+#signin,#common-modal{
+  .close-icon{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 38px;
+    right: 35px;
+    cursor:pointer;
+    background: url('../images/close.svg') no-repeat center center;
+  }
+}
+
+#common-modal{
+  .close-icon{
+    top: 25px;
+    right: 20px;
+  }
+}
+
 .icon{
   display: inline-block;
   width: 28px;
@@ -838,7 +847,7 @@ label{
 }
 
 .text-gray{
-  color:#999999;
+  color:#999999 !important;
 }
 
 .text-grey-dark{
@@ -1629,7 +1638,7 @@ footer{
 }
 
 .bg-grey{
-  background-color: #f4f4f4;
+  background-color: #f4f4f4 !important;
 }
 
 #app_bundle_success_story_type_videoLink{

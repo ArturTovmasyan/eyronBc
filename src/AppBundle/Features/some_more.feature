@@ -5,7 +5,7 @@ Feature: Some more features
 
   Background:
     Given I am on "/logout"
-    And I wait
+    And I wait for angular
     And I am logged in as "user1"
 
   @javascript @someMore

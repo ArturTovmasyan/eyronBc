@@ -3,6 +3,7 @@
 namespace Application\CommentBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * CommentRepository
@@ -21,16 +22,20 @@ class CommentRepository extends EntityRepository
     public function findThreadComments($threadId, $first = null, $count = null)
     {
         $query = $this->getEntityManager()
-            ->createQuery("SELECT cmt, a
+            ->createQuery("SELECT cmt, a, ch
                            FROM ApplicationCommentBundle:Comment cmt
                            LEFT JOIN cmt.author a
-                           WHERE cmt.thread = :threadId")
+                           LEFT JOIN cmt.children ch
+                           WHERE cmt.thread = :threadId AND cmt.parent IS NULL")
             ->setParameter('threadId', $threadId);
 
         if (is_numeric($first) && is_numeric($count)){
             $query
                 ->setFirstResult($first)
                 ->setMaxResults($count);
+
+            $paginator = new Paginator($query, $fetchJoinCollection = true);
+            return $paginator->getIterator()->getArrayCopy();
         }
 
         return $query->getResult();

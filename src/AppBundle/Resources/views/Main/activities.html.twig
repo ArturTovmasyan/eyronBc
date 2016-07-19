@@ -37,7 +37,8 @@
                     <div class="goals-animate"
                          data-ng-cloak
                          {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
-                         data-ng-repeat="activity in Activities.items">
+                         data-ng-repeat="activity in Activities.items"
+                         data-ng-init="activity.activeIndex = 1">
 
                         <div data-ng-show="activity.comment || activity.success_story">
                             {{ _self.goal(env_prefix) }}
@@ -46,8 +47,8 @@
                         <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
 
                         <div class="bg-white round">
-                            <div class=" padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
-                                <div class="clearfix">
+                            <div class="padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
+                                <div class="clearfix relative">
 
                                     <figure class="image">
 
@@ -94,6 +95,9 @@
                                         <p>[[ ::activity.datetime | date:'dd MMMM,  yyyy' ]] at [[ ::activity.datetime | date:'HH:mm' ]]</p>
 
                                     </div>
+                                    <div class="pull-right" data-ng-show="activity.goals.length > 1">
+                                        <div class="swiper-pagination text-dark-grey">[[ activity.activeIndex ]] / [[ activity.goals.length ]]</div>
+                                    </div>
                                 </div>
 
                                 <div class="comment-place ng-hide" data-ng-show="activity.comment">
@@ -112,8 +116,10 @@
                                 <div class="idea-item swiper-wrapper goals-animate">
                                     <div class="swiper-slide"
                                          data-ng-cloak
-                                         data-ng-repeat="singleGoal in activity.goals">
-                                        <figure data-ng-init="singleGoal.imageLoad = ($index == 0 || $index == activity.goals.length -1 )? singleGoal.cached_image: ''">
+                                         data-ng-repeat="singleGoal in activity.reserveGoals">
+
+                                        <figure data-ng-init="singleGoal.imageLoad = ($index < 1)? singleGoal.cached_image: ''">
+
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
                                             </h3>
@@ -158,10 +164,9 @@
                                 </div>
 
                                 <div data-ng-show="activity.goals.length > 1">
-                                    <div class="swiper-pagination swiper-pagination-white"></div>
                                     <!-- Add Arrows -->
-                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity.goals, true)"></div>
-                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity.goals, false)"></div>
+                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity, true)"></div>
+                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity, false)"></div>
                                 </div>
                             </div>
                         </div>

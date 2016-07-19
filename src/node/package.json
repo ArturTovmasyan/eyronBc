@@ -1,0 +1,15 @@
+{
+  "name": "ImageOptimiser",
+  "version": "0.0.0",
+  "description": "Image Optimiser",
+  "main": "ImageOptimiser.js",
+  "author": "Vazgen Manukyan",
+  "license": "ISC",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "imagemin": "^3.1.0",
+    "gm": "^1.17.0",
+    "cliargs": "^0.1.1"
+  }
+}

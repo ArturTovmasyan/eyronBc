@@ -133,6 +133,7 @@ user_goal:
 # success story form
 success_story:
       error_year: вы не можете завершить цели на будущее время.
+      error_uncomplete_year: Пожалуйста, выберите дату, которая содержит все 3 поля.
       error_without_file: Пожалуйста, введите не менее 3 слов, ибо нет изображения или видео!
       error_widht_file:  Пожалуйста, напишите историю успеха!
       completion_date: Дата достижение цели
@@ -189,6 +190,7 @@ menu:
   active: Активные
   completed: Достигнутые
   map: Карта
+  common: Опшие
 
 right_menu:
   my_ideas: Мои Идеи
@@ -266,12 +268,14 @@ complete_message: Дополните ваш профиль
 
 added: Добавлено
 completed: Достигнуто
+no_common: У вас нет обшие идеи
 submit: Отправить
-search_placeholder: Искать Единомышленников
+search_placeholder: Искать Единомышленников ...
 mobile_modal: |
               Bucket List 127 доступен повсеместно!
               Скачайте приложение, чтобы воспользоваться его разнообразными возможностями и открыть для себя множество вдохновляющих идей для ваших целей.
 
+no_friends:  Нет результатов
 
 deadline:
   complete_text: Установите крайний срок достижения цели
