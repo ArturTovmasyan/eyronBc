@@ -85,6 +85,10 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="ng-hide" data-ng-cloak data-ng-show="Friends.noItem">
+                            <br />
+                            <p class="text-center text-gray">{{ 'no_friends' | trans }}</p>
+                        </div>
 
                     {% endif %}
 
