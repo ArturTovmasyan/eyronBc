@@ -94,18 +94,15 @@
                         </div>
                     {% endif %}
 
-                    <div class="row" {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
-                    <div data-ng-cloak
-                         class="col-sm-6 goals-animate"
-                         data-ng-repeat="user in Friends.users"
-                         data-ng-class-even="row"
-                         {#{% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}#}
-                            >
+                    <div class="row">
+                        <div data-ng-cloak
+                             class="col-sm-6 goals-animate"
+                             data-ng-repeat="user in Friends.users"
+                             data-ng-class-even="row"
+                             {% if friend %} data-ng-class="{'margin-top': $index < 2 }" {% endif %}>
 
-
-                            {#<div class="col-sm-6">#}
                                 <div class="users-list round clearfix">
-                                     <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;">
+                                     <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;" class="text-gray">
                                         <div class="row no-gutter">
                                             <div class="col-xs-3">
                                                 <figure class="image-goalfrinds">
@@ -131,10 +128,8 @@
                                         </div>
                                     </a>
                                 </div>
-                            {#</div>#}
+                            </div>
                         </div>
-                    </div>
-
                     <br />
                 </div>
 
