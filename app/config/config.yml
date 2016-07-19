@@ -301,6 +301,11 @@ liip_imagine:
             post_processors:
                 opt_post_processor: {}
 
+        slide_max_size:
+            quality: 100
+            filters:
+                central_crop: { size: [1280, 900] }
+
         goal_list_horizontal:
             quality: 100
             filters:

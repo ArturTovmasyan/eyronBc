@@ -157,6 +157,9 @@ class UserController extends FOSRestController
         //call remember me service
         $rememberMeService->loginSuccess($request, $response, $token);
 
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+
         $content =  array(
             'sessionId' => $phpSessionId,
             'userInfo'  => $user
@@ -174,9 +177,6 @@ class UserController extends FOSRestController
 
         //set content in response
         $response->setContent($contentJson);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
         return $response;
     }
