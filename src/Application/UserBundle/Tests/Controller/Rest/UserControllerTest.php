@@ -198,9 +198,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('doneBy', $stats, 'Invalid doneBy key in Login rest json structure');
 
-        if(array_key_exists('draft_count', $stats)) {
-            $this->assertArrayHasKey('draft_count', $userInfo, 'Invalid draft_count key in Login rest json structure');
-        }
+        $this->assertArrayHasKey('draft_count', $userInfo, 'Invalid draft_count key in Login rest json structure');
 
         if(array_key_exists('image_path', $userInfo)) {
 
