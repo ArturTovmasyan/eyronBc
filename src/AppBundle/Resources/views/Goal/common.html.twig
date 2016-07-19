@@ -1,6 +1,6 @@
 <div data-ng-controller="commonController" class="bg-grey" id="common-modal">
-    <div class="bg-white">
-        <h3>In Common 4 Goals</h3>
+    <div class="bg-white" data-ng-show="goals.length">
+        <h3>{{ 'menu.common'|trans }} [[ goals.length ]] Goals</h3>
         <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
     </div>
 
