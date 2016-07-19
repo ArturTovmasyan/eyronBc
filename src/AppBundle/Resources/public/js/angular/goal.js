@@ -96,6 +96,12 @@ angular.module('goal', ['Interpolation',
                     this.items.splice(k + j - removingCount, 1);
                     removingCount++;
                 }
+                if(data[i].goals.length > 2) {
+                    data[i].reserveGoals = [];
+                    data[i].reserveGoals = data[i].reserveGoals.concat(data[i].goals[0], data[i].goals[1])
+                } else {
+                    data[i].reserveGoals = data[i].goals
+                }
                 this.items.unshift(data[i]);
             }
             if(angular.isFunction(cb)){
@@ -197,6 +203,12 @@ angular.module('goal', ['Interpolation',
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
                         for(var i = this.count -1; i >= 0; i--){
+                            if(newData[i].goals.length > 2) {
+                                newData[i].reserveGoals = [];
+                                newData[i].reserveGoals = newData[i].reserveGoals.concat(newData[i].goals[0], newData[i].goals[1])
+                            } else {
+                                newData[i].reserveGoals = newData[i].goals
+                            }
                             this.items.unshift(newData[i]);
                             this.items.pop();
                         }
@@ -750,6 +762,14 @@ angular.module('goal', ['Interpolation',
 
         };
 
+        $('body').on('click', '#Activity', function() {
+            if($scope.newActivity){
+                $scope.addNew();
+            } else {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        });
+
         var interval = $interval(newActivity,120000);
 
         $scope.addNew = function () {
@@ -767,12 +787,13 @@ angular.module('goal', ['Interpolation',
                     // paginationType: 'fraction',
                     observer: true,
                     autoHeight: true,
+                    simulateTouch: false,
                     // loop: true,
                     nextButton: '.swiper-button-next',
                     prevButton: '.swiper-button-prev',
                     spaceBetween: 30
                 })
-            }, 1000);
+            }, 2000);
         }
 
         $scope.Activities = new lsInfiniteItems(10);
@@ -786,13 +807,14 @@ angular.module('goal', ['Interpolation',
                 }
             }else {
                 angular.forEach(d, function (item) {
-                    if(item.goals.length > 2){
-                        item.reserveGoals = [];
-                        item.reserveGoals = item.reserveGoals.concat(item.goals[0], item.goals[1]);
-                    } else {
-                        item.reserveGoals = item.goals;
+                    if(angular.isUndefined(item.reserveGoals)){
+                        if(item.goals.length > 2){
+                            item.reserveGoals = [];
+                            item.reserveGoals = item.reserveGoals.concat(item.goals[0], item.goals[1]);
+                        } else {
+                            item.reserveGoals = item.goals;
+                        }
                     }
-                   
                 });
                 slideInsert();
             }
