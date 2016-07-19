@@ -299,6 +299,11 @@ liip_imagine:
             filters:
                 central_crop: { size: [370, 230] }
 
+        slide_max_size:
+            quality: 100
+            filters:
+                central_crop: { size: [1280, 900] }
+
         goal_list_horizontal:
             quality: 100
             filters:
