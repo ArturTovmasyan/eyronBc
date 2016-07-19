@@ -47,10 +47,17 @@ class Comment implements ActivityableInterface
     /**
      * Author of the comment
      *
-     * @ORM\ManyToOne(targetEntity="Application\CommentBundle\Entity\Comment")
+     * @ORM\ManyToOne(targetEntity="Application\CommentBundle\Entity\Comment", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @Groups({"comment_parent"})
      */
     protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Application\CommentBundle\Entity\Comment", mappedBy="parent")
+     * @Groups({"comment_children"})
+     */
+    protected $children;
 
     /**
      * @ORM\Column(name="body", type="text", length=2000, nullable=false)
@@ -222,5 +229,46 @@ class Comment implements ActivityableInterface
     public function getParent()
     {
         return $this->parent;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add child
+     *
+     * @param \Application\CommentBundle\Entity\Comment $child
+     *
+     * @return Comment
+     */
+    public function addChild(\Application\CommentBundle\Entity\Comment $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \Application\CommentBundle\Entity\Comment $child
+     */
+    public function removeChild(\Application\CommentBundle\Entity\Comment $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

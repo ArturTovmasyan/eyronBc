@@ -99,4 +99,32 @@ class CommentController extends FOSRestController
 
         return new Response('', Response::HTTP_CREATED);
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Comment",
+     *  description="This function is used to get comments by thread id",
+     *  statusCodes={
+     *         200="Returned when all ok",
+     *         404="Returned when thread not found",
+     *         401="Returned when user not found"
+     *     }
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
+     *
+     * @param Thread $thread
+     * @param null $first
+     * @param null $count
+     * @return array
+     */
+    public function getAction(Thread $thread, $first = null, $count = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($thread->getId(), $first, $count);
+
+        return $comments;
+    }
 }
