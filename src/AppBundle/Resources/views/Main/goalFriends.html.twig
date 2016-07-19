@@ -94,42 +94,45 @@
                         </div>
                     {% endif %}
 
+                    <div class="row" {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
                     <div data-ng-cloak
-                         class="goals-animate"
+                         class="col-sm-6 goals-animate"
                          data-ng-repeat="user in Friends.users"
                          data-ng-class-even="row"
-                         {% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}>
+                         {#{% if friend %} data-ng-class="{'margin-top': !$index}" {% endif %}#}
+                            >
 
-                        <div class="col-sm-6">
-                            <div class="users-list round clearfix">
-                                 <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;">
-                                    <div class="row no-gutter">
-                                        <div class="col-xs-3">
-                                            <figure class="image-goalfrinds">
-                                                <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
-                                                {% set className = "user-no" ~ random(4) %}
-                                                <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>
-                                            </figure>
-                                        </div>
 
-                                        <div class="col-xs-9">
-                                            <div class="text-gray">
-                                                <h4 class="text-dark-gray">
-                                                    [[ ::user.first_name ]] [[ ::user.last_name ]]
-                                                </h4>
-                                                <span class="text-gray">{{ 'listed_by'|trans }} [[ ::user.stats.listedBy ]]</span> |
-                                                <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
-                                                <a href="javascript:void(0)"
-                                                   data-ls-common-manage
-                                                   data-ls-user="[[ ::user.id ]]"
-                                                   data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
+                            {#<div class="col-sm-6">#}
+                                <div class="users-list round clearfix">
+                                     <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;">
+                                        <div class="row no-gutter">
+                                            <div class="col-xs-3">
+                                                <figure class="image-goalfrinds">
+                                                    <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
+                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>
+                                                </figure>
+                                            </div>
+
+                                            <div class="col-xs-9">
+                                                <div class="text-gray">
+                                                    <h4 class="text-dark-gray">
+                                                        [[ ::user.first_name ]] [[ ::user.last_name ]]
+                                                    </h4>
+                                                    <span class="text-gray">{{ 'listed_by'|trans }} [[ ::user.stats.listedBy ]]</span> |
+                                                    <span class="text-gray">{{ 'completed'|trans }} [[ ::user.stats.doneBy ]]</span><br />
+                                                    <a href="javascript:void(0)"
+                                                       data-ls-common-manage
+                                                       data-ls-user="[[ ::user.id ]]"
+                                                       data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            {#</div>#}
                         </div>
-
                     </div>
 
                     <br />
