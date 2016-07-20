@@ -11,18 +11,18 @@ var gm = require('gm');
 var argsObj = cliargs.parse();
 
 if(!argsObj.f || !argsObj.p || !argsObj.r || !argsObj.t){
-    console.log(-1);
-    return -1;
+    console.log('invalid arguments');
+    return;
 }
 
 if(argsObj.p === 'jpg' || argsObj.p === 'jpeg'){
     gm(argsObj.f)
         .write(argsObj.r + argsObj.t, function (err) {
             if (err){
-                throw err;
+                console.log(err);
                 return;
             }
-            console.log(1);
+            console.log('ok');
         });
     return;
 }
@@ -48,5 +48,5 @@ imagemin.run(function (err) {
         console.log(err);
         return;
     }
-    console.log(1);
+    console.log('ok');
 });
