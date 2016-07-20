@@ -298,6 +298,8 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [370, 230] }
+            post_processors:
+                opt_post_processor: {}
 
         slide_max_size:
             quality: 100

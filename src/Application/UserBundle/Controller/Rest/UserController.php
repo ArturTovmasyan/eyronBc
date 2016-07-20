@@ -110,26 +110,19 @@ class UserController extends FOSRestController
     {
         $response = new JsonResponse();
 
-        // get request
         $request = $this->get('request_stack')->getCurrentRequest();
-
-        // get firewall name
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-
-        // get secret key
         $secretKey = $this->container->getParameter('secret');
 
-        // create new token
         $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
 
-        //get remember me lifetime
         $lifeTime = $this->getParameter('remember_me_lifetime');
-
-        // get session
         $session = $this->get('session');
 
         //check if user login with mobile
-        if ($request->get('mobileAppPlatform')){
+        //TODO: need in future
+        if (true ||$request->get('mobileAppPlatform')){
+            $this->get('security.token_storage')->setToken($token);
             $session->set($providerKey, serialize($token));
             $session->save();
         }
@@ -149,19 +142,14 @@ class UserController extends FOSRestController
                     'remember_me_parameter' => '_remember_me')
             );
 
-            //call remember me service
             $rememberMeService->loginSuccess($request, $response, $token);
         }
 
-        // get cookie
-        $cookie = $request->cookies;
 
-        // get session id from cookie
+        $cookie = $request->cookies;
         $phpSessionId = $cookie->get('PHPSESSID');
 
-        // if cookie is not set
         if(!$phpSessionId){
-            // get session id
             $phpSessionId = $session->getId();
         }
 
@@ -177,13 +165,9 @@ class UserController extends FOSRestController
             $content['registred'] = $isRegistered;
         }
 
-        //get serializer service
         $serializer = $this->get('serializer');
-
-        //serialize content by group
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
-        //set content in response
         $response->setContent($contentJson);
 
         return $response;
