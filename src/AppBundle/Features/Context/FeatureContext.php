@@ -24,7 +24,16 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWaitForAngular()
     {
-        $this->getSession()->wait(5000, "typeof(jQuery)=='undefined' && 0 === jQuery.active");
+        //&& 0 === jQuery.active
+        $this->getSession()->wait(2000, "typeof(jQuery)=='undefined'");
+    }
+
+    /**
+     * @When I wait for ajax
+     */
+    public function iWaitForAjax()
+    {
+        $this->getSession()->wait(5000, "0 === jQuery.active");
     }
 
     /**
@@ -32,15 +41,15 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
      */
     public function iWait()
     {
-        $this->getSession()->wait(3000, "document.readyState == 'complete'");
+        $this->getSession()->wait(5000, "document.readyState == 'complete'");
     }
 
     /**
-     * @When I wait for view
+     * @When I wait for view :time
      */
-    public function iWaitForView()
+    public function iWaitForView($time)
     {
-        $this->getSession()->wait(3000);
+        $this->getSession()->wait($time);
     }
 
     /**
@@ -88,12 +97,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //open login form
         $this->clickLink('JOIN');
 
-        $this->iWaitForView();
+        $this->iWaitForView(1000);
 
         //set data in login form
         $this->iSetUsernameAndPassword($userName, $password);
 
-        $this->iWaitForView();
+        $this->iWaitForView(1000);
 
         //check if user admin
         if($user == 'admin') {
