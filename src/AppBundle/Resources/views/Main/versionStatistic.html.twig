@@ -1,0 +1,83 @@
+{% extends "SonataAdminBundle::standard_layout.html.twig" %}
+{% block sonata_head_title %}
+    Goal Statistic Page
+{% endblock %}
+
+{% block sonata_admin_content %}
+
+    <div class="row" style="text-align: center">
+        <div class="col-lg-12">
+
+            <div class="panel panel-blue">
+                <div class="panel-heading">Android statistic</div>
+                <div class="panel-body">
+                    <div id="android-statistic" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                </div>
+
+                <div class="panel-heading">IOS statistic</div>
+                <div class="panel-body">
+                    <div id="ios-statistic" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('app/bower_components/highcharts/highcharts.js') }}"></script>
+    <script>
+        $(function () {
+            $('#android-statistic').highcharts({
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        {% for value in appVersionStatistic['android'] %}
+                        '{{ value['version'] }}',
+                        {% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'User count',
+                    type: 'column',
+                    data: [
+                        {% for value in appVersionStatistic['android'] %}
+                        {{ value['cnt'] }},
+                        {% endfor %}
+                    ]
+                }]
+            });
+        });
+
+        $(function () {
+            $('#ios-statistic').highcharts({
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        {% for value in appVersionStatistic['ios'] %}
+                        '{{ value['version'] }}',
+                        {% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'User count',
+                    type: 'column',
+                    data: [
+                        {% for value in appVersionStatistic['ios'] %}
+                        {{ value['cnt'] }},
+                        {% endfor %}
+                    ]
+                }]
+            });
+        });
+
+    </script>
+
+{% endblock %}

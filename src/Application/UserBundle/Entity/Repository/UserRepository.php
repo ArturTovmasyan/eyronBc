@@ -343,18 +343,23 @@ class UserRepository extends EntityRepository
     public function getAppVersionsStatistic()
     {
         $iosUsers = $this->getEntityManager()
-            ->createQuery("SELECT 'ios' platform, u.iosVersion version, COUNT(u.id) cnt
+            ->createQuery("SELECT u.iosVersion version, COUNT(u.id) cnt
                            FROM ApplicationUserBundle:User u
                            WHERE u.iosVersion IS NOT NULL
                            GROUP BY u.iosVersion")
             ->getResult();
 
         $androidUsers = $this->getEntityManager()
-            ->createQuery("SELECT (CASE WHEN u.androidVersion IS NULL THEN 'web' ELSE 'android' END) platform, COALESCE(u.androidVersion, '') version, COUNT(u.id) cnt
+            ->createQuery("SELECT u.androidVersion version, COUNT(u.id) cnt
                            FROM ApplicationUserBundle:User u
+                           WHERE u.androidVersion IS NOT NULL
                            GROUP BY u.androidVersion")
             ->getResult();
 
-        return array_merge($androidUsers, $iosUsers);
+
+        return [
+            'android' => $androidUsers,
+            'ios'     => $iosUsers
+        ];
     }
 }
