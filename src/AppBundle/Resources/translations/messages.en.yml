@@ -344,6 +344,7 @@ admin:
       replaceString: Replace String
       replaceWith: Replace With
       name: Name
+      title: Title
       description: Description
       position: Position
       videoLink: Video Link
