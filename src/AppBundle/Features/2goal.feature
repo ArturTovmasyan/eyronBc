@@ -40,11 +40,12 @@ Feature: Goal page
     When I am on "/profile"
     Then I should see "What are you doing here? Come on, add some goals"
     When I follow "Active"
-    And I wait for view "500"
+    And I wait for view "1000"
     Then I should see "Your life needs goals, add some more"
     When I follow "Completed"
-    And I wait for view "500"
+    And I wait for view "1000"
     Then I should see "It’s time to act and complete some goals"
+    And I wait for view "500"
 
   @javascript @manageGoal
   Scenario: Open manage and let me change whatever I want

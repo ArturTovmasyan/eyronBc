@@ -128,7 +128,7 @@ Feature: Activity
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I should see "user2 useryan"
+    And I should see "user1 useryan"
     And I am on "/goal/goal9"
     Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
     And I should see "goal9"
@@ -138,6 +138,7 @@ Feature: Activity
     Then I should see "COMPLETED BY"
     And I should see "LISTED"
     When I am on "/done-users/goal9"
+    And I wait for view "1000"
     Then I should see "user2"
     And I move backward one page
     When I am on "/listed-users/goal9"
