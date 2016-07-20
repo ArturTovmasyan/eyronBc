@@ -24,7 +24,6 @@ class UserAdmin extends AbstractAdmin
     protected $baseRouteName    = 'admin-user';
     protected $baseRoutePattern = 'admin-user';
     public    $usersCount       = 0;
-    public    $appVersionStatistic;
 
     /**
      * @param string $name
@@ -106,10 +105,6 @@ class UserAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-
-        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
-        $this->appVersionStatistic = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
-
         $listMapper
             ->add('id', null, array('label' => 'Employee ID'))
             ->add('username', null, array('label'=>'Username'))

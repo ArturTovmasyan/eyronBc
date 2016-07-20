@@ -227,9 +227,32 @@ file that was distributed with this source code.
                         {% block side_bar_before_nav %}
                             <hr />
                             <a href="{{ path('homepage') }}" style="margin-left: 20px">Homepage</a> <br/><br>
+
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('statistic_view') }}" style="margin-left: 20px">Statistic</a>
+
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-folder"></i>
+                                        <span>Statistic</span>
+                                        <i class="fa pull-right fa-angle-left"></i>
+                                    </a>
+
+                                    <ul class="treeview-menu">
+                                        <li class="first">
+                                            <a href="{{ path('statistic_view') }}">
+                                                <i class="fa fa-angle-double-right"></i>Goal Statistic
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('version_statistic') }}">
+                                                <i class="fa fa-angle-double-right"></i>App versions statistic
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                             {% endif %}
+
                             <hr />
                         {% endblock %}
 
@@ -309,17 +332,7 @@ file that was distributed with this source code.
                         {% endblock sonata_page_content_nav %}
 
                         {% if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
-
-                            <br />
-                            <div class="panel panel-blue">
-                                <div class="panel-heading">
-                                    {{ 'all_users_count'|trans({}, 'SonataAdminBundle') }} {{ admin.usersCount }}
-                                </div>
-                                <div class="panel-body">
-                                    <div id="statistic" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-                                </div>
-                            </div>
-
+                            {{ 'all_users_count'|trans({}, 'SonataAdminBundle') }} {{ admin.usersCount }}
                         {% endif %}
 
                     {% endblock sonata_page_content_header %}
@@ -374,39 +387,6 @@ file that was distributed with this source code.
             javascript:(function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([], {hasProblems: false, problemFree: false});};s.src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js";document.body.appendChild(s)})();
         </script>
     {% endblock %}
-{% endif %}
-
-
-{%  if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
-
-    <script src="{{ asset('app/bower_components/highcharts/highcharts.js') }}"></script>
-    <script>
-        $(function () {
-            $('#statistic').highcharts({
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: [
-                        {% for value in admin.appVersionStatistic %}
-                            '{{ value['platform'] ~ " " ~ value['version'] }}',
-                        {% endfor %}
-                    ]
-                },
-                series: [{
-                    name: 'Statistic Line',
-                    type: 'column',
-                    data: [
-                        {% for value in admin.appVersionStatistic %}
-                            {{ value['cnt'] }},
-                        {% endfor %}
-                    ]
-                }]
-            });
-        });
-
-    </script>
-
 {% endif %}
 
 </body>
