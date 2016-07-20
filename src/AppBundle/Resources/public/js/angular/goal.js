@@ -541,13 +541,12 @@ angular.module('goal', ['Interpolation',
             }
         });
             
-        $scope.manageVote = function(path, id){
-            url = (path === 'add')?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+        $scope.manageVote = function(id){
+        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
             url = envPrefix + url;
             url = url.replace('{storyId}', id);
-            $http.get(url).success(function(data) {
-                //todo functionality
-                if(path === 'add'){
+            $http.get(url).success(function() {
+                if(!$scope.vote[id]){
                     $scope.count[id]++;
                     $scope.vote[id] = true;
                 } else {

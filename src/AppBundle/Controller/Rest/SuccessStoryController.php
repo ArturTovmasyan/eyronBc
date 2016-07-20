@@ -366,7 +366,7 @@ class SuccessStoryController extends FOSRestController
         $successStory->addVoter($this->getUser());
         $em->flush();
 
-        return new Response('Ok');
+        return new JsonResponse();
     }
 
     /**
@@ -398,6 +398,6 @@ class SuccessStoryController extends FOSRestController
         $successStory->removeVoter($this->getUser());
         $em->flush();
 
-        return new Response('Ok');
+        return new JsonResponse();
     }
 }
