@@ -91,9 +91,12 @@ class SuccessStory implements ActivityableInterface
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory"})
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="Story must have at least {{ limit }} characters."
+     * )
      */
     protected $story;
-
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
@@ -291,24 +294,6 @@ class SuccessStory implements ActivityableInterface
     public function getVideoLink()
     {
         return $this->videoLink;
-    }
-
-    /**
-     * @param ExecutionContextInterface $context
-     *
-     * @Assert\Callback()
-     */
-    public function validate(ExecutionContextInterface $context)
-    {
-        $hasFiles  = (count($this->files) != 0);
-        $hasVideos = (count($this->videoLink) != 0);
-        $letterCountInStory = count(str_replace(' ', '', $this->story));
-
-        if (!$hasFiles && !$hasVideos && $letterCountInStory < self::MIN_LETTERS_IN_STORY) {
-            $context->buildViolation("Success story must has min " . self::MIN_LETTERS_IN_STORY. " letters")
-                ->atPath('story')
-                ->addViolation();
-        }
     }
 
     /**
