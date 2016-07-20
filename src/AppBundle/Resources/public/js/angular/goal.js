@@ -505,8 +505,8 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
+        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -540,6 +540,21 @@ angular.module('goal', ['Interpolation',
                 ev.stopPropagation();
             }
         });
+            
+        $scope.manageVote = function(id){
+        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            url = envPrefix + url;
+            url = url.replace('{storyId}', id);
+            $http.get(url).success(function() {
+                if(!$scope.vote[id]){
+                    $scope.count[id]++;
+                    $scope.vote[id] = true;
+                } else {
+                    $scope.count[id]--;
+                    $scope.vote[id] = false;
+                }
+            });
+        };
 
         var imageResize = function () {
             imageHeight = angular.element('#main-slider img').height();
@@ -802,8 +817,8 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout',
-        function($scope, $http, refreshCacheService, $timeout){
+    .controller('goalFooter', ['$scope', '$timeout',
+        function($scope, $timeout){
         $scope.completed = true;
 
         $scope.popoverByMobile = function(){
