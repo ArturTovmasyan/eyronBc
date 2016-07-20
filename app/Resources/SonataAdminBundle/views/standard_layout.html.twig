@@ -229,28 +229,28 @@ file that was distributed with this source code.
                             <a href="{{ path('homepage') }}" style="margin-left: 20px">Homepage</a> <br/><br>
 
                             {% if is_granted('ROLE_ADMIN') %}
+                                <ul class="sidebar-menu">
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-folder"></i>
+                                            <span>Statistic</span>
+                                            <i class="fa pull-right fa-angle-left"></i>
+                                        </a>
 
-                                <li class="treeview">
-                                    <a href="#">
-                                        <i class="fa fa-folder"></i>
-                                        <span>Statistic</span>
-                                        <i class="fa pull-right fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="treeview-menu">
-                                        <li class="first">
-                                            <a href="{{ path('statistic_view') }}">
-                                                <i class="fa fa-angle-double-right"></i>Goal Statistic
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('version_statistic') }}">
-                                                <i class="fa fa-angle-double-right"></i>App versions statistic
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
+                                        <ul class="treeview-menu">
+                                            <li class="first">
+                                                <a href="{{ path('statistic_view') }}">
+                                                    <i class="fa fa-angle-double-right"></i>Goal Statistic
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('version_statistic') }}">
+                                                    <i class="fa fa-angle-double-right"></i>App versions statistic
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             {% endif %}
 
                             <hr />
