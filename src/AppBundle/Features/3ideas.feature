@@ -6,7 +6,7 @@ Feature: Idea
   @javascript @ideas
   Scenario: Open Ideas page and show list of ideas
     Given I am on "/ideas"
-    And I wait
+    And I wait for view "1000"
     Then I should see "Explore thousands of great ideas for your Bucket List"
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     And I should see "Listed by"
@@ -27,7 +27,7 @@ Feature: Idea
     Given I am on "/logout"
     And I wait
     And I am on "/ideas"
-    And I wait
+    And I wait for view "1000"
     And I should see "Explore thousands of great ideas for your Bucket List"
     And I wait
     And I follow "Add"

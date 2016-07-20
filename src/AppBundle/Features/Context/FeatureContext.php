@@ -97,12 +97,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //open login form
         $this->clickLink('JOIN');
 
-        $this->iWaitForView(1000);
+        $this->iWaitForView(500);
 
         //set data in login form
         $this->iSetUsernameAndPassword($userName, $password);
 
-        $this->iWaitForView(1000);
+        $this->iWaitForView(1500);
 
         //check if user admin
         if($user == 'admin') {
@@ -145,13 +145,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //get page
         $page = $session->getPage();
-
-//        //get login block
-//        $loginBlock = $page->find('css', '.popover-content');
-//
-//        if (null === $loginBlock) {
-//            throw new \LogicException('Could not find the element');
-//        }
 
         //find username and set data
         $page->fillField('_username', $userName);
