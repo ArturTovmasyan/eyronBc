@@ -384,7 +384,9 @@
 
                                     <div class="comment-place story-fade-in ng-hide"
                                          data-ng-show="successStoryShow[{{ key }}]"
-                                         data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 3 ? 'true':'false' }}">
+                                         data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 3 ? 'true':'false' }};
+                                         count[{{ story.id }}] = {{ story.voters|length }};
+                                         vote[{{ story.id }}] = '{{ app.user is not null and story.isVote(app.user.id) }}'? true: false">
                                         <div class="row">
                                             <div class="col-xs-2 col-sm-1">
                                                 {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
@@ -395,17 +397,22 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
+                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>
 
-                                            <div class="col-xs-10 col-sm-11">
+                                            <div class="col-xs-10 col-sm-8">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                 </span>
                                                 <p>{{ story.story }}</p>
+                                            </div>
+
+                                            <div class=" col-sm-3 text-right" data-ng-cloak>
+                                                <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
+                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is not null and story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
                                         </div>

@@ -49,6 +49,7 @@ class PageAdmin extends AbstractAdmin
         $showMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
 
@@ -78,6 +79,7 @@ class PageAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id','show_filter' => true))
             ->add('name', null, array('label'=>'admin.label.name.name','show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('position', null, array('label'=>'admin.label.name.position','show_filter' => true))
         ;
@@ -89,6 +91,7 @@ class PageAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('_action', 'actions', array(
                 'actions' => array(

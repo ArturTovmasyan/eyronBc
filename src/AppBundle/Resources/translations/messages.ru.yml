@@ -308,6 +308,7 @@ admin:
       replaceString: Строка замены
       replaceWith: Заменить
       name: Имя
+      title: Загаловок
       description: Описание
       position: Позиция
       videoLink: Ссылка на видеоролик
