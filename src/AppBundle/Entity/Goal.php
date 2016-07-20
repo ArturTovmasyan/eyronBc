@@ -817,6 +817,18 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     }
 
     /**
+     * Set successStories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setSuccessStories($successStories)
+    {
+        $this->successStories = $successStories;
+
+        return $this;
+    }
+
+    /**
      * Set author
      *
      * @param \Application\UserBundle\Entity\User $author
