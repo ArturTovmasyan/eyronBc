@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class SuccessStory implements ActivityableInterface
 {
-    const MIN_WORDS_IN_STORY = 3;
+    const MIN_LETTERS_IN_STORY = 3;
 
     /**
      * @ORM\Id
@@ -91,9 +91,12 @@ class SuccessStory implements ActivityableInterface
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory"})
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="Story must have at least {{ limit }} characters."
+     * )
      */
     protected $story;
-
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
@@ -291,24 +294,6 @@ class SuccessStory implements ActivityableInterface
     public function getVideoLink()
     {
         return $this->videoLink;
-    }
-
-    /**
-     * @param ExecutionContextInterface $context
-     *
-     * @Assert\Callback()
-     */
-    public function validate(ExecutionContextInterface $context)
-    {
-        $hasFiles  = (count($this->files) != 0);
-        $hasVideos = (count($this->videoLink) != 0);
-        $wordCountInStory = count(explode(' ', $this->story));
-
-        if (!$hasFiles && !$hasVideos && $wordCountInStory < self::MIN_WORDS_IN_STORY) {
-            $context->buildViolation("Success story must has min " . self::MIN_WORDS_IN_STORY . " words")
-                ->atPath('story')
-                ->addViolation();
-        }
     }
 
     /**

@@ -599,27 +599,26 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.showMoreSuccessStory = function(storiesLength){
-            if($scope.successStoryActiveIndex === 0){
+            if($scope.successStoryActiveIndex === storiesLength){
                 return;
             }
-
-            var startIndex = storiesLength - 2;
-
+            
             if($scope.successStoryActiveIndex === null){
-                $scope.successStoryActiveIndex = storiesLength - 2;
+                $scope.successStoryActiveIndex = 3;
             }
 
-            startIndex = $scope.successStoryActiveIndex;
+           var startIndex = $scope.successStoryActiveIndex;
             
-            if($scope.successStoryActiveIndex > 4){
-                $scope.successStoryActiveIndex -= 5;
+            if($scope.storyLength > 4){
+                $scope.successStoryActiveIndex += 5;
                 $scope.storyLength -= 5;
             }
             else {
-                $scope.successStoryActiveIndex = 0;
+                $scope.successStoryActiveIndex += $scope.storyLength;
+                $scope.storyLength = 0;
             }
 
-            for(var i = startIndex - 1; i >= $scope.successStoryActiveIndex; i--){
+            for(var i = startIndex; i < $scope.successStoryActiveIndex; i++){
                 $scope.successStoryShow[i] = true;
             }
 

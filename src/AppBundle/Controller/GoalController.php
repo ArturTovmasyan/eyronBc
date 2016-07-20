@@ -263,10 +263,32 @@ class GoalController extends Controller
 
         $successStories = $goal->getSuccessStories()->toArray();
         usort($successStories, function($a, $b) {
+
             $aCount = $a->getVoters()->count();
             $bCount = $b->getVoters()->count();
-            if ($aCount  == $bCount){
-                return 0;
+
+            $currentDate = new \DateTime();
+            $aInterval = date_diff($a->getUpdated(), $currentDate)->format('%R%a');
+            $bInterval = date_diff($b->getUpdated(), $currentDate)->format('%R%a');
+
+            if ($aInterval <= 7 || $bInterval <= 7){
+                if ($aInterval == $bInterval) {
+                    if ($aCount == $bCount) {
+                        return 0;
+                    }
+
+                    return $aCount < $bCount ? 1 : -1;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
+            }
+
+            if ($aCount == $bCount) {
+                if ($a->getUpdated() == $b->getUpdated()){
+                    return 0;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
             }
 
             return $aCount < $bCount ? 1 : -1;
