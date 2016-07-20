@@ -30,7 +30,7 @@
 
                 <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
-                        <h3 class="text-dark-gray" style="display: none" id="non-activity">{{ 'active.not_have'|trans }}
+                        <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
                             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
                         </h3>
 
@@ -112,13 +112,13 @@
 
                             </div>
 
-                            <div data-ng-show="!activity.comment && !activity.success_story" class="activity-slider swiper-container">
+                            <div data-ng-show="!activity.comment && !activity.success_story" data-index="[[ $index ]]" class="activity-slider swiper-container">
                                 <div class="idea-item swiper-wrapper goals-animate">
                                     <div class="swiper-slide"
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.reserveGoals">
 
-                                        <figure data-ng-init="singleGoal.imageLoad = ($index < 1)? singleGoal.cached_image: ''">
+                                        <figure>
 
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
@@ -128,7 +128,7 @@
                                                class="goalTitle">
                                                 <span class="overlay"></span>
                                                 <img
-                                                    data-ng-src="[[ singleGoal.imageLoad ]]"
+                                                    data-ng-src="[[ singleGoal.cached_image ]]"
                                                     alt="[[ singleGoal.title ]]"
                                                     data-ng-if="singleGoal.cached_image"/>
                                             </a>
@@ -165,8 +165,8 @@
 
                                 <div data-ng-show="activity.goals.length > 1">
                                     <!-- Add Arrows -->
-                                    <div class="swiper-button-next swiper-button-white" data-ng-click="loadImage(activity, true)"></div>
-                                    <div class="swiper-button-prev swiper-button-white" data-ng-click="loadImage(activity, false)"></div>
+                                    <div class="swiper-button-next swiper-button-white"></div>
+                                    <div class="swiper-button-prev swiper-button-white"></div>
                                 </div>
                             </div>
                         </div>
@@ -201,15 +201,14 @@
 {% macro goal(env_prefix) %}
     <div class="row">
         <div class="col-sm-12 idea-item round">
-            <figure data-ng-repeat="singleGoal in activity.goals">
+            <figure data-ng-repeat="singleGoal in activity.reserveGoals">
                 <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
-                   class="goalTitle"
-                   data-ng-init="singleGoal.imageLoad = (activity.goals.length < 2)? singleGoal.cached_image: ''">
+                   class="goalTitle">
                     <span class="overlay"></span>
                     <h3>[[ ::singleGoal.title ]]</h3>
-                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.imageLoad ]]" alt="[[ ::singleGoal.title ]]"/>
+                    <img data-ng-if="singleGoal.cached_image" data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]"/>
 
                     <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
                         <ul>
