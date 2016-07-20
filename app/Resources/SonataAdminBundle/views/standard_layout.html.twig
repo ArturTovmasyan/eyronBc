@@ -308,8 +308,18 @@ file that was distributed with this source code.
                             {% endif %}
                         {% endblock sonata_page_content_nav %}
 
-                        {%  if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
-                            {{ 'all_users_count'|trans({}, 'SonataAdminBundle') }} {{ admin.usersCount }}
+                        {% if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
+
+                            <br />
+                            <div class="panel panel-blue">
+                                <div class="panel-heading">
+                                    {{ 'all_users_count'|trans({}, 'SonataAdminBundle') }} {{ admin.usersCount }}
+                                </div>
+                                <div class="panel-body">
+                                    <div id="statistic" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+
                         {% endif %}
 
                     {% endblock sonata_page_content_header %}
@@ -364,6 +374,39 @@ file that was distributed with this source code.
             javascript:(function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([], {hasProblems: false, problemFree: false});};s.src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js";document.body.appendChild(s)})();
         </script>
     {% endblock %}
+{% endif %}
+
+
+{%  if app.request.get('_route') == 'admin-user_list' and admin.usersCount is defined %}
+
+    <script src="{{ asset('app/bower_components/highcharts/highcharts.js') }}"></script>
+    <script>
+        $(function () {
+            $('#statistic').highcharts({
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: [
+                        {% for value in admin.appVersionStatistic %}
+                            '{{ value['platform'] ~ " " ~ value['version'] }}',
+                        {% endfor %}
+                    ]
+                },
+                series: [{
+                    name: 'Statistic Line',
+                    type: 'column',
+                    data: [
+                        {% for value in admin.appVersionStatistic %}
+                            {{ value['cnt'] }},
+                        {% endfor %}
+                    ]
+                }]
+            });
+        });
+
+    </script>
+
 {% endif %}
 
 </body>
