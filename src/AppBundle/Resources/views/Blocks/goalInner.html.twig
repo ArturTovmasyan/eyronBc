@@ -78,7 +78,7 @@
                             <div {% if images| length > 1 %} class="swiper-wrapper" {% endif %}>
                                 {% for key, image in images %}
                                     <div class="overlay swiper-slide">
-                                        <a href="{{ image.downloadLink }}" class="swipebox" data-title="{{ goal.title }}">
+                                        <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox" data-title="{{ goal.title }}">
                                             <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                         </a>
                                     </div>
@@ -361,30 +361,39 @@
                             {% set stories = goal.getSuccessStories %}
 
                             {% if stories|length > 0 %}
-                                <a name="success_story"></a>
-                                <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4><hr />
-
-                                {% if stories|length > 2 %}
-                                    <div class="text-right">
-                                        <a href="javascript:void(0)"
-                                           data-ng-show="successStoryActiveIndex !== 0"
-                                           data-ng-click="showMoreSuccessStory({{ stories|length }})"
-                                           data-ng-init="storyLength={{ stories|length - 2}}"
-                                           class="text-purple view-more-comments">
-                                            Show More +<span data-ng-bind="storyLength"></span>
-                                        </a>
+                                <div class="story-count">
+                                    <div class="row story-count">
+                                        <div class="col-xs-7">
+                                            <a name="success_story"></a>
+                                            <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4>
+                                        </div>
+                                        <div class="col-xs-5">
+                                            {% if stories|length > 3 %}
+                                                <div class="text-right">
+                                                    <a href="javascript:void(0)"
+                                                       data-ng-show="successStoryActiveIndex !== {{ stories|length }}"
+                                                       data-ng-click="showMoreSuccessStory({{ stories|length }})"
+                                                       data-ng-init="storyLength={{ stories|length - 3}}"
+                                                       class="text-purple view-more-comments">
+                                                        Show More +<span data-ng-bind="storyLength"></span>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                {% endif %}
+                                    <hr />
+                                </div>
 
                                 {% for key, story in stories %}
-
                                     {% set addedUser = story.user %}
                                     {% set files = story.files %}
                                     {% set videos = story.videoLink %}
 
                                     <div class="comment-place story-fade-in ng-hide"
                                          data-ng-show="successStoryShow[{{ key }}]"
-                                         data-ng-init="successStoryShow[{{ key }}]={{ key > stories|length - 3 ? 'true':'false' }}">
+                                         data-ng-init="successStoryShow[{{ key }}]={{ key < 3 ? 'true':'false' }};
+                                         count[{{ story.id }}] = {{ story.voters|length }};
+                                         vote[{{ story.id }}] = '{{ app.user is not null and story.isVote(app.user.id) }}'? true: false">
                                         <div class="row">
                                             <div class="col-xs-2 col-sm-1">
                                                 {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
@@ -395,17 +404,22 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
+                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>
 
-                                            <div class="col-xs-10 col-sm-11">
+                                            <div class="col-xs-10 col-sm-8">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                 </span>
                                                 <p>{{ story.story }}</p>
+                                            </div>
+
+                                            <div class=" col-sm-3 text-right" data-ng-cloak>
+                                                <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
+                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is not null and story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
                                         </div>
@@ -429,7 +443,7 @@
                                                             <div class="swiper-wrapper">
                                                                 {% for k,file in files %}
                                                                     <div class="swiper-slide">
-                                                                        <a href="{{ file.downloadLink }}" class="swipebox">
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox">
                                                                             <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
                                                                         </a>
                                                                     </div>

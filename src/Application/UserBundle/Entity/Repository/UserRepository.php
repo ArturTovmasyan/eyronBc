@@ -336,4 +336,30 @@ class UserRepository extends EntityRepository
                            AND u.activeDayOfWeek = DAYOFWEEK(CURRENT_DATE()) - 1")
             ->getResult();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAppVersionsStatistic()
+    {
+        $iosUsers = $this->getEntityManager()
+            ->createQuery("SELECT u.iosVersion version, COUNT(u.id) cnt
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.iosVersion IS NOT NULL
+                           GROUP BY u.iosVersion")
+            ->getResult();
+
+        $androidUsers = $this->getEntityManager()
+            ->createQuery("SELECT u.androidVersion version, COUNT(u.id) cnt
+                           FROM ApplicationUserBundle:User u
+                           WHERE u.androidVersion IS NOT NULL
+                           GROUP BY u.androidVersion")
+            ->getResult();
+
+
+        return [
+            'android' => $androidUsers,
+            'ios'     => $iosUsers
+        ];
+    }
 }

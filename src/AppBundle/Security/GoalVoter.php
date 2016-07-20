@@ -72,7 +72,7 @@ class GoalVoter extends Voter
      */
     private function canView(Goal $goal, $user)
     {
-        if ($user->isAdmin() || $user->hasRole('ROLE_MODERATOR')){
+        if ($user instanceof User && ($user->isAdmin() || $user->hasRole('ROLE_MODERATOR'))){
             return true;
         }
 

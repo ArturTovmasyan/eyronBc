@@ -26,6 +26,26 @@ angular.module('goal', ['Interpolation',
             .setPrefix('goal')
             .setNotify(false, false);
     })
+    .config(['$httpProvider', function($httpProvider){
+        $httpProvider.interceptors.push([function() {
+            return {
+                'response': function(response) {
+                    // same as above
+                    if(response.config.url.indexOf('/api/v2.0/activities/') !== -1){
+                        angular.forEach(response.data, function(v){
+                            if(v.goals.length > 2) {
+                                v.reserveGoals = [v.goals[0], v.goals[1]];
+                            } else {
+                                v.reserveGoals = v.goals
+                            }
+                        });
+                    }
+
+                    return response;
+                }
+            };
+        }]);
+    }])
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {
             maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
@@ -35,17 +55,17 @@ angular.module('goal', ['Interpolation',
         });
     })
     .factory('lsInfiniteItems', ['$http', 'localStorageService', 'envPrefix', '$analytics', function($http, localStorageService, envPrefix, $analytics) {
-        var lsInfiniteItems = function(loadCount) {
+        var lsInfiniteItems = function(loadCount, storage_name) {
             this.items = [];
             this.busy = false;
             this.noItem = false;
             this.category = "";
             this.page = "";
-            //this.oldChache = false;
             this.isReset = false;
             this.request = 0;
             this.start = 0;
             this.reserve = [];
+            this.storage_name = storage_name ? storage_name : 'reserved_items';
             this.count = loadCount ? loadCount : 7;
         };
 
@@ -69,7 +89,6 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
-            //this.oldChache = false;
         };
 
         lsInfiniteItems.prototype.newActivity = function(time, cb){
@@ -83,6 +102,8 @@ angular.module('goal', ['Interpolation',
 
         lsInfiniteItems.prototype.addNewActivity = function(data, cb){
             var itemIds = [];
+
+            // TODO needs to optimize
             angular.forEach(this.items, function (d) {
                 itemIds.push(d.id);
             });
@@ -90,7 +111,9 @@ angular.module('goal', ['Interpolation',
             var removingCount = 0,k;
 
             angular.element('#activities').addClass('comingByTop');
-            for(var i = data.length -1,j=0; i >= 0; i--,j++){
+
+            // TODO needs to optimize
+            for(var i = data.length - 1, j = 0; i >= 0; i--, j++){
                 k = itemIds.indexOf(data[i].id);
                 if(k !== -1){
                     this.items.splice(k + j - removingCount, 1);
@@ -116,10 +139,6 @@ angular.module('goal', ['Interpolation',
                 }
             }
 
-            //setTimeout(function(){
-            //    this.loadAddthis();
-            //}.bind(this), 500);
-
         };
         lsInfiniteItems.prototype.nextReserve = function(url, search, category) {
             //if busy or in goal show page
@@ -133,25 +152,27 @@ angular.module('goal', ['Interpolation',
 
             if (!category) {
                 category = this.category;
-            }else {
+            } else {
                 this.category = category;
             }
 
             this.busy = true;
-            this.page = (url.indexOf('activities') != -1)?'activity': 'list';
-            var lastId = this.items[this.items.length -1].id;
-            var lastDate = this.items[this.items.length -1].datetime;
-            var first = (this.page == 'activity' && lastId)?0:this.start;
+            this.page = (url.indexOf('activities') != -1) ? 'activity' : 'list';
+            var lastId = this.items[this.items.length - 1].id;
+            var lastDate = this.items[this.items.length - 1].datetime;
+            var first = (this.page == 'activity' && lastId) ? 0 : this.start;
             url = url.replace('{first}', first).replace('{count}', this.count);
-            url += '?search=' + search+ '&category=' + category;
+            url += '?search=' + search + '&category=' + category;
+
             if(!first && lastId){
                 url += '&id=' + lastId + '&time=' + lastDate;
             }
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
-                var img;
+
                 angular.forEach(this.reserve, function(item) {
+                    var img;
                     if(item.cached_image){
                         img = new Image();
                         img.src = item.cached_image;
@@ -162,6 +183,7 @@ angular.module('goal', ['Interpolation',
                         }
                     }
                 });
+
                 this.start += this.count;
                 this.request++;
             }.bind(this));
@@ -177,7 +199,7 @@ angular.module('goal', ['Interpolation',
 
             if (!category) {
                 category = this.category;
-            }else {
+            } else {
                 this.category = category;
             }
 
@@ -187,63 +209,48 @@ angular.module('goal', ['Interpolation',
             var reserveUrl = url;
 
             //if have userId and caching data by activities
-            if(userId && !this.isReset && localStorageService.isSupported && localStorageService.get('active_cache'+userId) && url == envPrefix + 'api/v2.0/activities/{first}/{count}' && !category && !search) {
-                var data = localStorageService.get('active_cache'+userId);
+            if(userId && !this.isReset &&
+              localStorageService.isSupported &&
+              localStorageService.get(this.storage_name + userId) &&
+              url == envPrefix + 'api/v2.0/activities/{first}/{count}' &&
+              !category &&
+              !search)
+            {
+                var data = localStorageService.get(this.storage_name + userId);
                 this.items = this.items.concat(data);
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set('active_cache'+userId, newData);
+                    localStorageService.set(this.storage_name + userId, newData);
+
                     if(newData[0].datetime !== data[0].datetime ){
                         angular.element('#activities').addClass('comingByTop');
-                        for(var i = this.count -1; i >= 0; i--){
+
+                        // TODO Change this
+                        for(var i = this.count - 1; i >= 0; i--){
                             this.items.unshift(newData[i]);
                             this.items.pop();
                         }
-                        // for(var j = 1; j < this.count; j++){
-                        //     if(newData[j].datetime !== data[0].datetime){
-                        //         if(j == this.count -1){
-                        //             for(var i = j; i >= 0; i--) {
-                        //                 this.items.unshift(newData[i]);
-                        //                 this.items.pop();
-                        //             }
-                        //             break;
-                        //         } else {
-                        //             continue;
-                        //         }
-                        //     }else {
-                        //         for(var i = j-1; i >= 0; i--) {
-                        //             this.items.unshift(newData[i]);
-                        //             this.start++;
-                        //         }
-                        //         break;
-                        //     }
-                        // }
-                        this.reserve = [];
-                        // this.busy = false;
-                        // this.nextReserve(reserveUrl, search, category);
 
+                        this.reserve = [];
                     }
 
                     this.start += this.count;
                     this.request++;
                     this.busy = data.length ? false : true;
+
                     if(!notReserve){
                         this.nextReserve(reserveUrl, search, category);
                     }
-
                 }.bind(this));
 
-                //setTimeout(function(){
-                //    this.loadAddthis();
-                //}.bind(this), 500);
-            }else{
-                var first = (url.indexOf('activities') != -1)?0:this.start;
+            } else {
+                var first = (url.indexOf('activities') != -1) ? 0 : this.start;
                 url = url.replace('{first}', first).replace('{count}', this.count);
                 url += '?search=' + search + '&category=' + category;
                 $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v2.0/activities/0/'+this.count+'?search=&category=') {
-                        localStorageService.set('active_cache' + userId, data);
+                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v2.0/activities/0/' + this.count + '?search=&category=') {
+                        localStorageService.set(this.storage_name + userId, data);
                     }
                     //if get empty
                     if(!data.length){
@@ -253,18 +260,15 @@ angular.module('goal', ['Interpolation',
                     this.busy = data.length ? false : true;
                     this.start += this.count;
                     this.request++;
+
                     if(!notReserve){
                         this.nextReserve(reserveUrl, search, category);
                     }
 
                     if (!this.items.length) {
                         this.loadRandomItems(this.count);
-
                     }
 
-                    //setTimeout(function () {
-                    //    this.loadAddthis();
-                    //}.bind(this), 500);
                 }.bind(this));
             }
         };
@@ -501,8 +505,8 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
+        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -536,6 +540,21 @@ angular.module('goal', ['Interpolation',
                 ev.stopPropagation();
             }
         });
+            
+        $scope.manageVote = function(id){
+        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            url = envPrefix + url;
+            url = url.replace('{storyId}', id);
+            $http.get(url).success(function() {
+                if(!$scope.vote[id]){
+                    $scope.count[id]++;
+                    $scope.vote[id] = true;
+                } else {
+                    $scope.count[id]--;
+                    $scope.vote[id] = false;
+                }
+            });
+        };
 
         var imageResize = function () {
             imageHeight = angular.element('#main-slider img').height();
@@ -580,27 +599,26 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.showMoreSuccessStory = function(storiesLength){
-            if($scope.successStoryActiveIndex === 0){
+            if($scope.successStoryActiveIndex === storiesLength){
                 return;
             }
-
-            var startIndex = storiesLength - 2;
-
+            
             if($scope.successStoryActiveIndex === null){
-                $scope.successStoryActiveIndex = storiesLength - 2;
+                $scope.successStoryActiveIndex = 3;
             }
 
-            startIndex = $scope.successStoryActiveIndex;
+           var startIndex = $scope.successStoryActiveIndex;
             
-            if($scope.successStoryActiveIndex > 4){
-                $scope.successStoryActiveIndex -= 5;
+            if($scope.storyLength > 4){
+                $scope.successStoryActiveIndex += 5;
                 $scope.storyLength -= 5;
             }
             else {
-                $scope.successStoryActiveIndex = 0;
+                $scope.successStoryActiveIndex += $scope.storyLength;
+                $scope.storyLength = 0;
             }
 
-            for(var i = startIndex - 1; i >= $scope.successStoryActiveIndex; i--){
+            for(var i = startIndex; i < $scope.successStoryActiveIndex; i++){
                 $scope.successStoryShow[i] = true;
             }
 
@@ -735,20 +753,20 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $scope.loadImage = function (activity, direction) {
-            if(direction){
-                activity.activeIndex ++;
-                activity.reserveGoals = activity.goals;
-                angular.forEach(activity.reserveGoals, function (d) {
-                    if(!d.imageLoad.length){
-                        d.imageLoad = d.cached_image;
-                    }
-                });
-            } else {
-                activity.activeIndex --;
+        $scope.loadImage = function (index) {
+            var activeIndex = $scope.Activities.items[index].activeIndex;
+            if(!$scope.Activities.items[index].reserveGoals[activeIndex] && $scope.Activities.items[index].goals[activeIndex]){
+                $scope.Activities.items[index].reserveGoals.push($scope.Activities.items[index].goals[activeIndex]);
             }
-
         };
+
+        $('body').on('click', '#ActivityPage', function() {
+            if($scope.newActivity){
+                $scope.addNew();
+            } else {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        });
 
         var interval = $interval(newActivity,120000);
 
@@ -760,22 +778,30 @@ angular.module('goal', ['Interpolation',
             }, 1000);
             interval = $interval(newActivity,120000);
         };
+
         function slideInsert(){
             $timeout(function(){
-                var activity_swiper = new Swiper('.activity-slider', {
-                    // pagination: '.swiper-pagination',
-                    // paginationType: 'fraction',
+                var activity_swiper = new Swiper('div.activity-slider:not(.swiper-container-horizontal)', {
                     observer: true,
                     autoHeight: true,
+                    onSlideNextStart: function (ev) {
+                        $scope.Activities.items[$(ev.container).data('index')].activeIndex++;
+                        $scope.loadImage($(ev.container).data('index'));
+                        $scope.$apply();
+                    },
+                    onSlidePrevStart: function (ev) {
+                        $scope.Activities.items[$(ev.container).data('index')].activeIndex--;
+                        $scope.$apply();
+                    },
+
                     // loop: true,
                     nextButton: '.swiper-button-next',
                     prevButton: '.swiper-button-prev',
                     spaceBetween: 30
                 })
-            }, 1000);
+            }, 2000);
         }
-
-        $scope.Activities = new lsInfiniteItems(10);
+        $scope.Activities = new lsInfiniteItems(10, 'activities_storage');
         $scope.showNoActivities = false;
 
         $scope.$watch('Activities.items', function(d) {
@@ -784,23 +810,14 @@ angular.module('goal', ['Interpolation',
                     $scope.showNoActivities = true;
                     angular.element('#non-activity').css('display', 'block');
                 }
-            }else {
-                angular.forEach(d, function (item) {
-                    if(item.goals.length > 2){
-                        item.reserveGoals = [];
-                        item.reserveGoals = item.reserveGoals.concat(item.goals[0], item.goals[1]);
-                    } else {
-                        item.reserveGoals = item.goals;
-                    }
-                   
-                });
+            } else {
                 slideInsert();
             }
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout',
-        function($scope, $http, refreshCacheService, $timeout){
+    .controller('goalFooter', ['$scope', '$timeout',
+        function($scope, $timeout){
         $scope.completed = true;
 
         $scope.popoverByMobile = function(){

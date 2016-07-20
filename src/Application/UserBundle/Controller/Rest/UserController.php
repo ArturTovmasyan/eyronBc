@@ -109,53 +109,49 @@ class UserController extends FOSRestController
     private function loginAction(User $user, array $group, $isRegistered = null)
     {
         $response = new JsonResponse();
-        // get request
+
         $request = $this->get('request_stack')->getCurrentRequest();
-
-        // get firewall name
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-
-        // get secret key
         $secretKey = $this->container->getParameter('secret');
 
-        // create new token
         $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
 
-        //get remember me lifetime
         $lifeTime = $this->getParameter('remember_me_lifetime');
-
-        $rememberMeService = new TokenBasedRememberMeServices(
-            array($user),
-            $secretKey,
-            $providerKey,
-            array(
-                'path' => '/',
-                'name' => 'REMEMBERME',
-                'domain' => null,
-                'secure' => false,
-                'httponly' => true,
-                'lifetime' => $lifeTime, // 30 days
-                'always_remember_me' => true,
-                'remember_me_parameter' => '_remember_me')
-        );
-
-        // get cookie
-        $cookie = $request->cookies;
-
-        // get session id from cookie
-        $phpSessionId = $cookie->get('PHPSESSID');
-
-        // get session
         $session = $this->get('session');
 
-        // if cookie is not set
-        if(!$phpSessionId){
-            // get session id
-            $phpSessionId = $session->getId();
+        //check if user login with mobile
+        //TODO: need in future
+        if (true ||$request->get('mobileAppPlatform')){
+            $this->get('security.token_storage')->setToken($token);
+            $session->set($providerKey, serialize($token));
+            $session->save();
+        }
+        else {
+            $rememberMeService = new TokenBasedRememberMeServices(
+                array($user),
+                $secretKey,
+                $providerKey,
+                array(
+                    'path' => '/',
+                    'name' => 'REMEMBERME',
+                    'domain' => null,
+                    'secure' => false,
+                    'httponly' => true,
+                    'lifetime' => $lifeTime, // 30 days
+                    'always_remember_me' => true,
+                    'remember_me_parameter' => '_remember_me')
+            );
+
+            $rememberMeService->loginSuccess($request, $response, $token);
         }
 
-        //call remember me service
-        $rememberMeService->loginSuccess($request, $response, $token);
+
+        $cookie = $request->cookies;
+        $phpSessionId = $cookie->get('PHPSESSID');
+
+        if(!$phpSessionId){
+            $phpSessionId = $session->getId();
+        }
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
@@ -169,13 +165,9 @@ class UserController extends FOSRestController
             $content['registred'] = $isRegistered;
         }
 
-        //get serializer service
         $serializer = $this->get('serializer');
-
-        //serialize content by group
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
-        //set content in response
         $response->setContent($contentJson);
 
         return $response;

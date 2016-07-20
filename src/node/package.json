@@ -5,11 +5,10 @@
   "main": "ImageOptimiser.js",
   "author": "Vazgen Manukyan",
   "license": "ISC",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
-    "imagemin": "^3.1.0",
+    "cliargs": "^0.1.1",
     "gm": "^1.17.0",
-    "cliargs": "^0.1.1"
+    "imagemin": "^3.1.0"
   }
 }

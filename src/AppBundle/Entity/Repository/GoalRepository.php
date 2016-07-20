@@ -469,11 +469,16 @@ class GoalRepository extends EntityRepository
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, a, ss
+            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu, v
                            FROM AppBundle:Goal g
+                           LEFT JOIN g.tags t
                            LEFT JOIN g.images i
-                           LEFT JOIN g.author a
-                           LEFT JOIN g.successStories ss
+                           LEFT JOIN g.author au
+                           LEFT JOIN au.userGoal ug
+                           LEFT JOIN g.successStories gs
+                           LEFT JOIN gs.user gsu
+                           LEFT JOIN gs.files f
+                           LEFT JOIN gs.voters v
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
@@ -498,6 +503,22 @@ class GoalRepository extends EntityRepository
                            LEFT JOIN g.successStories gs
                            LEFT JOIN gs.user gsu
                            LEFT JOIN gs.files f
+                           WHERE g.slug = :slug")
+            ->setParameter('slug', $slug['slug'])
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBySlugWithTinyRelations($slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
                            WHERE g.slug = :slug")
             ->setParameter('slug', $slug['slug'])
             ->getOneOrNullResult();

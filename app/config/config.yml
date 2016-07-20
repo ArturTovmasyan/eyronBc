@@ -39,7 +39,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v367
+        assets_version: v373
 
     default_locale:  en
     trusted_hosts:   ~
@@ -287,6 +287,8 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [370, 230] }
+            post_processors:
+                opt_post_processor: {}
 
         slide_max_size:
             quality: 100

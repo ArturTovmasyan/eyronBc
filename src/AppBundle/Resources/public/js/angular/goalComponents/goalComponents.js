@@ -175,7 +175,6 @@ angular.module('goalComponents', ['Interpolation',
       $scope.year = moment(date).format('YYYY');
 
       $scope.userGoal = userGoalData.doneData;
-      $scope.noFile = false;
       $scope.noStory = false;
       $scope.invalidYear = false;
       $scope.uncompletedYear = false;
@@ -191,33 +190,19 @@ angular.module('goalComponents', ['Interpolation',
 
       $('body').on('focus', 'textarea[name=story]', function() {
         $('textarea[name=story]').removeClass('border-red');
-        $scope.noFile = false;
         $scope.noStory = false;
         $scope.invalidYear = false;
         $scope.uncompletedYear = false;
       });
 
       $scope.isInValid = function () {
-        $scope.noFile = false;
         $scope.noStory = false;
         var noDate = $scope.noData();
         if(!noDate){
           if(angular.isUndefined($scope.userGoal.story)
             || angular.isUndefined($scope.userGoal.story.story)
             || $scope.userGoal.story.story.length < 3 )$scope.noStory = true;
-          if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
-            (angular.isUndefined($scope.files) || !$scope.files.length )){
-            if(!$scope.noStory){
-              var words = $scope.userGoal.story.story.split(' ');
-              $scope.noFile = ( words.length < 3 );
-            }else{
-              $scope.noFile = true;
-              $scope.noStory = false;
-            }
-          }
 
-        }else {
-          $scope.noFile = !$scope.newAdded;
         }
       };
 
@@ -273,7 +258,6 @@ angular.module('goalComponents', ['Interpolation',
 
               if($scope.noData()){
                 $scope.noStory = false;
-                $scope.noFile = false;
                 angular.element('#cancel').click();
               }
             });
@@ -281,7 +265,7 @@ angular.module('goalComponents', ['Interpolation',
           $scope.uncompletedYear = true;
           return;
         }
-        if($scope.noStory || $scope.noFile){
+        if($scope.noStory){
           angular.element('textarea[name=story]').addClass('border-red');
           return;
         }
