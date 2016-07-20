@@ -109,6 +109,7 @@ class UserController extends FOSRestController
     private function loginAction(User $user, array $group, $isRegistered = null)
     {
         $response = new JsonResponse();
+
         // get request
         $request = $this->get('request_stack')->getCurrentRequest();
 
@@ -124,20 +125,33 @@ class UserController extends FOSRestController
         //get remember me lifetime
         $lifeTime = $this->getParameter('remember_me_lifetime');
 
-        $rememberMeService = new TokenBasedRememberMeServices(
-            array($user),
-            $secretKey,
-            $providerKey,
-            array(
-                'path' => '/',
-                'name' => 'REMEMBERME',
-                'domain' => null,
-                'secure' => false,
-                'httponly' => true,
-                'lifetime' => $lifeTime, // 30 days
-                'always_remember_me' => true,
-                'remember_me_parameter' => '_remember_me')
-        );
+        // get session
+        $session = $this->get('session');
+
+        //check if user login with mobile
+        if ($request->get('mobileAppPlatform')){
+            $session->set($providerKey, serialize($token));
+            $session->save();
+        }
+        else {
+            $rememberMeService = new TokenBasedRememberMeServices(
+                array($user),
+                $secretKey,
+                $providerKey,
+                array(
+                    'path' => '/',
+                    'name' => 'REMEMBERME',
+                    'domain' => null,
+                    'secure' => false,
+                    'httponly' => true,
+                    'lifetime' => $lifeTime, // 30 days
+                    'always_remember_me' => true,
+                    'remember_me_parameter' => '_remember_me')
+            );
+
+            //call remember me service
+            $rememberMeService->loginSuccess($request, $response, $token);
+        }
 
         // get cookie
         $cookie = $request->cookies;
@@ -145,17 +159,11 @@ class UserController extends FOSRestController
         // get session id from cookie
         $phpSessionId = $cookie->get('PHPSESSID');
 
-        // get session
-        $session = $this->get('session');
-
         // if cookie is not set
         if(!$phpSessionId){
             // get session id
             $phpSessionId = $session->getId();
         }
-
-        //call remember me service
-        $rememberMeService->loginSuccess($request, $response, $token);
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
