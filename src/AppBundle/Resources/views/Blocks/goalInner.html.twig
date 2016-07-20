@@ -382,8 +382,7 @@
                                     {% set files = story.files %}
                                     {% set videos = story.videoLink %}
 
-                                    {# TODO: need for front end #}
-                                    {{ dump(story.voters|length) }}
+
 
                                     {% if story.isVote(app.user.id) %}
                                         {{ dump(path('remove_goal_story_vote', {'storyId': story.id })) }}
@@ -404,17 +403,24 @@
                                                         <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
                                                     </figure>
                                                 {% else %}
-                                                    <span class="{{ className }}">{{ nameOnImage | upper}}</span>
+                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
                                                 {% endif %}
 
                                             </div>
 
-                                            <div class="col-xs-10 col-sm-11">
+                                            <div class="col-xs-6 col-sm-8">
                                                 <p>{{ addedUser.showName }} </p>
                                                 <span data-ng-cloak>
                                                     [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                 </span>
                                                 <p>{{ story.story }}</p>
+                                            </div>
+
+                                            <div class="col-xs-4 col-sm-3 text-right">
+                                                {# TODO: need for front end #}
+                                                {#{{ dump(story.voters|length) }}#}
+                                                <span class="text-purple">123</span>
+                                                <i class="like-icon like-active"></i>
                                             </div>
 
                                         </div>
