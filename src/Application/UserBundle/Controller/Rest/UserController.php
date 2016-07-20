@@ -120,7 +120,8 @@ class UserController extends FOSRestController
         $session = $this->get('session');
 
         //check if user login with mobile
-        if ($request->get('mobileAppPlatform')){
+        //TODO: need in future
+        if (true ||$request->get('mobileAppPlatform')){
             $this->get('security.token_storage')->setToken($token);
             $session->set($providerKey, serialize($token));
             $session->save();
