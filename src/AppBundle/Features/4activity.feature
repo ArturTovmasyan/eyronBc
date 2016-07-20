@@ -71,6 +71,7 @@ Feature: Activity
     When I am logged in as "user1"
     And I should see "user1 useryan"
     When I follow "Goalfriends"
+    And I wait for angular
     Then I should see "user3 user3"
     And I should see "Listed"
     And I should see "Completed"
@@ -140,6 +141,7 @@ Feature: Activity
     Then I should see "user2"
     And I move backward one page
     When I am on "/listed-users/goal9"
+    And I wait for angular
     Then I should see "user1"
     And I should see "user2"
     When I move backward one page
