@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class SuccessStory implements ActivityableInterface
 {
-    const MIN_WORDS_IN_STORY = 3;
+    const MIN_LETTERS_IN_STORY = 3;
 
     /**
      * @ORM\Id
@@ -302,10 +302,10 @@ class SuccessStory implements ActivityableInterface
     {
         $hasFiles  = (count($this->files) != 0);
         $hasVideos = (count($this->videoLink) != 0);
-        $wordCountInStory = count(explode(' ', $this->story));
+        $letterCountInStory = count(str_replace(' ', '', $this->story));
 
-        if (!$hasFiles && !$hasVideos && $wordCountInStory < self::MIN_WORDS_IN_STORY) {
-            $context->buildViolation("Success story must has min " . self::MIN_WORDS_IN_STORY . " words")
+        if (!$hasFiles && !$hasVideos && $letterCountInStory < self::MIN_LETTERS_IN_STORY) {
+            $context->buildViolation("Success story must has min " . self::MIN_LETTERS_IN_STORY. " letters")
                 ->atPath('story')
                 ->addViolation();
         }
