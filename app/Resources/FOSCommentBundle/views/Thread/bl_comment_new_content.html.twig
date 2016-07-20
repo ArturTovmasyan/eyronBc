@@ -4,45 +4,47 @@
 {% endblock %}
 
 {% block fos_comment_comment_new_form %}
-    <div class="row">
-        <div class="col-xs-2 col-sm-1">
+    {% if app.user is not null %}
+        <div class="row">
+            <div class="col-xs-2 col-sm-1">
 
 
-            {% if app.user.getDownloadLink  %}
-                <figure>
-                    <img src="{{ app.user.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
-                </figure>
-            {% else %}
-                {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
-                {% set className = "user-no" ~ random(4) %}
-                <span class="no-image {{ className }}">{{ nameOnImage  |upper}}</span>
-            {% endif %}
+                {% if app.user.getDownloadLink  %}
+                    <figure>
+                        <img src="{{ app.user.getDownloadLink|blImageFilter('user_icon') }}" class="img-responsive img-circle"/>
+                    </figure>
+                {% else %}
+                    {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                    {% set className = "user-no" ~ random(4) %}
+                    <span class="no-image {{ className }}">{{ nameOnImage  |upper}}</span>
+                {% endif %}
+            </div>
+            <div class="col-xs-10 col-sm-11">
+                <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
+                    <i class="arrow-left"></i>
+                    {% block fos_comment_form_fields %}
+                        {#<div class="fos_comment_form_errors">#}
+                        {#{{ form_errors(form) }}#}
+                        {#{{ form_errors(form.body) }}#}
+                        {#</div>#}
+                        {{ form_widget(form.body, {'attr': {'placeholder': 'Leave a comment...','onkeyup': 'if(event.which === 13 && !event.shiftKey){$(this).parent("form.fos_comment_comment_new_form").submit()}'} }) }}
+
+                        {{ form_rest(form) }}
+                    {% endblock %}
+
+                    <div class="fos_comment_submit">
+                    {% block fos_comment_form_submit %}
+                        {% if parent is not null %}
+                            <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel" />
+                        {% endif %}
+                        {#<input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />#}
+                    {% endblock %}
+                    </div>
+
+                </form>
+            </div>
         </div>
-        <div class="col-xs-10 col-sm-11">
-            <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST">
-                <i class="arrow-left"></i>
-                {% block fos_comment_form_fields %}
-                    {#<div class="fos_comment_form_errors">#}
-                    {#{{ form_errors(form) }}#}
-                    {#{{ form_errors(form.body) }}#}
-                    {#</div>#}
-                    {{ form_widget(form.body, {'attr': {'placeholder': 'Leave a comment...','onkeyup': 'if(event.which === 13 && !event.shiftKey){$(this).parent("form.fos_comment_comment_new_form").submit()}'} }) }}
-
-                    {{ form_rest(form) }}
-                {% endblock %}
-
-                <div class="fos_comment_submit">
-                {% block fos_comment_form_submit %}
-                    {% if parent is not null %}
-                        <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel" />
-                    {% endif %}
-                    {#<input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" />#}
-                {% endblock %}
-                </div>
-
-            </form>
-        </div>
-    </div>
+    {% endif %}
 
 {% endblock fos_comment_comment_new_form %}
 

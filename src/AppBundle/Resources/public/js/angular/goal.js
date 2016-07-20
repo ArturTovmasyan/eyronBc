@@ -505,8 +505,8 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService){
+    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
+        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
 
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
@@ -540,6 +540,21 @@ angular.module('goal', ['Interpolation',
                 ev.stopPropagation();
             }
         });
+            
+        $scope.manageVote = function(id){
+        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            url = envPrefix + url;
+            url = url.replace('{storyId}', id);
+            $http.get(url).success(function() {
+                if(!$scope.vote[id]){
+                    $scope.count[id]++;
+                    $scope.vote[id] = true;
+                } else {
+                    $scope.count[id]--;
+                    $scope.vote[id] = false;
+                }
+            });
+        };
 
         var imageResize = function () {
             imageHeight = angular.element('#main-slider img').height();
@@ -584,27 +599,26 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.showMoreSuccessStory = function(storiesLength){
-            if($scope.successStoryActiveIndex === 0){
+            if($scope.successStoryActiveIndex === storiesLength){
                 return;
             }
-
-            var startIndex = storiesLength - 2;
-
+            
             if($scope.successStoryActiveIndex === null){
-                $scope.successStoryActiveIndex = storiesLength - 2;
+                $scope.successStoryActiveIndex = 3;
             }
 
-            startIndex = $scope.successStoryActiveIndex;
+           var startIndex = $scope.successStoryActiveIndex;
             
-            if($scope.successStoryActiveIndex > 4){
-                $scope.successStoryActiveIndex -= 5;
+            if($scope.storyLength > 4){
+                $scope.successStoryActiveIndex += 5;
                 $scope.storyLength -= 5;
             }
             else {
-                $scope.successStoryActiveIndex = 0;
+                $scope.successStoryActiveIndex += $scope.storyLength;
+                $scope.storyLength = 0;
             }
 
-            for(var i = startIndex - 1; i >= $scope.successStoryActiveIndex; i--){
+            for(var i = startIndex; i < $scope.successStoryActiveIndex; i++){
                 $scope.successStoryShow[i] = true;
             }
 
@@ -802,8 +816,8 @@ angular.module('goal', ['Interpolation',
         });
 
     }])
-    .controller('goalFooter', ['$scope', '$http', 'refreshCacheService', '$timeout',
-        function($scope, $http, refreshCacheService, $timeout){
+    .controller('goalFooter', ['$scope', '$timeout',
+        function($scope, $timeout){
         $scope.completed = true;
 
         $scope.popoverByMobile = function(){

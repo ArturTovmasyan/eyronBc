@@ -37,6 +37,12 @@ class Page
     protected $name;
 
     /**
+     * @ORM\Column(name="title", type="string")
+     * @Gedmo\Translatable
+     */
+    protected $title;
+
+    /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="slug", type="string", unique=true, nullable=false)
      */
@@ -279,5 +285,21 @@ class Page
     public function getTranslations()
     {
         return $this->translations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 }
