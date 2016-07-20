@@ -261,6 +261,19 @@ class GoalController extends Controller
             throw new HttpException(Response::HTTP_NOT_FOUND);
         }
 
+        $successStories = $goal->getSuccessStories()->toArray();
+        usort($successStories, function($a, $b) {
+            $aCount = $a->getVoters()->count();
+            $bCount = $b->getVoters()->count();
+            if ($aCount  == $bCount){
+                return 0;
+            }
+
+            return $aCount < $bCount ? 1 : -1;
+        });
+
+        $goal->setSuccessStories($successStories);
+
         $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);

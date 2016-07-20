@@ -491,7 +491,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu,v
+            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu, v
                            FROM AppBundle:Goal g
                            LEFT JOIN g.tags t
                            LEFT JOIN g.images i

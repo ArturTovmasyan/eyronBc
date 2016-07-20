@@ -63,8 +63,8 @@ class SuccessStory implements ActivityableInterface
     /**
      * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
      * @ORM\JoinTable(name="success_story_voters",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      * )
      * @Groups({"successStory_voters"})
      **/
