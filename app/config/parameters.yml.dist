@@ -37,6 +37,8 @@ parameters:
     user_notify: false
     production: false
 
+    maintenance: false #turn it to true to enable maintenance
+
     android_optional_version:  1.0.0
     android_mandatory_version: 1.0.0
     ios_optional_version:      1.0.0
