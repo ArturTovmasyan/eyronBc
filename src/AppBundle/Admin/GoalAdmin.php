@@ -330,17 +330,17 @@ class GoalAdmin extends AbstractAdmin
         }
     }
 
-    /**
-     * @param string $context
-     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
-     */
-    public function createQuery($context = 'list') {
-        $query = parent::createQuery($context);
-        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':publishStatus'))
-              ->setParameter('publishStatus', Goal::PUBLIC_PRIVACY);
-        ;
-
-        return $query;
-    }
+//    /**
+//     * @param string $context
+//     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+//     */
+//    public function createQuery($context = 'list') {
+//        $query = parent::createQuery($context);
+//        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':publishStatus'))
+//              ->setParameter('publishStatus', Goal::PUBLIC_PRIVACY);
+//        ;
+//
+//        return $query;
+//    }
 
 }
