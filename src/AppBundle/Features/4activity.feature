@@ -52,7 +52,7 @@ Feature: Activity
     And I should see "Active"
     And I should see "Completed"
     When I am on "/goal-friends"
-    And I wait for view "1500"
+    And I wait for view "2000"
     Then I should see "user2 useryan"
     And I scroll page to "icon-top-idea"
     And I should see "Top Ideas"
