@@ -14,7 +14,7 @@ Feature: Settings
     When I follow "user2"
     And I follow "Settings"
     Then I should see "user2@user.com"
-    And I wait for view
+    And I wait
     And I fill in the following:
       | bl_user_settings_firstName | userTest |
       | bl_user_settings_lastName | userTest |
@@ -34,17 +34,17 @@ Feature: Settings
     And I fill in "bl_user_settings_plainPassword_second" with "Test1234"
     And I select language
     And I press "Сохранить"
-    And I wait for view
+    And I wait for view "1500"
     Then I should see "Primary Email"
     When I follow "Notification"
     Then I should see "What you will receive"
     When I change switch "0"
     And I change switch "1"
     And I press "Save"
-    And I wait for view
+    And I wait for view "500"
     And I change switch "1"
     And I press "Save"
-    And I wait for view
+    And I wait for view "500"
 
 
 
