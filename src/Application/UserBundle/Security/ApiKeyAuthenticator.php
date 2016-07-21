@@ -32,7 +32,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
      */
     public function createToken(Request $request, $providerKey)
     {
-        $apiKey = $request->query->get('apikey');
+        $apiKey = $request->headers->get('apikey');
 
         if (!$apiKey) {
             return null;

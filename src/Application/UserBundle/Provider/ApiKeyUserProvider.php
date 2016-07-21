@@ -74,7 +74,6 @@ class ApiKeyUserProvider implements UserProviderInterface
         // so authentication can be stateless. Throwing this exception
         // is proper to make things stateless
         throw new UnsupportedUserException();
-//        return null;
     }
 
     /**
