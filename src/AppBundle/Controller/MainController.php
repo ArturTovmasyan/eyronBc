@@ -6,6 +6,7 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
 use Application\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Form\ContactUsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,6 +27,7 @@ class MainController extends Controller
     /**
      * @Route("/", name="homepage")
      * @Template()
+     * @Cache(expires="tomorrow", public=true)
      */
     public function indexAction(Request $request)
     {
@@ -33,7 +35,8 @@ class MainController extends Controller
         $user = $this->getUser();
 
         if (!is_object($user)){
-            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
+
+            $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
             $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
             return array('goals' => $goals);
@@ -519,8 +522,6 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
-
-//        dump($versionStatisticData); exit;
 
         return ['appVersionStatistic' => $versionStatisticData];
     }
