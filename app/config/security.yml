@@ -6,6 +6,9 @@ security:
             id: fos_user.user_provider.username
         hwi_oauth_user_provider:
             id: hwi_oauth.user.provider
+        bl_user_api_provider:
+            id: bl_user_api_provider
+
     role_hierarchy:
         ROLE_GOD:         ROLE_SUPER_ADMIN
         ROLE_ADMIN:       ROLE_USER, ROLE_MODERATOR
@@ -29,6 +32,9 @@ security:
 
     firewalls:
         main:
+            simple_preauth:
+                authenticator: bl_user_api_authenticator
+            provider: bl_user_api_provider
             entry_point: authentication_entry_point
             pattern: ^/
             form_login:
@@ -52,14 +58,16 @@ security:
                 failure_path:      /check-login
                 oauth_user_provider:
                     service: hwi_oauth.user.provider.entity
-            form_login:
-                remember_me: true
-            remember_me:
-                secret:      '%secret%'
-                lifetime: 2592000 #one month
-                path:     /
-                domain:   ~
-                always_remember_me: true
+
+#            form_login:
+#                remember_me: true
+#            remember_me:
+#                secret:      '%secret%'
+#                lifetime: 2592000 #one month
+#                path:     /
+#                domain:   ~
+#                always_remember_me: true
+
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
