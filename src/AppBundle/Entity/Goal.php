@@ -173,6 +173,11 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     protected $updated;
 
     /**
+     * @ORM\Column(name="featured_date", type="date", nullable=true)
+     */
+    protected $featuredDate;
+
+    /**
      * @var
      *
      * @ORM\Column(type="datetime", nullable=true)
@@ -1132,5 +1137,21 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         $this->listPhotoDownloadLink = $data->image;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeaturedDate()
+    {
+        return $this->featuredDate;
+    }
+
+    /**
+     * @param mixed $featuredDate
+     */
+    public function setFeaturedDate($featuredDate)
+    {
+        $this->featuredDate = $featuredDate;
     }
 }

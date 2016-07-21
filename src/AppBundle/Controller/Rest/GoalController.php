@@ -172,6 +172,39 @@ class GoalController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get featured ideas",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     *
+     * @return array
+     */
+    public function getFeaturedAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findFeatured();
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($topIdeas as $topIdea){
+
+            if($topIdea->getListPhotoDownloadLink()){
+                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
+
+        }
+
+        return array_values($topIdeas);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
      *  section="Goal",
      *  description="This function is used to get goal by id",
      *  statusCodes={

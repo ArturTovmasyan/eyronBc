@@ -371,6 +371,7 @@ admin:
       messages: Message
       enabled: Enabled
       goal_public: Public goal
+      featured_date: Featured Date
 
 # end sonata admin lable
 

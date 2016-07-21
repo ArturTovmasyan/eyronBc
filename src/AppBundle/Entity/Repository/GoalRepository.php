@@ -148,6 +148,21 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * @return array
+     */
+    public function findFeatured()
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g', 'i')
+            ->from('AppBundle:Goal', 'g', 'g.id')
+            ->leftJoin('g.images', 'i')
+            ->where('g.featuredDate >= CURRENT_DATE()')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param $user
      * @param null $first
      * @param null $count
