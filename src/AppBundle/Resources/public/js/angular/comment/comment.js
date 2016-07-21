@@ -25,7 +25,6 @@ angular.module('comments', ['Interpolation',
         CommentManager.comments({param1:'goal_'+scope.lsSlug}, function (resource){
           scope.comments = resource;
           scope.commentsLength = scope.comments.length - 2;
-          console.log(resource);
         });
         
         scope.showMoreComment = function () {
@@ -51,10 +50,6 @@ angular.module('comments', ['Interpolation',
           }
 
         };
-
-        // scope.replyComment = function (comment) {
-        //   comment.reply = false;
-        // };
 
         scope.writeReply = function(ev, comment){
           if(ev.which == 13 && comment.replyBody.length) {

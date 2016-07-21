@@ -517,10 +517,10 @@ angular.module('goal', ['Interpolation',
             if(window.location.hash && window.location.hash == "#/comments"){
 
                 $('html, body').stop().animate( {
-                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                    'scrollTop': $('#random_goals').offset().top - 800
                 }, 900);
             }
-        }, 5000);
+        }, 3000);
 
 
         var imageHeight;
