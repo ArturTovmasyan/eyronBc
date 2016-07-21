@@ -191,6 +191,7 @@
                     {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
                     {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
                     {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
                     {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
                 </div>
             </div>

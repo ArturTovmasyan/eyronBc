@@ -39,7 +39,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v373
+        assets_version: v374
 
     default_locale:  en
     trusted_hosts:   ~
@@ -442,4 +442,5 @@ monolog:
 
 lexik_maintenance:
     driver:
-        class: 'Lexik\Bundle\MaintenanceBundle\Drivers\DatabaseDriver'
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'
+        options: {file_path: %kernel.root_dir%/lock}

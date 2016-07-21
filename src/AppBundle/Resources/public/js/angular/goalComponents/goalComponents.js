@@ -75,6 +75,63 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
+  .controller('featureGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
+    function($scope, $http, CacheFactory, envPrefix, refreshingDate){
+      var path = envPrefix + "api/v1.0/goal/featured";
+
+      var popularCache = CacheFactory.get('bucketlist_by_feature');
+
+      if(!popularCache){
+        popularCache = CacheFactory('bucketlist_by_feature', {
+          maxAge: 24 * 60 * 60 * 1000 ,// 1 day
+          deleteOnExpire: 'aggressive'
+        });
+      }
+
+      $scope.refreshFeatures = function(){
+        $http.get(path)
+            .success(function(data){
+              $scope.features = data;
+              popularCache.put('features'+$scope.userId, data);
+            });
+      };
+
+      $scope.getPopularGoals = function(id){
+
+        var features = popularCache.get('features'+id);
+
+        if (!features) {
+
+          $http.get(path)
+              .success(function(data){
+                $scope.featureGoals = data;
+                popularCache.put('features'+id, data);
+              });
+        }else {
+          $scope.featureGoals = features;
+        }
+      };
+
+      $scope.$on('addGoal', function(){
+        angular.forEach($scope.featureGoals, function(item){
+          if(item.id == refreshingDate.goalId){
+            $scope.refreshFeatures();
+          }
+        });
+      });
+
+      $scope.$on('doneGoal', function(){
+        angular.forEach($scope.popularGoals, function(item){
+          if(item.id == refreshingDate.goalId){
+            $scope.refreshFeatures();
+          }
+        });
+      });
+
+      $scope.$watch('userId', function(id){
+        $scope.getPopularGoals(id);
+      })
+    }])
   .controller('userStatesController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
     function($scope, $http, CacheFactory, envPrefix, UserContext){
 
