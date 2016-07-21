@@ -154,7 +154,7 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($count, $this->getUser());
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
 
         $liipManager = $this->get('liip_imagine.cache.manager');

@@ -113,7 +113,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findPopular($user, $count)
+    public function findPopular($count, $user = null)
     {
         $ids = $this->getEntityManager()
                 ->createQueryBuilder()
@@ -122,7 +122,7 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
                 ->where('g.publish = true AND ug.id IS NULL')
                 ->orderBy('cnt', 'desc')
-                ->setParameter('user', $user->getId())
+                ->setParameter('user', is_object($user) ? $user->getId() : -1)
                 ->setMaxResults(self::TopIdeasCount)
                 ->getQuery()
                 ->getScalarResult();
