@@ -19,7 +19,8 @@ angular.module('goal', ['Interpolation',
         'angulartics',
         'angulartics.google.analytics',
         'PathPrefix',
-        'slickCarousel'
+        'slickCarousel',
+        'comments'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -533,13 +534,6 @@ angular.module('goal', ['Interpolation',
                 angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
             }
         }
-
-        $('body').on('keydown', '#fos_comment_comment_body', function(ev) {
-            if(ev.which === 13) {
-                ev.preventDefault();
-                ev.stopPropagation();
-            }
-        });
             
         $scope.manageVote = function(id){
         var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
