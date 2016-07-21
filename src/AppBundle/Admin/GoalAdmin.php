@@ -127,7 +127,7 @@ class GoalAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
-            ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
+//            ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
@@ -330,17 +330,17 @@ class GoalAdmin extends AbstractAdmin
         }
     }
 
-//    /**
-//     * @param string $context
-//     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
-//     */
-//    public function createQuery($context = 'list') {
-//        $query = parent::createQuery($context);
-//        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':publishStatus'))
-//              ->setParameter('publishStatus', Goal::PUBLIC_PRIVACY);
-//        ;
-//
-//        return $query;
-//    }
+    /**
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+    public function createQuery($context = 'list') {
+        $query = parent::createQuery($context);
+        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':publishStatus'))
+              ->setParameter('publishStatus', Goal::PUBLIC_PRIVACY);
+        ;
+
+        return $query;
+    }
 
 }
