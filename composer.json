@@ -50,7 +50,8 @@
         "knplabs/knp-markdown-bundle": "1.5.*",
         "suncat/mobile-detect-bundle": "1.0.*",
         "genemu/form-bundle": "2.3.*",
-        "mandrill/mandrill": "1.0.*"
+        "mandrill/mandrill": "1.0.*",
+        "lexik/maintenance-bundle": "2.1.1"
     },
     "require-dev": {
         "behat/behat": "3.0.*",

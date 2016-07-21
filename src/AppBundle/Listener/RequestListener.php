@@ -10,7 +10,6 @@ namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -24,9 +23,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
  */
 class RequestListener //implements EventSubscriberInterface
 {
-    private $maintenance;
-    private $kernel;
-    private $templating;
     private $defaultLocale;
     private $mandatoryVersions;
     private $tokenStorage;
@@ -37,21 +33,14 @@ class RequestListener //implements EventSubscriberInterface
      * @param string $defaultLocale
      * @param $iosMandatoryVersion
      * @param $androidMandatoryVersion
-     * @param $maintenance
-     * @param \AppKernel $kernel
-     * @param TwigEngine $templating
      * @param TokenStorage $tokenStorage
      * @param EntityManager $entityManager
      */
-    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, $maintenance,
-                                \AppKernel $kernel, TwigEngine $templating, TokenStorage $tokenStorage, EntityManager $entityManager)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager)
     {
         $this->defaultLocale = $defaultLocale;
         $this->tokenStorage  = $tokenStorage;
         $this->em            = $entityManager;
-        $this->maintenance   = $maintenance;
-        $this->kernel        = $kernel;
-        $this->templating    = $templating;
 
         $this->mandatoryVersions = [
             MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
@@ -64,16 +53,6 @@ class RequestListener //implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $debug = in_array($this->kernel->getEnvironment(), array('test', 'dev'));
-
-        if ($this->maintenance && !$debug) {
-            $content = $this->templating->render('::maintenance.html.twig');
-            $event->setResponse(new Response($content, 503));
-            $event->stopPropagation();
-            return;
-        }
-
-
         $request = $event->getRequest();
         $currentUrl = $request->getUri();
 

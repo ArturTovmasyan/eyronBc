@@ -439,3 +439,7 @@ monolog:
             type:  stream
             path:  "%kernel.logs_dir%/mandrill.log"
             channels: [mandrill]
+
+lexik_maintenance:
+    driver:
+        class: 'Lexik\Bundle\MaintenanceBundle\Drivers\DatabaseDriver'
