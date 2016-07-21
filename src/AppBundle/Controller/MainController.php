@@ -27,7 +27,6 @@ class MainController extends Controller
     /**
      * @Route("/", name="homepage")
      * @Template()
-     * @Cache(expires="tomorrow", public=true)
      */
     public function indexAction(Request $request)
     {
@@ -36,8 +35,15 @@ class MainController extends Controller
 
         if (!is_object($user)){
 
-            $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
-            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+            if(!apc_exists('homepage_ideas')){
+                $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
+                $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+                apc_add('homepage_ideas', $goals, 86400);
+            }
+            else {
+                $goals = apc_fetch('homepage_ideas');
+            }
 
             return array('goals' => $goals);
         }
