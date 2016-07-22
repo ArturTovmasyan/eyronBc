@@ -154,7 +154,7 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($this->getUser(), $count);
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findPopular($count, $this->getUser());
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
@@ -164,6 +164,39 @@ class GoalController extends FOSRestController
                 $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
             }
 
+        }
+
+        return array_values($topIdeas);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get featured ideas",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     * )
+     *
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @return array
+     */
+    public function getFeaturedAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findFeatured($this->getUser());
+        $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+        foreach($topIdeas as $topIdea){
+
+            if($topIdea->getListPhotoDownloadLink()){
+                $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
+            }
         }
 
         return array_values($topIdeas);
@@ -512,7 +545,6 @@ class GoalController extends FOSRestController
      *  },
      * )
      * @Rest\View(serializerGroups={"user"})
-     * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @param $first
@@ -523,6 +555,10 @@ class GoalController extends FOSRestController
      */
     public function getFriendsAction(Request $request, $first, $count, $goalId = null, $slug = null)
     {
+        if ($request->get('route_') == 'get_goal_friends' && !is_object($this->getUser())){
+            throw new HttpException(401);
+        }
+
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $search = $request->get('search') ? $request->get('search') : null;
         $em = $this->getDoctrine()->getManager();
@@ -538,10 +574,14 @@ class GoalController extends FOSRestController
         $userIds = array_keys($users);
         $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats($userIds);
 
-        $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), $userIds);
+        if (is_object($this->getUser())) {
+            $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), $userIds);
+        }
 
         foreach($users as &$user) {
-            $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+            if (is_object($this->getUser())) {
+                $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+            }
 
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],

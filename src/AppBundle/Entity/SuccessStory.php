@@ -235,7 +235,7 @@ class SuccessStory implements ActivityableInterface
      */
     public function setStory($story)
     {
-        $this->story = trim($story);
+        $this->story = strip_tags(trim($story));
 
         return $this;
     }

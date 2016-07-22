@@ -33,6 +33,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface, C
         $page->setDescription('page page');
         $page->setName('page');
         $page->setSlug('page');
+        $page->setTitle('About us');
         $page->setPosition(1);
         $manager->persist($page);
 
@@ -40,6 +41,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface, C
         $page2->setDescription('<p>Contact us</p>');
         $page2->setName('Contact Us');
         $page2->setSlug('contact-us');
+        $page2->setTitle('Contacts');
         $page2->setPosition(3);
         $manager->persist($page2);
 

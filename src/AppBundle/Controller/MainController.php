@@ -6,6 +6,7 @@ use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
 use Application\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Form\ContactUsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -33,8 +34,16 @@ class MainController extends Controller
         $user = $this->getUser();
 
         if (!is_object($user)){
-            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+            if(!apc_exists('homepage_ideas')){
+                $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
+                $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+                apc_add('homepage_ideas', $goals, 86400);
+            }
+            else {
+                $goals = apc_fetch('homepage_ideas');
+            }
 
             return array('goals' => $goals);
         }
@@ -519,8 +528,6 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
-
-//        dump($versionStatisticData); exit;
 
         return ['appVersionStatistic' => $versionStatisticData];
     }

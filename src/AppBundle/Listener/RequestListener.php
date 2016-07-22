@@ -33,8 +33,8 @@ class RequestListener //implements EventSubscriberInterface
      * @param string $defaultLocale
      * @param $iosMandatoryVersion
      * @param $androidMandatoryVersion
-     * @param $tokenStorage
-     * @param $entityManager
+     * @param TokenStorage $tokenStorage
+     * @param EntityManager $entityManager
      */
     public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager)
     {
@@ -53,15 +53,11 @@ class RequestListener //implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        // get request
         $request = $event->getRequest();
-
-        //get current url
         $currentUrl = $request->getUri();
 
         //check if current url is not admin
         if (strpos($currentUrl, 'admin') == false) {
-
             if (!$request->hasPreviousSession()) {
                 return;
             }
@@ -79,10 +75,8 @@ class RequestListener //implements EventSubscriberInterface
         $mobileAppPlatform = $request->query->get('mobileAppPlatform');
 
         if ($mobileAppVersion && $mobileAppPlatform){
-
             if(isset($this->mandatoryVersions[$mobileAppPlatform]) &&
-                version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1)
-            {
+                version_compare($mobileAppVersion, $this->mandatoryVersions[$mobileAppPlatform]) == -1){
                 $event->setResponse(new Response('You need to update your app', Response::HTTP_UPGRADE_REQUIRED));
             }
         }

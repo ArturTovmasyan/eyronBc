@@ -1,4 +1,4 @@
-<div class="right-block {% if isProfile is not  defined or not isProfile%}round margin-top{% endif %}" data-ng-controller="popularGoalsController">
+<div class="right-block padding padding-no {% if isProfile is not  defined or not isProfile%}round margin-top{% endif %}" data-ng-controller="popularGoalsController">
     <div class="right-menu">
         {% if isProfile is defined and isProfile%}
             <div class="row">
@@ -31,7 +31,7 @@
                 <div class="col-xs-10">
                     <span>
                          <i class="icon-top-idea"></i>
-                         <a href="{{ path("goals_list") }}">{{ 'right_menu.ideas'|trans }}</a>
+                         <a href="{{ path("goals_list", {'category': 'most-popular'} ) }}">{{ 'right_menu.ideas'|trans }}</a>
                     </span>
                 </div>
                 <div class="col-xs-2 text-right">
