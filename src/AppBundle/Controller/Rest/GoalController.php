@@ -180,6 +180,7 @@ class GoalController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Security("has_role('ROLE_USER')")
      *
      * @return array
      */
@@ -187,7 +188,7 @@ class GoalController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $topIdeas = $em->getRepository("AppBundle:Goal")->findFeatured();
+        $topIdeas = $em->getRepository("AppBundle:Goal")->findFeatured($this->getUser());
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($topIdeas);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
@@ -196,7 +197,6 @@ class GoalController extends FOSRestController
             if($topIdea->getListPhotoDownloadLink()){
                 $topIdea->setCachedImage($liipManager->getBrowserPath($topIdea->getListPhotoDownloadLink(), 'goal_list_small'));
             }
-
         }
 
         return array_values($topIdeas);
