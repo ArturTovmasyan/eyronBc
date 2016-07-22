@@ -10,6 +10,16 @@ angular.module('goalComponents', ['Interpolation',
   'PathPrefix',
   'Facebook'
   ])
+  .controller('goalFooter', ['$scope', '$timeout',
+    function($scope, $timeout){
+      $scope.completed = true;
+
+      $scope.popoverByMobile = function(){
+        $timeout(function(){
+          angular.element('.navbar-toggle').click();
+        }, 500);
+      };
+    }])
   .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
     var path = envPrefix + "api/v1.0/top-ideas/{count}";
@@ -23,6 +33,10 @@ angular.module('goalComponents', ['Interpolation',
         deleteOnExpire: 'aggressive'
       });
     }
+
+    $scope.castInt = function(value){
+      return parseInt(value);
+    };
 
     $scope.refreshPopulars = function () {
       angular.element('#popularLoad').css({
@@ -87,6 +101,10 @@ angular.module('goalComponents', ['Interpolation',
           deleteOnExpire: 'aggressive'
         });
       }
+
+      $scope.castInt = function(value){
+        return parseInt(value);
+      };
 
       $scope.refreshFeatures = function(){
         $http.get(path)

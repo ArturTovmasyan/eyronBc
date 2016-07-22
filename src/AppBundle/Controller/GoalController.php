@@ -65,6 +65,15 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("goal/users", name="goal_users_modal")
+     * @return array
+     */
+    public function goalUsersAction()
+    {
+        return $this->render('AppBundle:Goal:goalUsers.html.twig');
+    }
+
+    /**
      * @Route("user/common", name="common_modal")
      * @return array
      */

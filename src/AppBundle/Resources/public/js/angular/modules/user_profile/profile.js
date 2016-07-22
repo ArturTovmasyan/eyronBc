@@ -6,6 +6,6 @@ angular.module('profile', ['Interpolation',
   'ngSanitize',
   'goalManage',
   'goalComponents',
-  'goal',
+  'manage',
   'PathPrefix'
 ]);

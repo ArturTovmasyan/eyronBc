@@ -9,23 +9,68 @@ angular.module('manage', ['Interpolation',
     'goalManage',
     'angulartics.google.analytics',
     'PathPrefix',
-    'Authenticator'
+    'Authenticator',
+    'angular-cache'
     ])
-    .run(['$http', 'envPrefix', 'template',function($http, envPrefix, template){
+    .run(['$http', 'envPrefix', 'template', 'UserContext', 'CacheFactory', function($http, envPrefix, template, UserContext, CacheFactory){
         var addUrl = envPrefix + "goal/add-modal";
         var doneUrl = envPrefix + "goal/done-modal";
         var commonUrl = envPrefix + "user/common";
-        $http.get(addUrl).success(function(data) {
-            template.addTemplate = data;
-        });
-        
-        $http.get(doneUrl).success(function(data) {
-            template.doneTemplate = data;
-        });
+        var goalUsersUrl = envPrefix + "goal/users";
+        var id = UserContext.id;
 
-        $http.get(commonUrl).success(function(data) {
-            template.commonTemplate = data;
-        })
+        var templateCache = CacheFactory.get('bucketlist_templates');
+
+        if(!templateCache){
+            templateCache = CacheFactory('bucketlist_templates', {
+                maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
+                deleteOnExpire: 'aggressive'
+            });
+        }
+
+        if(id){
+            var addTemplate = templateCache.get('add-template'+id);
+            var doneTemplate = templateCache.get('done-template'+id);
+            var commonTemplate = templateCache.get('common-template'+id);
+            var goalUsersTemplate = templateCache.get('goal-users-template'+id);
+
+            if (!addTemplate) {
+                $http.get(addUrl).success(function(data){
+                    template.addTemplate = data;
+                    templateCache.put('add-template'+id, data);
+                    })
+            }else {
+                template.addTemplate = addTemplate;
+            }
+
+            if (!doneTemplate) {
+                $http.get(doneUrl).success(function(data){
+                    template.doneTemplate = data;
+                    templateCache.put('done-template'+id, data);
+                })
+            }else {
+                template.doneTemplate = doneTemplate;
+            }
+
+            if (!commonTemplate) {
+                $http.get(commonUrl).success(function(data){
+                    template.commonTemplate = data;
+                    templateCache.put('common-template'+id, data);
+                })
+            }else {
+                template.commonTemplate = commonTemplate;
+            }
+
+            if (!goalUsersTemplate) {
+                $http.get(goalUsersUrl).success(function(data){
+                    template.goalUsersTemplate = data;
+                    templateCache.put('goal-users-template'+id, data);
+                })
+            }else {
+                template.goalUsersTemplate = goalUsersTemplate;
+            }
+
+        }
     }])
     .directive('lsGoalManage',['$compile',
         '$http',
@@ -279,4 +324,59 @@ angular.module('manage', ['Interpolation',
               }
           }
       }
+  ])
+  .directive('lsGoalUsers',['$compile',
+    '$http',
+    '$rootScope',
+    'AuthenticatorLoginService',
+    'template',
+    'userData',
+    'UserGoalDataManager',
+    'UserContext',
+    function($compile, $http, $rootScope, AuthenticatorLoginService, template, userData, UserGoalDataManager, UserContext){
+        return {
+            restrict: 'EA',
+            scope: {
+                lsGoalId: '@',
+                lsCategory: '@'
+            },
+            link: function(scope, el){
+
+                el.bind('click', function(){
+                    scope.run();
+                });
+
+                scope.run = function(){
+                    $(".modal-loading").show();
+
+                    if(UserContext.id){
+                        userData.isListed = scope.lsCategory?true: false;
+                        userData.goalId = scope.lsGoalId;
+                        scope.runCallback();
+                    } else {
+                        AuthenticatorLoginService.openLoginPopup();
+                    }
+                };
+
+                scope.runCallback = function(){
+                    var sc = $rootScope.$new();
+                    var tmp = $compile(template.goalUsersTemplate)(sc);
+                    scope.openModal(tmp);
+                    $(".modal-loading").hide();
+                };
+
+                scope.openModal = function(tmp){
+
+                    angular.element('body').append(tmp);
+                    tmp.modal({
+                        fadeDuration: 300
+                    });
+
+                    tmp.on($.modal.CLOSE, function(){
+                        tmp.remove();
+                    })
+                }
+            }
+        }
+    }
   ]);

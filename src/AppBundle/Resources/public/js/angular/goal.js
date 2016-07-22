@@ -5,6 +5,7 @@ angular.module('goal', ['Interpolation',
         'user',
         'manage',
         'Authenticator',
+        'profile',
         'goalComponents',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
@@ -521,6 +522,9 @@ angular.module('goal', ['Interpolation',
             }
         }, 5000);
 
+        $scope.castInt = function(value){
+            return parseInt(value);
+        };
 
         var imageHeight;
 
@@ -742,7 +746,11 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
         $scope.newActivity = false;
-        
+
+        $scope.castInt = function(value){
+            return parseInt(value);
+        };
+
         function newActivity() {
             $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
                 if(data && data.length != 0){
@@ -815,16 +823,6 @@ angular.module('goal', ['Interpolation',
             }
         });
 
-    }])
-    .controller('goalFooter', ['$scope', '$timeout',
-        function($scope, $timeout){
-        $scope.completed = true;
-
-        $scope.popoverByMobile = function(){
-            $timeout(function(){
-                angular.element('.navbar-toggle').click();
-            }, 500);
-        };
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {

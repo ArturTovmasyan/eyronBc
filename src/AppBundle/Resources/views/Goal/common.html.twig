@@ -25,32 +25,39 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a href="{{ env_prefix }}/listed-users/[[ ::goal.slug]]" data-ng-if="goal.stats.listedBy">
+                                        <a ls-goal-users
+                                           href="javascript:void(0)"
+                                           ls-goal-id="[[ ::goal.id ]]"
+                                           ls-category="listed"
+                                           data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
                                                 {{ 'home_listed_by'|trans({},'messages') }}
                                                 [[ ::goal.stats.listedBy ]]
                                             </span>
                                             <i class="icon-user-small"></i>
                                         </a>
-                                        <span class="text-white" data-ng-if="!goal.stats.listedBy">
+                                        <span class="text-white" data-ng-hide="castInt(goal.stats.listedBy)">
                                             {{ 'home_listed_by'|trans({},'messages') }}
                                             [[ ::goal.stats.listedBy ]]
                                         </span>
-                                        <i class="icon-user-small" data-ng-if="!goal.stats.listedBy"></i>
+                                        <i class="icon-user-small" data-ng-hide="castInt(goal.stats.listedBy)"></i>
                                     </li>
                                     <li>
-                                        <a href="{{ env_prefix }}/done-users/[[ ::goal.slug]]" data-ng-if="goal.stats.doneBy">
+                                        <a ls-goal-users
+                                           href="javascript:void(0)"
+                                           ls-goal-id="[[ ::goal.id ]]"
+                                           data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
                                                 {{ 'home_complete'|trans({},'messages') }}
                                                 [[ ::goal.stats.doneBy ]]
                                             </span>
                                             <i class="icon-user-small"></i>
                                         </a>
-                                        <span class="text-white" data-ng-if="!goal.stats.doneBy">
+                                        <span class="text-white" data-ng-hide="castInt(goal.stats.doneBy)">
                                             {{ 'home_complete'|trans({},'messages') }}
                                             [[ ::goal.stats.doneBy ]]
                                         </span>
-                                        <i class="icon-user-small" data-ng-if="!goal.stats.doneBy"></i>
+                                        <i class="icon-user-small" data-ng-hide="castInt(goal.stats.doneBy)"></i>
                                     </li>
                                 </ul>
                             </div>
