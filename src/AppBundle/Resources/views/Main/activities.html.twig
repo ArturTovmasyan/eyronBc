@@ -46,7 +46,7 @@
 
                         <div data-ng-class="{'line': activity.comment || activity.success_story}"></div>
 
-                        <div class="bg-white round">
+                        <div class="bg-white" data-ng-class="{'rounded-corners-bottom': activity.comment || activity.success_story, 'round': !activity.comment && !activity.success_story}">
                             <div class="padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
                                 <div class="clearfix relative">
 
@@ -118,7 +118,7 @@
                                          data-ng-cloak
                                          data-ng-repeat="singleGoal in activity.reserveGoals">
 
-                                        <figure>
+                                        <figure class="rounded-corners-bottom">
 
                                             <h3>
                                                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
@@ -201,8 +201,8 @@
 
 {% macro goal(env_prefix) %}
     <div class="row">
-        <div class="col-sm-12 idea-item round">
-            <figure data-ng-repeat="singleGoal in activity.reserveGoals">
+        <div class="col-sm-12 idea-item">
+            <figure data-ng-repeat="singleGoal in activity.reserveGoals" class="rounded-corners">
                 <i class="icon-lock-white" data-ng-show="!singleGoal.status"></i>
 
                 <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"

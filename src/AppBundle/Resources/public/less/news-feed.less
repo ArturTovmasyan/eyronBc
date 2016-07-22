@@ -212,6 +212,12 @@
     }
   }
 
+  .swiper-slide{
+    figure{
+      .rounded-corners-bottom;
+    }
+  }
+
   .right-block{
     margin-bottom:10px;
   }
@@ -324,7 +330,10 @@
 
   .idea-item{
     figure{
-      .rounded-corners-bottom;
+
+      &.rounded-corners{
+        .rounded-corners-top;
+      }
     }
   }
 }
@@ -334,7 +343,7 @@
   padding: 10px 30px;
   background-color: #f2f2f2;
   position: relative;
-  margin-top:10px;
+  margin:10px 0 9px;
   color:#4a4a4a;
 }
 
@@ -586,11 +595,11 @@
       padding-bottom:0;
     }
 
-    .idea-item{
-      figure{
-        .rounded-corners-bottom;
-      }
-    }
+    //.idea-item{
+    //  figure{
+    //    .rounded-corners-bottom;
+    //  }
+    //}
   }
 
 }
