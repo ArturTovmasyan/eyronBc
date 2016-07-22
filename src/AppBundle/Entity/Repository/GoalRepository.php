@@ -148,16 +148,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
+     * @param $user
      * @return array
      */
-    public function findFeatured()
+    public function findFeatured($user)
     {
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('g', 'i')
             ->from('AppBundle:Goal', 'g', 'g.id')
             ->leftJoin('g.images', 'i')
-            ->where('g.featuredDate >= CURRENT_DATE()')
+            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+            ->where('g.featuredDate >= CURRENT_DATE() AND ug.id IS NULL AND g.publish = true')
+            ->setParameter('user', is_object($user) ? $user->getId() : -1)
             ->getQuery()
             ->getResult();
     }

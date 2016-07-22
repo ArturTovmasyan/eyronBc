@@ -74,7 +74,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
             ->add('description', TextareaType::class, array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
 //            , 'attr' => array('class' => 'tinymce')
-            ->add('featuredDate', 'date', array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
+            ->add('featuredDate', 'date', array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date', 'required' => false))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
