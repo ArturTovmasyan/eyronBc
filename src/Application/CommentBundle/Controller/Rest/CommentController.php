@@ -67,7 +67,6 @@ class CommentController extends FOSRestController
         if (is_null($thread)){
             $thread = new Thread();
             $thread->setId($threadId);
-            $thread->setCommentableEntity($goal);
 
             $em->persist($thread);
         }
