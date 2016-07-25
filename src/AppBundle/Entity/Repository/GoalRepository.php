@@ -112,7 +112,7 @@ class GoalRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findPopular($user, $count)
+    public function findPopular($count, $user = null)
     {
         $ids = $this->getEntityManager()
                 ->createQueryBuilder()
@@ -121,7 +121,7 @@ class GoalRepository extends EntityRepository
                 ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
                 ->where('g.publish = true AND ug.id IS NULL')
                 ->orderBy('cnt', 'desc')
-                ->setParameter('user', $user->getId())
+                ->setParameter('user', is_object($user) ? $user->getId() : -1)
                 ->setMaxResults(self::TopIdeasCount)
                 ->getQuery()
                 ->getScalarResult();
@@ -142,6 +142,24 @@ class GoalRepository extends EntityRepository
             ->leftJoin('g.images', 'i')
             ->where('g.id IN (:ids)')
             ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function findFeatured($user)
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('g', 'i')
+            ->from('AppBundle:Goal', 'g', 'g.id')
+            ->leftJoin('g.images', 'i')
+            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+            ->where('g.featuredDate >= CURRENT_DATE() AND ug.id IS NULL AND g.publish = true')
+            ->setParameter('user', is_object($user) ? $user->getId() : -1)
             ->getQuery()
             ->getResult();
     }
@@ -469,11 +487,16 @@ class GoalRepository extends EntityRepository
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, a, ss
+            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu, v
                            FROM AppBundle:Goal g
+                           LEFT JOIN g.tags t
                            LEFT JOIN g.images i
-                           LEFT JOIN g.author a
-                           LEFT JOIN g.successStories ss
+                           LEFT JOIN g.author au
+                           LEFT JOIN au.userGoal ug
+                           LEFT JOIN g.successStories gs
+                           LEFT JOIN gs.user gsu
+                           LEFT JOIN gs.files f
+                           LEFT JOIN gs.voters v
                            WHERE g.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
@@ -498,6 +521,22 @@ class GoalRepository extends EntityRepository
                            LEFT JOIN g.successStories gs
                            LEFT JOIN gs.user gsu
                            LEFT JOIN gs.files f
+                           WHERE g.slug = :slug")
+            ->setParameter('slug', $slug['slug'])
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBySlugWithTinyRelations($slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
                            WHERE g.slug = :slug")
             ->setParameter('slug', $slug['slug'])
             ->getOneOrNullResult();

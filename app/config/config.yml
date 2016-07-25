@@ -39,7 +39,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v367
+        assets_version: v377
 
     default_locale:  en
     trusted_hosts:   ~
@@ -192,7 +192,7 @@ fos_rest:
 
 #    hwi oauth configs
 hwi_oauth:
-    firewall_name: main
+    firewall_names: [main]
     resource_owners:
             facebook:
                 type:                facebook
@@ -287,6 +287,8 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [370, 230] }
+            post_processors:
+                opt_post_processor: {}
 
         slide_max_size:
             quality: 100
@@ -426,3 +428,8 @@ monolog:
             type:  stream
             path:  "%kernel.logs_dir%/mandrill.log"
             channels: [mandrill]
+
+lexik_maintenance:
+    driver:
+        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'
+        options: {file_path: %kernel.root_dir%/lock}

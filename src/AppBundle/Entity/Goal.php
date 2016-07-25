@@ -173,6 +173,11 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     protected $updated;
 
     /**
+     * @ORM\Column(name="featured_date", type="date", nullable=true)
+     */
+    protected $featuredDate;
+
+    /**
      * @var
      *
      * @ORM\Column(type="datetime", nullable=true)
@@ -817,6 +822,18 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     }
 
     /**
+     * Set successStories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setSuccessStories($successStories)
+    {
+        $this->successStories = $successStories;
+
+        return $this;
+    }
+
+    /**
      * Set author
      *
      * @param \Application\UserBundle\Entity\User $author
@@ -1120,5 +1137,21 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         $this->listPhotoDownloadLink = $data->image;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFeaturedDate()
+    {
+        return $this->featuredDate;
+    }
+
+    /**
+     * @param mixed $featuredDate
+     */
+    public function setFeaturedDate($featuredDate)
+    {
+        $this->featuredDate = $featuredDate;
     }
 }

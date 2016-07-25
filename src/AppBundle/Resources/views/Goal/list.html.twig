@@ -94,7 +94,11 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a data-ng-href="{{ env_prefix  }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                        <a ls-goal-users
+                                           href="javascript:void(0)"
+                                           ls-goal-id="[[ ::goal.id ]]"
+                                           ls-category="listed"
+                                           data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                 [[ ::goal.stats.listedBy ]]
@@ -109,7 +113,10 @@
                                         </span>
                                     </li>
                                     <li>
-                                        <a data-ng-href="{{ env_prefix  }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                        <a ls-goal-users
+                                           href="javascript:void(0)"
+                                           ls-goal-id="[[ ::goal.id ]]"
+                                           data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}
                                                 [[ ::goal.stats.doneBy ]]

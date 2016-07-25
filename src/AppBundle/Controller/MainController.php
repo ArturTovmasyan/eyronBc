@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\UserGoal;
+use Application\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Form\ContactUsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,8 +34,16 @@ class MainController extends Controller
         $user = $this->getUser();
 
         if (!is_object($user)){
-            $goals = $em->getRepository("AppBundle:Goal")->findAllWithCount(7);
-            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+            if(!apc_exists('homepage_ideas')){
+                $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
+                $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+
+                apc_add('homepage_ideas', $goals, 86400);
+            }
+            else {
+                $goals = apc_fetch('homepage_ideas');
+            }
 
             return array('goals' => $goals);
         }
@@ -167,7 +177,7 @@ class MainController extends Controller
         }
 
         //This part is used for profile completion percent calculation
-        if ($this->getUser()->getProfileCompletedPercent() != 100) {
+        if ($this->getUser() instanceof User && $this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
         return $this->render('AppBundle:Main:goalFriends.html.twig', array(
@@ -207,48 +217,36 @@ class MainController extends Controller
     /**
      * This function is view statistic
      *
-     * @Route("/moderator/statistic", name="statistic_view")
+     * @Route("/moderator/goal-statistic", name="statistic_view")
      * @Template()
      * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
      */
-    public function statisticAction()
+    public function goalStatisticAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $createLimit = new \DateTime('now');
-
         $createLimit->modify('-30 days');
-
         $createLimit = date_format($createLimit,'Y-m-d');
-
         $results = $em->getRepository('AppBundle:Goal')->findGoalGroupByCreationDate($createLimit);
-
         $createResult = array();
-
         $createCount = 0;
 
         if($results) {
-
             $count = 0;
 
-            foreach($results as $n => $result){
-
+            foreach($results as $n => $result)
+            {
                 $time1 = new \DateTime($result['dates']);
-
                 $createResult[$count]['dates'] = $result['dates'];
-
                 $createResult[$count]['counts'] = $result['counts'];
-
                 $count++;
-
                 $createCount +=$result['counts'];
 
                 if(isset($results[$n + 1])){
-
                     $time2 = new \DateTime($results[$n+1]['dates']);
 
-                    for($i =$count;$i < 30 ; $i++){
-
+                    for($i =$count;$i < 30 ; $i++)
+                    {
                         if(date_diff($time1,$time2)->d > 1){
                             $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
                             $createResult[$count]['counts'] = 0;
@@ -258,8 +256,8 @@ class MainController extends Controller
                 }else{
                     $time2 = new \DateTime('now');
 
-                    for($i =$count;$i < 30 ; $i++){
-
+                    for($i =$count;$i < 30 ; $i++)
+                    {
                         if(date_diff($time1,$time2)->d > 0){
                             $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
                             $createResult[$count]['counts'] = 0;
@@ -268,15 +266,11 @@ class MainController extends Controller
                     }
                 }
             };
-
         }
         else {
             $create = new \DateTime('now');
-
             $create = date_format($create,'Y-m-d');
-
             $createResult[0]['dates'] = $create;
-
             $createResult[0]['counts'] = 0;
         }
 
@@ -284,51 +278,42 @@ class MainController extends Controller
 
         //set updated goals in 30 days
         $updateLimit = new \DateTime('now');
-
         $updateLimit->modify('-30 days');
-
         $updateLimit = date_format($updateLimit,'Y-m-d');
-
         $updated = $em->getRepository('AppBundle:Goal')->findGoalGroupByUpdateDate($updateLimit);
-
-//        dump($updated);exit;
         $updatedResult = array();
-
         $updateCount = 0;
 
-        if($updated) {
-
+        if($updated)
+        {
             $count = 0;
 
-            foreach($updated as $n => $update){
-
+            foreach($updated as $n => $update)
+            {
                 $time1 = new \DateTime($update['dates']);
-
                 $updatedResult[$count]['dates'] = $update['dates'];
-
                 $updatedResult[$count]['counts'] = $update['counts'];
-
                 $count++;
-
                 $updateCount += $update['counts'];
 
-                if(isset($updated[$n + 1])){
-
+                if(isset($updated[$n + 1]))
+                {
                     $time2 = new \DateTime($updated[$n+1]['dates']);
 
-                    for($i =$count; $i < 30 ; $i++){
-
+                    for($i =$count; $i < 30 ; $i++)
+                    {
                         if(date_diff($time1,$time2)->d > 1){
                             $updatedResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
                             $updatedResult[$count]['counts'] = 0;
                             $count++;
                         }
                     }
-                }else {
+                }
+                else {
                     $time2 = new \DateTime('now');
 
-                    for ($i = $count; $i < 30; $i++) {
-
+                    for ($i = $count; $i < 30; $i++)
+                    {
                         if (date_diff($time1, $time2)->d > 0) {
                             $updatedResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
                             $updatedResult[$count]['counts'] = 0;
@@ -340,11 +325,8 @@ class MainController extends Controller
         }
         else {
             $update = new \DateTime('now');
-
             $update = date_format($update,'Y-m-d');
-
             $updatedResult[0]['dates'] = $update;
-
             $updatedResult[0]['counts'] = 0;
         }
 
@@ -353,9 +335,7 @@ class MainController extends Controller
 
         //set published limit in 30 days
         $publishLimit = new \DateTime('now');
-
         $publishLimit->modify('-30 days');
-
         $publishLimit = date_format($publishLimit,'Y-m-d');
 
         //get publish dates
@@ -363,67 +343,59 @@ class MainController extends Controller
 
         //for calculate total count
         $publishCount = 0;
-
         $perUser = array();
 
         //create publish results for oll users
         $publishResult = array();
 
-        if($published) {
-
+        if($published)
+        {
             //get oll userNames
             foreach($published as $publish)
             {
                 $userNames[] = $publish['publishedBy'];
-
                 if ($publish['publishedBy'] != null) {
-
                     $kayNames[] = $publish['publishedBy'];//when name is null it will be exist
                 }
             }
 
             $kayNames[] = 'total';
-
             $userNames = array_unique($userNames);
-
             $kayNames = array_unique($kayNames);
 
             //set publishResult
             foreach($published as $n => $publish)
             {
                 $time1 = new \DateTime($publish['dates']);
-
                 $day = $time1->format('M d');
-
                 $ollDates[] = $day;//for view oll days in graph
 
-                foreach ($userNames as $userName) {
+                foreach ($userNames as $userName)
+                {
                     if ($userName == $publish['publishedBy']) {
-
                         //when username is null move count in wiki userName
                         if ($userName == null) {
-
                             $userName = 'admin@admin.com';
 
                             if (isset($publishResult[$day][$userName]['counts'])) {
-
                                 $publishResult[$day][$userName]['counts'] += $publish['counts'];
-
                                 $publishResult[$day]['total']['counts'] += $publish['counts'];
-
                                 $perUser[$userName] += $publish['counts'];
 
-                            } else {
-                                if (isset($publishResult[$day]['total']['counts'])) {
+                            }
+                            else {
+                                if (isset($publishResult[$day]['total']['counts']))
+                                {
                                     $publishResult[$day]['total']['counts'] += $publish['counts'];
-                                } else {
+                                }
+                                else {
                                     $publishResult[$day]['total']['counts'] = $publish['counts'];
                                 }
 
                                 if (isset($perUser[$userName])) {
-
                                     $perUser[$userName] += $publish['counts'];
-                                } else {
+                                }
+                                else {
                                     $perUser[$userName] = $publish['counts'];
                                 }
 
@@ -431,26 +403,27 @@ class MainController extends Controller
                             }
                         } else {
                             //if userName is wiki and it isset
-                            if (isset($publishResult[$day][$userName]['counts'])) {
-
+                            if (isset($publishResult[$day][$userName]['counts']))
+                            {
                                 $publishResult[$day]['total']['counts'] += $publish['counts'];
-
                                 $publishResult[$day][$userName]['counts'] += $publish['counts'];
-
                                 $perUser[$userName] += $publish['counts'];
 
-                            } else {
-                                if (isset($publishResult[$day]['total']['counts'])) {
-
+                            }
+                            else {
+                                if (isset($publishResult[$day]['total']['counts']))
+                                {
                                     $publishResult[$day]['total']['counts'] += $publish['counts'];
-                                } else {
+                                }
+                                else {
                                     $publishResult[$day]['total']['counts'] = $publish['counts'];
                                 }
 
-                                if (isset($perUser[$userName])) {
-
+                                if (isset($perUser[$userName]))
+                                {
                                     $perUser[$userName] += $publish['counts'];
-                                } else {
+                                }
+                                else{
                                     $perUser[$userName] = $publish['counts'];
                                 }
 
@@ -460,9 +433,10 @@ class MainController extends Controller
 
                         $publishCount += $publish['counts'];//for total
 
-                    } elseif (!isset($publishResult[$day][$userName]['counts']) and $userName != null) {
+                    }
+                    elseif (!isset($publishResult[$day][$userName]['counts']) and $userName != null)
+                    {
                         if (!isset($publishResult[$day]['total']['counts'])) {
-
                             $publishResult[$day]['total']['counts'] = 0;
                         }
 
@@ -483,13 +457,9 @@ class MainController extends Controller
 
                         //if have day when no one not publish
                         if ($time1 !== null && date_diff($time1, $time2)->d > 1) {
-
                             $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
-
                             $ollDates[] = $day;
-
                             $publishResult[$day]['total']['counts'] = 0;
-
                             foreach ($kayNames as $userName) {
                                 $publishResult[$day][$userName]['counts'] = 0;
                             }
@@ -502,13 +472,9 @@ class MainController extends Controller
 
                         //if have day when no one not publish
                         if ($time1 !== null && date_diff($time1, $time2)->d > 0) {
-
                             $day = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'M d');
-
                             $ollDates[] = $day;
-
                             $publishResult[$day]['total']['counts'] = 0;
-
                             foreach ($kayNames as $userName) {
                                 $publishResult[$day][$userName]['counts'] = 0;
                             }
@@ -522,29 +488,18 @@ class MainController extends Controller
         {
             //if not publish date
             $update = new \DateTime('now');
-
             $update = date_format($update,'M d');
-
             $kayNames[] = 'NO ONE';
-
             $publishResult[$update]['NO ONE']['counts'] = 0;
-
             $ollDates[] = $update;
-
             $perUser['NO ONE'] = 0;
         }
 
-
         $perUser['Total'] = $publishCount;
-
         $publishAverage = (int) floor($publishCount/30);
-
         $createAverage = (int) floor($createCount/30);
-
         $updateAverage = (int) floor($updateCount/30);
-
         $ollDates = array_unique($ollDates);
-
 
         return array(
             'ollDates'       => $ollDates,
@@ -561,4 +516,21 @@ class MainController extends Controller
             'updateCount'    => $updateCount,
         );
     }
+
+    /**
+     * This function is view statistic
+     *
+     * @Route("/moderator/version-statistic", name="version_statistic")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_GOD')")
+     */
+    public function versionStatisticAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $versionStatisticData = $em->getRepository('ApplicationUserBundle:User')->getAppVersionsStatistic();
+
+        return ['appVersionStatistic' => $versionStatisticData];
+    }
 }
+
+

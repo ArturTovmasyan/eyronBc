@@ -185,7 +185,11 @@
                                             <figcaption>
                                                 <div class="row" data-ng-cloak>
                                                     <div class="col-xs-6">
-                                                        <a data-ng-href="{{ env_prefix  }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
+                                                        <a ls-goal-users
+                                                           href="javascript:void(0)"
+                                                           ls-goal-id="[[ ::goal.id ]]"
+                                                           ls-category="listed"
+                                                           data-ng-show="castInt(goal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'block_listed'|trans | capitalize }}
                                                                 [[ ::goal.stats.listedBy ]]
@@ -199,7 +203,10 @@
                                                     </div>
 
                                                     <div class="col-xs-6">
-                                                        <a data-ng-href="{{ env_prefix  }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
+                                                        <a ls-goal-users
+                                                           href="javascript:void(0)"
+                                                           ls-goal-id="[[ ::goal.id ]]"
+                                                           data-ng-show="castInt(goal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'block_completed'|trans | capitalize }}
                                                                 [[ ::goal.stats.doneBy ]]
@@ -337,23 +344,40 @@
                                         <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
                                             <ul>
                                                 <li>
-                                                    <a data-ng-href="{{ env_prefix }}/listed-users/[[ singleGoal.slug ]]">
+                                                    <a ls-goal-users
+                                                       href="javascript:void(0)"
+                                                       ls-goal-id="[[ ::singleGoal.id ]]"
+                                                       ls-category="listed"
+                                                       data-ng-show="castInt(singleGoal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
                                                                 [[ singleGoal.stats.listedBy ]]
                                                             </span>
                                                         <i class="icon-user-small"></i>
                                                     </a>
+                                                    <span class="text-white" data-ng-hide="castInt(singleGoal.stats.listedBy)">
+                                                            {{ 'home_listed_by'|trans({},'messages') }}
+                                                        [[ ::singleGoal.stats.listedBy ]]
+                                                    </span>
+                                                    <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
                                                 </li>
 
                                                 <li>
-                                                    <a data-ng-href="{{ env_prefix }}/done-users/[[ singleGoal.slug ]]">
-                                                            <span>
-                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                                [[ singleGoal.stats.doneBy ]]
-                                                            </span>
+                                                    <a ls-goal-users
+                                                       href="javascript:void(0)"
+                                                       ls-goal-id="[[ ::singleGoal.id ]]"
+                                                       data-ng-show="castInt(singleGoal.stats.doneBy)">
+                                                        <span>
+                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                            [[ singleGoal.stats.doneBy ]]
+                                                        </span>
                                                         <i class="icon-user-small"></i>
                                                     </a>
+                                                    <span class="text-white" data-ng-hide="castInt(singleGoal.stats.doneBy)">
+                                                            {{ 'home_complete'|trans({},'messages') }}
+                                                        [[ ::singleGoal.stats.doneBy ]]
+                                                        </span>
+                                                    <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.doneBy)"></i>
                                                 </li>
                                             </ul>
                                         </div>
@@ -397,6 +421,7 @@
 
             <div class="col-md-4" data-ng-cloack>
                 {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2, 'isProfile': true}  %}
+                {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
             </div>
         </div>
     </div>

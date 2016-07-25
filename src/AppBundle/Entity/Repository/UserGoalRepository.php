@@ -93,7 +93,6 @@ class UserGoalRepository extends EntityRepository
                 ->leftJoin('g.successStories', 'ss')
                 ->leftJoin('g.images', 'i')
                 ->where('ugu.id = :user ')
-                ->orderBy('ug.id', 'desc')
                 ->setParameter('user', $userId)
         ;
 
@@ -102,6 +101,13 @@ class UserGoalRepository extends EntityRepository
             $query
                 ->andWhere('ug.status =:status')
                 ->setParameter('status', $status);
+        }
+
+        if ($status && $status == UserGoal::COMPLETED){
+            $query->orderBy('ug.completionDate', 'desc');
+        }
+        else {
+            $query->orderBy('ug.id', 'desc');
         }
 
 

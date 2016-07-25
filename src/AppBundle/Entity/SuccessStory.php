@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class SuccessStory implements ActivityableInterface
 {
-    const MIN_WORDS_IN_STORY = 3;
+    const MIN_LETTERS_IN_STORY = 3;
 
     /**
      * @ORM\Id
@@ -61,6 +61,16 @@ class SuccessStory implements ActivityableInterface
     protected $user;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
+     * @ORM\JoinTable(name="success_story_voters",
+     *      joinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
+     * @Groups({"successStory_voters"})
+     **/
+    protected $voters;
+
+    /**
      * @var
      *
      * @Gedmo\Timestampable(on="create")
@@ -81,9 +91,12 @@ class SuccessStory implements ActivityableInterface
      * @ORM\Column(name="story", type="text")
      * @Groups({"successStory"})
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="Story must have at least {{ limit }} characters."
+     * )
      */
     protected $story;
-
 
     /**
      * @ORM\Column(name="video_link", type="json_array", nullable=true)
@@ -174,7 +187,8 @@ class SuccessStory implements ActivityableInterface
      */
     public function __construct()
     {
-        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->voters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -221,7 +235,7 @@ class SuccessStory implements ActivityableInterface
      */
     public function setStory($story)
     {
-        $this->story = trim($story);
+        $this->story = strip_tags(trim($story));
 
         return $this;
     }
@@ -283,28 +297,61 @@ class SuccessStory implements ActivityableInterface
     }
 
     /**
-     * @param ExecutionContextInterface $context
-     *
-     * @Assert\Callback()
-     */
-    public function validate(ExecutionContextInterface $context)
-    {
-        $hasFiles  = (count($this->files) != 0);
-        $hasVideos = (count($this->videoLink) != 0);
-        $wordCountInStory = count(explode(' ', $this->story));
-
-        if (!$hasFiles && !$hasVideos && $wordCountInStory < self::MIN_WORDS_IN_STORY) {
-            $context->buildViolation("Success story must has min " . self::MIN_WORDS_IN_STORY . " words")
-                ->atPath('story')
-                ->addViolation();
-        }
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
         return 'Story of ' . $this->getGoal()->getTitle();
+    }
+
+    /**
+     * Add voter
+     *
+     * @param \Application\UserBundle\Entity\User $voter
+     *
+     * @return SuccessStory
+     */
+    public function addVoter(\Application\UserBundle\Entity\User $voter)
+    {
+        if (!isset($this->voters[$voter->getId()])) {
+            $this->voters[$voter->getId()] = $voter;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove voter
+     *
+     * @param \Application\UserBundle\Entity\User $voter
+     * @return $this
+     */
+    public function removeVoter(\Application\UserBundle\Entity\User $voter)
+    {
+        if (isset($this->voters[$voter->getId()])) {
+            $this->voters->removeElement($voter);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get voters
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVoters()
+    {
+        return $this->voters;
+    }
+
+    /**
+     * @param $userId
+     * @return bool
+     */
+    public function isVote($userId)
+    {
+        return isset($this->voters[$userId]);
+
     }
 }

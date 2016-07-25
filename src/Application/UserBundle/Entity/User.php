@@ -111,6 +111,11 @@ class User extends BaseUser
     protected $username;
 
     /**
+     * @ORM\Column(name="api_key", type="string", length=50, nullable=true)
+     */
+    protected $apiKey;
+
+    /**
      * @var
      * @Groups({"user", "tiny_user", "settings"})
      * @SerializedName("first_name")
@@ -1732,5 +1737,21 @@ class User extends BaseUser
     public function setCommonGoalsCount($commonGoalsCount)
     {
         $this->commonGoalsCount = $commonGoalsCount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param mixed $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
     }
 }

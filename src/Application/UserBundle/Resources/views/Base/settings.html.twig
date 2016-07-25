@@ -3,7 +3,7 @@
 {% block profileImage %}
 
 <form id="settings-form" action="#" {{ form_enctype(form) }} method="POST" class="form-horizontal text-center">
-    <div data-ng-app="user" data-ng-controller="SettingController" xmlns="http://www.w3.org/1999/html">
+    <div xmlns="http://www.w3.org/1999/html">
         {#<span class="overlay"></span>#}
 
         <figure>
@@ -41,7 +41,7 @@
 
     {% set routeName = app.request.attributes.get('_route') %}
 
-    <div data-ng-app="user" data-ng-controller="SettingController" xmlns="http://www.w3.org/1999/html">
+    <div xmlns="http://www.w3.org/1999/html">
         <div class="bucketlist settings-menu">
             <div class="container">
                 <div class="row">

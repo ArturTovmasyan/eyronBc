@@ -52,8 +52,6 @@
       color:#ffffff;
     }
 
-
-
     figcaption{
       ul{
         li{
@@ -101,7 +99,6 @@
           }
         }
         .transparent{
-          //padding:5px 0;
           .text{
             color: #a4a4a4;
           }
@@ -141,7 +138,6 @@
 
 .inner-content{
   overflow: hidden;
-  //margin:0 0 15px 0;
 
   .overlay{
     &:hover{
@@ -177,6 +173,7 @@
   .addthis_native_toolbox{
     padding: 0 15px;
   }
+
   #main-slider{
     position: relative;
     top: 0;
@@ -282,9 +279,7 @@
     a{
       display: block;
       color: #a4a4a4;
-      //padding: 11px 0;
       font-size:12px;
-
 
       &:focus{
         text-decoration: none;
@@ -294,7 +289,6 @@
     i{
       font-size: 20px;
       vertical-align: middle;
-
     }
 
     i.icon-green-ok,.icon-green-plus{
@@ -335,6 +329,7 @@
       margin-bottom:0;
     }
   }
+
   .transparent{
 
     &:hover{
@@ -414,12 +409,9 @@
       width:105%;
       .blur;
       margin: -50px -30px -25px;
-      //height:507px;
       height:475px;
     }
   }
-
-
 
   .goal-content{
     position: relative;
@@ -526,7 +518,6 @@
       }
     }
 
-
     span.no-image{
       display: block;
       width:43px;
@@ -595,6 +586,25 @@
     padding-top:10px;
     color:#666666;
     font-size:14px;
+  }
+
+  .story-count{
+    padding-top:10px;
+
+    h4{
+      padding: 3px 0;
+      margin: 0;
+      line-height: normal;
+    }
+
+    hr{
+      margin:2px 0;
+    }
+
+    .view-more-comments{
+      margin: 5px 0 0 0;
+      line-height: normal;
+    }
   }
 }
 
@@ -672,9 +682,6 @@
           li{
             height:50px;
             line-height:45px;
-            //a{
-            //  padding:10px 0;
-            //}
 
             i.icon-green-ok,.icon-green-plus{
               font-size: 49px;
@@ -688,9 +695,6 @@
               font-size:14px;
             }
           }
-          //.transparent{
-          //  padding: 0;
-          //}
         }
       }
 
@@ -710,6 +714,9 @@
     }
   }
 
+  .rounded-corners-bottom{
+    .rounded-corners-bottom;
+  }
   .ideas-list{
     padding-bottom:0;
 
@@ -751,15 +758,12 @@
     }
 
     .goal-image{
-        //height:626px;
         height:627px;
       .overlay{
-        //height:626px;
         height:627px;
       }
 
       img{
-        //height:656px;
         height:656px;
       }
     }
@@ -788,9 +792,6 @@
     .inner{
       padding:0 20px 5px 20px;
       margin: 0 0 10px 0;
-      //p,span,a,strong,li,em{
-      //  font-size:14px;
-      //}
 
       .comment-place{
         padding:15px 10px 5px;
@@ -815,6 +816,21 @@
     h4{
       padding-top:20px;
       font-size:16px;
+    }
+
+    .story-count{
+      padding-top:20px;
+      h4{
+        padding-top:0;
+      }
+
+      hr{
+        margin:5px 0;
+      }
+
+      .view-more-comments{
+        margin: 2px 0 0 0;
+      }
     }
   }
 
@@ -853,10 +869,7 @@
   }
 
   .inner-content{
-
-    //margin:0 0 15px 0;
     .fb-like{
-      //margin: 8px 0 0 20px;
       margin: 13px 0 0 20px;
     }
 
@@ -908,41 +921,6 @@
       font-size:17px;
     }
   }
-
-  //.goal-links{
-  //  height: 50px;
-  //  border-bottom: 0;
-  //  li{
-  //    height:50px;
-  //    line-height:50px;
-  //
-  //    a{
-  //      font-size: 14px;
-  //    }
-  //
-  //    &.clone{
-  //      text-align: center;
-  //
-  //      a{
-  //        font-size:13px;
-  //        padding-right:0;
-  //        span{
-  //          margin-right:5px;
-  //        }
-  //      }
-  //    }
-  //
-  //    i{
-  //      font-size: 30px;
-  //      margin-right: 4px;
-  //    }
-  //
-  //    i.icon-green-ok,.icon-green-plus{
-  //      font-size: 49px;
-  //    }
-  //  }
-  //
-  //}
 }
 
 @media (min-width: @screen-md) {
@@ -1033,6 +1011,10 @@
 
         span{
           font-size:13px;
+
+          &.text-purple{
+            font-size: 14px;
+          }
         }
       }
     }
@@ -1041,6 +1023,19 @@
       padding-top:40px;
       font-size:18px;
     }
+
+    .story-count{
+      padding-top:40px;
+
+      h4{
+        padding-top: 0;
+      }
+
+      hr{
+        margin:1px 0 5px !important;
+      }
+    }
+
   }
 
   .no-quote{
@@ -1073,6 +1068,7 @@
       padding:40px 0 0;
     }
   }
+
   .inner-content{
     .fb-like{
       margin: 9px 0 0 40px;
@@ -1143,9 +1139,7 @@
         text-align:left;
       }
     }
-
   }
-
 }
 
 @media (min-width: @screen-lg) {
@@ -1178,14 +1172,11 @@
         text-align:center;
       }
     }
-
   }
 
   .inner-content{
     .twitter-hashtag-button{
       margin: 9px 10px 0;
     }
-
   }
-
 }

@@ -108,74 +108,77 @@ class UserController extends FOSRestController
      */
     private function loginAction(User $user, array $group, $isRegistered = null)
     {
-        $response = new JsonResponse();
-        // get request
-        $request = $this->get('request_stack')->getCurrentRequest();
-
-        // get firewall name
+        $request     = $this->get('request_stack')->getCurrentRequest();
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-
-        // get secret key
-        $secretKey = $this->container->getParameter('secret');
-
-        // create new token
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
-
-        //get remember me lifetime
-        $lifeTime = $this->getParameter('remember_me_lifetime');
-
-        $rememberMeService = new TokenBasedRememberMeServices(
-            array($user),
-            $secretKey,
-            $providerKey,
-            array(
-                'path' => '/',
-                'name' => 'REMEMBERME',
-                'domain' => null,
-                'secure' => false,
-                'httponly' => true,
-                'lifetime' => $lifeTime, // 30 days
-                'always_remember_me' => true,
-                'remember_me_parameter' => '_remember_me')
-        );
-
-        // get cookie
-        $cookie = $request->cookies;
-
-        // get session id from cookie
-        $phpSessionId = $cookie->get('PHPSESSID');
-
-        // get session
-        $session = $this->get('session');
-
-        // if cookie is not set
-        if(!$phpSessionId){
-            // get session id
-            $phpSessionId = $session->getId();
-        }
-
-        //call remember me service
-        $rememberMeService->loginSuccess($request, $response, $token);
+        $secretKey   = $this->container->getParameter('secret');
+        $lifeTime    = $this->getParameter('remember_me_lifetime');
+        $session     = $this->get('session');
+        $response    = new JsonResponse();
+        $token       = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
 
-        $content =  array(
-            'sessionId' => $phpSessionId,
-            'userInfo'  => $user
-        );
+
+        if ($request->get('apikey')){
+            $apiKey = $user->getApiKey();
+            if (is_null($apiKey)){
+                $apiKey = md5($user->getUsername() . $this->container->getParameter('secret'));
+                $user->setApiKey($apiKey);
+                $em->flush();
+            }
+        }
+        //TODO: will be changed
+        elseif (true || $request->get('mobileAppPlatform')){
+            $this->get('security.token_storage')->setToken($token);
+            $session->set($providerKey, serialize($token));
+            $session->save();
+        }
+        else {
+            $rememberMeService = new TokenBasedRememberMeServices(
+                array($user),
+                $secretKey,
+                $providerKey,
+                array(
+                    'path' => '/',
+                    'name' => 'REMEMBERME',
+                    'domain' => null,
+                    'secure' => false,
+                    'httponly' => true,
+                    'lifetime' => $lifeTime, // 30 days
+                    'always_remember_me' => true,
+                    'remember_me_parameter' => '_remember_me')
+            );
+
+            $rememberMeService->loginSuccess($request, $response, $token);
+        }
+
+
+        $content = ['userInfo' => $user];
 
         if($isRegistered != null){
             $content['registred'] = $isRegistered;
         }
 
-        //get serializer service
-        $serializer = $this->get('serializer');
+        if (isset($apiKey)){
+            $content['apiKey'] = $apiKey;
+        }
+        else {
 
-        //serialize content by group
+            $cookie = $request->cookies;
+            $phpSessionId = $cookie->get('PHPSESSID');
+
+            if(!$phpSessionId){
+                $phpSessionId = $session->getId();
+            }
+
+            $content['sessionId'] = $phpSessionId;
+        }
+
+
+        $serializer = $this->get('serializer');
         $contentJson = $serializer->serialize($content, 'json', SerializationContext::create()->setGroups($group));
 
-        //set content in response
         $response->setContent($contentJson);
 
         return $response;
@@ -193,8 +196,9 @@ class UserController extends FOSRestController
      *         404="User not found"
      *     },
      * parameters={
-     *      {"name"="username", "dataType"="string", "required"=true, "description"="User`s username"},
-     *      {"name"="password", "dataType"="password", "required"=true, "description"="User`s password"},
+     *      {"name"="username", "dataType"="string",   "required"=true,  "description"="User`s username"},
+     *      {"name"="password", "dataType"="password", "required"=true,  "description"="User`s password"},
+     *      {"name"="apikey",   "dataType"="string",   "required"=false, "description"="User`s apikey"}
      *
      * }
      *
@@ -240,6 +244,8 @@ class UserController extends FOSRestController
      * requirements={
      *      {"name"="type", "dataType"="string", "requirement"=true, "description"="social type | twitter, facebook, google"},
      *      {"name"="accessToken", "dataType"="string", "requirement"=true, "description"="User`s social access_token"},
+     *      {"name"="tokenSecret", "dataType"="string", "requirement"=true, "description"="User`s social tokenSecret"},
+     *      {"name"="apikey",   "dataType"="string",   "required"=false, "description"="User`s apikey"}
      * }
      * )
      * @param $type

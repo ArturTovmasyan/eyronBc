@@ -4,6 +4,9 @@ angular.module('profile')
   .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate',
     function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate) {
 
+      $scope.errorMessages = [];
+      angular.element(".settings select").niceSelect();
+      
       $scope.ProfileItems = new lsInfiniteGoals(10);
 
       $scope.Math = window.Math;
@@ -120,10 +123,20 @@ angular.module('profile')
 
     }
   ])
-  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals',
-    function ($scope, $timeout, lsInfiniteGoals) {
-      $scope.Friends = new lsInfiniteGoals(20);
-      $scope.slug = (window.location.pathname.indexOf('listed-users') != -1)?1: 2;
+  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData',
+    function ($scope, $timeout, lsInfiniteGoals, userData) {
+      $scope.isListed = userData.isListed;
+      $scope.goalId = userData.goalId;
+      $scope.slug = $scope.isListed?1: 2;
+      $scope.friendName = '';
+
+      if($scope.goalId){
+        $scope.Friends = new lsInfiniteGoals(10);
+      } else {
+        $scope.Friends = new lsInfiniteGoals(20);
+      }
+
+      $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId);
       
       $scope.resetFriends = function () {
         $scope.Friends.reset();
@@ -143,6 +156,10 @@ angular.module('profile')
   ])
   .controller('commonController',['$scope', 'userData',
     function ($scope, userData) {
-    $scope.goals = userData.data;
+      $scope.goals = userData.data;
+
+      $scope.castInt = function(value){
+        return parseInt(value);
+      };
     }
   ]);

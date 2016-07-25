@@ -65,6 +65,15 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("goal/users", name="goal_users_modal")
+     * @return array
+     */
+    public function goalUsersAction()
+    {
+        return $this->render('AppBundle:Goal:goalUsers.html.twig');
+    }
+
+    /**
      * @Route("user/common", name="common_modal")
      * @return array
      */
@@ -246,18 +255,57 @@ class GoalController extends Controller
 
     /**
      * @Template("AppBundle:Blocks:goalInner.html.twig")
-     * @ParamConverter("goal", class="AppBundle:Goal")
      *
-     * @param Goal $goal
-     * @param $page
+     * @param $id
+     * @param string $page
      * @return array
      */
-    public function innerContentAction(Goal $goal, $page = Goal::INNER)
+    public function innerContentAction($id, $page = Goal::INNER)
     {
-        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
-
         $em = $this->getDoctrine()->getManager();
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
+        $goal = $em->getRepository('AppBundle:Goal')->findWithRelations($id);
+        if (is_null($goal)){
+            throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
+
+        $successStories = $goal->getSuccessStories()->toArray();
+        usort($successStories, function($a, $b) {
+
+            $aCount = $a->getVoters()->count();
+            $bCount = $b->getVoters()->count();
+
+            $currentDate = new \DateTime();
+            $aInterval = date_diff($a->getUpdated(), $currentDate)->format('%R%a');
+            $bInterval = date_diff($b->getUpdated(), $currentDate)->format('%R%a');
+
+            if ($aInterval <= 7 || $bInterval <= 7){
+                if ($aInterval == $bInterval) {
+                    if ($aCount == $bCount) {
+                        return 0;
+                    }
+
+                    return $aCount < $bCount ? 1 : -1;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
+            }
+
+            if ($aCount == $bCount) {
+                if ($a->getUpdated() == $b->getUpdated()){
+                    return 0;
+                }
+
+                return $a->getUpdated() < $b->getUpdated() ? 1 : -1;
+            }
+
+            return $aCount < $bCount ? 1 : -1;
+        });
+
+        $goal->setSuccessStories($successStories);
+
+        $this->denyAccessUnlessGranted('view', $goal, $this->get('translator')->trans('goal.view_access_denied'));
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
 
@@ -359,10 +407,10 @@ class GoalController extends Controller
      * @Template()
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
      *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findBySlugWithRelations" })
+     *   "repository_method" = "findBySlugWithTinyRelations" })
+     *
      * @param Goal $goal
      * @return array
-     *
      */
     public function showAction(Goal $goal)
     {

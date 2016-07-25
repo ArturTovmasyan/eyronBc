@@ -10,6 +10,16 @@ angular.module('goalComponents', ['Interpolation',
   'PathPrefix',
   'Facebook'
   ])
+  .controller('goalFooter', ['$scope', '$timeout',
+    function($scope, $timeout){
+      $scope.completed = true;
+
+      $scope.popoverByMobile = function(){
+        $timeout(function(){
+          angular.element('.navbar-toggle').click();
+        }, 500);
+      };
+    }])
   .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
     var path = envPrefix + "api/v1.0/top-ideas/{count}";
@@ -23,6 +33,10 @@ angular.module('goalComponents', ['Interpolation',
         deleteOnExpire: 'aggressive'
       });
     }
+
+    $scope.castInt = function(value){
+      return parseInt(value);
+    };
 
     $scope.refreshPopulars = function () {
       angular.element('#popularLoad').css({
@@ -75,6 +89,67 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
+  .controller('featureGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
+    function($scope, $http, CacheFactory, envPrefix, refreshingDate){
+      var path = envPrefix + "api/v1.0/goal/featured";
+
+      var popularCache = CacheFactory.get('bucketlist_by_feature');
+
+      if(!popularCache){
+        popularCache = CacheFactory('bucketlist_by_feature', {
+          maxAge: 24 * 60 * 60 * 1000 ,// 1 day
+          deleteOnExpire: 'aggressive'
+        });
+      }
+
+      $scope.castInt = function(value){
+        return parseInt(value);
+      };
+
+      $scope.refreshFeatures = function(){
+        $http.get(path)
+            .success(function(data){
+              $scope.features = data;
+              popularCache.put('features'+$scope.userId, data);
+            });
+      };
+
+      $scope.getPopularGoals = function(id){
+
+        var features = popularCache.get('features'+id);
+
+        if (!features) {
+
+          $http.get(path)
+              .success(function(data){
+                $scope.featureGoals = data;
+                popularCache.put('features'+id, data);
+              });
+        }else {
+          $scope.featureGoals = features;
+        }
+      };
+
+      $scope.$on('addGoal', function(){
+        angular.forEach($scope.featureGoals, function(item){
+          if(item.id == refreshingDate.goalId){
+            $scope.refreshFeatures();
+          }
+        });
+      });
+
+      $scope.$on('doneGoal', function(){
+        angular.forEach($scope.popularGoals, function(item){
+          if(item.id == refreshingDate.goalId){
+            $scope.refreshFeatures();
+          }
+        });
+      });
+
+      $scope.$watch('userId', function(id){
+        $scope.getPopularGoals(id);
+      })
+    }])
   .controller('userStatesController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
     function($scope, $http, CacheFactory, envPrefix, UserContext){
 
@@ -175,7 +250,6 @@ angular.module('goalComponents', ['Interpolation',
       $scope.year = moment(date).format('YYYY');
 
       $scope.userGoal = userGoalData.doneData;
-      $scope.noFile = false;
       $scope.noStory = false;
       $scope.invalidYear = false;
       $scope.uncompletedYear = false;
@@ -191,33 +265,19 @@ angular.module('goalComponents', ['Interpolation',
 
       $('body').on('focus', 'textarea[name=story]', function() {
         $('textarea[name=story]').removeClass('border-red');
-        $scope.noFile = false;
         $scope.noStory = false;
         $scope.invalidYear = false;
         $scope.uncompletedYear = false;
       });
 
       $scope.isInValid = function () {
-        $scope.noFile = false;
         $scope.noStory = false;
         var noDate = $scope.noData();
         if(!noDate){
           if(angular.isUndefined($scope.userGoal.story)
             || angular.isUndefined($scope.userGoal.story.story)
             || $scope.userGoal.story.story.length < 3 )$scope.noStory = true;
-          if((angular.isUndefined($scope.userGoal.videos_array) || $scope.userGoal.videos_array.length < 2)&&
-            (angular.isUndefined($scope.files) || !$scope.files.length )){
-            if(!$scope.noStory){
-              var words = $scope.userGoal.story.story.split(' ');
-              $scope.noFile = ( words.length < 3 );
-            }else{
-              $scope.noFile = true;
-              $scope.noStory = false;
-            }
-          }
 
-        }else {
-          $scope.noFile = !$scope.newAdded;
         }
       };
 
@@ -273,7 +333,6 @@ angular.module('goalComponents', ['Interpolation',
 
               if($scope.noData()){
                 $scope.noStory = false;
-                $scope.noFile = false;
                 angular.element('#cancel').click();
               }
             });
@@ -281,7 +340,7 @@ angular.module('goalComponents', ['Interpolation',
           $scope.uncompletedYear = true;
           return;
         }
-        if($scope.noStory || $scope.noFile){
+        if($scope.noStory){
           angular.element('textarea[name=story]').addClass('border-red');
           return;
         }

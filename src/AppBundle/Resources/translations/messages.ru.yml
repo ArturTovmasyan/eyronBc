@@ -20,6 +20,7 @@ settings: Настройки
 logout: Выход
 my_bucketlist: Мой список целей
 bucketlist: Bucket List 127
+featured_ideas: Избранное
 
 #Share
 message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!
@@ -198,7 +199,7 @@ right_menu:
   draft: Черновики
   ideas: Популярные Идеи
   suggested: Рекомендованные Идеи
-  show: Все
+  show: Все Цели
 
 active:
   not_have: У вас нет целей, пожалуйста, начните добавлять
@@ -275,7 +276,7 @@ mobile_modal: |
               Bucket List 127 доступен повсеместно!
               Скачайте приложение, чтобы воспользоваться его разнообразными возможностями и открыть для себя множество вдохновляющих идей для ваших целей.
 
-no_friends:  Нет результатов
+no_friends: Нет результатов
 
 deadline:
   complete_text: Установите крайний срок достижения цели
@@ -285,6 +286,8 @@ goalfriends: Единомышленники
 Add a note: Добавить заметку
 
 dreaming: Это - мечта
+users: Пользователь
+
 most-popular: Самое популярное
 # sonata admin lable
 admin:
@@ -308,6 +311,7 @@ admin:
       replaceString: Строка замены
       replaceWith: Заменить
       name: Имя
+      title: Загаловок
       description: Описание
       position: Позиция
       videoLink: Ссылка на видеоролик
@@ -326,6 +330,7 @@ admin:
       updated: Обнавлена
       goal_link: Ссылка
       comments: Комментарии
+      featured_date: Featured Date
 
 # end sonata admin lable
 

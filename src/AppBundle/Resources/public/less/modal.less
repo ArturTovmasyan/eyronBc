@@ -127,7 +127,7 @@ a.close-modal{
   display: none !important;
 }
 
-#common-modal{
+#common-modal,#goal-users-modal{
   padding: 0;
   width: 300px;
 
@@ -138,7 +138,7 @@ a.close-modal{
     color: #021523;
   }
 
-  .common-content{
+  .common-content,.users-content{
     border-top:1px solid #cccccc;
     padding: 10px;
 
@@ -160,10 +160,50 @@ a.close-modal{
       height: 130px;
     }
   }
+
+  .users-content{
+    padding: 0 30px 20px;
+
+    a{
+      display: block;
+
+      &.text-gray{
+        font-size: 12px;
+      }
+    }
+
+    figure, .no-image{
+      height: 55px;
+      width: 55px;
+      margin-right: 10px;
+      line-height: 50px;
+
+      img{
+        border: 2px solid #cecece;
+        width: 55px;
+        height: 55px;
+      }
+    }
+
+    .padding{
+      padding:10px;
+    }
+
+    h4{
+
+      strong{
+        font-size:14px;
+      }
+
+      span{
+        font-size: 12px;
+      }
+    }
+
+  }
 }
 
 .story-title{
-  //color:#333333;
   margin: 10px 0 15px;
   font-size: 18px;
   line-height: normal;
@@ -244,8 +284,6 @@ a.close-modal{
     margin-top: 10px;
     font-weight: 400;
   }
-
-
 
   .fb-share-button{
     width: 93px;
@@ -670,7 +708,7 @@ a.close-modal{
     font-size:28px;
   }
 
-  #common-modal{
+  #common-modal,#goal-users-modal{
     width: 390px;
 
     h3{
@@ -678,7 +716,7 @@ a.close-modal{
       font-size: 22px;
     }
 
-    .common-content{
+    .common-content,.users-content{
       padding: 20px;
       .idea-item{
         figure{
@@ -692,7 +730,6 @@ a.close-modal{
           &>a{
             height: 180px;
           }
-
         }
       }
 
@@ -703,6 +740,38 @@ a.close-modal{
       i{
         margin-right:0;
       }
+    }
+
+    .users-content{
+      padding:5px 40px 20px;
+
+      .padding{
+        padding:20px;
+      }
+
+      figure, .no-image{
+        height: 60px;
+        width: 60px;
+        margin-right: 15px;
+        line-height: 55px;
+
+        img{
+          width: 60px;
+          height: 60px;
+        }
+
+        p{
+          font-size:14px;
+        }
+      }
+
+      h4{
+        strong{
+          font-size:16px;
+        }
+      }
+
+
     }
   }
 
@@ -807,7 +876,6 @@ a.close-modal{
   }
 
   .delete-message{
-    //top:0;
     padding:55px 0 50px;
 
     h3{
