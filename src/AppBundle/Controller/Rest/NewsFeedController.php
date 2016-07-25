@@ -76,16 +76,18 @@ class NewsFeedController extends FOSRestController
         foreach($newsFeeds as $newsFeed){
             foreach($newsFeed->getGoals() as $goal)
             {
-                try {
+                if ($goal->getImagePath()) {
+                    try {
 
-                    $liipManager->getBrowserPath($goal->getImagePath(), 'mobile_goal');
-                    $params = ['path' => ltrim($goal->getImagePath(), '/'), 'filter' => 'mobile_goal'];
-                    $filterUrl = $route->generate('liip_imagine_filter', $params);
-                    $goal->setMobileImagePath($filterUrl);
+                        $liipManager->getBrowserPath($goal->getImagePath(), 'mobile_goal');
+                        $params = ['path' => ltrim($goal->getImagePath(), '/'), 'filter' => 'mobile_goal'];
+                        $filterUrl = $route->generate('liip_imagine_filter', $params);
+                        $goal->setMobileImagePath($filterUrl);
 
-                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
-                } catch (\Exception $e) {
-                    $goal->setCachedImage("");
+                        $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                    } catch (\Exception $e) {
+                        $goal->setCachedImage("");
+                    }
                 }
 
                 if (count($userGoalsArray) > 0) {
@@ -97,10 +99,12 @@ class NewsFeedController extends FOSRestController
                 }
             }
 
-            try {
-                $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
-            } catch (\Exception $e) {
-                $newsFeed->getUser()->setCachedImage("");
+            if ($newsFeed->getUser()->getImagePath()) {
+                try {
+                    $newsFeed->getUser()->setCachedImage($liipManager->getBrowserPath($newsFeed->getUser()->getImagePath(), 'user_icon'));
+                } catch (\Exception $e) {
+                    $newsFeed->getUser()->setCachedImage("");
+                }
             }
         }
 
