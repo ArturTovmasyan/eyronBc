@@ -1,7 +1,7 @@
 <div data-ng-controller="friendsController" class="bg-grey" id="goal-users-modal">
     <div class="bg-white relative" data-ng-show="Friends.users.length" data-ng-cloak>
-        <h3 data-ng-show="isListed" class="ng-hide" data-ng-cloak>{{ 'home_listed_by'|trans }} [[ Friends.users.length ]] USERS</h3>
-        <h3 data-ng-show="!isListed" class="ng-hide" data-ng-cloak>{{ 'home_complete'|trans }} [[ Friends.users.length ]] USERS</h3>
+        <h3 data-ng-show="isListed" class="ng-hide" data-ng-cloak>{{ 'home_listed_by'|trans }} [[ Friends.users.length ]] {{ 'users'|trans }}</h3>
+        <h3 data-ng-show="!isListed" class="ng-hide" data-ng-cloak>{{ 'home_complete'|trans }} [[ Friends.users.length ]] {{ 'users'|trans }}</h3>
         <a href="javascript:void(0)" rel="modal:close" class="close-icon"></a>
     </div>
 
