@@ -76,6 +76,7 @@ angular.module('profile')
             this.imageLoad(true);
             this.start += this.count;
             this.request++;
+            this.busy = false;
           }
         }.bind(this));
       } else {//when goal users page
@@ -88,6 +89,7 @@ angular.module('profile')
               this.imageLoad(false);
               this.start += this.count;
               this.request++;
+              this.busy = false;
             }
           }.bind(this));
         } else {//when friends page
@@ -99,6 +101,7 @@ angular.module('profile')
               this.imageLoad(false);
               this.start += this.count;
               this.request++;
+              this.busy = false;
             }
           }.bind(this));
         }
