@@ -43,10 +43,11 @@ class CommentController extends FOSRestController
      * }
      * )
      *
-     * @Rest\Get("/comments/{goal}/{parentComment}", requirements={"goal"="\d+", "parentComment"="\d+"}, name="put_comment", options={"method_prefix"=false})
+     * @Rest\PUT("/comments/{goal}/{parentComment}", requirements={"goal"="\d+", "parentComment"="\d+"}, defaults={"parentComment"=null}, name="put_comment", options={"method_prefix"=false})
      * @Rest\PUT("/goals/{goal}/comment", requirements={"goal"="\d+", "parentComment"="\d+"}, name="mobile_put_comment", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      * @ParamConverter("goal", class="AppBundle:Goal", options={"repository_method" = "findGoalWithAuthor"})
+     * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
      *
      * @param Request $request
      * @param Goal $goal
@@ -55,6 +56,11 @@ class CommentController extends FOSRestController
      */
     public function putAction(Request $request, Goal $goal, Comment $parentComment = null)
     {
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
         $em = $this->getDoctrine()->getManager();
         $threadId = 'goal_' . $goal->getSlug();
         $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($threadId);
@@ -97,7 +103,7 @@ class CommentController extends FOSRestController
         }
 
 
-        return new Response('', Response::HTTP_CREATED);
+        return $comment;
     }
 
     /**
@@ -114,7 +120,7 @@ class CommentController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
-     * @Rest\Get("/comments/{thread}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_comment", options={"method_prefix"=false})
+     * @Rest\Get("/comments/{thread}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, defaults={"first"=null, "count"=null}, name="get_comment", options={"method_prefix"=false})
      *
      * @param Thread $thread
      * @param null $first
