@@ -4,6 +4,9 @@ angular.module('profile')
   .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate',
     function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate) {
 
+      $scope.errorMessages = [];
+      angular.element(".settings select").niceSelect();
+      
       $scope.ProfileItems = new lsInfiniteGoals(10);
 
       $scope.Math = window.Math;

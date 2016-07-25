@@ -199,7 +199,7 @@ right_menu:
   draft: Черновики
   ideas: Популярные Идеи
   suggested: Рекомендованные Идеи
-  show: Все
+  show: Все Цели
 
 active:
   not_have: У вас нет целей, пожалуйста, начните добавлять
@@ -286,6 +286,8 @@ goalfriends: Единомышленники
 Add a note: Добавить заметку
 
 dreaming: Это - мечта
+users: Пользователь
+
 most-popular: Самое популярное
 # sonata admin lable
 admin:
@@ -327,6 +329,7 @@ admin:
       created: Поставлена
       updated: Обнавлена
       goal_link: Ссылка
+      comments: Комментарии
       featured_date: Featured Date
 
 # end sonata admin lable

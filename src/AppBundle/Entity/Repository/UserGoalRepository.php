@@ -8,9 +8,7 @@
 
 namespace AppBundle\Entity\Repository;
 
-use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
-use AppBundle\Model\loggableEntityRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -22,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * Class UserGoalRepository
  * @package AppBundle\Entity\Repository
  */
-class UserGoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
+class UserGoalRepository extends EntityRepository
 {
     /**
      * @param $userId
@@ -156,28 +154,6 @@ class UserGoalRepository extends EntityRepository implements loggableEntityRepos
         }
 
         return $query->getQuery();
-    }
-
-    /**
-     * @param $ids
-     * @return array|null
-     */
-    public function findByIdsWithRelations($ids)
-    {
-        if (!count($ids)){
-            return null;
-        }
-
-        return $this->getEntityManager()
-            ->createQuery("SELECT ug, u, g, author
-                           FROM AppBundle:UserGoal ug
-                           INDEX BY ug.id
-                           JOIN ug.user u
-                           JOIN ug.goal g
-                           LEFT JOIN g.author author
-                           WHERE ug.id IN (:userGoalIds)")
-            ->setParameter('userGoalIds', $ids)
-            ->getResult();
     }
 
     /**

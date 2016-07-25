@@ -210,7 +210,7 @@ right_menu:
   draft: Drafts
   ideas: Top Ideas
   suggested: Suggested Ideas
-  show: All
+  show: All Goals
 
 active:
   not_have: You have no goals, please, start
@@ -279,11 +279,11 @@ private_ideas:
   description: If you want to have a look at your private ideas, here you can see your own ideas list that will remind you of your activities.
 
 done_by: Completed by
-home_complete: COMPLETED BY
+home_complete: Completed by
 mobile_modal: |
               Bucket List 127 is available everywhere!
               Download the app, discover great features and explore over thousand exciting ideas for your goals.
-home_listed_by: LISTED BY
+home_listed_by: Listed by
 listed_by: Listed
 block_listed: Listed
 block_completed: Completed
@@ -320,6 +320,7 @@ goalfriends: Goalfriends
 Add a note: Add a note
 
 dreaming: Dreaming
+users: users
 
 most-popular: Most popular
 # sonata admin lable
@@ -363,6 +364,7 @@ admin:
       created: Created
       updated: Updated
       goal_link: Goal link
+      comments: Comments
       action_merge: Merge
       goal_status: Goal Status
       archived: Archived goals

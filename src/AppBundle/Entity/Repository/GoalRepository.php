@@ -10,7 +10,6 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
-use AppBundle\Model\loggableEntityRepositoryInterface;
 use AppBundle\Model\PublishAware;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
@@ -20,7 +19,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * Class GoalRepository
  * @package AppBundle\Entity\Repository
  */
-class GoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
+class GoalRepository extends EntityRepository
 {
     const TopIdeasCount = 100;
 
@@ -332,27 +331,6 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
         $query->addSelect('g, i');
 
         return $query->getQuery()->getResult();
-    }
-
-    /**
-     * @param $ids
-     * @return array|null
-     */
-    public function findByIdsWithRelations($ids)
-    {
-        if (!count($ids)){
-            return null;
-        }
-
-        return $this->getEntityManager()
-            ->createQuery("SELECT g, i, author
-                           FROM AppBundle:Goal g
-                           INDEX BY g.id
-                           LEFT JOIN g.images i
-                           LEFT JOIN g.author author
-                           WHERE g.id IN (:goalIds)")
-            ->setParameter('goalIds', $ids)
-            ->getResult();
     }
 
     /**

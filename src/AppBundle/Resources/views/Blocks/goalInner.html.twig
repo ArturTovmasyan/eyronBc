@@ -371,7 +371,10 @@
                                     <div class="row story-count">
                                         <div class="col-xs-7">
                                             <a name="success_story"></a>
-                                            <h4 class="text-dark-gray">{{ 'success_stories'|trans }}</h4>
+                                            <h4 class="text-dark-gray">
+                                                <i class="success-icon"></i>
+                                                {{ 'success_stories'|trans }}
+                                            </h4>
                                         </div>
                                         <div class="col-xs-5">
                                             {% if stories|length > 3 %}
@@ -521,9 +524,15 @@
                             <br />
 
                             {% if app.user %}
-                                <a name="comments"></a>
-                                <h4>{{ 'comments'|trans }}</h4><hr />
-                                <div id="fos_comment_thread"></div>
+
+                                <div ls-comment-manage
+                                     ls-goal-id="{{ goal.id }}"
+                                     ls-slug="{{ goal.slug }}"
+                                     ls-title="{{ 'comments'|trans }}"
+                                     ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                    {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                                    {{ nameOnImage  |upper}}{% endif %}">
+                                </div>
                             {% endif %}
                         {% endif %}
                     </div>

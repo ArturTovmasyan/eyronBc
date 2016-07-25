@@ -66,13 +66,6 @@ google_login:
 twitter_login:
     path: /login/check-twitter
 
-# for fos comment
-fos_comment_api:
-    type: rest
-    resource: "@ApplicationCommentBundle/Resources/config/routing.yml"
-    prefix: /api
-    defaults: { _format: html }
-
 # PrestaSitemapBundle routing enable
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
@@ -81,6 +74,11 @@ PrestaSitemapBundle:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc/
+
+comment_thread_api:
+    type:     rest
+    resource: Application\CommentBundle\Controller\Rest\CommentController
+    prefix:   /
 
 # custom rests
 app_user_goal_rest:
