@@ -364,6 +364,7 @@ admin:
       created: Created
       updated: Updated
       goal_link: Goal link
+      comments: Comments
       action_merge: Merge
       goal_status: Goal Status
       archived: Archived goals

@@ -20,7 +20,8 @@ angular.module('goal', ['Interpolation',
         'angulartics',
         'angulartics.google.analytics',
         'PathPrefix',
-        'slickCarousel'
+        'slickCarousel',
+        'comments'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -517,10 +518,10 @@ angular.module('goal', ['Interpolation',
             if(window.location.hash && window.location.hash == "#/comments"){
 
                 $('html, body').stop().animate( {
-                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                    'scrollTop': $('#random_goals').offset().top - 800
                 }, 900);
             }
-        }, 5000);
+        }, 3000);
 
         $scope.castInt = function(value){
             return parseInt(value);
@@ -542,13 +543,6 @@ angular.module('goal', ['Interpolation',
                 angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
             }
         }
-
-        $('body').on('keydown', '#fos_comment_comment_body', function(ev) {
-            if(ev.which === 13) {
-                ev.preventDefault();
-                ev.stopPropagation();
-            }
-        });
             
         $scope.manageVote = function(id){
         var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';

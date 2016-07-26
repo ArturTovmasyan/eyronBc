@@ -14,7 +14,7 @@ imports:
 #        query_cache_driver: apc
 
 assetic:
-    bundles:        [ AppBundle, FOSCommentBundle ]
+    bundles:        [ AppBundle ]
     debug:          %kernel.debug%
     use_controller: false
     filters:
