@@ -572,6 +572,7 @@ angular.module('goal', ['Interpolation',
         };
 
         imageResize();
+        angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
 
         $(window).resize(function(){
             // if(window.innerWidth > 991 && window.innerWidth < 1200){
@@ -580,6 +581,8 @@ angular.module('goal', ['Interpolation',
             //     angular.element('#main-slider img').removeClass("full-height")
             // }
             imageResize();
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
+
 
             if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
                 goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight();
