@@ -1782,6 +1782,41 @@ footer{
 
 .tooltip > .tooltip-inner {background: rgba(0, 0, 0, 0.45);}
 
+.ui-select-container{
+
+  .btn{
+    .rounded-corners(4px);
+  }
+
+  .btn-default{
+    &:focus{
+      background: transparent;
+      border: 1px solid #7724F6;
+      box-shadow: none;
+    }
+  }
+
+  .ui-select-choices.dropdown-menu{
+    min-width: 143px;
+  }
+
+  input{
+    color:#999999;
+    border: 1px solid #cecece;
+    box-shadow: none;
+
+    &:active,&:hover{
+      border: 1px solid #7724F6;
+    }
+
+    &:focus{
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}
+
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
