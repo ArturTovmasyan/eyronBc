@@ -528,13 +528,18 @@ angular.module('goal', ['Interpolation',
 
         var imageHeight;
 
+        if(angular.element('.quote').length > 0){
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 35 + 'px');
+        }
+
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
             var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
             var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
 
             if(goalImageBottom != mainSliderBottom){
                 var distance = goalImageBottom - mainSliderBottom;
-                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+                angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
             }
         }
 
@@ -572,7 +577,6 @@ angular.module('goal', ['Interpolation',
         };
 
         imageResize();
-        angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
 
         $(window).resize(function(){
             // if(window.innerWidth > 991 && window.innerWidth < 1200){
@@ -580,9 +584,8 @@ angular.module('goal', ['Interpolation',
             // }else{
             //     angular.element('#main-slider img').removeClass("full-height")
             // }
-            imageResize();
             angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
-
+            imageResize();
 
             if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
                 goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight();
@@ -590,7 +593,8 @@ angular.module('goal', ['Interpolation',
 
                 if (goalImageBottom != mainSliderBottom) {
                     var distance = goalImageBottom - mainSliderBottom;
-                    angular.element('#main-slider').css("height", angular.element('#main-slider').innerHeight() + distance)
+                    angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                    angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
                 }
             }
         });
