@@ -25,7 +25,6 @@ class AppKernel extends Kernel
             // fos bundles
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
-            new FOS\CommentBundle\FOSCommentBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 
             //oauth bundle

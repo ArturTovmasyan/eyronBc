@@ -329,6 +329,7 @@ admin:
       created: Поставлена
       updated: Обнавлена
       goal_link: Ссылка
+      comments: Комментарии
       featured_date: Featured Date
 
 # end sonata admin lable

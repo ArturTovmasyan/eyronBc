@@ -20,7 +20,8 @@ angular.module('goal', ['Interpolation',
         'angulartics',
         'angulartics.google.analytics',
         'PathPrefix',
-        'slickCarousel'
+        'slickCarousel',
+        'comments'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -517,10 +518,10 @@ angular.module('goal', ['Interpolation',
             if(window.location.hash && window.location.hash == "#/comments"){
 
                 $('html, body').stop().animate( {
-                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                    'scrollTop': $('#random_goals').offset().top - 800
                 }, 900);
             }
-        }, 5000);
+        }, 3000);
 
         $scope.castInt = function(value){
             return parseInt(value);
@@ -528,22 +529,20 @@ angular.module('goal', ['Interpolation',
 
         var imageHeight;
 
+        if(angular.element('.quote').length > 0){
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 35 + 'px');
+        }
+
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
             var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
             var mainSliderBottom = angular.element('#main-slider').offset().top + angular.element('#main-slider').outerHeight();
 
             if(goalImageBottom != mainSliderBottom){
                 var distance = goalImageBottom - mainSliderBottom;
-                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+                angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
             }
         }
-
-        $('body').on('keydown', '#fos_comment_comment_body', function(ev) {
-            if(ev.which === 13) {
-                ev.preventDefault();
-                ev.stopPropagation();
-            }
-        });
             
         $scope.manageVote = function(id){
         var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
@@ -579,6 +578,7 @@ angular.module('goal', ['Interpolation',
             // }else{
             //     angular.element('#main-slider img').removeClass("full-height")
             // }
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
             imageResize();
 
             if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
@@ -587,7 +587,8 @@ angular.module('goal', ['Interpolation',
 
                 if (goalImageBottom != mainSliderBottom) {
                     var distance = goalImageBottom - mainSliderBottom;
-                    angular.element('#main-slider').css("height", angular.element('#main-slider').innerHeight() + distance)
+                    angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                    angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
                 }
             }
         });

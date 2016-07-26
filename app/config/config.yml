@@ -39,7 +39,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v377
+        assets_version: v379
 
     default_locale:  en
     trusted_hosts:   ~
@@ -76,7 +76,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ AppBundle, FOSCommentBundle]
+    bundles:        [ AppBundle]
     #java: /usr/bin/java
     filters:
         uglifyjs2:
@@ -176,17 +176,6 @@ fos_user:
         address: "info@%project_name%.com"
         sender_name: "%email_sender%"
 
-
-# fos comment bundle
-fos_comment:
-    db_driver: orm
-    class:
-        model:
-            comment: Application\CommentBundle\Entity\Comment
-            thread: Application\CommentBundle\Entity\Thread
-    service:
-        sorting:
-            default: date_asc
 
 # fos rest bundle
 fos_rest:
