@@ -134,7 +134,7 @@ user_goal:
 # success story form
 success_story:
       error_year: вы не можете завершить цели на будущее время.
-      error_uncomplete_year: Пожалуйста, выберите дату, которая содержит все 3 поля.
+      error_uncomplete_year: Вы должны выбрать как минимум поле года.
       error_without_file: Пожалуйста, введите не менее 3 слов, ибо нет изображения или видео!
       error_widht_file:  Пожалуйста, напишите историю успеха!
       completion_date: Дата достижение цели

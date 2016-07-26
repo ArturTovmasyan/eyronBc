@@ -111,7 +111,7 @@
                  data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'>
                 <div class="ng-hide" data-ng-show="ProfileItems.userGoals.length">
                     {% if myProfile %}
-                        <div data-ng-class="{'active-idea': (profile.condition != 2 && userGoal.do_date)}" class="row goal[[ goal.id ]] goals-animate"
+                        <div data-ng-class="{'active-idea': ((status != '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}') && userGoal.do_date)}" class="row goal[[ goal.id ]] goals-animate"
                             data-ng-cloak
                             data-ng-repeat="userGoal in ProfileItems.userGoals"
                             data-ng-init="goal = userGoal.goal; status = userGoal.status">
