@@ -18,6 +18,55 @@
 {% endblock %}
 
 {% block content %}
+
+    <article style="display:none">
+        <header>
+            <!-- The cover image shown inside your article -->
+            <figure>
+                <img src="http://mydomain.com/path/to/img.jpg" />
+                <figcaption>This image is amazing</figcaption>
+            </figure>
+
+            <!-- The title and subtitle shown in your article -->
+            <h1> Title </h1>
+            <h2> Subtitle </h2>
+
+            <!-- A kicker for your article -->
+            <h3 class="op-kicker">
+                This is a kicker
+            </h3>
+
+            <!-- The author of your article -->
+            <address>
+                <a rel="facebook" href="http://facebook.com/brandon.diamond">Brandon Diamond</a>
+                Brandon is a avid zombie hunter.
+            </address>
+
+            <!-- The published and last modified time stamps -->
+            <time class="op-published" dateTime="2014-12-11T04:44:16Z">December 11th, 4:44 PM</time>
+            <time class="op-modified" dateTime="2014-12-11T04:44:16Z">December 11th, 4:44 PM</time>
+        </header>
+
+        <!-- Body text for your article -->
+        <p> This is some Instant Article content. </p>
+
+        <!-- A video within your article -->
+        <figure>
+            <video>
+                <source src="http://mydomain.com/path/to/video.mp4" type="video/mp4" />
+            </video>
+        </figure>
+
+        <!-- An image within your article -->
+        <figure>
+            <img src="http://mydomain.com/path/to/img.jpg" />
+            <figcaption>This image is amazing</figcaption>
+        </figure>
+
+    </article>
+
+
+
     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
 {% endblock %}
 
