@@ -12,14 +12,14 @@ angular.module('manage', ['Interpolation',
     'Authenticator',
     'angular-cache'
     ])
-    // .config(function(CacheFactoryProvider){
-    //   angular.extend(CacheFactoryProvider.defaults, {
-    //       maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
-    //       cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
-    //       deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
-    //       storageMode: 'localStorage' // This cache will use `localStorage`.
-    //   });
-    // })
+    .config(function(CacheFactoryProvider){
+      angular.extend(CacheFactoryProvider.defaults, {
+          maxAge: 24 * 60 * 60 * 1000, // Items added to this cache expire after 15 minutes.
+          cacheFlushInterval: 60 * 60 * 1000, // This cache will clear itself every hour.
+          deleteOnExpire: 'aggressive', // Items will be deleted from this cache right when they expire.
+          storageMode: 'localStorage' // This cache will use `localStorage`.
+      });
+    })
     .run(['$http', 'envPrefix', 'template', 'UserContext', 'CacheFactory', function($http, envPrefix, template, UserContext, CacheFactory){
         var addUrl = envPrefix + "goal/add-modal";
         var doneUrl = envPrefix + "goal/done-modal";
@@ -69,7 +69,7 @@ angular.module('manage', ['Interpolation',
                 template.commonTemplate = commonTemplate;
             }
 
-            if (goalUsersTemplate) {
+            if (!goalUsersTemplate) {
                 $http.get(goalUsersUrl).success(function(data){
                     template.goalUsersTemplate = data;
                     templateCache.put('goal-users-template'+id, data);
