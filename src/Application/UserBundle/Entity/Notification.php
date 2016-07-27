@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Notification
  *
  * @ORM\Table(name="notification")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\NotificationRepository")
+ * @ORM\Entity()
  */
 class Notification
 {
@@ -19,22 +19,23 @@ class Notification
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
-     * @var json
-     *
-     * @ORM\Column(name="data", type="json")
+     * @ORM\Column(name="body", type="string", length=200, nullable=false)
      */
-    private $data;
+    protected $body;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="performer_id", referencedColumnName="id")
+     */
+    protected $performer;
 
     /**
      * Get id
@@ -45,12 +46,6 @@ class Notification
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     **/
-    protected $user;
 
     /**
      * Set created
@@ -77,50 +72,50 @@ class Notification
     }
 
     /**
-     * Set data
+     * Set body
      *
-     * @param json $data
+     * @param string $body
      *
      * @return Notification
      */
-    public function setData($data)
+    public function setBody($body)
     {
-        $this->data = $data;
+        $this->body = $body;
 
         return $this;
     }
 
     /**
-     * Get data
+     * Get body
      *
-     * @return json
+     * @return string
      */
-    public function getData()
+    public function getBody()
     {
-        return $this->data;
+        return $this->body;
     }
 
     /**
-     * Set user
+     * Set performer
      *
-     * @param \Application\UserBundle\Entity\User $user
+     * @param \Application\UserBundle\Entity\User $performer
      *
      * @return Notification
      */
-    public function setUser(\Application\UserBundle\Entity\User $user = null)
+    public function setPerformer(\Application\UserBundle\Entity\User $performer = null)
     {
-        $this->user = $user;
+        $this->performer = $performer;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get performer
      *
      * @return \Application\UserBundle\Entity\User
      */
-    public function getUser()
+    public function getPerformer()
     {
-        return $this->user;
+        return $this->performer;
     }
 }
