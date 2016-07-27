@@ -1782,6 +1782,105 @@ footer{
 
 .tooltip > .tooltip-inner {background: rgba(0, 0, 0, 0.45);}
 
+.ui-select-container{
+  margin-bottom: 7px;
+  .ui-select-match{
+
+    span{
+      color: #999999;
+    }
+
+    .caret{
+      vertical-align: middle;
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      background: url('../images/select-icon.svg') no-repeat center center;
+      right: 0;
+      top: 4px;
+      border: 0;
+
+      &:hover,&:active{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
+    }
+  }
+
+  .btn-default,.btn-default-focus{
+    background: transparent;
+    box-shadow: none;
+    color: #999999;
+    transition: none;
+
+    .rounded-corners(4px);
+
+    &:hover{
+      box-shadow: none;
+      background: transparent;
+      border: 1px solid #7724F6;
+      .caret{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
+    }
+
+    &:focus,&:active{
+      background: transparent;
+      border: 1px solid #7724F6;
+      box-shadow: none;
+      .caret{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
+    }
+  }
+
+  .btn-default-focus{
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    outline-offset: 0;
+
+    &:hover,&:focus,&:active{
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      outline-offset: 0;
+    }
+  }
+
+  .ui-select-choices.dropdown-menu{
+    min-width: 143px;
+  }
+
+  .ui-select-choices-row{
+    a{
+      color: #999999;
+    }
+
+    &.active{
+      a{
+        color:#ffffff;
+        background-color: #7724F6;
+      }
+
+    }
+  }
+
+  input{
+    color:#999999;
+    border: 1px solid #cecece;
+    box-shadow: none;
+
+    &:active,&:hover{
+      border: 1px solid #7724F6;
+    }
+
+    &:focus{
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}
+
 @media (min-width: @screen-sm) {
   header {
     .navbar-default{
@@ -1890,8 +1989,6 @@ footer{
     font-size: 13px;
   }
 
-
-
   #signin{
     width: 330px;
   }
@@ -1969,7 +2066,6 @@ footer{
     }
   }
 
-
   .settings{
     padding: 20px;
 
@@ -1986,7 +2082,6 @@ footer{
       font-size: 14px;
     }
   }
-
 
   .standart-pages{
     padding-bottom:10px;
@@ -2007,7 +2102,9 @@ footer{
     }
   }
 
-
+  .ui-select-container{
+    margin-bottom: 0;
+  }
 
   #homepage{
 

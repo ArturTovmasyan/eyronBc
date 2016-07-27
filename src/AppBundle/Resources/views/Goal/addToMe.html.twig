@@ -37,8 +37,22 @@
                 </ul>
             </div>
         </div>
+        {% set arrayMonth = {
+        1:'form.month_january'|trans({}, 'FOSUserBundle'),
+        2:'form.month_february'|trans({}, 'FOSUserBundle'),
+        3:'form.month_march'|trans({}, 'FOSUserBundle'),
+        4:'form.month_april'|trans({}, 'FOSUserBundle'),
+        5:'form.month_may'|trans({}, 'FOSUserBundle'),
+        6:'form.month_june'|trans({}, 'FOSUserBundle'),
+        7:'form.month_july'|trans({}, 'FOSUserBundle'),
+        8:'form.month_august'|trans({}, 'FOSUserBundle'),
+        9:'form.month_september'|trans({}, 'FOSUserBundle'),
+        10:'form.month_october'|trans({}, 'FOSUserBundle'),
+        11:'form.month_november'|trans({}, 'FOSUserBundle'),
+        12:'form.month_december'|trans({}, 'FOSUserBundle') }
+        %}
 
-        <form class="form-horizontal" method="post" data-ng-init="redirectPath='{{ path('user_profile') }}'">
+        <form class="form-horizontal" method="post" data-ng-init="myMonths={{ arrayMonth |json_encode()}}; redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">
                 {# edit goal status #}
                 <div class="clearfix ng-hide" data-ng-show="userGoal.id">
@@ -103,62 +117,71 @@
                 <div data-ng-cloak class="form-group row" >
 
                     <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
-                        <select name="year" data-ng-model="year">
-                            <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
-                            {% set maxYear = "now"|date_modify("+50 year")|date("Y") %}
-                            {#todo true date #}
-                            {% for year in maxYear..1966 %}
-                                <option value="{{ year }}">{{ year }}</option>
-                            {% endfor %}
-                        </select>
+                        <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
+
+                            <ui-select-choices repeat="y in years">
+                                <span data-ng-bind="y"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                     <div class="col-sm-4 ng-hide" data-ng-show="complete.switch">
-                        <select name="year" data-ng-model="year">
-                            <option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>
-                            {% set maxYear = "now"|date("Y") %}
-                            {#todo true date #}
-                            {% for year in maxYear..1966 %}
-                                <option value="{{ year }}">{{ year }}</option>
-                            {% endfor %}
-                        </select>
+                        <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
+
+                            <ui-select-choices repeat="y in completeYears">
+                                <span data-ng-bind="y"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
 
-                    <div class="col-sm-4 date">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                        <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
 
-                        {% set arrayMonth = {
-                            1:'form.month_january'|trans({}, 'FOSUserBundle'),
-                            2:'form.month_february'|trans({}, 'FOSUserBundle'),
-                            3:'form.month_march'|trans({}, 'FOSUserBundle'),
-                            4:'form.month_april'|trans({}, 'FOSUserBundle'),
-                            5:'form.month_may'|trans({}, 'FOSUserBundle'),
-                            6:'form.month_june'|trans({}, 'FOSUserBundle'),
-                            7:'form.month_july'|trans({}, 'FOSUserBundle'),
-                            8:'form.month_august'|trans({}, 'FOSUserBundle'),
-                            9:'form.month_september'|trans({}, 'FOSUserBundle'),
-                            10:'form.month_october'|trans({}, 'FOSUserBundle'),
-                            11:'form.month_november'|trans({}, 'FOSUserBundle'),
-                            12:'form.month_december'|trans({}, 'FOSUserBundle') }
-                        %}
-
-                        {#{% set months = form.birthDate.month.vars.choices %}#}
-
-                        <select name="months" data-ng-model="month">
-                            <option value="">{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>
-                            {% for key, month in arrayMonth %}
-                                <option value="{{ key }}">{{ month }}</option>
-                            {% endfor %}
-                        </select>
+                            <ui-select-choices repeat="m in months">
+                                <span data-ng-bind="m"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
-                    <div class="col-sm-4 date">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
+                        <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
 
-                        <select name="days" data-ng-model="day">
+                            <ui-select-choices repeat="m in months">
+                                <span data-ng-bind="m"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                        <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
 
-                            <option value="">{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>
+                            <ui-select-choices repeat="day in days">
+                                <span data-ng-bind="day"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
+                        <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
 
-                            {% for day in 1..31 %}
-                                <option value="{{ day }}">{{ day }}</option>
-                            {% endfor %}
-                        </select>
+                            <ui-select-choices repeat="day in days">
+                                <span data-ng-bind="day"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                 </div>
 
