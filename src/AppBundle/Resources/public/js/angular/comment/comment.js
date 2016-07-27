@@ -21,6 +21,7 @@ angular.module('comments', ['Interpolation',
       link: function(scope, el){
         var showStepCount = 5;
         var forEnd = 0;
+        var busy = false;
 
         CommentManager.comments({param1:'goal_'+scope.lsSlug}, function (resource){
           scope.comments = resource;
@@ -55,11 +56,18 @@ angular.module('comments', ['Interpolation',
           if(ev.which == 13 && comment.replyBody.length) {
             ev.preventDefault();
             ev.stopPropagation();
-            CommentManager.add({param1: scope.lsGoalId, param2: comment.id}, {'commentBody': comment.replyBody}, function (data) {
-              comment.reply = true;
-              comment.replyBody = '';
-              comment.children.push(data);
-            });
+            if(!busy) {
+              busy = true;
+              CommentManager.add({
+                param1: scope.lsGoalId,
+                param2: comment.id
+              }, {'commentBody': comment.replyBody}, function (data) {
+                comment.reply = true;
+                comment.replyBody = '';
+                busy = false;
+                comment.children.push(data);
+              });
+            }
           }
         };
         
@@ -67,10 +75,14 @@ angular.module('comments', ['Interpolation',
           if(ev.which == 13 && scope.commentBody.length){
             ev.preventDefault();
             ev.stopPropagation();
-            CommentManager.add({param1:scope.lsGoalId}, {'commentBody': scope.commentBody},function (data) {
-              scope.commentBody = '';
-              scope.comments.push(data);
-            });
+            if(!busy){
+              busy = true;
+              CommentManager.add({param1:scope.lsGoalId}, {'commentBody': scope.commentBody},function (data) {
+                scope.commentBody = '';
+                busy = false;
+                scope.comments.push(data);
+              });
+            }
           }
         }
         
