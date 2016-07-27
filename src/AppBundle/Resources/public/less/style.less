@@ -1783,8 +1783,13 @@ footer{
 .tooltip > .tooltip-inner {background: rgba(0, 0, 0, 0.45);}
 
 .ui-select-container{
-
+  margin-bottom: 7px;
   .ui-select-match{
+
+    span{
+      color: #999999;
+    }
+
     .caret{
       vertical-align: middle;
       display: inline-block;
@@ -1793,7 +1798,6 @@ footer{
       background: url('../images/select-icon.svg') no-repeat center center;
       right: 0;
       top: 4px;
-      z-index: 10000000;
       border: 0;
 
       &:hover,&:active{
@@ -1802,13 +1806,16 @@ footer{
     }
   }
 
-  .btn-default{
+  .btn-default,.btn-default-focus{
     background: transparent;
     box-shadow: none;
+    color: #999999;
+    transition: none;
 
     .rounded-corners(4px);
 
     &:hover{
+      box-shadow: none;
       background: transparent;
       border: 1px solid #7724F6;
       .caret{
@@ -1826,8 +1833,30 @@ footer{
     }
   }
 
+  .btn-default-focus{
+    &:hover,&:focus,&:active{
+      border: 0;
+      outline: 0;
+      outline-offset: 0;
+    }
+  }
+
   .ui-select-choices.dropdown-menu{
     min-width: 143px;
+  }
+
+  .ui-select-choices-row{
+    a{
+      color: #999999;
+    }
+
+    &.active{
+      a{
+        color:#ffffff;
+        background-color: #7724F6;
+      }
+
+    }
   }
 
   input{
@@ -1954,8 +1983,6 @@ footer{
     font-size: 13px;
   }
 
-
-
   #signin{
     width: 330px;
   }
@@ -2033,7 +2060,6 @@ footer{
     }
   }
 
-
   .settings{
     padding: 20px;
 
@@ -2050,7 +2076,6 @@ footer{
       font-size: 14px;
     }
   }
-
 
   .standart-pages{
     padding-bottom:10px;
@@ -2071,7 +2096,9 @@ footer{
     }
   }
 
-
+  .ui-select-container{
+    margin-bottom: 0;
+  }
 
   #homepage{
 
