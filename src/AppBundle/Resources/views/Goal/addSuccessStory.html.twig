@@ -79,7 +79,7 @@
                 <div class="form-group row">
                     <div class="col-sm-4 date">
                         {#<select name="year" data-ng-model="year">#}
-                            <ui-select search-enabled="false" data-ng-model="year" on-select="selectDate('year', $model)">
+                            <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true" on-select="selectDate('year', $model)">
                                 <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                     <span>[[ $select.selected ]]</span>
                                 </ui-select-match>
@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="month" on-select="selectDate('month', $model)">
+                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true" on-select="selectDate('month', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="col-sm-4 date">
 
-                        <ui-select search-enabled="false" data-ng-model="day" on-select="selectDate('day', $model)">
+                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true" on-select="selectDate('day', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>

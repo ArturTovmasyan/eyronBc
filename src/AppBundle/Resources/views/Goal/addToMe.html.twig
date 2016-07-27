@@ -117,7 +117,7 @@
                 <div data-ng-cloak class="form-group row" >
 
                     <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
-                        <ui-select search-enabled="false" data-ng-model="year" on-select="selectDate('year', $model)">
+                        <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true" on-select="selectDate('year', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -128,7 +128,7 @@
                         </ui-select>
                     </div>
                     <div class="col-sm-4 ng-hide" data-ng-show="complete.switch">
-                        <ui-select search-enabled="false" data-ng-model="year" on-select="selectDate('year', $model)">
+                        <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true" on-select="selectDate('year', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -149,7 +149,7 @@
                                 {#<option value="{{ key }}">{{ month }}</option>#}
                             {#{% endfor %}#}
                         {#</select>#}
-                        <ui-select search-enabled="false" data-ng-model="month" on-select="selectDate('month', $model)">
+                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true" on-select="selectDate('month', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -160,7 +160,7 @@
                         </ui-select>
                     </div>
                     <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
-                        <ui-select search-enabled="false" data-ng-model="month" on-select="selectDate('month', $model)">
+                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true" on-select="selectDate('month', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -180,7 +180,7 @@
                                 {#<option value="{{ day }}">{{ day }}</option>#}
                             {#{% endfor %}#}
                         {#</select>#}
-                        <ui-select search-enabled="false" data-ng-model="day" on-select="selectDate('day', $model)">
+                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true" on-select="selectDate('day', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -191,7 +191,7 @@
                         </ui-select>
                     </div>
                     <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
-                        <ui-select search-enabled="false" data-ng-model="day" on-select="selectDate('day', $model)">
+                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true" on-select="selectDate('day', $model)">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>

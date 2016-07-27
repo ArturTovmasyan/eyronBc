@@ -254,11 +254,9 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.selectDate = function (item, $model) {
         $scope[item] = $model;
+
       };
 
-      // $timeout(function(){
-      //   angular.element("#story-modal select").niceSelect();
-      // }, 300);
       var date = new Date();
 
       $timeout(function () {
@@ -479,10 +477,6 @@ angular.module('goalComponents', ['Interpolation',
         $scope[item] = $model;
       };
 
-      // $timeout(function(){
-      //   angular.element("#goal-modal select").niceSelect();
-      // }, 300);
-      
       $scope.updateDate = function (date) {
         $scope.yearScope1.$select.selected = '';
         $scope.yearScope2.$select.selected = '';

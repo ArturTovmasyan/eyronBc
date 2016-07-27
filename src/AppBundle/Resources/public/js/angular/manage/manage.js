@@ -42,7 +42,7 @@ angular.module('manage', ['Interpolation',
             var commonTemplate = templateCache.get('common-template'+id);
             var goalUsersTemplate = templateCache.get('goal-users-template'+id);
 
-            if (addTemplate) {
+            if (!addTemplate) {
                 $http.get(addUrl).success(function(data){
                     template.addTemplate = data;
                     templateCache.put('add-template'+id, data);

@@ -1784,15 +1784,45 @@ footer{
 
 .ui-select-container{
 
-  .btn{
-    .rounded-corners(4px);
+  .ui-select-match{
+    .caret{
+      vertical-align: middle;
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      background: url('../images/select-icon.svg') no-repeat center center;
+      right: 0;
+      top: 4px;
+      z-index: 10000000;
+      border: 0;
+
+      &:hover,&:active{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
+    }
   }
 
   .btn-default{
-    &:focus{
+    background: transparent;
+    box-shadow: none;
+
+    .rounded-corners(4px);
+
+    &:hover{
+      background: transparent;
+      border: 1px solid #7724F6;
+      .caret{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
+    }
+
+    &:focus,&:active{
       background: transparent;
       border: 1px solid #7724F6;
       box-shadow: none;
+      .caret{
+        background: url('../images/select-icon-hover.svg') no-repeat center center;
+      }
     }
   }
 
@@ -1815,7 +1845,6 @@ footer{
     }
   }
 }
-
 
 @media (min-width: @screen-sm) {
   header {
