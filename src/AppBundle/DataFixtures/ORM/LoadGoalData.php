@@ -841,20 +841,14 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->flush();
 
         $thread = new Thread();
-        $thread->setId($goal9->getId());
-        $thread->setPermalink("http://behat.bucketlist.loc/goal/goal9");
-        $thread->setCommentable(true);
+        $thread->setId('goal_'.$goal9->getSlug());
         $thread->setNumComments(3);
-        $thread->setLastCommentAt(new \DateTime('now'));
 
         $manager->persist($thread);
 
         $thread1 = new Thread();
-        $thread1->setId($goal10->getId());
-        $thread1->setPermalink("http://behat.bucketlist.loc/goal/goal11");
-        $thread1->setCommentable(true);
+        $thread1->setId('goal_'.$goal10->getSlug());
         $thread1->setNumComments(3);
-        $thread1->setLastCommentAt(new \DateTime('now'));
 
         $manager->persist($thread1);
 
