@@ -46,7 +46,7 @@ angular.module('manage', ['Interpolation',
                 $http.get(addUrl).success(function(data){
                     template.addTemplate = data;
                     templateCache.put('add-template'+id, data);
-                    })
+                })
             }else {
                 template.addTemplate = addTemplate;
             }

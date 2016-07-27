@@ -78,27 +78,19 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4 date">
-                        {#<select name="year" data-ng-model="year">#}
-                            <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true" on-select="selectDate('year', $model)">
-                                <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
-                                    <span>[[ $select.selected ]]</span>
-                                </ui-select-match>
+                        <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true">
+                            <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
+                                <span>[[ $select.selected ]]</span>
+                            </ui-select-match>
 
-                                <ui-select-choices repeat="y in years">
-                                    <span data-ng-bind="y"></span>
-                                </ui-select-choices>
-                            </ui-select>
-                            {#<option value="">{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}</option>#}
-                            {#{% set maxYear = "now"|date("Y") %}#}
-                            {#todo true date #}
-                            {#{% for year in maxYear..1966 %}#}
-                                {#<option value="{{ year }}">{{ year }}</option>#}
-                            {#{% endfor %}#}
-                        {#</select>#}
+                            <ui-select-choices repeat="y in years">
+                                <span data-ng-bind="y"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
 
                     <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true" on-select="selectDate('month', $model)">
+                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -107,16 +99,10 @@
                                 <span data-ng-bind="m"></span>
                             </ui-select-choices>
                         </ui-select>
-                        {#<select name="months" data-ng-model="month">#}
-                            {#<option value="">{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}</option>#}
-                            {#{% for key, month in arrayMonth %}#}
-                                {#<option value="{{ key }}">{{ month }}</option>#}
-                            {#{% endfor %}#}
-                        {#</select>#}
                     </div>
                     <div class="col-sm-4 date">
 
-                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true" on-select="selectDate('day', $model)">
+                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -125,14 +111,6 @@
                                 <span data-ng-bind="day"></span>
                             </ui-select-choices>
                         </ui-select>
-                        {#<select name="days" data-ng-model="day">#}
-
-                            {#<option value="">{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}</option>#}
-
-                            {#{% for day in 1..31 %}#}
-                                {#<option value="{{ day }}">{{ day }}</option>#}
-                            {#{% endfor %}#}
-                        {#</select>#}
                     </div>
                 </div>
                 <div class="text-gray small-size">{{ "success_story.complete_edit_text"|trans }}</div>

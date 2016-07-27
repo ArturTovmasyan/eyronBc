@@ -252,18 +252,12 @@ angular.module('goalComponents', ['Interpolation',
         $scope.months = _.values(m);
       });
 
-      $scope.selectDate = function (item, $model) {
-        $scope[item] = $model;
-
-      };
-
-      var date = new Date();
-
       $timeout(function () {
+        var date = new Date();
         $scope.month = $scope.myMonths[moment(date).format('M')];
         $scope.day = moment(date).format('D');
         $scope.year = moment(date).format('YYYY');
-      }, 100);
+      }, 500);
 
       $scope.userGoal = userGoalData.doneData;
       $scope.noStory = false;
@@ -473,18 +467,7 @@ angular.module('goalComponents', ['Interpolation',
         $scope.months = _.values(m);
       });
 
-      $scope.selectDate = function (item, $model) {
-        $scope[item] = $model;
-      };
-
       $scope.updateDate = function (date) {
-        $scope.yearScope1.$select.selected = '';
-        $scope.yearScope2.$select.selected = '';
-        $scope.monthScope1.$select.selected = '';
-        $scope.monthScope2.$select.selected = '';
-        $scope.dayScope1.$select.selected = '';
-        $scope.dayScope2.$select.selected = '';
-
         if(date){
           $scope.month = $scope.myMonths[moment(date).format('M')];
           $scope.day = moment(date).format('D');
@@ -498,12 +481,6 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.userGoal = userGoalData.data;
       $timeout(function(){
-        $scope.yearScope1 = $scope.$$childHead;
-        $scope.yearScope2 = $scope.yearScope1.$$nextSibling;
-        $scope.monthScope1 = $scope.yearScope2.$$nextSibling;
-        $scope.monthScope2 = $scope.monthScope1.$$nextSibling;
-        $scope.dayScope1 = $scope.monthScope2.$$nextSibling;
-        $scope.dayScope2 = $scope.dayScope1.$$nextSibling;
         if(!angular.isUndefined($scope.userGoal.completion_date) && $scope.userGoal.status == UserGoalConstant['COMPLETED']){
           $scope.updateDate($scope.userGoal.completion_date);
           $scope.userGoal.completion_date = moment($scope.userGoal.completion_date).format('MM-DD-YYYY');
@@ -512,7 +489,7 @@ angular.module('goalComponents', ['Interpolation',
             $scope.updateDate($scope.userGoal.do_date);
           }
         }
-      }, 30);
+      }, 500);
       angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
       $scope.GoalConstant = GoalConstant;
       $scope.UserGoalConstant = UserGoalConstant;
@@ -547,10 +524,6 @@ angular.module('goalComponents', ['Interpolation',
               $scope.updateDate(null);
             }
           }
-
-          $timeout(function(){
-            angular.element("#goal-modal select").niceSelect('update');
-          }, 20);
 
         }
         else {
