@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('profile', ['Interpolation',
+  'Google',
   'Components',
   'angular-cache',
   'ngSanitize',
