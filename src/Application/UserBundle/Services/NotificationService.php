@@ -34,6 +34,10 @@ class NotificationService
         }
 
         foreach($toUsers as $toUser){
+            if ($user->getId() == $toUser->getId()){
+                continue;
+            }
+
             $userNotification = new UserNotification();
             $userNotification->setUser($toUser);
             $userNotification->setNotification($notification);

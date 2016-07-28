@@ -324,6 +324,7 @@ users: users
 
 notification:
   success_story: <a href="%profile_link%">%user%</a> wrote success story on your goal
+  important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important goal
   success_story_vote: <a href="%profile_link%">%user%</a> vote your success story
 
 most-popular: Most popular

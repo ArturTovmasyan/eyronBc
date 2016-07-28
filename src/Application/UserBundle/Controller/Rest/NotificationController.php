@@ -119,7 +119,7 @@ class NotificationController extends Controller
      * @param $userNotificationId
      * @return Response
      */
-    public function getDeleteAction($userNotificationId)
+    public function deleteAction($userNotificationId)
     {
         $em = $this->getDoctrine()->getManager();
         $userNotification = $em->getRepository('ApplicationUserBundle:UserNotification')->findUserNotification($userNotificationId);
