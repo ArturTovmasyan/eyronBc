@@ -134,8 +134,7 @@ Feature: My Bucket list
     And I am on "/goal/goal9"
     Then I should see "Comments"
     And should see "Show More"
-    And I fill in "fos_comment_comment[body]" with "GOOD COMMENT"
-    And I follow "Show More"
+    And I fill in "commentBody" with "GOOD COMMENT"
     And I wait for view "500"
     Then I should see "Comment5"
 
