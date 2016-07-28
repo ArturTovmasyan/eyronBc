@@ -115,6 +115,10 @@ application_user_rest:
     type:     rest
     resource: Application\UserBundle\Controller\Rest\UserController
 
+application_notification_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\NotificationController
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 

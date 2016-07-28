@@ -3,6 +3,7 @@
 namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Notification
@@ -18,24 +19,36 @@ class Notification
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"notification"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="created", type="datetime")
+     * @Groups({"notification"})
      */
     protected $created;
 
     /**
      * @ORM\Column(name="body", type="string", length=200, nullable=false)
+     * @Groups({"notification"})
      */
     protected $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="performer_id", referencedColumnName="id")
+     *
+     * @Groups({"notification_performer"})
      */
     protected $performer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Application\UserBundle\Entity\Notification", mappedBy="notification")
+     *
+     * @Groups({"notification_userNotification"})
+     */
+    protected $userNotifications;
 
     /**
      * Get id
@@ -117,5 +130,46 @@ class Notification
     public function getPerformer()
     {
         return $this->performer;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->userNotifications = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add userNotification
+     *
+     * @param \Application\UserBundle\Entity\Notification $userNotification
+     *
+     * @return Notification
+     */
+    public function addUserNotification(\Application\UserBundle\Entity\Notification $userNotification)
+    {
+        $this->userNotifications[] = $userNotification;
+
+        return $this;
+    }
+
+    /**
+     * Remove userNotification
+     *
+     * @param \Application\UserBundle\Entity\Notification $userNotification
+     */
+    public function removeUserNotification(\Application\UserBundle\Entity\Notification $userNotification)
+    {
+        $this->userNotifications->removeElement($userNotification);
+    }
+
+    /**
+     * Get userNotifications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserNotifications()
+    {
+        return $this->userNotifications;
     }
 }

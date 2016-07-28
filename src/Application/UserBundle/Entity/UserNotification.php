@@ -8,9 +8,10 @@
 namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserNotificationRepository")
  * @ORM\Table(name="user_notification")
  */
 class UserNotification
@@ -19,23 +20,30 @@ class UserNotification
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"userNotification"})
      */
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *
+     * @Groups({"userNotification_user"})
      */
     protected $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\Notification")
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\Notification", inversedBy="userNotifications")
      * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
+     *
+     * @Groups({"userNotification_notification"})
      */
     protected $notification;
 
     /**
      * @ORM\Column(name="is_read", type="boolean", nullable=false)
+     *
+     * @Groups({"userNotification"})
      */
     protected $isRead = false;
 
