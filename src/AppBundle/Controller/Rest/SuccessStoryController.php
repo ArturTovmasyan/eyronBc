@@ -84,6 +84,7 @@ class SuccessStoryController extends FOSRestController
             //send success story notify
             $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
 
+            //TODO: duplicate, will be deleted with this action
             //Send notification to goal author
             $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
             $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
