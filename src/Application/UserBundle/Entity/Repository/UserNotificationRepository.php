@@ -16,7 +16,8 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT un, n
                            FROM ApplicationUserBundle:UserNotification un
                            JOIN un.notification n
-                           WHERE un.user = :userId")
+                           WHERE un.user = :userId
+                           ORDER BY n.created DESC")
             ->setParameter('userId', $userId)
             ->setFirstResult($first)
             ->setMaxResults($count)
