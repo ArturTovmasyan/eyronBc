@@ -1,5 +1,6 @@
-comment_notification: <a href="%profile_link%">%user%</a> написал коммент под вашей идеей
-reply_notification: <a href="%profile_link%">%user%</a> атветил на коммент под вашей идеей
+notification:
+  comment: <a href="%profile_link%">%user%</a> написал коммент под вашей идеей
+  reply: <a href="%profile_link%">%user%</a> атветил на коммент под вашей идеей
 
 admin:
   label:

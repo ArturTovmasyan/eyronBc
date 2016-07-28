@@ -39,10 +39,11 @@ class SuccessStoryRepository extends EntityRepository
     public function findStoryWithVotes($storyId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT ss, v, u
+            ->createQuery("SELECT ss, v, u, g
                            FROM AppBundle:SuccessStory ss
                            LEFT JOIN ss.voters v
                            LEFT JOIN ss.user u
+                           LEFT JOIN ss.goal g
                            WHERE ss.id = :storyId")
             ->setParameter('storyId', $storyId)
             ->getOneOrNullResult();
