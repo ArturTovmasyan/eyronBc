@@ -52,7 +52,7 @@ class Notification
     protected $performer;
 
     /**
-     * @ORM\OneToMany(targetEntity="Application\UserBundle\Entity\Notification", mappedBy="notification")
+     * @ORM\OneToMany(targetEntity="Application\UserBundle\Entity\UserNotification", mappedBy="notification")
      *
      * @Groups({"notification_userNotification"})
      */
@@ -150,11 +150,11 @@ class Notification
     /**
      * Add userNotification
      *
-     * @param \Application\UserBundle\Entity\Notification $userNotification
+     * @param \Application\UserBundle\Entity\UserNotification $userNotification
      *
-     * @return Notification
+     * @return UserNotification
      */
-    public function addUserNotification(\Application\UserBundle\Entity\Notification $userNotification)
+    public function addUserNotification(\Application\UserBundle\Entity\UserNotification $userNotification)
     {
         $this->userNotifications[] = $userNotification;
 
@@ -164,9 +164,9 @@ class Notification
     /**
      * Remove userNotification
      *
-     * @param \Application\UserBundle\Entity\Notification $userNotification
+     * @param \Application\UserBundle\Entity\UserNotification $userNotification
      */
-    public function removeUserNotification(\Application\UserBundle\Entity\Notification $userNotification)
+    public function removeUserNotification(\Application\UserBundle\Entity\UserNotification $userNotification)
     {
         $this->userNotifications->removeElement($userNotification);
     }

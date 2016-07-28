@@ -32,4 +32,16 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('userId', $userId)
             ->execute();
     }
+
+    public function findUserNotification($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT un, n, uns
+                           FROM ApplicationUserBundle:UserNotification un
+                           JOIN un.notification n
+                           LEFT JOIN n.userNotifications uns
+                           WHERE un.id = :id")
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
 }

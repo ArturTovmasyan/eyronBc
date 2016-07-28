@@ -99,6 +99,12 @@ class CommentController extends FOSRestController
         //check if goal author is not admin and not null
         if($goal && $goal->hasAuthorForNotify($this->getUser()->getId())) {
             $this->get('user_notify')->sendNotifyAboutNewComment($goal, $this->getUser(), null);
+
+            //Send notification to goal author
+            $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
+            $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
+            $body = $this->get('translator')->trans(is_null($parentComment) ? 'comment_notification' : 'reply_notification', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink]);
+            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
         }
 
 

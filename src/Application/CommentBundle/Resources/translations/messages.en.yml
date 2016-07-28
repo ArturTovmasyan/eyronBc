@@ -1,3 +1,6 @@
+comment_notification: <a href="%profile_link%">%user%</a> commented on your goal
+reply_notification: <a href="%profile_link%">%user%</a> replied to a comment on your goal
+
 admin:
   label:
     name:

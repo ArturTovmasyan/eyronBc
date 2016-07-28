@@ -80,10 +80,11 @@ class NotificationController extends Controller
      * @ApiDoc(
      *  resource=true,
      *  section="Notification",
-     *  description="This function is used to set all notifications as read",
+     *  description="This function is used to set single notification as read",
      *  statusCodes={
      *         200="Returned when notification was set as unread",
-     *         401="Returned when user not authenticated"
+     *         401="Returned when user not authenticated",
+     *         404="Returned when userNotification not found with that id",
      *  },
      *
      * )
@@ -96,6 +97,46 @@ class NotificationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $userNotification->setIsRead(true);
+        $em->flush();
+
+        return new Response('ok');
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Notification",
+     *  description="This function is used to remove user notification",
+     *  statusCodes={
+     *         200="Returned when notification was remove",
+     *         401="Returned when user not authenticated",
+     *         404="Returned when userNotification not found with that id"
+     *  },
+     *
+     * )
+     *
+     * @Secure(roles="ROLE_USER")
+     * @param $userNotificationId
+     * @return Response
+     */
+    public function getDeleteAction($userNotificationId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userNotification = $em->getRepository('ApplicationUserBundle:UserNotification')->findUserNotification($userNotificationId);
+
+        if (is_null($userNotification)){
+            throw new HttpException(Response::HTTP_NOT_FOUND, 'User notification with such id not found');
+        }
+
+        $notification = $userNotification->getNotification();
+
+        $notification->removeUserNotification($userNotification);
+        $em->remove($userNotification);
+
+        if ($notification->getUserNotifications()->count() == 0){
+            $em->remove($notification);
+        }
+
         $em->flush();
 
         return new Response('ok');
