@@ -57,7 +57,7 @@ Feature: Activity
     And I scroll page to "icon-top-idea"
     And I should see "Top Ideas"
     When I follow "Top Ideas"
-    Then I should be on "/ideas"
+    Then I should be on "/ideas/most-popular"
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     When I scroll page to ".social"
     And I wait for view "500"
