@@ -533,7 +533,7 @@ class GoalController extends FOSRestController
 
 
     /**
-     * @Rest\Get("/goals/{first}/friends/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{first}/friends/{count}/{type}", defaults={"type"="all"}, requirements={"first"="\d+", "count"="\d+", "type"="all|recently|match|active"}, name="get_goal_friends", options={"method_prefix"=false})
      * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2"}, name="get_goal_user_list")
      *
      * @ApiDoc(
@@ -549,11 +549,12 @@ class GoalController extends FOSRestController
      * @param Request $request
      * @param $first
      * @param $count
+     * @param $type
      * @param null $goalId
      * @param null $slug
      * @return array
      */
-    public function getFriendsAction(Request $request, $first, $count, $goalId = null, $slug = null)
+    public function getFriendsAction(Request $request, $first, $count, $type = 'all', $goalId = null, $slug = null)
     {
         if ($request->get('route_') == 'get_goal_friends' && !is_object($this->getUser())){
             throw new HttpException(401);
@@ -568,7 +569,7 @@ class GoalController extends FOSRestController
                 ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
         }
         else {
-            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), $search, $first, $count);
+            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), $type, $search, $first, $count);
         }
 
         $userIds = array_keys($users);

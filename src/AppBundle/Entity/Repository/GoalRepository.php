@@ -14,6 +14,8 @@ use AppBundle\Model\PublishAware;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class GoalRepository
@@ -410,28 +412,36 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $userId
+     * @param $type
      * @param $search
      * @param $first
      * @param $count
      * @return array|Query
      */
-    public function findGoalFriends($userId, $search, $first, $count)
+    public function findGoalFriends($userId, $type, $search, $first, $count)
     {
         $search = str_replace(' ', '', $search);
+
+        if (!is_numeric($first) || !is_numeric($count)) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST);
+        }
 
         //TODO roles in query must be changed
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
-                    ->select('DISTINCT u.id')
+                    ->select('DISTINCT u')
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                     ->where("u.id != :userId")
                     ->andWhere('u.roles = :roles')
+                    ->groupBy('u.id')
                     ->setParameter('userId', $userId)
                     ->setParameter('roles', 'a:0:{}')
-                    ;
+                    ->setFirstResult($first)
+                    ->setMaxResults($count)
+            ;
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -441,16 +451,30 @@ class GoalRepository extends EntityRepository
                 ->setParameter('search', '%' . $search . '%');
         }
 
-        if (!is_null($first) && !is_null($count)){
 
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count)
-            ;
+        switch ($type) {
+            case 'recently':
+                $query->orderBy('u.name', 'ASC');
+                break;
+            case 'match':
+                break;
+            case 'active':
+                $query
+                    ->addSelect('((SELECT COUNT(c) FROM ApplicationCommentBundle:Comment c WHERE c.author = u) +
+                                  (SELECT COUNT(ss) FROM AppBundle:SuccessStory ss WHERE ss.user = u)) HIDDEN cnt ')
+                    ->orderBy('cnt', 'DESC');
+                break;
         }
 
+//        $query
+//            ->addSelect('COUNT(cmt.id), COUNT(ss.id), COUNT(cmt.id) + COUNT(ss.id) cnt')
+//            ->leftJoin('ApplicationCommentBundle:Comment' , 'cmt', 'WITH', 'cmt.author = u')
+//            ->leftJoin('AppBundle:SuccessStory' , 'ss', 'WITH', 'ss.user = u')
+//            ->orderBy('cnt', 'DESC');
 
         return $query->getQuery()->getResult();
+
+//        dump($query->getQuery()->getResult()); exit;
     }
 
     /**
