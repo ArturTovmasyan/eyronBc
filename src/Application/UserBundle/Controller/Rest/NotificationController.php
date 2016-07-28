@@ -7,19 +7,10 @@
  */
 namespace Application\UserBundle\Controller\Rest;
 
-use Application\UserBundle\Entity\User;
-use Application\UserBundle\Form\SettingsType;
-use Application\UserBundle\Form\UserNotifySettingsType;
+use Application\UserBundle\Entity\UserNotification;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,6 +32,7 @@ class NotificationController extends Controller
      *  description="This function is used to get user notifications",
      *  statusCodes={
      *         200="Returned when notifications was returned",
+     *         401="Returned when user not authenticated"
      *  },
      *
      * )
@@ -59,5 +51,53 @@ class NotificationController extends Controller
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')->getUserNotifications($this->getUSer()->getId(), $first, $count);
 
         return $userNotifications;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Notification",
+     *  description="This function is used to set all notifications as read",
+     *  statusCodes={
+     *         200="Returned when notifications was set as unread",
+     *         401="Returned when user not authenticated"
+     *  },
+     *
+     * )
+     *
+     * @Secure(roles="ROLE_USER")
+     * @return array
+     */
+    public function getAllReadAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository('ApplicationUserBundle:UserNotification')->setAsReadAllNotifications($this->getUSer()->getId());
+
+        return new Response('ok');
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Notification",
+     *  description="This function is used to set all notifications as read",
+     *  statusCodes={
+     *         200="Returned when notification was set as unread",
+     *         401="Returned when user not authenticated"
+     *  },
+     *
+     * )
+     *
+     * @Secure(roles="ROLE_USER")
+     * @param UserNotification $userNotification
+     * @return Response
+     */
+    public function getReadAction(UserNotification $userNotification)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userNotification->setIsRead(true);
+        $em->flush();
+
+        return new Response('ok');
     }
 }

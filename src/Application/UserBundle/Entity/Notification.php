@@ -4,6 +4,7 @@ namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Notification
@@ -24,6 +25,7 @@ class Notification
     protected $id;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      * @Groups({"notification"})
      */
@@ -34,6 +36,12 @@ class Notification
      * @Groups({"notification"})
      */
     protected $body;
+
+    /**
+     * @ORM\Column(name="link", type="string", length=100, nullable=false)
+     * @Groups({"notification"})
+     */
+    protected $link;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
@@ -171,5 +179,21 @@ class Notification
     public function getUserNotifications()
     {
         return $this->userNotifications;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
     }
 }

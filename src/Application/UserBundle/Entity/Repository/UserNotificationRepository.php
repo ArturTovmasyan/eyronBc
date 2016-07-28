@@ -22,4 +22,14 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($count)
             ->getResult();
     }
+
+    public function setAsReadAllNotifications($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("UPDATE ApplicationUserBundle:UserNotification un
+                           SET un.isRead = true
+                           WHERE un.user = :userId")
+            ->setParameter('userId', $userId)
+            ->execute();
+    }
 }

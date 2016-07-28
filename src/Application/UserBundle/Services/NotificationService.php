@@ -21,9 +21,10 @@ class NotificationService
         $this->entityManager = $entityManager;
     }
 
-    public function sendNotification(User $user, $body, $toUsers)
+    public function sendNotification(User $user, $link, $body, $toUsers)
     {
         $notification = new Notification();
+        $notification->setLink($link);
         $notification->setBody($body);
         $notification->setPerformer($user);
         $this->entityManager->persist($notification);
