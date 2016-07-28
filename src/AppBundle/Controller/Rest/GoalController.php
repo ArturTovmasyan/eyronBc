@@ -568,7 +568,7 @@ class GoalController extends FOSRestController
                 ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
         }
         else {
-            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), $search, $first, $count);
         }
 
         $userIds = array_keys($users);

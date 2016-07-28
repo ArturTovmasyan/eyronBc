@@ -386,27 +386,6 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $userId
-     * @param bool|false $getOnlyIds
-     * @param null $search
-     * @param bool|false $getOnlyQuery
-     * @param null $first
-     * @param null $count
-     * @return array
-     */
-    public function findGoalFriends($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
-    {
-        if ($getOnlyIds){
-            $goalFriendIds = $this->findGoalFriendIds($userId, $search);
-
-            return $goalFriendIds;
-        }
-
-        return $this->findGoalFriendsDoctrine($userId, null, $search, $getOnlyQuery, $first, $count);
-    }
-
-
-    /**
-     * @param $userId
      * @param $count
      * @return array
      */
@@ -431,9 +410,12 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $userId
-     * @return array
+     * @param $search
+     * @param $first
+     * @param $count
+     * @return array|Query
      */
-    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
+    public function findGoalFriends($userId, $search, $first, $count)
     {
         $search = str_replace(' ', '', $search);
 
@@ -441,7 +423,7 @@ class GoalRepository extends EntityRepository
         $query = $this
                     ->getEntityManager()
                     ->createQueryBuilder()
-                    ->select('DISTINCT u')
+                    ->select('DISTINCT u.id')
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
@@ -467,14 +449,6 @@ class GoalRepository extends EntityRepository
             ;
         }
 
-        if ($getOnlyQuery){
-            return $query->getQuery();
-        }
-
-        if (!is_null($first) && !is_null($count)){
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
-        }
 
         return $query->getQuery()->getResult();
     }
