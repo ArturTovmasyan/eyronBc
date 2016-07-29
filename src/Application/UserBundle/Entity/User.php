@@ -249,6 +249,16 @@ class User extends BaseUser
     protected $isAdmin = false;
 
     /**
+     * @ORM\Column(name="active_factor", type="integer", nullable=true)
+     */
+    protected $activeFactor = 0;
+
+    /**
+     * @ORM\Column(name="factor_command_date", type="datetime", nullable=true)
+     */
+    protected $factorCommandDate;
+
+    /**
      * @Groups({"tiny_goal"})
      */
     private $cachedImage;
@@ -1753,5 +1763,38 @@ class User extends BaseUser
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getActiveFactor()
+    {
+        return $this->activeFactor;
+    }
+
+    /**
+     * @param mixed $activeFactor
+     */
+    public function setActiveFactor($activeFactor)
+    {
+        $this->activeFactor = $activeFactor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFactorCommandDate()
+    {
+        return $this->factorCommandDate;
+    }
+
+    /**
+     * @param mixed $factorCommandDate
+     */
+    public function setFactorCommandDate($factorCommandDate)
+    {
+        $this->factorCommandDate = $factorCommandDate;
     }
 }
