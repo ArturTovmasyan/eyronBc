@@ -43,6 +43,7 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
                                    INDEX BY u.id
                                    LEFT JOIN u.matchedUsers mu
                                    WHERE DATE(u.factorCommandDate) < DATE(:currentDate) OR u.factorCommandDate IS NULL
+                                   GROUP BY u.id
                                    ORDER BY u.factorCommandDate ASC")
             ->setParameter('currentDate', new \DateTime())
             ->setMaxResults(100)
