@@ -124,7 +124,7 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
                 $stmt->execute();
             }
 
-            $user['user']->setActiveFactor($user['commentCount'] + $user['storyCount'] + 0.5 * $user['goalCount']);
+            $user['user']->setActiveFactor($user['commentCount'] + $user['storyCount'] + 0.3 * $user['goalCount']);
             $user['user']->setFactorCommandDate(new \DateTime());
 
             $progress->advance();
