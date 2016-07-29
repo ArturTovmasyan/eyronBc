@@ -337,70 +337,32 @@ class GoalRepository extends EntityRepository
 
     /**
      * @param $userId
-     * @param $search
-     * @param $getAll
-     * @return array
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function findGoalFriendIds($userId, $search = null, $getAll = false)
-    {
-        $search = str_replace(' ', '', $search);
-
-        $sqlJoin = "";
-        if ($search){
-            $search = '%' . $search . '%';
-            $sqlJoin = " AND (u.firstname LIKE :search
-                           OR u.lastname LIKE :search
-                           OR u.email LIKE :search
-                           OR CONCAT(u.firstname, u.lastname) LIKE :search) ";
-        }
-
-        $roleFilter = "";
-        if (!$getAll){
-            $roleFilter = " AND u.roles = :roles ";
-        }
-
-        //TODO roles in query must be changed
-        $connection = $this->getEntityManager()->getConnection();
-        $statement = $connection->prepare("SELECT DISTINCT ug.user_id
-                                           FROM users_goals AS ug
-                                           JOIN fos_user as u ON u.id = ug.user_id $roleFilter
-                                           $sqlJoin
-                                           WHERE ug.goal_id IN (SELECT ug1.goal_id
-                                                                FROM users_goals AS ug1
-                                                                WHERE ug1.user_id = :userId)
-                                           AND ug.user_id != :userId AND ug.is_visible = true");
-        $statement->bindValue('userId', $userId);
-
-        if (!$getAll){
-            $statement->bindValue('roles', 'a:0:{}');
-        }
-
-        if ($search){
-            $statement->bindValue('search', $search);
-        }
-        $statement->execute();
-
-        $userIds = $statement->fetchAll(\PDO::FETCH_COLUMN);
-
-        return $userIds;
-    }
-
-    /**
-     * @param $userId
      * @param $count
      * @return array
      */
     public function findRandomGoalFriends($userId, $count, &$allCount)
     {
-        $goalFriendIds = $this->findGoalFriendIds($userId);
-        $allCount = count($goalFriendIds);
-        shuffle($goalFriendIds);
-        $goalFriendIds = array_slice($goalFriendIds, 0, $count);
+        $goalFriendIds = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('DISTINCT u.id')
+                ->from('ApplicationUserBundle:User', 'u', 'u.id')
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
+                ->where("u.id != :userId")
+                ->andWhere('u.roles = :roles')
+                ->groupBy('u.id')
+                ->setParameter('userId', $userId)
+                ->setParameter('roles', 'a:0:{}')
+                ->getQuery()
+                ->getResult();
 
         if (count($goalFriendIds) == 0){
             return [];
         }
+
+        $allCount = count($goalFriendIds);
+        shuffle($goalFriendIds);
+        $goalFriendIds = array_slice($goalFriendIds, 0, $count);
 
         return $this->getEntityManager()
             ->createQuery("SELECT u
@@ -454,27 +416,16 @@ class GoalRepository extends EntityRepository
 
         switch ($type) {
             case 'recently':
-                $query->orderBy('u.name', 'ASC');
+                $query->orderBy('u.createdAt', 'DESC');
                 break;
             case 'match':
                 break;
             case 'active':
-                $query
-                    ->addSelect('((SELECT COUNT(c) FROM ApplicationCommentBundle:Comment c WHERE c.author = u) +
-                                  (SELECT COUNT(ss) FROM AppBundle:SuccessStory ss WHERE ss.user = u)) HIDDEN cnt ')
-                    ->orderBy('cnt', 'DESC');
                 break;
         }
 
-//        $query
-//            ->addSelect('COUNT(cmt.id), COUNT(ss.id), COUNT(cmt.id) + COUNT(ss.id) cnt')
-//            ->leftJoin('ApplicationCommentBundle:Comment' , 'cmt', 'WITH', 'cmt.author = u')
-//            ->leftJoin('AppBundle:SuccessStory' , 'ss', 'WITH', 'ss.user = u')
-//            ->orderBy('cnt', 'DESC');
 
         return $query->getQuery()->getResult();
-
-//        dump($query->getQuery()->getResult()); exit;
     }
 
     /**
