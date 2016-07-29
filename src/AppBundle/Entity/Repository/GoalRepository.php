@@ -418,8 +418,10 @@ class GoalRepository extends EntityRepository
                 break;
             case 'match':
                 $query
-                    ->join('u.matchedUsers', 'm_user', 'WITH', 'm_user.user = :userId')
-                    ->orderBy('m_user.commonFactor', 'DESC');
+                    ->join('ApplicationUserBundle:MatchUser', 'm_user', 'WITH', 'm_user.user = :userId AND m_user.matchUser = u')
+                    ->orderBy('m_user.commonFactor', 'DESC')
+                    ->addOrderBy('m_user.commonCount', 'DESC')
+                ;
                 break;
             case 'active':
                 $query->orderBy('u.activeFactor', 'DESC');

@@ -129,18 +129,24 @@ angular.module('profile')
       $scope.goalId = userData.goalId;
       $scope.slug = $scope.isListed?1: 2;
       $scope.friendName = '';
+      $scope.category = 'all';
 
+      $scope.getCategory = function(category){
+        $scope.category = category;
+        $scope.Friends.reset();
+        $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
+      };
       if($scope.goalId){
         $scope.Friends = new lsInfiniteGoals(10);
       } else {
         $scope.Friends = new lsInfiniteGoals(20);
       }
 
-      $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId);
+      $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
       
       $scope.resetFriends = function () {
         $scope.Friends.reset();
-        $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId);
+        $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
       };
       
       $scope.doSearch = function(ev){
