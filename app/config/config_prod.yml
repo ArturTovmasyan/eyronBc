@@ -30,13 +30,6 @@ assetic:
         uglifycss:
             bin: "%kernel.root_dir%/Resources/node_modules/.bin/uglifycss"
             apply_to: "\.css$"
-#        yui_css:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-#            apply_to: "\.css$"
-#        yui_js:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-#            apply_to: "\.js$"
-
 monolog:
     handlers:
         main:
@@ -46,6 +39,6 @@ monolog:
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
+            level: error
         console:
             type:  console
