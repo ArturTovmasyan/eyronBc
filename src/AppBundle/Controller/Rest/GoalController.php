@@ -533,7 +533,7 @@ class GoalController extends FOSRestController
 
 
     /**
-     * @Rest\Get("/goals/{first}/friends/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{first}/friends/{count}", defaults={"type"="all"}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
      * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2"}, name="get_goal_user_list")
      *
      * @ApiDoc(
@@ -560,7 +560,7 @@ class GoalController extends FOSRestController
         }
 
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $search = $request->get('search') ? $request->get('search') : null;
+        $search = $request->get('search', null);
         $em = $this->getDoctrine()->getManager();
 
         if (!is_null($goalId)){
@@ -568,7 +568,12 @@ class GoalController extends FOSRestController
                 ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
         }
         else {
-            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+            $type = $request->get('type', 'all');
+            if (!in_array($type, ["all","recently","match","active"])){
+                throw new HttpException(Response::HTTP_BAD_REQUEST);
+            }
+
+            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), $type, $search, $first, $count);
         }
 
         $userIds = array_keys($users);

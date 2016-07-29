@@ -249,6 +249,21 @@ class User extends BaseUser
     protected $isAdmin = false;
 
     /**
+     * @ORM\OneToMany(targetEntity="Application\UserBundle\Entity\MatchUser", mappedBy="user", indexBy="match_user_id")
+     */
+    protected $matchedUsers;
+
+    /**
+     * @ORM\Column(name="active_factor", type="integer", nullable=true)
+     */
+    protected $activeFactor = 0;
+
+    /**
+     * @ORM\Column(name="factor_command_date", type="datetime", nullable=true)
+     */
+    protected $factorCommandDate;
+
+    /**
      * @Groups({"tiny_goal"})
      */
     private $cachedImage;
@@ -363,6 +378,7 @@ class User extends BaseUser
         $this->enabled = true;
 
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->matchedUsers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1753,5 +1769,86 @@ class User extends BaseUser
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getActiveFactor()
+    {
+        return $this->activeFactor;
+    }
+
+    /**
+     * @param mixed $activeFactor
+     */
+    public function setActiveFactor($activeFactor)
+    {
+        $this->activeFactor = $activeFactor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFactorCommandDate()
+    {
+        return $this->factorCommandDate;
+    }
+
+    /**
+     * @param mixed $factorCommandDate
+     */
+    public function setFactorCommandDate($factorCommandDate)
+    {
+        $this->factorCommandDate = $factorCommandDate;
+    }
+
+    /**
+     * Set lastPushNoteDate
+     *
+     * @param \DateTime $lastPushNoteDate
+     *
+     * @return User
+     */
+    public function setLastPushNoteDate($lastPushNoteDate)
+    {
+        $this->lastPushNoteDate = $lastPushNoteDate;
+
+        return $this;
+    }
+
+    /**
+     * Add matchedUser
+     *
+     * @param \Application\UserBundle\Entity\MatchUser $matchedUser
+     *
+     * @return User
+     */
+    public function addMatchedUser(\Application\UserBundle\Entity\MatchUser $matchedUser)
+    {
+        $this->matchedUsers[] = $matchedUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove matchedUser
+     *
+     * @param \Application\UserBundle\Entity\MatchUser $matchedUser
+     */
+    public function removeMatchedUser(\Application\UserBundle\Entity\MatchUser $matchedUser)
+    {
+        $this->matchedUsers->removeElement($matchedUser);
+    }
+
+    /**
+     * Get matchedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatchedUsers()
+    {
+        return $this->matchedUsers;
     }
 }
