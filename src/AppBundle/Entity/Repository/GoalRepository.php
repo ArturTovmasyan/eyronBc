@@ -350,7 +350,6 @@ class GoalRepository extends EntityRepository
                 ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                 ->where("u.id != :userId")
                 ->andWhere('u.roles = :roles')
-                ->groupBy('u.id')
                 ->setParameter('userId', $userId)
                 ->setParameter('roles', 'a:0:{}')
                 ->getQuery()
@@ -398,7 +397,6 @@ class GoalRepository extends EntityRepository
                     ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
                     ->where("u.id != :userId")
                     ->andWhere('u.roles = :roles')
-                    ->groupBy('u.id')
                     ->setParameter('userId', $userId)
                     ->setParameter('roles', 'a:0:{}')
                     ->setFirstResult($first)
@@ -419,8 +417,12 @@ class GoalRepository extends EntityRepository
                 $query->orderBy('u.createdAt', 'DESC');
                 break;
             case 'match':
+                $query
+                    ->join('u.matchedUsers', 'm_user', 'WITH', 'm_user.user = :userId')
+                    ->orderBy('m_user.commonFactor', 'DESC');
                 break;
             case 'active':
+                $query->orderBy('u.activeFactor', 'DESC');
                 break;
         }
 
