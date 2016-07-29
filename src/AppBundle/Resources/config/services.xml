@@ -113,6 +113,13 @@
             <tag name="liip_imagine.filter.post_processor" post_processor="opt_post_processor" />
         </service>
 
+        <service id="app.instance_article" class="AppBundle\Services\InstantArticleService">
+            <argument type="service" id="templating" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%facebook_page_token%</argument>
+            <argument>%facebook_page_id%</argument>
+        </service>
+
     </services>
 
 </container>

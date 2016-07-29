@@ -19,7 +19,7 @@
                 <div class="col-md-8"
                      data-ng-init="goalId = {{ (goalId is defined and goalId)?goalId: 0 }}"
                      data-ng-cloak
-                     data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId)'
+                     data-infinite-scroll='Friends.nextFriends(friendName, slug, goalId, category)'
                      data-infinite-scroll-disabled='Friends.noItem || Friends.busy'>
 
                     {% if friend %}
@@ -45,21 +45,21 @@
                                 </div>
                             </form>
 
-                            <ul class="goalfrineds-menu ng-hide">
+                            <ul class="goalfrineds-menu">
                                 <li>
-                                    <a class="text-purple">All</a>
+                                    <a data-ng-class="{'text-purple': category == 'all'}" href="javascript:void(0)" data-ng-click="getCategory('all')">All</a>
                                 </li>
 
                                 <li>
-                                    <a>Recently Matched</a>
+                                    <a data-ng-class="{'text-purple': category == 'recently'}" href="javascript:void(0)" data-ng-click="getCategory('recently')">Recently Matched</a>
                                 </li>
 
                                 <li>
-                                    <a>Most Matching</a>
+                                    <a data-ng-class="{'text-purple': category == 'match'}" href="javascript:void(0)" data-ng-click="getCategory('match')">Most Matching</a>
                                 </li>
 
                                 <li>
-                                    <a>Most active</a>
+                                    <a data-ng-class="{'text-purple': category == 'active'}" href="javascript:void(0)" data-ng-click="getCategory('active')">Most active</a>
                                 </li>
                             </ul>
                         </div>
@@ -106,7 +106,8 @@
                                                        data-ls-common-manage
                                                        data-ng-show="user.common_goals_count != 0"
                                                        data-ls-user="[[ ::user.id ]]"
-                                                       data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]</a>
+                                                       data-ng-cloak class="text-gray">{{ 'menu.common'|trans }} [[ ::user.common_goals_count ]]
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

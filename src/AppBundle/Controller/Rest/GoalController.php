@@ -533,7 +533,7 @@ class GoalController extends FOSRestController
 
 
     /**
-     * @Rest\Get("/goals/{first}/friends/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
+     * @Rest\Get("/goals/{first}/friends/{count}", defaults={"type"="all"}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_friends", options={"method_prefix"=false})
      * @Rest\Get("/user-list/{first}/{count}/{goalId}/{slug}", defaults={"goalId"=null, "slug"=null}, requirements={"first"="\d+", "count"="\d+", "goalId"="\d+", "slug"="1|2"}, name="get_goal_user_list")
      *
      * @ApiDoc(
@@ -560,7 +560,7 @@ class GoalController extends FOSRestController
         }
 
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $search = $request->get('search') ? $request->get('search') : null;
+        $search = $request->get('search', null);
         $em = $this->getDoctrine()->getManager();
 
         if (!is_null($goalId)){
@@ -568,7 +568,12 @@ class GoalController extends FOSRestController
                 ->findGoalUsers($goalId, $slug == 1 ? null : UserGoal::COMPLETED, $first, $count, $search);
         }
         else {
-            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), false, $search, false, $first, $count);
+            $type = $request->get('type', 'all');
+            if (!in_array($type, ["all","recently","match","active"])){
+                throw new HttpException(Response::HTTP_BAD_REQUEST);
+            }
+
+            $users = $em->getRepository('AppBundle:Goal')->findGoalFriends($this->getUser()->getId(), $type, $search, $first, $count);
         }
 
         $userIds = array_keys($users);
@@ -631,108 +636,6 @@ class GoalController extends FOSRestController
             '1'      => $goalFriends,
             'length' => $allCount
             ];
-    }
-
-    /**
-     * This function create comment.
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  section="Goal",
-     *  description="This function create comment by goal",
-     *  statusCodes={
-     *         200="Returned when created",
-     *         400="Return when content not correct",
-     *         401="Return when user not found",
-     *         404="Return when goal not found",
-     *     },
-     *  parameters={
-     *      {"name"="commentBody", "dataType"="text", "required"=true, "description"="comment body"},
-     * }
-     * )
-     *
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param $goalId
-     * @param Request $request
-     * @return Comment|JsonResponse|Response
-     */
-    public function putCommentAction($goalId, Request $request)
-    {
-        $this->container->get('bl.doctrine.listener')->disableIsMyGoalLoading();
-        $em = $this->getDoctrine()->getManager();
-        $goal = $em->getRepository('AppBundle:Goal')->findGoalWithAuthor($goalId);
-        $validator = $this->container->get('validator');
-
-        $commentBody = $request->get('commentBody');
-
-        // check thread by goal id
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($goal->getId());
-
-        // create thread for goal
-        if(!$thread)
-        {
-            // generate url by goal id for goal thread
-            $url = $this->container->get('router')->generate('inner_goal', array('slug' => $goal->getSlug()), true);
-
-            $thread = new Thread();
-            $thread->setPermalink($url);
-            $thread->setLastCommentAt(new \DateTime('now'));
-            $thread->setId($goal->getId());
-            $numCount = $thread->incrementNumComments();
-            $thread->setNumComments($numCount);
-
-            // check validator
-            $errors = $validator->validate($thread);
-
-            if(count($errors) > 0)
-            {
-                $errorsString = (string)$errors;
-                return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
-            }
-
-            // persist and flush thread
-            $em->persist($thread);
-        }else{
-            $numCount = $thread->incrementNumComments();
-            $thread->setNumComments($numCount);
-            $em->persist($thread);
-        }
-
-        // create comment
-        $comment= new Comment();
-        $comment->setAuthor($this->getUser());
-        $comment->setBody($commentBody);
-        $comment->setThread($thread);
-        $comment->setCreatedAt(new \DateTime('now'));
-        $comment->setState(0);
-
-        // validate new comment
-        $errors = $validator->validate($comment);
-
-        if(count($errors) > 0){
-            $errorsString = (string)$errors;
-
-            return new JsonResponse("Comment can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
-        }
-
-        //get current user
-        $user = $this->getUser();
-
-        //get current user id
-        $userId = $user->getId();
-
-        //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($userId)) {
-            //send success story notify
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $user, $commentBody);
-        }
-
-        // persist new comment end flush objects
-        $em->persist($comment);
-        $em->flush();
-
-        return new Response('', Response::HTTP_OK);
     }
 
     /**

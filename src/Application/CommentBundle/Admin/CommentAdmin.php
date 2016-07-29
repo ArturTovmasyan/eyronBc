@@ -24,6 +24,7 @@ class CommentAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('body')
+            ->add('thread')
             ->add('createdAt', 'doctrine_orm_callback', array(
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
@@ -40,7 +41,6 @@ class CommentAdmin extends AbstractAdmin
                 },
                 'label'=>'admin.label.name.created'
             ), 'date', array('widget' => 'single_text'))
-            ->add('state')
         ;
     }
 
@@ -52,9 +52,7 @@ class CommentAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('body')
-            ->add('depth')
             ->add('createdAt')
-            ->add('state')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -83,9 +81,7 @@ class CommentAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('body')
-            ->add('depth')
             ->add('createdAt')
-            ->add('state')
         ;
     }
 }

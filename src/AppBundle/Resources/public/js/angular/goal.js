@@ -5,6 +5,7 @@ angular.module('goal', ['Interpolation',
         'user',
         'manage',
         'Authenticator',
+        'profile',
         'goalComponents',
         'mgcrea.ngStrap.popover',
         'ngAnimate',
@@ -19,7 +20,8 @@ angular.module('goal', ['Interpolation',
         'angulartics',
         'angulartics.google.analytics',
         'PathPrefix',
-        'slickCarousel'
+        'slickCarousel',
+        'comments'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -516,13 +518,20 @@ angular.module('goal', ['Interpolation',
             if(window.location.hash && window.location.hash == "#/comments"){
 
                 $('html, body').stop().animate( {
-                    'scrollTop': $('#fos_comment_thread').offset().top-100
+                    'scrollTop': $('#random_goals').offset().top - 800
                 }, 900);
             }
-        }, 5000);
+        }, 3000);
 
+        $scope.castInt = function(value){
+            return parseInt(value);
+        };
 
         var imageHeight;
+
+        if(angular.element('.quote').length > 0){
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 35 + 'px');
+        }
 
         if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0){
             var goalImageBottom = angular.element('.goal-image').offset().top + angular.element('.goal-image').outerHeight() ;
@@ -530,16 +539,10 @@ angular.module('goal', ['Interpolation',
 
             if(goalImageBottom != mainSliderBottom){
                 var distance = goalImageBottom - mainSliderBottom;
-                angular.element('#main-slider').css("height",angular.element('#main-slider').innerHeight()+distance)
+                angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
             }
         }
-
-        $('body').on('keydown', '#fos_comment_comment_body', function(ev) {
-            if(ev.which === 13) {
-                ev.preventDefault();
-                ev.stopPropagation();
-            }
-        });
             
         $scope.manageVote = function(id){
         var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
@@ -575,6 +578,7 @@ angular.module('goal', ['Interpolation',
             // }else{
             //     angular.element('#main-slider img').removeClass("full-height")
             // }
+            angular.element('.quote').css("height", angular.element('.ticker li').height() + 30 + 'px');
             imageResize();
 
             if(angular.element('.goal-image').length > 0 && angular.element('#main-slider').length > 0) {
@@ -583,7 +587,8 @@ angular.module('goal', ['Interpolation',
 
                 if (goalImageBottom != mainSliderBottom) {
                     var distance = goalImageBottom - mainSliderBottom;
-                    angular.element('#main-slider').css("height", angular.element('#main-slider').innerHeight() + distance)
+                    angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
+                    angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
                 }
             }
         });
@@ -742,7 +747,11 @@ angular.module('goal', ['Interpolation',
     }])
     .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
         $scope.newActivity = false;
-        
+
+        $scope.castInt = function(value){
+            return parseInt(value);
+        };
+
         function newActivity() {
             $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
                 if(data && data.length != 0){
@@ -815,16 +824,6 @@ angular.module('goal', ['Interpolation',
             }
         });
 
-    }])
-    .controller('goalFooter', ['$scope', '$timeout',
-        function($scope, $timeout){
-        $scope.completed = true;
-
-        $scope.popoverByMobile = function(){
-            $timeout(function(){
-                angular.element('.navbar-toggle').click();
-            }, 500);
-        };
     }])
     .directive('delayAddClass',['$interval', function($interval){
         return {
@@ -915,95 +914,6 @@ angular.module('goal', ['Interpolation',
                 scope.trustedUrl = function(url){
                     return $sce.trustAsResourceUrl(url);
                 };
-            }
-        }
-    }])
-    .directive('videoLink', ['$sce', function($sce){
-      return {
-          restrict: 'EA',
-          scope: {
-              array: '=',
-              key: '=',
-              link: '=',
-              limit: '='
-          },
-          templateUrl: '/bundles/app/htmls/videoLink.html',
-          link: function(scope){
-
-              scope.lm = scope.limit ? scope.limit : 3;
-
-              scope.$watch('link',function(d){
-                  if(angular.isUndefined(d)){
-                      return;
-                  }
-
-                  if(d === ''){
-                      scope.removeItem();
-                  }
-                  else {
-                      if(!scope.array[scope.key + 1] && Object.keys(scope.array).length < scope.lm){
-                          scope.array[scope.key + 1] = {};
-                      }
-                  }
-              }, true);
-
-              scope.removeItem = function(){
-                  if(scope.array[scope.array.length - 1].link){
-                      scope.array[scope.array.length] = {};
-                  }
-
-                  if(scope.key === 0){
-                      if(scope.array.length > 1){
-                          scope.array.splice(scope.key, 1);
-                      }
-                  }
-                  else {
-                      scope.array.splice(scope.key, 1);
-                  }
-              };
-
-              scope.isVideoLink = function(url){
-                  return !(!angular.isString(url) || url.indexOf("https:/") == -1);
-              };
-
-              scope.trustedUrl = function(url){
-                  return $sce.trustAsResourceUrl(url);
-              };
-          }
-      }
-    }])
-    .directive('step',[function(){
-        return {
-            restrict: 'EA',
-            scope: {
-                ngModel: '=',
-                array: '=',
-                key: '='
-            },
-            compile: function(){
-                return function(scope){
-                    scope.$watch('ngModel',function(d){
-                        if(angular.isUndefined(d)){
-                            return;
-                        }
-
-                        if(d === ''){
-                            if(scope.key === 0){
-                                if(scope.array.length > 1) {
-                                    scope.array.splice(scope.key, 1);
-                                }
-                            }
-                            else {
-                                scope.array.splice(scope.key, 1);
-                            }
-                        }
-                        else {
-                            if(!scope.array[scope.key + 1]) {
-                                scope.array[scope.key + 1] = {};
-                            }
-                        }
-                    },true);
-                }
             }
         }
     }]);

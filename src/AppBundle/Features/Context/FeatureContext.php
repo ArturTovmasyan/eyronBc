@@ -156,6 +156,45 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
+     * @When I select date fields in manage goal
+     */
+    public function iSelectDateFieldsInManageGoal()
+    {
+        //get mink session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get current page
+        $page = $session->getPage();
+
+        //get date fields
+        $dateElements = $page->findAll(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[contains(@class, "col-sm-4 date") and not(contains(@class ,"ng-hide"))]')
+        );
+
+        if (null === $dateElements) {
+            throw new \InvalidArgumentException(sprintf('Cannot find $dateElements'));
+        }
+
+        foreach($dateElements as $dateElement) {
+
+            //click on date filed
+            $dateElement->click();
+
+            //get options list in field
+            $optionsList = $dateElement->find('css', '.ui-select-choices-group');
+
+            //get value in opt
+            $option = $optionsList->find(
+                'xpath',
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="ui-select-choices-row-inner"]')
+            );
+
+            $option->click();
+        }
+    }
+
+    /**
      * @When I select date fields
      */
     public function iSelectDateFields()

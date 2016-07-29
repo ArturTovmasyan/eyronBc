@@ -3,6 +3,7 @@
 angular.module('goalComponents', ['Interpolation',
   'Components',
   'angular-cache',
+  'ui.select',
   'ngSanitize',
   'goalManage',
   'angulartics',
@@ -10,6 +11,19 @@ angular.module('goalComponents', ['Interpolation',
   'PathPrefix',
   'Facebook'
   ])
+  .config(function(uiSelectConfig) {
+    uiSelectConfig.theme = 'bootstrap';
+  })
+  .controller('goalFooter', ['$scope', '$timeout',
+    function($scope, $timeout){
+      $scope.completed = true;
+
+      $scope.popoverByMobile = function(){
+        $timeout(function(){
+          angular.element('.navbar-toggle').click();
+        }, 500);
+      };
+    }])
   .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
     var path = envPrefix + "api/v1.0/top-ideas/{count}";
@@ -23,6 +37,10 @@ angular.module('goalComponents', ['Interpolation',
         deleteOnExpire: 'aggressive'
       });
     }
+
+    $scope.castInt = function(value){
+      return parseInt(value);
+    };
 
     $scope.refreshPopulars = function () {
       angular.element('#popularLoad').css({
@@ -87,6 +105,10 @@ angular.module('goalComponents', ['Interpolation',
           deleteOnExpire: 'aggressive'
         });
       }
+
+      $scope.castInt = function(value){
+        return parseInt(value);
+      };
 
       $scope.refreshFeatures = function(){
         $http.get(path)
@@ -222,14 +244,20 @@ angular.module('goalComponents', ['Interpolation',
     'envPrefix',
     function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
 
-      $timeout(function(){
-        angular.element("#story-modal select").niceSelect();
-      }, 300);
-      var date = new Date();
+      var myDate = moment(new Date()).format('YYYY');
+      $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
+      $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
 
-      $scope.month = moment(date).format('M');
-      $scope.day = moment(date).format('D');
-      $scope.year = moment(date).format('YYYY');
+      $scope.$watch('myMonths', function(m){
+        $scope.months = _.values(m);
+      });
+
+      $timeout(function () {
+        var date = new Date();
+        $scope.month = $scope.myMonths[moment(date).format('M')];
+        $scope.day = moment(date).format('D');
+        $scope.year = moment(date).format('YYYY');
+      }, 500);
 
       $scope.userGoal = userGoalData.doneData;
       $scope.noStory = false;
@@ -318,7 +346,7 @@ angular.module('goalComponents', ['Interpolation',
                 angular.element('#cancel').click();
               }
             });
-        } else if(($scope.year || $scope.month || $scope.day) && $scope.newAdded){
+        } else if(!$scope.year && ($scope.month || $scope.day) && $scope.newAdded){
           $scope.uncompletedYear = true;
           return;
         }
@@ -430,13 +458,18 @@ angular.module('goalComponents', ['Interpolation',
       $analytics,
       AuthenticatorLoginService
     ){
+      var myDate = moment(new Date()).add(50, 'years').format('YYYY');
+      $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
+      $scope.completeYears = _.map($(Array(myDate - 1966 - 50)), function (val, i) { return myDate - 50 - i; });
+      $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
 
-      $timeout(function(){
-        angular.element("#goal-modal select").niceSelect();
-      }, 300);
+      $scope.$watch('myMonths', function(m){
+        $scope.months = _.values(m);
+      });
+
       $scope.updateDate = function (date) {
         if(date){
-          $scope.month = moment(date).format('M');
+          $scope.month = $scope.myMonths[moment(date).format('M')];
           $scope.day = moment(date).format('D');
           $scope.year = moment(date).format('YYYY');
         }else {
@@ -447,23 +480,21 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.userGoal = userGoalData.data;
-      if(!angular.isUndefined($scope.userGoal.completion_date) && $scope.userGoal.status == UserGoalConstant['COMPLETED']){
-        $scope.updateDate($scope.userGoal.completion_date);
-        $scope.userGoal.completion_date = moment($scope.userGoal.completion_date).format('MM-DD-YYYY');
-      } else{
-        if(!angular.isUndefined($scope.userGoal.do_date)){
-          $scope.updateDate($scope.userGoal.do_date);
+      $timeout(function(){
+        if(!angular.isUndefined($scope.userGoal.completion_date) && $scope.userGoal.status == UserGoalConstant['COMPLETED']){
+          $scope.updateDate($scope.userGoal.completion_date);
+          $scope.userGoal.completion_date = moment($scope.userGoal.completion_date).format('MM-DD-YYYY');
+        } else{
+          if(!angular.isUndefined($scope.userGoal.do_date)){
+            $scope.updateDate($scope.userGoal.do_date);
+          }
         }
-      }
+      }, 500);
       angular.element('#goal-create-form').attr('data-goal-id', $scope.userGoal.goal.id);
       $scope.GoalConstant = GoalConstant;
       $scope.UserGoalConstant = UserGoalConstant;
 
-      if(angular.element('#goal-create-form').length > 0){
-        $scope.newAdded = true;
-      } else {
-        $scope.newAdded = false;
-      }
+      $scope.newAdded = (angular.element('#goal-create-form').length > 0);
 
       $scope.$on('addGoal', function(){
         $scope.newAdded = true;
@@ -493,10 +524,6 @@ angular.module('goalComponents', ['Interpolation',
               $scope.updateDate(null);
             }
           }
-
-          $timeout(function(){
-            angular.element("#goal-modal select").niceSelect('update');
-          }, 20);
 
         }
         else {
@@ -616,11 +643,17 @@ angular.module('goalComponents', ['Interpolation',
           if($scope.year && $scope.month && $scope.day){
             dateChanged = true;
             if($scope.complete.switch){
-              $scope.userGoal.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.userGoal.completion_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             }else{
-              $scope.userGoal.do_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             }
-          } else if($scope.year || $scope.month || $scope.day){
+          } else if($scope.year){//when select dodate year
+            dateChanged = true;
+            var month = $scope.month?($scope.months.indexOf($scope.month) + 1): 12;
+            $scope.userGoal.do_date = moment(month+','+ ((month == 2)?28:31) +','+$scope.year).format('MM-DD-YYYY');
+          //  todo some thing in circles
+          }
+          else if($scope.month || $scope.day){
             $scope.uncompletedYear = true;
             return;
           }
@@ -640,19 +673,14 @@ angular.module('goalComponents', ['Interpolation',
                 //if goal changed  from success to active
                 if (isSuccess) {
                   //and date be changed
-                  if (dateChanged && $scope.userGoal.do_date) {
+                  if ($scope.userGoal.do_date) {
                     //change  doDate
                     parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
                     angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                   } else {
-                    if($scope.userGoal.do_date){
-                      parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
-                      angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
-                    }else {
-                      //infinity
-                      parentScope.goalDate[$scope.userGoal.goal.id] = 'dreaming';
-                      angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
-                    }
+                    //infinity
+                    parentScope.goalDate[$scope.userGoal.goal.id] = 'dreaming';
+                    angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
                   }
                 } else {
                   //new datetime for completed

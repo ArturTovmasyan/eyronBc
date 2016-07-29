@@ -56,7 +56,7 @@ Feature: Goal page
     And I follow "Manage"
     And I wait for angular
     Then I should see "Goal is active"
-    When I select date fields
+    When I select date fields in manage goal
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
@@ -180,7 +180,7 @@ Feature: Goal page
     And I wait
     And I scroll page to "top"
     And I change switch "0"
-    And I select date fields
+    And I select date fields in manage goal
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "3"

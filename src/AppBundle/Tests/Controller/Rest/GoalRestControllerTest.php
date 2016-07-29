@@ -636,7 +636,6 @@ class GoalRestControllerTest extends BaseClass
         }
     }
 
-
     /**
      * This function test testGetGoal action with checked json structure
      *
@@ -807,30 +806,33 @@ class GoalRestControllerTest extends BaseClass
         }
 
         if($commentKey) {
+            //get comment
+            $comment = $responseResults['comments'];
 
-            $comment = $responseResults['comments'][0];
-            $this->assertArrayHasKey('id', $comment, 'Invalid id key in testGetGoal rest json structure');
-            $this->assertArrayHasKey('comment_body', $comment, 'Invalid comment_body key in testGetGoal rest json structure');
-            $this->assertArrayHasKey('created', $comment, 'Invalid created key in testGetGoal rest json structure');
+            if(!empty($comment)) {
+                $this->assertArrayHasKey('id', $comment, 'Invalid id key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('comment_body', $comment, 'Invalid comment_body key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('created', $comment, 'Invalid created key in testGetGoal rest json structure');
 
-            if(array_key_exists('author', $comment)) {
+                if(array_key_exists('author', $comment)) {
 
-                $this->assertArrayHasKey('author', $comment, 'Invalid author key in testGetGoal rest json structure');
-                $author = $comment['author'];
+                    $this->assertArrayHasKey('author', $comment, 'Invalid author key in testGetGoal rest json structure');
+                    $author = $comment['author'];
 
-                $this->assertArrayHasKey('id', $author, 'Invalid id key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('id', $author, 'Invalid id key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('stats', $author, 'Invalid stats key in testGetGoal rest json structure');
 
-                $authorStats = $author['stats'];
-                $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in testGetGoal rest json structure');
+                    $authorStats = $author['stats'];
+                    $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in testGetGoal rest json structure');
+                    $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in testGetGoal rest json structure');
+                }
             }
         }
     }

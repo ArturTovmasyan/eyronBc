@@ -10,17 +10,18 @@ namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\UserGoal;
-use AppBundle\Model\loggableEntityRepositoryInterface;
 use AppBundle\Model\PublishAware;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class GoalRepository
  * @package AppBundle\Entity\Repository
  */
-class GoalRepository extends EntityRepository implements loggableEntityRepositoryInterface
+class GoalRepository extends EntityRepository
 {
     const TopIdeasCount = 100;
 
@@ -335,113 +336,32 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
     }
 
     /**
-     * @param $ids
-     * @return array|null
-     */
-    public function findByIdsWithRelations($ids)
-    {
-        if (!count($ids)){
-            return null;
-        }
-
-        return $this->getEntityManager()
-            ->createQuery("SELECT g, i, author
-                           FROM AppBundle:Goal g
-                           INDEX BY g.id
-                           LEFT JOIN g.images i
-                           LEFT JOIN g.author author
-                           WHERE g.id IN (:goalIds)")
-            ->setParameter('goalIds', $ids)
-            ->getResult();
-    }
-
-    /**
-     * @param $userId
-     * @param $search
-     * @param $getAll
-     * @return array
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function findGoalFriendIds($userId, $search = null, $getAll = false)
-    {
-        $search = str_replace(' ', '', $search);
-
-        $sqlJoin = "";
-        if ($search){
-            $search = '%' . $search . '%';
-            $sqlJoin = " AND (u.firstname LIKE :search
-                           OR u.lastname LIKE :search
-                           OR u.email LIKE :search
-                           OR CONCAT(u.firstname, u.lastname) LIKE :search) ";
-        }
-
-        $roleFilter = "";
-        if (!$getAll){
-            $roleFilter = " AND u.roles = :roles ";
-        }
-
-        //TODO roles in query must be changed
-        $connection = $this->getEntityManager()->getConnection();
-        $statement = $connection->prepare("SELECT DISTINCT ug.user_id
-                                           FROM users_goals AS ug
-                                           JOIN fos_user as u ON u.id = ug.user_id $roleFilter
-                                           $sqlJoin
-                                           WHERE ug.goal_id IN (SELECT ug1.goal_id
-                                                                FROM users_goals AS ug1
-                                                                WHERE ug1.user_id = :userId)
-                                           AND ug.user_id != :userId AND ug.is_visible = true");
-        $statement->bindValue('userId', $userId);
-
-        if (!$getAll){
-            $statement->bindValue('roles', 'a:0:{}');
-        }
-
-        if ($search){
-            $statement->bindValue('search', $search);
-        }
-        $statement->execute();
-
-        $userIds = $statement->fetchAll(\PDO::FETCH_COLUMN);
-
-        return $userIds;
-    }
-
-    /**
-     * @param $userId
-     * @param bool|false $getOnlyIds
-     * @param null $search
-     * @param bool|false $getOnlyQuery
-     * @param null $first
-     * @param null $count
-     * @return array
-     */
-    public function findGoalFriends($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
-    {
-        if ($getOnlyIds){
-            $goalFriendIds = $this->findGoalFriendIds($userId, $search);
-
-            return $goalFriendIds;
-        }
-
-        return $this->findGoalFriendsDoctrine($userId, null, $search, $getOnlyQuery, $first, $count);
-    }
-
-
-    /**
      * @param $userId
      * @param $count
      * @return array
      */
     public function findRandomGoalFriends($userId, $count, &$allCount)
     {
-        $goalFriendIds = $this->findGoalFriendIds($userId);
-        $allCount = count($goalFriendIds);
-        shuffle($goalFriendIds);
-        $goalFriendIds = array_slice($goalFriendIds, 0, $count);
+        $goalFriendIds = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('DISTINCT u.id')
+                ->from('ApplicationUserBundle:User', 'u', 'u.id')
+                ->join('u.userGoal', 'ug')
+                ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
+                ->where("u.id != :userId")
+                ->andWhere('u.roles = :roles')
+                ->setParameter('userId', $userId)
+                ->setParameter('roles', 'a:0:{}')
+                ->getQuery()
+                ->getResult();
 
         if (count($goalFriendIds) == 0){
             return [];
         }
+
+        $allCount = count($goalFriendIds);
+        shuffle($goalFriendIds);
+        $goalFriendIds = array_slice($goalFriendIds, 0, $count);
 
         return $this->getEntityManager()
             ->createQuery("SELECT u
@@ -453,11 +373,19 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
 
     /**
      * @param $userId
-     * @return array
+     * @param $type
+     * @param $search
+     * @param $first
+     * @param $count
+     * @return array|Query
      */
-    public function findGoalFriendsDoctrine($userId, $getOnlyIds = false, $search = null, $getOnlyQuery = false, $first = null, $count = null)
+    public function findGoalFriends($userId, $type, $search, $first, $count)
     {
         $search = str_replace(' ', '', $search);
+
+        if (!is_numeric($first) || !is_numeric($count)) {
+            throw new HttpException(Response::HTTP_BAD_REQUEST);
+        }
 
         //TODO roles in query must be changed
         $query = $this
@@ -471,7 +399,9 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                     ->andWhere('u.roles = :roles')
                     ->setParameter('userId', $userId)
                     ->setParameter('roles', 'a:0:{}')
-                    ;
+                    ->setFirstResult($first)
+                    ->setMaxResults($count)
+            ;
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -481,22 +411,23 @@ class GoalRepository extends EntityRepository implements loggableEntityRepositor
                 ->setParameter('search', '%' . $search . '%');
         }
 
-        if (!is_null($first) && !is_null($count)){
 
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count)
-            ;
+        switch ($type) {
+            case 'recently':
+                $query->orderBy('u.createdAt', 'DESC');
+                break;
+            case 'match':
+                $query
+                    ->join('ApplicationUserBundle:MatchUser', 'm_user', 'WITH', 'm_user.user = :userId AND m_user.matchUser = u')
+                    ->orderBy('m_user.commonFactor', 'DESC')
+                    ->addOrderBy('m_user.commonCount', 'DESC')
+                ;
+                break;
+            case 'active':
+                $query->orderBy('u.activeFactor', 'DESC');
+                break;
         }
 
-        if ($getOnlyQuery){
-            return $query->getQuery();
-        }
-
-        if (!is_null($first) && !is_null($count)){
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
-        }
 
         return $query->getQuery()->getResult();
     }

@@ -9,20 +9,125 @@
 namespace Application\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\CommentBundle\Entity\Thread as BaseThread;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="thread")
- * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Thread extends BaseThread
+class Thread
 {
     /**
-     * @var string $id
-     *
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="id", type="string")
      */
     protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Application\CommentBundle\Entity\Comment", mappedBy="thread")
+     */
+    protected $comments;
+
+    /**
+     * @ORM\Column(name="num_comments", type="integer")
+     */
+    protected $numComments = 0;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Thread
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numComments
+     *
+     * @param integer $numComments
+     *
+     * @return Thread
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = $numComments;
+
+        return $this;
+    }
+
+    /**
+     * Get numComments
+     *
+     * @return integer
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Application\CommentBundle\Entity\Comment $comment
+     *
+     * @return Thread
+     */
+    public function addComment(\Application\CommentBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+        $this->numComments++;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Application\CommentBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Application\CommentBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

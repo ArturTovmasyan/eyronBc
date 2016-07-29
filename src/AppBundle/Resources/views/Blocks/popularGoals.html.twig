@@ -1,4 +1,4 @@
-<div class="right-block padding padding-no {% if isProfile is not  defined or not isProfile%}round margin-top{% endif %}" data-ng-controller="popularGoalsController">
+<div class="right-block padding padding-no round {% if isProfile is not  defined or not isProfile%}margin-top{% endif %}" data-ng-controller="popularGoalsController">
     <div class="right-menu">
         {% if isProfile is defined and isProfile%}
             <div class="row">
@@ -62,32 +62,39 @@
                         <div class="absolute">
                             <ul>
                                 <li>
-                                    <a href="{{ env_prefix }}/listed-users/[[ ::popularGoal.slug]]" data-ng-if="popularGoal.stats.listedBy">
+                                    <a ls-goal-users
+                                       href="javascript:void(0)"
+                                       ls-goal-id="[[ popularGoal.id ]]"
+                                       ls-category="listed"
+                                       data-ng-show="castInt(popularGoal.stats.listedBy)" >
                                         <span>
                                             {{ 'home_listed_by'|trans({},'messages') }}
                                             [[ ::popularGoal.stats.listedBy ]]
                                         </span>
                                         <i class="icon-user-small"></i>
                                     </a>
-                                    <span class="text-white" data-ng-if="!popularGoal.stats.listedBy">
+                                    <span class="text-white" data-ng-hide="castInt(popularGoal.stats.listedBy)">
                                         {{ 'home_listed_by'|trans({},'messages') }}
                                         [[ ::popularGoal.stats.listedBy ]]
                                     </span>
-                                    <i class="icon-user-small" data-ng-if="!popularGoal.stats.listedBy"></i>
+                                    <i class="icon-user-small" data-ng-hide="castInt(popularGoal.stats.listedBy)"></i>
                                 </li>
                                 <li>
-                                    <a href="{{ env_prefix }}/done-users/[[ ::popularGoal.slug]]" data-ng-if="popularGoal.stats.doneBy">
+                                    <a ls-goal-users
+                                       href="javascript:void(0)"
+                                       ls-goal-id="[[ popularGoal.id ]]"
+                                       data-ng-show="castInt(popularGoal.stats.doneBy)">
                                         <span>
                                             {{ 'home_complete'|trans({},'messages') }}
                                             [[ ::popularGoal.stats.doneBy ]]
                                         </span>
                                         <i class="icon-user-small"></i>
                                     </a>
-                                    <span class="text-white" data-ng-if="!popularGoal.stats.doneBy">
+                                    <span class="text-white" data-ng-hide="castInt(popularGoal.stats.doneBy)">
                                         {{ 'home_complete'|trans({},'messages') }}
                                         [[ ::popularGoal.stats.doneBy ]]
                                     </span>
-                                    <i class="icon-user-small" data-ng-if="!popularGoal.stats.doneBy"></i>
+                                    <i class="icon-user-small" data-ng-hide="castInt(popularGoal.stats.doneBy)"></i>
                                 </li>
                             </ul>
                         </div>
