@@ -238,14 +238,14 @@
                                 {#{% if 'phone' == getDeviceType() %}#}
                                 {#{{ path("fos_user_security_login") }}#}
                                 {#{% endif %}#}
-                                <ul class="nav navbar-nav navbar-right">
+                                <div class="nav navbar-nav navbar-right">
                                     {% if user %}
                                         <li uib-dropdown data-ng-controller="notificationController">
                                              <span uib-dropdown>
                                                   <a href="#" uib-dropdown-toggle class="bell">
                                                       <sup></sup>
                                                   </a>
-                                                  <ul id="notification" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                                                  <div id="notification" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
                                                         <div style="position: absolute; height: 500px;border: 1px solid black; overflow-y: scroll">
                                                             <div class="bg-white ng-hide" data-ng-show="notifies.length">
                                                                 <h3 class="text-gray">Notifications</h3>
@@ -276,7 +276,7 @@
                                                             </div>
                                                             <div data-ng-show="!notifies.length" class="ng-hide">You have not Notify</div>
                                                         </div>
-                                                  </ul>
+                                                  </div>
                                             </span>
                                         </li>
                                     {% endif %}
@@ -403,8 +403,11 @@
                 'app/bower_components/slick-carousel/slick/slick.min.js'
                 'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
                 'app/bower_components/angular-ui-select/dist/select.js'
+                'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
+
                 'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Authenticator/Authenticator.js'
                 'app/scripts/Components/Components.js'
