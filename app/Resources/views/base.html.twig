@@ -236,36 +236,39 @@
                                                     Notification
                                                   </a>
                                                   <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                                                        <div style="position: absolute; border: 1px solid black; overflow-y: scroll" id="notification">
-                                                            <div class="bg-white ng-hide" data-ng-show="notifies.length">
+                                                        <ul style="position: absolute; border: 1px solid black; width: auto" id="notification">
+                                                            <li class="bg-white ng-hide" data-ng-show="notifies.length">
                                                                 <h3>Notification</h3>
-                                                            </div>
+                                                            </li>
 
-                                                            <div data-ng-show="notifies.length"
-                                                                 data-ng-cloak
-                                                                 class="ng-hide row"
-                                                                 data-ng-repeat="notify in notifies">
+                                                            <li data-ng-show="notifies.length">
+                                                                <ul data-ng-scrollbars data-ng-scrollbars-config="scroller_config" data-ng-scrollbars-update="updateScrollbar">
+                                                                    <li data-ng-cloak
+                                                                     class="ng-hide row"
+                                                                     data-ng-repeat="notify in notifies">
 
-                                                                <div class="col-sm-12">
-                                                                    <div class="idea-item">
-                                                                        <figure>
-                                                                            <h3>
-                                                                                <a href="[[ ::notify.notification.link]]"></a>
-                                                                            </h3>
+                                                                        <div class="col-sm-12">
+                                                                            <div class="idea-item">
+                                                                                <figure>
+                                                                                    <h3>
+                                                                                        <a href="[[ ::notify.notification.link]]"></a>
+                                                                                    </h3>
 
-                                                                            <a href="[[ ::notify.notification.link]]" class="goalTitle">
-                                                                                <span class="overlay"></span>
-                                                                                <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
-                                                                            </a>
-                                                                        </figure>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                                    <a href="[[ ::notify.notification.link]]" class="goalTitle">
+                                                                                        <span class="overlay"></span>
+                                                                                        <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                                                                                    </a>
+                                                                                </figure>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
                                                             <div data-ng-show="notifies.length">
                                                                 <a href="{{ path('notifications') }}">See all</a>
                                                             </div>
                                                             <div data-ng-show="!notifies.length" class="ng-hide">You have not Notify</div>
-                                                        </div>
+                                                        </ul>
                                                   </ul>
                                             </span>
                                         </li>
@@ -374,7 +377,6 @@
                 'app/bower_components/jquery-form/jquery.form.js'
                 'app/bower_components/moment/min/moment.min.js'
                 'app/bower_components/jquery-nice-select/js/jquery.nice-select.min.js'
-                'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js'
                 'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
                 'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
                 'app/bower_components/underscore/underscore.js'
@@ -394,8 +396,11 @@
                 'app/bower_components/slick-carousel/slick/slick.min.js'
                 'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
                 'app/bower_components/angular-ui-select/dist/select.js'
+                'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
+
                 'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Authenticator/Authenticator.js'
                 'app/scripts/Components/Components.js'

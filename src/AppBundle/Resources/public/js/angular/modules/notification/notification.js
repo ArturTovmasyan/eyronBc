@@ -10,5 +10,6 @@ angular.module('notification', ['Interpolation',
   'mgcrea.ngStrap.popover',
   'ngAnimate',
   'ngResource',
+  'ngScrollbars',
   'PathPrefix'
   ]);
