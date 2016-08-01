@@ -11,6 +11,7 @@ namespace AppBundle\Controller\Rest;
 use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,7 @@ class NewsFeedController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"new_feed", "tiny_goal", "images", "tiny_user", "successStory", "comment", "successStory_storyImage", "storyImage"})
+     * @Rest\View()
      * @Security("has_role('ROLE_USER')")
      *
      * @param $first
@@ -110,7 +111,16 @@ class NewsFeedController extends FOSRestController
             }
         }
 
-        return $newsFeeds;
+        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage");
+
+        if(is_null($userId)){
+            array_push($groups, "tiny_user");
+        }
+
+        $view = $this->view($newsFeeds, 200)
+            ->setSerializationContext(SerializationContext::create()->setGroups($groups));
+
+        return $this->handleView($view);
     }
 
     /**

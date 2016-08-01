@@ -35,7 +35,6 @@ class OptPostProcessor implements PostProcessorInterface
 
         $command  = 'node ' . $nodeDir . 'ImageOptimiser.js'
                 . ' -f ' . $input
-                . ' -p ' . $binary->getFormat()
                 . ' -r ' . $nodeDir . 'tmp/'
                 . ' -t ' . $name ;
 

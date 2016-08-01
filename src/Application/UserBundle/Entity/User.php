@@ -264,7 +264,7 @@ class User extends BaseUser
     protected $factorCommandDate;
 
     /**
-     * @Groups({"tiny_goal"})
+     * @Groups({"tiny_user"})
      */
     private $cachedImage;
 
