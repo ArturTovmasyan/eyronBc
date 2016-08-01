@@ -2,6 +2,8 @@
 
 namespace AppBundle\Tests\Controller;
 
+use Liip\ImagineBundle\Model\Binary;
+
 class ImageOptimizationControllerTest extends BaseClass
 {
 
@@ -10,50 +12,49 @@ class ImageOptimizationControllerTest extends BaseClass
      */
     public function testImageOptimizationForJpg()
     {
-        $input = __DIR__ . '/Images/test.jpg';
-        $output = __DIR__ . '/';
+        //get image optimization processor service
+        $processor = $this->container->get('app.post_processor.opt_post_processor');
+
+        //get input value
+        $input = __DIR__ . '/images/test.jpg';
 
         //get image file before optimization
         $currentFileSize = filesize($input);
 
-        //correctly optimization size by percent
-        $optimizeImageSize = $currentFileSize * 52/100;
+        //get output value
+        $output = __DIR__ . '/images/new.jpg';
 
-        //get node path
-        $node = $this->container->getParameter('node_path');
+        //get file content
+        $content = file_get_contents($input);
 
-        //get node path in project
-        $nodePath = __DIR__ . '../../../../node/';
+        //create binary
+        $binary = new Binary($content, 'image/jpg', 'jpg');
 
-        //create command
-        $command  = $node .' ' . $nodePath . 'ImageOptimiser.js'
-            . ' -f ' . $input
-            . ' -p jpg'
-            . ' -r ' . $output
-            . ' -t ' . 'new.jpg' ;
+        //run optimization service
+        $optimizeFile = $processor->process($binary);
 
-        //get exec file
-        $execFile = $output . 'new.jpg';
-
-        //run command
-        exec($command);
+        //put file content
+        file_put_contents($output, $optimizeFile->getContent());
 
         //get file size after optimization
-        $execFileSize = filesize($execFile);
+        $optimizeImageSize = filesize($output);
+
+        //set normal optimization by percent
+        $normalOptimization = $optimizeImageSize * 100 / $currentFileSize;
 
         //set default status
         $status = false;
 
-        if($optimizeImageSize < $execFileSize) {
+        //check if optimization percent is more then 50%
+        if($normalOptimization > 50) {
             //set status
             $status = true;
         }
 
-        unlink($execFile);
+        unlink($output);
 
         // Assert that the response status code is 2xx
-        $this->assertTrue($status, "Images optimization for JPEG don't work correctly!");
-
+        $this->assertTrue($status, "Images optimization for PNG don't work correctly!");
     }
 
     /**
@@ -61,49 +62,48 @@ class ImageOptimizationControllerTest extends BaseClass
      */
     public function testImageOptimizationForPng()
     {
-        $input = __DIR__ . '/Images/test1.png';
-        $output = __DIR__ . '/';
+        //get image optimization processor service
+        $processor = $this->container->get('app.post_processor.opt_post_processor');
+
+        //get input value
+        $input = __DIR__ . '/images/test1.png';
 
         //get image file before optimization
         $currentFileSize = filesize($input);
 
-        //correctly optimization size by percent
-        $optimizeImageSize = $currentFileSize * 13.5/100;
+        //get output value
+        $output = __DIR__ . '/images/new.png';
 
-        //get node path
-        $node = $this->container->getParameter('node_path');
+        //get file content
+        $content = file_get_contents($input);
 
-        //get node path in project
-        $nodePath = __DIR__ . '../../../../node/';
+        //create binary
+        $binary = new Binary($content, 'image/png', 'png');
 
-        //create command
-        $command  = $node .' ' . $nodePath . 'ImageOptimiser.js'
-            . ' -f ' . $input
-            . ' -p png'
-            . ' -r ' . $output
-            . ' -t ' . 'new.png' ;
+        //run optimization service
+        $optimizeFile = $processor->process($binary);
 
-        //get exec file
-        $execFile = $output . 'new.png';
-
-        //run command
-        exec($command);
+        //put file content
+        file_put_contents($output, $optimizeFile->getContent());
 
         //get file size after optimization
-        $execFileSize = filesize($execFile);
+        $optimizeImageSize = filesize($output);
+
+        //set normal optimization by percent
+        $normalOptimization = $optimizeImageSize * 100 / $currentFileSize;
 
         //set default status
         $status = false;
 
-        if($optimizeImageSize < $execFileSize) {
+        //check if optimization percent is more then 50%
+        if($normalOptimization > 13) {
             //set status
             $status = true;
         }
 
-        unlink($execFile);
+        unlink($output);
 
         // Assert that the response status code is 2xx
         $this->assertTrue($status, "Images optimization for PNG don't work correctly!");
-
     }
 }
