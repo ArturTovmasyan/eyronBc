@@ -228,22 +228,49 @@
                                 {#{% if 'phone' == getDeviceType() %}#}
                                 {#{{ path("fos_user_security_login") }}#}
                                 {#{% endif %}#}
-                                {% if user %}
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li uib-dropdown>
-                                            <a uib-dropdown-toggle ng-disabled="disabled">
-                                                <i class="icon-ideas-icon"></i>
-                                                <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
-                                            </a>
-                                            <span class="dropdown-menu" uib-dropdown-menu template-url="/bundles/app/htmls/notification.html" aria-labelledby="button-template-url">
+                                <ul class="nav navbar-nav navbar-right">
+                                    {% if user %}
+                                        <li uib-dropdown data-ng-controller="notificationController">
+                                             <span uib-dropdown>
+                                                  <a href="#" uib-dropdown-toggle>
+                                                    Click me
+                                                  </a>
+                                                  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                                                        <div style="position: absolute;border: 1px solid black; overflow: hidden">
+                                                            <div class="bg-white ng-hide" data-ng-show="notifies.length">
+                                                                <h3>Notification</h3>
+                                                            </div>
+
+                                                            <div data-ng-show="notifies.length"
+                                                                 data-ng-cloak
+                                                                 class="ng-hide row"
+                                                                 data-ng-repeat="notify in notifies">
+
+                                                                <div class="col-sm-12">
+                                                                    <div class="idea-item">
+                                                                        <figure>
+                                                                            <h3>
+                                                                                <a href="[[ ::notify.notification.link]]"></a>
+                                                                            </h3>
+
+                                                                            <a href="[[ ::notify.notification.link]]" class="goalTitle">
+                                                                                <span class="overlay"></span>
+                                                                                <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                                                                            </a>
+                                                                        </figure>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div data-ng-show="!notifies.length" class="ng-hide">You have not Notify</div>
+                                                        </div>
+                                                  </ul>
                                             </span>
                                         </li>
-
-                                        <li>
-                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
-                                        </li>
-                                    </ul>
-                                {% endif %}
+                                    {% endif %}
+                                    <li>
+                                        {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </nav>
@@ -374,6 +401,7 @@
                 'bundles/app/js/angular/facebook/facebook.js'
                 'bundles/app/js/angular/modules/notification/notification.js'
                 'bundles/app/js/angular/modules/notification/controllers/notificationController.js'
+                'bundles/app/js/angular/modules/notification/services/NotificationManager.js'
                 'bundles/app/js/angular/goal_manager/goalManager.js'
                 'bundles/app/js/angular/comment/comment.js'
                 'bundles/app/js/angular/comment/services/CommentManager.js'

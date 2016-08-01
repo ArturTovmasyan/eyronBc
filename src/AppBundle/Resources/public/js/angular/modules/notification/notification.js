@@ -9,5 +9,6 @@ angular.module('notification', ['Interpolation',
   'infinite-scroll',
   'mgcrea.ngStrap.popover',
   'ngAnimate',
+  'ngResource',
   'PathPrefix'
   ]);
