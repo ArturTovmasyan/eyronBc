@@ -34,7 +34,7 @@ var imagemin = new Imagemin()
 
 switch(argsObj.p){
     case 'png':
-        imagemin.use(Imagemin.optipng({ optimizationLevel: 3 }));
+        imagemin.use(Imagemin.pngquant());
         break;
     case 'gif':
         imagemin.use(Imagemin.gifsicle({ interlaced: true }));
