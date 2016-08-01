@@ -233,10 +233,10 @@
                                         <li uib-dropdown data-ng-controller="notificationController">
                                              <span uib-dropdown>
                                                   <a href="#" uib-dropdown-toggle>
-                                                    Click me
+                                                    Notification
                                                   </a>
                                                   <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                                                        <div style="position: absolute;border: 1px solid black; overflow: hidden">
+                                                        <div style="position: absolute; height: 500px;border: 1px solid black; overflow-y: scroll">
                                                             <div class="bg-white ng-hide" data-ng-show="notifies.length">
                                                                 <h3>Notification</h3>
                                                             </div>
@@ -260,6 +260,9 @@
                                                                         </figure>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <div data-ng-show="notifies.length">
+                                                                <a href="{{ path('notifications') }}">See all</a>
                                                             </div>
                                                             <div data-ng-show="!notifies.length" class="ng-hide">You have not Notify</div>
                                                         </div>

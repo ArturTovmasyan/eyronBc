@@ -157,6 +157,17 @@ class MainController extends Controller
     }
 
     /**
+     * @Route("/notifications", name="notifications")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function notificationsAction(Request $request)
+    {
+        return array();
+    }
+
+    /**
      * @Route("/listed-users/{slug}", name="listed_users")
      * @Route("/done-users/{slug}", name="done_users")
      * @ParamConverter("goal", class="AppBundle:Goal",  options={
