@@ -25,7 +25,7 @@ class NewsFeedController extends FOSRestController
 {
 
     /**
-     * @Rest\Get("/api/v2.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
+     * @Rest\Get("/api/v2.0/activities/{first}/{count}/{userId}", requirements={"first"="\d+", "count"="\d+", "userId"="\d+"}, defaults={"userId" = null}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
@@ -41,11 +41,12 @@ class NewsFeedController extends FOSRestController
      *
      * @param $first
      * @param $count
+     * @param null $userId
      * @param $request
      *
      * @return Response
      */
-    public function getAction($first, $count, Request $request)
+    public function getAction($first, $count, $userId = null, Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
@@ -56,9 +57,10 @@ class NewsFeedController extends FOSRestController
         }
 
         $lastDate = $request->query->get('time', null);
+        //Only for date validation
         if (!is_null($lastDate)){
             try {
-                $date = new \DateTime($lastDate);
+                new \DateTime($lastDate);
             }
             catch(\Exception $e) {
                 throw new HttpException(Response::HTTP_BAD_REQUEST);
@@ -67,7 +69,7 @@ class NewsFeedController extends FOSRestController
 
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')
-            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate);
+            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate, $userId);
 
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 

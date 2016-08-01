@@ -20,21 +20,33 @@ class NewFeedRepository extends EntityRepository
      * @param null $count
      * @param null $lastId
      * @param null $lastDate
+     * @param null $singleUserId
      * @return \Doctrine\ORM\Query|mixed
      */
-    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null, $lastDate = null)
+    public function findNewFeed($userId, $getCount = false, $first = null, $count = null, $lastId = null, $lastDate = null, $singleUserId = null)
     {
         $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('DISTINCT nf.id')
-            ->from('AppBundle:NewFeed', 'nf')
-            ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
-            ->join('u.userGoal', 'gfUserGoal')
-            ->join('gfUserGoal.goal', 'gfGoal')
-            ->join('gfGoal.userGoal', 'userUserGoal', 'WITH', 'userUserGoal.user = :user')
+            ->from('AppBundle:NewFeed', 'nf');
+
+        if (is_null($singleUserId)) {
+
+            $newFeedIdsQuery
+                ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
+                ->join('u.userGoal', 'gfUserGoal')
+                ->join('AppBundle:UserGoal', 'userUserGoal', 'WITH', 'userUserGoal.goal = gfUserGoal.goal AND userUserGoal.user = :user')
+                ->setParameter('user', $userId);
+        }
+        else {
+            $newFeedIdsQuery
+                ->join('nf.user', 'u', 'WITH', "u = :user AND u.roles = :simpleRole")
+                ->setParameter('user', $singleUserId);
+        }
+
+        $newFeedIdsQuery
             ->orderBy('nf.datetime', 'DESC')
             ->addOrderBy('nf.id', 'DESC')
-            ->setParameter('user', $userId)
             ->setParameter('simpleRole', 'a:0:{}');
 
         if ($lastDate && $lastId) {
@@ -71,7 +83,7 @@ class NewFeedRepository extends EntityRepository
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
         if (count($newFeedIds) < 10 && !($lastDate && !$lastId)) {
-            $newFeedIdsQuery->getParameter('numberOfDays')->setValue(30);
+            $newFeedIdsQuery->getParameter('numberOfDays')->setValue(is_null($singleUserId) ? 30 : 300);
             $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
             if (count($newFeedIds) == 0){
                    return [];
