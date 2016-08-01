@@ -7,6 +7,9 @@ angular.module('notification')
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.notifies = res;
+        $('#notification').slimScroll({
+          height: '500px'
+        });
       });
       
       $scope.delete = function(id, index){
