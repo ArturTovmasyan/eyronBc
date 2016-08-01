@@ -8,6 +8,7 @@ angular.module('profile')
       this.id = 0;
       this.slug = 0;
       this.search = '';
+      this.category = 'all';
       this.noItem = false;
       this.busy = false;
       this.request = 0;
@@ -28,6 +29,7 @@ angular.module('profile')
     lsInfiniteGoals.prototype.reset = function(){
       this.userGoals = [];
       this.users = [];
+      this.category = 'all';
       this.busy = false;
       this.reserve = [];
       this.request = 0;
@@ -93,7 +95,7 @@ angular.module('profile')
             }
           }.bind(this));
         } else {//when friends page
-          UserGoalDataManager.friends({id: this.start, where: this.count, search: this.search}, function (newData) {
+          UserGoalDataManager.friends({id: this.start, where: this.count, search: this.search, type: this.category}, function (newData) {
             if(!newData.length){
               // this.noItem = true;
             } else {
@@ -119,10 +121,11 @@ angular.module('profile')
       }.bind(this));
     };
 
-    lsInfiniteGoals.prototype.nextFriends = function(search, slug, id) {
+    lsInfiniteGoals.prototype.nextFriends = function(search, slug, id, category) {
       if (this.busy) return;
       this.busy = true;
       this.noItem = false;
+      this.category = category?category:'all';
 
       if(this.request){
         this.getReserve();
@@ -144,7 +147,7 @@ angular.module('profile')
             }
           }.bind(this));
         } else {
-          UserGoalDataManager.friends({id: this.start, where: this.count, search: search}, function (newData) {
+          UserGoalDataManager.friends({id: this.start, where: this.count, search: search, type: category}, function (newData) {
             // if get empty
             if(!newData.length){
               this.noItem = true;
