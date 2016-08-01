@@ -206,22 +206,32 @@
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
                                     </li>
-                                    <li class="search">
-                                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
-                                            <span class="icon-search-icon"></span>
-                                            <input type="text"
-                                                   name="search"
-                                                   class="form-control"
-                                                   autocomplete="off"
-                                                    {% if app.request.get('_route') == 'goals_list' %}
-                                                        data-ng-model="search"
-                                                        data-ng-keypress="doSearch($event)"
-                                                    {% else %}
-                                                        data-ng-enter-submit=".search form"
-                                                    {% endif %}
-                                                   placeholder="{{ 'search'|trans | capitalize}}">
-                                        </form>
-                                    </li>
+
+                                    {% if app.user %}
+                                        <li>
+                                            <a href="{{ path('user_profile_single') }}">
+                                                <i class="mybucketlist-icon"></i>
+                                                <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    {#<li class="search">#}
+                                        {#<form class="navbar-form" role="search" action="{{ path("goals_list") }}">#}
+                                            {#<span class="icon-search-icon"></span>#}
+                                            {#<input type="text"#}
+                                                   {#name="search"#}
+                                                   {#class="form-control"#}
+                                                   {#autocomplete="off"#}
+                                                    {#{% if app.request.get('_route') == 'goals_list' %}#}
+                                                        {#data-ng-model="search"#}
+                                                        {#data-ng-keypress="doSearch($event)"#}
+                                                    {#{% else %}#}
+                                                        {#data-ng-enter-submit=".search form"#}
+                                                    {#{% endif %}#}
+                                                   {#placeholder="{{ 'search'|trans | capitalize}}">#}
+                                        {#</form>#}
+                                    {#</li>#}
                                 </ul>
 
 
@@ -232,13 +242,13 @@
                                     {% if user %}
                                         <li uib-dropdown data-ng-controller="notificationController">
                                              <span uib-dropdown>
-                                                  <a href="#" uib-dropdown-toggle>
-                                                    Notification
+                                                  <a href="#" uib-dropdown-toggle class="bell">
+                                                      <sup></sup>
                                                   </a>
-                                                  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                                                        <div style="position: absolute; border: 1px solid black; overflow-y: scroll" id="notification">
+                                                  <ul id="notification" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                                                        <div style="position: absolute; height: 500px;border: 1px solid black; overflow-y: scroll">
                                                             <div class="bg-white ng-hide" data-ng-show="notifies.length">
-                                                                <h3>Notification</h3>
+                                                                <h3 class="text-gray">Notifications</h3>
                                                             </div>
 
                                                             <div data-ng-show="notifies.length"
@@ -374,7 +384,6 @@
                 'app/bower_components/jquery-form/jquery.form.js'
                 'app/bower_components/moment/min/moment.min.js'
                 'app/bower_components/jquery-nice-select/js/jquery.nice-select.min.js'
-                'app/bower_components/jquery-slimscroll/jquery.slimscroll.min.js'
                 'app/bower_components/jquery.scrollTo/jquery.scrollTo.min.js'
                 'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
                 'app/bower_components/underscore/underscore.js'
