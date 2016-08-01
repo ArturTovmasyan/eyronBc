@@ -1,16 +1,13 @@
 'use strict';
 
-angular.module('profile', ['Interpolation',
+angular.module('notification', ['Interpolation',
   'Google',
   'Components',
   'angular-cache',
+  'ui.bootstrap',
   'ngSanitize',
   'infinite-scroll',
   'mgcrea.ngStrap.popover',
-  'goalManage',
   'ngAnimate',
-  'goalComponents',
-  'manage',
-  'notification',
   'PathPrefix'
-]);
+  ]);

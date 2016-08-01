@@ -35,6 +35,7 @@
     "angular-slick-carousel":"3.1.*",
     "angular-ui-select":"0.18.*",
     "underscore":"1.8.*",
+    "angular-bootstrap":"2.0.*",
     "angular-local-storage": "0.2.*"
   },
   "devDependencies": {
