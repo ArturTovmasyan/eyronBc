@@ -49,10 +49,11 @@ class ImageOptimizationControllerTest extends BaseClass
             $status = true;
         }
 
-        // Assert that the response status code is 2xx
-        $this->assertTrue($status, "Images optimization don't work correctly!");
-
         unlink($execFile);
+
+        // Assert that the response status code is 2xx
+        $this->assertTrue($status, "Images optimization for JPEG don't work correctly!");
+
     }
 
     /**
@@ -99,9 +100,10 @@ class ImageOptimizationControllerTest extends BaseClass
             $status = true;
         }
 
-        // Assert that the response status code is 2xx
-        $this->assertTrue($status, "Images optimization don't work correctly!");
-
         unlink($execFile);
+
+        // Assert that the response status code is 2xx
+        $this->assertTrue($status, "Images optimization for PNG don't work correctly!");
+
     }
 }
