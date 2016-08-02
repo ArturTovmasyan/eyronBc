@@ -15,6 +15,8 @@ angular.module('comments', ['Interpolation',
         lsGoalId: '@',
         lsTitle: '@',
         lsSlug: '@',
+        lsReply: '@',
+        lsReplied: '@',
         lsUserImage: '@'
       },
       templateUrl: '/bundles/app/htmls/comment.html',

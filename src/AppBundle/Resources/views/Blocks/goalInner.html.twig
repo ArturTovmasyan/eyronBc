@@ -428,7 +428,7 @@
 
                                             <div class=" col-sm-3 text-right" data-ng-cloak>
                                                 <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
-                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is not null and story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
+                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
                                         </div>
@@ -528,6 +528,8 @@
                                 <div ls-comment-manage
                                      ls-goal-id="{{ goal.id }}"
                                      ls-slug="{{ goal.slug }}"
+                                     ls-reply="{{ 'reply'|trans }}"
+                                     ls-replied="{{ 'replied'|trans }}"
                                      ls-title="{{ 'comments'|trans }}"
                                      ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
                                     {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}

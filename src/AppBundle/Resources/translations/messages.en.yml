@@ -15,6 +15,8 @@ clone: CLONE
 success_stories: Success stories
 successtory: Success story
 comments: Comments
+reply: Reply
+replied: replied
 create_goal: Create Goal
 settings: Settings
 logout: Logout
