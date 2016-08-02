@@ -21,6 +21,7 @@ angular.module('goal', ['Interpolation',
         'angulartics.google.analytics',
         'PathPrefix',
         'slickCarousel',
+        'notification',
         'comments'
     ])
     .config(function (localStorageServiceProvider ) {
@@ -675,6 +676,7 @@ angular.module('goal', ['Interpolation',
         $scope.locations = [];
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
+        $scope.isSearching = false;
         var locationsIds = [];
 
         $scope.castInt = function(value){
@@ -699,6 +701,13 @@ angular.module('goal', ['Interpolation',
         $scope.doSearch = function(ev){
             if(ev.which === 13 && screen.width < 768) {
                 angular.element('.icon-remove-email').click();
+            }
+            if(ev.which != 8 && ev.which != 46 && !$scope.isSearching){
+                $scope.isSearching = true;
+            } else if($scope.isSearching && (ev.which == 8 || ev.which != 46)){
+                $timeout(function(){
+                    if(!$scope.search.length)$scope.isSearching = false;
+                },100);
             }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
