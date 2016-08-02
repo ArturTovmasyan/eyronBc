@@ -11,6 +11,7 @@ namespace AppBundle\Controller\Rest;
 use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class NewsFeedController extends FOSRestController
 {
 
     /**
-     * @Rest\Get("/api/v2.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
+     * @Rest\Get("/api/v2.0/activities/{first}/{count}/{userId}", requirements={"first"="\d+", "count"="\d+", "userId"="\d+"}, defaults={"userId" = null}, name="app_rest_newsfeed_get", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Activity",
@@ -36,16 +37,17 @@ class NewsFeedController extends FOSRestController
      *
      * )
      *
-     * @Rest\View(serializerGroups={"new_feed", "tiny_goal", "images", "tiny_user", "successStory", "comment", "successStory_storyImage", "storyImage"})
+     * @Rest\View()
      * @Security("has_role('ROLE_USER')")
      *
      * @param $first
      * @param $count
+     * @param null $userId
      * @param $request
      *
      * @return Response
      */
-    public function getAction($first, $count, Request $request)
+    public function getAction($first, $count, $userId = null, Request $request)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
@@ -56,9 +58,10 @@ class NewsFeedController extends FOSRestController
         }
 
         $lastDate = $request->query->get('time', null);
+        //Only for date validation
         if (!is_null($lastDate)){
             try {
-                $date = new \DateTime($lastDate);
+                new \DateTime($lastDate);
             }
             catch(\Exception $e) {
                 throw new HttpException(Response::HTTP_BAD_REQUEST);
@@ -67,7 +70,7 @@ class NewsFeedController extends FOSRestController
 
         //If user is logged in then show news feed
         $newsFeeds = $em->getRepository('AppBundle:NewFeed')
-            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate);
+            ->findNewFeed($this->getUser()->getId(), null, $first, $count, $lastId, $lastDate, $userId);
 
         $userGoalsArray = $em->getRepository('AppBundle:UserGoal')->findUserGoals($this->getUser()->getId());
 
@@ -108,7 +111,16 @@ class NewsFeedController extends FOSRestController
             }
         }
 
-        return $newsFeeds;
+        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage");
+
+        if(is_null($userId)){
+            array_push($groups, "tiny_user");
+        }
+
+        $view = $this->view($newsFeeds, 200)
+            ->setSerializationContext(SerializationContext::create()->setGroups($groups));
+
+        return $this->handleView($view);
     }
 
     /**

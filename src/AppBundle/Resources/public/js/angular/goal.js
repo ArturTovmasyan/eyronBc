@@ -547,6 +547,10 @@ angular.module('goal', ['Interpolation',
                 angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
             }
         }
+
+        $scope.openLogin = function () {
+            AuthenticatorLoginService.openLoginPopup()
+        };
             
         $scope.manageVote = function(id){
         var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
