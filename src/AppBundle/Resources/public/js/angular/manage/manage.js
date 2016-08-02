@@ -20,12 +20,13 @@ angular.module('manage', ['Interpolation',
           storageMode: 'localStorage' // This cache will use `localStorage`.
       });
     })
-    .run(['$http', 'envPrefix', 'template', 'UserContext', 'CacheFactory', function($http, envPrefix, template, UserContext, CacheFactory){
-        var addUrl = envPrefix + "goal/add-modal";
-        var doneUrl = envPrefix + "goal/done-modal";
-        var commonUrl = envPrefix + "user/common";
-        var goalUsersUrl = envPrefix + "goal/users";
-        var id = UserContext.id;
+    .run(['$http', 'envPrefix', 'template', 'UserContext', 'CacheFactory', '$rootScope', 'UserGoalDataManager',
+        function($http, envPrefix, template, UserContext, CacheFactory, $rootScope, UserGoalDataManager){
+        var addUrl = envPrefix + "goal/add-modal",
+            doneUrl = envPrefix + "goal/done-modal",
+            commonUrl = envPrefix + "user/common",
+            goalUsersUrl = envPrefix + "goal/users",
+            id = UserContext.id;
 
         var templateCache = CacheFactory.get('bucketlist_templates');
 
@@ -114,6 +115,7 @@ angular.module('manage', ['Interpolation',
                         $(".modal-loading").show();
 
                         if(scope.lsType){
+                            scope.closePrefix = false;
                             UserGoalDataManager.get({id: scope.lsGoalId}, function (uGoal){
                                 scope.runCallback(uGoal);
                             }, function(res){
@@ -123,6 +125,7 @@ angular.module('manage', ['Interpolation',
                             });
                         }
                         else {
+                            scope.closePrefix = true;
                             refreshingDate.goalId = scope.lsGoalId;
                             
                             if(scope.lsUserId){
@@ -166,14 +169,32 @@ angular.module('manage', ['Interpolation',
                         $(".modal-loading").hide();
                     };
 
+                    $rootScope.$on('addGoal', function(){
+                        scope.isSave = false;
+                    });
+
+                    $rootScope.$on('lsJqueryModalClosedSaveGoal', function(){
+                        scope.isSave = true;
+                    });
+
                     scope.openModal = function(tmp){
 
+                        scope.isSave = false;
                         angular.element('body').append(tmp);
                         tmp.modal({
                             fadeDuration: 300
                         });
 
                         tmp.on($.modal.CLOSE, function(){
+                            if(scope.closePrefix){
+                                if(!scope.isSave){
+                                    UserGoalDataManager.creates({id: scope.lsGoalId}, {is_visible: true}, function (resource){
+                                        // userGoalData.data = resource;
+                                    });
+                                } else {
+                                    scope.isSave = false;
+                                }
+                            }
                             tmp.remove();
                         })
                     }

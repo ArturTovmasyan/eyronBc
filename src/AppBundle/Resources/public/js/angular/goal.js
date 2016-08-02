@@ -476,6 +476,7 @@ angular.module('goal', ['Interpolation',
                 },
                 success: function(res, text, header){
                     if(header.status === 200){
+                        $scope.newId = res;
                         UserGoalDataManager.creates({id:res}, {}, function (resource){
                             userGoalData.data = resource;
                             $scope.goalSubmitTemplate = template.addTemplate;
@@ -499,10 +500,13 @@ angular.module('goal', ['Interpolation',
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
-            if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
-                // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-                $window.location.href = $scope.redirectPath;
-            }
+            UserGoalDataManager.creates({id:$scope.newId}, {is_visible: true}, function (resource){
+                userGoalData.data = resource;
+                if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
+                    // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
+                    $window.location.href = $scope.redirectPath;
+                }
+            });
             $scope.goalSubmitTemplate = '';
         })
 

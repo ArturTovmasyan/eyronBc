@@ -528,6 +528,8 @@
                                 <div ls-comment-manage
                                      ls-goal-id="{{ goal.id }}"
                                      ls-slug="{{ goal.slug }}"
+                                     ls-reply="{{ 'reply'|trans }}"
+                                     ls-replied="{{ 'replied'|trans }}"
                                      ls-title="{{ 'comments'|trans }}"
                                      ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
                                     {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}

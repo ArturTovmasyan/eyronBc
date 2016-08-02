@@ -76,7 +76,7 @@
                         </figure>
 
                         <div class="pull-left">
-                            <p>[[ child.author.show_name ]]</p>
+                            <p>[[ child.author.show_name ]] <span class="text-dark-gray">[[ ::lsReplied ]]</span></p>
                             <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                    data-ng-click="comment.reply = false"
                    data-ng-init="comment.reply = true"
                    data-ng-show="comment.reply"
-                   class="text-dark-grey reply">Reply
+                   class="text-dark-grey reply">[[ ::lsReply ]]
                 </a>
                 <div class="clearfix ng-hide" data-ng-show="!comment.reply">
 

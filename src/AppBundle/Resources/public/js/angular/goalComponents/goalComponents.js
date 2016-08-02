@@ -722,6 +722,7 @@ angular.module('goalComponents', ['Interpolation',
           $scope.userGoal.goal_status = $scope.complete.switch;
 
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
+            $scope.$emit('lsJqueryModalClosedSaveGoal');
             angular.element('#cancel').click();
             if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
               $window.location.href = $scope.redirectPath;
