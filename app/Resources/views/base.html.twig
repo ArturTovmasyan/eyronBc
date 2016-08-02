@@ -174,27 +174,54 @@
                         <div id="line"></div>
                         <div class="container" id="main-nav" style="display: none">
                             <div class="navbar-header">
-                                <button type="button"
-                                        data-ls-mobile-on-menu-click
-                                        data-ls-trigger="mobilePopoverOpened"
-                                        class="navbar-toggle collapsed"
-                                        data-toggle="collapse"
-                                        data-target="#navbar"
-                                        aria-expanded="false"
-                                        aria-controls="navbar">
+                                {% if user %}
+                                    <ul class="nav navbar-nav">
 
-                                    <span data-ng-hide="mobilePopoverOpened" class="sr-only">{{ 'toogle_navigation'|trans }}</span>
-                                    <span data-ng-hide="mobilePopoverOpened" class="icon-bar"></span>
-                                    <span data-ng-hide="mobilePopoverOpened" class="icon-bar"></span>
-                                    <span data-ng-hide="mobilePopoverOpened" class="icon-bar"></span>
+                                        {{ render_esi(controller('AppBundle:Main:esiActivity')) }}
 
-                                    <i data-ng-show="mobilePopoverOpened" class="ng-hide icon-remove-email"></i>
-                                </button>
+                                        <li>
+                                            <a href="{{ path('goals_list') }}">
+                                                <i class="icon-ideas-icon"></i>
+                                                <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
+                                            </a>
+                                        </li>
+
+                                        {% if app.user %}
+                                            <li>
+                                                <a href="{{ path('user_profile_single') }}">
+                                                    <i class="mybucketlist-icon"></i>
+                                                    <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+
+                                    </ul>
+                                {% else %}
+                                    <div>
+                                        <a href="{{ path('goals_list') }}">
+                                            <i class="icon-ideas-icon"></i>
+                                        </a>
+                                    </div>
+
+                                    <button type="button"
+                                            data-ls-mobile-on-menu-click
+                                            data-ls-trigger="mobilePopoverOpened"
+                                            class="navbar-toggle collapsed"
+                                            data-toggle="collapse"
+                                            data-target="#navbar"
+                                            aria-expanded="false"
+                                            aria-controls="navbar">
+
+                                        <i class="icon-join-icon"></i>
+
+                                        <i data-ng-show="mobilePopoverOpened" class="ng-hide icon-remove-email"></i>
+                                    </button>
 
 
-                                <a class="navbar-brand" href="{{ path("homepage") }}">
-                                    <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
-                                </a>
+                                    <a class="navbar-brand" href="{{ path("homepage") }}">
+                                        <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                                    </a>
+                                {% endif %}
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
