@@ -12,14 +12,10 @@ use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use JMS\Serializer\SerializationContext;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 
 
 /**
@@ -36,39 +32,26 @@ class ReportController extends FOSRestController
      *  statusCodes={
      *         200="Return when report was sent",
      *         400="Return when data is invalid",
-     *         404="Return when reported user not found"
+     *         404="Return when reported user or report content not found"
      *     },
      * parameters={
-     *      {"name"="userId", "dataType"="integer", "required"=true, "description"="Reported user id"},
      *      {"name"="contentType", "dataType"="integer", "required"=true, "description"="Reported content type (comment, success story, ...)"},
-     *      {"name"="contentId", "dataType"="string", "required"=true, "description"="Reported content id"},
-     *      {"name"="message", "dataType"="string", "required"=true, "Report description"}
+     *      {"name"="contentId",   "dataType"="string",  "required"=true, "description"="Reported content id"},
+     *      {"name"="message",     "dataType"="string",  "required"=true, "Report description"}
      * }
      * )
      * @Rest\View()
      * @Secure("ROLE_USER")
+     *
      * @param Request $request
-     * @return JsonResponse|Response
+     * @return array
      */
     public function putAction(Request $request)
     {
-        $userId = $request->get('userId', null);
-
-        if (is_null($userId)){
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'userId is required');
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $reportedUser = $em->getRepository('ApplicationUserBundle:User')->find($userId);
-
-        if (is_null($reportedUser)){
-            throw new HttpException(Response::HTTP_NOT_FOUND, 'reported user not found');
-        }
-
 
         $report = new Report();
         $report->setUser($this->getUser());
-        $report->setReportedUser($reportedUser);
         $report->setContentType($request->get('contentType', null));
         $report->setContentId($request->get('contentId', null));
         $report->setMessage($request->get('message', null));
@@ -78,6 +61,27 @@ class ReportController extends FOSRestController
 
         if(count($errors) > 0){
             throw new HttpException(Response::HTTP_BAD_REQUEST, $errors[0]->getMessage());
+        }
+
+        switch($report->getContentType()){
+            case Report::COMMENT:
+                $comment = $em->getRepository('ApplicationCommentBundle:Comment')->findCommentWithAuthor($report->getContentId());
+
+                if (is_null($comment)){
+                    throw new HttpException(Response::HTTP_NOT_FOUND, 'comment not found');
+                }
+
+                $report->setReportedUser($comment->getAuthor());
+                break;
+
+            case Report::SUCCESS_STORY:
+                $story = $em->getRepository('AppBundle:SuccessStory')->findStoryWithAuthor($report->getContentId());
+                if (is_null($story)){
+                    throw new HttpException(Response::HTTP_NOT_FOUND, 'story not found');
+                }
+
+                $report->setReportedUser($story->getUser());
+                break;
         }
 
         $em->persist($report);

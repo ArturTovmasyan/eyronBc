@@ -8,6 +8,8 @@
 namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Report
@@ -37,7 +39,6 @@ class Report
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="reported_user_id", referencedColumnName="id")
-     * @Assert\NotBlank()
      */
     protected $reportedUser;
 
@@ -61,6 +62,12 @@ class Report
     protected $message;
 
     /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+
+    /**
      * Get id
      *
      * @return integer
@@ -79,7 +86,7 @@ class Report
      */
     public function setMessage($message)
     {
-        $this->message = $message;
+        $this->message = (!is_null($message)) ? strip_tags($message) : $message;
 
         return $this;
     }
@@ -193,8 +200,32 @@ class Report
     /**
      * @return array
      */
-    public function getAllowedTypes()
+    public static function getAllowedTypes()
     {
         return [self::COMMENT, self::SUCCESS_STORY];
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Report
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

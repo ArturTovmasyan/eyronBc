@@ -40,5 +40,21 @@ class CommentRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param $commentId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findCommentWithAuthor($commentId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT cmt, a
+                           FROM ApplicationCommentBundle:Comment cmt
+                           LEFT JOIN cmt.author a
+                           WHERE cmt.id = :commentId")
+            ->setParameter('commentId', $commentId)
+            ->getOneOrNullResult();
+    }
 }
 
