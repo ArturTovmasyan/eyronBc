@@ -51,3 +51,25 @@ twig:
 swiftmailer:
 #    disable_delivery:  true
 #    delivery_address: andranik.hovhan@gmail.com
+
+bazinga_faker:
+    orm: doctrine
+    entities:
+        Application\UserBundle\Entity\User:
+            number: 10
+            custom_formatters:
+                gender:   { method: null }
+                website:  { method: null }
+                uId:     { method: lexify, parameters: [ '?????????' ], unique: true }
+                registrationToken:     { method: lexify, parameters: [ '???????????' ], unique: true }
+                email:  { method: email, unique: true }
+                salt:     { method: lexify, parameters: [ '?' ] }
+                password:     { method: lexify, parameters: [ '?' ] }
+                lastLogin:     { method: null }
+                confirmationToken:  { method: null }
+                passwordRequestedAt:  { method: null }
+
+        AppBundle\Entity\Notification:
+            number: 10000
+            custom_formatters:
+                created: { method: dateTimeBetween, parameters: [ '-10 days', 'now' ] }

@@ -36,6 +36,10 @@
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="bl_notification" class="Application\UserBundle\Services\NotificationService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
         <service id="bl_user_api_authenticator" class="Application\UserBundle\Security\ApiKeyAuthenticator">
         </service>
 

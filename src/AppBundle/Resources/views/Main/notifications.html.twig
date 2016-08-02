@@ -1,0 +1,52 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block angularApp %}
+<html data-ng-app="profile" data-ng-controller="notificationController">
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div id="notifications">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8"
+                     data-ng-cloak
+                     data-infinite-scroll='nextNotifications()'
+                     data-infinite-scroll-disabled='noNotification || busy'>
+
+                    <div class="row">
+                        <div data-ng-cloak
+                             class="col-sm-6 goals-animate"
+                             data-ng-repeat="notify in notifies"
+                             data-ng-class-even="row">
+
+                        </div>
+                    </div>
+                    <br />
+                </div>
+
+                {% if app.user %}
+                    <div class="col-md-4">
+                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                        {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{%- block title -%}
+    {{- 'notification.title'|trans -}}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- 'notification.description'|trans -}}
+{%- endblock -%}
+
+{%- block og_url -%}
+{{- app.request.uri -}}
+{%- endblock -%}
