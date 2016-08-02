@@ -428,7 +428,7 @@
 
                                             <div class=" col-sm-3 text-right" data-ng-cloak>
                                                 <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
-                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is not null and story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
+                                                <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
                                         </div>

@@ -121,6 +121,7 @@ angular.module('manage', ['Interpolation',
                             }, function(res){
                                 if(res.status === 401){
                                     AuthenticatorLoginService.openLoginPopup();
+                                    $(".modal-loading").hide();
                                 }
                             });
                         }
@@ -151,6 +152,7 @@ angular.module('manage', ['Interpolation',
                                 }, function(res){
                                     if(res.status === 401){
                                         AuthenticatorLoginService.openLoginPopup();
+                                        $(".modal-loading").hide();
                                     }
                                 });
                             }
@@ -242,6 +244,7 @@ angular.module('manage', ['Interpolation',
                           }, function(res){
                               if(res.status === 401){
                                   AuthenticatorLoginService.openLoginPopup();
+                                  $(".modal-loading").hide();
                               }
                           });
                       }
@@ -261,6 +264,7 @@ angular.module('manage', ['Interpolation',
                           }, function(res){
                               if(res.status === 401){
                                   AuthenticatorLoginService.openLoginPopup();
+                                  $(".modal-loading").hide();
                               }
                           });
                       }
@@ -327,6 +331,7 @@ angular.module('manage', ['Interpolation',
                       }, function(res){
                           if(res.status === 401){
                               AuthenticatorLoginService.openLoginPopup();
+                              $(".modal-loading").hide();
                           }
                       });
                   };
@@ -385,6 +390,7 @@ angular.module('manage', ['Interpolation',
                         scope.runCallback();
                     } else {
                         AuthenticatorLoginService.openLoginPopup();
+                        $(".modal-loading").hide();
                     }
                 };
 
