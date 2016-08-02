@@ -12,7 +12,6 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\Tag;
-use AppBundle\Form\GoalImageType;
 use AppBundle\Form\Type\BlMultipleFileType;
 use AppBundle\Form\Type\BlMultipleVideoType;
 use AppBundle\Form\Type\LocationType;
@@ -23,7 +22,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -82,7 +81,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('rawLocation', LocationType::class, array('label' => false))
             ->add('videoLink', BlMultipleVideoType::class, array('label' => false))
-            ->add('language', TextareaType::class, array('required' => true))
+            ->add('language', ChoiceType::class, array('required' => true, 'choices' => ['en' => 'en', 'ru' => 'ru']))
             ->add('bl_multiple_file', BlMultipleFileType::class, array('label'=>'admin.label.name.images', 'required' => false));
     }
 
