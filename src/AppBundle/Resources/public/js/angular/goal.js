@@ -549,7 +549,9 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.openLogin = function () {
-            AuthenticatorLoginService.openLoginPopup()
+            $(".modal-loading").show();
+            AuthenticatorLoginService.openLoginPopup();
+            $(".modal-loading").hide();
         };
             
         $scope.manageVote = function(id){
@@ -564,7 +566,14 @@ angular.module('goal', ['Interpolation',
                     $scope.count[id]--;
                     $scope.vote[id] = false;
                 }
-            });
+            })
+              .error(function (res) {
+                  if(res == "User not found") {
+                      $(".modal-loading").show();
+                      AuthenticatorLoginService.openLoginPopup();
+                      $(".modal-loading").hide();
+                  }
+              });
         };
 
         var imageResize = function () {
