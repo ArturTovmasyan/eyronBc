@@ -42,6 +42,7 @@
         'app/bower_components/angulartics/dist/angulartics.min.js'
         'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
         'app/bower_components/slick-carousel/slick/slick.min.js'
+        'app/bower_components/angular-ui-select/dist/select.js'
         'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
         'bundles/app/js/images.js'
         'app/scripts/Confirm/Confirm.js'
@@ -67,7 +68,11 @@
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
+    <script>
+        angular.module('Components').constant('UserContext',{
+            id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+        });
+    </script>
     {{ tinymce_init() }}
 
 {% endblock %}
