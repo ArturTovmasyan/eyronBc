@@ -231,7 +231,7 @@ class GoalController extends FOSRestController
         }
 
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($goal);
-        $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($id);
+        $goalComments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments('goal_' . $goal->getSlug());
 
         if ((!$goal->getLat() || !$goal->getLng()) && $this->getUser()){
             $userGoals = $this->getUser()->getUserGoal();

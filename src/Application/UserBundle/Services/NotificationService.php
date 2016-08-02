@@ -23,27 +23,37 @@ class NotificationService
 
     public function sendNotification(User $user, $link, $body, $toUsers)
     {
+        if (!is_array($toUsers)){
+            $toUsers = [$toUsers];
+        }
+
+        if (count($toUsers) == 0){
+            return null;
+        }
+
         $notification = new Notification();
         $notification->setLink($link);
         $notification->setBody($body);
         $notification->setPerformer($user);
         $this->entityManager->persist($notification);
+        $this->entityManager->flush();
 
-        if (!is_array($toUsers) && $toUsers instanceof User){
-            $toUsers = [$toUsers];
-        }
-
+        $insertDataInQuery = '';
         foreach($toUsers as $toUser){
             if ($user->getId() == $toUser->getId()){
                 continue;
             }
-
-            $userNotification = new UserNotification();
-            $userNotification->setUser($toUser);
-            $userNotification->setNotification($notification);
-            $this->entityManager->persist($userNotification);
+                $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}),";
         }
 
-        $this->entityManager->flush();
+        if ($insertDataInQuery){
+            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id) VALUES ' . trim($insertDataInQuery, ',');
+
+            $stmt = $this->entityManager->getConnection()->prepare($insertDataInQuery);
+            $stmt->execute();
+        }
+
+
+        return null;
     }
 }
