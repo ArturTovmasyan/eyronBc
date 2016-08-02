@@ -146,7 +146,7 @@ class NewsFeedController extends FOSRestController
      */
     public function getOldAction($first, $count, Request $request)
     {
-        $newsFeeds = $this->getAction($first, $count, $request);
+        $newsFeeds = $this->getAction($first, $count, null, $request);
 
         $oldNewFeeds = [];
         foreach($newsFeeds as $newFeed){

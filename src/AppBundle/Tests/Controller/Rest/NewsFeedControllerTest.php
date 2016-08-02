@@ -17,7 +17,7 @@ class NewsFeedControllerTest extends BaseClass
      */
     public function testGet()
     {
-        $url = sprintf('/api/v2.0/activities/%s/%s', 0, 1);
+        $url = sprintf('/api/v1.0/activities/%s/%s', 0, 1);
 
         // try to get news-feed
         $this->client11->request('GET', $url);
@@ -40,14 +40,16 @@ class NewsFeedControllerTest extends BaseClass
         $responseResult = $responseResults[0];
 
         $this->assertArrayHasKey('id', $responseResult, 'Invalid id key in news-feed getAction rest json structure');
+        $this->assertArrayHasKey('goals', $responseResult, 'Invalid goals key in news-feed getAction rest json structure');
+        $this->assertArrayHasKey('listed_by', $responseResult, 'Invalid listed_by key in news-feed getAction rest json structure');
+        $this->assertArrayHasKey('completed_by', $responseResult, 'Invalid completed_by key in news-feed getAction rest json structure');
         $this->assertArrayHasKey('action', $responseResult, 'Invalid action key in news-feed getAction rest json structure');
         $this->assertArrayHasKey('datetime', $responseResult, 'Invalid datetime key in news-feed getAction rest json structure');
 
+
         if(array_key_exists('goal', $responseResult)) {
 
-            $goals = $responseResult['goal'];
-
-            $goal = reset($goals);
+            $goal = $responseResult['goal'];
 
             $this->assertArrayHasKey('id', $goal, 'Invalid id key in news-feed getAction rest json structure');
             $this->assertArrayHasKey('title', $goal, 'Invalid title key in news-feed getAction rest json structure');
