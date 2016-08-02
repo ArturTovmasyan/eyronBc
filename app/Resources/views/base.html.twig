@@ -327,7 +327,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key={{ google_api_key }}"></script>
 
             {% javascripts output='js/base_script.js'
                 'app/bower_components/jquery/dist/jquery.min.js'

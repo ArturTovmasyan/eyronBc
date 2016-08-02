@@ -69,8 +69,10 @@ twig:
     globals:
         production: %production%
         project_name: %project_name%
+        google_api_key: %google_api_key%
         ga_id: %ga_id%
         env_prefix: ~
+
 
 
 # Assetic Configuration
