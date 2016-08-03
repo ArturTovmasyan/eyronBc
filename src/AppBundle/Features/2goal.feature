@@ -87,10 +87,9 @@ Feature: Goal page
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
-    And I wait
+    And I wait for angular
     Then I should be on "/profile"
     When I am on "/goal/create"
-
     And I click on "iCheck-helper"
     And I fill in "app_bundle_goal[title]" with "PRIVATE GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT PRIVATE GOALS"
