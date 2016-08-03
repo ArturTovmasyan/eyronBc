@@ -131,9 +131,9 @@ class MainController extends Controller
      * @Template()
      * @return array
      */
-    public function esiActivityAction()
+    public function esiActivityAction($route)
     {
-        return array();
+        return array('route' => $route);
     }
 
 

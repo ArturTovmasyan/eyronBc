@@ -1,54 +1,58 @@
-<ul class="user-menu">
+<ul class="user-menu hidden-xs">
 
-    <li class="divider"></li>
+    {#<li class="divider"></li>#}
 
     {% if app.user and app.user.activity %}
         <li>
             <a href="{{ path('activity') }}">
-                <i  class="icon-activity-icon"></i>{{ 'activity'|trans }}
+                <i  class="icon-activity-icon"></i>
+                <span>{{ 'activity'|trans }}</span>
             </a>
         </li>
     {% endif %}
 
-    <li class="divider"></li>
+    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path('goals_list') }}">
-            <i class="icon-ideas-icon"></i>{{ 'ideas'|trans }}
+            <i class="icon-ideas-icon"></i>
+            <span>{{ 'ideas'|trans | capitalize }}</span>
         </a>
     </li>
 
-    <li class="divider"></li>
+    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path('user_profile') }}">
-            <i class="mybucketlist-icon"></i>{{ 'my_bucketlist'|trans }}
+            <i class="mybucketlist-icon"></i>
+            <span>{{ 'my_bucketlist'|trans }}</span>
         </a>
     </li>
 
-    <li class="divider"></li>
+    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path('add_goal') }}">
-            {#<i class="icon-creat-icon"></i>#}
             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-            {{ 'create_goal'|trans }}
+            <span>{{ 'create_goal'|trans }}</span>
         </a>
     </li>
 
-    <li class="divider"></li>
+    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path("edit_user_profile") }}">
-            <i class="icon-settings-icon"></i>{{ 'settings'|trans }}
+            <i class="icon-settings-icon"></i>
+            <span>{{ 'settings'|trans }}</span>
         </a>
     </li>
 
-    <li class="divider"></li>
+    <li class="divider hidden-xs"></li>
 
     <li>
         <a href="{{ path("fos_user_security_logout") }}">
-            <i class="icon-logout"></i>{{ 'logout'|trans }}
+            <i class="icon-logout"></i>
+            <span>{{ 'logout'|trans }}</span>
         </a>
     </li>
 </ul>

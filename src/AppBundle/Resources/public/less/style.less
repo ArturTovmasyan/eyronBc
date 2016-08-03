@@ -258,7 +258,7 @@ header{
   }
 
   .navbar-brand{
-    padding:12px 30px 21px 20px;
+    padding:16px 30px 21px 20px;
     img{
       height:45px;
     }
@@ -304,6 +304,12 @@ header{
 
     .navbar-nav{
 
+      figure{
+        height: 40px;
+        img{
+          height: 40px;
+        }
+      }
       margin-top:0;
       margin-bottom:0;
 
@@ -319,6 +325,9 @@ header{
             display:inline-block;
             vertical-align: middle;
             font-size: 30px;
+            &.mybucketlist-icon{
+              margin-right: 6px;
+            }
           }
 
           span{
@@ -375,7 +384,7 @@ header{
       box-shadow:none;
     }
 
-    .navbar-right{
+    .navbar-right,.navbar-mobile{
       text-align: center;
       li{
         border-bottom: 0;
@@ -384,55 +393,53 @@ header{
           padding-bottom:25px;
         }
 
-        .bell{
-          display: block;
-          width: 25px;
-          height: 30px;
-          background: url('../images/bell.png') no-repeat center center;
-          background-size: 37%;
-
-          .sup{
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 3px 6px;
-            color: #ffffff;
-            background-color: #f44336;
-            font-size: 11px;
-            line-height: 12px;
-            font-weight: 300;
-            height: 18px;
-            .rounded-corners(12px);
-            text-align: center;
-            vertical-align: middle;
-          }
-        }
+        //.bell{
+        //  display: block;
+        //  width: 25px;
+        //  height: 30px;
+        //  background: url('../images/bell.png') no-repeat center center;
+        //  background-size: 37%;
+        //
+        //  .sup{
+        //    position: absolute;
+        //    top: 12px;
+        //    right: 12px;
+        //    padding: 3px 6px;
+        //    color: #ffffff;
+        //    background-color: #f44336;
+        //    font-size: 11px;
+        //    line-height: 12px;
+        //    font-weight: 300;
+        //    height: 18px;
+        //    .rounded-corners(12px);
+        //    text-align: center;
+        //    vertical-align: middle;
+        //  }
+        //}
 
         &:last-child{
-
-
         .user{
           display: block;
-          padding: 14px 5px 14px 15px;
+          padding: 19px 5px 19px 15px;
           position: relative;
           figure{
             background-color: transparent;
-            width:50px;
-            height:50px;
+            width:40px;
+            height:40px;
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
             border: 3px solid #cecece;
             img{
-              height:50px;
+              height:40px;
             }
           }
 
           p{
             float: left;
-            width:46px;
-            height:45px;
-            line-height: 41px;
+            width:40px;
+            height:40px;
+            line-height: 34px;
             vertical-align: middle;
             margin:5px 5px 0 5px;
             font-size:14px;
@@ -441,7 +448,7 @@ header{
 
           span.name{
             float:left;
-            padding:16px 0 4px 8px;
+            padding:9px 0 4px 8px;
             display: inline-block;
             text-align: left;
             font-size:18px;
@@ -472,17 +479,28 @@ header{
               font-weight:500;
               color:#ffffff;
 
+              span{
+                margin-left:10px;
+              }
+
               i{
-                margin-right:10px;
                 display: inline-block;
                 width:30px;
                 height:30px;
                 font-size:30px;
+
+                //&.mybucketlist-icon{
+                //  width: 22px !important;
+                //  margin: 0 3px 0 4px;
+                //}
+
+                span{
+                  padding-left:0;
+                  margin-left: 0;
+                }
               }
 
-              span{
-                padding-left:0;
-              }
+
               .icon-plus-icon{
                 font-size:30px;
 
@@ -531,6 +549,187 @@ header{
     }
   }
 
+  .navbar-mobile{
+
+    ul{
+      padding-left: 15px;
+      margin-bottom:0;
+
+      li{
+        float: left;
+        a{
+          padding: 18px 19px 13px !important;
+          line-height:45px;
+          .no-image{
+            width: 40px;
+            height: 40px;
+            line-height: 34px;
+            margin-bottom: 0;
+          }
+
+          &.mobile-user{
+            padding-left: 4px !important;
+          }
+
+        }
+        //ul{
+        //  li{
+        //    float: none;
+        //    display: block;
+        //    border-bottom: 1px solid #4421AB !important;
+        //  }
+        //}
+        &:last-child{
+          float:right;
+          right:12px;
+        }
+      }
+      &.user-mobile-menu{
+        background-color: #021523;
+        padding-left:0;
+        li{
+          border-left:0;
+          float: none;
+          display: block;
+          text-align: left;
+          border-bottom: 1px solid #271e6e !important;
+          a{
+            display: block;
+            padding:4px 5px 4px 35px !important;
+            font-size:16px;
+            font-weight:600;
+            color:#ffffff;
+
+            span{
+              margin-left:10px;
+            }
+
+            i{
+              display: inline-block;
+              width:30px;
+              height:30px;
+              font-size:30px;
+              vertical-align: middle;
+
+              &.mybucketlist-icon{
+                width: 22px !important;
+                margin: 0 3px 0 4px;
+              }
+
+              span{
+                padding-left:0;
+                margin-left:0;
+              }
+            }
+
+            .icon-plus-icon{
+              font-size:30px;
+            }
+
+            &:hover{
+              text-decoration: underline;
+              background-color: transparent;
+            }
+          }
+
+          &:first-child{
+            height: 75px;
+            .navbar-brand{
+              padding: 15px 25px !important;
+            }
+            .icon-remove-email{
+              font-size: 40px;
+              margin: 12px 10px;
+            }
+          }
+          &:last-child{
+            border-bottom: 0 !important;
+          }
+        }
+      }
+    }
+
+    //.user-mobile-menu{
+    //  background-color: #2b2b2b;
+    //  padding-left:0;
+    //  li{
+    //    border-left:0;
+    //    a{
+    //      display: block;
+    //      padding:10px 20px;
+    //      font-size:14px;
+    //      font-weight:500;
+    //      color:#ffffff;
+    //
+    //      i{
+    //        margin-right:10px;
+    //        display: inline-block;
+    //        width:30px;
+    //        height:30px;
+    //        font-size:30px;
+    //      }
+    //
+    //      span{
+    //        padding-left:0;
+    //      }
+    //      .icon-plus-icon{
+    //        font-size:30px;
+    //      }
+    //
+    //      &:hover{
+    //        text-decoration: underline;
+    //        background-color: transparent;
+    //      }
+    //    }
+    //
+    //  }
+    //}
+
+    .icon-ideas-icon,.icon-join-icon{
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 30px;
+      color: #ffffff;
+      //padding: 23px 15px;
+    }
+
+    a{
+      display: inline-block;
+
+      &.sign-in-popover{
+        margin-right: 15px;
+      }
+
+      &.active-mobile{
+        background-color: #7724F6;
+      }
+    }
+
+  }
+
+  .bell{
+    display: block;
+    width: 25px;
+    height: 30px;
+    background: url('../images/bell.png') no-repeat center bottom;
+    background-size: 100%;
+
+    .sup{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 3px 6px;
+      color: #ffffff;
+      background-color: #f44336;
+      font-size: 11px;
+      line-height: 12px;
+      font-weight: 300;
+      height: 18px;
+      .rounded-corners(12px);
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
   .mybucketlist-icon{
     display: inline-block;
     width: 25px !important;
@@ -772,7 +971,9 @@ label{
 .search{
   overflow: hidden;
   form{
-    padding:10px 0 10px 38px;
+    //padding:10px 0 10px 38px;
+    padding:10px 0 10px 25px;
+    margin-top: 0;
     .icon-search-icon{
       color:#A4A4A4;
       font-size: 30px;
@@ -1965,6 +2166,14 @@ footer{
     .navbar-default{
 
       .navbar-nav{
+
+        figure{
+          height: auto;
+          img{
+            height: auto;
+          }
+        }
+
         li{
           border-left: 1px solid #4421AB;
           border-bottom:0;
@@ -1997,19 +2206,22 @@ footer{
             padding-bottom:24px;
           }
           .bell{
-            padding: 42px 35px;
+            background-position: center center;
+            //background-size: 37%;
+            padding: 42px 0;
           }
           &:last-child{
             width:210px;
 
           .user{
-            padding: 14px 5px 14px 15px;
+            //padding: 14px 5px 14px 15px;
+            padding: 19px 5px 18px 15px;
             figure{
-              width:45px;
-              height:45px;
+              //width:40px;
+              //height:40px;
               margin: 0 10px 0 0;
               img{
-                height:50px;
+                height:40px;
               }
             }
 
@@ -2023,7 +2235,8 @@ footer{
             }
 
             span.name{
-              padding:6px 0 4px 7px;
+              //padding:16px 0 4px 8px;
+              padding:9px 0 4px 8px;
               font-size:16px;
             }
           }
@@ -2040,9 +2253,9 @@ footer{
                 font-size:14px;
                 font-weight:500;
 
-                i{
-                  margin-right:10px;
-                }
+                //i{
+                //  margin-right:10px;
+                //}
               }
             }
           }
@@ -2392,14 +2605,15 @@ footer{
           width:235px;
 
           .user{
-            padding: 18px 5px 16px 15px;
+            //padding: 17px 5px 17px 15px;
+            padding: 22px 5px 22px 15px;
             figure{
-              width:50px;
-              height:50px;
+              //width:50px;
+              //height:50px;
               margin: 0 10px 0 0;
-              img{
-                height:50px;
-              }
+              //img{
+              //  height:50px;
+              //}
             }
 
             p{
@@ -2411,9 +2625,14 @@ footer{
               font-weight:600;
             }
 
+            span.name{
+              padding: 11px 0 4px 8px;
+            }
+
             .icon-arrow-down,.icon-icon-up{
               margin-right:10px;
-              margin-top:10px;
+              //margin-top:10px;
+              margin-top:7px;
             }
           }
 
@@ -2425,9 +2644,9 @@ footer{
                 font-size:14px;
                 font-weight:500;
 
-                i{
-                  margin-right:10px;
-                }
+                //i{
+                //  margin-right:10px;
+                //}
 
               }
             }
@@ -2677,14 +2896,14 @@ html {
           width:235px;
 
           .user{
-            padding: 18px 5px 16px 15px;
+            //padding: 18px 5px 16px 15px;
             figure{
-              width:50px;
-              height:50px;
+              //width:40px;
+              //height:40px;
               margin: 0 10px 0 0;
-              img{
-                height:50px;
-              }
+              //img{
+              //  height:50px;
+              //}
             }
 
             p{
@@ -2698,7 +2917,7 @@ html {
 
             .icon-arrow-down,.icon-icon-up{
               margin-right:10px;
-              margin-top:10px;
+              //margin-top:10px;
             }
           }
 
@@ -2710,9 +2929,9 @@ html {
                 font-size:14px;
                 font-weight:500;
 
-                i{
-                  margin-right:10px;
-                }
+                //i{
+                //  margin-right:10px;
+                //}
 
               }
             }
