@@ -95,7 +95,7 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.newActivity = function(time, cb){
-            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + time;
+            var url = envPrefix + 'api/v2.0/activities/0/'+ this.count +'?time=' + time;
             $http.get(url).success(function(data) {
                 if(angular.isFunction(cb)){
                     cb(data);
@@ -180,7 +180,7 @@ angular.module('goal', ['Interpolation',
                         img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        if (item.goals[0].cached_image) {
+                        if (!angular.isUndefined(item.goals[0]) && item.goals[0].cached_image) {
                             img = new Image();
                             img.src = item.goals[0].cached_image;
                         }
@@ -836,7 +836,7 @@ angular.module('goal', ['Interpolation',
                 })
             }, 2000);
         }
-        $scope.Activities = new lsInfiniteItems(10, 'activities_storage');
+        $scope.Activities = new lsInfiniteItems(7, 'activities_storage');
         $scope.showNoActivities = false;
 
         $scope.$watch('Activities.items', function(d) {
