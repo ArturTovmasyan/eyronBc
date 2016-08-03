@@ -559,6 +559,17 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal30->setDoDate(new \DateTime('now'));
         $manager->persist($userGoal30);
 
+        // create goal
+        $userGoal31 = new UserGoal();
+        $userGoal31->setUser($user4);
+        $userGoal31->setGoal($goal13);
+        $userGoal31->setIsVisible(true);
+        $userGoal31->setNote('goal8');
+        $userGoal31->setImportant(false);
+        $userGoal31->setUrgent(true);
+        $userGoal31->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal31);
+
         $oldPhotoPath = __DIR__ . '/images/leon.jpg';
         $photoPath = __DIR__ . '/../../../../web/uploads/images/photo.jpg';
 
