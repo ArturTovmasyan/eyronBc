@@ -419,10 +419,12 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function try to test PutCommentAction of rest
      *
-     * @dataProvider goalByIdProvider
      */
-    public function testPutComment($goalId)
+    public function testPutComment()
     {
+        //get goal id by title
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal13'))->getId();
+
         $url = sprintf('/api/v1.0/goals/%s/comment', $goalId);
 
         // try to get goal by id
@@ -446,10 +448,12 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function use to test PutSuccessStoryAction rest
      *
-     * @dataProvider goalByIdProvider
      */
-    public function testPutSuccessStory($goalId)
+    public function testPutSuccessStory()
     {
+        //get goal id by title
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal6'))->getId();
+
         $url = sprintf('/api/v1.0/goals/%s/successstory', $goalId);
 
         // try to get goal by id
@@ -467,7 +471,6 @@ class GoalRestControllerTest extends BaseClass
             $this->assertLessThan(25, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
         }
     }
-
 
     /**
      * This function test testGetRandomFriends
