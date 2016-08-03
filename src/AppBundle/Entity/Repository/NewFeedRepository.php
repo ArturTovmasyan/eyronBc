@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class NewFeedRepository extends EntityRepository
 {
+    const MIN_COUNT = 7;
+
     /**
      * @param $userId
      * @param bool|false $getCount
@@ -82,7 +84,7 @@ class NewFeedRepository extends EntityRepository
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
-        if (count($newFeedIds) < 10 && !($lastDate && !$lastId)) {
+        if (count($newFeedIds) < self::MIN_COUNT && !($lastDate && !$lastId)) {
             $newFeedIdsQuery->getParameter('numberOfDays')->setValue(is_null($singleUserId) ? 30 : 300);
             $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
             if (count($newFeedIds) == 0){
