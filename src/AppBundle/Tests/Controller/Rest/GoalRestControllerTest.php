@@ -419,49 +419,54 @@ class GoalRestControllerTest extends BaseClass
     /**
      * This function try to test PutCommentAction of rest
      *
-     * @dataProvider goalByIdProvider
      */
-    public function testPutComment($goalId)
+    public function testPutComment()
     {
-        $url = sprintf('/api/v1.0/goals/%s/comment', $goalId);
-        // try to get goal by id
-        $this->client->request('PUT', $url, array('commentBody'=>'from rest test comment create'));
+        //get goal id by title
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal13'))->getId();
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal comment in PutCommentAction rest!"
-            . $this->client->getProfile()->getToken());
+        $url = sprintf('/api/v1.0/goals/%s/comment', $goalId);
+
+        // try to get goal by id
+        $this->client4->request('PUT', $url, array('commentBody'=>'Test for create comment'));
+
+        $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal comment in PutCommentAction rest!"
+            . $this->client4->getProfile()->getToken());
 
         $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
+            $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client4->getResponse()->headers
         );
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->client4->getProfile()) {
             // check the number of requests
             $this->assertLessThan(25, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest! "
-                . $this->client->getProfile()->getToken());
+                . $this->client4->getProfile()->getToken());
         }
-
     }
 
     /**
      * This function use to test PutSuccessStoryAction rest
      *
-     * @dataProvider goalByIdProvider
      */
-    public function testPutSuccessStory($goalId)
+    public function testPutSuccessStory()
     {
-        $url = sprintf('/api/v1.0/goals/%s/successstory', $goalId);
-        // try to get goal by id
-        $this->client->request('PUT', $url, array('story'=>'from rest test Success Story create'));
+        //get goal id by title
+        $goalId = $this->em->getRepository('AppBundle:Goal')->findOneBy(array('title' => 'goal6'))->getId();
 
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal success story id in PutSuccessStoryAction rest!");
+        $url = sprintf('/api/v1.0/goals/%s/successstory', $goalId);
+
+        // try to get goal by id
+        $this->client4->request('PUT', $url, array('story'=>'Test for create success story'));
+
+        $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal success story id in PutSuccessStoryAction rest!");
 
         $this->assertTrue(
-            $this->client->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client->getResponse()->headers
+            $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client4->getResponse()->headers
         );
 
-        if ($profile = $this->client->getProfile()) {
+        if ($profile = $this->client4->getProfile()) {
             // check the number of requests
             $this->assertLessThan(25, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal add PutSuccessStoryAction rest!");
         }
@@ -810,34 +815,37 @@ class GoalRestControllerTest extends BaseClass
             }
         }
 
+        //check if comment exists in array
         if($commentKey) {
+            //get comments
+            $comments = $responseResults['comments'];
+
             //get comment
-            $comment = $responseResults['comments'];
+            $comment = reset($comments);
 
-            if(!empty($comment)) {
-                $this->assertArrayHasKey('id', $comment, 'Invalid id key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('comment_body', $comment, 'Invalid comment_body key in testGetGoal rest json structure');
-                $this->assertArrayHasKey('created', $comment, 'Invalid created key in testGetGoal rest json structure');
+            $this->assertArrayHasKey('id', $comment, 'Invalid id key in testGetGoal rest json structure');
+            $this->assertArrayHasKey('comment_body', $comment, 'Invalid comment_body key in testGetGoal rest json structure');
+            $this->assertArrayHasKey('created_at', $comment, 'Invalid created_at key in testGetGoal rest json structure');
+            $this->assertArrayHasKey('updated_at', $comment, 'Invalid updated_at key in testGetGoal rest json structure');
 
-                if(array_key_exists('author', $comment)) {
+            if(array_key_exists('author', $comment)) {
 
-                    $this->assertArrayHasKey('author', $comment, 'Invalid author key in testGetGoal rest json structure');
-                    $author = $comment['author'];
+                $this->assertArrayHasKey('author', $comment, 'Invalid author key in testGetGoal rest json structure');
+                $author = $comment['author'];
 
-                    $this->assertArrayHasKey('id', $author, 'Invalid id key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('stats', $author, 'Invalid stats key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('id', $author, 'Invalid id key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('first_name', $author, 'Invalid first_name key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('last_name', $author, 'Invalid last_name key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('show_name', $author, 'Invalid show_name key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('is_admin', $author, 'Invalid is_admin key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('image_size', $author, 'Invalid image_size key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('u_id', $author, 'Invalid u_id key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('stats', $author, 'Invalid stats key in testGetGoal rest json structure');
 
-                    $authorStats = $author['stats'];
-                    $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in testGetGoal rest json structure');
-                    $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in testGetGoal rest json structure');
-                }
+                $authorStats = $author['stats'];
+                $this->assertArrayHasKey('listedBy', $authorStats, 'Invalid listedBy key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('active', $authorStats, 'Invalid active key in testGetGoal rest json structure');
+                $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in testGetGoal rest json structure');
             }
         }
     }
