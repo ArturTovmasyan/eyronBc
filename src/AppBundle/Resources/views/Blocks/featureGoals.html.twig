@@ -33,6 +33,7 @@
                                        href="javascript:void(0)"
                                        ls-goal-id="[[ ::goal.id ]]"
                                        ls-category="listed"
+                                       ls-count="[[ ::goal.stats.listedBy ]]"
                                        data-ng-show="castInt(goal.stats.listedBy)">
                                         <span>
                                             {{ 'home_listed_by'|trans({},'messages') }}
@@ -50,6 +51,7 @@
                                     <a ls-goal-users
                                        href="javascript:void(0)"
                                        ls-goal-id="[[ ::goal.id ]]"
+                                       ls-count="[[ ::goal.stats.doneBy ]]"
                                        data-ng-show="castInt(goal.stats.doneBy)">
                                         <span>
                                             {{ 'home_complete'|trans({},'messages') }}

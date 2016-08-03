@@ -127,6 +127,7 @@ angular.module('profile')
     function ($scope, $timeout, lsInfiniteGoals, userData) {
       $scope.isListed = userData.isListed;
       $scope.goalId = userData.goalId;
+      $scope.usersCount = userData.usersCount;
       $scope.slug = $scope.isListed?1: 2;
       $scope.friendName = '';
       $scope.category = 'all';
