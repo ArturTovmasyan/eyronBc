@@ -677,11 +677,20 @@ angular.module('goal', ['Interpolation',
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
+        $scope.placeholder = '';
         var locationsIds = [];
 
         $scope.castInt = function(value){
             return parseInt(value);
         };
+
+        $timeout(function(){
+            if(window.innerWidth < 766){
+                $scope.placeholder = '';
+            } else {
+                $scope.placeholder = $scope.placeholderText;
+            }
+        }, 500);
 
         $scope.getParameterByName = function(name, href){
             name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");

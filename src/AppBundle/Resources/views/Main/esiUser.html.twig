@@ -11,9 +11,9 @@
     </a>
 
     <a href="javascript:void(0)"
-       class="user user-popover clearfix"
+       class="user user-popover clearfix hidden-xs"
        data-placement="bottom-left"
-       data-ng-click="joinToggle1 = !joinToggle1"
+       data-ng-click="joinToggle1 = !joinToggle1;$parent.joinToggle1 = !$parent.joinToggle1"
        data-html="true"
        data-auto-close="true"
        data-ng-class="{'join-class': joinToggle1}"
@@ -28,7 +28,7 @@
             <p class="no-image {{ className }}">{{ nameOnImage }}</p>
         {% endif %}
 
-        <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
+        <span class="name hidden-xs">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
         <br class="hidden-xs"/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
 
         {% if not isMobile() %}
@@ -36,9 +36,20 @@
             <i class="icon-icon-up ng-hide"  data-ng-show="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
         {% else %}
             {#todo it automaticaly opened in ipad#}
-            <div data-open-popover data-dir="true"></div>
+            {#<div data-open-popover data-dir="true"></div>#}
         {% endif %}
     </a>
+    {#when mobile menu#}
+    <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.joinToggle11 = !$parent.joinToggle11" class="ng-hide mobile-user hidden-sm hidden-md hidden-lg" data-ng-show="!joinToggle11">
+        {% if user.getPhotoLink %}
+            <figure class="img-circle" data-ng-show="!joinToggle11">
+                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive">
+            </figure>
+        {% else %}
+            <p class="no-image {{ className }}" data-ng-show="!joinToggle11">{{ nameOnImage }}</p>
+        {% endif %}
+    </a>
+
 {% endif %}
 
 <a href="javascript:void(0)"
