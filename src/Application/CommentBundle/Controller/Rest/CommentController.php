@@ -89,7 +89,6 @@ class CommentController extends FOSRestController
         $comment->setParent($parentComment);
         $thread->addComment($comment);
         $em->persist($comment);
-        $em->flush();
 
 
         $this->get('request_stack')->getCurrentRequest()->getSession()
@@ -112,6 +111,8 @@ class CommentController extends FOSRestController
             $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.comment' : 'notification.reply', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
             $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
         }
+
+        $em->flush();
 
 
         return $comment;

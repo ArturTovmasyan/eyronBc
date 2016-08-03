@@ -13,7 +13,7 @@ Feature: My Bucket list
 
   @javascript @search
   Scenario: Open Bucket List and show me my search result
-    Given I am on "/"
+    Given I am on "/ideas"
     When I fill in "search" with "goal1"
     And I press key "13"
     And I wait for angular

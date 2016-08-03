@@ -117,6 +117,7 @@
             /></noscript>
         <!-- End Facebook Pixel Code -->
         {% endif %}
+        <meta name='B-verify' content='e0a1ab865dfe8a06122b84dcbbd96d1a2364cd94' />
     </head>
 
     <body>
@@ -510,7 +511,7 @@
         {% endblock %}
 
         {% block javascripts %}
-            <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key={{ google_api_key }}"></script>
 
             {% javascripts output='js/base_script.js'
                 'app/bower_components/jquery/dist/jquery.min.js'
@@ -537,6 +538,7 @@
                 'app/bower_components/angular-slick-carousel/dist/angular-slick.min.js'
                 'app/bower_components/angular-ui-select/dist/select.js'
                 'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
                 'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'

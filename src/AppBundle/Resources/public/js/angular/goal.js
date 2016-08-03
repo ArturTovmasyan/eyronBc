@@ -95,7 +95,7 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.newActivity = function(time, cb){
-            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + time;
+            var url = envPrefix + 'api/v2.0/activities/0/'+ this.count +'?time=' + time;
             $http.get(url).success(function(data) {
                 if(angular.isFunction(cb)){
                     cb(data);
@@ -180,7 +180,7 @@ angular.module('goal', ['Interpolation',
                         img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        if (item.goals[0].cached_image) {
+                        if (!angular.isUndefined(item.goals[0]) && item.goals[0].cached_image) {
                             img = new Image();
                             img.src = item.goals[0].cached_image;
                         }
@@ -224,26 +224,34 @@ angular.module('goal', ['Interpolation',
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set(this.storage_name + userId, newData);
+                    if(newData.length){
+                        localStorageService.set(this.storage_name + userId, newData);
+                        if(data.length){
+                            if(newData[0].datetime !== data[0].datetime ){
+                                angular.element('#activities').addClass('comingByTop');
 
-                    if(newData[0].datetime !== data[0].datetime ){
-                        angular.element('#activities').addClass('comingByTop');
+                                // TODO Change this
+                                for(var i = this.count - 1; i >= 0; i--){
+                                    this.items.unshift(newData[i]);
+                                    this.items.pop();
+                                }
 
-                        // TODO Change this
-                        for(var i = this.count - 1; i >= 0; i--){
-                            this.items.unshift(newData[i]);
-                            this.items.pop();
+                                this.reserve = [];
+                            }
+                        } else {
+                            this.items = this.items.concat(newData);
+                            this.start += this.count;
+                            this.request++;
+                            this.busy = data.length ? false : true;
+
+                            if (!notReserve) {
+                                this.nextReserve(reserveUrl, search, category);
+                            }
                         }
-
-                        this.reserve = [];
-                    }
-
-                    this.start += this.count;
-                    this.request++;
-                    this.busy = data.length ? false : true;
-
-                    if(!notReserve){
-                        this.nextReserve(reserveUrl, search, category);
+                    } else {
+                        if(!data.length){
+                            this.noItem = true;
+                        }
                     }
                 }.bind(this));
 
@@ -550,7 +558,9 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.openLogin = function () {
-            AuthenticatorLoginService.openLoginPopup()
+            $(".modal-loading").show();
+            AuthenticatorLoginService.openLoginPopup();
+            $(".modal-loading").hide();
         };
             
         $scope.manageVote = function(id){
@@ -565,7 +575,14 @@ angular.module('goal', ['Interpolation',
                     $scope.count[id]--;
                     $scope.vote[id] = false;
                 }
-            });
+            })
+              .error(function (res) {
+                  if(res == "User not found") {
+                      $(".modal-loading").show();
+                      AuthenticatorLoginService.openLoginPopup();
+                      $(".modal-loading").hide();
+                  }
+              });
         };
 
         var imageResize = function () {
@@ -836,7 +853,7 @@ angular.module('goal', ['Interpolation',
                 })
             }, 2000);
         }
-        $scope.Activities = new lsInfiniteItems(10, 'activities_storage');
+        $scope.Activities = new lsInfiniteItems(7, 'activities_storage');
         $scope.showNoActivities = false;
 
         $scope.$watch('Activities.items', function(d) {

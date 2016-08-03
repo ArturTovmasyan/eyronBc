@@ -34,6 +34,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setLastName('adminyan');
         $user->setEmail('admin@admin.com');
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
+        $user->setIsAdmin(true);
         $user->setEnabled(true);
         $user->setPlainPassword('Test1234');
         $user->setDateOfBirth(new \DateTime('now'));
@@ -50,6 +51,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1 = new User();
         $user1->setFirstName('user1');
         $user1->setLastName('useryan');
+        $user1->setIsAdmin(false);
         $user1->setEmail('user1@user.com');
         $user1->setEnabled(true);
         $user1->setPlainPassword('Test1234');
@@ -68,6 +70,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user2 = new User();
         $user2->setFirstName('user2');
         $user2->setLastName('useryan');
+        $user2->setIsAdmin(false);
         $user2->setEmail('user2@user.com');
         $user2->setEnabled(true);
         $user2->setPlainPassword('Test1234');
@@ -82,6 +85,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user3->setFirstName('user3');
         $user3->setLastName('user3');
         $user3->setEmail('user@user.com');
+        $user3->setIsAdmin(false);
         $user3->setEnabled(true);
         $user3->setPlainPassword('Test1234');
         $user3->setRegistrationToken('a4b9e332d75ac0e99b54bf09d2de1duid');
@@ -94,6 +98,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user4 = new User();
         $user4->setFirstName('user4');
         $user4->setLastName('user4');
+        $user4->setIsAdmin(false);
         $user4->setEmail('user4@user.com');
         $user4->setEnabled(true);
         $user4->setPlainPassword('Test1234');
@@ -107,6 +112,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user5 = new User();
         $user5->setFirstName('user5');
         $user5->setLastName('user5');
+        $user5->setIsAdmin(false);
         $user5->setEmail('user5@user.com');
         $user5->setEnabled(true);
         $user5->setPlainPassword('Test1234');
@@ -120,6 +126,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user6 = new User();
         $user6->setFirstName('user6');
         $user6->setLastName('user6');
+        $user6->setIsAdmin(false);
         $user6->setEmail('user6@user.com');
         $user6->setEnabled(true);
         $user6->setPlainPassword('Test1234');
@@ -133,6 +140,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user7 = new User();
         $user7->setFirstName('user7');
         $user7->setLastName('user7');
+        $user7->setIsAdmin(false);
         $user7->setEmail('user7@user.com');
         $user7->setEnabled(true);
         $user7->setPlainPassword('Test1234');
@@ -147,6 +155,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user8->setFirstName('user8');
         $user8->setLastName('user8');
         $user8->setEmail('user8@user.com');
+        $user8->setIsAdmin(false);
         $user8->setEnabled(true);
         $user8->setPlainPassword('Test1234');
         $user8->setRegistrationToken('a4b9e332d75ac0m99b54bf09d2de1dugh');
@@ -160,6 +169,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user9->setFirstName('user9');
         $user9->setLastName('user9');
         $user9->setEmail('user9@user.com');
+        $user9->setIsAdmin(false);
         $user9->setEnabled(true);
         $user9->setPlainPassword('Test1234');
         $user9->setRegistrationToken('a4b9e332d75ac0o99b54bf09d2de1dugh');
@@ -172,6 +182,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user10 = new User();
         $user10->setFirstName('user10');
         $user10->setLastName('user10');
+        $user10->setIsAdmin(false);
         $user10->setEmail('user10@user.com');
         $user10->setEnabled(true);
         $user10->setPlainPassword('Test1234');
@@ -185,6 +196,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user11 = new User();
         $user11->setFirstName('user11');
         $user11->setLastName('useryan');
+        $user11->setIsAdmin(false);
         $user11->setEmail('user11@user.com');
         $user11->setEnabled(true);
         $user11->setPlainPassword('Test1234');
@@ -198,6 +210,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user12 = new User();
         $user12->setFirstName('user12');
         $user12->setLastName('useryan');
+        $user12->setIsAdmin(false);
         $user12->setEmail('user12@user.com');
         $user12->setEnabled(true);
         $user12->setPlainPassword('Test1234');
@@ -211,6 +224,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user15 = new User();
         $user15->setFirstName('user15');
         $user15->setLastName('useryan');
+        $user15->setIsAdmin(false);
         $user15->setEmail('user15@user.com');
         $user15->setEnabled(true);
         $user15->setUId('777777');
