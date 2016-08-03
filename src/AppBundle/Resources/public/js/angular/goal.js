@@ -224,26 +224,34 @@ angular.module('goal', ['Interpolation',
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set(this.storage_name + userId, newData);
+                    if(newData.length){
+                        localStorageService.set(this.storage_name + userId, newData);
+                        if(data.length){
+                            if(newData[0].datetime !== data[0].datetime ){
+                                angular.element('#activities').addClass('comingByTop');
 
-                    if(newData[0].datetime !== data[0].datetime ){
-                        angular.element('#activities').addClass('comingByTop');
+                                // TODO Change this
+                                for(var i = this.count - 1; i >= 0; i--){
+                                    this.items.unshift(newData[i]);
+                                    this.items.pop();
+                                }
 
-                        // TODO Change this
-                        for(var i = this.count - 1; i >= 0; i--){
-                            this.items.unshift(newData[i]);
-                            this.items.pop();
+                                this.reserve = [];
+                            }
+                        } else {
+                            this.items = this.items.concat(newData);
+                            this.start += this.count;
+                            this.request++;
+                            this.busy = data.length ? false : true;
+
+                            if (!notReserve) {
+                                this.nextReserve(reserveUrl, search, category);
+                            }
                         }
-
-                        this.reserve = [];
-                    }
-
-                    this.start += this.count;
-                    this.request++;
-                    this.busy = data.length ? false : true;
-
-                    if(!notReserve){
-                        this.nextReserve(reserveUrl, search, category);
+                    } else {
+                        if(!data.length){
+                            this.noItem = true;
+                        }
                     }
                 }.bind(this));
 
