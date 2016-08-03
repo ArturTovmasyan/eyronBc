@@ -56,5 +56,24 @@ class CommentRepository extends EntityRepository
             ->setParameter('commentId', $commentId)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $ids
+     * @return array
+     */
+    public function findByIds($ids)
+    {
+        if (count($ids) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT cmt
+                           FROM ApplicationCommentBundle:Comment cmt
+                           INDEX BY cmt.id
+                           WHERE cmt.id IN (:ids)")
+            ->setParameter('ids', $ids)
+            ->getResult();
+    }
 }
 

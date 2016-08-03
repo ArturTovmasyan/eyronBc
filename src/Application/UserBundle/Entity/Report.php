@@ -16,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @package Application\UserBundle\Entity
  *
  * @ORM\Table(name="report")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\ReportRepository")
  */
 class Report
 {
@@ -66,6 +66,11 @@ class Report
      * @ORM\Column(type="datetime")
      */
     protected $created;
+
+    public function __toString()
+    {
+        return ($this->getContentType() == self::COMMENT ? 'Comment' : 'Success story') . ' reply';
+    }
 
     /**
      * Get id
@@ -227,5 +232,13 @@ class Report
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentTypeString()
+    {
+        return $this->getContentType() == self::COMMENT ? 'Comment' : 'Success story';
     }
 }

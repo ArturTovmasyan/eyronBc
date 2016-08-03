@@ -79,10 +79,23 @@ class SuccessStoryController extends FOSRestController
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
+        //TODO: duplicate, will be deleted with this action
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
+        $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
+        $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
+        $body = $this->get('translator')->trans('notification.important_goal_success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $importantAddedUsers);
+
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($this->getUser()->getId())) {
             //send success story notify
             $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
+
+            //TODO: duplicate, will be deleted with this action
+            //Send notification to goal author
+            $body = $this->get('translator')->trans('notification.success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
         }
 
         $em->persist($successStory);
@@ -173,9 +186,20 @@ class SuccessStoryController extends FOSRestController
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
+        $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
+        $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
+        $body = $this->get('translator')->trans('notification.important_goal_success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $importantAddedUsers);
+
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
             $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $this->getUser(), $story);
+
+            //Send notification to goal author
+            $body = $this->get('translator')->trans('notification.success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
         }
 
         $em->persist($successStory);
@@ -365,6 +389,12 @@ class SuccessStoryController extends FOSRestController
 
         $successStory->addVoter($this->getUser());
         $em->flush();
+
+        //Send notification to goal author
+        $link = $this->get('router')->generate('inner_goal', ['slug' => $successStory->getGoal()->getSlug()]);
+        $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
+        $body = $this->get('translator')->trans('notification.success_story_vote', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $successStory->getUser());
 
         return new JsonResponse();
     }

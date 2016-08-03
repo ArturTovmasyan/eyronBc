@@ -335,6 +335,8 @@ header{
             color: #E5E5E5;
           }
         }
+
+
       }
 
       .active a{
@@ -347,25 +349,25 @@ header{
         }
       }
 
-      .search{
-        overflow: hidden;
-        form{
-          padding:10px 0 10px 38px;
-          .icon-search-icon{
-            color:#ffffff;
-            font-size: 30px;
-            vertical-align: middle;
-            position: absolute;
-          }
-
-          input{
-            border:0;
-            color:#A4A4A4;
-            background-color: transparent;
-            padding-left:40px;
-          }
-        }
-      }
+      //.search{
+      //  overflow: hidden;
+      //  form{
+      //    padding:10px 0 10px 38px;
+      //    .icon-search-icon{
+      //      color:#ffffff;
+      //      font-size: 30px;
+      //      vertical-align: middle;
+      //      position: absolute;
+      //    }
+      //
+      //    input{
+      //      border:0;
+      //      color:#A4A4A4;
+      //      background-color: transparent;
+      //      padding-left:40px;
+      //    }
+      //  }
+      //}
     }
 
     .navbar-form{
@@ -381,6 +383,34 @@ header{
           padding-top:25px;
           padding-bottom:25px;
         }
+
+        .bell{
+          display: block;
+          width: 25px;
+          height: 30px;
+          background: url('../images/bell.png') no-repeat center center;
+          background-size: 37%;
+
+          .sup{
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 3px 6px;
+            color: #ffffff;
+            background-color: #f44336;
+            font-size: 11px;
+            line-height: 12px;
+            font-weight: 300;
+            height: 18px;
+            .rounded-corners(12px);
+            text-align: center;
+            vertical-align: middle;
+          }
+        }
+
+        &:last-child{
+
+
         .user{
           display: block;
           padding: 14px 5px 14px 15px;
@@ -496,6 +526,36 @@ header{
             font-size:14px;
           }
         }
+        }
+      }
+    }
+  }
+
+  .mybucketlist-icon{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/mybucketlist-icon.png') no-repeat center center;
+    background-size: 100%;
+  }
+
+  #notification{
+    background-color: #ffffff;
+    min-width: 200px;
+
+    li{
+      background-color: #ffffff;
+
+      &:first-child{
+        border-bottom: 1px solid #cccccc;
+      }
+
+      &:last-child{
+        border-top: 1px solid #cccccc;
+      }
+
+      &:hover{
+        background-color: #cdcdcd;
       }
     }
   }
@@ -709,6 +769,25 @@ label{
       }
     }
 
+.search{
+  overflow: hidden;
+  form{
+    padding:10px 0 10px 38px;
+    .icon-search-icon{
+      color:#A4A4A4;
+      font-size: 30px;
+      vertical-align: middle;
+      position: absolute;
+    }
+
+    input{
+      border:0;
+      color:#666666;
+      background-color: transparent;
+      padding-left:40px;
+    }
+  }
+}
 
 #signin,#common-modal,#goal-friends,#goal-users-modal{
   .close-icon{
@@ -1896,11 +1975,11 @@ footer{
           }
         }
 
-        .search{
-          form{
-            padding:14px 2px 14px 15px;
-          }
-        }
+        //.search{
+        //  form{
+        //    padding:14px 2px 14px 15px;
+        //  }
+        //}
       }
 
       .navbar-brand{
@@ -1913,11 +1992,16 @@ footer{
       .navbar-right{
 
         li{
-          width:210px;
           a{
             padding-top:24px;
             padding-bottom:24px;
           }
+          .bell{
+            padding: 42px 35px;
+          }
+          &:last-child{
+            width:210px;
+
           .user{
             padding: 14px 5px 14px 15px;
             figure{
@@ -1978,11 +2062,17 @@ footer{
               font-size:14px;
             }
           }
+          }
         }
       }
     }
   }
 
+  .search{
+    form{
+      padding:14px 2px 14px 15px;
+    }
+  }
   .button-lg{
     margin-right: 15px;
     padding: 7px 35px;
@@ -2280,23 +2370,25 @@ footer{
             padding: 27px 23px;
           }
         }
-        .search{
-
-          form{
-            padding:17px 0 17px 30px;
-
-            input{
-              font-size:16px;
-              font-weight: normal;
-              padding-left:43px;
-            }
-          }
-
-        }
+        //.search{
+        //
+        //  form{
+        //    padding:17px 0 17px 30px;
+        //
+        //    input{
+        //      font-size:16px;
+        //      font-weight: normal;
+        //      padding-left:43px;
+        //    }
+        //  }
+        //
+        //}
       }
 
       .navbar-right{
         li{
+          &:last-child{
+
           width:235px;
 
           .user{
@@ -2350,11 +2442,25 @@ footer{
               font-size:14px;
             }
           }
+          }
         }
       }
     }
   }
 
+  .search{
+
+    form{
+      padding:17px 0 17px 30px;
+
+      input{
+        font-size:16px;
+        font-weight: normal;
+        padding-left:43px;
+      }
+    }
+
+  }
   .button-lg{
     //width: 186px;
     padding: 10px 45px;
@@ -2550,23 +2656,24 @@ html {
             padding: 27px 30px;
           }
         }
-        .search{
-
-          form{
-            padding:17px 15px 17px 30px;
-
-            input{
-              font-size:16px;
-              font-weight: normal;
-              padding-left:43px;
-            }
-          }
-
-        }
+        //.search{
+        //
+        //  form{
+        //    padding:17px 15px 17px 30px;
+        //
+        //    input{
+        //      font-size:16px;
+        //      font-weight: normal;
+        //      padding-left:43px;
+        //    }
+        //  }
+        //
+        //}
       }
 
       .navbar-right{
         li{
+          &:last-child{
           width:235px;
 
           .user{
@@ -2620,9 +2727,24 @@ html {
               font-size:14px;
             }
           }
+          }
         }
       }
     }
+  }
+
+  .search{
+
+    form{
+      padding:17px 15px 17px 30px;
+
+      input{
+        font-size:16px;
+        font-weight: normal;
+        padding-left:43px;
+      }
+    }
+
   }
   .homepage{
     top:15%;

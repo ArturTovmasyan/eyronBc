@@ -11,6 +11,7 @@ namespace Application\CommentBundle\Entity;
 use AppBundle\Model\ActivityableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -62,6 +63,7 @@ class Comment implements ActivityableInterface
     /**
      * @ORM\Column(name="body", type="text", length=2000, nullable=false)
      * @Groups({"comment"})
+     * @SerializedName("comment_body")
      */
     protected $body;
 

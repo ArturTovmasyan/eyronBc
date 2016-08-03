@@ -229,23 +229,6 @@ class DoctrineListener
     /**
      * @param LifecycleEventArgs $event
      */
-    public function preRemove(LifecycleEventArgs $event)
-    {
-//        $entity = $event->getObject();
-//        $em = $event->getObjectManager();
-//
-//        if ($entity instanceof UserGoal){
-//            if ($entity->getStatus() == UserGoal::COMPLETED){
-//                $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_COMPLETE, $entity->getUser()->getId(), $entity->getGoal()->getId());
-//            }
-//
-//            $em->getRepository('AppBundle:NewFeed')->removeNewFeed(NewFeed::GOAL_ADD, $entity->getUser()->getId(), $entity->getGoal()->getId());
-//        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $event
-     */
     public function postPersist(LifecycleEventArgs $event)
     {
         $entity = $event->getObject();
@@ -290,11 +273,14 @@ class DoctrineListener
                 $story = $entity;
             }
             elseif($entity instanceof Comment){
-                $goalId = $entity->getThread()->getId();
-                $goal = $em->getRepository('AppBundle:Goal')->find($goalId);
-                if (!is_null($goal) && $goal->getPublish()){
-                    $comment = $entity;
-                    $action = NewFeed::COMMENT;
+                $threadId = $entity->getThread()->getId();
+                if ($startPos = strpos($threadId, 'goal_') === 0){
+                    $slug = substr($threadId, 5);
+                    $goal = $em->getRepository('AppBundle:Goal')->findOneBySlug($slug);
+                    if (!is_null($goal) && $goal->getPublish()){
+                        $comment = $entity;
+                        $action = NewFeed::COMMENT;
+                    }
                 }
             }
 

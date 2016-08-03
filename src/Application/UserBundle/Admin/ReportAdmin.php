@@ -2,6 +2,7 @@
 
 namespace Application\UserBundle\Admin;
 
+use Application\UserBundle\Entity\Report;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -11,6 +12,12 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ReportAdmin extends AbstractAdmin
 {
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'created',
+    );
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -20,9 +27,10 @@ class ReportAdmin extends AbstractAdmin
             ->add('id')
             ->add('user')
             ->add('reportedUser')
-            ->add('contentType', ChoiceType::class, array(
+            ->add('contentType', null, [], ChoiceType::class, array(
                 'choices' => [
-
+                    Report::COMMENT       => 'comment',
+                    Report::SUCCESS_STORY => 'Success story'
                 ]))
             ->add('contentId')
             ->add('message')
@@ -43,16 +51,26 @@ class ReportAdmin extends AbstractAdmin
         ;
     }
 
+    public $comments;
+    public $successStories;
+
+
     /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+        $ids = $em->getRepository('ApplicationUserBundle:Report')->findCommentAndSuccessStoriesIds();
+
+        $this->comments       = $em->getRepository('ApplicationCommentBundle:Comment')->findByIds($ids['commentIds']);
+        $this->successStories = $em->getRepository('AppBundle:SuccessStory')->findByIds($ids['successStoryIds']);
+
         $listMapper
             ->add('id')
             ->add('user')
             ->add('reportedUser')
-            ->add('contentType')
+            ->add('contentTypeString')
             ->add('contentId')
             ->add('message')
             ->add('created')
@@ -61,6 +79,7 @@ class ReportAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'goal_link' => array('template' => 'ApplicationUserBundle:Admin:report_list_action_link.html.twig'),
                 )
             ))
         ;
@@ -75,7 +94,11 @@ class ReportAdmin extends AbstractAdmin
             ->add('id')
             ->add('user')
             ->add('reportedUser')
-            ->add('contentType')
+            ->add('contentType', ChoiceType::class, array(
+                'choices' => [
+                    Report::COMMENT       => 'comment',
+                    Report::SUCCESS_STORY => 'Success story'
+                ]))
             ->add('contentId')
             ->add('message')
         ;
@@ -90,7 +113,7 @@ class ReportAdmin extends AbstractAdmin
             ->add('id')
             ->add('user')
             ->add('reportedUser')
-            ->add('contentType')
+            ->add('contentTypeString')
             ->add('contentId')
             ->add('message')
             ->add('created')
