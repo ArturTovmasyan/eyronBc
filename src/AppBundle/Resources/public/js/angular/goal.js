@@ -180,7 +180,7 @@ angular.module('goal', ['Interpolation',
                         img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        if (item.goals[0].cached_image) {
+                        if (!angular.isUndefined(item.goals[0]) && item.goals[0].cached_image) {
                             img = new Image();
                             img.src = item.goals[0].cached_image;
                         }
