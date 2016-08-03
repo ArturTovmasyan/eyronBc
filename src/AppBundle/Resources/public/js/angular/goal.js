@@ -240,18 +240,19 @@ angular.module('goal', ['Interpolation',
                             }
                         } else {
                             this.items = this.items.concat(newData);
-                            this.start += this.count;
-                            this.request++;
-                            this.busy = data.length ? false : true;
-
-                            if (!notReserve) {
-                                this.nextReserve(reserveUrl, search, category);
-                            }
                         }
                     } else {
                         if(!data.length){
                             this.noItem = true;
                         }
+                    }
+
+                    this.start += this.count;
+                    this.request++;
+                    this.busy = data.length ? false : true;
+
+                    if(!notReserve){
+                        this.nextReserve(reserveUrl, search, category);
                     }
                 }.bind(this));
 
