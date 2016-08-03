@@ -29,7 +29,9 @@
         {% endif %}
 
         <span class="name hidden-xs">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}
-        <br class="hidden-xs"/>{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}</span>
+        <br class="hidden-xs"/>
+            {#{{ user.lastName|slice(0, 9) }} {{ user.lastName|length > 9 ? '...' : '' }}#}
+        </span>
 
         {% if not isMobile() %}
             <i class="icon-arrow-down" data-ng-hide="joinToggle1"><span class="path1"></span><span class="path2"></span></i>
