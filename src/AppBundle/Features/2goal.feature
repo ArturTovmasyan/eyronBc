@@ -21,8 +21,8 @@ Feature: Goal page
 
   @javascript @goalActiveCompleted
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
-    When I follow "user1"
-    And I follow "My Bucketlist"
+    When I click on "navbar-right"
+    And I am on "/profile"
     And I wait
     Then I should see "goal9"
     When I follow "Active"
@@ -36,7 +36,7 @@ Feature: Goal page
     When I am on "/logout"
     And I wait
     And I am logged in as "user2"
-    Then I should see "user2 useryan"
+    Then I should see "user2"
     When I am on "/profile"
     Then I should see "What are you doing here? Come on, add some goals"
     When I follow "Active"
@@ -49,9 +49,8 @@ Feature: Goal page
 
   @javascript @manageGoal
   Scenario: Open manage and let me change whatever I want
-    When I follow "user1"
-    And I follow "My Bucketlist"
-    Then I should be on "/profile"
+    When I click on "navbar-right"
+    And I am on "/profile"
     When I scroll page to ".information"
     And I follow "Manage"
     And I wait for angular
@@ -63,7 +62,7 @@ Feature: Goal page
     And I wait
     And I change switch "2"
     And I follow "Save"
-    Then I should see "user1 useryan"
+    Then I should see "user1"
     And I wait for angular
     When I scroll page to ".information"
     And I follow "Manage"
@@ -72,12 +71,12 @@ Feature: Goal page
     And I wait for view "500"
     Then I should see "Goal is completed"
     And I click on "btn btn-purple"
-    Then I should see "user1 useryan"
+    Then I should see "user1"
 
   @javascript @preview
   Scenario: Open Preview and show me the initial state of my goal
-    When I follow "user1"
-    And I follow "Create Goal"
+    When I click on "navbar-right"
+    And I am on "/goal/create"
     Then I should see "user1"
     When I fill in "app_bundle_goal[title]" with "TEST GOALS"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST GOALS"
@@ -113,8 +112,8 @@ Feature: Goal page
 
   @javascript @createDraft
   Scenario: Create drafts
-    When I follow "user1"
-    And I follow "Create Goal"
+    When I click on "navbar-right"
+    And I am on "/goal/create"
     Then I should see "user1"
     When I fill in "app_bundle_goal[title]" with "TEST2 GOALS2"
     And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR BEHAT TEST2 GOALS2"
@@ -125,9 +124,8 @@ Feature: Goal page
 
   @javascript @doneGoal
   Scenario: Done a goal
-    When I follow "user1"
-    And I follow "My Bucketlist"
-    Then I should be on "/profile"
+    When I click on "navbar-right"
+    And I am on "/profile"
     When I scroll page to ".information"
     And I follow "Done"
     And I am on "profile/completed-goals"
@@ -138,8 +136,8 @@ Feature: Goal page
 
   @javascript @goalCreatePage
   Scenario: Open the page and show all the features
-    When I follow "user1"
-    And I follow "Create Goal"
+    When I click on "navbar-right"
+    And I am on "/goal/create"
     Then I should see "Suggest as public"
     When I click on "iCheck-helper"
     And I fill in "app_bundle_goal[title]" with "TEST GOALS"
@@ -156,8 +154,8 @@ Feature: Goal page
 
   @javascript @goalDescriptionTest
   Scenario: Open the create page and check submit without desc.field fill
-    When I follow "user1"
-    And I follow "Create Goal"
+    When I click on "navbar-right"
+    And I am on "/goal/create"
     Then I should see "Suggest as public"
     When I click on "iCheck-helper"
     And I fill in "app_bundle_goal[title]" with "TEST GOALS"
@@ -169,7 +167,9 @@ Feature: Goal page
 @javascript @addGoal
   Scenario: Add a goal
     Given I am on "/goal/goal1"
-    And I click on "icon-plus-icon"
+    And I wait
+#    And I click on "icon-plus-icon"
+    And I follow "ADD"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     And I should see "If you accomplished your Goal, just mark it"
@@ -191,7 +191,7 @@ Feature: Goal page
     Then I should be on "/goal/goal1"
     And I reload the page
     And I wait for view "500"
-    And I click on "icon-plus-icon"
+    And I follow "ADD"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
     When I scroll page to ".radio-inline"
