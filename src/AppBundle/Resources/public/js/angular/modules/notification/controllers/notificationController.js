@@ -4,6 +4,8 @@ angular.module('notification')
   .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce',
     function ($scope, $timeout, NotificationManager, $compile, $window, $sce) {
       // $scope.notifies = [];
+      //todo go from back end
+      $scope.newNotCount = 0;
       $scope.scroller_config = {
         autoHideScrollbar: false,
         theme: 'minimal-dark',
@@ -11,14 +13,6 @@ angular.module('notification')
           updateOnContentResize: true
         },
         callbacks:{
-          // onTotalScroll:function(){
-          //   //console.log(this);
-          //   if(scope.disableOnScroll){
-          //     return;
-          //   }
-          //   scope.notificationManager.nextPage();
-          //   scope.$apply();
-          // },
           onCreate: function(){
             $(this).css({
               'height': 'initial',
@@ -40,12 +34,16 @@ angular.module('notification')
       
       $scope.delete = function(id, index){
         NotificationManager.delete({id: id}, function () {
+          if(!$scope.notifies[index].is_read){
+            $scope.newNotCount --;
+          }
           $scope.notifies.splice(index, 1);
         });
       };
 
       $scope.readAll = function(){
         NotificationManager.readAll({}, function () {
+          $scope.newNotCount = 0;
           //todo something
           $scope.allRead = true;
         });
@@ -53,6 +51,7 @@ angular.module('notification')
 
       $scope.singleRead = function(id, index){
         NotificationManager.readSingle({id: id}, function () {
+          $scope.newNotCount --;
           $scope.notifies[index].is_read = true;
         });
       };
