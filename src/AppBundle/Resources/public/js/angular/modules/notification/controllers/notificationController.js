@@ -46,6 +46,7 @@ angular.module('notification')
 
       $scope.readAll = function(){
         NotificationManager.readAll({}, function () {
+          //todo something
           $scope.allRead = true;
         });
       };
@@ -58,7 +59,7 @@ angular.module('notification')
       
       $scope.goNotificationPage = function (notify, index) {
         $scope.singleRead(notify.id, index);
-        $window.location.href = notify.link;
+        $window.location.href = notify.notification.link;
       }
       
     }
