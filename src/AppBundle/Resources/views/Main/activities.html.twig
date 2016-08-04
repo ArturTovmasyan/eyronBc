@@ -20,10 +20,7 @@
 
     <div id="news-feed">
         <div class="container">
-            <div class="row"
-                 data-infinite-scroll='Activities.nextPage("{{ env_prefix  }}/api/v2.0/activities/{first}/{count}", "", "", {{ app.user.id }})'
-                 data-infinite-scroll-disabled='Activities.busy || Activities.request >= 2'
-                 data-infinite-scroll-distance='2'>
+            <div class="row">
                 <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
                    <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
                 </div>
@@ -50,7 +47,7 @@
                             <div class="padding" data-ng-class="{'padding-no': !activity.comment && !activity.success_story}">
                                 <div class="clearfix relative">
 
-                                    <figure class="image">
+                                    <figure class="image img-circle">
 
                                         {% set className = "user-no" ~ random(4) %}
 
@@ -140,6 +137,7 @@
                                                            href="javascript:void(0)"
                                                            ls-goal-id="[[ singleGoal.id ]]"
                                                            ls-category="listed"
+                                                           ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -157,6 +155,7 @@
                                                         <a ls-goal-users
                                                            href="javascript:void(0)"
                                                            ls-goal-id="[[ singleGoal.id ]]"
+                                                           ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}
@@ -235,6 +234,7 @@
                                    href="javascript:void(0)"
                                    ls-goal-id="[[ singleGoal.id ]]"
                                    ls-category="listed"
+                                   ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                    class="ng-scope">
                                     <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
                                     <i class="icon-user-small"></i>
@@ -244,6 +244,7 @@
                                 <a ls-goal-users
                                    href="javascript:void(0)"
                                    ls-goal-id="[[ singleGoal.id ]]"
+                                   ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                    class="ng-scope">
                                     <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.stats.doneBy ]]</span>
                                     <i class="icon-user-small"></i>
