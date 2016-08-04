@@ -789,7 +789,8 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', 'envPrefix', 'UserContext',
+        function($scope, lsInfiniteItems, $interval, $timeout, envPrefix, UserContext){
         $scope.newActivity = false;
 
         $scope.castInt = function(value){
@@ -855,6 +856,7 @@ angular.module('goal', ['Interpolation',
             }, 2000);
         }
         $scope.Activities = new lsInfiniteItems(7, 'activities_storage');
+        $scope.Activities.nextPage(envPrefix + "api/v2.0/activities/{first}/{count}", "", "", UserContext.id);
         $scope.showNoActivities = false;
 
         $scope.$watch('Activities.items', function(d) {

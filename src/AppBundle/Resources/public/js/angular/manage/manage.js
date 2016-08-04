@@ -28,10 +28,10 @@ angular.module('manage', ['Interpolation',
             goalUsersUrl = envPrefix + "goal/users",
             id = UserContext.id;
 
-        var templateCache = CacheFactory.get('bucketlist_templates');
+        var templateCache = CacheFactory.get('bucketlist_templates_v1');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates', {
+            templateCache = CacheFactory('bucketlist_templates_v1', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });
@@ -373,6 +373,7 @@ angular.module('manage', ['Interpolation',
             restrict: 'EA',
             scope: {
                 lsGoalId: '@',
+                lsCount: '@',
                 lsCategory: '@'
             },
             link: function(scope, el){
@@ -387,6 +388,7 @@ angular.module('manage', ['Interpolation',
                     if(UserContext.id){
                         userData.isListed = scope.lsCategory?true: false;
                         userData.goalId = scope.lsGoalId;
+                        userData.usersCount = scope.lsCount;
                         scope.runCallback();
                     } else {
                         AuthenticatorLoginService.openLoginPopup();

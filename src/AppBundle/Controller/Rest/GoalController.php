@@ -608,7 +608,7 @@ class GoalController extends FOSRestController
      *  }
      * )
      *
-     * @Rest\View(serializerGroups={"user", "tiny_goal"})
+     * @Rest\View(serializerGroups={"user", "tiny_user"})
      * @Security("has_role('ROLE_USER')")
      *
      * @return array
