@@ -110,7 +110,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         }
         else
         {
-            $this->assertSession()->pageTextContains('useryan');
+            $this->assertSession()->pageTextContains('user');
         }
     }
 
