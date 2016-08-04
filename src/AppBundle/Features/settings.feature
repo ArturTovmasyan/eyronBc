@@ -11,8 +11,8 @@ Feature: Settings
 
   @javascript @settings
   Scenario: Open pop up and show me the info I filled in registration
-    When I follow "user2"
-    And I follow "Settings"
+    When I click on "navbar-right"
+    And I am on "/edit/profile"
     Then I should see "user2@user.com"
     And I wait
     And I fill in the following:
@@ -25,8 +25,8 @@ Feature: Settings
     And I select date fields
     And I select language
     And I press "Save"
-    And I follow "userTest"
-    And I follow "Настройки"
+    And I click on "navbar-right"
+    And I am on "/edit/profile"
     And I fill in "bl_user_settings_firstName" with "userTo"
     And I fill in "bl_user_settings_lastName" with "useryan"
     And I fill in "bl_user_settings_currentPassword" with "test1234"

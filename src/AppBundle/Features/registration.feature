@@ -16,5 +16,5 @@ Feature: Registration
     And I press "SIGN UP"
     And I wait for view "2000"
     Then I should be on "/ideas"
-    And I should see "Tovmasyan"
+    And I should see "Art"
 
