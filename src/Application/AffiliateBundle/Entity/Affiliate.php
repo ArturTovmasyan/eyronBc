@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: andranik
  * Date: 8/4/16
- * Time: 12:17 PM
+ * Time: 7:12 PM
  */
 namespace Application\AffiliateBundle\Entity;
 
@@ -30,19 +30,20 @@ class Affiliate
     protected $id;
 
     /**
-     * @ORM\Column(name="html_content", type="string", length=5000, nullable=true)
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
-    protected $htmlContent;
+    protected $name;
 
     /**
-     * @ORM\Column(name="css_content", type="string", length=5000, nullable=true)
+     * @ORM\Column(name="link", type="string", length=200, nullable=true)
      */
-    protected $cssContent;
+    protected $link;
 
     /**
-     * @ORM\Column(name="js_content", type="string", length=5000, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\AffiliateBundle\Entity\AffiliateType")
+     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id")
      */
-    protected $jsContent;
+    protected $affiliateType;
 
     /**
      * Get id
@@ -55,74 +56,74 @@ class Affiliate
     }
 
     /**
-     * Set htmlContent
+     * Set name
      *
-     * @param string $htmlContent
+     * @param string $name
      *
      * @return Affiliate
      */
-    public function setHtmlContent($htmlContent)
+    public function setName($name)
     {
-        $this->htmlContent = $htmlContent;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get htmlContent
+     * Get name
      *
      * @return string
      */
-    public function getHtmlContent()
+    public function getName()
     {
-        return $this->htmlContent;
+        return $this->name;
     }
 
     /**
-     * Set cssContent
+     * Set link
      *
-     * @param string $cssContent
+     * @param string $link
      *
      * @return Affiliate
      */
-    public function setCssContent($cssContent)
+    public function setLink($link)
     {
-        $this->cssContent = $cssContent;
+        $this->link = $link;
 
         return $this;
     }
 
     /**
-     * Get cssContent
+     * Get link
      *
      * @return string
      */
-    public function getCssContent()
+    public function getLink()
     {
-        return $this->cssContent;
+        return $this->link;
     }
 
     /**
-     * Set jsContent
+     * Set affiliateType
      *
-     * @param string $jsContent
+     * @param \Application\AffiliateBundle\Entity\AffiliateType $affiliateType
      *
      * @return Affiliate
      */
-    public function setJsContent($jsContent)
+    public function setAffiliateType(\Application\AffiliateBundle\Entity\AffiliateType $affiliateType = null)
     {
-        $this->jsContent = $jsContent;
+        $this->affiliateType = $affiliateType;
 
         return $this;
     }
 
     /**
-     * Get jsContent
+     * Get affiliateType
      *
-     * @return string
+     * @return \Application\AffiliateBundle\Entity\AffiliateType
      */
-    public function getJsContent()
+    public function getAffiliateType()
     {
-        return $this->jsContent;
+        return $this->affiliateType;
     }
 }

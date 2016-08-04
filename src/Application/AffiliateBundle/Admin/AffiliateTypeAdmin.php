@@ -8,9 +8,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class AffiliateAdmin extends AbstractAdmin
+class AffiliateTypeAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -20,8 +21,10 @@ class AffiliateAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('link')
-            ->add('affiliateType')
+            ->add('defaultLink')
+            ->add('htmlContent')
+            ->add('cssContent')
+            ->add('jsContent')
         ;
     }
 
@@ -33,8 +36,7 @@ class AffiliateAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('link')
-            ->add('affiliateType')
+            ->add('htmlContent', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -51,9 +53,11 @@ class AffiliateAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', TextType::class, ['required' => false])
-            ->add('link', TextType::class, ['required' => false])
-            ->add('affiliateType')
+            ->add('name', TextType::class)
+            ->add('defaultLink', TextType::class)
+            ->add('htmlContent', TextareaType::class, ['required' => false])
+            ->add('cssContent', TextareaType::class, ['required' => false])
+            ->add('jsContent', TextareaType::class, ['required' => false])
             ->add('file', AdminFileType::class, ['required' => false])
         ;
     }
@@ -66,8 +70,24 @@ class AffiliateAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('link')
-            ->add('affiliateType')
+            ->add('htmlContent', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
         ;
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function prePersist($object)
+    {
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
+        $bucketService->uploadFile($object);
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function preUpdate($object)
+    {
+        $this->prePersist($object);
     }
 }

@@ -1,7 +1,18 @@
 services:
 
+    application_affiliate.admin.affiliate_type:
+        class: Application\AffiliateBundle\Admin\AffiliateTypeAdmin
+        arguments: [~, Application\AffiliateBundle\Entity\AffiliateType, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: group_name_general, label: AffiliateType }
+
     application_affiliate.admin.affiliate:
         class: Application\AffiliateBundle\Admin\AffiliateAdmin
         arguments: [~, Application\AffiliateBundle\Entity\Affiliate, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: group_name_general, label: Affiliate }
+
+    application_affiliate.form.type.admin_file:
+        class: Application\AffiliateBundle\Form\Type\AdminFileType
+        tags:
+            - { name: form.type }

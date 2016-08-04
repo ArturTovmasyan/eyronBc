@@ -40,6 +40,8 @@ parameters:
     facebook_page_token: EAAGVGg9VcYMBACoeoaorfMgribRSye2sPMKFcTZAeo65yHUZAqrpWZCGVxNZBrXxiqExYKqLy4AONzYq40pL09EJTLmOgdZCaZCKIdpAMZBRtTl7QOZBbhCmYd9iEev7FwiKtje1fdGNE0fQnYAJnF8vLwSts81fP7ZAUHxJSBxocswZDZD
     facebook_page_id: 1711606329055370
 
+    booking_aid: 1164369
+
 
     android_optional_version:  1.0.0
     android_mandatory_version: 1.0.0
