@@ -1,4 +1,7 @@
 services:
-#    application_affiliate.example:
-#        class: Application\AffiliateBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+
+    application_affiliate.admin.affiliate:
+        class: Application\AffiliateBundle\Admin\AffiliateAdmin
+        arguments: [~, Application\AffiliateBundle\Entity\Affiliate, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: group_name_general, label: Affiliate }
