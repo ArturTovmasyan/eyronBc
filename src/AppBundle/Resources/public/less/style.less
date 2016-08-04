@@ -344,8 +344,6 @@ header{
             color: #E5E5E5;
           }
         }
-
-
       }
 
       .active a{
@@ -357,26 +355,6 @@ header{
           color: #E5E5E5;
         }
       }
-
-      //.search{
-      //  overflow: hidden;
-      //  form{
-      //    padding:10px 0 10px 38px;
-      //    .icon-search-icon{
-      //      color:#ffffff;
-      //      font-size: 30px;
-      //      vertical-align: middle;
-      //      position: absolute;
-      //    }
-      //
-      //    input{
-      //      border:0;
-      //      color:#A4A4A4;
-      //      background-color: transparent;
-      //      padding-left:40px;
-      //    }
-      //  }
-      //}
     }
 
     .navbar-form{
@@ -392,30 +370,6 @@ header{
           padding-top:25px;
           padding-bottom:25px;
         }
-
-        //.bell{
-        //  display: block;
-        //  width: 25px;
-        //  height: 30px;
-        //  background: url('../images/bell.png') no-repeat center center;
-        //  background-size: 37%;
-        //
-        //  .sup{
-        //    position: absolute;
-        //    top: 12px;
-        //    right: 12px;
-        //    padding: 3px 6px;
-        //    color: #ffffff;
-        //    background-color: #f44336;
-        //    font-size: 11px;
-        //    line-height: 12px;
-        //    font-weight: 300;
-        //    height: 18px;
-        //    .rounded-corners(12px);
-        //    text-align: center;
-        //    vertical-align: middle;
-        //  }
-        //}
 
         &:last-child{
         .user{
@@ -488,12 +442,6 @@ header{
                 width:30px;
                 height:30px;
                 font-size:30px;
-
-                //&.mybucketlist-icon{
-                //  width: 22px !important;
-                //  margin: 0 3px 0 4px;
-                //}
-
                 span{
                   padding-left:0;
                   margin-left: 0;
@@ -509,6 +457,9 @@ header{
               &:hover{
                 text-decoration: underline;
                 background-color: transparent;
+                i{
+                  text-decoration: none;
+                }
               }
             }
 
@@ -572,18 +523,13 @@ header{
           }
 
         }
-        //ul{
-        //  li{
-        //    float: none;
-        //    display: block;
-        //    border-bottom: 1px solid #4421AB !important;
-        //  }
-        //}
+
         &:last-child{
           float:right;
           right:12px;
         }
       }
+
       &.user-mobile-menu{
         background-color: #021523;
         padding-left:0;
@@ -651,7 +597,6 @@ header{
       vertical-align: middle;
       font-size: 30px;
       color: #ffffff;
-      //padding: 23px 15px;
     }
 
     a{
@@ -932,9 +877,9 @@ label{
 .search{
   overflow: hidden;
   form{
-    //padding:10px 0 10px 38px;
-    padding:10px 0 10px 25px;
-    margin-top: 0;
+    padding:0 0 0 5px;
+    margin: 10px auto 5px;
+
     .icon-search-icon{
       color:#A4A4A4;
       font-size: 30px;
@@ -944,14 +889,16 @@ label{
 
     input{
       border:0;
-      color:#666666;
+      color:#333333;
       background-color: transparent;
-      padding-left:40px;
+      padding: 0 30px 0 40px;
+      box-shadow: none;
+      font-weight: normal;
     }
   }
 }
 
-#signin,#common-modal,#goal-friends,#goal-users-modal{
+#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top{
   .close-icon{
     width: 18px;
     height: 18px;
@@ -967,6 +914,13 @@ label{
   .close-icon{
     top: 25px;
     right: 20px;
+  }
+}
+
+.content-top{
+  .close-icon{
+    top:18px;
+    right:23px;
   }
 }
 
@@ -2144,12 +2098,6 @@ footer{
             padding-bottom:24px;
           }
         }
-
-        //.search{
-        //  form{
-        //    padding:14px 2px 14px 15px;
-        //  }
-        //}
       }
 
       .navbar-brand{
@@ -2220,9 +2168,15 @@ footer{
 
   .search{
     form{
-      padding:14px 2px 14px 15px;
+      padding:13px 2px 13px 15px;
+
+      input{
+        font-size:22px;
+        padding-left:43px;
+      }
     }
   }
+
   .button-lg{
     margin-right: 15px;
     padding: 7px 35px;
@@ -2520,19 +2474,6 @@ footer{
             padding: 27px 23px;
           }
         }
-        //.search{
-        //
-        //  form{
-        //    padding:17px 0 17px 30px;
-        //
-        //    input{
-        //      font-size:16px;
-        //      font-weight: normal;
-        //      padding-left:43px;
-        //    }
-        //  }
-        //
-        //}
       }
 
       .navbar-right{
@@ -2550,7 +2491,6 @@ footer{
 
             .icon-arrow-down,.icon-icon-up{
               margin-right:10px;
-              //margin-top:10px;
               margin-top:7px;
             }
           }
@@ -2581,19 +2521,6 @@ footer{
     }
   }
 
-  .search{
-
-    form{
-      padding:17px 0 17px 30px;
-
-      input{
-        font-size:16px;
-        font-weight: normal;
-        padding-left:43px;
-      }
-    }
-
-  }
   .button-lg{
     //width: 186px;
     padding: 10px 45px;
@@ -2828,19 +2755,6 @@ html {
     }
   }
 
-  .search{
-
-    form{
-      padding:17px 15px 17px 30px;
-
-      input{
-        font-size:16px;
-        font-weight: normal;
-        padding-left:43px;
-      }
-    }
-
-  }
   .homepage{
     top:15%;
 
