@@ -49,6 +49,79 @@ class NewsFeedController extends FOSRestController
      */
     public function getAction($first, $count, $userId = null, Request $request)
     {
+        $newsFeeds = $this->getNewsFeed($first, $count, $userId, $request);
+
+        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage");
+
+        if(is_null($userId)){
+            array_push($groups, "tiny_user");
+        }
+
+        $view = $this->view($newsFeeds, 200)
+            ->setSerializationContext(SerializationContext::create()->setGroups($groups));
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Rest\Get("/api/v1.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get_old", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Activity",
+     *  description="This function is used to get goal",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  }
+     *
+     * )
+     *
+     * @Rest\View(serializerGroups={"new_feed", "tiny_goal", "images", "tiny_user", "successStory", "comment", "successStory_storyImage", "storyImage"})
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @param $first
+     * @param $count
+     * @param $request
+     *
+     * @return Response
+     */
+    public function getOldAction($first, $count, Request $request)
+    {
+        $newsFeeds = $this->getNewsFeed($first, $count, null, $request);
+
+        $oldNewFeeds = [];
+        foreach($newsFeeds as $newFeed){
+            $count = 0;
+            foreach($newFeed->getGoals() as $goal){
+                if ($count < 2) {
+                    $oldNewFeed = clone $newFeed;
+                    $oldNewFeed->setGoals(null);
+                    $oldNewFeed->setGoal($goal);
+
+                    $stats = $goal->getStats();
+                    $oldNewFeed->setListedBy($stats['listedBy']);
+                    $oldNewFeed->setCompletedBy($stats['doneBy']);
+
+                    $oldNewFeeds[] = $oldNewFeed;
+                    $count++;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+
+        return $oldNewFeeds;
+    }
+
+    /**
+     * @param $first
+     * @param $count
+     * @param null $userId
+     * @param Request $request
+     * @return \Doctrine\ORM\Query|mixed
+     */
+    private function getNewsFeed($first, $count, $userId = null, Request $request)
+    {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
 
@@ -111,65 +184,6 @@ class NewsFeedController extends FOSRestController
             }
         }
 
-        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage");
-
-        if(is_null($userId)){
-            array_push($groups, "tiny_user");
-        }
-
-        $view = $this->view($newsFeeds, 200)
-            ->setSerializationContext(SerializationContext::create()->setGroups($groups));
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\Get("/api/v1.0/activities/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="app_rest_newsfeed_get_old", options={"method_prefix"=false})
-     * @ApiDoc(
-     *  resource=true,
-     *  section="Activity",
-     *  description="This function is used to get goal",
-     *  statusCodes={
-     *         200="Returned when goals was returned",
-     *  }
-     *
-     * )
-     *
-     * @Rest\View(serializerGroups={"new_feed", "tiny_goal", "images", "tiny_user", "successStory", "comment", "successStory_storyImage", "storyImage"})
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @param $first
-     * @param $count
-     * @param $request
-     *
-     * @return Response
-     */
-    public function getOldAction($first, $count, Request $request)
-    {
-        $newsFeeds = $this->getAction($first, $count, $request);
-
-        $oldNewFeeds = [];
-        foreach($newsFeeds as $newFeed){
-            $count = 0;
-            foreach($newFeed->getGoals() as $goal){
-                if ($count < 2) {
-                    $oldNewFeed = clone $newFeed;
-                    $oldNewFeed->setGoals(null);
-                    $oldNewFeed->setGoal($goal);
-
-                    $stats = $goal->getStats();
-                    $oldNewFeed->setListedBy($stats['listedBy']);
-                    $oldNewFeed->setCompletedBy($stats['doneBy']);
-
-                    $oldNewFeeds[] = $oldNewFeed;
-                    $count++;
-                }
-                else {
-                    break;
-                }
-            }
-        }
-
-        return $oldNewFeeds;
+        return $newsFeeds;
     }
 }

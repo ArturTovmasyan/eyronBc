@@ -45,15 +45,14 @@ Feature: Activity
     Then I should see "user1"
     And I should be on "/activity"
 
-    When I follow "user1 useryan"
-    And I follow "My Bucketlist"
+    When I click on "navbar-right"
+    And I am on "/profile"
     And I wait
-    Then I should be on "/profile"
     And I should see "Active"
     And I should see "Completed"
     When I am on "/goal-friends"
     And I wait for view "2000"
-    Then I should see "user2 useryan"
+    Then I should see "user2"
     And I scroll page to "icon-top-idea"
     And I should see "Top Ideas"
     When I follow "Top Ideas"
@@ -69,7 +68,7 @@ Feature: Activity
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I should see "user1 useryan"
+    And I should see "user1"
     When I follow "Goalfriends"
     And I wait for angular
     Then I should see "user3 user3"
@@ -85,7 +84,7 @@ Feature: Activity
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I should see "user1 useryan"
+    And I should see "user1"
     And I am on "/profile/777777"
     And I wait
     Then I should not see "What are you doing here? Come on, add some goals"
@@ -102,7 +101,7 @@ Feature: Activity
       When I am logged in as "user1"
       Then I should be on "/activity"
       And I wait
-      And I should see "user2 useryan"
+      And I should see "user2"
       And I should see "goal9"
       And I should see "ADDED"
       And I wait
@@ -112,7 +111,7 @@ Feature: Activity
       Given I am on "/logout"
       And I wait
       When I am logged in as "user1"
-      And I should see "user2 useryan"
+      And I should see "user2"
       And I am on "/goal/goal9"
       Then I should see "goal9"
       When I scroll page to ".text-dark-gray"
@@ -128,7 +127,7 @@ Feature: Activity
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I should see "user1 useryan"
+    And I should see "user1"
     And I am on "/goal/goal9"
     Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
     And I should see "goal9"

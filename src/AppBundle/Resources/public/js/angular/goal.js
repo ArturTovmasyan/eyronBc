@@ -21,6 +21,7 @@ angular.module('goal', ['Interpolation',
         'angulartics.google.analytics',
         'PathPrefix',
         'slickCarousel',
+        'notification',
         'comments'
     ])
     .config(function (localStorageServiceProvider ) {
@@ -94,7 +95,7 @@ angular.module('goal', ['Interpolation',
         };
 
         lsInfiniteItems.prototype.newActivity = function(time, cb){
-            var url = envPrefix + 'api/v2.0/activities/0/10?time=' + time;
+            var url = envPrefix + 'api/v2.0/activities/0/'+ this.count +'?time=' + time;
             $http.get(url).success(function(data) {
                 if(angular.isFunction(cb)){
                     cb(data);
@@ -179,7 +180,7 @@ angular.module('goal', ['Interpolation',
                         img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        if (item.goals[0].cached_image) {
+                        if (!angular.isUndefined(item.goals[0]) && item.goals[0].cached_image) {
                             img = new Image();
                             img.src = item.goals[0].cached_image;
                         }
@@ -223,18 +224,27 @@ angular.module('goal', ['Interpolation',
 
                 url = url.replace('{first}', 0).replace('{count}', this.count);
                 $http.get(url).success(function(newData) {
-                    localStorageService.set(this.storage_name + userId, newData);
+                    if(newData.length){
+                        localStorageService.set(this.storage_name + userId, newData);
+                        if(data.length){
+                            if(newData[0].datetime !== data[0].datetime ){
+                                angular.element('#activities').addClass('comingByTop');
 
-                    if(newData[0].datetime !== data[0].datetime ){
-                        angular.element('#activities').addClass('comingByTop');
+                                // TODO Change this
+                                for(var i = this.count - 1; i >= 0; i--){
+                                    this.items.unshift(newData[i]);
+                                    this.items.pop();
+                                }
 
-                        // TODO Change this
-                        for(var i = this.count - 1; i >= 0; i--){
-                            this.items.unshift(newData[i]);
-                            this.items.pop();
+                                this.reserve = [];
+                            }
+                        } else {
+                            this.items = this.items.concat(newData);
                         }
-
-                        this.reserve = [];
+                    } else {
+                        if(!data.length){
+                            this.noItem = true;
+                        }
                     }
 
                     this.start += this.count;
@@ -549,7 +559,9 @@ angular.module('goal', ['Interpolation',
         }
 
         $scope.openLogin = function () {
-            AuthenticatorLoginService.openLoginPopup()
+            $(".modal-loading").show();
+            AuthenticatorLoginService.openLoginPopup();
+            $(".modal-loading").hide();
         };
             
         $scope.manageVote = function(id){
@@ -564,7 +576,14 @@ angular.module('goal', ['Interpolation',
                     $scope.count[id]--;
                     $scope.vote[id] = false;
                 }
-            });
+            })
+              .error(function (res) {
+                  if(res == "User not found") {
+                      $(".modal-loading").show();
+                      AuthenticatorLoginService.openLoginPopup();
+                      $(".modal-loading").hide();
+                  }
+              });
         };
 
         var imageResize = function () {
@@ -675,11 +694,21 @@ angular.module('goal', ['Interpolation',
         $scope.locations = [];
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
+        $scope.isSearching = false;
+        $scope.placeholder = '';
         var locationsIds = [];
 
         $scope.castInt = function(value){
             return parseInt(value);
         };
+
+        $timeout(function(){
+            if(window.innerWidth < 766){
+                $scope.placeholder = '';
+            } else {
+                $scope.placeholder = $scope.placeholderText;
+            }
+        }, 500);
 
         $scope.getParameterByName = function(name, href){
             name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -699,6 +728,13 @@ angular.module('goal', ['Interpolation',
         $scope.doSearch = function(ev){
             if(ev.which === 13 && screen.width < 768) {
                 angular.element('.icon-remove-email').click();
+            }
+            if(ev.which != 8 && ev.which != 46 && !$scope.isSearching){
+                $scope.isSearching = true;
+            } else if($scope.isSearching && (ev.which == 8 || ev.which != 46)){
+                $timeout(function(){
+                    if(!$scope.search.length)$scope.isSearching = false;
+                },100);
             }
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
@@ -753,7 +789,8 @@ angular.module('goal', ['Interpolation',
         }
 
     }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', function($scope, lsInfiniteItems, $interval, $timeout){
+    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', 'envPrefix', 'UserContext',
+        function($scope, lsInfiniteItems, $interval, $timeout, envPrefix, UserContext){
         $scope.newActivity = false;
 
         $scope.castInt = function(value){
@@ -818,7 +855,8 @@ angular.module('goal', ['Interpolation',
                 })
             }, 2000);
         }
-        $scope.Activities = new lsInfiniteItems(10, 'activities_storage');
+        $scope.Activities = new lsInfiniteItems(7, 'activities_storage');
+        $scope.Activities.nextPage(envPrefix + "api/v2.0/activities/{first}/{count}", "", "", UserContext.id);
         $scope.showNoActivities = false;
 
         $scope.$watch('Activities.items', function(d) {

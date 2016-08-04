@@ -12,33 +12,76 @@
     <div class="content-top">
         <div class="container">
 
+
             <div class="row">
                 <div class="col-xs-4 col-sm-6">
+                    <div class="search" data-ng-init="placeholderText = '{{ 'search'|trans | capitalize}}'">
+                        <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
+                            <span class="icon-search-icon" data-ng-class="{'text-purple': isSearching}"></span>
+                            <input type="text"
+                                   name="search"
+                                   class=""
+                                   autocomplete="off"
+                                    {% if app.request.get('_route') == 'goals_list' %}
+                                        data-ng-model="search"
+                                        data-ng-keydown="doSearch($event)"
+                                    {% else %}
+                                        data-ng-enter-submit=".search form"
+                                    {% endif %}
+                                   placeholder="[[ placeholder ]]">
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <div class="col-xs-8 col-sm-6 text-right" data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+
+
                     <a href="javascript:void(0)" data-ng-class="{'text-purple': showMap}" data-ng-click="showMap=!showMap" class="text-gray map-top">
                         <span>{{ 'menu.map'|trans | upper}}</span>
                         <i class="icon-arrow-down" data-ng-show="showMap"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up ng-hide" data-ng-hide="showMap"><span class="path1"></span><span class="path2"></span></i>
                     </a>
-                </div>
 
-                <div class="col-xs-8 col-sm-6 text-right"
-                     data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+
                     <button type="button"
-                        data-ng-cloak
-                        data-html="true"
-                        data-auto-close="true"
-                        data-animation="am-fade-and-scale"
-                        data-bs-popover
-                        class="btn btn-default text-purple no-bg"
-                        data-placement="bottom"
-                        data-ng-click="filter=!filter"
-                        data-content='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
+                            data-ng-cloak
+                            data-html="true"
+                            data-auto-close="true"
+                            data-animation="am-fade-and-scale"
+                            data-bs-popover
+                            class="btn btn-default text-purple no-bg"
+                            data-placement="bottom"
+                            data-ng-click="filter=!filter"
+                            data-content='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>
 
                         <span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>
                         <i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>
                         <i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>
                     </button>
+
+
                 </div>
+
+                {#<div class="col-xs-8 col-sm-6 text-right"#}
+                     {#data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">#}
+                    {#<button type="button"#}
+                        {#data-ng-cloak#}
+                        {#data-html="true"#}
+                        {#data-auto-close="true"#}
+                        {#data-animation="am-fade-and-scale"#}
+                        {#data-bs-popover#}
+                        {#class="btn btn-default text-purple no-bg"#}
+                        {#data-placement="bottom"#}
+                        {#data-ng-click="filter=!filter"#}
+                        {#data-content='{% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}'>#}
+
+                        {#<span>[[ adventureTextItem ? adventureTextItem.title:"{{ 'discover'|trans }}" ]]</span>#}
+                        {#<i class="icon-arrow-down"  data-ng-hide="filter"><span class="path1"></span><span class="path2"></span></i>#}
+                        {#<i class="icon-icon-up  ng-hide" data-ng-show="filter"><span class="path1"></span><span class="path2"></span></i>#}
+                    {#</button>#}
+                {#</div>#}
             </div>
         </div>
         <div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">
@@ -97,6 +140,7 @@
                                         <a ls-goal-users
                                            href="javascript:void(0)"
                                            ls-goal-id="[[ ::goal.id ]]"
+                                           ls-count="[[ ::goal.stats.listedBy ]]"
                                            ls-category="listed"
                                            data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
@@ -116,6 +160,7 @@
                                         <a ls-goal-users
                                            href="javascript:void(0)"
                                            ls-goal-id="[[ ::goal.id ]]"
+                                           ls-count="[[ ::goal.stats.doneBy ]]"
                                            data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}

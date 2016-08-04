@@ -131,9 +131,9 @@ class MainController extends Controller
      * @Template()
      * @return array
      */
-    public function esiActivityAction()
+    public function esiActivityAction($route)
     {
-        return array();
+        return array('route' => $route);
     }
 
 
@@ -153,6 +153,17 @@ class MainController extends Controller
         if ($this->getUser()->getProfileCompletedPercent() != 100) {
             $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
         }
+        return array();
+    }
+
+    /**
+     * @Route("/notifications", name="notifications")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     * @return array
+     */
+    public function notificationsAction(Request $request)
+    {
         return array();
     }
 

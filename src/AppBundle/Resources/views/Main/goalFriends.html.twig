@@ -88,7 +88,7 @@
                                      <a href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" style="display:block;" class="text-gray">
                                         <div class="row no-gutter">
                                             <div class="col-xs-3">
-                                                <figure class="image-goalfrinds">
+                                                <figure class="image-goalfrinds img-circle ">
                                                     <img data-ng-if="user.image_path" data-ng-src="[[ ::user.image_path ]]" alt="[[ ::user.first_name ]]" class="img-circle img-responsive" />
                                                     {% set className = "user-no" ~ random(4) %}
                                                     <p data-ng-if="!user.image_path" class="no-image {{ className }}">[[ (user.first_name | limitTo:1 | uppercase) + (user.last_name | limitTo:1 | uppercase) ]]</p>

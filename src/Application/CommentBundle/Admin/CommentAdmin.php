@@ -26,7 +26,6 @@ class CommentAdmin extends AbstractAdmin
             ->add('body')
             ->add('thread')
             ->add('createdAt', 'doctrine_orm_callback', array(
-                'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
@@ -58,6 +57,7 @@ class CommentAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'goal_link' => array('template' => 'ApplicationCommentBundle:Admin:comment_list_action_link.html.twig'),
                 )
             ))
         ;
