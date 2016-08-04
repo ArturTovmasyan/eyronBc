@@ -69,6 +69,7 @@ class AppKernel extends Kernel
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
 
             new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
+            new Application\AffiliateBundle\ApplicationAffiliateBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'behat'))) {

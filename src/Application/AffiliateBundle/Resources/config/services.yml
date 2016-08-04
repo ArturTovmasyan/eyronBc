@@ -1,0 +1,4 @@
+services:
+#    application_affiliate.example:
+#        class: Application\AffiliateBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
