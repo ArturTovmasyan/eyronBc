@@ -30,8 +30,7 @@ Feature: My Bucket list
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I follow "user1"
-    And I follow "My Bucketlist"
+    And I click on "navbar-right"
     And I am on "/profile"
     And I wait
     Then I should see "Active"
@@ -47,11 +46,8 @@ Feature: My Bucket list
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-
-    And I follow "user1"
-    And I follow "My Bucketlist"
-    Then I should be on "/profile"
-
+    And I click on "navbar-right"
+    Then I am on "/profile"
     When I check subfilters "0"
     And I wait for view "500"
 
@@ -88,9 +84,8 @@ Feature: My Bucket list
     And I wait
     When I am logged in as "user2"
 
-    And I follow "user2"
-    And I follow "My Bucketlist"
-    Then I should be on "/profile"
+    And I click on "navbar-right"
+    Then I am on "/profile"
 
     When I check subfilters "0"
     And I wait for view "500"
@@ -129,8 +124,8 @@ Feature: My Bucket list
     Given I am on "/logout"
     And I wait
     When I am logged in as "user1"
-    And I follow "user1"
-    And I follow "My Bucketlist"
+    And I click on "navbar-right"
+    And I am on "/profile"
     And I am on "/goal/goal9"
     Then I should see "Comments"
     And should see "Show More"
