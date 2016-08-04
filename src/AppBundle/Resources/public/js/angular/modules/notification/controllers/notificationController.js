@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('notification')
-  .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window',
-    function ($scope, $timeout, NotificationManager, $compile, $window) {
+  .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce',
+    function ($scope, $timeout, NotificationManager, $compile, $window, $sce) {
       // $scope.notifies = [];
       $scope.scroller_config = {
         autoHideScrollbar: false,
@@ -33,6 +33,10 @@ angular.module('notification')
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.notifies = res;
       });
+
+      $scope.bodyInHtml = function(body) {
+        return $sce.trustAsHtml(body);
+      };
       
       $scope.delete = function(id, index){
         NotificationManager.delete({id: id}, function () {
