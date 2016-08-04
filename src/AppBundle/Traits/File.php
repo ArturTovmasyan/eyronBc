@@ -34,7 +34,7 @@ trait File
      *     minHeightMessage = "file.height_extension",
      * )
      *
-     @Assert\Image(
+     * @Assert\Image(
      *     groups={"logo"},
      *     minWidth = 20,
      *     minHeight = 20,
