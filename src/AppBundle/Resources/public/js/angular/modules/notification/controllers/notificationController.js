@@ -24,6 +24,10 @@ angular.module('notification')
         scrollInertia: 0
       };
 
+      if(window.innerWidth < 766){
+        $('ul.dropdown-menu').css('min-width', window.innerWidth)
+      }
+
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.newNotCount = res.unreadCount;
         $scope.notifies = res.userNotifications;

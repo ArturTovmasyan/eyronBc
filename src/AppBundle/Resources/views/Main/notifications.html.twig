@@ -1,54 +1,74 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "AppBundle:Main:activities.html.twig" %}
 
 {% block angularApp %}
 <html data-ng-app="profile" data-ng-controller="notificationInnerController">
 {% endblock %}
 
-{% block content %}
-    {{ parent() }}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8"
-                 data-ng-cloak
+        {% block test  %}
+        <div class="col-md-8">
+            <div data-ng-cloak
                  data-infinite-scroll='nextNotifications()'
-                 data-infinite-scroll-disabled='noNotification || busy'>
-
-                <ul>
-                    <li class="bg-white ng-hide">
-                        <h3 class="text-gray">Notifications</h3>
-                        <h3 class="text-gray" data-ng-click="readAll()">Read All</h3>
+                 data-infinite-scroll-disabled='noNotification || busy'
+                 class="bg-white">
+                {#<ul>#}
+                    {#<li class="bg-white ng-hide">#}
+                        {#<h3 class="text-gray">Notifications</h3>#}
+                        {#<h3 class="text-gray" data-ng-click="readAll()">Read All</h3>#}
+                    {#</li>#}
+                    {#<li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>#}
+                        {#<ul>#}
+                            {#<li data-ng-repeat="notify in notifies">#}
+                                {#<ul data-ng-click="goNotificationPage(notify, $index)">#}
+                                    {#<li class="idea-item">#}
+                                        {#<figure data-ng-class="{'bg-gray': !notify.notification.performer.image_path}">#}
+                                            {#<span class="overlay"></span>#}
+                                            {#<img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>#}
+                                        {#</figure>#}
+                                    {#</li>#}
+                                    {#<li ng-bind-html="bodyInHtml(notify.notification.body)"></li>#}
+                                {#</ul>#}
+                            {#</li>#}
+                        {#</ul>#}
+                    {#</li>#}
+                    {#<li data-ng-show="!notifies.length && noNotification" class="ng-hide" data-ng-cloak>You have not Notify</li>#}
+                {#</ul>#}
+                <ul class="notification-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h3 class="text-gray">Notifications</h3>
+                            </div>
+                            <div class="col-xs-7 text-right">
+                                <a class="text-purple" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
+                            </div>
+                        </div>
                     </li>
-                    <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>
-                        <ul>
-                            <li data-ng-repeat="notify in notifies">
-                                <ul data-ng-click="goNotificationPage(notify, $index)">
-                                    <li class="idea-item">
-                                        <figure data-ng-class="{'bg-gray': !notify.notification.performer.image_path}">
-                                            <span class="overlay"></span>
-                                            <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
-                                        </figure>
-                                    </li>
-                                    <li ng-bind-html="bodyInHtml(notify.notification.body)"></li>
-                                </ul>
+
+                    <li>
+                        <ul data-ng-repeat="notify in notifies">
+                            <li data-ng-click="goNotificationPage(notify, $index)" data-ng-class="{'unread': notify.is_read}">
+                                <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
+                                <div class="clearfix">
+                                    <figure class="pull-left">
+                                        <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                                    </figure>
+
+                                    <p>
+                               <span class="text-dark-gray" ng-bind-html="bodyInHtml(notify.notification.body)">
+                                {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
+                            </span>
+                                        <span class="text-gray">Just now</span>
+                                    </p>
+
+                                </div>
                             </li>
                         </ul>
                     </li>
-                    <li data-ng-show="!notifies.length && noNotification" class="ng-hide" data-ng-cloak>You have not Notify</li>
+
                 </ul>
             </div>
-
-            {% if app.user %}
-                <div class="col-md-4">
-                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
-                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                </div>
-            {% endif %}
         </div>
-    </div>
-{% endblock %}
+        {% endblock %}
 
 {%- block title -%}
     {{- 'notification.title'|trans -}}
