@@ -56,6 +56,14 @@ class Affiliate
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName() ? $this->getName() : "_" . $this->getId();
+    }
+
+    /**
      * Set name
      *
      * @param string $name

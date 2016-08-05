@@ -1,17 +1,15 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {%- block field %}
+
+    {% set linkPlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::LINK_PLACEHOLDER') %}
+    {% set aIdPlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::AID_PLACEHOLDER') %}
+    {% set imagePlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::IMAGE_PLACEHOLDER') %}
+
     <div align="left">
-        {{ object.affiliateType.cssContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.link,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}
-
-        {{ object.affiliateType.htmlContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.link,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}
-
-        {{ object.affiliateType.jsContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.link,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,
-            constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}
+        {{ object.affiliateType.cssContent|replace({(linkPlaceholder): object.link, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+        {{ object.affiliateType.htmlContent|replace({(linkPlaceholder): object.link, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+        {{ object.affiliateType.jsContent|replace({(linkPlaceholder): object.link, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
     </div>
+
 {% endblock -%}

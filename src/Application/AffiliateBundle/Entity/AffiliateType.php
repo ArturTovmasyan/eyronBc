@@ -73,7 +73,7 @@ class AffiliateType
      */
     public function __toString()
     {
-        return '_' . $this->getId();
+        return $this->getName() ? $this->getName() : "_" . $this->getId();
     }
 
     /**

@@ -33,8 +33,8 @@ class AffiliateAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('link')
-            ->add('affiliateType')
+            ->add('affiliateType.name')
+            ->add('affiliateType.id', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -69,5 +69,22 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('link')
             ->add('affiliateType')
         ;
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function prePersist($object)
+    {
+        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
+        $bucketService->uploadFile($object);
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function preUpdate($object)
+    {
+        $this->prePersist($object);
     }
 }

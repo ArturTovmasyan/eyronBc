@@ -1,19 +1,14 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {%- block field %}
-    {{ dump(constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER')) }}
 
-    {#<div align="left">#}
-        {#{{ object.cssContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.defaultLink,#}
-                                          {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,#}
-                                          {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}#}
+    {% set linkPlaceholder = '%link%' %}
+    {% set aIdPlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::AID_PLACEHOLDER') %}
+    {% set imagePlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::IMAGE_PLACEHOLDER') %}
 
-        {#{{ object.htmlContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.defaultLink,#}
-            {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,#}
-            {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}#}
-
-        {#{{ object.jsContent|raw|replace({constant('Application\\AffiliateBundle\\Entity\\AffiliateType:LINK_PLACEHOLDER'): object.defaultLink,#}
-            {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:AID_PLACEHOLDER'): booking_aid,#}
-            {#constant('Application\\AffiliateBundle\\Entity\\AffiliateType:IMAGE_PLACEHOLDER'): object.downloadLink }) }}#}
-    {#</div>#}
+    <div align="left">
+        {{ object.cssContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+        {{ object.htmlContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+        {{ object.jsContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+    </div>
 {% endblock -%}
