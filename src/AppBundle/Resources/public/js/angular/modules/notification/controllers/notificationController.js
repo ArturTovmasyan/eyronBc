@@ -9,6 +9,7 @@ angular.module('notification')
       $scope.scroller_config = {
         autoHideScrollbar: false,
         theme: 'minimal-dark',
+        axis: 'y',
         advanced:{
           updateOnContentResize: true
         },
@@ -16,7 +17,7 @@ angular.module('notification')
           onCreate: function(){
             $(this).css({
               'height': 'initial',
-              'max-height': '400px'
+              'max-height': '300px'
             });
           }
         },
@@ -33,12 +34,12 @@ angular.module('notification')
       };
       
       $scope.delete = function(id, index){
-        NotificationManager.delete({id: id}, function () {
-          if(!$scope.notifies[index].is_read){
-            $scope.newNotCount --;
-          }
+        //NotificationManager.delete({id: id}, function () {
+        //  if(!$scope.notifies[index].is_read){
+        //    $scope.newNotCount --;
+        //  }
           $scope.notifies.splice(index, 1);
-        });
+        //});
       };
 
       $scope.readAll = function(){

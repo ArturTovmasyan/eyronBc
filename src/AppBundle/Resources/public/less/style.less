@@ -243,6 +243,10 @@ input.form-control::-webkit-input-placeholder {
   font-family: 'Open Sans', sans-serif;
 }
 
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+  background-color: #021523;
+}
+
 header{
   background: #021523;
   #line{
@@ -334,7 +338,7 @@ header{
             padding-left:7px;
           }
 
-          &:hover{
+          &:not(.notify):hover{
             background-color: #7724F6;
             color: #E5E5E5;
           }
@@ -514,7 +518,7 @@ header{
       li{
         float: left;
         a{
-          padding: 18px 19px 13px !important;
+          padding: 13px 19px 18px !important;
           line-height: 46px;
           .no-image{
             width: 40px;
@@ -524,7 +528,7 @@ header{
           }
 
           &.mobile-user{
-            padding-left: 4px !important;
+            padding: 17px 19px 4px !important;
           }
 
         }
@@ -618,29 +622,7 @@ header{
 
   }
 
-  .bell{
-    display: block;
-    width: 25px;
-    height: 30px;
-    background: url('../images/bell.png') no-repeat center bottom;
-    background-size: 100%;
 
-    .sup{
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 3px 6px;
-      color: #ffffff;
-      background-color: #f44336;
-      font-size: 11px;
-      line-height: 12px;
-      font-weight: 300;
-      height: 18px;
-      .rounded-corners(12px);
-      text-align: center;
-      vertical-align: middle;
-    }
-  }
   .mybucketlist-icon{
     display: inline-block;
     width: 25px !important;
@@ -650,24 +632,154 @@ header{
   }
 
   #notification{
-    background-color: #ffffff;
-    min-width: 200px;
 
-    li{
+    a.relative{
+      display: inline-block;
+    }
+
+    .bell{
+      display: block;
+      width: 25px;
+      height: 41px;
+      background: url('../images/bell.png') no-repeat center 11px;
+      background-size: 100%;
+    }
+
+    sup{
+      position: absolute;
+      top: 16px;
+      right: 10px;
+      padding: 3px 4px;
+      color: #ffffff;
+      background-color: #7724F6;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 500;
+      height: 18px;
+      .rounded-corners(4px);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .close-icon{
+      top: 13px;
+      right: 13px;
+      display: none;
+    }
+
+    ul.dropdown-menu{
+      position: absolute;
       background-color: #ffffff;
+      border:1px solid #e5e5e5;
+      min-width: 280px;
+      top: 97%;
+      padding-bottom:0;
 
-      &:first-child{
-        border-bottom: 1px solid #cccccc;
-      }
+      li{
+        border-left: 0;
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
 
-      &:last-child{
-        border-top: 1px solid #cccccc;
-      }
+        &:first-child{
+          h3,a{
+            font-size: 14px;
+            padding:12px 10px;
+            margin: 0;
+          }
 
-      &:hover{
-        background-color: #cdcdcd;
+          a{
+            &:hover{
+              text-decoration: none;
+              background-color: transparent;
+            }
+          }
+          &:hover{
+            //background: transparent;
+          }
+        }
+
+        &:last-child{
+          width: 100%;
+          border-bottom: 0 !important;
+          a{
+            padding: 10px 0;
+            font-size:16px;
+            &:hover{
+              background-color: transparent;
+            }
+          }
+        }
+
+        //&:not(:first-child):hover{
+        //  background: #e8e8e8;
+        //}
+
+        &.unread{
+          background: #f4f4f4;
+        }
+
+        ul{
+          padding-left:0;
+
+          li{
+            display: inline-block;
+            padding: 10px 0;
+            border-bottom: 0;
+            figure{
+              width: 60px;
+              height:60px;
+              margin: 0 10px;
+              img{
+                height:60px;
+              }
+            }
+
+            p{
+              width: 99%;
+              span{
+                display: block;
+                white-space: normal;
+                word-break: break-word;
+                font-size:16px;
+
+                a{
+                  font-weight: 600;
+                  padding: 0;
+                  color: #666666;
+                }
+              }
+            }
+
+
+
+
+
+            //&:hover{
+            //  //background: transparent !important;
+            //  .close-icon{
+            //    display: block;
+            //  }
+            //}
+
+            //ul{
+            //  li{
+            //    padding: 0;
+            //  }
+            //}
+          }
+          &:hover{
+            background: #e8e8e8;
+            .close-icon{
+              display: block;
+            }
+          }
+        }
       }
     }
+
+    //&:hover{
+    //  background: transparent;
+    //}
   }
 }
 
@@ -903,7 +1015,7 @@ label{
   }
 }
 
-#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top{
+#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification{
   .close-icon{
     width: 18px;
     height: 18px;
@@ -928,7 +1040,6 @@ label{
     right:23px;
   }
 }
-
 
 #goal-friends{
   .close-icon{
@@ -1044,7 +1155,7 @@ label{
 }
 
 .text-dark-gray{
-  color:#666666;
+  color:#666666 !important;
 }
 
 .text-dark-grey{
@@ -2082,6 +2193,11 @@ footer{
 }
 
 @media (min-width: @screen-sm) {
+  .navbar-right .dropdown-menu {
+    right: -197px;
+    left: auto;
+  }
+
   header {
     .navbar-default{
 
@@ -2119,11 +2235,7 @@ footer{
             padding-top:24px;
             padding-bottom:24px;
           }
-          .bell{
-            background-position: center center;
-            //background-size: 37%;
-            padding: 42px 0;
-          }
+
           &:last-child{
             width:210px;
 
@@ -2169,7 +2281,24 @@ footer{
         }
       }
     }
+
+    #notification{
+
+
+      a.relative{
+        padding: 16px 19px;
+      }
+
+      ul{
+        width: 430px;
+      }
+      //.bell{
+      //  background-position: center center;
+      //}
+    }
   }
+
+
 
   .search{
     form{
@@ -2463,7 +2592,17 @@ footer{
   border-top:1px solid #e6e6e6;
 }
 
+.dropdown-menu{
+  left: -80px;
+}
+
 @media (min-width: @screen-md) {
+
+  .navbar-right .dropdown-menu {
+    right: -219px;
+    left: auto;
+  }
+
   header{
 
     .navbar-brand{
@@ -2524,6 +2663,13 @@ footer{
         }
       }
     }
+
+    #notification{
+      a.relative{
+        padding: 19px;
+      }
+    }
+
   }
 
   .button-lg{

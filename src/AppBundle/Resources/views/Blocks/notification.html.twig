@@ -1,31 +1,78 @@
-<span uib-dropdown>
-  <a href="#" uib-dropdown-toggle>
+<div uib-dropdown auto-close="disabled" data-ng-cloak>
+  <a href="#" uib-dropdown-toggle class="relative notify" data-ng-cloak>
       <i class="bell"></i>
-      <sup data-ng-show="newNotCount" class="ng-hide">[[ ::newNotCount]]</sup>
+      <sup data-ng-show="!newNotCount">1[[ ::newNotCount]]</sup>
   </a>
-  <ul id="notification" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown" style="position: absolute;border: 1px solid black">
-        <li class="bg-white ng-hide">
-            <h3 class="text-gray">Notifications</h3>
-            <h3 class="text-gray" data-ng-click="readAll()">Read All</h3>
+  <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        {#<li class="bg-white ng-hide">#}
+            {#<div class="row">#}
+                {#<div class="col-xs-6">#}
+                    {#<h3 class="text-gray">Notifications</h3>#}
+                {#</div>#}
+                {#<div class="col-xs-6">#}
+                    {#<h3 class="text-purple" data-ng-click="readAll()">Mark All as read</h3>#}
+                {#</div>#}
+            {#</div>#}
+        {#</li>#}
+
+      <li class="clearfix ng-hide" data-ng-show="notifies.length">
+          <div class="row">
+              <div class="col-xs-6">
+                  <h3 class="text-gray pull-left">Notifications</h3>
+              </div>
+              <div class="col-xs-6">
+                  <a class="text-purple pull-right" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
+              </div>
+          </div>
+      </li>
+
+{# todo change #}
+        {#<li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>#}
+            {#<ul >#}
+                {#<li data-ng-repeat="notify in notifies">#}
+                    {#<ul data-ng-click="goNotificationPage(notify, $index)">#}
+                        {#<li class="idea-item">#}
+                            {#<figure>#}
+                                {#<span class="overlay"></span>#}
+                                {#<img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>#}
+                            {#</figure>#}
+                        {#</li>#}
+                        {#<li ng-bind-html="bodyInHtml(notify.notification.body)"></li>#}
+                    {#</ul>#}
+                {#</li>#}
+            {#</ul>#}
+
+        {#</li>#}
+      {# todo end  change #}
+
+       <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak ng-scrollbars ng-scrollbars-config="scroller_config" ng-scrollbars-update="updateScrollbar">
+           <ul data-ng-repeat="notify in notifies">
+               <li data-ng-click="goNotificationPage(notify, $index)" data-ng-class="{'unread': notify.is_read}">
+                   <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
+                        <div class="clearfix">
+                           <figure class="pull-left">
+                               <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                           </figure>
+
+                            <p>
+                               <span class="text-dark-gray" ng-bind-html="bodyInHtml(notify.notification.body)">
+                                {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
+                            </span>
+                                <span class="text-gray">Just now</span>
+                            </p>
+
+                        </div>
+               </li>
+           </ul>
+       </li>
+
+        <li data-ng-show="!notifies.length" class="ng-hide text-center">
+            You have not Notify
         </li>
-        <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>
-            <ul ng-scrollbars ng-scrollbars-config="scroller_config" ng-scrollbars-update="updateScrollbar">
-                <li data-ng-repeat="notify in notifies">
-                    <ul data-ng-click="goNotificationPage(notify, $index)">
-                        <li class="idea-item">
-                            <figure>
-                                <span class="overlay"></span>
-                                <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
-                            </figure>
-                        </li>
-                        <li ng-bind-html="bodyInHtml(notify.notification.body)"></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul>
-                <a href="{{ path('notifications') }}">See all</a>
-            </ul>
-        </li>
-        <li data-ng-show="!notifies.length" class="ng-hide">You have not Notify</li>
+
+      <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>
+            <a href="{{ path('notifications') }}" class="text-purple text-center">See all</a>
+      </li>
+
   </ul>
-</span>
+</div>
