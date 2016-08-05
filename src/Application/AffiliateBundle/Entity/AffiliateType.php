@@ -25,6 +25,8 @@ class AffiliateType
     const IMAGE_PLACEHOLDER = '%image%';
     const LINK_PLACEHOLDER  = '%link%';
 
+    public static $bookingAId;
+
     use File;
 
     /**
@@ -60,9 +62,14 @@ class AffiliateType
     protected $jsContent;
 
     /**
-     * @ORM\Column(name="default_link", type="string", length=200, nullable=true)
+     * @ORM\Column(name="default_link", type="string", length=500, nullable=true)
      */
     protected $defaultLink;
+
+    /**
+     * @var
+     */
+    protected $cacheDownloadLink;
 
     /**
      * Get id
@@ -184,5 +191,34 @@ class AffiliateType
     public function setDefaultLink($defaultLink)
     {
         $this->defaultLink = $defaultLink;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCacheDownloadLink()
+    {
+        return $this->cacheDownloadLink ? $this->cacheDownloadLink : $this->getDownloadLink();
+    }
+
+    /**
+     * @param $cacheDownloadLink
+     * @return $this
+     */
+    public function setCacheDownloadLink($cacheDownloadLink)
+    {
+        $this->cacheDownloadLink = $cacheDownloadLink;
+
+        return $this;
+    }
+
+
+    public function replacePlaceHolders($content)
+    {
+        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, self::$bookingAId, $content);
+        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getDefaultLink(), $newContent);
+        $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
+
+        return $newContent;
     }
 }

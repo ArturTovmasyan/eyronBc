@@ -9,6 +9,7 @@ namespace Application\AffiliateBundle\Entity;
 
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
 
@@ -38,7 +39,7 @@ class Affiliate
     protected $name;
 
     /**
-     * @ORM\Column(name="link", type="string", length=200, nullable=true)
+     * @ORM\Column(name="link", type="string", length=500, nullable=true)
      */
     protected $link;
 
@@ -61,6 +62,38 @@ class Affiliate
      * @Groups({"affiliate_affiliateType"})
      */
     protected $affiliateType;
+
+    /**
+     * @var
+     */
+    protected $cacheDownloadLink;
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"affiliate"})
+     */
+    public function getHtmlContent()
+    {
+        return $this->replacePlaceHolders($this->getAffiliateType()->getHtmlContent());
+    }
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"affiliate"})
+     */
+    public function getCssContent()
+    {
+        return $this->replacePlaceHolders($this->getAffiliateType()->getCssContent());
+    }
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"affiliate"})
+     */
+    public function getJsContent()
+    {
+        return $this->replacePlaceHolders($this->getAffiliateType()->getJsContent());
+    }
 
     /**
      * Get id
@@ -212,5 +245,34 @@ class Affiliate
     public function getLinks()
     {
         return $this->links;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCacheDownloadLink()
+    {
+        return $this->cacheDownloadLink ? $this->cacheDownloadLink : $this->getDownloadLink();
+    }
+
+    /**
+     * @param mixed $cacheDownloadLink
+     */
+    public function setCacheDownloadLink($cacheDownloadLink)
+    {
+        $this->cacheDownloadLink = $cacheDownloadLink;
+    }
+
+    /**
+     * @param $content
+     * @return mixed
+     */
+    public function replacePlaceHolders($content)
+    {
+        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, AffiliateType::$bookingAId, $content);
+        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getLink(), $newContent);
+        $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
+
+        return $newContent;
     }
 }

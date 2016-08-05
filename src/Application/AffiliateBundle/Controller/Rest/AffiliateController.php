@@ -9,6 +9,7 @@ namespace Application\AffiliateBundle\Controller\Rest;
 
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
+use Application\AffiliateBundle\Entity\AffiliateType;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -43,7 +44,7 @@ class AffiliateController extends FOSRestController
      * }
      * )
      *
-     * @Rest\View(serializerGroups={"affiliate", "affiliate_affiliateType", "affiliateType"})
+     * @Rest\View(serializerGroups={"affiliate"})
      *
      * @param Request $request
      * @return Response
@@ -54,6 +55,8 @@ class AffiliateController extends FOSRestController
         if (is_null($link)){
             throw new HttpException(Response::HTTP_BAD_REQUEST);
         }
+
+        AffiliateType::$bookingAId = $this->getParameter('booking_aid');
 
         $em = $this->getDoctrine()->getEntityManager();
         $affiliates = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->getAffiliatesByLink($link);

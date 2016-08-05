@@ -2,6 +2,7 @@
 
 namespace Application\AffiliateBundle\Admin;
 
+use Application\AffiliateBundle\Entity\AffiliateType;
 use Application\AffiliateBundle\Form\Type\AdminFileType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -31,6 +32,8 @@ class AffiliateAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        AffiliateType::$bookingAId = $this->getConfigurationPool()->getContainer()->getParameter('booking_aid');
+
         $listMapper
             ->add('id')
             ->add('name')
