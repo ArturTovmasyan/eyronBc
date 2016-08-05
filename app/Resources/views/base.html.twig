@@ -173,7 +173,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container" id="main-nav" style="display: none">
+                        <div class="container" id="main-nav" style="display: none" data-ng-controller="notificationController">
                             <div class="navbar-header navbar-mobile">
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
@@ -192,43 +192,9 @@
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
                                         </li>
-                                        {#<li data-ng-show="!joinToggle11" uib-dropdown data-ng-controller="notificationController">#}
-                                             {#<span uib-dropdown>#}
-                                                  {#<a href="#" uib-dropdown-toggle>#}
-                                                      {#<i class="bell"></i>#}
-                                                      {#<sup></sup>#}
-                                                  {#</a>#}
-                                                  {#<ul id="notification" class="dropdown-menu ng-hide" uib-dropdown-menu aria-labelledby="simple-dropdown" style="position: absolute;border: 1px solid black">#}
-                                                      {#<li class="bg-white ng-hide">#}
-                                                          {#<h3 class="text-gray">Notifications</h3>#}
-                                                      {#</li>#}
-                                                      {#<li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>#}
-                                                          {#<ul ng-scrollbars ng-scrollbars-config="scroller_config" ng-scrollbars-update="updateScrollbar">#}
-                                                              {#<li data-ng-repeat="notify in notifies">#}
-                                                                  {#<div class="col-sm-12">#}
-                                                                      {#<div class="idea-item">#}
-                                                                          {#<figure>#}
-                                                                              {#<h3>#}
-                                                                                  {#<a href="[[ ::notify.notification.link]]"></a>#}
-                                                                              {#</h3>#}
-
-                                                                              {#<a href="[[ ::notify.notification.link]]" class="goalTitle">#}
-                                                                                  {#<span class="overlay"></span>#}
-                                                                                  {#<img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>#}
-                                                                              {#</a>#}
-                                                                          {#</figure>#}
-                                                                      {#</div>#}
-                                                                  {#</div>#}
-                                                              {#</li>#}
-                                                          {#</ul>#}
-                                                          {#<ul>#}
-                                                              {#<a href="{{ path('notifications') }}">See all</a>#}
-                                                          {#</ul>#}
-                                                      {#</li>#}
-                                                      {#<li data-ng-show="!notifies.length" class="ng-hide">You have not Notify</li>#}
-                                                  {#</ul>#}
-                                            {#</span>#}
-                                        {#</li>#}
+                                        <li data-ng-show="!joinToggle11" id="notification" uib-dropdown>
+                                            {{ include('AppBundle:Blocks:notification.html.twig') }}
+                                        </li>
                                         <li>
                                             {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                         </li>
@@ -324,7 +290,6 @@
                                         </ul>
 
 
-
                                     </div>
                                 {% endif %}
                                 <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
@@ -375,45 +340,11 @@
                                 {#{{ path("fos_user_security_login") }}#}
                                 {#{% endif %}#}
                                 <ul class="nav navbar-nav navbar-right">
-                                    {#{% if user %}#}
-                                        {#<li uib-dropdown data-ng-controller="notificationController">#}
-                                             {#<span uib-dropdown>#}
-                                                  {#<a href="#" uib-dropdown-toggle>#}
-                                                      {#<i class="bell"></i>#}
-                                                      {#<sup></sup>#}
-                                                  {#</a>#}
-                                                  {#<ul id="notification" class="dropdown-menu ng-hide" uib-dropdown-menu aria-labelledby="simple-dropdown" style="position: absolute;border: 1px solid black">#}
-                                                        {#<li class="bg-white ng-hide">#}
-                                                            {#<h3 class="text-gray">Notifications</h3>#}
-                                                        {#</li>#}
-                                                        {#<li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>#}
-                                                            {#<ul ng-scrollbars ng-scrollbars-config="scroller_config" ng-scrollbars-update="updateScrollbar">#}
-                                                                {#<li data-ng-repeat="notify in notifies">#}
-                                                                    {#<div class="col-sm-12">#}
-                                                                    {#<div class="idea-item">#}
-                                                                        {#<figure>#}
-                                                                            {#<h3>#}
-                                                                                {#<a href="[[ ::notify.notification.link]]"></a>#}
-                                                                            {#</h3>#}
-
-                                                                            {#<a href="[[ ::notify.notification.link]]" class="goalTitle">#}
-                                                                                {#<span class="overlay"></span>#}
-                                                                                {#<img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>#}
-                                                                            {#</a>#}
-                                                                        {#</figure>#}
-                                                                    {#</div>#}
-                                                                {#</div>#}
-                                                                {#</li>#}
-                                                            {#</ul>#}
-                                                            {#<ul>#}
-                                                                {#<a href="{{ path('notifications') }}">See all</a>#}
-                                                            {#</ul>#}
-                                                        {#</li>#}
-                                                        {#<li data-ng-show="!notifies.length" class="ng-hide">You have not Notify</li>#}
-                                                  {#</ul>#}
-                                            {#</span>#}
-                                        {#</li>#}
-                                    {#{% endif %}#}
+                                    {% if user %}
+                                        <li uib-dropdown id="notification">
+                                            {{ include('AppBundle:Blocks:notification.html.twig') }}
+                                        </li>
+                                    {% endif %}
                                     <li>
                                         {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                     </li>
@@ -542,7 +473,6 @@
                 'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
-
                 'app/scripts/PathPrefix/PathPrefix.js'
                 'app/scripts/Authenticator/Authenticator.js'
                 'app/scripts/Components/Components.js'
