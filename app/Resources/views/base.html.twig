@@ -192,7 +192,7 @@
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
                                         </li>
-                                        <li data-ng-show="!joinToggle11" uib-dropdown>
+                                        <li data-ng-show="!joinToggle11" id="notification" uib-dropdown>
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
@@ -290,7 +290,6 @@
                                         </ul>
 
 
-
                                     </div>
                                 {% endif %}
                                 <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
@@ -342,7 +341,7 @@
                                 {#{% endif %}#}
                                 <ul class="nav navbar-nav navbar-right">
                                     {% if user %}
-                                        <li uib-dropdown>
+                                        <li uib-dropdown id="notification">
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                     {% endif %}
