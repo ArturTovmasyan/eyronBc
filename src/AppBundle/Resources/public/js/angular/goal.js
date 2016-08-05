@@ -476,7 +476,7 @@ angular.module('goal', ['Interpolation',
         angular.element(".goal-create-submit").click(function(){
             angular.element("#goal-create-form").ajaxForm({
                 beforeSubmit: function(){
-                    $scope.loading = true;
+                    $(".modal-loading").show();
                     $scope.$apply();
                 },
                 error: function(res){
@@ -490,7 +490,7 @@ angular.module('goal', ['Interpolation',
                         UserGoalDataManager.creates({id:res}, {}, function (resource){
                             userGoalData.data = resource;
                             $scope.goalSubmitTemplate = template.addTemplate;
-                            $scope.loading = false;
+                            $(".modal-loading").hide();
                             $timeout(function(){
                                 $scope.$broadcast('openLsModal', 'goalSave');
                             },10);
