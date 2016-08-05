@@ -1,7 +1,7 @@
 <div uib-dropdown auto-close="disabled" data-ng-cloak>
   <a href="#" uib-dropdown-toggle class="relative notify" data-ng-cloak>
       <i class="bell"></i>
-      <sup data-ng-show="newNotCount" class="ng-hide">[[ newNotCount]]</sup>
+      <sup data-ng-show="newNotCount != 0" class="ng-hide">[[ newNotCount]]</sup>
   </a>
   <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
       <li class="ng-hide" data-ng-show="notifies.length">

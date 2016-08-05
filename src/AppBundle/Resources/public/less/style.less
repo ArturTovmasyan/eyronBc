@@ -310,8 +310,12 @@ header{
 
       figure{
         height: 40px;
+        width:40px;
+        overflow: hidden;
+
         img{
           height: 40px;
+          //width:40px;
         }
       }
       margin-top:0;
@@ -528,7 +532,8 @@ header{
           }
 
           &.mobile-user{
-            padding: 17px 19px 4px !important;
+            padding: 17px 0 4px 19px!important;
+            right: 15px;
           }
 
         }
@@ -673,6 +678,8 @@ header{
       border:1px solid #e5e5e5;
       min-width: 310px;
       padding:0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
 
       li{
         width: 100%;
@@ -1007,7 +1014,7 @@ label{
   }
 }
 
-#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification{
+#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,.notification-list{
   .close-icon{
     width: 18px;
     height: 18px;
@@ -2186,7 +2193,6 @@ footer{
 
 @media (min-width: @screen-sm) {
 
-
   header {
     .navbar-default{
 
@@ -2278,6 +2284,7 @@ footer{
       }
 
       ul{
+        top: 98%;
         width: 430px;
       }
 
@@ -2922,4 +2929,70 @@ html {
 
 *:focus {
   outline: none;
+}
+
+/*notification list styles*/
+.notification-list{
+  padding-left:0;
+  margin-bottom: 10px;
+
+  .close-icon{
+    top: 30px;
+    right: 20px;
+    display: none;
+  }
+
+  h3,a{
+    font-size:16px;
+    padding:12px 10px;
+    margin: 0;
+  }
+
+  a{
+    display: inline-block;
+  }
+
+  ul{
+    padding:10px 0;
+    position: relative;
+    margin-bottom: 0;
+    cursor: pointer;
+    border-top: 1px solid #e5e5e5;
+
+      li{
+        figure{
+          width: 60px;
+          height:60px;
+          margin: 0 10px;
+          img{
+            height:60px;
+          }
+        }
+
+        p{
+          margin-bottom:0;
+
+          //width: 99%;
+          span{
+            display: block;
+            white-space: normal;
+            word-break: break-word;
+            font-size:16px;
+
+            a{
+              font-weight: 600;
+              padding: 0;
+              color: #666666;
+            }
+          }
+        }
+      }
+
+    &:hover{
+      background-color: #e8e8e8;
+      .close-icon{
+        display: block;
+      }
+    }
+  }
 }

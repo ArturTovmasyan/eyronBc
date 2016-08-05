@@ -21,6 +21,9 @@
     <div id="news-feed">
         <div class="container">
             <div class="row">
+
+                {% block test  %}
+
                 <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
                    <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
                 </div>
@@ -202,6 +205,8 @@
                     </div>
 
                 </div>
+
+                {% endblock %}
 
                 <div class="col-md-4">
                     {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
