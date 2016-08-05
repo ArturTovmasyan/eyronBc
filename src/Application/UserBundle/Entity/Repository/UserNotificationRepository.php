@@ -10,20 +10,32 @@ namespace Application\UserBundle\Entity\Repository;
  */
 class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getUserNotifications($userId, $first, $count)
+    /**
+     * @param $userId
+     * @param $first
+     * @param $count
+     * @param null $lastId
+     * @return array
+     */
+    public function getUserNotifications($userId, $first, $count, $lastId = null)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT un, n
                            FROM ApplicationUserBundle:UserNotification un
                            JOIN un.notification n
-                           WHERE un.user = :userId
+                           WHERE un.user = :userId AND (:lastId IS NULL OR (:lastId < 0 AND un.id > :lastId) OR (:lastId > 0 AND un.id < :lastId))
                            ORDER BY n.created DESC")
             ->setParameter('userId', $userId)
+            ->setParameter('lastId', $lastId)
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->getResult();
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     */
     public function setAsReadAllNotifications($userId)
     {
         return $this->getEntityManager()
@@ -34,6 +46,11 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findUserNotification($id)
     {
         return $this->getEntityManager()
@@ -44,5 +61,19 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
                            WHERE un.id = :id")
             ->setParameter('id', $id)
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function getUnreadCount($userId)
+    {
+        return  $this->getEntityManager()
+            ->createQuery("SELECT COUNT(un.id)
+                           FROM ApplicationUserBundle:UserNotification un
+                           WHERE un.user = :userId AND un.isRead = false")
+            ->setParameter('userId', $userId)
+            ->getSingleScalarResult();
     }
 }

@@ -704,8 +704,10 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             if(window.innerWidth < 766){
+                $scope.isMobile = true;
                 $scope.placeholder = '';
             } else {
+                $scope.isMobile = false;
                 $scope.placeholder = $scope.placeholderText;
             }
         }, 500);
