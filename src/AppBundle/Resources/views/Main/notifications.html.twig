@@ -1,40 +1,51 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-<html data-ng-app="profile" data-ng-controller="notificationController">
+<html data-ng-app="profile" data-ng-controller="notificationInnerController">
 {% endblock %}
 
 {% block content %}
     {{ parent() }}
 
-    <div id="notifications">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8"
-                     data-ng-cloak
-                     data-infinite-scroll='nextNotifications()'
-                     data-infinite-scroll-disabled='noNotification || busy'>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8"
+                 data-ng-cloak
+                 data-infinite-scroll='nextNotifications()'
+                 data-infinite-scroll-disabled='noNotification || busy'>
 
-                    <div class="row">
-                        <div data-ng-cloak
-                             class="col-sm-6 goals-animate"
-                             data-ng-repeat="notify in notifies"
-                             data-ng-class-even="row">
-
-                        </div>
-                    </div>
-                    <br />
-                </div>
-
-                {% if app.user %}
-                    <div class="col-md-4">
-                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                        {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                    </div>
-                {% endif %}
+                <ul>
+                    <li class="bg-white ng-hide">
+                        <h3 class="text-gray">Notifications</h3>
+                        <h3 class="text-gray" data-ng-click="readAll()">Read All</h3>
+                    </li>
+                    <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>
+                        <ul>
+                            <li data-ng-repeat="notify in notifies">
+                                <ul data-ng-click="goNotificationPage(notify, $index)">
+                                    <li class="idea-item">
+                                        <figure data-ng-class="{'bg-gray': !notify.notification.performer.image_path}">
+                                            <span class="overlay"></span>
+                                            <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                                        </figure>
+                                    </li>
+                                    <li ng-bind-html="bodyInHtml(notify.notification.body)"></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li data-ng-show="!notifies.length && noNotification" class="ng-hide" data-ng-cloak>You have not Notify</li>
+                </ul>
             </div>
+
+            {% if app.user %}
+                <div class="col-md-4">
+                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
+                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
+                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
