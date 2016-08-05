@@ -5,10 +5,11 @@
     {% set linkPlaceholder = '%link%' %}
     {% set aIdPlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::AID_PLACEHOLDER') %}
     {% set imagePlaceholder = constant('Application\\AffiliateBundle\\Entity\\AffiliateType::IMAGE_PLACEHOLDER') %}
+    {% set imageLink = object.downloadLink ? object.downloadLink|imagine_filter('affiliate_image') : object.downloadLink %}
 
     <div align="left">
-        {{ object.cssContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
-        {{ object.htmlContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
-        {{ object.jsContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): object.downloadLink })|raw }}
+        {{ object.cssContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): imageLink })|raw }}
+        {{ object.htmlContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): imageLink })|raw }}
+        {{ object.jsContent|replace({(linkPlaceholder): object.defaultLink, (aIdPlaceholder): booking_aid, (imagePlaceholder): imageLink })|raw }}
     </div>
 {% endblock -%}

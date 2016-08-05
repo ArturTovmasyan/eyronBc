@@ -398,6 +398,13 @@ liip_imagine:
             post_processors:
                 opt_post_processor: {}
 
+        affiliate_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [320, 180], mode: outbound }
+            post_processors:
+                opt_post_processor: {}
+
 knp_markdown:
     parser:
         service: markdown.parser.max

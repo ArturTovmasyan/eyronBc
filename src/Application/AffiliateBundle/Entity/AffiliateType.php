@@ -10,6 +10,7 @@ namespace Application\AffiliateBundle\Entity;
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Class AffiliateType
@@ -30,26 +31,31 @@ class AffiliateType
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"affiliateType"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @Groups({"affiliateType"})
      */
     protected $name;
 
     /**
      * @ORM\Column(name="html_content", type="string", length=5000, nullable=true)
+     * @Groups({"affiliateType"})
      */
     protected $htmlContent;
 
     /**
      * @ORM\Column(name="css_content", type="string", length=5000, nullable=true)
+     * @Groups({"affiliateType"})
      */
     protected $cssContent;
 
     /**
      * @ORM\Column(name="js_content", type="string", length=5000, nullable=true)
+     * @Groups({"affiliateType"})
      */
     protected $jsContent;
 

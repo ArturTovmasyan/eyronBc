@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AffiliateAdmin extends AbstractAdmin
@@ -54,6 +55,14 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('name', TextType::class, ['required' => false])
             ->add('link', TextType::class, ['required' => false])
             ->add('affiliateType')
+            ->add('links', CollectionType::class, array(
+                'entry_type'   => TextType::class,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'required'     => false
+            ))
+            ->add('sizeString', TextType::class, ['required' => false])
             ->add('file', AdminFileType::class, ['required' => false])
         ;
     }
@@ -66,8 +75,11 @@ class AffiliateAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('sizeString')
             ->add('link')
-            ->add('affiliateType')
+            ->add('links')
+            ->add('affiliateType.name')
+            ->add('affiliateType.id', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
         ;
     }
 
@@ -76,8 +88,25 @@ class AffiliateAdmin extends AbstractAdmin
      */
     public function prePersist($object)
     {
-        $bucketService = $this->getConfigurationPool()->getContainer()->get('bl_service');
+        $container            = $this->getConfigurationPool()->getContainer();
+        $bucketService        = $container->get('bl_service');
+        $liipManager          = $container->get('liip_imagine.cache.manager');
+        $filterConfiguration  = $container->get('liip_imagine.filter.configuration');
+        $configuration        = $filterConfiguration->get('affiliate_image');
+        $imagemanagerResponse = $container->get('liip_imagine.controller');
+
         $bucketService->uploadFile($object);
+
+        if ($object->getSize()) {
+
+            $liipManager->remove($object->getDownloadLink(), 'affiliate_image');
+            $configuration['filters']['thumbnail']['size'] = $object->getSize();
+            $filterConfiguration->set('affiliate_image', $configuration);
+
+            $imagemanagerResponse->filterAction($this->getRequest(), $object->getDownloadLink(), 'affiliate_image');
+//            $browserPath = $liipManager->getBrowserPath($object->getDownloadLink(), 'affiliate_image');
+        }
+
     }
 
     /**
