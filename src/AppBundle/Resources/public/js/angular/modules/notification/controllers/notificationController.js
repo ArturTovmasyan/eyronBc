@@ -4,7 +4,6 @@ angular.module('notification')
   .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce',
     function ($scope, $timeout, NotificationManager, $compile, $window, $sce) {
       // $scope.notifies = [];
-      //todo go from back end
       $scope.newNotCount = 0;
       $scope.scroller_config = {
         autoHideScrollbar: false,
@@ -25,7 +24,8 @@ angular.module('notification')
       };
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
-        $scope.notifies = res;
+        $scope.newNotCount = res.unreadCount;
+        $scope.notifies = res.userNotifications;
       });
 
       $scope.bodyInHtml = function(body) {
