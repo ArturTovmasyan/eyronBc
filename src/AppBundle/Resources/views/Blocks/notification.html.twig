@@ -4,24 +4,13 @@
       <sup data-ng-show="newNotCount" class="ng-hide">[[ newNotCount]]</sup>
   </a>
   <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-        {#<li class="bg-white ng-hide">#}
-            {#<div class="row">#}
-                {#<div class="col-xs-6">#}
-                    {#<h3 class="text-gray">Notifications</h3>#}
-                {#</div>#}
-                {#<div class="col-xs-6">#}
-                    {#<h3 class="text-purple" data-ng-click="readAll()">Mark All as read</h3>#}
-                {#</div>#}
-            {#</div>#}
-        {#</li>#}
-
-      <li class="clearfix ng-hide" data-ng-show="notifies.length">
+      <li class="ng-hide" data-ng-show="notifies.length">
           <div class="row">
-              <div class="col-xs-6">
-                  <h3 class="text-gray pull-left">Notifications</h3>
+              <div class="col-xs-5">
+                  <h3 class="text-gray">Notifications</h3>
               </div>
-              <div class="col-xs-6">
-                  <a class="text-purple pull-right" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
+              <div class="col-xs-7 text-right">
+                  <a class="text-purple" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
               </div>
           </div>
       </li>
@@ -51,7 +40,7 @@
             You have not Notify
         </li>
 
-      <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak>
+      <li data-ng-show="notifies.length" class="ng-hide text-center" data-ng-cloak>
             <a href="{{ path('notifications') }}" class="text-purple text-center">See all</a>
       </li>
 
