@@ -120,6 +120,41 @@ angular.module('notification')
           });
         }
       };
+      
+      $scope.getInterval = function (lastActivity) {
+        var result = {'time' : -1, 'title' : null};
+        // now
+        var now = new Date();
+
+        if (!lastActivity) {
+          return result;
+        }
+
+        var ms = moment(now).diff(moment(new Date(lastActivity)));
+        var d = moment.duration(ms),
+          // y = Math.floor(d.asYears()),
+          // m = Math.floor(d.asMonths()),
+          dd = Math.floor(d.asDays()),
+          h = Math.floor(d.asHours()),
+          mm = Math.floor(d.asMinutes());
+
+        // activity result
+        if (!angular.isUndefined(d)) {
+          if(dd > 1) {
+            result = {'time': 0, 'title': 'datetime'};
+          } else if(dd > 0) {
+            result = {'time': 0 , 'title': 'yesterday'};
+          } else  if(h > 0) {
+            result = {'time': h , 'title': 'hr'};
+          } else if(mm > 1){
+            result = {'time': mm, 'title': 'minute'};
+          } else {
+            result = {'time': 1, 'title': 'now'};
+          }
+        }
+
+        return result;
+      };
 
       $scope.nextNotifications();
 
