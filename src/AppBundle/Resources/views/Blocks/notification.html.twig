@@ -41,7 +41,7 @@
        </li>
 
         <li data-ng-show="!notifies.length" class="ng-hide text-center">
-            You have not Notify
+            <p class="padding">{{ 'notification.no_notification'|trans }}</p>
         </li>
 
       <li data-ng-show="notifies.length" class="ng-hide text-center" data-ng-cloak>

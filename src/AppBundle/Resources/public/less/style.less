@@ -2932,7 +2932,7 @@ html {
 }
 
 /*notification list styles*/
-.notification-list{
+#notification-list{
   padding-left:0;
   margin-bottom: 10px;
 
@@ -2943,12 +2943,17 @@ html {
   }
 
   h3,a{
-    font-size:16px;
+    font-size:16px !important;
     padding:12px 10px;
     margin: 0;
   }
 
+  h3{
+    font-weight: 500;
+  }
+
   a{
+    font-weight: 400;
     display: inline-block;
   }
 
@@ -2961,16 +2966,16 @@ html {
 
       li{
         figure{
-          width: 60px;
-          height:60px;
+          width: 40px;
+          height:40px;
           margin: 0 10px;
           img{
-            height:60px;
+            height:40px;
           }
         }
 
         p{
-          margin-bottom:0;
+
 
           //width: 99%;
           span{
@@ -2988,11 +2993,21 @@ html {
         }
       }
 
+    &.unread{
+      background: #f4f4f4;
+    }
+
     &:hover{
       background-color: #e8e8e8;
       .close-icon{
         display: block;
       }
+    }
+  }
+  .goals-animate{
+    p{
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
   }
 }

@@ -296,6 +296,7 @@ dreaming: Это - мечта
 users: Пользователь
 
 notification:
+  no_notification: Нет оповещений
   success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей идеей
   important_goal_success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей важной идеей
   success_story_vote: <a href="%profile_link%">%user%</a> проголосавал за вашу историю удачи

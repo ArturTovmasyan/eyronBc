@@ -16,7 +16,7 @@ angular.module('notification')
           onCreate: function(){
             $(this).css({
               'height': 'initial',
-              'max-height': '300px'
+              'max-height': '385px'
             });
           }
         },
