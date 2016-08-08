@@ -336,7 +336,27 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on icon
         $icon->click();
+    }
 
+    /**
+     * @When I click on close :value
+     */
+    public function iClickOnClose($value)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get close button in login popover
+        $icon = $page->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@id="signin"]//*[@class="'.$value.'"]')
+        );
+
+        //click on icon
+        $icon->click();
     }
 
     /**
