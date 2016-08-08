@@ -1,15 +1,15 @@
-<div uib-dropdown auto-close="disabled" data-ng-cloak>
+<div uib-dropdown auto-close="disabled" data-is-open="dropdownOpen()" data-ng-cloak>
   <a href="#" uib-dropdown-toggle class="relative notify" data-ng-cloak>
       <i class="bell"></i>
       <sup data-ng-show="newNotCount != 0" class="ng-hide">[[ newNotCount]]</sup>
   </a>
   <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-      <li class="ng-hide" data-ng-show="notifies.length">
+      <li>
           <div class="row">
               <div class="col-xs-5">
                   <h3 class="text-gray">Notifications</h3>
               </div>
-              <div class="col-xs-7 text-right">
+              <div class="col-xs-7 text-right ng-hide" data-ng-show="notifies.length">
                   <a class="text-purple" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
               </div>
           </div>
@@ -40,8 +40,10 @@
            </ul>
        </li>
 
-        <li data-ng-show="!notifies.length" class="ng-hide text-center">
-            <p class="padding">{{ 'notification.no_notification'|trans }}</p>
+        <li data-ng-show="!notifies.length" class="ng-hide text-center no-note">
+            <span></span>
+            <p>{{ 'notification.no_notification'|trans }}</p>
+
         </li>
 
       <li data-ng-show="notifies.length" class="ng-hide text-center" data-ng-cloak>

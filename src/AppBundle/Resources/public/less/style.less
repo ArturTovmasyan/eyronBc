@@ -666,6 +666,24 @@ header{
       vertical-align: middle;
     }
 
+    .no-note{
+
+      span{
+        display: block;
+        width: 101px;
+        height: 121px;
+        background: url('../images/no-note.png') no-repeat center center;
+        padding:80px 0;
+        margin:0 auto;
+      }
+
+      p{
+        display: block;
+        color: #666666;
+        font-size:16px;
+      }
+    }
+
     .close-icon{
       top: 13px;
       right: 13px;
@@ -744,6 +762,7 @@ header{
             }
 
             p{
+              margin-bottom: 0;
               width: 99%;
               span{
                 display: block;
@@ -2933,9 +2952,14 @@ html {
 
 /*notification list styles*/
 #notification-list{
-  padding-left:0;
+  padding:6px 0 0 0;
   margin-bottom: 10px;
 
+  li{
+    &:first-child{
+      padding-bottom:21px;
+    }
+  }
   .close-icon{
     top: 30px;
     right: 20px;
@@ -2944,7 +2968,7 @@ html {
 
   h3,a{
     font-size:16px !important;
-    padding:12px 10px;
+    padding:0 10px;
     margin: 0;
   }
 
@@ -2975,9 +2999,6 @@ html {
         }
 
         p{
-
-
-          //width: 99%;
           span{
             display: block;
             white-space: normal;
@@ -2990,6 +3011,9 @@ html {
               color: #666666;
             }
           }
+        }
+        &:first-child{
+          padding-bottom:0;
         }
       }
 

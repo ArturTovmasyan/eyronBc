@@ -3,7 +3,7 @@
 angular.module('notification')
   .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce', '$interval',
     function ($scope, $timeout, NotificationManager, $compile, $window, $sce, $interval) {
-      // $scope.notifies = [];
+       $scope.notifies = [];
       $scope.newNotCount = 0;
       $scope.scroller_config = {
         autoHideScrollbar: false,
@@ -23,10 +23,12 @@ angular.module('notification')
         setHeight: 400,
         scrollInertia: 0
       };
-
-      if(window.innerWidth < 766){
-        $('ul.dropdown-menu').css('min-width', window.innerWidth)
-      }
+      $scope.dropdownOpen = function(){
+        if(window.innerWidth < 766){
+          $('ul.dropdown-menu').css('min-width', window.innerWidth)
+          $('ul.dropdown-menu').offset({left: 0})
+        }
+      };
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.newNotCount = res.unreadCount;
@@ -34,7 +36,7 @@ angular.module('notification')
       });
 
       function newNotifications() {
-        var lastId = $scope.notifies[0].id;
+        var lastId = $scope.notifies.lengt ? $scope.notifies[0].id :0;
         NotificationManager.getAll({id: 0,where: 10, what: (-1)*lastId}, function (res) {
           if(res.userNotifications.length){
             $scope.notifies = res.userNotifications.concat($scope.notifies);
