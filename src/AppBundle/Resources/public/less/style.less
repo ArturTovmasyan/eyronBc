@@ -678,15 +678,17 @@ header{
         display: block;
         width: 101px;
         height: 121px;
-        background: url('../images/no-note.png') no-repeat center center;
-        padding:80px 0;
+        background: url('../images/no-note.png') no-repeat center bottom;
+        padding:130px 0 5px;
         margin:0 auto;
+        background-size: 60%;
       }
 
       p{
         display: block;
         color: #666666;
         font-size:16px;
+        padding: 5px 0 50px;
       }
     }
 
@@ -712,23 +714,21 @@ header{
         position: relative;
 
         &:first-child{
+          padding: 6px 10px 5px;
           h3,a{
-            font-size: 14px;
-            padding:12px 10px;
+            font-size: 16px;
+            //padding:12px 10px;
             margin: 0;
+            line-height: 22px;
           }
 
           a{
-            display:inline-block;
-            line-height: 16px;
-            padding: 12px 25px 0 5px !important;
+            display:block;
+            padding: 0 25px 0 5px !important;
             &:hover{
               text-decoration: none;
               background-color: transparent;
             }
-          }
-          &:hover{
-            //background: transparent;
           }
         }
 
