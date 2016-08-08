@@ -62,11 +62,11 @@
                         <div class="absolute">
                             <ul>
                                 <li>
-                                    <a ls-goal-users
+                                    <a data-ls-goal-users
                                        href="javascript:void(0)"
-                                       ls-goal-id="[[ popularGoal.id ]]"
-                                       ls-category="listed"
-                                       ls-count="[[ ::popularGoal.stats.listedBy ]]"
+                                       data-ls-goal-id="[[ popularGoal.id ]]"
+                                       data-ls-category="listed"
+                                       data-ls-count="[[ ::popularGoal.stats.listedBy ]]"
                                        data-ng-show="castInt(popularGoal.stats.listedBy)" >
                                         <span>
                                             {{ 'home_listed_by'|trans({},'messages') }}
@@ -81,10 +81,10 @@
                                     <i class="icon-user-small" data-ng-hide="castInt(popularGoal.stats.listedBy)"></i>
                                 </li>
                                 <li>
-                                    <a ls-goal-users
+                                    <a data-ls-goal-users
                                        href="javascript:void(0)"
-                                       ls-goal-id="[[ popularGoal.id ]]"
-                                       ls-count="[[ ::popularGoal.stats.doneBy ]]"
+                                       data-ls-goal-id="[[ popularGoal.id ]]"
+                                       data-ls-count="[[ ::popularGoal.stats.doneBy ]]"
                                        data-ng-show="castInt(popularGoal.stats.doneBy)">
                                         <span>
                                             {{ 'home_complete'|trans({},'messages') }}
