@@ -156,18 +156,24 @@ body{
 }
 
 .new-activity{
-  position: fixed;
+  position: relative;
   z-index: 10000;
-  border-radius: 5px;
-  margin: 11px 296px;
-  padding: 5px 5px;
-  background-color: #ffffff;
+  margin: 11px auto;
   text-align: center;
-  width: 117px;
-  height: 32px;
-  .box-shadow ( 5px , 5px ,5px ,rgba(0,0,0,0.40));
+
   a{
+    position: fixed;
     color: #7724F6 !important;
+    text-align: center;
+    padding: 6px 16px;
+    background-color: #ffffff;
+    .rounded-corners(5px);
+    .box-shadow ( 0 , 0 , 10px ,rgba(0,0,0,0.40));
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
