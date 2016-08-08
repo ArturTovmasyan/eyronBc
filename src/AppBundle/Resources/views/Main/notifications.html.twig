@@ -24,7 +24,7 @@
 
                     <li>
                         <ul data-ng-repeat="notify in notifies" class="goals-animate" data-ng-cloak data-ng-class="{'unread': !notify.is_read}">
-                            <li >
+                            <li>
                                 <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
                                 <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
                                     <figure class="pull-left">
