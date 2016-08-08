@@ -5,7 +5,7 @@ angular.module('notification')
     function($resource, envPrefix){
       return $resource( envPrefix + 'api/v1.0/:path/:id/:where/:what/:param', {}, {
         readAll: {method:'GET', params:{ path:'notification', id: 'all', where: 'read'},  transformResponse: function (object) {
-          return angular.fromJson(object);
+          return object;
         }},
         readSingle: {method:'GET', params:{ path:'notifications', where: 'read'}, transformResponse: function (object) {
           return angular.fromJson(object);

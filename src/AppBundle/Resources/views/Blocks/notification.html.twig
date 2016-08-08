@@ -17,9 +17,9 @@
 
        <li data-ng-show="notifies.length" class="ng-hide" data-ng-cloak ng-scrollbars ng-scrollbars-config="scroller_config" ng-scrollbars-update="updateScrollbar">
            <ul data-ng-repeat="notify in notifies">
-               <li data-ng-click="goNotificationPage(notify, $index)" data-ng-class="{'unread': notify.is_read}">
+               <li data-ng-class="{'unread': !notify.is_read}">
                    <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
-                        <div class="clearfix">
+                        <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
                            <figure class="pull-left">
                                <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
                            </figure>
@@ -27,8 +27,12 @@
                             <p>
                                <span class="text-dark-gray" ng-bind-html="bodyInHtml(notify.notification.body)">
                                 {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
-                            </span>
-                                <span class="text-gray">Just now</span>
+                                </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm:ss a" ]] </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm:ss a" ]] </span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'hr'">[[ time[notify.id].time ]] {{ 'notify.hour'|trans }}</span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'minute'">[[ time[notify.id].time ]] {{ 'notify.minute'|trans }}</span>
+                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'now'">{{ 'notify.now'|trans }}</span>
                             </p>
 
                         </div>

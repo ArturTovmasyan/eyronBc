@@ -118,6 +118,11 @@ progress_bad: |
                 Your Bucketlist progress is behind the schedule. You're left %goalPercent% to achieve your goals.
                 You have to hurry and finish soon. Click on the link to see what you have left incomplete in your BucketList account.
 progress_good: Wow!!! Your BucketList progress is uptodate, you meet your schedule and achieve your goals. Keep aiming!!!
+notify:
+      now: Just now
+      minute:  minute(s) ago
+      hour:  hour(s) ago
+      yesterday: yesterday at
 
 # buttons
 btn_delete: Delete
@@ -328,6 +333,8 @@ notification:
   success_story: <a href="%profile_link%">%user%</a> wrote success story on your goal
   important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important goal
   success_story_vote: <a href="%profile_link%">%user%</a> vote your success story
+  title: Bucketlist 127-Notifications
+  description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 
 most-popular: Most popular
 # sonata admin lable
