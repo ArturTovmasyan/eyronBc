@@ -672,6 +672,24 @@ header{
       vertical-align: middle;
     }
 
+    .no-note{
+
+      span{
+        display: block;
+        width: 101px;
+        height: 121px;
+        background: url('../images/no-note.png') no-repeat center center;
+        padding:80px 0;
+        margin:0 auto;
+      }
+
+      p{
+        display: block;
+        color: #666666;
+        font-size:16px;
+      }
+    }
+
     .close-icon{
       top: 13px;
       right: 13px;
@@ -750,6 +768,7 @@ header{
             }
 
             p{
+              margin-bottom: 0;
               width: 99%;
               span{
                 display: block;
@@ -2938,10 +2957,15 @@ html {
 }
 
 /*notification list styles*/
-.notification-list{
-  padding-left:0;
+#notification-list{
+  padding:6px 0 0 0;
   margin-bottom: 10px;
 
+  li{
+    &:first-child{
+      padding-bottom:21px;
+    }
+  }
   .close-icon{
     top: 30px;
     right: 20px;
@@ -2949,12 +2973,17 @@ html {
   }
 
   h3,a{
-    font-size:16px;
-    padding:12px 10px;
+    font-size:16px !important;
+    padding:0 10px;
     margin: 0;
   }
 
+  h3{
+    font-weight: 500;
+  }
+
   a{
+    font-weight: 400;
     display: inline-block;
   }
 
@@ -2967,18 +2996,15 @@ html {
 
       li{
         figure{
-          width: 60px;
-          height:60px;
+          width: 40px;
+          height:40px;
           margin: 0 10px;
           img{
-            height:60px;
+            height:40px;
           }
         }
 
         p{
-          margin-bottom:0;
-
-          //width: 99%;
           span{
             display: block;
             white-space: normal;
@@ -2992,13 +3018,26 @@ html {
             }
           }
         }
+        &:first-child{
+          padding-bottom:0;
+        }
       }
+
+    &.unread{
+      background: #f4f4f4;
+    }
 
     &:hover{
       background-color: #e8e8e8;
       .close-icon{
         display: block;
       }
+    }
+  }
+  .goals-animate{
+    p{
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
   }
 }

@@ -38,7 +38,7 @@ class NotificationController extends Controller
      * )
      *
      * @Rest\View(serializerGroups={"userNotification", "userNotification_notification", "notification", "notification_performer", "tiny_user"})
-     * @Rest\Get("/notifications/{first}/{count}/{lastId}", defaults={"lastId"=null}, requirements={"first"="\d+", "count"="\d+", "lastId"="\d+"}, name="get_notification", options={"method_prefix"=false})
+     * @Rest\Get("/notifications/{first}/{count}/{lastId}", defaults={"lastId"=null}, requirements={"first"="\d+", "count"="\d+", "lastId"="-{0,1}\d+"}, name="get_notification", options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      *
      * @param $first

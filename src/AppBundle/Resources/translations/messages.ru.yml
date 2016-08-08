@@ -108,6 +108,11 @@ homepage_description: Подготовьте список целей на жиз
 #notification
 test_message: тестирование уведомлений в BucketList
 reminder_message: Крайний срок вашей цельи близок к концу.Сделайте все возможное, чтобы уложиться в срок.
+notify:
+      now: несколько секунд назад
+      minute:  минут назад
+      hour: час(ов) назад
+      yesterday: вчера в
 
 # buttons
 btn_delete: Удалить
@@ -291,6 +296,7 @@ dreaming: Это - мечта
 users: Пользователь
 
 notification:
+  no_notification: Нет оповещений
   success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей идеей
   important_goal_success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей важной идеей
   success_story_vote: <a href="%profile_link%">%user%</a> проголосавал за вашу историю удачи

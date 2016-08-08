@@ -23,7 +23,7 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT un, n
                            FROM ApplicationUserBundle:UserNotification un
                            JOIN un.notification n
-                           WHERE un.user = :userId AND (:lastId IS NULL OR (:lastId < 0 AND un.id > :lastId) OR (:lastId > 0 AND un.id < :lastId))
+                           WHERE un.user = :userId AND (:lastId IS NULL OR (:lastId < 0 AND un.id > -1 * :lastId) OR (:lastId > 0 AND un.id < :lastId))
                            ORDER BY n.created DESC")
             ->setParameter('userId', $userId)
             ->setParameter('lastId', $lastId)
