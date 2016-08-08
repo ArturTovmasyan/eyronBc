@@ -113,7 +113,7 @@
                                     </li>
                                 {% endif %}
 
-                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal == 0 %}{transparent: added || !completed}{% endif %}">
+                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || !completed}" {% endif %}>
                                     {% if goal.isMyGoal == 0 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="added = false" data-ng-show="!added"
@@ -132,7 +132,7 @@
                                 </li>
 
 
-                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal != 2 %}{transparent: !completed}{% endif %}">
+                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" {% if goal.isMyGoal != 2 %}data-ng-class="{transparent: !completed}"{% endif %}>
                                     {% if goal.isMyGoal != 2 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="completed=true" data-ng-show="completed"
