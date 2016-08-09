@@ -22,6 +22,7 @@ angular.module('goal', ['Interpolation',
         'PathPrefix',
         'slickCarousel',
         'notification',
+        'activity',
         'comments'
     ])
     .config(function (localStorageServiceProvider ) {
