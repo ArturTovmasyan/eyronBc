@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('notification')
-  .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce',
-    function ($scope, $timeout, NotificationManager, $compile, $window, $sce) {
-      // $scope.notifies = [];
+  .controller('notificationController',['$scope', '$timeout', 'NotificationManager', '$compile', '$window', '$sce', '$interval',
+    function ($scope, $timeout, NotificationManager, $compile, $window, $sce, $interval) {
+       $scope.notifies = [];
       $scope.newNotCount = 0;
       $scope.scroller_config = {
         autoHideScrollbar: false,
@@ -16,34 +16,48 @@ angular.module('notification')
           onCreate: function(){
             $(this).css({
               'height': 'initial',
-              'max-height': '300px'
+              'max-height': '385px'
             });
           }
         },
         setHeight: 400,
         scrollInertia: 0
       };
-
-      if(window.innerWidth < 766){
-        $('ul.dropdown-menu').css('min-width', window.innerWidth)
-      }
+      $scope.dropdownOpen = function(){
+        if(window.innerWidth < 766){
+          $('ul.dropdown-menu').css('min-width', window.innerWidth)
+          $('ul.dropdown-menu').offset({left: 0})
+        }
+      };
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
         $scope.newNotCount = res.unreadCount;
         $scope.notifies = res.userNotifications;
       });
 
+      function newNotifications() {
+        var lastId = $scope.notifies.lengt ? $scope.notifies[0].id :0;
+        NotificationManager.getAll({id: 0,where: 10, what: (-1)*lastId}, function (res) {
+          if(res.userNotifications.length){
+            $scope.notifies = res.userNotifications.concat($scope.notifies);
+            $scope.newNotCount -= (-1) * res.userNotifications.length;
+          }
+        });
+      }
+
+      var interval = $interval(newNotifications,30000);
+
       $scope.bodyInHtml = function(body) {
         return $sce.trustAsHtml(body);
       };
       
       $scope.delete = function(id, index){
-        //NotificationManager.delete({id: id}, function () {
-        //  if(!$scope.notifies[index].is_read){
-        //    $scope.newNotCount --;
-        //  }
+        NotificationManager.delete({id: id}, function () {
+         if(!$scope.notifies[index].is_read){
+           $scope.newNotCount --;
+         }
           $scope.notifies.splice(index, 1);
-        //});
+        });
       };
 
       $scope.readAll = function(){
@@ -61,7 +75,42 @@ angular.module('notification')
           $scope.notifies[index].is_read = true;
         });
       };
-      
+
+      $scope.getInterval = function (lastActivity) {
+        var result = {'time' : -1, 'title' : null};
+        // now
+        var now = new Date();
+
+        if (!lastActivity) {
+          return result;
+        }
+
+        var ms = moment(now).diff(moment(new Date(lastActivity)));
+        var d = moment.duration(ms),
+        // y = Math.floor(d.asYears()),
+        // m = Math.floor(d.asMonths()),
+          dd = Math.floor(d.asDays()),
+          h = Math.floor(d.asHours()),
+          mm = Math.floor(d.asMinutes());
+
+        // activity result
+        if (!angular.isUndefined(d)) {
+          if(dd > 1) {
+            result = {'time': 0, 'title': 'datetime'};
+          } else if(dd > 0) {
+            result = {'time': 0 , 'title': 'yesterday'};
+          } else  if(h > 0) {
+            result = {'time': h , 'title': 'hr'};
+          } else if(mm > 1){
+            result = {'time': mm, 'title': 'minute'};
+          } else {
+            result = {'time': 1, 'title': 'now'};
+          }
+        }
+
+        return result;
+      };
+
       $scope.goNotificationPage = function (notify, index) {
         $scope.singleRead(notify.id, index);
         $window.location.href = notify.notification.link;
@@ -88,14 +137,14 @@ angular.module('notification')
       $scope.nextReserve = function () {
         if ($scope.busy) return;
         $scope.busy = true;
-        var lastId = $scope.reserve.length?$scope.reserve[$scope.count -1].id:$scope.notifies[$scope.notifies.length -1].id;
+        var lastId = $scope.reserve.length?$scope.reserve[$scope.reserve.length -1].id:$scope.notifies[$scope.notifies.length -1].id;
 
         NotificationManager.getAll({id: $scope.start,where: $scope.count, what: lastId}, function (res) {
           if(!res.userNotifications.length){
             $scope.noNotification = true;
           } else {
             $scope.reserve = res.userNotifications;
-            $scope.start += $scope.count;
+            // $scope.start += $scope.count;
             $scope.request++;
             $scope.busy = false;
           }
@@ -116,7 +165,7 @@ angular.module('notification')
                 $scope.noNotification = true;
               } else {
                 $scope.notifies = $scope.notifies.concat(res.userNotifications);
-                $scope.start += $scope.count;
+                // $scope.start += $scope.count;
                 $scope.request++;
                 $scope.busy = false;
                 $scope.nextReserve();
