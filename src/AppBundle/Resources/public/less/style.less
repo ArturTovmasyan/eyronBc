@@ -755,6 +755,7 @@ header{
 
         ul{
           padding-left:0;
+          border-bottom: 1px solid #e5e5e5;
 
           li{
             display: inline-block;
@@ -776,7 +777,7 @@ header{
                 display: block;
                 white-space: normal;
                 word-break: break-word;
-                font-size:16px;
+                font-size:14px;
                 padding:0 15px 0 0;
 
                 a:not(.text-center){
@@ -2329,9 +2330,21 @@ footer{
         padding: 16px 19px;
       }
 
-      ul{
+      ul.dropdown-menu{
         top: 98%;
         width: 430px;
+        li{
+          ul{
+            li{
+              p{
+                span{
+                  font-size:16px;
+                }
+              }
+            }
+          }
+
+        }
       }
 
       .dropdown-menu {
