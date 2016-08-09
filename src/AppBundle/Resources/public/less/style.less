@@ -807,7 +807,7 @@ header{
       left: -137px;
     }
 
-    &:hover{
+    &:hover,&:active,&:focus{
       background-color: #7724F6;
       a.relative{
         background-color: #7724F6;
@@ -815,6 +815,15 @@ header{
 
     }
 
+  }
+
+  .open{
+    a.relative{
+      background-color: #7724F6;
+      &:hover,&:active,&:focus{
+        background-color: #7724F6;
+      }
+    }
   }
 }
 
@@ -2694,7 +2703,14 @@ footer{
     #notification{
 
       a.relative{
-        padding: 19px;
+        display: block;
+        padding: 27px 20px;
+      }
+
+      .bell{
+        width: 25px;
+        height:30px;
+        background-position: center bottom;
       }
 
       .dropdown-menu{
