@@ -301,7 +301,7 @@
 
                                     {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
 
-                                    <li>
+                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="icon-ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
@@ -309,7 +309,7 @@
                                     </li>
 
                                     {% if user %}
-                                        <li>
+                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active"{% endif %}>
                                             <a href="{{ path('user_profile_single') }}">
                                                 <i class="mybucketlist-icon"></i>
                                                 <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>

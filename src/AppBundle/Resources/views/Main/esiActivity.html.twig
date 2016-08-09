@@ -1,12 +1,12 @@
 {% if app.user and app.user.activity %}
-    <li id="ActivityPage" class="hidden-xs">
+    <li class="ActivityPage hidden-xs {% if route == 'activity' %}active{% endif %}">
         <a href="{{ path('activity') }}">
             <i class="icon-activity-icon"></i>
             <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
         </a>
     </li>
     {#//when mobile menu#}
-    <li id="ActivityPage" data-ng-show="!joinToggle11" class="hidden-sm hidden-md hidden-lg">
+    <li data-ng-show="!joinToggle11" class="ActivityPage hidden-sm hidden-md hidden-lg">
         <a href="{{ path('activity') }}" {% if route == 'activity' %}class="active-mobile"{% endif %}>
             <i class="icon-activity-icon"></i>
             <span class="hidden-xs hidden-sm">{{ 'activity'|trans |upper }}</span>

@@ -36,7 +36,7 @@ angular.module('notification')
       });
 
       function newNotifications() {
-        var lastId = $scope.notifies.lengt ? $scope.notifies[0].id :0;
+        var lastId = $scope.notifies.length ? $scope.notifies[0].id :0;
         NotificationManager.getAll({id: 0,where: 10, what: (-1)*lastId}, function (res) {
           if(res.userNotifications.length){
             $scope.notifies = res.userNotifications.concat($scope.notifies);
