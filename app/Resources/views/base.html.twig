@@ -113,7 +113,7 @@
 
             fbq('init', '1100030436724857');
             fbq('track', "PageView");</script>
-        <noscript><amp-img height="1" width="1" style="display:none"
+        <noscript><img height="1" width="1" style="display:none"
                        src="https://www.facebook.com/tr?id=1100030436724857&ev=PageView&noscript=1"
             /></noscript>
         <!-- End Facebook Pixel Code -->
@@ -131,6 +131,7 @@
 
         {% set goalAction = getSession('goal_action') %}
 
+        {#<img src="{{ asset('bundles/app/images/loading.gif') }}" style="display:none;position: absolute;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading"/>#}
         <div style="display:none;position: fixed;z-index: 1000;left: 50%;top: 50%;" alt="loading" class="modal-loading sk-fading-circle">
             {#<div class="sk-fading-circle">#}
                 <div class="sk-circle1 sk-circle"></div>
@@ -202,7 +203,7 @@
                                     <ul class="ng-hide hidden-sm hidden-md hidden-lg user-mobile-menu clearfix" data-ng-show="joinToggle11">
                                         <li class="clearfix">
                                             <a class="navbar-brand" href="{{ path("homepage") }}">
-                                                <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                                                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                             </a>
                                             <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
                                         </li>
@@ -267,7 +268,7 @@
                                 {% else %}
                                     <div class="clearfix hidden-sm hidden-md hidden-lg">
                                         <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="{{ path("homepage") }}">
-                                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                                            <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                         </a>
 
                                         <ul class="pull-right">
@@ -292,7 +293,7 @@
                                     </div>
                                 {% endif %}
                                 <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
-                                    <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
+                                    <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                 </a>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
@@ -381,12 +382,12 @@
                     <ul class="apps clearfix">
                         <li>
                             <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
-                                <amp-img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
+                                <img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" class="img-responsive"/>
                             </a>
                         </li>
                         <li>
                             <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
-                                <amp-img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
+                                <img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" class="img-responsive"/>
                             </a>
                         </li>
                     </ul>
