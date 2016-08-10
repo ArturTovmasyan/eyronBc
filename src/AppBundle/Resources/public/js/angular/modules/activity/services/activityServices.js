@@ -248,7 +248,7 @@ angular.module('activity')
           };
 
           function newActivity() {
-            if(!angular.isUndefined(scope.$parent.Activities.items)){
+            if(!angular.isUndefined(scope.$parent.Activities.items) && !angular.isUndefined(scope.$parent.activityPage)){
               scope.$parent.Activities.newActivity(scope.$parent.Activities.items[0].datetime, function(data){
                 if(data && data.length != 0){
                   scope.$parent.newData = data;
@@ -256,6 +256,8 @@ angular.module('activity')
                   $interval.cancel(interval);
                 }
               });
+            } else {
+              $interval.cancel(interval);
             }
           }
 
