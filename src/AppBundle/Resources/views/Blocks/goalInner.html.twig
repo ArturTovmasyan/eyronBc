@@ -113,7 +113,7 @@
                                     </li>
                                 {% endif %}
 
-                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal == 0 %}{transparent: added || !completed}{% endif %}">
+                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || !completed}" {% endif %}>
                                     {% if goal.isMyGoal == 0 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="added = false" data-ng-show="!added"
@@ -132,7 +132,7 @@
                                 </li>
 
 
-                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal != 2 %}{transparent: !completed}{% endif %}">
+                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" {% if goal.isMyGoal != 2 %}data-ng-class="{transparent: !completed}"{% endif %}>
                                     {% if goal.isMyGoal != 2 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="completed=true" data-ng-show="completed"
@@ -203,10 +203,10 @@
                                                     {% if goal.stats.doneBy == 0 %}
                                                         <i></i>
                                                     {% else %}
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-count="{{ goal.stats.doneBy }}"
-                                                           ls-goal-id="{{ goal.id }}">
+                                                           data-ls-count="{{ goal.stats.doneBy }}"
+                                                           data-ls-goal-id="{{ goal.id }}">
                                                         </a>
                                                     {% endif %}
                                                 </li>
@@ -243,11 +243,11 @@
                                                     {% if goal.stats.listedBy == 0 %}
                                                         <i></i>
                                                     {% else %}
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="{{ goal.id }}"
-                                                           ls-count="{{ goal.stats.listedBy }}"
-                                                           ls-category="listed"></a>
+                                                           data-ls-goal-id="{{ goal.id }}"
+                                                           data-ls-count="{{ goal.stats.listedBy }}"
+                                                           data-ls-category="listed"></a>
                                                     {% endif %}
                                                 </li>
                                             </ul>
@@ -529,13 +529,13 @@
 
                             {% if app.user %}
 
-                                <div ls-comment-manage
-                                     ls-goal-id="{{ goal.id }}"
-                                     ls-slug="{{ goal.slug }}"
-                                     ls-reply="{{ 'reply'|trans }}"
-                                     ls-replied="{{ 'replied'|trans }}"
-                                     ls-title="{{ 'comments'|trans }}"
-                                     ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                <div data-ls-comment-manage
+                                     data-ls-goal-id="{{ goal.id }}"
+                                     data-ls-slug="{{ goal.slug }}"
+                                     data-ls-reply="{{ 'reply'|trans }}"
+                                     data-ls-replied="{{ 'replied'|trans }}"
+                                     data-ls-title="{{ 'comments'|trans }}"
+                                     data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
                                     {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
                                     {{ nameOnImage  |upper}}{% endif %}">
                                 </div>
@@ -577,11 +577,11 @@
                                     <div class="absolute">
                                         <ul>
                                             <li>
-                                                <a ls-goal-users
+                                                <a data-ls-goal-users
                                                    href="javascript:void(0)"
-                                                   ls-goal-id="[[ ::goal.id ]]"
-                                                   ls-count="[[ ::goal.stats.listedBy ]]"
-                                                   ls-category="listed"
+                                                   data-ls-goal-id="[[ ::goal.id ]]"
+                                                   data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                                   data-ls-category="listed"
                                                    data-ng-show="castInt(goal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -597,10 +597,10 @@
                                                 </span>
                                             </li>
                                             <li>
-                                                <a ls-goal-users
+                                                <a data-ls-goal-users
                                                    href="javascript:void(0)"
-                                                   ls-count="[[ ::goal.stats.doneBy ]]"
-                                                   ls-goal-id="[[ ::goal.id ]]"
+                                                   data-ls-count="[[ ::goal.stats.doneBy ]]"
+                                                   data-ls-goal-id="[[ ::goal.id ]]"
                                                    data-ng-show="castInt(goal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}

@@ -1,7 +1,7 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-<html data-ng-app="goal" data-ng-controller="ActivityController" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
+<html ⚡ data-ng-app="goal" data-ng-controller="ActivityController" xmlns="http://www.w3.org/1999/xhtml"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -136,11 +136,11 @@
                                             <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
                                                 <ul>
                                                     <li>
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ singleGoal.id ]]"
-                                                           ls-category="listed"
-                                                           ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                                           data-ls-goal-id="[[ singleGoal.id ]]"
+                                                           data-ls-category="listed"
+                                                           data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -155,10 +155,10 @@
                                                         <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
                                                     </li>
                                                     <li>
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ singleGoal.id ]]"
-                                                           ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                                           data-ls-goal-id="[[ singleGoal.id ]]"
+                                                           data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}
@@ -235,21 +235,21 @@
                     <div class="absolute" data-ng-show="singleGoal.stats.listedBy && singleGoal.stats.doneBy">
                         <ul>
                             <li>
-                                <a ls-goal-users
+                                <a data-ls-goal-users
                                    href="javascript:void(0)"
-                                   ls-goal-id="[[ singleGoal.id ]]"
-                                   ls-category="listed"
-                                   ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                   data-ls-goal-id="[[ singleGoal.id ]]"
+                                   data-ls-category="listed"
+                                   data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                    class="ng-scope">
                                     <span class="ng-binding">{{ 'home_listed_by'|trans({},'messages') }} [[ ::singleGoal.stats.listedBy ]] </span>
                                     <i class="icon-user-small"></i>
                                 </a>
                             </li>
                             <li>
-                                <a ls-goal-users
+                                <a data-ls-goal-users
                                    href="javascript:void(0)"
-                                   ls-goal-id="[[ singleGoal.id ]]"
-                                   ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                   data-ls-goal-id="[[ singleGoal.id ]]"
+                                   data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                    class="ng-scope">
                                     <span class="ng-binding">{{ 'home_complete'|trans({},'messages') }} [[ ::singleGoal.stats.doneBy ]]</span>
                                     <i class="icon-user-small"></i>

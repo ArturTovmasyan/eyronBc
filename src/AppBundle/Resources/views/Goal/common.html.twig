@@ -25,11 +25,11 @@
                             <div class="absolute">
                                 <ul>
                                     <li>
-                                        <a ls-goal-users
+                                        <a data-ls-goal-users
                                            href="javascript:void(0)"
-                                           ls-goal-id="[[ ::goal.id ]]"
-                                           ls-count="[[ ::goal.stats.listedBy ]]"
-                                           ls-category="listed"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                           data-ls-category="listed"
                                            data-ng-show="castInt(goal.stats.listedBy)">
                                             <span>
                                                 {{ 'home_listed_by'|trans({},'messages') }}
@@ -44,10 +44,10 @@
                                         <i class="icon-user-small" data-ng-hide="castInt(goal.stats.listedBy)"></i>
                                     </li>
                                     <li>
-                                        <a ls-goal-users
+                                        <a data-ls-goal-users
                                            href="javascript:void(0)"
-                                           ls-goal-id="[[ ::goal.id ]]"
-                                           ls-count="[[ ::goal.stats.doneBy ]]"
+                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                           data-ls-count="[[ ::goal.stats.doneBy ]]"
                                            data-ng-show="castInt(goal.stats.doneBy)">
                                             <span>
                                                 {{ 'home_complete'|trans({},'messages') }}
