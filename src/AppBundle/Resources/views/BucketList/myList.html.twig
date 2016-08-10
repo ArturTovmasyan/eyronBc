@@ -1,11 +1,17 @@
 {% extends "AppBundle:BucketList:baseList.html.twig" %}
 
 {% block content_container %}
-
+    {% set myProfile = true %}
+    {% set my_router_params =  app.request.query.all %}
+    {% set routeName = 'user_profile_single' %}
+    {% if profileUser.id != app.user.id %}
+        {% set myProfile = false %}
+        {% set routeName = 'user_profile' %}
+    {% endif %}
     <div
         class="bucketlist"
         data-ng-init="
-        profile.status = '{{ status }}';
+        profile.status = '{{ (status or myProfile )? status: activity}}';
         profile.condition = '{{ status? (status == 'completed-goals')? 2: 1: 0}}';
         profile.isDream = '{{ app.request.get('d')? 'true': 'false' }}';
         profile.f_1 = '{{ app.request.get('f_1')? 'true': 'false'}}';
@@ -14,18 +20,19 @@
         profile.f_4 = '{{ app.request.get('f_4')? 'true': 'false' }}';
         profile.userId = '{{ profileUser.id }}';
         activeGoals = '{{ profileUser.getStats.active }}';
+        {% if not myProfile %}ProfileItems.busy = true;{% endif %}
         ">
         <div class="container">
             <div class="row">
                 <ul class="menu">
-                    {% set myProfile = true %}
-                    {% set my_router_params =  app.request.query.all %}
-                    {% set routeName = 'user_profile_single' %}
-                    {% if profileUser.id != app.user.id %}
-                        {% set myProfile = false %}
-                        {% set routeName = 'user_profile' %}
-                    {% endif %}
 
+                    {% if not  myProfile%}
+                        <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
+                            <a href="#" data-ng-click="goTo(4); profile.status = '{{ activity }}'">
+                                {{ 'menu.activity'|trans }}
+                            </a>
+                        </li>
+                    {% endif %}
                     <li data-ng-class="{'active': profile.status == '{{ all }}' }">
                         <a href="#" data-ng-click="goTo(0); profile.status = '{{ all }}'">
                             {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
@@ -107,7 +114,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 {% if myProfile %} goals-information{% endif %}"
+            {% if not  myProfile%}
+                {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
+            {% endif %}
+            <div class="col-md-8 {% if myProfile %}ng-hide goals-information{% endif %}"
+                 data-ng-show="profile.status != '{{ activity }}'"
                  data-ng-cloak
                  data-infinite-scroll='ProfileItems.nextPage(profile)'
                  data-infinite-scroll-disabled='ProfileItems.noItem || ProfileItems.busy'>
@@ -324,79 +335,78 @@
                             </div>
                         </div>
                     {% else%}
-                    <div class="row goals-animate"
-                         data-ng-cloak
-                         data-ng-repeat="userGoal in ProfileItems.userGoals"
-                         {#data-ng-show="userGoal.is_visible"#}
-                         data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal">
+                        <div class="row goals-animate"
+                             data-ng-cloak
+                             data-ng-repeat="userGoal in ProfileItems.userGoals"
+                             {#data-ng-show="userGoal.is_visible"#}
+                             data-ng-init="singleGoal = userGoal.goal? userGoal.goal: userGoal">
 
-                        <div class="col-sm-12">
-                            <div class="bg-white round">
-                                <div class="idea-item">
+                            <div class="col-sm-12">
+                                <div class="bg-white round">
+                                    <div class="idea-item">
 
-                                    <figure>
-                                        <h3>
-                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
-                                        </h3>
+                                        <figure>
+                                            <h3>
+                                                <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]">[[ singleGoal.title ]]</a>
+                                            </h3>
 
-                                        <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
-                                           class="goalTitle">
-                                            <span class="overlay"></span>
-                                            <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
-                                        </a>
+                                            <a data-ng-href="[[ singleGoal.publish? '{{ env_prefix }}/goal/' + singleGoal.slug : '#' ]]"
+                                               class="goalTitle">
+                                                <span class="overlay"></span>
+                                                <img data-ng-src="[[ ::singleGoal.cached_image ]]" alt="[[ ::singleGoal.title ]]" data-ng-if="singleGoal.cached_image"/>
+                                            </a>
 
-                                        <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
-                                            <ul>
-                                                <li>
-                                                    <a data-ls-goal-users
-                                                       href="javascript:void(0)"
-                                                       data-ls-goal-id="[[ ::singleGoal.id ]]"
-                                                       data-ls-category="listed"
-                                                       data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
-                                                       data-ng-show="castInt(singleGoal.stats.listedBy)">
+                                            <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
+                                                <ul>
+                                                    <li>
+                                                        <a data-ls-goal-users
+                                                           href="javascript:void(0)"
+                                                           data-ls-goal-id="[[ ::singleGoal.id ]]"
+                                                           data-ls-category="listed"
+                                                           data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                                           data-ng-show="castInt(singleGoal.stats.listedBy)">
+                                                                <span>
+                                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                    [[ singleGoal.stats.listedBy ]]
+                                                                </span>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                        <span class="text-white" data-ng-hide="castInt(singleGoal.stats.listedBy)">
+                                                                {{ 'home_listed_by'|trans({},'messages') }}
+                                                            [[ ::singleGoal.stats.listedBy ]]
+                                                        </span>
+                                                        <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
+                                                    </li>
+
+                                                    <li>
+                                                        <a data-ls-goal-users
+                                                           href="javascript:void(0)"
+                                                           data-ls-goal-id="[[ ::singleGoal.id ]]"
+                                                           data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                                           data-ng-show="castInt(singleGoal.stats.doneBy)">
                                                             <span>
-                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                                [[ singleGoal.stats.listedBy ]]
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ singleGoal.stats.doneBy ]]
                                                             </span>
-                                                        <i class="icon-user-small"></i>
-                                                    </a>
-                                                    <span class="text-white" data-ng-hide="castInt(singleGoal.stats.listedBy)">
-                                                            {{ 'home_listed_by'|trans({},'messages') }}
-                                                        [[ ::singleGoal.stats.listedBy ]]
-                                                    </span>
-                                                    <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.listedBy)"></i>
-                                                </li>
+                                                            <i class="icon-user-small"></i>
+                                                        </a>
+                                                        <span class="text-white" data-ng-hide="castInt(singleGoal.stats.doneBy)">
+                                                                {{ 'home_complete'|trans({},'messages') }}
+                                                            [[ ::singleGoal.stats.doneBy ]]
+                                                            </span>
+                                                        <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.doneBy)"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
 
-                                                <li>
-                                                    <a data-ls-goal-users
-                                                       href="javascript:void(0)"
-                                                       data-ls-goal-id="[[ ::singleGoal.id ]]"
-                                                       data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
-                                                       data-ng-show="castInt(singleGoal.stats.doneBy)">
-                                                        <span>
-                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                            [[ singleGoal.stats.doneBy ]]
-                                                        </span>
-                                                        <i class="icon-user-small"></i>
-                                                    </a>
-                                                    <span class="text-white" data-ng-hide="castInt(singleGoal.stats.doneBy)">
-                                                            {{ 'home_complete'|trans({},'messages') }}
-                                                        [[ ::singleGoal.stats.doneBy ]]
-                                                        </span>
-                                                    <i class="icon-user-small" data-ng-hide="castInt(singleGoal.stats.doneBy)"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <figcaption>
-                                            {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
-                                        </figcaption>
-                                    </figure>
+                                            <figcaption>
+                                                {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
+                                            </figcaption>
+                                        </figure>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
                     {% endif %}
                 </div>
 

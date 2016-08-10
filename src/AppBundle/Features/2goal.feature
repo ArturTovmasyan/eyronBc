@@ -224,7 +224,7 @@ Feature: Goal page
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
     And I follow "Delete"
-    And I wait for view "1000"
+    And I wait for view "2000"
     Then I should see "Your goal will be permanently deleted."
     When I click on "btn btn-danger"
     Then I should be on "/goal/my-ideas/drafts"

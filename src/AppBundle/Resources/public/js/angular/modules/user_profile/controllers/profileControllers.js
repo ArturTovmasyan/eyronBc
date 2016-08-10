@@ -27,6 +27,9 @@ angular.module('profile')
 
       $scope.goTo = function (status) {
         $scope.ProfileItems.reset();
+        if(!angular.isUndefined($scope.Activities)){
+          $scope.Activities.reset();
+        }
         switch (status){
           case 1:
             $scope.ProfileItems.busy = false;
@@ -41,6 +44,10 @@ angular.module('profile')
           case 3:
             $scope.ProfileItems.busy = true;
             $scope.ProfileItems.common($scope.profile.userId);
+            break;
+          case 4:
+            $scope.ProfileItems.busy = true;
+            $scope.Activities.nextActivity();
             break;
           default:
             $scope.ProfileItems.busy = false;

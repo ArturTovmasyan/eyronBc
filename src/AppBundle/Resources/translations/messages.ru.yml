@@ -196,6 +196,7 @@ filter:
 menu:
   bucket: Мой список целей
   active: Активные
+  activity: Лента
   completed: Достигнутые
   map: Карта
   common: Опшие
