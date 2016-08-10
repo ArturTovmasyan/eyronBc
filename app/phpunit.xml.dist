@@ -38,5 +38,13 @@
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
             </exclude>
         </whitelist>
+        <blacklist>
+            <directory>cache</directory>
+            <directory>data</directory>
+            <directory>log</directory>
+            <directory>lib/vendor</directory>
+            <directory>plugins</directory>
+            <directory>web</directory>
+        </blacklist>
     </filter>
 </phpunit>
