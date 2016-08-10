@@ -206,6 +206,7 @@ filter:
 menu:
   bucket: My Bucketlist
   active: Active
+  activity: Activity
   completed: Completed
   map: Map
   common: In Common
