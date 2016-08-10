@@ -6,10 +6,10 @@
         data-ng-cloak
      {% endif %}>
 
-    <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
-        <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
-    </div>
     {% if not single%}
+        <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak data-ng-init="activityPage = true">
+            <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
+        </div>
         <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
             <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
         </h3>
