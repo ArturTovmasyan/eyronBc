@@ -117,7 +117,10 @@
 
             <div class="col-md-8">
                 {% if not  myProfile%}
-                    <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'">
+                    <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'"
+                         data-ng-cloak
+                         data-infinite-scroll='Activities.nextActivity()'
+                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy'>
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
                     </div>
                 {% endif %}
