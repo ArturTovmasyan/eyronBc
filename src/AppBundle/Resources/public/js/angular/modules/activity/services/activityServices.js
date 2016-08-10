@@ -12,9 +12,9 @@ angular.module('activity')
         }}
       });
     }])
-  .factory('lsActivities', ['$http', 'localStorageService', 'ActivityDataManager', '$analytics', 'UserContext',
+  .factory('lsActivitiesItems', ['$http', 'localStorageService', 'ActivityDataManager', '$analytics', 'UserContext',
     function($http, localStorageService, ActivityDataManager, $analytics, UserContext) {
-    var lsActivities = function(loadCount, userId) {
+    var lsActivitiesItems = function(loadCount, userId) {
       this.items = [];
       this.users = [];
       this.id = userId? userId: 0;
@@ -28,7 +28,7 @@ angular.module('activity')
       this.count = loadCount ? loadCount : 7;
     };
 
-    lsActivities.prototype.loadAddthis = function(){
+    lsActivitiesItems.prototype.loadAddthis = function(){
       var olds = $('script[src="http://s7.addthis.com/js/300/addthis_widget.js#domready=1"]');
       olds.remove();
 
@@ -37,7 +37,7 @@ angular.module('activity')
       return document.body.appendChild(addthisScript);
     };
 
-    lsActivities.prototype.reset = function(){
+    lsActivitiesItems.prototype.reset = function(){
       this.isReset = true;
       this.items = [];
       this.users = [];
@@ -46,12 +46,11 @@ angular.module('activity')
       this.reserve = [];
       this.request = 0;
       this.start = 0;
-      this.id = 0;
       this.slug = 0;
       this.search = '';
     };
 
-    lsActivities.prototype.imageLoad = function(profile) {
+    lsActivitiesItems.prototype.imageLoad = function(profile) {
       var img;
       this.busy = false;
       angular.forEach(this.reserve, function(item) {
@@ -62,7 +61,7 @@ angular.module('activity')
       });
     };
 
-    lsActivities.prototype.newActivity = function(time, cb){
+    lsActivitiesItems.prototype.newActivity = function(time, cb){
       ActivityDataManager.activities({ first: 0, count: this.count, time: time}, function (newData) {
         if(angular.isFunction(cb)){
           cb(newData);
@@ -70,7 +69,7 @@ angular.module('activity')
       });
     };
 
-    lsActivities.prototype.addNewActivity = function(data, cb){
+    lsActivitiesItems.prototype.addNewActivity = function(data, cb){
       var itemIds = [];
 
       // TODO needs to optimize
@@ -97,7 +96,8 @@ angular.module('activity')
       angular.element('#activities').removeClass('comingByTop');
     };
 
-    lsActivities.prototype.getReserve = function() {
+    lsActivitiesItems.prototype.getReserve = function() {
+      angular.element('#activities').removeClass('comingByTop');
       this.busy = this.noItem;
       this.items = this.items.concat(this.reserve);
       this.nextReserve();
@@ -106,7 +106,7 @@ angular.module('activity')
       }
     };
 
-    lsActivities.prototype.nextReserve = function() {
+    lsActivitiesItems.prototype.nextReserve = function() {
 
       if (this.busy) return;
       this.busy = true;
@@ -143,7 +143,7 @@ angular.module('activity')
       
     };
 
-    lsActivities.prototype.nextActivity = function() {
+    lsActivitiesItems.prototype.nextActivity = function() {
       if (this.busy) return;
       this.busy = true;
 
@@ -228,12 +228,12 @@ angular.module('activity')
       }
     };
 
-    return lsActivities;
+  return lsActivitiesItems;
   }])
-  .directive('lsActivities',['lsActivities',
+  .directive('lsActivities',['lsActivitiesItems',
     '$interval',
     '$timeout',
-    function(lsActivities, $interval, $timeout){
+    function(lsActivitiesItems, $interval, $timeout){
       return {
         restrict: 'EA',
         scope: {
@@ -241,31 +241,33 @@ angular.module('activity')
           lsCount: '@'
         },
         link: function(scope, el){
-          scope.newActivity = false;
+          scope.$parent.newActivity = false;
 
           scope.castInt = function(value){
             return parseInt(value);
           };
 
           function newActivity() {
-            scope.Activities.newActivity(scope.Activities.items[0].datetime, function(data){
-              if(data && data.length != 0){
-                scope.newData = data;
-                scope.newActivity = true;
-                $interval.cancel(interval);
-              }
-            });
+            if(!angular.isUndefined(scope.$parent.Activities.items)){
+              scope.$parent.Activities.newActivity(scope.$parent.Activities.items[0].datetime, function(data){
+                if(data && data.length != 0){
+                  scope.$parent.newData = data;
+                  scope.$parent.newActivity = true;
+                  $interval.cancel(interval);
+                }
+              });
+            }
           }
 
           scope.loadImage = function (index) {
-            var activeIndex = scope.Activities.items[index].activeIndex;
-            if(!scope.Activities.items[index].reserveGoals[activeIndex] && scope.Activities.items[index].goals[activeIndex]){
-              scope.Activities.items[index].reserveGoals.push(scope.Activities.items[index].goals[activeIndex]);
+            var activeIndex = scope.$parent.Activities.items[index].activeIndex;
+            if(!scope.$parent.Activities.items[index].reserveGoals[activeIndex] && scope.$parent.Activities.items[index].goals[activeIndex]){
+              scope.$parent.Activities.items[index].reserveGoals.push(scope.$parent.Activities.items[index].goals[activeIndex]);
             }
           };
 
           $('body').on('click', '.ActivityPage', function() {
-            if(scope.newActivity){
+            if(scope.$parent.newActivity){
               scope.addNew();
             } else {
               $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -275,10 +277,10 @@ angular.module('activity')
           var interval = $interval(newActivity,120000);
 
           scope.addNew = function () {
-            scope.newActivity = false;
+            scope.$parent.newActivity = false;
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $timeout(function(){
-              scope.Activities.addNewActivity(scope.newData, slideInsert);
+              scope.$parent.Activities.addNewActivity(scope.$parent.newData, slideInsert);
             }, 1000);
             interval = $interval(newActivity,120000);
           };
@@ -289,13 +291,13 @@ angular.module('activity')
                 observer: true,
                 autoHeight: true,
                 onSlideNextStart: function (ev) {
-                  scope.Activities.items[$(ev.container).data('index')].activeIndex++;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
                   scope.loadImage($(ev.container).data('index'));
-                  scope.$apply();
+                  scope.$parent.$apply();
                 },
                 onSlidePrevStart: function (ev) {
-                  scope.Activities.items[$(ev.container).data('index')].activeIndex--;
-                  scope.$apply();
+                  scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
+                  scope.$parent.$apply();
                 },
 
                 // loop: true,
@@ -305,14 +307,14 @@ angular.module('activity')
               })
             }, 2000);
           }
-          scope.Activities = new lsActivities(scope.lsCount? scope.lsCount: 7, scope.lsUser);
-          scope.Activities.nextActivity();
-          scope.showNoActivities = false;
+          scope.$parent.Activities = new lsActivitiesItems(scope.lsCount? scope.lsCount: 7, scope.lsUser);
+          scope.$parent.Activities.nextActivity();
+          scope.$parent.showNoActivities = false;
 
-          scope.$watch('Activities.items', function(d) {
+          scope.$parent.$watch('Activities.items', function(d) {
             if(!d.length){
-              if(scope.Activities.noItem ){
-                scope.showNoActivities = true;
+              if(scope.$parent.Activities.noItem ){
+                scope.$parent.showNoActivities = true;
                 angular.element('#non-activity').css('display', 'block');
               }
             } else {

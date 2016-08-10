@@ -1,14 +1,28 @@
-<div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
+<div class="col-md-8"
+     data-ls-activities
+     id="activities"
+     {% if single  and activity is defined and userId is defined%}
+        data-ls-count="10"
+        data-ls-user="{{ userId }}"
+         data-ng-show="profile.status == '{{ activity }}'"
+         data-ng-cloak
+     {% endif %}>
 
     <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
         <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
     </div>
-
-    <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
-        <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
-    </h3>
+    {% if not single%}
+        <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
+            <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
+        </h3>
+    {% endif %}
 
     <div class="goals-animate"
+        {% if single  and activity is defined%}
+            data-ng-cloak
+            data-infinite-scroll='Activities.nextActivity()'
+            data-infinite-scroll-disabled='Activities.noItem || Activities.busy'
+        {% endif %}
          data-ng-cloak
             {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
          data-ng-repeat="activity in Activities.items"
@@ -165,18 +179,19 @@
         </div>
         <br/>
     </div>
-
-    <div class="navigation text-center">
-        <a href="javascript:void(0)"
-           data-ng-cloak
-           data-ng-show="!Activities.busy && Activities.request >= 1"
-           data-ng-click='Activities.getReserve()'
-           class="show-more ng-hide">
-            <span></span>
-            <span></span>
-            <span></span>
-        </a>
-    </div>
+    {% if not single %}
+        <div class="navigation text-center">
+            <a href="javascript:void(0)"
+               data-ng-cloak
+               data-ng-show="!Activities.busy && Activities.request >= 1"
+               data-ng-click='Activities.getReserve()'
+               class="show-more ng-hide">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    {% endif %}
 
 </div>
 {% macro goal(env_prefix) %}

@@ -51,11 +51,7 @@ class NewsFeedController extends FOSRestController
     {
         $newsFeeds = $this->getNewsFeed($first, $count, $userId, $request);
 
-        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage");
-
-        if(is_null($userId)){
-            array_push($groups, "tiny_user");
-        }
+        $groups = array("new_feed", "tiny_goal", "images", "successStory", "comment", "successStory_storyImage", "storyImage", "tiny_user");
 
         $view = $this->view($newsFeeds, 200)
             ->setSerializationContext(SerializationContext::create()->setGroups($groups));
