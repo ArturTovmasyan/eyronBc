@@ -16,11 +16,6 @@
     {% endif %}
 
     <div class="goals-animate"
-        {% if single  and activity is defined%}
-            data-ng-cloak
-            data-infinite-scroll='Activities.nextActivity()'
-            data-infinite-scroll-disabled='Activities.noItem || Activities.busy'
-        {% endif %}
          data-ng-cloak
             {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
          data-ng-repeat="activity in Activities.items"
