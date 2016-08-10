@@ -371,7 +371,16 @@ class BaseClass extends WebTestCase
         return $data;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function tearDown()
+    {
+        $this->container->get('doctrine')->getConnection()->close();
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+        parent::tearDown();
 
-
+    }
 
 }

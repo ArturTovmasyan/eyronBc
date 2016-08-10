@@ -4,6 +4,7 @@
 {% set status = app.request.get('status') %}
 {% set all = null %}
 {% set active = 'active-goals' %}
+{% set activity = 'activity' %}
 {% set completed = 'completed-goals' %}
 {% set common = 'common-goals' %}
 
@@ -45,6 +46,13 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    {% stylesheets output='css/layout_activity.css'
+    'app/bower_components/swiper/dist/css/swiper.min.css'
+    filter='less,cssrewrite'
+    %}
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
     <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
     <style>
         html {
@@ -65,6 +73,8 @@
     {% elseif status == all %}
         {{- 'my_bucket_list.title'|trans ~ dreamTitle|default('') ~ iuTitle|default('') ~ noIUTitle|default('') ~ iNoUTitle|default('') ~ noInoUTitle|default('') -}}
     {% elseif status  == 'all' %}
+        {{- 'goal.friend_inner_title'|trans -}}
+    {% elseif status  == 'activity' %}
         {{- 'goal.friend_inner_title'|trans -}}
     {% endif %}
 {%- endblock -%}
@@ -326,6 +336,8 @@
 {% javascripts output='js/app_mybucketlist.js'
 'app/bower_components/dropzone/downloads/dropzone.min.js'
 'bundles/app/js/storyImages.js'
+'app/bower_components/swiper/dist/js/swiper.min.js'
+'bundles/app/js/swiper-inner.js'
 'bundles/app/js/my-checkbox.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>

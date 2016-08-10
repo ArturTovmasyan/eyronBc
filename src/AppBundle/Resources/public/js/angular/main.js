@@ -15,6 +15,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'PathPrefix',
     'Authenticator',
     'notification',
+    'activity',
     'ngSanitize'])
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {
