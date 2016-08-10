@@ -816,7 +816,7 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $('body').on('click', '#ActivityPage', function() {
+        $('body').on('click', '.ActivityPage', function() {
             if($scope.newActivity){
                 $scope.addNew();
             } else {

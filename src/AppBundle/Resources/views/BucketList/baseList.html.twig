@@ -109,9 +109,7 @@
                     <div class="col-sm-4">
                         <figure>
 
-                            <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon">
-                                {#<i class="icon-settings"><span class="path1"></span><span class="path2"></span></i>#}
-                            </a>
+                            <a href="{{ path("edit_user_profile") }}" class="mobile-settings show-xs hidden-sm hidden-md hidden-lg settings-icon"></a>
 
                             {% block profileImage %}
                             <div>
@@ -157,7 +155,7 @@
                     </div>
                     <div class="col-sm-4 hidden-xs">
                         {% if profileUser.showName %}
-                            <h1 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}">
+                            <h1 class="{% if profileUser.showName|length > 11 %}title-smaller{% endif %}">
                                 <span class="bg-blue">{{ profileUser.showName }}</span>
                             </h1>
                         {% endif %}

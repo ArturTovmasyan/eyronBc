@@ -348,7 +348,7 @@ header{
             padding-left:7px;
           }
 
-          &:not(.notify):hover{
+          &:hover{
             background-color: #7724F6;
             color: #E5E5E5;
           }
@@ -397,7 +397,7 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
-            border: 3px solid #cecece;
+            border: 2px solid #cecece;
             img{
               height:40px;
             }
@@ -610,6 +610,13 @@ header{
           }
         }
       }
+      &.pull-right{
+        li{
+          a{
+            padding: 13px 15px 18px !important;
+          }
+        }
+      }
     }
 
     .icon-ideas-icon,.icon-join-icon{
@@ -673,20 +680,20 @@ header{
     }
 
     .no-note{
+      padding: 40px 0 0 0;
 
       span{
         display: block;
-        width: 101px;
-        height: 121px;
-        background: url('../images/no-note.png') no-repeat center center;
-        padding:80px 0;
+        width: 50px;
+        height: 60px;
+        background: url('../images/no-note.svg') no-repeat center center;
         margin:0 auto;
       }
 
       p{
-        display: block;
         color: #666666;
         font-size:16px;
+        padding: 5px 0 30px;
       }
     }
 
@@ -710,25 +717,27 @@ header{
         border-left: 0;
         border-bottom: 1px solid #e5e5e5;
         position: relative;
+        cursor:pointer;
 
         &:first-child{
+          padding: 6px 10px 5px;
           h3,a{
-            font-size: 14px;
-            padding:12px 10px;
+            font-size: 16px;
             margin: 0;
+            line-height: 22px;
+          }
+
+          h3{
+            font-weight: 600;
           }
 
           a{
             display:inline-block;
-            line-height: 16px;
-            padding: 12px 25px 0 5px !important;
+            padding: 0 25px 0 5px !important;
             &:hover{
               text-decoration: none;
               background-color: transparent;
             }
-          }
-          &:hover{
-            //background: transparent;
           }
         }
 
@@ -753,6 +762,7 @@ header{
 
         ul{
           padding-left:0;
+          border-bottom: 1px solid #e5e5e5;
 
           li{
             display: inline-block;
@@ -774,7 +784,8 @@ header{
                 display: block;
                 white-space: normal;
                 word-break: break-word;
-                font-size:16px;
+                font-size:14px;
+                padding:0 15px 0 0;
 
                 a:not(.text-center){
                   font-weight: 600;
@@ -803,6 +814,24 @@ header{
 
     .dropdown-menu{
       left: -137px;
+    }
+
+    &:hover,&:active,&:focus{
+      background-color: #7724F6;
+      a.relative{
+        background-color: #7724F6;
+      }
+
+    }
+
+  }
+
+  .open{
+    a.relative{
+      background-color: #7724F6;
+      &:hover,&:active,&:focus{
+        background-color: #7724F6;
+      }
     }
   }
 }
@@ -1039,7 +1068,7 @@ label{
   }
 }
 
-#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,.notification-list{
+#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,#notification-list{
   .close-icon{
     width: 18px;
     height: 18px;
@@ -1306,6 +1335,7 @@ label{
     }
     img{
       border:2px solid;
+      height: 40px;
     }
 
     p{
@@ -2308,9 +2338,21 @@ footer{
         padding: 16px 19px;
       }
 
-      ul{
+      ul.dropdown-menu{
         top: 98%;
         width: 430px;
+        li{
+          ul{
+            li{
+              p{
+                span{
+                  font-size:16px;
+                }
+              }
+            }
+          }
+
+        }
       }
 
       .dropdown-menu {
@@ -2683,7 +2725,14 @@ footer{
     #notification{
 
       a.relative{
-        padding: 19px;
+        display: block;
+        padding: 27px 20px;
+      }
+
+      .bell{
+        width: 25px;
+        height:30px;
+        background-position: center bottom;
       }
 
       .dropdown-menu{
@@ -2967,7 +3016,7 @@ html {
     }
   }
   .close-icon{
-    top: 30px;
+    top: 24px;
     right: 20px;
     display: none;
   }
@@ -2979,7 +3028,7 @@ html {
   }
 
   h3{
-    font-weight: 500;
+    font-weight: 600;
   }
 
   a{
