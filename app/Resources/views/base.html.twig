@@ -173,7 +173,7 @@
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
-                        <div class="container" id="main-nav" style="display: none" data-ng-controller="notificationController">
+                        <div class="container" id="main-nav" style="display: none" {% if user %}data-ng-controller="notificationController"{% endif %}>
                             <div class="navbar-header navbar-mobile">
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
