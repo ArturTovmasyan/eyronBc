@@ -24,7 +24,9 @@
             <div class="row">
 
                 {% block test  %}
-                    {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
+                    <div class="col-md-8">
+                        {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
+                    </div>
                 {% endblock %}
 
                 <div class="col-md-4">

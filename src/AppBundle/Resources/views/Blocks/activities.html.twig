@@ -1,11 +1,9 @@
-<div class="col-md-8"
-     data-ls-activities
+<div data-ls-activities
      id="activities"
      {% if single  and activity is defined and userId is defined%}
         data-ls-count="10"
         data-ls-user="{{ userId }}"
-         data-ng-show="profile.status == '{{ activity }}'"
-         data-ng-cloak
+        data-ng-cloak
      {% endif %}>
 
     <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
