@@ -476,7 +476,7 @@ angular.module('goal', ['Interpolation',
         angular.element(".goal-create-submit").click(function(){
             angular.element("#goal-create-form").ajaxForm({
                 beforeSubmit: function(){
-                    $scope.loading = true;
+                    $(".modal-loading").show();
                     $scope.$apply();
                 },
                 error: function(res){
@@ -490,7 +490,7 @@ angular.module('goal', ['Interpolation',
                         UserGoalDataManager.creates({id:res}, {}, function (resource){
                             userGoalData.data = resource;
                             $scope.goalSubmitTemplate = template.addTemplate;
-                            $scope.loading = false;
+                            $(".modal-loading").hide();
                             $timeout(function(){
                                 $scope.$broadcast('openLsModal', 'goalSave');
                             },10);
@@ -704,8 +704,10 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             if(window.innerWidth < 766){
+                $scope.isMobile = true;
                 $scope.placeholder = '';
             } else {
+                $scope.isMobile = false;
                 $scope.placeholder = $scope.placeholderText;
             }
         }, 500);
@@ -814,7 +816,7 @@ angular.module('goal', ['Interpolation',
             }
         };
 
-        $('body').on('click', '#ActivityPage', function() {
+        $('body').on('click', '.ActivityPage', function() {
             if($scope.newActivity){
                 $scope.addNew();
             } else {

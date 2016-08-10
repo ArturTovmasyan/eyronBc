@@ -36,7 +36,7 @@
             <img data-ng-if="comment.author.image_path" data-ng-src="[[ ::comment.author.image_path ]]"
                  alt="[[ ::comment.author.first_name ]]" class="img-circle img-responsive"/>
 
-            <p data-ng-if="!comment.author.image_path" class="no-image user-no1">
+            <p data-ng-if="!comment.author.image_path" class="no-image user-no1 text-white">
                 [[ (comment.author.first_name |
                 limitTo:1 | uppercase) + (comment.author.last_name | limitTo:1 | uppercase) ]]
             </p>

@@ -74,7 +74,7 @@ Feature: Activity
     Then I should see "user3 user3"
     And I should see "Listed"
     And I should see "Completed"
-    When I click on "text-dark-gray"
+    When I click on "col-xs-9"
     And I wait
     And I should see "All"
     And I should see "In Common"

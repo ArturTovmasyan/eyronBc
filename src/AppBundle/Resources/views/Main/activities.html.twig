@@ -21,15 +21,18 @@
     <div id="news-feed">
         <div class="container">
             <div class="row">
-                <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
-                   <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
-                </div>
+
+                {% block test  %}
 
                 <div class="col-md-8" id="activities" data-ng-init="userId='{{ app.user.id }}'">
 
-                        <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
-                            <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
-                        </h3>
+                    <div class="new-activity ng-hide" data-ng-show="newActivity" data-ng-cloak>
+                        <a href="javascript:void(0)" data-ng-click="addNew()">{{ 'new_activity'|trans({},'newsFeed') }}</a>
+                    </div>
+
+                    <h3 class="text-dark-gray ng-hide" data-ng-show="showNoActivities" id="non-activity" data-ng-cloak>{{ 'active.not_have'|trans }}
+                        <a href="{{ path('goals_list') }}" class="text-purple">adding</a>
+                    </h3>
 
                     <div class="goals-animate"
                          data-ng-cloak
@@ -202,6 +205,8 @@
                     </div>
 
                 </div>
+
+                {% endblock %}
 
                 <div class="col-md-4">
                     {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}

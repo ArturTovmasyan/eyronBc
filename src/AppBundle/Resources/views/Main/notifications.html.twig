@@ -1,43 +1,56 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "AppBundle:Main:activities.html.twig" %}
 
 {% block angularApp %}
-<html data-ng-app="profile" data-ng-controller="notificationController">
+<html data-ng-app="profile" data-ng-controller="notificationInnerController">
 {% endblock %}
 
-{% block content %}
-    {{ parent() }}
-
-    <div id="notifications">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8"
-                     data-ng-cloak
-                     data-infinite-scroll='nextNotifications()'
-                     data-infinite-scroll-disabled='noNotification || busy'>
-
-                    <div class="row">
-                        <div data-ng-cloak
-                             class="col-sm-6 goals-animate"
-                             data-ng-repeat="notify in notifies"
-                             data-ng-class-even="row">
-
+        {% block test  %}
+        <div class="col-md-8">
+            <div data-ng-cloak
+                 data-infinite-scroll='nextNotifications()'
+                 data-infinite-scroll-disabled='noNotification || busy'
+                 class="bg-white padding">
+                <ul id="notification-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h3 class="text-gray">Notifications</h3>
+                            </div>
+                            <div class="col-xs-7 text-right">
+                                <a class="text-purple" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
+                            </div>
                         </div>
-                    </div>
-                    <br />
-                </div>
+                    </li>
 
-                {% if app.user %}
-                    <div class="col-md-4">
-                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user} %}
-                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                        {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
-                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 2}  %}
-                    </div>
-                {% endif %}
+                    <li>
+                        <ul data-ng-repeat="notify in notifies" class="goals-animate" data-ng-cloak data-ng-class="{'unread': !notify.is_read}">
+                            <li>
+                                <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
+                                <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
+                                    <figure class="pull-left">
+                                        <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                                    </figure>
+
+                                    <p>
+                                       <span class="text-dark-gray" ng-bind-html="bodyInHtml(notify.notification.body)">
+                                        {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
+                                        </span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm:ss a" ]] </span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm:ss a" ]] </span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'hr'">[[ time[notify.id].time ]] {{ 'notify.hour'|trans }}</span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'minute'">[[ time[notify.id].time ]] {{ 'notify.minute'|trans }}</span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'now'">{{ 'notify.now'|trans }}</span>
+                                    </p>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
             </div>
         </div>
-    </div>
-{% endblock %}
+        {% endblock %}
 
 {%- block title -%}
     {{- 'notification.title'|trans -}}

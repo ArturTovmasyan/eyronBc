@@ -38,19 +38,29 @@ class NotificationController extends Controller
      * )
      *
      * @Rest\View(serializerGroups={"userNotification", "userNotification_notification", "notification", "notification_performer", "tiny_user"})
-     * @Rest\Get("/notifications/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, name="get_notification", options={"method_prefix"=false})
+     * @Rest\Get("/notifications/{first}/{count}/{lastId}", defaults={"lastId"=null}, requirements={"first"="\d+", "count"="\d+", "lastId"="-{0,1}\d+"}, name="get_notification", options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      *
      * @param $first
      * @param $count
+     * @param $lastId
      * @return array
      */
-    public function getAction($first, $count)
+    public function getAction($first, $count, $lastId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')->getUserNotifications($this->getUSer()->getId(), $first, $count);
+        $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
+            ->getUserNotifications($this->getUSer()->getId(), $first, $count, $lastId);
 
-        return $userNotifications;
+        if (is_null($lastId)){
+            $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
+                ->getUnreadCount($this->getUSer()->getId());
+        }
+
+        return [
+            'userNotifications' => $userNotifications,
+            'unreadCount'       => isset($unreadCount) ? $unreadCount : null
+        ];
     }
 
     /**
