@@ -198,11 +198,11 @@
                                             <figcaption>
                                                 <div class="row" data-ng-cloak>
                                                     <div class="col-xs-6">
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ ::goal.id ]]"
-                                                           ls-count="[[ ::goal.stats.listedBy ]]"
-                                                           ls-category="listed"
+                                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                                           data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                                           data-ls-category="listed"
                                                            data-ng-show="castInt(goal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'block_listed'|trans | capitalize }}
@@ -217,10 +217,10 @@
                                                     </div>
 
                                                     <div class="col-xs-6">
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ ::goal.id ]]"
-                                                           ls-count="[[ ::goal.stats.doneBy ]]"
+                                                           data-ls-goal-id="[[ ::goal.id ]]"
+                                                           data-ls-count="[[ ::goal.stats.doneBy ]]"
                                                            data-ng-show="castInt(goal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'block_completed'|trans | capitalize }}
@@ -359,11 +359,11 @@
                                             <div class="absolute" data-ng-show="singleGoal.stats.listedBy">
                                                 <ul>
                                                     <li>
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ ::singleGoal.id ]]"
-                                                           ls-category="listed"
-                                                           ls-count="[[ ::singleGoal.stats.listedBy ]]"
+                                                           data-ls-goal-id="[[ ::singleGoal.id ]]"
+                                                           data-ls-category="listed"
+                                                           data-ls-count="[[ ::singleGoal.stats.listedBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.listedBy)">
                                                                 <span>
                                                                     {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -379,10 +379,10 @@
                                                     </li>
 
                                                     <li>
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="[[ ::singleGoal.id ]]"
-                                                           ls-count="[[ ::singleGoal.stats.doneBy ]]"
+                                                           data-ls-goal-id="[[ ::singleGoal.id ]]"
+                                                           data-ls-count="[[ ::singleGoal.stats.doneBy ]]"
                                                            data-ng-show="castInt(singleGoal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}

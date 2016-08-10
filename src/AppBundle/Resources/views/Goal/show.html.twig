@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+{% block angularApp %} <html ⚡ data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -13,8 +13,6 @@
     %}
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
     {% endstylesheets %}
-    {#<link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">#}
-    {#<link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">#}
 {% endblock %}
 
 {% block content %}
@@ -69,24 +67,4 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    {# comments #}
-    {#{% javascripts '@AppBundle/Resources/public/js/comments.js' %}#}
-    {#<script type="text/javascript">#}
-        {#// thread id#}
-        {#var fos_comment_thread_id = '{{ goal.id }}';#}
-
-        {#// api base url to use for initial requests#}
-        {#var fos_comment_thread_api_base_url = '' {{ path('fos_comment_get_threads') }}';#}
-
-        {#// Snippet for asynchronously loading the comments#}
-        {#(function() {#}
-            {#var fos_comment_script = document.createElement('script');#}
-            {#fos_comment_script.async = true;#}
-            {#fos_comment_script.src = '{{ asset_url }}';#}
-            {#fos_comment_script.type = 'text/javascript';#}
-
-            {#(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);#}
-        {#})();#}
-    {#</script>#}
-    {#{% endjavascripts %}#}
 {% endblock %}

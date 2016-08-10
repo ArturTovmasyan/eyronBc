@@ -430,8 +430,7 @@ class GoalRestControllerTest extends BaseClass
         // try to get goal by id
         $this->client4->request('PUT', $url, array('commentBody'=>'Test for create comment'));
 
-        $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal comment in PutCommentAction rest!"
-            . $this->client4->getProfile()->getToken());
+        $this->assertEquals($this->client4->getResponse()->getStatusCode(), Response::HTTP_OK, "can not create goal comment in PutCommentAction rest!");
 
         $this->assertTrue(
             $this->client4->getResponse()->headers->contains('Content-Type', 'application/json'),
@@ -440,8 +439,7 @@ class GoalRestControllerTest extends BaseClass
 
         if ($profile = $this->client4->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(25, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest! "
-                . $this->client4->getProfile()->getToken());
+            $this->assertLessThan(25, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on goal PutCommentAction rest!");
         }
     }
 

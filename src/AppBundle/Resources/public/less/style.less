@@ -397,7 +397,7 @@ header{
             overflow: hidden;
             float:left;
             margin: 0 10px 0 0;
-            border: 3px solid #cecece;
+            border: 2px solid #cecece;
             img{
               height:40px;
             }
@@ -610,6 +610,13 @@ header{
           }
         }
       }
+      &.pull-right{
+        li{
+          a{
+            padding: 13px 15px 18px !important;
+          }
+        }
+      }
     }
 
     .icon-ideas-icon,.icon-join-icon{
@@ -755,6 +762,7 @@ header{
 
         ul{
           padding-left:0;
+          border-bottom: 1px solid #e5e5e5;
 
           li{
             display: inline-block;
@@ -776,7 +784,7 @@ header{
                 display: block;
                 white-space: normal;
                 word-break: break-word;
-                font-size:16px;
+                font-size:14px;
                 padding:0 15px 0 0;
 
                 a:not(.text-center){
@@ -1327,6 +1335,7 @@ label{
     }
     img{
       border:2px solid;
+      height: 40px;
     }
 
     p{
@@ -2329,9 +2338,21 @@ footer{
         padding: 16px 19px;
       }
 
-      ul{
+      ul.dropdown-menu{
         top: 98%;
         width: 430px;
+        li{
+          ul{
+            li{
+              p{
+                span{
+                  font-size:16px;
+                }
+              }
+            }
+          }
+
+        }
       }
 
       .dropdown-menu {
