@@ -88,7 +88,7 @@ class NewFeedRepository extends EntityRepository
             $newFeedIdsQuery->getParameter('numberOfDays')->setValue(is_null($singleUserId) ? 30 : 300);
             $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
             if (count($newFeedIds) == 0){
-                   return [];
+                return [];
             }
         }
 

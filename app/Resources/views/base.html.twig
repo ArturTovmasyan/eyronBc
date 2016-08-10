@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
+{% block angularApp %} <html ⚡ data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
 {% set host = app.request.getSchemeAndHttpHost() %}
@@ -7,7 +7,7 @@
 {% set testUrl = app.request.getSchemeAndHttpHost() %}
 
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <title>{%- block title -%}BucketList{%- endblock -%}</title>
         <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
         <meta property="og:title" content="{%- block og_title -%}{{ block('title') }}{%- endblock -%}" />
@@ -22,7 +22,7 @@
         
         <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
@@ -491,6 +491,8 @@
                 'bundles/app/js/angular/goal_manager/services/GoalDataManager.js'
                 'bundles/app/js/angular/goal_manager/constants/goalConstant.js'
                 'bundles/app/js/angular/goal_manager/constants/userGoalConstant.js'
+                'bundles/app/js/angular/modules/activity/activity.js'
+                'bundles/app/js/angular/modules/activity/services/activityServices.js'
                 'bundles/app/js/angular/main.js'
                 'bundles/app/js/angular/modules/user_profile/profile.js'
                 'bundles/app/js/angular/modules/user_profile/services/profileServices.js'
