@@ -2,20 +2,6 @@
 
 {% block angularApp %} <html ⚡ data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
-    {% stylesheets output='css/layout_view.css'
-    'app/bower_components/swipebox/src/css/swipebox.min.css'
-    'app/bower_components/swiper/dist/css/swiper.min.css'
-    %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-
-{% endblock %}
-
-
  {% block content %}
 
      <div class="content-top">
@@ -76,9 +62,6 @@
 
     {% javascripts output='js/app_goal_view.js'
         'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
-        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/swiper/dist/js/swiper.min.js'
-        'bundles/app/js/swiper-inner.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
