@@ -462,10 +462,8 @@ header{
                 }
               }
 
-
               .icon-plus-icon{
                 font-size:30px;
-
               }
 
               &:hover{
@@ -481,7 +479,6 @@ header{
                 }
               }
             }
-
           }
         }
 
@@ -718,6 +715,7 @@ header{
         border-bottom: 1px solid #e5e5e5;
         position: relative;
         cursor:pointer;
+        float: none;
 
         &:first-child{
           padding: 6px 10px 5px;
@@ -2290,8 +2288,24 @@ footer{
             width:210px;
 
           .user{
+            padding: 15px 5px 13px 15px;
+
+            figure{
+              width:50px;
+              height:50px;
+              img{
+                height:50px;
+              }
+            }
+
+            p{
+              width:50px;
+              height:50px;
+              line-height: 46px;
+            }
+
             span.name{
-              padding:9px 0 4px 8px;
+              padding:15px 0 4px 8px;
               font-size:16px;
             }
           }
@@ -2360,8 +2374,6 @@ footer{
       }
     }
   }
-
-
 
   .search{
     form{
@@ -2658,8 +2670,6 @@ footer{
 
 @media (min-width: @screen-md) {
 
-
-
   header{
 
     .navbar-brand{
@@ -2685,22 +2695,21 @@ footer{
 
           .user{
             padding: 18px 5px 16px 15px;
-
-            figure{
-              width:50px;
-              height:50px;
-              img{
-                height:50px;
-              }
-            }
-
-            p{
-              float: left;
-              width:50px;
-              height:50px;
-              line-height: 46px;
-              font-size:14px;
-            }
+            //
+            //figure{
+            //  width:50px;
+            //  height:50px;
+            //  img{
+            //    height:50px;
+            //  }
+            //}
+            //
+            //p{
+            //  width:50px;
+            //  height:50px;
+            //  line-height: 46px;
+            //  font-size:14px;
+            //}
 
             span.name{
               padding: 13px 0 4px 8px;
