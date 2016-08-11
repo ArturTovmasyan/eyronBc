@@ -1,4 +1,4 @@
- <div data-ng-cloak class="filters-slider swiper-container ng-hide" data-ng-show="filterVisibility">
+ <div data-ng-cloak class="filters-slider swiper-container ng-hide" data-ng-show="filterVisibility" data-ng-init="categoriesLength = {{ categories|length }}">
     <ul class="filter swiper-wrapper" data-ng-cloak>
         <li class="swiper-slide">
             <a href="{{ path('goals_list') }}">
@@ -38,7 +38,7 @@
     </ul>
      <div data-ng-show="isMobile" class="ng-hide">
          <!-- Add Arrows -->
-         <div class="swiper-button-next swiper-button-white"></div>
-         <div class="swiper-button-prev swiper-button-white"></div>
+         <div class="swiper-button-next"></div>
+         <div class="swiper-button-prev"></div>
      </div>
 </div>

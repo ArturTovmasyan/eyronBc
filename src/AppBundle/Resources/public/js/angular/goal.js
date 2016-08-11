@@ -623,8 +623,8 @@ angular.module('goal', ['Interpolation',
                 slideInsert(4);
                 $scope.isMobile = true;
                 //$scope.placeholder = '';
-            } else {
-                slideInsert(9);
+            } else {console.log($scope.categoriesLength);
+                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 9);
                 $scope.isMobile = false;
                 //$scope.placeholder = $scope.placeholderText;
             }

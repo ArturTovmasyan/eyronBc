@@ -5,8 +5,12 @@
   background-color: #ffffff;
 
   .swiper-container {
-    height: 55px;
-    border-top: 1px solid #eee;
+    height: 60px;
+  }
+
+  hr{
+    margin: 0;
+    border-color: #eee;
   }
 
   p{
@@ -22,21 +26,42 @@
     padding:5px 0;
   }
 
+  .filters-slider{
+    .swiper-button-prev,.swiper-button-next{
+      width: 10px;
+      height: 19px;
+      top: 65%;
+
+    }
+
+    .swiper-button-prev{
+      background: url('../images/left-slide.png') no-repeat center center;
+      background-size: 100%;
+      left: 7px;
+    }
+
+    .swiper-button-next{
+      background: url('../images/right-slide.png') no-repeat center center;
+      background-size: 100%;
+      right:7px;
+    }
+  }
+
   ul.filter{
-    padding: 5px 0;
+    padding: 7px 0 10px;
     margin-bottom:0;
     min-width:125px;
 
     li{
       display:inline-block;
-      padding: 5px 0;
+      cursor: pointer;
 
       a{
         color:#666666;
         display: block;
         vertical-align: middle;
         font-weight: 600;
-        font-size:11px;
+        font-size: 12px;
         padding: 0;
         text-align: center;
 
@@ -44,24 +69,16 @@
           display: block;
           vertical-align: middle;
           white-space: nowrap;
-          padding:3px 0 0 0;
+          padding: 3px 0 0;
         }
 
         img{
-          height: 20px;
-          //margin-right:7px;
+          height: 30px;
         }
 
         &:hover{
           text-decoration: none;
           color: #7725f6;
-        }
-      }
-      &:hover{
-        //background-color: #7725f6;
-
-        a{
-          color:#ffffff;
         }
       }
     }
@@ -802,7 +819,7 @@
   .content-top{
 
     .swiper-container {
-      height: 75px;
+      height: 70px;
     }
     .icon-arrow-down,.icon-icon-up {
       font-size:20px;
@@ -831,16 +848,14 @@
 
     ul.filter{
       min-width:170px;
-      padding: 5px 0 5px 0;
+      padding: 8px 0 11px;
 
       li{
-        //padding: 10px 21px;
 
         a{
           font-size:14px;
-
-          img{
-            height: 30px;
+          span{
+            padding: 7px 0 0;
           }
         }
       }
