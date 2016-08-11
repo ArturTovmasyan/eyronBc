@@ -2,7 +2,7 @@
     <ul class="filter swiper-wrapper" data-ng-cloak>
         <li class="swiper-slide">
             <a href="{{ path('goals_list') }}">
-                <img src="{{ asset('bundles/app/images/discover.png') }}"/>
+                <img src="{{ asset('bundles/app/images/discover.svg') }}"/>
                 <span>{{ 'discover'|trans }}</span>
             </a>
         </li>
@@ -20,7 +20,7 @@
         {% if mostPopular %}
         <li class="swiper-slide">
             <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
-                <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
+                <img src="{{ asset('bundles/app/images/most-popular.svg') }}"/>
                 <span>{{ 'most_popular'|trans }}</span>
             </a>
         </li>
