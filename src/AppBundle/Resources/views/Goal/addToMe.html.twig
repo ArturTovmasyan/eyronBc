@@ -5,7 +5,7 @@
 
         <div class="modal-top">
             <figure data-ng-if="userGoal.goal.cached_image">
-                <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+                <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
             </figure>
 
             <span class="overlay"></span>
