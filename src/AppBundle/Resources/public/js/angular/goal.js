@@ -591,24 +591,42 @@ angular.module('goal', ['Interpolation',
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
 
         $scope.Ideas = new lsInfiniteItems();
+        $scope.filterVisibility = false;
         $scope.locations = [];
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
-        $scope.placeholder = '';
+        //$scope.placeholder = '';
         var locationsIds = [];
 
         $scope.castInt = function(value){
             return parseInt(value);
         };
 
+        function slideInsert(count){
+            $timeout(function(){
+                var list_swiper = new Swiper('div.filters-slider:not(.swiper-container-horizontal)', {
+                    observer: true,
+                    autoHeight: true,
+                    slidesPerView: count,
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    spaceBetween: 10
+                });
+
+                $scope.filterVisibility = true;
+            }, 1000);
+        }
+
         $timeout(function(){
             if(window.innerWidth < 766){
+                slideInsert(4);
                 $scope.isMobile = true;
-                $scope.placeholder = '';
-            } else {
+                //$scope.placeholder = '';
+            } else {console.log($scope.categoriesLength);
+                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 9);
                 $scope.isMobile = false;
-                $scope.placeholder = $scope.placeholderText;
+                //$scope.placeholder = $scope.placeholderText;
             }
         }, 500);
 
