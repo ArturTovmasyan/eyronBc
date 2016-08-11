@@ -596,7 +596,7 @@ angular.module('goal', ['Interpolation',
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
-        $scope.placeholder = '';
+        //$scope.placeholder = '';
         var locationsIds = [];
 
         $scope.castInt = function(value){
@@ -622,11 +622,11 @@ angular.module('goal', ['Interpolation',
             if(window.innerWidth < 766){
                 slideInsert(4);
                 $scope.isMobile = true;
-                $scope.placeholder = '';
+                //$scope.placeholder = '';
             } else {
                 slideInsert(9);
                 $scope.isMobile = false;
-                $scope.placeholder = $scope.placeholderText;
+                //$scope.placeholder = $scope.placeholderText;
             }
         }, 500);
 

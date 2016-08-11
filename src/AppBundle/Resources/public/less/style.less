@@ -1047,7 +1047,7 @@ label{
 .search{
   overflow: hidden;
   form{
-    padding:0 0 0 5px;
+    padding:0 0 0 20px;
     margin: 10px auto 5px;
 
     .icon-search-icon{
@@ -1055,15 +1055,17 @@ label{
       font-size: 30px;
       vertical-align: middle;
       position: absolute;
+
     }
 
     input{
       border:0;
       color:#333333;
       background-color: transparent;
-      padding: 0 30px 0 40px;
+      padding: 0 45px 0 40px;
       box-shadow: none;
       font-weight: normal;
+      font-size:20px;
     }
   }
 }
@@ -1090,7 +1092,7 @@ label{
 .content-top{
   .close-icon{
     top:18px;
-    right:23px;
+    right:5px;
   }
 }
 
@@ -2367,9 +2369,10 @@ footer{
     form{
       padding:13px 2px 13px 15px;
 
-      input{
+      input.form-control{
         font-size:22px;
         padding-left:43px;
+        width: 100%;
       }
     }
   }
@@ -3104,4 +3107,25 @@ html {
       padding-bottom: 0;
     }
   }
+}
+
+.map-marker-new{
+  display: inline-block;
+  width: 25px;
+  height: 33px;
+  background: url('../images/map-icon.png') no-repeat center center;
+  background-size: 100%;
+
+  &:hover{
+    background: url('../images/map-icon-active.png') no-repeat center center;
+    background-size: 100%;
+  }
+}
+
+.map-marker-active{
+  display: inline-block;
+  width: 25px;
+  height: 33px;
+  background: url('../images/map-icon-active.png') no-repeat center center;
+  background-size: 100%;
 }
