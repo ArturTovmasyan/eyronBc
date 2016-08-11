@@ -22,7 +22,9 @@
                    <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
                         <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
                            <figure class="pull-left">
-                               <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"/>
+                               <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]" height="60"/>
+                               {% set className = "user-no" ~ random(4) %}
+                               <p data-ng-if="!notify.notification.performer.image_path" class="{{ className }}">[[ (notify.notification.performer.first_name | limitTo:1 | uppercase) + (notify.notification.performer.last_name | limitTo:1 | uppercase) ]]</p>
                            </figure>
 
                             <p>

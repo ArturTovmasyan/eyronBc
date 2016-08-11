@@ -133,7 +133,7 @@
                                data-ng-class="{height: (($index + 1) % 7) == 6 || (($index + 1) % 7) == 0}"
                                class="goalTitle">
                                 <span class="overlay"></span>
-                                <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                                <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
                             </a>
 
                             <div class="absolute">
