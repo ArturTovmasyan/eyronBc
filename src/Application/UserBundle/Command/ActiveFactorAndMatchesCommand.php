@@ -10,6 +10,7 @@ namespace Application\UserBundle\Command;
 use Application\UserBundle\Entity\MatchUser;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -23,7 +24,9 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
     {
         $this
             ->setName('bl:active_factor:match:calculator')
-            ->setDescription('This command is used to calculate user active factor and match matches');
+            ->setDescription('This command is used to calculate user active factor and match matches')
+            ->addArgument('usersCount', InputArgument::OPTIONAL, 'Count of users')
+        ;
     }
 
     /**
@@ -35,10 +38,13 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $output->writeln('start');
 
+        $lastMonth = new \DateTime();
+        $lastMonth->modify('-1 month');
+
         $users = $em->createQuery("SELECT u as user, mu,
-                                      (SELECT COUNT(cmt) FROM ApplicationCommentBundle:Comment cmt WHERE cmt.author = u) as commentCount,
-                                      (SELECT COUNT(ss)  FROM AppBundle:SuccessStory ss WHERE ss.user = u) as storyCount,
-                                      (SELECT COUNT(ug)  FROM AppBundle:UserGoal ug WHERE ug.user = u) as goalCount
+                                      (SELECT COUNT(cmt) FROM ApplicationCommentBundle:Comment cmt WHERE cmt.author = u AND cmt.createdAt >= :lastMonth) as commentCount,
+                                      (SELECT COUNT(ss)  FROM AppBundle:SuccessStory ss WHERE ss.user = u AND ss.created >= :lastMonth) as storyCount,
+                                      (SELECT COUNT(ug)  FROM AppBundle:UserGoal ug WHERE ug.user = u AND ug.listedDate >= :lastMonth) as goalCount
                                    FROM ApplicationUserBundle:User u
                                    INDEX BY u.id
                                    LEFT JOIN u.matchedUsers mu
@@ -46,7 +52,8 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
                                    GROUP BY u.id
                                    ORDER BY u.factorCommandDate ASC")
             ->setParameter('currentDate', new \DateTime())
-            ->setMaxResults(100)
+            ->setParameter('lastMonth', $lastMonth)
+            ->setMaxResults($input->getArgument('usersCount') ? $input->getArgument('usersCount') : 100)
             ->getResult();
 
         if (count($users) == 0){
