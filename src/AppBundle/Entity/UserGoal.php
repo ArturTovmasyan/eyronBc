@@ -79,7 +79,7 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="important", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $important = false;
+    protected $important = true;
 
     /**
      * @var
