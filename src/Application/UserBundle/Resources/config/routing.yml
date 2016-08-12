@@ -1,0 +1,16 @@
+application_user:
+    resource: "@ApplicationUserBundle/Controller/"
+    type:     annotation
+
+app_emails_remove_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\SettingsController
+    prefix:   /
+
+application_user_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\UserController
+
+application_report_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\ReportController

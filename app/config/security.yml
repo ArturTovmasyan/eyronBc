@@ -30,6 +30,16 @@ security:
             - ROLE_COMMENT_MODERATOR_EDIT
             - ROLE_COMMENT_MODERATOR_DELETE
 
+            - ROLE_THREAD_MODERATOR_VIEW
+            - ROLE_THREAD_MODERATOR_LIST
+            - ROLE_THREAD_MODERATOR_EDIT
+            - ROLE_THREAD_MODERATOR_DELETE
+
+            - ROLE_REPORT_MODERATOR_VIEW
+            - ROLE_REPORT_MODERATOR_LIST
+            - ROLE_REPORT_MODERATOR_EDIT
+            - ROLE_REPORT_MODERATOR_DELETE
+
     firewalls:
         main:
             simple_preauth:
