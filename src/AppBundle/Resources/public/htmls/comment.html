@@ -45,19 +45,16 @@
         <div class="pull-left">
             <p>[[ comment.author.show_name ]]</p>
             <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
+            <p data-ls-report
+               data-ls-user="[[ comment.author.id ]]"
+               data-ls-comment="[[ comment.id ]]">Report</p>
         </div>
     </div>
 
     <div>
         <span class="fos_comment_comment_authorname">
             <i class="arrow-up"></i>
-            <p>
-                <!--{% if comment is fos_comment_raw %}-->
-                <!--{{ comment.rawBody | raw }}-->
-                <!--{% else %}-->
-                    [[ comment.comment_body  ]]
-                <!--{% endif %}-->
-            </p>
+            <p>[[ comment.comment_body  ]]</p>
         </span>
 
         <div class="border-left">
@@ -78,6 +75,9 @@
                         <div class="pull-left">
                             <p>[[ child.author.show_name ]] <span class="text-dark-gray">[[ ::lsReplied ]]</span></p>
                             <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
+                            <p data-ls-report
+                               data-ls-user="[[ comment.author.id ]]"
+                               data-ls-comment="[[ comment.id ]]">Report</p>
                         </div>
                     </div>
 

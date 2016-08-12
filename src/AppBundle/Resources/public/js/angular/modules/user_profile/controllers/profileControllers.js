@@ -176,4 +176,11 @@ angular.module('profile')
         return parseInt(value);
       };
     }
+  ])
+  .controller('reportController',['$scope', 'userData',
+  function ($scope, userData) {
+    $scope.userId = userData.report.user;
+    $scope.commentId = userData.report.comment;
+
+  }
   ]);

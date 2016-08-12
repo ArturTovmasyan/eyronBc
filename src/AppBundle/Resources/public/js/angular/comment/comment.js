@@ -3,6 +3,7 @@
 angular.module('comments', ['Interpolation',
   'Components',
   'ngResource',
+  'goalManage',
   'PathPrefix'
 ]).directive('lsCommentManage',['$compile',
   '$rootScope',
