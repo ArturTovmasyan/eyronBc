@@ -11,6 +11,10 @@ application_user_rest:
     type:     rest
     resource: Application\UserBundle\Controller\Rest\UserController
 
+application_notification_rest:
+    type:     rest
+    resource: Application\UserBundle\Controller\Rest\NotificationController
+
 application_report_rest:
     type:     rest
     resource: Application\UserBundle\Controller\Rest\ReportController

@@ -35,6 +35,7 @@ class ReportController extends FOSRestController
      *         404="Return when reported user or report content not found"
      *     },
      * parameters={
+     *      {"name"="reportType", "dataType"="integer", "required"=true, "description"="Reporte type (comment, success story, ...)"},
      *      {"name"="contentType", "dataType"="integer", "required"=true, "description"="Reported content type (comment, success story, ...)"},
      *      {"name"="contentId",   "dataType"="string",  "required"=true, "description"="Reported content id"},
      *      {"name"="message",     "dataType"="string",  "required"=true, "Report description"}
@@ -49,9 +50,11 @@ class ReportController extends FOSRestController
     public function putAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $request->request->add(json_decode($request->getContent()));
 
         $report = new Report();
         $report->setUser($this->getUser());
+        $report->setReportType($request->get('reportType', null));
         $report->setContentType($request->get('contentType', null));
         $report->setContentId($request->get('contentId', null));
         $report->setMessage($request->get('message', null));

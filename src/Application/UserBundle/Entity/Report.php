@@ -23,6 +23,8 @@ class Report
     const COMMENT       = 0;
     const SUCCESS_STORY = 1;
 
+    const SPAM          = 2;
+    const SHOULD_NOT    = 3;
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
@@ -54,6 +56,13 @@ class Report
      * @Assert\NotBlank()
      */
     protected $contentId;
+
+    /**
+     * @ORM\Column(name="report_type", type="smallint", nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Choice(callback = "getAllowedReportTypes")
+     */
+    protected $reportType;
 
     /**
      * @ORM\Column(name="message", type="string", length=1000, nullable=false)
@@ -211,6 +220,14 @@ class Report
     }
 
     /**
+     * @return array
+     */
+    public static function getAllowedReportTypes()
+    {
+        return [self::SPAM, self::SHOULD_NOT];
+    }
+
+    /**
      * Set created
      *
      * @param \DateTime $created
@@ -222,6 +239,22 @@ class Report
         $this->created = $created;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReportType()
+    {
+        return $this->reportType;
+    }
+
+    /**
+     * @param mixed $reportType
+     */
+    public function setReportType($reportType)
+    {
+        $this->reportType = $reportType;
     }
 
     /**
