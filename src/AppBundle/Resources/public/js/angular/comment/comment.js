@@ -102,7 +102,7 @@ angular.module('comments', ['Interpolation',
       return {
         restrict: 'EA',
         scope: {
-          lsUser: '@',
+          lsType: '@',
           lsComment: '@'
         },
         link: function(scope, el){
@@ -114,7 +114,7 @@ angular.module('comments', ['Interpolation',
           scope.run = function(){
             $(".modal-loading").show();
             userData.report = {
-              user: scope.lsUser,
+              type: scope.lsType,
               comment: scope.lsComment
             };
             scope.runCallback()

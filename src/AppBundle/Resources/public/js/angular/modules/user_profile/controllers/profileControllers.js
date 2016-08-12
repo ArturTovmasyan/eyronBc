@@ -179,19 +179,23 @@ angular.module('profile')
   ])
   .controller('reportController',['$scope', 'userData', 'UserGoalDataManager', '$timeout',
   function ($scope, userData, UserGoalDataManager, $timeout) {
-    $scope.userId = userData.report.user;
-    $scope.commentId = userData.report.comment;
+    $scope.reportDate = {};
+    $scope.reportDate.contentId = userData.report.comment;
+    $scope.reportDate.contentType = userData.report.type;
     $scope.isReported = false;
 
     $scope.report = function(){
       if(!($scope.reportOption || $scope.reportText))return;
 
-      //UserGoalDataManager.report({}, function (newData) {
+      $scope.reportDate.reportType = $scope.reportOption?$scope.reportOption:null;
+      $scope.reportDate.message = $scope.reportText?$scope.reportText:null;
+
+      UserGoalDataManager.report({}, $scope.reportDate, function (newData) {
         $scope.isReported = true;
-      $timeout(function(){
-        $('#report-modal .close-icon').click();
-      },1500);
-      //})
+        $timeout(function(){
+          $('#report-modal .close-icon').click();
+        },1500);
+      })
     }
 
   }

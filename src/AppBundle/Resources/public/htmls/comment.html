@@ -46,7 +46,7 @@
             <p>[[ comment.author.show_name ]]</p>
             <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
             <span data-ls-report
-               data-ls-user="[[ comment.author.id ]]"
+               data-ls-type="0"
                data-ls-comment="[[ comment.id ]]"
                class="report">[[ ::lsReportTitle ]]</span>
         </div>
@@ -77,7 +77,7 @@
                             <p>[[ child.author.show_name ]] <span class="text-dark-gray">[[ ::lsReplied ]]</span></p>
                             <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
                             <span data-ls-report
-                                  data-ls-user="[[ comment.author.id ]]"
+                                  data-ls-type="0"
                                   data-ls-comment="[[ comment.id ]]"
                                   class="report">[[ ::lsReportTitle ]]</span>
                         </div>
