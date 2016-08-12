@@ -1,43 +1,41 @@
 <div data-ng-controller="reportController" class="bg-grey" id="report-modal">
 
     <div class="bg-white">
-        <h3>{{ 'report.title'|trans({},'messages') }}</h3>
+        <h3 data-ng-show="!isReported">{{ 'report.title'|trans({},'messages') }}</h3>
 
-        <h3 class="ng-hide">{{ 'report.thanks'|trans({},'messages') }}</h3>
+        <h3 class="ng-hide text-center" data-ng-show="isReported">{{ 'report.thanks'|trans({},'messages') }}</h3>
 
-        <a class="close-icon" rel="modal:close"></a>
+        <a class="close-icon" rel="modal:close" data-ng-show="!isReported"></a>
     </div>
 
     <div class="report-content">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" data-ng-show="!isReported">
 
             <div class="radio">
                 <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    <input type="radio" data-ng-model="reportOption" name="optionsRadios" id="optionsRadios1" value="option1" checked>
                     {{ 'report.spam'|trans({},'messages') }}
                 </label>
             </div>
 
             <div class="radio">
                 <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    <input type="radio" data-ng-model="reportOption" name="optionsRadios" id="optionsRadios2" value="option2">
                      {{ 'report.opinion'|trans({},'messages') }}
                 </label>
             </div>
 
-            <textarea class="form-control" rows="3" placeholder="{{ 'report.other'|trans({},'messages') }}"></textarea>
+            <textarea class="form-control" rows="3" data-ng-model='reportText' placeholder="{{ 'report.other'|trans({},'messages') }}"></textarea>
 
         </form>
 
-
-
-        <p class="text-center">{{ 'report.message'|trans({},'messages') }}</p>
+        <p data-ng-show="isReported" class="text-center ng-hide">{{ 'report.message'|trans({},'messages') }}</p>
 
     </div>
 
-    <div class="bg-white padding text-center">
-        <button name="submit" class="btn btn-purple">{{ 'submit'|trans({},'messages') }}</button>
+    <div class="bg-white padding text-center" data-ng-show="!isReported">
+        <button name="submit" data-ng-click="report()" class="btn btn-purple" data-ng-class="{'purple-transparent': !(reportOption || reportText)}">{{ 'submit'|trans({},'messages') | upper }}</button>
     </div>
 
 </div>

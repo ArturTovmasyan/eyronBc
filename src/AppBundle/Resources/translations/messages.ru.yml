@@ -400,7 +400,7 @@ is not equal to: is not equal to
 report:
   title: Рапорт
   spam: Это раздражает или спам
-  opinion: Я думаю, что это не должно быть в BucketList127
-  other: Другой
+  opinion: Я думаю, что это не должно быть на BucketList127
+  other: Другие
   thanks: Спасибо
   message: Мы получили ваш рапорт

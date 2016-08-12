@@ -177,10 +177,22 @@ angular.module('profile')
       };
     }
   ])
-  .controller('reportController',['$scope', 'userData',
-  function ($scope, userData) {
+  .controller('reportController',['$scope', 'userData', 'UserGoalDataManager', '$timeout',
+  function ($scope, userData, UserGoalDataManager, $timeout) {
     $scope.userId = userData.report.user;
     $scope.commentId = userData.report.comment;
+    $scope.isReported = false;
+
+    $scope.report = function(){
+      if(!($scope.reportOption || $scope.reportText))return;
+
+      //UserGoalDataManager.report({}, function (newData) {
+        $scope.isReported = true;
+      $timeout(function(){
+        $('#report-modal .close-icon').click();
+      },1500);
+      //})
+    }
 
   }
   ]);

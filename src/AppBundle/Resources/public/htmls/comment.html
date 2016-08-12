@@ -45,9 +45,10 @@
         <div class="pull-left">
             <p>[[ comment.author.show_name ]]</p>
             <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
-            <p data-ls-report
+            <span data-ls-report
                data-ls-user="[[ comment.author.id ]]"
-               data-ls-comment="[[ comment.id ]]">Report</p>
+               data-ls-comment="[[ comment.id ]]"
+               class="report">[[ ::lsReportTitle ]]</span>
         </div>
     </div>
 
@@ -75,9 +76,10 @@
                         <div class="pull-left">
                             <p>[[ child.author.show_name ]] <span class="text-dark-gray">[[ ::lsReplied ]]</span></p>
                             <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
-                            <p data-ls-report
-                               data-ls-user="[[ comment.author.id ]]"
-                               data-ls-comment="[[ comment.id ]]">Report</p>
+                            <span data-ls-report
+                                  data-ls-user="[[ comment.author.id ]]"
+                                  data-ls-comment="[[ comment.id ]]"
+                                  class="report">[[ ::lsReportTitle ]]</span>
                         </div>
                     </div>
 
