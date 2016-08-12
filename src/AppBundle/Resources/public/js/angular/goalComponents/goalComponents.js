@@ -320,12 +320,13 @@ angular.module('goalComponents', ['Interpolation',
         $scope.isInValid();
         if($scope.year && $scope.month && $scope.day && $scope.newAdded){
             $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+            $scope.firefox_completed_date = moment($scope.year + ',' +$scope.month+','+$scope.day).format('YYYY-MM-DD');
             var comletion_date = {
               'goal_status'    : true,
               'completion_date': $scope.completion_date
             };
 
-            if($scope.compareDates($scope.completion_date) === 1){
+            if($scope.compareDates($scope.firefox_completed_date) === 1){
               $scope.invalidYear = true;
               return;
             } else {
@@ -337,7 +338,7 @@ angular.module('goalComponents', ['Interpolation',
               if(angular.element('#'+ selector).length > 0) {
                 var parentScope = angular.element('#' + selector).scope();
                 if(!angular.isUndefined(parentScope.goalDate)) {
-                  parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.completion_date);
+                  parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
                 }
               }
 
@@ -487,6 +488,8 @@ angular.module('goalComponents', ['Interpolation',
         } else{
           if(!angular.isUndefined($scope.userGoal.do_date)){
             $scope.updateDate($scope.userGoal.do_date);
+            $scope.firefox_do_date = moment($scope.userGoal.do_date).format('YYYY-MM-DD');
+            $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
           }
         }
       }, 500);
@@ -644,13 +647,16 @@ angular.module('goalComponents', ['Interpolation',
             dateChanged = true;
             if($scope.complete.switch){
               $scope.userGoal.completion_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.firefox_completed_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month) + 1)+','+$scope.day).format('YYYY-MM-DD');
             }else{
               $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.firefox_do_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month) + 1)+','+$scope.day).format('YYYY-MM-DD');
             }
           } else if($scope.year){//when select dodate year
             dateChanged = true;
             var month = $scope.month?($scope.months.indexOf($scope.month) + 1): 12;
             $scope.userGoal.do_date = moment(month+','+ ((month == 2)?28:31) +','+$scope.year).format('MM-DD-YYYY');
+            $scope.firefox_do_date = moment($scope.year +','+month+','+ ((month == 2)?28:31)).format('YYYY-MM-DD');
           //  todo some thing in circles
           }
           else if($scope.month || $scope.day){
@@ -658,7 +664,7 @@ angular.module('goalComponents', ['Interpolation',
             return;
           }
           $scope.invalidYear = false;
-          if($scope.userGoal.completion_date && $scope.compareDates($scope.userGoal.completion_date) === 1){
+          if($scope.userGoal.completion_date && $scope.compareDates($scope.firefox_completed_date) === 1){
             $scope.invalidYear = true;
             return;
           }
@@ -675,7 +681,7 @@ angular.module('goalComponents', ['Interpolation',
                   //and date be changed
                   if ($scope.userGoal.do_date) {
                     //change  doDate
-                    parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
+                    parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_do_date);
                     angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
                   } else {
                     //infinity
@@ -686,7 +692,7 @@ angular.module('goalComponents', ['Interpolation',
                   //new datetime for completed
                   angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
                   if($scope.userGoal.completion_date){
-                    parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.completion_date);
+                    parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
                   }else {
                     parentScope.goalDate[$scope.userGoal.goal.id] = new Date();
                   }
@@ -695,12 +701,12 @@ angular.module('goalComponents', ['Interpolation',
             } else {
               if (!isSuccess && dateChanged && $scope.userGoal.do_date && !angular.isUndefined(parentScope.goalDate)) {
                 //change for doDate
-                parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.do_date);
+                parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_do_date);
                 angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
               }else{
                 if(isSuccess && dateChanged && $scope.userGoal.completion_date){
                   angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
-                  parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.userGoal.completion_date);
+                  parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
                 }
               }
             }
