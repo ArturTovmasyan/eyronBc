@@ -29,10 +29,10 @@ angular.module('manage', ['Interpolation',
             goalUsersUrl = envPrefix + "goal/users",
             id = UserContext.id;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v1');
+        var templateCache = CacheFactory.get('bucketlist_templates_v2');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v1', {
+            templateCache = CacheFactory('bucketlist_templates_v2', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });
@@ -173,7 +173,7 @@ angular.module('manage', ['Interpolation',
                     scope.runCallback = function(uGoal){
                         userGoalData.data = uGoal;
                         if(userGoalData.data.do_date){
-                            userGoalData.data.do_date = moment(userGoalData.data.do_date).format('MM-DD-YYYY');
+                            // userGoalData.data.do_date = moment(userGoalData.data.do_date).format('MM-DD-YYYY');
                         }
 
                         var sc = $rootScope.$new();
