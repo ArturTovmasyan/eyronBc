@@ -78,7 +78,7 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true">
+                        <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true">
+                        <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-sm-4 date">
 
-                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true">
+                        <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
