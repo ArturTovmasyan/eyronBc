@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ⚡ data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
 {% block content %}
     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}

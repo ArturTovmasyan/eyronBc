@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% block angularApp %} <html ⚡ data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
+{% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
 {% set host = app.request.getSchemeAndHttpHost() %}
@@ -26,6 +26,10 @@
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
+        {# this allows to add additional meta data #}
+        {% block meta %}{% endblock %}
+
+        {# styles #}
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
