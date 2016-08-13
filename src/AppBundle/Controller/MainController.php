@@ -175,10 +175,9 @@ class MainController extends Controller
      *   "repository_method" = "findOneBySlug" })
      *
      * @param Goal $goal
-     * @param Request $request
      * @return array
      */
-    public function goalUsersAction(Goal $goal, Request $request)
+    public function goalUsersAction(Goal $goal)
     {
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getDoctrine()->getManager();
