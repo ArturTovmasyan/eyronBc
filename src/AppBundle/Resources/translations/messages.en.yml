@@ -69,6 +69,7 @@ goal:
       as_private: Set as private
       as_invisible: Set as Invisible
       as_visible: Set as Visible
+      visible: Visible
       not_found: Sorry, we couldn't find anything, but you can explore other ideas:
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
