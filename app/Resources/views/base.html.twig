@@ -218,7 +218,6 @@
                                         {% if app.user and app.user.activity %}
                                             <li>
                                                 <a href="{{ path('activity') }}">
-                                                    {#<i class="icon-activity-icon"></i>#}
                                                     <i class="activity-icon"></i>
                                                     <span>{{ 'activity'|trans }}</span>
                                                 </a>
@@ -229,7 +228,6 @@
 
                                         <li>
                                             <a href="{{ path('goals_list') }}">
-                                                {#<i class="icon-ideas-icon"></i>#}
                                                 <i class="ideas-icon"></i>
                                                 <span>{{ 'ideas'| trans | capitalize }}</span>
                                             </a>
