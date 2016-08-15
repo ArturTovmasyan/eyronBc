@@ -1149,10 +1149,12 @@ class User extends BaseUser
         //get userEmails
         $userEmails = $this->getUserEmails();
 
-        //get last userEmails in array
-        $userEmail = end($userEmails);
+        if (is_array($userEmails)) {
+            //get last userEmails in array
+            $userEmail = end($userEmails);
+        }
 
-        return $userEmail;
+        return isset($userEmail) ? $userEmail : null;
     }
 
     /**
