@@ -29,21 +29,14 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
         $counter = 0;
 
         //get all userGoals
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalIdsByActivityPerformDate($first = null, $count = null);
-
-        $userGoalIds = [];
-
-        foreach ($userGoals as $userGoal)
-        {
-            $userGoalIds[] = $userGoal['id'];
-        }
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalIdsByActivityPerformDate();
 
         //get user goal by id
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoalIds);
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoals);
 
         $output->writeln("<info>Starting</info>");
 
-        $progress = new ProgressBar($output, count($userGoalIds));
+        $progress = new ProgressBar($output, count($userGoals));
 
         $progress->start();
 
@@ -65,7 +58,7 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
             $counter++;
             $progress->advance();
 
-            if ($counter > 10){
+            if ($counter > 50){
                 $em->flush();
                 $counter = 0;
             }
