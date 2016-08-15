@@ -192,7 +192,7 @@ class UserGoalRepository extends EntityRepository
     }
 
     /**
-     * This function is used to get userGoal by completion, listed and activity perform date
+     * This function is used to get userGoals id by completion, listed and activity perform date
      *
      * @return array
      */
