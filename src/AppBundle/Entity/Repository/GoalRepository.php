@@ -440,12 +440,11 @@ class GoalRepository extends EntityRepository
     public function findWithRelations($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, i, t, au, ug, gs, f, gsu, v
+            ->createQuery("SELECT g, i, t, au, gs, f, gsu, v
                            FROM AppBundle:Goal g
                            LEFT JOIN g.tags t
                            LEFT JOIN g.images i
                            LEFT JOIN g.author au
-                           LEFT JOIN au.userGoal ug
                            LEFT JOIN g.successStories gs
                            LEFT JOIN gs.user gsu
                            LEFT JOIN gs.files f
