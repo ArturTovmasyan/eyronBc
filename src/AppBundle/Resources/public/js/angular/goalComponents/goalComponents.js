@@ -359,7 +359,7 @@ angular.module('goalComponents', ['Interpolation',
             $scope.saveDate();
         }else if($scope.year && $scope.year != $scope.defaultYear){//when select only year
           var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): moment(new Date()).format('M');
-          var day = (day)?day:moment(new Date()).format('D');
+          var day = moment(new Date()).format('D');
           $scope.completion_date = moment(month+','+ day +','+$scope.year).format('MM-DD-YYYY');
           $scope.firefox_completed_date = moment($scope.year + ',' +month+','+day).format('YYYY-MM-DD');
           $scope.saveDate();
@@ -481,6 +481,11 @@ angular.module('goalComponents', ['Interpolation',
       $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
       $scope.completeYears = _.map($(Array(myDate - 1966 - 50)), function (val, i) { return myDate - 50 - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
+      $timeout(function () {
+        $scope.years.unshift($scope.defaultYear);
+        $scope.completeYears.unshift($scope.defaultYear);
+        $scope.days.unshift($scope.defaultDay);
+      },100);
 
       $scope.$watch('myMonths', function(m){
         $scope.months = _.values(m);
@@ -492,9 +497,9 @@ angular.module('goalComponents', ['Interpolation',
           $scope.day = moment(date).format('D');
           $scope.year = moment(date).format('YYYY');
         }else {
-          $scope.month = "";
-          $scope.day   = "";
-          $scope.year  = "";
+          $scope.month = $scope.defaultMonth;
+          $scope.day   = $scope.defaultDay;
+          $scope.year  = $scope.defaultYear;
         }
       };
 
@@ -661,23 +666,38 @@ angular.module('goalComponents', ['Interpolation',
       $scope.save = function () {
         $timeout(function(){
           $scope.uncompletedYear = false;
-          if($scope.year && $scope.month && $scope.day){
+          if($scope.year && $scope.year != $scope.defaultYear &&
+            $scope.month && $scope.month != $scope.defaultMonth &&
+            $scope.day && $scope.day != $scope.defaultDay){
             dateChanged = true;
             if($scope.complete.switch){
-              $scope.userGoal.completion_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
-              $scope.firefox_completed_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month) + 1)+','+$scope.day).format('YYYY-MM-DD');
+              $scope.userGoal.completion_date = moment(($scope.months.indexOf($scope.month))+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.firefox_completed_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month))+','+$scope.day).format('YYYY-MM-DD');
+              if($scope.userGoal.do_date){
+                $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
+              }
             }else{
-              $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month) + 1)+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
-              $scope.firefox_do_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month) + 1)+','+$scope.day).format('YYYY-MM-DD');
+              $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month))+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
+              $scope.firefox_do_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month))+','+$scope.day).format('YYYY-MM-DD');
             }
-          } else if($scope.year){//when select dodate year
+          } else if($scope.year && $scope.year != $scope.defaultYear){ //when select only year
             dateChanged = true;
-            var month = $scope.month?($scope.months.indexOf($scope.month) + 1): 12;
-            $scope.userGoal.do_date = moment(month+','+ ((month == 2)?28:31) +','+$scope.year).format('MM-DD-YYYY');
-            $scope.firefox_do_date = moment($scope.year +','+month+','+ ((month == 2)?28:31)).format('YYYY-MM-DD');
+            var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): ($scope.complete.switch? moment(new Date()).format('M'):12);
+            var day = moment(new Date()).format('D');
+
+            if($scope.complete.switch){
+              $scope.userGoal.completion_date = moment(month + ',' + day + ',' + $scope.year).format('MM-DD-YYYY');
+              $scope.firefox_completed_date = moment($scope.year + ',' + month + ',' + day).format('YYYY-MM-DD');
+              if($scope.userGoal.do_date){
+                $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
+              }
+            }else {
+              $scope.userGoal.do_date = moment(month + ',' + ((month == 2) ? 28 : 31) + ',' + $scope.year).format('MM-DD-YYYY');
+              $scope.firefox_do_date = moment($scope.year + ',' + month + ',' + ((month == 2) ? 28 : 31)).format('YYYY-MM-DD');
+            }
           //  todo some thing in circles
           }
-          else if($scope.month || $scope.day){
+          else if(($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)){
             $scope.uncompletedYear = true;
             return;
           }

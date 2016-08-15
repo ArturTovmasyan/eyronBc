@@ -38,6 +38,7 @@
             </div>
         </div>
         {% set arrayMonth = {
+        0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),
         1:'form.month_january'|trans({}, 'FOSUserBundle'),
         2:'form.month_february'|trans({}, 'FOSUserBundle'),
         3:'form.month_march'|trans({}, 'FOSUserBundle'),
@@ -55,7 +56,10 @@
         <form class="form-horizontal" method="post" data-ng-init="myMonths={{ arrayMonth |json_encode()}}; redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">
                 {# edit goal status #}
-                <div class="clearfix ng-hide" data-ng-show="userGoal.id">
+                <div class="clearfix ng-hide" data-ng-show="userGoal.id"
+                     data-ng-init="defaultYear = '{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}';
+                                    defaultDay = '{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}';
+                                    defaultMonth = '{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}'">
                     <div class="form-group row no-marginb">
 
                         <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
