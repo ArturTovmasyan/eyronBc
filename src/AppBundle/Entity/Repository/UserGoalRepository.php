@@ -208,8 +208,8 @@ class UserGoalRepository extends EntityRepository
                              AND ug.listed_date < COALESCE((SELECT MIN(n.perform_date) 
                                                            FROM new_feed as n 
                                                           WHERE n.user_id = ug.user_id), CURRENT_DATE()))
-                        OR  (ug.completion_date is not null
-                             AND ug.listed_date < COALESCE((SELECT MIN(n.perform_date) 
+                        OR  (ug.completion_date is not null 
+                             AND ug.completion_date < COALESCE((SELECT MIN(n.perform_date) 
                                                            FROM new_feed as n 
                                                           WHERE n.user_id = ug.user_id), CURRENT_DATE()))')
         ;
