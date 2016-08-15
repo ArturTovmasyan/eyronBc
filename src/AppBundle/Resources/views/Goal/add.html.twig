@@ -1,6 +1,6 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{% block angularApp %} <html ⚡ data-ng-app="goal" data-ng-controller="goalAdd"> {% endblock %}
+{% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalAdd"> {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -171,7 +171,7 @@
 
                                      {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "data-ng-model":"description", "data-ng-init":"description ='" ~ form.vars.value.description ~ "'", "data-value" : "[[ description ]]" } }) }}
                                      <div class="tags" data-ng-cloak>
-                                         <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ ::tag ]] </button>
+                                         <button data-ng-repeat="tag in tags track by $index" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
                                      <p class="text-gray">

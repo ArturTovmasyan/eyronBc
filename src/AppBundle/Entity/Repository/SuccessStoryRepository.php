@@ -48,4 +48,39 @@ class SuccessStoryRepository extends EntityRepository
             ->setParameter('storyId', $storyId)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $storyId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findStoryWithAuthor($storyId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ss, u
+                           FROM AppBundle:SuccessStory ss
+                           LEFT JOIN ss.user u
+                           WHERE ss.id = :storyId")
+            ->setParameter('storyId', $storyId)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $ids
+     * @return array
+     */
+    public function findByIds($ids)
+    {
+        if (count($ids) == 0){
+            return [];
+        }
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT ss
+                           FROM AppBundle:SuccessStory ss
+                           INDEX BY ss.id
+                           WHERE ss.id IN (:ids)")
+            ->setParameter('ids', $ids)
+            ->getResult();
+    }
 }

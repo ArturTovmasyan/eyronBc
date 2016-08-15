@@ -62,6 +62,13 @@
             </argument>
         </service>
 
+        <service id="report.moderator" class="Application\UserBundle\Admin\ReportAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.report"/>
+            <argument/>
+            <argument>Application\UserBundle\Entity\Report</argument>
+            <argument/>
+        </service>
+
     </services>
 
 </container>

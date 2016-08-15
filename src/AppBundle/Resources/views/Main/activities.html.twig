@@ -1,19 +1,7 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block angularApp %}
-    <html ⚡ data-ng-app="goal" xmlns="http://www.w3.org/1999/xhtml">
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-
-    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
-    {% stylesheets output='css/layout_activity.css'
-    'app/bower_components/swiper/dist/css/swiper.min.css'
-    filter='less,cssrewrite'
-    %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
-    {% endstylesheets %}
+    <html data-ng-app="goal" xmlns="http://www.w3.org/1999/xhtml">
 {% endblock %}
 
 {% block content %}
@@ -39,17 +27,6 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    {% javascripts output='js/app_activity.js'
-    'app/bower_components/swiper/dist/js/swiper.min.js'
-    'bundles/app/js/swiper-inner.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 {% endblock %}
 
 {%- block title -%}

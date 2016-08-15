@@ -406,35 +406,48 @@
                                          count[{{ story.id }}] = {{ story.voters|length }};
                                          vote[{{ story.id }}] = '{{ app.user is not null and story.isVote(app.user.id) }}'? true: false">
                                         <div class="row">
-                                            <a href="{{ path('user_profile',  {'user': addedUser.uId})}}">
+
                                                 <div class="col-xs-2 col-sm-1">
-                                                    {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
-                                                    {% set className = "user-no" ~ random(4) %}
+                                                    <a href="{{ path('user_profile',  {'user': addedUser.uId})}}">
+                                                        {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                        {% set className = "user-no" ~ random(4) %}
 
-                                                    {% if addedUser.getPhotoLink  %}
-                                                        <figure class="user-image">
-                                                            <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
-                                                        </figure>
-                                                    {% else %}
-                                                        <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
-                                                    {% endif %}
-
+                                                        {% if addedUser.getPhotoLink  %}
+                                                            <figure class="user-image">
+                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
+                                                            </figure>
+                                                        {% else %}
+                                                            <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
+                                                        {% endif %}
+                                                    </a>
                                                 </div>
 
                                                 <div class="col-xs-10 col-sm-8">
-                                                    <p>{{ addedUser.showName }} </p>
+                                                    <p>
+                                                        <a href="{{ path('user_profile',  {'user': addedUser.uId})}}" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                    </p>
                                                     <span data-ng-cloak>
                                                         [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                     </span>
-                                                    <p>{{ story.story }}</p>
+                                                    {% if app.user is not null and addedUser.id != app.user.id%}
+                                                        <span data-ls-report
+                                                              data-ls-type="1"
+                                                              data-ls-comment="{{ story.id }}"
+                                                              class="report">{{ 'report.title'|trans({},'messages') }}</span>
+                                                    {% endif %}
+
                                                 </div>
-                                            </a>
 
                                             <div class=" col-sm-3 text-right" data-ng-cloak>
                                                 <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
                                                 <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <p>{{ story.story }} </p>
+                                            </div>
                                         </div>
 
                                         {% if files and files|length %}
@@ -534,6 +547,7 @@
                                      data-ls-slug="{{ goal.slug }}"
                                      data-ls-reply="{{ 'reply'|trans }}"
                                      data-ls-replied="{{ 'replied'|trans }}"
+                                     data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
                                      data-ls-title="{{ 'comments'|trans }}"
                                      data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
                                     {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}

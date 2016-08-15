@@ -25,8 +25,8 @@ angular.module('notification')
       };
       $scope.dropdownOpen = function(){
         if(window.innerWidth < 766){
-          $('ul.dropdown-menu').css('min-width', window.innerWidth)
-          $('ul.dropdown-menu').offset({left: 0})
+          $('#notification ul.dropdown-menu').css('min-width', window.innerWidth);
+          $('#notification ul.dropdown-menu').offset({left: 0})
         }
       };
 
