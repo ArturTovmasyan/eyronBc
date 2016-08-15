@@ -442,3 +442,11 @@ is not equal to: is not equal to
 #                <source>label_name_goal</source>
 #                <target></target>
 #            </trans-unit>
+
+report:
+  title: Report
+  spam: It's annoying or spam
+  opinion: I think it shouldn't be on BucketList127
+  other: Other
+  thanks: Thank you
+  message: We have received your report
