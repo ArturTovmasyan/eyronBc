@@ -28,11 +28,11 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
         //set default counter
         $counter = 0;
 
-        //get all userGoals
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalIdsByActivityPerformDate();
+        //get userGoals ids by perform date
+        $userGoalsIds = $em->getRepository('AppBundle:UserGoal')->findUserGoalIdsByActivityPerformDate();
 
         //get user goal by id
-        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoals);
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoalsIds);
 
         $output->writeln("<info>Starting</info>");
 
@@ -42,16 +42,29 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
 
         foreach ($userGoals as $userGoal)
         {
+            //set action
             $action = NewFeed::GOAL_ADD;
+
+            //set perform date for activity
             $perform_date = $userGoal->getListedDate();
 
-            if($userGoal->getCompletionDate() && ($userGoal->getListedDate() || $userGoal->getListedDate() == null)) {
+            if($userGoal->getCompletionDate() && ($userGoal->getListedDate() || (!$userGoal->getListedDate()))) {
+
+                //set action
                 $action = NewFeed::GOAL_COMPLETE;
+
+                //set perform date for activity
                 $perform_date = $userGoal->getCompletionDate();
             }
 
+            //get user in userGoal
+            $user = $userGoal->getUser();
+
+            //get goal in userGoal
+            $goal = $userGoal->getGoal();
+
             //create activity
-            $newFeed = new NewFeed($action, $userGoal->getUser(), $userGoal->getGoal());
+            $newFeed = new NewFeed($action, $user, $goal);
             $newFeed->setDatetime($perform_date);
             $em->persist($newFeed);
 
