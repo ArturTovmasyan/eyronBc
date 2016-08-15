@@ -243,7 +243,7 @@ angular.module('activity')
         link: function(scope, el){
           scope.$parent.newActivity = false;
 
-          scope.castInt = function(value){
+          scope.$parent.castInt = function(value){
             return parseInt(value);
           };
 
@@ -261,7 +261,7 @@ angular.module('activity')
             }
           }
 
-          scope.loadImage = function (index) {
+          scope.$parent.loadImage = function (index) {
             var activeIndex = scope.$parent.Activities.items[index].activeIndex;
             if(!scope.$parent.Activities.items[index].reserveGoals[activeIndex] && scope.$parent.Activities.items[index].goals[activeIndex]){
               scope.$parent.Activities.items[index].reserveGoals.push(scope.$parent.Activities.items[index].goals[activeIndex]);
@@ -270,7 +270,7 @@ angular.module('activity')
 
           $('body').on('click', '.ActivityPage', function() {
             if(scope.$parent.newActivity){
-              scope.addNew();
+              scope.$parent.addNew();
             } else {
               $("html, body").animate({ scrollTop: 0 }, "slow");
             }
@@ -278,7 +278,7 @@ angular.module('activity')
 
           var interval = $interval(newActivity,120000);
 
-          scope.addNew = function () {
+          scope.$parent.addNew = function () {
             scope.$parent.newActivity = false;
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $timeout(function(){
@@ -294,7 +294,7 @@ angular.module('activity')
                 autoHeight: true,
                 onSlideNextStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
-                  scope.loadImage($(ev.container).data('index'));
+                  scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
                 },
                 onSlidePrevStart: function (ev) {

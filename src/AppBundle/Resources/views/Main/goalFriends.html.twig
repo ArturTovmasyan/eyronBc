@@ -1,7 +1,11 @@
 {% extends "AppBundle::layout.html.twig" %}
 
+{% block meta %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
 {% block angularApp %}
-<html ⚡ data-ng-app="profile" data-ng-controller="friendsController">
+<html data-ng-app="profile" data-ng-controller="friendsController">
 {% endblock %}
 {% set friend = (app.request.get('_route') == 'goal_friends') %}
 {% if app.request.get('slug') is defined %}

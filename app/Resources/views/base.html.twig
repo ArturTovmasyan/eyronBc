@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% block angularApp %} <html ⚡ data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
+{% block angularApp %} <html data-ng-app="main" data-ng-controller="MainController"> {% endblock %}
 
 {% set lang = app.request.attributes.get('_locale') %}
 {% set host = app.request.getSchemeAndHttpHost() %}
@@ -26,6 +26,10 @@
         <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
         <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
+        {# this allows to add additional meta data #}
+        {% block meta %}{% endblock %}
+
+        {# styles #}
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
@@ -183,6 +187,7 @@
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile"{% endif %}>
                                                 <i class="icon-ideas-icon"></i>
+                                                {#<i class="ideas-icon"></i>#}
                                                 <span class="hidden-xs hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                             </a>
                                         </li>
@@ -192,7 +197,7 @@
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
                                         </li>
-                                        <li data-ng-show="!joinToggle11" id="notification" uib-dropdown>
+                                        <li data-ng-show="!joinToggle11" id="notification">
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
@@ -213,7 +218,7 @@
                                         {% if app.user and app.user.activity %}
                                             <li>
                                                 <a href="{{ path('activity') }}">
-                                                    <i  class="icon-activity-icon"></i>
+                                                    <i class="activity-icon"></i>
                                                     <span>{{ 'activity'|trans }}</span>
                                                 </a>
                                             </li>
@@ -223,7 +228,7 @@
 
                                         <li>
                                             <a href="{{ path('goals_list') }}">
-                                                <i class="icon-ideas-icon"></i>
+                                                <i class="ideas-icon"></i>
                                                 <span>{{ 'ideas'| trans | capitalize }}</span>
                                             </a>
                                         </li>
@@ -241,8 +246,7 @@
 
                                         <li>
                                             <a href="{{ path('add_goal') }}">
-                                                {#<i class="icon-creat-icon"></i>#}
-                                                <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                <i class="add-goal"></i>
                                                 <span>{{ 'create_goal'|trans }}</span>
                                             </a>
                                         </li>
@@ -251,7 +255,7 @@
 
                                         <li>
                                             <a href="{{ path("edit_user_profile") }}">
-                                                <i class="icon-settings-icon"></i>
+                                                <i class="settings-icon"></i>
                                                 <span>{{ 'settings'|trans }}</span>
                                             </a>
                                         </li>
@@ -260,7 +264,7 @@
 
                                         <li>
                                             <a href="{{ path("fos_user_security_logout") }}">
-                                                <i class="icon-logout"></i>
+                                                <i class="logout"></i>
                                                 <span>{{ 'logout'|trans }}</span>
                                             </a>
                                         </li>
@@ -289,7 +293,6 @@
                                             </li>
                                         </ul>
 
-
                                     </div>
                                 {% endif %}
                                 <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
@@ -304,6 +307,7 @@
                                     <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="icon-ideas-icon"></i>
+                                            {#<i class="ideas-icon"></i>#}
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
                                     </li>
@@ -316,32 +320,11 @@
                                             </a>
                                         </li>
                                     {% endif %}
-
-                                    {#<li class="search">#}
-                                        {#<form class="navbar-form" role="search" action="{{ path("goals_list") }}">#}
-                                            {#<span class="icon-search-icon"></span>#}
-                                            {#<input type="text"#}
-                                                   {#name="search"#}
-                                                   {#class="form-control"#}
-                                                   {#autocomplete="off"#}
-                                                    {#{% if app.request.get('_route') == 'goals_list' %}#}
-                                                        {#data-ng-model="search"#}
-                                                        {#data-ng-keypress="doSearch($event)"#}
-                                                    {#{% else %}#}
-                                                        {#data-ng-enter-submit=".search form"#}
-                                                    {#{% endif %}#}
-                                                   {#placeholder="{{ 'search'|trans | capitalize}}">#}
-                                        {#</form>#}
-                                    {#</li>#}
                                 </ul>
 
-
-                                {#{% if 'phone' == getDeviceType() %}#}
-                                {#{{ path("fos_user_security_login") }}#}
-                                {#{% endif %}#}
                                 <ul class="nav navbar-nav navbar-right">
                                     {% if user %}
-                                        <li uib-dropdown id="notification">
+                                        <li id="notification">
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                     {% endif %}
@@ -529,7 +512,7 @@
                 $(function () {
                     $('[data-toggle="popover"]').popover();
 
-                    $('#main-nav').fadeIn(350);
+                    $('#main-nav').fadeIn(1000);
                 });
 
                 function openSettingsModal(){
