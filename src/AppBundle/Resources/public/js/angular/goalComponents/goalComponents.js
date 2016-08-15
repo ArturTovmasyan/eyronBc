@@ -247,6 +247,10 @@ angular.module('goalComponents', ['Interpolation',
       var myDate = moment(new Date()).format('YYYY');
       $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
+      $timeout(function () {
+        $scope.years.unshift($scope.defaultYear);
+        $scope.days.unshift($scope.defaultDay);
+      },100);
 
       $scope.$watch('myMonths', function(m){
         $scope.months = _.values(m);
@@ -315,39 +319,53 @@ angular.module('goalComponents', ['Interpolation',
               (angular.isUndefined($scope.files) || !$scope.files.length )&&
               ( angular.isUndefined($scope.userGoal.story) || angular.isUndefined($scope.userGoal.story.story)))
       };
+
+      $scope.saveDate = function () {
+        var comletion_date = {
+          'goal_status'    : true,
+          'completion_date': $scope.completion_date
+        };
+
+        if($scope.compareDates($scope.firefox_completed_date) === 1){
+          $scope.invalidYear = true;
+          return;
+        } else {
+          $scope.invalidYear = false;
+        }
+
+        UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
+          var selector = 'success' + $scope.userGoal.goal.id;
+          if(angular.element('#'+ selector).length > 0) {
+            var parentScope = angular.element('#' + selector).scope();
+            if(!angular.isUndefined(parentScope.goalDate)) {
+              parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
+            }
+          }
+
+          if($scope.noData()){
+            $scope.noStory = false;
+            angular.element('#cancel').click();
+          }
+        });
+      };
       
       $scope.save = function () {
         $scope.isInValid();
-        if($scope.year && $scope.month && $scope.day && $scope.newAdded){
+        if($scope.year && $scope.year != $scope.defaultYear &&
+          $scope.month && $scope.month != $scope.defaultMonth &&
+          $scope.day && $scope.day != $scope.defaultDay && $scope.newAdded){
             $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             $scope.firefox_completed_date = moment($scope.year + ',' +$scope.month+','+$scope.day).format('YYYY-MM-DD');
-            var comletion_date = {
-              'goal_status'    : true,
-              'completion_date': $scope.completion_date
-            };
-
-            if($scope.compareDates($scope.firefox_completed_date) === 1){
-              $scope.invalidYear = true;
-              return;
-            } else {
-              $scope.invalidYear = false;
-            }
-
-            UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
-              var selector = 'success' + $scope.userGoal.goal.id;
-              if(angular.element('#'+ selector).length > 0) {
-                var parentScope = angular.element('#' + selector).scope();
-                if(!angular.isUndefined(parentScope.goalDate)) {
-                  parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
-                }
-              }
-
-              if($scope.noData()){
-                $scope.noStory = false;
-                angular.element('#cancel').click();
-              }
-            });
-        } else if(!$scope.year && ($scope.month || $scope.day) && $scope.newAdded){
+            $scope.saveDate();
+        }else if($scope.year && $scope.year != $scope.defaultYear){//when select only year
+          var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): moment(new Date()).format('M');
+          var day = (day)?day:moment(new Date()).format('D');
+          $scope.completion_date = moment(month+','+ day +','+$scope.year).format('MM-DD-YYYY');
+          $scope.firefox_completed_date = moment($scope.year + ',' +month+','+day).format('YYYY-MM-DD');
+          $scope.saveDate();
+          //  todo some thing in circles
+        }
+        else if((($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)) && $scope.newAdded){
           $scope.uncompletedYear = true;
           return;
         }
