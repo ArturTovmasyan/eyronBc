@@ -83,6 +83,15 @@ class GoalController extends Controller
     }
 
     /**
+     * @Route("user/report", name="report_modal")
+     * @return array
+     */
+    public function userReportAction()
+    {
+        return $this->render('AppBundle:Goal:report.html.twig');
+    }
+
+    /**
      * @Route("goal/create", name="add_goal")
      * @Template()
      * @Secure(roles="ROLE_USER")

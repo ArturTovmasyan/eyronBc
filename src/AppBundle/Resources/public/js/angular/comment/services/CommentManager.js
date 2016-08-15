@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('comments')
-  .service('CommentManager', ['$resource', 'envPrefix', '$timeout', '$rootScope',
-    function($resource, envPrefix, $timeout, $rootScope){
+  .service('CommentManager', ['$resource', 'envPrefix',
+    function($resource, envPrefix){
       return $resource( envPrefix + 'api/v1.0/comments/:param1/:param2', {}, {
         add: {method:'PUT', transformResponse: function (object) {
           return angular.fromJson(object);
@@ -11,4 +11,4 @@ angular.module('comments')
           return angular.fromJson(object);
         }}
       });
-    }]);
+  }]);

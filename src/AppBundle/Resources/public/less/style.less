@@ -24,8 +24,6 @@ body{
   top: 0;
 }
 
-
-
 .sk-fading-circle .sk-circle:before {
   content: '';
   display: block;
@@ -263,8 +261,10 @@ header{
     background: -moz-linear-gradient(left,#ffa600,#de451b,#1b54cf,#00824c);
     background: linear-gradient(to right,#ffa600,#de451b,#1b54cf,#00824c);
   }
+
   .navbar{
-    min-height:80px;
+    //min-height:80px;
+    min-height: 80px;
   }
 
   .navbar-brand{
@@ -456,6 +456,11 @@ header{
                 width:30px;
                 height:30px;
                 font-size:30px;
+                &.mybucketlist-icon{
+                  margin-right: 0;
+                  background: url('../images/my-bucketlist.svg') no-repeat center center;
+                }
+
                 span{
                   padding-left:0;
                   margin-left: 0;
@@ -558,13 +563,15 @@ header{
           border-bottom: 1px solid #271e6e !important;
           a{
             display: block;
-            padding:4px 5px 4px 35px !important;
+            //padding:4px 5px 4px 35px !important;
+            padding: 1px 5px 1px 35px !important;
             font-size:16px;
             font-weight:600;
             color:#ffffff;
 
             span{
               margin-left:10px;
+              vertical-align: middle;
             }
 
             i{
@@ -575,8 +582,11 @@ header{
               vertical-align: middle;
 
               &.mybucketlist-icon{
-                width: 22px !important;
-                margin: 0 3px 0 4px;
+                //width: 22px !important;
+                width: 25px !important;
+                //margin: 0 3px 0 4px;
+                margin: 0 0 0 1px;
+                background: url('../images/my-bucketlist.svg') no-repeat center center;
               }
 
               span{
@@ -645,6 +655,46 @@ header{
     background: url('../images/mybucketlist-icon.png') no-repeat center center;
     background-size: 100%;
   }
+  .settings-icon{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/settings.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .add-goal{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/add-goal.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .logout{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/logout.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .activity-icon{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/activity.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .ideas-icon{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+    background: url('../images/ideas.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
 
   #notification{
 
@@ -1081,20 +1131,22 @@ label{
     }
   }
 }
+//
+//#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,#notification-list,#report-modal{
+//
+//}
 
-#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,#notification-list{
-  .close-icon{
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    top: 38px;
-    right: 35px;
-    cursor:pointer;
-    background: url('../images/close.svg') no-repeat center center;
-  }
+.close-icon{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 38px;
+  right: 35px;
+  cursor:pointer;
+  background: url('../images/close.svg') no-repeat center center;
 }
 
-#common-modal,#goal-users-modal{
+#common-modal,#goal-users-modal,#report-modal{
   .close-icon{
     top: 25px;
     right: 20px;
@@ -2262,7 +2314,8 @@ footer{
 
 @media (min-width: @screen-sm) {
 
-  header {
+  header{
+
     .navbar-default{
 
       .navbar-nav{
@@ -2364,7 +2417,7 @@ footer{
     #notification{
 
       a.relative{
-        padding: 16px 19px !important;
+        padding: 19px 19px 18px!important;
       }
 
       ul.dropdown-menu{
@@ -2688,6 +2741,10 @@ footer{
 @media (min-width: @screen-md) {
 
   header{
+
+    //.navbar{
+    //  height:88px;
+    //}
 
     .navbar-brand{
       height:83px;

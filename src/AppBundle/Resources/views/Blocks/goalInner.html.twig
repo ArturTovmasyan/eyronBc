@@ -429,6 +429,12 @@
                                                     <span data-ng-cloak>
                                                         [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
                                                     </span>
+                                                    {% if app.user is not null and addedUser.id != app.user.id%}
+                                                        <span data-ls-report
+                                                              data-ls-type="1"
+                                                              data-ls-comment="{{ story.id }}"
+                                                              class="report">{{ 'report.title'|trans({},'messages') }}</span>
+                                                    {% endif %}
 
                                                 </div>
 
@@ -541,6 +547,7 @@
                                      data-ls-slug="{{ goal.slug }}"
                                      data-ls-reply="{{ 'reply'|trans }}"
                                      data-ls-replied="{{ 'replied'|trans }}"
+                                     data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
                                      data-ls-title="{{ 'comments'|trans }}"
                                      data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
                                     {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
