@@ -8,7 +8,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class RecalculationOldActivityCommand extends ContainerAwareCommand
+class ActivityGroupCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
@@ -16,8 +16,8 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('bl:recalculation:activity')
-            ->setDescription('Recalculation old activities');
+            ->setName('bl:group:activity')
+            ->setDescription('Grouped old activities');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -33,8 +33,6 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
 
         //get user goal by id
         $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoalsIds);
-
-//        dump(count($userGoals));exit;
 
         $output->writeln("<info>Starting</info>");
 
@@ -65,29 +63,15 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
             //get goal in userGoal
             $goal = $userGoal->getGoal();
 
-            $lastId = 21;
-            $lastDate = new \DateTime('now');
-
-            //TODO must be get lastId and lastDate or create new repository
-            $newFeed = $em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), $lastId, $lastDate);
-
-            if (!isset($newFeed) || is_null($newFeed)){
-                $newFeed = new NewFeed($action, $user, $goal);
-                $newFeed->setDatetime($perform_date);
-            }
-            else {
-                $newFeed->addGoal($goal);
-            }
-
             //create activity
-//            $newFeed = new NewFeed($action, $user, $goal);
-//            $newFeed->setDatetime($perform_date);
+            $newFeed = new NewFeed($action, $user, $goal);
+            $newFeed->setDatetime($perform_date);
             $em->persist($newFeed);
 
             $counter++;
             $progress->advance();
 
-            if ($counter > 10){
+            if ($counter > 100){
                 $em->flush();
                 $counter = 0;
             }
