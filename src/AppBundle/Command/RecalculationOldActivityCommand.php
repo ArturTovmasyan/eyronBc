@@ -71,11 +71,13 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
             $counter++;
             $progress->advance();
 
-            if ($counter > 50){
+            if ($counter > 100){
                 $em->flush();
                 $counter = 0;
             }
         }
+
+        $em->flush();
 
         $progress->finish();
         $output->writeln("<info>Success</info>");
