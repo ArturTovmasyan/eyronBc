@@ -190,7 +190,7 @@ angular.module('profile')
       $scope.reportDate.reportType = $scope.reportOption?$scope.reportOption:null;
       $scope.reportDate.message = $scope.reportText?$scope.reportText:null;
 
-      UserGoalDataManager.report({}, $scope.reportDate, function (newData) {
+      UserGoalDataManager.report({}, $scope.reportDate, function () {
         $scope.isReported = true;
         $timeout(function(){
           $('#report-modal .close-icon').click();

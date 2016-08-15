@@ -32,6 +32,11 @@ class ReportAdmin extends AbstractAdmin
                     Report::COMMENT       => 'comment',
                     Report::SUCCESS_STORY => 'Success story'
                 ]))
+            ->add('reportType', null, [], ChoiceType::class, array(
+                'choices' => [
+                    Report::SPAM       => "It's annoying or spam",
+                    Report::SHOULD_NOT => "I think it shouldn't be on BucketList127"
+                ]))
             ->add('contentId')
             ->add('message')
             ->add('created', 'doctrine_orm_callback', array(
@@ -71,6 +76,7 @@ class ReportAdmin extends AbstractAdmin
             ->add('user')
             ->add('reportedUser')
             ->add('contentTypeString')
+            ->add('reportTypeString')
             ->add('contentId')
             ->add('message')
             ->add('created')
@@ -99,6 +105,11 @@ class ReportAdmin extends AbstractAdmin
                     Report::COMMENT       => 'comment',
                     Report::SUCCESS_STORY => 'Success story'
                 ]))
+            ->add('reportType', ChoiceType::class, array(
+                'choices' => [
+                    Report::SPAM       => "It's annoying or spam",
+                    Report::SHOULD_NOT => "I think it shouldn't be on BucketList127"
+                ]))
             ->add('contentId')
             ->add('message')
         ;
@@ -114,6 +125,7 @@ class ReportAdmin extends AbstractAdmin
             ->add('user')
             ->add('reportedUser')
             ->add('contentTypeString')
+            ->add('reportTypeString')
             ->add('contentId')
             ->add('message')
             ->add('created')

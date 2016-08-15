@@ -50,7 +50,8 @@ class ReportController extends FOSRestController
     public function putAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $request->request->add(json_decode($request->getContent()));
+        $content = (array) json_decode($request->getContent());
+        $request->request->add($content);
 
         $report = new Report();
         $report->setUser($this->getUser());

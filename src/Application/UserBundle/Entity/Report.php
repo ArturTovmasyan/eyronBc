@@ -10,6 +10,7 @@ namespace Application\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class Report
@@ -58,15 +59,13 @@ class Report
     protected $contentId;
 
     /**
-     * @ORM\Column(name="report_type", type="smallint", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="report_type", type="smallint", nullable=true)
      * @Assert\Choice(callback = "getAllowedReportTypes")
      */
     protected $reportType;
 
     /**
-     * @ORM\Column(name="message", type="string", length=1000, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="message", type="string", length=1000, nullable=true)
      */
     protected $message;
 
@@ -273,5 +272,24 @@ class Report
     public function getContentTypeString()
     {
         return $this->getContentType() == self::COMMENT ? 'Comment' : 'Success story';
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportTypeString()
+    {
+        return $this->getReportType() == self::SPAM ? "It's annoying or spam" : "I think it shouldn't be on BucketList127";
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (is_null($this->getReportType()) && is_null($this->getMessage())) {
+            $context->buildViolation('Report type or message is required')
+                ->addViolation();
+        }
     }
 }

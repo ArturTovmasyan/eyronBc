@@ -47,6 +47,7 @@
             <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
             <span data-ls-report
                data-ls-type="0"
+               data-ng-show="[[ comment.author.id != currentUserId ]]"
                data-ls-comment="[[ comment.id ]]"
                class="report">[[ ::lsReportTitle ]]</span>
         </div>
@@ -78,6 +79,7 @@
                             <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
                             <span data-ls-report
                                   data-ls-type="0"
+                                  data-ng-show="[[ child.author.id != currentUserId ]]"
                                   data-ls-comment="[[ comment.id ]]"
                                   class="report">[[ ::lsReportTitle ]]</span>
                         </div>

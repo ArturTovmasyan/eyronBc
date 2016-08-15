@@ -9,7 +9,8 @@ angular.module('comments', ['Interpolation',
   '$rootScope',
   '$timeout',
   'CommentManager',
-  function($compile, $rootScope, $timeout, CommentManager){
+  'UserContext',
+  function($compile, $rootScope, $timeout, CommentManager, UserContext){
     return {
       restrict: 'EA',
       scope: {
@@ -26,6 +27,7 @@ angular.module('comments', ['Interpolation',
         var showStepCount = 5;
         var forEnd = 0;
         var busy = false;
+        scope.currentUserId = UserContext.id;
 
         CommentManager.comments({param1:'goal_'+scope.lsSlug}, function (resource){
           scope.comments = resource;
