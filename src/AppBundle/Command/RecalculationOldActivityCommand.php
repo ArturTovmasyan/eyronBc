@@ -31,11 +31,6 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
         //get all userGoals
         $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalIdsByActivityPerformDate($first = null, $count = null);
 
-        $output->writeln("<info>Starting</info>");
-
-        $progress = new ProgressBar($output, count($userGoals));
-        $progress->start();
-
         $userGoalIds = [];
 
         foreach ($userGoals as $userGoal)
@@ -46,15 +41,20 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
         //get user goal by id
         $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoalIds);
 
+        $output->writeln("<info>Starting</info>");
+
+        $progress = new ProgressBar($output, count($userGoalIds));
+
+        $progress->start();
+
         foreach ($userGoals as $userGoal)
         {
+            $action = NewFeed::GOAL_ADD;
+            $perform_date = $userGoal->getListedDate();
+
             if($userGoal->getCompletionDate() && ($userGoal->getListedDate() || $userGoal->getListedDate() == null)) {
                 $action = NewFeed::GOAL_COMPLETE;
                 $perform_date = $userGoal->getCompletionDate();
-            }
-            elseif($userGoal->getCompletionDate() == null && $userGoal->getListedDate()) {
-                $action = NewFeed::GOAL_ADD;
-                $perform_date = $userGoal->getListedDate();
             }
 
             //create activity
@@ -65,7 +65,7 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
             $counter++;
             $progress->advance();
 
-            if ($counter > 50){
+            if ($counter > 10){
                 $em->flush();
                 $counter = 0;
             }
