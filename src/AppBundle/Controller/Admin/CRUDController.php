@@ -312,19 +312,6 @@ class CRUDController extends Controller
         //get user goals for merging
         $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUserId($userIds, $goal->getId());
 
-        //check if $mergeUserGoals exist
-        if(count($mergeUserGoals) > 0) {
-
-            foreach($mergeUserGoals as $mergeUserGoal)
-            {
-                //add success story in merged goal
-                $mergeGoalObject->addUserGoal($mergeUserGoal);
-                $em->persist($mergeGoalObject);
-            }
-//            $em->flush();
-
-        }
-
         //get all userGoals for old goal
         $oldGoalUserGoals = $goal->getUserGoal();
 
@@ -336,7 +323,19 @@ class CRUDController extends Controller
 
             //remove old goal user goals
             $em->remove($oldGoalUserGoal);
-//            $em->flush();
+            $em->flush();
+        }
+
+        //check if $mergeUserGoals exist
+        if(count($mergeUserGoals) > 0) {
+
+            foreach($mergeUserGoals as $mergeUserGoal)
+            {
+                //add success story in merged goal
+                $mergeGoalObject->addUserGoal($mergeUserGoal);
+                $em->persist($mergeGoalObject);
+            }
+            $em->flush();
         }
 
     }
