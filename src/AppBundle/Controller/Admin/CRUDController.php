@@ -117,14 +117,10 @@ class CRUDController extends Controller
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
 
-        //generate new link for merged comment
-//        $commentPermalink = $this->generateUrl('inner_goal', array('slug' => $mergeGoalObject->getSlug()), true);
-
         //get thread id
         $threadId = 'goal_'.$goal->getSlug();
 
         // get goal comments
-//        $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsByGoalId($threadId);
         $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsByGoalId($threadId);
 
         //check if goal comments exist
@@ -152,8 +148,6 @@ class CRUDController extends Controller
                 //create new thread for merged goal comments
                 $mergedGoalThread = new Thread();
                 $mergedGoalThread->setId($mergeGoalThreadId);
-//                $mergedGoalThread->setPermalink($commentPermalink);
-//                $mergedGoalThread->setLastCommentAt(new \DateTime('now'));
                 $em->persist($mergedGoalThread);
             }
 
@@ -327,6 +321,7 @@ class CRUDController extends Controller
                 $mergeGoalObject->addUserGoal($mergeUserGoal);
                 $em->persist($mergeGoalObject);
             }
+//            $em->flush();
 
         }
 
@@ -341,9 +336,9 @@ class CRUDController extends Controller
 
             //remove old goal user goals
             $em->remove($oldGoalUserGoal);
+//            $em->flush();
         }
 
-        $em->flush();
     }
 
     /**
