@@ -323,7 +323,6 @@ class CRUDController extends Controller
 
             //remove old goal user goals
             $em->remove($oldGoalUserGoal);
-            $em->flush();
         }
 
         //check if $mergeUserGoals exist
@@ -335,9 +334,9 @@ class CRUDController extends Controller
                 $mergeGoalObject->addUserGoal($mergeUserGoal);
                 $em->persist($mergeGoalObject);
             }
-            $em->flush();
         }
 
+        $em->flush();
     }
 
     /**

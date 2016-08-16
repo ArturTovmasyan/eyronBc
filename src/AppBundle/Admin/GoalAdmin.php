@@ -91,7 +91,7 @@ class GoalAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
