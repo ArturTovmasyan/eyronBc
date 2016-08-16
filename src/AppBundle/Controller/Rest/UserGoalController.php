@@ -145,6 +145,10 @@ class UserGoalController extends FOSRestController
                 }
 
                 $userGoal->setCompletionDate($completionDate);
+                $dateStatus = $request->get('date_status');
+                if($dateStatus){
+                    $userGoal->setDateStatus($dateStatus);
+                }
             }
             elseif($userGoal->getStatus() == UserGoal::ACTIVE){
                 $userGoal->setCompletionDate(null);

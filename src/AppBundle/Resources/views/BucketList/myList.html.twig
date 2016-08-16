@@ -140,15 +140,22 @@
                                          data-ng-init="
                                             change[[ goal.id]] = 0;
                                             doDate[[ goal.id ]] = null;
+                                            dateStatus[goal.id] = userGoal.date_status;{#todo ....#}
                                             goalDate[ goal.id ] = ((userGoal.do_date && status != '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}')? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))">
 
                                         <p data-ng-if="isMobile && !$index" >
                                             <span class="hidden-sm hidden-mg hidden-lg space"></span>
                                         </p>
 
-                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' ">
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1">
                                             [[ goalDate[goal.id] | date:'dd' ]]
-                                        </div>
+                                        </div>{#todo ....#}
+                                        {#<div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2">#}
+                                            {#[[ goalDate[goal.id] | date:'dd' ]]#}
+                                        {#</div>#}
+                                        {#<div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 3">#}
+                                            {#[[ goalDate[goal.id] | date:'dd' ]]#}
+                                        {#</div>#}
 
                                         <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' ">
                                             <i class="dreaming">
@@ -161,8 +168,10 @@
 
                                             <div></div>
                                             <div data-ng-cloak>
-                                                {% if isMobile() %}
-                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming'" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                {% if isMobile() %}{#todo ....#}
+                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                    {#<p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>#}
+                                                    {#<p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 3" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>#}
                                                     <p data-ng-show="goalDate[ goal.id ] == 'dreaming'" class="ng-hide">
                                                         <i class="dreaming-mobile">
                                                             <i class="icon-dreaming text-purple"></i>
@@ -176,9 +185,15 @@
 
                                         <div class="elipse" data-ng-cloak>
 
-                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' " class="text-gray ng-hide">
+                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1" class="text-gray ng-hide">
                                                 [[ goalDate[goal.id] | date:'MMM, yyyy' ]]
-                                            </div>
+                                            </div>{#todo ....#}
+                                            {#<div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="text-gray ng-hide">#}
+                                                {#[[ goalDate[goal.id] | date:'MMM, yyyy' ]]#}
+                                            {#</div>#}
+                                            {#<div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 3" class="text-gray ng-hide">#}
+                                                {#[[ goalDate[goal.id] | date:'MMM, yyyy' ]]#}
+                                            {#</div>#}
 
                                             <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] == 'dreaming' " class="text-gray ng-hide">
                                                     {{ 'dreaming'|trans }}

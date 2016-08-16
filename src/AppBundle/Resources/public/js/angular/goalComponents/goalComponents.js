@@ -320,10 +320,11 @@ angular.module('goalComponents', ['Interpolation',
               ( angular.isUndefined($scope.userGoal.story) || angular.isUndefined($scope.userGoal.story.story)))
       };
 
-      $scope.saveDate = function () {
+      $scope.saveDate = function (status) {
         var comletion_date = {
           'goal_status'    : true,
-          'completion_date': $scope.completion_date
+          'completion_date': $scope.completion_date,
+          'date_status'    : status
         };
 
         if($scope.compareDates($scope.firefox_completed_date) === 1){
@@ -337,8 +338,9 @@ angular.module('goalComponents', ['Interpolation',
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
             var parentScope = angular.element('#' + selector).scope();
-            if(!angular.isUndefined(parentScope.goalDate)) {
+            if(!angular.isUndefined(parentScope.goalDate) && !angular.isUndefined(parentScope.dateStatus)) {
               parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
+              parentScope.dateStatus[$scope.userGoal.goal.id] = status;
             }
           }
 
@@ -356,14 +358,13 @@ angular.module('goalComponents', ['Interpolation',
           $scope.day && $scope.day != $scope.defaultDay && $scope.newAdded){
             $scope.completion_date = moment($scope.month+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
             $scope.firefox_completed_date = moment($scope.year + ',' +$scope.month+','+$scope.day).format('YYYY-MM-DD');
-            $scope.saveDate();
+            $scope.saveDate(1);
         }else if($scope.year && $scope.year != $scope.defaultYear){//when select only year
           var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): moment(new Date()).format('M');
           var day = moment(new Date()).format('D');
           $scope.completion_date = moment(month+','+ day +','+$scope.year).format('MM-DD-YYYY');
           $scope.firefox_completed_date = moment($scope.year + ',' +month+','+day).format('YYYY-MM-DD');
-          $scope.saveDate();
-          //  todo some thing in circles
+          $scope.saveDate(($scope.month && $scope.month != $scope.defaultMonth)?3:2);
         }
         else if((($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)) && $scope.newAdded){
           $scope.uncompletedYear = true;
