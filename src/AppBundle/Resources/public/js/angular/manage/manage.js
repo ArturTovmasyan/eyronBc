@@ -25,13 +25,14 @@ angular.module('manage', ['Interpolation',
         var addUrl = envPrefix + "goal/add-modal",
             doneUrl = envPrefix + "goal/done-modal",
             commonUrl = envPrefix + "user/common",
+            reportUrl = envPrefix + "user/report",
             goalUsersUrl = envPrefix + "goal/users",
             id = UserContext.id;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v2');
+        var templateCache = CacheFactory.get('bucketlist_templates_v3');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v2', {
+            templateCache = CacheFactory('bucketlist_templates_v3', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });
@@ -41,6 +42,7 @@ angular.module('manage', ['Interpolation',
             var addTemplate = templateCache.get('add-template'+id);
             var doneTemplate = templateCache.get('done-template'+id);
             var commonTemplate = templateCache.get('common-template'+id);
+            var reportTemplate = templateCache.get('report-template'+id);
             var goalUsersTemplate = templateCache.get('goal-users-template'+id);
 
             if (!addTemplate) {
@@ -68,6 +70,15 @@ angular.module('manage', ['Interpolation',
                 })
             }else {
                 template.commonTemplate = commonTemplate;
+            }
+
+            if (!reportTemplate) {
+                $http.get(reportUrl).success(function(data){
+                    template.reportTemplate = data;
+                    //templateCache.put('report-template'+id, data);
+                })
+            }else {
+                template.reportTemplate = reportTemplate;
             }
 
             if (!goalUsersTemplate) {

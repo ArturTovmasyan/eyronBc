@@ -63,6 +63,7 @@ goal:
       as_private: Отметьте цель как личную
       as_invisible: Установить статус “Невидимый”
       as_visible: Установить статус “Видимый”
+      visible: Видимый
       not_found: К сожалению, не найдено ни одной цели по заданным критериям, однако вы можете просмотреть другие цели:
       list_title: Откройте для себя вдохновляющие идеи
       is_completed: Цель достигнута
@@ -398,3 +399,11 @@ is not equal to: is not equal to
 #                <source>label_name_goal</source>
 #                <target></target>
 #            </trans-unit>
+
+report:
+  title: Рапорт
+  spam: Это раздражает или спам
+  opinion: Я думаю, что это не должно быть на BucketList127
+  other: Другие
+  thanks: Спасибо
+  message: Мы получили ваш рапорт
