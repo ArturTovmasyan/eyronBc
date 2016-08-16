@@ -28,7 +28,7 @@
 
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
-                            <a href="#" data-ng-click="goTo(4)">
+                            <a href="#4" data-ng-click="goTo(4)">
                                 {{ 'menu.activity'|trans }}
                             </a>
                         </li>
@@ -149,7 +149,7 @@
 
                                         <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1">
                                             [[ goalDate[goal.id] | date:'dd' ]]
-                                        </div>{#todo ....#}
+                                        </div>
 
                                         <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' || dateStatus[goal.id] != 1">
                                             <i class="dreaming">
@@ -162,7 +162,7 @@
 
                                             <div></div>
                                             <div data-ng-cloak>
-                                                {% if isMobile() %}{#todo ....#}
+                                                {% if isMobile() %}
                                                     <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
                                                     <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="ng-hide">[[ goalDate[ goal.id ]| date:'yyyy' ]]</p>
                                                     <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 3" class="ng-hide">[[ goalDate[ goal.id ]| date:'MMMM yyyy' ]]</p>
@@ -181,8 +181,8 @@
 
                                             <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] != 2" class="text-gray ng-hide">
                                                 [[ goalDate[goal.id] | date:'MMM, yyyy' ]]
-                                            </div>{#todo ....#}
-                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="text-gray ng-hide">
+                                            </div>
+                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="text-gray ng-hide only-year">
                                                 [[ goalDate[goal.id] | date:'yyyy' ]]
                                             </div>
 
@@ -423,7 +423,7 @@
                         {% endif %}
                     </div>
 
-                    <p class="empty-text ng-hide"
+                    <p class="empty-text ng-hide text-center"
                         data-ng-show="!ProfileItems.userGoals.length && ProfileItems.noItem"
                         data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"
                         data-ng-cloak>
