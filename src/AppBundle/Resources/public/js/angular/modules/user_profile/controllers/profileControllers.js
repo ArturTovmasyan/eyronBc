@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate',
-    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate) {
-
+  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
+    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+      var path = $location.$$path;
       $scope.errorMessages = [];
       angular.element(".settings select").niceSelect();
       
@@ -34,27 +34,40 @@ angular.module('profile')
           case 1:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 1;
+            $scope.profile.status = UserGoalConstant.ACTIVE_PATH;
             $scope.ProfileItems.nextPage($scope.profile);
             break;
           case 2:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 2;
+            $scope.profile.status = UserGoalConstant.COMPLETED_PATH;
             $scope.ProfileItems.nextPage($scope.profile);
             break;
           case 3:
             $scope.ProfileItems.busy = true;
+            $scope.profile.status = UserGoalConstant.COMMON_PATH;
             $scope.ProfileItems.common($scope.profile.userId);
             break;
           case 4:
             $scope.ProfileItems.busy = true;
+            $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
             $scope.Activities.nextActivity();
             break;
           default:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 0;
+            $scope.profile.status = '';
             $scope.ProfileItems.nextPage($scope.profile);
         }
       };
+
+      if(path.length){
+        $scope.ProfileItems.busy = true;
+        $timeout(function () {
+          path = path.slice(-1);
+          $scope.goTo(path - 0);
+        },100);
+      }
 
       $('input[type=checkbox]:not(".onoffswitch-checkbox")').on('ifChanged', function(event){
         var el = event.target.name,

@@ -28,29 +28,29 @@
 
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
-                            <a href="#" data-ng-click="goTo(4); profile.status = '{{ activity }}'">
+                            <a href="#" data-ng-click="goTo(4)">
                                 {{ 'menu.activity'|trans }}
                             </a>
                         </li>
                     {% endif %}
                     <li data-ng-class="{'active': profile.status == '{{ all }}' }">
-                        <a href="#" data-ng-click="goTo(0); profile.status = '{{ all }}'">
+                        <a href="#0" data-ng-click="goTo(0)">
                             {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ active }}' }">
-                        <a href="#" data-ng-click="goTo(1); profile.status = '{{ active }}'">
+                        <a href="#1" data-ng-click="goTo(1)">
                             {{ 'menu.active'|trans }}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ completed }}' }">
-                        <a href="#" data-ng-click="goTo(2); profile.status = '{{ completed }}'">
+                        <a href="#2" data-ng-click="goTo(2)">
                             {{ 'menu.completed'|trans }}
                         </a>
                     </li>
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ common }}' }">
-                            <a href="#" data-ng-click="goTo(3); profile.status = '{{ common }}'">
+                            <a href="#3" data-ng-click="goTo(3)">
                                 {{ 'menu.common'|trans }}
                             </a>
                         </li>
