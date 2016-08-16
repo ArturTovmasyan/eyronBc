@@ -60,65 +60,66 @@ class ActivityGroupCommand extends ContainerAwareCommand
                     $date = $addNewFeed->getDateTime() > $newFeed->getDateTime() ? $addNewFeed->getDateTime() : $newFeed->getDateTime();
 
                     //get different days
-                    $days = $dateDiff->format("%a");
+                    $minutes = $dateDiff->format("%i");
 
-                    if($days <= 30) {
+                    if($minutes <= 30) {
+
+                        //get goal in new feed
                         $goal = $newFeed->getGoal();
+
+                        //add goal in old activity for group
                         $addNewFeed->addGoal($goal);
+
+                        //set date in activity
                         $addNewFeed->setDatetime($date);
-                        $em->persist($addNewFeed);
 
                         $em->remove($newFeed);
-                        $em->flush();
                     }
                     else{
                         $addNewFeed = $newFeed;
                     }
-
                 }
-                else{
+                elseif ($newFeed->getAction() == NewFeed::GOAL_COMPLETE)
+                {
+                    if (is_null($doneNewFeed)){
+                        $doneNewFeed = $newFeed;
+                        continue;
+                    }
 
-                    if ($newFeed->getAction() == NewFeed::GOAL_COMPLETE){
-                        if (is_null($doneNewFeed)){
-                            $doneNewFeed = $newFeed;
-                            continue;
-                        }
+                    //get date diff
+                    $dateDiff = date_diff($doneNewFeed->getDateTime(), $newFeed->getDateTime(), true);
 
-                        //get date diff
-                        $dateDiff = date_diff($doneNewFeed->getDateTime(), $newFeed->getDateTime(), true);
+                    //get high date
+                    $date = $doneNewFeed->getDateTime() > $newFeed->getDateTime() ? $doneNewFeed->getDateTime() : $newFeed->getDateTime();
 
-                        //get high date
-                        $date = $doneNewFeed->getDateTime() > $newFeed->getDateTime() ? $doneNewFeed->getDateTime() : $newFeed->getDateTime();
+                    //get different days
+                    $minutes = $dateDiff->format("%i");
 
-                        //get different days
-                        $days = $dateDiff->format("%a");
+                    if($minutes <= 30) {
+                        //get goal in new feed
+                        $goal = $newFeed->getGoal();
 
-                        if($days <= 30) {
-                            $goal = $newFeed->getGoal();
-                            $doneNewFeed->addGoal($goal);
-                            $doneNewFeed->setDatetime($date);
-                            $em->persist($doneNewFeed);
+                        //add goal in old activity for group
+                        $doneNewFeed->addGoal($goal);
 
-                            $em->remove($newFeed);
-                            $em->flush();
-                        }
-                        else{
-                            $doneNewFeed = $newFeed;
-                        }
+                        //set date in activity
+                        $doneNewFeed->setDatetime($date);
+
+                        $em->remove($newFeed);
+                    }
+                    else{
+                        $doneNewFeed = $newFeed;
                     }
                 }
             }
 
+            $em->flush();
+            $em->clear();
+
             $counter++;
             $progress->advance();
 
-//                if ($counter > 10){
-//                    $em->flush();
-//                    $counter = 0;
-//                }
         }
-
-        $em->flush();
 
         $progress->finish();
         $output->writeln("<info>Success</info>");

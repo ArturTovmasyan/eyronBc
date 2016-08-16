@@ -34,8 +34,6 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
         //get user goal by id
         $userGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByIds($userGoalsIds);
 
-//        dump(count($userGoals));exit;
-
         $output->writeln("<info>Starting</info>");
 
         $progress = new ProgressBar($output, count($userGoals));
