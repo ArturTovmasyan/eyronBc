@@ -453,6 +453,10 @@
                         <span data-ng-show="(profile.isDream == 'false') && !(profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3 == 'true' || profile.f_4 == 'true') && profile.status == '{{ all }}'">
                             {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
                         </span>
+                    {% else %}
+                        <span>
+                            {{ 'profile_empty'|trans }}
+                        </span>
                     {% endif %}
                     </p>
                 </div>
