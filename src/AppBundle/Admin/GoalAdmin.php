@@ -89,9 +89,9 @@ class GoalAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
+            ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
