@@ -492,10 +492,10 @@ angular.module('goalComponents', ['Interpolation',
         $scope.months = _.values(m);
       });
 
-      $scope.updateDate = function (date) {
+      $scope.updateDate = function (date, isNewDate) {
         if(date){
-          $scope.month = $scope.myMonths[moment(date).format('M')];
-          $scope.day = moment(date).format('D');
+          $scope.month = ($scope.userGoal.date_status == 2 && !isNewDate)?$scope.defaultMonth:$scope.myMonths[moment(date).format('M')];
+          $scope.day = ($scope.userGoal.date_status == 1 || isNewDate)?moment(date).format('D'):$scope.defaultDay;
           $scope.year = moment(date).format('YYYY');
         }else {
           $scope.month = $scope.defaultMonth;
@@ -541,11 +541,11 @@ angular.module('goalComponents', ['Interpolation',
         if( d !== 0 && d !== 1){
           switchChanged = !switchChanged;
           if(d){
-            $scope.updateDate(new Date());
+            $scope.updateDate(new Date(), true);
           }
           else{
             if(!angular.isUndefined($scope.userGoal.do_date)){
-              $scope.updateDate($scope.userGoal.do_date);
+              $scope.updateDate($scope.userGoal.do_date, true);
             }
             else{
               $scope.updateDate(null);
@@ -671,6 +671,7 @@ angular.module('goalComponents', ['Interpolation',
             $scope.month && $scope.month != $scope.defaultMonth &&
             $scope.day && $scope.day != $scope.defaultDay){
             dateChanged = true;
+            $scope.userGoal.date_status = 1;
             if($scope.complete.switch){
               $scope.userGoal.completion_date = moment(($scope.months.indexOf($scope.month))+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
               $scope.firefox_completed_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month))+','+$scope.day).format('YYYY-MM-DD');
@@ -685,6 +686,7 @@ angular.module('goalComponents', ['Interpolation',
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): ($scope.complete.switch? moment(new Date()).format('M'):12);
             var day = moment(new Date()).format('D');
+            $scope.userGoal.date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
 
             if($scope.complete.switch){
               $scope.userGoal.completion_date = moment(month + ',' + day + ',' + $scope.year).format('MM-DD-YYYY');
@@ -710,6 +712,9 @@ angular.module('goalComponents', ['Interpolation',
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
             var parentScope = angular.element('#' + selector).scope();
+            if(!angular.isUndefined(parentScope.dateStatus)){
+              parentScope.dateStatus[$scope.userGoal.goal.id] = $scope.userGoal.date_status;
+            }
             //if goal status changed
             if (switchChanged) {
               parentScope.success[$scope.userGoal.goal.id] = !parentScope.success[$scope.userGoal.goal.id];
