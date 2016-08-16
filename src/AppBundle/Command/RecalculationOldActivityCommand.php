@@ -65,6 +65,7 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
 
             //create activity
             $newFeed = new NewFeed($action, $user, $goal);
+            $newFeed->setGoal($goal);
             $newFeed->setDatetime($perform_date);
             $em->persist($newFeed);
 
