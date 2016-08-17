@@ -327,12 +327,12 @@ angular.module('goalComponents', ['Interpolation',
           'date_status'    : status
         };
 
-        if($scope.compareDates($scope.firefox_completed_date) === 1){
-          $scope.invalidYear = true;
-          return;
-        } else {
-          $scope.invalidYear = false;
-        }
+        // if($scope.compareDates($scope.firefox_completed_date) === 1){
+        //   $scope.invalidYear = true;
+        //   return;
+        // } else {
+        //   $scope.invalidYear = false;
+        // }
 
         UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, comletion_date, function (){
           var selector = 'success' + $scope.userGoal.goal.id;
@@ -713,10 +713,10 @@ angular.module('goalComponents', ['Interpolation',
             return;
           }
           $scope.invalidYear = false;
-          if($scope.userGoal.completion_date && $scope.compareDates($scope.firefox_completed_date) === 1){
-            $scope.invalidYear = true;
-            return;
-          }
+          // if($scope.userGoal.completion_date && $scope.compareDates($scope.firefox_completed_date) === 1){
+          //   $scope.invalidYear = true;
+          //   return;
+          // }
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
             var parentScope = angular.element('#' + selector).scope();
