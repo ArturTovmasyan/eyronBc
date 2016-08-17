@@ -274,6 +274,7 @@ input.form-control::-webkit-input-placeholder {
 
 header{
   background: #021523;
+
   #line{
     height:4px;
     background: red;
@@ -284,15 +285,7 @@ header{
   }
 
   .navbar{
-    //min-height:80px;
-    min-height: 80px;
-  }
-
-  .navbar-brand{
-    padding:16px 30px 21px 20px;
-    img{
-      height:45px;
-    }
+    min-height: 81px;
   }
 
   .navbar-fixed-top .navbar-collapse{
@@ -303,6 +296,15 @@ header{
     background: #021523;
     z-index: 10000;
     border:0;
+
+    .navbar-brand{
+      width: 150px;
+      display: block;
+      padding:16px 30px 21px 20px;
+      img{
+        height:45px;
+      }
+    }
 
     .navbar-toggle{
       margin-top:19px;
@@ -354,15 +356,13 @@ header{
           color: #E5E5E5;
           font-weight: bold;
           font-size: 16px;
-          padding:27px 19px;
+          //padding:27px 19px;
+          padding:25px 19px;
 
           i{
             display:inline-block;
             vertical-align: middle;
             font-size: 30px;
-            &.mybucketlist-icon{
-              margin-right: 6px;
-            }
           }
 
           span{
@@ -479,7 +479,11 @@ header{
                 font-size:30px;
                 &.mybucketlist-icon{
                   margin-right: 0;
-                  background: url('../images/my-bucketlist.svg') no-repeat center center;
+                  background-size: 100%;
+                }
+
+                &.ideas-icon,&.activity-icon{
+                  width:25px !important;
                 }
 
                 span{
@@ -544,6 +548,18 @@ header{
 
   .navbar-mobile{
 
+    .navbar-nav{
+      li{
+        a{
+          i{
+            &.mybucketlist-icon{
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+
     ul{
       padding-left: 15px;
       margin-bottom:0;
@@ -561,10 +577,10 @@ header{
           }
 
           &.mobile-user{
-            padding: 17px 0 4px 19px!important;
+            //padding: 17px 0 4px 19px!important;
+            padding: 18px 0 19px 19px!important;
             right: 15px;
           }
-
         }
 
         &:last-child{
@@ -584,7 +600,6 @@ header{
           border-bottom: 1px solid #271e6e !important;
           a{
             display: block;
-            //padding:4px 5px 4px 35px !important;
             padding: 1px 5px 1px 35px !important;
             font-size:16px;
             font-weight:600;
@@ -597,17 +612,18 @@ header{
 
             i{
               display: inline-block;
-              width:30px;
+              width:25px;
               height:30px;
               font-size:30px;
               vertical-align: middle;
 
               &.mybucketlist-icon{
-                //width: 22px !important;
-                width: 25px !important;
-                //margin: 0 3px 0 4px;
                 margin: 0 0 0 1px;
-                background: url('../images/my-bucketlist.svg') no-repeat center center;
+                background-size: 100%;
+              }
+
+              &.ideas-icon,&.activity-icon{
+                width:25px !important;
               }
 
               span{
@@ -668,50 +684,39 @@ header{
 
   }
 
+  .icons{
+    display: inline-block;
+    width: 25px !important;
+    height: 30px;
+  }
 
   .mybucketlist-icon{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
-    background: url('../images/mybucketlist-icon.png') no-repeat center center;
-    background-size: 100%;
+    background: url('../images/my-bucketlist.svg') no-repeat center center;
   }
+
   .settings-icon{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
     background: url('../images/settings.svg') no-repeat center center;
-    background-size: 100%;
+    background-size: 95%;
   }
 
   .add-goal{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
     background: url('../images/add-goal.svg') no-repeat center center;
-    background-size: 100%;
+    background-size: 109%;
   }
 
   .logout{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
     background: url('../images/logout.svg') no-repeat center center;
     background-size: 100%;
   }
 
   .activity-icon{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
+    width: 30px !important;
     background: url('../images/activity.svg') no-repeat center center;
     background-size: 100%;
   }
 
   .ideas-icon{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
+    width: 30px !important;
     background: url('../images/ideas.svg') no-repeat center center;
     background-size: 100%;
   }
@@ -2313,7 +2318,6 @@ footer{
         color:#ffffff;
         background-color: #7724F6;
       }
-
     }
   }
 
@@ -2337,6 +2341,9 @@ footer{
 
   header{
 
+    .navbar{
+      min-height: 82px;
+    }
     .navbar-default{
 
       .navbar-nav{
@@ -2360,7 +2367,8 @@ footer{
       }
 
       .navbar-brand{
-        padding:15px 20px 21px 5px;
+        height:78px;
+        padding:15px 20px 18px 5px;
         img{
           height:50px;
         }
@@ -2439,6 +2447,10 @@ footer{
 
       a.relative{
         padding: 19px 19px 18px!important;
+      }
+
+      .bell{
+        background-position: center center;
       }
 
       ul.dropdown-menu{
@@ -2758,18 +2770,17 @@ footer{
   border-top:1px solid #e6e6e6;
 }
 
-
 @media (min-width: @screen-md) {
 
   header{
 
-    //.navbar{
-    //  height:88px;
-    //}
+    .navbar{
+      min-height: 84px;
+    }
 
     .navbar-brand{
-      height:83px;
-      padding:17px 30px 21px 5px;
+      height:80px;
+      padding:15px 30px 21px 5px;
     }
 
     .navbar-default{
@@ -2777,7 +2788,14 @@ footer{
         li{
           a{
             font-size:16px;
-            padding: 27px 23px;
+            padding: 25px 23px;
+
+            i{
+              &.mybucketlist-icon{
+                margin-right: 6px;
+              }
+            }
+
           }
         }
       }
@@ -2789,22 +2807,7 @@ footer{
           width:235px;
 
           .user{
-            padding: 18px 5px 16px 15px;
-            //
-            //figure{
-            //  width:50px;
-            //  height:50px;
-            //  img{
-            //    height:50px;
-            //  }
-            //}
-            //
-            //p{
-            //  width:50px;
-            //  height:50px;
-            //  line-height: 46px;
-            //  font-size:14px;
-            //}
+            padding: 16px 5px 14px 15px;
 
             span.name{
               padding: 13px 0 4px 8px;
@@ -2844,8 +2847,7 @@ footer{
     #notification{
 
       a.relative{
-        //display: block;
-        padding: 27px 20px !important;
+        padding: 25px 20px !important;
       }
 
       .bell{
@@ -2863,10 +2865,10 @@ footer{
   }
 
   .button-lg{
-    //width: 186px;
     padding: 10px 45px;
     font-size: 14px;
   }
+
   h1,h2{
     font-size:48px;
     font-weight:300;
@@ -3050,14 +3052,6 @@ html {
   header{
 
     .navbar-default{
-      .navbar-nav{
-        li{
-          a{
-            font-size:16px;
-            padding: 27px 30px;
-          }
-        }
-      }
 
       .navbar-right{
         li{

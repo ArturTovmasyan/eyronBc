@@ -156,4 +156,43 @@ class NewFeedRepository extends EntityRepository
 
         return $newFeed[0];
     }
+
+
+    /**
+     * This function is used to get single activity for group it
+     *
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findNewFeedForGroupAction()
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('DISTINCT u.id')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->join('nf.user', 'u')
+            ->where('nf.goal IS NOT NULL')
+            ->getQuery()
+            ->getScalarResult();
+    }
+
+    /**
+     * This function is used to get userGoals by ids
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findNewFeedByActionAndIds($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT nf, g, u
+                           FROM AppBundle:NewFeed nf
+                           JOIN nf.goal g
+                           JOIN nf.user u
+                           WHERE u.id = :id AND nf.action IN (:action) AND nf.goal IS NOT NULL
+                           ORDER BY nf.datetime DESC")
+            ->setParameter('id', $id)
+            ->setParameter('action', NewFeed::$groupedActions)
+            ->getResult();
+    }
 }

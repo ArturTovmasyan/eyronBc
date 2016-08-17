@@ -8,6 +8,7 @@
 
 namespace Application\UserBundle\Tests\Controller\Rest;
 
+use Application\UserBundle\Entity\Report;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,11 @@ class UserControllerTest extends WebTestCase
      * @var null
      */
     protected $client2 = null;
+
+    /**
+     * @var null
+     */
+    protected $client3 = null;
 
     /**
      * @var null
@@ -61,6 +67,43 @@ class UserControllerTest extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client2->enableProfiler();
+    }
+
+    /**
+     *This function is used to check report rest
+     *
+     */
+    public function testReport()
+    {
+        $url = '/api/v1.0/report';
+
+        $comment = $this->em->getRepository('ApplicationCommentBundle:Comment')->findByBody('Comment2');
+
+        $commentId = reset($comment)->getId();
+
+        // try to register new user
+        $this->client2->request('PUT', $url,
+            array(
+                'reportType' => Report::SPAM,
+                'contentType' => Report::COMMENT,
+                'contentId' => $commentId,
+                'message' => 'It is bad user',
+            )
+        );
+
+        // Assert that the response status code is 2xx
+        $this->assertTrue($this->client2->getResponse()->isSuccessful(), "can not create report in report putAction rest!");
+
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+        }
+
     }
 
     /**
