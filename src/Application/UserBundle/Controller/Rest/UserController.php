@@ -275,8 +275,8 @@ class UserController extends FOSRestController
                     $data = json_decode($data);
                     $id = $data->id;
                     $newUser->setFacebookId($id);
-                    $newUser->setEmail($data->email ? $data->email : $newUser->getSocialFakeEmail());
-                    $newUser->setUsername($data->email ? $data->email : $newUser->getSocialFakeEmail());
+                    $newUser->setEmail(isset($data->email) ? $data->email : $newUser->getSocialFakeEmail());
+                    $newUser->setUsername(isset($data->email) ? $data->email : $newUser->getSocialFakeEmail());
 
                     $newUser->setFirstName($data->first_name);
                     $newUser->setLastName(isset($data->last_name) ? $data->last_name : '');

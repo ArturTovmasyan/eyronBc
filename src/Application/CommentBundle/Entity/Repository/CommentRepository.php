@@ -75,5 +75,38 @@ class CommentRepository extends EntityRepository
             ->setParameter('ids', $ids)
             ->getResult();
     }
+
+    /**
+     * This function is used to get comment by goal(thread) id
+     *
+     * @param $id
+     * @return array
+     */
+    public function findCommentsByGoalId($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT c
+                           FROM ApplicationCommentBundle:Comment c
+                           JOIN c.thread t
+                           WHERE t.id  = :id")
+            ->setParameter('id', $id)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get thread by thread id
+     *
+     * @param $threadId
+     * @return array
+     */
+    public function findThreadByGoalId($threadId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT tr
+                           FROM ApplicationCommentBundle:Thread tr
+                           WHERE tr.id  = :id")
+            ->setParameter('id', $threadId)
+            ->getResult();
+    }
 }
 

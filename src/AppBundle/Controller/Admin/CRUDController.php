@@ -117,11 +117,11 @@ class CRUDController extends Controller
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
 
-        //generate new link for merged comment
-        $commentPermalink = $this->generateUrl('inner_goal', array('slug' => $mergeGoalObject->getSlug()), true);
+        //get thread id
+        $threadId = 'goal_'.$goal->getSlug();
 
         // get goal comments
-        $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsByGoalId($goal->getId());
+        $goalComments = $em->getRepository("ApplicationCommentBundle:Comment")->findCommentsByGoalId($threadId);
 
         //check if goal comments exist
         if(count($goalComments) > 0){
@@ -132,8 +132,10 @@ class CRUDController extends Controller
             //get goal old thread for remove
             $goalOldThread = $goalComment->getThread();
 
+            $mergeGoalThreadId = 'goal_'.$mergeGoalObject->getSlug();
+
             //get merged goal thread
-            $mergedGoalOldThread = $em->getRepository("ApplicationCommentBundle:Comment")->findThreadByGoalId($mergeGoalObject->getId());
+            $mergedGoalOldThread = $em->getRepository("ApplicationCommentBundle:Comment")->findThreadByGoalId($mergeGoalThreadId);
 
             //check if merged goal comments exist
             if(count($mergedGoalOldThread ) > 0){
@@ -145,9 +147,7 @@ class CRUDController extends Controller
 
                 //create new thread for merged goal comments
                 $mergedGoalThread = new Thread();
-                $mergedGoalThread->setId($mergeGoalObject->getId());
-                $mergedGoalThread->setPermalink($commentPermalink);
-                $mergedGoalThread->setLastCommentAt(new \DateTime('now'));
+                $mergedGoalThread->setId($mergeGoalThreadId);
                 $em->persist($mergedGoalThread);
             }
 
@@ -173,7 +173,6 @@ class CRUDController extends Controller
      */
     public function mergeSuccessStory($goal, $em, $mergeGoalObject)
     {
-
         //get goal success story
         $goalSuccessStory = $goal->getSuccessStories();
 
@@ -313,18 +312,6 @@ class CRUDController extends Controller
         //get user goals for merging
         $mergeUserGoals = $em->getRepository('AppBundle:UserGoal')->findUserGoalsByUserId($userIds, $goal->getId());
 
-        //check if $mergeUserGoals exist
-        if(count($mergeUserGoals) > 0) {
-
-            foreach($mergeUserGoals as $mergeUserGoal)
-            {
-                //add success story in merged goal
-                $mergeGoalObject->addUserGoal($mergeUserGoal);
-                $em->persist($mergeGoalObject);
-            }
-
-        }
-
         //get all userGoals for old goal
         $oldGoalUserGoals = $goal->getUserGoal();
 
@@ -337,6 +324,19 @@ class CRUDController extends Controller
             //remove old goal user goals
             $em->remove($oldGoalUserGoal);
         }
+
+        //check if $mergeUserGoals exist
+        if(count($mergeUserGoals) > 0) {
+
+            foreach($mergeUserGoals as $mergeUserGoal)
+            {
+                //add success story in merged goal
+                $mergeGoalObject->addUserGoal($mergeUserGoal);
+                $em->persist($mergeGoalObject);
+            }
+        }
+
+        $em->flush();
     }
 
     /**
