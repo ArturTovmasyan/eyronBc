@@ -540,20 +540,20 @@
 
                             <br />
 
-                            {% if app.user %}
-
                                 <div data-ls-comment-manage
                                      data-ls-goal-id="{{ goal.id }}"
                                      data-ls-slug="{{ goal.slug }}"
                                      data-ls-reply="{{ 'reply'|trans }}"
                                      data-ls-replied="{{ 'replied'|trans }}"
+                                     data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"
                                      data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
                                      data-ls-title="{{ 'comments'|trans }}"
-                                     data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
-                                    {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
-                                    {{ nameOnImage  |upper}}{% endif %}">
+                                     {% if app.user %}
+                                         data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                        {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                                        {{ nameOnImage  |upper}}{% endif %}"
+                                     {% endif %}>
                                 </div>
-                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="col-md-4"></div>

@@ -19,6 +19,7 @@ angular.module('comments', ['Interpolation',
         lsSlug: '@',
         lsReply: '@',
         lsReplied: '@',
+        lsLogged: '@',
         lsReportTitle: '@',
         lsUserImage: '@'
       },
