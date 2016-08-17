@@ -346,7 +346,8 @@ angular.module('goalComponents', ['Interpolation',
 
           if($scope.noData()){
             $scope.noStory = false;
-            angular.element('#cancel').click();
+            // angular.element('#cancel').click();
+            $.modal.close();
           }
         });
       };
@@ -390,7 +391,8 @@ angular.module('goalComponents', ['Interpolation',
             'files'     : $scope.files
           };
           UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
-            angular.element('#cancel').click();
+            // angular.element('#cancel').click();
+            $.modal.close();
           });
         }, 100)
       };
@@ -781,7 +783,9 @@ angular.module('goalComponents', ['Interpolation',
 
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
             $scope.$emit('lsJqueryModalClosedSaveGoal');
-            angular.element('#cancel').click();
+            // angular.element('#cancel').click();
+            $.modal.close();
+
             if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
               $window.location.href = $scope.redirectPath;
             }
