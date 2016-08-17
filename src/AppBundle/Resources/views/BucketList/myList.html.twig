@@ -28,29 +28,29 @@
 
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
-                            <a href="#" data-ng-click="goTo(4); profile.status = '{{ activity }}'">
+                            <a href="#4" data-ng-click="goTo(4)">
                                 {{ 'menu.activity'|trans }}
                             </a>
                         </li>
                     {% endif %}
                     <li data-ng-class="{'active': profile.status == '{{ all }}' }">
-                        <a href="#" data-ng-click="goTo(0); profile.status = '{{ all }}'">
+                        <a href="#0" data-ng-click="goTo(0)">
                             {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ active }}' }">
-                        <a href="#" data-ng-click="goTo(1); profile.status = '{{ active }}'">
+                        <a href="#1" data-ng-click="goTo(1)">
                             {{ 'menu.active'|trans }}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ completed }}' }">
-                        <a href="#" data-ng-click="goTo(2); profile.status = '{{ completed }}'">
+                        <a href="#2" data-ng-click="goTo(2)">
                             {{ 'menu.completed'|trans }}
                         </a>
                     </li>
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ common }}' }">
-                            <a href="#" data-ng-click="goTo(3); profile.status = '{{ common }}'">
+                            <a href="#3" data-ng-click="goTo(3)">
                                 {{ 'menu.common'|trans }}
                             </a>
                         </li>
@@ -140,17 +140,18 @@
                                          data-ng-init="
                                             change[[ goal.id]] = 0;
                                             doDate[[ goal.id ]] = null;
+                                            dateStatus[goal.id] = userGoal.date_status;
                                             goalDate[ goal.id ] = ((userGoal.do_date && status != '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}')? userGoal.do_date: (userGoal.completion_date? userGoal.completion_date: 'dreaming'))">
 
                                         <p data-ng-if="isMobile && !$index" >
                                             <span class="hidden-sm hidden-mg hidden-lg space"></span>
                                         </p>
 
-                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' ">
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1">
                                             [[ goalDate[goal.id] | date:'dd' ]]
                                         </div>
 
-                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' ">
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' || dateStatus[goal.id] != 1">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
@@ -162,7 +163,9 @@
                                             <div></div>
                                             <div data-ng-cloak>
                                                 {% if isMobile() %}
-                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming'" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 1" class="ng-hide">[[ goalDate[ goal.id ]| date:'dd MMMM yyyy' ]]</p>
+                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="ng-hide">[[ goalDate[ goal.id ]| date:'yyyy' ]]</p>
+                                                    <p data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 3" class="ng-hide">[[ goalDate[ goal.id ]| date:'MMMM yyyy' ]]</p>
                                                     <p data-ng-show="goalDate[ goal.id ] == 'dreaming'" class="ng-hide">
                                                         <i class="dreaming-mobile">
                                                             <i class="icon-dreaming text-purple"></i>
@@ -176,8 +179,11 @@
 
                                         <div class="elipse" data-ng-cloak>
 
-                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' " class="text-gray ng-hide">
+                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] != 2" class="text-gray ng-hide">
                                                 [[ goalDate[goal.id] | date:'MMM, yyyy' ]]
+                                            </div>
+                                            <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] == 2" class="text-gray ng-hide only-year">
+                                                [[ goalDate[goal.id] | date:'yyyy' ]]
                                             </div>
 
                                             <div data-ng-cloak data-ng-show="!isMobile && goalDate[ goal.id ] == 'dreaming' " class="text-gray ng-hide">
@@ -417,7 +423,7 @@
                         {% endif %}
                     </div>
 
-                    <p class="empty-text ng-hide"
+                    <p class="empty-text ng-hide text-center"
                         data-ng-show="!ProfileItems.userGoals.length && ProfileItems.noItem"
                         data-ng-init="link = (activeGoals? '{{ path('user_profile_single', {'status': active }) }}': '{{ path('goals_list') }}')"
                         data-ng-cloak>
@@ -437,6 +443,10 @@
                         </span>
                         <span data-ng-show="(profile.isDream == 'false') && !(profile.f_1 == 'true' || profile.f_2 == 'true' || profile.f_3 == 'true' || profile.f_4 == 'true') && profile.status == '{{ all }}'">
                             {{ 'my_bucket_list.doing_here'|trans }} <a href="{{ path('goals_list') }}" class="text-purple">{{ 'my_bucket_list.add_goal'|trans }}</a>
+                        </span>
+                    {% else %}
+                        <span>
+                            {{ 'profile_empty'|trans }}
                         </span>
                     {% endif %}
                     </p>

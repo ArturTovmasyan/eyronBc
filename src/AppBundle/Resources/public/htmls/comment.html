@@ -44,10 +44,10 @@
 
         <div class="pull-left">
             <p>[[ comment.author.show_name ]]</p>
-            <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
+            <span class="convert-to-local">[[ comment.created_at| date:"MMMM d  'at' h:mm a" ]]</span>
             <span data-ls-report
                data-ls-type="0"
-               data-ng-show="[[ comment.author.id != currentUserId ]]"
+               data-ng-show="[[ lsLogged == 'true' && comment.author.id != currentUserId]]"
                data-ls-comment="[[ comment.id ]]"
                class="report">[[ ::lsReportTitle ]]</span>
         </div>
@@ -76,10 +76,10 @@
 
                         <div class="pull-left">
                             <p>[[ child.author.show_name ]] <span class="text-dark-gray">[[ ::lsReplied ]]</span></p>
-                            <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" : 'UTC' ]]</span>
+                            <span class="convert-to-local ">[[ comment.created_at| date:"MMMM d  'at' h:mm a" ]]</span>
                             <span data-ls-report
                                   data-ls-type="0"
-                                  data-ng-show="[[ child.author.id != currentUserId ]]"
+                                  data-ng-show="[[ lsLogged == 'true' && child.author.id != currentUserId]]"
                                   data-ls-comment="[[ comment.id ]]"
                                   class="report">[[ ::lsReportTitle ]]</span>
                         </div>
@@ -107,7 +107,7 @@
                 <a href="javascript:void(0)"
                    data-ng-click="comment.reply = false"
                    data-ng-init="comment.reply = true"
-                   data-ng-show="comment.reply"
+                   data-ng-show="comment.reply && [[ lsLogged ]]"
                    class="text-dark-grey reply">[[ ::lsReply ]]
                 </a>
                 <div class="clearfix ng-hide" data-ng-show="!comment.reply">
@@ -137,7 +137,7 @@
 </div>
 
 
-    <div class="clearfix">
+    <div class="clearfix ng-hide" data-ng-show="[[ lsLogged ]]">
 
         <figure class="pull-left">
             <img data-ng-if="lsUserImage.length != 2" data-ng-src="[[ ::lsUserImage ]]"

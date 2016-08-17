@@ -31,6 +31,7 @@ angular.module('profile')
       this.users = [];
       this.category = 'all';
       this.busy = false;
+      this.noItem = false;
       this.reserve = [];
       this.request = 0;
       this.start = 0;

@@ -4,6 +4,10 @@ angular.module('goalManage').constant('UserGoalConstant',{
   // constants for status
   ACTIVE: 1,
   COMPLETED: 2,
+  ACTIVE_PATH: 'active-goals',
+  COMPLETED_PATH: 'completed-goals',
+  COMMON_PATH: 'common-goals',
+  ACTIVITY_PATH: 'activity',
   // constants for filter in twig
   URGENT_IMPORTANT: 1,
   URGENT_NOT_IMPORTANT: 2,

@@ -298,6 +298,8 @@ angular.module('goal', ['Interpolation',
                     addRemoveLinks: true,
                     uploadMultiple: false,
                     maxThumbnailFilesize: 6,
+                    dictMaxFilesExceeded: 'you cannot upload more than 6 files',
+                    previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\" data-dz-remove><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
                     maxFiles: 6,
                     removedfile: function(d){
                         angular.element(d.previewElement).remove();
