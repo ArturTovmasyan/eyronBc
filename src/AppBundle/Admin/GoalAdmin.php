@@ -16,6 +16,7 @@ use AppBundle\Form\Type\BlMultipleFileType;
 use AppBundle\Form\Type\BlMultipleVideoType;
 use AppBundle\Form\Type\LocationType;
 use AppBundle\Model\PublishAware;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -37,6 +38,28 @@ class GoalAdmin extends AbstractAdmin
 
     protected  $baseRouteName = 'admin-goal';
     protected  $baseRoutePattern = 'admin-goal';
+
+    /**
+     * override list query
+     *
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface */
+
+    public function createQuery($context = 'list')
+    {
+        // call parent query
+        $query = parent::createQuery($context);
+
+        // add selected
+        $query->addSelect('sc, im, tg, at');
+        $query->leftJoin($query->getRootAlias() . '.successStories', 'sc');
+        $query->leftJoin($query->getRootAlias() . '.images', 'im');
+        $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
+        $query->leftJoin($query->getRootAlias() . '.author', 'at');
+
+        return $query;
+
+    }
 
     /**
      * @param RouteCollection $collection
@@ -132,7 +155,9 @@ class GoalAdmin extends AbstractAdmin
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
             ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
+            ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name',
+
+))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
