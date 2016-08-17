@@ -297,6 +297,8 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [1280, 900] }
+            post_processors:
+                  opt_post_processor: {}
 
         goal_list_horizontal:
             quality: 100
