@@ -320,6 +320,8 @@ no_common: You haven`t common goals
 submit: Submit
 search_placeholder: Search for Goalfriends ...
 no_friends: No result
+profile_empty: No such Goals
+activity_empty: No Activity
 
 deadline:
   complete_text: Set a deadline

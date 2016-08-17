@@ -151,7 +151,10 @@ class UserGoalController extends FOSRestController
             }
         }
 
-
+        $dateStatus = $request->get('date_status');
+        if($dateStatus){
+            $userGoal->setDateStatus($dateStatus);
+        }
 
         if (!is_null($request->get('is_visible'))){
             $userGoal->setIsVisible($request->get('is_visible') ? true : false);
