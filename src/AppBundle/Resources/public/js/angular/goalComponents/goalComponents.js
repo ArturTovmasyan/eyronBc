@@ -361,7 +361,7 @@ angular.module('goalComponents', ['Interpolation',
             $scope.saveDate(1);
         }else if($scope.year && $scope.year != $scope.defaultYear){//when select only year
           var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): moment(new Date()).format('M');
-          var day = moment(new Date()).format('D');
+          var day = 1;
           $scope.completion_date = moment(month+','+ day +','+$scope.year).format('MM-DD-YYYY');
           $scope.firefox_completed_date = moment($scope.year + ',' +month+','+day).format('YYYY-MM-DD');
           $scope.saveDate(($scope.month && $scope.month != $scope.defaultMonth)?3:2);
@@ -516,6 +516,7 @@ angular.module('goalComponents', ['Interpolation',
             $scope.updateDate($scope.userGoal.do_date);
             $scope.firefox_do_date = moment($scope.userGoal.do_date).format('YYYY-MM-DD');
             $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
+            $scope.userGoal.do_date_status = $scope.userGoal.date_status;
           }
         }
       }, 500);
@@ -547,7 +548,10 @@ angular.module('goalComponents', ['Interpolation',
           }
           else{
             if(!angular.isUndefined($scope.userGoal.do_date)){
-              $scope.updateDate($scope.userGoal.do_date, true);
+              if($scope.userGoal.do_date_status){
+                $scope.userGoal.date_status = $scope.userGoal.do_date_status
+              }
+              $scope.updateDate($scope.userGoal.do_date);
             }
             else{
               $scope.updateDate(null);
@@ -683,11 +687,12 @@ angular.module('goalComponents', ['Interpolation',
             }else{
               $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month))+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
               $scope.firefox_do_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month))+','+$scope.day).format('YYYY-MM-DD');
+              $scope.userGoal.completion_date = null;
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){ //when select only year
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): ($scope.complete.switch? moment(new Date()).format('M'):12);
-            var day = moment(new Date()).format('D');
+            var day = 1;
             $scope.userGoal.date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
 
             if($scope.complete.switch){
@@ -697,8 +702,9 @@ angular.module('goalComponents', ['Interpolation',
                 $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
               }
             }else {
-              $scope.userGoal.do_date = moment(month + ',' + ((month == 2) ? 28 : 31) + ',' + $scope.year).format('MM-DD-YYYY');
-              $scope.firefox_do_date = moment($scope.year + ',' + month + ',' + ((month == 2) ? 28 : 31)).format('YYYY-MM-DD');
+              $scope.userGoal.do_date = moment(month + ',' + day + ',' + $scope.year).format('MM-DD-YYYY');
+              $scope.firefox_do_date = moment($scope.year + ',' + month + ',' + day).format('YYYY-MM-DD');
+              $scope.userGoal.completion_date = null;
             }
           //  todo some thing in circles
           }
