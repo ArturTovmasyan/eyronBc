@@ -781,14 +781,20 @@ angular.module('goalComponents', ['Interpolation',
 
           $scope.userGoal.goal_status = $scope.complete.switch;
 
-          UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (){
+          console.log('manageAction: request sent', $scope.userGoal);
+
+          UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (res){
             $scope.$emit('lsJqueryModalClosedSaveGoal');
             // angular.element('#cancel').click();
             $.modal.close();
 
+            console.log('manageAction: success', res);
+
             if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
               $window.location.href = $scope.redirectPath;
             }
+          }, function(res, header){
+            console.log('manageAction: error', res, header);
           });
         }, 100)
       };
