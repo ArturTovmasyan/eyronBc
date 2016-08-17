@@ -573,6 +573,8 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.compareDates = function(date1, date2){
+        console.log('compareDates: ', date1, date2);
+
         if(!date1){
           return null;
         }
@@ -674,10 +676,15 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.save = function () {
         $timeout(function(){
+          console.log(1);
+
           $scope.uncompletedYear = false;
           if($scope.year && $scope.year != $scope.defaultYear &&
             $scope.month && $scope.month != $scope.defaultMonth &&
             $scope.day && $scope.day != $scope.defaultDay){
+
+            console.log('all');
+
             dateChanged = true;
             $scope.userGoal.date_status = 1;
             if($scope.complete.switch){
@@ -686,12 +693,16 @@ angular.module('goalComponents', ['Interpolation',
               if($scope.userGoal.do_date){
                 $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
               }
-            }else{
+            } else{
               $scope.userGoal.do_date = moment(($scope.months.indexOf($scope.month))+','+$scope.day+','+$scope.year).format('MM-DD-YYYY');
               $scope.firefox_do_date = moment($scope.year + ',' +($scope.months.indexOf($scope.month))+','+$scope.day).format('YYYY-MM-DD');
               $scope.userGoal.completion_date = null;
             }
-          } else if($scope.year && $scope.year != $scope.defaultYear){ //when select only year
+          } else if($scope.year && $scope.year != $scope.defaultYear){
+            //when select only year
+
+            console.log('year');
+
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): ($scope.complete.switch? moment(new Date()).format('M'):12);
             var day = 1;
@@ -703,7 +714,7 @@ angular.module('goalComponents', ['Interpolation',
               if($scope.userGoal.do_date){
                 $scope.userGoal.do_date = moment($scope.userGoal.do_date).format('MM-DD-YYYY');
               }
-            }else {
+            } else {
               $scope.userGoal.do_date = moment(month + ',' + day + ',' + $scope.year).format('MM-DD-YYYY');
               $scope.firefox_do_date = moment($scope.year + ',' + month + ',' + day).format('YYYY-MM-DD');
               $scope.userGoal.completion_date = null;
@@ -711,6 +722,7 @@ angular.module('goalComponents', ['Interpolation',
           //  todo some thing in circles
           }
           else if(($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)){
+            console.log('empty');
             $scope.uncompletedYear = true;
             return;
           }
@@ -719,6 +731,8 @@ angular.module('goalComponents', ['Interpolation',
           //   $scope.invalidYear = true;
           //   return;
           // }
+          console.log(2);
+
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
             var parentScope = angular.element('#' + selector).scope();
@@ -757,7 +771,7 @@ angular.module('goalComponents', ['Interpolation',
                 //change for doDate
                 parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_do_date);
                 angular.element('.goal' + $scope.userGoal.goal.id).addClass("active-idea");
-              }else{
+              } else{
                 if(isSuccess && dateChanged && $scope.userGoal.completion_date){
                   angular.element('.goal' + $scope.userGoal.goal.id).removeClass("active-idea");
                   parentScope.goalDate[$scope.userGoal.goal.id] = new Date($scope.firefox_completed_date);
@@ -765,6 +779,8 @@ angular.module('goalComponents', ['Interpolation',
               }
             }
           }
+
+          console.log(3, $scope.userGoal);
 
           $scope.userGoal.steps = {};
           angular.forEach($scope.userGoal.formatted_steps, function(v){
