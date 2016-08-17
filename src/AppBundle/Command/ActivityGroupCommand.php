@@ -37,6 +37,8 @@ class ActivityGroupCommand extends ContainerAwareCommand
 
         $progress->start();
 
+        $singleNewFeedIds = [['id' => 144]];
+
         foreach ($singleNewFeedIds as $singleNewFeedId)
         {
             //get new feed by ids and actions
@@ -59,20 +61,7 @@ class ActivityGroupCommand extends ContainerAwareCommand
                     $date1 = strtotime($addNewFeedDate->format('Y-m-d h:m:s'));
                     $date2 = strtotime($newFeedDate->format('Y-m-d h:m:s'));
 
-                    if($date1 > $date2) {
-                        //get date diff
-                        $dateDiff = $date1 - $date2;
-                    }
-                    else{
-                        //get date diff
-                        $dateDiff = $date2 - $date1;
-                    }
-
-                    //get different by minutes
-                    $minutes = $dateDiff / 60;
-
-                    //get high date
-                    $date = $addNewFeedDate > $newFeedDate ? $addNewFeedDate : $newFeedDate;
+                    $minutes = abs($date1 - $date2) / 60;
 
                     if($minutes <= 30) {
 
@@ -81,10 +70,6 @@ class ActivityGroupCommand extends ContainerAwareCommand
 
                         //add goal in old activity for group
                         $addNewFeed->addGoal($goal);
-
-                        //set date in activity
-                        $addNewFeed->setDatetime($date);
-
                         $em->remove($newFeed);
                     }
                     else{
@@ -104,20 +89,7 @@ class ActivityGroupCommand extends ContainerAwareCommand
                     $date1 = strtotime($doneNewFeedDate->format('Y-m-d h:m:s'));
                     $date2 = strtotime($newFeedDate->format('Y-m-d h:m:s'));
 
-                    if($date1 > $date2) {
-                        //get date diff
-                        $dateDiff = $date1 - $date2;
-                    }
-                    else{
-                        //get date diff
-                        $dateDiff = $date2 - $date1;
-                    }
-
-                    //get different by minutes
-                    $minutes = $dateDiff / 60;
-
-                    //get high date
-                    $date = $doneNewFeedDate > $newFeedDate ? $doneNewFeedDate : $newFeedDate;
+                    $minutes = abs($date1 - $date2) / 60;
 
                     if($minutes <= 30) {
                         //get goal in new feed
@@ -125,10 +97,6 @@ class ActivityGroupCommand extends ContainerAwareCommand
 
                         //add goal in old activity for group
                         $doneNewFeed->addGoal($goal);
-
-                        //set date in activity
-                        $doneNewFeed->setDatetime($date);
-
                         $em->remove($newFeed);
                     }
                     else{
@@ -137,14 +105,9 @@ class ActivityGroupCommand extends ContainerAwareCommand
                 }
             }
 
-            if ($counter > 50){
+            $em->flush();
+            $em->clear();
 
-                $em->flush();
-                $counter = 0;
-                $em->clear();
-            }
-
-            $counter++;
             $progress->advance();
         }
 

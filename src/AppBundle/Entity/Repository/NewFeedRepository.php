@@ -190,7 +190,7 @@ class NewFeedRepository extends EntityRepository
                            JOIN nf.goal g
                            JOIN nf.user u
                            WHERE u.id = :id AND nf.action IN (:action) AND nf.goal IS NOT NULL
-                           ")
+                           ORDER BY nf.datetime DESC")
             ->setParameter('id', $id)
             ->setParameter('action', NewFeed::$groupedActions)
             ->getResult();
