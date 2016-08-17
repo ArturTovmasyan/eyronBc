@@ -28,29 +28,29 @@
 
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ activity }}' }">
-                            <a href="#4" data-ng-click="goTo(4)">
+                            <a href="#{{ activity }}" data-ng-click="goTo(4)">
                                 {{ 'menu.activity'|trans }}
                             </a>
                         </li>
                     {% endif %}
                     <li data-ng-class="{'active': profile.status == '{{ all }}' }">
-                        <a href="#0" data-ng-click="goTo(0)">
+                        <a href="#all" data-ng-click="goTo(0)">
                             {% if myProfile %}{{ 'menu.bucket'|trans }}{% else %}{{ 'right_menu.show'|trans }}{% endif %}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ active }}' }">
-                        <a href="#1" data-ng-click="goTo(1)">
+                        <a href="#{{ active }}" data-ng-click="goTo(1)">
                             {{ 'menu.active'|trans }}
                         </a>
                     </li>
                     <li data-ng-class="{'active': profile.status == '{{ completed }}' }">
-                        <a href="#2" data-ng-click="goTo(2)">
+                        <a href="#{{ completed }}" data-ng-click="goTo(2)">
                             {{ 'menu.completed'|trans }}
                         </a>
                     </li>
                     {% if not  myProfile%}
                         <li data-ng-class="{'active': profile.status == '{{ common }}' }">
-                            <a href="#3" data-ng-click="goTo(3)">
+                            <a href="#{{ common }}" data-ng-click="goTo(3)">
                                 {{ 'menu.common'|trans }}
                             </a>
                         </li>

@@ -64,8 +64,23 @@ angular.module('profile')
       if(path.length){
         $scope.ProfileItems.busy = true;
         $timeout(function () {
-          path = path.slice(-1);
-          $scope.goTo(path - 0);
+          path = path.slice(1);
+          switch (path){
+            case UserGoalConstant.ACTIVE_PATH:
+              $scope.goTo(1);
+              break;
+            case UserGoalConstant.COMPLETED_PATH:
+              $scope.goTo(2);
+              break;
+            case UserGoalConstant.COMMON_PATH:
+              $scope.goTo(3);
+              break;
+            case UserGoalConstant.ACTIVITY_PATH:
+              $scope.goTo(4);
+              break;
+            default:
+              $scope.goTo(0);
+          }
         },100);
       }
 
