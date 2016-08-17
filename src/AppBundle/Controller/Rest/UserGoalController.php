@@ -157,8 +157,8 @@ class UserGoalController extends FOSRestController
             $userGoal->setIsVisible($request->get('is_visible') ? true : false);
         }
 
-        if (!is_null($steps = $request->get('steps')) && is_array($steps)){
-            $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+        if (!is_null($steps = $request->get('steps')) && (is_array($steps) || is_array($steps = json_decode($steps)) )){
+            $userGoal->setSteps($steps);
         }
 
         if (!is_null($request->get('note'))){
