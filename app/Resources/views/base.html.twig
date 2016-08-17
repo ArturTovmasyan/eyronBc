@@ -187,13 +187,13 @@
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
-                                                <i class="ideas-icon"></i>
+                                                <i class="icons ideas-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                             </a>
                                         </li>
                                          <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile"{% endif %}>
-                                                <i class="mybucketlist-icon"></i>
+                                                <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
                                         </li>
@@ -218,7 +218,7 @@
                                         {% if app.user and app.user.activity %}
                                             <li>
                                                 <a href="{{ path('activity') }}">
-                                                    <i class="activity-icon"></i>
+                                                    <i class="icons activity-icon"></i>
                                                     <span>{{ 'activity'|trans }}</span>
                                                 </a>
                                             </li>
@@ -228,7 +228,7 @@
 
                                         <li>
                                             <a href="{{ path('goals_list') }}">
-                                                <i class="ideas-icon"></i>
+                                                <i class="icons ideas-icon"></i>
                                                 <span>{{ 'ideas'| trans | capitalize }}</span>
                                             </a>
                                         </li>
@@ -237,7 +237,7 @@
 
                                         <li>
                                             <a href="{{ path('user_profile') }}">
-                                                <i class="mybucketlist-icon"></i>
+                                                <i class="icons mybucketlist-icon"></i>
                                                 <span>{{ 'my_bucketlist'|trans }}</span>
                                             </a>
                                         </li>
@@ -246,7 +246,7 @@
 
                                         <li>
                                             <a href="{{ path('add_goal') }}">
-                                                <i class="add-goal"></i>
+                                                <i class="icons add-goal"></i>
                                                 <span>{{ 'create_goal'|trans }}</span>
                                             </a>
                                         </li>
@@ -255,7 +255,7 @@
 
                                         <li>
                                             <a href="{{ path("edit_user_profile") }}">
-                                                <i class="settings-icon"></i>
+                                                <i class="icons settings-icon"></i>
                                                 <span>{{ 'settings'|trans }}</span>
                                             </a>
                                         </li>
@@ -264,7 +264,7 @@
 
                                         <li>
                                             <a href="{{ path("fos_user_security_logout") }}">
-                                                <i class="logout"></i>
+                                                <i class="icons logout"></i>
                                                 <span>{{ 'logout'|trans }}</span>
                                             </a>
                                         </li>
@@ -307,8 +307,7 @@
 
                                     <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
-                                            {#<i class="icon-ideas-icon"></i>#}
-                                            <i class="ideas-icon"></i>
+                                            <i class="icons ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                         </a>
                                     </li>
@@ -316,7 +315,7 @@
                                     {% if user %}
                                         <li {% if app.request.get('_route') == 'user_profile_single' %}class="active"{% endif %}>
                                             <a href="{{ path('user_profile_single') }}">
-                                                <i class="mybucketlist-icon"></i>
+                                                <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
                                         </li>
