@@ -37,7 +37,7 @@ class ActivityGroupCommand extends ContainerAwareCommand
 
         $progress->start();
 
-        $singleNewFeedIds = [['id' => 144]];
+//        $singleNewFeedIds = [['id' => 144]];
 
         foreach ($singleNewFeedIds as $singleNewFeedId)
         {
