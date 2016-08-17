@@ -158,8 +158,9 @@ angular.module('profile')
 
     }
   ])
-  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData',
-    function ($scope, $timeout, lsInfiniteGoals, userData) {
+  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
+    function ($scope, $timeout, lsInfiniteGoals, userData, $location) {
+      var path = $location.$$path;
       $scope.isListed = userData.isListed;
       $scope.goalId = userData.goalId;
       $scope.usersCount = userData.usersCount;
@@ -172,13 +173,31 @@ angular.module('profile')
         $scope.Friends.reset();
         $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
       };
+      
       if($scope.goalId){
         $scope.Friends = new lsInfiniteGoals(10);
       } else {
         $scope.Friends = new lsInfiniteGoals(20);
       }
 
-      $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
+      if(path.length){
+        $timeout(function () {
+          path = path.slice(1);
+          switch (path){
+            case 'recently':
+              $scope.getCategory(path);
+              break;
+            case 'match':
+              $scope.getCategory(path);
+              break;
+            case 'active':
+              $scope.getCategory(path);
+              break;
+            default:
+              $scope.getCategory('all');
+          }
+        },100);
+      }
       
       $scope.resetFriends = function () {
         $scope.Friends.reset();
