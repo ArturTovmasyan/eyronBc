@@ -109,12 +109,15 @@ class UserController extends FOSRestController
      */
     private function loginAction(User $user, array $group, $isRegistered = null)
     {
-        $liipManager = $this->container->get('liip_imagine.cache.manager');
-        $route = $this->container->get('router');
-        $liipManager->getBrowserPath($user->getImagePath(), 'user_goal');
-        $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
-        $filterUrl = $route->generate('liip_imagine_filter', $params);
-        $user->setMobileImagePath($filterUrl);
+        //check if user have image path
+        if($user->getImagePath()) {
+            $liipManager = $this->container->get('liip_imagine.cache.manager');
+            $route = $this->container->get('router');
+            $liipManager->getBrowserPath($user->getImagePath(), 'user_goal');
+            $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
+            $filterUrl = $route->generate('liip_imagine_filter', $params);
+            $user->setMobileImagePath($filterUrl);
+        }
 
         $request     = $this->get('request_stack')->getCurrentRequest();
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
