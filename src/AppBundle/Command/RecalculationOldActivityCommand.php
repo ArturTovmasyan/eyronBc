@@ -42,25 +42,19 @@ class RecalculationOldActivityCommand extends ContainerAwareCommand
 
         foreach ($userGoals as $userGoal)
         {
-            //set action
-            $action = NewFeed::GOAL_ADD;
-
-            //set perform date for activity
-            $perform_date = $userGoal->getListedDate();
-
-            if($userGoal->getCompletionDate() && ($userGoal->getListedDate() || (!$userGoal->getListedDate()))) {
-
-                //set action
+            if($userGoal->getCompletionDate()) {
                 $action = NewFeed::GOAL_COMPLETE;
-
-                //set perform date for activity
                 $perform_date = $userGoal->getCompletionDate();
             }
+            elseif($userGoal->getListedDate()){
+                $action = NewFeed::GOAL_ADD;
+                $perform_date = $userGoal->getListedDate();
+            }
+            else {
+                continue;
+            }
 
-            //get user in userGoal
             $user = $userGoal->getUser();
-
-            //get goal in userGoal
             $goal = $userGoal->getGoal();
 
             //create activity
