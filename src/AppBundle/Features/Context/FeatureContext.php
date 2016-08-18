@@ -15,9 +15,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     use KernelDictionary;
 
     public function __construct(Session $session, $simpleArg)
-    {
-
-    }
+    {}
 
     /**
      * @When I wait for angular
@@ -106,7 +104,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //check if user admin
         if($user == 'admin') {
-            $this->assertSession()->pageTextContains('HOMEPAGE');
+            $this->assertSession()->pageTextContains('admin');
         }
         else
         {
@@ -490,6 +488,24 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on show more link
         $link->click();
-
     }
+
+    /**
+     * @When I click on select2 field
+     */
+    public function iClickOnSelectField()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get all sub filters in my bucket list
+        $linkBlock = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@class="select2-results"]//div[@class="select2-result-label"])'));
+
+        //click on show more link
+        $linkBlock[3]->click();
+    }
+
 }
