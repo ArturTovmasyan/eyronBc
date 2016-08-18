@@ -368,10 +368,10 @@ admin:
       title: Title
       description: Description
       position: Position
-      videoLink: Video Link
+      videoLink: Video
       images: Images
       publish: Publish
-      getListPhoto: Get List Photo
+      getListPhoto: List Photo
       email: Email
       firstName: First Name
       lastName: Last Name
@@ -385,9 +385,9 @@ admin:
       goal_link: Goal link
       comments: Comments
       action_merge: Merge
-      goal_status: Goal Status
-      archived: Archived goals
-      merged_id: Merged goal id
+      goal_status: Status
+      archived: Archived
+      merged_id: Merged id
       author_name: Author
       email_username: Email\Username
       messages: Message

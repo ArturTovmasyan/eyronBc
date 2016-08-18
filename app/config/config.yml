@@ -40,7 +40,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v421
+        assets_version: v429
 
     default_locale:  en
     trusted_hosts:   ~
@@ -72,6 +72,7 @@ twig:
         google_api_key: %google_api_key%
         ga_id: %ga_id%
         env_prefix: ~
+        remote_console: %remote_console%
 
 
 
