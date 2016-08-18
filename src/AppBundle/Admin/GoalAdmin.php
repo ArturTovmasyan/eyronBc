@@ -116,23 +116,12 @@ class GoalAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-//            ->add('author', null, array('label'=>'admin.label.name.author_name', 'show_filter' => true))
-            ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('description', null, array('label'=>'admin.label.name.description'))
-            ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
-            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
-            ->add('archived', null, array('label'=>'admin.label.name.archived'))
-            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
-            ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
-
             ->add('author', 'doctrine_orm_callback', array(
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
                     }
-
                     $queryBuilder
                         ->leftjoin(sprintf("%s.author", $alias), "aut");
 
@@ -147,11 +136,20 @@ class GoalAdmin extends AbstractAdmin
                                 aut.username LIKE :value")
                             ->setParameter('value', $value['value'].'%');
                     }
-
                     return true;
                 },
                 'field_type' => 'text'
             ))
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('description', null, array('label'=>'admin.label.name.description'))
+            ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
+            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
+            ->add('archived', null, array('label'=>'admin.label.name.archived'))
+            ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
+            ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
+
+
 
             ->add('created', 'doctrine_orm_callback', array(
                 'show_filter' => true,
