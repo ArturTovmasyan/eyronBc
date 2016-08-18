@@ -37,8 +37,8 @@
                                        <span class="text-dark-gray" ng-bind-html="bodyInHtml(notify.notification.body)">
                                         {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
                                         </span>
-                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm:ss a" ]] </span>
-                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm:ss a" ]] </span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" ]] </span>
+                                        <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm a" ]] </span>
                                         <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'hr'">[[ time[notify.id].time ]] {{ 'notify.hour'|trans }}</span>
                                         <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'minute'">[[ time[notify.id].time ]] {{ 'notify.minute'|trans }}</span>
                                         <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'now'">{{ 'notify.now'|trans }}</span>

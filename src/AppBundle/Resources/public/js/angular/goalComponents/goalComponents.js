@@ -605,18 +605,19 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.getCompleted = function(userGoal){
-        if(!userGoal || !userGoal.steps || !userGoal.steps.length){
-          return 100;
+        if(!userGoal || !userGoal.steps){
+          return 0;
         }
+        var length = Object.keys(userGoal.steps).length;
 
         var result = 0;
         angular.forEach(userGoal.steps, function(v){
-          if(v === $scope.UserGoalConstant['DONE']){
+          if(v){
             result++;
           }
         });
 
-        return result * 100 / userGoal.steps.length;
+        return result * 100 / length;
       };
 
       $scope.momentDateFormat = function(date, format){
