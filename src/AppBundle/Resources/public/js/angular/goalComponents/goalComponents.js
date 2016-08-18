@@ -244,7 +244,7 @@ angular.module('goalComponents', ['Interpolation',
     'envPrefix',
     function($scope, $sce, $timeout, $window, userGoalData, UserGoalDataManager, envPrefix){
 
-      var myDate = moment(new Date()).format('YYYY');
+      var myDate = moment().format('YYYY');
       $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
       $timeout(function () {
@@ -573,7 +573,6 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.compareDates = function(date1, date2){
-        console.log('compareDates: ', date1, date2);
 
         if(!date1){
           return null;
@@ -676,14 +675,11 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.save = function () {
         $timeout(function(){
-          console.log(1);
 
           $scope.uncompletedYear = false;
           if($scope.year && $scope.year != $scope.defaultYear &&
             $scope.month && $scope.month != $scope.defaultMonth &&
             $scope.day && $scope.day != $scope.defaultDay){
-
-            console.log('all');
 
             dateChanged = true;
             $scope.userGoal.date_status = 1;
@@ -700,8 +696,6 @@ angular.module('goalComponents', ['Interpolation',
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){
             //when select only year
-
-            console.log('year');
 
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?($scope.months.indexOf($scope.month)): ($scope.complete.switch? moment(new Date()).format('M'):12);
@@ -722,7 +716,6 @@ angular.module('goalComponents', ['Interpolation',
           //  todo some thing in circles
           }
           else if(($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)){
-            console.log('empty');
             $scope.uncompletedYear = true;
             return;
           }
@@ -731,7 +724,6 @@ angular.module('goalComponents', ['Interpolation',
           //   $scope.invalidYear = true;
           //   return;
           // }
-          console.log(2);
 
           var selector = 'success' + $scope.userGoal.goal.id;
           if(angular.element('#'+ selector).length > 0) {
@@ -780,8 +772,6 @@ angular.module('goalComponents', ['Interpolation',
             }
           }
 
-          console.log(3, $scope.userGoal);
-
           $scope.userGoal.steps = {};
           angular.forEach($scope.userGoal.formatted_steps, function(v){
             if(v.text) {
@@ -797,20 +787,14 @@ angular.module('goalComponents', ['Interpolation',
 
           $scope.userGoal.goal_status = $scope.complete.switch;
 
-          console.log('manageAction: request sent', $scope.userGoal);
-
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (res){
             $scope.$emit('lsJqueryModalClosedSaveGoal');
             // angular.element('#cancel').click();
             $.modal.close();
 
-            console.log('manageAction: success', res);
-
             if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
               $window.location.href = $scope.redirectPath;
             }
-          }, function(res, header){
-            console.log('manageAction: error', res, header);
           });
         }, 100)
       };
