@@ -23,6 +23,9 @@ class ReportAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $datagridMapper
             ->add('id')
             ->add('user')
@@ -65,6 +68,8 @@ class ReportAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
         $ids = $em->getRepository('ApplicationUserBundle:Report')->findCommentAndSuccessStoriesIds();
 
@@ -96,6 +101,9 @@ class ReportAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $formMapper
             ->add('id')
             ->add('user')

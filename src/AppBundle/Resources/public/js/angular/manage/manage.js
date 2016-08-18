@@ -29,10 +29,10 @@ angular.module('manage', ['Interpolation',
             goalUsersUrl = envPrefix + "goal/users",
             id = UserContext.id;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v3');
+        var templateCache = CacheFactory.get('bucketlist_templates_v5');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v3', {
+            templateCache = CacheFactory('bucketlist_templates_v5', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });

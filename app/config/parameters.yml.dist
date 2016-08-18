@@ -47,5 +47,6 @@ parameters:
     ios_mandatory_version:     1.0.0
 
     google_api_key: AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g
+    remote_console: ~
 
 

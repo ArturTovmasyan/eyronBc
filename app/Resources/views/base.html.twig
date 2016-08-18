@@ -544,6 +544,12 @@
                 }
             </script>
 
+
+        {# this is for debug #}
+        {% if remote_console is defined and remote_console %}
+            <script src="http://jsconsole.com/js/remote.js?{{ remote_console }}"></script>
+        {% endif %}
+
         {% endblock %}
 
         {#<script>#}

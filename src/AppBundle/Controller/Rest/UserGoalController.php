@@ -136,9 +136,9 @@ class UserGoalController extends FOSRestController
                     }
 
                     $currentDate = new \DateTime();
-                    if ($currentDate < $completionDate){
-                        return new Response('Future completed date', Response::HTTP_BAD_REQUEST);
-                    }
+//                    if ($currentDate < $completionDate){
+//                        return new Response('Future completed date', Response::HTTP_BAD_REQUEST);
+//                    }
                 }
                 else {
                     $completionDate = new \DateTime();

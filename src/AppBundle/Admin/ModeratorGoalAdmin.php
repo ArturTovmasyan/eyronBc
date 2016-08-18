@@ -93,9 +93,36 @@ class ModeratorGoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
+            ->add('author', 'doctrine_orm_callback', array(
+                'show_filter' => true,
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+                    $queryBuilder
+                        ->leftjoin(sprintf("%s.author", $alias), "aut");
+
+                    if(is_numeric($value['value'])) {
+                        $queryBuilder
+                            ->andWhere("aut.id = :id")
+                            ->setParameter('id', $value['value']);
+                    }
+                    else{
+                        $queryBuilder
+                            ->andWhere("aut.firstname LIKE :value OR aut.lastname LIKE :value OR
+                                aut.username LIKE :value")
+                            ->setParameter('value', $value['value'].'%');
+                    }
+                    return true;
+                },
+                'field_type' => 'text'
+            ))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))
@@ -342,9 +369,15 @@ class ModeratorGoalAdmin extends AbstractAdmin
      */
     public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
+
+        // add selected
+        $query->addSelect('sc, im, tg, at');
+        $query->leftJoin($query->getRootAlias() . '.successStories', 'sc');
+        $query->leftJoin($query->getRootAlias() . '.images', 'im');
+        $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
+        $query->leftJoin($query->getRootAlias() . '.author', 'at');
         $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':privateStatus'))
-            ->setParameter('privateStatus', Goal::PRIVATE_PRIVACY);
-        ;
+                ->setParameter('privateStatus', Goal::PRIVATE_PRIVACY);
 
         return $query;
     }
