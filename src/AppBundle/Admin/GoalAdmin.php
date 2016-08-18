@@ -116,7 +116,7 @@ class GoalAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('author', null, array('label'=>'admin.label.name.author_name', 'show_filter' => true), null, array('multiple' => false))
+//            ->add('author', null, array('label'=>'admin.label.name.author_name', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
@@ -126,20 +126,31 @@ class GoalAdmin extends AbstractAdmin
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
 
-            ->add('with_open_comments', 'doctrine_orm_callback', array(
+            ->add('author', 'doctrine_orm_callback', array(
                 'show_filter' => true,
                 'callback' => function($queryBuilder, $alias, $field, $value) {
                     if (!$value['value']) {
                         return;
                     }
 
-                    $queryBuilder->leftJoin(sprintf('%s.comments', $alias), 'c');
-                    $queryBuilder->andWhere('c.status = :status');
-                    $queryBuilder->setParameter('status', Comment::STATUS_MODERATE);
+                    $queryBuilder
+                        ->leftjoin(sprintf("%s.author", $alias), "aut");
+
+                    if(is_numeric($value['value'])) {
+                        $queryBuilder
+                            ->andWhere("aut.id = :id")
+                            ->setParameter('id', $value['value']);
+                    }
+                    else{
+                        $queryBuilder
+                            ->andWhere("aut.firstname LIKE :value OR aut.lastname LIKE :value OR
+                                aut.username LIKE :value")
+                            ->setParameter('value', $value['value'].'%');
+                    }
 
                     return true;
                 },
-                'field_type' => 'checkbox'
+                'field_type' => 'text'
             ))
 
             ->add('created', 'doctrine_orm_callback', array(
