@@ -43,6 +43,7 @@ class UserController extends FOSRestController
      *      {"name"="lastName", "dataType"="string", "required"=true, "description"="User`s last name | min=3 / max=20 symbols"},
      *      {"name"="birthday", "dataType"="string", "required"=true, "description"="User`s birthday | in this 01/12/2015 format"},
      *      {"name"="profile_image", "dataType"="file", "required"=true, "description"="Users profile image file" },
+     *      {"name"="apikey",   "dataType"="string",   "required"=false, "description"="User`s apikey"}
      *
      * }
      * )
@@ -108,6 +109,16 @@ class UserController extends FOSRestController
      */
     private function loginAction(User $user, array $group, $isRegistered = null)
     {
+        //check if user have image path
+        if($user->getImagePath()) {
+            $liipManager = $this->container->get('liip_imagine.cache.manager');
+            $route = $this->container->get('router');
+            $liipManager->getBrowserPath($user->getImagePath(), 'user_goal');
+            $params = ['path' => ltrim($user->getImagePath(), '/'), 'filter' => 'user_goal'];
+            $filterUrl = $route->generate('liip_imagine_filter', $params);
+            $user->setMobileImagePath($filterUrl);
+        }
+
         $request     = $this->get('request_stack')->getCurrentRequest();
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
         $secretKey   = $this->container->getParameter('secret');
