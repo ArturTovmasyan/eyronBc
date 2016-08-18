@@ -1155,12 +1155,23 @@ label{
       font-weight: normal;
       font-size:20px;
     }
+    input.form-control::-webkit-input-placeholder {
+      color: #cccccc;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+      color: #cccccc;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: #cccccc;
+    }
+
+    :-ms-input-placeholder {
+      color: #cccccc;
+    }
   }
 }
-//
-//#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,#notification-list,#report-modal{
-//
-//}
 
 .close-icon{
   width: 18px;
@@ -2480,7 +2491,7 @@ footer{
   .search{
     height: 75px;
     form{
-      padding:13px 2px 13px 15px;
+      padding:13px 2px 13px 10px;
 
       input.form-control{
         font-size:22px;
