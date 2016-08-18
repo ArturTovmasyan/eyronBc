@@ -101,9 +101,9 @@
 
                 <h3 data-ng-class="ng-hide" data-ng-show="!complete.switch || userGoal.do_date">
                     {{ "goal.deadline"|trans }}
-                    <span class="text-purple" class="ng-hide" data-ng-show="complete.switch && userGoal.do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(userGoal.do_date, 'DD MMM YYYY') ]]</span>
-                    <span class="text-purple" class="ng-hide" data-ng-show="complete.switch && userGoal.do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(userGoal.do_date, 'YYYY') ]]</span>
-                    <span class="text-purple" class="ng-hide" data-ng-show="complete.switch && userGoal.do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(userGoal.do_date, 'MMM YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(firefox_do_date, 'YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(firefox_do_date, 'MMM YYYY') ]]</span>
                 </h3>
                 <h3 class="ng-hide" data-ng-show="complete.switch">{{ "completed"|trans }}</h3>
 
