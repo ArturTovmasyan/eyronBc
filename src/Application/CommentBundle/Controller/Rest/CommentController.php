@@ -131,16 +131,21 @@ class CommentController extends FOSRestController
      * )
      *
      * @Rest\View(serializerGroups={"comment", "comment_children", "comment_author", "tiny_user"})
-     * @Rest\Get("/comments/{thread}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, defaults={"first"=null, "count"=null}, name="get_comment", options={"method_prefix"=false})
+     * @Rest\Get("/comments/{threadId}/{first}/{count}", requirements={"first"="\d+", "count"="\d+"}, defaults={"first"=null, "count"=null}, name="get_comment", options={"method_prefix"=false})
      *
      * @param Thread $thread
      * @param null $first
      * @param null $count
      * @return array
      */
-    public function getAction(Thread $thread, $first = null, $count = null)
+    public function getAction($threadId, $first = null, $count = null)
     {
         $em = $this->getDoctrine()->getManager();
+        $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($threadId);
+        if (is_null($thread)){
+            return [];
+        }
+
         $comments = $em->getRepository('ApplicationCommentBundle:Comment')->findThreadComments($thread->getId(), $first, $count);
 
         return $comments;
