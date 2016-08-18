@@ -97,32 +97,11 @@ class ModeratorGoalAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
+            ->add('author.email', null, array('label'=>'Author email', 'show_filter' => true))
+            ->add('author.firstname', null, array('label'=>'Author first name', 'show_filter' => true))
+            ->add('author.lastname', null, array('label'=>'Author last name', 'show_filter' => true))
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
-            ->add('author', 'doctrine_orm_callback', array(
-                'show_filter' => true,
-                'callback' => function($queryBuilder, $alias, $field, $value) {
-                    if (!$value['value']) {
-                        return;
-                    }
-                    $queryBuilder
-                        ->leftjoin(sprintf("%s.author", $alias), "aut");
-
-                    if(is_numeric($value['value'])) {
-                        $queryBuilder
-                            ->andWhere("aut.id = :id")
-                            ->setParameter('id', $value['value']);
-                    }
-                    else{
-                        $queryBuilder
-                            ->andWhere("aut.firstname LIKE :value OR aut.lastname LIKE :value OR
-                                aut.username LIKE :value")
-                            ->setParameter('value', $value['value'].'%');
-                    }
-                    return true;
-                },
-                'field_type' => 'text'
-            ))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))
