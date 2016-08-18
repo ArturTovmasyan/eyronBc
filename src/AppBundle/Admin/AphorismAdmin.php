@@ -25,6 +25,24 @@ class AphorismAdmin extends AbstractAdmin
     protected  $baseRoutePattern = 'admin-aphorism';
 
     /**
+     * override list query
+     *
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface */
+
+    public function createQuery($context = 'list')
+    {
+        // call parent query
+        $query = parent::createQuery($context);
+
+        // add selected
+        $query->addSelect('tg');
+        $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
+
+        return $query;
+    }
+
+    /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
      *
      * @return void

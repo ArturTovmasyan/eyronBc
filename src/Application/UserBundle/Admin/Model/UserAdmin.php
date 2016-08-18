@@ -92,6 +92,9 @@ class UserAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $datagridMapper
             ->add('id', null, array('label'=>'Id','show_filter' => true))
             ->add('email', null, array('label'=>'Email\Username','show_filter' => true))
@@ -105,6 +108,7 @@ class UserAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+
         $listMapper
             ->add('id', null, array('label' => 'Employee ID'))
             ->add('username', null, array('label'=>'Username'))

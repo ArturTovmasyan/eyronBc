@@ -15,6 +15,24 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class SuccessStoryAdmin extends AbstractAdmin
 {
+    /**
+     * override list query
+     *
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
+    public function createQuery($context = 'list')
+    {
+        // call parent query
+        $query = parent::createQuery($context);
+        // add selected
+        $query->addSelect('gl, f');
+        $query->leftJoin($query->getRootAlias() . '.goal', 'gl');
+        $query->leftJoin($query->getRootAlias() . '.files', 'f');
+
+        return $query;
+    }
+
     protected $datagridValues = array(
         '_page' => 1,
         '_sort_order' => 'DESC',
