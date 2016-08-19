@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row no-gutter">
                 <div class="col-xs-10 col-sm-11">
-                    {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}
+                    {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}
                 </div>
 
                 <div class="col-xs-2 col-sm-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">

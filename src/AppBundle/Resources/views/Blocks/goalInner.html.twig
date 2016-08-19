@@ -414,13 +414,14 @@
                                                             {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
                                                             {% set className = "user-no" ~ random(4) %}
 
-                                                            {% if addedUser.getPhotoLink  %}
-                                                                <figure class="user-image">
-                                                                    <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
-                                                                </figure>
-                                                            {% else %}
-                                                                <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
-                                                            {% endif %}
+                                                            <figure class="user-image">
+                                                                {% if addedUser.getPhotoLink  %}
+                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
+                                                                {% else %}
+                                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
+                                                                {% endif %}
+                                                            </figure>
+
                                                         </a>
 
                                                         <div class="pull-left">
