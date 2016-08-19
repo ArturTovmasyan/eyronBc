@@ -27,19 +27,16 @@ class MainController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $affiliates = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->getAffiliatesByLink($link);
-
-        $cssContent  = '';
+        
         $htmlContent = '';
         $jsContent   = '';
 
         foreach($affiliates as $affiliate){
-            $cssContent .= $affiliate->getCssContent();
             $htmlContent .= $affiliate->getHtmlContent();
             $jsContent .= $affiliate->getJsContent();
         }
 
         return [
-            'cssContent'  => $cssContent,
             'htmlContent' => $htmlContent,
             'jsContent'   => $jsContent
         ];

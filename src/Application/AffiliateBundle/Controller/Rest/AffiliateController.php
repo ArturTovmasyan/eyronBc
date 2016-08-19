@@ -51,15 +51,22 @@ class AffiliateController extends FOSRestController
      */
     public function postAction(Request $request)
     {
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
         $link = $request->get('page_link');
-        if (is_null($link)){
+        $zone = $request->get('zone');
+        
+        if (is_null($link) || is_null($zone) || !in_array($zone, AffiliateType::getAllowedZones())){
             throw new HttpException(Response::HTTP_BAD_REQUEST);
         }
 
         AffiliateType::$bookingAId = $this->getParameter('booking_aid');
 
         $em = $this->getDoctrine()->getEntityManager();
-        $affiliates = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->getAffiliatesByLink($link);
+        $affiliates = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->getAffiliatesByLink($link, $zone);
 
         return $affiliates;
     }

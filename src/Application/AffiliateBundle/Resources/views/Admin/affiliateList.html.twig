@@ -6,7 +6,6 @@
     {{ object.setCacheDownloadLink(imageLink) }}
 
     <div align="left">
-        {{ object.replacePlaceHolders(object.affiliateType.cssContent)|raw }}
         {{ object.replacePlaceHolders(object.affiliateType.htmlContent)|raw }}
         {{ object.replacePlaceHolders(object.affiliateType.jsContent)|raw }}
     </div>

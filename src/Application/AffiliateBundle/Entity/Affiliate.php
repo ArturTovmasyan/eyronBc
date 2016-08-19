@@ -76,15 +76,7 @@ class Affiliate
     {
         return $this->replacePlaceHolders($this->getAffiliateType()->getHtmlContent());
     }
-
-    /**
-     * @VirtualProperty()
-     * @Groups({"affiliate"})
-     */
-    public function getCssContent()
-    {
-        return $this->replacePlaceHolders($this->getAffiliateType()->getCssContent());
-    }
+    
 
     /**
      * @VirtualProperty()
@@ -269,9 +261,9 @@ class Affiliate
      */
     public function replacePlaceHolders($content)
     {
-        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, AffiliateType::$bookingAId, $content);
-        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getLink(), $newContent);
+        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getLink(), $content);
         $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
+        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, AffiliateType::$bookingAId, $newContent);
 
         return $newContent;
     }

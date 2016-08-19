@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -22,9 +23,17 @@ class AffiliateTypeAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('name')
+            ->add('zone', null, [], ChoiceType::class, array(
+                'choices' => [
+                    AffiliateType::LEFT_ZONE    => 'Left',
+                    AffiliateType::RIGHT_ZONE   => 'Right',
+                    AffiliateType::TOP_ZONE     => 'Top',
+                    AffiliateType::BOTTOM_ZONE  => 'Bottom',
+                    AffiliateType::INNER_ZONE   => 'Inner',
+                ]
+            ))
             ->add('defaultLink')
             ->add('htmlContent')
-            ->add('cssContent')
             ->add('jsContent')
         ;
     }
@@ -39,6 +48,7 @@ class AffiliateTypeAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
+            ->add('zoneString')
             ->add('htmlContent', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
             ->add('_action', null, array(
                 'actions' => array(
@@ -58,8 +68,16 @@ class AffiliateTypeAdmin extends AbstractAdmin
         $formMapper
             ->add('name', TextType::class)
             ->add('defaultLink', TextType::class)
+            ->add('zone', ChoiceType::class, array(
+                'choices' => [
+                    AffiliateType::LEFT_ZONE    => 'Left',
+                    AffiliateType::RIGHT_ZONE   => 'Right',
+                    AffiliateType::TOP_ZONE     => 'Top',
+                    AffiliateType::BOTTOM_ZONE  => 'Bottom',
+                    AffiliateType::INNER_ZONE   => 'Inner',
+                ]
+            ))
             ->add('htmlContent', TextareaType::class, ['required' => false])
-            ->add('cssContent', TextareaType::class, ['required' => false])
             ->add('jsContent', TextareaType::class, ['required' => false])
             ->add('file', AdminFileType::class, ['required' => false])
         ;
@@ -73,6 +91,7 @@ class AffiliateTypeAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('zoneString')
             ->add('htmlContent', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateTypeList.html.twig'])
         ;
     }

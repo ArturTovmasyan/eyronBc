@@ -12,15 +12,18 @@ class AffiliateRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @param $pageLink
+     * @param $zone
      * @return array
      */
-    public function getAffiliatesByLink($pageLink)
+    public function getAffiliatesByLink($pageLink, $zone)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT a
                            FROM ApplicationAffiliateBundle:Affiliate a
+                           JOIN a.affiliateType aType WITH aType.zone = :zone
                            WHERE a.links LIKE :pageLink")
             ->setParameter('pageLink', '%' . $pageLink . '%')
+            ->setParameter('zone', $zone)
             ->getResult();
     }
 }

@@ -25,6 +25,12 @@ class AffiliateType
     const IMAGE_PLACEHOLDER = '%image%';
     const LINK_PLACEHOLDER  = '%link%';
 
+    const LEFT_ZONE     = 0;
+    const RIGHT_ZONE    = 1;
+    const TOP_ZONE      = 2;
+    const BOTTOM_ZONE   = 3;
+    const INNER_ZONE    = 4;
+
     public static $bookingAId;
 
     use File;
@@ -44,16 +50,17 @@ class AffiliateType
     protected $name;
 
     /**
+     * @ORM\Column(name="zone", type="smallint", nullable=false)
+     * @Groups({"affiliateType"})
+     * @Assert\Choice(callback = "getAllowedZones")
+     */
+    protected $zone;
+
+    /**
      * @ORM\Column(name="html_content", type="string", length=5000, nullable=true)
      * @Groups({"affiliateType"})
      */
     protected $htmlContent;
-
-    /**
-     * @ORM\Column(name="css_content", type="string", length=5000, nullable=true)
-     * @Groups({"affiliateType"})
-     */
-    protected $cssContent;
 
     /**
      * @ORM\Column(name="js_content", type="string", length=5000, nullable=true)
@@ -111,30 +118,6 @@ class AffiliateType
     public function getHtmlContent()
     {
         return $this->htmlContent;
-    }
-
-    /**
-     * Set cssContent
-     *
-     * @param string $cssContent
-     *
-     * @return AffiliateType
-     */
-    public function setCssContent($cssContent)
-    {
-        $this->cssContent = $cssContent;
-
-        return $this;
-    }
-
-    /**
-     * Get cssContent
-     *
-     * @return string
-     */
-    public function getCssContent()
-    {
-        return $this->cssContent;
     }
 
     /**
@@ -212,12 +195,48 @@ class AffiliateType
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param mixed $zone
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllowedZones()
+    {
+        return [self::LEFT_ZONE, self::RIGHT_ZONE, self::TOP_ZONE, self::BOTTOM_ZONE, self::INNER_ZONE];
+    }
+
+    public function getZoneString()
+    {
+        $zones = [
+            AffiliateType::LEFT_ZONE    => 'Left',
+            AffiliateType::RIGHT_ZONE   => 'Right',
+            AffiliateType::TOP_ZONE     => 'Top',
+            AffiliateType::BOTTOM_ZONE  => 'Bottom',
+            AffiliateType::INNER_ZONE   => 'Inner'
+        ];
+
+        return isset($zones[$this->getZone()]) ? $zones[$this->getZone()] : '';
+    }
 
     public function replacePlaceHolders($content)
     {
-        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, self::$bookingAId, $content);
-        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getDefaultLink(), $newContent);
+        $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getDefaultLink(), $content);
         $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
+        $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, self::$bookingAId, $newContent);
 
         return $newContent;
     }
