@@ -77,7 +77,7 @@ class DoctrineListener
         $stopwatch = $this->container->get('debug.stopwatch');
 
         // Start event named 'eventName'
-        $stopwatch->start('watch_doctrine_listener');
+        $stopwatch->start('bl_doctrine_listener');
 
         $em     = $this->container->get('doctrine')->getManager();
         $entity = $event->getObject();
@@ -135,7 +135,7 @@ class DoctrineListener
         }
 
         // Start event named 'eventName'
-        $stopwatch->stop('watch_doctrine_listener');
+        $stopwatch->stop('bl_doctrine_listener');
     }
 
 
@@ -182,7 +182,6 @@ class DoctrineListener
      */
     public function postUpdate(LifecycleEventArgs $event)
     {
-        dump($event);exit;
         $entity = $event->getObject();
         $em = $event->getObjectManager();
         $uow = $em->getUnitOfWork();
@@ -241,7 +240,6 @@ class DoctrineListener
      */
     public function postPersist(LifecycleEventArgs $event)
     {
-        dump($event);exit;
         $entity = $event->getObject();
         $em = $event->getObjectManager();
 
