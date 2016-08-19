@@ -61,7 +61,7 @@ class RequestListener //implements EventSubscriberInterface
         $stopwatch = $this->stopwatch;
 
         // Start event named 'eventName'
-        $stopwatch->start('bl_set_locale_and_check_mobile_app_version_listener');
+        $stopwatch->start('bl_set_locale_listener');
 
         $request = $event->getRequest();
 
