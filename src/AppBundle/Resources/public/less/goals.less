@@ -93,25 +93,20 @@
           height: 30px;
         }
 
-
         &:hover,&:active,&:focus{
           text-decoration: none;
+          color: #7725f6 ;
+
+          span{
+            color: #7725f6 ;
+          }
+        }
+      }
+
+      &.active-category{
+        a{
           color: #7725f6;
         }
-
-        &:active,&:focus{
-          text-decoration: none;
-          color: #7725f6;
-
-          //svg{
-          //  .st0{
-          //    stroke: #7725f6;
-          //  }
-          //}
-        }
-
-
-
       }
     }
   }
@@ -137,16 +132,26 @@
     &:hover{
       color:#7724F6 !important;
       text-decoration: none;
+
+      span{
+        color: #7725f6;
+      }
     }
 
     &:focus{
       color:#999999;
       text-decoration: none;
+      span{
+        color: #7725f6;
+      }
     }
 
     &:active{
       color:#999999;
       text-decoration: none;
+      span{
+        color: #7725f6;
+      }
     }
   }
 
