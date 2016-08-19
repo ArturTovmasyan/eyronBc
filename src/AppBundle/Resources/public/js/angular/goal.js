@@ -22,6 +22,7 @@ angular.module('goal', ['Interpolation',
         'PathPrefix',
         'slickCarousel',
         'notification',
+        'activity',
         'comments'
     ])
     .config(function (localStorageServiceProvider ) {
@@ -63,7 +64,6 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
-            this.page = "";
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -94,52 +94,11 @@ angular.module('goal', ['Interpolation',
             this.start = 0;
         };
 
-        lsInfiniteItems.prototype.newActivity = function(time, cb){
-            var url = envPrefix + 'api/v2.0/activities/0/'+ this.count +'?time=' + time;
-            $http.get(url).success(function(data) {
-                if(angular.isFunction(cb)){
-                    cb(data);
-                }
-            });
-        };
-
-        lsInfiniteItems.prototype.addNewActivity = function(data, cb){
-            var itemIds = [];
-
-            // TODO needs to optimize
-            angular.forEach(this.items, function (d) {
-                itemIds.push(d.id);
-            });
-
-            var removingCount = 0,k;
-
-            angular.element('#activities').addClass('comingByTop');
-
-            // TODO needs to optimize
-            for(var i = data.length - 1, j = 0; i >= 0; i--, j++){
-                k = itemIds.indexOf(data[i].id);
-                if(k !== -1){
-                    this.items.splice(k + j - removingCount, 1);
-                    removingCount++;
-                }
-                this.items.unshift(data[i]);
-            }
-            if(angular.isFunction(cb)){
-                cb();
-            }
-            angular.element('#activities').removeClass('comingByTop');
-        };
-
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
-            angular.element('#activities').removeClass('comingByTop');
             this.items = this.items.concat(this.reserve);
             this.nextReserve(url, search, category);
             if(category){
                 $analytics.eventTrack('Load more in select category', {  category: 'Goal', label: 'Load more in category ' + category + ' from Web' });
-            }else {
-                if(angular.element('#activities').length > 0){
-                    $analytics.eventTrack('Activity load more', {  category: 'Activity', label: 'Load more from Web' });
-                }
             }
 
         };
@@ -160,16 +119,9 @@ angular.module('goal', ['Interpolation',
             }
 
             this.busy = true;
-            this.page = (url.indexOf('activities') != -1) ? 'activity' : 'list';
-            var lastId = this.items[this.items.length - 1].id;
-            var lastDate = this.items[this.items.length - 1].datetime;
-            var first = (this.page == 'activity' && lastId) ? 0 : this.start;
-            url = url.replace('{first}', first).replace('{count}', this.count);
+            url = url.replace('{first}', this.start).replace('{count}', this.count);
             url += '?search=' + search + '&category=' + category;
 
-            if(!first && lastId){
-                url += '&id=' + lastId + '&time=' + lastDate;
-            }
             $http.get(url).success(function(data) {
                 this.reserve = data;
                 this.busy = data.length ? false : true;
@@ -208,81 +160,29 @@ angular.module('goal', ['Interpolation',
 
             this.busy = true;
             this.noItem = false;
-            //this.oldChache = false;
             var reserveUrl = url;
 
-            //if have userId and caching data by activities
-            if(userId && !this.isReset &&
-              localStorageService.isSupported &&
-              localStorageService.get(this.storage_name + userId) &&
-              url == envPrefix + 'api/v2.0/activities/{first}/{count}' &&
-              !category &&
-              !search)
-            {
-                var data = localStorageService.get(this.storage_name + userId);
+            url = url.replace('{first}', this.start).replace('{count}', this.count);
+            url += '?search=' + search + '&category=' + category;
+            $http.get(url).success(function (data) {
+                //if get empty
+                if(!data.length){
+                    this.noItem = true;
+                }
                 this.items = this.items.concat(data);
+                this.busy = data.length ? false : true;
+                this.start += this.count;
+                this.request++;
 
-                url = url.replace('{first}', 0).replace('{count}', this.count);
-                $http.get(url).success(function(newData) {
-                    if(newData.length){
-                        localStorageService.set(this.storage_name + userId, newData);
-                        if(data.length){
-                            if(newData[0].datetime !== data[0].datetime ){
-                                angular.element('#activities').addClass('comingByTop');
+                if(!notReserve){
+                    this.nextReserve(reserveUrl, search, category);
+                }
 
-                                // TODO Change this
-                                for(var i = this.count - 1; i >= 0; i--){
-                                    this.items.unshift(newData[i]);
-                                    this.items.pop();
-                                }
+                if (!this.items.length) {
+                    this.loadRandomItems(this.count);
+                }
 
-                                this.reserve = [];
-                            }
-                        } else {
-                            this.items = this.items.concat(newData);
-                        }
-                    } else {
-                        if(!data.length){
-                            this.noItem = true;
-                        }
-                    }
-
-                    this.start += this.count;
-                    this.request++;
-                    this.busy = data.length ? false : true;
-
-                    if(!notReserve){
-                        this.nextReserve(reserveUrl, search, category);
-                    }
-                }.bind(this));
-
-            } else {
-                var first = (url.indexOf('activities') != -1) ? 0 : this.start;
-                url = url.replace('{first}', first).replace('{count}', this.count);
-                url += '?search=' + search + '&category=' + category;
-                $http.get(url).success(function (data) {
-                    if (userId && localStorageService.isSupported && url == envPrefix + 'api/v2.0/activities/0/' + this.count + '?search=&category=') {
-                        localStorageService.set(this.storage_name + userId, data);
-                    }
-                    //if get empty
-                    if(!data.length){
-                        this.noItem = true;
-                    }
-                    this.items = this.items.concat(data);
-                    this.busy = data.length ? false : true;
-                    this.start += this.count;
-                    this.request++;
-
-                    if(!notReserve){
-                        this.nextReserve(reserveUrl, search, category);
-                    }
-
-                    if (!this.items.length) {
-                        this.loadRandomItems(this.count);
-                    }
-
-                }.bind(this));
-            }
+            }.bind(this));
         };
 
         return lsInfiniteItems;
@@ -398,6 +298,8 @@ angular.module('goal', ['Interpolation',
                     addRemoveLinks: true,
                     uploadMultiple: false,
                     maxThumbnailFilesize: 6,
+                    dictMaxFilesExceeded: 'you cannot upload more than 6 files',
+                    previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\" data-dz-remove><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
                     maxFiles: 6,
                     removedfile: function(d){
                         angular.element(d.previewElement).remove();
@@ -476,7 +378,7 @@ angular.module('goal', ['Interpolation',
         angular.element(".goal-create-submit").click(function(){
             angular.element("#goal-create-form").ajaxForm({
                 beforeSubmit: function(){
-                    $scope.loading = true;
+                    $(".modal-loading").show();
                     $scope.$apply();
                 },
                 error: function(res){
@@ -490,7 +392,7 @@ angular.module('goal', ['Interpolation',
                         UserGoalDataManager.creates({id:res}, {}, function (resource){
                             userGoalData.data = resource;
                             $scope.goalSubmitTemplate = template.addTemplate;
-                            $scope.loading = false;
+                            $(".modal-loading").hide();
                             $timeout(function(){
                                 $scope.$broadcast('openLsModal', 'goalSave');
                             },10);
@@ -691,24 +593,42 @@ angular.module('goal', ['Interpolation',
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
 
         $scope.Ideas = new lsInfiniteItems();
+        $scope.filterVisibility = false;
         $scope.locations = [];
         $scope.ideasTitle = true;
         $scope.noIdeas = false;
         $scope.isSearching = false;
-        $scope.placeholder = '';
+        //$scope.placeholder = '';
         var locationsIds = [];
 
         $scope.castInt = function(value){
             return parseInt(value);
         };
 
+        function slideInsert(count){
+            $timeout(function(){
+                var list_swiper = new Swiper('div.filters-slider:not(.swiper-container-horizontal)', {
+                    observer: true,
+                    autoHeight: true,
+                    slidesPerView: count,
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    spaceBetween: 10
+                });
+
+                $scope.filterVisibility = true;
+            }, 1000);
+        }
+
         $timeout(function(){
             if(window.innerWidth < 766){
+                slideInsert(4);
                 $scope.isMobile = true;
-                $scope.placeholder = '';
+                //$scope.placeholder = '';
             } else {
+                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 9);
                 $scope.isMobile = false;
-                $scope.placeholder = $scope.placeholderText;
+                //$scope.placeholder = $scope.placeholderText;
             }
         }, 500);
 
@@ -789,88 +709,6 @@ angular.module('goal', ['Interpolation',
 
             return item;
         }
-
-    }])
-    .controller('ActivityController', ['$scope', 'lsInfiniteItems', '$interval', '$timeout', 'envPrefix', 'UserContext',
-        function($scope, lsInfiniteItems, $interval, $timeout, envPrefix, UserContext){
-        $scope.newActivity = false;
-
-        $scope.castInt = function(value){
-            return parseInt(value);
-        };
-
-        function newActivity() {
-            $scope.Activities.newActivity($scope.Activities.items[0].datetime, function(data){
-                if(data && data.length != 0){
-                    $scope.newData = data;
-                    $scope.newActivity = true;
-                    $interval.cancel(interval);
-                }
-            });
-        }
-
-        $scope.loadImage = function (index) {
-            var activeIndex = $scope.Activities.items[index].activeIndex;
-            if(!$scope.Activities.items[index].reserveGoals[activeIndex] && $scope.Activities.items[index].goals[activeIndex]){
-                $scope.Activities.items[index].reserveGoals.push($scope.Activities.items[index].goals[activeIndex]);
-            }
-        };
-
-        $('body').on('click', '#ActivityPage', function() {
-            if($scope.newActivity){
-                $scope.addNew();
-            } else {
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            }
-        });
-
-        var interval = $interval(newActivity,120000);
-
-        $scope.addNew = function () {
-            $scope.newActivity = false;
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-            $timeout(function(){
-                $scope.Activities.addNewActivity($scope.newData, slideInsert);
-            }, 1000);
-            interval = $interval(newActivity,120000);
-        };
-
-        function slideInsert(){
-            $timeout(function(){
-                var activity_swiper = new Swiper('div.activity-slider:not(.swiper-container-horizontal)', {
-                    observer: true,
-                    autoHeight: true,
-                    onSlideNextStart: function (ev) {
-                        $scope.Activities.items[$(ev.container).data('index')].activeIndex++;
-                        $scope.loadImage($(ev.container).data('index'));
-                        $scope.$apply();
-                    },
-                    onSlidePrevStart: function (ev) {
-                        $scope.Activities.items[$(ev.container).data('index')].activeIndex--;
-                        $scope.$apply();
-                    },
-
-                    // loop: true,
-                    nextButton: '.swiper-button-next',
-                    prevButton: '.swiper-button-prev',
-                    spaceBetween: 30
-                })
-            }, 2000);
-        }
-        $scope.Activities = new lsInfiniteItems(7, 'activities_storage');
-        $scope.Activities.nextPage(envPrefix + "api/v2.0/activities/{first}/{count}", "", "", UserContext.id);
-        $scope.showNoActivities = false;
-
-        $scope.$watch('Activities.items', function(d) {
-            if(!d.length){
-                if($scope.Activities.noItem ){
-                    $scope.showNoActivities = true;
-                    angular.element('#non-activity').css('display', 'block');
-                }
-            } else {
-                slideInsert();
-            }
-        });
 
     }])
     .directive('delayAddClass',['$interval', function($interval){

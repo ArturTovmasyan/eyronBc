@@ -111,7 +111,7 @@ class User extends BaseUser
     protected $username;
 
     /**
-     * @ORM\Column(name="api_key", type="string", length=50, nullable=true)
+     * @ORM\Column(name="api_key", type="string", length=50, nullable=true, unique=true)
      */
     protected $apiKey;
 
@@ -254,7 +254,7 @@ class User extends BaseUser
     protected $matchedUsers;
 
     /**
-     * @ORM\Column(name="active_factor", type="integer", nullable=true)
+     * @ORM\Column(name="active_factor", type="float", scale=4, nullable=true)
      */
     protected $activeFactor = 0;
 
@@ -1149,10 +1149,12 @@ class User extends BaseUser
         //get userEmails
         $userEmails = $this->getUserEmails();
 
-        //get last userEmails in array
-        $userEmail = end($userEmails);
+        if (is_array($userEmails)) {
+            //get last userEmails in array
+            $userEmail = end($userEmails);
+        }
 
-        return $userEmail;
+        return isset($userEmail) ? $userEmail : null;
     }
 
     /**

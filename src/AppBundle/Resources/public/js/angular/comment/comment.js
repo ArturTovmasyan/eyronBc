@@ -3,12 +3,14 @@
 angular.module('comments', ['Interpolation',
   'Components',
   'ngResource',
+  'goalManage',
   'PathPrefix'
 ]).directive('lsCommentManage',['$compile',
   '$rootScope',
   '$timeout',
   'CommentManager',
-  function($compile, $rootScope, $timeout, CommentManager){
+  'UserContext',
+  function($compile, $rootScope, $timeout, CommentManager, UserContext){
     return {
       restrict: 'EA',
       scope: {
@@ -17,6 +19,8 @@ angular.module('comments', ['Interpolation',
         lsSlug: '@',
         lsReply: '@',
         lsReplied: '@',
+        lsLogged: '@',
+        lsReportTitle: '@',
         lsUserImage: '@'
       },
       templateUrl: '/bundles/app/htmls/comment.html',
@@ -24,6 +28,7 @@ angular.module('comments', ['Interpolation',
         var showStepCount = 5;
         var forEnd = 0;
         var busy = false;
+        scope.currentUserId = UserContext.id;
 
         CommentManager.comments({param1:'goal_'+scope.lsSlug}, function (resource){
           scope.comments = resource;
@@ -90,4 +95,54 @@ angular.module('comments', ['Interpolation',
         
       }
     }
-  }]);
+  }])
+  .directive('lsReport',['$compile',
+    '$http',
+    '$rootScope',
+    'template',
+    'userData',
+    function($compile, $http, $rootScope, template, userData){
+      return {
+        restrict: 'EA',
+        scope: {
+          lsType: '@',
+          lsComment: '@'
+        },
+        link: function(scope, el){
+
+          el.bind('click', function(){
+            scope.run();
+          });
+
+          scope.run = function(){
+            $(".modal-loading").show();
+            userData.report = {
+              type: scope.lsType,
+              comment: scope.lsComment
+            };
+            scope.runCallback()
+          };
+
+          scope.runCallback = function(){
+            var sc = $rootScope.$new();
+            var tmp = $compile(template.reportTemplate)(sc);
+            scope.openModal(tmp);
+            $(".modal-loading").hide();
+          };
+
+          scope.openModal = function(tmp){
+
+            angular.element('body').append(tmp);
+            tmp.modal({
+              fadeDuration: 300
+            });
+
+            tmp.on($.modal.CLOSE, function(){
+              tmp.remove();
+            })
+          }
+
+        }
+      }
+    }
+  ]);

@@ -16,6 +16,7 @@ use AppBundle\Form\Type\BlMultipleFileType;
 use AppBundle\Form\Type\BlMultipleVideoType;
 use AppBundle\Form\Type\LocationType;
 use AppBundle\Model\PublishAware;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -37,6 +38,27 @@ class GoalAdmin extends AbstractAdmin
 
     protected  $baseRouteName = 'admin-goal';
     protected  $baseRoutePattern = 'admin-goal';
+
+    /**
+     * override list query
+     *
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface */
+
+    public function createQuery($context = 'list')
+    {
+        // call parent query
+        $query = parent::createQuery($context);
+
+        // add selected
+        $query->addSelect('sc, im, tg, at');
+        $query->leftJoin($query->getRootAlias() . '.successStories', 'sc');
+        $query->leftJoin($query->getRootAlias() . '.images', 'im');
+        $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
+        $query->leftJoin($query->getRootAlias() . '.author', 'at');
+
+        return $query;
+    }
 
     /**
      * @param RouteCollection $collection
@@ -72,7 +94,6 @@ class GoalAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
             ->add('description', TextareaType::class, array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
-//            , 'attr' => array('class' => 'tinymce')
             ->add('featuredDate', 'date', array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date', 'required' => false))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
@@ -88,7 +109,13 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $datagridMapper
+            ->add('author.email', null, array('label'=>'Author email'))
+            ->add('author.firstname', null, array('label'=>'Author first name'))
+            ->add('author.lastname', null, array('label'=>'Author last name'))
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
@@ -98,8 +125,9 @@ class GoalAdmin extends AbstractAdmin
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
-
             ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
+
+
 
             ->add('created', 'doctrine_orm_callback', array(
                 'show_filter' => true,

@@ -69,6 +69,7 @@ goal:
       as_private: Set as private
       as_invisible: Set as Invisible
       as_visible: Set as Visible
+      visible: Visible
       not_found: Sorry, we couldn't find anything, but you can explore other ideas:
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
@@ -118,6 +119,11 @@ progress_bad: |
                 Your Bucketlist progress is behind the schedule. You're left %goalPercent% to achieve your goals.
                 You have to hurry and finish soon. Click on the link to see what you have left incomplete in your BucketList account.
 progress_good: Wow!!! Your BucketList progress is uptodate, you meet your schedule and achieve your goals. Keep aiming!!!
+notify:
+      now: Just now
+      minute:  minute(s) ago
+      hour:  hour(s) ago
+      yesterday: yesterday at
 
 # buttons
 btn_delete: Delete
@@ -201,6 +207,7 @@ filter:
 menu:
   bucket: My Bucketlist
   active: Active
+  activity: Activity
   completed: Completed
   map: Map
   common: In Common
@@ -313,6 +320,8 @@ no_common: You haven`t common goals
 submit: Submit
 search_placeholder: Search for Goalfriends ...
 no_friends: No result
+profile_empty: No such Goals
+activity_empty: No Activity
 
 deadline:
   complete_text: Set a deadline
@@ -325,9 +334,12 @@ dreaming: Dreaming
 users: users
 
 notification:
-  success_story: <a href="%profile_link%">%user%</a> wrote success story on your goal
-  important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important goal
-  success_story_vote: <a href="%profile_link%">%user%</a> vote your success story
+  no_notification: No notifications
+  success_story: <a href="%profile_link%">%user%</a> wrote success story on your <a href='#'>goal</a>
+  important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important <a href='#'>goal</a>
+  success_story_vote: <a href="%profile_link%">%user%</a> voted for your success story
+  title: Bucketlist 127-Notifications
+  description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 
 most-popular: Most popular
 # sonata admin lable
@@ -356,10 +368,10 @@ admin:
       title: Title
       description: Description
       position: Position
-      videoLink: Video Link
+      videoLink: Video
       images: Images
       publish: Publish
-      getListPhoto: Get List Photo
+      getListPhoto: List Photo
       email: Email
       firstName: First Name
       lastName: Last Name
@@ -373,9 +385,9 @@ admin:
       goal_link: Goal link
       comments: Comments
       action_merge: Merge
-      goal_status: Goal Status
-      archived: Archived goals
-      merged_id: Merged goal id
+      goal_status: Status
+      archived: Archived
+      merged_id: Merged id
       author_name: Author
       email_username: Email\Username
       messages: Message
@@ -433,3 +445,11 @@ is not equal to: is not equal to
 #                <source>label_name_goal</source>
 #                <target></target>
 #            </trans-unit>
+
+report:
+  title: Report
+  spam: It's annoying or spam
+  opinion: I think it shouldn't be on BucketList127
+  other: Other
+  thanks: Thank you
+  message: We have received your report

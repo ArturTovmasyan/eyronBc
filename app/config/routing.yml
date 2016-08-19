@@ -3,8 +3,7 @@ application_comment:
     type:     annotation
 
 application_user:
-    resource: "@ApplicationUserBundle/Controller/"
-    type:     annotation
+    resource: "@ApplicationUserBundle/Resources/config/routing.yml"
 
 app:
     resource: "@AppBundle/Controller/"
@@ -105,19 +104,6 @@ app_main_rest:
     type:     rest
     resource: AppBundle\Controller\Rest\MainRestController
     prefix:   /
-
-app_emails_remove_rest:
-    type:     rest
-    resource: Application\UserBundle\Controller\Rest\SettingsController
-    prefix:   /
-
-application_user_rest:
-    type:     rest
-    resource: Application\UserBundle\Controller\Rest\UserController
-
-application_notification_rest:
-    type:     rest
-    resource: Application\UserBundle\Controller\Rest\NotificationController
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

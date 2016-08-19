@@ -136,9 +136,9 @@ class UserGoalController extends FOSRestController
                     }
 
                     $currentDate = new \DateTime();
-                    if ($currentDate < $completionDate){
-                        return new Response('Future completed date', Response::HTTP_BAD_REQUEST);
-                    }
+//                    if ($currentDate < $completionDate){
+//                        return new Response('Future completed date', Response::HTTP_BAD_REQUEST);
+//                    }
                 }
                 else {
                     $completionDate = new \DateTime();
@@ -151,14 +151,17 @@ class UserGoalController extends FOSRestController
             }
         }
 
-
+        $dateStatus = $request->get('date_status');
+        if($dateStatus){
+            $userGoal->setDateStatus($dateStatus);
+        }
 
         if (!is_null($request->get('is_visible'))){
             $userGoal->setIsVisible($request->get('is_visible') ? true : false);
         }
 
-        if (!is_null($steps = $request->get('steps')) && is_array($steps)){
-            $userGoal->setSteps($request->get('steps') ? $request->get('steps') : []);
+        if (!is_null($steps = $request->get('steps')) && (is_array($steps) || is_array($steps = json_decode($steps)) )){
+            $userGoal->setSteps($steps);
         }
 
         if (!is_null($request->get('note'))){

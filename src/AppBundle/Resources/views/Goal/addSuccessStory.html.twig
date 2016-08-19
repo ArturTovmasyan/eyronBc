@@ -2,7 +2,7 @@
     <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans }}</div>
     <div class="modal-top">
         <figure data-ng-if="userGoal.goal.cached_image">
-            <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+            <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
         </figure>
 
         <span class="overlay"></span>
@@ -56,6 +56,7 @@
     </div>
 
     {% set arrayMonth = {
+    0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),
     1:'form.month_january'|trans({}, 'FOSUserBundle'),
     2:'form.month_february'|trans({}, 'FOSUserBundle'),
     3:'form.month_march'|trans({}, 'FOSUserBundle'),
@@ -77,8 +78,11 @@
                 <h3 class="text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
 
                 <div class="form-group row">
-                    <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="year" skip-focusser="true">
+                    <div class="col-sm-4 date"
+                         data-ng-init="defaultYear = '{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}';
+                                        defaultDay = '{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}';
+                                        defaultMonth = '{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}'">
+                        <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -90,7 +94,7 @@
                     </div>
 
                     <div class="col-sm-4 date">
-                        <ui-select search-enabled="false" data-ng-model="month" skip-focusser="true">
+                        <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>
@@ -102,7 +106,7 @@
                     </div>
                     <div class="col-sm-4 date">
 
-                        <ui-select search-enabled="false" data-ng-model="day" skip-focusser="true">
+                        <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
                             </ui-select-match>

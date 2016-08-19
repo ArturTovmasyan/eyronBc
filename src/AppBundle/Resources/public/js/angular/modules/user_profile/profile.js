@@ -12,5 +12,6 @@ angular.module('profile', ['Interpolation',
   'goalComponents',
   'manage',
   'notification',
+  'activity',
   'PathPrefix'
 ]);

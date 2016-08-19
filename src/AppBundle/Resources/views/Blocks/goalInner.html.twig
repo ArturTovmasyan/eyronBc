@@ -113,7 +113,7 @@
                                     </li>
                                 {% endif %}
 
-                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal == 0 %}{transparent: added || !completed}{% endif %}">
+                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || !completed}" {% endif %}>
                                     {% if goal.isMyGoal == 0 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="added = false" data-ng-show="!added"
@@ -132,7 +132,7 @@
                                 </li>
 
 
-                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" ng-class="{% if goal.isMyGoal != 2 %}{transparent: !completed}{% endif %}">
+                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" {% if goal.isMyGoal != 2 %}data-ng-class="{transparent: !completed}"{% endif %}>
                                     {% if goal.isMyGoal != 2 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="completed=true" data-ng-show="completed"
@@ -203,10 +203,10 @@
                                                     {% if goal.stats.doneBy == 0 %}
                                                         <i></i>
                                                     {% else %}
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-count="{{ goal.stats.doneBy }}"
-                                                           ls-goal-id="{{ goal.id }}">
+                                                           data-ls-count="{{ goal.stats.doneBy }}"
+                                                           data-ls-goal-id="{{ goal.id }}">
                                                         </a>
                                                     {% endif %}
                                                 </li>
@@ -243,11 +243,11 @@
                                                     {% if goal.stats.listedBy == 0 %}
                                                         <i></i>
                                                     {% else %}
-                                                        <a ls-goal-users
+                                                        <a data-ls-goal-users
                                                            href="javascript:void(0)"
-                                                           ls-goal-id="{{ goal.id }}"
-                                                           ls-count="{{ goal.stats.listedBy }}"
-                                                           ls-category="listed"></a>
+                                                           data-ls-goal-id="{{ goal.id }}"
+                                                           data-ls-count="{{ goal.stats.listedBy }}"
+                                                           data-ls-category="listed"></a>
                                                     {% endif %}
                                                 </li>
                                             </ul>
@@ -406,33 +406,48 @@
                                          count[{{ story.id }}] = {{ story.voters|length }};
                                          vote[{{ story.id }}] = '{{ app.user is not null and story.isVote(app.user.id) }}'? true: false">
                                         <div class="row">
-                                            <div class="col-xs-2 col-sm-1">
-                                                {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
-                                                {% set className = "user-no" ~ random(4) %}
 
-                                                {% if addedUser.getPhotoLink  %}
-                                                    <figure class="user-image">
-                                                        <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
-                                                    </figure>
-                                                {% else %}
-                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
-                                                {% endif %}
+                                                <div class="col-xs-2 col-sm-1">
+                                                    <a href="{{ path('user_profile',  {'user': addedUser.uId})}}">
+                                                        {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                        {% set className = "user-no" ~ random(4) %}
 
-                                            </div>
+                                                        {% if addedUser.getPhotoLink  %}
+                                                            <figure class="user-image">
+                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
+                                                            </figure>
+                                                        {% else %}
+                                                            <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
+                                                        {% endif %}
+                                                    </a>
+                                                </div>
 
-                                            <div class="col-xs-10 col-sm-8">
-                                                <p>{{ addedUser.showName }} </p>
-                                                <span data-ng-cloak>
-                                                    [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
-                                                </span>
-                                                <p>{{ story.story }}</p>
-                                            </div>
+                                                <div class="col-xs-10 col-sm-8">
+                                                    <p>
+                                                        <a href="{{ path('user_profile',  {'user': addedUser.uId})}}" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                    </p>
+                                                    <span data-ng-cloak>
+                                                        [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
+                                                    </span>
+                                                    {% if app.user is not null and addedUser.id != app.user.id%}
+                                                        <span data-ls-report
+                                                              data-ls-type="1"
+                                                              data-ls-comment="{{ story.id }}"
+                                                              class="report">{{ 'report.title'|trans({},'messages') }}</span>
+                                                    {% endif %}
+
+                                                </div>
 
                                             <div class=" col-sm-3 text-right" data-ng-cloak>
                                                 <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
                                                 <i class="like-icon" data-ng-class="{'like-active': vote[{{ story.id }}]}" {% if app.user is  null %} data-ng-click="openLogin()" {% elseif story.user.id != app.user.id %}data-ng-click="manageVote({{ story.id }})" {% endif %}></i>
                                             </div>
 
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <p>{{ story.story }} </p>
+                                            </div>
                                         </div>
 
                                         {% if files and files|length %}
@@ -525,19 +540,20 @@
 
                             <br />
 
-                            {% if app.user %}
-
-                                <div ls-comment-manage
-                                     ls-goal-id="{{ goal.id }}"
-                                     ls-slug="{{ goal.slug }}"
-                                     ls-reply="{{ 'reply'|trans }}"
-                                     ls-replied="{{ 'replied'|trans }}"
-                                     ls-title="{{ 'comments'|trans }}"
-                                     ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
-                                    {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
-                                    {{ nameOnImage  |upper}}{% endif %}">
+                                <div data-ls-comment-manage
+                                     data-ls-goal-id="{{ goal.id }}"
+                                     data-ls-slug="{{ goal.slug }}"
+                                     data-ls-reply="{{ 'reply'|trans }}"
+                                     data-ls-replied="{{ 'replied'|trans }}"
+                                     data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"
+                                     data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
+                                     data-ls-title="{{ 'comments'|trans }}"
+                                     {% if app.user %}
+                                         data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                        {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                                        {{ nameOnImage  |upper}}{% endif %}"
+                                     {% endif %}>
                                 </div>
-                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="col-md-4"></div>
@@ -569,17 +585,17 @@
                                     <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
                                        class="goalTitle">
                                         <span class="overlay"></span>
-                                        <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                                        <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
                                     </a>
 
                                     <div class="absolute">
                                         <ul>
                                             <li>
-                                                <a ls-goal-users
+                                                <a data-ls-goal-users
                                                    href="javascript:void(0)"
-                                                   ls-goal-id="[[ ::goal.id ]]"
-                                                   ls-count="[[ ::goal.stats.listedBy ]]"
-                                                   ls-category="listed"
+                                                   data-ls-goal-id="[[ ::goal.id ]]"
+                                                   data-ls-count="[[ ::goal.stats.listedBy ]]"
+                                                   data-ls-category="listed"
                                                    data-ng-show="castInt(goal.stats.listedBy)">
                                                             <span>
                                                                 {{ 'home_listed_by'|trans({},'messages') | capitalize }}
@@ -595,10 +611,10 @@
                                                 </span>
                                             </li>
                                             <li>
-                                                <a ls-goal-users
+                                                <a data-ls-goal-users
                                                    href="javascript:void(0)"
-                                                   ls-count="[[ ::goal.stats.doneBy ]]"
-                                                   ls-goal-id="[[ ::goal.id ]]"
+                                                   data-ls-count="[[ ::goal.stats.doneBy ]]"
+                                                   data-ls-goal-id="[[ ::goal.id ]]"
                                                    data-ng-show="castInt(goal.stats.doneBy)">
                                                             <span>
                                                                 {{ 'home_complete'|trans({},'messages') | capitalize }}

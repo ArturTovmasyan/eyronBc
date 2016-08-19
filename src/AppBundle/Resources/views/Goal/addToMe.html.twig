@@ -5,7 +5,7 @@
 
         <div class="modal-top">
             <figure data-ng-if="userGoal.goal.cached_image">
-                <img data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
+                <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
             </figure>
 
             <span class="overlay"></span>
@@ -38,6 +38,7 @@
             </div>
         </div>
         {% set arrayMonth = {
+        0:'form.birth_date_month'|trans({}, 'FOSUserBundle'),
         1:'form.month_january'|trans({}, 'FOSUserBundle'),
         2:'form.month_february'|trans({}, 'FOSUserBundle'),
         3:'form.month_march'|trans({}, 'FOSUserBundle'),
@@ -55,7 +56,10 @@
         <form class="form-horizontal" method="post" data-ng-init="myMonths={{ arrayMonth |json_encode()}}; redirectPath='{{ path('user_profile') }}'">
             <div class="goal-end">
                 {# edit goal status #}
-                <div class="clearfix ng-hide" data-ng-show="userGoal.id">
+                <div class="clearfix ng-hide" data-ng-show="userGoal.id"
+                     data-ng-init="defaultYear = '{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}';
+                                    defaultDay = '{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}';
+                                    defaultMonth = '{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}'">
                     <div class="form-group row no-marginb">
 
                         <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
@@ -95,7 +99,12 @@
                 {#</div>#}
                 <hr/>
 
-                <h3 data-ng-class="ng-hide" data-ng-show="!complete.switch || userGoal.do_date">{{ "goal.deadline"|trans }} <span class="text-purple" class="ng-hide" data-ng-show="complete.switch && userGoal.do_date">: [[ momentDateFormat(userGoal.do_date, 'DD MMM YYYY') ]]</span></h3>
+                <h3 data-ng-class="ng-hide" data-ng-show="!complete.switch || userGoal.do_date">
+                    {{ "goal.deadline"|trans }}
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(firefox_do_date, 'YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(firefox_do_date, 'MMM YYYY') ]]</span>
+                </h3>
                 <h3 class="ng-hide" data-ng-show="complete.switch">{{ "completed"|trans }}</h3>
 
                 {#<div class="row">#}
@@ -188,7 +197,7 @@
                 <h4 data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
 
                 <h6 class="text-gray text-center"
-                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(userGoal.do_date) == -1">
+                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1">
                     <i class="icon-info text-purple"></i>
                     {{ "goal.missed_deadline"|trans }}
                 </h6>
@@ -356,14 +365,8 @@
                 <div class="form-group row no-marginb">
 
                     <label for="inputEmail3"
-                           data-ng-hide="userGoal.is_visible"
                            class="col-xs-8 col-sm-10 control-label text-purple text-left">
-                        {{ "goal.as_visible"|trans }}
-                    </label>
-                    <label for="inputEmail3"
-                        data-ng-show="userGoal.is_visible"
-                        class="col-xs-8 col-sm-10 control-label text-purple text-left">
-                        {{ "goal.as_invisible"|trans }}
+                            {{ "goal.visible"|trans }}
                     </label>
 
                     <div class="col-xs-4 col-sm-2">

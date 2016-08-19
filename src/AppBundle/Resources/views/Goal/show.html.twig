@@ -2,21 +2,6 @@
 
 {% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
-    {% stylesheets output='css/layout_show.css'
-    'app/bower_components/swipebox/src/css/swipebox.min.css'
-    'app/bower_components/swiper/dist/css/swiper.min.css'
-    filter='less,cssrewrite'
-    %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    {#<link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">#}
-    {#<link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">#}
-{% endblock %}
-
 {% block content %}
     {{ render(controller('AppBundle:Goal:innerContent', { 'id': goal.id, 'page' : constant("AppBundle\\Entity\\Goal::INNER") })) }}
 {% endblock %}
@@ -50,9 +35,6 @@
 
     {% javascripts output='js/app_goal_inner.js'
         'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
-        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/swiper/dist/js/swiper.min.js'
-        'bundles/app/js/swiper-inner.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -69,24 +51,4 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    {# comments #}
-    {#{% javascripts '@AppBundle/Resources/public/js/comments.js' %}#}
-    {#<script type="text/javascript">#}
-        {#// thread id#}
-        {#var fos_comment_thread_id = '{{ goal.id }}';#}
-
-        {#// api base url to use for initial requests#}
-        {#var fos_comment_thread_api_base_url = '' {{ path('fos_comment_get_threads') }}';#}
-
-        {#// Snippet for asynchronously loading the comments#}
-        {#(function() {#}
-            {#var fos_comment_script = document.createElement('script');#}
-            {#fos_comment_script.async = true;#}
-            {#fos_comment_script.src = '{{ asset_url }}';#}
-            {#fos_comment_script.type = 'text/javascript';#}
-
-            {#(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);#}
-        {#})();#}
-    {#</script>#}
-    {#{% endjavascripts %}#}
 {% endblock %}

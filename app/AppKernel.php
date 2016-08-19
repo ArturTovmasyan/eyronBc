@@ -95,4 +95,33 @@ class AppKernel extends Kernel
 //            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
 //        }
 //    }
+
+    //This optimization alone cut the time it takes to run our functional tests in half
+    protected function initializeContainer()
+    {
+        static $first = true;
+
+        if ('test' !== $this->getEnvironment()) {
+            parent::initializeContainer();
+            return;
+        }
+
+        $debug = $this->debug;
+
+        if (!$first) {
+            // disable debug mode on all but the first initialization
+            $this->debug = false;
+        }
+
+        $first = false;
+
+        try {
+            parent::initializeContainer();
+        } catch (\Exception $e) {
+            $this->debug = $debug;
+            throw $e;
+        }
+
+        $this->debug = $debug;
+    }
 }

@@ -192,6 +192,55 @@ class UserGoalRepository extends EntityRepository
     }
 
     /**
+     * This function is used to get userGoals id by completion, listed and activity perform date
+     *
+     * @return array
+     */
+    public function findUserGoalIdsByActivityPerformDate()
+    {
+        //get connection
+        $conn =  $this->getEntityManager()->getConnection();
+
+        //create sql query
+        $sql = ('SELECT ug.id FROM users_goals as ug
+                              WHERE (ug.listed_date is not null 
+                              AND ug.listed_date < COALESCE((SELECT MIN(n.perform_date) 
+                                                           FROM new_feed as n 
+                                                           WHERE n.user_id = ug.user_id), CURRENT_DATE()))
+                              OR  (ug.listed_date is null AND ug.completion_date is not null 
+                              AND ug.completion_date < COALESCE((SELECT MIN(n.perform_date) 
+                                                           FROM new_feed as n 
+                                                           WHERE n.user_id = ug.user_id), CURRENT_DATE()))
+                      ')
+        ;
+
+        $smtp = $conn->prepare($sql);
+        $smtp->execute();
+
+        return $userGoalIds = $smtp->fetchAll();
+    }
+
+
+    /**
+     * This function is used to get userGoals by ids
+     *
+     * @param $ids
+     * @return mixed
+     */
+    public function findUserGoalsByIds($ids)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ug, g, u
+                           FROM AppBundle:UserGoal ug
+                           JOIN ug.goal g
+                           JOIN ug.user u
+                           WHERE ug.id IN (:ids)")
+            ->setParameter('ids', $ids)
+            ->getResult();
+    }
+
+
+    /**
      * @param $currentUserId
      * @param null $userGoalId
      * @param null $userId

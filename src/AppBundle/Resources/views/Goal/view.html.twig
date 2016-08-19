@@ -2,34 +2,6 @@
 
 {% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalInner"> {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    {#<link href="{{ asset('app/bower_components/icheck/skins/all.css') }}" rel="stylesheet">#}
-    {% stylesheets output='css/layout_view.css'
-    'app/bower_components/swipebox/src/css/swipebox.min.css'
-    'app/bower_components/swiper/dist/css/swiper.min.css'
-    %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    {#<link href="{{ asset('app/bower_components/swipebox/src/css/swipebox.min.css') }}" rel="stylesheet">#}
-    {#<link href="{{ asset('app/bower_components/swiper/dist/css/swiper.min.css') }}" rel="stylesheet">#}
-    {#<style>#}
-        {#.ticker {#}
-            {#width: 500px;#}
-            {#margin: 10px auto;#}
-        {#}#}
-        {#/* The HTML list gets replaced with a single div,#}
-           {#which contains the active ticker item, so you#}
-           {#can easily style that as well */#}
-        {#.ticker div {#}
-            {#display: inline-block;#}
-            {#word-wrap: break-word;#}
-        {#}#}
-    {#</style>#}
-{% endblock %}
-
-
  {% block content %}
 
      <div class="content-top">
@@ -58,22 +30,10 @@
                              <p class="text-gray">{{ 'goal.agree'|trans }}</p>
                          </div>
                      </div>
-
-                     {#<h3 class="text-purple">{{ 'goal.public'|trans }}#}
-
-                         {#{% if goal.status == constant("AppBundle\\Entity\\Goal::PUBLIC_PRIVACY") %}#}
-                             {#<span class="input-checked"></span>#}
-                         {#{% else %}#}
-                             {#<span class="input"></span>#}
-                         {#{% endif %}#}
-
-                     {#</h3>#}
-
                  </div>
                  <div class="col-sm-4 text-right">
                      <div class="buttons">
                          <a href="{{ path('add_goal', {'id' : goal.id }) }}" type="button" class="btn btn-transparent">
-                             {#<i class="icon icon-left"></i>#}
                              <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
                              {{ 'draft.edit'|trans }}
 
@@ -102,9 +62,6 @@
 
     {% javascripts output='js/app_goal_view.js'
         'app/bower_components/jquery-dateFormat/dist/jquery-dateFormat.min.js'
-        'app/bower_components/swipebox/src/js/jquery.swipebox.min.js'
-        'app/bower_components/swiper/dist/js/swiper.min.js'
-        'bundles/app/js/swiper-inner.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

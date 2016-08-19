@@ -41,7 +41,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v393
+        assets_version: v433
 
     default_locale:  en
     trusted_hosts:   ~
@@ -81,6 +81,7 @@ twig:
         ga_id: %ga_id%
         booking_aid: %booking_aid%
         env_prefix: ~
+        remote_console: %remote_console%
 
 
 
@@ -306,6 +307,8 @@ liip_imagine:
             quality: 100
             filters:
                 central_crop: { size: [1280, 900] }
+            post_processors:
+                  opt_post_processor: {}
 
         goal_list_horizontal:
             quality: 100
@@ -380,7 +383,7 @@ liip_imagine:
         goal_bg:
             quality: 80
             filters:
-                thumbnail: { size: [1280, 720], mode: outbound }
+                thumbnail: { size: [780, 440], mode: outbound }
             post_processors:
                 opt_post_processor: {}
 

@@ -19,6 +19,7 @@ angular.module('goalManage', ['Interpolation',
     addTemplate: '',
     doneTemplate: '',
     goalUsersTemplate: '',
+    reportTemplate: '',
     commonTemplate: ''
   })
   .value('userGoalData', { 
@@ -28,6 +29,7 @@ angular.module('goalManage', ['Interpolation',
   })
   .value('userData', {
     data: {},
+    report: {},
     goalId: 0,
     usersCount: 0,
     isListed: false

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate',
-    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate) {
-
+  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
+    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+      var path = $location.$$path;
       $scope.errorMessages = [];
       angular.element(".settings select").niceSelect();
       
@@ -27,27 +27,62 @@ angular.module('profile')
 
       $scope.goTo = function (status) {
         $scope.ProfileItems.reset();
+        if(!angular.isUndefined($scope.Activities)){
+          $scope.Activities.reset();
+        }
         switch (status){
           case 1:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 1;
+            $scope.profile.status = UserGoalConstant.ACTIVE_PATH;
             $scope.ProfileItems.nextPage($scope.profile);
             break;
           case 2:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 2;
+            $scope.profile.status = UserGoalConstant.COMPLETED_PATH;
             $scope.ProfileItems.nextPage($scope.profile);
             break;
           case 3:
             $scope.ProfileItems.busy = true;
+            $scope.profile.status = UserGoalConstant.COMMON_PATH;
             $scope.ProfileItems.common($scope.profile.userId);
+            break;
+          case 4:
+            $scope.ProfileItems.busy = true;
+            $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
+            $scope.Activities.nextActivity();
             break;
           default:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 0;
+            $scope.profile.status = '';
             $scope.ProfileItems.nextPage($scope.profile);
         }
       };
+
+      if(path.length){
+        $scope.ProfileItems.busy = true;
+        $timeout(function () {
+          path = path.slice(1);
+          switch (path){
+            case UserGoalConstant.ACTIVE_PATH:
+              $scope.goTo(1);
+              break;
+            case UserGoalConstant.COMPLETED_PATH:
+              $scope.goTo(2);
+              break;
+            case UserGoalConstant.COMMON_PATH:
+              $scope.goTo(3);
+              break;
+            case UserGoalConstant.ACTIVITY_PATH:
+              $scope.goTo(4);
+              break;
+            default:
+              $scope.goTo(0);
+          }
+        },100);
+      }
 
       $('input[type=checkbox]:not(".onoffswitch-checkbox")').on('ifChanged', function(event){
         var el = event.target.name,
@@ -123,8 +158,9 @@ angular.module('profile')
 
     }
   ])
-  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData',
-    function ($scope, $timeout, lsInfiniteGoals, userData) {
+  .controller('friendsController',['$scope', '$timeout', 'lsInfiniteGoals', 'userData', '$location',
+    function ($scope, $timeout, lsInfiniteGoals, userData, $location) {
+      var path = $location.$$path;
       $scope.isListed = userData.isListed;
       $scope.goalId = userData.goalId;
       $scope.usersCount = userData.usersCount;
@@ -137,13 +173,31 @@ angular.module('profile')
         $scope.Friends.reset();
         $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
       };
+      
       if($scope.goalId){
         $scope.Friends = new lsInfiniteGoals(10);
       } else {
         $scope.Friends = new lsInfiniteGoals(20);
       }
 
-      $scope.Friends.nextFriends($scope.friendName, $scope.slug, $scope.goalId, $scope.category);
+      if(path.length){
+        $timeout(function () {
+          path = path.slice(1);
+          switch (path){
+            case 'recently':
+              $scope.getCategory(path);
+              break;
+            case 'match':
+              $scope.getCategory(path);
+              break;
+            case 'active':
+              $scope.getCategory(path);
+              break;
+            default:
+              $scope.getCategory('all');
+          }
+        },100);
+      }
       
       $scope.resetFriends = function () {
         $scope.Friends.reset();
@@ -169,4 +223,27 @@ angular.module('profile')
         return parseInt(value);
       };
     }
+  ])
+  .controller('reportController',['$scope', 'userData', 'UserGoalDataManager', '$timeout',
+  function ($scope, userData, UserGoalDataManager, $timeout) {
+    $scope.reportDate = {};
+    $scope.reportDate.contentId = userData.report.comment;
+    $scope.reportDate.contentType = userData.report.type;
+    $scope.isReported = false;
+
+    $scope.report = function(){
+      if(!($scope.reportOption || $scope.reportText))return;
+
+      $scope.reportDate.reportType = $scope.reportOption?$scope.reportOption:null;
+      $scope.reportDate.message = $scope.reportText?$scope.reportText:null;
+
+      UserGoalDataManager.report({}, $scope.reportDate, function () {
+        $scope.isReported = true;
+        $timeout(function(){
+          $('#report-modal .close-icon').click();
+        },1500);
+      })
+    }
+
+  }
   ]);

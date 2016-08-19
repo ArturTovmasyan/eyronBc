@@ -17,11 +17,7 @@
         </div>
     {% endif %}
 
-    {#<div style="position: absolute;width: 100%;height:100%;vertical-align: middle;line-height: 100%;background-color: transparent;z-index: 10000">#}
-        {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" style="z-index: 10000"/>#}
-    {#</div>#}
     <form method="post" id="goal-create-form" class="main-form" action="#" enctype="multipart/form-data" data-ng-init="redirectPath='{{ path('user_profile') }}'">
-        <img data-ng-cloak data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading" class="loading"/>
          <div class="content-top">
              <div class="container">
                  <div class="row">
@@ -49,15 +45,19 @@
 
                      <div class="col-md-6 text-right">
                          <div class="buttons">
-                             {#<img data-ng-show="loading" src="{{ asset('bundles/app/images/loading.gif') }}" alt="loading"/>#}
+
                              <button type="submit" data-ng-disabled="disablePreview" class="btn btn-transparent goal-view-submit" name="btn_preview">
                                  <span>{{ 'goal.preview'|trans }}</span>
                              </button>
+
                              {% if not isPrivate %}
-                             <button type="submit" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
-                                 <span>{% if id %}{{ 'draft.update'|trans }}{% else %}{{ 'draft.create'|trans }}{% endif %}</span>
-                             </button>
+
+                                 <button type="submit" class="btn btn-transparent draft-save-submit" name="btn_save_draft">
+                                     <span>{% if id %}{{ 'draft.update'|trans }}{% else %}{{ 'draft.create'|trans }}{% endif %}</span>
+                                 </button>
+
                              {% endif %}
+
                              <button type="submit"
                                  data-ls-jquery-modal
                                  data-ls-identity="goalSave"
@@ -117,7 +117,7 @@
                                              <a data-ng-href="{{ env_prefix }}/goal/[[ ::goal.slug ]]"
                                                 class="goalTitle">
                                                  <span class="overlay"></span>
-                                                 <img data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
+                                                 <img data-ng-if="goal.cached_image" data-ng-src="[[ ::goal.cached_image ]]" alt="[[ ::goal.title ]]"/>
                                              </a>
 
                                              <div class="absolute">
@@ -171,7 +171,7 @@
 
                                      {{ form_widget(form.description, {'attr': {'class':'form-control margin-top', 'placeholder' : 'Description', 'rows' :"4", "data-ng-model":"description", "data-ng-init":"description ='" ~ form.vars.value.description ~ "'", "data-value" : "[[ description ]]" } }) }}
                                      <div class="tags" data-ng-cloak>
-                                         <button data-ng-repeat="tag in tags" type="button" class="btn btn-purple"> [[ ::tag ]] </button>
+                                         <button data-ng-repeat="tag in tags track by $index" type="button" class="btn btn-purple"> [[ tag ]] </button>
                                      </div>
 
                                      <p class="text-gray">

@@ -31,6 +31,11 @@ class UserGoal implements ActivityableInterface
     const ACTIVE = 1;
     const COMPLETED = 2;
 
+    //constants for date status
+    const OLL = 1;
+    const ONLY_YEAR = 2;
+    const ONLY_YEAR_MONTH = 3;
+
     // constants for filter in twig
     const URGENT_IMPORTANT = 1;
     const URGENT_NOT_IMPORTANT = 2;
@@ -62,6 +67,13 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
+     * @ORM\Column(name="date_status", type="smallint", options={"default"=1})
+     * @Groups({"userGoal"})
+     */
+    protected $dateStatus = self::OLL;
+
+    /**
+     * @var
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
@@ -79,7 +91,7 @@ class UserGoal implements ActivityableInterface
      * @ORM\Column(name="important", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
-    protected $important = false;
+    protected $important = true;
 
     /**
      * @var
@@ -533,5 +545,29 @@ class UserGoal implements ActivityableInterface
     public function getIsVisible()
     {
         return $this->isVisible;
+    }
+
+    /**
+     * Set dateStatus
+     *
+     * @param integer $dateStatus
+     *
+     * @return UserGoal
+     */
+    public function setDateStatus($dateStatus)
+    {
+        $this->dateStatus = $dateStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get dateStatus
+     *
+     * @return integer
+     */
+    public function getDateStatus()
+    {
+        return $this->dateStatus;
     }
 }

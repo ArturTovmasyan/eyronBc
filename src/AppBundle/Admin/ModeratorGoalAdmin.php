@@ -93,7 +93,13 @@ class ModeratorGoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //disable listener for stats count
+        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         $datagridMapper
+            ->add('author.email', null, array('label'=>'Author email', 'show_filter' => true))
+            ->add('author.firstname', null, array('label'=>'Author first name', 'show_filter' => true))
+            ->add('author.lastname', null, array('label'=>'Author last name', 'show_filter' => true))
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
@@ -342,9 +348,15 @@ class ModeratorGoalAdmin extends AbstractAdmin
      */
     public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
+
+        // add selected
+        $query->addSelect('sc, im, tg, at');
+        $query->leftJoin($query->getRootAlias() . '.successStories', 'sc');
+        $query->leftJoin($query->getRootAlias() . '.images', 'im');
+        $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
+        $query->leftJoin($query->getRootAlias() . '.author', 'at');
         $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.status', ':privateStatus'))
-            ->setParameter('privateStatus', Goal::PRIVATE_PRIVACY);
-        ;
+                ->setParameter('privateStatus', Goal::PRIVATE_PRIVACY);
 
         return $query;
     }

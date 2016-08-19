@@ -45,7 +45,7 @@
     <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.joinToggle11 = !$parent.joinToggle11" class="ng-hide mobile-user hidden-sm hidden-md hidden-lg" data-ng-show="!joinToggle11">
         {% if user.getPhotoLink %}
             <figure class="img-circle" data-ng-show="!joinToggle11">
-                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" class="img-responsive img-circle" height="40">
+                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ nameOnImage | upper}}" class="img-responsive img-circle" height="40">
             </figure>
         {% else %}
             <p class="no-image {{ className }}" data-ng-show="!joinToggle11">{{ nameOnImage | upper}}</p>

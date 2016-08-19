@@ -1,49 +1,45 @@
-{#<div class="popover" role="tooltip">#}
-    {#<div class="arrow"></div>#}
-    {#<h3 class="popover-title" style="display: none;"></h3>#}
-    <div>
-        <ul class="filter">
-            <li>
-                <a href="{{ path('goals_list') }}">
-                    <span>
-                        <img src="{{ asset('bundles/app/images/discover.png') }}"/>
-                    </span>
-                    <span>{{ 'discover'|trans }}</span>
-                </a>
-            </li>
+ <div data-ng-cloak class="filters-slider swiper-container">
+    <ul class="filter swiper-wrapper ng-hide" data-ng-cloak data-ng-show="filterVisibility" data-ng-init="categoriesLength = {{ categories|length }}">
+        <li class="swiper-slide">
+            <a href="{{ path('goals_list') }}">
+                <img src="{{ asset('bundles/app/images/discover.svg') }}"/>
+                <span>{{ 'discover'|trans }}</span>
+            </a>
+        </li>
 
-            {% set mostPopular = false %}
+        {% set mostPopular = false %}
 
-            {% if categories|length > 0 %}
-                {% for i in 0..(categories|length -1) %}
-                    {% if categories[i].getSlug() == 'most-popular' %}
-                        {% set mostPopular = true %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
-            {% if mostPopular %}
-            <li>
-                <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
-                    <span>
-                        <img src="{{ asset('bundles/app/images/most-popular.png') }}"/>
-                    </span>
-                    <span>{{ 'most_popular'|trans }}</span>
-                </a>
-            </li>
-            {% endif %}
-            {% for category in categories %}
-                {% if category.slug != 'most-popular' %}
-                    <li>
-                        <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
-                            <span>
-                                <img src="{{ category.downloadLink }}"/>
-                            </span>
-                            <span>{{ category.title }}</span>
-                        </a>
-                    </li>
-            {% endif %}
+        {% if categories|length > 0 %}
+            {% for i in 0..(categories|length -1) %}
+                {% if categories[i].getSlug() == 'most-popular' %}
+                    {% set mostPopular = true %}
+                {% endif %}
             {% endfor %}
-        </ul>
-    </div>
-{#</div>#}
+        {% endif %}
+
+        {% if mostPopular %}
+        <li class="swiper-slide">
+            <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
+                <img src="{{ asset('bundles/app/images/most-popular.svg') }}"/>
+                <span>{{ 'most_popular'|trans }}</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for category in categories %}
+            {% if category.slug != 'most-popular' %}
+                <li class="swiper-slide">
+                    <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
+                        <img src="{{ category.downloadLink }}"/>
+                        <span>{{ category.title }}</span>
+                    </a>
+                </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+     <div data-ng-show="isMobile" class="ng-hide">
+         <!-- Add Arrows -->
+         <div class="swiper-button-next"></div>
+         <div class="swiper-button-prev"></div>
+     </div>
+</div>
+
