@@ -109,8 +109,17 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
+        //get stopwatch component
+        $stopwatch = $container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('watch_list_field');
+
         //disable listener for stats count
-        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
             ->add('author.email', null, array('label'=>'Author email'))
@@ -121,12 +130,11 @@ class GoalAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('tags.tag', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
-
 
 
             ->add('created', 'doctrine_orm_callback', array(
@@ -151,8 +159,17 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
+        //get stopwatch component
+        $stopwatch = $container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('watch_list_field');
+
         //disable goal archived filters
-        $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
+        $container->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
 
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
@@ -176,6 +193,8 @@ class GoalAdmin extends AbstractAdmin
                 )
             ))
         ;
+        // Start event named 'eventName'
+        $stopwatch->stop('watch_list_field');
     }
 
     /**
