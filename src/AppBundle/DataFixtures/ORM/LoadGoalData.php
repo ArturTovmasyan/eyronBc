@@ -208,8 +208,8 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
 
         // create goal
         $goal12 = new Goal();
-        $goal12->setDescription('goal11 goal11');
-        $goal12->setTitle('goal11');
+        $goal12->setDescription('goal12 goal12');
+        $goal12->setTitle('goal12');
         $goal12->setStatus(1);
         $goal12->setVideoLink(null);
         $goal12->setReadinessStatus(Goal::DRAFT);

@@ -12,7 +12,8 @@ Feature: Merge Goal
   Scenario: Open dashboard and merge goal it in
     Given I am on "/admin/admin-goal/list"
     And I wait for view "500"
-    When I follow "Merge"
+    And I scroll page to ".btn btn-small btn-primary"
+    When I follow merge goal
     And I follow "Select goal"
     And I click on select2 field
     And I wait for view "2000"

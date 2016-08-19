@@ -221,7 +221,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             //get value in opt
             $option = $optionsList->find(
                 'xpath',
-                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[2]')
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[4]')
             );
 
             $option->click();
@@ -507,5 +507,28 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //click on show more link
         $linkBlock[3]->click();
     }
+
+    /**
+     * @When I follow merge goal
+     */
+    public function iFollowMergeGoal()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get merge goal a tag
+        $mergeGoal = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//a[@title="Merge"])'));
+
+        //get merge goal9 link
+        $linkMergeGoal = $mergeGoal[8]->getAttribute('href');
+
+        //click on show more link
+        $this->visit($linkMergeGoal);
+
+    }
+
 
 }
