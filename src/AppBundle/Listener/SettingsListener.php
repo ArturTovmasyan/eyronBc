@@ -38,6 +38,11 @@ class SettingsListener implements ContainerAwareInterface
      */
     public function preFlush(User $user, PreFlushEventArgs $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_pre_flush_event_for_settings');
 
         //get add email
         $addEmail = $user->addEmail;
@@ -66,6 +71,9 @@ class SettingsListener implements ContainerAwareInterface
             //set user emails
             $user->setUserEmails($userEmails);
         }
+
+        // Start event named 'eventName'
+        $stopwatch->stop('bl_pre_flush_event_for_settings');
     }
 }
 

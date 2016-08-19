@@ -61,7 +61,7 @@ class RequestListener //implements EventSubscriberInterface
         $stopwatch = $this->stopwatch;
 
         // Start event named 'eventName'
-        $stopwatch->start('watch_request_listener');
+        $stopwatch->start('bl_set_locale_and_check_mobile_app_version_listener');
 
         $request = $event->getRequest();
 
@@ -107,6 +107,6 @@ class RequestListener //implements EventSubscriberInterface
                 $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
             }
         }
-        $event = $stopwatch->stop('watch_request_listener');
+        $stopwatch->stop('bl_set_locale_listener');
     }
 }

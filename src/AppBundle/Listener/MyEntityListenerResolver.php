@@ -32,6 +32,12 @@ class MyEntityListenerResolver extends DefaultEntityListenerResolver
      */
     public function resolve($className)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_my_entity_listener_resolver');
+
         // get object
         $object = parent::resolve($className);
 
@@ -39,6 +45,9 @@ class MyEntityListenerResolver extends DefaultEntityListenerResolver
         if($object instanceof ContainerAwareInterface){
             $object->setContainer($this->container);
         }
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_my_entity_listener_resolver');
 
         return $object;
     }

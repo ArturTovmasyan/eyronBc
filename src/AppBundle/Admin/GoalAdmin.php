@@ -112,12 +112,6 @@ class GoalAdmin extends AbstractAdmin
         //get container
         $container = $this->getConfigurationPool()->getContainer();
 
-        //get stopwatch component
-        $stopwatch = $container->get('debug.stopwatch');
-
-        // Start event named 'eventName'
-        $stopwatch->start('bl_sonata_filter_field');
-
         //disable listener for stats count
         $container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
@@ -154,8 +148,6 @@ class GoalAdmin extends AbstractAdmin
                 'label'=>'admin.label.name.created'
             ), 'date', array('widget' => 'single_text'))
         ;
-        // Start event named 'eventName'
-        $stopwatch->stop('bl_sonata_filter_field');
     }
 
     // Fields to be shown on lists
@@ -163,12 +155,6 @@ class GoalAdmin extends AbstractAdmin
     {
         //get container
         $container = $this->getConfigurationPool()->getContainer();
-
-        //get stopwatch component
-        $stopwatch = $container->get('debug.stopwatch');
-
-        // Start event named 'eventName'
-        $stopwatch->start('bl_sonata_list_field');
 
         //disable goal archived filters
         $container->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
@@ -195,8 +181,6 @@ class GoalAdmin extends AbstractAdmin
                 )
             ))
         ;
-        // Start event named 'eventName'
-        $stopwatch->stop('bl_sonata_list_field');
     }
 
     /**

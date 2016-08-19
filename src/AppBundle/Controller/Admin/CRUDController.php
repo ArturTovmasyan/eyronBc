@@ -436,17 +436,4 @@ class CRUDController extends Controller
         return $result;
     }
 
-    /**
-     * List action.
-     *
-     * @return Response
-     *
-     * @throws AccessDeniedException If access is not granted
-     */
-    public function listAction()
-    {
-        $result = parent::listAction();
-
-        return $result;
-    }
 }
