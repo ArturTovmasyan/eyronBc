@@ -294,10 +294,12 @@ angular.module('activity')
                 autoHeight: true,
                 onSlideNextStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
                 },
                 onSlidePrevStart: function (ev) {
+                  scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
                   scope.$parent.$apply();
                 },
