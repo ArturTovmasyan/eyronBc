@@ -622,11 +622,17 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             if(window.innerWidth < 766){
-                slideInsert(4);
+                slideInsert(3);
                 $scope.isMobile = true;
                 //$scope.placeholder = '';
-            } else {
-                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 9);
+            }
+            else if(window.innerWidth < 992){
+                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 8);
+                $scope.isMobile = false;
+                //$scope.placeholder = $scope.placeholderText;
+            }
+            else {
+                slideInsert(($scope.categoriesLength < 10)?$scope.categoriesLength +1 : 10);
                 $scope.isMobile = false;
                 //$scope.placeholder = $scope.placeholderText;
             }

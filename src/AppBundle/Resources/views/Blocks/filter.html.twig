@@ -8,13 +8,26 @@
         </li>
 
         {% set mostPopular = false %}
+        {% set featured = false %}
 
         {% if categories|length > 0 %}
             {% for i in 0..(categories|length -1) %}
                 {% if categories[i].getSlug() == 'most-popular' %}
                     {% set mostPopular = true %}
                 {% endif %}
+                {% if categories[i].getSlug() == 'featured' %}
+                    {% set featured = true %}
+                {% endif %}
             {% endfor %}
+        {% endif %}
+
+        {% if featured %}
+            <li class="swiper-slide">
+                <a href="{{ path('goals_list', {'category' : 'featured'}) }}" data-slug="featured">
+                    <img src="{{ asset('bundles/app/images/featured.svg') }}"/>
+                    <span>{{ 'featured'|trans }}</span>
+                </a>
+            </li>
         {% endif %}
 
         {% if mostPopular %}
@@ -25,8 +38,9 @@
             </a>
         </li>
         {% endif %}
+
         {% for category in categories %}
-            {% if category.slug != 'most-popular' %}
+            {% if category.slug != 'most-popular' and category.slug != 'featured' %}
                 <li class="swiper-slide">
                     <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
                         <img src="{{ category.downloadLink }}"/>
@@ -36,8 +50,7 @@
         {% endif %}
         {% endfor %}
     </ul>
-     <div data-ng-show="isMobile" class="ng-hide">
-         <!-- Add Arrows -->
+     <div class="hidden-lg">
          <div class="swiper-button-next"></div>
          <div class="swiper-button-prev"></div>
      </div>
