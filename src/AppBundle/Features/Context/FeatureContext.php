@@ -156,9 +156,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I select date fields in manage goal
+     * @When I select date fields in manage goal :count
      */
-    public function iSelectDateFieldsInManageGoal()
+    public function iSelectDateFieldsInManageGoal($count)
     {
         //get mink session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -185,12 +185,15 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $optionsList = $dateElement->find('css', '.ui-select-choices-group');
 
             //get value in opt
-            $option = $optionsList->find(
+            $option = $optionsList->findAll(
                 'xpath',
                 $session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="ui-select-choices-row-inner"]')
             );
 
-            $option->click();
+            $option[3]->click();
+            if($count == "one") {
+                break;
+            }
         }
     }
 

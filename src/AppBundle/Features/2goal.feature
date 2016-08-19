@@ -19,6 +19,32 @@ Feature: Goal page
     And I wait for view "2000"
     Then I should see "user7 user7"
 
+
+  @javascript @goalManageDate
+  Scenario: Test for completed and deadline date in goal manage
+    When I click on "navbar-right"
+    And I am on "/profile"
+    And I scroll page to ".information"
+    And I follow "Manage"
+    And I wait for angular
+    Then I should see "Goal is active"
+    When I select date fields in manage goal "one"
+    And I follow "Save"
+    And I wait for angular
+    Then I should see "user1"
+    And I should see "2064"
+    When I scroll page to ".information"
+    And I follow "Manage"
+    And I wait for angular
+    And I change switch "0"
+    And I wait for view "500"
+    Then I should see "Goal is completed"
+    And I should see "Deadline : 2064"
+    When I change switch "0"
+    And I wait for view "500"
+    Then I should see "Goal is active"
+
+
   @javascript @goalActiveCompleted
   Scenario: Open My Bucket list and check Active/Completed filter for empty/no-empty goal
     When I click on "navbar-right"
@@ -55,7 +81,7 @@ Feature: Goal page
     And I follow "Manage"
     And I wait for angular
     Then I should see "Goal is active"
-    When I select date fields in manage goal
+    When I select date fields in manage goal "all"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "2"
@@ -179,7 +205,7 @@ Feature: Goal page
     And I wait
     And I scroll page to "top"
     And I change switch "0"
-    And I select date fields in manage goal
+    And I select date fields in manage goal "all"
     And I change priority
     And I fill in "stepText[ 0 ]" with "step 1"
     And I change switch "3"
