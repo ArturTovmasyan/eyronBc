@@ -626,9 +626,13 @@ angular.module('goal', ['Interpolation',
                 $scope.isMobile = true;
                 //$scope.placeholder = '';
             }
-            
+            else if(window.innerWidth < 992){
+                slideInsert(($scope.categoriesLength < 8)?$scope.categoriesLength +1 : 8);
+                $scope.isMobile = false;
+                //$scope.placeholder = $scope.placeholderText;
+            }
             else {
-                slideInsert(($scope.categoriesLength < 9)?$scope.categoriesLength +1 : 10);
+                slideInsert(($scope.categoriesLength < 10)?$scope.categoriesLength +1 : 10);
                 $scope.isMobile = false;
                 //$scope.placeholder = $scope.placeholderText;
             }

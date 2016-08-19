@@ -42,14 +42,13 @@
 
         <div class="container">
             <div class="row no-gutter">
-                <div class="col-xs-10 col-md-11">
+                <div class="col-xs-10 col-sm-11">
                     {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}
                 </div>
 
-                <div class="col-xs-2 col-md-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+                <div class="col-xs-2 col-sm-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
                     <a href="javascript:void(0)"  data-ng-click="showMap=!showMap" class=" map-top" data-ng-cloak>
-                        <i class="map-marker-new"></i>
-                        {#<i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>#}
+                        <i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>
                         <span>{{ 'menu.map'|trans | capitalize}}</span>
                     </a>
                 </div>
