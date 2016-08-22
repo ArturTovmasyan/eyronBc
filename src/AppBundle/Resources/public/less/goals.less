@@ -42,11 +42,30 @@
   }
 
   .filters-slider{
+
+    .bg-left,.bg-right{
+      position: absolute;
+      z-index: 10;
+      height: 100%;
+      width: 20px;
+      top: 0;
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+    }
+
+    .bg-left{
+      left: 0;
+    }
+
+    .bg-right{
+      right: 1px;
+    }
+
     .swiper-button-prev,.swiper-button-next{
       width: 10px;
       height: 19px;
       top: 65%;
-
+      cursor: pointer;
     }
 
     .swiper-button-prev{
@@ -63,7 +82,7 @@
   }
 
   ul.filter{
-    padding: 7px 0 10px;
+    padding: 7px 5px 10px;
     margin-bottom:0;
     min-width:125px;
 
@@ -901,6 +920,7 @@
     .swiper-container {
       height: 70px;
     }
+
     .icon-arrow-down,.icon-icon-up {
       font-size:20px;
       vertical-align: middle;
@@ -927,6 +947,17 @@
 
       i{
         font-size:30px;
+      }
+    }
+
+    .filters-slider{
+
+      .bg-left{
+        left: -7px;
+      }
+
+      .bg-right{
+        right: 1px;
       }
     }
 
@@ -1258,7 +1289,7 @@
   .content-top{
 
     .map-top{
-      padding:9px 10px 6px 25px;
+      padding:8px 10px 6px 25px;
       font-size:14px;
 
       span{
