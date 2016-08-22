@@ -124,6 +124,7 @@ class UserGoal implements ActivityableInterface
     /**
      * @var
      * @ORM\Column(name="listed_date", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
      * @Groups({"userGoal"})
      */
     protected $listedDate;

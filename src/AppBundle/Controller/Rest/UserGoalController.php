@@ -189,10 +189,6 @@ class UserGoalController extends FOSRestController
             $em->persist($goal);
         }
 
-        if (is_null($userGoal->getId())){
-            $userGoal->setListedDate(new \DateTime());
-        }
-
         $doDateRaw = $request->get('do_date');
         if($doDateRaw){
             $doDate = \DateTime::createFromFormat('d/m/Y', $doDateRaw);
