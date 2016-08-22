@@ -2,7 +2,7 @@
     <ul class="filter swiper-wrapper ng-hide" data-ng-cloak data-ng-show="filterVisibility" data-ng-init="categoriesLength = {{ categories|length }}">
         <li class="swiper-slide {% if not selected%}active-category{% endif %}">
             <a href="{{ path('goals_list') }}">
-                <img src="{{ asset('bundles/app/images/discover.svg') }}"/>
+                <img src="{{ asset('bundles/app/images/discover.svg') }}" class="svg"/>
                 <span>{{ 'discover'|trans }}</span>
             </a>
         </li>
@@ -24,7 +24,7 @@
         {% if featured %}
             <li class="swiper-slide {% if selected and selected == 'featured' %}active-category{% endif %}">
                 <a href="{{ path('goals_list', {'category' : 'featured'}) }}" data-slug="featured">
-                    <img src="{{ asset('bundles/app/images/featured.svg') }}"/>
+                    <img src="{{ asset('bundles/app/images/featured.svg') }}" class="svg"/>
                     <span>{{ 'featured'|trans }}</span>
                 </a>
             </li>
@@ -33,7 +33,7 @@
         {% if mostPopular %}
         <li class="swiper-slide {% if selected and selected == 'most-popular' %}active-category{% endif %}">
             <a href="{{ path('goals_list', {'category' : 'most-popular'}) }}">
-                <img src="{{ asset('bundles/app/images/most-popular.svg') }}"/>
+                <img src="{{ asset('bundles/app/images/most-popular.svg') }}"  class="svg"/>
                 <span>{{ 'most_popular'|trans }}</span>
             </a>
         </li>
@@ -43,7 +43,7 @@
             {% if category.slug != 'most-popular' and category.slug != 'featured' %}
                 <li class="swiper-slide {% if selected and selected == category.slug %}active-category{% endif %}">
                     <a href="{{ path('goals_list', {'category' : category.slug}) }}" data-slug="{{ category.slug }}">
-                        <img src="{{ category.downloadLink }}"/>
+                        <img src="{{ category.downloadLink }}" class="svg"/>
                         <span>{{ category.title }}</span>
                     </a>
                 </li>
