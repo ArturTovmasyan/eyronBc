@@ -287,6 +287,13 @@ angular.module('activity')
             interval = $interval(newActivity,120000);
           };
 
+          scope.$parent.showComment = function (activity) {
+            activity.createComment = true;
+            $timeout(function () {
+              activity.showComment = !activity.showComment;
+            },300);
+          };
+
           function slideInsert(){
             $timeout(function(){
               var activity_swiper = new Swiper('div.activity-slider:not(.swiper-container-horizontal)', {
@@ -294,11 +301,13 @@ angular.module('activity')
                 autoHeight: true,
                 onSlideNextStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
                   scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
                 },
                 onSlidePrevStart: function (ev) {
+                  scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
                   scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
                   scope.$parent.$apply();

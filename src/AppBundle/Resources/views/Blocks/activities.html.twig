@@ -175,7 +175,9 @@
             </div>
 
             <div data-ls-comment-manage
-                 data-ng-if="activity.showComment"
+                 class="padding slide ng-hide"
+                 data-ng-if="activity.createComment"
+                 data-ng-show="activity.showComment"
                  data-ls-goal-id="[[ activity.reserveGoals[activity.activeIndex - 1].id ]]"
                  data-ls-slug="[[ activity.reserveGoals[activity.activeIndex - 1].slug ]]"
                  data-ls-reply="{{ 'reply'|trans }}"
