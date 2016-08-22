@@ -48,8 +48,10 @@ class ActivityRecalculateCommand extends ContainerAwareCommand
 
         $allCount = $em->createQuery("SELECT COUNT(u.id) FROM ApplicationUserBundle:User u")->getSingleScalarResult();
 
-        $progress = new ProgressBar($output, $allCount);
-        $progress->start();
+        if (!$username) {
+            $progress = new ProgressBar($output, $allCount);
+            $progress->start();
+        }
 
         while(count($users) > 0)
         {
@@ -121,7 +123,10 @@ class ActivityRecalculateCommand extends ContainerAwareCommand
 
 
                 $em->flush();
-                $progress->advance();
+
+                if (isset($progress)) {
+                    $progress->advance();
+                }
             }
 
             $em->clear();
@@ -136,7 +141,9 @@ class ActivityRecalculateCommand extends ContainerAwareCommand
         }
 
 
-        $progress->finish();
+        if (isset($progress)) {
+            $progress->finish();
+        }
         $output->writeln("<info>Success</info>");
     }
 
