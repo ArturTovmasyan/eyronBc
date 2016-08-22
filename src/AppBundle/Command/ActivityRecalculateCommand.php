@@ -149,7 +149,7 @@ class ActivityRecalculateCommand extends ContainerAwareCommand
     {
         $performDate = $em->createQuery("SELECT COALESCE(ug.listedDate, ug.completionDate)
                           FROM AppBundle:UserGoal ug
-                          WHERE ug.id < :id
+                          WHERE ug.id > :id
                           AND (ug.listedDate IS NOT NULL OR ug.completionDate IS NOT NULL)")
             ->setParameter('id', $userGoalId)
             ->setMaxResults(1)
@@ -158,7 +158,7 @@ class ActivityRecalculateCommand extends ContainerAwareCommand
         if (is_null($performDate)){
             $performDate = $em->createQuery("SELECT COALESCE(ug.listedDate, ug.completionDate)
                           FROM AppBundle:UserGoal ug
-                          WHERE ug.id > :id
+                          WHERE ug.id < :id
                           AND (ug.listedDate IS NOT NULL OR ug.completionDate IS NOT NULL)")
                 ->setParameter('id', $userGoalId)
                 ->setMaxResults(1)
