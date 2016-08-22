@@ -182,8 +182,8 @@
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
 
-                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
-
+                                        {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
+                                        {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
@@ -201,7 +201,8 @@
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
-                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                            {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
+                                            {{ include('AppBundle:Main:esiUser.html.twig') }}
                                         </li>
                                     </ul>
 
@@ -210,7 +211,7 @@
                                             <a class="navbar-brand" href="{{ path("homepage") }}">
                                                 <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                             </a>
-                                            <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
+                                            <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
                                         </li>
 
                                         <li class="divider hidden-xs"></li>
@@ -303,8 +304,8 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
 
-                                    {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
-
+                                    {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
+                                    {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
                                     <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="icons ideas-icon"></i>
@@ -329,13 +330,16 @@
                                         </li>
                                     {% endif %}
                                     <li>
-                                        {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                        {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
+                                        {{ include('AppBundle:Main:esiUser.html.twig') }}
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </nav>
                 </header>
+
+                <div class="bg-transparent hidden-sm hidden-md hidden-lg ng-hide" data-ng-show="$parent.joinToggle11"></div>
 
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
