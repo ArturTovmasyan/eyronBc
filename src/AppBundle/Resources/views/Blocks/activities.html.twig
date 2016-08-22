@@ -173,6 +173,22 @@
                     <div class="swiper-button-prev swiper-button-white"></div>
                 </div>
             </div>
+
+            <div data-ls-comment-manage
+                 class="padding slide ng-hide"
+                 data-ng-if="activity.createComment"
+                 data-ng-show="activity.showComment"
+                 data-ls-goal-id="[[ activity.reserveGoals[activity.activeIndex - 1].id ]]"
+                 data-ls-slug="[[ activity.reserveGoals[activity.activeIndex - 1].slug ]]"
+                 data-ls-reply="{{ 'reply'|trans }}"
+                 data-ls-replied="{{ 'replied'|trans }}"
+                 data-ls-logged="true"
+                 data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
+                 data-ls-title="{{ 'comments'|trans }}"
+                 data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                {{ nameOnImage  |upper}}{% endif %}">
+            </div>
         </div>
         <br/>
     </div>

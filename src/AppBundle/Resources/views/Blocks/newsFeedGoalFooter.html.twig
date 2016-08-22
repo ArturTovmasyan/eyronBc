@@ -1,6 +1,6 @@
 <ul data-ng-controller="goalFooter" class="row {% if inner is defined %} goal-links {% endif %} news-footer no-gutter ng-hide" data-ng-show="singleGoal.publish">
 
-    <li class="col-xs-6" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal !== 0) || !completed}">
+    <li class="col-xs-4" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal !== 0) || !completed}">
         <a href="javascript:void(0)"
            data-ng-cloak
            data-ls-goal-manage
@@ -17,7 +17,7 @@
         </span>
     </li>
 {#todo binding in activity when done in goal end #}
-    <li class="col-xs-6" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal === 2 )|| !completed}" data-ng-init="success[ singleGoal.id ] = false">
+    <li class="col-xs-4" data-ng-class="{transparent: (singleGoal.is_my_goal && singleGoal.is_my_goal === 2 )|| !completed}" data-ng-init="success[ singleGoal.id ] = false">
         <span class="ng-hide" data-ng-show="singleGoal.is_my_goal !== 2 && completed">
             <a href="javascript:void(0)"
                data-ng-cloak
@@ -33,6 +33,14 @@
             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             <span class="text">{{ 'completed'|trans | capitalize}}</span>
         </span>
+    </li>
+
+    <li class="col-xs-4" data-ng-click="showComment(activity)">
+        <a name="comments"></a>
+        <a href="javascript:void(0)">
+            <i class="comment-icon"></i>
+            <span class="text">{{ 'comments'|trans }}</span>
+        </a>
     </li>
     
 </ul>
