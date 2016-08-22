@@ -13,10 +13,10 @@ Feature: Idea
     And I should see "Completed by"
     When I follow "Map"
     And I wait for angular
-    And I press "Discover"
-    Then I should see categories
-    When I follow "Most Popular"
-    Then I should be on "/ideas/most-popular"
+    And I follow "Map"
+#    Then I should see categories
+    Then I am on "/ideas/most-popular"
+    And I wait for view "500"
     Then I should see "Most Popular"
     And I wait
     And I should see "Listed by"
@@ -28,7 +28,6 @@ Feature: Idea
     And I wait
     And I am on "/ideas"
     And I wait for angular
-    And I click on close "close-icon"
     And I should see "Explore thousands of great ideas for your Bucket List"
     And I wait
     And I follow "Add"

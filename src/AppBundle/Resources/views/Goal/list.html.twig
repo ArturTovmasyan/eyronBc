@@ -11,9 +11,8 @@
 {% block content %}
     <div class="content-top ideas-top">
         <div class="container">
-
-            <div class="row no-gutter">
-                <div class="col-xs-10">
+            <div class="row">
+                <div class="col-xs-12">
                     <div class="search" data-ng-init="placeholderText = '{{ 'search'|trans | capitalize}}'">
                         <form class="navbar-form" role="search" action="{{ path("goals_list") }}">
                             <span class="icon-search-icon" data-ng-class="{'text-purple': isSearching}"></span>
@@ -28,26 +27,36 @@
                                         data-ng-enter-submit=".search form"
                                     {% endif %}
                                    placeholder="{{ 'search'|trans | capitalize}}"
-                                    class="form-control">
-                            <i class="close-icon hidden-sm hidden-md hidden-lg" data-ng-class="{'hidden-xs': !isSearching}" data-ng-click="search = '';isSearching = false"></i>
+                                   class="form-control">
+                            <i class="close-icon hidden-sm hidden-md hidden-lg"
+                               data-ng-class="{'hidden-xs': !isSearching}"
+                               data-ng-click="search = '';isSearching = false">
+                            </i>
                         </form>
                     </div>
-
-                </div>
-
-
-                <div class="col-xs-2 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
-
-                    <a href="javascript:void(0)"  data-ng-click="showMap=!showMap" class=" map-top" data-ng-cloak>
-                        <span class="text-gray hidden-xs">{{ 'menu.map'|trans | capitalize}}</span>
-                        <i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>
-                    </a>
-
                 </div>
             </div>
         </div>
 
         <hr/>
+
+        <div class="container">
+            <div class="row no-gutter">
+                <div class="col-xs-10 col-sm-11">
+                    {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories, 'selected': category } %}
+                </div>
+
+                <div class="col-xs-2 col-sm-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
+                    <a href="javascript:void(0)" data-ng-show="fadeMapIcon" data-ng-click="showMap=!showMap" class=" map-top ng-hide" data-ng-cloak>
+                        {#<i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>#}
+                        <img src="{{ asset('bundles/app/images/map-icon.svg') }}"  class="svg" alt="Map"/>
+                        <span>{{ 'menu.map'|trans | capitalize}}</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
 
         <div class="slide ng-hide" data-ng-cloak data-ng-show="showMap">
             <div data-simple-map-marker
@@ -59,11 +68,7 @@
                  data-item-page-url="{{ env_prefix  }}/goal/"
                  class="google-map "
                  style="width: 100%; height: 600px"
-            ></div>
-        </div>
-
-        <div class="container">
-            {% include 'AppBundle:Blocks:filter.html.twig' with { "categories" : categories } %}
+                    ></div>
         </div>
 
     </div>

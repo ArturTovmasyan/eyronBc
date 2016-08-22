@@ -94,7 +94,6 @@ class GoalAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('required' => true, 'label'=>'admin.label.name.title'))
             ->add('description', TextareaType::class, array('required' => false, 'label'=>'admin.label.name.description', 'attr'=>array('rows'=>8)))
-//            , 'attr' => array('class' => 'tinymce')
             ->add('featuredDate', 'date', array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date', 'required' => false))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
@@ -110,21 +109,27 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
         //disable listener for stats count
-        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
+            ->add('author.email', null, array('label'=>'Author email'))
+            ->add('author.firstname', null, array('label'=>'Author first name'))
+            ->add('author.lastname', null, array('label'=>'Author last name'))
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('author', null, array('label'=>'admin.label.name.author_name', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('tags.tag', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
+
 
             ->add('created', 'doctrine_orm_callback', array(
                 'show_filter' => true,
@@ -148,8 +153,11 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
         //disable goal archived filters
-        $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
+        $container->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
 
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))

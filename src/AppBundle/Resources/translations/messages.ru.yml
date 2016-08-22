@@ -23,6 +23,7 @@ logout: Выход
 my_bucketlist: Мой список целей
 bucketlist: Bucket List 127
 featured_ideas: Избранное
+featured: Избранное
 
 #Share
 message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!
@@ -301,8 +302,8 @@ users: Пользователь
 
 notification:
   no_notification: Нет оповещений
-  success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей идеей
-  important_goal_success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей важной идеей
+  success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей <a href='#'>идеей</a>
+  important_goal_success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей важной <a href='#'>идеей</a>
   success_story_vote: <a href="%profile_link%">%user%</a> проголосавал за вашу историю удачи
 
 most-popular: Самое популярное

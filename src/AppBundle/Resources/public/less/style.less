@@ -356,7 +356,6 @@ header{
           color: #E5E5E5;
           font-weight: bold;
           font-size: 16px;
-          //padding:27px 19px;
           padding:25px 19px;
 
           i{
@@ -385,7 +384,7 @@ header{
         background-color: #7627f5;
         color: #E5E5E5;
 
-        &:hover{
+        &:hover,&:focus{
           background-color: #7627f5;
           color: #E5E5E5;
         }
@@ -1135,7 +1134,7 @@ label{
 .search{
   overflow: hidden;
   form{
-    padding:0 0 0 20px;
+    padding:0 0 0 5px;
     margin: 10px auto 5px;
 
     .icon-search-icon{
@@ -1143,24 +1142,34 @@ label{
       font-size: 30px;
       vertical-align: middle;
       position: absolute;
-
     }
 
     input{
       border:0;
-      color:#333333;
+      color: #666666;
       background-color: transparent;
       padding: 0 45px 0 40px;
       box-shadow: none;
       font-weight: normal;
       font-size:20px;
     }
+    input.form-control::-webkit-input-placeholder {
+      color: #cccccc;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+      color: #cccccc;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: #cccccc;
+    }
+
+    :-ms-input-placeholder {
+      color: #cccccc;
+    }
   }
 }
-//
-//#signin,#common-modal,#goal-friends,#goal-users-modal,.content-top,#notification,#notification-list,#report-modal{
-//
-//}
 
 .close-icon{
   width: 18px;
@@ -2480,7 +2489,7 @@ footer{
   .search{
     height: 75px;
     form{
-      padding:13px 2px 13px 15px;
+      padding:13px 2px 13px 0;
 
       input.form-control{
         font-size:22px;
@@ -3215,21 +3224,24 @@ html {
 
 .map-marker-new{
   display: inline-block;
-  width: 25px;
-  height: 33px;
-  background: url('../images/map-icon.png') no-repeat center center;
+  width: 30px;
+  height: 30px;
+  background: url('../images/map-icon.svg') no-repeat center center;
   background-size: 100%;
 
-  &:hover{
-    background: url('../images/map-icon-active.png') no-repeat center center;
-    background-size: 100%;
+  &:hover,&:active,&:focus{
+    svg{
+      ellipse,path,.sto{
+        stroke: #7725f6;
+      }
+    }
   }
 }
 
 .map-marker-active{
-  display: inline-block;
-  width: 25px;
-  height: 33px;
-  background: url('../images/map-icon-active.png') no-repeat center center;
-  background-size: 100%;
+  svg{
+    ellipse,path,.sto{
+      stroke: #7725f6;
+    }
+  }
 }

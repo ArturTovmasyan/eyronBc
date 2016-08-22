@@ -97,9 +97,11 @@ class ModeratorGoalAdmin extends AbstractAdmin
         $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
+            ->add('author.email', null, array('label'=>'Author email', 'show_filter' => true))
+            ->add('author.firstname', null, array('label'=>'Author first name', 'show_filter' => true))
+            ->add('author.lastname', null, array('label'=>'Author last name', 'show_filter' => true))
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title','show_filter' => true))
-            ->add('author', null, array('label'=>'admin.label.name.author_name', 'show_filter' => true))
             ->add('description', null, array('label'=>'admin.label.name.description','show_filter' => true))
             ->add('tags', null, array('label'=>'admin.label.name.tags','show_filter' => true))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink','show_filter' => true))

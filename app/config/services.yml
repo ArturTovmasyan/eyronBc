@@ -22,5 +22,6 @@ services:
             arguments:
                 - @router
                 - @doctrine.orm.default_entity_manager
+                - @debug.stopwatch
             tags:
                 - { name: "presta.sitemap.listener"}

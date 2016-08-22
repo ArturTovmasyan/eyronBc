@@ -10,12 +10,14 @@ namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class LocaleListener
@@ -27,6 +29,7 @@ class RequestListener //implements EventSubscriberInterface
     private $mandatoryVersions;
     private $tokenStorage;
     private $em;
+    private $stopwatch;
 
     /**
      * RequestListener constructor.
@@ -36,11 +39,12 @@ class RequestListener //implements EventSubscriberInterface
      * @param TokenStorage $tokenStorage
      * @param EntityManager $entityManager
      */
-    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager, Stopwatch $stopwatch)
     {
         $this->defaultLocale = $defaultLocale;
         $this->tokenStorage  = $tokenStorage;
         $this->em            = $entityManager;
+        $this->stopwatch            = $stopwatch;
 
         $this->mandatoryVersions = [
             MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
@@ -53,6 +57,12 @@ class RequestListener //implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->stopwatch;
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_set_locale_listener');
+
         $request = $event->getRequest();
 
         $mobileAppVersion  = $request->query->get('mobileAppVersion');
@@ -97,5 +107,6 @@ class RequestListener //implements EventSubscriberInterface
                 $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
             }
         }
+        $stopwatch->stop('bl_set_locale_listener');
     }
 }

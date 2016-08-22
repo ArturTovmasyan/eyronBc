@@ -4,6 +4,21 @@
 .content-top{
   background-color: #ffffff;
 
+  .map-marker-new{
+    &:hover{
+
+      path {
+        fill: purple;
+      }
+
+      svg{
+        .st0{
+          stroke: red;
+        }
+      }
+    }
+  }
+
   .swiper-container {
     height: 60px;
   }
@@ -60,7 +75,7 @@
         color:#666666;
         display: block;
         vertical-align: middle;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 12px;
         padding: 0;
         text-align: center;
@@ -69,83 +84,100 @@
           display: block;
           vertical-align: middle;
           white-space: nowrap;
-          padding: 3px 0 0;
         }
 
         img{
           height: 30px;
         }
 
-        a{
-
+        .svg{
+          width: 30px;
+          height: 30px;
         }
-        //.discover{
-        //  background: url('../images/discover.svg') no-repeat center center;
-        //  display: inline-block;
-        //  width: 30px;
-        //  height: 30px;
-        //}
 
         &:hover,&:active,&:focus{
           text-decoration: none;
-          color: #7725f6;
+          color: #7725f6 ;
+
+          span{
+            color: #7725f6 ;
+          }
+        }
+      }
+
+      &.active-category{
+        .most-popular{
+          stroke: #7725f6;
         }
 
-        &:active,&:focus{
-          text-decoration: none;
-          color: #7725f6;
-
-          //svg{
-          //  .st0{
-          //    stroke: #7725f6;
-          //  }
-          //}
+        svg path,circle,polygon,rect,line,polyline,.st0{
+          stroke: #7725f6;
+          //fill: #7725f6;
         }
 
-
-
+        a{
+          color: #7725f6;
+        }
       }
     }
   }
 
   .map-top{
-    border-left:1px solid #eee;
-    font-size:20px;
-    padding: 10px 15px;
+    border-left: 1px solid #eee;
+    font-size: 12px;
+    padding: 8px 15px 4px;
     cursor: pointer;
+    color: #666666;
+    font-weight: 500;
+    text-align: center;
 
     span{
-      &:first-child{
-        vertical-align: top;
-        margin-right: 10px;
-      }
+      display:block;
+      padding: 4px 0 0;
     }
 
     i{
-      font-size:30px;
       vertical-align: top;
-      margin-left: 3px;
     }
 
     &:hover{
       color:#7724F6 !important;
       text-decoration: none;
+
+      span{
+        color: #7725f6;
+      }
     }
 
     &:focus{
       color:#999999;
       text-decoration: none;
+
+      span{
+        color: #7725f6;
+      }
     }
 
     &:active{
       color:#999999;
       text-decoration: none;
+
+      span{
+        color: #7725f6;
+      }
+    }
+
+    &:hover,&:active,&:focus{
+      svg{
+        ellipse,path,.sto{
+          stroke: #7725f6;
+        }
+      }
     }
   }
 
   h3{
     font-size:17px;
-
   }
 
   h3{
@@ -841,6 +873,14 @@
   }
 }
 
+.user-story{
+  &:hover{
+    background: url('../images/like-icon.png') no-repeat center center;
+    background-size: 100%;
+    cursor: default;
+  }
+}
+
 .like-active{
   background: url('../images/like-active.png') no-repeat center center;
   background-size: 100%;
@@ -872,9 +912,13 @@
     }
 
     .map-top{
-      font-size:22px;
-      padding:23px 10px 20px;
-      float: left;
+      height: 70px;
+      font-size: 13px;
+      padding:9px 10px 6px 25px;
+
+      span{
+        padding: 5px 0 0;
+      }
     }
 
     .no-bg{
@@ -895,7 +939,7 @@
         a{
           font-size:13px;
           span{
-            padding: 7px 0 0;
+            padding: 3px 0 0;
           }
         }
       }
@@ -940,7 +984,7 @@
   .ideas-top{
     min-height: 146px;
     .search{
-      height:60px;
+      height:75px;
     }
   }
 
@@ -1214,7 +1258,12 @@
   .content-top{
 
     .map-top{
-      padding: 25px 10px 16px;
+      padding:9px 10px 6px 25px;
+      font-size:14px;
+
+      span{
+        padding: 3px 0 0;
+      }
     }
 
     ul.filter{
@@ -1224,6 +1273,7 @@
         }
       }
     }
+
     .no-bg{
       padding: 25px 0 16px 12px;
     }
@@ -1269,12 +1319,6 @@
     }
   }
 
-  .ideas-top{
-    //min-height: 146px;
-    .search{
-      height:75px;
-    }
-  }
   .goal-container{
     min-height:925px;
     height:auto !important;
@@ -1403,9 +1447,6 @@
 
 @media(min-width: @screen-lg){
   .content-top{
-    .map-top{
-      padding: 25px 0 16px 16px;
-    }
     .no-bg{
       padding: 25px 0 16px 45px;
     }

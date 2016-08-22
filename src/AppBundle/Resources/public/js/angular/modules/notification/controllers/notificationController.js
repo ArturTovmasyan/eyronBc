@@ -78,14 +78,12 @@ angular.module('notification')
 
       $scope.getInterval = function (lastActivity) {
         var result = {'time' : -1, 'title' : null};
-        // now
-        var now = new Date();
 
         if (!lastActivity) {
           return result;
         }
 
-        var ms = moment(now).diff(moment(new Date(lastActivity)));
+        var ms = moment().diff(moment(lastActivity));
         var d = moment.duration(ms),
         // y = Math.floor(d.asYears()),
         // m = Math.floor(d.asMonths()),
@@ -176,14 +174,12 @@ angular.module('notification')
       
       $scope.getInterval = function (lastActivity) {
         var result = {'time' : -1, 'title' : null};
-        // now
-        var now = new Date();
 
         if (!lastActivity) {
           return result;
         }
 
-        var ms = moment(now).diff(moment(new Date(lastActivity)));
+        var ms = moment().diff(moment(lastActivity));
         var d = moment.duration(ms),
           // y = Math.floor(d.asYears()),
           // m = Math.floor(d.asMonths()),
