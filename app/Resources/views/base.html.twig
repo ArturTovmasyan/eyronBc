@@ -211,7 +211,7 @@
                                             <a class="navbar-brand" href="{{ path("homepage") }}">
                                                 <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                             </a>
-                                            <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
+                                            <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
                                         </li>
 
                                         <li class="divider hidden-xs"></li>
@@ -338,6 +338,8 @@
                         </div>
                     </nav>
                 </header>
+
+                <div class="bg-transparent hidden-sm hidden-md hidden-lg ng-hide" data-ng-show="$parent.joinToggle11"></div>
 
                 {% block confirm_email %}
                     {% if app.user and app.user.getRegistrationToken is not null %}
