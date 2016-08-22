@@ -617,7 +617,8 @@ angular.module('goal', ['Interpolation',
                 });
 
                 $scope.filterVisibility = true;
-            }, 1000);
+                $scope.fadeMapIcon = true;
+            }, 100);
         }
 
         $(function(){
