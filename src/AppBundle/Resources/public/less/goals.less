@@ -86,10 +86,15 @@
           display: block;
           vertical-align: middle;
           white-space: nowrap;
-          padding: 3px 0 0;
+          //padding: 3px 0 0;
         }
 
         img{
+          height: 30px;
+        }
+
+        .svg{
+          width: 30px;
           height: 30px;
         }
 
@@ -104,6 +109,14 @@
       }
 
       &.active-category{
+        .most-popular{
+          stroke: #7725f6;
+        }
+
+        svg path,circle,polygon,rect,line,polyline,.st0{
+          stroke: #7725f6;
+        }
+
         a{
           color: #7725f6;
         }
@@ -114,7 +127,7 @@
   .map-top{
     border-left: 1px solid #eee;
     font-size: 12px;
-    padding: 6px 15px 6px;
+    padding: 8px 15px 4px;
     cursor: pointer;
     color: #666666;
     font-weight: 600;
@@ -122,7 +135,7 @@
 
     span{
       display:block;
-      padding: 3px 0 0;
+      //padding: 3px 0 0;
     }
 
     i{
@@ -141,6 +154,7 @@
     &:focus{
       color:#999999;
       text-decoration: none;
+
       span{
         color: #7725f6;
       }
@@ -149,8 +163,17 @@
     &:active{
       color:#999999;
       text-decoration: none;
+
       span{
         color: #7725f6;
+      }
+    }
+
+    &:hover,&:active,&:focus{
+      svg{
+        ellipse,path,.sto{
+          stroke: #7725f6;
+        }
       }
     }
   }
@@ -891,12 +914,13 @@
     }
 
     .map-top{
+      height: 70px;
       font-size: 13px;
-      padding:7px 10px 8px 25px;
+      padding:9px 10px 6px 25px;
 
-      span{
-        padding: 7px 0 0;
-      }
+      //span{
+      //  padding: 7px 0 0;
+      //}
     }
 
     .no-bg{
@@ -917,7 +941,7 @@
         a{
           font-size:13px;
           span{
-            padding: 7px 0 0;
+            padding: 3px 0 0;
           }
         }
       }
@@ -1236,7 +1260,7 @@
   .content-top{
 
     .map-top{
-      padding:7px 10px 6px 25px;
+      padding:9px 10px 6px 25px;
       font-size:14px;
     }
 

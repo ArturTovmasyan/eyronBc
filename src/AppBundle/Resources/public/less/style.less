@@ -3229,16 +3229,28 @@ html {
   background: url('../images/map-icon.svg') no-repeat center center;
   background-size: 100%;
 
-  &:hover{
-    background: url('../images/map-active.svg') no-repeat center center;
-    background-size: 100%;
+  &:hover,&:active,&:focus{
+    //background: url('../images/map-active.svg') no-repeat center center;
+    //background-size: 100%;
+    svg{
+      ellipse,path,.sto{
+        stroke: #7725f6;
+      }
+    }
   }
 }
 
 .map-marker-active{
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  background: url('../images/map-active.svg') no-repeat center center;
-  background-size: 100%;
+  svg{
+    ellipse,path,.sto{
+      stroke: #7725f6;
+    }
+  }
 }
+//.map-marker-active{
+//  display: inline-block;
+//  width: 30px;
+//  height: 30px;
+//  background: url('../images/map-active.svg') no-repeat center center;
+//  background-size: 100%;
+//}
