@@ -200,11 +200,17 @@ class GoalAdmin extends AbstractAdmin
     {
         $original = $this->getModelManager()->getEntityManager($this->getClass())->getUnitOfWork()->getOriginalEntityData($object);
 
+
         if((!isset($original['publish']) || $original['publish'] != $object->getPublish()) && $object->getPublish() == PublishAware::PUBLISH){
             $this->getRequest()->getSession()
                 ->getFlashBag()
                 ->set('goalPublished','Goal published from Web')
             ;
+
+            $container = $this->getConfigurationPool()->getContainer();
+            $link = $container->get('router')->generate('inner_goal', ['slug' => $object->getSlug()]);
+            $body = $container->get('translator')->trans('notification.publish_goal', ['%goal%' => $object->getTitle()], null, 'en');
+            $container->get('bl_notification')->sendNotification(null, $link, $body, $object->getAuthor());
         }
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
