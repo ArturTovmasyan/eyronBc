@@ -137,6 +137,49 @@
         a{
           color: #7725f6;
         }
+
+        a[data-slug=travel]{
+          svg path{
+            fill: #7725f6;
+            stroke: transparent;
+          }
+        }
+
+        a[data-slug=experience]{
+          svg polygon{
+            fill: #7725f6;
+          }
+        }
+
+        a[data-slug=newskills]{
+          svg circle{
+            fill: #7725f6;
+          }
+        }
+
+        a[data-slug=social]{
+          svg {
+            g {
+              g{
+                path{
+                  fill: #7725f6;
+                }
+              }
+            }
+
+          }
+        }
+
+        a[data-slug=personal]{
+          svg g{
+            path{
+              &:first-child{
+                fill: #7725f6;
+              }
+            }
+          }
+        }
+
       }
     }
   }
@@ -166,15 +209,6 @@
     &:focus{
       text-decoration: none;
     }
-
-    //&:active{
-    //  color:#999999;
-    //  text-decoration: none;
-    //
-    //  span{
-    //    color: #7725f6;
-    //  }
-    //}
 
     //&:hover{
     //  svg{
@@ -1288,9 +1322,8 @@
 
       &:hover{
         color:#7724F6;
-
         span{
-          color: #7725f6;
+          color:#7724F6;
         }
       }
     }

@@ -720,10 +720,13 @@ angular.module('goal', ['Interpolation',
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
                 if($scope.Ideas.noItem ){
+                    var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
-                    $scope.Ideas.reset();
-                    $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
+                    if(!k){
+                        $scope.Ideas.reset();
+                        $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", '');
+                    }
                 }
             }
 
