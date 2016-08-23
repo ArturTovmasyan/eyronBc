@@ -305,7 +305,7 @@ notification:
   success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей <a href='#'>идеей</a>
   important_goal_success_story: <a href="%profile_link%">%user%</a> написал историю удачи под вашей важной <a href='#'>идеей</a>
   success_story_vote: <a href="%profile_link%">%user%</a> проголосавал за вашу историю удачи
-  publish_goal: Ваша '%goal%' идеа была опубликована
+  publish_goal: Ваша <strong>'%goal%'</strong> идеа была опубликована
 
 most-popular: Самое популярное
 # sonata admin lable
