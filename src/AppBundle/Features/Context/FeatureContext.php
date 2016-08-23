@@ -15,9 +15,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     use KernelDictionary;
 
     public function __construct(Session $session, $simpleArg)
-    {
-
-    }
+    {}
 
     /**
      * @When I wait for angular
@@ -106,7 +104,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //check if user admin
         if($user == 'admin') {
-            $this->assertSession()->pageTextContains('HOMEPAGE');
+            $this->assertSession()->pageTextContains('admin');
         }
         else
         {
@@ -156,9 +154,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @When I select date fields in manage goal
+     * @When I select date fields in manage goal :count
      */
-    public function iSelectDateFieldsInManageGoal()
+    public function iSelectDateFieldsInManageGoal($count)
     {
         //get mink session
         $session = $this->getSession(); // assume extends RawMinkContext
@@ -185,12 +183,15 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             $optionsList = $dateElement->find('css', '.ui-select-choices-group');
 
             //get value in opt
-            $option = $optionsList->find(
+            $option = $optionsList->findAll(
                 'xpath',
                 $session->getSelectorsHandler()->selectorToXpath('xpath', '//a[@class="ui-select-choices-row-inner"]')
             );
 
-            $option->click();
+            $option[3]->click();
+            if($count == "one") {
+                break;
+            }
         }
     }
 
@@ -223,7 +224,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
             //get value in opt
             $option = $optionsList->find(
                 'xpath',
-                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[2]')
+                $session->getSelectorsHandler()->selectorToXpath('xpath', '//li[4]')
             );
 
             $option->click();
@@ -490,6 +491,47 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //click on show more link
         $link->click();
+    }
+
+    /**
+     * @When I click on select2 field
+     */
+    public function iClickOnSelectField()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get all sub filters in my bucket list
+        $linkBlock = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@class="select2-results"]//div[@class="select2-result-label"])'));
+
+        //click on show more link
+        $linkBlock[3]->click();
+    }
+
+    /**
+     * @When I follow merge goal
+     */
+    public function iFollowMergeGoal()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get merge goal a tag
+        $mergeGoal = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//a[@title="Merge"])'));
+
+        //get merge goal9 link
+        $linkMergeGoal = $mergeGoal[8]->getAttribute('href');
+
+        //click on show more link
+        $this->visit($linkMergeGoal);
 
     }
+
+
 }

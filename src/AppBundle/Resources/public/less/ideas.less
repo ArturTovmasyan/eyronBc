@@ -59,23 +59,22 @@
           height:35px;
           line-height:31px;
           a{
-            //padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
           }
 
-          &:hover{
-            background-color: #7724F6;
-            color:#ffffff;
-          }
-
-          &:focus,&:active{
-            background-color: #6108EA;
-            a{
-              color:#ffffff;
-            }
-          }
+          //&:hover{
+          //  background-color: #7724F6;
+          //  color:#ffffff;
+          //}
+          //
+          //&:focus,&:active{
+          //  background-color: #6108EA;
+          //  a{
+          //    color:#ffffff;
+          //  }
+          //}
 
           i{
             font-size:25px;
@@ -351,7 +350,6 @@
 
   .quote{
     position: relative;
-    //height:170px;
     padding:5px 0;
     i{
       height:30px;
@@ -410,7 +408,6 @@
       width:105%;
       .blur;
       margin: -50px -30px -25px;
-      //height:475px;
     }
   }
 
@@ -546,13 +543,14 @@
       }
 
       figure.user-image{
-        margin: 0 0 10px 0;
+        margin: 0 10px 8px 0;
         background-color: transparent;
-        width:35px;
-        height:35px;
+        width:40px;
+        height:40px;
 
         img{
-          height:35px;
+          height:40px;
+          width:40px;
           border:2px solid #cecece;
         }
       }
@@ -579,6 +577,11 @@
       span{
         font-size:12px;
         color:#999999;
+
+        &.report{
+          font-size:14px;
+          color: #666666;
+        }
       }
 
       .swiper-container-free-mode{
@@ -780,7 +783,7 @@
     }
 
     .goal-image{
-        //height:627px;
+
       .overlay{
         height:627px;
       }
@@ -820,22 +823,11 @@
         margin-bottom: 10px;
 
         figure.user-image{
-          margin: 0 0 10px 5px;
-          width:40px;
-          height:40px;
-
-          img{
-            height:40px;
-          }
+          margin: 0 10px 15px 0;
         }
 
         span{
           font-size:12px;
-
-          &.report{
-            font-size:14px;
-            color: #666666;
-          }
         }
       }
     }
@@ -956,6 +948,27 @@
     min-height: 495px;
   }
 
+  .idea-item{
+    figure{
+      figcaption{
+        ul{
+          li{
+            &:hover{
+              background-color: #7724F6;
+              color:#ffffff;
+            }
+
+            &:focus,&:active{
+              background-color: #6108EA;
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .ideas-list{
 
     h2{
@@ -975,7 +988,6 @@
     }
 
     .quote{
-      //height:150px;
       i{
         font-size:30px;
       }
@@ -998,7 +1010,6 @@
     }
 
     .goal-image{
-      //height:680px;
 
       .overlay{
         height:680px;
@@ -1028,12 +1039,7 @@
         margin-bottom: 20px;
 
         figure.user-image{
-          width:40px;
-          height:40px;
-
-          img{
-            height:40px;
-          }
+          margin: 0 20px 15px 0;
         }
 
         span{

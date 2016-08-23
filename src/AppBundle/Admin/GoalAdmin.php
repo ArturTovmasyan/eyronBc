@@ -109,8 +109,11 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
         //disable listener for stats count
-        $this->getConfigurationPool()->getContainer()->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         $datagridMapper
             ->add('author.email', null, array('label'=>'Author email'))
@@ -121,12 +124,11 @@ class GoalAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('description', null, array('label'=>'admin.label.name.description'))
             ->add('featuredDate', null, array('widget' => 'single_text', 'label'=>'admin.label.name.featured_date'))
-            ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('tags.tag', null, array('label'=>'admin.label.name.tags'))
             ->add('videoLink', null, array('label'=>'admin.label.name.videoLink'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('status', null, array('label'=>'admin.label.name.goal_public', 'editable' => true))
-
 
 
             ->add('created', 'doctrine_orm_callback', array(
@@ -151,8 +153,11 @@ class GoalAdmin extends AbstractAdmin
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
         //disable goal archived filters
-        $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
+        $container->get('doctrine')->getManager()->getFilters()->disable('archived_goal_filter');
 
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
@@ -195,11 +200,17 @@ class GoalAdmin extends AbstractAdmin
     {
         $original = $this->getModelManager()->getEntityManager($this->getClass())->getUnitOfWork()->getOriginalEntityData($object);
 
+
         if((!isset($original['publish']) || $original['publish'] != $object->getPublish()) && $object->getPublish() == PublishAware::PUBLISH){
             $this->getRequest()->getSession()
                 ->getFlashBag()
                 ->set('goalPublished','Goal published from Web')
             ;
+
+            $container = $this->getConfigurationPool()->getContainer();
+            $link = $container->get('router')->generate('inner_goal', ['slug' => $object->getSlug()]);
+            $body = $container->get('translator')->trans('notification.publish_goal', ['%goal%' => $object->getTitle()], null, 'en');
+            $container->get('bl_notification')->sendNotification(null, $link, $body, $object->getAuthor());
         }
         // get current user
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();

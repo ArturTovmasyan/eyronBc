@@ -24,7 +24,7 @@ my_bucketlist: My Bucketlist
 statistic_view: Statistic
 bucketlist: Bucket List 127
 featured_ideas: Featured Ideas
-
+featured: Featured
 
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!
@@ -335,9 +335,10 @@ users: users
 
 notification:
   no_notification: No notifications
-  success_story: <a href="%profile_link%">%user%</a> wrote success story on your goal
-  important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important goal
+  success_story: <a href="%profile_link%">%user%</a> wrote success story on your <a href='#'>goal</a>
+  important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important <a href='#'>goal</a>
   success_story_vote: <a href="%profile_link%">%user%</a> voted for your success story
+  publish_goal: Your <strong>'%goal%'</strong> goal has been published
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 

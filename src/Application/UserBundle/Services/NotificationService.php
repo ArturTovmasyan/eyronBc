@@ -21,7 +21,7 @@ class NotificationService
         $this->entityManager = $entityManager;
     }
 
-    public function sendNotification(User $user, $link, $body, $toUsers)
+    public function sendNotification($user, $link, $body, $toUsers)
     {
         if (!is_array($toUsers)){
             $toUsers = [$toUsers];
@@ -40,7 +40,7 @@ class NotificationService
 
         $insertDataInQuery = '';
         foreach($toUsers as $toUser){
-            if ($user->getId() == $toUser->getId()){
+            if (!is_null($user) && $user->getId() == $toUser->getId()){
                 continue;
             }
                 $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}),";

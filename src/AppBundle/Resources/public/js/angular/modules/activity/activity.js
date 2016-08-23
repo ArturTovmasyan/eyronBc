@@ -16,6 +16,7 @@ angular.module('activity', ['Interpolation',
   'angulartics',
   'angulartics.google.analytics',
   'PathPrefix',
+  'comments',
   'slickCarousel'
 ])
   .config(function (localStorageServiceProvider ) {
