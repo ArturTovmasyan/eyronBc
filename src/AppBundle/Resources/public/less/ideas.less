@@ -59,23 +59,22 @@
           height:35px;
           line-height:31px;
           a{
-            //padding:5px 0;
             &:hover,&:focus{
               text-decoration: none;
             }
           }
 
-          &:hover{
-            background-color: #7724F6;
-            color:#ffffff;
-          }
-
-          &:focus,&:active{
-            background-color: #6108EA;
-            a{
-              color:#ffffff;
-            }
-          }
+          //&:hover{
+          //  background-color: #7724F6;
+          //  color:#ffffff;
+          //}
+          //
+          //&:focus,&:active{
+          //  background-color: #6108EA;
+          //  a{
+          //    color:#ffffff;
+          //  }
+          //}
 
           i{
             font-size:25px;
@@ -949,6 +948,27 @@
     min-height: 495px;
   }
 
+  .idea-item{
+    figure{
+      figcaption{
+        ul{
+          li{
+            &:hover{
+              background-color: #7724F6;
+              color:#ffffff;
+            }
+
+            &:focus,&:active{
+              background-color: #6108EA;
+              a{
+                color:#ffffff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .ideas-list{
 
     h2{
