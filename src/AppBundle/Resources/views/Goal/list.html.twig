@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="col-xs-2 col-sm-1 text-right"  data-ng-init="adventureTextItem=adventureText('{{ category }}',{{ categoriesJson }})">
-                    <a href="javascript:void(0)" data-ng-show="fadeMapIcon" data-ng-click="showMap=!showMap" class=" map-top ng-hide" data-ng-cloak>
+                    <a href="javascript:void(0)" data-ng-show="fadeMapIcon" data-ng-click="showMap=!showMap" data-ng-class="{'map-marker-active': showMap}" class="map-top ng-hide" data-ng-cloak>
                         {#<i class="map-marker-new" data-ng-class="{'map-marker-active': showMap}"></i>#}
                         <img src="{{ asset('bundles/app/images/map-icon.svg') }}"  class="svg" alt="Map"/>
                         <span>{{ 'menu.map'|trans | capitalize}}</span>
