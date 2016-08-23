@@ -280,7 +280,10 @@ class GoalRepository extends EntityRepository
                 ->setParameter('search', $search);
         }
         else {
-            if($category && $category != 'most-popular'){
+            if ($category && $category == 'featured'){
+                $query->andWhere('g.featuredDate >= CURRENT_DATE()');
+            }
+            elseif($category && $category != 'most-popular'){
                 $query
                     ->leftJoin('g.tags', 'gt')
                     ->andWhere('gt.id in (SELECT ct.id
