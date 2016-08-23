@@ -706,6 +706,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.userGoal.do_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'MM-DD-YYYY');
               $scope.firefox_do_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'YYYY-MM-DD');
               $scope.userGoal.completion_date = null;
+              $scope.userGoal.do_date_status = 1;
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){
             //when select only year
@@ -725,6 +726,7 @@ angular.module('goalComponents', ['Interpolation',
             } else {
               $scope.userGoal.do_date = $scope.dateByFormat($scope.year, month, day, 'MM-DD-YYYY');
               $scope.firefox_do_date = $scope.dateByFormat($scope.year, month, day, 'YYYY-MM-DD');
+              $scope.userGoal.do_date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
               $scope.userGoal.completion_date = null;
             }
           //  todo some thing in circles

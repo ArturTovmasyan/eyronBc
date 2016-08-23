@@ -74,6 +74,13 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
+     * @ORM\Column(name="do_date_status", type="smallint", options={"default"=1})
+     * @Groups({"userGoal"})
+     */
+    protected $doDateStatus = self::OLL;
+
+    /**
+     * @var
      * @ORM\Column(name="is_visible", type="boolean", nullable=true)
      * @Groups({"userGoal"})
      */
@@ -570,5 +577,29 @@ class UserGoal implements ActivityableInterface
     public function getDateStatus()
     {
         return $this->dateStatus;
+    }
+
+    /**
+     * Set doDateStatus
+     *
+     * @param integer $doDateStatus
+     *
+     * @return UserGoal
+     */
+    public function setDoDateStatus($doDateStatus)
+    {
+        $this->doDateStatus = $doDateStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get doDateStatus
+     *
+     * @return integer
+     */
+    public function getDoDateStatus()
+    {
+        return $this->doDateStatus;
     }
 }
