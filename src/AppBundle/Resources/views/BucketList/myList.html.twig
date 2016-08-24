@@ -135,7 +135,7 @@
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
                     </div>
                 {% endif %}
-                <div {% if myProfile %}class="ng-hide goals-information"{% endif %}
+                <div class="{% if myProfile %}ng-hide goals-information{% else %} user-goals{% endif %}"
                      data-ng-show="profile.status != '{{ activity }}'"
                      data-ng-cloak
                      data-infinite-scroll='ProfileItems.nextPage(profile)'
@@ -427,6 +427,24 @@
                                                     {%  include "AppBundle:Blocks:newsFeedGoalFooter.html.twig"  %}
                                                 </figcaption>
                                             </figure>
+                                        </div>
+
+                                        <div data-ng-class="{'line': singleGoal.createComment && singleGoal.showComment}"></div>
+
+                                        <div data-ls-comment-manage
+                                             class="padding slide ng-hide"
+                                             data-ng-if="singleGoal.createComment"
+                                             data-ng-show="singleGoal.showComment"
+                                             data-ls-goal-id="[[ singleGoal.id ]]"
+                                             data-ls-slug="[[ singleGoal.slug ]]"
+                                             data-ls-reply="{{ 'reply'|trans }}"
+                                             data-ls-replied="{{ 'replied'|trans }}"
+                                             data-ls-logged="true"
+                                             data-ls-report-title="{{ 'report.title'|trans({},'messages') }}"
+                                             data-ls-title="{{ 'comments'|trans }}"
+                                             data-ls-user-image="{% if app.user.getDownloadLink  %}{{ app.user.getDownloadLink|blImageFilter('user_icon') }}{% else %}
+                                            {% set nameOnImage = app.user.firstName|slice(0,1) ~ app.user.lastName|slice(0,1) %}
+                                            {{ nameOnImage  |upper}}{% endif %}">
                                         </div>
                                     </div>
                                 </div>

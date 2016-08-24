@@ -485,10 +485,12 @@
                                                                 {% endfor %}
                                                             </div>
 
-                                                            <div class="swiper-pagination swiper-pagination-white"></div>
-                                                            <!-- Add Arrows -->
-                                                            <div class="swiper-button-next swiper-button-white"></div>
-                                                            <div class="swiper-button-prev swiper-button-white"></div>
+                                                            {% if files|length > 2 %}
+                                                                <div class="swiper-pagination swiper-pagination-white"></div>
+                                                                <!-- Add Arrows -->
+                                                                <div class="swiper-button-next swiper-button-white"></div>
+                                                                <div class="swiper-button-prev swiper-button-white"></div>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -552,6 +554,7 @@
                                 <div data-ls-comment-manage
                                      data-ls-goal-id="{{ goal.id }}"
                                      data-ls-slug="{{ goal.slug }}"
+                                     data-ls-inner="true"
                                      data-ls-reply="{{ 'reply'|trans }}"
                                      data-ls-replied="{{ 'replied'|trans }}"
                                      data-ls-logged="{% if app.user %}true{% else %}false{% endif %}"
