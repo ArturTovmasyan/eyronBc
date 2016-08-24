@@ -287,11 +287,19 @@ angular.module('activity')
             interval = $interval(newActivity,120000);
           };
 
-          scope.$parent.showComment = function (activity) {
-            activity.createComment = true;
-            $timeout(function () {
-              activity.showComment = !activity.showComment;
-            },300);
+          scope.$parent.showComment = function (activity, goal) {
+            if(!angular.isUndefined(activity)){
+              activity.createComment = true;
+              $timeout(function () {
+                activity.showComment = !activity.showComment;
+              },300);
+            } else {
+              goal.createComment = true;
+              $timeout(function () {
+                goal.showComment = !goal.showComment;
+              },300);
+            }
+            
           };
 
           function slideInsert(){
