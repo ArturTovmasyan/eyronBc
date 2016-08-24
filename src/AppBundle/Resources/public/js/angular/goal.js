@@ -605,7 +605,7 @@ angular.module('goal', ['Interpolation',
             return parseInt(value);
         };
 
-        function slideInsert(count){
+        function slideInsert(count, miniDevice){
             $timeout(function(){
                 var list_swiper = new Swiper('div.filters-slider:not(.swiper-container-horizontal)', {
                     observer: true,
@@ -618,6 +618,17 @@ angular.module('goal', ['Interpolation',
 
                 $scope.filterVisibility = true;
                 $scope.fadeMapIcon = true;
+
+                if(miniDevice){
+                    for (var i = 0, length = list_swiper.slides.length; i < length; i++) {
+                        var slide = list_swiper.slides.eq(i);
+                        if (slide.hasClass('active-category')) {
+                            var index = slide.index();
+                            list_swiper.slideTo((index>0)?(index-1):0, 0, true, true);
+                        }
+                    }
+                }
+
             }, 100);
         }
 
@@ -659,7 +670,7 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             if(window.innerWidth < 766){
-                slideInsert(3);
+                slideInsert(3, true);
                 $scope.isMobile = true;
                 //$scope.placeholder = '';
             }
