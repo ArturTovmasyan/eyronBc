@@ -83,4 +83,20 @@ class SuccessStoryRepository extends EntityRepository
             ->setParameter('ids', $ids)
             ->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function findInspireStories()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ss, si, u, g, gi
+                           FROM AppBundle:SuccessStory ss
+                           JOIN ss.user u
+                           JOIN ss.goal g
+                           LEFT JOIN g.images gi
+                           LEFT JOIN ss.files si
+                           WHERE ss.isInspire = true")
+            ->getResult();
+    }
 }

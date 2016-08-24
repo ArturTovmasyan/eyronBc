@@ -35,6 +35,8 @@ class MainController extends Controller
 
         if (!is_object($user)){
 
+            $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
             if(!apc_exists('homepage_ideas')){
                 $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
                 $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
@@ -45,7 +47,31 @@ class MainController extends Controller
                 $goals = apc_fetch('homepage_ideas');
             }
 
-            return array('goals' => $goals);
+
+            if(!apc_exists('homepage_stories')){
+                $stories = $em->getRepository("AppBundle:SuccessStory")->findInspireStories();
+
+                $goalIds = [];
+                foreach($stories as $story){
+                    $goalIds[$story->getGoal()->getId()] = 1;
+                }
+
+                $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+                foreach($stories as &$story){
+                    $story->getGoal()->setStats([
+                        'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
+                        'doneBy'   => $stats[$story->getGoal()->getId()]['doneBy'],
+                    ]);
+                }
+
+                apc_add('homepage_stories', $stories, 86400);
+            }
+            else {
+                $stories = apc_fetch('homepage_stories');
+            }
+
+
+            return array('goals' => $goals, 'stories' => $stories);
         }
 
         //check and set user activity by new feed count
