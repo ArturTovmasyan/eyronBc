@@ -43,9 +43,9 @@
                                                             <a href="#"
                                                                class="text-dark-gray">{{ addedUser.showName }}</a>
                                                         </p>
-                                                            <span data-ng-cloak>
-                                                                {{ story.updated | date('m/d/Y H:i O') }}
-                                                            </span>
+                                                        <span data-ng-cloak>
+                                                            [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

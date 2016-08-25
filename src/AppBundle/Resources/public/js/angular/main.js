@@ -29,7 +29,8 @@ angular.module('main',['mgcrea.ngStrap.modal',
         '$modal',
         '$timeout',
         'deviceDetector',
-        function($scope, $modal, $timeout, deviceDetector){
+        '$filter',
+        function($scope, $modal, $timeout, deviceDetector, $filter){
 
         //if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
         //    // open modal
@@ -37,6 +38,13 @@ angular.module('main',['mgcrea.ngStrap.modal',
         //        $scope.$broadcast('openLsModal', 'mobileDetectModal');
         //    }, 500);
         //}
+        $scope.capitalizeFirstLetter = function (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        };
+
+        $scope.dateToLocal = function(date){
+            return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
+        };
 
         $scope.openSignInPopover = function(){
             var middleScope = angular.element(".sign-in-popover").scope();
