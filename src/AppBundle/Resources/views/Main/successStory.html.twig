@@ -18,148 +18,150 @@
                                  data-ng-init="count[{{ story.id }}] = {{ story.voters|length }}">
 
                                 <div class="row">
-                                    <div class="col-sm-8 col-sm-offset-2 padding bg-white">
-                                        <div class="row">
-                                            <div class="col-sm-9">
-                                                <div class="clearfix">
-                                                    <a href="#" class="pull-left">
-                                                        {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
-                                                        {% set className = "user-no" ~ random(4) %}
+                                    <div class="col-sm-8 col-sm-offset-2 ">
+                                        <div class="bg-white">
 
-                                                        <figure class="user-image">
-                                                            {% if addedUser.getPhotoLink %}
-                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
-                                                                     class="img-circle img-responsive"
-                                                                     alt="{{ addedUser.firstName }}">
-                                                            {% else %}
-                                                                <span class="no-image text-white {{ className }}">{{ nameOnImage | upper }}</span>
-                                                            {% endif %}
-                                                        </figure>
+                                            <div class="row padding">
+                                                <div class="col-sm-9">
+                                                    <div class="clearfix">
+                                                        <a href="#" class="pull-left">
+                                                            {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                            {% set className = "user-no" ~ random(4) %}
 
-                                                    </a>
-
-                                                    <div class="pull-left">
-                                                        <p>
-                                                            <a href="#"
-                                                               class="text-dark-gray">{{ addedUser.showName }}</a>
-                                                        </p>
-                                                        <span data-ng-cloak>
-                                                            [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class=" col-sm-3 text-right" data-ng-cloak>
-                                                <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
-                                                <i class="like-icon user-story"></i>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="swiper-container swiper-scroll-bar-{{ key }}">
-                                                    <div class="swiper-wrapper">
-                                                        <div class="swiper-slide" style="font-size: 18px;height: auto;-webkit-box-sizing: border-box;box-sizing: border-box;padding: 30px;">
-                                                            <p>{{ story.story }} </p>
-                                                            {% if files and files|length %}
-
-                                                                {% if files|length == 1 %}
-                                                                    {% set file = files.first %}
-                                                                    <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
-                                                                       class="swipebox-{{ key }}">My Image
-                                                                        <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
-                                                                             alt="{{ file.fileName }}" height="120"/>
-                                                                    </a>
+                                                            <figure class="user-image">
+                                                                {% if addedUser.getPhotoLink %}
+                                                                    <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}"
+                                                                         class="img-circle img-responsive"
+                                                                         alt="{{ addedUser.firstName }}">
                                                                 {% else %}
-                                                                    {% for k,file in files %}
-                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
-                                                                           class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">My images
-                                                                            <img class="img-responsive"
-                                                                                 src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
-                                                                                 alt="{{ file.fileName }}" height="120"/>
-                                                                        </a>
-                                                                    {% endfor %}
+                                                                    <span class="no-image text-white {{ className }}">{{ nameOnImage | upper }}</span>
                                                                 {% endif %}
-                                                            {% endif %}
-                                                            {% if videos and videos|length %}
+                                                            </figure>
 
-                                                    {% if videos|length == 1 %}
-                                                        {% set v = videos[0] %}
-                                                        {#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}
-                                                        <a class="swipebox-video-{{ key }}" data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]">
-                                                            <embed-video
-                                                                    data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
-                                                                    data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                    height="120px"
-                                                                    width="120px">
-                                                            </embed-video >
                                                         </a>
-                                                    {% else %}
-                                                        {% for k,video in videos %}
-                                                            {% if video %}
-                                                                {#<span  data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"></span>#}
-                                                                <a class="swipebox-video-{{ key }} {% if k > 0 %}ng-hide{% endif %}" data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">My Videos
-                                                                    <embed-video
-                                                                            u="image"
-                                                                            data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                            width="120px"
-                                                                            height="120px"
-                                                                            data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
-                                                                    </embed-video>
-                                                                </a>
-                                                            {% endif %}
-                                                        {% endfor %}
 
-                                                    {% endif %}
-                                                {% endif %}
+                                                        <div class="pull-left">
+                                                            <p>
+                                                                <a href="#"
+                                                                   class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                            </p>
+                                                            <span data-ng-cloak>
+                                                                [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                    <!-- Add Scroll Bar -->
-                                                    <div class="swiper-scrollbar swiper-scrollbar-{{ key }}"></div>
+                                                </div>
+
+                                                <div class=" col-sm-3 text-right" data-ng-cloak>
+                                                    <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
+                                                    <i class="like-icon user-story"></i>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <div class="swiper-container swiper-scroll-bar-{{ key }}">
+                                                        <div class="swiper-wrapper">
+                                                            <div class="swiper-slide" style="font-size: 18px;height: auto;-webkit-box-sizing: border-box;box-sizing: border-box;padding: 30px;">
+                                                                <p>{{ story.story }}</p>
+
+                                                                {% if files and files|length %}
+
+                                                                    {% if files|length == 1 %}
+                                                                        {% set file = files.first %}
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                           class="swipebox-{{ key }}">My Image
+                                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
+                                                                                 alt="{{ file.fileName }}" height="83" width="106"/>
+                                                                        </a>
+                                                                    {% else %}
+                                                                        {% for k,file in files %}
+                                                                            <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                               class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">My images
+                                                                                <img src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
+                                                                                     alt="{{ file.fileName }}" height="83" width="106"/>
+                                                                            </a>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endif %}
+
+                                                                {% if videos and videos|length %}
+
+                                                                {% if videos|length == 1 %}
+                                                                    {% set v = videos[0] %}
+                                                                    {#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}
+                                                                    <a class="swipebox-video-{{ key }}" data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]">
+                                                                        <embed-video
+                                                                                data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
+                                                                                data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
+                                                                                height="83" width="106">
+                                                                        </embed-video >
+                                                                    </a>
+                                                                {% else %}
+                                                                    {% for k,video in videos %}
+                                                                        {% if video %}
+                                                                            {#<span  data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"></span>#}
+                                                                            <a class="swipebox-video-{{ key }} {% if k > 0 %}ng-hide{% endif %}" data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">My Videos
+                                                                                <embed-video
+                                                                                        u="image"
+                                                                                        data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                                        height="83" width="106"
+                                                                                        data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                                </embed-video>
+                                                                            </a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <!-- Add Scroll Bar -->
+                                                        <div class="swiper-scrollbar swiper-scrollbar-{{ key }}"></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="idea-item">
-                                            <figure class="rounded-corners">
-                                                <i class="icon-lock-white"></i>
+                                            <div class="idea-item">
+                                                        <figure class="rounded-corners">
+                                                            <i class="icon-lock-white"></i>
 
-                                                <a href="{{ path('inner_goal', {'slug': story.goal.slug }) }}"
-                                                   class="goalTitle">
-                                                    <span class="overlay"></span>
-                                                    <h3>{{ story.goal.title }}</h3>
-                                                    {% if story.goal.listPhotoDownloadLink %}
-                                                        <img src="{{ story.goal.listPhotoDownloadLink|blImageFilter('goal_list_horizontal') }}"
-                                                             alt="{{ story.goal.title }}"/>
-                                                    {% endif %}
-                                                    <div class="absolute">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="{{ path('listed_users', {'slug': story.goal.slug} ) }}">
-                                                                    <span>
-                                                                        {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                                        {{ story.goal.stats.listedBy }}
-                                                                    </span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ path('done_users', {'slug': story.goal.slug} ) }}">
-                                                                    <span>
-                                                                        {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                                        {{ story.goal.stats.doneBy }}
-                                                                    </span>
-                                                                    <i class="icon-user-small"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
+                                                            <a href="{{ path('inner_goal', {'slug': story.goal.slug }) }}"
+                                                               class="goalTitle">
+                                                                <span class="overlay"></span>
+                                                                <h3>{{ story.goal.title }}</h3>
+                                                                {% if story.goal.listPhotoDownloadLink %}
+                                                                    <img src="{{ story.goal.listPhotoDownloadLink|blImageFilter('goal_list_horizontal') }}"
+                                                                         alt="{{ story.goal.title }}"/>
+                                                                {% endif %}
+                                                                <div class="absolute">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="{{ path('listed_users', {'slug': story.goal.slug} ) }}">
+                                                                        <span>
+                                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.listedBy }}
+                                                                        </span>
+                                                                                <i class="icon-user-small"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="{{ path('done_users', {'slug': story.goal.slug} ) }}">
+                                                                        <span>
+                                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.doneBy }}
+                                                                        </span>
+                                                                                <i class="icon-user-small"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+
+                                                            </a>
+                                                        </figure>
+
                                                     </div>
-
-                                                </a>
-                                            </figure>
-
                                         </div>
                                     </div>
                                 </div>
