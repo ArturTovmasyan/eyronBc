@@ -1,0 +1,173 @@
+<div id="story-slider-homepage">
+
+    <div class="container">
+
+        <h2 class="text-center text-dark">{{ 'homepage_success_story'| trans | upper}}</h2>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="swiper-container">
+                    <!-- Slides Container -->
+                    <div class="swiper-wrapper">
+                        {% for key, story in stories %}
+                            {% set addedUser = story.user %}
+                            {% set files = story.files %}
+                            {% set videos = story.videoLink %}
+                            <div class="swiper-slide comment-place story-fade-in"
+                                 data-ng-init="count[{{ story.id }}] = {{ story.voters|length }}">
+
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2 padding bg-white">
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <div class="clearfix">
+                                                    <a href="#" class="pull-left">
+                                                        {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
+                                                        {% set className = "user-no" ~ random(4) %}
+
+                                                        <figure class="user-image">
+                                                            {% if addedUser.getPhotoLink  %}
+                                                                <img src="{{ addedUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ addedUser.firstName }}">
+                                                            {% else %}
+                                                                <span class="no-image text-white {{ className }}">{{ nameOnImage | upper}}</span>
+                                                            {% endif %}
+                                                        </figure>
+
+                                                    </a>
+
+                                                    <div class="pull-left">
+                                                        <p>
+                                                            <a href="#" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                        </p>
+                                                            <span data-ng-cloak>
+                                                                {{ story.updated | date('m/d/Y H:i O') }}
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class=" col-sm-3 text-right" data-ng-cloak>
+                                                <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
+                                                <i class="like-icon user-story"></i>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <p>{{ story.story }} </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                {% if files and files|length %}
+
+                                    {% if files|length == 1 %}
+                                        {% set file = files.first %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <figure>
+                                                    <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}" height="360"/>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
+                                                    <!-- Slides Container -->
+                                                    <div class="swiper-wrapper">
+                                                        {% for k,file in files %}
+                                                            <div class="swiper-slide">
+                                                                <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox">
+                                                                    <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
+                                                                </a>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+
+                                                    {% if files|length > 2 %}
+                                                        <div class="swiper-pagination swiper-pagination-white"></div>
+                                                        <!-- Add Arrows -->
+                                                        <div class="swiper-button-next swiper-button-white"></div>
+                                                        <div class="swiper-button-prev swiper-button-white"></div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if videos and videos|length %}
+
+                                    {% if videos|length == 1 %}
+                                        {% set v = videos[0] %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <figure>
+                                                    <embed-video
+                                                            data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
+                                                            data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
+                                                            height="360px"
+                                                            width="100%">
+                                                    </embed-video >
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id="story-slider-video{{ key }}" class="swiper-container story-slider video-slider">
+                                                    <!-- Slides Container -->
+                                                    <div class="swiper-wrapper">
+                                                        {% for k,video in videos %}
+                                                            {% if video %}
+                                                                <div class="swiper-slide">
+                                                                    <embed-video
+                                                                            u="image"
+                                                                            data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                            width="100%"
+                                                                            height="360px"
+                                                                            data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                    </embed-video>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+
+                                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                                    <!-- Add Arrows -->
+                                                    <div class="swiper-button-next swiper-button-white"></div>
+                                                    <div class="swiper-button-prev swiper-button-white"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="swiper-pagination swiper-pagination-white"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="#" data-authenticator-login-trigger class="btn btn-purple">{{ 'join_now'|trans | upper}}</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

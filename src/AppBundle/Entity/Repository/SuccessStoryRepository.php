@@ -90,10 +90,11 @@ class SuccessStoryRepository extends EntityRepository
     public function findInspireStories()
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT ss, si, u, g, gi
+            ->createQuery("SELECT ss, si, u, g, gi, v
                            FROM AppBundle:SuccessStory ss
                            JOIN ss.user u
                            JOIN ss.goal g
+                           LEFT JOIN ss.voters v
                            LEFT JOIN g.images gi
                            LEFT JOIN ss.files si
                            WHERE ss.isInspire = true")

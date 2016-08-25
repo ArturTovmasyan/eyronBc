@@ -5,6 +5,7 @@ ideas: IDEAS
 search: SEARCH
 join: JOIN
 copyright: 2015 Bucketlist 127
+join_now: Join Now
 
 #blocks
 most_popular: Most Popular
@@ -111,6 +112,7 @@ ideas_list_title: Explore thousands of great ideas for your Bucket List
 homepage_title: The goal is to have memories, <br /> not only dreams!
 homepage_list_title: Discover thousands of great ideas for your Bucket List
 homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
+homepage_success_story: Stories that inspire
 
 #notification
 test_message: testing notifications in BucketList

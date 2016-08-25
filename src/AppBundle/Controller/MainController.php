@@ -35,43 +35,40 @@ class MainController extends Controller
 
         if (!is_object($user)){
 
+            $response = new Response();
+            $response->setPublic();
+
+            $currentDate = new \DateTime();
+            $currentDate->setTimezone(new \DateTimeZone('UTC'));
+            $currentDate->setTime(0, 0, 0);
+
+            $response->setLastModified($currentDate);
+
+            if ($response->isNotModified($request)){
+                return $response;
+            }
+
             $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
 
-            if(!apc_exists('homepage_ideas')){
-                $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
-                $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
+            $goals = $em->getRepository("AppBundle:Goal")->findPopular(7);
+            $em->getRepository("AppBundle:Goal")->findGoalStateCount($goals);
 
-                apc_add('homepage_ideas', $goals, 86400);
-            }
-            else {
-                $goals = apc_fetch('homepage_ideas');
-            }
+            $stories = $em->getRepository("AppBundle:SuccessStory")->findInspireStories();
 
-
-            if(!apc_exists('homepage_stories')){
-                $stories = $em->getRepository("AppBundle:SuccessStory")->findInspireStories();
-
-                $goalIds = [];
-                foreach($stories as $story){
-                    $goalIds[$story->getGoal()->getId()] = 1;
-                }
-
-                $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
-                foreach($stories as &$story){
-                    $story->getGoal()->setStats([
-                        'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
-                        'doneBy'   => $stats[$story->getGoal()->getId()]['doneBy'],
-                    ]);
-                }
-
-                apc_add('homepage_stories', $stories, 86400);
-            }
-            else {
-                $stories = apc_fetch('homepage_stories');
+            $goalIds = [];
+            foreach($stories as $story){
+                $goalIds[$story->getGoal()->getId()] = 1;
             }
 
+            $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+            foreach($stories as &$story){
+                $story->getGoal()->setStats([
+                    'listedBy' => $stats[$story->getGoal()->getId()]['listedBy'],
+                    'doneBy'   => $stats[$story->getGoal()->getId()]['doneBy'],
+                ]);
+            }
 
-            return array('goals' => $goals, 'stories' => $stories);
+            return $this->render('AppBundle:Main:index.html.twig', array('goals' => $goals, 'stories' => $stories), $response);
         }
 
         //check and set user activity by new feed count
