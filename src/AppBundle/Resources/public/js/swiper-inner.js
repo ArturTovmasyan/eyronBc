@@ -16,12 +16,11 @@ $(document).ready(function(){
 
     // homepage story
     var main_swiper = new Swiper('#story-slider-homepage-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
+        observer: true,
         autoHeight: true,
         // loop: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
+        nextButton: '.swiper-button-next-home-story',
+        prevButton: '.swiper-button-prev-home-story',
         spaceBetween: 30
         // autoplay: 3000
     });
