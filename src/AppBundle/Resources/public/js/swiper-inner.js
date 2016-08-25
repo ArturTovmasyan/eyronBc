@@ -15,15 +15,15 @@ $(document).ready(function(){
     });
 
     // homepage story
-    var main_swiper = new Swiper('#story-slider-homepage', {
+    var main_swiper = new Swiper('#story-slider-homepage-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoHeight: true,
         // loop: true,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        spaceBetween: 30,
-        autoplay: 3000
+        spaceBetween: 30
+        // autoplay: 3000
     });
 
     var main_swiper_video = new Swiper('#main-slider-video', {
