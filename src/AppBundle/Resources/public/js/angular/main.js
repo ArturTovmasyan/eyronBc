@@ -80,6 +80,13 @@ angular.module('main',['mgcrea.ngStrap.modal',
             for(var i = 0;i<storyCount;i++){
                 $( '.swipebox-'+i ).swipebox();
                 $( '.swipebox-video-'+i ).swipebox();
+                var swiper = new Swiper('.swiper-scroll-bar-'+i, {
+                    scrollbar: '.swiper-scrollbar-'+i,
+                    direction: 'vertical',
+                    slidesPerView: 'auto',
+                    mousewheelControl: true,
+                    freeMode: true
+                });
             }
         }
 

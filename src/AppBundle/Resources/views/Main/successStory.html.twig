@@ -59,28 +59,31 @@
 
                                         <div class="row">
                                             <div class="col-sm-10 col-sm-offset-1">
-                                                <p>{{ story.story }} </p>
-                                                {% if files and files|length %}
+                                                <div class="swiper-container swiper-scroll-bar-{{ key }}">
+                                                    <div class="swiper-wrapper">
+                                                        <div class="swiper-slide" style="font-size: 18px;height: auto;-webkit-box-sizing: border-box;box-sizing: border-box;padding: 30px;">
+                                                            <p>{{ story.story }} </p>
+                                                            {% if files and files|length %}
 
-                                                    {% if files|length == 1 %}
-                                                        {% set file = files.first %}
-                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
-                                                           class="swipebox-{{ key }}">My Image
-                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
-                                                                 alt="{{ file.fileName }}" height="120"/>
-                                                        </a>
-                                                    {% else %}
-                                                        {% for k,file in files %}
-                                                            <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
-                                                               class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">My images
-                                                                <img class="img-responsive"
-                                                                     src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
-                                                                     alt="{{ file.fileName }}" height="120"/>
-                                                            </a>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                {% endif %}
-                                                {% if videos and videos|length %}
+                                                                {% if files|length == 1 %}
+                                                                    {% set file = files.first %}
+                                                                    <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                       class="swipebox-{{ key }}">My Image
+                                                                        <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
+                                                                             alt="{{ file.fileName }}" height="120"/>
+                                                                    </a>
+                                                                {% else %}
+                                                                    {% for k,file in files %}
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                                           class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">My images
+                                                                            <img class="img-responsive"
+                                                                                 src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
+                                                                                 alt="{{ file.fileName }}" height="120"/>
+                                                                        </a>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if videos and videos|length %}
 
                                                     {% if videos|length == 1 %}
                                                         {% set v = videos[0] %}
@@ -111,6 +114,11 @@
 
                                                     {% endif %}
                                                 {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Add Scroll Bar -->
+                                                    <div class="swiper-scrollbar swiper-scrollbar-{{ key }}"></div>
+                                                </div>
                                             </div>
                                         </div>
 
