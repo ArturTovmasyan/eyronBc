@@ -8,6 +8,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'goalComponents',
     'user',
     'Confirm',
+    'videosharing-embed',
     'Components',
     'Interpolation',
     'Google',
@@ -72,6 +73,15 @@ angular.module('main',['mgcrea.ngStrap.modal',
             $scope.mapPopup = goal;
             $modal({scope: $scope, templateUrl: '/bundles/app/htmls/mapPopup.html',show: true});
         };
+
+        var storyCount = $( ".swiper-wrapper" ).data('story-count');
+
+        if(storyCount){
+            for(var i = 0;i<storyCount;i++){
+                $( '.swipebox-'+i ).swipebox();
+                $( '.swipebox-video-'+i ).swipebox();
+            }
+        }
 
     }])
     .controller('goalFooter', ['$scope', '$timeout', '$http', 'loginPopoverService', function($scope, $timeout, $http, loginPopoverService){

@@ -9,7 +9,7 @@
             <div class="col-sm-12">
                 <div class="swiper-container" id="story-slider-homepage-container">
                     <!-- Slides Container -->
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper" data-story-count="{{ stories| length }}">
                         {% for key, story in stories %}
                             {% set addedUser = story.user %}
                             {% set files = story.files %}
@@ -60,100 +60,60 @@
                                         <div class="row">
                                             <div class="col-sm-10 col-sm-offset-1">
                                                 <p>{{ story.story }} </p>
-                                            </div>
-                                        </div>
+                                                {% if files and files|length %}
 
-                                        {% if files and files|length %}
-
-                                            {% if files|length == 1 %}
-                                                {% set file = files.first %}
-                                                {#<div class="row">#}
-                                                {#<div class="col-sm-8 col-sm-offset-2">#}
-                                                <figure>
-                                                    <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
-                                                         alt="{{ file.fileName }}" height="360"/>
-                                                </figure>
-                                                {#</div>#}
-                                                {#</div>#}
-                                            {% else %}
-                                                {#<div class="row">#}
-                                                {#<div class="col-sm-8 col-sm-offset-2">#}
-                                                <div id="story-slider-image{{ key }}"
-                                                     class="swiper-container story-slider image-slider">
-                                                    <!-- Slides Container -->
-                                                    <div class="swiper-wrapper">
+                                                    {% if files|length == 1 %}
+                                                        {% set file = files.first %}
+                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                           class="swipebox-{{ key }}">My Image
+                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
+                                                                 alt="{{ file.fileName }}" height="120"/>
+                                                        </a>
+                                                    {% else %}
                                                         {% for k,file in files %}
-                                                            <div class="swiper-slide">
-                                                                <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
-                                                                   class="swipebox">
-                                                                    <img class="img-responsive"
-                                                                         src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
-                                                                         alt="{{ file.fileName }}"/>
-                                                                </a>
-                                                            </div>
+                                                            <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
+                                                               class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">My images
+                                                                <img class="img-responsive"
+                                                                     src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
+                                                                     alt="{{ file.fileName }}" height="120"/>
+                                                            </a>
                                                         {% endfor %}
-                                                    </div>
-
-                                                    {% if files|length > 2 %}
-                                                        <div class="swiper-pagination swiper-pagination-white"></div>
-                                                        <!-- Add Arrows -->
-                                                        <div class="swiper-button-next swiper-button-white"></div>
-                                                        <div class="swiper-button-prev swiper-button-white"></div>
                                                     {% endif %}
-                                                </div>
-                                                {#</div>#}
-                                                {#</div>#}
-                                            {% endif %}
-                                        {% endif %}
+                                                {% endif %}
+                                                {% if videos and videos|length %}
 
-                                        {% if videos and videos|length %}
-
-                                            {% if videos|length == 1 %}
-                                                {% set v = videos[0] %}
-                                                <div class="row">
-                                                    <div class="col-sm-8 col-sm-offset-2">
-                                                        <figure>
+                                                    {% if videos|length == 1 %}
+                                                        {% set v = videos[0] %}
+                                                        {#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}
+                                                        <a class="swipebox-video-{{ key }}" data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]">
                                                             <embed-video
                                                                     data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
                                                                     data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
-                                                                    height="360px"
-                                                                    width="100%">
-                                                            </embed-video>
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row">
-                                                    <div class="col-sm-8 col-sm-offset-2">
-                                                        <div id="story-slider-video{{ key }}"
-                                                             class="swiper-container story-slider video-slider">
-                                                            <!-- Slides Container -->
-                                                            <div class="swiper-wrapper">
-                                                                {% for k,video in videos %}
-                                                                    {% if video %}
-                                                                        <div class="swiper-slide">
-                                                                            <embed-video
-                                                                                    u="image"
-                                                                                    data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
-                                                                                    width="100%"
-                                                                                    height="360px"
-                                                                                    data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
-                                                                            </embed-video>
-                                                                        </div>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            </div>
+                                                                    height="120px"
+                                                                    width="120px">
+                                                            </embed-video >
+                                                        </a>
+                                                    {% else %}
+                                                        {% for k,video in videos %}
+                                                            {% if video %}
+                                                                {#<span  data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"></span>#}
+                                                                <a class="swipebox-video-{{ key }} {% if k > 0 %}ng-hide{% endif %}" data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">My Videos
+                                                                    <embed-video
+                                                                            u="image"
+                                                                            data-ng-init="storySliderVideo[{{ key }}][{{ k }}]='{{ video }}'"
+                                                                            width="120px"
+                                                                            height="120px"
+                                                                            data-ng-href="[[ ::storySliderVideo[{{ key }}][{{ k }}] ]]">
+                                                                    </embed-video>
+                                                                </a>
+                                                            {% endif %}
+                                                        {% endfor %}
 
-                                                            <div class="swiper-pagination swiper-pagination-white"></div>
-                                                            <!-- Add Arrows -->
-                                                            <div class="swiper-button-next swiper-button-white"></div>
-                                                            <div class="swiper-button-prev swiper-button-white"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-                                        {% endif %}
-                                        {#<div class="row">#}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
                                         <div class="idea-item">
                                             <figure class="rounded-corners">
                                                 <i class="icon-lock-white"></i>
