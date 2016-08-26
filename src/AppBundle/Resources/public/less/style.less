@@ -3260,6 +3260,15 @@ html {
 #story-slider-homepage{
   margin:0 0 25px 0;
 
+  .border-left{
+    margin: -20px 0 0 40px;
+
+    .swiper-container{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   figure:not(.user-image){
     img{
       height: 190px;
@@ -3269,6 +3278,7 @@ html {
   .idea-item{
 
     figure{
+      margin:0 0 10px 0;
 
       &>a{
         height: 190px;
@@ -3279,10 +3289,32 @@ html {
       }
 
       .absolute{
-        bottom: 5px;
+        bottom: 0;
       }
     }
 
+  }
+
+  .comment-place{
+    padding: 0 15px 30px;
+
+    .swiper-wrapper{
+      margin: 0 auto;
+
+      .swiper-slide{
+        padding: 0 40px !important;
+
+        a{
+          display: inline-block;
+          position: relative;
+          margin: 10px 15px 0 0;
+
+          img{
+            vertical-align: inherit;
+          }
+        }
+      }
+    }
   }
 
   .swiper-button-prev-home-story,.swiper-button-next-home-story{
@@ -3297,6 +3329,24 @@ html {
 
   .swiper-button-next-home-story{
     background: url('../images/story-right-arrow.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .photo-icon, .video-icon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .photo-icon{
+    background: url('../images/photo-icon.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .video-icon{
+    background: url('../images/video-icon.svg') no-repeat center center;
     background-size: 100%;
   }
 }
