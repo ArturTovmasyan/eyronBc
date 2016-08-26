@@ -72,7 +72,7 @@
                                                                         <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
                                                                            class="swipebox-{{ key }}">
                                                                             <i class="photo-icon"></i>
-                                                                            <img src="{{ file.getDownloadLink|blImageFilter('goal_list_small') }}"
+                                                                            <img src="{{ file.getDownloadLink|blImageFilter('story_homepage_small') }}"
                                                                                  alt="{{ file.fileName }}" height="83" width="106"/>
                                                                         </a>
                                                                     {% else %}
@@ -80,7 +80,7 @@
                                                                             <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}"
                                                                                class="swipebox-{{ key }} {% if k > 0 %}ng-hide{% endif %}">
                                                                                 <i class="photo-icon"></i>
-                                                                                <img src="{{ file.downloadLink|blImageFilter('goal_list_small') }}"
+                                                                                <img src="{{ file.downloadLink|blImageFilter('story_homepage_small') }}"
                                                                                      alt="{{ file.fileName }}" height="83" width="106"/>
                                                                             </a>
                                                                         {% endfor %}
