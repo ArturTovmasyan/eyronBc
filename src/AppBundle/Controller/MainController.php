@@ -37,6 +37,7 @@ class MainController extends Controller
 
             $response = new Response();
             $response->setPublic();
+            $response->headers->set('Cache-Control', 'public, must-revalidate');
 
             $currentDate = new \DateTime();
             $currentDate->setTimezone(new \DateTimeZone('UTC'));
