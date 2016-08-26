@@ -2333,6 +2333,111 @@ footer{
   }
 }
 
+
+#story-slider-homepage{
+
+  h2{
+    margin:10px 0 30px!important;
+  }
+
+  .comment-place{
+    padding-top:0;
+  }
+
+  .user-name{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width:90%;
+  }
+
+  .border-left{
+    margin: -14px 0 0 23px;
+  }
+
+  figure:not(.user-image){
+    img{
+      height: 190px;
+    }
+  }
+
+  .user-image{
+    margin: 0 10px 8px 15px;
+  }
+
+  .idea-item{
+
+    figure{
+      margin:0 0 10px 0;
+
+      &>a{
+        height: 190px;
+      }
+
+      .overlay{
+        height: 190px;
+      }
+
+      .absolute{
+        bottom: 0;
+      }
+
+      span{
+        color: #ffffff;
+      }
+    }
+
+  }
+
+  .success-scroll {
+    padding: 0 40px;
+    text-align: justify;
+    a {
+      display: inline-block;
+      position: relative;
+      margin: 10px 10px 0 0;
+
+      img {
+        vertical-align: inherit;
+      }
+    }
+  }
+
+
+  .swiper-button-prev-home-story,.swiper-button-next-home-story{
+    width: 21px;
+    height: 24px;
+  }
+
+  .swiper-button-prev-home-story{
+    background: url('../images/story-left-arrow.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .swiper-button-next-home-story{
+    background: url('../images/story-right-arrow.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .photo-icon, .video-icon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .photo-icon{
+    background: url('../images/photo-icon.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .video-icon{
+    background: url('../images/video-icon.svg') no-repeat center center;
+    background-size: 100%;
+  }
+}
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -2723,6 +2828,35 @@ footer{
     }
   }
 
+  #story-slider-homepage{
+    margin:0 0 20px 0;
+
+    h2{
+      margin:10px 0;
+    }
+
+    .border-left{
+      margin: -14px 0 0 35px;
+    }
+
+    .user-image{
+      margin: 0 10px 8px 25px;
+    }
+
+    .success-scroll {
+      padding: 0 30px;
+    }
+
+    .like-icon{
+      margin: 0 10px 0 12px;
+    }
+
+    .swiper-button-prev-home-story,.swiper-button-next-home-story{
+      width: 45px;
+      height: 48px;
+    }
+  }
+
 }
 
 .no-right{
@@ -3042,6 +3176,26 @@ footer{
       padding: 25px 30px;
     }
   }
+
+  #story-slider-homepage{
+    margin:0 0 25px 0;
+
+    h2{
+      margin:0 0 10px 0 !important;
+    }
+
+    .border-left{
+      margin: -14px 0 0 40px;
+    }
+
+    .user-image{
+      margin: 0 10px 8px 30px;
+    }
+
+    .success-scroll {
+      padding: 0 44px;
+    }
+  }
 }
 
 .modal-open {
@@ -3257,96 +3411,3 @@ html {
   z-index: 100;
 }
 
-#story-slider-homepage{
-  margin:0 0 25px 0;
-
-  .border-left{
-    margin: -20px 0 0 40px;
-
-    .swiper-container{
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  figure:not(.user-image){
-    img{
-      height: 190px;
-    }
-  }
-
-  .idea-item{
-
-    figure{
-      margin:0 0 10px 0;
-
-      &>a{
-        height: 190px;
-      }
-
-      .overlay{
-        height: 190px;
-      }
-
-      .absolute{
-        bottom: 0;
-      }
-    }
-
-  }
-
-  .comment-place{
-    padding: 0 15px 30px;
-
-    .swiper-wrapper{
-      margin: 0 auto;
-
-      .swiper-slide{
-        padding: 0 40px !important;
-
-        a{
-          display: inline-block;
-          position: relative;
-          margin: 10px 15px 0 0;
-
-          img{
-            vertical-align: inherit;
-          }
-        }
-      }
-    }
-  }
-
-  .swiper-button-prev-home-story,.swiper-button-next-home-story{
-    width: 45px;
-    height: 48px;
-  }
-
-  .swiper-button-prev-home-story{
-    background: url('../images/story-left-arrow.svg') no-repeat center center;
-    background-size: 100%;
-  }
-
-  .swiper-button-next-home-story{
-    background: url('../images/story-right-arrow.svg') no-repeat center center;
-    background-size: 100%;
-  }
-
-  .photo-icon, .video-icon{
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-
-  .photo-icon{
-    background: url('../images/photo-icon.svg') no-repeat center center;
-    background-size: 100%;
-  }
-
-  .video-icon{
-    background: url('../images/video-icon.svg') no-repeat center center;
-    background-size: 100%;
-  }
-}

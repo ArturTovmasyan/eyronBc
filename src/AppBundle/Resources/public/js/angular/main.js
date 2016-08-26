@@ -95,7 +95,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
                 onCreate: function(){
                     $(this).css({
                         'height': 'initial',
-                        'max-height': '200px'
+                        'max-height': '100px'
                     });
                 }
             },
