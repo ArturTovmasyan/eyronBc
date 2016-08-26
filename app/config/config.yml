@@ -294,6 +294,13 @@ liip_imagine:
             post_processors:
                 opt_post_processor: {}
 
+        story_homepage_small:
+            quality: 100
+            filters:
+                central_crop: { size: [106, 83] }
+            post_processors:
+                opt_post_processor: {}
+
         slide_max_size:
             quality: 100
             filters:
