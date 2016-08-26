@@ -17,6 +17,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'Authenticator',
     'notification',
     'activity',
+    'ngScrollbars',
     'ngSanitize'])
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {
@@ -80,15 +81,27 @@ angular.module('main',['mgcrea.ngStrap.modal',
             for(var i = 0;i<storyCount;i++){
                 $( '.swipebox-'+i ).swipebox();
                 $( '.swipebox-video-'+i ).swipebox();
-                var swiper = new Swiper('.swiper-scroll-bar-'+i, {
-                    scrollbar: '.swiper-scrollbar-'+i,
-                    direction: 'vertical',
-                    slidesPerView: 'auto',
-                    mousewheelControl: true,
-                    freeMode: true
-                });
             }
         }
+
+        $scope.scroller_config = {
+            autoHideScrollbar: false,
+            theme: 'minimal-dark',
+            axis: 'y',
+            advanced:{
+                updateOnContentResize: true
+            },
+            callbacks:{
+                onCreate: function(){
+                    $(this).css({
+                        'height': 'initial',
+                        'max-height': '200px'
+                    });
+                }
+            },
+            setHeight: 200,
+            scrollInertia: 0
+        };
 
     }])
     .controller('goalFooter', ['$scope', '$timeout', '$http', 'loginPopoverService', function($scope, $timeout, $http, loginPopoverService){
