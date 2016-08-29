@@ -233,7 +233,9 @@ angular.module('activity')
   .directive('lsActivities',['lsActivitiesItems',
     '$interval',
     '$timeout',
-    function(lsActivitiesItems, $interval, $timeout){
+    '$http',
+    'envPrefix',
+    function(lsActivitiesItems, $interval, $timeout, $http, envPrefix){
       return {
         restrict: 'EA',
         scope: {
@@ -246,6 +248,41 @@ angular.module('activity')
           scope.$parent.castInt = function(value){
             return parseInt(value);
           };
+          
+          scope.$parent.isVoting = function(voters, userId, isStory){
+            if(!isStory)return false;
+            for(var i = 0;i < voters.length;i++){
+              if(voters[i].id == userId){
+                return true;
+              }
+            }
+            
+            return false;
+          };
+
+          scope.$parent.manageVote = function(id, isNotMyGoal){
+            if(!isNotMyGoal)return;
+            var url = (!scope.$parent.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            url = envPrefix + url;
+            url = url.replace('{storyId}', id);
+            $http.get(url).success(function() {
+              if(!scope.$parent.vote[id]){
+                scope.$parent.count[id]++;
+                scope.$parent.vote[id] = true;
+              } else {
+                scope.$parent.count[id]--;
+                scope.$parent.vote[id] = false;
+              }
+            })
+              .error(function (res) {
+                if(res == "User not found") {
+                  $(".modal-loading").show();
+                  AuthenticatorLoginService.openLoginPopup();
+                  $(".modal-loading").hide();
+                }
+              });
+          };
+
 
           function newActivity() {
             if(!angular.isUndefined(scope.$parent.Activities.items) && !angular.isUndefined(scope.$parent.activityPage)){
@@ -287,6 +324,21 @@ angular.module('activity')
             interval = $interval(newActivity,120000);
           };
 
+          scope.$parent.showComment = function (activity, goal) {
+            if(!angular.isUndefined(activity)){
+              activity.createComment = true;
+              $timeout(function () {
+                activity.showComment = !activity.showComment;
+              },300);
+            } else {
+              goal.createComment = true;
+              $timeout(function () {
+                goal.showComment = !goal.showComment;
+              },300);
+            }
+            
+          };
+
           function slideInsert(){
             $timeout(function(){
               var activity_swiper = new Swiper('div.activity-slider:not(.swiper-container-horizontal)', {
@@ -294,10 +346,14 @@ angular.module('activity')
                 autoHeight: true,
                 onSlideNextStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex++;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
                 },
                 onSlidePrevStart: function (ev) {
+                  scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
+                  scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.Activities.items[$(ev.container).data('index')].activeIndex--;
                   scope.$parent.$apply();
                 },

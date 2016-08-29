@@ -37,7 +37,7 @@ Feature: My Bucket list
     And I should see "user1 useryan"
     And I should see "Listed"
     And I should see "Completed"
-    When I click on "map-marker-new"
+    When I click on "pull-right"
     And I wait for angular
     Then I should see "Satellite"
 

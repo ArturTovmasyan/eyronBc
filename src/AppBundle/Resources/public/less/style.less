@@ -356,7 +356,6 @@ header{
           color: #E5E5E5;
           font-weight: bold;
           font-size: 16px;
-          //padding:27px 19px;
           padding:25px 19px;
 
           i{
@@ -367,11 +366,6 @@ header{
 
           span{
             padding-left:7px;
-          }
-
-          &:hover{
-            background-color: #7724F6;
-            color: #E5E5E5;
           }
 
           &:focus{
@@ -385,7 +379,7 @@ header{
         background-color: #7627f5;
         color: #E5E5E5;
 
-        &:hover{
+        &:hover,&:focus{
           background-color: #7627f5;
           color: #E5E5E5;
         }
@@ -577,7 +571,6 @@ header{
           }
 
           &.mobile-user{
-            //padding: 17px 0 4px 19px!important;
             padding: 18px 0 19px 19px!important;
             right: 15px;
           }
@@ -904,13 +897,6 @@ header{
       left: -137px;
     }
 
-    &:hover,&:active,&:focus{
-      background-color: #7724F6;
-      a.relative{
-        background-color: #7724F6;
-      }
-
-    }
 
   }
 
@@ -1135,7 +1121,7 @@ label{
 .search{
   overflow: hidden;
   form{
-    padding:0 0 0 20px;
+    padding:0 0 0 5px;
     margin: 10px auto 5px;
 
     .icon-search-icon{
@@ -1143,12 +1129,11 @@ label{
       font-size: 30px;
       vertical-align: middle;
       position: absolute;
-
     }
 
     input{
       border:0;
-      color:#333333;
+      color: #666666;
       background-color: transparent;
       padding: 0 45px 0 40px;
       box-shadow: none;
@@ -1389,10 +1374,6 @@ label{
   font-size:30px;
 }
 
-#homepage-ideas{
-  padding: 0 0 40px;
-}
-
 #scroll-button{
   height: 2px;
   margin-top: -80px;
@@ -1417,10 +1398,6 @@ label{
 
 .text-purple{
   color:#7724F6 !important;
-}
-
-.text-white{
-  color:#ffffff;
 }
 
 .text-blue{
@@ -1468,8 +1445,6 @@ label{
     background-color:#6108EA;
   }
 }
-
-
 
 .btn-transparent{
   background-color:transparent;
@@ -2348,6 +2323,125 @@ footer{
   }
 }
 
+
+#story-slider-homepage{
+
+  h2{
+    margin:10px 0 30px!important;
+  }
+
+  #story-slider-homepage-container{
+    overflow: visible;
+  }
+  .comment-place{
+    padding-top:0;
+  }
+
+  .user-name{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .border-left{
+    margin: -14px 0 0 23px;
+  }
+
+  figure:not(.user-image){
+    img{
+      height: 190px;
+    }
+  }
+
+  .user-image{
+    margin: 0 10px 8px 1px;
+  }
+
+  .idea-item{
+
+    figure{
+      margin:0 0 10px 0;
+
+      &>a{
+        height: 190px;
+      }
+
+      .overlay{
+        height: 190px;
+      }
+
+      .absolute{
+        bottom: 0;
+      }
+
+      span{
+        color: #ffffff;
+      }
+    }
+
+  }
+
+  .success-story-user{
+    width: 130px;
+  }
+
+  .like-icon{
+    width: 34px;
+    height: 18px;
+    margin: 0 0 0 3px;
+  }
+
+  .success-scroll {
+    padding: 0 20px 0 30px;
+    text-align: justify;
+    a {
+      display: inline-block;
+      position: relative;
+      margin: 10px 10px 0 0;
+
+      img {
+        vertical-align: inherit;
+      }
+    }
+  }
+
+
+  .swiper-button-prev-home-story,.swiper-button-next-home-story{
+    width: 21px;
+    height: 24px;
+    top: -8%;
+  }
+
+  .swiper-button-prev-home-story{
+    background: url('../images/story-left-arrow.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .swiper-button-next-home-story{
+    background: url('../images/story-right-arrow.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .photo-icon, .video-icon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .photo-icon{
+    background: url('../images/photo-icon.svg') no-repeat center center;
+    background-size: 100%;
+  }
+
+  .video-icon{
+    background: url('../images/video-icon.svg') no-repeat center center;
+    background-size: 100%;
+  }
+}
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -2491,7 +2585,7 @@ footer{
   .search{
     height: 75px;
     form{
-      padding:13px 2px 13px 10px;
+      padding:13px 2px 13px 0;
 
       input.form-control{
         font-size:22px;
@@ -2738,6 +2832,47 @@ footer{
     }
   }
 
+  #story-slider-homepage{
+    margin:0 0 20px 0;
+
+    #story-slider-homepage-container{
+      overflow: hidden;
+    }
+
+    h2{
+      margin:10px 0 !important;
+    }
+
+    .border-left{
+      margin: -14px 0 0 35px;
+    }
+
+    .user-image{
+      margin: 0 10px 8px 12px;
+    }
+
+    .success-story-user{
+      width:auto;
+    }
+
+    .success-scroll {
+      padding: 0 30px;
+    }
+
+    .like-icon{
+      margin: 0 15px 0 12px;
+      width: 59px;
+      height: 31px;
+
+    }
+
+    .swiper-button-prev-home-story,.swiper-button-next-home-story{
+      width: 45px;
+      height: 48px;
+      top: 50%;
+    }
+  }
+
 }
 
 .no-right{
@@ -2762,7 +2897,7 @@ footer{
 }
 
 .bg-white{
-  background-color:#ffffff;
+  background-color:#ffffff !important;
 }
 
 .padding{
@@ -2808,6 +2943,10 @@ footer{
               }
             }
 
+            &:hover{
+              background-color: #7724F6;
+              color: #E5E5E5;
+            }
           }
         }
       }
@@ -2872,6 +3011,14 @@ footer{
         right: -240px;
         left: auto;
       }
+
+      &:hover,&:active,&:focus{
+        background-color: #7724F6;
+        a.relative{
+          background-color: #7724F6;
+        }
+      }
+
     }
 
   }
@@ -3043,6 +3190,26 @@ footer{
 
     small{
       padding: 25px 30px;
+    }
+  }
+
+  #story-slider-homepage{
+    margin:0 0 25px 0;
+
+    h2{
+      margin:0 0 10px 0 !important;
+    }
+
+    .border-left{
+      margin: -14px 0 0 35px;
+    }
+
+    .user-image{
+      margin: 0 15px 8px 12px;
+    }
+
+    .success-scroll {
+      padding: 0 35px;
     }
   }
 }
@@ -3226,23 +3393,39 @@ html {
 
 .map-marker-new{
   display: inline-block;
-  width: 25px;
-  height: 33px;
-  background: url('../images/map-icon.png') no-repeat center center;
+  width: 30px;
+  height: 30px;
+  background: url('../images/map-icon.svg') no-repeat center center;
   background-size: 100%;
 
   &:hover{
-    background: url('../images/map-icon-active.png') no-repeat center center;
-    background-size: 100%;
+    svg{
+      ellipse,path,.sto{
+        stroke: #7725f6;
+      }
+    }
   }
 }
 
 .map-marker-active{
-  display: inline-block;
-  width: 25px;
-  height: 33px;
-  background: url('../images/map-icon-active.png') no-repeat center center;
-  background-size: 100%;
+
+  svg{
+    ellipse,path,.sto{
+      stroke: #7725f6;
+    }
+  }
+
+  span{
+    color: #7725f6;
+  }
+}
+
+.bg-transparent{
+  width:100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  z-index: 100;
 }
 .affiliate-right{
   img{

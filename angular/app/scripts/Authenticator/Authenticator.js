@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Authenticator', ['PathPrefix'])
+angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
   .config(['$httpProvider', function($httpProvider){
     //$httpProvider.interceptors.push('AuthenticatorInterceptor');
   }])
@@ -102,24 +102,41 @@ angular.module('Authenticator', ['PathPrefix'])
     '$scope',
     'AuthenticatorLoginService',
     'envPrefix',
+    '$timeout',
     function(
       $scope,
       AuthenticatorLoginService,
-      envPrefix
+      envPrefix,
+      $timeout
     ){
 
     $scope.envPrefix  = envPrefix;
     $scope.login_form = {};
 
-    $scope.login = function(){
-      AuthenticatorLoginService.login($scope.login_form)
-        .success(function(){
+    $timeout(function(){
+      angular.element("#login-form").ajaxForm({
+        beforeSubmit: function(){
+          $scope.$apply();
+        },
+        success: function(res, text, header){
           window.location.reload();
-        })
-        .error(function(res){
-          $scope.error = res;
-        });
-    }
+        },
+        error: function(res){
+          $scope.error = 'Bad credentials';
+          $scope.$apply();
+        }
+      });
+    },500);
+
+    // $scope.login = function(){
+    //   AuthenticatorLoginService.login($scope.login_form)
+    //     .success(function(){
+    //       window.location.reload();
+    //     })
+    //     .error(function(res){
+    //       $scope.error = res;
+    //     });
+    // }
   }]);
 
 

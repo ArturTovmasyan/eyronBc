@@ -385,6 +385,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
         $this->images     = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userGoal   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->affiliates = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags     = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

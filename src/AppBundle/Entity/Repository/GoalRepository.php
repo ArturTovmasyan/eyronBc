@@ -154,14 +154,30 @@ class GoalRepository extends EntityRepository
      */
     public function findFeatured($user)
     {
+        $featuredIds = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('DISTINCT g.id')
+            ->from('AppBundle:Goal', 'g')
+            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
+            ->where('g.featuredDate >= CURRENT_DATE() AND ug.id IS NULL')
+            ->setParameter('user', is_object($user) ? $user->getId() : -1)
+            ->getQuery()
+            ->getResult();
+
+        if (count($featuredIds) == 0){
+            return [];
+        }
+
+        shuffle($featuredIds);
+        $featuredId = $featuredIds[0]['id'];
+
         return $this->getEntityManager()
             ->createQueryBuilder()
             ->select('g', 'i')
             ->from('AppBundle:Goal', 'g', 'g.id')
             ->leftJoin('g.images', 'i')
-            ->leftJoin('g.userGoal', 'ug', 'WITH', 'ug.user = :user')
-            ->where('g.featuredDate >= CURRENT_DATE() AND ug.id IS NULL AND g.publish = true')
-            ->setParameter('user', is_object($user) ? $user->getId() : -1)
+            ->where('g.id = :id')
+            ->setParameter('id', $featuredId)
             ->getQuery()
             ->getResult();
     }
@@ -280,7 +296,10 @@ class GoalRepository extends EntityRepository
                 ->setParameter('search', $search);
         }
         else {
-            if($category && $category != 'most-popular'){
+            if ($category && $category == 'featured'){
+                $query->andWhere('g.featuredDate >= CURRENT_DATE()');
+            }
+            elseif($category && $category != 'most-popular'){
                 $query
                     ->leftJoin('g.tags', 'gt')
                     ->andWhere('gt.id in (SELECT ct.id

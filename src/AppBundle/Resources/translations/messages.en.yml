@@ -5,6 +5,7 @@ ideas: IDEAS
 search: SEARCH
 join: JOIN
 copyright: 2015 Bucketlist 127
+join_now: Join Now
 
 #blocks
 most_popular: Most Popular
@@ -24,7 +25,7 @@ my_bucketlist: My Bucketlist
 statistic_view: Statistic
 bucketlist: Bucket List 127
 featured_ideas: Featured Ideas
-
+featured: Featured
 
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!
@@ -111,6 +112,7 @@ ideas_list_title: Explore thousands of great ideas for your Bucket List
 homepage_title: The goal is to have memories, <br /> not only dreams!
 homepage_list_title: Discover thousands of great ideas for your Bucket List
 homepage_description: Have your list of goals for life and see how much more you would achieve over what you could possibly imagine.
+homepage_success_story: Stories that inspire
 
 #notification
 test_message: testing notifications in BucketList
@@ -338,6 +340,7 @@ notification:
   success_story: <a href="%profile_link%">%user%</a> wrote success story on your <a href='#'>goal</a>
   important_goal_success_story: <a href="%profile_link%">%user%</a> wrote success story on your important <a href='#'>goal</a>
   success_story_vote: <a href="%profile_link%">%user%</a> voted for your success story
+  publish_goal: Your <strong>'%goal%'</strong> goal has been published
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 

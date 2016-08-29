@@ -75,7 +75,7 @@ angular.module('manage', ['Interpolation',
             if (!reportTemplate) {
                 $http.get(reportUrl).success(function(data){
                     template.reportTemplate = data;
-                    //templateCache.put('report-template'+id, data);
+                    templateCache.put('report-template'+id, data);
                 })
             }else {
                 template.reportTemplate = reportTemplate;

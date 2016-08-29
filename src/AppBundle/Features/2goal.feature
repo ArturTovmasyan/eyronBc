@@ -170,7 +170,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #BEHAT TEST #GOALS"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #test TEST #GOALS"
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular

@@ -97,7 +97,8 @@ angular.module('goalComponents', ['Interpolation',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
       var path = envPrefix + "api/v1.0/goal/featured";
 
-      var popularCache = CacheFactory.get('bucketlist_by_feature');
+      var popularCache = CacheFactory.get('bucketlist_by_feature'),
+          deg = 360;
 
       if(!popularCache){
         popularCache = CacheFactory('bucketlist_by_feature', {
@@ -111,18 +112,24 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.refreshFeatures = function(){
+        angular.element('#featuresLoad').css({
+          '-webkit-transform': 'rotate('+deg+'deg)',
+          '-ms-transform': 'rotate('+deg+'deg)',
+          'transform': 'rotate('+deg+'deg)'
+        });
+        deg += 360;
         $http.get(path)
             .success(function(data){
-              $scope.features = data;
+              $scope.featureGoals = data;
               popularCache.put('features'+$scope.userId, data);
             });
       };
 
-      $scope.getPopularGoals = function(id){
+      $scope.getFeatureGoals = function(id){
 
         var features = popularCache.get('features'+id);
 
-        if (!features) {
+        if (!features || !features.length) {
 
           $http.get(path)
               .success(function(data){
@@ -151,7 +158,7 @@ angular.module('goalComponents', ['Interpolation',
       });
 
       $scope.$watch('userId', function(id){
-        $scope.getPopularGoals(id);
+        $scope.getFeatureGoals(id);
       })
     }])
   .controller('userStatesController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
@@ -706,6 +713,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.userGoal.do_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'MM-DD-YYYY');
               $scope.firefox_do_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'YYYY-MM-DD');
               $scope.userGoal.completion_date = null;
+              $scope.userGoal.do_date_status = 1;
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){
             //when select only year
@@ -725,6 +733,7 @@ angular.module('goalComponents', ['Interpolation',
             } else {
               $scope.userGoal.do_date = $scope.dateByFormat($scope.year, month, day, 'MM-DD-YYYY');
               $scope.firefox_do_date = $scope.dateByFormat($scope.year, month, day, 'YYYY-MM-DD');
+              $scope.userGoal.do_date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
               $scope.userGoal.completion_date = null;
             }
           //  todo some thing in circles

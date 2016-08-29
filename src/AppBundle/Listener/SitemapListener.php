@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class SitemapListener implements SitemapListenerInterface
 {
@@ -21,14 +22,24 @@ class SitemapListener implements SitemapListenerInterface
 
     private $em;
 
-    public function __construct(RouterInterface $router, EntityManager $em)
+    private $stopwatch;
+
+
+    public function __construct(RouterInterface $router, EntityManager $em, Stopwatch $stopwatch)
     {
         $this->router = $router;
         $this->em = $em;
+        $this->stopwatch = $stopwatch;
     }
 
     public function populateSitemap(SitemapPopulateEvent $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->stopwatch;
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_sitemap_listener');
+
         $this->event = $event;
 
         $section = $this->event->getSection();
@@ -54,6 +65,8 @@ class SitemapListener implements SitemapListenerInterface
                 $this->createSitemapEntry($url, new \DateTime($tagUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.8);
             }
         }
+        // Start event named 'eventName'
+        $stopwatch->stop('bl_sitemap_listener');
     }
 
     private function createSitemapEntry($url, $modifiedDate, $changeFrequency, $priority)

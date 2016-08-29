@@ -73,6 +73,12 @@ class DoctrineListener
      */
     public function postLoad(LifecycleEventArgs $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_post_load_event_for_goal_or_user');
+
         $em     = $this->container->get('doctrine')->getManager();
         $entity = $event->getObject();
 
@@ -127,6 +133,9 @@ class DoctrineListener
                 $entity->setMobileImagePath($filterUrl);
             }
         }
+
+        // Start event named 'eventName'
+         $stopwatch->stop('bl_post_load_event_for_goal_or_user');
     }
 
 
@@ -135,6 +144,12 @@ class DoctrineListener
      */
     public function onFlush(OnFlushEventArgs $args)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_on_flush_event_for_user');
+
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
@@ -166,6 +181,9 @@ class DoctrineListener
                 $entity->setIsAdmin($entity->hasRole('ROLE_ADMIN') || $entity->hasRole('ROLE_SUPER_ADMIN'));
             }
         }
+
+        // Start event named 'eventName'
+        $stopwatch->stop('bl_on_flush_event_for_user');
     }
 
     /**
@@ -173,6 +191,12 @@ class DoctrineListener
      */
     public function postUpdate(LifecycleEventArgs $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_post_update_event_for_userGoal');
+
         $entity = $event->getObject();
         $em = $event->getObjectManager();
         $uow = $em->getUnitOfWork();
@@ -224,6 +248,9 @@ class DoctrineListener
                 }
             }
         }
+
+        // Start event named 'eventName'
+        $stopwatch->stop('bl_post_update_event_for_userGoal');
     }
 
     /**
@@ -231,6 +258,12 @@ class DoctrineListener
      */
     public function postPersist(LifecycleEventArgs $event)
     {
+        //get stopwatch component
+        $stopwatch = $this->container->get('debug.stopwatch');
+
+        // Start event named 'eventName'
+        $stopwatch->start('bl_post_persist_event_for_goal_or_story_or_userGoal');
+
         $entity = $event->getObject();
         $em = $event->getObjectManager();
 
@@ -241,6 +274,8 @@ class DoctrineListener
                 $em->flush();
             }
         }
+        // Start event named 'eventName'
+        $stopwatch->stop('bl_post_persist_event_for_goal_or_story_or_userGoal');
     }
 
     /**

@@ -24,11 +24,13 @@
       height: auto;
     }
   }
+
   .icon-pencil{
     position: absolute;
     top:5px;
     left:25px;
   }
+
   .icon-eye{
     font-size:35px;
     margin-right:0;
@@ -101,6 +103,12 @@
       display: inline-block;
       vertical-align: middle;
       line-height: normal;
+    }
+
+    &.priority-types{
+      span{
+        vertical-align: inherit;
+      }
     }
   }
 
@@ -316,10 +324,21 @@ a.close-modal{
     cursor: pointer;
   }
 
+  #goal-done-form{
+    .relative{
+      margin-bottom: 5px;
+    }
+  }
+
   .remove-icon{
     position: absolute;
-    top:0;
-    right:2px;
+    top: 5px;
+    right: 3px;
+    background: #ffffff;
+    padding: 0 0 0 4px;
+    .icon-remove-video-link{
+      font-size: 25px;
+    }
   }
 }
 
@@ -840,12 +859,27 @@ a.close-modal{
       margin: 18px 0 15px;
     }
 
+    .remove-icon{
+      top: 1px;
+      right: 2px;
+
+      .icon-remove-video-link{
+        font-size: 29px;
+      }
+    }
+
     .dropzone {
       .dz-message{
         h3{
           font-size:20px;
           margin: 10px 0;
         }
+      }
+    }
+
+    .ui-select-container{
+      .ui-select-choices.dropdown-menu{
+        min-width:100%;
       }
     }
   }
