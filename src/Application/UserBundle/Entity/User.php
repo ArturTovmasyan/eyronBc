@@ -119,11 +119,15 @@ class User extends BaseUser
      * @var
      * @Groups({"user", "tiny_user", "settings"})
      * @SerializedName("first_name")
+     */
+    protected $firstname;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
-    protected $firstname;
+    protected $firstName;
 
     /**
      * @Assert\Length(groups={"Settings", "Register", "MobileSettings", "MobileChangePassword"},
@@ -164,11 +168,15 @@ class User extends BaseUser
      * @var
      * @Groups({"user", "tiny_user", "settings"})
      * @SerializedName("last_name")
+     */
+    protected $lastname;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\NotBlank(groups={"Settings", "Register", "MobileSettings"})
      * @Assert\Regex("/^[\p{L}\' -]+$/u", groups={"Default", "Settings", "Register", "MobileSettings"})
      */
-    protected $lastname;
+    protected $lastName;
 
     /**
      * @var
@@ -377,6 +385,7 @@ class User extends BaseUser
         parent::__construct();
         $this->enabled = true;
 
+
         $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
         $this->matchedUsers = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -416,6 +425,7 @@ class User extends BaseUser
     public function setFirstName($firstName)
     {
         $this->firstname = $firstName;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -427,6 +437,7 @@ class User extends BaseUser
      */
     public function getFirstName()
     {
+        $this->firstName = $this->firstname;
         return $this->firstname;
     }
 
@@ -439,6 +450,7 @@ class User extends BaseUser
     public function setLastName($lastName)
     {
         $this->lastname = $lastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -450,6 +462,7 @@ class User extends BaseUser
      */
     public function getLastName()
     {
+        $this->lastName = $this->lastname;
         return $this->lastname;
     }
 

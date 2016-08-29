@@ -1,18 +1,32 @@
 <div class="right-block ng-hide margin-top round padding padding-no" data-ng-controller="featureGoalsController" data-ng-show="featureGoals && featureGoals.length" data-ng-cloak>
     <div class="right-menu">
         <div class="row" {% if user is defined%}data-ng-init="userId= {{ user.id }}"{% endif %}>
-            <div class="col-xs-12">
-                <span class="heading text-gray">
+            {#<div class="col-xs-12">#}
+                {#<span class="heading text-gray">#}
+                     {#<i class="featured-icon"></i>#}
+                     {#<span class="text">{{ 'featured_ideas'|trans({},'messages') }}</span>#}
+                {#</span>#}
+            {#</div>#}
+
+            <div class="col-xs-10">
+                <span>
                      <i class="featured-icon"></i>
-                     <span class="text">{{ 'featured_ideas'|trans({},'messages') }}</span>
+                     <a href="{{ path('goals_list', {'category' : 'featured'}) }}" class="heading text-gray">
+                         {{ 'featured_ideas'|trans({},'messages') }}
+                     </a>
                 </span>
             </div>
+
+            <div class="col-xs-2 text-right">
+                <a href="#" class="load" id="featuresLoad" data-ng-click="refreshFeatures()"></a>
+            </div>
+
         </div>
         <hr/>
     </div>
     <div class="row">
         <div>
-            <div class="col-sm-6 col-md-12 idea-item goals-animate"
+            <div class="col-sm-6 col-md-12 idea-item"
                  data-ng-cloak
                  data-ng-repeat="goal in featureGoals">
                 <div class="ideas">
