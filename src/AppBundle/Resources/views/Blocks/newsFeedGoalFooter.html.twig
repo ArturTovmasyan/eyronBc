@@ -35,10 +35,10 @@
         </span>
     </li>
 
-    <li class="col-xs-4" data-ng-click="showComment(activity, singleGoal)">
+    <li class="col-xs-4" data-ng-click="showComment(activity, singleGoal)" data-ng-class="{'bg-purple': (activity.showComment || goal.showComment)}">
         <a href="javascript:void(0)">
             <i class="comment-icon"></i>
-            <span class="text">{{ 'comments'|trans }}</span>
+            <span class="text" data-ng-class="{'text-white': (activity.showComment || goal.showComment)}">{{ 'comments'|trans }}</span>
         </a>
     </li>
     
