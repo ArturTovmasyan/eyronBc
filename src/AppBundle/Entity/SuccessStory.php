@@ -105,6 +105,11 @@ class SuccessStory implements ActivityableInterface
     protected $videoLink;
 
     /**
+     * @ORM\Column(name="is_inspire", type="boolean", nullable=true)
+     */
+    protected $isInspire;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -135,6 +140,24 @@ class SuccessStory implements ActivityableInterface
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsInspire()
+    {
+        return $this->isInspire;
+    }
+
+    /**
+     * @param mixed $isInspire
+     */
+    public function setIsInspire($isInspire)
+    {
+        $this->isInspire = $isInspire;
+
+        return $this;
     }
 
     /**

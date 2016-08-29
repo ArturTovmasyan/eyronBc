@@ -63,6 +63,7 @@ class SuccessStoryAdmin extends AbstractAdmin
                 'label'=>'admin.label.name.created'
             ), 'date', array('widget' => 'single_text'))
             ->add('story')
+            ->add('isInspire')
         ;
     }
 
@@ -76,6 +77,7 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
+            ->add('isInspire', null, ['editable' => true])
             ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_list.html.twig'))
             ->add('_action', null, array(
                 'actions' => array(
@@ -97,6 +99,7 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created', DateType::class, array('widget' => 'single_text'))
             ->add('updated', DateType::class, array('widget' => 'single_text'))
             ->add('story')
+            ->add('isInspire')
             ->add('videoLink', BlMultipleVideoType::class)
             ->add('files', StoryMultipleFileType::class)
         ;
@@ -113,6 +116,7 @@ class SuccessStoryAdmin extends AbstractAdmin
             ->add('created')
             ->add('updated')
             ->add('story')
+            ->add('isInspire')
             ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_show.html.twig'))
             ->add('videoLink', null, array('template' => 'AppBundle:Admin:goal_video_show.html.twig'))
         ;
