@@ -245,6 +245,15 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     private $mobileImagePath;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Application\AffiliateBundle\Entity\Affiliate")
+     * @ORM\JoinTable(name="goal_affiliates",
+     *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="affiliate_id", referencedColumnName="id")}
+     *      )
+     */
+    private $affiliates;
+
+    /**
      * @var
      */
     private $listPhotoDownloadLink;
@@ -373,9 +382,10 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      */
     public function __construct()
     {
-        $this->images   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images     = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userGoal   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->affiliates = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags     = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->userGoal = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1154,5 +1164,39 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     public function setFeaturedDate($featuredDate)
     {
         $this->featuredDate = $featuredDate;
+    }
+
+    /**
+     * Add affiliate
+     *
+     * @param \Application\AffiliateBundle\Entity\Affiliate $affiliate
+     *
+     * @return Goal
+     */
+    public function addAffiliate(\Application\AffiliateBundle\Entity\Affiliate $affiliate)
+    {
+        $this->affiliates[] = $affiliate;
+
+        return $this;
+    }
+
+    /**
+     * Remove affiliate
+     *
+     * @param \Application\AffiliateBundle\Entity\Affiliate $affiliate
+     */
+    public function removeAffiliate(\Application\AffiliateBundle\Entity\Affiliate $affiliate)
+    {
+        $this->affiliates->removeElement($affiliate);
+    }
+
+    /**
+     * Get affiliates
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAffiliates()
+    {
+        return $this->affiliates;
     }
 }

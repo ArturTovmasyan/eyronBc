@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@ApplicationAffiliateBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -64,13 +65,21 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: [ 'AppBundle:Form:multipleFile.html.twig', 'AppBundle:Form:storyMultipleFile.html.twig', 'AppBundle:Form:location.html.twig', 'AppBundle:Form:multipleVideo.html.twig', 'A2lixTranslationFormBundle::default.html.twig', 'SonataCoreBundle:Form:datepicker.html.twig']
+        resources:
+          - 'AppBundle:Form:multipleFile.html.twig'
+          - 'AppBundle:Form:storyMultipleFile.html.twig'
+          - 'AppBundle:Form:location.html.twig'
+          - 'AppBundle:Form:multipleVideo.html.twig'
+          - 'A2lixTranslationFormBundle::default.html.twig'
+          - 'SonataCoreBundle:Form:datepicker.html.twig'
+          - 'ApplicationAffiliateBundle:Form:fields.html.twig'
 
     globals:
         production: %production%
         project_name: %project_name%
         google_api_key: %google_api_key%
         ga_id: %ga_id%
+        booking_aid: %booking_aid%
         env_prefix: ~
         remote_console: %remote_console%
 
@@ -396,6 +405,13 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 200 }
+            post_processors:
+                opt_post_processor: {}
+
+        affiliate_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [320, 180], mode: outbound }
             post_processors:
                 opt_post_processor: {}
 
