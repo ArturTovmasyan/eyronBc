@@ -100,6 +100,7 @@
                                                                     {% set v = videos[0] %}
                                                                     {#<span  data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"></span>#}
                                                                     <a class="swipebox-video-{{ key }}" data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]">
+                                                                        <i class="video-icon"></i>
                                                                         <embed-video
                                                                                 data-ng-href="[[ ::storySliderVideo[{{ key }}] ]]"
                                                                                 data-ng-init="storySliderVideo[{{ key }}]='{{ v }}'"
