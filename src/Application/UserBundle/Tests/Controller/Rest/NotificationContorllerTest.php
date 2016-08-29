@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class NotificationControllerTest extends BaseClass
 {
     /**
-     * 
+     *
      */
 
     public function getActionTest()
