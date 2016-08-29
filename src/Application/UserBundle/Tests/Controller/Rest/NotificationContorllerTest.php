@@ -13,16 +13,25 @@ use Symfony\Component\HttpFoundation\Response;
 class NotificationControllerTest extends BaseClass
 {
     /**
+     *This function is used to check notification getAction rest
      *
      */
-
-    public function getActionTest()
+    public function testGetAction()
     {
+        //get user notification last id
+        $lastId = $this->em->getRepository('ApplicationUserBundle:UserNotification')->findOneBy(array('isRead' => false));
+
+        //change last id ++
+        $lastId = $lastId->getId() + 2;
+
+        // get user goal
+        $url = sprintf('/api/v1.0/notifications/%s/%s/%s', 0, 5, $lastId);
+
         // try to POST create user settings
-        $this->client2->request('GET', '/api/v1.0/notifications/0/10/');
+        $this->client2->request('GET', $url);
 
         // check response status code
-        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in getAction rest!");
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getAction rest!");
 
         // check database query count
         if ($profile = $this->client2->getProfile()) {
@@ -33,62 +42,25 @@ class NotificationControllerTest extends BaseClass
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
 
-        dump($responseResults);exit;
+        if(array_key_exists('userNotifications', $responseResults)) {
+
+            //get user notification in array
+            $userNotifications = $responseResults['userNotifications'];
+            $userNotification = reset($userNotifications);
+
+            $this->assertArrayHasKey('id', $userNotification, 'Invalid id key in notification getAction rest json structure');
+            $this->assertArrayHasKey('is_read', $userNotification, 'Invalid is_read key in notification getAction rest json structure');
+
+            if(array_key_exists('notification', $userNotification)) {
+
+                //get notification in array
+                $notification = $userNotification['notification'];
+
+                $this->assertArrayHasKey('id', $notification, 'Invalid id key in notification getAction rest json structure');
+                $this->assertArrayHasKey('created', $notification, 'Invalid created key in notification getAction rest json structure');
+                $this->assertArrayHasKey('body', $notification, 'Invalid body key in notification getAction rest json structure');
+                $this->assertArrayHasKey('link', $notification, 'Invalid link key in notification getAction rest json structure');
+            }
+        }
     }
-
-
-//    /**
-//     * This function test getUserFromSettingsAction
-//     */
-//    public function testGetUserFromSettings()
-//    {
-//        $url = '/api/v1.0/settings/user/from/settings';
-//
-//        // try to get user-settings
-//        $this->client2->request('GET', $url, array());
-//
-//        // check response status code
-//        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user-settings in getUserFromSettingsAction rest!");
-//
-//        // check response content type
-//        $this->assertTrue(
-//            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
-//            $this->client2->getResponse()->headers
-//        );
-//
-//        // check database query count
-//        if ($profile = $this->client2->getProfile()) {
-//            // check the number of requests
-//            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on user-settings getUserFromSettingsAction rest!");
-//        }
-//
-//        //get response content
-//        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
-//
-//        $this->assertArrayHasKey('birth_date', $responseResults, 'Invalid birth_date in get user settings rest json structure');
-//        $this->assertArrayHasKey('first_name', $responseResults, 'Invalid first_name key in get user settings rest json structure');
-//        $this->assertArrayHasKey('last_name', $responseResults, 'Invalid last_name key in get user settings rest json structure');
-//        $this->assertArrayHasKey('is_comment_notify', $responseResults, 'Invalid is_comment_notify key in get user settings rest json structure');
-//        $this->assertArrayHasKey('is_success_story_notify', $responseResults, 'Invalid is_success_story_notify key in get user settings rest json structure');
-//        $this->assertArrayHasKey('is_comment_push_note', $responseResults, 'Invalid is_comment_push_note key in get user settings rest json structure');
-//        $this->assertArrayHasKey('is_success_story_push_note', $responseResults, 'Invalid is_success_story_push_note key in get user settings rest json structure');
-//        $this->assertArrayHasKey('is_progress_push_note', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
-//        $this->assertArrayHasKey('lastUserEmail', $responseResults, 'Invalid is_progress_push_note key in get user settings rest json structure');
-//
-//        if(array_key_exists('lastUserEmail', $responseResults)) {
-//
-//            $lastUserEmail = $responseResults['lastUserEmail'];
-//            $this->assertArrayHasKey('lastUserEmail', $responseResults, 'Invalid image_path key in Login rest json structure');
-//            $this->assertArrayHasKey('userEmails', $lastUserEmail, 'Invalid userEmails key in get user settings rest json structure');
-//            $this->assertArrayHasKey('token', $lastUserEmail, 'Invalid token key in get user settings rest json structure');
-//            $this->assertArrayHasKey('primary', $lastUserEmail, 'Invalid primary key in get user settings rest json structure');
-//        }
-//
-//        if(array_key_exists('image_path', $responseResults)) {
-//
-//            $this->assertArrayHasKey('image_path', $responseResults, 'Invalid image_path key in Login rest json structure');
-//        }
-//    }
-
-  
 }

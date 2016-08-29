@@ -50,11 +50,11 @@ class NotificationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
-            ->getUserNotifications($this->getUSer()->getId(), $first, $count, $lastId);
+            ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId);
 
         if (is_null($lastId)){
             $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
-                ->getUnreadCount($this->getUSer()->getId());
+                ->getUnreadCount($this->getUser()->getId());
         }
 
         return [
