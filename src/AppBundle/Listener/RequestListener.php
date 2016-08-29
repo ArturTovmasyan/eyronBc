@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
  * Class LocaleListener
@@ -40,10 +40,11 @@ class RequestListener //implements EventSubscriberInterface
      * @param $androidMandatoryVersion
      * @param TokenStorage $tokenStorage
      * @param EntityManager $entityManager
-     * @param DataCollectorTranslator $translator
+     * @param $translator
      * @param Stopwatch $stopwatch
      */
-    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager, DataCollectorTranslator $translator, Stopwatch $stopwatch)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion,
+                                TokenStorage $tokenStorage, EntityManager $entityManager, $translator, Stopwatch $stopwatch)
     {
         $this->defaultLocale = $defaultLocale;
         $this->tokenStorage  = $tokenStorage;
