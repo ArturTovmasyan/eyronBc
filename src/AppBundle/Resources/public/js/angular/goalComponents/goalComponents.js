@@ -129,7 +129,7 @@ angular.module('goalComponents', ['Interpolation',
 
         var features = popularCache.get('features'+id);
 
-        if (!features.length) {
+        if (!features || !features.length) {
 
           $http.get(path)
               .success(function(data){

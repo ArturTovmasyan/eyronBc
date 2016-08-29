@@ -52,28 +52,28 @@
                                 [[ ::activity.user.first_name ]] [[ ::activity.user.last_name ]]
                             </a>
 
-                                            <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
-                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.create'|trans({},'newsFeed') }}</span>
-                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.create_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
-                                            </span>
+                            <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.create'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.create_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                            </span>
 
-                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
-                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.add'|trans({},'newsFeed') }}</span>
-                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.add_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
-                                             </span>
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_ADD') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.add'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.add_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                             </span>
 
-                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
-                                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.complete'|trans({},'newsFeed') }}</span>
-                                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.complete_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
-                                             </span>
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_COMPLETE') }}">
+                                <span data-ng-if="activity.goals.length < 2">{{ 'goal.complete'|trans({},'newsFeed') }}</span>
+                                <span data-ng-if="activity.goals.length > 1">{{ 'goal.complete_goals'|trans({},'newsFeed') }} [[ ::activity.goals.length ]] {{ 'goal.goals'|trans({},'newsFeed') }}</span>
+                             </span>
 
-                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
-                                                {{ 'goal.success_story'|trans({},'newsFeed') }}
-                                             </span>
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::SUCCESS_STORY') }}">
+                                {{ 'goal.success_story'|trans({},'newsFeed') }}
+                             </span>
 
-                                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
-                                                {{ 'goal.comment'|trans({},'newsFeed') }}
-                                             </span>
+                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::COMMENT') }}">
+                                {{ 'goal.comment'|trans({},'newsFeed') }}
+                             </span>
 
                         </h4>
 
@@ -82,6 +82,13 @@
                     </div>
                     <div class="pull-right" data-ng-show="activity.goals.length > 1">
                         <div class="swiper-pagination text-dark-grey">[[ activity.activeIndex ]] / [[ activity.goals.length ]]</div>
+                    </div>
+                    <div class="text-right pull-right"
+                         data-ng-cloak data-ng-show="activity.success_story"
+                         data-ng-init="$parent.count[ activity.success_story.id ] = activity.success_story.voters.length;
+                         $parent.vote[activity.success_story.id] = isVoting(activity.success_story.voters,{{ app.user.id}}, activity.success_story)">
+                        <span class="text-purple">[[ $parent.count[ activity.success_story.id ] ]]</span>
+                        <i data-ng-class="{'like-active': $parent.vote[activity.success_story.id],'user-story':(activity.success_story.user.id == {{ app.user.id }})}" data-ng-click="manageVote(activity.success_story.id, (activity.success_story.user.id != {{ app.user.id }}))" class="like-icon"></i>
                     </div>
                 </div>
 
