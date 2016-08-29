@@ -2340,6 +2340,9 @@ footer{
     margin:10px 0 30px!important;
   }
 
+  #story-slider-homepage-container{
+    overflow: visible;
+  }
   .comment-place{
     padding-top:0;
   }
@@ -2348,7 +2351,7 @@ footer{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width:90%;
+    width: 100%;
   }
 
   .border-left{
@@ -2362,7 +2365,7 @@ footer{
   }
 
   .user-image{
-    margin: 0 10px 8px 15px;
+    margin: 0 10px 8px 1px;
   }
 
   .idea-item{
@@ -2389,8 +2392,18 @@ footer{
 
   }
 
+  .success-story-user{
+    width: 130px;
+  }
+
+  .like-icon{
+    width: 34px;
+    height: 18px;
+    margin: 0 0 0 3px;
+  }
+
   .success-scroll {
-    padding: 0 40px;
+    padding: 0 20px 0 30px;
     text-align: justify;
     a {
       display: inline-block;
@@ -2407,16 +2420,19 @@ footer{
   .swiper-button-prev-home-story,.swiper-button-next-home-story{
     width: 21px;
     height: 24px;
+    top: -8%;
   }
 
   .swiper-button-prev-home-story{
     background: url('../images/story-left-arrow.svg') no-repeat center center;
     background-size: 100%;
+    //left: 0;
   }
 
   .swiper-button-next-home-story{
     background: url('../images/story-right-arrow.svg') no-repeat center center;
     background-size: 100%;
+    //right: 0;
   }
 
   .photo-icon, .video-icon{
@@ -2831,8 +2847,12 @@ footer{
   #story-slider-homepage{
     margin:0 0 20px 0;
 
+    #story-slider-homepage-container{
+      overflow: hidden;
+    }
+
     h2{
-      margin:10px 0;
+      margin:10px 0 !important;
     }
 
     .border-left{
@@ -2840,7 +2860,11 @@ footer{
     }
 
     .user-image{
-      margin: 0 10px 8px 25px;
+      margin: 0 10px 8px 12px;
+    }
+
+    .success-story-user{
+      width:auto;
     }
 
     .success-scroll {
@@ -2848,13 +2872,25 @@ footer{
     }
 
     .like-icon{
-      margin: 0 10px 0 12px;
+      margin: 0 15px 0 12px;
+      width: 59px;
+      height: 31px;
+
     }
 
     .swiper-button-prev-home-story,.swiper-button-next-home-story{
       width: 45px;
       height: 48px;
+      top: 50%;
     }
+
+    //.swiper-button-prev-home-story{
+    //  left: 10px;
+    //}
+    //
+    //.swiper-button-next-home-story{
+    //  right: 10px;
+    //}
   }
 
 }
@@ -3185,15 +3221,15 @@ footer{
     }
 
     .border-left{
-      margin: -14px 0 0 40px;
+      margin: -14px 0 0 35px;
     }
 
     .user-image{
-      margin: 0 10px 8px 30px;
+      margin: 0 15px 8px 12px;
     }
 
     .success-scroll {
-      padding: 0 44px;
+      padding: 0 35px;
     }
   }
 }
