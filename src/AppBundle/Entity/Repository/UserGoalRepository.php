@@ -78,9 +78,10 @@ class UserGoalRepository extends EntityRepository
      * @param $requestFilters
      * @param null $first
      * @param null $count
+     * @param bool|false $getLastDate
      * @return array
      */
-    public function findAllByUser($userId, $status, $dream, $requestFilters, $first = null, $count = null)
+    public function findAllByUser($userId, $status, $dream, $requestFilters, $first, $count, $getLastDate = false)
     {
         $query =
             $this->getEntityManager()
@@ -92,7 +93,7 @@ class UserGoalRepository extends EntityRepository
                 ->leftJoin('g.author', 'a')
                 ->leftJoin('g.successStories', 'ss')
                 ->leftJoin('g.images', 'i')
-                ->where('ugu.id = :user ')
+                ->where('ugu.id = :user')
                 ->setParameter('user', $userId)
         ;
 
@@ -144,16 +145,53 @@ class UserGoalRepository extends EntityRepository
 
         $query->andWhere($subQuery->getDQLPart('where'));
 
-        if (is_numeric($first) && is_numeric($count)){
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count);
+        $query
+            ->setFirstResult($first)
+            ->setMaxResults($count);
 
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
+
+        if ($getLastDate){
+
+            $query
+                ->select('ug.updated as updated')
+                ->groupBy('ug.id');
+
+
+            $conn = $this->getEntityManager()->getConnection();
+            $sql = str_replace('.id = ?', '.id = :userId', $query->getQuery()->getSql());
+            $sql = str_replace('.status = ?', '.status = :status', $sql);
+
+            $smtp = $conn->prepare($sql);
+            $smtp->bindValue('userId', $userId);
+
+            if ($status) {
+                $smtp->bindValue('status', $status);
+            }
+
+            $smtp->execute();
+
+            $dates = $smtp->fetchAll();
+
+            if (count($dates) == 0){
+                return null;
+            }
+
+            $maxDate = new \DateTime(array_pop($dates[0]));
+            for($i = 1; $i < count($dates); $i++){
+                $tmp = new \DateTime(array_pop($dates[$i]));
+                if ($maxDate < $tmp){
+                    $maxDate = $tmp;
+                }
+            }
+
+
+            return $maxDate;
+            //http://bucketlist.loc/app_dev.php/api/v2.0/usergoals/bucketlists?condition=0&count=10&first=0&isDream=false&notUrgentImportant=false&notUrgentNotImportant=false&urgentImportant=false&urgentNotImportant=false&userId=120
         }
 
-        return $query->getQuery();
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator->getIterator()->getArrayCopy();
     }
 
     /**

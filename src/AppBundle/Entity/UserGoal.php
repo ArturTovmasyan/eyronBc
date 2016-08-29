@@ -151,6 +151,13 @@ class UserGoal implements ActivityableInterface
     protected $user;
 
     /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime")
+     * @Groups({"userGoal"})
+     */
+    protected $updated;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -601,5 +608,29 @@ class UserGoal implements ActivityableInterface
     public function getDoDateStatus()
     {
         return $this->doDateStatus;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return UserGoal
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
