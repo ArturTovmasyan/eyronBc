@@ -27,6 +27,10 @@ bucketlist: Bucket List 127
 featured_ideas: Featured Ideas
 featured: Featured
 
+#settings
+setting:
+  invalid_user_name: Name cannot be symbols or numbers. Please, enter a valid name!
+
 #Share
 message_on_top_of_the_page: Congrats! You have successfully completed the goal!
 share_title: Share your achievement
