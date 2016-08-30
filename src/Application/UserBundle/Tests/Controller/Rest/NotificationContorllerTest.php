@@ -19,10 +19,10 @@ class NotificationControllerTest extends BaseClass
     public function testGetAction()
     {
         //get user notification last id
-        $lastId = $this->em->getRepository('ApplicationUserBundle:UserNotification')->findOneBy(array('isRead' => true));
+        $lastUserNote = $this->em->getRepository('ApplicationUserBundle:UserNotification')->findOneBy(array('isRead' => true));
 
         //change last id ++
-        $lastId = $lastId->getId() + 1;
+        $lastId = $lastUserNote->getId() + 1;
 
         // get user goal
         $url = sprintf('/api/v1.0/notifications/%s/%s/%s', 0, 5, $lastId);
@@ -78,12 +78,12 @@ class NotificationControllerTest extends BaseClass
         $this->client->request('GET', $url);
 
         // check response status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getAction rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getAllReadAction rest!");
 
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on getAllReadAction rest!");
         }
     }
 
@@ -106,12 +106,12 @@ class NotificationControllerTest extends BaseClass
         $this->client->request('GET', $url);
 
         // check response status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getAction rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getReadAction rest!");
 
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on getReadAction rest!");
         }
     }
 
@@ -135,12 +135,12 @@ class NotificationControllerTest extends BaseClass
         $this->client->request('DELETE', $url);
 
         // check response status code
-        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification getAction rest!");
+        $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get note in notification deleteAction rest!");
 
         // check database query count
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on POST postSettingsAction rest!");
+            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on deleteAction rest!");
         }
     }
 }
