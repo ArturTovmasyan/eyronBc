@@ -285,6 +285,7 @@ class UserGoalController extends FOSRestController
      *
      * @Rest\Post("/api/v1.0/usergoals/bucketlists", name="post_usergoal_bucketlist", options={"method_prefix"=false})
      * @Rest\Get("/api/v2.0/usergoals/bucketlists", name="get_usergoal_bucketlist", options={"method_prefix"=false})
+     * @Rest\Post("/api/v1.0/usergoals/locations", name="rest_post_usergoal_locations", options={"method_prefix"=false})
      * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user"})
      * @Security("has_role('ROLE_USER')")
      *
@@ -313,10 +314,6 @@ class UserGoalController extends FOSRestController
                 $condition = null;
         }
 
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //check isDream
         $dream = $this->toBool($request->query->get('isDream'));
         $first = $request->query->get('first');
         $count = $request->query->get('count');
@@ -326,7 +323,6 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->query->get('urgentNotImportant'));
         $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
-
 
         $lastDate = $em->getRepository('AppBundle:UserGoal')
             ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count, true);
@@ -378,9 +374,16 @@ class UserGoalController extends FOSRestController
         }
 
         $serializer = $this->get('serializer');
-        $content = ['user_goals' => $userGoals, 'user' => $user];
-        $serializedContent = $serializer->serialize($content, 'json',
-            SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user")));
+
+        if ($request->get('_route') != 'rest_post_usergoal_locations'){
+            $content = ['user_goals' => $userGoals, 'user' => $user];
+            $serializedContent = $serializer->serialize($content, 'json',
+                SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user")));
+        }
+        else {
+            $serializedContent = $serializer->serialize($userGoals, 'json',
+                SerializationContext::create()->setGroups(array("userGoal_location", "tiny_user", "userGoal_goal", "tiny_goal")));
+        }
 
         $response->setContent($serializedContent);
 
@@ -416,15 +419,40 @@ class UserGoalController extends FOSRestController
      *
      * @return Response
      */
-    public function postLocationsAction(Request $request)
-    {
-        $em        = $this->getDoctrine()->getManager();
-        $userId    = $request->get('userId');
-        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
-        $userGoals = $this->getUserGoalsForBucketList($request, $user);
-
-        return $userGoals;
-    }
+//    public function postLocationsAction(Request $request)
+//    {
+//        $em        = $this->getDoctrine()->getManager();
+//        $userId    = $request->get('userId');
+//        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
+//
+//        // check conditions
+//        switch($request->query->get('condition')){
+//            case UserGoal::ACTIVE:
+//                $condition = UserGoal::ACTIVE;
+//                break;
+//            case UserGoal::COMPLETED:
+//                $condition = UserGoal::COMPLETED;
+//                break;
+//            default:
+//                $condition = null;
+//        }
+//
+//        $dream = $this->toBool($request->query->get('isDream'));
+//        $first = $request->query->get('first');
+//        $count = $request->query->get('count');
+//
+//        $requestFilter = [];
+//        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->query->get('urgentImportant'));
+//        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->query->get('urgentNotImportant'));
+//        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
+//        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
+//
+//
+//        $userGoals = $em->getRepository('AppBundle:UserGoal')
+//            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count);
+//
+//        return $userGoals;
+//    }
 
     /**
      * @ApiDoc(
