@@ -50,11 +50,11 @@ class NotificationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
-            ->getUserNotifications($this->getUSer()->getId(), $first, $count, $lastId);
+            ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId);
 
         if (is_null($lastId)){
             $unreadCount = $em->getRepository('ApplicationUserBundle:UserNotification')
-                ->getUnreadCount($this->getUSer()->getId());
+                ->getUnreadCount($this->getUser()->getId());
         }
 
         return [
@@ -81,7 +81,7 @@ class NotificationController extends Controller
     public function getAllReadAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository('ApplicationUserBundle:UserNotification')->setAsReadAllNotifications($this->getUSer()->getId());
+        $em->getRepository('ApplicationUserBundle:UserNotification')->setAsReadAllNotifications($this->getUser()->getId());
 
         return new Response('ok');
     }

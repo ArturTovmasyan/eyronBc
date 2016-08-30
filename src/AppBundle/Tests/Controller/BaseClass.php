@@ -89,6 +89,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create filter Provider data , client for testes
+     * @test
      */
     public function filterProvider()
     {
@@ -139,6 +140,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create file Provider data , client for testes
+     * @test
      */
     public function fileProvider()
     {
@@ -169,6 +171,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create all file Provider data , client for testes
+     * @test
      */
     public function allFileProvider()
     {
@@ -200,6 +203,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create goal data provider , client for testes
+     * @test
      */
     public function goalProvider()
     {
@@ -231,6 +235,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create goal data provider , client for testes
+     * @test
      */
     public function goalByIdProvider()
     {
@@ -261,6 +266,7 @@ class BaseClass extends WebTestCase
 
     /**
      * this function create user goal data provider , client for testes
+     * @test
      */
     public function userGoalProvider()
     {
@@ -290,6 +296,7 @@ class BaseClass extends WebTestCase
 
     /**
      * This data provider create data for user-settings create
+     * @test
      * @return array
      */
     public function userSettingsProvider()
@@ -330,6 +337,7 @@ class BaseClass extends WebTestCase
 
     /**
      * This data provider create data for user-settings create
+     * @test
      * @return array
      */
     public function userChangePasswordProvider()
