@@ -86,14 +86,9 @@ class UserGoalRepository extends EntityRepository
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug, g, a, i, ss')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->join('ug.goal', 'g')
-                ->join('ug.user', 'ugu')
-                ->leftJoin('g.author', 'a')
-                ->leftJoin('g.successStories', 'ss')
-                ->leftJoin('g.images', 'i')
-                ->where('ugu.id = :user')
+                ->where('ug.user = :user')
                 ->setParameter('user', $userId)
         ;
 
@@ -140,7 +135,11 @@ class UserGoalRepository extends EntityRepository
 
         // check dream
         if($dream){
-            $subQuery->orWhere('ug.doDate is null');
+            $subQuery
+                ->orWhere('ug.doDate is null AND ug.status != :completedStatus');
+
+            $query
+                ->setParameter('completedStatus', UserGoal::COMPLETED);
         }
 
         $query->andWhere($subQuery->getDQLPart('where'));
@@ -152,42 +151,31 @@ class UserGoalRepository extends EntityRepository
 
         if ($getLastDate){
 
-            $query
-                ->select('ug.updated as updated')
-                ->groupBy('ug.id');
-
-
-            $conn = $this->getEntityManager()->getConnection();
-            $sql = str_replace('.id = ?', '.id = :userId', $query->getQuery()->getSql());
-            $sql = str_replace('.status = ?', '.status = :status', $sql);
-
-            $smtp = $conn->prepare($sql);
-            $smtp->bindValue('userId', $userId);
-
-            if ($status) {
-                $smtp->bindValue('status', $status);
+            $filters = $this->getEntityManager()->getFilters();
+            if ($filters->isEnabled('visibility_filter')){
+                $filters->disable('visibility_filter');
             }
 
-            $smtp->execute();
+            $dates = $query
+                ->select('ug.updated as updated')
+                ->getQuery()
+                ->getResult();
 
-            $dates = $smtp->fetchAll();
 
             if (count($dates) == 0){
                 return null;
             }
 
-            $maxDate = new \DateTime(array_pop($dates[0]));
-            for($i = 1; $i < count($dates); $i++){
-                $tmp = new \DateTime(array_pop($dates[$i]));
-                if ($maxDate < $tmp){
-                    $maxDate = $tmp;
-                }
-            }
+            $maxDate = max($dates);
 
-
-            return $maxDate;
-            //http://bucketlist.loc/app_dev.php/api/v2.0/usergoals/bucketlists?condition=0&count=10&first=0&isDream=false&notUrgentImportant=false&notUrgentNotImportant=false&urgentImportant=false&urgentNotImportant=false&userId=120
+            return array_pop($maxDate);
         }
+
+        $query
+            ->addSelect('ug, g, a, i, ss')
+            ->leftJoin('g.author', 'a')
+            ->leftJoin('g.successStories', 'ss')
+            ->leftJoin('g.images', 'i');
 
 
         $paginator = new Paginator($query, $fetchJoinCollection = true);

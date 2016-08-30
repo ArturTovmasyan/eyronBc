@@ -251,6 +251,18 @@ class UserGoalController extends FOSRestController
     }
 
     /**
+     * @param $value
+     * @return bool
+     */
+    private function toBool($value){
+        if ($value === 'true' || $value === true || $value === 1){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @ApiDoc(
      *  resource=true,
      *  section="UserGoal",
@@ -305,15 +317,15 @@ class UserGoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //check isDream
-        $dream = $request->query->get('isDream') == true ? true : false;
+        $dream = $this->toBool($request->query->get('isDream'));
         $first = $request->query->get('first');
         $count = $request->query->get('count');
 
         $requestFilter = [];
-        $requestFilter[UserGoal::URGENT_IMPORTANT]          = (bool)$request->query->get('urgentImportant')       ? true : false;
-        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = (bool)$request->query->get('urgentNotImportant')    ? true : false;
-        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = (bool)$request->query->get('notUrgentImportant')    ? true : false;
-        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = (bool)$request->query->get('notUrgentNotImportant') ? true : false;
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->query->get('urgentImportant'));
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->query->get('urgentNotImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
 
 
         $lastDate = $em->getRepository('AppBundle:UserGoal')
@@ -325,7 +337,7 @@ class UserGoalController extends FOSRestController
 
         $response = new Response();
         $response->setLastModified($lastDate);
-        $response->headers->set('cache-control', 'public, must-revalidate');
+        $response->headers->set('cache-control', 'private, must-revalidate');
 
         if ($response->isNotModified($request)){
             return $response;
@@ -426,7 +438,7 @@ class UserGoalController extends FOSRestController
      *     }
      * )
      *
-     * @Rest\Post("/api/v1.0/usergoals/{goal}/dones/{isDone}", name="rest_get_usergoal_done", options={"method_prefix"=false})
+     * @Rest\Get("/api/v1.0/usergoals/{goal}/dones/{isDone}", name="rest_get_usergoal_done", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      *
      * @param Goal $goal

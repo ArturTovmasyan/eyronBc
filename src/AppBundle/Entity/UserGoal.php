@@ -20,7 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
- * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
+ * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})},
+ *                                indexes={@ORM\Index(name="profile_last_modified_index", columns={"user_id", "id", "goal_id", "updated"})})
  * @ORM\EntityListeners({"AppBundle\Listener\UserGoalListener"})
  */
 class UserGoal implements ActivityableInterface
