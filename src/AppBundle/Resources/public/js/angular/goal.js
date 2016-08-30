@@ -210,11 +210,11 @@ angular.module('goal', ['Interpolation',
             method: {},
             responsive: [
                 {
-                    breakpoint: 768,
+                    breakpoint: 769,
                     settings: {
                         arrows: false,
                         centerMode: true,
-                        centerPadding: '40px',
+                        centerPadding: '4px',
                         slidesToShow: 2
                     }
                 },
@@ -223,7 +223,7 @@ angular.module('goal', ['Interpolation',
                     settings: {
                         arrows: false,
                         centerMode: true,
-                        centerPadding: '40px',
+                        centerPadding: '4px',
                         slidesToShow: 1
                     }
                 }
