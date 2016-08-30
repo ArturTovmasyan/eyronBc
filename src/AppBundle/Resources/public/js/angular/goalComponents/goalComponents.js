@@ -277,12 +277,10 @@ angular.module('goalComponents', ['Interpolation',
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + 'goal/' +$scope.userGoal.goal.slug;
       $scope.files = [];
+      $scope.uploadingFiles = [];
       $scope.successStory = {};
       var imageCount = 6;
       var clickable = true;
-      if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files)){
-        imageCount = 6 - $scope.userGoal.story.files.length
-      }
 
       $('body').on('focus', 'textarea[name=story]', function() {
         $('textarea[name=story]').removeClass('border-red');
@@ -430,6 +428,17 @@ angular.module('goalComponents', ['Interpolation',
             },
             removedfile: function(d){
               angular.element(d.previewElement).remove();
+              if($scope.uploadingFiles.length){
+                var uploadIndex = $scope.uploadingFiles.indexOf(d);
+                if(uploadIndex != -1){
+                  $scope.uploadingFiles.splice(uploadIndex, 1);
+                }
+
+                if($scope.uploadingFiles.length >= imageCount && $scope.uploadingFiles[imageCount -1].status == 'error'){
+                  $scope.goalDropzone.processFile( $scope.uploadingFiles[imageCount -1]);
+                  $scope.uploadingFiles[imageCount -1].accepted = true;
+                }
+              }
               var id = JSON.parse(d.xhr.responseText);
               var index = $scope.files.indexOf(id);
               if(index !== -1){
@@ -440,13 +449,16 @@ angular.module('goalComponents', ['Interpolation',
             },
             complete: function(res){
               clickable = true;
-              if(res.xhr.status !== 200){
+              if(!res.xhr || res.xhr.status !== 200){
                 return;
               }
 
               $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
               $scope.$apply();
             }
+          });
+          $scope.goalDropzone.on("thumbnail", function(file) {
+            $scope.uploadingFiles = $scope.uploadingFiles.concat(file);
           });
           if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
             var existingFiles = $scope.userGoal.story.files;
@@ -455,8 +467,9 @@ angular.module('goalComponents', ['Interpolation',
 
               $scope.files.push(value.id);
 
-              var mockFile = {name: value.file_original_name, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
+              var mockFile = {name: value.file_original_name, accepted : true, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
 
+              $scope.goalDropzone.files.push(mockFile);
               $scope.goalDropzone.emit("addedfile", mockFile);
               $scope.goalDropzone.emit("thumbnail", mockFile, value.image_path);
             });
