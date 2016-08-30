@@ -202,6 +202,8 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, AuthenticatorLoginService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
+        $scope.uploadingFiles = [];
+        var imageCount = 6;
 
         $scope.slickConfig = {
             slidesToShow: 3,
@@ -304,6 +306,17 @@ angular.module('goal', ['Interpolation',
                     maxFiles: 6,
                     removedfile: function(d){
                         angular.element(d.previewElement).remove();
+                        if($scope.uploadingFiles.length){
+                            var uploadIndex = $scope.uploadingFiles.indexOf(d);
+                            if(uploadIndex != -1){
+                                $scope.uploadingFiles.splice(uploadIndex, 1);
+                            }
+
+                            if($scope.uploadingFiles.length >= imageCount && $scope.uploadingFiles[imageCount -1].status == 'error'){
+                                $scope.goalDropzone.processFile( $scope.uploadingFiles[imageCount -1]);
+                                $scope.uploadingFiles[imageCount -1].accepted = true;
+                            }
+                        }
                         var id = JSON.parse(d.xhr.responseText);
                         var index = $scope.files.indexOf(id);
                         if(index !== -1){
@@ -313,13 +326,16 @@ angular.module('goal', ['Interpolation',
                         $scope.$apply();
                     },
                     complete: function(res){
-                        if(res.xhr.status !== 200){
+                        if(!res.xhr || res.xhr.status !== 200){
                             return;
                         }
 
                         $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
                         $scope.$apply();
                     }
+                });
+                $scope.goalDropzone.on("thumbnail", function(file) {
+                    $scope.uploadingFiles = $scope.uploadingFiles.concat(file);
                 });
 
                 $scope.goalDropzone.on('addedfile', function(){
