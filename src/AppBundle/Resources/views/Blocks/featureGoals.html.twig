@@ -1,17 +1,11 @@
 <div class="right-block ng-hide margin-top round padding padding-no" data-ng-controller="featureGoalsController" data-ng-show="featureGoals && featureGoals.length" data-ng-cloak>
     <div class="right-menu">
         <div class="row" {% if user is defined%}data-ng-init="userId= {{ user.id }}"{% endif %}>
-            {#<div class="col-xs-12">#}
-                {#<span class="heading text-gray">#}
-                     {#<i class="featured-icon"></i>#}
-                     {#<span class="text">{{ 'featured_ideas'|trans({},'messages') }}</span>#}
-                {#</span>#}
-            {#</div>#}
 
             <div class="col-xs-10">
                 <span>
                      <i class="featured-icon"></i>
-                     <a href="{{ path('goals_list', {'category' : 'featured'}) }}" class="heading text-gray">
+                     <a href="{{ path('goals_list', {'category' : 'featured'}) }}">
                          {{ 'featured_ideas'|trans({},'messages') }}
                      </a>
                 </span>
