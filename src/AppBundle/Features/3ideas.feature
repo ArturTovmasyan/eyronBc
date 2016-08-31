@@ -14,7 +14,6 @@ Feature: Idea
     When I follow "Map"
     And I wait for angular
     And I follow "Map"
-#    Then I should see categories
     Then I am on "/ideas/most-popular"
     And I wait for view "500"
     Then I should see "Most Popular"
@@ -29,8 +28,7 @@ Feature: Idea
     And I am on "/ideas"
     And I wait for angular
     And I should see "Explore thousands of great ideas for your Bucket List"
-    And I wait
-    And I follow "Add"
+    And I click button "add"
     And I wait for view "500"
     Then I should see "SIGN IN"
     And I click on close "close-icon"
@@ -39,6 +37,6 @@ Feature: Idea
     And I wait for angular
     And I click on close "close-icon"
     And I wait for angular
-    And I follow "Done"
+    And I click button "done"
     And I wait for view "500"
     Then I should see "SIGN IN"

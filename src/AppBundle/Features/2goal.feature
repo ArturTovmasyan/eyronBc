@@ -194,7 +194,6 @@ Feature: Goal page
   Scenario: Add a goal
     Given I am on "/goal/goal1"
     And I wait
-#    And I click on "icon-plus-icon"
     And I follow "ADD"
     And I wait for angular
     Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
