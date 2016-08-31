@@ -376,27 +376,7 @@ class SuccessStoryController extends FOSRestController
      */
     public function addStoryVoteAction($storyId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
-
-        if ($successStory->getUser()->getId() == $this->getUser()->getId()){
-            throw new HttpException(Response::HTTP_BAD_REQUEST);
-        }
-
-        if (is_null($successStory)){
-            throw new HttpException(Response::HTTP_NOT_FOUND);
-        }
-
-        $successStory->addVoter($this->getUser());
-        $em->flush();
-
-        //Send notification to goal author
-        $link = $this->get('router')->generate('inner_goal', ['slug' => $successStory->getGoal()->getSlug()]);
-        $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
-        $body = $this->get('translator')->trans('notification.success_story_vote', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $successStory->getUser());
-
-        return new JsonResponse();
+        return $this->get('bl_story_service')->voteStory($storyId, $this->getUser());
     }
 
     /**

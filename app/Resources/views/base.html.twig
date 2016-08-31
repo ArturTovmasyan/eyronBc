@@ -491,7 +491,8 @@
 
             <script>
                 angular.module('Components').constant('UserContext',{
-                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %},
+                    locale: '{{ app.request.getLocale() }}'
                 });
 
                 {% if not app.user and (app.session.flashBag.peekAll|length and

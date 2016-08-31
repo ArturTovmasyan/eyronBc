@@ -58,8 +58,8 @@
 
                                                 <div class="col-xs-3 text-right" data-ng-cloak >
                                                     <span class="text-purple">[[ count[{{ story.id }}] ]]</span>
-                                                    <a data-authenticator-login-trigger>
-                                                        <i class="like-icon user-story"></i>
+                                                    <a data-ng-click="openSignInPopover({{ story.id }}, '{{ path('inner_goal', {'slug': story.goal.slug }) }}')">
+                                                        <i class="like-icon"></i>
                                                     </a>
                                                 </div>
 

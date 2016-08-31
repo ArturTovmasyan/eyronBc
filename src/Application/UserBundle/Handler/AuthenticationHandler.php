@@ -175,6 +175,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
             $request->getSession()->set('goal_action', ['action' => $routeName, 'goal_id' => (is_object($goal) ? $goal->getId() : $goal) ]);
         }
 
+        if ($routeName == 'add_goal_story_vote') {
+            $storyId = $request->get('storyId');
+            $request->getSession()->set('vote_story_id', $storyId);
+        }
+
         if ($request->get('_format') == "json"){
             return new JsonResponse('User not found', Response::HTTP_UNAUTHORIZED);
         }

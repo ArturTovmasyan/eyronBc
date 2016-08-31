@@ -103,11 +103,15 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
     'AuthenticatorLoginService',
     'envPrefix',
     '$timeout',
+    'voteData',
+    '$http',
     function(
       $scope,
       AuthenticatorLoginService,
       envPrefix,
-      $timeout
+      $timeout,
+      voteData,
+      $http
     ){
 
     $scope.envPrefix  = envPrefix;
@@ -119,7 +123,19 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
           $scope.$apply();
         },
         success: function(res, text, header){
-          window.location.reload();
+          if(voteData.likePath && voteData.goalPath){
+            var path = voteData.goalPath;
+            $http.get(voteData.likePath).success(function() {
+              voteData.likePath = '';
+              voteData.goalPath = '';
+              window.location.href = path;
+            })
+            .error(function (res) {
+              window.location.reload();
+            });
+          }else {
+            window.location.reload();
+          }
         },
         error: function(res){
           $scope.error = 'Bad credentials';
