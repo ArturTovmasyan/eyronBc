@@ -24,7 +24,6 @@ parameters:
     cover:
         with: 1280
         height: 720
-    remember_me_lifetime: 2592000 #one month
 
 framework:
     esi:            { enabled: true }

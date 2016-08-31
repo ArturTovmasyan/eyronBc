@@ -121,8 +121,6 @@ class UserController extends FOSRestController
 
         $request     = $this->get('request_stack')->getCurrentRequest();
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        $secretKey   = $this->container->getParameter('secret');
-        $lifeTime    = $this->getParameter('remember_me_lifetime');
         $session     = $this->get('session');
         $response    = new JsonResponse();
         $token       = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
@@ -139,29 +137,10 @@ class UserController extends FOSRestController
                 $em->flush();
             }
         }
-        //TODO: will be changed
-        elseif (true || $request->get('mobileAppPlatform')){
+        else{
             $this->get('security.token_storage')->setToken($token);
             $session->set($providerKey, serialize($token));
             $session->save();
-        }
-        else {
-            $rememberMeService = new TokenBasedRememberMeServices(
-                array($user),
-                $secretKey,
-                $providerKey,
-                array(
-                    'path' => '/',
-                    'name' => 'REMEMBERME',
-                    'domain' => null,
-                    'secure' => false,
-                    'httponly' => true,
-                    'lifetime' => $lifeTime, // 30 days
-                    'always_remember_me' => true,
-                    'remember_me_parameter' => '_remember_me')
-            );
-
-            $rememberMeService->loginSuccess($request, $response, $token);
         }
 
 
