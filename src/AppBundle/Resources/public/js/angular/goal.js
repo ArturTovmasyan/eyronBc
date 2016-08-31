@@ -263,22 +263,6 @@ angular.module('goal', ['Interpolation',
             AuthenticatorLoginService.openLoginPopup();
         };
 
-        $timeout(function(){
-            angular.element("#goal-done-form").ajaxForm({
-                beforeSubmit: function(){
-                    $scope.$apply();
-                },
-                success: function(res, text, header){
-                    if(header.status === 200){
-                        $analytics.eventTrack('Success story', {  category: 'Success story', label: 'Add success story from Web' });
-                        angular.element('#cancel').click();
-                        $scope.$apply();
-
-                    }
-                }
-            });
-        },500);
-
         angular.element('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
