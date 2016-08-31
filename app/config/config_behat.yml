@@ -4,7 +4,8 @@ imports:
 framework:
     test: ~
     session:
-        storage_id: session.storage.mock_file
+          gc_probability: 0
+          save_path: ~
     profiler:
         collect: false
 
