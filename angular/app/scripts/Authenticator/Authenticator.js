@@ -43,7 +43,7 @@ angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
 
     return {
       openLoginPopup: function(){
-        $http.get('/app/scripts/Authenticator/login.html')
+        $http.get('/login')
           .success(function(res){
             openModal(angular.element(res));
             $rootScope.$broadcast('showAuthenticatorLoginButton', true)
