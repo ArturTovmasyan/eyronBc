@@ -52,6 +52,14 @@
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
 
+            {% if app.request.locale == 'ru' %}
+                {% stylesheets output='css/ru.css'
+                'bundles/app/less/ru.less'
+                filter='less,cssrewrite' %}
+                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+                {% endstylesheets %}
+            {% endif %}
+
         {% endblock %}
 
         {#<link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">#}

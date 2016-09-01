@@ -211,6 +211,7 @@ menu:
 
 right_menu:
   my_ideas: Мои Идеи
+  private: Мои Собственные Идеи
   create: Поставить Цель
   draft: Черновики
   ideas: Популярные Идеи
@@ -258,6 +259,7 @@ my_bucket_list:
 draft:
   title: Черновик
   description: Описание Черновика
+  create: Сохранить как черновик
 
 done_by: Достигнуто
 home_complete: Достигнуто
