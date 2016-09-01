@@ -176,7 +176,7 @@ class UserGoalRepository extends EntityRepository
                 $etag .=  '_' . $dates[$i]['id'];
             }
 
-            return ['lastDate' => $lastModifiedDate, 'etag' => $etag];
+            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
         }
 
         $query

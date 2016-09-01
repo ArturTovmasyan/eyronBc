@@ -9,8 +9,10 @@ namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\UserNotification;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,14 +43,38 @@ class NotificationController extends Controller
      * @Rest\Get("/notifications/{first}/{count}/{lastId}", defaults={"lastId"=null}, requirements={"first"="\d+", "count"="\d+", "lastId"="-{0,1}\d+"}, name="get_notification", options={"method_prefix"=false})
      * @Secure(roles="ROLE_USER")
      *
+     * @param $request
      * @param $first
      * @param $count
      * @param $lastId
      * @return array
      */
-    public function getAction($first, $count, $lastId = null)
+    public function getAction(Request $request, $first, $count, $lastId = null)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $lastModified = $em->getRepository('ApplicationUserBundle:UserNotification')
+            ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId, true);
+
+        if (is_null($lastModified)){
+            return ['userNotifications' => []];
+        }
+
+        $response = new Response();
+        $response->setLastModified($lastModified['lastModified']);
+        $response->setEtag($lastModified['etag']);
+        $response->headers->set('cache-control', 'private, must-revalidate');
+
+        $etags = $request->getETags();
+        if (isset($etags[0])) {
+            $etag = str_replace('-gzip', '', $etags[0]);
+            $request->headers->set('If-None-Match', $etag);
+        }
+
+        if ($response->isNotModified($request)){
+            return $response;
+        }
+
         $userNotifications = $em->getRepository('ApplicationUserBundle:UserNotification')
             ->getUserNotifications($this->getUser()->getId(), $first, $count, $lastId);
 
@@ -57,10 +83,17 @@ class NotificationController extends Controller
                 ->getUnreadCount($this->getUser()->getId());
         }
 
-        return [
+        $content = [
             'userNotifications' => $userNotifications,
             'unreadCount'       => isset($unreadCount) ? $unreadCount : null
         ];
+
+        $serializer = $this->get('serializer');
+        $serializedContent = $serializer->serialize($content, 'json',
+            SerializationContext::create()->setGroups(array("userNotification", "userNotification_notification", "notification", "notification_performer", "tiny_user")));
+
+        $response->setContent($serializedContent);
+        return $response;
     }
 
     /**
