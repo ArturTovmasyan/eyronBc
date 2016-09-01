@@ -106,7 +106,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->iSetUsernameAndPassword($userName, $password);
 
         //wait for open page after login
-        $this->iWaitForView(1500);
+        $this->iWaitForView(1000);
 
         //check if user admin
         if($user == 'admin') {
@@ -156,7 +156,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //find password
         $page->fillField('_password', $password);
 
-        $page->pressButton('submit');
+        $element = $page->find('xpath', '//button[@type="submit"]');
+
+        $element->doubleClick();
     }
 
     /**
