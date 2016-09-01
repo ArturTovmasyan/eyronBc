@@ -324,19 +324,30 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
 
-        $lastDate = $em->getRepository('AppBundle:UserGoal')
-            ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count, true);
 
-        if (is_null($lastDate)){
-            return ['user_goals' => [], 'user' => $user];
-        }
+        if ($request->get('_route') == 'get_usergoal_bucketlist')
+        {
+            $data = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count, true);
 
-        $response = new Response();
-        $response->setLastModified($lastDate);
-        $response->headers->set('cache-control', 'private, must-revalidate');
+            if (is_null($data)) {
+                return ['user_goals' => [], 'user' => $user];
+            }
 
-        if ($response->isNotModified($request)){
-            return $response;
+            $etags = $request->getETags();
+            if (isset($etags[0])) {
+                $etag = str_replace('-gzip', '', $etags[0]);
+                $request->headers->set('If-None-Match', $etag);
+            }
+
+            $response = new Response();
+            $response->setLastModified($data['lastDate']);
+            $response->setEtag($data['etag']);
+            $response->headers->set('cache-control', 'private, must-revalidate');
+
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
         }
 
 
