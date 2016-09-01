@@ -334,11 +334,11 @@ class UserGoalController extends FOSRestController
                 return ['user_goals' => [], 'user' => $user];
             }
 
-            $etags = $request->getETags();
-            if (isset($etags[0])) {
-                $etag = str_replace('-gzip', '', $etags[0]);
-                $request->headers->set('If-None-Match', $etag);
-            }
+//            $etags = $request->getETags();
+//            if (isset($etags[0])) {
+//                $etag = str_replace('-gzip', '', $etags[0]);
+//                $request->headers->set('If-None-Match', $etag);
+//            }
 
             $response = new Response();
             $response->setLastModified($data['lastDate']);
