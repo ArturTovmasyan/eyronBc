@@ -323,7 +323,7 @@ class UserGoalController extends FOSRestController
         $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->query->get('urgentNotImportant'));
         $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
-
+        $response = new Response();
 
         if ($request->get('_route') == 'get_usergoal_bucketlist')
         {
@@ -340,7 +340,6 @@ class UserGoalController extends FOSRestController
                 $request->headers->set('If-None-Match', $etag);
             }
 
-            $response = new Response();
             $response->setLastModified($data['lastDate']);
             $response->setEtag($data['etag']);
             $response->headers->set('cache-control', 'private, must-revalidate');
