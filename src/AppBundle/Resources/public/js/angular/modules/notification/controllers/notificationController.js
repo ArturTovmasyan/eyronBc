@@ -31,7 +31,7 @@ angular.module('notification')
       };
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
-        $scope.newNotCount = res.unreadCount;
+        $scope.newNotCount = res.unreadCount?res.unreadCount:0;
         $scope.notifies = res.userNotifications;
       });
 
