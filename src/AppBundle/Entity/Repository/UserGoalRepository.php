@@ -78,21 +78,17 @@ class UserGoalRepository extends EntityRepository
      * @param $requestFilters
      * @param null $first
      * @param null $count
+     * @param bool|false $getLastDate
      * @return array
      */
-    public function findAllByUser($userId, $status, $dream, $requestFilters, $first = null, $count = null)
+    public function findAllByUser($userId, $status, $dream, $requestFilters, $first, $count, $getLastDate = false)
     {
         $query =
             $this->getEntityManager()
                 ->createQueryBuilder()
-                ->addSelect('ug, g, a, i, ss')
                 ->from('AppBundle:UserGoal', 'ug')
                 ->join('ug.goal', 'g')
-                ->join('ug.user', 'ugu')
-                ->leftJoin('g.author', 'a')
-                ->leftJoin('g.successStories', 'ss')
-                ->leftJoin('g.images', 'i')
-                ->where('ugu.id = :user ')
+                ->where('ug.user = :user')
                 ->setParameter('user', $userId)
         ;
 
@@ -139,21 +135,59 @@ class UserGoalRepository extends EntityRepository
 
         // check dream
         if($dream){
-            $subQuery->orWhere('ug.doDate is null');
+            $subQuery
+                ->orWhere('ug.doDate is null AND ug.status != :completedStatus');
+
+            $query
+                ->setParameter('completedStatus', UserGoal::COMPLETED);
         }
 
         $query->andWhere($subQuery->getDQLPart('where'));
 
-        if (is_numeric($first) && is_numeric($count)){
-            $query
-                ->setFirstResult($first)
-                ->setMaxResults($count);
+        $query
+            ->setFirstResult($first)
+            ->setMaxResults($count);
 
-            $paginator = new Paginator($query, $fetchJoinCollection = true);
-            return $paginator->getIterator()->getArrayCopy();
+
+        if ($getLastDate){
+
+            $filters = $this->getEntityManager()->getFilters();
+            if ($filters->isEnabled('visibility_filter')){
+                $filters->disable('visibility_filter');
+            }
+
+            $dates = $query
+                ->select('ug.id, ug.updated as updated')
+                ->getQuery()
+                ->getResult();
+
+
+            if (count($dates) == 0){
+                return null;
+            }
+
+            $lastModifiedDate = $dates[0]['updated'];
+            $etag = $dates[0]['id'];
+            for($i = 1; $i < count($dates); $i++){
+                if ($lastModifiedDate < $dates[$i]['updated']){
+                    $lastModifiedDate = $dates[$i]['updated'];
+                }
+
+                $etag .=  '_' . $dates[$i]['id'];
+            }
+
+            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
         }
 
-        return $query->getQuery();
+        $query
+            ->addSelect('ug, g, a, i, ss')
+            ->leftJoin('g.author', 'a')
+            ->leftJoin('g.successStories', 'ss')
+            ->leftJoin('g.images', 'i');
+
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator->getIterator()->getArrayCopy();
     }
 
     /**

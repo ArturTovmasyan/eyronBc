@@ -26,6 +26,10 @@ bucketlist: Bucket List 127
 featured_ideas: Избранное
 featured: Избранное
 
+#settings
+setting:
+  invalid_user_name: Имя не может быть цифры или символы, пожалуйста, введите правильное имя
+
 #Share
 message_on_top_of_the_page: Поздравляем, вы успешно достигли своей цели!
 share_title: Поделитесь своим достижением

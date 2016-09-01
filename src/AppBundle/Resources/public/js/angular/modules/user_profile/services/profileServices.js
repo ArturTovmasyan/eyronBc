@@ -71,7 +71,7 @@ angular.module('profile')
       this.busy = true;
       //when profile page
       if(data){
-        UserGoalDataManager.profile({}, data, function (newData) {
+        UserGoalDataManager.profile(data, function (newData) {
           if(!newData.user_goals.length){
             this.noItem = true;
           } else {
@@ -186,7 +186,7 @@ angular.module('profile')
       if(this.request){
         this.getReserve(post);
       } else {
-        UserGoalDataManager.profile({}, post, function (newData) {
+        UserGoalDataManager.profile(post, function (newData) {
           // if get empty
           if(!newData.user_goals.length){
             this.noItem = true;

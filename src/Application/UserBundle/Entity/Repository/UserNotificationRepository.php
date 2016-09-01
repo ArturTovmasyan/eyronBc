@@ -15,21 +15,57 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
      * @param $first
      * @param $count
      * @param null $lastId
+     * @param bool|false $getLastModified
      * @return array
      */
-    public function getUserNotifications($userId, $first, $count, $lastId = null)
+    public function getUserNotifications($userId, $first, $count, $lastId = null, $getLastModified = false)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT un, n
-                           FROM ApplicationUserBundle:UserNotification un
-                           JOIN un.notification n
-                           WHERE un.user = :userId AND (:lastId IS NULL OR (:lastId <= 0 AND un.id > -1 * :lastId) OR (:lastId > 0 AND un.id < :lastId))
-                           ORDER BY n.created DESC")
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('un, n')
+            ->from('ApplicationUserBundle:UserNotification', 'un')
+            ->join('un.notification', 'n')
+            ->where('un.user = :userId')
+            ->orderBy('n.created', 'DESC')
             ->setParameter('userId', $userId)
-            ->setParameter('lastId', $lastId)
             ->setFirstResult($first)
-            ->setMaxResults($count)
-            ->getResult();
+            ->setMaxResults($count);
+
+
+        if (!is_null($lastId)){
+            if ($lastId > 0){
+                $query
+                    ->andWhere('un.id < :lastId')
+                    ->setParameter('lastId', $lastId)
+                ;
+            }
+            else {
+                $query
+                    ->andWhere('un.id > :lastId')
+                    ->setParameter('lastId', -1 * $lastId)
+                ;
+            }
+        }
+
+        if ($getLastModified){
+            $data = $query
+                ->select('n.id, n.created')
+                ->getQuery()
+                ->getResult();
+
+            if (count($data) == 0){
+                return null;
+            }
+
+            $etag = '';
+            foreach($data as $d){
+                $etag .= '_' . $d['id'];
+            }
+
+            return ['lastModified' => $data[0]['created'], 'etag' => md5($etag)];
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /**

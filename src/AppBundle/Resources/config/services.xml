@@ -12,6 +12,11 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
+        <!-- Success story service -->
+        <service id="bl_story_service" class="AppBundle\Services\SuccessStoryService">
+            <argument type="service" id="service_container" />
+        </service>
+
         <!--  User Notify Service -->
         <service id="user_notify" class="AppBundle\Services\UserNotifyService">
             <argument type="service" id="service_container" />

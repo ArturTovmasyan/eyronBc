@@ -3,7 +3,7 @@
 angular.module('goalManage')
   .service('UserGoalDataManager', ['$resource', 'envPrefix', '$analytics', '$timeout', '$rootScope', 'refreshCacheService', 'UserContext', 'refreshingDate',
     function($resource, envPrefix, $analytics, $timeout, $rootScope, refreshCacheService, UserContext, refreshingDate){
-    return $resource( envPrefix + 'api/v1.0/:path/:id/:where/:what/:param', {}, {
+    return $resource( envPrefix + 'api/:version/:path/:id/:where/:what/:param', {version: 'v1.0'}, {
       get: {method:'GET', params:{ path:'usergoals'}},
       creates: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           $analytics.eventTrack('Goal create', {  category: 'Goal', label: 'Goal create from Web' });
@@ -21,7 +21,7 @@ angular.module('goalManage')
           $analytics.eventTrack('Goal manage', {  category: 'Goal', label: 'Goal manage from Web' });
           return angular.fromJson(object);
       }},
-      profile: {method:'POST', params:{ path:'usergoals',id: 'bucketlists'}, transformResponse: function (object) {
+      profile: {method:'GET', params:{ path:'usergoals',id: 'bucketlists', version: 'v2.0'}, transformResponse: function (object) {
         return angular.fromJson(object);
       }},
       common: {method:'GET', params:{ path:'goals',where: 'common'}, transformResponse: function (object) {

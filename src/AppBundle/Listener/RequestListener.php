@@ -10,7 +10,6 @@ namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
  * Class LocaleListener

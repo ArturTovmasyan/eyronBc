@@ -72,6 +72,15 @@ class MainController extends Controller
             return $this->render('AppBundle:Main:index.html.twig', array('goals' => $goals, 'stories' => $stories), $response);
         }
 
+
+        if ($request->getSession()->has('vote_story_id')){
+            $storyId = $request->getSession()->get('vote_story_id');
+            $story = $em->getRepository('AppBundle:SuccessStory')->find($storyId);
+            $this->get('bl_story_service')->voteStory($storyId, $this->getUser());
+
+            return $this->redirectToRoute('inner_goal', ['slug' => $story->getGoal()->getSlug()]);
+        }
+
         //check and set user activity by new feed count
         $url = 'goals_list';
         $this->get('bl_service')->setUserActivity($user, $inLogin = true, $url);
