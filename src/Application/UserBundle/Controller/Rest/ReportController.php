@@ -12,6 +12,7 @@ use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -52,9 +53,22 @@ class ReportController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $content = (array) json_decode($request->getContent());
         $request->request->add($content);
+        $currentUser = $this->getUser();
 
-        $report = new Report();
-        $report->setUser($this->getUser());
+        $report = $em->getRepository("ApplicationUserBundle:Report")
+            ->findBy(array(
+                'user'          => $currentUser,
+                'contentId'     => $request->get('contentId', null),
+                'contentType'   => $request->get('contentType', null)
+            ));
+
+        if(count($report) == 0){
+            $report = new Report();
+        } else{
+            $report = $report[0];
+        }
+
+        $report->setUser($currentUser);
         $report->setReportType($request->get('reportType', null));
         $report->setContentType($request->get('contentType', null));
         $report->setContentId($request->get('contentId', null));
@@ -92,5 +106,36 @@ class ReportController extends FOSRestController
         $em->flush();
 
         return [];
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Report",
+     *  description="This function is used to get a report",
+     *  statusCodes={
+     *         200="Return when report was get",
+     *         400="Return when data is invalid",
+     *         404="Return when reported user or report content not found"
+     *     },
+     * )
+     *
+     * @Secure("ROLE_USER")
+     * @Rest\View(serializerGroups={"report"})
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function getAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $report = $em->getRepository("ApplicationUserBundle:Report")
+            ->findBy(array(
+                'user'          => $this->getUser(),
+                'contentId'     => $request->get('commentId'),
+                'contentType'   => $request->get('type')
+            ));
+
+        return (count($report) != 0)?$report[0]:null;
     }
 }

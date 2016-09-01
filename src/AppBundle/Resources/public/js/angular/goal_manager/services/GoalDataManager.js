@@ -31,6 +31,9 @@ angular.module('goalManage')
         return angular.fromJson(object);
       }},
       report: {method:'PUT', isArray: true, params:{ path:'report'}},
+      getReport: {method:'GET', params:{ path:'report'}, transformResponse: function (object) {
+        return object?angular.fromJson(object):object;
+      }},
       done: {method:'GET', params:{ path:'usergoals',where: 'dones', what: true }, transformResponse: function (object) {
         if(object == 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
