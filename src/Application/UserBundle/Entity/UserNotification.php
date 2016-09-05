@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserNotificationRepository")
- * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="notification_last_modified_index", columns={"user_id", "created"})})
+ * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="IDX_notification_last_modified", columns={"user_id", "created"})})
  */
 class UserNotification
 {

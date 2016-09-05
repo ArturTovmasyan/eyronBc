@@ -293,6 +293,8 @@ class UserGoalController extends FOSRestController
      */
     public function postBucketlistAction(Request $request)
     {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
             $content = $request->getContent();
             $request->request->add(json_decode($content, true));
@@ -349,18 +351,32 @@ class UserGoalController extends FOSRestController
             ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count);
 
         //This part is used to calculate goal stats
-        $goalIds = [];
+        $goalIds   = [];
+        $authorIds = [];
         foreach($userGoals as $userGoal){
             $goalIds[$userGoal->getGoal()->getId()] = 1;
+            if ($userGoal->getGoal()->getAuthor()) {
+                $authorIds[] = $userGoal->getGoal()->getAuthor()->getId();
+            }
         }
 
-        $stats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
 
         foreach($userGoals as $userGoal){
             $userGoal->getGoal()->setStats([
-                'listedBy' => $stats[$userGoal->getGoal()->getId()]['listedBy'],
-                'doneBy'   => $stats[$userGoal->getGoal()->getId()]['doneBy'],
+                'listedBy' => $goalStats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$userGoal->getGoal()->getId()]['doneBy'],
             ]);
+
+            if ($userGoal->getGoal()->getAuthor()) {
+                $stats = $authorstats[$userGoal->getGoal()->getAuthor()->getId()];
+                $userGoal->getGoal()->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
         }
 
         $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
