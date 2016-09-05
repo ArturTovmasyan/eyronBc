@@ -506,7 +506,7 @@ angular.module('goalComponents', ['Interpolation',
       AuthenticatorLoginService
     ){
       var myDate = moment(new Date()).add(50, 'years').format('YYYY');
-      $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
+      $scope.years = _.map($(Array(myDate - 1966 - 49)), function (val, i) { return myDate - i; });
       $scope.completeYears = _.map($(Array(myDate - 1966 - 50)), function (val, i) { return myDate - 50 - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
       $timeout(function () {
