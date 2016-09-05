@@ -7,9 +7,7 @@ angular.module('notification')
         readAll: {method:'GET', params:{ path:'notification', id: 'all', where: 'read'},  transformResponse: function (object) {
           return object;
         }},
-        readSingle: {method:'GET', params:{ path:'notifications', where: 'read'}, transformResponse: function (object) {
-          return angular.fromJson(object);
-        }},
+        readSingle: {method:'GET', params:{ path:'notifications', where: 'read'}},
         getAll: {method:'GET', params:{ path:'notifications'}, transformResponse: function (object) {
           return angular.fromJson(object);
         }},
