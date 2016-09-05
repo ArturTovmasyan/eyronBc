@@ -44,7 +44,12 @@ class UpdateNotificationsCommand extends ContainerAwareCommand
 
             $goal = $em->getRepository('AppBundle:Goal')->findOneBySlug($goalSlug);
             $notification->setGoalId($goal->getId());
-            $notification->setBody(strip_tags($notification->getBody()));
+
+            $body = strip_tags($notification->getBody());
+            if ($notification->getPerformer()) {
+                $body = str_replace($notification->getPerformer()->showName(), '', $body);
+            }
+            $notification->setBody($body);
 
             $progress->advance();
         }

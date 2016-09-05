@@ -99,8 +99,7 @@ class CommentController extends FOSRestController
         $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
         $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
         $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-        $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
-        $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.important_goal_comment' : 'notification.important_goal_reply', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+        $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.important_goal_comment' : 'notification.important_goal_reply', [], null, 'en');
         $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author is not admin and not null
@@ -108,7 +107,7 @@ class CommentController extends FOSRestController
             $this->get('user_notify')->sendNotifyAboutNewComment($goal, $this->getUser(), $body);
 
             //Send notification to goal author
-            $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.comment' : 'notification.reply', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
+            $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.comment' : 'notification.reply', [], null, 'en');
             $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
         }
 

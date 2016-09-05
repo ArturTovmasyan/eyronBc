@@ -310,9 +310,9 @@ users: Пользователь
 
 notification:
   no_notification: Нет оповещений
-  success_story: %user% написал историю удачи под вашей идеей
-  important_goal_success_story: %user% написал историю удачи под вашей важной идеей
-  success_story_vote: %user% проголосавал за вашу историю удачи
+  success_story: написал историю удачи под вашей идеей
+  important_goal_success_story: написал историю удачи под вашей важной идеей
+  success_story_vote: проголосавал за вашу историю удачи
   publish_goal: Ваша '%goal%' идеа была опубликована
 
 most-popular: Самое популярное
