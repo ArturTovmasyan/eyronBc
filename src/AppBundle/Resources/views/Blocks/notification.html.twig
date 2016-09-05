@@ -28,8 +28,9 @@
                            </figure>
 
                             <p>
-                               <span class="text-dark-gray" data-ng-bind-html="bodyInHtml(notify.notification.body)">
-                                {#<a href="#" class="text-dark-gray">USer name</a> add a goal#}
+                                <span>
+                                    <a data-ng-if="notify.notification.performer" data-ng-href="{{ env_prefix }}/profile/[[ ::user.u_id ]]" class="text-gray">[[ notify.notification.performer.show_name]]</a>
+                                   <span class="text-dark-gray" data-ng-bind-html="bodyInHtml(notify.notification.body)"></span>
                                 </span>
                                 <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" ]] </span>
                                 <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm a" ]] </span>
