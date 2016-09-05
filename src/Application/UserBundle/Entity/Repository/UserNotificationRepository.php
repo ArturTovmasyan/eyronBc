@@ -22,17 +22,15 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('un, n')
             ->from('ApplicationUserBundle:UserNotification', 'un')
-            ->join('un.notification', 'n')
             ->where('un.user = :userId')
-            ->orderBy('n.created', 'DESC')
+            ->orderBy('un.created', 'DESC')
             ->setParameter('userId', $userId)
             ->setFirstResult($first)
             ->setMaxResults($count);
 
 
-        if (!is_null($lastId)){
+        if ($lastId){
             if ($lastId > 0){
                 $query
                     ->andWhere('un.id < :lastId')
@@ -49,7 +47,7 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
 
         if ($getLastModified){
             $data = $query
-                ->select('n.id, n.created')
+                ->select('un.id, un.created')
                 ->getQuery()
                 ->getResult();
 
@@ -64,6 +62,11 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
 
             return ['lastModified' => $data[0]['created'], 'etag' => md5($etag)];
         }
+
+        $query
+            ->select('un, n')
+            ->join('un.notification', 'n');
+
 
         return $query->getQuery()->getResult();
     }
