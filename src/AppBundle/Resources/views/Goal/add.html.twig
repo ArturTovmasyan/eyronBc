@@ -88,13 +88,12 @@
                             </div>
                          </div>
 
-                         <div class="row bg-grey" data-ng-if="haveIdeas && showIdeas">
+                         <div class="row bg-grey" data-ng-if="haveIdeas && showIdeas" data-ng-cloak>
                              <div class="col-xs-12">
-                                 <div class="row no-gutter">
-                                     <div class="col-xs-9">
-                                         <h3 class="text-left text-dark">Existing similar goals</h3>
-                                     </div>
-                                     <div class="col-xs-3 text-right" data-ng-if="isMore">
+                                 <div class="row no-gutter existing-menu">
+                                     <div class="col-xs-10">
+                                         <h3 class="text-left pull-left text-dark">Existing similar goals</h3>
+
                                          <a href="#" data-ng-click="slickConfig.method.slickPrev()">
                                              <i class="icon-arrow-left">
                                                  <span class="path1"></span><span class="path2"></span>
@@ -105,8 +104,11 @@
                                              <i class="icon-arrow-right"></i>
                                          </a>
 
+                                     </div>
+                                     <div class="col-xs-2 text-right" data-ng-if="isMore">
+
                                          <a href="#" data-ng-click="$parent.$parent.showIdeas = false">
-                                             <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                             <i class="icon-remove-video-link"><span class="path2"></span><span class="path3"></span></i>
                                          </a>
 
                                      </div>

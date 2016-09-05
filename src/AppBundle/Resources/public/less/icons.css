@@ -724,12 +724,12 @@
 }
 .icon-arrow-left .path1:before {
     content: "\e99c";
-    color: rgb(176, 176, 176);
+    /*color: rgb(176, 176, 176);*/
 }
 .icon-arrow-left .path2:before {
     content: "\e99d";
     margin-left: -1em;
-    color: rgb(227, 227, 227);
+    /*color: rgb(227, 227, 227);*/
 }
 .icon-arrow-down .path1:before {
     content: "\e99e";
