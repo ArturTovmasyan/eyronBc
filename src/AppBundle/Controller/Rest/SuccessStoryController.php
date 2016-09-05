@@ -85,7 +85,7 @@ class SuccessStoryController extends FOSRestController
         $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
         $body = $this->get('translator')->trans('notification.important_goal_success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $importantAddedUsers);
+        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($this->getUser()->getId())) {
@@ -95,7 +95,7 @@ class SuccessStoryController extends FOSRestController
             //TODO: duplicate, will be deleted with this action
             //Send notification to goal author
             $body = $this->get('translator')->trans('notification.success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
-            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
+            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
         }
 
         $em->persist($successStory);
@@ -191,7 +191,7 @@ class SuccessStoryController extends FOSRestController
         $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
         $userLink = $this->get('router')->generate('user_profile', ['user' => $this->getUser()->getUid()]);
         $body = $this->get('translator')->trans('notification.important_goal_success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $importantAddedUsers);
+        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author not admin and not null
         if($goal->hasAuthorForNotify($this->getUser()->getId()) && is_null($successStory->getId())) {
@@ -199,7 +199,7 @@ class SuccessStoryController extends FOSRestController
 
             //Send notification to goal author
             $body = $this->get('translator')->trans('notification.success_story', ['%user%' => $this->getUser()->showName(), '%profile_link%' => $userLink], null, 'en');
-            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $body, $goal->getAuthor());
+            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
         }
 
         $em->persist($successStory);

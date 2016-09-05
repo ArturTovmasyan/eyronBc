@@ -45,6 +45,7 @@ class Notification
 
     /**
      * @ORM\Column(name="goal_id", type="integer", nullable=false)
+     * @Groups({"notification"})
      */
     protected $goalId;
 
