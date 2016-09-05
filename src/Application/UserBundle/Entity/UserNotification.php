@@ -9,10 +9,11 @@ namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserNotificationRepository")
- * @ORM\Table(name="user_notification")
+ * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="notification_last_modified_index", columns={"user_id", "created"})})
  */
 class UserNotification
 {
@@ -47,6 +48,12 @@ class UserNotification
      */
     protected $isRead = false;
 
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @Groups({"userNotification"})
+     */
+    protected $created;
 
     /**
      * Get id
@@ -80,6 +87,22 @@ class UserNotification
     public function getIsRead()
     {
         return $this->isRead;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
     /**

@@ -62,14 +62,8 @@ class NotificationController extends Controller
 
         $response = new Response();
         $response->setLastModified($lastModified['lastModified']);
-        $response->setEtag($lastModified['etag']);
         $response->headers->set('cache-control', 'private, must-revalidate');
-
-        $etags = $request->getETags();
-        if (isset($etags[0])) {
-            $etag = str_replace('-gzip', '', $etags[0]);
-            $request->headers->set('If-None-Match', $etag);
-        }
+        $response->headers->set('ETag', $lastModified['etag']);
 
         if ($response->isNotModified($request)){
             return $response;
