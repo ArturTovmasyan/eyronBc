@@ -1,8 +1,8 @@
 notification:
-  comment: <a href="%profile_link%">%user%</a> commented on your <a href='#'>goal</a>
-  important_goal_comment: <a href="%profile_link%">%user%</a> commented on your important <a href='#'>goal</a>
-  reply: <a href="%profile_link%">%user%</a> replied to a comment on your <a href='#'>goal</a>
-  important_goal_reply: <a href="%profile_link%">%user%</a> replied to a comment on your important <a href='#'>goal</a>
+  comment: %user% commented on your goal
+  important_goal_comment: %user% commented on your important goal
+  reply: %user% replied to a comment on your goal
+  important_goal_reply: %user% replied to a comment on your important goal
 
 admin:
   label:

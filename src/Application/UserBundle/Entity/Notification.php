@@ -44,6 +44,11 @@ class Notification
     protected $link;
 
     /**
+     * @ORM\Column(name="goal_id", type="integer", nullable=false)
+     */
+    protected $goalId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="performer_id", referencedColumnName="id")
      *
@@ -195,5 +200,21 @@ class Notification
     public function setLink($link)
     {
         $this->link = $link;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoalId()
+    {
+        return $this->goalId;
+    }
+
+    /**
+     * @param mixed $goalId
+     */
+    public function setGoalId($goalId)
+    {
+        $this->goalId = $goalId;
     }
 }
