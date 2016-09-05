@@ -1,8 +1,8 @@
 notification:
-  comment: %user% commented on your goal
-  important_goal_comment: %user% commented on your important goal
-  reply: %user% replied to a comment on your goal
-  important_goal_reply: %user% replied to a comment on your important goal
+  comment: commented on your goal
+  important_goal_comment: commented on your important goal
+  reply: replied to a comment on your goal
+  important_goal_reply: replied to a comment on your important goal
 
 admin:
   label:

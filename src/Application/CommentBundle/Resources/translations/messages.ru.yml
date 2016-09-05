@@ -1,8 +1,8 @@
 notification:
-  comment: %user% написал коммент под вашей идеей
-  important_goal_comment: %user% написал коммент под вашей важней идеей
-  reply: %user% атветил на коммент под вашей идеей
-  important_goal_reply: %user% атветил на коммент под вашей важней идеей
+  comment: написал коммент под вашей идеей
+  important_goal_comment: написал коммент под вашей важней идеей
+  reply: атветил на коммент под вашей идеей
+  important_goal_reply: атветил на коммент под вашей важней идеей
 
 admin:
   label:
