@@ -43,7 +43,7 @@ class UpdateNotificationsCommand extends ContainerAwareCommand
             $goalSlug = array_pop($goalSlug);
 
             $goal = $em->getRepository('AppBundle:Goal')->findOneBySlug($goalSlug);
-            if ($goal->getId()) {
+            if ($goal) {
                 $notification->setGoalId($goal->getId());
             }
 
