@@ -431,6 +431,12 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
 
+        $timeout(function () {
+            var afilateHeight = $('.affiliate-right iframe').height();
+            $('.affiliate-right iframe').height(afilateHeight + 20);
+        }, 2000);
+
+
         $timeout(function(){
             if(window.location.hash && window.location.hash == "#/comments"){
 
@@ -571,15 +577,22 @@ angular.module('goal', ['Interpolation',
         };
 
         if(angular.element('.goal-information') && screen.width >= 992  && window.innerWidth >= 992) {
-            angular.element('.goal-information').scrollToFixed({
-                marginTop: 85,
-                limit: function () {
-                    return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
-                },
-                unfixed: function() {
-                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
-                    angular.element('.goal-information').css('left', '0').css('top', limit);}
-            });
+            $timeout(function () {
+                angular.element('.goal-information').scrollToFixed({
+                    marginTop: 85,
+                    limit: function () {
+                        return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true);
+                    },
+                    unfixed: function () {
+                        var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 300;
+                        angular.element('.goal-information').css('left', '0').css('top', limit);
+                    },
+                    fixed: function() { angular.element('.right-menu-scroll').css('position', 'static'); },
+                    preFixed: function() { angular.element('.right-menu-scroll').css('position', 'absolute'); },
+                    preUnfixed: function() { angular.element('.right-menu-scroll').css('position', 'absolute'); },
+                    preAbsolute: function() { angular.element('.right-menu-scroll').css('position', 'static'); }
+                });
+            },1000);
         }
 
         if(angular.element('.suggest-input input')) {
