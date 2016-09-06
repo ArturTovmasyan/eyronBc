@@ -1,8 +1,8 @@
 notification:
-  comment: <a href="%profile_link%">%user%</a> написал коммент под вашей <a href='#'>идеей</a>
-  important_goal_comment: <a href="%profile_link%">%user%</a> написал коммент под вашей важней <a href='#'>идеей</a>
-  reply: <a href="%profile_link%">%user%</a> атветил на коммент под вашей <a href='#'>идеей</a>
-  important_goal_reply: <a href="%profile_link%">%user%</a> атветил на коммент под вашей важней <a href='#'>идеей</a>
+  comment: написал коммент под вашей идеей
+  important_goal_comment: написал коммент под вашей важней идеей
+  reply: атветил на коммент под вашей идеей
+  important_goal_reply: атветил на коммент под вашей важней идеей
 
 admin:
   label:

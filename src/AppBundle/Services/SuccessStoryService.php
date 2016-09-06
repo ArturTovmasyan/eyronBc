@@ -39,9 +39,8 @@ class SuccessStoryService
 
         //Send notification to goal author
         $link = $this->container->get('router')->generate('inner_goal', ['slug' => $successStory->getGoal()->getSlug()]);
-        $userLink = $this->container->get('router')->generate('user_profile', ['user' => $user->getUid()]);
-        $body = $this->container->get('translator')->trans('notification.success_story_vote', ['%user%' => $user->showName(), '%profile_link%' => $userLink], null, 'en');
-        $this->container->get('bl_notification')->sendNotification($user, $link, $body, $successStory->getUser());
+        $body = $this->container->get('translator')->trans('notification.success_story_vote', [], null, 'en');
+        $this->container->get('bl_notification')->sendNotification($user, $link, $successStory->getGoal()->getId(), $body, $successStory->getUser());
 
         return new JsonResponse();
     }

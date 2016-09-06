@@ -21,7 +21,7 @@ class NotificationService
         $this->entityManager = $entityManager;
     }
 
-    public function sendNotification($user, $link, $body, $toUsers)
+    public function sendNotification($user, $link, $goalId, $body, $toUsers)
     {
         if (!is_array($toUsers)){
             $toUsers = [$toUsers];
@@ -33,6 +33,7 @@ class NotificationService
 
         $notification = new Notification();
         $notification->setLink($link);
+        $notification->setGoalId($goalId);
         $notification->setBody($body);
         $notification->setPerformer($user);
         $this->entityManager->persist($notification);
