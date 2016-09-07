@@ -32,11 +32,10 @@ angular.module('main',['mgcrea.ngStrap.modal',
         '$timeout',
         'deviceDetector',
         '$filter',
-        'voteData',
         'AuthenticatorLoginService',
         'envPrefix',
         '$http',
-        function($scope, $modal, $timeout, deviceDetector, $filter, voteData, AuthenticatorLoginService, envPrefix, $http){
+        function($scope, $modal, $timeout, deviceDetector, $filter, AuthenticatorLoginService, envPrefix, $http){
 
         //if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
         //    // open modal
@@ -52,12 +51,10 @@ angular.module('main',['mgcrea.ngStrap.modal',
             return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
         };
 
-        $scope.openSignInPopover = function(id, goalPath){
+        $scope.openSignInPopover = function(id){
             var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
             url = url.replace('{storyId}', id);
-            voteData.likePath = url;
-            voteData.goalPath = goalPath;
-            $http.get(voteData.likePath).success(function() {})
+            $http.get(url).success(function() {})
             .error(function (res) {
               AuthenticatorLoginService.openLoginPopup();
             });
