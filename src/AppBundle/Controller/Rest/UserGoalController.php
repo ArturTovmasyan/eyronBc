@@ -301,11 +301,11 @@ class UserGoalController extends FOSRestController
         }
 
         $em        = $this->getDoctrine()->getManager();
-        $userId    = $request->query->get('userId');
+        $userId    = $request->get('userId');
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
 
         // check conditions
-        switch($request->query->get('condition')){
+        switch($request->get('condition')){
             case UserGoal::ACTIVE:
                 $condition = UserGoal::ACTIVE;
                 break;
@@ -317,14 +317,14 @@ class UserGoalController extends FOSRestController
         }
 
         $dream = $this->toBool($request->query->get('isDream'));
-        $first = $request->query->get('first');
-        $count = $request->query->get('count');
+        $first = $request->get('first');
+        $count = $request->get('count');
 
         $requestFilter = [];
-        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->query->get('urgentImportant'));
-        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->query->get('urgentNotImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->query->get('notUrgentImportant'));
-        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->query->get('notUrgentNotImportant'));
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
 
         $response = new Response();
 
