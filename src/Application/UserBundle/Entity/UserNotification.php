@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserNotificationRepository")
- * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="IDX_notification_last_modified", columns={"user_id", "created"})})
+ * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="IDX_notification_last_modified", columns={"user_id", "updated"})})
  */
 class UserNotification
 {
@@ -49,11 +49,11 @@ class UserNotification
     protected $isRead = false;
 
     /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime", nullable=false)
      * @Groups({"userNotification"})
      */
-    protected $created;
+    protected $updated;
 
     /**
      * Get id
@@ -92,17 +92,17 @@ class UserNotification
     /**
      * @return mixed
      */
-    public function getCreated()
+    public function getUpdated()
     {
-        return $this->created;
+        return $this->updated;
     }
 
     /**
-     * @param mixed $created
+     * @param mixed $updated
      */
-    public function setCreated($created)
+    public function setUpdated($updated)
     {
-        $this->created = $created;
+        $this->updated = $updated;
     }
 
     /**

@@ -50,7 +50,7 @@ class NotificationService
         }
 
         if ($insertDataInQuery){
-            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id, created) VALUES ' . trim($insertDataInQuery, ',');
+            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id, updated) VALUES ' . trim($insertDataInQuery, ',');
 
             $stmt = $this->entityManager->getConnection()->prepare($insertDataInQuery);
             $stmt->execute();
