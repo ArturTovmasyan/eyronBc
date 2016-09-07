@@ -211,7 +211,7 @@ class GoalAdmin extends AbstractAdmin
                 $container = $this->getConfigurationPool()->getContainer();
                 $link = $container->get('router')->generate('inner_goal', ['slug' => $object->getSlug()]);
                 $body = $container->get('translator')->trans('notification.publish_goal', ['%goal%' => $object->getTitle()], null, 'en');
-                $container->get('bl_notification')->sendNotification(null, $link, $body, $object->getAuthor());
+                $container->get('bl_notification')->sendNotification(null, $link, $object->getId(), $body, $object->getAuthor());
             }
         }
         // get current user

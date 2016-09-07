@@ -87,6 +87,7 @@
     width: 40px;
     height: 40px;
     margin: 0 10px 15px 0;
+    overflow: hidden;
 
     img{
       height: 40px;
@@ -188,6 +189,80 @@
   }
 }
 
+.comment-place{
+  padding:10px 10px 0;
+  background-color: #f4f4f4;
+  font-size: 17px;
+  position: relative;
+  margin: 0 0 9px;
+  color:#4a4a4a;
+  white-space: normal;
+  word-break: break-word;
+
+  a{
+    cursor: pointer;
+  }
+
+  figure{
+    margin-top:10px;
+    img{
+      width: 100%;
+    }
+  }
+
+  figure.user-image{
+    margin: 0 10px 8px 0;
+    background-color: transparent;
+    width:40px;
+    height:40px;
+
+    img,span{
+      height:40px;
+      width:40px;
+      border:2px solid #cecece;
+      line-height: 34px;
+    }
+
+    span{
+      display: inline-block;
+    }
+  }
+
+  p{
+    padding:0;
+    font-size:14px;
+    color:#666666;
+    margin:0;
+    white-space: normal;
+    word-break: break-word;
+
+    &:first-child{
+      font-weight:600;
+    }
+
+    &:last-child{
+      padding:0 0 5px 0;
+      text-align: justify;
+      font-weight: normal;
+    }
+  }
+
+  span{
+    font-size:12px;
+    color:#999999;
+
+    &.report{
+      font-size:14px;
+      color: #666666;
+    }
+  }
+
+  .swiper-container-free-mode{
+    .swiper-wrapper{
+      margin: 20px auto;
+    }
+  }
+}
 @media (min-width: @screen-sm){
   #fos_comment_thread {
     figure{
@@ -202,15 +277,6 @@
   }
 
   .comments-column{
-
-    //figure{
-    //  p{
-    //    width: 45px;
-    //    height: 45px;
-    //    line-height: 40px;
-    //  }
-    //}
-
     .leave-comment{
       width: 90%;
       margin: 0 0 0 10px;
@@ -222,6 +288,19 @@
     }
   }
 
+  .comment-place{
+    padding:15px 10px 5px;
+    margin-bottom: 10px;
+
+    figure.user-image{
+      margin: 0 10px 15px 0;
+    }
+
+    span{
+      font-size:12px;
+    }
+  }
+
   .view-more-comments{
     display: inline-block;
     margin: 5px 0 15px;
@@ -229,6 +308,25 @@
 
     &:hover{
       color:#6108EA;
+    }
+  }
+}
+
+@media (min-width: @screen-md) {
+  .comment-place{
+    padding:20px 15px 30px;
+    margin-bottom: 20px;
+
+    figure.user-image{
+      margin: 0 20px 15px 0;
+    }
+
+    span{
+      font-size:13px;
+
+      &.text-purple{
+        font-size: 14px;
+      }
     }
   }
 }

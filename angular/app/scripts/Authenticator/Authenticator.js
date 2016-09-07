@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Authenticator', ['PathPrefix'])
+angular.module('Authenticator', ['PathPrefix', 'Interpolation'])
   .config(['$httpProvider', function($httpProvider){
     //$httpProvider.interceptors.push('AuthenticatorInterceptor');
   }])
@@ -43,7 +43,7 @@ angular.module('Authenticator', ['PathPrefix'])
 
     return {
       openLoginPopup: function(){
-        $http.get('/app/scripts/Authenticator/login.html')
+        $http.get('/login')
           .success(function(res){
             openModal(angular.element(res));
             $rootScope.$broadcast('showAuthenticatorLoginButton', true)
@@ -102,24 +102,57 @@ angular.module('Authenticator', ['PathPrefix'])
     '$scope',
     'AuthenticatorLoginService',
     'envPrefix',
+    '$timeout',
+    'voteData',
+    '$http',
     function(
       $scope,
       AuthenticatorLoginService,
-      envPrefix
+      envPrefix,
+      $timeout,
+      voteData,
+      $http
     ){
 
     $scope.envPrefix  = envPrefix;
     $scope.login_form = {};
 
-    $scope.login = function(){
-      AuthenticatorLoginService.login($scope.login_form)
-        .success(function(){
-          window.location.reload();
-        })
-        .error(function(res){
-          $scope.error = res;
-        });
-    }
+    $timeout(function(){
+      angular.element("#login-form").ajaxForm({
+        beforeSubmit: function(){
+          $scope.$apply();
+        },
+        success: function(res, text, header){
+          if(voteData.likePath && voteData.goalPath){
+            var path = voteData.goalPath;
+            $http.get(voteData.likePath).success(function() {
+              voteData.likePath = '';
+              voteData.goalPath = '';
+              window.location.href = path;
+            })
+            .error(function (res) {
+              window.location.reload();
+            });
+          }else {
+            window.location.reload();
+          }
+        },
+        error: function(res){
+          $scope.error = 'Bad credentials';
+          $scope.$apply();
+        }
+      });
+    },500);
+
+    // $scope.login = function(){
+    //   AuthenticatorLoginService.login($scope.login_form)
+    //     .success(function(){
+    //       window.location.reload();
+    //     })
+    //     .error(function(res){
+    //       $scope.error = res;
+    //     });
+    // }
   }]);
 
 

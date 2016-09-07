@@ -10,7 +10,6 @@ namespace AppBundle\Listener;
 
 use AppBundle\Controller\Rest\MainRestController;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -29,6 +28,7 @@ class RequestListener //implements EventSubscriberInterface
     private $mandatoryVersions;
     private $tokenStorage;
     private $em;
+    private $translator;
     private $stopwatch;
 
     /**
@@ -38,13 +38,17 @@ class RequestListener //implements EventSubscriberInterface
      * @param $androidMandatoryVersion
      * @param TokenStorage $tokenStorage
      * @param EntityManager $entityManager
+     * @param $translator
+     * @param Stopwatch $stopwatch
      */
-    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion, TokenStorage $tokenStorage, EntityManager $entityManager, Stopwatch $stopwatch)
+    public function __construct($defaultLocale = "en", $iosMandatoryVersion, $androidMandatoryVersion,
+                                TokenStorage $tokenStorage, EntityManager $entityManager, $translator, Stopwatch $stopwatch)
     {
         $this->defaultLocale = $defaultLocale;
         $this->tokenStorage  = $tokenStorage;
         $this->em            = $entityManager;
-        $this->stopwatch            = $stopwatch;
+        $this->translator    = $translator;
+        $this->stopwatch     = $stopwatch;
 
         $this->mandatoryVersions = [
             MainRestController::IOS_REQUEST_PARAM     => $iosMandatoryVersion,
@@ -104,7 +108,9 @@ class RequestListener //implements EventSubscriberInterface
                 $request->getSession()->set('_locale', $locale);
             } else {
                 // if no explicit locale has been set on this request, use one from the session
-                $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
+                $locale = $request->getSession()->get('_locale', $this->defaultLocale);
+                $request->setLocale($locale);
+                $this->translator->setLocale($locale);
             }
         }
         $stopwatch->stop('bl_set_locale_listener');

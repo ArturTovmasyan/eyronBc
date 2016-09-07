@@ -178,6 +178,8 @@ user:
     register_title: Регистрация
     register_description: Описание регистрации
     notify_settings_text: Что вы будете получитъ
+    profile: Профиль
+    notification: Уведомление
 
 
 

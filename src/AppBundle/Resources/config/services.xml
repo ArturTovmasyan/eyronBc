@@ -12,6 +12,11 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
+        <!-- Success story service -->
+        <service id="bl_story_service" class="AppBundle\Services\SuccessStoryService">
+            <argument type="service" id="service_container" />
+        </service>
+
         <!--  User Notify Service -->
         <service id="user_notify" class="AppBundle\Services\UserNotifyService">
             <argument type="service" id="service_container" />
@@ -56,6 +61,7 @@
             <argument>%android_mandatory_version%</argument>
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="translator" />
             <argument type="service" id="debug.stopwatch" />
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
         </service>

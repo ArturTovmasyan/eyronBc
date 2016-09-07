@@ -63,6 +63,24 @@ Feature: Activity
     And I click on show more
     And I wait for view "1000"
 
+  @javascript @notification
+  Scenario: Check notification functionality
+    Given I am on "/logout"
+    And I wait
+    When I am logged in as "user1"
+    Then I should see "user1"
+    And I should see "1"
+    When I click notify icon
+    And I wait
+    And I am on "/notifications"
+    And I wait
+    Then I should see "user2 useryan wrote success story on your important goal"
+    And I hover over the element
+    And I click mark as read
+    And I am on "/"
+    Then I should not see number on note icon
+    And I wait
+
   @javascript @goalFriend
   Scenario: Show me the my goalfriends and when I click on them let me see their inner pages
     Given I am on "/logout"
@@ -167,8 +185,7 @@ Feature: Activity
     And I wait
     And I click on "question-icon-new"
     And I wait for view "500"
-    And I follow "Add some goals"
-    Then I should be on "/goal/create"
+    And I am on "/goal/create"
     And I should see "user1"
 
   @javascript @someMore

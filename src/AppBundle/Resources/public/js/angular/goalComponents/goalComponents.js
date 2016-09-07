@@ -97,7 +97,8 @@ angular.module('goalComponents', ['Interpolation',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
       var path = envPrefix + "api/v1.0/goal/featured";
 
-      var popularCache = CacheFactory.get('bucketlist_by_feature');
+      var popularCache = CacheFactory.get('bucketlist_by_feature'),
+          deg = 360;
 
       if(!popularCache){
         popularCache = CacheFactory('bucketlist_by_feature', {
@@ -111,18 +112,24 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.refreshFeatures = function(){
+        angular.element('#featuresLoad').css({
+          '-webkit-transform': 'rotate('+deg+'deg)',
+          '-ms-transform': 'rotate('+deg+'deg)',
+          'transform': 'rotate('+deg+'deg)'
+        });
+        deg += 360;
         $http.get(path)
             .success(function(data){
-              $scope.features = data;
+              $scope.featureGoals = data;
               popularCache.put('features'+$scope.userId, data);
             });
       };
 
-      $scope.getPopularGoals = function(id){
+      $scope.getFeatureGoals = function(id){
 
         var features = popularCache.get('features'+id);
 
-        if (!features) {
+        if (!features || !features.length) {
 
           $http.get(path)
               .success(function(data){
@@ -151,7 +158,7 @@ angular.module('goalComponents', ['Interpolation',
       });
 
       $scope.$watch('userId', function(id){
-        $scope.getPopularGoals(id);
+        $scope.getFeatureGoals(id);
       })
     }])
   .controller('userStatesController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
@@ -270,12 +277,10 @@ angular.module('goalComponents', ['Interpolation',
       $scope.newAdded = userGoalData.manage? false: true;
       $scope.goalLink = window.location.origin + envPrefix + 'goal/' +$scope.userGoal.goal.slug;
       $scope.files = [];
+      $scope.uploadingFiles = [];
       $scope.successStory = {};
       var imageCount = 6;
       var clickable = true;
-      if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files)){
-        imageCount = 6 - $scope.userGoal.story.files.length
-      }
 
       $('body').on('focus', 'textarea[name=story]', function() {
         $('textarea[name=story]').removeClass('border-red');
@@ -423,6 +428,17 @@ angular.module('goalComponents', ['Interpolation',
             },
             removedfile: function(d){
               angular.element(d.previewElement).remove();
+              if($scope.uploadingFiles.length){
+                var uploadIndex = $scope.uploadingFiles.indexOf(d);
+                if(uploadIndex != -1){
+                  $scope.uploadingFiles.splice(uploadIndex, 1);
+                }
+
+                if($scope.uploadingFiles.length >= imageCount && $scope.uploadingFiles[imageCount -1].status == 'error'){
+                  $scope.goalDropzone.processFile( $scope.uploadingFiles[imageCount -1]);
+                  $scope.uploadingFiles[imageCount -1].accepted = true;
+                }
+              }
               var id = JSON.parse(d.xhr.responseText);
               var index = $scope.files.indexOf(id);
               if(index !== -1){
@@ -433,13 +449,16 @@ angular.module('goalComponents', ['Interpolation',
             },
             complete: function(res){
               clickable = true;
-              if(res.xhr.status !== 200){
+              if(!res.xhr || res.xhr.status !== 200){
                 return;
               }
 
               $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
               $scope.$apply();
             }
+          });
+          $scope.goalDropzone.on("thumbnail", function(file) {
+            $scope.uploadingFiles = $scope.uploadingFiles.concat(file);
           });
           if(!angular.isUndefined($scope.userGoal.story) && !angular.isUndefined($scope.userGoal.story.files) && $scope.userGoal.story.files) {
             var existingFiles = $scope.userGoal.story.files;
@@ -448,8 +467,9 @@ angular.module('goalComponents', ['Interpolation',
 
               $scope.files.push(value.id);
 
-              var mockFile = {name: value.file_original_name, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
+              var mockFile = {name: value.file_original_name, accepted : true, size: value.file_size, fileName: value.file_name, xhr: {responseText: value.id}};
 
+              $scope.goalDropzone.files.push(mockFile);
               $scope.goalDropzone.emit("addedfile", mockFile);
               $scope.goalDropzone.emit("thumbnail", mockFile, value.image_path);
             });
@@ -486,7 +506,7 @@ angular.module('goalComponents', ['Interpolation',
       AuthenticatorLoginService
     ){
       var myDate = moment(new Date()).add(50, 'years').format('YYYY');
-      $scope.years = _.map($(Array(myDate - 1966)), function (val, i) { return myDate - i; });
+      $scope.years = _.map($(Array(myDate - 1966 - 49)), function (val, i) { return myDate - i; });
       $scope.completeYears = _.map($(Array(myDate - 1966 - 50)), function (val, i) { return myDate - 50 - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
       $timeout(function () {

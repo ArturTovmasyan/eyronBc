@@ -27,7 +27,9 @@ angular.module('manage', ['Interpolation',
             commonUrl = envPrefix + "user/common",
             reportUrl = envPrefix + "user/report",
             goalUsersUrl = envPrefix + "goal/users",
-            id = UserContext.id;
+            id = UserContext.id,
+            locale = UserContext.locale,
+            changedLanguage = false;
 
         var templateCache = CacheFactory.get('bucketlist_templates_v5');
 
@@ -39,13 +41,20 @@ angular.module('manage', ['Interpolation',
         }
 
         if(id){
-            var addTemplate = templateCache.get('add-template'+id);
-            var doneTemplate = templateCache.get('done-template'+id);
-            var commonTemplate = templateCache.get('common-template'+id);
-            var reportTemplate = templateCache.get('report-template'+id);
-            var goalUsersTemplate = templateCache.get('goal-users-template'+id);
+            var addTemplate = templateCache.get('add-template'+id),
+                doneTemplate = templateCache.get('done-template'+id),
+                commonTemplate = templateCache.get('common-template'+id),
+                reportTemplate = templateCache.get('report-template'+id),
+                goalUsersTemplate = templateCache.get('goal-users-template'+id),
+                localeInCache = templateCache.get('locale-language'+id);
 
-            if (!addTemplate) {
+            if (localeInCache && localeInCache != locale) {
+                changedLanguage = true;
+            }
+            
+            templateCache.put('locale-language'+id, locale);
+
+            if (!addTemplate || changedLanguage) {
                 $http.get(addUrl).success(function(data){
                     template.addTemplate = data;
                     templateCache.put('add-template'+id, data);
@@ -54,7 +63,7 @@ angular.module('manage', ['Interpolation',
                 template.addTemplate = addTemplate;
             }
 
-            if (!doneTemplate) {
+            if (!doneTemplate || changedLanguage) {
                 $http.get(doneUrl).success(function(data){
                     template.doneTemplate = data;
                     templateCache.put('done-template'+id, data);
@@ -63,7 +72,7 @@ angular.module('manage', ['Interpolation',
                 template.doneTemplate = doneTemplate;
             }
 
-            if (!commonTemplate) {
+            if (!commonTemplate && changedLanguage) {
                 $http.get(commonUrl).success(function(data){
                     template.commonTemplate = data;
                     templateCache.put('common-template'+id, data);
@@ -72,16 +81,16 @@ angular.module('manage', ['Interpolation',
                 template.commonTemplate = commonTemplate;
             }
 
-            if (!reportTemplate) {
+            if (!reportTemplate || changedLanguage) {
                 $http.get(reportUrl).success(function(data){
                     template.reportTemplate = data;
-                    //templateCache.put('report-template'+id, data);
+                    templateCache.put('report-template'+id, data);
                 })
             }else {
                 template.reportTemplate = reportTemplate;
             }
 
-            if (!goalUsersTemplate) {
+            if (!goalUsersTemplate || changedLanguage) {
                 $http.get(goalUsersUrl).success(function(data){
                     template.goalUsersTemplate = data;
                     templateCache.put('goal-users-template'+id, data);

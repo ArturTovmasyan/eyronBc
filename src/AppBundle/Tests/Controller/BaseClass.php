@@ -6,7 +6,7 @@ use AppBundle\Entity\UserGoal;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class BaseClass extends WebTestCase
+abstract class BaseClass extends WebTestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager

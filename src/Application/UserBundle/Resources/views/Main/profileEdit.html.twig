@@ -16,7 +16,7 @@
                             <div class="col-sm-6">
                                 {{ form_widget(form.firstName, {'attr': {'class' : 'form-control', 'placeholder': 'form.firstName'|trans({}, 'FOSUserBundle') } }) }}
                                 <div class="error-message">
-                                    {{ form_errors(form.firstName) }}
+                                    {{ form_errors(form.firstName)?('setting.invalid_user_name'|trans): '' }}
                                 </div>
                             </div>
 

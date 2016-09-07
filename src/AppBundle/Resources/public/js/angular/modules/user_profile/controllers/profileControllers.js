@@ -230,6 +230,12 @@ angular.module('profile')
     $scope.reportDate.contentId = userData.report.comment;
     $scope.reportDate.contentType = userData.report.type;
     $scope.isReported = false;
+    UserGoalDataManager.getReport({type: userData.report.type, commentId: userData.report.comment}, function (data) {
+      if(data.content_id){
+        $scope.reportOption = data.report_type?data.report_type:null;
+        $scope.reportText = data.message?data.message:'';
+      }
+    });
 
     $scope.report = function(){
       if(!($scope.reportOption || $scope.reportText))return;

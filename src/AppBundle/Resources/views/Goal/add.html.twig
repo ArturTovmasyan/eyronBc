@@ -75,7 +75,7 @@
         <div class="container">
              <div class="row">
                  <div class="col-sm-12">
-                     <div class="goals">
+                     <div class="goals" data-ng-init="showIdeas = true">
                      {{ form_errors(form) }}
 
                          <div class="row bg-white">
@@ -84,29 +84,37 @@
                                      {{ form_widget(form.title, {'attr': {'class':'form-control title', 'placeholder' : 'Title', 'data-ng-model' : "addTitle",
                                          'data-ng-change' : "searchGoal($event)"} }) }}
                                  </div>
-                                 <div data-ng-if="haveIdeas" class="padding-top"></div>
+                                 <div data-ng-if="haveIdeas && showIdeas" class="padding-top"></div>
                             </div>
                          </div>
 
-                         <div class="row bg-grey" data-ng-if="haveIdeas">
+                         <div class="row bg-grey" data-ng-if="haveIdeas && showIdeas" data-ng-cloak>
                              <div class="col-xs-12">
-                             <div class="row no-gutter">
-                                 <div class="col-xs-9">
-                                     <h3 class="text-left text-dark">Existing similar goals</h3>
+                                 <div class="row no-gutter existing-menu">
+                                     <div class="col-xs-10">
+                                         <h3 class="text-left pull-left text-dark">Existing similar goals</h3>
+
+                                         <a href="#" data-ng-click="slickConfig.method.slickPrev()">
+                                             <i class="icon-arrow-left">
+                                                 <span class="path1"></span><span class="path2"></span>
+                                             </i>
+                                         </a>
+
+                                         <a href="#" data-ng-click="slickConfig.method.slickNext()">
+                                             <i class="icon-arrow-right"></i>
+                                         </a>
+
+                                     </div>
+                                     <div class="col-xs-2 text-right" data-ng-if="isMore">
+
+                                         <a href="#" data-ng-click="$parent.$parent.showIdeas = false">
+                                             <i class="icon-remove-video-link"><span class="path2"></span><span class="path3"></span></i>
+                                         </a>
+
+                                     </div>
                                  </div>
-                                 <div class="col-xs-3 text-right" data-ng-if="isMore">
-                                     <a href="#" data-ng-click="slickConfig.method.slickPrev()">
-                                         <i class="icon-arrow-left">
-                                             <span class="path1"></span><span class="path2"></span>
-                                         </i>
-                                     </a>
-                                     <a href="#" data-ng-click="slickConfig.method.slickNext()">
-                                         <i class="icon-arrow-right"></i>
-                                     </a>
-                                 </div>
-                             </div>
                                  <slick settings="slickConfig" class="row idea-item">
-                                     <div class="col-sm-6 col-md-4 goals-animate"
+                                     <div class="col-md-4 goals-animate"
                                           data-ng-cloak
                                           data-ng-repeat="goal in Ideas.items">
                                          <figure>
@@ -124,33 +132,33 @@
                                                  <ul>
                                                      <li>
                                                          <a data-ng-href="{{ env_prefix }}/listed-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.listedBy)">
-                                            <span>
-                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                [[ ::goal.stats.listedBy ]]
-                                            </span>
+                                                             <span>
+                                                                {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                [[ ::goal.stats.listedBy ]]
+                                                             </span>
                                                              <i class="icon-user-small"></i>
                                                          </a>
 
-                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
-                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                            [[ ::goal.stats.listedBy ]]
-                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
-                                        </span>
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.listedBy)">
+                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                            [[ ::goal.stats.listedBy ]]
+                                                            <i data-ng-hide="castInt(goal.stats.listedBy)" class="ng-hide icon-user-small"></i>
+                                                        </span>
                                                      </li>
                                                      <li>
                                                          <a data-ng-href="{{ env_prefix }}/done-users/[[ ::goal.slug ]]" data-ng-show="castInt(goal.stats.doneBy)">
-                                            <span>
-                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                [[ ::goal.stats.doneBy ]]
-                                            </span>
+                                                             <span>
+                                                                {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                [[ ::goal.stats.doneBy ]]
+                                                             </span>
                                                              <i class="icon-user-small"></i>
                                                          </a>
 
-                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
-                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                            [[ ::goal.stats.doneBy ]]
-                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
-                                        </span>
+                                                        <span class="text-white ng-hide" data-ng-hide="castInt(goal.stats.doneBy)">
+                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                            [[ ::goal.stats.doneBy ]]
+                                                            <i data-ng-hide="castInt(goal.stats.doneBy)" class="ng-hide icon-user-small"></i>
+                                                        </span>
                                                      </li>
                                                  </ul>
                                              </div>
@@ -209,7 +217,6 @@
                                      {% for image in images %}
                                              <div class="col-sm-2">
                                                  <a href="{{ path("app_get_rest_goal_removeimage", {'id' : image.id }) }}">
-                                                     {#<i class="icon remove-icon"></i>#}
                                                      <i class="icon-remove-video-link"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                  </a>
                                                  <img src="{{ image.downloadLink }}" alt="{{ image.filename }}" class="img-responsive"/>

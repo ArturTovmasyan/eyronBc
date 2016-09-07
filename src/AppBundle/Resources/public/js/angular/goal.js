@@ -23,6 +23,7 @@ angular.module('goal', ['Interpolation',
         'slickCarousel',
         'notification',
         'activity',
+        'adds',
         'comments'
     ])
     .config(function (localStorageServiceProvider ) {
@@ -201,6 +202,8 @@ angular.module('goal', ['Interpolation',
         function($scope, $sce, $timeout, AuthenticatorLoginService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
 
         $scope.files = [];
+        $scope.uploadingFiles = [];
+        var imageCount = 6;
 
         $scope.slickConfig = {
             slidesToShow: 3,
@@ -209,11 +212,11 @@ angular.module('goal', ['Interpolation',
             method: {},
             responsive: [
                 {
-                    breakpoint: 768,
+                    breakpoint: 769,
                     settings: {
                         arrows: false,
                         centerMode: true,
-                        centerPadding: '40px',
+                        centerPadding: '4px',
                         slidesToShow: 2
                     }
                 },
@@ -222,7 +225,7 @@ angular.module('goal', ['Interpolation',
                     settings: {
                         arrows: false,
                         centerMode: true,
-                        centerPadding: '40px',
+                        centerPadding: '4px',
                         slidesToShow: 1
                     }
                 }
@@ -260,22 +263,6 @@ angular.module('goal', ['Interpolation',
             AuthenticatorLoginService.openLoginPopup();
         };
 
-        $timeout(function(){
-            angular.element("#goal-done-form").ajaxForm({
-                beforeSubmit: function(){
-                    $scope.$apply();
-                },
-                success: function(res, text, header){
-                    if(header.status === 200){
-                        $analytics.eventTrack('Success story', {  category: 'Success story', label: 'Add success story from Web' });
-                        angular.element('#cancel').click();
-                        $scope.$apply();
-
-                    }
-                }
-            });
-        },500);
-
         angular.element('input[type=checkbox]').iCheck({
             checkboxClass: 'icheckbox_square-purple',
             increaseArea: '20%'
@@ -303,6 +290,17 @@ angular.module('goal', ['Interpolation',
                     maxFiles: 6,
                     removedfile: function(d){
                         angular.element(d.previewElement).remove();
+                        if($scope.uploadingFiles.length){
+                            var uploadIndex = $scope.uploadingFiles.indexOf(d);
+                            if(uploadIndex != -1){
+                                $scope.uploadingFiles.splice(uploadIndex, 1);
+                            }
+
+                            if($scope.uploadingFiles.length >= imageCount && $scope.uploadingFiles[imageCount -1].status == 'error'){
+                                $scope.goalDropzone.processFile( $scope.uploadingFiles[imageCount -1]);
+                                $scope.uploadingFiles[imageCount -1].accepted = true;
+                            }
+                        }
                         var id = JSON.parse(d.xhr.responseText);
                         var index = $scope.files.indexOf(id);
                         if(index !== -1){
@@ -312,13 +310,16 @@ angular.module('goal', ['Interpolation',
                         $scope.$apply();
                     },
                     complete: function(res){
-                        if(res.xhr.status !== 200){
+                        if(!res.xhr || res.xhr.status !== 200){
                             return;
                         }
 
                         $scope.files = $scope.files.concat(JSON.parse(res.xhr.responseText));
                         $scope.$apply();
                     }
+                });
+                $scope.goalDropzone.on("thumbnail", function(file) {
+                    $scope.uploadingFiles = $scope.uploadingFiles.concat(file);
                 });
 
                 $scope.goalDropzone.on('addedfile', function(){
@@ -429,6 +430,12 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryShow = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
+
+        $timeout(function () {
+            var afilateHeight = $('.affiliate-right iframe').height();
+            $('.affiliate-right iframe').height(afilateHeight + 20);
+        }, 2000);
+
 
         $timeout(function(){
             if(window.location.hash && window.location.hash == "#/comments"){
@@ -570,15 +577,22 @@ angular.module('goal', ['Interpolation',
         };
 
         if(angular.element('.goal-information') && screen.width >= 992  && window.innerWidth >= 992) {
-            angular.element('.goal-information').scrollToFixed({
-                marginTop: 85,
-                limit: function () {
-                    return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 15;
-                },
-                unfixed: function() {
-                    var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 355;
-                    angular.element('.goal-information').css('left', '0').css('top', limit);}
-            });
+            $timeout(function () {
+                angular.element('.goal-information').scrollToFixed({
+                    marginTop: 85,
+                    limit: function () {
+                        return angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true);
+                    },
+                    unfixed: function () {
+                        var limit = angular.element('#random_goals').offset().top - angular.element('.goal-information').outerHeight(true) - 300;
+                        angular.element('.goal-information').css('left', '0').css('top', limit);
+                    },
+                    fixed: function() { angular.element('.right-menu-scroll').css('position', 'static'); },
+                    preFixed: function() { angular.element('.right-menu-scroll').css('position', 'absolute'); },
+                    preUnfixed: function() { angular.element('.right-menu-scroll').css('position', 'absolute'); },
+                    preAbsolute: function() { angular.element('.right-menu-scroll').css('position', 'static'); }
+                });
+            },1000);
         }
 
         if(angular.element('.suggest-input input')) {
@@ -605,7 +619,7 @@ angular.module('goal', ['Interpolation',
             return parseInt(value);
         };
 
-        function slideInsert(count){
+        function slideInsert(count, miniDevice){
             $timeout(function(){
                 var list_swiper = new Swiper('div.filters-slider:not(.swiper-container-horizontal)', {
                     observer: true,
@@ -618,6 +632,17 @@ angular.module('goal', ['Interpolation',
 
                 $scope.filterVisibility = true;
                 $scope.fadeMapIcon = true;
+
+                if(miniDevice){
+                    for (var i = 0, length = list_swiper.slides.length; i < length; i++) {
+                        var slide = list_swiper.slides.eq(i);
+                        if (slide.hasClass('active-category')) {
+                            var index = slide.index();
+                            list_swiper.slideTo((index>0)?(index-1):0, 0, true, true);
+                        }
+                    }
+                }
+
             }, 100);
         }
 
@@ -659,7 +684,7 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function(){
             if(window.innerWidth < 766){
-                slideInsert(3);
+                slideInsert(3, true);
                 $scope.isMobile = true;
                 //$scope.placeholder = '';
             }

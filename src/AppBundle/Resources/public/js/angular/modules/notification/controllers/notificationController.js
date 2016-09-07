@@ -31,7 +31,7 @@ angular.module('notification')
       };
 
       NotificationManager.getAll({id: 0,where: 10}, function (res) {
-        $scope.newNotCount = res.unreadCount;
+        $scope.newNotCount = res.unreadCount?res.unreadCount:0;
         $scope.notifies = res.userNotifications;
       });
 
@@ -48,7 +48,9 @@ angular.module('notification')
       var interval = $interval(newNotifications,30000);
 
       $scope.bodyInHtml = function(body) {
-        return $sce.trustAsHtml(body);
+        var words = body.split(" "),
+            lastWord = words[words.length -1];
+        return $sce.trustAsHtml(body.slice(0, -1 * lastWord.length) + "<a href='#'>"+ lastWord + "</a>");
       };
       
       $scope.delete = function(id, index){
@@ -208,7 +210,9 @@ angular.module('notification')
       $scope.nextNotifications();
 
       $scope.bodyInHtml = function(body) {
-        return $sce.trustAsHtml(body);
+        var words = body.split(" "),
+          lastWord = words[words.length -1];
+        return $sce.trustAsHtml(body.slice(0, -1 * lastWord.length) + "<a href='#'>"+ lastWord + "</a>");
       };
 
       $scope.delete = function(id, index){

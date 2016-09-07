@@ -2,6 +2,7 @@
 
 namespace AppBundle\Features\Context;
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
@@ -15,7 +16,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     use KernelDictionary;
 
     public function __construct(Session $session, $simpleArg)
-    {}
+    {
+    }
 
     /**
      * @When I wait for angular
@@ -51,9 +53,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
     }
 
     /**
-     * @BeforeStep
+     * @BeforeScenario
      */
-    public function beforeStep()
+    public function BeforeScenario()
     {
         $this->getSession()->getDriver()->maximizeWindow();
     }
@@ -92,6 +94,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //set password
         $password = 'Test1234';
 
+        //reload current page
+//        $this->reload();
+        
         //open login form
         $this->clickLink('JOIN');
 
@@ -100,7 +105,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //set data in login form
         $this->iSetUsernameAndPassword($userName, $password);
 
-        $this->iWaitForView(1500);
+        //wait for open page after login
+        $this->iWaitForView(1000);
 
         //check if user admin
         if($user == 'admin') {
@@ -150,7 +156,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //find password
         $page->fillField('_password', $password);
 
-        $page->pressButton('submit');
+        $element = $page->find('xpath', '//button[@type="submit"]');
+
+        $element->doubleClick();
     }
 
     /**
@@ -533,5 +541,104 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
     }
 
+    /**
+     * @Given I click button :arg1
+     */
+    public function iClickButton($arg1)
+    {
+        $class = null;
 
+        if($arg1 == 'add') {
+            $class = 'icon-plus-icon';
+        }
+        elseif($arg1 == 'done') {
+            $class = 'icon-ok-icon';
+        }
+
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get merge goal a tag
+        $goalLink = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//i[@class="'.$class.'"])'));
+
+        $session->executeScript("window.scrollBy(0,20)", "");
+
+        //click goal link
+        $goalLink->click();
+    }
+
+    /**
+     * @When I click notify icon
+     */
+    public function iClickNotifyIcon()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //execute js code
+        $session->executeScript(' $( "div.dropdown" ).addClass( "open" );');
+    }
+
+    /**
+     * @When I click mark as read
+     */
+    public function iClickMarkAsRead()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //execute js code
+        $session->executeScript(' $.get( "http://behat.bucketlist.loc/api/v1.0/notification/all/read" );');
+    }
+
+    /**
+     * @Then I should not see number on note icon
+     */
+    public function iShouldNotSeeNumberOnNoteIcon()
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get merge goal a tag
+        $noteLink = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//sup[@class="ng-binding"])'));
+
+        if(count($noteLink) > 0) {
+            throw new PendingException("Notification read all link don't work correctly");
+        }
+    }
+
+
+    /**
+     * @Then I hover over the element
+     */
+    public function iHoverOverTheElement()
+    {
+        //get session
+        $session = $this->getSession();
+        
+        //get page
+        $page = $session->getPage();
+
+        //get element for hover
+        $element = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@id="notification-list"]//li[2])'));
+
+        // errors must not pass silently
+        if (null === $element) {
+        throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', 'notification-list'));
+        }
+
+        // ok, let's hover it
+        $element->mouseOver();
+
+        //get merge goal a tag
+        $removeLinks = $element->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//i[@class="close-icon"])'));
+
+        $removeLinks->click();
+    }
 }

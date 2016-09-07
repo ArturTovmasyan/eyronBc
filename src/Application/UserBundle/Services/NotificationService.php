@@ -21,7 +21,7 @@ class NotificationService
         $this->entityManager = $entityManager;
     }
 
-    public function sendNotification($user, $link, $body, $toUsers)
+    public function sendNotification($user, $link, $goalId, $body, $toUsers)
     {
         if (!is_array($toUsers)){
             $toUsers = [$toUsers];
@@ -33,6 +33,7 @@ class NotificationService
 
         $notification = new Notification();
         $notification->setLink($link);
+        $notification->setGoalId($goalId);
         $notification->setBody($body);
         $notification->setPerformer($user);
         $this->entityManager->persist($notification);
@@ -43,11 +44,13 @@ class NotificationService
             if (!is_null($user) && $user->getId() == $toUser->getId()){
                 continue;
             }
-                $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}),";
+
+            $currentDate = new \DateTime();
+            $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}, '{$currentDate->format('Y-m-d H:i:s')}'),";
         }
 
         if ($insertDataInQuery){
-            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id) VALUES ' . trim($insertDataInQuery, ',');
+            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id, created) VALUES ' . trim($insertDataInQuery, ',');
 
             $stmt = $this->entityManager->getConnection()->prepare($insertDataInQuery);
             $stmt->execute();

@@ -52,6 +52,14 @@
             <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
             {% endstylesheets %}
 
+            {% if app.request.locale == 'ru' %}
+                {% stylesheets output='css/ru.css'
+                'bundles/app/less/ru.less'
+                filter='less,cssrewrite' %}
+                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+                {% endstylesheets %}
+            {% endif %}
+
         {% endblock %}
 
         {#<link rel="stylesheet" href="{{ asset('app/bower_components/jquery-modal/jquery.modal.css') }}">#}
@@ -446,6 +454,7 @@
                 'app/bower_components/angular-animate/angular-animate.min.js'
                 'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'
                 'app/bower_components/angular-sanitize/angular-sanitize.min.js'
+                'app/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js'
                 'app/bower_components/angular-strap/dist/angular-strap.min.js'
                 'app/bower_components/angular-strap/dist/angular-strap.tpl.min.js'
                 'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
@@ -467,6 +476,7 @@
                 'app/scripts/Google/Google.js'
                 'bundles/applicationuser/js/angular/user.js'
                 'bundles/app/js/angular/facebook/facebook.js'
+                'bundles/app/js/angular/modules/affiliate/adds.js'
                 'bundles/app/js/angular/modules/notification/notification.js'
                 'bundles/app/js/angular/modules/notification/controllers/notificationController.js'
                 'bundles/app/js/angular/modules/notification/services/NotificationManager.js'
@@ -490,12 +500,13 @@
 
             <script>
                 angular.module('Components').constant('UserContext',{
-                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %}
+                    id: {% if app.user is defined and app.user %}{{ app.user.id }}{% else %}0{% endif %},
+                    locale: '{{ app.request.getLocale() }}'
                 });
 
                 {% if not app.user and (app.session.flashBag.peekAll|length and
-                    app.session.flashBag.peekAll['error'] is defined and
-                    app.session.flashBag.get('error') is not null) %}
+                    app.session.flashBag.peekAll['error-open-login'] is defined and
+                    app.session.flashBag.get('error-open-login') is not null) %}
 
                     angular.module('Authenticator').run(['AuthenticatorLoginService', '$timeout', function(AuthenticatorLoginService, $timeout){
                         $timeout(AuthenticatorLoginService.openLoginPopup, 1000);

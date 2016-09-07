@@ -20,7 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
- * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="duplicate_user_goal", columns={"user_id", "goal_id"})})
+ * @ORM\Table(name="users_goals", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_goal", columns={"user_id", "goal_id"})},
+ *                                indexes={@ORM\Index(name="IDX_profile_last_modified", columns={"user_id", "id", "goal_id", "updated"})})
  * @ORM\EntityListeners({"AppBundle\Listener\UserGoalListener"})
  */
 class UserGoal implements ActivityableInterface
@@ -149,6 +150,13 @@ class UserGoal implements ActivityableInterface
      * @Groups({"user"})
      **/
     protected $user;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime")
+     * @Groups({"userGoal"})
+     */
+    protected $updated;
 
     /**
      * Constructor
@@ -601,5 +609,29 @@ class UserGoal implements ActivityableInterface
     public function getDoDateStatus()
     {
         return $this->doDateStatus;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return UserGoal
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

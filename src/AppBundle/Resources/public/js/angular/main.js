@@ -8,6 +8,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'goalComponents',
     'user',
     'Confirm',
+    'videosharing-embed',
     'Components',
     'Interpolation',
     'Google',
@@ -16,6 +17,7 @@ angular.module('main',['mgcrea.ngStrap.modal',
     'Authenticator',
     'notification',
     'activity',
+    'ngScrollbars',
     'ngSanitize'])
     .config(function(CacheFactoryProvider){
         angular.extend(CacheFactoryProvider.defaults, {
@@ -29,7 +31,12 @@ angular.module('main',['mgcrea.ngStrap.modal',
         '$modal',
         '$timeout',
         'deviceDetector',
-        function($scope, $modal, $timeout, deviceDetector){
+        '$filter',
+        'voteData',
+        'AuthenticatorLoginService',
+        'envPrefix',
+        '$http',
+        function($scope, $modal, $timeout, deviceDetector, $filter, voteData, AuthenticatorLoginService, envPrefix, $http){
 
         //if (deviceDetector.raw.os.android || deviceDetector.raw.os.ios) {
         //    // open modal
@@ -37,15 +44,23 @@ angular.module('main',['mgcrea.ngStrap.modal',
         //        $scope.$broadcast('openLsModal', 'mobileDetectModal');
         //    }, 500);
         //}
+        $scope.capitalizeFirstLetter = function (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+        };
 
-        $scope.openSignInPopover = function(){
-            var middleScope = angular.element(".sign-in-popover").scope();
-            var popoverScope = middleScope.$$childHead;
+        $scope.dateToLocal = function(date){
+            return $scope.capitalizeFirstLetter($filter('date')(new Date(date), "MMMM d 'at' hh:mm a"));
+        };
 
-            if(!popoverScope.$isShown){
-                popoverScope.$show();
-                middleScope.joinToggle2 = !middleScope.joinToggle2;
-            }
+        $scope.openSignInPopover = function(id, goalPath){
+            var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
+            url = url.replace('{storyId}', id);
+            voteData.likePath = url;
+            voteData.goalPath = goalPath;
+            $http.get(voteData.likePath).success(function() {})
+            .error(function (res) {
+              AuthenticatorLoginService.openLoginPopup();
+            });
         };
 
         $scope.triggerMap = function(mapSelector){
@@ -63,6 +78,34 @@ angular.module('main',['mgcrea.ngStrap.modal',
         $scope.onMarkerClick = function(goal){
             $scope.mapPopup = goal;
             $modal({scope: $scope, templateUrl: '/bundles/app/htmls/mapPopup.html',show: true});
+        };
+
+        var storyCount = $( ".swiper-wrapper" ).data('story-count');
+
+        if(storyCount){
+            for(var i = 0;i<storyCount;i++){
+                $( '.swipebox-'+i ).swipebox();
+                $( '.swipebox-video-'+i ).swipebox();
+            }
+        }
+
+        $scope.scroller_config = {
+            autoHideScrollbar: false,
+            theme: 'minimal-dark',
+            axis: 'y',
+            advanced:{
+                updateOnContentResize: true
+            },
+            callbacks:{
+                onCreate: function(){
+                    $(this).css({
+                        'height': 'initial',
+                        'max-height': '100px'
+                    });
+                }
+            },
+            setHeight: 200,
+            scrollInertia: 0
         };
 
     }])

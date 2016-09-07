@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Class Report
@@ -30,6 +31,7 @@ class Report
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"report"})
      */
     protected $id;
 
@@ -49,23 +51,27 @@ class Report
      * @ORM\Column(name="content_type", type="smallint", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Choice(callback = "getAllowedTypes")
+     * @Groups({"report"})
      */
     protected $contentType;
 
     /**
      * @ORM\Column(name="content_id", type="string", length=30, nullable=false)
      * @Assert\NotBlank()
+     * @Groups({"report"})
      */
     protected $contentId;
 
     /**
      * @ORM\Column(name="report_type", type="smallint", nullable=true)
      * @Assert\Choice(callback = "getAllowedReportTypes")
+     * @Groups({"report"})
      */
     protected $reportType;
 
     /**
      * @ORM\Column(name="message", type="string", length=1000, nullable=true)
+     * @Groups({"report"})
      */
     protected $message;
 
