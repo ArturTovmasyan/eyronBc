@@ -255,6 +255,9 @@
                                     </ul>
                                 </li>
                             </ul>
+                            <div id="affiliate-right" class="right-menu-scroll bg-white">
+                                <adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
+                            </div>
                         </div>
                     {% endif %}
                 </div>
@@ -363,7 +366,6 @@
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                        <adds-affiliate class="affiliate-right" data-zone="4" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
 
                         {% if page == inner %}
 
