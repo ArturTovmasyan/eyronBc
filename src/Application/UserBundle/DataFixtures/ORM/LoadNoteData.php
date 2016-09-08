@@ -40,6 +40,7 @@ class LoadNoteData extends AbstractFixture implements OrderedFixtureInterface, C
         // create user
         $note = new Notification();
         $note->setBody('TEST NOTE');
+        $note->setGoalId(1);
         $note->addUserNotification($userNot);
         $note->setLink('/goal/goal9');
 

@@ -75,6 +75,7 @@ class MainController extends Controller
 
         if ($request->getSession()->has('vote_story_id')){
             $storyId = $request->getSession()->get('vote_story_id');
+            $request->getSession()->remove('vote_story_id');
             $story = $em->getRepository('AppBundle:SuccessStory')->find($storyId);
             $this->get('bl_story_service')->voteStory($storyId, $this->getUser());
 

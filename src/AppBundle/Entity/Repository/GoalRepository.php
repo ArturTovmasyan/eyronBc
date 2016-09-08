@@ -286,7 +286,7 @@ class GoalRepository extends EntityRepository
                 ->setParameter('publish', PublishAware::PUBLISH)
         ;
 
-        $isRandom = (!$search && !$category);
+        $isRandom = (!$search && ($category != 'most-popular'));
 
         if($search){
             $sortSelect = "MATCH_AGAINST(g.title, :search) * 10 + MATCH_AGAINST(g.description, :search) as HIDDEN cnt";
