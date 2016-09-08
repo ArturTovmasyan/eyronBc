@@ -140,51 +140,19 @@ class BucketListService
      * This function is used to check user have activity and set it
      *
      * @param $user
-     * @param bool $inLogin
      * @param string $url
      */
-    public function setUserActivity($user, $inLogin = false, &$url = null)
+    public function setUserActivity($user, &$url = null)
     {
-        if ($user->getActivity()){
-            $url = 'activity';
-        }
-
-        //If user is logged in then show news feed
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 
-        //check if service call after login
-        if ($inLogin) {
-            
-            //check user is not have a new feed
-            if ($feedCount == 0) {
-                //set redirect url to ideas list
-                $url = 'goals_list';
-                $user->setActivity(false);
-
-            } else {
-
-                //set redirect url to activity page
-                $url = 'activity';
-                $user->setActivity(true);
-            }
+        if ($feedCount == 0) {
+            $url = 'goals_list';
+            $user->setActivity(false);
         }
         else {
-            
-            //check if user don't have activity
-            if (!$user->getActivity()) {
-
-                //check if user dont have activity
-                if($feedCount > 0) {
-                    $user->setActivity(true);
-                }
-            }
-            else{
-
-                //check if user don't have new feed
-                if($feedCount == 0) {
-                    $user->setActivity(false);
-                }
-            }
+            $url = 'activity';
+            $user->setActivity(true);
         }
 
         $this->em->persist($user);

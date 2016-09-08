@@ -84,7 +84,7 @@ class MainController extends Controller
 
         //check and set user activity by new feed count
         $url = 'goals_list';
-        $this->get('bl_service')->setUserActivity($user, $inLogin = true, $url);
+        $this->get('bl_service')->setUserActivity($user, $url);
         
         return $this->redirectToRoute($url);
     }

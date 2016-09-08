@@ -117,35 +117,7 @@ class MainController extends Controller
      */
     public function checkLoginAction(Request $request)
     {
-        //get entity manager
-        $em = $this->container->get('doctrine')->getManager();
-
-        //get current user
-        $user = $this->getUser();
-
-        //check if user haven`t any goals
-        if ($user && count($user->getUserGoal()) == 0) {
-
-            //check if user have activity
-            if($user->getActivity()) {
-                
-                //set user activity value
-                $user->setActivity(false);
-                $em->persist($user);
-                $em->flush();
-            }
-
-            //generate url
-            $url = $this->generateUrl('goals_list');
-        }
-        else {
-            // generate url
-            $url = $this->generateUrl('homepage');
-        }
-
-        $this->addFlash('error', '');
-
-        return $this->redirect($url);
+        return $this->redirectToRoute('homepage');
     }
 
     /**

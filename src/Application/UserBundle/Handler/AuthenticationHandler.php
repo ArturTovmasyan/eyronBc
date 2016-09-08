@@ -58,65 +58,42 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        // get roles
         $user = $token->getUser();
-
-        //get session
         $session = $request->getSession();
-
-        //get social name for user login
         $social = $user->getSocialsName();
 
-        //check if social exists
         if($social) {
-        //send login user by social event in google analytics
-        $request->getSession()
-            ->getFlashBag()
-                ->set('userLogin','User login by '.$social.' from Web')
-            ;
-        }
-        else{
+            //send login user by social event in google analytics
             $request->getSession()
                 ->getFlashBag()
-                ->set('userLogin','User native login from Web')
-            ;
+                ->set('userLogin','User login by ' . $social . ' from Web');
+        }
+        else {
+            $request->getSession()
+                ->getFlashBag()
+                ->set('userLogin','User native login from Web');
         }
 
         //check if user and session url exist
-        if ($user && $session->has('url') && !$user->isAdmin()) {
-
-            //get url is session
+        if ($user && $session->has('url') && !$user->isAdmin()){
             $url = $session->get('url');
-
-            //remove url
             $session->remove('url');
-
-        }
-        elseif ($user && ($user->isAdmin() || $user->hasRole('ROLE_GOD'))) {
-            $url = $this->router->generate('sonata_admin_dashboard');
         }
         else {
-            // generate url
-            $url = $this->router->generate('check-login');
+            $url = $this->router->generate('homepage');
         }
 
         // check request method
-        if ($request->isXmlHttpRequest()) {
-
-            // create response
+        if ($request->isXmlHttpRequest())
+        {
             $response =  new Response(Response::HTTP_OK);
             $response->setContent(json_encode(array('link' => $url)));
-
-            // set header
             $response->headers->set('Content-Type', 'application/json');
 
-            // return response
             return $response;
         }
-        else {
 
-            return new RedirectResponse($url);
-        }
+        return new RedirectResponse($url);
     }
 
     /**
