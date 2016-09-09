@@ -220,7 +220,7 @@ class GoalRepository extends EntityRepository
      * @param $user
      * @return array
      */
-    public function findMyDraftsCount(&$user)
+    public function findMyDraftsAndFriendsCount(&$user)
     {
         $query =
             $this->getEntityManager()
@@ -234,8 +234,13 @@ class GoalRepository extends EntityRepository
                 ->setParameter('readinessStatus', Goal::DRAFT)
         ;
 
+
         $draftCount = $query->getQuery()->getSingleScalarResult();
+
+        $this->findRandomGoalFriends($user->getId(), null, $goalFriendsCount, true);
+
         $user->setDraftCount($draftCount);
+        $user->setGoalFriendsCount($goalFriendsCount);
 
         return $draftCount;
     }
@@ -357,9 +362,11 @@ class GoalRepository extends EntityRepository
     /**
      * @param $userId
      * @param $count
+     * @param $allCount
+     * @param $getAllCount
      * @return array
      */
-    public function findRandomGoalFriends($userId, $count, &$allCount)
+    public function findRandomGoalFriends($userId, $count, &$allCount, $getAllCount = false)
     {
         $goalFriendIds = $this->getEntityManager()
                 ->createQueryBuilder()
@@ -374,11 +381,17 @@ class GoalRepository extends EntityRepository
                 ->getQuery()
                 ->getResult();
 
-        if (count($goalFriendIds) == 0){
+
+        $allCount = count($goalFriendIds);
+
+        if($getAllCount){
+            return $allCount;
+        }
+
+        if ($allCount == 0){
             return [];
         }
 
-        $allCount = count($goalFriendIds);
         shuffle($goalFriendIds);
         $goalFriendIds = array_slice($goalFriendIds, 0, $count);
 

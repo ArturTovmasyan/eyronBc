@@ -79,7 +79,7 @@ class SettingsController extends FOSRestController
             $em->persist($user);
             $em->flush();
 
-            $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+            $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
 
             return $user;
 
