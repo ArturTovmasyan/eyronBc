@@ -126,7 +126,7 @@ class UserController extends FOSRestController
         $token       = new UsernamePasswordToken($user, $user->getPassword(), $providerKey, $user->getRoles());
 
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($user);
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($user);
 
 
         if ($request->get('apikey')){
@@ -549,7 +549,8 @@ class UserController extends FOSRestController
         $currentUser = $this->get('security.token_storage')->getToken()->getUser();
 
         // get drafts
-        $em->getRepository("AppBundle:Goal")->findMyDraftsCount($currentUser);
+        $em->getRepository("AppBundle:Goal")->findMyDraftsAndFriendsCount($currentUser);
+
 
         //check if not logged in user
         if(!is_object($currentUser)) {

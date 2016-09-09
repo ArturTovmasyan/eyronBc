@@ -208,6 +208,11 @@ class User extends BaseUser
     protected $draftCount;
 
     /**
+     * @Groups({"user"})
+     */
+    protected $goalFriendsCount;
+
+    /**
      * @var
      * @Assert\Email(groups={"Settings", "MobileSettings"})
      */
@@ -347,6 +352,22 @@ class User extends BaseUser
     public function setDraftCount($draftCount)
     {
         $this->draftCount = $draftCount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoalFriendsCount()
+    {
+        return $this->goalFriendsCount;
+    }
+
+    /**
+     * @param mixed $goalFriendsCount
+     */
+    public function setGoalFriendsCount($goalFriendsCount)
+    {
+        $this->goalFriendsCount = $goalFriendsCount;
     }
 
     /**
