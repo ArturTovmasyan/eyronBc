@@ -98,6 +98,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('tags', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.tags', 'property'=>'tag', 'multiple' => true, 'required' => false))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'required' => false))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
+            ->add('status', null, array('label'=>'admin.label.name.goal_status'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('rawLocation', LocationType::class, array('label' => false))
@@ -162,7 +163,7 @@ class GoalAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
-            ->add('goalStatus', null, array('mapped' => false, 'template' => 'AppBundle:Admin:goal_status.html.twig', 'label'=>'admin.label.name.goal_status'))
+            ->add('status', null, array('editable' => true, 'label'=>'admin.label.name.goal_status'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
