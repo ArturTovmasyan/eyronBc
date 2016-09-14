@@ -128,7 +128,7 @@ class DoctrineListener
         elseif($entity instanceof User){
             if ($request && $request->get('_format') == "json" && $entity->getImagePath()){
                 $liipManager->getBrowserPath($entity->getImagePath(), 'user_goal');
-                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_goal'];
+                $params = ['path' => ltrim($entity->getImagePath(), '/'), 'filter' => 'user_icon'];
                 $filterUrl = $route->generate('liip_imagine_filter', $params);
                 $entity->setMobileImagePath($filterUrl);
             }
