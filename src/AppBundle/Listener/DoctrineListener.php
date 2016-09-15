@@ -104,6 +104,10 @@ class DoctrineListener
                 }
             }
 
+            if ($entity instanceof SuccessStory){
+                $entity->setIsVote($token->getUser());
+            }
+
             //Set user stats
             elseif ($entity instanceof User){
                 if ($this->loadUserStats){
