@@ -9,9 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Place
  *
- * @ORM\Table(name="place", indexes={
- * @ORM\Index(name="index_place_name", columns={"name"})
- * })
+ * @ORM\Table(name="place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_place", columns={"name", "place_type_id"})},
+ *                          indexes={@ORM\Index(name="index_place_name", columns={"name", "place_type_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  * @UniqueEntity(
  *     fields={"name", "placeType"},

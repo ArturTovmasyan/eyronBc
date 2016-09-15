@@ -34,7 +34,7 @@ class PlaceAdmin extends AbstractAdmin
 
         $formMapper
             ->add('name', null, array('label'=>'admin.label.name.name'))
-            ->add('placeType', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.type', 'property' => 'name', 'multiple' => false, 'required' => true))
+            ->add('placeType', null, array('label'=>'admin.label.name.type', 'required' => true))
         ;
     }
 

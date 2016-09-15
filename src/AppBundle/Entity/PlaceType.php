@@ -3,13 +3,19 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PlaceType
  *
- * @ORM\Table(name="place_type")
+ * @ORM\Table(name="place_type", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_place_type", columns={"name"})},
+ *                               indexes={@ORM\Index(name="index_place_type_name", columns={"name"})}))
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceTypeRepository")
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="This place type is already use."
+ * )
  */
 class PlaceType
 {

@@ -9,9 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * UserPlace
  *
- * @ORM\Table(name="user_place", indexes={
- * @ORM\Index(name="index_user_place", columns={"latitude", "longitude", "created"})
- * })
+ * @ORM\Table(name="user_place")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserPlaceRepository")
  */
 class UserPlace

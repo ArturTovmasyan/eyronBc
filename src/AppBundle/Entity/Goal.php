@@ -137,7 +137,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="Place", inversedBy="goal", cascade={"persist"})
-     * @ORM\JoinTable(name="goals_place",
+     * @ORM\JoinTable(name="goal_place",
      *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      *      )
