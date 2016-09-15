@@ -4,20 +4,22 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Place
  *
- * @ORM\Table(name="place")
+ * @ORM\Table(name="place", indexes={
+ * @ORM\Index(name="index_place_name", columns={"name"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  * @UniqueEntity(
- *     fields={"place", "place_type_id"},
+ *     fields={"name", "placeType"},
  *     message="This place is already use."
  * )
  */
 class Place
 {
-    
     /**
      * @var int
      *
@@ -30,14 +32,21 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="place", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=100)
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "Your place name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your place name cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\NotBlank(message = "Place name can't be blank")
      */
-    protected $place;
+    protected $name;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="PlaceType", inversedBy="place", cascade={"persist"})
-     * @ORM\JoinColumn(name="place_type_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="PlaceType")
      */
     protected $placeType;
 
@@ -51,7 +60,6 @@ class Place
      */
     protected $goal;
 
-    
     /**
      * Get id
      *
@@ -61,31 +69,6 @@ class Place
     {
         return $this->id;
     }
-
-    /**
-     * Set place
-     *
-     * @param string $place
-     *
-     * @return Place
-     */
-    public function setPlace($place)
-    {
-        $this->place = $place;
-
-        return $this;
-    }
-
-    /**
-     * Get place
-     *
-     * @return string
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
- 
 
     /**
      * Set placeType
@@ -184,5 +167,37 @@ class Place
     public function getUserPlace()
     {
         return $this->userPlace;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Place
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->name;
     }
 }

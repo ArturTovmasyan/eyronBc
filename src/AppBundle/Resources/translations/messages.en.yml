@@ -402,10 +402,12 @@ admin:
       goal_public: Public goal
       featured_date: Featured Date
       place: Place
+      type: Type
       place_type: Place Type
       user_place: User Place
       goal: Goal
-      type: Type
+      type_name: Name
+      place_name: Name
 
 # end sonata admin lable
 

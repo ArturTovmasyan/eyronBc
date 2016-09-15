@@ -23,9 +23,8 @@ class PlaceAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('place', 'text', array('label'=>'admin.label.name.place'))
-            ->add('placeType', null, array('label'=>'admin.label.name.place_type'))
-            ->add('userPlace', null, array('label'=>'admin.label.name.user_place'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('placeType', null, array('label'=>'admin.label.name.type'))
         ;
     }
 
@@ -34,8 +33,8 @@ class PlaceAdmin extends AbstractAdmin
     {
 
         $formMapper
-            ->add('place', 'text', array('label'=>'admin.label.name.place'))
-            ->add('placeType', null, array('label'=>'admin.label.name.place_type'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('placeType', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.type', 'property' => 'name', 'multiple' => false, 'required' => true))
         ;
     }
 
@@ -43,9 +42,9 @@ class PlaceAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-//            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('place', null, array('label'=>'admin.label.name.place', 'show_filter' => true))
-            ->add('placeType', null, array('label'=>'admin.label.name.place_type', 'show_filter' => true))
+            ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
+            ->add('name', null, array('label'=>'admin.label.name.name', 'show_filter' => true))
+            ->add('placeType.name', null, array('label'=>'admin.label.name.type', 'show_filter' => true))
         ;
     }
 
@@ -54,9 +53,8 @@ class PlaceAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('place', null, array('label'=>'admin.label.name.place'))
-            ->add('placeType', null, array('label'=>'admin.label.name.place_type'))
-            ->add('userPlace', null, array('label'=>'admin.label.name.user_place'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
+            ->add('placeType.name', 'text', array('label'=>'admin.label.name.type'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

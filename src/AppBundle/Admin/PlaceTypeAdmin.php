@@ -23,16 +23,15 @@ class PlaceTypeAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('type', null, array('label'=>'admin.label.name.type'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
         ;
     }
 
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $formMapper
-            ->add('type', null, array('label'=>'admin.label.name.type'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
         ;
     }
 
@@ -41,7 +40,7 @@ class PlaceTypeAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
-            ->add('type', null, array('label'=>'admin.label.name.type', 'show_filter' => true))
+            ->add('name', null, array('label'=>'admin.label.name.name', 'show_filter' => true))
         ;
     }
 
@@ -50,7 +49,7 @@ class PlaceTypeAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
-            ->add('getStringName', null, array('label'=>'admin.label.name.type'))
+            ->add('name', null, array('label'=>'admin.label.name.name'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

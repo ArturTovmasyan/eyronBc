@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PlaceType
@@ -12,10 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PlaceType
 {
-    //constants for place type
-    const COUNTRY = 0;
-    const CITY = 1;
-
     /**
      * @var int
      *
@@ -28,14 +25,17 @@ class PlaceType
     /**
      * @var int
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="name", type="string", length=60)
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 60,
+     *      minMessage = "Your place type must be at least {{ limit }} characters long",
+     *      maxMessage = "Your place type cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\NotBlank(message = "Place type can't be blank")
      */
-    protected $type;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Place", mappedBy="placeType", cascade={"persist", "remove"})
-     */
-    protected $place;
+    protected $name;
 
     /**
      * Get id
@@ -48,84 +48,34 @@ class PlaceType
     }
 
     /**
-     * Set type
+     * Set name
      *
-     * @param integer $type
+     * @param string $name
      *
      * @return PlaceType
      */
-    public function setType($type)
+    public function setName($name)
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get name
      *
-     * @return int
+     * @return string
      */
-    public function getType()
+    public function getName()
     {
-        return $this->type;
-    }
-  
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->place = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->name;
     }
 
     /**
-     * Add place
-     *
-     * @param \AppBundle\Entity\Place $place
-     *
-     * @return PlaceType
+     * @return string
      */
-    public function addPlace(\AppBundle\Entity\Place $place)
+    public function __toString()
     {
-        $this->place[] = $place;
-
-        return $this;
-    }
-
-    /**
-     * Remove place
-     *
-     * @param \AppBundle\Entity\Place $place
-     */
-    public function removePlace(\AppBundle\Entity\Place $place)
-    {
-        $this->place->removeElement($place);
-    }
-
-    /**
-     * Get place
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getStringName()
-    {
-        $value = null;
-        
-        if($this->type == self::CITY) {
-            $value = 'city';
-        } elseif($this->type == self::COUNTRY) {
-            $value = 'country';
-        }
-        
-        return $value;
+        return (string) $this->name;
     }
 }
