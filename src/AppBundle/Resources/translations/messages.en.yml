@@ -401,6 +401,11 @@ admin:
       enabled: Enabled
       goal_public: Public goal
       featured_date: Featured Date
+      place: Place
+      place_type: Place Type
+      user_place: User Place
+      goal: Goal
+      type: Type
 
 # end sonata admin lable
 

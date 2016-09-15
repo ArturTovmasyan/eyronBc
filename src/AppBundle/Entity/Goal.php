@@ -136,6 +136,15 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     protected $tags;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Place", inversedBy="goal", cascade={"persist"})
+     * @ORM\JoinTable(name="goals_place",
+     *      joinColumns={@ORM\JoinColumn(name="goal_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *      )
+     **/
+    protected $place;
+
+    /**
      * @var
      * @Groups({"goal", "tiny_goal"})
      * @ORM\Column(name="status", type="boolean", nullable=true)
@@ -1198,5 +1207,39 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     public function getAffiliates()
     {
         return $this->affiliates;
+    }
+
+    /**
+     * Add place
+     *
+     * @param \AppBundle\Entity\Place $place
+     *
+     * @return Goal
+     */
+    public function addPlace(\AppBundle\Entity\Place $place)
+    {
+        $this->place[] = $place;
+
+        return $this;
+    }
+
+    /**
+     * Remove place
+     *
+     * @param \AppBundle\Entity\Place $place
+     */
+    public function removePlace(\AppBundle\Entity\Place $place)
+    {
+        $this->place->removeElement($place);
+    }
+
+    /**
+     * Get place
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlace()
+    {
+        return $this->place;
     }
 }

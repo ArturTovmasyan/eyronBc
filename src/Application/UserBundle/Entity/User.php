@@ -103,6 +103,11 @@ class User extends BaseUser
     protected $editedGoals;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserPlace", indexBy="goal_id", mappedBy="user", cascade={"persist", "remove"})
+     */
+    protected $userPlace;
+    
+    /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
      * @Groups({"user"})
      * @Assert\NotBlank()
@@ -1886,5 +1891,39 @@ class User extends BaseUser
     public function getMatchedUsers()
     {
         return $this->matchedUsers;
+    }
+
+    /**
+     * Add userPlace
+     *
+     * @param \AppBundle\Entity\UserPlace $userPlace
+     *
+     * @return User
+     */
+    public function addUserPlace(\AppBundle\Entity\UserPlace $userPlace)
+    {
+        $this->userPlace[] = $userPlace;
+
+        return $this;
+    }
+
+    /**
+     * Remove userPlace
+     *
+     * @param \AppBundle\Entity\UserPlace $userPlace
+     */
+    public function removeUserPlace(\AppBundle\Entity\UserPlace $userPlace)
+    {
+        $this->userPlace->removeElement($userPlace);
+    }
+
+    /**
+     * Get userPlace
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserPlace()
+    {
+        return $this->userPlace;
     }
 }
