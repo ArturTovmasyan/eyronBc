@@ -387,7 +387,7 @@ liip_imagine:
                 opt_post_processor: {}
 
         goal_bg:
-            quality: 80
+            quality: 100
             filters:
                 thumbnail: { size: [780, 440], mode: outbound }
             post_processors:
