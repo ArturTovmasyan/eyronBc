@@ -29,7 +29,7 @@ class GetPlaceAndNotifyAboutDoneGoalService
      * @param $longitude
      * @return mixed
      */
-    public function getPlaceByGoogleGeoCodingApi($latitude, $longitude)
+    public function getPlaceByGeoCodingApi($latitude, $longitude)
     {
         //get geo coding api url
         $geoCodingUrl = $this->geoCodingUrl;

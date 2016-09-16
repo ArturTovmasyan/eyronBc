@@ -665,7 +665,7 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to get goal by place",
+     *  description="This function is used to get goal place by coordinate",
      *  statusCodes={
      *         200="Ok",
      *         400="Bad request"
@@ -701,7 +701,7 @@ class GoalController extends FOSRestController
             $confirmGoalDoneAndGetPlaceService = $this->get('app.notify_about_goal_by_place');
             
             //get place data
-            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceByGoogleGeoCodingApi($latitude, $longitude);
+            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceByGeoCodingApi($latitude, $longitude);
 
             //json decode data
             $response = json_decode($placeData, true);
