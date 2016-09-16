@@ -723,10 +723,9 @@ class UserController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
 
-        $data           = $request->request->all();
-        $registrationId = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
+        $registrationId = $request->get('registrationId', null);
         $registrationId = preg_replace('/\|ID\|\d\|:/', '', $registrationId);
-        $mobileOc       = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
+        $mobileOc       = $request->get('mobileOc', null);
 
         if(!$registrationId || !$mobileOc || !in_array($mobileOc, ['ios', 'android'])){
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Empty parameters value");
