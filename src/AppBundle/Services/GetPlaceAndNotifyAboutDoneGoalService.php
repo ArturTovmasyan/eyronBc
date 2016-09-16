@@ -38,7 +38,7 @@ class GetPlaceAndNotifyAboutDoneGoalService
         $key = $this->googleClientId;
 
         //generate geo coding url for get place data by lang and long
-        $url = $geoCodingUrl.'latlng='.$latitude.','.$longitude.'&sensor=false&language=en&result_type=country';
+        $url = $geoCodingUrl.'latlng='.$latitude.','.$longitude.'&sensor=false&language=en&result_type=country&key='.$key;
 
         // use curl for get response
         $ch = curl_init();
