@@ -635,8 +635,6 @@ class UserController extends FOSRestController
     }
 
     /**
-     * This function is used to get User`s register id
-     *
      * @ApiDoc(
      *  resource=true,
      *  section="User",
@@ -653,9 +651,9 @@ class UserController extends FOSRestController
      * }
      * )
      *
-     * @return Response
+     * @param Request $request
+     * @return JsonResponse
      * @Secure(roles="ROLE_USER")
-     * @Rest\View()
      */
     public function putDeviceIdAction(Request $request)
     {
@@ -663,11 +661,11 @@ class UserController extends FOSRestController
         $currentUser = $this->getUser();
 
         $data            = $request->request->all();
-        $registrationIds = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
-        $registrationIds = preg_replace('/\|ID\|\d\|:/', '', $registrationIds);
+        $registrationId = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
+        $registrationId = preg_replace('/\|ID\|\d\|:/', '', $registrationId);
         $mobileOc        = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
 
-        if(!$registrationIds || !$mobileOc || !in_array($mobileOc, ['ios', 'android'])){
+        if(!$registrationId || !$mobileOc || !in_array($mobileOc, ['ios', 'android'])){
             throw new HttpException(Response::HTTP_BAD_REQUEST, "Empty parameters value");
         }
 
@@ -675,14 +673,14 @@ class UserController extends FOSRestController
 
         if(array_key_exists($mobileOc, $regData)){
             $device = $regData[$mobileOc];
-            if(!in_array($registrationIds, $device)){
-                array_push($device, $registrationIds);
+            if(!in_array($registrationId, $device)){
+                array_push($device, $registrationId);
             }
 
             $regData[$mobileOc] = $device;
         }
         else {
-            $regData[$mobileOc][] =  $registrationIds;
+            $regData[$mobileOc][] =  $registrationId;
         }
 
         $currentUser->setRegistrationIds($regData);
@@ -694,6 +692,65 @@ class UserController extends FOSRestController
 
         $em->persist($currentUser);
         $em->flush();
+
+        return new JsonResponse(Response::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to remove User`s register id",
+     *  statusCodes={
+     *         204="There is no information to send back",
+     *         401="Access allowed only for registered users",
+     *         400="Bad request"
+     *     },
+     * parameters={
+     *      {"name"="registrationId", "dataType"="string", "required"=true, "description"="Device Id"},
+     *      {"name"="mobileOc", "dataType"="string", "required"=true, "description"="Mobile OC"},
+     *      {"name"="version", "dataType"="string", "required"=false, "description"="App Version"},
+     * }
+     * )
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @Secure(roles="ROLE_USER")
+     */
+    public function deleteDeviceIdAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentUser = $this->getUser();
+
+        $data           = $request->request->all();
+        $registrationId = array_key_exists('registrationId', $data) ? $data['registrationId'] : null;
+        $registrationId = preg_replace('/\|ID\|\d\|:/', '', $registrationId);
+        $mobileOc       = array_key_exists('mobileOc', $data) ? $data['mobileOc'] : null;
+
+        if(!$registrationId || !$mobileOc || !in_array($mobileOc, ['ios', 'android'])){
+            throw new HttpException(Response::HTTP_BAD_REQUEST, "Empty parameters value");
+        }
+
+        $regData = $currentUser->getRegistrationIds();
+
+        if(array_key_exists($mobileOc, $regData)){
+            $device = $regData[$mobileOc];
+            if(($key = array_search($registrationId, $device)) !== false){
+                unset($device[$key]);
+                $regData[$mobileOc] = $device;
+            }
+            else {
+                throw new HttpException(Response::HTTP_BAD_REQUEST, "The user hasn't such deviceId");
+            }
+        }
+        else {
+            throw new HttpException(Response::HTTP_BAD_REQUEST, "The user hasn't such OS deviceIds");
+        }
+
+        $currentUser->setRegistrationIds($regData);
+        $em->flush();
+
         return new JsonResponse(Response::HTTP_NO_CONTENT);
     }
 
