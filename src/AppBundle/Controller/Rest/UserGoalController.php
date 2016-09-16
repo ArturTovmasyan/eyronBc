@@ -397,6 +397,10 @@ class UserGoalController extends FOSRestController
         $serializer = $this->get('serializer');
 
         if ($request->get('_route') != 'rest_post_usergoal_locations'){
+            if ($user->getId() != $this->getUser()->getId()){
+                $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), [$user->getId()]);
+                $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+            }
             $content = ['user_goals' => $userGoals, 'user' => $user];
             $serializedContent = $serializer->serialize($content, 'json',
                 SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user")));

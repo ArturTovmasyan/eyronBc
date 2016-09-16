@@ -293,7 +293,7 @@ class User extends BaseUser
     private $userGoalCount    = null;
 
     /**
-     * @Groups({"user"})
+     * @Groups({"user", "tiny_user"})
      */
     private $commonGoalsCount = null;
 

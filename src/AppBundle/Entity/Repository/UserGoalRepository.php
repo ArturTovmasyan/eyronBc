@@ -151,16 +151,10 @@ class UserGoalRepository extends EntityRepository
 
         if ($getLastDate){
 
-            $filters = $this->getEntityManager()->getFilters();
-            if ($filters->isEnabled('visibility_filter')){
-                $filters->disable('visibility_filter');
-            }
-
             $dates = $query
                 ->select('ug.id, ug.updated as updated')
                 ->getQuery()
                 ->getResult();
-
 
             if (count($dates) == 0){
                 return null;
