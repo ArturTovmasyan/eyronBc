@@ -9,6 +9,7 @@ imports:
 parameters:
     node_path: /usr/local/bin/node
     locale: en
+    geocoding_api_url: 'https://maps.googleapis.com/maps/api/geocode/json?'
     languages:
        en: English
        ru: Русский

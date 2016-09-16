@@ -660,4 +660,55 @@ class GoalController extends FOSRestController
     {
         return $goal;
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goal by place",
+     *  statusCodes={
+     *         200="Ok",
+     *         400="Bad request"
+     *  },
+     *  parameters={
+     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
+     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
+     *  }
+     * )
+     *
+     * @return array
+     * @param $request
+     *
+     * @Rest\View
+     * @Rest\Post("/goal/place", name="app_rest_goal_place", options={"method_prefix"=false})
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function getPlaceByCoordinateAction(Request $request)
+    {
+        //get all data in request
+        $data = $request->request->all();
+
+        //get latitude
+        $latitude = array_key_exists('latitude', $data) ? $data['latitude'] : null;
+
+        //get longitude
+        $longitude = array_key_exists('longitude', $data) ? $data['longitude'] : null;
+
+        //check if coordinate exist
+        if($latitude && $longitude) {
+
+            //get service
+            $confirmGoalDoneAndGetPlaceService = $this->get('app.notify_about_goal_by_place');
+            
+            //get place data
+            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceByGoogleGeoCodingApi($latitude, $longitude);
+
+            //json decode data
+            $response = json_decode($placeData, true);
+
+            return $response;
+        }
+
+        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+    }
 }
