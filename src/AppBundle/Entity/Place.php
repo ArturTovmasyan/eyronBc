@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_place", columns={"name", "place_type_id"})}
  *  ))
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PlaceRepository")
  * @UniqueEntity(
  *     fields={"name", "placeType"},
  *     message="This place is already use."

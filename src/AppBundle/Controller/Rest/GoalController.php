@@ -668,7 +668,8 @@ class GoalController extends FOSRestController
      *  description="This function is used to get goal place by coordinate",
      *  statusCodes={
      *         200="Ok",
-     *         400="Bad request"
+     *         400="Bad request",
+     *         404="Not found"
      *  },
      *  parameters={
      *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
@@ -679,11 +680,11 @@ class GoalController extends FOSRestController
      * @return array
      * @param $request
      *
-     * @Rest\View
+     * @Rest\View(serializerGroups={"place"})
      * @Rest\Post("/goal/place", name="app_rest_goal_place", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      */
-    public function getPlaceByCoordinateAction(Request $request)
+    public function getPlaceAdnConfirmDoneGoalAction(Request $request)
     {
         //get all data in request
         $data = $request->request->all();
@@ -694,19 +695,19 @@ class GoalController extends FOSRestController
         //get longitude
         $longitude = array_key_exists('longitude', $data) ? $data['longitude'] : null;
 
+        //get current user
+        $user = $this->getUser();
+        
         //check if coordinate exist
         if($latitude && $longitude) {
 
             //get service
-            $confirmGoalDoneAndGetPlaceService = $this->get('app.notify_about_goal_by_place');
+            $confirmDoneGoalByPlaceService = $this->get('app.confirm_done_goal_by_place');
             
             //get place data
-            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceAndNotifyAboutDoneGoal($latitude, $longitude);
+            $placeData = $confirmDoneGoalByPlaceService->confirmedDoneGoalByPlace($latitude, $longitude, $user);
 
-            //json decode data
-            $response = json_decode($placeData, true);
-
-            return $response;
+            return $placeData;
         }
 
         return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);

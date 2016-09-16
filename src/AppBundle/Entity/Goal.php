@@ -54,7 +54,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal", "tiny_goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft", "place"})
      */
     protected $id;
 
@@ -82,7 +82,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Groups({"goal", "tiny_goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft", "place"})
      */
     protected $title;
 

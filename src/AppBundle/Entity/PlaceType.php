@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * PlaceType
  *
  * @ORM\Table(name="place_type")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PlaceTypeRepository")
  * @UniqueEntity(
  *     fields={"name"},
  *     message="This place type is already use."
