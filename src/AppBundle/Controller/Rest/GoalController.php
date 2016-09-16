@@ -701,7 +701,7 @@ class GoalController extends FOSRestController
             $confirmGoalDoneAndGetPlaceService = $this->get('app.notify_about_goal_by_place');
             
             //get place data
-            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceByGeoCodingApi($latitude, $longitude);
+            $placeData = $confirmGoalDoneAndGetPlaceService->getPlaceAndNotifyAboutDoneGoal($latitude, $longitude);
 
             //json decode data
             $response = json_decode($placeData, true);

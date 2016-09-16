@@ -23,13 +23,13 @@ class GetPlaceAndNotifyAboutDoneGoalService
     }
 
     /**
-     * This function is used to get place data in google geoCoding api by lat and lon
+     * This function is used to get place data and notify about goal done
      *
      * @param $latitude
      * @param $longitude
      * @return mixed
      */
-    public function getPlaceByGeoCodingApi($latitude, $longitude)
+    public function getPlaceAndNotifyAboutDoneGoal($latitude, $longitude)
     {
         //get geo coding api url
         $geoCodingUrl = $this->geoCodingUrl;
@@ -38,7 +38,7 @@ class GetPlaceAndNotifyAboutDoneGoalService
         $key = $this->googleClientId;
 
         //generate geo coding url for get place data by lang and long
-        $url = $geoCodingUrl.'latlng='.$latitude.','.$longitude.'&components=country&sensor=false';
+        $url = $geoCodingUrl.'latlng='.$latitude.','.$longitude.'&sensor=false&language=en&result_type=country';
 
         // use curl for get response
         $ch = curl_init();
@@ -60,12 +60,4 @@ class GetPlaceAndNotifyAboutDoneGoalService
         return $response;
     }
 
-    /**
-     * This function is used to notify about goal by place and confirm it done
-     *
-     */
-    public function notifyAboutGoalAndConfirmDoneAction()
-    {
-
-    }
 }
