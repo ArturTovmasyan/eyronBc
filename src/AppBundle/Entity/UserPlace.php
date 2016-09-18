@@ -4,13 +4,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * UserPlace
  *
- * @ORM\Table(name="user_place")
+ * @ORM\Table(name="user_place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_place", columns={"latitude", "longitude", "place_id", "user_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserPlaceRepository")
+ * @UniqueEntity(
+ *     fields={"latitude", "longitude", "place", "user"},
+ *     message="This user place is already created."
+ * )
  */
 class UserPlace
 {

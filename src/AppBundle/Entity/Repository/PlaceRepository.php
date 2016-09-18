@@ -12,22 +12,19 @@ use Doctrine\ORM\EntityRepository;
 class PlaceRepository extends EntityRepository
 {
     /**
-     * This function is used to get goal by place
-     *
-     * @param $place
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * This function is used to get all places by goal ids
+     * 
+     * @param $goalIds array
+     * @return array
      */
-    public function findGoalByPlace($place)
+    public function findAllPlaceByGoalIds($goalIds)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g as goal, u.id as user_id, u.uId as u_id
-                           FROM AppBundle:Goal g
-                           LEFT JOIN g.place p
-                           LEFT JOIN g.userGoal ug
-                           LEFT JOIN ug.user u
-                           WHERE p.name in (:place)")
-            ->setParameter('place', $place)
+            ->createQuery("SELECT DISTINCT p
+                           FROM AppBundle:Place p
+                           JOIN p.goal g
+                           WHERE g.id in (:goalIds)")
+            ->setParameter('goalIds', $goalIds)
             ->getResult();
     }
 }

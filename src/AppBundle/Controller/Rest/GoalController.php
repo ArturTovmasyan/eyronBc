@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Rest;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Entity\UserPlace;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -635,7 +636,7 @@ class GoalController extends FOSRestController
         return [
             '1'      => $goalFriends,
             'length' => $allCount
-            ];
+        ];
     }
 
     /**
@@ -684,7 +685,7 @@ class GoalController extends FOSRestController
      * @Rest\Post("/goal/place", name="app_rest_goal_place", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      */
-    public function getPlaceAdnConfirmDoneGoalAction(Request $request)
+    public function getPlaceAndConfirmDoneGoalAction(Request $request)
     {
         //get all data in request
         $data = $request->request->all();
@@ -695,19 +696,108 @@ class GoalController extends FOSRestController
         //get longitude
         $longitude = array_key_exists('longitude', $data) ? $data['longitude'] : null;
 
-        //get current user
-        $user = $this->getUser();
-        
         //check if coordinate exist
-        if($latitude && $longitude) {
+        if ($latitude && $longitude) {
 
             //get service
-            $confirmDoneGoalByPlaceService = $this->get('app.confirm_done_goal_by_place');
-            
-            //get place data
-            $placeData = $confirmDoneGoalByPlaceService->confirmedDoneGoalByPlace($latitude, $longitude, $user);
+            $goalByPlaceService = $this->get('app.goal_by_place');
 
-            return $placeData;
+            //get all goal by place
+            $allGoals = $goalByPlaceService->getAllGoalsByPlace($latitude, $longitude);
+
+            //check if goal not exists
+            if (!$allGoals) {
+                return new Response("No content", Response::HTTP_NO_CONTENT);
+            }
+
+            //get current user
+            $user = $this->getUser();
+
+            //get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            //set default value for goalIds
+            $goalIds = [];
+
+            //confirm done goal and send notify about it for user
+            foreach ($allGoals as $goals)
+            {
+                //get goal object in array
+                $goal = $goals['goal'];
+
+                //get user goal by user id
+                $userGoal = $goal->hasUserGoalForConfirm($user->getId());
+
+                $sendNotify = false;
+
+                //check if user goal must be confirmed
+                if (is_null($userGoal)) {
+
+                    //create new userGoal for current user
+                    $userGoal = new UserGoal();
+                    $userGoal->setUser($user);
+                    $userGoal->setGoal($goal);
+                    $userGoal->setStatus(UserGoal::COMPLETED);
+                    $userGoal->setIsVisible(true);
+                    $userGoal->setCompletionDate(new \DateTime('now'));
+                    $userGoal->setConfirmed(true);
+                    //set send notify value
+                    $sendNotify = true;
+
+                } elseif (!$userGoal->getConfirmed()) {
+
+                    //confirmed done goal for user
+                    $userGoal->setConfirmed(true);
+
+                    //set completed status for goal
+                    $userGoal->setStatus(UserGoal::ACTIVE);
+
+                    //set send notify value
+                    $sendNotify = true;
+                }
+
+                //check if send notify value is true
+                if ($sendNotify) {
+
+                    $em->persist($userGoal);
+
+                    //add goal id in array
+                    $goalIds[] = $goal->getId();
+
+//                    $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
+//                    $body = $this->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
+//                    $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $user);
+                }
+            }
+
+            //check if confirmed goal id exist
+            if ($goalIds) {
+
+                //get places by goal ids
+                $places = $em->getRepository('AppBundle:Place')->findAllPlaceByGoalIds($goalIds);
+
+                //check if place exist
+                if ($places) {
+
+                    foreach ($places as $place )
+                    {
+                        //create user place
+                        $userPlace = new UserPlace();
+                        $userPlace->setLatitude($latitude);
+                        $userPlace->setLongitude($longitude);
+                        $userPlace->setLongitude($longitude);
+                        $userPlace->setUser($user);
+                        $userPlace->setPlace($place);
+
+                        $em->persist($userPlace);
+                    }
+                }
+            }
+
+            $em->flush();
+            $em->clear();
+
+            return new Response("", Response::HTTP_OK);
         }
 
         return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);

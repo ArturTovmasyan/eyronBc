@@ -3,15 +3,14 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\UserGoal;
+use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Route;
 
-class NotifyAboutDoneGoalByPlaceService
+class AllGoalByPlaceService
 {
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
 
@@ -43,18 +42,18 @@ class NotifyAboutDoneGoalByPlaceService
      * @param $longitude
      * @return mixed
      */
-    public function getPlace($latitude, $longitude)
+    private function getPlace($latitude, $longitude)
     {
         //get google client id
         $key = $this->googleApyKey;
 
         //concat latitude and longitude by comma for api
-        $latlng = $latitude.','.$longitude;
+        $latLng = $latitude.','.$longitude;
 
         //generate geo coding url for get place data by lang and long
-        $url = sprintf('%s?latlng=%s&sensor=true&language=en&result_type=locality&key=%s', self::url, $latlng, $key);
+        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::url, $latLng, $key);
 
-        // use curl for get response
+        //use curl for get response
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
@@ -64,24 +63,23 @@ class NotifyAboutDoneGoalByPlaceService
         $response = curl_exec($ch);
 
         //check if response not exist
-        if($response === false) {
-            throw new NotFoundHttpException('Place data not found');
+        if ($response === false) {
+            throw new \InvalidArgumentException('Invalid geo coding results');
         }
 
         //close curl
         curl_close($ch);
 
         //json decode data
-        $response = json_decode($response, true);
+        $response = json_decode($response);
 
-        if(array_key_exists('results', $response)) {
+        //get result
+        $results = $response->results;
 
-            //get results in response
-            $results = reset($response['results']);
+        if (!empty($results)) {
 
-            //get place data in results
-            $place = $results['formatted_address'];
-
+            //get place
+            $place = $results[0]->formatted_address;
 
             //explode place data by comma
             $places = explode(',', $place);
@@ -92,7 +90,7 @@ class NotifyAboutDoneGoalByPlaceService
             foreach ($places as $place)
             {
                 //remove all spaces in word
-                $placeArray[] = trim($place);
+                $placeArray[] = strtolower(trim($place));
             }
 
             return $placeArray;
@@ -102,56 +100,22 @@ class NotifyAboutDoneGoalByPlaceService
     }
 
     /**
-     * This function is used to confirmed done goal by place and notify user about it
+     * This function is used to get all goal by place 
      *
      * @param $latitude
      * @param $longitude
-     * @param User $user
      * @return null|Response
      */
-    public function confirmedDoneGoalByPlace($latitude, $longitude, User $user)
+    public function getAllGoalsByPlace($latitude, $longitude)
     {
         //get place by coordinate
         $place = $this->getPlace($latitude, $longitude);
 
-        //get entity manager
-        $em = $this->em;
-
-        //get current user id
-        $userId = $user->getId();
-        
         //check if place not exist
-        if($place) {
+        if ($place) {
 
             //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Place')->findGoalByPlace($place);
-
-//            //set default array value
-//            $userIds = [];
-//
-//            foreach($goals as $goal)
-//            {
-//                $goalByPlace = $goal['goal'];
-//
-//                $userIds[] = $goal['user_id'];
-//
-//                if(in_array($userId, $userIds)) {
-//
-//                    continue;
-//                }
-//                else{
-//
-//                    $userGoal = new UserGoal();
-//                    $userGoal->setUser($user);
-//                    $userGoal->setGoal($goalByPlace);
-//                    $userGoal->setStatus(UserGoal::COMPLETED);
-//                    $userGoal->setCompletionDate(new \DateTime('now'));
-//
-//                    $em->persist($userGoal);
-//                }
-//            }
-//
-//            $em->flush();
+            $goals = $this->em->getRepository('AppBundle:Goal')->findAllGoalByPlace($place);
 
             return $goals;
         }

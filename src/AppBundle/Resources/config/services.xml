@@ -127,7 +127,7 @@
         </service>
 
         <!--Get Place and notify about goal service -->
-        <service id="app.confirm_done_goal_by_place" class="AppBundle\Services\NotifyAboutDoneGoalByPlaceService">
+        <service id="app.goal_by_place" class="AppBundle\Services\AllGoalByPlaceService">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%google_api_key%</argument>
         </service>

@@ -747,4 +747,24 @@ class GoalRepository extends EntityRepository
             ->setParameter('goalId', $goalId)
             ->getResult();
     }
+
+    /**
+     * This function is used to get all goal by place
+     *
+     * @param $place
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllGoalByPlace($place)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g as goal
+                           FROM AppBundle:Goal g
+                           JOIN g.place p
+                           LEFT JOIN g.userGoal ug
+                           LEFT JOIN ug.user u
+                           WHERE LOWER(p.name) in (:place)")
+            ->setParameter('place', $place)
+            ->getResult();
+    }
 }
