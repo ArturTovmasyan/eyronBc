@@ -175,9 +175,10 @@ class GoalController extends Controller
                         $em->getRepository('AppBundle:UserGoal')->updateUserGoals($goalId);
                     }
                     else {
+                        $message = ($goal->getStatus() == Goal::PRIVATE_PRIVACY) ? 'goal.was_created.private' : 'goal.was_created.public';
                         $request->getSession()
                             ->getFlashBag()
-                            ->set('success', $this->get('translator')->trans('goal.was_created'));
+                            ->set('success', $this->get('translator')->trans($message));
                     }
 
                     return new Response($goal->getId());

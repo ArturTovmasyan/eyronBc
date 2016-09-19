@@ -101,6 +101,8 @@ goal:
       add_access_denied: You can't add this goal
       done_access_denied: You can't complete this goal
       was_created: Your Goal has been successfully created
+            public: Your public Goal has been successfully created
+            private: Your private Goal has been successfully created
 
 activities:
       title: Bucket List 127-Activity

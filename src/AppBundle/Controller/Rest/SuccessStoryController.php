@@ -423,7 +423,7 @@ class SuccessStoryController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      * @Rest\Get("/success-story/voters/{storyId}/{first}/{count}", requirements={"storyId"="\d+", "first"="\d+", "count"="\d+"}, name="get_story_voters", options={"method_prefix"=false})
-     * @Rest\View(serializerGroups={"tiny_user"})
+     * @Rest\View(serializerGroups={"user"})
      *
      * @param $storyId
      * @param $first
