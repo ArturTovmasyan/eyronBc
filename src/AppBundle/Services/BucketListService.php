@@ -144,6 +144,11 @@ class BucketListService
      */
     public function setUserActivity($user, &$url = null)
     {
+        if ($user->getActivity()){
+            $url = 'activity';
+            return;
+        }
+
         $feedCount = $this->em->getRepository('AppBundle:NewFeed')->findNewFeed($user->getId(), true);
 
         if ($feedCount == 0) {

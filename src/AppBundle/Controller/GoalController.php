@@ -118,8 +118,8 @@ class GoalController extends Controller
                 throw $this->createNotFoundException("Goal not found");
             }
 
-            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
-                throw $this->createAccessDeniedException("It isn't your goal");
+            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId() || $goal->getPublish()){
+                throw $this->createAccessDeniedException("It isn't your goal or it's already published");
             }
 
             $goal = $cloneTrue ? clone $goal : $goal;
@@ -170,9 +170,11 @@ class GoalController extends Controller
                     $em->persist($goal);
                     $em->flush();
 
-                    $request->getSession()
-                        ->getFlashBag()
-                        ->set('success', $this->get('translator')->trans('goal.was_created'));
+                    if(!$goalId) {
+                        $request->getSession()
+                            ->getFlashBag()
+                            ->set('success', $this->get('translator')->trans('goal.was_created'));
+                    }
 
                     return new Response($goal->getId());
                 }
