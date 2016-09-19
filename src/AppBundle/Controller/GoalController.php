@@ -172,7 +172,7 @@ class GoalController extends Controller
 
                     $request->getSession()
                         ->getFlashBag()
-                        ->set('success','Your Goal has been Successfully Published');
+                        ->set('success', $this->get('translator')->trans('goal.was_created'));
 
                     return new Response($goal->getId());
                 }
