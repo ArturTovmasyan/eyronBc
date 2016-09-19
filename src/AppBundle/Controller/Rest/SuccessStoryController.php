@@ -408,4 +408,44 @@ class SuccessStoryController extends FOSRestController
 
         return new JsonResponse();
     }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="SuccessStory",
+     *  description="This function is used to get story voters",
+     *  statusCodes={
+     *         200="Returned when user was added",
+     *         401="Returned when user not found",
+     *         404="Returned when success story not found",
+     *  },
+     * )
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Rest\Get("/success-story/voters/{storyId}/{first}/{count}", requirements={"storyId"="\d+", "first"="\d+", "count"="\d+"}, name="get_story_voters", options={"method_prefix"=false})
+     * @Rest\View(serializerGroups={"tiny_user"})
+     *
+     * @param $storyId
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function getStoryVotersAction($storyId, $first, $count)
+    {
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+        $em = $this->getDoctrine()->getManager();
+        $voters = $em->getRepository('AppBundle:SuccessStory')->findStoryVoters($storyId, $first, $count);
+
+        $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats(array_keys($voters));
+
+        foreach($voters as &$user) {
+            $user->setStats([
+                "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
+                "active"   => $stats[$user->getId()]['listedBy'],
+                "doneBy"   => $stats[$user->getId()]['doneBy']
+            ]); 
+        }
+
+        return $voters;
+    }
 }
