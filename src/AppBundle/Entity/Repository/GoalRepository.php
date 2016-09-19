@@ -752,19 +752,22 @@ class GoalRepository extends EntityRepository
      * This function is used to get all goal by place
      *
      * @param $place
+     * @param $userId
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByPlace($place)
+    public function findAllByPlace($place, $userId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, p, ug, u
+            ->createQuery("SELECT g, p
                            FROM AppBundle:Goal g
                            JOIN g.place p
-                           LEFT JOIN g.userGoal ug
+                           LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
                            LEFT JOIN ug.user u
-                           WHERE LOWER(p.name) in (:place)")
+                           WHERE LOWER(p.name) in (:place) and (ug.id is null or ug.confirmed = :status)")
+            ->setParameter('userId', $userId)
             ->setParameter('place', $place)
+            ->setParameter('status', false)
             ->getResult();
     }
 
@@ -775,9 +778,8 @@ class GoalRepository extends EntityRepository
     public function findAllByIds($goalIds)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, p, ug, u
+            ->createQuery("SELECT g, ug, u
                            FROM AppBundle:Goal g
-                           JOIN g.place p
                            LEFT JOIN g.userGoal ug
                            LEFT JOIN ug.user u
                            WHERE g.id in (:goalIds)")

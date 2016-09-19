@@ -104,9 +104,10 @@ class GooglePlaceService
      *
      * @param $latitude
      * @param $longitude
+     * @param $userId
      * @return null|Response
      */
-    public function getAllGoalsByPlace($latitude, $longitude)
+    public function getAllGoalsByPlace($latitude, $longitude, $userId)
     {
         //get place by coordinate
         $place = $this->getPlace($latitude, $longitude);
@@ -115,7 +116,7 @@ class GooglePlaceService
         if ($place) {
 
             //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($place);
+            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($place, $userId);
 
             return $goals;
         }

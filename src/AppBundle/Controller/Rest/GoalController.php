@@ -683,7 +683,6 @@ class GoalController extends FOSRestController
      * @param $longitude
      *
      * @Rest\View(serializerGroups={"goal"})
-     * @Rest\Get("/goal/place/{latitude}/{longitude}")
      * @Security("has_role('ROLE_USER')")
      */
     public function getGoalsInPlaceAction($latitude, $longitude)
@@ -694,8 +693,11 @@ class GoalController extends FOSRestController
             //get service
             $googlePlaceService = $this->get('app.google_place');
 
+            //get current user
+            $user = $this->getUser();
+
             //get all goal by place
-            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude);
+            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude, $user->getId());
 
             //check if goal not exists
             if (!$allGoals) {
@@ -718,7 +720,7 @@ class GoalController extends FOSRestController
      *         400="Bad request"
      *  },
      *  parameters={
-     *      {"name"="goalIds", "dataType"="array", "required"=false, "description"="Goal ids"},
+     *      {"name"="goal", "dataType"="array", "required"=false, "description"="Goal ids with userGoal visible status"},
      *      {"name"="latitude", "dataType"="float", "required"=false, "description"="latitude"},
      *      {"name"="longitude", "dataType"="float", "required"=false, "description"="longitude"}
      *  }
@@ -728,16 +730,19 @@ class GoalController extends FOSRestController
      * @param $request
      *
      * @Rest\View()
-     * @Rest\Post("/goals/confirm")
      * @Security("has_role('ROLE_USER')")
      */
-    public function confirmGoalsAction(Request $request)
+    public function postConfirmGoalsAction(Request $request)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //TODO must be return userGoal visible status with goal ids
         //get goals in request
-        $goalIds = $request->get('goalIds', null);
+        $goalData = $request->get('goal', null);
+
+        //get goal ids
+        $goalIds = array_keys($goalData);
 
         //get latitude
         $latitude = $request->get('latitude', null);
@@ -747,14 +752,14 @@ class GoalController extends FOSRestController
 
         //check if goal ids not send
         if(!$goalIds || !$latitude || !$longitude) {
-            new JsonResponse('Request data is empty', Response::HTTP_BAD_REQUEST);
+            new JsonResponse(array('error' => 'Request data is empty'), Response::HTTP_BAD_REQUEST);
         }
-
-        //get all goals by ids
-        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
 
         //get current user
         $user = $this->getUser();
+
+        //get all goals by ids
+        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
 
         //set default confirmed goal ids value
         $confirmedGoalIds = [];
@@ -770,7 +775,7 @@ class GoalController extends FOSRestController
 
             //get current user userGoal
             $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
-                return  $item->getUser() == $user ? true : false;
+                return $item->getUser() == $user ? true : false;
             });
 
             //check if user have user goal
@@ -799,12 +804,15 @@ class GoalController extends FOSRestController
             }
             else {
 
+                //get visible value
+                $visible = $goalData[$goal->getId()];
+
                 //create new userGoal for current user
                 $userGoal = new UserGoal();
                 $userGoal->setUser($user);
                 $userGoal->setGoal($goal);
                 $userGoal->setStatus(UserGoal::COMPLETED);
-                $userGoal->setIsVisible(true);
+                $userGoal->setIsVisible($visible);
                 $userGoal->setCompletionDate(new \DateTime('now'));
                 $userGoal->setConfirmed(true);
 
@@ -843,6 +851,6 @@ class GoalController extends FOSRestController
         $em->flush();
         $em->clear();
 
-        return new JsonResponse('Ok', Response::HTTP_OK);
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 }
