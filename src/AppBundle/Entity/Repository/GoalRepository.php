@@ -758,7 +758,7 @@ class GoalRepository extends EntityRepository
     public function findAllGoalByPlace($place)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g as goal
+            ->createQuery("SELECT g, p, ug, u
                            FROM AppBundle:Goal g
                            JOIN g.place p
                            LEFT JOIN g.userGoal ug

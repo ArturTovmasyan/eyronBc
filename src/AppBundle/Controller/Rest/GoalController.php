@@ -666,11 +666,11 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to get goal place by coordinate",
+     *  description="This function is used to confirm done goals by place",
      *  statusCodes={
+     *         204="No content",
      *         200="Ok",
-     *         400="Bad request",
-     *         404="Not found"
+     *         400="Bad request"
      *  },
      *  parameters={
      *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
@@ -685,17 +685,14 @@ class GoalController extends FOSRestController
      * @Rest\Post("/goal/place", name="app_rest_goal_place", options={"method_prefix"=false})
      * @Security("has_role('ROLE_USER')")
      */
-    public function getPlaceAndConfirmDoneGoalAction(Request $request)
+    public function confirmDoneGoalAction(Request $request)
     {
-        //get all data in request
-        $data = $request->request->all();
-
         //get latitude
-        $latitude = array_key_exists('latitude', $data) ? $data['latitude'] : null;
+        $latitude = $request->get('latitude', null);
 
         //get longitude
-        $longitude = array_key_exists('longitude', $data) ? $data['longitude'] : null;
-
+        $longitude = $request->get('longitude', null);
+        
         //check if coordinate exist
         if ($latitude && $longitude) {
 
@@ -720,11 +717,8 @@ class GoalController extends FOSRestController
             $goalIds = [];
 
             //confirm done goal and send notify about it for user
-            foreach ($allGoals as $goals)
+            foreach ($allGoals as $goal)
             {
-                //get goal object in array
-                $goal = $goals['goal'];
-
                 //get user goal by user id
                 $userGoal = $goal->hasUserGoalForConfirm($user->getId());
 
@@ -744,16 +738,22 @@ class GoalController extends FOSRestController
                     //set send notify value
                     $sendNotify = true;
 
+                    //generate body
+                    $body = $this->get('translator')->trans('notification.done_goal', ['%goal%' => $goal->getTitle()], null, 'en');
+
                 } elseif (!$userGoal->getConfirmed()) {
 
                     //confirmed done goal for user
                     $userGoal->setConfirmed(true);
 
                     //set completed status for goal
-                    $userGoal->setStatus(UserGoal::ACTIVE);
+                    $userGoal->setStatus(UserGoal::COMPLETED);
 
                     //set send notify value
                     $sendNotify = true;
+
+                    //generate body
+                    $body = $this->get('translator')->trans('notification.confirm_goal', ['%goal%' => $goal->getTitle()], null, 'en');
                 }
 
                 //check if send notify value is true
@@ -764,9 +764,11 @@ class GoalController extends FOSRestController
                     //add goal id in array
                     $goalIds[] = $goal->getId();
 
-//                    $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-//                    $body = $this->get('translator')->trans('notification.important_goal_success_story', [], null, 'en');
-//                    $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $user);
+                    //generate goal link
+                    $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
+                    
+                    //send notify about confirm goal
+                    $this->get('bl_notification')->sendNotification(null, $link, $goal->getId(), $body, $user);
                 }
             }
 

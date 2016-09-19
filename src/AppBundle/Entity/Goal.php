@@ -1248,27 +1248,24 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * This function is used to get userGoal by user
      * 
      * @param $userId
-     * @return object
+     * @return object|null
      */
     public function hasUserGoalForConfirm($userId)
     {
         //get all user goals
         $userGoals = $this->getUserGoal();
-        
-        //check if user goals exist
-        if (count($userGoals) > 0) {
+
+        foreach ($userGoals as $userGoal)
+        {
+            //get related user id
+            $relatedUserId = $userGoal->getUser() ->getId();
             
-            foreach ($userGoals as $userGoal)
-            {
-                //get related user id
-                $relatedUserId = $userGoal->getUser() ->getId();
-                
-                //check if current user related with this goal
-                if ($relatedUserId == $userId) {
-                    return $userGoal;
-                }
+            //check if current user related with this goal
+            if ($relatedUserId == $userId) {
+                return $userGoal;
             }
         }
+        
         return null;
     }
 }
