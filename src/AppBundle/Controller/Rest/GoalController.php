@@ -666,7 +666,7 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to confirm done goals by place",
+     *  description="This function is used to get goals in place",
      *  statusCodes={
      *         204="No content",
      *         200="Ok",
@@ -679,129 +679,170 @@ class GoalController extends FOSRestController
      * )
      *
      * @return array
-     * @param $request
+     * @param $latitude
+     * @param $longitude
      *
-     * @Rest\View(serializerGroups={"place"})
-     * @Rest\Post("/goal/place", name="app_rest_goal_place", options={"method_prefix"=false})
+     * @Rest\View(serializerGroups={"goal"})
+     * @Rest\Get("/goal/place/{latitude}/{longitude}")
      * @Security("has_role('ROLE_USER')")
      */
-    public function confirmDoneGoalAction(Request $request)
+    public function getGoalsInPlaceAction($latitude, $longitude)
     {
+        //check if coordinate exist
+        if ($latitude && $longitude) {
+
+            //get service
+            $googlePlaceService = $this->get('app.google_place');
+
+            //get all goal by place
+            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude);
+
+            //check if goal not exists
+            if (!$allGoals) {
+                return new Response('', Response::HTTP_NO_CONTENT);
+            }
+
+            return $allGoals;
+        }
+
+        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to confirm goals",
+     *  statusCodes={
+     *         200="Ok",
+     *         400="Bad request"
+     *  },
+     *  parameters={
+     *      {"name"="goalIds", "dataType"="array", "required"=false, "description"="Goal ids"},
+     *      {"name"="latitude", "dataType"="float", "required"=false, "description"="latitude"},
+     *      {"name"="longitude", "dataType"="float", "required"=false, "description"="longitude"}
+     *  }
+     * )
+     *
+     * @return array
+     * @param $request
+     *
+     * @Rest\View()
+     * @Rest\Post("/goals/confirm")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function confirmGoalsAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get goals in request
+        $goalIds = $request->get('goalIds', null);
+
         //get latitude
         $latitude = $request->get('latitude', null);
 
         //get longitude
         $longitude = $request->get('longitude', null);
-        
-        //check if coordinate exist
-        if ($latitude && $longitude) {
 
-            //get service
-            $goalByPlaceService = $this->get('app.goal_by_place');
+        //check if goal ids not send
+        if(!$goalIds || !$latitude || !$longitude) {
+            new JsonResponse('Request data is empty', Response::HTTP_BAD_REQUEST);
+        }
 
-            //get all goal by place
-            $allGoals = $goalByPlaceService->getAllGoalsByPlace($latitude, $longitude);
+        //get all goals by ids
+        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
 
-            //check if goal not exists
-            if (!$allGoals) {
-                return new Response("No content", Response::HTTP_NO_CONTENT);
-            }
+        //get current user
+        $user = $this->getUser();
 
-            //get current user
-            $user = $this->getUser();
+        //set default confirmed goal ids value
+        $confirmedGoalIds = [];
 
-            //get entity manager
-            $em = $this->getDoctrine()->getManager();
+        //confirm done goal
+        foreach ($goals as $goal)
+        {
+            //set confirm default value
+            $confirm = false;
 
-            //set default value for goalIds
-            $goalIds = [];
+            //get user goal by user id
+            $userGoals = $goal->getUserGoal();
 
-            //confirm done goal and send notify about it for user
-            foreach ($allGoals as $goal)
-            {
-                //get user goal by user id
-                $userGoal = $goal->hasUserGoalForConfirm($user->getId());
+            //get current user userGoal
+            $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+                return  $item->getUser() == $user ? true : false;
+            });
 
-                $sendNotify = false;
+            //check if user have user goal
+            if ($relatedUserGoal->count() > 0) {
 
-                //check if user goal must be confirmed
-                if (is_null($userGoal)) {
+                //get related user goal
+                $userGoal = $relatedUserGoal->first();
 
-                    //create new userGoal for current user
-                    $userGoal = new UserGoal();
-                    $userGoal->setUser($user);
-                    $userGoal->setGoal($goal);
-                    $userGoal->setStatus(UserGoal::COMPLETED);
-                    $userGoal->setIsVisible(true);
-                    $userGoal->setCompletionDate(new \DateTime('now'));
-                    $userGoal->setConfirmed(true);
-                    //set send notify value
-                    $sendNotify = true;
-
-                    //generate body
-                    $body = $this->get('translator')->trans('notification.done_goal', ['%goal%' => $goal->getTitle()], null, 'en');
-
-                } elseif (!$userGoal->getConfirmed()) {
+                //check if user goal not confirmed
+                if (!$userGoal->getConfirmed()) {
 
                     //confirmed done goal for user
                     $userGoal->setConfirmed(true);
 
-                    //set completed status for goal
-                    $userGoal->setStatus(UserGoal::COMPLETED);
+                    //check if user goal is not completed
+                    if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
 
-                    //set send notify value
-                    $sendNotify = true;
-
-                    //generate body
-                    $body = $this->get('translator')->trans('notification.confirm_goal', ['%goal%' => $goal->getTitle()], null, 'en');
-                }
-
-                //check if send notify value is true
-                if ($sendNotify) {
-
-                    $em->persist($userGoal);
-
-                    //add goal id in array
-                    $goalIds[] = $goal->getId();
-
-                    //generate goal link
-                    $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-                    
-                    //send notify about confirm goal
-                    $this->get('bl_notification')->sendNotification(null, $link, $goal->getId(), $body, $user);
-                }
-            }
-
-            //check if confirmed goal id exist
-            if ($goalIds) {
-
-                //get places by goal ids
-                $places = $em->getRepository('AppBundle:Place')->findAllPlaceByGoalIds($goalIds);
-
-                //check if place exist
-                if ($places) {
-
-                    foreach ($places as $place )
-                    {
-                        //create user place
-                        $userPlace = new UserPlace();
-                        $userPlace->setLatitude($latitude);
-                        $userPlace->setLongitude($longitude);
-                        $userPlace->setLongitude($longitude);
-                        $userPlace->setUser($user);
-                        $userPlace->setPlace($place);
-
-                        $em->persist($userPlace);
+                        //set completed status for goal
+                        $userGoal->setStatus(UserGoal::COMPLETED);
                     }
+
+                    //set confirm value
+                    $confirm = true;
                 }
+
+            }
+            else {
+
+                //create new userGoal for current user
+                $userGoal = new UserGoal();
+                $userGoal->setUser($user);
+                $userGoal->setGoal($goal);
+                $userGoal->setStatus(UserGoal::COMPLETED);
+                $userGoal->setIsVisible(true);
+                $userGoal->setCompletionDate(new \DateTime('now'));
+                $userGoal->setConfirmed(true);
+
+                //set confirm value
+                $confirm = true;
             }
 
-            $em->flush();
-            $em->clear();
+            //check if user has confirmed goal
+            if ($confirm) {
 
-            return new Response("", Response::HTTP_OK);
+                $confirmedGoalIds[] = $goal->getId();
+                $em->persist($userGoal);
+            }
         }
 
-        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+        //check if confirmed goal id exist
+        if ($confirmedGoalIds) {
+
+            //get places by goal ids
+            $places = $em->getRepository('AppBundle:Place')->findPlaceByGoalIds($confirmedGoalIds);
+
+            //check if places exist
+            foreach ($places as $place )
+            {
+                //create user place
+                $userPlace = new UserPlace();
+                $userPlace->setLatitude($latitude);
+                $userPlace->setLongitude($longitude);
+                $userPlace->setUser($user);
+                $userPlace->setPlace($place);
+
+                $em->persist($userPlace);
+            }
+        }
+
+        $em->flush();
+        $em->clear();
+
+        return new JsonResponse('Ok', Response::HTTP_OK);
     }
 }

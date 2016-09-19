@@ -55,7 +55,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal", "tiny_goal", "goal_draft", "place"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $id;
 
@@ -83,7 +83,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Groups({"goal", "tiny_goal", "goal_draft", "place"})
+     * @Groups({"goal", "tiny_goal", "goal_draft"})
      */
     protected $title;
 
@@ -1242,30 +1242,5 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
     public function getPlace()
     {
         return $this->place;
-    }
-
-    /**
-     * This function is used to get userGoal by user
-     * 
-     * @param $userId
-     * @return object|null
-     */
-    public function hasUserGoalForConfirm($userId)
-    {
-        //get all user goals
-        $userGoals = $this->getUserGoal();
-
-        foreach ($userGoals as $userGoal)
-        {
-            //get related user id
-            $relatedUserId = $userGoal->getUser() ->getId();
-            
-            //check if current user related with this goal
-            if ($relatedUserId == $userId) {
-                return $userGoal;
-            }
-        }
-        
-        return null;
     }
 }

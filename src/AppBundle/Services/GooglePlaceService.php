@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AllGoalByPlaceService
+class GooglePlaceService
 {
     const url = 'https://maps.googleapis.com/maps/api/geocode/json';
 
@@ -115,7 +115,7 @@ class AllGoalByPlaceService
         if ($place) {
 
             //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Goal')->findAllGoalByPlace($place);
+            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($place);
 
             return $goals;
         }

@@ -17,7 +17,7 @@ class PlaceRepository extends EntityRepository
      * @param $goalIds array
      * @return array
      */
-    public function findAllPlaceByGoalIds($goalIds)
+    public function findPlaceByGoalIds($goalIds)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT DISTINCT p

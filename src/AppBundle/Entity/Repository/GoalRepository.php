@@ -755,7 +755,7 @@ class GoalRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllGoalByPlace($place)
+    public function findAllByPlace($place)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT g, p, ug, u
@@ -767,4 +767,22 @@ class GoalRepository extends EntityRepository
             ->setParameter('place', $place)
             ->getResult();
     }
+
+    /**
+     * @param $goalIds
+     * @return array
+     */
+    public function findAllByIds($goalIds)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, p, ug, u
+                           FROM AppBundle:Goal g
+                           JOIN g.place p
+                           LEFT JOIN g.userGoal ug
+                           LEFT JOIN ug.user u
+                           WHERE g.id in (:goalIds)")
+            ->setParameter('goalIds', $goalIds)
+            ->getResult();
+    }
+    
 }
