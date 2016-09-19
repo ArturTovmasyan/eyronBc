@@ -438,7 +438,11 @@ class SuccessStoryController extends FOSRestController
 
         $stats = $em->getRepository('ApplicationUserBundle:User')->findUsersStats(array_keys($voters));
 
+        $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), array_keys($voters));
+
         foreach($voters as &$user) {
+            $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+
             $user->setStats([
                 "listedBy" => $stats[$user->getId()]['listedBy'] + $stats[$user->getId()]['doneBy'],
                 "active"   => $stats[$user->getId()]['listedBy'],
@@ -446,6 +450,6 @@ class SuccessStoryController extends FOSRestController
             ]); 
         }
 
-        return $voters;
+        return array_values($voters);
     }
 }
