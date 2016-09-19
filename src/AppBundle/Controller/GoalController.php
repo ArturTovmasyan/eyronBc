@@ -170,7 +170,11 @@ class GoalController extends Controller
                     $em->persist($goal);
                     $em->flush();
 
-                    if(!$goalId) {
+
+                    if($goalId){
+                        $em->getRepository('AppBundle:UserGoal')->updateUserGoals($goalId);
+                    }
+                    else {
                         $request->getSession()
                             ->getFlashBag()
                             ->set('success', $this->get('translator')->trans('goal.was_created'));
@@ -181,6 +185,9 @@ class GoalController extends Controller
 
                 $em->persist($goal);
                 $em->flush();
+                if($goalId){
+                    $em->getRepository('AppBundle:UserGoal')->updateUserGoals($goalId);
+                }
 
                 return  $this->redirectToRoute('view_goal', ['slug'=> $goal->getSlug()]);
             }
@@ -197,7 +204,7 @@ class GoalController extends Controller
         elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
-                ->set('draft','Edit my draft  from Web');
+                ->set('draft','Edit my draft from Web');
         }
 
 

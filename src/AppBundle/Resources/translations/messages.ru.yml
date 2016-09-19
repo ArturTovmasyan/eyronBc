@@ -254,6 +254,7 @@ my_bucket_list:
   invisible: Невидимый
   notes: Заметки
   steps: Шаги
+  edit: Редактировать
   missed_deadline: Срок достижения цели нарушен
   year_old: -летний
 

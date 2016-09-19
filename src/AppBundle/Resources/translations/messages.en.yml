@@ -266,6 +266,7 @@ my_bucket_list:
   invisible: Invisible
   notes: Notes
   steps: Steps
+  edit: edit
   missed_deadline: Missed deadline
   year_old: y.o.
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.

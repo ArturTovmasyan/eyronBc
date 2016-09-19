@@ -293,8 +293,10 @@
                                                         </div>
                                                     </li>
 
-                                                    <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}'">
-                                                        <i title="{{ 'my_bucket_list.steps'|trans }}" class="icon-pencil"></i>
+                                                    <li data-ng-if="!goal.publish && goal.author && goal.author.id == '{{ profileUser.id }}'">
+                                                        <a href="{{ path('add_goal') }}?id=[[goal.id]]&slug=Public">
+                                                            <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
+                                                        </a>
                                                     </li>
 
                                                     <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">

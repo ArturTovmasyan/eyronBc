@@ -299,4 +299,16 @@ class UserGoalRepository extends EntityRepository
             ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
     }
+
+    /**
+     * @param $goalId
+     */
+    public function updateUserGoals($goalId)
+    {
+        $this->getEntityManager()
+            ->createQuery('UPDATE AppBundle:UserGoal ug SET ug.updated = :currentDate WHERE ug.goal = :goal')
+            ->setParameter('currentDate', new \DateTime())
+            ->setParameter('goal', $goalId)
+            ->execute();
+    }
 }
