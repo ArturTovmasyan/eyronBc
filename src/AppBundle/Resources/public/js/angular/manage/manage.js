@@ -72,7 +72,7 @@ angular.module('manage', ['Interpolation',
                 template.doneTemplate = doneTemplate;
             }
 
-            if (!commonTemplate && changedLanguage) {
+            if (!commonTemplate || changedLanguage) {
                 $http.get(commonUrl).success(function(data){
                     template.commonTemplate = data;
                     templateCache.put('common-template'+id, data);

@@ -614,6 +614,10 @@ angular.module('goal', ['Interpolation',
         $scope.isSearching = false;
         //$scope.placeholder = '';
         var locationsIds = [];
+        
+        $scope.scrollTop = function () {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
 
         $scope.castInt = function(value){
             return parseInt(value);
