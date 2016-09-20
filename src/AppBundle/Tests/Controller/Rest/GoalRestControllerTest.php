@@ -13,6 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GoalRestControllerTest extends BaseClass
 {
+    //set constant coordinate for Armenia Yerevan
+    const latitude = '40.1794197';
+    const longitude = '44.5408414';
+
+
+
     /**
      * This function get all goals test
      */
@@ -846,5 +852,84 @@ class GoalRestControllerTest extends BaseClass
                 $this->assertArrayHasKey('doneBy', $authorStats, 'Invalid doneBy key in testGetGoal rest json structure');
             }
         }
+    }
+
+
+    /**
+     * This function test get goals in place
+     *
+     */
+    public function testGetGoalsInPlace()
+    {
+        // create url for test
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::latitude, self::longitude);
+
+        // try to get user goal
+        $this->client2->request('GET', $url);
+
+        // check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user-goal in getAction rest!");
+
+        // check page response content type
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        // check database query count
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on get user goal page!");
+        }
+
+        //TODO check json structure after discussing with mobile team
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        foreach ($responseResults as $responseResult)
+        {
+            //check if confirmed goal exist
+            $this->assertContains('goal3', $responseResult, 'findAllByPlace() repository don\'t work correctly');
+        }
+    }
+
+    /**
+     * This function is used to test postConfirmGoalsAction() rest
+     *
+     */
+    public function testPostConfirmGoal()
+    {
+//        // create url for test
+//        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::latitude, self::longitude);
+//
+//        // try to get user goal
+//        $this->client2->request('GET', $url);
+//
+//        // check page is opened
+//        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get user-goal in getAction rest!");
+//
+//        // check page response content type
+//        $this->assertTrue(
+//            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+//            $this->client2->getResponse()->headers
+//        );
+//
+//        // check database query count
+//        if ($profile = $this->client2->getProfile()) {
+//            // check the number of requests
+//            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on get user goal page!");
+//        }
+//
+//        //TODO check json structure after discussing with mobile team
+//
+//        //get response content
+//        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+//
+//        foreach ($responseResults as $responseResult)
+//        {
+//            //check if confirmed goal exist
+//            $this->assertContains('goal3', $responseResult, 'findAllByPlace() repository don\'t work correctly');
+//        }
     }
 }
