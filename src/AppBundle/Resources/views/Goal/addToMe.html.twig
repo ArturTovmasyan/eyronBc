@@ -389,7 +389,7 @@
                 <p class="text-gray">
                     <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
                     <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
-                    <span data-ng-hide="userGoal.is_visible">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-hide="userGoal.is_visible" style="padding-top:5px;">{{ "goal.visible_text"|trans }}</span>
                     <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
                 {% if app.user %}
