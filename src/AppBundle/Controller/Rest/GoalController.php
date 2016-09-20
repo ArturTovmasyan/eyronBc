@@ -720,9 +720,9 @@ class GoalController extends FOSRestController
      *         400="Bad request"
      *  },
      *  parameters={
-     *      {"name"="goal", "dataType"="array", "required"=false, "description"="Goal ids with userGoal visible status"},
-     *      {"name"="latitude", "dataType"="float", "required"=false, "description"="latitude"},
-     *      {"name"="longitude", "dataType"="float", "required"=false, "description"="longitude"}
+     *      {"name"="goal", "dataType"="array", "required"=true, "description"="Goal ids with userGoal visible status"},
+     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
+     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
      *  }
      * )
      *
