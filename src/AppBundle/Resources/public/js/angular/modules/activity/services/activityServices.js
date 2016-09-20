@@ -255,15 +255,9 @@ angular.module('activity')
             return parseInt(value);
           };
           
-          scope.$parent.isVoting = function(voters, userId, isStory){
+          scope.$parent.isVoting = function(isVoting, isStory){
             if(!isStory)return false;
-            for(var i = 0;i < voters.length;i++){
-              if(voters[i].id == userId){
-                return true;
-              }
-            }
-            
-            return false;
+              return isVoting;
           };
 
           scope.$parent.manageVote = function(id, isNotMyGoal){
