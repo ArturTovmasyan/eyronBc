@@ -431,6 +431,10 @@ angular.module('goal', ['Interpolation',
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
 
+        $scope.openSignInPopover = function(){
+            AuthenticatorLoginService.openLoginPopup();
+        };
+
         $timeout(function () {
             var afilateHeight = $('.affiliate-right iframe').height();
             $('.affiliate-right iframe').height(afilateHeight + 20);

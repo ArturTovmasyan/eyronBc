@@ -52,12 +52,16 @@ angular.module('main',['mgcrea.ngStrap.modal',
         };
 
         $scope.openSignInPopover = function(id){
-            var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
-            url = url.replace('{storyId}', id);
-            $http.get(url).success(function() {})
-            .error(function (res) {
-              AuthenticatorLoginService.openLoginPopup();
-            });
+            if(!id){
+                AuthenticatorLoginService.openLoginPopup();
+            } else {
+                var url = envPrefix + 'api/v1.0/success-story/add-vote/{storyId}';
+                url = url.replace('{storyId}', id);
+                $http.get(url).success(function() {})
+                    .error(function (res) {
+                        AuthenticatorLoginService.openLoginPopup();
+                    });
+            }
         };
 
         $scope.triggerMap = function(mapSelector){

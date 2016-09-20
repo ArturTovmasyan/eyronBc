@@ -413,7 +413,9 @@
                                                 {#<div class="row no-gutter">#}
                                                     {#<div class="col-xs-2 col-sm-3 col-md-2">#}
                                                     <div class="clearfix">
-                                                        <a href="{{ path('user_profile',  {'user': addedUser.uId})}}" class="pull-left">
+                                                        <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
+                                                            data-ng-click="openSignInPopover()" {% endif %}
+                                                             class="pull-left">
                                                             {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
                                                             {% set className = "user-no" ~ random(4) %}
 
@@ -429,7 +431,9 @@
 
                                                         <div class="pull-left">
                                                             <p>
-                                                                <a href="{{ path('user_profile',  {'user': addedUser.uId})}}" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                                <a {% if app.user is not null %} href="{{ path('user_profile',  {'user': addedUser.uId})}}"{% else %}
+                                                                    data-ng-click="openSignInPopover()" {% endif %}
+                                                                 class="text-dark-gray">{{ addedUser.showName }}</a>
                                                             </p>
                                                         <span data-ng-cloak>
                                                             [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
