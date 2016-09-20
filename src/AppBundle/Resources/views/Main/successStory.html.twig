@@ -28,7 +28,7 @@
                                                     <div class="clearfix">
 
                                                         <div class="pull-left">
-                                                            <a href="#">
+                                                            <a href="#" data-ng-click="openSignInPopover()">
                                                                 {% set nameOnImage = addedUser.firstName|slice(0,1) ~ addedUser.lastName|slice(0,1) %}
                                                                 {% set className = "user-no" ~ random(4) %}
 
@@ -46,7 +46,7 @@
 
                                                         <div class="pull-left success-story-user">
                                                             <p class="user-name">
-                                                                <a href="#" class="text-dark-gray">{{ addedUser.showName }}</a>
+                                                                <a href="#" data-ng-click="openSignInPopover()" class="text-dark-gray">{{ addedUser.showName }}</a>
                                                             </p>
                                                             <span data-ng-cloak>
                                                                 [[ ::dateToLocal('{{ story.updated | date('m/d/Y H:i O') }}') ]]
@@ -145,20 +145,20 @@
                                                         <div class="absolute">
                                                             <ul>
                                                                 <li>
-                                                                    <a href="{{ path('listed_users', {'slug': story.goal.slug} ) }}">
-                                                                <span>
-                                                                    {{ 'home_listed_by'|trans({},'messages') | capitalize }}
-                                                                    {{ story.goal.stats.listedBy }}
-                                                                </span>
+                                                                    <a data-ng-click="openSignInPopover()">
+                                                                        <span>
+                                                                            {{ 'home_listed_by'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.listedBy }}
+                                                                        </span>
                                                                         <i class="icon-user-small"></i>
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="{{ path('done_users', {'slug': story.goal.slug} ) }}">
-                                                                <span>
-                                                                    {{ 'home_complete'|trans({},'messages') | capitalize }}
-                                                                    {{ story.goal.stats.doneBy }}
-                                                                </span>
+                                                                    <a data-ng-click="openSignInPopover()">
+                                                                        <span>
+                                                                            {{ 'home_complete'|trans({},'messages') | capitalize }}
+                                                                            {{ story.goal.stats.doneBy }}
+                                                                        </span>
                                                                         <i class="icon-user-small"></i>
                                                                     </a>
                                                                 </li>

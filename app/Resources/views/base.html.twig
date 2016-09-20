@@ -504,15 +504,15 @@
                     locale: '{{ app.request.getLocale() }}'
                 });
 
-                {% if not app.user and (app.session.flashBag.peekAll|length and
-                    app.session.flashBag.peekAll['error-open-login'] is defined and
-                    app.session.flashBag.get('error-open-login') is not null) %}
+                {#{% if not app.user and (app.session.flashBag.peekAll|length and#}
+                    {#app.session.flashBag.peekAll['error-open-login'] is defined and#}
+                    {#app.session.flashBag.get('error-open-login') is not null) %}#}
 
-                    angular.module('Authenticator').run(['AuthenticatorLoginService', '$timeout', function(AuthenticatorLoginService, $timeout){
-                        $timeout(AuthenticatorLoginService.openLoginPopup, 1000);
-                    }]);
+                    {#angular.module('Authenticator').run(['AuthenticatorLoginService', '$timeout', function(AuthenticatorLoginService, $timeout){#}
+                        {#$timeout(AuthenticatorLoginService.openLoginPopup, 1000);#}
+                    {#}]);#}
 
-                {% endif %}
+                {#{% endif %}#}
 
                 function autoResizeDiv()
                 {
