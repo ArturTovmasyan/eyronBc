@@ -160,7 +160,6 @@ class GoalRestControllerTest extends BaseClass
 
         //check userPlace count
         $this->assertEquals(2, $userPlacesCount, 'UserPlace not created correctly');
-
     }
 
     /**
