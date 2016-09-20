@@ -193,14 +193,14 @@
                                         {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
                                         {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
                                         <li data-ng-show="!joinToggle11">
-                                            <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile"{% endif %}>
+                                            <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
                                                 <i class="icons ideas-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                             </a>
                                         </li>
                                          <li data-ng-show="!joinToggle11">
-                                            <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile"{% endif %}>
+                                            <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
@@ -314,7 +314,7 @@
 
                                     {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
                                     {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
-                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
+                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="icons ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
@@ -322,7 +322,7 @@
                                     </li>
 
                                     {% if user %}
-                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active"{% endif %}>
+                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                             <a href="{{ path('user_profile_single') }}">
                                                 <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>

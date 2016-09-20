@@ -16,6 +16,10 @@ angular.module('profile')
       $scope.isMobile = window.innerWidth < 767;
       var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
 
+      $scope.scrollTop = function () {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+      };
+
       $scope.castInt = function(value){
         return parseInt(value);
       };
