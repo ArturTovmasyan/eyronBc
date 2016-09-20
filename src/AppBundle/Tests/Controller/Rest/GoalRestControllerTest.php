@@ -160,6 +160,17 @@ class GoalRestControllerTest extends BaseClass
 
         //check userPlace count
         $this->assertEquals(2, $userPlacesCount, 'UserPlace not created correctly');
+
+        //check suggestion after confirmation goal
+
+        //create url for test
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::latitude, self::longitude);
+
+        //try to get goals in place
+        $this->client2->request('GET', $url);
+
+        //check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "Goal confirm action don't work correctly");
     }
 
     /**
