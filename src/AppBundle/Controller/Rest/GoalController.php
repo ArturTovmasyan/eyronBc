@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Rest;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\GoalImage;
 use AppBundle\Entity\UserGoal;
+use AppBundle\Entity\UserPlace;
 use Application\CommentBundle\Entity\Comment;
 use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
@@ -635,7 +636,7 @@ class GoalController extends FOSRestController
         return [
             '1'      => $goalFriends,
             'length' => $allCount
-            ];
+        ];
     }
 
     /**
@@ -659,5 +660,197 @@ class GoalController extends FOSRestController
     public function getImageAction(Goal $goal)
     {
         return $goal;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goals in place",
+     *  statusCodes={
+     *         204="No content",
+     *         200="Ok",
+     *         400="Bad request"
+     *  },
+     *  parameters={
+     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
+     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
+     *  }
+     * )
+     *
+     * @return array
+     * @param $latitude
+     * @param $longitude
+     *
+     * @Rest\View(serializerGroups={"goal"})
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function getGoalsInPlaceAction($latitude, $longitude)
+    {
+        //check if coordinate exist
+        if ($latitude && $longitude) {
+
+            //get service
+            $googlePlaceService = $this->get('app.google_place');
+
+            //get current user
+            $user = $this->getUser();
+
+            //get all goal by place
+            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude, $user->getId());
+
+            //check if goal not exists
+            if (!$allGoals) {
+                return new Response('', Response::HTTP_NO_CONTENT);
+            }
+
+            return $allGoals;
+        }
+
+        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to confirm goals",
+     *  statusCodes={
+     *         200="Ok",
+     *         400="Bad request"
+     *  },
+     *  parameters={
+     *      {"name"="goal", "dataType"="array", "required"=false, "description"="Goal ids with userGoal visible status"},
+     *      {"name"="latitude", "dataType"="float", "required"=false, "description"="latitude"},
+     *      {"name"="longitude", "dataType"="float", "required"=false, "description"="longitude"}
+     *  }
+     * )
+     *
+     * @return array
+     * @param $request
+     *
+     * @Rest\View()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function postConfirmGoalsAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //TODO must be return userGoal visible status with goal ids
+        //get goals in request
+        $goalData = $request->get('goal', null);
+
+        //get goal ids
+        $goalIds = array_keys($goalData);
+
+        //get latitude
+        $latitude = $request->get('latitude', null);
+
+        //get longitude
+        $longitude = $request->get('longitude', null);
+
+        //check if goal ids not send
+        if(!$goalIds || !$latitude || !$longitude) {
+            new JsonResponse(array('error' => 'Request data is empty'), Response::HTTP_BAD_REQUEST);
+        }
+
+        //get current user
+        $user = $this->getUser();
+
+        //get all goals by ids
+        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
+
+        //set default confirmed goal ids value
+        $confirmedGoalIds = [];
+
+        //confirm done goal
+        foreach ($goals as $goal)
+        {
+            //set confirm default value
+            $confirm = false;
+
+            //get user goal by user id
+            $userGoals = $goal->getUserGoal();
+
+            //get current user userGoal
+            $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+                return $item->getUser() == $user ? true : false;
+            });
+
+            //check if user have user goal
+            if ($relatedUserGoal->count() > 0) {
+
+                //get related user goal
+                $userGoal = $relatedUserGoal->first();
+
+                //check if user goal not confirmed
+                if (!$userGoal->getConfirmed()) {
+
+                    //confirmed done goal for user
+                    $userGoal->setConfirmed(true);
+
+                    //check if user goal is not completed
+                    if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
+
+                        //set completed status for goal
+                        $userGoal->setStatus(UserGoal::COMPLETED);
+                    }
+
+                    //set confirm value
+                    $confirm = true;
+                }
+
+            }
+            else {
+
+                //get visible value
+                $visible = $goalData[$goal->getId()];
+
+                //create new userGoal for current user
+                $userGoal = new UserGoal();
+                $userGoal->setUser($user);
+                $userGoal->setGoal($goal);
+                $userGoal->setStatus(UserGoal::COMPLETED);
+                $userGoal->setIsVisible($visible);
+                $userGoal->setCompletionDate(new \DateTime('now'));
+                $userGoal->setConfirmed(true);
+
+                //set confirm value
+                $confirm = true;
+            }
+
+            //check if user has confirmed goal
+            if ($confirm) {
+
+                $confirmedGoalIds[] = $goal->getId();
+                $em->persist($userGoal);
+            }
+        }
+
+        //check if confirmed goal id exist
+        if ($confirmedGoalIds) {
+
+            //get places by goal ids
+            $places = $em->getRepository('AppBundle:Place')->findPlaceByGoalIds($confirmedGoalIds);
+
+            //check if places exist
+            foreach ($places as $place )
+            {
+                //create user place
+                $userPlace = new UserPlace();
+                $userPlace->setLatitude($latitude);
+                $userPlace->setLongitude($longitude);
+                $userPlace->setUser($user);
+                $userPlace->setPlace($place);
+
+                $em->persist($userPlace);
+            }
+        }
+
+        $em->flush();
+        $em->clear();
+
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 }
