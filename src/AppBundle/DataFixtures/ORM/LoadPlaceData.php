@@ -32,9 +32,9 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
     {
         // get users
         $goal1 = $this->getReference('goal14'); //not have userGoal
-        $goal2 = $this->getReference('goal2');
+        $goal2 = $this->getReference('goal2'); //have userGoal without confirm it
         $goal3 = $this->getReference('goal3'); //confirmed goal
-        $goal4 = $this->getReference('goal4');
+        $goal4 = $this->getReference('goal4'); //have userGoal without confirm it
 
         //create placeType
         $placeType1 = new PlaceType();

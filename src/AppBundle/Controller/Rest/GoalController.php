@@ -737,18 +737,17 @@ class GoalController extends FOSRestController
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        //TODO must be return userGoal visible status with goal ids
-        //get goals in request
+        //get goal data in request
         $goalData = $request->get('goal', null);
-
-        //get goal ids
-        $goalIds = array_keys($goalData);
 
         //get latitude
         $latitude = $request->get('latitude', null);
 
         //get longitude
         $longitude = $request->get('longitude', null);
+
+        //get goal ids
+        $goalIds = $goalData ? array_keys($goalData) : null;
 
         //check if goal ids not send
         if(!$goalIds || !$latitude || !$longitude) {
@@ -800,7 +799,6 @@ class GoalController extends FOSRestController
                     //set confirm value
                     $confirm = true;
                 }
-
             }
             else {
 
