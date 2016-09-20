@@ -374,7 +374,6 @@
                             <input type="checkbox"
                                 data-ng-model="userGoal.is_visible"
                                 data-ls-checked="userGoal.is_visible"
-                                data-ng-disabled="complete.switch"
                                 id="goal-is-visible"
                                 class="onoffswitch-checkbox">
 
@@ -412,7 +411,7 @@
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-                    <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
+                    <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails" class="btn btn-transparent forget">
                         <i class="icon-trash"></i>
                         <span>{{ 'forget'|trans | upper }}</span>
                     </a>

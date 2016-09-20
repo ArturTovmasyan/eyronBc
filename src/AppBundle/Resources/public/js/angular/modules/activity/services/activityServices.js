@@ -12,8 +12,11 @@ angular.module('activity')
         }}
       });
     }])
-  .factory('lsActivitiesItems', ['$http', 'localStorageService', 'ActivityDataManager', '$analytics', 'UserContext',
-    function($http, localStorageService, ActivityDataManager, $analytics, UserContext) {
+  .value('storageDates', {
+    name: 'activities_storage'
+  })
+  .factory('lsActivitiesItems', ['$http', 'localStorageService', 'ActivityDataManager', '$analytics', 'UserContext', 'storageDates',
+    function($http, localStorageService, ActivityDataManager, $analytics, UserContext, storageDates) {
     var lsActivitiesItems = function(loadCount, userId) {
       this.items = [];
       this.users = [];
@@ -21,7 +24,7 @@ angular.module('activity')
       this.noItem = false;
       this.busy = false;
       this.isReset = false;
-      this.storage_name = 'activities_storage';
+      this.storage_name = storageDates.name;
       this.request = 0;
       this.start = 0;
       this.reserve = [];
@@ -235,7 +238,10 @@ angular.module('activity')
     '$timeout',
     '$http',
     'envPrefix',
-    function(lsActivitiesItems, $interval, $timeout, $http, envPrefix){
+    'UserContext',
+    'localStorageService',
+    'storageDates',
+    function(lsActivitiesItems, $interval, $timeout, $http, envPrefix, UserContext, localStorageService, storageDates){
       return {
         restrict: 'EA',
         scope: {
@@ -249,15 +255,9 @@ angular.module('activity')
             return parseInt(value);
           };
           
-          scope.$parent.isVoting = function(voters, userId, isStory){
+          scope.$parent.isVoting = function(isVoting, isStory){
             if(!isStory)return false;
-            for(var i = 0;i < voters.length;i++){
-              if(voters[i].id == userId){
-                return true;
-              }
-            }
-            
-            return false;
+              return isVoting;
           };
 
           scope.$parent.manageVote = function(id, isNotMyGoal){
@@ -266,6 +266,10 @@ angular.module('activity')
             url = envPrefix + url;
             url = url.replace('{storyId}', id);
             $http.get(url).success(function() {
+              if(UserContext.id && localStorageService.isSupported)
+              {
+                localStorageService.remove(storageDates.name + UserContext.id);
+              }
               if(!scope.$parent.vote[id]){
                 scope.$parent.count[id]++;
                 scope.$parent.vote[id] = true;
