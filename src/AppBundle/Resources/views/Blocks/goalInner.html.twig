@@ -122,7 +122,7 @@
                                            data-ls-goal-id="{{ goal.id }}"
                                            data-ng-click="added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                             <i class="icon-plus-icon"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            <span class="text">{{ 'add'|trans }}</span>
+                                            <span class="text">{{ 'add'|trans | upper}}</span>
                                         </a>
                                     {% endif %}
                                     <span class="ng-hide" data-ng-show="{% if goal.isMyGoal %}true{% else %}false{% endif %} || added">
@@ -141,12 +141,12 @@
                                            data-ls-goal-id="{{ goal.id }}"
                                            data-ng-click="completed = false; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
                                             <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                                            <span class="text">{{ 'done'|trans }}</span>
+                                            <span class="text">{{ 'done'|trans | upper }}</span>
                                         </a>
 
                                         <span class="ng-hide" data-ng-show="!completed">
                                              <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                             <span class="text">{{ 'completed'|trans | capitalize}}</span>
+                                             <span class="text">{{ 'completed'|trans | upper}}</span>
                                         </span>
 
                                     {% else %}
