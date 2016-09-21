@@ -859,11 +859,12 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.removeUserGoal = function (id) {
         UserGoalDataManager.delete({id:id}, function (resource){
+          $scope.$emit('removeUserGoal', id);
           if(resource[0] == 1){
             $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
           }
-          window.location.reload();
         });
+        $.modal.close();
       };
 
       $timeout(function(){
