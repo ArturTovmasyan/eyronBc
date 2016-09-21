@@ -300,6 +300,10 @@ angular.module('goalComponents', ['Interpolation',
         }
       };
 
+      $scope.getDaysInMonth = function(m, y) {
+        return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+      };
+
       $scope.compareDates = function(date1, date2){
         if(!date1){
           return null;
@@ -365,6 +369,14 @@ angular.module('goalComponents', ['Interpolation',
         if($scope.year && $scope.year != $scope.defaultYear &&
           $scope.month && $scope.month != $scope.defaultMonth &&
           $scope.day && $scope.day != $scope.defaultDay && $scope.newAdded){
+
+            $scope.dayInMonth = $scope.getDaysInMonth($scope.months.indexOf($scope.month), $scope.year);
+          
+            if($scope.day > $scope.dayInMonth){
+              $scope.invalidYear = true;
+              return;
+            }
+
             $scope.completion_date = $scope.dateByFormat($scope.year ,$scope.months.indexOf($scope.month),$scope.day,'MM-DD-YYYY');
             $scope.firefox_completed_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'YYYY-MM-DD');
             $scope.saveDate(1);
@@ -399,9 +411,8 @@ angular.module('goalComponents', ['Interpolation',
             'files'     : $scope.files
           };
           UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
-            // angular.element('#cancel').click();
-            $.modal.close();
           });
+          $.modal.close();
         }, 100)
       };
 
@@ -521,6 +532,10 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.dateByFormat = function (year, month, day, format) {
         return moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day)).format(format)
+      };
+
+      $scope.getDaysInMonth = function(m, y) {
+        return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
       };
 
       $scope.updateDate = function (date, isNewDate) {
@@ -716,9 +731,17 @@ angular.module('goalComponents', ['Interpolation',
 
             dateChanged = true;
             $scope.userGoal.date_status = 1;
+            $scope.dayInMonth = $scope.getDaysInMonth($scope.months.indexOf($scope.month), $scope.year);
+
+            if($scope.day > $scope.dayInMonth){
+                $scope.invalidYear = true;
+                return;
+            }
+
             if($scope.complete.switch){
               $scope.userGoal.completion_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'MM-DD-YYYY');
               $scope.firefox_completed_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'YYYY-MM-DD');
+
               if($scope.firefox_do_date){
                 $scope.userGoal.do_date = moment($scope.firefox_do_date).format('MM-DD-YYYY');
               }
@@ -730,16 +753,16 @@ angular.module('goalComponents', ['Interpolation',
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){
             //when select only year
-
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?$scope.months.indexOf($scope.month): ($scope.complete.switch? moment().format('M'):12);
-            var day = 1;
+            var day = $scope.getDaysInMonth(month, $scope.year);
 
             $scope.userGoal.date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
 
             if($scope.complete.switch){
               $scope.userGoal.completion_date = $scope.dateByFormat($scope.year, month, day, 'MM-DD-YYYY');
               $scope.firefox_completed_date = $scope.dateByFormat($scope.year, month, day, 'YYYY-MM-DD');
+
               if($scope.firefox_do_date){
                 $scope.userGoal.do_date = moment($scope.firefox_do_date).format('MM-DD-YYYY');
               }
@@ -749,7 +772,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.userGoal.do_date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
               $scope.userGoal.completion_date = null;
             }
-          //  todo some thing in circles
+
           }
           else if(($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)){
             $scope.uncompletedYear = true;
@@ -825,23 +848,23 @@ angular.module('goalComponents', ['Interpolation',
 
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (res){
             $scope.$emit('lsJqueryModalClosedSaveGoal');
-            // angular.element('#cancel').click();
-            $.modal.close();
 
             if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
               $window.location.href = $scope.redirectPath;
             }
           });
+          $.modal.close();
         }, 100)
       };
 
       $scope.removeUserGoal = function (id) {
         UserGoalDataManager.delete({id:id}, function (resource){
+          $scope.$emit('removeUserGoal', id);
           if(resource[0] == 1){
             $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
           }
-          window.location.reload();
         });
+        $.modal.close();
       };
 
       $timeout(function(){
