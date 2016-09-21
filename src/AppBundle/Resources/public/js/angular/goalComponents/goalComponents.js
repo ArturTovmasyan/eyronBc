@@ -300,6 +300,10 @@ angular.module('goalComponents', ['Interpolation',
         }
       };
 
+      $scope.getDaysInMonth = function(m, y) {
+        return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+      }
+
       $scope.compareDates = function(date1, date2){
         if(!date1){
           return null;
@@ -523,6 +527,10 @@ angular.module('goalComponents', ['Interpolation',
         return moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day)).format(format)
       };
 
+      $scope.getDaysInMonth = function(m, y) {
+        return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+      };
+
       $scope.updateDate = function (date, isNewDate) {
         if(date){
           $scope.month = ($scope.userGoal.date_status == 2 && !isNewDate)?$scope.defaultMonth:$scope.myMonths[moment(date).format('M')];
@@ -719,6 +727,7 @@ angular.module('goalComponents', ['Interpolation',
             if($scope.complete.switch){
               $scope.userGoal.completion_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'MM-DD-YYYY');
               $scope.firefox_completed_date = $scope.dateByFormat($scope.year, $scope.months.indexOf($scope.month), $scope.day, 'YYYY-MM-DD');
+
               if($scope.firefox_do_date){
                 $scope.userGoal.do_date = moment($scope.firefox_do_date).format('MM-DD-YYYY');
               }
@@ -730,16 +739,16 @@ angular.module('goalComponents', ['Interpolation',
             }
           } else if($scope.year && $scope.year != $scope.defaultYear){
             //when select only year
-
             dateChanged = true;
             var month = ($scope.month && $scope.month != $scope.defaultMonth)?$scope.months.indexOf($scope.month): ($scope.complete.switch? moment().format('M'):12);
-            var day = 1;
+            var day = $scope.getDaysInMonth(month, $scope.year);
 
             $scope.userGoal.date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
 
             if($scope.complete.switch){
               $scope.userGoal.completion_date = $scope.dateByFormat($scope.year, month, day, 'MM-DD-YYYY');
               $scope.firefox_completed_date = $scope.dateByFormat($scope.year, month, day, 'YYYY-MM-DD');
+
               if($scope.firefox_do_date){
                 $scope.userGoal.do_date = moment($scope.firefox_do_date).format('MM-DD-YYYY');
               }
@@ -749,7 +758,7 @@ angular.module('goalComponents', ['Interpolation',
               $scope.userGoal.do_date_status = ($scope.month && $scope.month != $scope.defaultMonth)?3:2;
               $scope.userGoal.completion_date = null;
             }
-          //  todo some thing in circles
+
           }
           else if(($scope.month && $scope.month != $scope.defaultMonth) || ($scope.day && $scope.day != $scope.defaultDay)){
             $scope.uncompletedYear = true;
