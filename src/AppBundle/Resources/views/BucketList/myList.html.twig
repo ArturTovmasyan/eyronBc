@@ -131,7 +131,7 @@
                     <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'"
                          data-ng-cloak
                          data-infinite-scroll='Activities.nextActivity()'
-                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy'>
+                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy || profile.status != "{{ activity }}"'>
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
                     </div>
                 {% endif %}
