@@ -11,7 +11,7 @@ join_now: Join Now
 most_popular: Most Popular
 discover: Discover
 add: ADD
-done: DONE
+done: complete
 clone: CLONE
 success_stories: Success stories
 successtory: Success story
@@ -65,7 +65,7 @@ goal:
       add_description: The first step to dream big is to create a bucketlist. If you want to fulfill your dreams, experience life goals before you die, start just now by creating goals.
       to_do: To Do
       type: Type in a youtube or vimeo link in the field
-      done: Done
+      done: complete
       as_priority: Set a priority
       critical_activities: Manage critical activities
       avoid_interruptions: Avoid interruptions
@@ -111,7 +111,7 @@ activities:
 Title: Title
 Description: Description
 Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
-Done: Done
+Done: complete
 
 ideas_list_title: Explore thousands of great ideas for your Bucket List
 
@@ -308,7 +308,7 @@ block_listed: Listed
 block_completed: Completed
 Add an email : Add an email
 
-forget: FORGET IT
+forget: Remove
 dream: No deadline, No goal! You are just dreaming
 
 drag_drop: You can upload up to 6 images
