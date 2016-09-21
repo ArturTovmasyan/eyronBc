@@ -370,7 +370,11 @@ angular.module('activity')
             }, 2000);
           }
           scope.$parent.Activities = new lsActivitiesItems(scope.lsCount? scope.lsCount: 7, scope.lsUser);
-          scope.$parent.Activities.nextActivity();
+          
+          if(!scope.lsUser){
+            scope.$parent.Activities.nextActivity();
+          }
+          
           scope.$parent.showNoActivities = false;
 
           scope.$parent.$watch('Activities.items', function(d) {
