@@ -129,7 +129,7 @@
         <!--Get Place and notify about goal service -->
         <service id="app.google_place" class="AppBundle\Services\GooglePlaceService">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%google_api_key%</argument>
+            <argument>%google_server_key%</argument>
         </service>
 
     </services>
