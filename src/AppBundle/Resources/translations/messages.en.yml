@@ -161,6 +161,8 @@ user_goal:
 # success story form
 success_story:
       error_year: You cannot complete your goal at a future date
+      error_day_in_month1: This month possesses
+      error_day_in_month2: days. Please enter a valid date
       error_uncomplete_year: You should select at least the year.
       error_without_file: Please, enter at least 3 words if there is no image or video!
       error_widht_file:  Please, write success story!

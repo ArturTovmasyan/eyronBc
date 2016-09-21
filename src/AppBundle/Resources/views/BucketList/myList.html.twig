@@ -162,7 +162,11 @@
                                             [[ goalDate[goal.id] | date:'dd' ]]
                                         </div>
 
-                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' || dateStatus[goal.id] != 1">
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] != 1">
+                                            --
+                                        </div>
+
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming'">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
