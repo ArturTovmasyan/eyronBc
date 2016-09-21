@@ -349,6 +349,8 @@ notification:
   important_goal_success_story: wrote success story on your important goal
   success_story_vote: voted for your success story
   publish_goal: Your '%goal%' goal has been published
+  confirm_goal: Yours '%goal%' goal has been confirmed as done
+  done_goal: You done '%goal%' goal
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 
@@ -405,6 +407,13 @@ admin:
       enabled: Enabled
       goal_public: Public goal
       featured_date: Featured Date
+      place: Place
+      type: Type
+      place_type: Place Type
+      user_place: User Place
+      goal: Goal
+      type_name: Name
+      place_name: Name
 
 # end sonata admin lable
 
