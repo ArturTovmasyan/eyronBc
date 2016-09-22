@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
-    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+  .controller('profileController',['$scope', '$rootScope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
+    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
       var path = $location.$$path;
       $scope.errorMessages = [];
+      $scope.userGoalIds = [];
       angular.element(".settings select").niceSelect();
       
       $scope.ProfileItems = new lsInfiniteGoals(10);
@@ -27,6 +28,14 @@ angular.module('profile')
       $scope.$on('doneGoal', function(){
         angular.element('.goal' + refreshingDate.goalId).removeClass("active-idea");
         $scope['doDate' + refreshingDate.goalId] = new Date();
+      });
+
+      $rootScope.$on('removeUserGoal', function (ev, id) {
+        var index = $scope.userGoalIds.indexOf(id);
+
+        if(index !== -1){
+          $scope.userGoalIds[index] = 'removed';
+        }
       });
 
       $scope.goTo = function (status) {

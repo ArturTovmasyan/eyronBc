@@ -406,7 +406,7 @@
                     </div>
                 {% endif %}
 
-                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_year'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_day_in_month1'|trans }} [[ dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}</p>
                 <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
@@ -421,7 +421,7 @@
                     <div class="delete-message">
                         <div>
                             <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
-                            <a href="javascript:void(0)" data-ng-click="removeUserGoal([[ userGoal.id ]])" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
+                            <a href="javascript:void(0)" data-ng-click="removeUserGoal(userGoal.id)" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
                             <a data-ng-click="showDetails=!showDetails" href="javascript:void(0)" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
                         </div>
                     </div>

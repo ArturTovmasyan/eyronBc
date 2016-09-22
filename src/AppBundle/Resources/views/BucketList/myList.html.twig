@@ -131,7 +131,7 @@
                     <div id="news-feed" class="user-activities" data-ng-show="profile.status == '{{ activity }}'"
                          data-ng-cloak
                          data-infinite-scroll='Activities.nextActivity()'
-                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy'>
+                         data-infinite-scroll-disabled='Activities.noItem || Activities.busy || profile.status != "{{ activity }}"'>
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': true, 'activity': activity, 'userId': profileUser.id} %}
                     </div>
                 {% endif %}
@@ -144,8 +144,9 @@
                         {% if myProfile %}
                             <div data-ng-class="{'active-idea': ((status != '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}') && userGoal.do_date)}" class="row goal[[ goal.id ]] goals-animate"
                                 data-ng-cloak
+                                data-ng-show="$parent.userGoalIds[$index] != 'removed'"
                                 data-ng-repeat="userGoal in ProfileItems.userGoals"
-                                data-ng-init="goal = userGoal.goal; status = userGoal.status">
+                                data-ng-init="goal = userGoal.goal; status = userGoal.status;$parent.userGoalIds[$index] = userGoal.id">
                                 <div class="col-sm-2 no-right" data-ng-cloak data-ng-class="{'no-left' : isMobile}">
                                     <div class="date-left"
                                          data-ng-init="
@@ -162,7 +163,11 @@
                                             [[ goalDate[goal.id] | date:'dd' ]]
                                         </div>
 
-                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming' || dateStatus[goal.id] != 1">
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] != 'dreaming' && dateStatus[goal.id] != 1">
+                                            --
+                                        </div>
+
+                                        <div class="img-circle hidden-xs ng-hide" data-ng-cloak data-ng-show="goalDate[ goal.id ] == 'dreaming'">
                                             <i class="dreaming">
                                                 <i class="icon-dreaming"></i>
                                             </i>
@@ -485,7 +490,7 @@
             </div>
 
             <div class="col-md-4" data-ng-cloack>
-                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 2, 'isProfile': true}  %}
+                {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': user, 'count': 1, 'isProfile': true}  %}
                 {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
             </div>
         </div>

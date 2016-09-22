@@ -152,6 +152,8 @@ user_goal:
 # success story form
 success_story:
       error_year: вы не можете завершить цели на будущее время.
+      error_day_in_month1: В этом месяце имеется
+      error_day_in_month2: дней. Пожалуйста, введите правильную дату
       error_uncomplete_year: Вы должны выбрать как минимум поле года.
       error_without_file: Пожалуйста, введите не менее 3 слов, ибо нет изображения или видео!
       error_widht_file:  Пожалуйста, напишите историю успеха!

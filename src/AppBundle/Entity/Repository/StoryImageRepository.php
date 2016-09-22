@@ -28,24 +28,4 @@ class StoryImageRepository extends EntityRepository
 
         return $query;
     }
-
-    /**
-     * @return array
-     */
-    public function findAllOlder()
-    {
-        // create new dae
-        $date = new \DateTime('now');
-        $query =  $this->getEntityManager()
-            ->createQuery(" SELECT i, s
-                            FROM AppBundle:StoryImage i
-                            LEFT JOIN i.story s
-                            WHERE s.id is null and TIMESTAMPDIFF( HOUR ,  i.updated,  :date ) > 1
-                            ")
-            ->setParameter('date', $date)
-            ->getResult()
-        ;
-
-        return $query;
-    }
 }
