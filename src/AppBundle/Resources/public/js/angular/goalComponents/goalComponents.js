@@ -9,6 +9,7 @@ angular.module('goalComponents', ['Interpolation',
   'angulartics',
   'angulartics.google.analytics',
   'PathPrefix',
+  'dndLists',
   'Facebook'
   ])
   .config(function(uiSelectConfig) {
@@ -410,7 +411,8 @@ angular.module('goalComponents', ['Interpolation',
             'videoLink' : $scope.video_link,
             'files'     : $scope.files
           };
-          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
+          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, null, function (){
+            toastr.error('Sorry! Your success story has not been saved');
           });
           $.modal.close();
         }, 100)
@@ -525,6 +527,10 @@ angular.module('goalComponents', ['Interpolation',
         $scope.completeYears.unshift($scope.defaultYear);
         $scope.days.unshift($scope.defaultDay);
       },100);
+
+      $scope.models = {
+        selected: null
+      };
 
       $scope.$watch('myMonths', function(m){
         $scope.months = _.values(m);
@@ -848,6 +854,8 @@ angular.module('goalComponents', ['Interpolation',
 
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (res){
             $scope.$emit('lsJqueryModalClosedSaveGoal', res);
+          }, function () {
+            toastr.error('Sorry! Your goal has not been saved');
           });
           $.modal.close();
         }, 100)
@@ -859,6 +867,8 @@ angular.module('goalComponents', ['Interpolation',
           if(resource[0] == 1){
             $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
           }
+        }, function () {
+          toastr.error('Sorry! Your goal has not been removed');
         });
         $.modal.close();
       };

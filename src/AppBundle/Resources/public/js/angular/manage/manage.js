@@ -31,10 +31,10 @@ angular.module('manage', ['Interpolation',
             locale = UserContext.locale,
             changedLanguage = false;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v7');
+        var templateCache = CacheFactory.get('bucketlist_templates_v8');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v7', {
+            templateCache = CacheFactory('bucketlist_templates_v8', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });

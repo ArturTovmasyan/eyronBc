@@ -320,43 +320,54 @@
                     </div>
                 </div>
 
-                <div class="form-group row" data-ng-repeat="(k, step) in userGoal.formatted_steps">
+                <div data-dnd-list="userGoal.formatted_steps"
+                     data-dnd-disable-if="complete.switch">
+                    <div class="form-group row"
+                         data-ng-repeat="(k, step) in userGoal.formatted_steps"
+                         data-dnd-draggable="step"
+                         data-dnd-disable-if="!step.text"
+                         data-dnd-moved="userGoal.formatted_steps.splice($index, 1)"
+                         data-dnd-effect-allowed="move"
+                         data-dnd-selected="models.selected = step"
+                         data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">
+                        <label class="col-sm-2 control-label handle" data-ng-show="!complete.switch">
+                            <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
+                            <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
+                        </label>
 
-                    <label class="col-sm-2 control-label" data-ng-show="!complete.switch">
-                        <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
-                        <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
-                    </label>
+                        <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
+                            <div class="to-do-list">
+                                <i title="Notes" class="icon-step-list"></i>
+                                <input type="text"
+                                       class="form-control"
+                                       data-step
+                                       data-key="k"
+                                       data-array="userGoal.formatted_steps"
+                                       data-ng-model="step.text"
+                                       data-ng-disabled="complete.switch"
+                                       name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
+                                       placeholder="{{ "goal.add_step"|trans }}">
+                            </div>
+                        </div>
 
-                    <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
-                        <div class="to-do-list">
-                            <i title="Notes" class="icon-step-list"></i>
-                            <input type="text"
-                                   class="form-control"
-                                   data-step
-                                   data-key="k"
-                                   data-array="userGoal.formatted_steps"
-                                   data-ng-model="step.text"
-                                   data-ng-disabled="complete.switch"
-                                   name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
-                                   placeholder="{{ "goal.add_step"|trans }}">
+                        <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox"
+                                       name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
+                                       data-ng-model="step.switch"
+                                       data-ls-checked="step.switch"
+                                       data-ng-disabled="complete.switch"
+                                       class="onoffswitch-checkbox"
+                                       id="myonoffswitch[[k]]">
+
+                                <label class="onoffswitch-label" for="myonoffswitch[[k]]">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
-                        <div class="onoffswitch">
-                            <input type="checkbox"
-                                   name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
-                                   data-ng-model="step.switch"
-                                   data-ls-checked="step.switch"
-                                   data-ng-disabled="complete.switch"
-                                   class="onoffswitch-checkbox"
-                                   id="myonoffswitch[[k]]">
-
-                            <label class="onoffswitch-label" for="myonoffswitch[[k]]">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
+                    <div class="dndPlaceholder form-group row">
                     </div>
                 </div>
 

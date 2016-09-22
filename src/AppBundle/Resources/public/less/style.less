@@ -3439,3 +3439,36 @@ html {
     margin-left: 10px;
   }
 }
+div[dnd-list],
+div[dnd-list] > div,
+div[dnd-list] > li {
+  position: relative;
+}
+
+div[dnd-list] {
+  .dndDraggingSource {
+    display: none;
+  }
+
+  .selected {
+    background-color: #7725f6;
+    color: #3c763d;
+  }
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+  }
+}
+
+.dndPlaceholder {
+  display: block;
+  background-color: #7725f6;
+  opacity: 0.5;
+  min-height: 40px;
+}
