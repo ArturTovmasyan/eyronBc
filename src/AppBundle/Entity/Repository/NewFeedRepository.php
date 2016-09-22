@@ -29,8 +29,9 @@ class NewFeedRepository extends EntityRepository
     {
         $newFeedIdsQuery = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('DISTINCT nf.id')
-            ->from('AppBundle:NewFeed', 'nf');
+            ->select('nf.id')
+            ->from('AppBundle:NewFeed', 'nf')
+            ->groupBy('nf.id');
 
         if (is_null($singleUserId)) {
 

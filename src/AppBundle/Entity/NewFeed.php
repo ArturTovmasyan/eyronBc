@@ -52,23 +52,16 @@ class NewFeed
     protected $goals = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="Goal")
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", onDelete="CASCADE")
-     *
      * @Groups({"new_feed"})
      */
     protected $goal;
 
     /**
-     * @ORM\Column(name="listed_by", type="integer", nullable=true)
-     *
      * @Groups({"new_feed"})
      */
     protected $listedBy;
 
     /**
-     * @ORM\Column(name="completed_by", type="integer", nullable=true)
-     *
      * @Groups({"new_feed"})
      */
     protected $completedBy;
@@ -100,12 +93,6 @@ class NewFeed
      * @Groups({"new_feed"})
      */
     protected $successStory;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Gedmo\Loggable\Entity\LogEntry")
-     * @ORM\JoinColumn(name="log_id", referencedColumnName="id", onDelete="SET NULL")
-     */
-    protected $log;
 
     /**
      * NewFeed constructor.
@@ -275,52 +262,6 @@ class NewFeed
     public function getSuccessStory()
     {
         return $this->successStory;
-    }
-
-    /**
-     * Set logId
-     *
-     * @param \Gedmo\Loggable\Entity\LogEntry $log
-     * @return NewFeed
-     */
-    public function setLogId(\Gedmo\Loggable\Entity\LogEntry $log = null)
-    {
-        $this->log = $log;
-
-        return $this;
-    }
-
-    /**
-     * Get logId
-     *
-     * @return \Gedmo\Loggable\Entity\LogEntry 
-     */
-    public function getLogId()
-    {
-        return $this->log;
-    }
-
-    /**
-     * Set log
-     *
-     * @param \Gedmo\Loggable\Entity\LogEntry $log
-     * @return NewFeed
-     */
-    public function setLog(\Gedmo\Loggable\Entity\LogEntry $log = null)
-    {
-        $this->log = $log;
-
-        return $this;
-    }
-
-    /**
-     * Get log
-     *
-     * @return \Gedmo\Loggable\Entity\LogEntry 
-     */
-    public function getLog()
-    {
-        return $this->log;
     }
 
     /**
