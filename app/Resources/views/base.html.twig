@@ -21,17 +21,18 @@
         <meta name='B-verify' content='8bfd63c976e1100818e071965bd9a439cc72f0f4' />
         
         <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
-
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
-        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
+        <link rel="stylesheet" type="text/css" href="{{ asset('app/bower_components/bootstrap/dist/css/bootstrap.min.css') }}"/>
+        
+        
         {# this allows to add additional meta data #}
         {% block meta %}{% endblock %}
 
         {# styles #}
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
+            'bundles/app/less/icons.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/jquery-modal/jquery.modal.css'
