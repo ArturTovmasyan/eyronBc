@@ -36,28 +36,30 @@ class NewFeedRepository extends EntityRepository
         if (is_null($singleUserId)) {
 
             $newFeedIdsQuery
-                ->join('nf.user', 'u', 'WITH', "u != :user AND u.roles = :simpleRole")
+                ->join('nf.user', 'u', 'WITH', "u != :user AND u.isAdmin = false")
                 ->join('u.userGoal', 'gfUserGoal')
                 ->join('AppBundle:UserGoal', 'userUserGoal', 'WITH', 'userUserGoal.goal = gfUserGoal.goal AND userUserGoal.user = :user')
                 ->setParameter('user', $userId);
         }
         else {
             $newFeedIdsQuery
-                ->join('nf.user', 'u', 'WITH', "u = :user AND u.roles = :simpleRole")
+                ->join('nf.user', 'u', 'WITH', "u = :user AND u.isAdmin = false")
                 ->setParameter('user', $singleUserId);
         }
 
         $newFeedIdsQuery
             ->orderBy('nf.datetime', 'DESC')
-            ->addOrderBy('nf.id', 'DESC')
-            ->setParameter('simpleRole', 'a:0:{}');
+            ->addOrderBy('nf.id', 'DESC');
 
         if ($lastDate && $lastId) {
+            $dateLimit = new \DateTime($lastDate);
+            $dateLimit->modify(is_null($singleUserId) ? '-2 days' : '-365 days');
+
             $newFeedIdsQuery
-                ->andWhere("(nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate)) AND timestampdiff(DAY, nf.datetime, :lastDate) < :numberOfDays")
+                ->andWhere("nf.datetime > :dateLimit AND (nf.datetime < :lastDate OR (nf.id < :lastId AND nf.datetime = :lastDate))")
                 ->setParameter('lastId', $lastId)
                 ->setParameter('lastDate', $lastDate)
-                ->setParameter(':numberOfDays', 2)
+                ->setParameter('dateLimit', $dateLimit)
             ;
         }
         elseif ($lastDate){
@@ -66,9 +68,13 @@ class NewFeedRepository extends EntityRepository
                 ->setParameter('lastDate', $lastDate);
         }
         else {
+            $dateLimit = new \DateTime();
+            $modifyCount = is_null($singleUserId) ? '-6 days' : '-365 days';
+            $dateLimit->modify($getCount ? '-60 days' : $modifyCount);
+
             $newFeedIdsQuery
-                ->andWhere("timestampdiff('DAY', nf.datetime, CURRENT_TIMESTAMP()) < :numberOfDays")
-                ->setParameter(':numberOfDays', $getCount ? 30 : 6);
+                ->andWhere("nf.datetime > :dateLimit")
+                ->setParameter('dateLimit', $dateLimit);
         }
 
         if (is_numeric($first) && is_numeric($count)) {
@@ -85,8 +91,11 @@ class NewFeedRepository extends EntityRepository
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
-        if (count($newFeedIds) < self::MIN_COUNT && !($lastDate && !$lastId)) {
-            $newFeedIdsQuery->getParameter('numberOfDays')->setValue(is_null($singleUserId) ? 30 : 300);
+        if (count($newFeedIds) < self::MIN_COUNT && !($lastDate ^ $lastId) && is_null($singleUserId)) {
+            $dateLimit = new \DateTime($lastDate);
+            $dateLimit->modify('-30 days');
+
+            $newFeedIdsQuery->getParameter('dateLimit')->setValue($dateLimit);
             $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
             if (count($newFeedIds) == 0){
                 return [];

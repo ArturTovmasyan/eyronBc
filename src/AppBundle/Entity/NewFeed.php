@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * @package AppBundle\Model
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\NewFeedRepository")
- * @ORM\Table(name="new_feed")
+ * @ORM\Table(name="new_feed", indexes={@ORM\Index(name="IDX_perform_date", columns={"perform_date"})})
  */
 class NewFeed
 {
