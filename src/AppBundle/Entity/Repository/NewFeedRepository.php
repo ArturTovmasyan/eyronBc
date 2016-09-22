@@ -91,7 +91,7 @@ class NewFeedRepository extends EntityRepository
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
 
-        if (count($newFeedIds) < self::MIN_COUNT && !($lastDate ^ $lastId) && is_null($singleUserId)) {
+        if (count($newFeedIds) < self::MIN_COUNT && (($lastDate && $lastId) || (!$lastDate && !$lastId)) && is_null($singleUserId)) {
             $dateLimit = new \DateTime($lastDate);
             $dateLimit->modify('-30 days');
 
