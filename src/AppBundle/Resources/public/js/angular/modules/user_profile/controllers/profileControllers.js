@@ -38,6 +38,20 @@ angular.module('profile')
         }
       });
 
+      $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+
+        if(!userGoal)return;
+
+        var index = $scope.userGoalIds.indexOf(userGoal.id);
+
+        if(index !== -1){
+          $scope.ProfileItems.userGoals[index].is_visible = userGoal.is_visible;
+          $scope.ProfileItems.userGoals[index].do_date = userGoal.do_date;
+          $scope.ProfileItems.userGoals[index].steps = userGoal.steps;
+          $scope.ProfileItems.userGoals[index].completed = userGoal.completed;
+        }
+      });
+
       $scope.goTo = function (status) {
         $scope.ProfileItems.reset();
         if(!angular.isUndefined($scope.Activities)){
