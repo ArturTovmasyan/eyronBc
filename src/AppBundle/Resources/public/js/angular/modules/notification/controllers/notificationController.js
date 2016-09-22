@@ -240,7 +240,7 @@ angular.module('notification')
       };
 
       $scope.singleRead = function(id, index){
-        NotificationManager.readSingle({id: id}, function () {}, function (res) {console.log(res);
+        NotificationManager.readSingle({id: id}, function () {}, function (res) {
           toastr.error('Sorry! Your notification is not read');
         });
         $scope.notifies[index].is_read = true;
