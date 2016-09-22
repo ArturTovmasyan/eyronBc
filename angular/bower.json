@@ -37,6 +37,8 @@
     "underscore":"1.8.*",
     "angular-bootstrap":"2.0.*",
     "ng-scrollbars": "0.0.*",
+    "toastr": "2.1.*",
+    "angular-drag-and-drop-lists": "1.4.*",
     "angular-local-storage": "0.2.*"
   },
   "devDependencies": {
