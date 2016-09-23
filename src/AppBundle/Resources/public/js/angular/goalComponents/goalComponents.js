@@ -646,14 +646,14 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.getCompleted = function(userGoal){
-        if(!userGoal || !userGoal.steps){
+        if(!userGoal || !userGoal.formatted_steps){
           return 0;
         }
-        var length = Object.keys(userGoal.steps).length;
+        var length = userGoal.formatted_steps.length - 1;
 
         var result = 0;
-        angular.forEach(userGoal.steps, function(v){
-          if(v){
+        angular.forEach(userGoal.formatted_steps, function(v){
+          if(v.switch){
             result++;
           }
         });
