@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 class GoalRestControllerTest extends BaseClass
 {
     //set constant coordinate for Armenia Yerevan
-    const latitude = '40.1794197';
-    const longitude = '44.5408414';
+    const latitude = 40.1794197;
+    const longitude = 44.5408414;
 
     /**
      * This function test get goals in place

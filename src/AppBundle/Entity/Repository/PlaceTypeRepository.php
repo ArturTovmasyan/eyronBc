@@ -11,4 +11,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlaceTypeRepository extends EntityRepository
 {
+    /**
+     * This function is used to get all placeType index by name
+     *
+     * @return array
+     */
+    public function findIndexByName()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT pt
+                           FROM AppBundle:PlaceType pt
+                           INDEX BY pt.name
+                           ")
+            ->getResult();
+    }
 }

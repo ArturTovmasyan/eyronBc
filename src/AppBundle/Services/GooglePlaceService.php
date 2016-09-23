@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\Place;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
@@ -22,33 +23,33 @@ class GooglePlaceService
     /**
      * @var string
      */
-    protected $googleApyKey;
+    protected $googleServerKey;
 
     /**
      * NotifyAboutDoneGoalByPlaceService constructor.
      * @param EntityManager $em
-     * @param $googleApyKey
+     * @param $googleServerKey
      */
-    public function __construct(EntityManager $em, $googleApyKey)
+    public function __construct(EntityManager $em, $googleServerKey)
     {
         $this->em = $em;
-        $this->googleApyKey = $googleApyKey;
+        $this->googleServerKey = $googleServerKey;
     }
 
     /**
      * This function is used to get place data and notify about goal done
      *
-     * @param $latitude
-     * @param $longitude
+     * @param $latitude float
+     * @param $longitude float
      * @return mixed
      */
     private function getPlace($latitude, $longitude)
     {
         //get google client id
-        $key = $this->googleApyKey;
+        $key = $this->googleServerKey;
 
         //concat latitude and longitude by comma for api
-        $latLng = $latitude.','.$longitude;
+        $latLng = trim($latitude).','.trim($longitude);
 
         //generate geo coding url for get place data by lang and long
         $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::url, $latLng, $key);
@@ -87,10 +88,16 @@ class GooglePlaceService
             //set default array
             $placeArray=[];
 
-            foreach ($places as $place)
+            foreach ($places as $key => $place)
             {
+                if ($key == 0) {
+                    $type = 'city';
+                } else {
+                    $type = 'country';
+                }
+
                 //remove all spaces in word
-                $placeArray[] = strtolower(trim($place));
+                $placeArray[$type] = strtolower(trim($place));
             }
 
             return $placeArray;
@@ -100,27 +107,88 @@ class GooglePlaceService
     }
 
     /**
-     * This function is used to get all goal by place 
-     *
-     * @param $latitude
-     * @param $longitude
-     * @param $userId
-     * @return null|Response
+     * This function is used to get all goal by place without confirmed userGoals
+     * @param $latitude float
+     * @param $longitude float
+     * @param User $user
+     * @return mixed|null
      */
-    public function getAllGoalsByPlace($latitude, $longitude, $userId)
+    public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
         //get place by coordinate
-        $place = $this->getPlace($latitude, $longitude);
+        $places = $this->getPlace($latitude, $longitude);
 
         //check if place not exist
-        if ($place) {
+        if ($places) {
+
+            //crete Place and UserPlace for user
+            $this->createUserPlaceForUser($places, $latitude, $longitude, $user);
 
             //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($place, $userId);
+            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($places, $user->getId());
 
             return $goals;
         }
 
         return null;
+    }
+
+    /**
+     * This function is used to create place with userPlace for user
+     * 
+     * @param $places
+     * @param $latitude
+     * @param $longitude
+     * @param User $user
+     */
+    public function createUserPlaceForUser($places, $latitude, $longitude, User $user)
+    {
+        //define entity manager
+        $em = $this->em;
+
+        //get all places in DB
+        $placesInDb = $this->em->getRepository('AppBundle:Place')->findByNamesAndUserId($places, $user->getId());
+
+        //check if place exists
+        if ($placesInDb) {
+
+            foreach ($placesInDb as $place)
+            {
+                //check if user not related with place
+                if(!$place['related']) {
+                    //create userPlace
+                    $userPlace = new UserPlace();
+                    $userPlace->setLatitude($latitude);
+                    $userPlace->setLongitude($longitude);
+                    $userPlace->setPlace($place[0]);
+                    $userPlace->setUser($user);
+                    $em->persist($userPlace);
+                }
+            }
+        }
+        else {
+
+            //get all placeType index by name
+            $placeType = $em->getRepository('AppBundle:PlaceType')->findIndexByName();
+
+            foreach ($places as $key => $place)
+            {
+                //create new place
+                $newPlace = new Place();
+                $newPlace->setName($place);
+                $newPlace->setPlaceType($placeType[$key]);
+                $em->persist($newPlace);
+
+                //create userPlace
+                $userPlace = new UserPlace();
+                $userPlace->setLatitude($latitude);
+                $userPlace->setLongitude($longitude);
+                $userPlace->setUser($user);
+                $userPlace->setPlace($newPlace);
+                $em->persist($userPlace);
+            }
+        }
+
+        $em->flush();
     }
 }

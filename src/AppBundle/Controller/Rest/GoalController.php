@@ -679,8 +679,8 @@ class GoalController extends FOSRestController
      * )
      *
      * @return array
-     * @param $latitude
-     * @param $longitude
+     * @param $latitude float
+     * @param $longitude float
      *
      * @Rest\View(serializerGroups={"goal"})
      * @Security("has_role('ROLE_USER')")
@@ -697,7 +697,7 @@ class GoalController extends FOSRestController
             $user = $this->getUser();
 
             //get all goal by place
-            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude, $user->getId());
+            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude, $user);
 
             //check if goal not exists
             if (!$allGoals) {
@@ -717,7 +717,8 @@ class GoalController extends FOSRestController
      *  description="This function is used to confirm goals",
      *  statusCodes={
      *         200="Ok",
-     *         400="Bad request"
+     *         400="Bad request",
+     *         404="Not found"
      *  },
      *  parameters={
      *      {"name"="goal", "dataType"="array", "required"=true, "description"="Goal ids with userGoal visible status"},
@@ -746,13 +747,13 @@ class GoalController extends FOSRestController
         //get longitude
         $longitude = $request->get('longitude', null);
 
+        //check if goal ids not send
+        if(!$goalData || !$latitude || !$longitude) {
+           return new Response('Request data is empty', Response::HTTP_BAD_REQUEST);
+        }
+
         //get goal ids
         $goalIds = $goalData ? array_keys($goalData) : null;
-
-        //check if goal ids not send
-        if(!$goalIds || !$latitude || !$longitude) {
-            new JsonResponse(array('error' => 'Request data is empty'), Response::HTTP_BAD_REQUEST);
-        }
 
         //get current user
         $user = $this->getUser();
@@ -760,95 +761,77 @@ class GoalController extends FOSRestController
         //get all goals by ids
         $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
 
-        //set default confirmed goal ids value
-        $confirmedGoalIds = [];
+        //check if goals exist
+        if ($goals) {
+            
+            //confirm done goal
+            foreach ($goals as $goal)
+            {
+                //set confirm default value
+                $confirm = false;
 
-        //confirm done goal
-        foreach ($goals as $goal)
-        {
-            //set confirm default value
-            $confirm = false;
+                //get user goal by user id
+                $userGoals = $goal->getUserGoal();
 
-            //get user goal by user id
-            $userGoals = $goal->getUserGoal();
+                //get current user userGoal
+                $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+                    return $item->getUser() == $user ? true : false;
+                });
 
-            //get current user userGoal
-            $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
-                return $item->getUser() == $user ? true : false;
-            });
+                //check if user have user goal
+                if ($relatedUserGoal->count() > 0) {
 
-            //check if user have user goal
-            if ($relatedUserGoal->count() > 0) {
+                    //get related user goal
+                    $userGoal = $relatedUserGoal->first();
 
-                //get related user goal
-                $userGoal = $relatedUserGoal->first();
+                    //check if user goal not confirmed
+                    if (!$userGoal->getConfirmed()) {
 
-                //check if user goal not confirmed
-                if (!$userGoal->getConfirmed()) {
+                        //confirmed done goal for user
+                        $userGoal->setConfirmed(true);
 
-                    //confirmed done goal for user
-                    $userGoal->setConfirmed(true);
+                        //check if user goal is not completed
+                        if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
 
-                    //check if user goal is not completed
-                    if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
+                            //set completed status for goal
+                            $userGoal->setStatus(UserGoal::COMPLETED);
+                        }
 
-                        //set completed status for goal
-                        $userGoal->setStatus(UserGoal::COMPLETED);
+                        //set confirm value
+                        $confirm = true;
                     }
+                }
+                else {
+
+                    //get visible value
+                    $visible = $goalData[$goal->getId()];
+
+                    //create new userGoal for current user
+                    $userGoal = new UserGoal();
+                    $userGoal->setUser($user);
+                    $userGoal->setGoal($goal);
+                    $userGoal->setStatus(UserGoal::COMPLETED);
+                    $userGoal->setIsVisible($visible);
+                    $userGoal->setCompletionDate(new \DateTime('now'));
+                    $userGoal->setConfirmed(true);
 
                     //set confirm value
                     $confirm = true;
                 }
-            }
-            else {
 
-                //get visible value
-                $visible = $goalData[$goal->getId()];
-
-                //create new userGoal for current user
-                $userGoal = new UserGoal();
-                $userGoal->setUser($user);
-                $userGoal->setGoal($goal);
-                $userGoal->setStatus(UserGoal::COMPLETED);
-                $userGoal->setIsVisible($visible);
-                $userGoal->setCompletionDate(new \DateTime('now'));
-                $userGoal->setConfirmed(true);
-
-                //set confirm value
-                $confirm = true;
+                //check if user has confirmed goal
+                if ($confirm) {
+                    $em->persist($userGoal);
+                }
             }
 
-            //check if user has confirmed goal
-            if ($confirm) {
+            $em->flush();
+            $em->clear();
 
-                $confirmedGoalIds[] = $goal->getId();
-                $em->persist($userGoal);
-            }
+            return new Response('', Response::HTTP_NO_CONTENT);
         }
-
-        //check if confirmed goal id exist
-        if ($confirmedGoalIds) {
-
-            //get places by goal ids
-            $places = $em->getRepository('AppBundle:Place')->findPlaceByGoalIds($confirmedGoalIds);
-
-            //check if places exist
-            foreach ($places as $place )
-            {
-                //create user place
-                $userPlace = new UserPlace();
-                $userPlace->setLatitude($latitude);
-                $userPlace->setLongitude($longitude);
-                $userPlace->setUser($user);
-                $userPlace->setPlace($place);
-
-                $em->persist($userPlace);
-            }
+        else {
+            return new Response('Goals not found', Response::HTTP_NOT_FOUND);
         }
-
-        $em->flush();
-        $em->clear();
-
-        return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 }

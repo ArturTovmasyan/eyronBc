@@ -27,4 +27,25 @@ class PlaceRepository extends EntityRepository
             ->setParameter('goalIds', $goalIds)
             ->getResult();
     }
+
+    /**
+     * This function is used to get all places by names and related status
+     *
+     * @param $places array
+     * @param $userId integer
+     * @return array
+     */
+    public function findByNamesAndUserId($places, $userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT p, (CASE WHEN ur.id = :userId THEN 1 ELSE 0 END) AS related
+                           FROM AppBundle:Place p
+                           LEFT JOIN p.userPlace up
+                           LEFT JOIN up.user ur
+                           WHERE LOWER(p.name) in (:places)
+                           ")
+            ->setParameter('userId', $userId)
+            ->setParameter('places', $places)
+            ->getResult();
+    }
 }
