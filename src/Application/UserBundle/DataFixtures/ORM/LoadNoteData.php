@@ -33,7 +33,7 @@ class LoadNoteData extends AbstractFixture implements OrderedFixtureInterface, C
         $user1 = $this->getReference('user1');
 
         $userNot = new UserNotification();
-        $userNot->setIsRead(true);
+        $userNot->setIsRead(false);
         $userNot->setUser($user1);
         $manager->persist($userNot);
 
