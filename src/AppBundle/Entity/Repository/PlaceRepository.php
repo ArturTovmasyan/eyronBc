@@ -42,7 +42,7 @@ class PlaceRepository extends EntityRepository
                            FROM AppBundle:Place p
                            LEFT JOIN p.userPlace up
                            LEFT JOIN up.user ur
-                           WHERE LOWER(p.name) in (:places)
+                           WHERE p.name in (:places)
                            ")
             ->setParameter('userId', $userId)
             ->setParameter('places', $places)

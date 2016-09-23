@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Place;
+use AppBundle\Entity\PlaceType;
 use AppBundle\Entity\UserGoal;
 use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
@@ -91,9 +92,11 @@ class GooglePlaceService
             foreach ($places as $key => $place)
             {
                 if ($key == 0) {
-                    $type = 'city';
+                    //set type
+                    $type = PlaceType::city;
                 } else {
-                    $type = 'country';
+                    //set type
+                    $type = PlaceType::country;
                 }
 
                 //remove all spaces in word
