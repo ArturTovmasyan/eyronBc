@@ -99,8 +99,8 @@ class GooglePlaceService
                     $type = PlaceType::country;
                 }
 
-                //remove all spaces in word
-                $placeArray[$type] = strtolower(trim($place));
+                //remove all spaces and number in word
+                $placeArray[$type] = trim(preg_replace('/[0-9]+/', '', strtolower($place)));
             }
 
             return $placeArray;
