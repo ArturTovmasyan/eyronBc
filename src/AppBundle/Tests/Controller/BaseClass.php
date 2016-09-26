@@ -8,14 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseClass extends WebTestCase
 {
-    //set constant coordinate for Armenia Yerevan
-    const LATITUDE_ARMENIA = 40.1794197;
-    const LONGITUDE_ARMENIA = 44.5408414;
-
-    //set constant coordinate for Russia Moscow
-    const LATITUDE_RUSSIA = 55.75583;
-    const LONGITUDE_RUSSIA = 37.61730;
-
     /**
      * @var \Doctrine\ORM\EntityManager
      */

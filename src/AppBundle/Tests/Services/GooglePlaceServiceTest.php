@@ -10,6 +10,14 @@ use AppBundle\Tests\Controller\BaseClass;
  */
 class GooglePlaceServiceTest extends BaseClass
 {
+    //set constant coordinate for Armenia Yerevan
+    const LATITUDE_ARMENIA = 40.1794197;
+    const LONGITUDE_ARMENIA = 44.5408414;
+
+    //set constant coordinate for Russia Moscow
+    const LATITUDE_RUSSIA = 55.75583;
+    const LONGITUDE_RUSSIA = 37.61730;
+    
     /**
      * This data provider create data for place
      *
