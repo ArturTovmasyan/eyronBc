@@ -72,7 +72,7 @@ class NotificationControllerTest extends BaseClass
     public function testGetAllReadAction()
     {
         //get user goal
-        $url = sprintf('/api/v1.0/notification/all/read');
+        $url = '/api/v1.0/notification/all/read';
 
         // try to POST create user settings
         $this->client2->request('GET', $url);
