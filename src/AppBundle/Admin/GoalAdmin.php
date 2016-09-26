@@ -246,7 +246,7 @@ class GoalAdmin extends AbstractAdmin
         $container =  $this->getConfigurationPool()->getContainer();
 
         // get entity manager
-        $em = $container->get('doctrine')->getEntityManager();
+        $em = $container->get('doctrine')->getManager();
 
         // get content
         $content = $object->getDescription();
