@@ -84,9 +84,12 @@ class NewFeedRepository extends EntityRepository
         }
 
         if ($getCount) {
-            return $newFeedIdsQuery->select('count(nf)')
+            $res = $newFeedIdsQuery->select('count(nf) as cnt')
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->getResult();
+
+            //TODO fix to one result
+            return $res ? $res[0]['cnt'] : 0;
         }
 
         $newFeedIds = $newFeedIdsQuery->getQuery()->getScalarResult();
