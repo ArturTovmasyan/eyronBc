@@ -16,7 +16,7 @@ class PlaceTypeRepository extends EntityRepository
      *
      * @return array
      */
-    public function findIndexByName()
+    public function findAllIndexByName()
     {
         return $this->getEntityManager()
             ->createQuery("SELECT pt

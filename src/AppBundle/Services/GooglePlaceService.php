@@ -4,20 +4,14 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Place;
 use AppBundle\Entity\PlaceType;
-use AppBundle\Entity\UserGoal;
-use AppBundle\Entity\UserPlace;
-use Application\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GooglePlaceService
 {
     const URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     /**
-     * @var EntityManager
+     * @var EntityManager $em
      */
     protected $em;
 
@@ -42,18 +36,16 @@ class GooglePlaceService
      *
      * @param $latitude float
      * @param $longitude float
+     * @param $save boolean
      * @return mixed
      */
-    private function getPlace($latitude, $longitude)
+    public function getPlace($latitude, $longitude, $save = false)
     {
-        //get google client id
-        $key = $this->googleServerKey;
-
         //concat latitude and longitude by comma for api
         $latLng = trim($latitude).','.trim($longitude);
 
         //generate geo coding url for get place data by lang and long
-        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $key);
+        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $this->googleServerKey);
 
         //use curl for get response
         $ch = curl_init();
@@ -103,95 +95,37 @@ class GooglePlaceService
                 $placeArray[$type] = trim(preg_replace('/[0-9]+/', '', strtolower($place)));
             }
 
+            //check if save value is true
+            if ($save) {
+
+                //get places in array
+                $places = array_values($placeArray);
+                
+                //get places in DB
+                $placeInDb = $this->em->getRepository('AppBundle:Place')->findByName($places);
+
+                //check if place in db not exists
+                if (!$placeInDb) {
+
+                    //get all placeType index by name
+                    $placeType = $this->em->getRepository('AppBundle:PlaceType')->findAllIndexByName();
+                    
+                    foreach ($placeArray as $key => $place)
+                    {
+                        //create new place
+                        $newPlace = new Place();
+                        $newPlace->setName($place);
+                        $newPlace->setPlaceType($placeType[$key]);
+                        $this->em->persist($newPlace);
+                    }
+                    
+                    $this->em->flush();
+                }
+            }
+
             return $placeArray;
         }
 
         return null;
-    }
-
-    /**
-     * This function is used to get all goal by place without confirmed userGoals
-     * @param $latitude float
-     * @param $longitude float
-     * @param User $user
-     * @return mixed|null
-     */
-    public function getAllGoalsByPlace($latitude, $longitude, User $user)
-    {
-        //get place by coordinate
-        $places = $this->getPlace($latitude, $longitude);
-
-        //check if place not exist
-        if ($places) {
-
-            //crete Place and UserPlace for user
-            $this->createUserPlaceForUser($places, $latitude, $longitude, $user);
-
-            //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($places, $user->getId());
-
-            return $goals;
-        }
-
-        return null;
-    }
-
-    /**
-     * This function is used to create place with userPlace for user
-     * 
-     * @param $places
-     * @param $latitude
-     * @param $longitude
-     * @param User $user
-     */
-    private function createUserPlaceForUser($places, $latitude, $longitude, User $user)
-    {
-        //define entity manager
-        $em = $this->em;
-
-        //get all places in DB
-        $placesInDb = $this->em->getRepository('AppBundle:Place')->findByNamesAndUserId($places, $user->getId());
-
-        //check if place exists
-        if ($placesInDb) {
-
-            foreach ($placesInDb as $place)
-            {
-                //check if user not related with place
-                if(!$place['related']) {
-                    //create userPlace
-                    $userPlace = new UserPlace();
-                    $userPlace->setLatitude($latitude);
-                    $userPlace->setLongitude($longitude);
-                    $userPlace->setPlace($place[0]);
-                    $userPlace->setUser($user);
-                    $em->persist($userPlace);
-                }
-            }
-        }
-        else {
-
-            //get all placeType index by name
-            $placeType = $em->getRepository('AppBundle:PlaceType')->findIndexByName();
-
-            foreach ($places as $key => $place)
-            {
-                //create new place
-                $newPlace = new Place();
-                $newPlace->setName($place);
-                $newPlace->setPlaceType($placeType[$key]);
-                $em->persist($newPlace);
-
-                //create userPlace
-                $userPlace = new UserPlace();
-                $userPlace->setLatitude($latitude);
-                $userPlace->setLongitude($longitude);
-                $userPlace->setUser($user);
-                $userPlace->setPlace($newPlace);
-                $em->persist($userPlace);
-            }
-        }
-
-        $em->flush();
     }
 }
