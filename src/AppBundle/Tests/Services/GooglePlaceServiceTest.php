@@ -11,6 +11,27 @@ use AppBundle\Tests\Controller\BaseClass;
 class GooglePlaceServiceTest extends BaseClass
 {
     /**
+     * This data provider create data for place
+     *
+     * @return array
+     */
+    public function placeData()
+    {
+        $data = array(
+            array('latitude' => self::LATITUDE_ARMENIA,
+                'longitude' => self::LONGITUDE_ARMENIA,
+                'save' => false,
+                'placeName' => array('city' => 'yerevan', 'country' => 'armenia')),
+
+            array('latitude' => self::LATITUDE_RUSSIA,
+                'longitude' => self::LONGITUDE_RUSSIA,
+                'save' => true,
+                'placeName' => array('city' => 'moscow', 'country' => 'russia')));
+
+        return $data;
+    }
+    
+    /**
      * This function is used to test getPlace() method in google place service
      * 
      * @dataProvider placeData
