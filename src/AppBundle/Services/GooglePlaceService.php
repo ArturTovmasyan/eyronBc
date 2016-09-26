@@ -39,16 +39,13 @@ class GooglePlaceService
      * @param $save boolean
      * @return mixed
      */
-    public function getPlace($latitude, $longitude, $save = true)
+    public function getPlace($latitude, $longitude, $save = false)
     {
-        //get google server key
-        $googleServerKey = $this->googleServerKey;
-
         //concat latitude and longitude by comma for api
         $latLng = trim($latitude).','.trim($longitude);
 
         //generate geo coding url for get place data by lang and long
-        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $googleServerKey);
+        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $this->googleServerKey);
 
         //use curl for get response
         $ch = curl_init();

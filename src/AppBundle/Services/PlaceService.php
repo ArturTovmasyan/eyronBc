@@ -45,7 +45,7 @@ class PlaceService
         //check if place not exist
         if ($places) {
 
-            //crete UserPlace for user
+            //create UserPlace for user
             $this->createUserPlace($places, $latitude, $longitude, $user);
 
             //get goal by place
@@ -68,12 +68,12 @@ class PlaceService
     private function createUserPlace($places, $latitude, $longitude, User $user)
     {
         //get all places in DB
-        $placesInDb = $this->em->getRepository('AppBundle:Place')->findByNamesAndUserId($places, $user->getId());
+        $places = $this->em->getRepository('AppBundle:Place')->findByNamesAndUserId($places, $user->getId());
 
         //check if place exists
-        if ($placesInDb) {
+        if ($places) {
 
-            foreach ($placesInDb as $place)
+            foreach ($places as $place)
             {
                 //check if user not related with place
                 if(!$place['related']) {
