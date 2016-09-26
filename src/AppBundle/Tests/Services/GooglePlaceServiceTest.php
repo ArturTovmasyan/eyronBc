@@ -57,7 +57,7 @@ class GooglePlaceServiceTest extends BaseClass
         //get place by service
         $googlePlace = $googlePlaceService->getPlace($latitude, $longitude, $save);
 
-        $this->assertEquals($placeName, $googlePlace, 'getPlace() method don\'t work correctly');
+        $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
 
         //check if save value is true
         if ($save) {
