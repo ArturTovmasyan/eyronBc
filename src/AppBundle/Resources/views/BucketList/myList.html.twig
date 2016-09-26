@@ -281,6 +281,11 @@
 
                                                 <ul class="clearfix">
 
+                                                    {# Missed deadline #}
+                                                    <li data-ng-if="isLate(userGoal.do_date)">
+                                                        <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
+                                                    </li>
+
                                                     <li data-ng-if="!goal.publish && goal.author && goal.author.id == '{{ profileUser.id }}'">
                                                         <a href="{{ path('add_goal') }}?id=[[goal.id]]&slug=Public">
                                                             <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
@@ -298,19 +303,15 @@
                                                         </a>
                                                     </li>
 
-                                                    <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">
-                                                        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
-                                                    </li>
-
                                                     {# invisible #}
                                                     <li data-ng-if="!userGoal.is_visible">
                                                         <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
                                                     </li>
 
-                                                    {# Missed deadline #}
-                                                    <li data-ng-if="isLate(userGoal.do_date)">
-                                                        <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
+                                                    <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">
+                                                        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
                                                     </li>
+
                                                 </ul>
 
                                                 <ul class="progress-section">
