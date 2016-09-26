@@ -8,6 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseClass extends WebTestCase
 {
+    //set constant coordinate for Armenia Yerevan
+    const LATITUDE_ARMENIA = 40.1794197;
+    const LONGITUDE_ARMENIA = 44.5408414;
+
+    //set constant coordinate for Russia Moscow
+    const LATITUDE_RUSSIA = 55.75583;
+    const LONGITUDE_RUSSIA = 37.61730;
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -37,7 +45,7 @@ abstract class BaseClass extends WebTestCase
      * @var null
      */
     protected $client11 = null;
-    
+
     /**
      * @var null
      */
@@ -60,8 +68,8 @@ abstract class BaseClass extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client->enableProfiler();
-        
-        
+
+
         $this->client2 = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'user1@user.com',
             'PHP_AUTH_PW'   => 'Test1234',
@@ -79,7 +87,7 @@ abstract class BaseClass extends WebTestCase
             'PHP_AUTH_PW'   => 'Test1234',
         ));
         $this->client11->enableProfiler();
-        
+
         $this->clientSecond = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'user@user.com',
             'PHP_AUTH_PW'   => 'Test1234',
@@ -104,34 +112,34 @@ abstract class BaseClass extends WebTestCase
 
         $data = array(
             array( array('request'=> array(
-                                'filterData'=>array('filter' => array(
-                                                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
-                                                    'd'=>false)),
-                                'urlPart'=>'/active-goals'),
-                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
+                'filterData'=>array('filter' => array(
+                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                    'd'=>false)),
+                'urlPart'=>'/active-goals'),
+                'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
 
             array( array('request'=> array(
-                                'filterData'=>array('filter' => array(
-                                                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
-                                                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
-                                                    'd'=>true),
-                                ), 'urlPart'=>'/completed-goals'),
-                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>null, 'resultCount'=>0))),
+                'filterData'=>array('filter' => array(
+                    'f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
+                    'd'=>true),
+                ), 'urlPart'=>'/completed-goals'),
+                'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>null, 'resultCount'=>0))),
 
             array( array('request'=> array(
-                                'filterData'=>array('f_' . UserGoal::URGENT_IMPORTANT => 'on',
-                                                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
-                                                    'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
-                                                    'd'=>true),
-                                'urlPart'=>null),
-                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
+                'filterData'=>array('f_' . UserGoal::URGENT_IMPORTANT => 'on',
+                    'f_' . UserGoal::URGENT_NOT_IMPORTANT => 'on',
+                    'f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
+                    'd'=>true),
+                'urlPart'=>null),
+                'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal1', 'resultCount'=>2))),
 
             array( array('request'=> array(
-                                'filterData'=>array('f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
-                                                    'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on',
-                                                    'd'=>true),
-                                'urlPart'=>null),
-                        'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal3', 'resultCount'=>1)))
+                'filterData'=>array('f_' . UserGoal::NOT_URGENT_IMPORTANT => 'on',
+                    'f_' . UserGoal::NOT_URGENT_NOT_IMPORTANT=> 'on',
+                    'd'=>true),
+                'urlPart'=>null),
+                'response'=>array('statusCode'=>Response::HTTP_OK, 'goalName'=>'goal3', 'resultCount'=>1)))
         );
 
         return $data;
@@ -346,9 +354,9 @@ abstract class BaseClass extends WebTestCase
         $this->client->enableProfiler();
 
         $this->clientSecond = static::createClient(array(), array(
-                    'PHP_AUTH_USER' => 'user@user.com',
-                    'PHP_AUTH_PW'   => 'Test4321',
-                ));
+            'PHP_AUTH_USER' => 'user@user.com',
+            'PHP_AUTH_PW'   => 'Test4321',
+        ));
         $this->clientSecond->enableProfiler();
 
         $data = array(
@@ -360,33 +368,38 @@ abstract class BaseClass extends WebTestCase
                 'plainPassword'=>array('first'=>'Test4321', 'second'=>'Test4321'))),
                 'response'=>array('statusCode'=>Response::HTTP_OK), 'client'=>$this->client)),
 
-             array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
+            array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
                 'plainPassword'=>array('first'=>'Test1234', 'second'=>''))),
-                 'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST), 'client'=>$this->clientSecond)),
+                'response'=>array('statusCode'=>Response::HTTP_BAD_REQUEST), 'client'=>$this->clientSecond)),
 
             array( array('request'=> array('bl_mobile_change_password'=>array('currentPassword'=>'Test4321',
-                            'plainPassword'=>array('first'=>'Test1234', 'second'=>'Test1234'))),
+                'plainPassword'=>array('first'=>'Test1234', 'second'=>'Test1234'))),
                 'response'=>array('statusCode'=>Response::HTTP_OK), 'client'=>$this->clientSecond))
         );
         return $data;
     }
 
     /**
-     * This function is used to get private method for test it
+     * This data provider create data for place
      *
-     * @param 	string $className
-     * @param 	string $methodName
-     * @return	\ReflectionMethod
+     * @return array
      */
-    public function getPrivateMethod($className, $methodName) {
+    public function placeData()
+    {
+        $data = array(
+            array('latitude' => self::LATITUDE_ARMENIA,
+                'longitude' => self::LONGITUDE_ARMENIA,
+                'save' => false,
+                'placeName' => array('city' => 'yerevan', 'country' => 'armenia')),
 
-        $reflector = new \ReflectionClass($className);
-        $method = $reflector->getMethod($methodName);
-        $method->setAccessible(true);
+            array('latitude' => self::LATITUDE_RUSSIA,
+                'longitude' => self::LONGITUDE_RUSSIA,
+                'save' => true,
+                'placeName' => array('city' => 'moscow', 'country' => 'russia')));
 
-        return $method;
+        return $data;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -396,7 +409,5 @@ abstract class BaseClass extends WebTestCase
         $this->em->close();
         $this->em = null; // avoid memory leaks
         parent::tearDown();
-
     }
-
 }

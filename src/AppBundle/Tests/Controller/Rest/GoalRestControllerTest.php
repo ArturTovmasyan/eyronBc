@@ -16,43 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GoalRestControllerTest extends BaseClass
 {
-    //set constant coordinate for Armenia Yerevan
-    const LATITUDE = 40.1794197;
-    const LONGITUDE = 44.5408414;
-
     /**
-     * This function is used to test getPlace method in google service
-     *
-     */
-    public function testGetPlace()
-    {
-        //set getPlace private method to accessible
-        $method = $this->getPrivateMethod('AppBundle\Services\GooglePlaceService', 'getPlace');
-
-        //get google server key in parameter
-        $googleServerKey = $this->container->getParameter('google_server_key');
-
-        //generate object for google service
-        $object = new GooglePlaceService($this->em, $googleServerKey);
-
-        //call getPlace private method
-        $place = $method->invokeArgs($object, array(self::LATITUDE, self::LONGITUDE));
-
-        $this->assertArrayHasKey('city', $place, 'Invalid city key in place data');
-        $this->assertArrayHasKey('country', $place, 'Invalid country key in place data');
-        $this->assertContains('yerevan', $place);
-        $this->assertContains('armenia', $place);
-    }
-
-
-
-    /**
-     * This function test get goals in place
+     * This function is used to test getGoalsInPlaceAction rest
      */
     public function testGetGoalsInPlace()
     {
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::LATITUDE, self::LONGITUDE);
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::LATITUDE_ARMENIA, self::LONGITUDE_ARMENIA);
 
         //try to get goals in place
         $this->client2->request('GET', $url);
@@ -149,7 +119,7 @@ class GoalRestControllerTest extends BaseClass
         $url = '/api/v1.0/goals/confirms/goals';
 
         //try to confirm goals
-        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => self::LATITUDE, 'longitude' => self::LONGITUDE));
+        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => self::LATITUDE_ARMENIA, 'longitude' => self::LONGITUDE_ARMENIA));
 
         // check page is opened
         $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "can not confirm goal in postConfirmGoalsAction() rest!");
@@ -181,7 +151,7 @@ class GoalRestControllerTest extends BaseClass
         }
 
         //get all userPlace
-        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => self::LATITUDE, 'longitude' => self::LONGITUDE));
+        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => self::LATITUDE_ARMENIA, 'longitude' => self::LONGITUDE_ARMENIA));
 
         //get userPlace count
         $userPlacesCount = count($userPlaces);
@@ -192,7 +162,7 @@ class GoalRestControllerTest extends BaseClass
         //check suggestion after confirmation goal
 
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::LATITUDE, self::LONGITUDE);
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', self::LATITUDE_ARMENIA, self::LONGITUDE_ARMENIA);
 
         //try to get goals in place
         $this->client2->request('GET', $url);

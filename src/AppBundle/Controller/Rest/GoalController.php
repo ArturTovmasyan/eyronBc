@@ -690,14 +690,14 @@ class GoalController extends FOSRestController
         //check if coordinate exist
         if ($latitude && $longitude) {
 
-            //get service
-            $googlePlaceService = $this->get('app.google_place');
+            //get place service
+            $placeService = $this->get('app.place');
 
             //get current user
             $user = $this->getUser();
 
             //get all goal by place
-            $allGoals = $googlePlaceService->getAllGoalsByPlace($latitude, $longitude, $user);
+            $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
             //check if goal not exists
             if (!$allGoals) {
