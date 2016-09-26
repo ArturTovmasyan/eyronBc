@@ -12,6 +12,8 @@ parameters:
     languages:
        en: English
        ru: Русский
+       fr: French
+       nl: Dutch
     tablet:
         with: 640
         height: 640
