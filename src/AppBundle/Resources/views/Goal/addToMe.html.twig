@@ -321,12 +321,14 @@
                 </div>
 
                 <div data-dnd-list="userGoal.formatted_steps"
-                     data-dnd-disable-if="complete.switch">
+                     data-dnd-disable-if="complete.switch"
+                     data-dnd-dragover="dragoverCallback(event, index, external, type)"
+                     data-dnd-drop="dropCallback(event, index, item, external, type, '')">
                     <div class="form-group row"
                          data-ng-repeat="(k, step) in userGoal.formatted_steps"
                          data-dnd-draggable="step"
                          data-dnd-disable-if="!step.text"
-                         data-dnd-moved="userGoal.formatted_steps.splice($index, 1)"
+                         data-dnd-moved="moveElement($index)"
                          data-dnd-effect-allowed="move"
                          data-dnd-selected="models.selected = step"
                          data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">

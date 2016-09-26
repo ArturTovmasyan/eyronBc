@@ -540,6 +540,19 @@ angular.module('goalComponents', ['Interpolation',
         return moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day)).format(format)
       };
 
+      $scope.moveElement = function (index) {
+        if($scope.userGoal.formatted_steps.length -1 <= index)return;
+        $scope.userGoal.formatted_steps.splice(index, 1);
+      };
+      
+      $scope.dragoverCallback = function (event, index, external, type) {
+        return $scope.userGoal.formatted_steps.length > index;
+      };
+      
+      $scope.dropCallback = function (event, index, item, external, type, name) {
+        return item;
+      };
+
       $scope.getDaysInMonth = function(m, y) {
         return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
       };
