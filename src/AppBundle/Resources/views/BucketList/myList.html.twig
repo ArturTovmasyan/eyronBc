@@ -304,6 +304,21 @@
                                                         </a>
                                                     </li>
 
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                           data-ng-cloak
+                                                           data-ls-type="manage"
+                                                           data-ls-goal-id="[[ goal.id ]]"
+                                                           data-ls-goal-manage
+                                                           class="text-gray manage-modal">
+                                                            <i data-ng-if="userGoal.note" title="{{ 'my_bucket_list.edit'|trans }}" class="edit-note"></i>
+                                                        </a>
+
+                                                        {#<a>#}
+                                                            {#<i data-ng-if="userGoal.note" title="{{ 'my_bucket_list.edit'|trans }}" class="edit-note"></i>#}
+                                                        {#</a>#}
+                                                    </li>
+
                                                     <li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">
                                                         <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
                                                     </li>
