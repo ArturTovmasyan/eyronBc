@@ -372,6 +372,22 @@ abstract class BaseClass extends WebTestCase
     }
 
     /**
+     * This function is used to get private method for test it
+     *
+     * @param 	string $className
+     * @param 	string $methodName
+     * @return	\ReflectionMethod
+     */
+    public function getPrivateMethod($className, $methodName) {
+
+        $reflector = new \ReflectionClass($className);
+        $method = $reflector->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method;
+    }
+    
+    /**
      * {@inheritDoc}
      */
     protected function tearDown()
