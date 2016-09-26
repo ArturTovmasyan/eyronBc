@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GooglePlaceService
 {
-    const url = 'https://maps.googleapis.com/maps/api/geocode/json';
+    const URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
     /**
      * @var EntityManager
@@ -53,7 +53,7 @@ class GooglePlaceService
         $latLng = trim($latitude).','.trim($longitude);
 
         //generate geo coding url for get place data by lang and long
-        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::url, $latLng, $key);
+        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $key);
 
         //use curl for get response
         $ch = curl_init();
@@ -144,7 +144,7 @@ class GooglePlaceService
      * @param $longitude
      * @param User $user
      */
-    public function createUserPlaceForUser($places, $latitude, $longitude, User $user)
+    private function createUserPlaceForUser($places, $latitude, $longitude, User $user)
     {
         //define entity manager
         $em = $this->em;
