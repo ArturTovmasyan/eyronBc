@@ -142,7 +142,7 @@ class GoalRestControllerTest extends BaseClass
         $placesData = $this->container->getParameter('places');
         $latitude = $placesData[0]['latitude'];
         $longitude = $placesData[0]['longitude'];
-        
+
         //create url for test
         $url = '/api/v1.0/goals/confirms/goals';
 

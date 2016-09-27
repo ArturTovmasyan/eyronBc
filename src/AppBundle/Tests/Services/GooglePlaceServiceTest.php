@@ -11,8 +11,6 @@ use AppBundle\Traits\Mock\MockGooglePlaceServiceTrait;
  */
 class GooglePlaceServiceTest extends BaseClass
 {
-    use MockGooglePlaceServiceTrait;
-
     /**
      * This data provider create data for place
      *
