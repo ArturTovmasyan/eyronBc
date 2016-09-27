@@ -33,6 +33,7 @@ class GoalController extends FOSRestController
 
 
     /**
+     * @Rest\Get("/goals/{userId}/common/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_common", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
@@ -44,14 +45,16 @@ class GoalController extends FOSRestController
      * )
      *
      * @param int $userId
+     * @param int $first
+     * @param int $count
      * @param Request $request
      * @return mixed
      * @Rest\View(serializerGroups={"tiny_goal"})
      */
-    public function getCommonAction($userId, Request $request)
+    public function getCommonAction(Request $request, $userId, $first = null, $count = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId);
+        $commonGoals = $em->getRepository('AppBundle:Goal')->findCommonGoals($this->getUser()->getId(), $userId, $first, $count);
         $em->getRepository("AppBundle:Goal")->findGoalStateCount($commonGoals);
 
         $liipManager = $this->get('liip_imagine.cache.manager');

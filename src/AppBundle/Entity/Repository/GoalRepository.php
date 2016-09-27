@@ -695,9 +695,11 @@ class GoalRepository extends EntityRepository
     /**
      * @param $user1Id
      * @param $user2Id
+     * @param $first
+     * @param $count
      * @return array
      */
-    public function findCommonGoals($user1Id, $user2Id)
+    public function findCommonGoals($user1Id, $user2Id, $first, $count)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT g
@@ -707,6 +709,8 @@ class GoalRepository extends EntityRepository
                            JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
+            ->setFirstResult($first)
+            ->setMaxResults($count)
             ->getResult();
     }
 
