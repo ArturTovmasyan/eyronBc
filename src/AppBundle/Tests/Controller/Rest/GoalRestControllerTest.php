@@ -27,6 +27,11 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testGetGoalsInPlace()
     {
+        //get latitude and longitude from parameter
+        $placesData = $this->container->getParameter('places');
+        $latitude = $placesData[0]['latitude'];
+        $longitude = $placesData[0]['longitude'];
+        
         //get google place service mock 
         $googlePlaceServiceMock = $this->createGooglePlaceServiceMock();
 
@@ -40,7 +45,7 @@ class GoalRestControllerTest extends BaseClass
         $this->client2->getContainer()->set('app.google_place', $googlePlaceServiceMock);
         
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', $latitude, $longitude);
 
         //try to get goals in place
         $this->client2->request('GET', $url);
@@ -133,11 +138,16 @@ class GoalRestControllerTest extends BaseClass
             $data[$id] = true;
         }
 
+        //get latitude and longitude from parameter
+        $placesData = $this->container->getParameter('places');
+        $latitude = $placesData[0]['latitude'];
+        $longitude = $placesData[0]['longitude'];
+        
         //create url for test
         $url = '/api/v1.0/goals/confirms/goals';
 
         //try to confirm goals
-        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => GooglePlaceServiceTest::LATITUDE_ARMENIA, 'longitude' => GooglePlaceServiceTest::LONGITUDE_ARMENIA));
+        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => $latitude, 'longitude' => $longitude));
 
         // check page is opened
         $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "can not confirm goal in postConfirmGoalsAction() rest!");
@@ -169,7 +179,7 @@ class GoalRestControllerTest extends BaseClass
         }
 
         //get all userPlace
-        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => GooglePlaceServiceTest::LATITUDE_ARMENIA, 'longitude' => GooglePlaceServiceTest::LONGITUDE_ARMENIA));
+        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => $latitude, 'longitude' => $longitude));
 
         //get userPlace count
         $userPlacesCount = count($userPlaces);
@@ -180,7 +190,7 @@ class GoalRestControllerTest extends BaseClass
         //check suggestion after confirmation goal
 
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', $latitude, $longitude);
 
         //try to get goals in place
         $this->client2->request('GET', $url);

@@ -20,6 +20,11 @@ class PlaceServiceTest extends BaseClass
      */
     public function testGetAllGoalsByPlace()
     {
+        //get latitude and longitude from parameter
+        $placesData = $this->container->getParameter('places');
+        $latitude = $placesData[0]['latitude'];
+        $longitude = $placesData[0]['longitude'];
+
         //get user
         $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user5@user.com');
 
@@ -30,13 +35,13 @@ class PlaceServiceTest extends BaseClass
         $placeService = new PlaceService($googlePlaceServiceMock, $this->em);
 
         //get place by service
-        $goals = $placeService->getAllGoalsByPlace(GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA, $user);
+        $goals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
         //get goals count
         $goalsCount = count($goals);
 
         //get all userPlace
-        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => GooglePlaceServiceTest::LATITUDE_ARMENIA, 'longitude' => GooglePlaceServiceTest::LONGITUDE_ARMENIA));
+        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(['latitude' => $latitude, 'longitude' => $longitude]);
 
         //get userPlace count
         $userPlacesCount = count($userPlaces);
