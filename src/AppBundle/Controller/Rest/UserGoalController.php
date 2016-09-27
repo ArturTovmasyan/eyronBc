@@ -84,7 +84,7 @@ class UserGoalController extends FOSRestController
      *      {"name"="location[longitude]", "dataType"="float", "required"=false, "description"="longitude"},
      *      {"name"="urgent", "dataType"="boolean", "required"=false, "description"="Urgent boolean"},
      *      {"name"="important", "dataType"="boolean", "required"=false, "description"="Important boolean"},
-     *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with m/d/Y format"},
+     *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with d/m/Y format"},
      * }
      * )
      *
