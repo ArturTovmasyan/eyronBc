@@ -355,6 +355,10 @@ class GoalAdmin extends AbstractAdmin
                     continue;
                 }
 
+                if(!$image->getId() && !$image->getFile()){
+                    continue;
+                }
+
                 if ($image->getList() == true){
                     $hasListPhoto = true;
                 }
