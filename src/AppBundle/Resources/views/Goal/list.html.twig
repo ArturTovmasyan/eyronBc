@@ -73,23 +73,26 @@
          data-infinite-scroll-disabled='Ideas.busy || Ideas.request >= 2'
          data-infinite-scroll-distance='2'>
 
-        <h2 data-ng-show="noIdeas" class="ng-hide text-center">
+        <h2 data-ng-show="noIdeas" class="ng-hide text-center creating-goal">
             {#<span class="empty-text text-center">{{ 'goal.not_found'|trans|raw }}</span>#}
-            <span class="empty-text text-center">
-             Sorry, we couldn't find anything.
-                <br /> You can create this goal:
+            <p class="empty-text text-center">
+                Sorry, we couldn't find anything.
+            </p>
+
+            <p  class="empty-text text-center">
+                <span>You can create this goal:</span>
                 <span class="text-purple">[[search]]</span>
                 <a  class="btn btn-purple" href="{{ path('add_goal') }}?title=[[search]]">Start</a>
-                <br /> or you can explore other ideas:
-            </span>
+            </p>
+
+            <p  class="empty-text text-center">or you can explore other ideas:</p>
         </h2>
+
         {% if not search %}
-            <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark ">
+            <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark">
                {{ 'ideas_list_title'|trans }}
             </h2>
         {% endif %}
-
-
 
         <div class="row">
 

@@ -802,7 +802,7 @@
         text-decoration:none;
 
         .icon-manage{
-          color: #51e1dc3;
+          color: #5e1dc3;
         }
         .edit-note{
           background: url('../images/note-hover.svg') no-repeat center center;
@@ -964,6 +964,34 @@
   font-size: 14px;
   margin:0 0 0 5px;
   cursor: pointer;
+}
+
+.creating-goal{
+
+  .empty-text{
+    font-weight: 400;
+  }
+
+  p{
+    margin-bottom:5px;
+
+    span{
+      display: inline-block;
+      &:not(.text-purple){
+        margin: 0 5px 5px 0;
+      }
+    }
+  }
+
+  a{
+    display: inline-block;
+    margin-left: 15px;
+  }
+
+  .text-purple{
+    text-transform: capitalize;
+    text-decoration: underline;
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -1353,6 +1381,21 @@
 
   .like-icon{
     margin: 0 0 0 12px;
+  }
+
+  .creating-goal{
+    a{
+      margin-left: 30px;
+    }
+
+    p{
+      span{
+        &:not(.text-purple){
+          margin: 5px 5px 5px 0;
+        }
+      }
+    }
+
   }
 }
 
