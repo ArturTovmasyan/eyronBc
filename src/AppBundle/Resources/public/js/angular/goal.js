@@ -24,7 +24,8 @@ angular.module('goal', ['Interpolation',
         'notification',
         'activity',
         'adds',
-        'comments'
+        'comments',
+        'trans'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
