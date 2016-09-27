@@ -11,6 +11,7 @@ use AppBundle\Entity\UserGoal;
 use AppBundle\Services\GooglePlaceService;
 use AppBundle\Services\PlaceService;
 use AppBundle\Tests\Controller\BaseClass;
+use AppBundle\Traits\Mock;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +19,16 @@ use AppBundle\Tests\Services\GooglePlaceServiceTest;
 
 class GoalRestControllerTest extends BaseClass
 {
+    //use mock trait
+    use Mock;
+    
     /**
      * This function is used to test getGoalsInPlaceAction rest
      */
     public function testGetGoalsInPlace()
     {
-        //get google place service test
-        $googlePlaceServiceTest = new GooglePlaceServiceTest();
-        
-        //get google place service mock
-        $googlePlaceServiceMock = $googlePlaceServiceTest->createGooglePlaceServiceMock();
+        //get google place service mock 
+        $googlePlaceServiceMock = $this->createGooglePlaceServiceMock();
 
         //create client for set mock service in container
         $this->client2 = static::createClient(array(), array(

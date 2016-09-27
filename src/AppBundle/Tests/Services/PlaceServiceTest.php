@@ -4,6 +4,7 @@ namespace AppBundle\Tests\Services;
 
 use AppBundle\Services\PlaceService;
 use AppBundle\Tests\Controller\BaseClass;
+use AppBundle\Traits\Mock;
 
 /**
  * Class PlaceServiceTest
@@ -11,6 +12,9 @@ use AppBundle\Tests\Controller\BaseClass;
  */
 class PlaceServiceTest extends BaseClass
 {
+    //use mock trait
+    use Mock;
+    
     /**
      * This function is used to test getAllGoalsByPlace() method in place service
      */
@@ -19,11 +23,8 @@ class PlaceServiceTest extends BaseClass
         //get user
         $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user5@user.com');
 
-        //get google place service test
-        $googlePlaceServiceTest = new GooglePlaceServiceTest();
-
-        //create mock for google place service
-        $googlePlaceServiceMock = $googlePlaceServiceTest->createGooglePlaceServiceMock();
+        //get google place service mock 
+        $googlePlaceServiceMock = $this->createGooglePlaceServiceMock();
 
         //get place service and inject mock it in
         $placeService = new PlaceService($googlePlaceServiceMock, $this->em);
