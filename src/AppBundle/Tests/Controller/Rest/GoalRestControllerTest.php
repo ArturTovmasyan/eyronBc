@@ -23,24 +23,20 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testGetGoalsInPlace()
     {
-//        //set place data
-//        $placeData = array('city' => 'yerevans', 'country' => 'armenias');
-//
-//        //create mock for getPlace() method in google place service
-//        $mock = $this
-//            ->getMockBuilder('\AppBundle\Services\GooglePlaceService')
-//            ->disableOriginalConstructor()
-//            ->getMock();
-//        $mock->expects($this->once())
-//            ->method('getPlace')
-//            ->will($this->returnValue($placeData));
-//
-//        //get place service and inject mock it in
-//        $placeService = new PlaceService($mock, $this->em);
-//
-//        $client = self::createClient();
-//
-//        $client->getContainer()->set('app.google_place', $mock);
+        //get google place service test
+        $googlePlaceServiceTest = new GooglePlaceServiceTest();
+        
+        //get google place service mock
+        $googlePlaceServiceMock = $googlePlaceServiceTest->createGooglePlaceServiceMock();
+
+        //create client for set mock service in container
+        $this->client2 = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'user1@user.com',
+            'PHP_AUTH_PW'   => 'Test1234',
+        ));
+
+        //set mock service in container
+        $this->client2->getContainer()->set('app.google_place', $googlePlaceServiceMock);
         
         //create url for test
         $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);

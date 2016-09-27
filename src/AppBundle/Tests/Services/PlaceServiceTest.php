@@ -19,21 +19,14 @@ class PlaceServiceTest extends BaseClass
         //get user
         $user = $this->em->getRepository('ApplicationUserBundle:User')->findOneByUsername('user5@user.com');
 
-        //set place array data
-        $placeData = array('city' => 'armenia', 'country' => 'yerevan');
+        //get google place service test
+        $googlePlaceServiceTest = new GooglePlaceServiceTest();
 
-        //create mock for getPlace() method in google place service
-        $mock = $this
-            ->getMockBuilder('\AppBundle\Services\GooglePlaceService')
-            ->disableOriginalConstructor()
-            ->getMock();
-        
-        $mock->expects($this->once())
-            ->method('getPlace')
-            ->will($this->returnValue($placeData));
+        //create mock for google place service
+        $googlePlaceServiceMock = $googlePlaceServiceTest->createGooglePlaceServiceMock();
 
         //get place service and inject mock it in
-        $placeService = new PlaceService($mock, $this->em);
+        $placeService = new PlaceService($googlePlaceServiceMock, $this->em);
 
         //get place by service
         $goals = $placeService->getAllGoalsByPlace(GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA, $user);

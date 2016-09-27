@@ -17,7 +17,27 @@ class GooglePlaceServiceTest extends BaseClass
     //set constant coordinate for Russia Moscow
     const LATITUDE_RUSSIA = 55.75583;
     const LONGITUDE_RUSSIA = 37.61730;
-    
+
+    /**
+     * This function is used to create mock for Google place service
+     */
+    public function createGooglePlaceServiceMock()
+    {
+        //set place array data
+        $placeData = array('city' => 'armenia', 'country' => 'yerevan');
+
+        //create mock for getPlace() method in google place service
+        $mock = $this
+            ->getMockBuilder('\AppBundle\Services\GooglePlaceService')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mock->expects($this->once())
+            ->method('getPlace')
+            ->will($this->returnValue($placeData));
+
+        return $mock;
+    }
+
     /**
      * This data provider create data for place
      *
