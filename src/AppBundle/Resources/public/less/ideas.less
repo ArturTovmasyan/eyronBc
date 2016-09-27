@@ -205,52 +205,55 @@
     border-color:#eee;
   }
 
-  .users-lists{
-    clear:both;
-    margin-bottom: 0;
 
-    ul{
-      padding: 5px 0;
-      margin-bottom: 0;
-      border-bottom:1px solid #eee;
-      &>li{
-        color:#a4a4a4;
-        ul{
-          border-bottom:0;
-          li{
-            display: inline-block;
-            border-bottom:0;
-            padding-bottom:0;
-            font-size: 12px;
-          }
-        }
-
-        .users-arrow{
-          right:40px;
-
-          a,i{
-            background: url('../images/listed-arrow.png') no-repeat center center;
-            background-size: 100% ;
-            display: block;
-            width:37px;
-            height:37px;
-            margin:1px 0 0 3px;
-          }
-
-          a{
-            &:hover{
-              background: url('../images/listed-arrow-purple.png') no-repeat center center;
-              background-size: 100% ;
-            }
-          }
-        }
-    }
-    }
-  }
 
   p{
     font-size:14px;
     margin-bottom:0;
+  }
+}
+
+.users-lists{
+  clear:both;
+  margin-bottom: 0;
+  padding: 0 30px;
+
+  ul{
+    padding: 5px 0;
+    margin-bottom: 0;
+    border-bottom:1px solid #eee;
+    &>li{
+      color:#a4a4a4;
+      ul{
+        border-bottom:0;
+        li{
+          display: inline-block;
+          border-bottom:0;
+          padding-bottom:0;
+          font-size: 12px;
+        }
+      }
+
+      .users-arrow{
+        right:40px;
+
+        a,i{
+          background: url('../images/listed-arrow.png') no-repeat center center;
+          background-size: 100% ;
+          display: block;
+          width:37px;
+          height:37px;
+          margin:1px 0 0 3px;
+        }
+
+        a{
+          &:hover{
+            background: url('../images/listed-arrow-purple.png') no-repeat center center;
+            background-size: 100% ;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -909,22 +912,48 @@
   .goal-information{
     padding:0 5px 0 10px;
 
-    .users-lists{
-      ul{
-        padding: 7px 0;
 
-        &>li{
-          ul{
-            li{
-              font-size: 14px;
+    p{
+      font-size:17px;
+    }
+  }
+
+  .users-lists{
+
+    padding: 0 33px;
+
+    li{
+      &:first-child{
+        border-right:1px solid #eee;
+      }
+
+      &:last-child{
+        ul{
+          padding-left: 20px;
+        }
+      }
+    }
+
+    ul{
+      padding: 7px 0;
+
+      &>li{
+        &:first-child{
+          border-right: 0;
+        }
+        ul{
+          li{
+            font-size: 14px;
+            border-right: 0;
+
+            &:first-child{
+              border-right: 0;
             }
+
           }
         }
 
       }
-    }
-    p{
-      font-size:17px;
     }
   }
 }
@@ -1122,16 +1151,27 @@
     width: 330px;
     padding:0;
 
-    .users-lists{
-      ul{
-        padding: 10px 0;
-      }
-    }
+
 
     p{
       font-size:18px;
     }
 
+  }
+
+  .users-lists{
+    padding: 0 15px 0 52px;
+
+    li{
+      &:last-child{
+        ul{
+          padding-left: 33px;
+        }
+      }
+    }
+    ul{
+      padding: 10px 0;
+    }
   }
 
   .goal-links{

@@ -176,88 +176,89 @@
                             {% else %}
                                 <hr />
                             {% endif %}
-                            <ul class="users-lists">
-                                <li>
-                                    <ul class="row">
-                                        <li class="col-xs-5">
-                                            {{ 'done_by'|trans | upper }}
-                                            <p class="text-purple">{{ goal.stats.doneBy }}</p>
-                                        </li>
-                                        <li class="col-xs-7">
-                                            <ul class="users">
-                                                {% set left = 80 %}
-                                                {% for doneByUser in doneByUsers %}
-                                                    {% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}
-                                                    {% set className = "user-no" ~ random(4) %}
-                                                    <li style="right: {{ left }}px">
-                                                        {% if doneByUser.getPhotoLink  %}
-                                                            <figure>
-                                                                <img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">
-                                                            </figure>
-                                                        {% else %}
-                                                            <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
-                                                        {% endif %}
 
-                                                    </li>
-                                                    {% set left = left + 20 %}
-                                                {% endfor %}
+                            {#<ul class="users-lists">#}
+                                {#<li>#}
+                                    {#<ul class="row">#}
+                                        {#<li class="col-xs-5">#}
+                                            {#{{ 'done_by'|trans | upper }}#}
+                                            {#<p class="text-purple">{{ goal.stats.doneBy }}</p>#}
+                                        {#</li>#}
+                                        {#<li class="col-xs-7">#}
+                                            {#<ul class="users">#}
+                                                {#{% set left = 80 %}#}
+                                                {#{% for doneByUser in doneByUsers %}#}
+                                                    {#{% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}#}
+                                                    {#{% set className = "user-no" ~ random(4) %}#}
+                                                    {#<li style="right: {{ left }}px">#}
+                                                        {#{% if doneByUser.getPhotoLink  %}#}
+                                                            {#<figure>#}
+                                                                {#<img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">#}
+                                                            {#</figure>#}
+                                                        {#{% else %}#}
+                                                            {#<p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>#}
+                                                        {#{% endif %}#}
 
-                                                <li class="users-arrow">
-                                                    {% if goal.stats.doneBy == 0 %}
-                                                        <i></i>
-                                                    {% else %}
-                                                        <a data-ls-goal-users
-                                                           href="javascript:void(0)"
-                                                           data-ls-count="{{ goal.stats.doneBy }}"
-                                                           data-ls-goal-id="{{ goal.id }}">
-                                                        </a>
-                                                    {% endif %}
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
+                                                    {#</li>#}
+                                                    {#{% set left = left + 20 %}#}
+                                                {#{% endfor %}#}
 
-                                <li>
-                                    <ul class="row">
-                                        <li class="col-xs-5">
-                                            {{ 'listed_by'|trans | upper }}
-                                            <p class="text-purple">{{ goal.stats.listedBy }}</p>
-                                        </li>
-                                        <li class="col-xs-7">
-                                            <ul class="users">
-                                                {% set left = 80 %}
-                                                {#{{ dump(listedByUsers) }}#}
-                                                {% for listedByUser in listedByUsers %}
-                                                    {% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}
-                                                    {% set className = "user-no" ~ random(4) %}
-                                                    <li style="right: {{ left }}px">
-                                                        {% if listedByUser.getPhotoLink  %}
-                                                            <figure>
-                                                                <img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">
-                                                            </figure>
-                                                        {% else %}
-                                                            <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
-                                                        {% endif %}
-                                                    </li>
-                                                    {% set left = left + 20 %}
-                                                {% endfor %}
-                                                <li class="users-arrow">
-                                                    {% if goal.stats.listedBy == 0 %}
-                                                        <i></i>
-                                                    {% else %}
-                                                        <a data-ls-goal-users
-                                                           href="javascript:void(0)"
-                                                           data-ls-goal-id="{{ goal.id }}"
-                                                           data-ls-count="{{ goal.stats.listedBy }}"
-                                                           data-ls-category="listed"></a>
-                                                    {% endif %}
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                                {#<li class="users-arrow">#}
+                                                    {#{% if goal.stats.doneBy == 0 %}#}
+                                                        {#<i></i>#}
+                                                    {#{% else %}#}
+                                                        {#<a data-ls-goal-users#}
+                                                           {#href="javascript:void(0)"#}
+                                                           {#data-ls-count="{{ goal.stats.doneBy }}"#}
+                                                           {#data-ls-goal-id="{{ goal.id }}">#}
+                                                        {#</a>#}
+                                                    {#{% endif %}#}
+                                                {#</li>#}
+                                            {#</ul>#}
+                                        {#</li>#}
+                                    {#</ul>#}
+                                {#</li>#}
+
+                                {#<li>#}
+                                    {#<ul class="row">#}
+                                        {#<li class="col-xs-5">#}
+                                            {#{{ 'listed_by'|trans | upper }}#}
+                                            {#<p class="text-purple">{{ goal.stats.listedBy }}</p>#}
+                                        {#</li>#}
+                                        {#<li class="col-xs-7">#}
+                                            {#<ul class="users">#}
+                                                {#{% set left = 80 %}#}
+                                                {#&#123;&#35;{{ dump(listedByUsers) }}&#35;&#125;#}
+                                                {#{% for listedByUser in listedByUsers %}#}
+                                                    {#{% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}#}
+                                                    {#{% set className = "user-no" ~ random(4) %}#}
+                                                    {#<li style="right: {{ left }}px">#}
+                                                        {#{% if listedByUser.getPhotoLink  %}#}
+                                                            {#<figure>#}
+                                                                {#<img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">#}
+                                                            {#</figure>#}
+                                                        {#{% else %}#}
+                                                            {#<p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>#}
+                                                        {#{% endif %}#}
+                                                    {#</li>#}
+                                                    {#{% set left = left + 20 %}#}
+                                                {#{% endfor %}#}
+                                                {#<li class="users-arrow">#}
+                                                    {#{% if goal.stats.listedBy == 0 %}#}
+                                                        {#<i></i>#}
+                                                    {#{% else %}#}
+                                                        {#<a data-ls-goal-users#}
+                                                           {#href="javascript:void(0)"#}
+                                                           {#data-ls-goal-id="{{ goal.id }}"#}
+                                                           {#data-ls-count="{{ goal.stats.listedBy }}"#}
+                                                           {#data-ls-category="listed"></a>#}
+                                                    {#{% endif %}#}
+                                                {#</li>#}
+                                            {#</ul>#}
+                                        {#</li>#}
+                                    {#</ul>#}
+                                {#</li>#}
+                            {#</ul>#}
                             <div id="affiliate-right" class="right-menu-scroll bg-white">
                                 <adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
                             </div>
@@ -282,6 +283,98 @@
                     {#</div>#}
                     {#<div class="col-md-4"></div>#}
                 {#</div>#}
+
+                <div class="row bg-white">
+
+                    <div class="col-md-8">
+                        {% if page == inner %}
+                        <ul class="users-lists row">
+                            <li class="col-sm-6">
+                                <ul class="row no-gutter">
+                                    <li class="col-xs-5">
+                                        {{ 'done_by'|trans | upper }}
+                                        <p class="text-purple">{{ goal.stats.doneBy }}</p>
+                                    </li>
+                                    <li class="col-xs-7">
+                                        <ul class="users">
+                                            {% set left = 80 %}
+                                            {% for doneByUser in doneByUsers %}
+                                                {% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}
+                                                {% set className = "user-no" ~ random(4) %}
+                                                <li style="right: {{ left }}px">
+                                                    {% if doneByUser.getPhotoLink  %}
+                                                        <figure>
+                                                            <img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">
+                                                        </figure>
+                                                    {% else %}
+                                                        <p class="no-image {{ className }}">{{ nameOnImage | upper }}</p>
+                                                    {% endif %}
+
+                                                </li>
+                                                {% set left = left + 20 %}
+                                            {% endfor %}
+
+                                            <li class="users-arrow">
+                                                {% if goal.stats.doneBy == 0 %}
+                                                    <i></i>
+                                                {% else %}
+                                                    <a data-ls-goal-users
+                                                       href="javascript:void(0)"
+                                                       data-ls-count="{{ goal.stats.doneBy }}"
+                                                       data-ls-goal-id="{{ goal.id }}">
+                                                    </a>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="col-sm-6">
+                                <ul class="row no-gutter">
+                                    <li class="col-xs-5">
+                                        {{ 'listed_by'|trans | upper }}
+                                        <p class="text-purple">{{ goal.stats.listedBy }}</p>
+                                    </li>
+                                    <li class="col-xs-7">
+                                        <ul class="users">
+                                            {% set left = 80 %}
+                                            {#{{ dump(listedByUsers) }}#}
+                                            {% for listedByUser in listedByUsers %}
+                                                {% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}
+                                                {% set className = "user-no" ~ random(4) %}
+                                                <li style="right: {{ left }}px">
+                                                    {% if listedByUser.getPhotoLink  %}
+                                                        <figure>
+                                                            <img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">
+                                                        </figure>
+                                                    {% else %}
+                                                        <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
+                                                    {% endif %}
+                                                </li>
+                                                {% set left = left + 20 %}
+                                            {% endfor %}
+                                            <li class="users-arrow">
+                                                {% if goal.stats.listedBy == 0 %}
+                                                    <i></i>
+                                                {% else %}
+                                                    <a data-ls-goal-users
+                                                       href="javascript:void(0)"
+                                                       data-ls-goal-id="{{ goal.id }}"
+                                                       data-ls-count="{{ goal.stats.listedBy }}"
+                                                       data-ls-category="listed"></a>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 hidden-xs"></div>
+                </div>
 
                 <div class="row padding-top bg-white">
 
