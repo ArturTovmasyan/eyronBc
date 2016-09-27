@@ -98,7 +98,14 @@ goal:
       was_created:
           public: Ваша публичная идея была успешно создана
           private: Ваша приватная идея была успешно создана
-      existing: Имеющиеся одинаковые цели 
+      existing: Имеющиеся одинаковые цели
+      importance: Важность
+      important: Важная
+      not_important: Не важная
+      urgency: Срочность
+      urgent: Срочная
+      not_urgent: Не срочная
+
 
 goal_friend_menu:
       all: Все
@@ -170,6 +177,7 @@ success_story:
       description: История успеха ...
       files: Файлы
       url: Адрес видеоролика: https://www...
+      add: История успеха...
 
       view_access_denied: Вы не имеете доступ просмотра этой истории успеха
       edit_access_denied: Вы не имеете доступ изменения этой истории успеха
@@ -269,6 +277,8 @@ my_bucket_list:
   year_old: -летний
 
 draft:
+  edit: Редактировать
+  update: Обновить черновик
   title: Черновик
   description: Описание Черновика
   create: Сохранить как черновик
