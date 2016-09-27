@@ -51,7 +51,7 @@ class GooglePlaceServiceTest extends BaseClass
      */
     public function testGetPlace($latitude, $longitude, $save, $placeName)
     {
-        //get google server key in parameter
+        //get google place service
         $googlePlaceService = $this->container->get('app.google_place');
 
         //get place by service

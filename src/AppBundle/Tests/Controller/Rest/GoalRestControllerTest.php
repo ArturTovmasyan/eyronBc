@@ -9,6 +9,7 @@ namespace AppBundle\Tests\Controller\Rest;
 
 use AppBundle\Entity\UserGoal;
 use AppBundle\Services\GooglePlaceService;
+use AppBundle\Services\PlaceService;
 use AppBundle\Tests\Controller\BaseClass;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -22,6 +23,25 @@ class GoalRestControllerTest extends BaseClass
      */
     public function testGetGoalsInPlace()
     {
+//        //set place data
+//        $placeData = array('city' => 'yerevans', 'country' => 'armenias');
+//
+//        //create mock for getPlace() method in google place service
+//        $mock = $this
+//            ->getMockBuilder('\AppBundle\Services\GooglePlaceService')
+//            ->disableOriginalConstructor()
+//            ->getMock();
+//        $mock->expects($this->once())
+//            ->method('getPlace')
+//            ->will($this->returnValue($placeData));
+//
+//        //get place service and inject mock it in
+//        $placeService = new PlaceService($mock, $this->em);
+//
+//        $client = self::createClient();
+//
+//        $client->getContainer()->set('app.google_place', $mock);
+        
         //create url for test
         $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);
 
