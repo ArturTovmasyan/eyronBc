@@ -86,6 +86,7 @@ goal:
       create_goal: Поздравляем, ваша цель была успешно добавлена
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
+      empty_private_ideas: На данный момент в списке ваших личных целей нет ни одной цели
       deadline: Deadline
       priority: Приоритет
       steps: Steps
@@ -97,8 +98,13 @@ goal:
       was_created:
           public: Ваша публичная идея была успешно создана
           private: Ваша приватная идея была успешно создана
+      existing: Имеющиеся одинаковые цели 
 
-
+goal_friend_menu:
+      all: Все
+      recently_matched: Последние соответствия
+      most_matching: Максимальные соответствия
+      most_activity: Самые активные
 activities:
       title: Действия
       description: Описание действий

@@ -4,7 +4,8 @@ angular.module('comments', ['Interpolation',
   'Components',
   'ngResource',
   'goalManage',
-  'PathPrefix'
+  'PathPrefix',
+  'trans'
 ]).directive('lsCommentManage',['$compile',
   '$rootScope',
   '$timeout',
