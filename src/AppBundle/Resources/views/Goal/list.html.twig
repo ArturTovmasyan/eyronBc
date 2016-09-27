@@ -74,7 +74,14 @@
          data-infinite-scroll-distance='2'>
 
         <h2 data-ng-show="noIdeas" class="ng-hide text-center">
-            <span class="empty-text text-center">{{ 'goal.not_found'|trans }}</span>
+            {#<span class="empty-text text-center">{{ 'goal.not_found'|trans|raw }}</span>#}
+            <span class="empty-text text-center">
+             Sorry, we couldn't find anything.
+                <br /> You can create this goal:
+                <span class="text-purple">[[search]]</span>
+                <a  class="btn btn-purple" href="{{ path('add_goal') }}?title=[[search]]">Start</a>
+                <br /> or you can explore other ideas:
+            </span>
         </h2>
         {% if not search %}
             <h2 data-ng-show="Ideas.items.length && !noIdeas && ideasTitle" class="text-center text-dark ">

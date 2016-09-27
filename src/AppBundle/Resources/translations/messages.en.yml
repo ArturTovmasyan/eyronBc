@@ -75,7 +75,7 @@ goal:
       as_invisible: Set as Invisible
       as_visible: Set as Visible
       visible: Visible
-      not_found: Sorry, we couldn't find anything, but you can explore other ideas:
+      not_found: Sorry, we couldn't find anything. <br /> You can create this goal: <input type="text" value="%title%" autofocus />   <a href="%href%" class="btn btn-purple" >Start</a> <br /> or you can explore other ideas:
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active
