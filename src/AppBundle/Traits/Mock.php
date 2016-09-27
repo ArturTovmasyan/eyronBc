@@ -3,7 +3,7 @@
 namespace AppBundle\Traits;
 
 /**
- * Class Location
+ * Class Mock
  * @package AppBundle\Traits
  */
 trait Mock
