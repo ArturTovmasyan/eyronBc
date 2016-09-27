@@ -436,8 +436,10 @@ angular.module('goal', ['Interpolation',
         };
 
         $timeout(function () {
-            var afilateHeight = $('.affiliate-right iframe').height();
-            $('.affiliate-right iframe').height(afilateHeight + 20);
+            var afilateHeight = $('.affiliate-right iframe').height();console.log(afilateHeight);
+            var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();console.log(afilateMobileHeight);
+            $('.affiliate-right iframe').height(afilateHeight + 80);
+            $('.affiliate-right-mobile iframe').height(afilateMobileHeight + 80);
         }, 2000);
 
 
@@ -478,7 +480,7 @@ angular.module('goal', ['Interpolation',
         };
             
         $scope.manageVote = function(id){
-        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
             url = envPrefix + url;
             url = url.replace('{storyId}', id);
             $http.get(url).success(function() {
@@ -581,6 +583,7 @@ angular.module('goal', ['Interpolation',
         };
 
         if(angular.element('.goal-information') && screen.width >= 992  && window.innerWidth >= 992) {
+            $scope.isDesktop = true;
             $timeout(function () {
                 angular.element('.goal-information').scrollToFixed({
                     marginTop: 85,

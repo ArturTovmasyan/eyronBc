@@ -259,7 +259,7 @@
                                     {#</ul>#}
                                 {#</li>#}
                             {#</ul>#}
-                            <div id="affiliate-right" class="right-menu-scroll bg-white">
+                            <div id="affiliate-right" class="right-menu-scroll bg-white" data-ng-show="isDesktop">
                                 <adds-affiliate class="affiliate-right" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
                             </div>
                         </div>
@@ -370,7 +370,9 @@
                                 </ul>
                             </li>
                         </ul>
-
+                        <div id="affiliate-right-mobile" class="right-menu-scroll bg-white" data-ng-show="!isDesktop">
+                            <adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
+                        </div>
                         {% endif %}
                     </div>
                     <div class="col-md-4 hidden-xs"></div>
