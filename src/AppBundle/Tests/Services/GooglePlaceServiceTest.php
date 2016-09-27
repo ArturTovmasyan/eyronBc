@@ -3,7 +3,6 @@
 namespace AppBundle\Tests\Services;
 
 use AppBundle\Tests\Controller\BaseClass;
-use AppBundle\Traits\Mock\MockGooglePlaceServiceTrait;
 
 /**
  * Class GooglePlaceServiceTest
