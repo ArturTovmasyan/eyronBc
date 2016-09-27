@@ -44,6 +44,11 @@ class Affiliate
     protected $link;
 
     /**
+     * @ORM\Column(name="ufi", type="string", length=20, nullable=true)
+     */
+    protected $ufi;
+
+    /**
      * @ORM\Column(name="size", type="array", nullable=true)
      * @Groups({"affiliate"})
      */
@@ -256,6 +261,25 @@ class Affiliate
     }
 
     /**
+     * @return mixed
+     */
+    public function getUfi()
+    {
+        return $this->ufi;
+    }
+
+    /**
+     * @param $ufi
+     * @return $this
+     */
+    public function setUfi($ufi)
+    {
+        $this->ufi = $ufi;
+
+        return $this;
+    }
+
+    /**
      * @param $content
      * @return mixed
      */
@@ -264,6 +288,7 @@ class Affiliate
         $newContent = str_replace(AffiliateType::LINK_PLACEHOLDER, $this->getLink(), $content);
         $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
         $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, AffiliateType::$bookingAId, $newContent);
+        $newContent = str_replace(AffiliateType::UFI_PLACEHOLDER, $this->getUfi(), $newContent);
 
         return $newContent;
     }

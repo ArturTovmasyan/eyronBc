@@ -95,6 +95,18 @@ class GooglePlaceService
                 $placeArray[$type] = trim(preg_replace('/[0-9]+/', '', strtolower($place)));
             }
 
+            if (isset($results[1]) && isset($results[1]->address_components) && isset($results[1]->address_components[0])
+                && isset($results[1]->address_components[0]->short_name))
+            {
+                $placeArray[PlaceType::country_short_name] = strtolower($results[1]->address_components[0]->short_name);
+            }
+            elseif (isset($results[0]) && isset($results[0]->address_components) && isset($results[0]->address_components[0])
+                && isset($results[0]->address_components[0]->short_name))
+            {
+                $placeArray[PlaceType::country_short_name] = strtolower($results[0]->address_components[0]->short_name);
+            }
+
+
             //check if save value is true
             if ($save) {
 
