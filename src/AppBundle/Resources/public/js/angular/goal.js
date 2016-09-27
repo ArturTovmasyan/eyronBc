@@ -436,8 +436,8 @@ angular.module('goal', ['Interpolation',
         };
 
         $timeout(function () {
-            var afilateHeight = $('.affiliate-right iframe').height();console.log(afilateHeight);
-            var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();console.log(afilateMobileHeight);
+            var afilateHeight = $('.affiliate-right iframe').height();
+            var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();
             $('.affiliate-right iframe').height(afilateHeight + 80);
             $('.affiliate-right-mobile iframe').height(afilateMobileHeight + 80);
         }, 2000);

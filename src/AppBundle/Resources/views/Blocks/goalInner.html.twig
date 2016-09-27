@@ -163,7 +163,7 @@
                             </ul>
 
                             {% if goal.lat is not null and goal.lng is not null %}
-                                <div data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                <div data-ng-show="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
                                     <div class="map-marker" data-ng-show="location"
                                          data-simple-map-marker
                                          data-zoom="14"
@@ -370,6 +370,20 @@
                                 </ul>
                             </li>
                         </ul>
+                            {% if goal.lat is not null and goal.lng is not null %}
+                                <div data-ng-show="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                    <div class="map-marker" data-ng-show="location"
+                                         data-simple-map-marker
+                                         data-zoom="14"
+                                         data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+                                         data-markers="location"
+
+                                         style="width: 99.8%; height: 215px">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <hr />
+                            {% endif %}
                         <div id="affiliate-right-mobile" class="right-menu-scroll bg-white" data-ng-show="!isDesktop">
                             <adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>
                         </div>
