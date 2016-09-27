@@ -2149,25 +2149,6 @@ footer{
     vertical-align: middle;
   }
 
-  .right-menu{
-    a,span{
-      color:#999999;
-      font-size: 14px;
-      vertical-align: middle;
-
-      &:hover,&:focus{
-        text-decoration:none;
-        color: #7724F6;
-        i{
-          color: #a3a3a3;
-        }
-      }
-    }
-    i.icon-top-idea{
-      margin-right:10px;
-    }
-  }
-
   span{
     a{
       vertical-align: middle;
@@ -2178,6 +2159,38 @@ footer{
     figure{
       margin-bottom:0;
     }
+  }
+}
+
+.right-menu{
+
+  ul{
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  a,span{
+    color:#999999;
+    font-size: 14px;
+    vertical-align: middle;
+
+    &:hover,&:focus{
+      text-decoration:none;
+      color: #7724F6;
+      i{
+        color: #a3a3a3;
+      }
+    }
+  }
+
+  i{
+    font-size:27px;
+    vertical-align: middle;
+    color: #a3a3a3;
+  }
+
+  i.icon-top-idea{
+    margin-right:10px;
   }
 }
 
@@ -2452,6 +2465,24 @@ footer{
     background: url('../images/video-icon.svg') no-repeat center center;
     background-size: 100%;
   }
+}
+
+
+
+.margin-top{
+  margin-top:10px;
+}
+
+.padding{
+  padding:10px 10px 5px;
+}
+
+.padding-bottom{
+  padding-bottom: 10px;
+}
+
+.padding-no{
+  padding-bottom:0
 }
 
 @media (min-width: @screen-sm) {
@@ -2758,12 +2789,12 @@ footer{
       margin:10px 0 20px;
     }
 
-    .right-menu{
-      a,span{
-        font-size:16px;
-      }
-    }
+  }
 
+  .right-menu{
+    a,span{
+      font-size:16px;
+    }
   }
 
   .addthis_counter .atc_s{
@@ -2885,6 +2916,22 @@ footer{
     }
   }
 
+  .margin-top{
+    margin-top:20px;
+  }
+
+  .padding{
+    padding:20px 20px 5px;
+  }
+
+  .padding-bottom{
+    padding-bottom: 20px;
+  }
+
+  .padding-no{
+    padding-bottom:0
+  }
+
 }
 
 .no-right{
@@ -2912,17 +2959,7 @@ footer{
   background-color:#ffffff !important;
 }
 
-.padding{
-  padding:20px 20px 5px;
-}
 
-.padding-no{
-  padding-bottom:0
-}
-
-.margin-top{
-  margin-top:20px;
-}
 
 .line{
   height:1px;

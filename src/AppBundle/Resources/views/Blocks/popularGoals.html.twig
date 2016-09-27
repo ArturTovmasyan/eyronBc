@@ -1,46 +1,61 @@
-<div class="right-block padding padding-no round {% if isProfile is not  defined or not isProfile%}margin-top{% endif %}" data-ng-controller="popularGoalsController">
+{% if isProfile is defined and isProfile%}
     <div class="right-menu">
-        {% if isProfile is defined and isProfile%}
-            <div class="row">
-                <div class="col-xs-7">
+        <div class="padding padding-bottom bg-white round">
+            <ul class="row">
+                <li class="col-xs-7">
                     <i class="icon-creat-icon"></i>
                     <a href="{{ path('add_goal') }}">{{ 'right_menu.create'|trans }}</a>
-                </div>
-                <div class="col-xs-5 text-right">
+                </li>
+                <li class="col-xs-5 text-right">
                     {% if profileUser.id == app.user.id %}
                         <a href="{{ path('my_ideas') }}">{{ 'right_menu.my_ideas'|trans }} {{ myIdeasCount }}</a>
                     {% endif %}
-                </div>
-            </div>
-            <hr/>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endif  %}
 
-            <div class="row padding-top">
-                <div class="col-xs-10">
-                    <span>
-                        <i class="icon-suggest-icon"></i>
-                        <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
-                    </span>
-                </div>
+<div class="right-block padding padding-no round margin-top" data-ng-controller="popularGoalsController">
+    <div class="right-menu">
+        {% if isProfile is defined and isProfile%}
 
-                <div class="col-xs-2 text-right">
-                    <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
-                </div>
+            <div class="bg-white round">
+                <ul class="row">
+                    <li class="col-xs-10">
+                        <span>
+                            <i class="icon-suggest-icon"></i>
+                            <a href="{{ path("goals_list") }}"> {{ 'right_menu.suggested'|trans }}</a>
+                        </span>
+                    </li>
+                    <li class="col-xs-2 text-right">
+                        <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
+                    </li>
+                </ul>
             </div>
         {% else %}
-            <div class="row">
-                <div class="col-xs-10">
-                    <span>
+
+            <div class="bg-white round">
+
+                <ul class="row" style="padding-left:0;margin-bottom:0;">
+                    <li class="col-xs-10">
+                       <span>
                          <i class="icon-top-idea"></i>
                          <a href="{{ path("goals_list", {'category': 'most-popular'} ) }}">{{ 'right_menu.ideas'|trans }}</a>
-                    </span>
-                </div>
-                <div class="col-xs-2 text-right">
-                    <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
-                </div>
+                        </span>
+                    </li>
+                    <li class="col-xs-2 text-right">
+                        <a href="#" class="load" id="popularLoad" data-ng-click="refreshPopulars()"></a>
+                    </li>
+                </ul>
+
             </div>
         {% endif %}
-        <hr/>
+
     </div>
+
+    <hr/>
+
     <div class="row">
     {% if user is defined and count is defined%}
         <div data-ng-cloak
