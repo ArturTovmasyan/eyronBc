@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Traits;
+namespace AppBundle\Traits\Mock;
 
 /**
- * Class Mock
+ * Class MockGooglePlaceServiceTrait
  * @package AppBundle\Traits
  */
-trait Mock
+trait MockGooglePlaceServiceTrait
 {
     /**
      * This function is used to create mock for Google place service
@@ -14,7 +14,7 @@ trait Mock
     public function createGooglePlaceServiceMock()
     {
         //set place array data
-        $placeData = array('city' => 'armenia', 'country' => 'yerevan');
+        $placeData = array('city' => 'yerevan', 'country' => 'armenia');
 
         //create mock for getPlace() method in google place service
         $mock = $this

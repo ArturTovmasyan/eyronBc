@@ -4,7 +4,7 @@ namespace AppBundle\Tests\Services;
 
 use AppBundle\Services\PlaceService;
 use AppBundle\Tests\Controller\BaseClass;
-use AppBundle\Traits\Mock;
+use AppBundle\Traits\Mock\MockGooglePlaceServiceTrait;
 
 /**
  * Class PlaceServiceTest
@@ -12,8 +12,8 @@ use AppBundle\Traits\Mock;
  */
 class PlaceServiceTest extends BaseClass
 {
-    //use mock trait
-    use Mock;
+    //use google place service mock trait
+    use MockGooglePlaceServiceTrait;
     
     /**
      * This function is used to test getAllGoalsByPlace() method in place service
