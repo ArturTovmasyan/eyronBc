@@ -126,6 +126,17 @@
             <argument>%facebook_page_id%</argument>
         </service>
 
+        <!--Get Google place service -->
+        <service id="app.google_place" class="AppBundle\Services\GooglePlaceService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%google_server_key%</argument>
+        </service>
+
+        <!--Get Place service -->
+        <service id="app.place" class="AppBundle\Services\PlaceService">
+            <argument type="service" id="app.google_place" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
     </services>
 
 </container>

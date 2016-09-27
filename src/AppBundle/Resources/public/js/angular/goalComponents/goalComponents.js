@@ -9,6 +9,7 @@ angular.module('goalComponents', ['Interpolation',
   'angulartics',
   'angulartics.google.analytics',
   'PathPrefix',
+  'dndLists',
   'Facebook'
   ])
   .config(function(uiSelectConfig) {
@@ -410,7 +411,8 @@ angular.module('goalComponents', ['Interpolation',
             'videoLink' : $scope.video_link,
             'files'     : $scope.files
           };
-          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, function (){
+          UserGoalDataManager.editStory({id: $scope.userGoal.goal.id}, data, null, function (){
+            toastr.error('Sorry! Your success story has not been saved');
           });
           $.modal.close();
         }, 100)
@@ -526,12 +528,29 @@ angular.module('goalComponents', ['Interpolation',
         $scope.days.unshift($scope.defaultDay);
       },100);
 
+      $scope.models = {
+        selected: null
+      };
+
       $scope.$watch('myMonths', function(m){
         $scope.months = _.values(m);
       });
 
       $scope.dateByFormat = function (year, month, day, format) {
         return moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day)).format(format)
+      };
+
+      $scope.moveElement = function (index) {
+        if($scope.userGoal.formatted_steps.length -1 <= index)return;
+        $scope.userGoal.formatted_steps.splice(index, 1);
+      };
+      
+      $scope.dragoverCallback = function (event, index, external, type) {
+        return $scope.userGoal.formatted_steps.length > index;
+      };
+      
+      $scope.dropCallback = function (event, index, item, external, type, name) {
+        return item;
       };
 
       $scope.getDaysInMonth = function(m, y) {
@@ -640,14 +659,14 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $scope.getCompleted = function(userGoal){
-        if(!userGoal || !userGoal.steps){
+        if(!userGoal || !userGoal.formatted_steps){
           return 0;
         }
-        var length = Object.keys(userGoal.steps).length;
+        var length = userGoal.formatted_steps.length - 1;
 
         var result = 0;
-        angular.forEach(userGoal.steps, function(v){
-          if(v){
+        angular.forEach(userGoal.formatted_steps, function(v){
+          if(v.switch){
             result++;
           }
         });
@@ -847,11 +866,9 @@ angular.module('goalComponents', ['Interpolation',
           $scope.userGoal.goal_status = $scope.complete.switch;
 
           UserGoalDataManager.manage({id: $scope.userGoal.goal.id}, $scope.userGoal, function (res){
-            $scope.$emit('lsJqueryModalClosedSaveGoal');
-
-            if(angular.element('#goal-create-form').length > 0 && $scope.redirectPath){
-              $window.location.href = $scope.redirectPath;
-            }
+            $scope.$emit('lsJqueryModalClosedSaveGoal', res);
+          }, function () {
+            toastr.error('Sorry! Your goal has not been saved');
           });
           $.modal.close();
         }, 100)
@@ -863,6 +880,8 @@ angular.module('goalComponents', ['Interpolation',
           if(resource[0] == 1){
             $analytics.eventTrack('Goal delete', {  category: 'Goal', label: 'Goal delete from Web' });
           }
+        }, function () {
+          toastr.error('Sorry! Your goal has not been removed');
         });
         $.modal.close();
       };

@@ -21,17 +21,18 @@
         <meta name='B-verify' content='8bfd63c976e1100818e071965bd9a439cc72f0f4' />
         
         <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
-
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
-        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
+        <link rel="stylesheet" type="text/css" href="{{ asset('app/bower_components/bootstrap/dist/css/bootstrap.min.css') }}"/>
+        
+        
         {# this allows to add additional meta data #}
         {% block meta %}{% endblock %}
 
         {# styles #}
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
+            'bundles/app/less/icons.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/jquery-modal/jquery.modal.css'
@@ -39,6 +40,7 @@
             'app/bower_components/slick-carousel/slick/slick-theme.css'
             'app/bower_components/angular-ui-select/dist/select.css'
             'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css'
+            'app/bower_components/toastr/toastr.min.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
             'bundles/app/less/notices.less'
@@ -467,6 +469,8 @@
                 'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
                 'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
                 'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
+                'app/bower_components/toastr/toastr.min.js'
+                'app/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
                 'app/scripts/PathPrefix/PathPrefix.js'

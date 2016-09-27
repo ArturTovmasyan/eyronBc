@@ -51,11 +51,12 @@ class GoalAdmin extends AbstractAdmin
         $query = parent::createQuery($context);
 
         // add selected
-        $query->addSelect('sc, im, tg, at');
+        $query->addSelect('sc, im, tg, at, pl');
         $query->leftJoin($query->getRootAlias() . '.successStories', 'sc');
         $query->leftJoin($query->getRootAlias() . '.images', 'im');
         $query->leftJoin($query->getRootAlias() . '.tags', 'tg');
         $query->leftJoin($query->getRootAlias() . '.author', 'at');
+        $query->leftJoin($query->getRootAlias() . '.place', 'pl');
 
         return $query;
     }
@@ -100,10 +101,11 @@ class GoalAdmin extends AbstractAdmin
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('status', null, array('label'=>'admin.label.name.goal_status'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
+            ->add('place', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.place', 'property'=>'name', 'multiple' => true, 'required' => false))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('rawLocation', LocationType::class, array('label' => false))
             ->add('videoLink', BlMultipleVideoType::class, array('label' => false))
-            ->add('language', ChoiceType::class, array('required' => true, 'choices' => ['en' => 'en', 'ru' => 'ru']))
+            ->add('language', ChoiceType::class, array('required' => true, 'choices' => ['en' => 'en', 'ru' => 'ru', 'fr' => 'French', 'nl' => 'Dutch']))
             ->add('bl_multiple_file', BlMultipleFileType::class, array('label'=>'admin.label.name.images', 'required' => false));
     }
 
@@ -167,6 +169,7 @@ class GoalAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('author', null, array('template' => 'AppBundle:Admin:author_name_list.html.twig', 'label' => 'admin.label.name.author_name'))
             ->add('tags', null, array('label'=>'admin.label.name.tags'))
+            ->add('place', null, array('label'=>'admin.label.name.place'))
             ->add('archived', null, array('label'=>'admin.label.name.archived'))
             ->add('mergedGoalId', null, array('label'=>'admin.label.name.merged_id'))
             ->add('getListPhoto', null, array('template' => 'AppBundle:Admin:goal_image_list.html.twig', 'label'=>'admin.label.name.getListPhoto'))
@@ -243,7 +246,7 @@ class GoalAdmin extends AbstractAdmin
         $container =  $this->getConfigurationPool()->getContainer();
 
         // get entity manager
-        $em = $container->get('doctrine')->getEntityManager();
+        $em = $container->get('doctrine')->getManager();
 
         // get content
         $content = $object->getDescription();

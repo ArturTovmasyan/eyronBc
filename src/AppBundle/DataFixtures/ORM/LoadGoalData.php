@@ -229,6 +229,23 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($goal13);
 
         // create goal
+        $goal14 = new Goal();
+        $goal14->setDescription('goal14 goal14');
+        $goal14->setTitle('goal14');
+        $goal14->setStatus(1);
+        $goal14->setVideoLink(null);
+        $goal14->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal14->addTag($tag);
+
+        $goal14->setLat(40.069099);
+        $goal14->setLng(45.038189);
+        $goal14->setAddress('Armenia');
+
+        $goal14->setAuthor($user8);
+        $goal14->setPublish(true);
+        $manager->persist($goal14);
+        
+        // create goal
         $userGoal1 = new UserGoal();
         $userGoal1->setUser($user);
         $userGoal1->setGoal($goal1);
@@ -258,6 +275,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $userGoal3->setImportant(true);
         $userGoal3->setStatus(UserGoal::COMPLETED);
         $userGoal3->setUrgent(false);
+        $userGoal3->setConfirmed(true);
         $manager->persist($userGoal3);
 
         // create goal
@@ -934,6 +952,7 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('goal3', $goal3);
         $this->addReference('goal4', $goal4);
         $this->addReference('goal5', $goal5);
+        $this->addReference('goal14', $goal14);
         $this->addReference('userGoal1', $userGoal1);
         $this->addReference('userGoal2', $userGoal2);
         $this->addReference('userGoal3', $userGoal3);

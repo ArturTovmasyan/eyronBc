@@ -28,7 +28,7 @@ angular.module('activity')
       this.request = 0;
       this.start = 0;
       this.reserve = [];
-      this.count = loadCount ? loadCount : 7;
+      this.count = loadCount ? loadCount : 9;
     };
 
     lsActivitiesItems.prototype.loadAddthis = function(){
@@ -369,7 +369,7 @@ angular.module('activity')
               })
             }, 2000);
           }
-          scope.$parent.Activities = new lsActivitiesItems(scope.lsCount? scope.lsCount: 7, scope.lsUser);
+          scope.$parent.Activities = new lsActivitiesItems(scope.lsCount? scope.lsCount: 9, scope.lsUser);
           
           if(!scope.lsUser){
             scope.$parent.Activities.nextActivity();

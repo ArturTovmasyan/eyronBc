@@ -2,12 +2,6 @@
 
 {% block angularApp %} <html data-ng-app="goal" data-ng-controller="goalList"> {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    <link href="{{ asset('app/bower_components/dropzone/downloads/css/dropzone.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     <div class="content-top ideas-top">
         <div class="container">

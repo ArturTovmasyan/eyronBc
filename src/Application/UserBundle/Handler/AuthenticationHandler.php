@@ -81,6 +81,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         }
         else {
             $url = $this->router->generate('homepage');
+            $url = $url . '?'; // make FF to redirect page
         }
 
         // check request method

@@ -7,12 +7,171 @@
  */
 namespace AppBundle\Tests\Controller\Rest;
 
+use AppBundle\Entity\UserGoal;
+use AppBundle\Services\GooglePlaceService;
 use AppBundle\Tests\Controller\BaseClass;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Tests\Services\GooglePlaceServiceTest;
 
 class GoalRestControllerTest extends BaseClass
 {
+    /**
+     * This function is used to test getGoalsInPlaceAction rest
+     */
+    public function testGetGoalsInPlace()
+    {
+        //create url for test
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);
+
+        //try to get goals in place
+        $this->client2->request('GET', $url);
+
+        //check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goals in getGoalsInPlaceAction() rest!");
+
+        //check page response content type
+        $this->assertTrue(
+            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
+            $this->client2->getResponse()->headers
+        );
+
+        // check database query count
+        if ($profile = $this->client2->getProfile()) {
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on getGoalsInPlaceAction() rest!");
+        }
+
+        //get response content
+        $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
+
+        //set default goal id value
+        $goalIds = [];
+
+        foreach ($responseResults as $responseResult)
+        {
+            //check if confirmed goal exist
+            $this->assertContains('goal3', $responseResult, 'findAllByPlace() repository don\'t work correctly');
+
+            //add goal id in array
+            $goalIds[] = $responseResult['id'];
+        }
+
+        //get one result in array
+        $result = reset($responseResults);
+
+        $imageSizeKey = array_key_exists('image_size', $result);
+
+        //check if imageSizeKey exists in array
+        if($imageSizeKey){
+
+            //get image size in array
+            $imageSize = $result['image_size'];
+
+            //get width
+            $width = array_key_exists('width', $imageSize);
+
+            //get height
+            $height = array_key_exists('height', $imageSize);
+
+            if($width && $height) {
+
+                $this->assertArrayHasKey('width', $imageSize, 'Invalid width key in getGoalsInPlaceAction() rest json structure');
+                $this->assertArrayHasKey('height', $imageSize, 'Invalid height key in getGoalsInPlaceAction() rest json structure');
+            }
+        }
+
+        $this->assertArrayHasKey('id', $result, 'Invalid id key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('title', $result, 'Invalid title key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('description', $result, 'Invalid description key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('status', $result, 'Invalid status key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('share_link', $result, 'Invalid share_link key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('publish', $result, 'Invalid publish key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('video_link', $result, 'Invalid video_link key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('created', $result, 'Invalid created key in getGoalsInPlaceAction() rest json structure');
+        $this->assertArrayHasKey('is_my_goal', $result, 'Invalid is_my_goal key in getGoalsInPlaceAction() rest json structure');
+
+        if(array_key_exists('image_path', $result)) {
+            $this->assertArrayHasKey('image_path', $result, 'Invalid image_path key in getGoalsInPlaceAction() rest json structure');
+        }
+
+        return $goalIds;
+    }
+
+    /**
+     * This function is used to test postConfirmGoalsAction() rest
+     *
+     * @depends testGetGoalsInPlace
+     * @param $goalIds array
+     */
+    public function testPostConfirmGoal($goalIds)
+    {
+        //create empty array
+        $data = [];
+
+        //generate goal array data
+        foreach ($goalIds as $id)
+        {
+            $data[$id] = true;
+        }
+
+        //create url for test
+        $url = '/api/v1.0/goals/confirms/goals';
+
+        //try to confirm goals
+        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => GooglePlaceServiceTest::LATITUDE_ARMENIA, 'longitude' => GooglePlaceServiceTest::LONGITUDE_ARMENIA));
+
+        // check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "can not confirm goal in postConfirmGoalsAction() rest!");
+
+        // check database query count
+        if ($profile = $this->client2->getProfile()) {
+
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on postConfirmGoalsAction() rest!");
+        }
+
+        //find all confirmed goal
+        $confirmedUserGoals = $this->em->getRepository('AppBundle:UserGoal')->findByConfirmed(true);
+
+        //get confirmed userGoal count
+        $confirmedUserGoalsCount = count($confirmedUserGoals);
+
+        //check confirmed userGoals count
+        $this->assertEquals(4, $confirmedUserGoalsCount, 'Goal confirm action don\'t work correctly');
+
+        foreach ($confirmedUserGoals as $userGoal)
+        {
+            //get userName for confirmed goal
+            $userName = $userGoal->getUser()->getUsername();
+
+            //check userGoal status after confirmed it
+            $this->assertEquals(UserGoal::COMPLETED, $userGoal->getStatus(), 'Goal confirm action don\'t work correctly');
+            $this->assertEquals('user1@user.com', $userName, 'Goal confirm action don\'t work correctly');
+        }
+
+        //get all userPlace
+        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => GooglePlaceServiceTest::LATITUDE_ARMENIA, 'longitude' => GooglePlaceServiceTest::LONGITUDE_ARMENIA));
+
+        //get userPlace count
+        $userPlacesCount = count($userPlaces);
+
+        //check userPlace count
+        $this->assertEquals(2, $userPlacesCount, 'UserPlace not created correctly');
+
+        //check suggestion after confirmation goal
+
+        //create url for test
+        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', GooglePlaceServiceTest::LATITUDE_ARMENIA, GooglePlaceServiceTest::LONGITUDE_ARMENIA);
+
+        //try to get goals in place
+        $this->client2->request('GET', $url);
+
+        //check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "Goal confirm action don't work correctly");
+    }
+
     /**
      * This function get all goals test
      */
@@ -815,6 +974,7 @@ class GoalRestControllerTest extends BaseClass
 
         //check if comment exists in array
         if($commentKey) {
+
             //get comments
             $comments = $responseResults['comments'];
 

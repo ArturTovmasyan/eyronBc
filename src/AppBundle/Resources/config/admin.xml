@@ -38,6 +38,22 @@
             <argument/>
         </service>
 
+        <!-- Place -->
+        <service id="sonata.admin.app.place" class="AppBundle\Admin\PlaceAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.place"/>
+            <argument/>
+            <argument>AppBundle\Entity\Place</argument>
+            <argument/>
+        </service>
+
+        <!-- PlaceType -->
+        <service id="sonata.admin.app.place_type" class="AppBundle\Admin\PlaceTypeAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="group_name_general" label="admin.label.name.place_type"/>
+            <argument/>
+            <argument>AppBundle\Entity\PlaceType</argument>
+            <argument/>
+        </service>
+
         <!-- SuccessStory -->
         <service id="success.story.moderator" class="AppBundle\Admin\SuccessStoryAdmin">
             <tag name="sonata.admin" manager_type="orm" group="moderator" label="admin.label.name.success_story"/>

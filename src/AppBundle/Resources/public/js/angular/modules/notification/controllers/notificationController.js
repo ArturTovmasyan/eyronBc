@@ -54,28 +54,31 @@ angular.module('notification')
       };
       
       $scope.delete = function(id, index){
-        NotificationManager.delete({id: id}, function () {
-         if(!$scope.notifies[index].is_read){
-           $scope.newNotCount --;
-         }
-          $scope.notifies.splice(index, 1);
+        NotificationManager.delete({id: id}, function () {}, function () {
+          toastr.error('Sorry! Your notification is not deleted');
         });
+        if(!$scope.notifies[index].is_read){
+          $scope.newNotCount --;
+        }
+        $scope.notifies.splice(index, 1);
       };
 
       $scope.readAll = function(){
-        NotificationManager.readAll({}, function () {
-          $scope.newNotCount = 0;
-          angular.forEach($scope.notifies, function (not) {
-            not.is_read = true;
-          });
+        NotificationManager.readAll({}, function () {},function () {
+          toastr.error('Sorry! Your notifications are not read');
+        });
+        $scope.newNotCount = 0;
+        angular.forEach($scope.notifies, function (not) {
+          not.is_read = true;
         });
       };
 
       $scope.singleRead = function(id, index){
-        NotificationManager.readSingle({id: id}, function () {
-          $scope.newNotCount --;
-          $scope.notifies[index].is_read = true;
+        NotificationManager.readSingle({id: id}, function () {}, function () {
+          toastr.error('Sorry! Your notification is not read');
         });
+        $scope.newNotCount = $scope.notifies[index].is_read?$scope.newNotCount:($scope.newNotCount - 1);
+        $scope.notifies[index].is_read = true;
       };
 
       $scope.getInterval = function (lastActivity) {
@@ -216,28 +219,31 @@ angular.module('notification')
       };
 
       $scope.delete = function(id, index){
-        NotificationManager.delete({id: id}, function () {
-          $scope.notifies.splice(index, 1);
+        NotificationManager.delete({id: id}, function () {}, function () {
+          toastr.error('Sorry! Your notification is not deleted');
         });
+        $scope.notifies.splice(index, 1);
       };
 
       $scope.readAll = function(){
-        NotificationManager.readAll({}, function () {
-          angular.forEach($scope.notifies, function (not) {
+        NotificationManager.readAll({}, function () {}, function () {
+          toastr.error('Sorry! Your notifications are not read');
+        });
+        angular.forEach($scope.notifies, function (not) {
+          not.is_read = true;
+        });
+        if($scope.reserve.length){
+          angular.forEach($scope.reserve, function (not) {
             not.is_read = true;
           });
-          if($scope.reserve.length){
-            angular.forEach($scope.reserve, function (not) {
-              not.is_read = true;
-            });
-          }
-        });
+        }
       };
 
       $scope.singleRead = function(id, index){
-        NotificationManager.readSingle({id: id}, function () {
-          $scope.notifies[index].is_read = true;
+        NotificationManager.readSingle({id: id}, function () {}, function (res) {
+          toastr.error('Sorry! Your notification is not read');
         });
+        $scope.notifies[index].is_read = true;
       };
 
       $scope.goNotificationPage = function (notify, index) {
