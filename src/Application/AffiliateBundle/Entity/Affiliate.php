@@ -69,6 +69,11 @@ class Affiliate
     protected $affiliateType;
 
     /**
+     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     */
+    protected $publish = false;
+
+    /**
      * @var
      */
     protected $cacheDownloadLink;
@@ -275,6 +280,25 @@ class Affiliate
     public function setUfi($ufi)
     {
         $this->ufi = $ufi;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublish()
+    {
+        return $this->publish;
+    }
+
+    /**
+     * @param $publish
+     * @return $this
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
 
         return $this;
     }
