@@ -20,10 +20,11 @@ class GooglePlaceService
      */
     protected $googleServerKey;
 
+
     /**
      * NotifyAboutDoneGoalByPlaceService constructor.
      * @param EntityManager $em
-     * @param $googleServerKey
+     * @param $googleServerKey string
      */
     public function __construct(EntityManager $em, $googleServerKey)
     {
@@ -85,10 +86,10 @@ class GooglePlaceService
             {
                 if ($key == 0) {
                     //set type
-                    $type = PlaceType::city;
+                    $type = PlaceType::TYPE_CITY;
                 } else {
                     //set type
-                    $type = PlaceType::country;
+                    $type = PlaceType::TYPE_COUNTRY;
                 }
 
                 //remove all spaces and number in word

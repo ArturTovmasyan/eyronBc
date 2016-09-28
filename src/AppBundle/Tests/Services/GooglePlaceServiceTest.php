@@ -2,6 +2,7 @@
 
 namespace AppBundle\Tests\Services;
 
+use AppBundle\Entity\PlaceType;
 use AppBundle\Tests\Controller\BaseClass;
 
 /**
@@ -10,14 +11,6 @@ use AppBundle\Tests\Controller\BaseClass;
  */
 class GooglePlaceServiceTest extends BaseClass
 {
-    //set constant coordinate for Armenia Yerevan
-    const LATITUDE_ARMENIA = 40.1794197;
-    const LONGITUDE_ARMENIA = 44.5408414;
-
-    //set constant coordinate for Russia Moscow
-    const LATITUDE_RUSSIA = 55.75583;
-    const LONGITUDE_RUSSIA = 37.61730;
-    
     /**
      * This data provider create data for place
      *
@@ -25,16 +18,31 @@ class GooglePlaceServiceTest extends BaseClass
      */
     public function placeData()
     {
-        $data = array(
-            array('latitude' => self::LATITUDE_ARMENIA,
-                'longitude' => self::LONGITUDE_ARMENIA,
-                'save' => false,
-                'placeName' => array('city' => 'yerevan', 'country' => 'armenia')),
+        //get places data from parameter
+        $placesData = static::createClient()->getContainer()->getParameter('places');
 
-            array('latitude' => self::LATITUDE_RUSSIA,
-                'longitude' => self::LONGITUDE_RUSSIA,
+        $latitudeArmenia = $placesData[0]['latitude'];
+        $longitudeArmenia = $placesData[0]['longitude'];
+
+        $armenia = $placesData[0]['country'];
+        $yerevan = $placesData[0]['city'];
+
+        $latitudeRussia = $placesData[1]['latitude'];
+        $longitudeRussia = $placesData[1]['longitude'];
+
+        $russia = $placesData[1]['country'];
+        $moscow = $placesData[1]['city'];
+
+        $data = array(
+            array('latitude' => $latitudeArmenia,
+                'longitude' => $longitudeArmenia,
+                'save' => false,
+                'placeName' => array(PlaceType::TYPE_CITY => $yerevan, PlaceType::TYPE_COUNTRY => $armenia)),
+
+            array('latitude' => $latitudeRussia,
+                'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => array('city' => 'moscow', 'country' => 'russia')));
+                'placeName' => array(PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia)));
 
         return $data;
     }
@@ -51,7 +59,7 @@ class GooglePlaceServiceTest extends BaseClass
      */
     public function testGetPlace($latitude, $longitude, $save, $placeName)
     {
-        //get google server key in parameter
+        //get google place service
         $googlePlaceService = $this->container->get('app.google_place');
 
         //get place by service

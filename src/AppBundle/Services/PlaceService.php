@@ -40,7 +40,7 @@ class PlaceService
     public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
         //get place by coordinate
-        $places = $this->googlePlaceService->getPlace($latitude, $longitude);
+        $places = $this->googlePlaceService->getPlace($latitude, $longitude, true);
 
         //check if place not exist
         if ($places) {
