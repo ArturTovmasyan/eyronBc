@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\PlaceType;
 use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -42,6 +43,11 @@ class PlaceService
         //get place by coordinate
         $places = $this->googlePlaceService->getPlace($latitude, $longitude, true);
 
+        //remove short_name data in places array
+        if (array_key_exists(PlaceType::COUNTRY_SHORT_NAME, $places)) {
+            unset($places[PlaceType::COUNTRY_SHORT_NAME]);
+        }
+        
         //check if place not exist
         if ($places) {
 

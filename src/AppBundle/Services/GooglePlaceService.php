@@ -120,6 +120,7 @@ class GooglePlaceService
                 //get places in DB
                 $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $places));
 
+                //TODO check if only country or city exist
                 //check if place in db not exists
                 if (!$placeInDb) {
 
