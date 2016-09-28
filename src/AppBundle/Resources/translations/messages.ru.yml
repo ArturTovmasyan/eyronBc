@@ -70,6 +70,7 @@ goal:
       as_invisible: Установить статус “Невидимый”
       as_visible: Установить статус “Видимый”
       visible: Видимый
+      see_also: Посмотрите далее
       not_found: |
                     <p class="empty-text text-center">
                          К сожалению, не найдено ни одной цели по заданным критериям

@@ -129,7 +129,10 @@ class GoalController extends Controller
             $goal = new Goal();
         }
 
-        $goal->setTitle($title);
+        if($title){
+            $goal->setTitle($title);
+        }
+
         $goal->setLanguage($currentUser->getLanguage());
         $goal->setAuthor($currentUser);
 
@@ -396,6 +399,7 @@ class GoalController extends Controller
             $dbTags = $em->getRepository("AppBundle:Tag")->getTagTitles();
 
             $newTags = array_diff($tags, $dbTags);
+            $newTags = array_unique($newTags);
 
             foreach($newTags as $tagString)
             {
