@@ -23,6 +23,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('link')
+            ->add('links')
             ->add('ufi')
             ->add('affiliateType')
         ;
@@ -36,11 +37,10 @@ class AffiliateAdmin extends AbstractAdmin
         AffiliateType::$bookingAId = $this->getConfigurationPool()->getContainer()->getParameter('booking_aid');
 
         $listMapper
-            ->add('id')
             ->add('publish', null, ['editable' => true])
             ->add('name')
             ->add('ufi')
-            ->add('links')
+            ->add('links', null, ['template' => 'ApplicationAffiliateBundle:Admin:listLinks.html.twig'])
             ->add('affiliateType.name')
             ->add('affiliateType.id', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
             ->add('_action', null, array(
