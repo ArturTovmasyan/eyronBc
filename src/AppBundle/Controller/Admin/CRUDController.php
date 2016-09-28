@@ -42,70 +42,71 @@ class CRUDController extends Controller
             // get data from request
             $form->handleRequest($request);
 
-            //get merging goal id in form
-            $mergingGoal = $form->get('goal')->getData();
+            if($form->isValid() && $form->isSubmitted()){
+                
+                //get merging goal id in form
+                $mergingGoal = $form->get('goal')->getData();
 
-            //get tag value in form
-            $tagChecked = $form->get('tags')->getData();
+                //get tag value in form
+                $tagChecked = $form->get('tags')->getData();
 
-            //get story value in form
-            $storyChecked = $form->get('successStory')->getData();
+                //get story value in form
+                $storyChecked = $form->get('successStory')->getData();
 
-            //get comment value in form
-            $commentChecked = $form->get('comment')->getData();
+                //get comment value in form
+                $commentChecked = $form->get('comment')->getData();
 
-            //get user value in form
-            $userChecked = $form->get('user')->getData();
+                //get user value in form
+                $userChecked = $form->get('user')->getData();
 
-            //get merge goal
-            $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
+                //get merge goal
+                $mergeGoalObject = $em->getRepository('AppBundle:Goal')->find($mergingGoal->getId());
 
-            //merge goal author by roles
-            $this->mergeGoalAuthor($goal, $em, $mergeGoalObject);
+                //merge goal author by roles
+                $this->mergeGoalAuthor($goal, $em, $mergeGoalObject);
 
-            //check if tag checked
-            if($tagChecked) {
-                $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
+                //check if tag checked
+                if($tagChecked) {
+                    $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
+                }
+
+                //check if successStory checked
+                if($storyChecked) {
+                    $this->mergeSuccessStory($goal, $em, $mergeGoalObject);
+                }
+
+                //check if comment checked
+                if($commentChecked) {
+                    $this->mergeComments($goal, $em, $mergeGoalObject);
+                }
+
+                //check if user checked
+                if($userChecked) {
+                    $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
+                }
+
+                //set goal id in merge goal
+                $mergeGoalObject->setMergedGoalId($goalId);
+                $em->persist($mergeGoalObject);
+
+                //set goal archived
+                $goal->setArchived(true);
+                $em->persist($goal);
+
+                $em->flush();
+
+                //set flush messages
+                $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
+                $this->addFlash('GoalMerge','Goal merge from Web');
+
+                return new RedirectResponse($this->admin->generateUrl('list'));
             }
-
-            //check if successStory checked
-            if($storyChecked) {
-                $this->mergeSuccessStory($goal, $em, $mergeGoalObject);
-            }
-
-            //check if comment checked
-            if($commentChecked) {
-                $this->mergeComments($goal, $em, $mergeGoalObject);
-            }
-
-            //check if user checked
-            if($userChecked) {
-                $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
-            }
-
-            //set goal id in merge goal
-            $mergeGoalObject->setMergedGoalId($goalId);
-            $em->persist($mergeGoalObject);
-
-            //set goal archived
-            $goal->setArchived(true);
-            $em->persist($goal);
-
-            $em->flush();
-
-            //set flush messages
-            $this->addFlash('sonata_flash_success', 'Goal id = '.$goalId.' has been success merged with id = '.$mergingGoal->getId().'');
-            $this->addFlash('GoalMerge','Goal merge from Web');
-
-            return new RedirectResponse($this->admin->generateUrl('list'));
-
         }
 
         return $this->render('AppBundle:Admin:goal_merge.html.twig', array(
           'goal' => $goal, 'form' => $form->createView(),
         ));
     }
-
 
     /**
      * This function is used to merge goal comments

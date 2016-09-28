@@ -31,7 +31,7 @@ class NotificationController extends Controller
      * @ApiDoc(
      *  resource=true,
      *  section="Notification",
-     *  description="This function is used to get user notifications",
+     *  description="This function is used to get user notifications, if you send negative lastId then return notifications which id is greater then abs(lastId), if you send positive lastId then return notifications which id is less then lastId ",
      *  statusCodes={
      *         200="Returned when notifications was returned",
      *         401="Returned when user not authenticated"

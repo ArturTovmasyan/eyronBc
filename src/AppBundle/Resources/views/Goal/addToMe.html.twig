@@ -240,14 +240,14 @@
                         <div class="priority ng-hide" data-ng-show="!complete.switch">
                             <div class="row no-gutter">
                                 <div class="col-xs-1">
-                                    <h5 class="text-gray hidden-xs">Importance</h5>
+                                    <h5 class="text-gray hidden-xs">{{ 'goal.importance'|trans }}</h5>
                                 </div>
                                 <div class="col-xs-11">
                                     <div class="row dotted">
                                         <div class="col-sm-1">
                                             <h6 class="text-gray hidden-xs">
-                                                <span>important</span>
-                                                <span>not important</span>
+                                                <span>{{ 'goal.important'|trans }}</span>
+                                                <span>{{ 'goal.not_important'|trans }}</span>
                                             </h6>
                                         </div>
                                         <div class="col-sm-11">
@@ -288,10 +288,10 @@
                                             </div>
                                             <div class="row hidden-xs">
                                                 <div class="col-sm-6 text-center text-gray">
-                                                    <bdi>not urgent</bdi>
+                                                    <bdi>{{ 'goal.not_urgent'|trans }}</bdi>
                                                 </div>
                                                 <div class="col-sm-6 text-center text-gray">
-                                                    <bdi>urgent</bdi>
+                                                    <bdi>{{ 'goal.urgent'|trans }}</bdi>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,7 +299,7 @@
                                 </div>
 
                             </div>
-                            <p class="text-center text-dark-gray hidden-xs">Urgency</p>
+                            <p class="text-center text-dark-gray hidden-xs">{{ 'goal.urgancy'|trans }}</p>
                         </div>
 
                     </div>
@@ -320,43 +320,56 @@
                     </div>
                 </div>
 
-                <div class="form-group row" data-ng-repeat="(k, step) in userGoal.formatted_steps">
+                <div data-dnd-list="userGoal.formatted_steps"
+                     data-dnd-disable-if="complete.switch"
+                     data-dnd-dragover="dragoverCallback(event, index, external, type)"
+                     data-dnd-drop="dropCallback(event, index, item, external, type, '')">
+                    <div class="form-group row"
+                         data-ng-repeat="(k, step) in userGoal.formatted_steps"
+                         data-dnd-draggable="step"
+                         data-dnd-disable-if="!step.text"
+                         data-dnd-moved="moveElement($index)"
+                         data-dnd-effect-allowed="move"
+                         data-dnd-selected="models.selected = step"
+                         data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">
+                        <label class="col-sm-2 control-label handle" data-ng-show="!complete.switch">
+                            <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
+                            <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
+                        </label>
 
-                    <label class="col-sm-2 control-label" data-ng-show="!complete.switch">
-                        <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
-                        <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
-                    </label>
+                        <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
+                            <div class="to-do-list">
+                                <i title="Notes" class="icon-step-list"></i>
+                                <input type="text"
+                                       class="form-control"
+                                       data-step
+                                       data-key="k"
+                                       data-array="userGoal.formatted_steps"
+                                       data-ng-model="step.text"
+                                       data-ng-disabled="complete.switch"
+                                       name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
+                                       placeholder="{{ "goal.add_step"|trans }}">
+                            </div>
+                        </div>
 
-                    <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
-                        <div class="to-do-list">
-                            <i title="Notes" class="icon-step-list"></i>
-                            <input type="text"
-                                   class="form-control"
-                                   data-step
-                                   data-key="k"
-                                   data-array="userGoal.formatted_steps"
-                                   data-ng-model="step.text"
-                                   data-ng-disabled="complete.switch"
-                                   name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
-                                   placeholder="{{ "goal.add_step"|trans }}">
+                        <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox"
+                                       name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
+                                       data-ng-model="step.switch"
+                                       data-ls-checked="step.switch"
+                                       data-ng-disabled="complete.switch"
+                                       class="onoffswitch-checkbox"
+                                       id="myonoffswitch[[k]]">
+
+                                <label class="onoffswitch-label" for="myonoffswitch[[k]]">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
-                        <div class="onoffswitch">
-                            <input type="checkbox"
-                                   name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
-                                   data-ng-model="step.switch"
-                                   data-ls-checked="step.switch"
-                                   data-ng-disabled="complete.switch"
-                                   class="onoffswitch-checkbox"
-                                   id="myonoffswitch[[k]]">
-
-                            <label class="onoffswitch-label" for="myonoffswitch[[k]]">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
+                    <div class="dndPlaceholder form-group row">
                     </div>
                 </div>
 
@@ -374,7 +387,6 @@
                             <input type="checkbox"
                                 data-ng-model="userGoal.is_visible"
                                 data-ls-checked="userGoal.is_visible"
-                                data-ng-disabled="complete.switch"
                                 id="goal-is-visible"
                                 class="onoffswitch-checkbox">
 
@@ -389,7 +401,7 @@
                 <p class="text-gray">
                     <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
                     <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
-                    <span data-ng-hide="userGoal.is_visible">{{ "goal.visible_text"|trans }}</span>
+                    <span data-ng-hide="userGoal.is_visible" style="padding-top:5px;">{{ "goal.visible_text"|trans }}</span>
                     <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
                 </p>
                 {% if app.user %}
@@ -407,12 +419,12 @@
                     </div>
                 {% endif %}
 
-                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_year'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_day_in_month1'|trans }} [[ dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}</p>
                 <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
                 <div class="modal-bottom">
                     <a  href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple">{{ "btn_save"|trans }}</a>
                     <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-                    <a data-ng-click="showDetails = ! showDetails" href="#" class="btn btn-transparent forget">
+                    <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails" class="btn btn-transparent forget">
                         <i class="icon-trash"></i>
                         <span>{{ 'forget'|trans | upper }}</span>
                     </a>
@@ -422,7 +434,7 @@
                     <div class="delete-message">
                         <div>
                             <h3>{{ 'delete_message'|trans|upper|raw }}</h3>
-                            <a href="javascript:void(0)" data-ng-click="removeUserGoal([[ userGoal.id ]])" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
+                            <a href="javascript:void(0)" data-ng-click="removeUserGoal(userGoal.id)" class="btn btn-transparent">{{ 'btn_delete'|trans | upper }}</a>
                             <a data-ng-click="showDetails=!showDetails" href="javascript:void(0)" class="btn btn-purple">{{ 'btn_cancel'|trans | upper }}</a>
                         </div>
                     </div>

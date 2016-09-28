@@ -20,7 +20,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
  */
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
-$kernel = new AppKernel('behat', false);
+$kernel = new AppKernel('behat', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);

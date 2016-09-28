@@ -107,6 +107,7 @@ class GoalController extends Controller
 
         $goalId      = $request->get('id');
         $cloneTrue   = $request->get('clone');
+        $title   = $request->get('title', null);
 
 
         //If we clone or edit any goal
@@ -118,8 +119,8 @@ class GoalController extends Controller
                 throw $this->createNotFoundException("Goal not found");
             }
 
-            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId()){
-                throw $this->createAccessDeniedException("It isn't your goal");
+            if (is_null($goal->getAuthor()) || $this->getUser()->getId() != $goal->getAuthor()->getId() || $goal->getPublish()){
+                throw $this->createAccessDeniedException("It isn't your goal or it's already published");
             }
 
             $goal = $cloneTrue ? clone $goal : $goal;
@@ -128,6 +129,7 @@ class GoalController extends Controller
             $goal = new Goal();
         }
 
+        $goal->setTitle($title);
         $goal->setLanguage($currentUser->getLanguage());
         $goal->setAuthor($currentUser);
 
@@ -170,15 +172,25 @@ class GoalController extends Controller
                     $em->persist($goal);
                     $em->flush();
 
-                    $request->getSession()
-                        ->getFlashBag()
-                        ->set('success','Your Goal has been Successfully Published');
+
+                    if($goalId){
+                        $em->getRepository('AppBundle:UserGoal')->updateUserGoals($goalId);
+                    }
+                    else {
+                        $message = ($goal->getStatus() == Goal::PRIVATE_PRIVACY) ? 'goal.was_created.private' : 'goal.was_created.public';
+                        $request->getSession()
+                            ->getFlashBag()
+                            ->set('success', $this->get('translator')->trans($message));
+                    }
 
                     return new Response($goal->getId());
                 }
 
                 $em->persist($goal);
                 $em->flush();
+                if($goalId){
+                    $em->getRepository('AppBundle:UserGoal')->updateUserGoals($goalId);
+                }
 
                 return  $this->redirectToRoute('view_goal', ['slug'=> $goal->getSlug()]);
             }
@@ -195,7 +207,7 @@ class GoalController extends Controller
         elseif ($goalId){
             $request->getSession()
                 ->getFlashBag()
-                ->set('draft','Edit my draft  from Web');
+                ->set('draft','Edit my draft from Web');
         }
 
 
@@ -403,7 +415,7 @@ class GoalController extends Controller
             $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
 
             foreach($oldTags as $oldTag){
-                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
+                if(!$object->getTags() || !$object->getTags()->contains($oldTag)){
                     $object->addTag($oldTag);
                     $em->persist($oldTag);
                 }

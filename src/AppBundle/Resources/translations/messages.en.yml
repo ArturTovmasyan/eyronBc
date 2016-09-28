@@ -11,7 +11,7 @@ join_now: Join Now
 most_popular: Most Popular
 discover: Discover
 add: ADD
-done: DONE
+done: complete
 clone: CLONE
 success_stories: Success stories
 successtory: Success story
@@ -65,7 +65,7 @@ goal:
       add_description: The first step to dream big is to create a bucketlist. If you want to fulfill your dreams, experience life goals before you die, start just now by creating goals.
       to_do: To Do
       type: Type in a youtube or vimeo link in the field
-      done: Done
+      done: complete
       as_priority: Set a priority
       critical_activities: Manage critical activities
       avoid_interruptions: Avoid interruptions
@@ -75,7 +75,18 @@ goal:
       as_invisible: Set as Invisible
       as_visible: Set as Visible
       visible: Visible
-      not_found: Sorry, we couldn't find anything, but you can explore other ideas:
+      not_found: |
+                    <p class="empty-text text-center">
+                         Sorry, we couldn't find anything.
+                     </p>
+
+                     <p  class="empty-text text-center">
+                         <span>You can create this goal:</span>
+                         <span class="text-purple">%search%</span>
+                         <a  class="btn btn-purple" href="%href%">Start</a>
+                     </p>
+
+                     <p  class="empty-text text-center">or you can explore other ideas:</p>
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active
@@ -100,6 +111,22 @@ goal:
       delete_access_denied: You can't delete this goal
       add_access_denied: You can't add this goal
       done_access_denied: You can't complete this goal
+      was_created:
+          public: Your goal has been successfully created
+          private: Your private goal has been successfully created
+      existing: Existing similar goals
+      importance: Importance
+      important: important
+      not_important: not important
+      urgency: Urgency
+      urgent: urgent
+      not_urgent: not urgent
+
+goal_friend_menu:
+      all: All
+      recently_matched: Recently Matched
+      most_matching: Most Matching
+      most_activity: Most active
 
 activities:
       title: Bucket List 127-Activity
@@ -108,7 +135,7 @@ activities:
 Title: Title
 Description: Description
 Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in the field
-Done: Done
+Done: complete
 
 ideas_list_title: Explore thousands of great ideas for your Bucket List
 
@@ -158,6 +185,8 @@ user_goal:
 # success story form
 success_story:
       error_year: You cannot complete your goal at a future date
+      error_day_in_month1: This month possesses
+      error_day_in_month2: days. Please enter a valid date
       error_uncomplete_year: You should select at least the year.
       error_without_file: Please, enter at least 3 words if there is no image or video!
       error_widht_file:  Please, write success story!
@@ -168,6 +197,7 @@ success_story:
       description: Success story ...
       files: Files
       url: Video URL: https://www...
+      add: Success story ...
 
       view_access_denied: You can't view this success story
       edit_access_denied: You can't edit this success story
@@ -265,6 +295,7 @@ my_bucket_list:
   invisible: Invisible
   notes: Notes
   steps: Steps
+  edit: edit
   missed_deadline: Missed deadline
   year_old: y.o.
   completed_description: See the list of goals you have to completed. Get inspired of them and continue working hard to achieve your goals and make your dreams come true.
@@ -304,7 +335,7 @@ block_listed: Listed
 block_completed: Completed
 Add an email : Add an email
 
-forget: FORGET IT
+forget: Remove
 dream: No deadline, No goal! You are just dreaming
 
 drag_drop: You can upload up to 6 images
@@ -345,6 +376,8 @@ notification:
   important_goal_success_story: wrote success story on your important goal
   success_story_vote: voted for your success story
   publish_goal: Your '%goal%' goal has been published
+  confirm_goal: Yours '%goal%' goal has been confirmed as done
+  done_goal: You done '%goal%' goal
   title: Bucketlist 127-Notifications
   description: Make sure to turn on notifications on Bucketlist 127 and you'll always stay uptodate to any action.
 
@@ -392,7 +425,7 @@ admin:
       goal_link: Goal link
       comments: Comments
       action_merge: Merge
-      goal_status: Status
+      goal_status: Public
       archived: Archived
       merged_id: Merged id
       author_name: Author
@@ -401,6 +434,13 @@ admin:
       enabled: Enabled
       goal_public: Public goal
       featured_date: Featured Date
+      place: Place
+      type: Type
+      place_type: Place Type
+      user_place: User Place
+      goal: Goal
+      type_name: Name
+      place_name: Name
 
 # end sonata admin lable
 

@@ -51,6 +51,26 @@ class SuccessStoryRepository extends EntityRepository
 
     /**
      * @param $storyId
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function findStoryVoters($storyId, $first, $count)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT u
+                           FROM ApplicationUserBundle:User u
+                           INDEX BY u.id
+                           JOIN AppBundle:SuccessStory ss WITH ss.id = :storyId
+                           JOIN ss.voters v WITH v.id = u.id")
+            ->setParameter('storyId', $storyId)
+            ->setFirstResult($first)
+            ->setMaxResults($count)
+            ->getResult();
+    }
+
+    /**
+     * @param $storyId
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

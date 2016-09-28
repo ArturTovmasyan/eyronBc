@@ -84,7 +84,7 @@ class UserGoalController extends FOSRestController
      *      {"name"="location[longitude]", "dataType"="float", "required"=false, "description"="longitude"},
      *      {"name"="urgent", "dataType"="boolean", "required"=false, "description"="Urgent boolean"},
      *      {"name"="important", "dataType"="boolean", "required"=false, "description"="Important boolean"},
-     *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with m/d/Y format"},
+     *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with d/m/Y format"},
      * }
      * )
      *
@@ -397,6 +397,10 @@ class UserGoalController extends FOSRestController
         $serializer = $this->get('serializer');
 
         if ($request->get('_route') != 'rest_post_usergoal_locations'){
+            if ($user->getId() != $this->getUser()->getId()){
+                $commonCounts = $em->getRepository('AppBundle:Goal')->findCommonCounts($this->getUser()->getId(), [$user->getId()]);
+                $user->setCommonGoalsCount($commonCounts[$user->getId()]['commonGoals']);
+            }
             $content = ['user_goals' => $userGoals, 'user' => $user];
             $serializedContent = $serializer->serialize($content, 'json',
                 SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "goal", "goal_author", "tiny_user")));

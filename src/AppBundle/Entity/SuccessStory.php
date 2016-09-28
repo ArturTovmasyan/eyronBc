@@ -10,7 +10,9 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\ActivityableInterface;
+use Application\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\Groups;
@@ -61,7 +63,7 @@ class SuccessStory implements ActivityableInterface
     protected $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id")
+     * @ORM\ManyToMany(targetEntity="Application\UserBundle\Entity\User", indexBy="id", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="success_story_voters",
      *      joinColumns={@ORM\JoinColumn(name="success_story_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -110,6 +112,41 @@ class SuccessStory implements ActivityableInterface
     protected $isInspire;
 
     /**
+     * @Groups({"successStory"})
+     */
+    protected $isVote;
+
+    /**
+     * @VirtualProperty()
+     * @Groups({"successStory"})
+     *
+     * @return int
+     */
+    public function getVotersCount()
+    {
+        return $this->voters->count();
+    }
+
+    /**
+     * @param $user
+     * @return $this
+     */
+    public function setIsVote($user)
+    {
+        $this->isVote = $this->voters->contains($user);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsVote()
+    {
+        return $this->isVote;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -151,7 +188,8 @@ class SuccessStory implements ActivityableInterface
     }
 
     /**
-     * @param mixed $isInspire
+     * @param $isInspire
+     * @return $this
      */
     public function setIsInspire($isInspire)
     {
@@ -369,12 +407,11 @@ class SuccessStory implements ActivityableInterface
     }
 
     /**
-     * @param $userId
+     * @param $user
      * @return bool
      */
-    public function isVote($userId)
+    public function isVote(User $user)
     {
-        return isset($this->voters[$userId]);
-
+        return $this->voters->contains($user);
     }
 }

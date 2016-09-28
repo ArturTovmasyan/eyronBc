@@ -31,10 +31,10 @@ angular.module('manage', ['Interpolation',
             locale = UserContext.locale,
             changedLanguage = false;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v5');
+        var templateCache = CacheFactory.get('bucketlist_templates_v9');
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v5', {
+            templateCache = CacheFactory('bucketlist_templates_v9', {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });
@@ -72,7 +72,7 @@ angular.module('manage', ['Interpolation',
                 template.doneTemplate = doneTemplate;
             }
 
-            if (!commonTemplate && changedLanguage) {
+            if (!commonTemplate || changedLanguage) {
                 $http.get(commonUrl).success(function(data){
                     template.commonTemplate = data;
                     templateCache.put('common-template'+id, data);

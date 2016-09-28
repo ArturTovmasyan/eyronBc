@@ -21,17 +21,18 @@
         <meta name='B-verify' content='8bfd63c976e1100818e071965bd9a439cc72f0f4' />
         
         <link rel="canonical" href="https://www.bucketlist127.com{{ app.request.getPathInfo }}" />
-
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset("app/bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
-        <link rel="stylesheet" href="{{ asset('bundles/app/less/icons.css') }}">
 
+        <link rel="stylesheet" type="text/css" href="{{ asset('app/bower_components/bootstrap/dist/css/bootstrap.min.css') }}"/>
+        
+        
         {# this allows to add additional meta data #}
         {% block meta %}{% endblock %}
 
         {# styles #}
         {% block stylesheets %}
             {% stylesheets output='css/base.css'
+            'bundles/app/less/icons.css'
             'app/bower_components/angular-motion/dist/angular-motion.min.css'
             'app/bower_components/jquery-nice-select/css/nice-select.css'
             'app/bower_components/jquery-modal/jquery.modal.css'
@@ -39,6 +40,7 @@
             'app/bower_components/slick-carousel/slick/slick-theme.css'
             'app/bower_components/angular-ui-select/dist/select.css'
             'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css'
+            'app/bower_components/toastr/toastr.min.css'
             'bundles/app/less/style.less'
             'bundles/app/less/news-feed.less'
             'bundles/app/less/notices.less'
@@ -193,14 +195,14 @@
                                         {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
                                         {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
                                         <li data-ng-show="!joinToggle11">
-                                            <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile"{% endif %}>
+                                            <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
                                                 <i class="icons ideas-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                             </a>
                                         </li>
                                          <li data-ng-show="!joinToggle11">
-                                            <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile"{% endif %}>
+                                            <a href="{{ path('user_profile_single') }}" {% if app.request.get('_route') == 'user_profile_single' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-xs hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
                                             </a>
@@ -314,7 +316,7 @@
 
                                     {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
                                     {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
-                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active"{% endif %}>
+                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
                                             <i class="icons ideas-icon"></i>
                                             <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
@@ -322,7 +324,7 @@
                                     </li>
 
                                     {% if user %}
-                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active"{% endif %}>
+                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                             <a href="{{ path('user_profile_single') }}">
                                                 <i class="icons mybucketlist-icon"></i>
                                                 <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
@@ -467,6 +469,8 @@
                 'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
                 'app/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
                 'app/bower_components/ng-scrollbars/dist/scrollbars.min.js'
+                'app/bower_components/toastr/toastr.min.js'
+                'app/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'
                 'app/scripts/jquery-modal/jquery.modal.js'
                 'app/scripts/Interpolation/Interpolation.js'
                 'app/scripts/PathPrefix/PathPrefix.js'
@@ -494,6 +498,10 @@
                 'bundles/app/js/angular/modules/user_profile/profile.js'
                 'bundles/app/js/angular/modules/user_profile/services/profileServices.js'
                 'bundles/app/js/angular/modules/user_profile/controllers/profileControllers.js'
+                'bundles/app/js/angular/translation.js'
+                'app/bower_components/angular-translate/angular-translate.min.js'
+                'app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+
                 %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}

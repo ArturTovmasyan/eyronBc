@@ -159,6 +159,13 @@ class UserGoal implements ActivityableInterface
     protected $updated;
 
     /**
+     * @var
+     * @ORM\Column(name="confirmed", type="boolean")
+     * @Assert\NotBlank()
+     */
+    protected $confirmed = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -633,5 +640,29 @@ class UserGoal implements ActivityableInterface
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set confirmed
+     *
+     * @param boolean $confirmed
+     *
+     * @return UserGoal
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmed
+     *
+     * @return boolean
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
     }
 }

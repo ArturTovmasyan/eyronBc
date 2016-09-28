@@ -151,16 +151,10 @@ class UserGoalRepository extends EntityRepository
 
         if ($getLastDate){
 
-            $filters = $this->getEntityManager()->getFilters();
-            if ($filters->isEnabled('visibility_filter')){
-                $filters->disable('visibility_filter');
-            }
-
             $dates = $query
                 ->select('ug.id, ug.updated as updated')
                 ->getQuery()
                 ->getResult();
-
 
             if (count($dates) == 0){
                 return null;
@@ -304,5 +298,17 @@ class UserGoalRepository extends EntityRepository
             ->setParameter('active', UserGoal::ACTIVE)
             ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
+    }
+
+    /**
+     * @param $goalId
+     */
+    public function updateUserGoals($goalId)
+    {
+        $this->getEntityManager()
+            ->createQuery('UPDATE AppBundle:UserGoal ug SET ug.updated = :currentDate WHERE ug.goal = :goal')
+            ->setParameter('currentDate', new \DateTime())
+            ->setParameter('goal', $goalId)
+            ->execute();
     }
 }

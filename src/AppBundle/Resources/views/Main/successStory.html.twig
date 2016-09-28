@@ -15,7 +15,7 @@
                             {% set files = story.files %}
                             {% set videos = story.videoLink %}
                             <div class="swiper-slide comment-place story-fade-in"
-                                 data-ng-init="count[{{ story.id }}] = {{ story.voters|length }}">
+                                 data-ng-init="count[{{ story.id }}] = {{ story.getVotersCount() }}">
 
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">

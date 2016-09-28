@@ -21,7 +21,7 @@ class AffiliateRepository extends \Doctrine\ORM\EntityRepository
             ->createQuery("SELECT a
                            FROM ApplicationAffiliateBundle:Affiliate a
                            JOIN a.affiliateType aType WITH aType.zone = :zone
-                           WHERE a.links LIKE :pageLink")
+                           WHERE a.publish = true AND a.links LIKE :pageLink")
             ->setParameter('pageLink', '%' . $pageLink . '%')
             ->setParameter('zone', $zone)
             ->getResult();

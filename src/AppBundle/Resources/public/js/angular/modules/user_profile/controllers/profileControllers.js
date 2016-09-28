@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
-    function ($scope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+  .controller('profileController',['$scope', '$rootScope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
+    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
       var path = $location.$$path;
       $scope.errorMessages = [];
+      $scope.userGoalIds = [];
       angular.element(".settings select").niceSelect();
       
       $scope.ProfileItems = new lsInfiniteGoals(10);
@@ -16,6 +17,10 @@ angular.module('profile')
       $scope.isMobile = window.innerWidth < 767;
       var mapModalTemplateUrl = '/bundles/app/htmls/mapModal.html';
 
+      $scope.scrollTop = function () {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+      };
+
       $scope.castInt = function(value){
         return parseInt(value);
       };
@@ -23,6 +28,28 @@ angular.module('profile')
       $scope.$on('doneGoal', function(){
         angular.element('.goal' + refreshingDate.goalId).removeClass("active-idea");
         $scope['doDate' + refreshingDate.goalId] = new Date();
+      });
+
+      $rootScope.$on('removeUserGoal', function (ev, id) {
+        var index = $scope.userGoalIds.indexOf(id);
+
+        if(index !== -1){
+          $scope.userGoalIds[index] = 'removed';
+        }
+      });
+
+      $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+
+        if(!userGoal)return;
+
+        var index = $scope.userGoalIds.indexOf(userGoal.id);
+
+        if(index !== -1){
+          $scope.ProfileItems.userGoals[index].is_visible = userGoal.is_visible;
+          $scope.ProfileItems.userGoals[index].do_date = userGoal.do_date;
+          $scope.ProfileItems.userGoals[index].steps = userGoal.steps;
+          $scope.ProfileItems.userGoals[index].completed = userGoal.completed;
+        }
       });
 
       $scope.goTo = function (status) {

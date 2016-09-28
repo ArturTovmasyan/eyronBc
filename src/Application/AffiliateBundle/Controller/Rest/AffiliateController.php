@@ -65,7 +65,7 @@ class AffiliateController extends FOSRestController
 
         AffiliateType::$bookingAId = $this->getParameter('booking_aid');
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $affiliates = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->getAffiliatesByLink($link, $zone);
 
         return $affiliates;
