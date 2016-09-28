@@ -86,6 +86,7 @@ goal:
       create_goal: Поздравляем, ваша цель была успешно добавлена
       create_idea: Поздравляем, идея была успешно добавлена в качестве вашей цели
       empty_draft: На данный момент у вас нет черновиков.
+      empty_private_ideas: На данный момент в списке ваших личных целей нет ни одной цели
       deadline: Deadline
       priority: Приоритет
       steps: Steps
@@ -97,8 +98,20 @@ goal:
       was_created:
           public: Ваша публичная идея была успешно создана
           private: Ваша приватная идея была успешно создана
+      existing: Имеющиеся одинаковые цели
+      importance: Важность
+      important: Важная
+      not_important: Не важная
+      urgency: Срочность
+      urgent: Срочная
+      not_urgent: Не срочная
 
 
+goal_friend_menu:
+      all: Все
+      recently_matched: Последние соответствия
+      most_matching: Максимальные соответствия
+      most_activity: Самые активные
 activities:
       title: Действия
       description: Описание действий
@@ -164,6 +177,7 @@ success_story:
       description: История успеха ...
       files: Файлы
       url: Адрес видеоролика: https://www...
+      add: История успеха...
 
       view_access_denied: Вы не имеете доступ просмотра этой истории успеха
       edit_access_denied: Вы не имеете доступ изменения этой истории успеха
@@ -263,6 +277,8 @@ my_bucket_list:
   year_old: -летний
 
 draft:
+  edit: Редактировать
+  update: Обновить черновик
   title: Черновик
   description: Описание Черновика
   create: Сохранить как черновик
