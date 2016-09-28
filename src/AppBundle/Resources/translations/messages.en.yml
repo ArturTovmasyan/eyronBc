@@ -75,7 +75,18 @@ goal:
       as_invisible: Set as Invisible
       as_visible: Set as Visible
       visible: Visible
-      not_found: Sorry, we couldn't find anything, but you can explore other ideas:
+      not_found: |
+                    <p class="empty-text text-center">
+                         Sorry, we couldn't find anything.
+                     </p>
+
+                     <p  class="empty-text text-center">
+                         <span>You can create this goal:</span>
+                         <span class="text-purple">%search%</span>
+                         <a  class="btn btn-purple" href="%href%">Start</a>
+                     </p>
+
+                     <p  class="empty-text text-center">or you can explore other ideas:</p>
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active

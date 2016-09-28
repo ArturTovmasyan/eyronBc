@@ -70,7 +70,18 @@ goal:
       as_invisible: Установить статус “Невидимый”
       as_visible: Установить статус “Видимый”
       visible: Видимый
-      not_found: К сожалению, не найдено ни одной цели по заданным критериям, однако вы можете просмотреть другие цели:
+      not_found: |
+                    <p class="empty-text text-center">
+                         К сожалению, не найдено ни одной цели по заданным критериям
+                     </p>
+
+                     <p  class="empty-text text-center">
+                         <span>Вы можете создать этот цель:</span>
+                         <span class="text-purple">%search%</span>
+                         <a  class="btn btn-purple" href="%href%">Start</a>
+                     </p>
+
+                     <p  class="empty-text text-center">или вы можете просмотреть другие цели:</p>
       list_title: Откройте для себя вдохновляющие идеи
       is_completed: Цель достигнута
       is_active: Цель активна
