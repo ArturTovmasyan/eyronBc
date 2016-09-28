@@ -23,12 +23,14 @@ class GooglePlaceServiceTest extends BaseClass
 
         $latitudeArmenia = $placesData[0]['latitude'];
         $longitudeArmenia = $placesData[0]['longitude'];
+        $armShortName = $placesData[0]['short_name'];
 
         $armenia = $placesData[0]['country'];
         $yerevan = $placesData[0]['city'];
 
         $latitudeRussia = $placesData[1]['latitude'];
         $longitudeRussia = $placesData[1]['longitude'];
+        $rusShortName = $placesData[1]['short_name'];
 
         $russia = $placesData[1]['country'];
         $moscow = $placesData[1]['city'];
@@ -37,12 +39,12 @@ class GooglePlaceServiceTest extends BaseClass
             array('latitude' => $latitudeArmenia,
                 'longitude' => $longitudeArmenia,
                 'save' => false,
-                'placeName' => array(PlaceType::TYPE_CITY => $yerevan, PlaceType::TYPE_COUNTRY => $armenia)),
+                'placeName' => [PlaceType::TYPE_CITY => $yerevan, PlaceType::TYPE_COUNTRY => $armenia, PlaceType::COUNTRY_SHORT_NAME => $armShortName]),
 
             array('latitude' => $latitudeRussia,
                 'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => array(PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia)));
+                'placeName' => [PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia, PlaceType::COUNTRY_SHORT_NAME => $rusShortName]));
 
         return $data;
     }

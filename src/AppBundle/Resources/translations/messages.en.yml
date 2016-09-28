@@ -112,8 +112,8 @@ goal:
       add_access_denied: You can't add this goal
       done_access_denied: You can't complete this goal
       was_created:
-          public: Your public Goal has been successfully created
-          private: Your private Goal has been successfully created
+          public: Your goal has been successfully created
+          private: Your private goal has been successfully created
       existing: Existing similar goals
       importance: Importance
       important: important

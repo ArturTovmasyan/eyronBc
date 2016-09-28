@@ -24,6 +24,7 @@ class AffiliateType
     const AID_PLACEHOLDER   = '%aid%';
     const IMAGE_PLACEHOLDER = '%image%';
     const LINK_PLACEHOLDER  = '%link%';
+    const UFI_PLACEHOLDER   = '%ufi%';
 
     const LEFT_ZONE     = 0;
     const RIGHT_ZONE    = 1;
