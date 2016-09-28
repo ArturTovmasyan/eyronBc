@@ -415,7 +415,7 @@ class GoalController extends Controller
             $oldTags = $em->getRepository("AppBundle:Tag")->findTagsByTitles($existTags);
 
             foreach($oldTags as $oldTag){
-                if(!$object->getTags() || !  $object->getTags()->contains($oldTag)){
+                if(!$object->getTags() || !$object->getTags()->contains($oldTag)){
                     $object->addTag($oldTag);
                     $em->persist($oldTag);
                 }
