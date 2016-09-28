@@ -17,6 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Traits\Location;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+/*
+
+TODO: 
+select CONCAT(YEAR(due_date), '-', DAY(due_date), '-', MONTH(due_date), ' ', TIME(due_date)), YEAR(due_date), MONTH(due_date), DAY(due_date), TIME(due_date), due_date from users_goals where due_date IS NOT NULL AND due_date < '100-01-01';
+
+UPDATE users_goals SET due_date = CONCAT(YEAR(due_date), '-', DAY(due_date), '-', MONTH(due_date), ' ', TIME(due_date)) where due_date IS NOT NULL AND due_date < '100-01-01';
+
+*/
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserGoalRepository")
