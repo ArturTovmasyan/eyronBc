@@ -75,6 +75,7 @@ goal:
       as_invisible: Set as Invisible
       as_visible: Set as Visible
       visible: Visible
+      see_also: See also
       not_found: |
                     <p class="empty-text text-center">
                          Sorry, we couldn't find anything.
