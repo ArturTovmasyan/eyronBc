@@ -23,6 +23,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('link')
+            ->add('links')
             ->add('ufi')
             ->add('affiliateType')
         ;
