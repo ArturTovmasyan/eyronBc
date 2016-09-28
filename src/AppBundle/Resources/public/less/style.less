@@ -765,7 +765,7 @@ header{
       }
 
       p{
-        color: #666666;
+        color: #999999;
         font-size:14px;
         line-height: 21px;
         padding: 5px 0 30px;
@@ -822,6 +822,7 @@ header{
 
           a{
             display:inline-block;
+            font-weight: 400;
             padding: 0 25px 0 5px !important;
             &:hover{
               text-decoration: none;
@@ -842,6 +843,7 @@ header{
             font-weight: 400;
             &:hover{
               background-color: transparent;
+              color: #7724f6 !important;
             }
           }
         }
@@ -902,11 +904,9 @@ header{
       }
     }
 
-
     .dropdown-menu{
       left: -137px;
     }
-
 
   }
 
@@ -1318,7 +1318,7 @@ label{
 }
 
 .text-grey-dark{
-  color: #333333;
+  color: #333333 !important;
 }
 
 .text-dark{
@@ -2611,7 +2611,7 @@ footer{
           &:first-child{
             a{
               &:hover{
-                color: #5e1dc3 !important;
+                color: #7724f6 !important;
               }
             }
           }
@@ -3355,6 +3355,11 @@ html {
   li{
     &:first-child{
       padding-bottom:21px;
+      a{
+        &:hover{
+          color: #7724F6 !important;
+        }
+      }
     }
   }
   .close-icon{
@@ -3364,13 +3369,15 @@ html {
   }
 
   h3,a{
-    //font-size:16px !important;
+    font-size: 14px !important;
+    line-height: 21px;
     padding:0 10px;
     margin: 0;
   }
 
   h3{
     font-weight: 600;
+    padding: 3px 10px 2px;
   }
 
   a{
