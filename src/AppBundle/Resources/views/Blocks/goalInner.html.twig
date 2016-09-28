@@ -289,19 +289,19 @@
                     <div class="col-md-8">
                         {% if page == inner %}
                         <ul class="users-lists row">
-                            <li class="col-sm-6">
+                            <li class="col-xs-6">
                                 <ul class="row no-gutter">
-                                    <li class="col-xs-5">
+                                    <li class="col-xs-9 col-sm-5">
                                         {{ 'done_by'|trans | upper }}
                                         <p class="text-purple">{{ goal.stats.doneBy }}</p>
                                     </li>
-                                    <li class="col-xs-7">
+                                    <li class="col-xs-3 col-sm-7">
                                         <ul class="users">
                                             {% set left = 80 %}
                                             {% for doneByUser in doneByUsers %}
                                                 {% set nameOnImage = doneByUser.firstName|slice(0,1) ~ doneByUser.lastName|slice(0,1) %}
                                                 {% set className = "user-no" ~ random(4) %}
-                                                <li style="right: {{ left }}px">
+                                                <li style="right: {{ left }}px" class="hidden-xs">
                                                     {% if doneByUser.getPhotoLink  %}
                                                         <figure>
                                                             <img src="{{ doneByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ doneByUser.firstName }}">
@@ -330,20 +330,20 @@
                                 </ul>
                             </li>
 
-                            <li class="col-sm-6">
+                            <li class="col-xs-6">
                                 <ul class="row no-gutter">
-                                    <li class="col-xs-5">
+                                    <li class="col-xs-9 col-sm-5">
                                         {{ 'listed_by'|trans | upper }}
                                         <p class="text-purple">{{ goal.stats.listedBy }}</p>
                                     </li>
-                                    <li class="col-xs-7">
+                                    <li class="col-xs-3 col-sm-7">
                                         <ul class="users">
                                             {% set left = 80 %}
                                             {#{{ dump(listedByUsers) }}#}
                                             {% for listedByUser in listedByUsers %}
                                                 {% set nameOnImage = listedByUser.firstName|slice(0,1) ~ listedByUser.lastName|slice(0,1) %}
                                                 {% set className = "user-no" ~ random(4) %}
-                                                <li style="right: {{ left }}px">
+                                                <li style="right: {{ left }}px" class="hidden-xs">
                                                     {% if listedByUser.getPhotoLink  %}
                                                         <figure>
                                                             <img src="{{ listedByUser.getPhotoLink|blImageFilter('user_icon') }}" class="img-circle img-responsive" alt="{{ listedByUser.firstName }}">
@@ -382,7 +382,7 @@
                                     </div>
                                 </div>
                             {% else %}
-                                <hr />
+                                {#<hr />#}
                             {% endif %}
                         <div id="affiliate-right-mobile" class="right-menu-scroll bg-white" data-ng-show="!isDesktop">
                             <adds-affiliate class="affiliate-right-mobile" data-zone="1" data-link="{{ app.request.getSchemeAndHttpHost() ~ path('inner_goal', {'slug': goal.slug}) }}"></adds-affiliate>

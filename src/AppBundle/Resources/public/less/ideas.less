@@ -221,13 +221,27 @@
   clear:both;
   margin-bottom: 0;
   padding: 0 30px;
+  border-bottom: 1px solid #eee;
+
+  li{
+    &:first-child{
+      border-right:1px solid #eee;
+    }
+
+    &:last-child{
+      ul{
+        padding-left: 10px;
+      }
+    }
+  }
 
   ul{
     padding: 5px 0;
     margin-bottom: 0;
-    border-bottom:1px solid #eee;
+    //border-bottom:1px solid #eee;
     &>li{
       color:#a4a4a4;
+      border-right: 0;
       ul{
         border-bottom:0;
         li{
@@ -238,8 +252,12 @@
         }
       }
 
+      &:first-child{
+        border-right: 0;
+      }
+
       .users-arrow{
-        right:40px;
+        right: 5px;
 
         a,i{
           background: url('../images/listed-arrow.png') no-repeat center center;
@@ -265,6 +283,7 @@
   padding-left:0;
   margin-bottom:0;
   height: 35px;
+  border-bottom: 1px solid #eeeeee;
 
   li{
     text-align: center;
@@ -923,14 +942,10 @@
   }
 
   .users-lists{
-
+    border-bottom: 0;
     padding: 0 33px;
 
     li{
-      &:first-child{
-        border-right:1px solid #eee;
-      }
-
       &:last-child{
         ul{
           padding-left: 20px;
@@ -940,6 +955,7 @@
 
     ul{
       padding: 7px 0;
+      border-bottom: 1px solid #eee;
 
       &>li{
         &:first-child{
@@ -956,8 +972,11 @@
 
           }
         }
-
+        .users-arrow{
+          right: 40px;
+        }
       }
+
     }
   }
 }
@@ -1154,8 +1173,6 @@
   .goal-information{
     width: 330px;
     padding:0;
-
-
 
     p{
       font-size:18px;
