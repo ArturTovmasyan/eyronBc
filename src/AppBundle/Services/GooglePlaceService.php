@@ -46,7 +46,7 @@ class GooglePlaceService
         $latLng = trim($latitude).','.trim($longitude);
 
         //generate geo coding url for get place data by lang and long
-        $url = sprintf('%s?latlng=%s&sensor=false&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $this->googleServerKey);
+        $url = sprintf('%s?latlng=%s&language=en&result_type=locality|country&key=%s', self::URL, $latLng, $this->googleServerKey);
 
         //use curl for get response
         $ch = curl_init();
@@ -57,20 +57,24 @@ class GooglePlaceService
         //get response
         $response = curl_exec($ch);
 
-        //check if response not exist
-        if ($response === false) {
-            throw new \InvalidArgumentException('Invalid geo coding results');
-        }
-
         //close curl
         curl_close($ch);
 
         //json decode data
         $response = json_decode($response);
 
+        //get error messages
+        $errorMessage = property_exists($response, 'error_message') ? $response->error_message : null;
+
+        //check if error messages exist
+        if (count($errorMessage) > 0) {
+            throw new \InvalidArgumentException($errorMessage);
+        }
+
         //get result
         $results = $response->results;
 
+        //check if results not empty
         if (!empty($results)) {
 
             //get place
@@ -103,7 +107,7 @@ class GooglePlaceService
                 $places = array_values($placeArray);
                 
                 //get places in DB
-                $placeInDb = $this->em->getRepository('AppBundle:Place')->findByName($places);
+                $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $places));
 
                 //check if place in db not exists
                 if (!$placeInDb) {
