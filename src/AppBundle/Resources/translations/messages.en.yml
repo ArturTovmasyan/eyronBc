@@ -75,7 +75,18 @@ goal:
       as_invisible: Set as Invisible
       as_visible: Set as Visible
       visible: Visible
-      not_found: Sorry, we couldn't find anything, but you can explore other ideas:
+      not_found: |
+                    <p class="empty-text text-center">
+                         Sorry, we couldn't find anything.
+                     </p>
+
+                     <p  class="empty-text text-center">
+                         <span>You can create this goal:</span>
+                         <span class="text-purple">%search%</span>
+                         <a  class="btn btn-purple" href="%href%">Start</a>
+                     </p>
+
+                     <p  class="empty-text text-center">or you can explore other ideas:</p>
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active
@@ -103,6 +114,19 @@ goal:
       was_created:
           public: Your public Goal has been successfully created
           private: Your private Goal has been successfully created
+      existing: Existing similar goals
+      importance: Importance
+      important: important
+      not_important: not important
+      urgency: Urgency
+      urgent: urgent
+      not_urgent: not urgent
+
+goal_friend_menu:
+      all: All
+      recently_matched: Recently Matched
+      most_matching: Most Matching
+      most_activity: Most active
 
 activities:
       title: Bucket List 127-Activity
@@ -173,6 +197,7 @@ success_story:
       description: Success story ...
       files: Files
       url: Video URL: https://www...
+      add: Success story ...
 
       view_access_denied: You can't view this success story
       edit_access_denied: You can't edit this success story

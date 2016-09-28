@@ -107,6 +107,7 @@ class GoalController extends Controller
 
         $goalId      = $request->get('id');
         $cloneTrue   = $request->get('clone');
+        $title   = $request->get('title', null);
 
 
         //If we clone or edit any goal
@@ -128,6 +129,7 @@ class GoalController extends Controller
             $goal = new Goal();
         }
 
+        $goal->setTitle($title);
         $goal->setLanguage($currentUser->getLanguage());
         $goal->setAuthor($currentUser);
 

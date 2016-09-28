@@ -51,15 +51,15 @@ class CreateAffiliateCommand extends ContainerAwareCommand
         $resultArray = [];
         foreach($goals as $goal){
             $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
-            if (isset($result[PlaceType::city]) && isset($result[PlaceType::country_short_name])){
-                if (!isset($resultArray[$result[PlaceType::country_short_name]])){
-                    $resultArray[$result[PlaceType::country_short_name]] = [];
+            if (isset($result[PlaceType::TYPE_CITY]) && isset($result[PlaceType::COUNTRY_SHORT_NAME])){
+                if (!isset($resultArray[$result[PlaceType::COUNTRY_SHORT_NAME]])){
+                    $resultArray[$result[PlaceType::COUNTRY_SHORT_NAME]] = [];
                 }
 
-                if (isset($result[PlaceType::country])) {
-                    $countryNames[$result[PlaceType::country_short_name]] = $result[PlaceType::country];
+                if (isset($result[PlaceType::TYPE_COUNTRY])) {
+                    $countryNames[$result[PlaceType::COUNTRY_SHORT_NAME]] = $result[PlaceType::TYPE_COUNTRY];
                 }
-                $resultArray[$result[PlaceType::country_short_name]][$result[PlaceType::city]] = $goal->getId();
+                $resultArray[$result[PlaceType::COUNTRY_SHORT_NAME]][$result[PlaceType::TYPE_CITY]] = $goal->getId();
             }
 
             $progress->advance();

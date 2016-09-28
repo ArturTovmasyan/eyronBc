@@ -20,10 +20,11 @@ class GooglePlaceService
      */
     protected $googleServerKey;
 
+
     /**
      * NotifyAboutDoneGoalByPlaceService constructor.
      * @param EntityManager $em
-     * @param $googleServerKey
+     * @param $googleServerKey string
      */
     public function __construct(EntityManager $em, $googleServerKey)
     {
@@ -85,10 +86,10 @@ class GooglePlaceService
             {
                 if ($key == 0) {
                     //set type
-                    $type = PlaceType::city;
+                    $type = PlaceType::TYPE_CITY;
                 } else {
                     //set type
-                    $type = PlaceType::country;
+                    $type = PlaceType::TYPE_COUNTRY;
                 }
 
                 //remove all spaces and number in word
@@ -98,12 +99,12 @@ class GooglePlaceService
             if (isset($results[1]) && isset($results[1]->address_components) && isset($results[1]->address_components[0])
                 && isset($results[1]->address_components[0]->short_name))
             {
-                $placeArray[PlaceType::country_short_name] = strtolower($results[1]->address_components[0]->short_name);
+                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower($results[1]->address_components[0]->short_name);
             }
             elseif (isset($results[0]) && isset($results[0]->address_components) && isset($results[0]->address_components[0])
                 && isset($results[0]->address_components[0]->short_name))
             {
-                $placeArray[PlaceType::country_short_name] = strtolower($results[0]->address_components[0]->short_name);
+                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower($results[0]->address_components[0]->short_name);
             }
 
 

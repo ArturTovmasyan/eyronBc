@@ -24,7 +24,8 @@ angular.module('goal', ['Interpolation',
         'notification',
         'activity',
         'adds',
-        'comments'
+        'comments',
+        'trans'
     ])
     .config(function (localStorageServiceProvider ) {
         localStorageServiceProvider
@@ -199,7 +200,8 @@ angular.module('goal', ['Interpolation',
         'userGoalData',
         '$analytics',
         'lsInfiniteItems',
-        function($scope, $sce, $timeout, AuthenticatorLoginService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems){
+        '$translate',
+        function($scope, $sce, $timeout, AuthenticatorLoginService, $window, envPrefix, UserGoalDataManager, template, userGoalData, $analytics, lsInfiniteItems, $translate){
 
         $scope.files = [];
         $scope.uploadingFiles = [];
@@ -270,7 +272,17 @@ angular.module('goal', ['Interpolation',
             $(event.target).trigger('change');
         });
         
-        // file uploads
+            $translate(['cancel_upload', 'upload_error', 'remove_file']).then(function (translations) {
+                $scope.cancelUpload = translations.cancel_upload;
+                $scope.uploadError = translations.upload_error;
+                $scope.removeFile = translations.remove_file;
+
+            }, function (translationIds) {
+                $scope.cancelUpload = translationIds.cancel_upload;
+                $scope.uploadError = translationIds.upload_error;
+                $scope.removeFile = translationIds.remove_file;
+
+            });
 
         Dropzone.options.goalDropzone = false;
 
@@ -285,7 +297,9 @@ angular.module('goal', ['Interpolation',
                     addRemoveLinks: true,
                     uploadMultiple: false,
                     maxThumbnailFilesize: 6,
-                    dictMaxFilesExceeded: 'you cannot upload more than 6 files',
+                    dictMaxFilesExceeded: $scope.uploadError,
+                    dictCancelUpload: $scope.cancelUpload,
+                    dictRemoveFile: $scope.removeFile,
                     previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\" data-dz-remove><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
                     maxFiles: 6,
                     removedfile: function(d){
@@ -437,7 +451,9 @@ angular.module('goal', ['Interpolation',
 
         $timeout(function () {
             var afilateHeight = $('.affiliate-right iframe').height();
-            $('.affiliate-right iframe').height(afilateHeight + 20);
+            var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();
+            //$('.affiliate-right iframe').height(afilateHeight + 80);
+            //$('.affiliate-right-mobile iframe').height(afilateMobileHeight + 80);
         }, 2000);
 
 
@@ -478,7 +494,7 @@ angular.module('goal', ['Interpolation',
         };
             
         $scope.manageVote = function(id){
-        var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
+            var url = (!$scope.vote[id])?'api/v1.0/success-story/add-vote/{storyId}': 'api/v1.0/success-story/remove-vote/{storyId}';
             url = envPrefix + url;
             url = url.replace('{storyId}', id);
             $http.get(url).success(function() {
@@ -581,6 +597,7 @@ angular.module('goal', ['Interpolation',
         };
 
         if(angular.element('.goal-information') && screen.width >= 992  && window.innerWidth >= 992) {
+            $scope.isDesktop = true;
             $timeout(function () {
                 angular.element('.goal-information').scrollToFixed({
                     marginTop: 85,

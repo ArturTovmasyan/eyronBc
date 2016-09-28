@@ -51,19 +51,19 @@
 
                             <ul class="goalfrineds-menu">
                                 <li>
-                                    <a data-ng-class="{'text-purple': category == 'all'}" href="#all" data-ng-click="getCategory('all')">All</a>
+                                    <a data-ng-class="{'text-purple': category == 'all'}" href="#all" data-ng-click="getCategory('all')">{{ 'goal_friend_menu.all'|trans }}</a>
                                 </li>
 
                                 <li>
-                                    <a data-ng-class="{'text-purple': category == 'recently'}" href="#recently" data-ng-click="getCategory('recently')">Recently Matched</a>
+                                    <a data-ng-class="{'text-purple': category == 'recently'}" href="#recently" data-ng-click="getCategory('recently')">{{ 'goal_friend_menu.recently_matched'|trans }}</a>
                                 </li>
 
                                 <li>
-                                    <a data-ng-class="{'text-purple': category == 'match'}" href="#match" data-ng-click="getCategory('match')">Most Matching</a>
+                                    <a data-ng-class="{'text-purple': category == 'match'}" href="#match" data-ng-click="getCategory('match')">{{ 'goal_friend_menu.most_matching'|trans }}</a>
                                 </li>
 
                                 <li>
-                                    <a data-ng-class="{'text-purple': category == 'active'}" href="#active" data-ng-click="getCategory('active')">Most active</a>
+                                    <a data-ng-class="{'text-purple': category == 'active'}" href="#active" data-ng-click="getCategory('active')">{{ 'goal_friend_menu.most_activity'|trans }}</a>
                                 </li>
                             </ul>
                         </div>

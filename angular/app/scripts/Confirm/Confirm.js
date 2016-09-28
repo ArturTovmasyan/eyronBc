@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Confirm',['Interpolation'])
+angular.module('Confirm',['Interpolation', 'trans'])
     .directive('lsConfirm',['$window', '$http', '$compile', function($window, $http, $compile){
         return {
             restrict: 'EA',
