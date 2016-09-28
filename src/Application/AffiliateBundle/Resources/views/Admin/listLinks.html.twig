@@ -4,7 +4,7 @@
 
     {% for link in object.links %}
         {% set slug = link|split('/') %}
-        <a href="{{ link }}">{{ slug[slug|length - 1] }}</a>
+        <a href="{{ link }}" target="_blank">{{ slug[slug|length - 1] }}</a>
         <br />
     {% endfor %}
 
