@@ -2,6 +2,7 @@
 
 namespace AppBundle\Tests\Services;
 
+use AppBundle\Entity\PlaceType;
 use AppBundle\Tests\Controller\BaseClass;
 
 /**
@@ -32,20 +33,16 @@ class GooglePlaceServiceTest extends BaseClass
         $russia = $placesData[1]['country'];
         $moscow = $placesData[1]['city'];
 
-        $typeCity = $placesData[2]['type_city'];
-        $typeCountry = $placesData[2]['type_country'];
-
-
         $data = array(
             array('latitude' => $latitudeArmenia,
                 'longitude' => $longitudeArmenia,
                 'save' => false,
-                'placeName' => array($typeCity => $yerevan, $typeCountry => $armenia)),
+                'placeName' => array(PlaceType::TYPE_CITY => $yerevan, PlaceType::TYPE_COUNTRY => $armenia)),
 
             array('latitude' => $latitudeRussia,
                 'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => array($typeCity => $moscow, $typeCountry => $russia)));
+                'placeName' => array(PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia)));
 
         return $data;
     }

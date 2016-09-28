@@ -1,5 +1,0 @@
-parameters:
-      places:
-          - {country: 'armenia', city: 'yerevan', latitude: 40.1794197, longitude: 44.5408414}
-          - {country: 'russia', city: 'moscow', latitude: 55.75583, longitude: 37.61730}
-          - {name: 'place_type', type_city: 'city', type_country: 'country'}

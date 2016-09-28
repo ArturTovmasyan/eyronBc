@@ -20,22 +20,16 @@ class GooglePlaceService
      */
     protected $googleServerKey;
 
-    /**
-     * @var array
-     */
-    protected $placeData;
 
     /**
      * NotifyAboutDoneGoalByPlaceService constructor.
      * @param EntityManager $em
      * @param $googleServerKey string
-     * @param $placeData array
      */
-    public function __construct(EntityManager $em, $googleServerKey, $placeData)
+    public function __construct(EntityManager $em, $googleServerKey)
     {
         $this->em = $em;
         $this->googleServerKey = $googleServerKey;
-        $this->placeData = $placeData;
     }
 
     /**
@@ -88,18 +82,14 @@ class GooglePlaceService
             //set default array
             $placeArray=[];
 
-            //get city and country from parameter
-            $city = $this->placeData[2]['type_city'];
-            $country = $this->placeData[2]['type_country'];
-
             foreach ($places as $key => $place)
             {
                 if ($key == 0) {
                     //set type
-                    $type = $city;
+                    $type = PlaceType::TYPE_CITY;
                 } else {
                     //set type
-                    $type = $country;
+                    $type = PlaceType::TYPE_COUNTRY;
                 }
 
                 //remove all spaces and number in word

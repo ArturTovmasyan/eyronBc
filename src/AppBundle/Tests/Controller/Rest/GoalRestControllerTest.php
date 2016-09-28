@@ -28,9 +28,9 @@ class GoalRestControllerTest extends BaseClass
     public function testGetGoalsInPlace()
     {
         //get latitude and longitude from parameter
-        $placesData = $this->container->getParameter('places');
-        $latitude = $placesData[0]['latitude'];
-        $longitude = $placesData[0]['longitude'];
+        $placesData = $this->container->getParameter('places')[0];
+        $latitude = $placesData['latitude'];
+        $longitude = $placesData['longitude'];
         
         //get google place service mock 
         $googlePlaceServiceMock = $this->createGooglePlaceServiceMock();
@@ -139,9 +139,9 @@ class GoalRestControllerTest extends BaseClass
         }
 
         //get latitude and longitude from parameter
-        $placesData = $this->container->getParameter('places');
-        $latitude = $placesData[0]['latitude'];
-        $longitude = $placesData[0]['longitude'];
+        $placesData = $this->container->getParameter('places')[0];
+        $latitude = $placesData['latitude'];
+        $longitude = $placesData['longitude'];
 
         //create url for test
         $url = '/api/v1.0/goals/confirms/goals';

@@ -14,7 +14,7 @@ trait MockGooglePlaceServiceTrait
     public function createGooglePlaceServiceMock()
     {
         //set place array data
-        $placeData = ['city' => 'yerevan','country' => 'armenia'];
+        $placeData = ['city' => 'yerevan', 'country' => 'armenia'];
 
         //create mock for getPlace() method in google place service
         $mock = $this
