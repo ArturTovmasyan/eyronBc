@@ -272,11 +272,16 @@ angular.module('goal', ['Interpolation',
             $(event.target).trigger('change');
         });
         
-        // file uploads
-            $translate('cancel_upload').then(function (translated) {
-                $scope.cancelUpload = translated;
-            }, function (translationId) {
-                $scope.cancelUpload = translationId;
+            $translate(['cancel_upload', 'upload_error', 'remove_file']).then(function (translations) {
+                $scope.cancelUpload = translations.cancel_upload;
+                $scope.uploadError = translations.upload_error;
+                $scope.removeFile = translations.remove_file;
+
+            }, function (translationIds) {
+                $scope.cancelUpload = translationIds.cancel_upload;
+                $scope.uploadError = translationIds.upload_error;
+                $scope.removeFile = translationIds.remove_file;
+
             });
 
         Dropzone.options.goalDropzone = false;
@@ -292,8 +297,9 @@ angular.module('goal', ['Interpolation',
                     addRemoveLinks: true,
                     uploadMultiple: false,
                     maxThumbnailFilesize: 6,
-                    dictMaxFilesExceeded: 'you cannot upload more than 6 files',
+                    dictMaxFilesExceeded: $scope.uploadError,
                     dictCancelUpload: $scope.cancelUpload,
+                    dictRemoveFile: $scope.removeFile,
                     previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\" data-dz-remove><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
                     maxFiles: 6,
                     removedfile: function(d){
