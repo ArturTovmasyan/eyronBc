@@ -18,8 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PlaceType
 {
-    const TYPE_CITY = 'city';
-    const TYPE_COUNTRY = 'country';
+    const TYPE_CITY               = 'city';
+    const TYPE_COUNTRY            = 'country';
+    const COUNTRY_SHORT_NAME      = 'country_short_name';
 
     /**
      * @var int

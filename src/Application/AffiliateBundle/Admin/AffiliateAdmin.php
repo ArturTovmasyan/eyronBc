@@ -23,6 +23,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('link')
+            ->add('ufi')
             ->add('affiliateType')
         ;
     }
@@ -36,7 +37,10 @@ class AffiliateAdmin extends AbstractAdmin
 
         $listMapper
             ->add('id')
+            ->add('publish', null, ['editable' => true])
             ->add('name')
+            ->add('ufi')
+            ->add('links')
             ->add('affiliateType.name')
             ->add('affiliateType.id', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
             ->add('_action', null, array(
@@ -57,7 +61,9 @@ class AffiliateAdmin extends AbstractAdmin
         $formMapper
             ->add('name', TextType::class, ['required' => false])
             ->add('link', TextType::class, ['required' => false])
+            ->add('ufi', TextType::class, ['required' => false])
             ->add('affiliateType')
+            ->add('publish')
             ->add('links', CollectionType::class, array(
                 'entry_type'   => TextType::class,
                 'allow_add'    => true,
@@ -78,8 +84,10 @@ class AffiliateAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('publish')
             ->add('sizeString')
             ->add('link')
+            ->add('ufi')
             ->add('links')
             ->add('affiliateType.name')
             ->add('affiliateType.id', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
@@ -109,7 +117,6 @@ class AffiliateAdmin extends AbstractAdmin
             $imagemanagerResponse->filterAction($this->getRequest(), $object->getDownloadLink(), 'affiliate_image');
 //            $browserPath = $liipManager->getBrowserPath($object->getDownloadLink(), 'affiliate_image');
         }
-
     }
 
     /**
