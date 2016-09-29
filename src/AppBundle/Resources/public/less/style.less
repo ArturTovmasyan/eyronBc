@@ -344,7 +344,6 @@ header{
 
         img{
           height: 40px;
-          //width:40px;
         }
       }
       margin-top:0;
@@ -765,8 +764,9 @@ header{
       }
 
       p{
-        color: #666666;
-        font-size:16px;
+        color: #999999;
+        font-size:14px;
+        line-height: 21px;
         padding: 5px 0 30px;
       }
     }
@@ -810,9 +810,9 @@ header{
         &:first-child{
           padding: 6px 10px 5px;
           h3,a{
-            font-size: 16px;
+            font-size: 14px;
             margin: 0;
-            line-height: 22px;
+            line-height: 21px;
           }
 
           h3{
@@ -821,6 +821,7 @@ header{
 
           a{
             display:inline-block;
+            font-weight: 400;
             padding: 0 25px 0 5px !important;
             &:hover{
               text-decoration: none;
@@ -836,10 +837,12 @@ header{
           border-bottom: 0 !important;
           a{
             padding: 10px 0;
-            font-size:16px;
+            font-size:14px;
+            line-height: 21px;
             font-weight: 400;
             &:hover{
               background-color: transparent;
+              color: #7724f6 !important;
             }
           }
         }
@@ -873,6 +876,7 @@ header{
                 white-space: normal;
                 word-break: break-word;
                 font-size:14px;
+                line-height: 21px;
                 padding:0 15px 0 0;
 
                 a:not(.text-center){
@@ -899,11 +903,9 @@ header{
       }
     }
 
-
     .dropdown-menu{
       left: -137px;
     }
-
 
   }
 
@@ -1315,7 +1317,7 @@ label{
 }
 
 .text-grey-dark{
-  color: #333333;
+  color: #333333 !important;
 }
 
 .text-dark{
@@ -1449,7 +1451,6 @@ label{
     color:#ffffff;
     outline:none;
     outline-offset:0;
-    //background-color:#6108EA;
     background-color: #5e1dc3;
   }
 
@@ -1659,7 +1660,6 @@ ul li{list-style: none;}
       width:105%;
       .blur;
       margin: -25px;
-      //height:215px;
     }
   }
 
@@ -2605,12 +2605,10 @@ footer{
         top: 98%;
         width: 430px;
         li{
-          ul{
-            li{
-              p{
-                span{
-                  font-size:16px;
-                }
+          &:first-child{
+            a{
+              &:hover{
+                color: #7724f6 !important;
               }
             }
           }
@@ -2660,10 +2658,6 @@ footer{
   h1,h2{
     font-size:36px;
   }
-
-  //.padding-top{
-  //  padding-top:10px;
-  //}
 
   h2{
     padding: 31px 0 34px;
@@ -3354,6 +3348,11 @@ html {
   li{
     &:first-child{
       padding-bottom:21px;
+      a{
+        &:hover{
+          color: #7724F6 !important;
+        }
+      }
     }
   }
   .close-icon{
@@ -3363,13 +3362,15 @@ html {
   }
 
   h3,a{
-    font-size:16px !important;
+    font-size: 14px !important;
+    line-height: 21px;
     padding:0 10px;
     margin: 0;
   }
 
   h3{
     font-weight: 600;
+    padding: 3px 10px 2px;
   }
 
   a{
@@ -3407,7 +3408,8 @@ html {
             display: block;
             white-space: normal;
             word-break: break-word;
-            font-size:16px;
+            font-size:14px;
+            line-height: 21px;
 
             a{
               font-weight: 600;

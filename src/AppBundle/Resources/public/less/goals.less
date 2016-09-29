@@ -994,6 +994,78 @@
   }
 }
 
+
+.goal-icons{
+  padding: 5px 15px;
+  border-bottom: 1px solid #eeeeee;
+  text-align: center;
+  margin-bottom: 0;
+
+  li{
+    display: inline-block;
+    margin: 0 3px;
+
+    i{
+      vertical-align: middle;
+      display: inline-block;
+      font-size: 26px;
+      color: #a4a4a4;
+
+      &.icon-info{
+        margin: -3px 0 0 6px;
+      }
+    }
+
+    .icon-eye{
+      width:32px;
+      font-size: 40px;
+      margin: 1px 0 0 -5px;
+      display: inline-block;
+    }
+
+    .edit-note{
+      display:inline-block;
+      width: 25px;
+      height: 15px;
+      background: url('../images/edit-note.svg') no-repeat center center;
+      background-size: 100%;
+    }
+
+    &:nth-child(1),&:nth-child(2){
+
+      text-align: center;
+
+      a{
+        border:1px solid #d1d1d1;
+        .rounded-corners(4px);
+      }
+
+    }
+    &:nth-child(1){
+      a{
+        i{
+          font-size: 28px;
+          padding: 0 4px 2px 3px;
+        }
+      }
+
+    }
+
+    &:nth-child(2){
+      a{
+        i{
+          font-size: 22px;
+          padding: 0 6px 4px 7px;
+          &.icon-green-ok{
+            font-size: 30px;
+            padding: 0 2px 4px 3px;
+          }
+        }
+      }
+    }
+  }
+
+}
 @media (min-width: @screen-sm) {
   .content-top{
 
@@ -1396,6 +1468,13 @@
       }
     }
 
+  }
+
+  .goal-icons{
+    padding:10px 20px;
+    li{
+      margin: 0 6px;
+    }
   }
 }
 
