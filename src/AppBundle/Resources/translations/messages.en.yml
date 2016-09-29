@@ -347,7 +347,7 @@ upload: |
    The maximum size of an image must not exceed 4MB.
 
 delete_message: |
-  You are about to delete your goal. <br />
+  You are about to remove your goal. <br />
   Are you sure?
 
 complete_message: Complete your profile
