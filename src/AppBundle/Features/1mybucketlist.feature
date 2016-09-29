@@ -17,8 +17,7 @@ Feature: My Bucket list
     When I fill in "search" with "goal1"
     And I press key "13"
     And I wait for angular
-    Then I should see "LISTED BY"
-    And I should see "COMPLETED BY"
+    Then I should see "Listed by"
     And I should see "ADD"
     When I fill in "search" with "TEST777"
     And I press key "13"

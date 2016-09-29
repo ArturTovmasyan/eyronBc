@@ -153,7 +153,7 @@ Feature: Goal page
     When I click on "navbar-right"
     And I am on "/profile"
     When I scroll page to ".information"
-    And I follow "Done"
+    And I follow "Complete"
     And I am on "profile/completed-goals"
     Then I should be on "profile/completed-goals"
     When I scroll page to ".information"
@@ -170,7 +170,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #test TEST #GOALS"
+    And I fill in "app_bundle_goal[description]" with "DESCRIPTION FOR #test #test TEST #GOALS #GOALS"
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
@@ -210,7 +210,7 @@ Feature: Goal page
     And I change switch "3"
     And I wait
     And I change switch "3"
-    When I follow "FORGET IT"
+    When I follow "REMOVE"
     And  I follow "DELETE"
     And I wait
     Then I should be on "/goal/goal1"

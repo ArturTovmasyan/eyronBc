@@ -60,8 +60,6 @@ Feature: Activity
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     When I scroll page to ".social"
     And I wait for view "500"
-    And I click on show more
-    And I wait for view "1000"
 
   @javascript @notification
   Scenario: Check notification functionality
@@ -69,7 +67,7 @@ Feature: Activity
     And I wait
     When I am logged in as "user1"
     Then I should see "user1"
-    And I should see "1"
+    And I should see "4"
     When I click notify icon
     And I wait
     And I am on "/notifications"
