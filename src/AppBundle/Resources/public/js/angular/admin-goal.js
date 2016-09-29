@@ -8,6 +8,7 @@ angular.module('adminGoal', ['Interpolation',
   'ngAnimate',
   'ngSanitize',
   'Confirm',
+  'trans',
   'videosharing-embed',
   'Components'
 ])
