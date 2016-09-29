@@ -19,12 +19,25 @@
     overflow: hidden;
   }
 
+  .ui-select-container{
+    .ui-select-match{
+      span {
+        color: #3c3c3c;
+        font-size: 15px;
+        line-height: 19px;
+      }
+    }
+  }
+
   .language{
     .list{
       height: auto;
     }
   }
 
+  .icon-cloud{
+    font-size: 40px;
+  }
   .icon-pencil{
     position: absolute;
     top:5px;
@@ -50,7 +63,9 @@
   }
 
   textarea{
-    padding: 10px 10px 10px 40px;
+    padding: 12px 10px;
+    color: #a2a2a2;
+    font-size: 14px;
   }
 
   .location{
@@ -124,6 +139,7 @@
   .icon-location-icon{
     left:5px;
   }
+
   .modal-bottom{
     position: absolute;
     width: 100%;
@@ -137,6 +153,18 @@
 
 a.close-modal{
   display: none !important;
+}
+
+.bottom-modal{
+  background-color: #f1f1f1;
+  padding: 17px 0 10px;
+  margin: 20px 0 0;
+}
+
+.complete-text{
+  color: #a2a2a2;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 #common-modal,#goal-users-modal,#report-modal{
@@ -219,6 +247,7 @@ a.close-modal{
   margin: 10px 0 15px;
   font-size: 18px;
   line-height: normal;
+  font-weight: normal;
 }
 
 #report-modal{
@@ -749,8 +778,8 @@ a.close-modal{
   }
 
   .story-title{
-    margin:30px 0 25px;
-    font-size:28px;
+    margin:30px 0 15px;
+    font-size:24px;
   }
 
   #common-modal,#goal-users-modal,#report-modal{
@@ -853,7 +882,7 @@ a.close-modal{
   #story-modal{
 
     h2.text-grey-dark{
-      font-size: 23px;
+      font-size: 24px;
       padding: 11px 0;
       margin: 10px 0;
     }
@@ -873,10 +902,19 @@ a.close-modal{
     }
 
     .dropzone {
+      margin: 30px 0 0;
       .dz-message{
         h3{
           font-size:20px;
           margin: 10px 0;
+          color: #3f3f3f;
+        }
+
+        p{
+          text-align: center;
+          font-size: 14px;
+          line-height:21px;
+          color: #a2a2a2;
         }
       }
     }
@@ -905,6 +943,7 @@ a.close-modal{
 
       span{
         padding:10px 30px;
+        font-size: 32px;
       }
     }
 
@@ -923,6 +962,7 @@ a.close-modal{
 
     p{
       font-size:14px;
+      line-height:21px;
       padding:10px 30px;
       margin:0 0 10px 30px;
     }
@@ -993,6 +1033,12 @@ a.close-modal{
 
     p{
       font-size:14px;
+    }
+  }
+
+  .bottom-modal{
+   .button-lg{
+      width: 185px;
     }
   }
 }
