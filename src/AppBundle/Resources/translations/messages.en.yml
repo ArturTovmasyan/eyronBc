@@ -109,7 +109,7 @@ goal:
       steps: Steps
       view_access_denied: You can't view this goal
       edit_access_denied: You can't edit this goal
-      delete_access_denied: You can't delete this goal
+      delete_access_denied: You can't remove this goal
       add_access_denied: You can't add this goal
       done_access_denied: You can't complete this goal
       was_created:
@@ -160,7 +160,7 @@ notify:
       yesterday: yesterday at
 
 # buttons
-btn_delete: Delete
+btn_delete: Remove
 btn_publish: PUBLISH
 btn_back_and_edit: EDIT
 btn_discover_more: DISCOVER MORE
@@ -168,7 +168,7 @@ btn_start_now: START NOW
 btn_cancel: Cancel
 btn_save: Save
 btn_edit: EDIT
-btn_remove: DELETE
+btn_remove: Remove
 
 # user goal form
 user_goal:
@@ -202,7 +202,7 @@ success_story:
 
       view_access_denied: You can't view this success story
       edit_access_denied: You can't edit this success story
-      delete_access_denied: You can't delete this success story
+      delete_access_denied: You can't remove this success story
 
 register_text:  Confirm your email address to access all of %XXX%'s features.
 
@@ -347,7 +347,7 @@ upload: |
    The maximum size of an image must not exceed 4MB.
 
 delete_message: |
-  You are about to delete your goal. <br />
+  You are about to remove your goal. <br />
   Are you sure?
 
 complete_message: Complete your profile
