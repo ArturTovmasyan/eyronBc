@@ -206,7 +206,7 @@ class UserGoalController extends FOSRestController
             }
 
             if ($doDate->format('Y') < 100){
-//                $doDate->modify('+2000 year');
+                $doDate->modify('+2000 year');
             }
 
             $userGoal->setDoDate($doDate);
