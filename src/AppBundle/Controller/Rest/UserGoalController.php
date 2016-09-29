@@ -205,6 +205,10 @@ class UserGoalController extends FOSRestController
                 return new Response('Error do date', Response::HTTP_BAD_REQUEST);
             }
 
+            if ($doDate->format('Y') < 100){
+//                $doDate->modify('+2000 year');
+            }
+
             $userGoal->setDoDate($doDate);
         }
 
