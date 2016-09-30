@@ -106,6 +106,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserPlace", indexBy="goal_id", mappedBy="user", cascade={"persist", "remove"})
      */
     protected $userPlace;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Badge", mappedBy="user", cascade={"persist", "remove"})
+     */
+    protected $badges;
     
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
@@ -1925,5 +1930,40 @@ class User extends BaseUser
     public function getUserPlace()
     {
         return $this->userPlace;
+    }
+
+    /**
+     * Add badge
+     *
+     * @param \Application\UserBundle\Entity\Badge $badge
+     *
+     * @return User
+     */
+    public function addBadge(\Application\UserBundle\Entity\Badge $badge)
+    {
+        $this->badges[] = $badge;
+        $badge->setUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove badge
+     *
+     * @param \Application\UserBundle\Entity\Badge $badge
+     */
+    public function removeBadge(\Application\UserBundle\Entity\Badge $badge)
+    {
+        $this->badges->removeElement($badge);
+    }
+
+    /**
+     * Get badges
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBadges()
+    {
+        return $this->badges;
     }
 }
