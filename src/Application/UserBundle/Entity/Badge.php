@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\BadgeRepository")
  * @ORM\Table(name="badge",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="user_type_unique",columns={"user_id", "type"})},
- *     indexes={@ORM\Index(name="idx_type_rating", columns={"type", "value", "user_id"})})
+ *     indexes={@ORM\Index(name="idx_type_rating", columns={"type", "score", "user_id"})})
  * @UniqueEntity(fields={"user", "type"}, errorPath="user", message="badge.duplicate")
  */
 class Badge
@@ -41,9 +41,9 @@ class Badge
 
     /**
      * @Assert\NotBlank(message="badge.type.notBlank")
-     * @ORM\Column(name="value", type="float")
+     * @ORM\Column(name="score", type="float")
      */
-    protected $value = 0;
+    protected $score = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="badges")
@@ -86,27 +86,27 @@ class Badge
     }
 
     /**
-     * Set value
+     * Set score
      *
-     * @param float $value
+     * @param float $score
      *
      * @return Badge
      */
-    public function setValue($value)
+    public function setScore($score)
     {
-        $this->value = $value;
+        $this->score = $score;
 
         return $this;
     }
 
     /**
-     * Get value
+     * Get score
      *
      * @return float
      */
-    public function getValue()
+    public function getScore()
     {
-        return $this->value;
+        return $this->score;
     }
 
     /**
