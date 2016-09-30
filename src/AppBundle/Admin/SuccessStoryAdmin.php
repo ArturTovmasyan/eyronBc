@@ -76,7 +76,7 @@ class SuccessStoryAdmin extends AbstractAdmin
         $listMapper
             ->add('created')
             ->add('updated')
-            ->add('goal.title', null, array('label'=>'admin.label.name.goal'))
+            ->addIdentifier('goal.title', null, array('label'=>'admin.label.name.goal'))
             ->add('story', null, array('template' => 'AppBundle:Admin:success_story_list.html.twig'))
             ->add('isInspire', null, ['editable' => true])
             ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_list.html.twig'))
