@@ -248,6 +248,7 @@ menu:
   completed: Completed
   map: Map
   common: In Common
+  owned: Owned
 
 right_menu:
   my_ideas: My Ideas

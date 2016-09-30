@@ -54,6 +54,13 @@
                                 {{ 'menu.common'|trans }}
                             </a>
                         </li>
+
+                        <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
+                            <a href="#{{ owned }}" data-ng-click="goTo(5)">
+                                {{ 'menu.owned'|trans }}
+                            </a>
+                        </li>
+
                     {% endif %}
                     <li class="pull-right">
                         <a href="#" data-ng-class="{'map-marker-active': showMap}"
