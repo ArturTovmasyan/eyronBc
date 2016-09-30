@@ -2,6 +2,7 @@
 
 namespace Application\AffiliateBundle\Admin;
 
+use Application\AffiliateBundle\Entity\Affiliate;
 use Application\AffiliateBundle\Entity\AffiliateType;
 use Application\AffiliateBundle\Form\Type\AdminFileType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -9,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -25,6 +27,13 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('link')
             ->add('links')
             ->add('ufi')
+            ->add('placeType', null, [],  ChoiceType::class, ['required' => false,
+                'choices' => [
+                    Affiliate::CITY_TYPE    => 'City',
+                    Affiliate::REGION_TYPE  => 'Region',
+                    Affiliate::COUNTRY_TYPE => 'Country',
+                ]
+            ])
             ->add('affiliateType')
         ;
     }
@@ -40,6 +49,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('publish', null, ['editable' => true])
             ->add('name')
             ->add('ufi')
+            ->add('placeType')
             ->add('links', null, ['template' => 'ApplicationAffiliateBundle:Admin:listLinks.html.twig'])
             ->add('affiliateType.name')
             ->add('affiliateType.id', null, ['label' => 'Content', 'template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
@@ -62,6 +72,13 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('name', TextType::class, ['required' => false])
             ->add('link', TextType::class, ['required' => false])
             ->add('ufi', TextType::class, ['required' => false])
+            ->add('placeType', ChoiceType::class, ['required' => false,
+                'choices' => [
+                    Affiliate::CITY_TYPE    => 'City',
+                    Affiliate::REGION_TYPE  => 'Region',
+                    Affiliate::COUNTRY_TYPE => 'Country',
+                ]
+            ])
             ->add('affiliateType')
             ->add('publish')
             ->add('links', CollectionType::class, array(
@@ -88,6 +105,7 @@ class AffiliateAdmin extends AbstractAdmin
             ->add('sizeString')
             ->add('link')
             ->add('ufi')
+            ->add('placeType')
             ->add('links')
             ->add('affiliateType.name')
             ->add('affiliateType.id', null, ['template' => 'ApplicationAffiliateBundle:Admin:affiliateList.html.twig'])
