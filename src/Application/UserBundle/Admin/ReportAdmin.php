@@ -80,9 +80,9 @@ class ReportAdmin extends AbstractAdmin
             ->add('id')
             ->add('user')
             ->add('reportedUser')
-            ->add('contentTypeString')
-            ->add('reportTypeString')
-            ->add('contentId')
+            ->add('contentTypeString', null, array('label'=>'admin.label.name.content_type'))
+            ->add('reportTypeString', null, array('label'=>'report.title'))
+            ->add('contentId', null, array('label'=>'admin.label.name.content'))
             ->add('message')
             ->add('created')
             ->add('_action', null, array(
