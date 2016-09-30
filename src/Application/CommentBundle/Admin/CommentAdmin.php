@@ -59,7 +59,7 @@ class CommentAdmin extends AbstractAdmin
                         ->setParameter('slug', $slug)
                     ;
 
-                    return $queryBuilder->getQuery()->getResult();
+                    return $queryBuilder;
                 },
 
                 'label'=>'admin.label.name.goal_link'))
