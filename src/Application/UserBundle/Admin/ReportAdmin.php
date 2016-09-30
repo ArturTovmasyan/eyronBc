@@ -81,7 +81,7 @@ class ReportAdmin extends AbstractAdmin
             ->add('user')
             ->add('reportedUser')
             ->add('contentTypeString', null, array('label'=>'admin.label.name.content_type'))
-            ->add('reportTypeString', null, array('label'=>'report.title'))
+            ->add('reportTypeString', null, array('label'=>'admin.label.name.report_type'))
             ->add('contentId', null, array('template' => 'ApplicationUserBundle:Admin:content_list_field.html.twig', 'label'=>'admin.label.name.content'))
             ->add('message')
             ->add('created')

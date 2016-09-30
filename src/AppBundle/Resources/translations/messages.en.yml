@@ -438,6 +438,7 @@ admin:
       featured_date: Featured Date
       place: Place
       type: Type
+      report_type: Report Type
       place_type: Place Type
       user_place: User Place
       goal: Goal
