@@ -85,6 +85,8 @@ class UserGoalController extends FOSRestController
      *      {"name"="urgent", "dataType"="boolean", "required"=false, "description"="Urgent boolean"},
      *      {"name"="important", "dataType"="boolean", "required"=false, "description"="Important boolean"},
      *      {"name"="do_date", "dataType"="date", "required"=false, "description"="do date with d/m/Y format"},
+     *      {"name"="do_date_status", "dataType"="integer", "required"=false, "description"="do date status"},
+     *      {"name"="date_status", "dataType"="integer", "required"=false, "description"="completed date status"},
      * }
      * )
      *

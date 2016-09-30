@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Class MatchUsers
  * @package Application\UserBundle\Entity
  *
- * @ORM\Table(name="match_user")
+ * @ORM\Table(name="match_user", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_userId_matchUserId", columns={"user_id", "match_user_id"})},
+ *     indexes={@ORM\Index(name="IDX_userId_matchUserId_cFactor_cCount", columns={"user_id", "match_user_id", "common_factor", "common_count"})})
  * @ORM\Entity
  */
 class MatchUser

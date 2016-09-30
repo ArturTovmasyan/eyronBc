@@ -427,13 +427,7 @@ class GoalRepository extends EntityRepository
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
-                    ->where("u.id != :userId")
-                    ->andWhere('u.roles = :roles')
-                    ->setParameter('userId', $userId)
-                    ->setParameter('roles', 'a:0:{}')
-                    ->setFirstResult($first)
-                    ->setMaxResults($count)
-            ;
+                    ->where("u.id != :userId AND u.isAdmin = false");
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -449,8 +443,13 @@ class GoalRepository extends EntityRepository
                 $query->orderBy('u.createdAt', 'DESC');
                 break;
             case 'match':
-                $query
+                $query = $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('u')
+                    ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('ApplicationUserBundle:MatchUser', 'm_user', 'WITH', 'm_user.user = :userId AND m_user.matchUser = u')
+                    ->where('u.isAdmin = false')
                     ->orderBy('m_user.commonFactor', 'DESC')
                     ->addOrderBy('m_user.commonCount', 'DESC')
                 ;
@@ -460,6 +459,10 @@ class GoalRepository extends EntityRepository
                 break;
         }
 
+        $query
+            ->setParameter('userId', $userId)
+            ->setFirstResult($first)
+            ->setMaxResults($count);
 
         return $query->getQuery()->getResult();
     }
