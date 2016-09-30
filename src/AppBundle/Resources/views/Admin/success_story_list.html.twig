@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{%- block field %}
+    {% if value and value|length > 60 %}
+        {{ value|slice(0, 57) ~ '...' }}
+    {% else %}
+        {{ value }}
+    {% endif %}
+{% endblock -%}

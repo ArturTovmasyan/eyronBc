@@ -1012,7 +1012,7 @@
       color: #a4a4a4;
 
       &.icon-info{
-        margin: -3px 0 0 6px;
+        margin: -1px 0 0 6px;
       }
     }
 
@@ -1034,10 +1034,13 @@
     &:nth-child(1),&:nth-child(2){
 
       text-align: center;
+      vertical-align: middle;
+      margin-top: 4px;
 
       a{
         border:1px solid #d1d1d1;
         .rounded-corners(4px);
+        vertical-align: middle;
       }
 
     }
@@ -1061,6 +1064,10 @@
             padding: 0 2px 4px 3px;
           }
         }
+      }
+
+      .check_status{
+        padding-bottom:0;
       }
     }
   }
@@ -1471,7 +1478,7 @@
   }
 
   .goal-icons{
-    padding:10px 20px;
+    padding: 0 20px;
     li{
       margin: 0 6px;
     }
