@@ -403,6 +403,7 @@ admin:
       file: File
       author: Author
       content: Content
+      content_type: Content Type
       replaceString: Replace String
       replaceWith: Replace With
       name: Name
