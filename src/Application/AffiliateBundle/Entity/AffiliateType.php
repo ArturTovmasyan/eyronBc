@@ -21,10 +21,11 @@ use JMS\Serializer\Annotation\Groups;
  */
 class AffiliateType
 {
-    const AID_PLACEHOLDER   = '%aid%';
-    const IMAGE_PLACEHOLDER = '%image%';
-    const LINK_PLACEHOLDER  = '%link%';
-    const UFI_PLACEHOLDER   = '%ufi%';
+    const AID_PLACEHOLDER        = '%aid%';
+    const IMAGE_PLACEHOLDER      = '%image%';
+    const LINK_PLACEHOLDER       = '%link%';
+    const UFI_PLACEHOLDER        = '%ufi%';
+    const PLACE_TYPE_PLACEHOLDER = '%place_type%';
 
     const LEFT_ZONE     = 0;
     const RIGHT_ZONE    = 1;
