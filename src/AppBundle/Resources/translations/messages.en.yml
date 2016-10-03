@@ -248,6 +248,7 @@ menu:
   completed: Completed
   map: Map
   common: In Common
+  owned: Owned
 
 right_menu:
   my_ideas: My Ideas
@@ -403,6 +404,7 @@ admin:
       file: File
       author: Author
       content: Content
+      content_type: Content Type
       replaceString: Replace String
       replaceWith: Replace With
       name: Name
@@ -437,6 +439,7 @@ admin:
       featured_date: Featured Date
       place: Place
       type: Type
+      report_type: Report Type
       place_type: Place Type
       user_place: User Place
       goal: Goal

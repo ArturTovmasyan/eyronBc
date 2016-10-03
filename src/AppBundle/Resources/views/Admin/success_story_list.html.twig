@@ -1,9 +1,11 @@
-{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% extends "SonataAdminBundle:CRUD:base_list.html.twig" %}
 
-{%- block field %}
-    {% if value and value|length > 60 %}
-        {{ value|slice(0, 57) ~ '...' }}
-    {% else %}
-        {{ value }}
-    {% endif %}
-{% endblock -%}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/admin-show-more.js') }}"></script>
+{% endblock %}

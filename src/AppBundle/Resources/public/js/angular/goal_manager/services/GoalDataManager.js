@@ -27,6 +27,9 @@ angular.module('goalManage')
       common: {method:'GET', params:{ path:'goals',where: 'common'}, transformResponse: function (object) {
         return angular.fromJson(object);
       }},
+      owned: {method:'GET', params:{ path:'goals',where: 'owned'}, transformResponse: function (object) {
+        return angular.fromJson(object);
+      }},
       friends: {method:'GET', isArray: true, params:{ path:'user-list'}, transformResponse: function (object) {
         return angular.fromJson(object);
       }},

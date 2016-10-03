@@ -113,3 +113,12 @@
     display: block;
     background-size: 100%;
 }
+
+.more-content span {
+    display: none;
+}
+
+.admin-text {
+    width: 400px;
+    margin: 10px;
+}

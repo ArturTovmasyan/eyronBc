@@ -32,6 +32,49 @@ class GoalController extends FOSRestController
 {
     const RandomGoalFriendCounts = 3;
 
+    /**
+     * @Rest\Get("/goals/{userId}/owned/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_owned", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get owned goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     *
+     * )
+     *
+     * @param int $userId
+     * @param int $first
+     * @param int $count
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getOwnedAction(Request $request, $userId, $first = null, $count = null)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get owned goals
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        // cached images
+        foreach($ownedGoals as $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
+
+        return  ['goals' => $ownedGoals];
+    }
+
 
     /**
      * @Rest\Get("/goals/{userId}/common/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_common", options={"method_prefix"=false})

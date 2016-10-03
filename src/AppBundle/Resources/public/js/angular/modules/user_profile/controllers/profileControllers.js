@@ -80,6 +80,11 @@ angular.module('profile')
             $scope.profile.status = UserGoalConstant.ACTIVITY_PATH;
             $scope.Activities.nextActivity();
             break;
+          case 5:
+            $scope.ProfileItems.busy = false;
+            $scope.profile.status = UserGoalConstant.OWNED_PATH;
+            $scope.ProfileItems.nextPage($scope.profile);
+            break;
           default:
             $scope.ProfileItems.busy = false;
             $scope.profile.condition = 0;
@@ -104,6 +109,9 @@ angular.module('profile')
               break;
             case UserGoalConstant.ACTIVITY_PATH:
               $scope.goTo(4);
+              break;
+            case UserGoalConstant.OWNED_PATH:
+              $scope.goTo(5);
               break;
             default:
               $scope.goTo(0);
