@@ -3,7 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin-goal.css") }}">
+    <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
 
 {% endblock %}
 
@@ -43,6 +43,9 @@
         'app/scripts/Authenticator/Authenticator.js'
         'bundles/app/js/angular/admin-goal.js'
         'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js'
+        'bundles/app/js/angular/translation.js'
+        'app/bower_components/angular-translate/angular-translate.min.js'
+        'app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

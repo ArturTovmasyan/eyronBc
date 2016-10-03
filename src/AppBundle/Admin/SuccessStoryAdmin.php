@@ -40,6 +40,22 @@ class SuccessStoryAdmin extends AbstractAdmin
     );
 
     /**
+     * @param string $name
+     * @return mixed|null|string
+     */
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'AppBundle:Admin:success_story_list.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+    
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -63,6 +79,7 @@ class SuccessStoryAdmin extends AbstractAdmin
                 'label'=>'admin.label.name.created'
             ), 'date', array('widget' => 'single_text'))
             ->add('story')
+            ->add('goal.title', null, array('label'=>'admin.label.name.goal'))
             ->add('isInspire')
         ;
     }
@@ -73,10 +90,10 @@ class SuccessStoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
             ->add('created')
             ->add('updated')
-            ->add('story')
+            ->addIdentifier('goal.title', null, array('label'=>'admin.label.name.goal'))
+            ->add('story', null, array('template' => 'AppBundle:Admin:success_story_list_field.html.twig'))
             ->add('isInspire', null, ['editable' => true])
             ->add('files', null, array('template' => 'AppBundle:Admin:success_story_image_list.html.twig'))
             ->add('_action', null, array(

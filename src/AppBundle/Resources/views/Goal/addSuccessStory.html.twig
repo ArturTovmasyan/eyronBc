@@ -1,5 +1,5 @@
 <div id="story-modal" data-ng-controller="goalDone">
-    <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans }}</div>
+    <div data-ng-if="newAdded" class="email">{{ "message_on_top_of_the_page" | trans | upper }}</div>
     <div class="modal-top">
         <figure data-ng-if="userGoal.goal.cached_image">
             <img data-ng-if="userGoal.goal.cached_image" data-ng-src="[[ userGoal.goal.cached_image]]" alt="[[ userGoal.goal.title ]]" class="img-responsive"/>
@@ -75,7 +75,9 @@
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
 
-                <h3 class="text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
+                <h3 class="story-title text-grey-dark">{{ "success_story.completion_date"|trans }}</h3>
+
+                <p class="complete-text">{{ "success_story.complete_edit_text"|trans }}</p>
 
                 <div class="form-group row">
                     <div class="col-sm-4 date"
@@ -117,67 +119,72 @@
                         </ui-select>
                     </div>
                 </div>
-                <div class="text-gray small-size">{{ "success_story.complete_edit_text"|trans }}</div>
+
             </div>
         </div>
 
         <hr/>
     </div>
+
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
             <h3 class="story-title text-grey-dark">{{ 'success_story.title'|trans }}</h3>
+        </div>
+    </div>
 
-            <div>
-                {#{{ form_errors(form) }}#}
+        {#{{ form_errors(form) }}#}
 
-                <form id="goal-done-form" action="#">
-
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <i class="icon-pencil"></i>
-                            <textarea required="required" name="story" data-ng-model="userGoal.story.story" class="form-control" placeholder="{{ 'success_story.add'|trans }}" rows="4"></textarea>
-                        </div>
+    <form id="goal-done-form" action="#">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        {#<i class="icon-pencil"></i>#}
+                        <textarea required="required" name="story" data-ng-model="userGoal.story.story" class="form-control" placeholder="{{ 'success_story.add'|trans }}" rows="4"></textarea>
                     </div>
+                </div>
 
-                    <div class="text-center" data-ng-init="initDropzone('{{ path('add_goal_success_story_images') }}')">
-                        <div class="dropzone" id="goalDropzone">
-                            <div class="dz-message">
-                                <div class="row">
-                                    <div class="col-sm-12">
+                <div class="text-center" data-ng-init="initDropzone('{{ path('add_goal_success_story_images') }}')">
+                    <div class="dropzone" id="goalDropzone">
+                        <div class="dz-message">
+                            <div class="row">
+                                <div class="col-sm-12">
 
-                                        <h3 class="text-dark-gray">
-                                            <i class="icon-cloud"></i>{{ 'drag_drop'|trans }}
-                                        </h3>
-                                    </div>
+                                    <h3 class="text-dark-gray">
+                                        <i class="icon-cloud"></i>{{ 'drag_drop'|trans }}
+                                    </h3>
                                 </div>
-
-                                <p class="text-gray">{{ 'upload'|trans | raw}}</p>
                             </div>
+
+                            <p>{{ 'upload'|trans | raw}}</p>
                         </div>
                     </div>
+                </div>
 
-                    {#{{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}#}
+                {#{{ form_widget(form.files, {'attr': { "value" : "[[ files ]]" } }) }}#}
 
-                    <div class="form-group">
-                        <label class="text-dark-gray">Video</label>
-                        <video-link data-ng-repeat="(k, video) in userGoal.videos_array"
-                            data-key="k"
-                            data-limit="3"
-                            data-link="video.link"
-                            data-array="userGoal.videos_array">
-                        </video-link>
-                    </div>
-                    {#<p class="text-center error-message" data-ng-if="noFile">{{ 'success_story.error_without_file'|trans }}</p>#}
-                    <p class="text-center error-message" data-ng-if="noStory">{{ 'success_story.error_widht_file'|trans }}</p>
-                    <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_day_in_month1'|trans }} [[ dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}</p>
-                    <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
-                    <div class="form-group text-center bottom">
-                        <a href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple button-lg">{{ 'btn_save'|trans }}</a>
-                        <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
-                    </div>
+                <div class="form-group">
+                    <label class="text-grey-dark story-title">Video</label>
+                    <video-link data-ng-repeat="(k, video) in userGoal.videos_array"
+                        data-key="k"
+                        data-limit="3"
+                        data-link="video.link"
+                        data-array="userGoal.videos_array">
+                    </video-link>
+                </div>
+                {#<p class="text-center error-message" data-ng-if="noFile">{{ 'success_story.error_without_file'|trans }}</p>#}
+                <p class="text-center error-message" data-ng-if="noStory">{{ 'success_story.error_widht_file'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="invalidYear">{{ 'success_story.error_day_in_month1'|trans }} [[ dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}</p>
+                <p class="text-center error-message" data-ng-if="uncompletedYear">{{ 'success_story.error_uncomplete_year'|trans }}</p>
 
-                </form>
             </div>
         </div>
-     </div>
+
+        <div class="text-center bottom-modal">
+            <a href="javascript:void(0)" data-ng-click="save()" class="btn btn-purple button-lg">{{ 'btn_save'|trans }}</a>
+            <a href="javascript:void(0)" rel="modal:close" id="cancel" class="btn btn-transparent button-lg">{{ 'btn_cancel'|trans }}</a>
+        </div>
+
+    </form>
+
 </div>

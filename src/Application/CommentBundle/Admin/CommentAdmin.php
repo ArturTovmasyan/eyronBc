@@ -2,6 +2,7 @@
 
 namespace Application\CommentBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -40,6 +41,28 @@ class CommentAdmin extends AbstractAdmin
                 },
                 'label'=>'admin.label.name.created'
             ), 'date', array('widget' => 'single_text'))
+
+            ->add('goal', 'doctrine_orm_callback', array('mapped' => false,
+                'callback' => function($queryBuilder, $alias, $field, $value) {
+                    if (!$value['value']) {
+                        return;
+                    }
+
+                    //get slug in url
+                    $slug = parse_url($value['value']);
+                    $slug = substr($slug['path'], strrpos($slug['path'], '/') + 1);
+                    $slug = 'goal_'.$slug;
+
+                    $queryBuilder
+                        ->leftJoin($alias . '.thread', 'tr')
+                        ->andWhere('tr.id = :slug')
+                        ->setParameter('slug', $slug)
+                    ;
+
+                    return $queryBuilder;
+                },
+
+                'label'=>'admin.label.name.goal_link'))
         ;
     }
 
@@ -49,7 +72,6 @@ class CommentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
             ->add('body')
             ->add('createdAt')
             ->add('_action', null, array(

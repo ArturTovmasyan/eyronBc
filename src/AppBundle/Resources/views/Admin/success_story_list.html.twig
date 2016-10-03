@@ -5,3 +5,7 @@
     <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/admin-show-more.js') }}"></script>
+{% endblock %}

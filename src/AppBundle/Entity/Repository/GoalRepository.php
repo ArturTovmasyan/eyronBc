@@ -715,6 +715,29 @@ class GoalRepository extends EntityRepository
     }
 
     /**
+     * @param $owner
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function findOwnedGoals($owner, $first, $count)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
+                           WHERE g.author = :owner AND g.publish = :publish
+                           
+                           ")
+            ->setParameter('owner', $owner)
+            ->setParameter('publish', PublishAware::PUBLISH)
+            ->setFirstResult($first)
+            ->setMaxResults($count)
+            ->getResult();
+    }
+
+
+    /**
      * @param $userId
      * @param $userIds
      * @return array

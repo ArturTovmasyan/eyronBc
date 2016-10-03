@@ -22,6 +22,10 @@ use JMS\Serializer\Annotation\Groups;
  */
 class Affiliate
 {
+    const CITY_TYPE    = "city";
+    const REGION_TYPE  = "region";
+    const COUNTRY_TYPE = "country";
+
     use File;
 
     /**
@@ -47,6 +51,11 @@ class Affiliate
      * @ORM\Column(name="ufi", type="string", length=20, nullable=true)
      */
     protected $ufi;
+
+    /**
+     * @ORM\Column(name="place_type", type="string", length=20, nullable=true)
+     */
+    protected $placeType = self::CITY_TYPE;
 
     /**
      * @ORM\Column(name="size", type="array", nullable=true)
@@ -287,6 +296,30 @@ class Affiliate
     /**
      * @return mixed
      */
+    public function getPlaceType()
+    {
+        return $this->placeType;
+    }
+
+    /**
+     * @param $placeType
+     * @return $this
+     * @throws \Exception
+     */
+    public function setPlaceType($placeType)
+    {
+        if(!in_array($placeType, [self::CITY_TYPE, self::REGION_TYPE, self::COUNTRY_TYPE])){
+            throw new \Exception('Invalid place type');
+        }
+
+        $this->placeType = $placeType;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getPublish()
     {
         return $this->publish;
@@ -313,6 +346,7 @@ class Affiliate
         $newContent = str_replace(AffiliateType::IMAGE_PLACEHOLDER, $this->getCacheDownloadLink(), $newContent);
         $newContent = str_replace(AffiliateType::AID_PLACEHOLDER, AffiliateType::$bookingAId, $newContent);
         $newContent = str_replace(AffiliateType::UFI_PLACEHOLDER, $this->getUfi(), $newContent);
+        $newContent = str_replace(AffiliateType::PLACE_TYPE_PLACEHOLDER, $this->getPlaceType(), $newContent);
 
         return $newContent;
     }
