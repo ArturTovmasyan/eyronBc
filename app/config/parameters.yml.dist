@@ -51,5 +51,6 @@ parameters:
     google_api_key: AIzaSyBN9sWpmv-6mArNqz_oSStVdpuCTt-lu6g
     google_server_key: AIzaSyBF1IdBXbTiF_E-idTFMmDMdGnQtLjfWlk
     remote_console: ~
+    matches_user_maximum_number: 100
 
 
