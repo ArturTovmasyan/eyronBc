@@ -192,6 +192,7 @@ class GoalRestControllerTest extends BaseClass
         //create url for test
         $url = sprintf('/api/v1.0/goals/places/%s/%s', $latitude, $longitude);
 
+        
         //try to get goals in place
         $this->client2->request('GET', $url);
 
