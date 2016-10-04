@@ -520,6 +520,7 @@ angular.module('goalComponents', ['Interpolation',
       AuthenticatorLoginService
     ){
       var myDate = moment(new Date()).format('YYYY');
+      $scope.completedStepCount = 0;
       $scope.years = _.map($(Array(50)), function (val, i) { return +myDate + i; });
       $scope.completeYears = _.map($(Array(50)), function (val, i) { return myDate - i; });
       $scope.days = _.map($(Array(31)), function (val, i) { return i + 1; });
@@ -611,6 +612,9 @@ angular.module('goalComponents', ['Interpolation',
       $scope.$watch('complete.switch', function (d) {
         if( flag){
           switchChanged = !switchChanged;
+          $scope.uncompletedYear = false;
+          $scope.invalidYear = false;
+
           if(d == 1){
             $scope.updateDate(new Date(), true);
           }
@@ -673,6 +677,8 @@ angular.module('goalComponents', ['Interpolation',
             result++;
           }
         });
+        
+        $scope.completedStepCount = result;
 
         return result * 100 / length;
       };
