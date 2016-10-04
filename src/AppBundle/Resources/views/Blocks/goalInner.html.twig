@@ -80,7 +80,7 @@
 
                                     {% if image.downloadLink|length > 0 %}
                                         <div class="overlay swiper-slide">
-                                            <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox" data-title="{{ goal.title }}">
+                                            <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-main" data-title="{{ goal.title }}">
                                                 <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                             </a>
                                         </div>
@@ -663,12 +663,12 @@
                                             {% else %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
+                                                        <div id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}" class="swiper-container story-slider image-slider">
                                                             <!-- Slides Container -->
                                                             <div class="swiper-wrapper">
                                                                 {% for k,file in files %}
                                                                     <div class="swiper-slide">
-                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox">
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-key-{{ key }}">
                                                                             <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
                                                                         </a>
                                                                     </div>

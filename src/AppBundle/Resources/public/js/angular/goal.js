@@ -442,6 +442,7 @@ angular.module('goal', ['Interpolation',
         function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
 
         $scope.successStoryShow = [];
+        $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
 
@@ -450,6 +451,10 @@ angular.module('goal', ['Interpolation',
         };
 
         $timeout(function () {
+            angular.forEach($scope.successStoryImageKeys, function (d) {
+                $( '.swipebox-key-'+d ).swipebox();
+            });
+            
             var afilateHeight = $('.affiliate-right iframe').height();
             var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();
             //$('.affiliate-right iframe').height(afilateHeight + 80);
@@ -623,7 +628,7 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox' ).swipebox();
+        $( '.swipebox-main' ).swipebox();
     }])
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
 
