@@ -438,10 +438,11 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
+    .controller('goalInner', ['$scope', '$rootScope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http', '$window',
+        function($scope, $rootScope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http, $window){
 
         $scope.successStoryShow = [];
+        $scope.goal = {};
         $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
@@ -450,7 +451,43 @@ angular.module('goal', ['Interpolation',
             AuthenticatorLoginService.openLoginPopup();
         };
 
+        $scope.isLate = function (date) {
+            if(!date){
+                return false;
+            }
+
+            var d1 = new Date(date);
+            var d2 = new Date();
+
+            return (d1 < d2);
+        };
+
+        $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+            if(!userGoal)return;
+
+            $scope.goal.is_visible = userGoal.is_visible;
+            $scope.goal.do_date = userGoal.do_date;
+            $scope.goal.note = userGoal.note;
+            $scope.goal.public = userGoal.goal.status;
+            $scope.goal.steps = userGoal.formatted_steps.length > 0;
+        });
+
+        $rootScope.$on('removeUserGoal', function (ev, id) {
+            $window.location.href = $window.location.origin + envPrefix + 'profile';
+        });
+
         $timeout(function () {
+            if($scope.goalId){
+                var url = envPrefix + 'api/v1.0/usergoals/' + $scope.goalId;
+
+                $http.get(url).success(function(data) {
+                    $scope.goal.is_visible = data.is_visible;
+                    $scope.goal.do_date = data.do_date;
+                    $scope.goal.note = data.note;
+                    $scope.goal.steps = data.formatted_steps.length > 0;
+                });
+            }
+
             angular.forEach($scope.successStoryImageKeys, function (d) {
                 $( '.swipebox-key-'+d ).swipebox();
             });
