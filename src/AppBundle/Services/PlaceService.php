@@ -40,15 +40,17 @@ class PlaceService
      */
     public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
-        //get place by coordinate
-        $places = $this->googlePlaceService->getPlace($latitude, $longitude, true);
+        //get places
+        $places = $this->em->getRepository('AppBundle:Place')->findAllByBounds($latitude, $longitude);
 
-        //remove short_name data in places array
-        if (array_key_exists(PlaceType::COUNTRY_SHORT_NAME, $places)) {
-            unset($places[PlaceType::COUNTRY_SHORT_NAME]);
+        //check if places not exist
+        if(!$places) {
+            
+            //get place by google
+            $places = $this->googlePlaceService->getPlace($latitude, $longitude, true);
         }
-        
-        //check if place not exist
+
+        //check if place exist
         if ($places) {
 
             //create UserPlace for user
@@ -83,7 +85,6 @@ class PlaceService
             {
                 //check if user not related with place
                 if(!$place['related']) {
-
                     //create userPlace
                     $userPlace = new UserPlace();
                     $userPlace->setLatitude($latitude);

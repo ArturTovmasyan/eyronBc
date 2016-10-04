@@ -61,84 +61,113 @@ class GooglePlaceService
         curl_close($ch);
 
         //json decode data
-        $response = json_decode($response);
+        $response = json_decode($response, true);
 
         //get error messages
-        $errorMessage = property_exists($response, 'error_message') ? $response->error_message : null;
+        $errorMessage = array_key_exists('error_message', $response) ? $response['error_message '] : null;
 
         //check if error messages exist
         if (count($errorMessage) > 0) {
             throw new \InvalidArgumentException($errorMessage);
         }
 
-        //get result
-        $results = $response->results;
+        //set default array
+        $placeArray = [];
+
+        //get results
+        $results = $response['results'];
 
         //check if results not empty
         if (!empty($results)) {
 
-            //get place
-            $place = $results[0]->formatted_address;
+            //set country and city in placeArray
+            $addressComponents = $results[0]['address_components'];
 
-            //explode place data by comma
-            $places = explode(',', $place);
+            foreach ($addressComponents as $address) {
 
-            //set default array
-            $placeArray=[];
-
-            foreach ($places as $key => $place)
-            {
-                if ($key == 0) {
-                    //set type
-                    $type = PlaceType::TYPE_CITY;
-                } else {
-                    //set type
-                    $type = PlaceType::TYPE_COUNTRY;
+                if ($address['types'][0] == "locality" && $address['types'][1] == "political") {
+                    //set city
+                    $city = $address['long_name'];
+                    $placeArray[PlaceType::TYPE_CITY] = trim(strtolower($city));
                 }
 
-                //remove all spaces and number in word
-                $placeArray[$type] = trim(preg_replace('/[0-9]+/', '', strtolower($place)));
+                if ($address['types'][0] == "country" && $address['types'][1] == "political") {
+                    //set country
+                    $country = $address['long_name'];
+                    $placeArray[PlaceType::TYPE_COUNTRY] = trim(strtolower($country));
+                }
             }
 
-            if (isset($results[1]) && isset($results[1]->address_components) && isset($results[1]->address_components[0])
-                && isset($results[1]->address_components[0]->short_name))
-            {
-                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower($results[1]->address_components[0]->short_name);
-            }
-            elseif (isset($results[0]) && isset($results[0]->address_components) && isset($results[0]->address_components[0])
-                && isset($results[0]->address_components[0]->short_name))
-            {
-                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower($results[0]->address_components[0]->short_name);
+            //get current place max and min bounds
+            $placeBounds = $results[0]['geometry']['bounds'];
+            $minBounds = $placeBounds['southwest'];
+            $maxBounds = $placeBounds['northeast'];
+
+            //set place short name in placeArray
+            if (isset($results[1]) && isset($results[1]['address_components']) && isset($results[1]['address_components'][0])
+                && isset($results[1]['address_components'][0]['short_name'])
+            ) {
+                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower(
+                    $results[1]['address_components'][0]['short_name']
+                );
+            } elseif (isset($results[0]) && isset($results[0]['address_components']) && isset($results[0]['address_components'][0])
+                && isset($results[0]['address_components'][0]['short_name'])
+            ) {
+                $placeArray[PlaceType::COUNTRY_SHORT_NAME] = strtolower(
+                    $results[0]['address_components'][0]['short_name']
+                );
             }
 
             //check if save value is true
             if ($save) {
 
-                //get places in array
+                //remove short_name data in places array
+                if (array_key_exists(PlaceType::COUNTRY_SHORT_NAME, $placeArray)) {
+                    unset($placeArray[PlaceType::COUNTRY_SHORT_NAME]);
+                }
+
+                //set createPlace array data
+                $createPlaces = $placeArray;
+
+                //get places name in array
                 $places = array_values($placeArray);
-                
+
                 //get places in DB
                 $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $places));
 
-                //TODO check if only country or city exist
-                //check if place in db not exists
-                if (!$placeInDb) {
+                //remove existing place in createPlaces array
+                if ($placeInDb) {
+
+                    foreach ($placeInDb as $pl) {
+
+                        //get place name
+                        $placeName = $pl->getName();
+
+                        //remove existing place name in array
+                        if (($key = array_search($placeName, $createPlaces)) !== false) {
+                            unset($createPlaces[$key]);
+                        }
+                    }
+                }
+
+                //check if createPlaces exist
+                if ($createPlaces) {
 
                     //get all placeType index by name
                     $placeType = $this->em->getRepository('AppBundle:PlaceType')->findAllIndexByName();
-                    
-                    foreach ($placeArray as $key => $place)
-                    {
-                        //check if key place type
-                        if($key != PlaceType::COUNTRY_SHORT_NAME) {
-                            //create new place
-                            $newPlace = new Place();
-                            $newPlace->setName($place);
-                            $newPlace->setPlaceType($placeType[$key]);
-                            $this->em->persist($newPlace);
-                        }
+
+                    foreach ($createPlaces as $key => $place) {
+                        //create new place
+                        $newPlace = new Place();
+                        $newPlace->setName($place);
+                        $newPlace->setPlaceType($placeType[$key]);
+                        $newPlace->setMinLatitude($minBounds['lat']);
+                        $newPlace->setMinLongitude($minBounds['lng']);
+                        $newPlace->setMaxLatitude($maxBounds['lat']);
+                        $newPlace->setMaxLongitude($maxBounds['lng']);
+                        $this->em->persist($newPlace);
                     }
-                    
+
                     $this->em->flush();
                 }
             }

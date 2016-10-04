@@ -48,4 +48,24 @@ class PlaceRepository extends EntityRepository
             ->setParameter('places', $places)
             ->getResult();
     }
+
+    /**
+     * This function is used to get all place in bounds by latitude and longitude
+     *
+     * @param $latitude
+     * @param $longitude
+     * @return array
+     */
+    public function findAllByBounds($latitude, $longitude)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT p.name
+                           FROM AppBundle:Place p
+                           WHERE (:latitude BETWEEN p.minLatitude AND p.maxLatitude) and
+                                 (:longitude BETWEEN p.minLongitude AND p.maxLongitude)
+                           ")
+            ->setParameter('latitude', $latitude)
+            ->setParameter('longitude', $longitude)
+            ->getResult();
+    }
 }

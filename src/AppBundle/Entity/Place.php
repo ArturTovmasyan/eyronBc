@@ -60,6 +60,43 @@ class Place
     protected $goal;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="min_latitude", type="float")
+     * @Assert\Type("float")
+     * @Assert\NotBlank(message = "minLatitude can't be blank")
+     */
+    protected $minLatitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="max_latitude", type="float")
+     * @Assert\Type("float")
+     * @Assert\NotBlank(message = "maxLatitude can't be blank")
+     */
+    protected $maxLatitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="min_longitude", type="float")
+     * @Assert\Type("float")
+     * @Assert\NotBlank(message = "minLongitude can't be blank")
+     */
+    protected $minLongitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="max_longitude", type="float")
+     * @Assert\Type("float")
+     * @Assert\NotBlank(message = "maxLongitude can't be blank")
+     */
+    protected $maxLongitude;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -198,5 +235,101 @@ class Place
     public function __toString()
     {
         return (string) $this->name;
+    }
+
+    /**
+     * Set minLatitude
+     *
+     * @param float $minLatitude
+     *
+     * @return Place
+     */
+    public function setMinLatitude($minLatitude)
+    {
+        $this->minLatitude = $minLatitude;
+
+        return $this;
+    }
+
+    /**
+     * Get minLatitude
+     *
+     * @return float
+     */
+    public function getMinLatitude()
+    {
+        return $this->minLatitude;
+    }
+
+    /**
+     * Set maxLatitude
+     *
+     * @param float $maxLatitude
+     *
+     * @return Place
+     */
+    public function setMaxLatitude($maxLatitude)
+    {
+        $this->maxLatitude = $maxLatitude;
+
+        return $this;
+    }
+
+    /**
+     * Get maxLatitude
+     *
+     * @return float
+     */
+    public function getMaxLatitude()
+    {
+        return $this->maxLatitude;
+    }
+
+    /**
+     * Set minLongitude
+     *
+     * @param float $minLongitude
+     *
+     * @return Place
+     */
+    public function setMinLongitude($minLongitude)
+    {
+        $this->minLongitude = $minLongitude;
+
+        return $this;
+    }
+
+    /**
+     * Get minLongitude
+     *
+     * @return float
+     */
+    public function getMinLongitude()
+    {
+        return $this->minLongitude;
+    }
+
+    /**
+     * Set maxLongitude
+     *
+     * @param float $maxLongitude
+     *
+     * @return Place
+     */
+    public function setMaxLongitude($maxLongitude)
+    {
+        $this->maxLongitude = $maxLongitude;
+
+        return $this;
+    }
+
+    /**
+     * Get maxLongitude
+     *
+     * @return float
+     */
+    public function getMaxLongitude()
+    {
+        return $this->maxLongitude;
     }
 }

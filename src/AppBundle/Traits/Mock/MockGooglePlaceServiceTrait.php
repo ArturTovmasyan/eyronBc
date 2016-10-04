@@ -21,7 +21,7 @@ trait MockGooglePlaceServiceTrait
             ->getMockBuilder('\AppBundle\Services\GooglePlaceService')
             ->disableOriginalConstructor()
             ->getMock();
-        $mock->expects($this->once())
+        $mock->expects($this->any())
             ->method('getPlace')
             ->will($this->returnValue($placeData));
 

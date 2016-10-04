@@ -30,7 +30,6 @@ class GooglePlaceServiceTest extends BaseClass
 
         $latitudeRussia = $placesData[1]['latitude'];
         $longitudeRussia = $placesData[1]['longitude'];
-        $rusShortName = $placesData[1]['short_name'];
 
         $russia = $placesData[1]['country'];
         $moscow = $placesData[1]['city'];
@@ -44,7 +43,7 @@ class GooglePlaceServiceTest extends BaseClass
             array('latitude' => $latitudeRussia,
                 'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => [PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia, PlaceType::COUNTRY_SHORT_NAME => $rusShortName]));
+                'placeName' => [PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia]));
 
         return $data;
     }
@@ -76,7 +75,7 @@ class GooglePlaceServiceTest extends BaseClass
             $place = array_values($googlePlace);
 
             //get place in by name in DB
-            $placeInDb = $this->em->getRepository('AppBundle:Place')->findByName($place);
+            $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $place));
 
             $this->assertEquals(2, count($placeInDb), 'getPlace method by param save don\'t work correctly');
         }
