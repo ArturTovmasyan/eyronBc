@@ -718,10 +718,6 @@ class GoalController extends FOSRestController
      *         200="Ok",
      *         400="Bad request"
      *  },
-     *  parameters={
-     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
-     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
-     *  }
      * )
      *
      * @return array
@@ -729,6 +725,7 @@ class GoalController extends FOSRestController
      * @param $longitude float
      *
      * @Rest\View(serializerGroups={"goal"})
+     * @Rest\Get("/goals/places/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
      * @Security("has_role('ROLE_USER')")
      */
     public function getGoalsInPlaceAction($latitude, $longitude)
@@ -777,6 +774,7 @@ class GoalController extends FOSRestController
      * @param $request
      *
      * @Rest\View()
+     * @Rest\Post("/goals/confirm")
      * @Security("has_role('ROLE_USER')")
      */
     public function postConfirmGoalsAction(Request $request)

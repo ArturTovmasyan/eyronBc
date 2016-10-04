@@ -45,7 +45,7 @@ class GoalRestControllerTest extends BaseClass
         $this->client2->getContainer()->set('app.google_place', $googlePlaceServiceMock);
         
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', $latitude, $longitude);
+        $url = sprintf('/api/v1.0/goals/places/%s/%s', $latitude, $longitude);
 
         //try to get goals in place
         $this->client2->request('GET', $url);
@@ -144,7 +144,7 @@ class GoalRestControllerTest extends BaseClass
         $longitude = $placesData['longitude'];
 
         //create url for test
-        $url = '/api/v1.0/goals/confirms/goals';
+        $url = '/api/v1.0/goals/confirm';
 
         //try to confirm goals
         $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => $latitude, 'longitude' => $longitude));
@@ -190,7 +190,7 @@ class GoalRestControllerTest extends BaseClass
         //check suggestion after confirmation goal
 
         //create url for test
-        $url = sprintf('/api/v1.0/goals/%s/goals/%s/in/place', $latitude, $longitude);
+        $url = sprintf('/api/v1.0/goals/places/%s/%s', $latitude, $longitude);
 
         //try to get goals in place
         $this->client2->request('GET', $url);
