@@ -10,6 +10,7 @@ angular.module('goalComponents', ['Interpolation',
   'angulartics.google.analytics',
   'PathPrefix',
   'dndLists',
+  'ngMaterial',
   'Facebook'
   ])
   .config(function(uiSelectConfig) {
@@ -605,11 +606,12 @@ angular.module('goalComponents', ['Interpolation',
       var switchChanged = false;
       var dateChanged = false;
       var isSuccess = false;
+      var flag = false;
 
       $scope.$watch('complete.switch', function (d) {
-        if( d !== 0 && d !== 1){
+        if( flag){
           switchChanged = !switchChanged;
-          if(d){
+          if(d == 1){
             $scope.updateDate(new Date(), true);
           }
           else{
@@ -628,6 +630,7 @@ angular.module('goalComponents', ['Interpolation',
 
         }
         else {
+          flag = true;
           if(angular.element('#success' + $scope.userGoal.goal.id).length > 0) {
             isSuccess = angular.element('#success' + $scope.userGoal.goal.id).scope().success[$scope.userGoal.goal.id]?true:false;
           }
@@ -685,17 +688,6 @@ angular.module('goalComponents', ['Interpolation',
           return m.day(value).format(format);
         }
       };
-
-      //$scope.getSecondPickerDate = function(date, format){
-      //  var days = parseInt(moment(date).format('D'));
-      //
-      //  if(days > 28 && days < 32){
-      //    return $scope.momentDateModify(date, '+10', 'day', format)
-      //  }
-      //  else {
-      //    return $scope.momentDateModify(date, '+33', 'day', format)
-      //  }
-      //};
 
       $scope.getPriority = function(userGoal){
         if(!userGoal || !userGoal.id){
@@ -887,39 +879,6 @@ angular.module('goalComponents', ['Interpolation',
       };
 
       $timeout(function(){
-        //angular.element('#datepicker').datepicker({
-        //  beforeShowDay: function(){
-        //    var cond = angular.element('#datepicker').data('datepicker-disable');
-        //    return !cond;
-        //  },
-        //  todayHighlight: true
-        //});
-        //angular.element('#secondPicker').datepicker({
-        //  beforeShowDay: function(){
-        //    var cond = angular.element('#datepicker').data('datepicker-disable');
-        //    return !cond;
-        //  },
-        //  todayHighlight: true
-        //});
-        //
-        //angular.element("#secondPicker").find( "td" ).removeClass("active");
-        //
-        //angular.element("#datepicker").on("changeDate", function() {
-        //  angular.element("#secondPicker").find( "td" ).removeClass("active");
-        //  $scope.datepicker_title = true;
-        //  var doDate =  angular.element("#datepicker").datepicker('getDate');
-        //  $scope.userGoal.do_date = moment(doDate).format('MM-DD-YYYY');
-        //  dateChanged = true;
-        //  $scope.$apply();
-        //});
-        //angular.element("#secondPicker").on("changeDate", function() {
-        //  angular.element("#datepicker").find( "td" ).removeClass("active");
-        //  $scope.datepicker_title = true;
-        //  var doDate = angular.element("#secondPicker").datepicker('getDate');
-        //  dateChanged = true;
-        //  $scope.userGoal.do_date = moment(doDate).format('MM-DD-YYYY');
-        //  $scope.$apply();
-        //});
 
         angular.element('input.important-radio').iCheck({
           radioClass: 'iradio_minimal-purple',

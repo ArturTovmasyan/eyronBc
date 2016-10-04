@@ -54,14 +54,14 @@ angular.module('manage', ['Interpolation',
             
             templateCache.put('locale-language'+id, locale);
 
-            if (!addTemplate || changedLanguage) {
+            // if (!addTemplate || changedLanguage) {
                 $http.get(addUrl).success(function(data){
                     template.addTemplate = data;
                     templateCache.put('add-template'+id, data);
-                })
-            }else {
-                template.addTemplate = addTemplate;
-            }
+                });
+            // }else {
+            //     template.addTemplate = addTemplate;
+            // }
 
             if (!doneTemplate || changedLanguage) {
                 $http.get(doneUrl).success(function(data){

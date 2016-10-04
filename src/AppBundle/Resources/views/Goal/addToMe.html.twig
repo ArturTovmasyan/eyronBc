@@ -62,69 +62,45 @@
                     <div class="form-group row no-marginb">
 
                         <label class="col-xs-8 col-sm-10 control-label text-left text-purple">
-                            <span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>
-                            <span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>
+                            {#<span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>#}
+                            {#<span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>#}
+                            Goal Status
                         </label>
 
                         <div class="col-xs-4 col-sm-2">
-                            <div class="onoffswitch" data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
-                                <input type="checkbox"
-                                   name="goal_status"
-                                   data-ng-model="complete.switch"
-                                   data-ls-checked="complete.switch"
-                                   class="onoffswitch-checkbox"
-                                   id="myonoffswitch">
+                            <div data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
+                                <md-radio-group data-ng-model="complete.switch" name="goal_status">
 
-                                <label class="onoffswitch-label" for="myonoffswitch">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                                    <md-radio-button value="0" class="md-primary">Active</md-radio-button>
+                                    <md-radio-button value="1" class="md-primary"> Completed </md-radio-button>
+
+                                </md-radio-group>
                             </div>
                         </div>
                     </div>
 
                     <div class="row form-group no-marginb ng-hide" data-ng-show="userGoal.id">
                         <label class="col-sm-12 control-label text-left">
-                            <span data-ng-show="complete.switch" class="small-size">{{ "goal.completed_text"|trans }}</span>
-                            <span data-ng-hide="complete.switch" class="small-size">{{ "goal.active_text"|trans }}</span>
+                            <span data-ng-show="complete.switch == 1" class="small-size">{{ "goal.completed_text"|trans }}</span>
+                            <span data-ng-hide="complete.switch == 1" class="small-size">{{ "goal.active_text"|trans }}</span>
                         </label>
                     </div>
 
                 </div>
 
-                {#<div class="clearfix ng-hide" data-ng-show="complete.switch">#}
-                    {#<strong class="text-dark-gray">{{ "goal.completion_date"|trans | upper}} {{ "now"|date('d M Y') | upper}}</strong> &nbsp;#}
-                    {#<span class="text-gray" data-ng-if="userGoal.do_date">{{ "goal.scheduled_date"|trans | upper}} [[ userGoal.do_date | date:'dd MMM yyyy' ]]</span>#}
-                {#</div>#}
                 <hr/>
 
-                <h3 data-ng-class="ng-hide" data-ng-show="!complete.switch || userGoal.do_date">
+                <h3 data-ng-class="ng-hide" data-ng-show="!(complete.switch == 1) || userGoal.do_date">
                     {{ "goal.deadline"|trans }}
-                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
-                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(firefox_do_date, 'YYYY') ]]</span>
-                    <span class="text-purple ng-hide" data-ng-show="complete.switch && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(firefox_do_date, 'MMM YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 2)">: [[ momentDateFormat(firefox_do_date, 'YYYY') ]]</span>
+                    <span class="text-purple ng-hide" data-ng-show="complete.switch == 1 && firefox_do_date && (userGoal.do_date_status && userGoal.do_date_status == 3)">: [[ momentDateFormat(firefox_do_date, 'MMM YYYY') ]]</span>
                 </h3>
-                <h3 class="ng-hide" data-ng-show="complete.switch">{{ "completed"|trans }}</h3>
-
-                {#<div class="row">#}
-                    {#<div class="col-sm-6">#}
-                        {#<div id="datepicker"#}
-                             {#data-ng-hide="complete.switch"#}
-                             {#data-date="[[ momentDateFormat(userGoal.do_date, 'MM/DD/YYYY') ]]"#}
-                             {#style="color: black"></div>#}
-                    {#</div>#}
-                    {#<div class="col-sm-6">#}
-                        {#<div id="secondPicker"#}
-                             {#data-ng-hide="complete.switch"#}
-                             {#data-date="[[ getSecondPickerDate(userGoal.do_date, 'MM/DD/YYYY') ]]"#}
-                             {#style="color: black">#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
+                <h3 class="ng-hide" data-ng-show="complete.switch == 1">{{ "completed"|trans }}</h3>
 
                 <div data-ng-cloak class="form-group row" >
 
-                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
                         <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -135,7 +111,7 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-sm-4 ng-hide" data-ng-show="complete.switch">
+                    <div class="col-sm-4 ng-hide" data-ng-show="complete.switch == 1">
                         <ui-select search-enabled="false" data-ng-model="$parent.year" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_year'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -147,7 +123,7 @@
                         </ui-select>
                     </div>
 
-                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch == 1">
                         <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -158,7 +134,7 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
                         <ui-select search-enabled="false" data-ng-model="$parent.month" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_month'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -169,7 +145,7 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="complete.switch == 1">
                         <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -180,7 +156,7 @@
                             </ui-select-choices>
                         </ui-select>
                     </div>
-                    <div class="col-sm-4 date ng-hide" data-ng-show="!complete.switch">
+                    <div class="col-sm-4 date ng-hide" data-ng-show="!(complete.switch == 1)">
                         <ui-select search-enabled="false" data-ng-model="$parent.day" skip-focusser="true">
                             <ui-select-match placeholder="{{ 'form.birth_date_day'|trans({}, 'FOSUserBundle') }}">
                                 <span>[[ $select.selected ]]</span>
@@ -193,10 +169,10 @@
                     </div>
                 </div>
 
-                <h4 data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
+                <h4 data-ng-hide="userGoal.do_date || userGoal.completion_date || complete.switch == 1" class="text-center text-dark-gray">{{ "dream"|trans }}</h4>
 
                 <h6 class="text-gray text-center"
-                    data-ng-show="!complete.switch && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1">
+                    data-ng-show="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1">
                     <i class="icon-info text-purple"></i>
                     {{ "goal.missed_deadline"|trans }}
                 </h6>
@@ -221,94 +197,101 @@
                           data-ng-model="userGoal.note"
                           rows="3"
                           placeholder="{{ 'goal.note_p'|trans }}"
-                          data-ng-disabled="complete.switch"></textarea>
+                          data-ng-disabled="complete.switch == 1"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-xs-12">
-                        <h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>
-                        <h3 class="ng-hide" data-ng-show="complete.switch">
-                            {{ 'goal.priority'|trans() }}: {% for id, name in filters %}
-                            <strong class="text-purple priority-types ng-hide" data-ng-show="getPriority(userGoal)=={{ id }}">
-                                {{ name | trans | raw }}
-                            </strong>
-                            {% endfor %}
-                        </h3>
+                        {#<h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>#}
+                        <h3 class="ng-hide" data-ng-show="!(complete.switch == 1)">Priority</h3>
+                        {#<h3 class="ng-hide" data-ng-show="complete.switch">#}
+                            {#{{ 'goal.priority'|trans() }}: {% for id, name in filters %}#}
+                            {#<strong class="text-purple priority-types ng-hide" data-ng-show="getPriority(userGoal)=={{ id }}">#}
+                                {#{{ name | trans | raw }}#}
+                            {#</strong>#}
+                            {#{% endfor %}#}
+                        {#</h3>#}
 
-                        <div class="priority ng-hide" data-ng-show="!complete.switch">
+                        <div class="priority ng-hide" data-ng-show="!(complete.switch == 1)">
                             <div class="row no-gutter">
-                                <div class="col-xs-1">
-                                    <h5 class="text-gray hidden-xs">{{ 'goal.importance'|trans }}</h5>
-                                </div>
-                                <div class="col-xs-11">
-                                    <div class="row dotted">
-                                        <div class="col-sm-1">
-                                            <h6 class="text-gray hidden-xs">
-                                                <span>{{ 'goal.important'|trans }}</span>
-                                                <span>{{ 'goal.not_important'|trans }}</span>
-                                            </h6>
-                                        </div>
-                                        <div class="col-sm-11">
-                                            <div class="row">
+                                {#<div class="col-xs-1">#}
+                                    {#<h5 class="text-gray hidden-xs">{{ 'goal.importance'|trans }}</h5>#}
+                                {#</div>#}
+                                <md-checkbox aria-label="Urgent" calss="md-primary" data-ng-model="userGoal.urgent">
+                                    {{ 'goal.urgent'|trans }}
+                                </md-checkbox>
+                                <md-checkbox aria-label="Important" calss="md-primary" data-ng-model="userGoal.important">
+                                    {{ 'goal.important'|trans }}
+                                </md-checkbox>
+                                {#<div class="col-xs-11">#}
+                                    {#<div class="row dotted">#}
+                                        {#<div class="col-sm-1">#}
+                                            {#<h6 class="text-gray hidden-xs">#}
+                                                {#<span>{{ 'goal.important'|trans }}</span>#}
+                                                {#<span>{{ 'goal.not_important'|trans }}</span>#}
+                                            {#</h6>#}
+                                        {#</div>#}
+                                        {#<div class="col-sm-11">#}
+                                            {#<div class="row">#}
 
                                                 {# other filters #}
-                                                {% for id, name in filters %}
+                                                {#{% for id, name in filters %}#}
 
-                                                    <div class="col-sm-6">
-                                                        <div class="inputs-style priority-radio"
-                                                             data-ng-class="{'active-important': getPriority(userGoal)=={{ id }}}">
-                                                            <label class="radio-inline">
-                                                                <input name="test"
-                                                                   class="important-radio"
-                                                                   type="radio"
-                                                                   data-ng-model="userGoal.priority"
-                                                                   data-ng-disabled="complete.switch"
-                                                                   data-ng-checked="getPriority(userGoal)=={{ id }}"
-                                                                   value="{{ id }}">
-                                                                {{ name|trans|raw }}
-                                                            </label>
+                                                    {#<div class="col-sm-6">#}
+                                                        {#<div class="inputs-style priority-radio"#}
+                                                             {#data-ng-class="{'active-important': getPriority(userGoal)=={{ id }}}">#}
+                                                            {#<label class="radio-inline">#}
+                                                                {#<input name="test"#}
+                                                                   {#class="important-radio"#}
+                                                                   {#type="radio"#}
+                                                                   {#data-ng-model="userGoal.priority"#}
+                                                                   {#data-ng-disabled="complete.switch"#}
+                                                                   {#data-ng-checked="getPriority(userGoal)=={{ id }}"#}
+                                                                   {#value="{{ id }}">#}
+                                                                {#{{ name|trans|raw }}#}
+                                                            {#</label>#}
 
-                                                            <p class="text-gray">
-                                                                {% if id == 1 %}
-                                                                    {{ 'goal.critical_activities'|trans }}
-                                                                {% elseif id == 2 %}
-                                                                    {{ 'goal.avoid_interruptions'|trans }}
-                                                                {% elseif id == 3 %}
-                                                                    {{ 'goal.focus_goal'|trans }}
-                                                                {% elseif id == 4 %}
-                                                                    {{ 'goal.avoid_distractions'|trans }}
-                                                                {% endif %}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
+                                                            {#<p class="text-gray">#}
+                                                                {#{% if id == 1 %}#}
+                                                                    {#{{ 'goal.critical_activities'|trans }}#}
+                                                                {#{% elseif id == 2 %}#}
+                                                                    {#{{ 'goal.avoid_interruptions'|trans }}#}
+                                                                {#{% elseif id == 3 %}#}
+                                                                    {#{{ 'goal.focus_goal'|trans }}#}
+                                                                {#{% elseif id == 4 %}#}
+                                                                    {#{{ 'goal.avoid_distractions'|trans }}#}
+                                                                {#{% endif %}#}
+                                                            {#</p>#}
+                                                        {#</div>#}
+                                                    {#</div>#}
+                                                {#{% endfor %}#}
 
-                                            </div>
-                                            <div class="row hidden-xs">
-                                                <div class="col-sm-6 text-center text-gray">
-                                                    <bdi>{{ 'goal.not_urgent'|trans }}</bdi>
-                                                </div>
-                                                <div class="col-sm-6 text-center text-gray">
-                                                    <bdi>{{ 'goal.urgent'|trans }}</bdi>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            {#</div>#}
+                                            {#<div class="row hidden-xs">#}
+                                                {#<div class="col-sm-6 text-center text-gray">#}
+                                                    {#<bdi>{{ 'goal.not_urgent'|trans }}</bdi>#}
+                                                {#</div>#}
+                                                {#<div class="col-sm-6 text-center text-gray">#}
+                                                    {#<bdi>{{ 'goal.urgent'|trans }}</bdi>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
 
                             </div>
-                            <p class="text-center text-dark-gray hidden-xs">{{ 'goal.urgency'|trans }}</p>
+                            {#<p class="text-center text-dark-gray hidden-xs">{{ 'goal.urgency'|trans }}</p>#}
                         </div>
 
                     </div>
                 </div>
 
-                <h4 class="ng-hide" data-ng-show="!complete.switch">{{ "goal.complete_step"|trans }}</h4>
+                <h4 class="ng-hide" data-ng-show="!(complete.switch == 1)">{{ "goal.complete_step"|trans }}</h4>
 
-                <h3 class="ng-hide" data-ng-show="complete.switch">{{ "goal.steps"|trans }}</h3>
+                <h3 class="ng-hide" data-ng-show="complete.switch == 1">{{ "goal.steps"|trans }}</h3>
 
-                <div class="progress ng-hide" data-ng-show="!complete.switch">
+                <div class="progress ng-hide" data-ng-show="!(complete.switch == 1)">
                     <div class="progress-bar progress-bar-striped"
                          role="progressbar"
                          aria-valuenow="45"
@@ -320,7 +303,7 @@
                 </div>
 
                 <div data-dnd-list="userGoal.formatted_steps"
-                     data-dnd-disable-if="complete.switch"
+                     data-dnd-disable-if="complete.switch == 1"
                      data-dnd-dragover="dragoverCallback(event, index, external, type)"
                      data-dnd-drop="dropCallback(event, index, item, external, type, '')">
                     <div class="form-group row"
@@ -331,12 +314,12 @@
                          data-dnd-effect-allowed="move"
                          data-dnd-selected="models.selected = step"
                          data-ng-class="{'selected': models.selected === step, 'noselect': !step.text}">
-                        <label class="col-sm-2 control-label handle" data-ng-show="!complete.switch">
-                            <span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>
-                            <span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>
-                        </label>
+                        {#<label class="col-sm-2 control-label handle" data-ng-show="!(complete.switch == 1)">#}
+                            {#<span data-ng-show="step.switch" class="text-purple">{{ "goal.done"|trans }}</span>#}
+                            {#<span data-ng-hide="step.switch">{{ "goal.to_do"|trans }}</span>#}
+                        {#</label>#}
 
-                        <div data-ng-class="{'col-xs-12': complete.switch,'col-xs-8 col-sm-8': !complete.switch}">
+                        <div data-ng-class="{'col-xs-12': complete.switch == 1,'col-xs-8 col-sm-8': !(complete.switch == 1)}">
                             <div class="to-do-list">
                                 <i title="Notes" class="icon-step-list"></i>
                                 <input type="text"
@@ -345,27 +328,23 @@
                                        data-key="k"
                                        data-array="userGoal.formatted_steps"
                                        data-ng-model="step.text"
-                                       data-ng-disabled="complete.switch"
+                                       data-ng-disabled="complete.switch == 1"
                                        name="{% if app.environment !='test'%}stepText[ [[ k ]] ]{% endif %}"
                                        placeholder="{{ "goal.add_step"|trans }}">
                             </div>
                         </div>
 
-                        <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!complete.switch">
-                            <div class="onoffswitch">
-                                <input type="checkbox"
-                                       name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}"
-                                       data-ng-model="step.switch"
-                                       data-ls-checked="step.switch"
-                                       data-ng-disabled="complete.switch"
-                                       class="onoffswitch-checkbox"
-                                       id="myonoffswitch[[k]]">
+                        <div class="col-xs-4 col-sm-2 ng-hide" data-ng-show="!(complete.switch == 1)">
+                            <md-checkbox id="myonoffswitch[[k]]" aria-label="steps" name="{% if app.environment !='test'%}switch[ [[k]] ]{% endif %}" calss="md-primary" data-ng-model="step.switch">
+                            </md-checkbox>
+                            {#<div class="onoffswitch">#}
+                                       {#class="onoffswitch-checkbox"#}
 
-                                <label class="onoffswitch-label" for="myonoffswitch[[k]]">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
+                                {#<label class="onoffswitch-label" for="myonoffswitch[[k]]">#}
+                                    {#<span class="onoffswitch-inner"></span>#}
+                                    {#<span class="onoffswitch-switch"></span>#}
+                                {#</label>#}
+                            {#</div>#}
                         </div>
                     </div>
                     <div class="dndPlaceholder form-group row">
@@ -381,20 +360,23 @@
                             {{ "goal.visible"|trans }}
                     </label>
 
-                    <div class="col-xs-4 col-sm-2">
-                        <div class="onoffswitch">
-                            <input type="checkbox"
-                                data-ng-model="userGoal.is_visible"
-                                data-ls-checked="userGoal.is_visible"
-                                id="goal-is-visible"
-                                class="onoffswitch-checkbox">
+                    {#<div class="col-xs-4 col-sm-2">#}
+                        {#<div class="onoffswitch">#}
+                                {#class="onoffswitch-checkbox">#}
 
-                            <label class="onoffswitch-label" for="goal-is-visible">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                    </div>
+                            {#<label class="onoffswitch-label" for="goal-is-visible">#}
+                                {#<span class="onoffswitch-inner"></span>#}
+                                {#<span class="onoffswitch-switch"></span>#}
+                            {#</label>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    <md-radio-group data-ng-model="userGoal.is_visible" id="goal-is-visible">
+
+                        <md-radio-button data-ng-value="true" class="md-primary">Visible</md-radio-button>
+                        <md-radio-button data-ng-value="false" class="md-primary"> Invisible </md-radio-button>
+
+                    </md-radio-group>
                 </div>
 
                 <p class="text-gray">
