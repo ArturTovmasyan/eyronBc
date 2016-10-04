@@ -785,13 +785,13 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //get goal data in request
-        $goalData = $request->get('goal', null);
+        $goalData = $request->get('goal');
 
         //get latitude
-        $latitude = $request->get('latitude', null);
+        $latitude = $request->get('latitude');
 
         //get longitude
-        $longitude = $request->get('longitude', null);
+        $longitude = $request->get('longitude');
 
         //check if goal ids not send
         if(!$goalData || !$latitude || !$longitude) {
