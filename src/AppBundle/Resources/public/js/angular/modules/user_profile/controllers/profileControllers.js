@@ -186,6 +186,7 @@ angular.module('profile')
             location.longitude = goal.location.longitude;
             location.title = goal.title;
             location.slug = goal.slug;
+            location.status = goal.is_my_goal;
             $scope.locations.push(location);
           }
         });

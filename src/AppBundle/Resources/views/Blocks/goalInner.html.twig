@@ -221,10 +221,12 @@
                             {% endif %}
 
                             {% if goal.lat is not null and goal.lng is not null %}
-                                <div data-ng-show="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                <div data-ng-show="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
                                     <div class="map-marker" data-ng-show="location"
                                          data-simple-map-marker
                                          data-zoom="14"
+                                         data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+                                         data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
                                          data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                                          data-markers="location"
 
@@ -429,10 +431,12 @@
                             </li>
                         </ul>
                             {% if goal.lat is not null and goal.lng is not null %}
-                                <div data-ng-show="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                <div data-ng-show="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
                                     <div class="map-marker" data-ng-show="location"
                                          data-simple-map-marker
                                          data-zoom="14"
+                                         data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+                                         data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
                                          data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                                          data-markers="location"
 

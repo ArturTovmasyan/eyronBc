@@ -856,6 +856,7 @@ angular.module('goal', ['Interpolation',
                     location.longitude = item.location.longitude;
                     location.title = item.title;
                     location.slug = item.slug;
+                    location.status = item.is_my_goal;
                     $scope.locations.push(location);
                 }
             });
