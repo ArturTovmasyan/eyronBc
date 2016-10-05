@@ -94,6 +94,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
+            this.category = "";
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -667,8 +668,9 @@ angular.module('goal', ['Interpolation',
 
         $( '.swipebox-main' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
-
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
+        var path = $location.$$path;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -676,10 +678,32 @@ angular.module('goal', ['Interpolation',
         $scope.noIdeas = false;
         $scope.isSearching = false;
         //$scope.placeholder = '';
+        $scope.activeCategory = '';
         var locationsIds = [];
         
         $scope.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
+
+        if(path.length){
+            $scope.Ideas.busy = true;
+            $timeout(function () {
+                path = path.slice(1);
+                $scope.goTo(path);
+            },100);
+        }
+
+        $scope.goTo = function (path) {
+            $scope.noIdeas = false;
+            $scope.ideasTitle = false;
+            angular.element('.idea-item').addClass('ideas-result');
+            $scope.locations = [];
+            locationsIds = [];
+            $scope.activeCategory = path;
+            $scope.Ideas.reset();
+            $scope.search = '';
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+
         };
 
         $scope.castInt = function(value){
@@ -805,7 +829,7 @@ angular.module('goal', ['Interpolation',
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search, $scope.activeCategory);
             }
         };
 
