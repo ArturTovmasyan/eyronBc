@@ -94,6 +94,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
+            this.category = "";
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -438,10 +439,12 @@ angular.module('goal', ['Interpolation',
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
+    .controller('goalInner', ['$scope', '$rootScope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http', '$window',
+        function($scope, $rootScope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http, $window){
 
         $scope.successStoryShow = [];
+        $scope.goal = {};
+        $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
 
@@ -449,7 +452,47 @@ angular.module('goal', ['Interpolation',
             AuthenticatorLoginService.openLoginPopup();
         };
 
+        $scope.isLate = function (date) {
+            if(!date){
+                return false;
+            }
+
+            var d1 = new Date(date);
+            var d2 = new Date();
+
+            return (d1 < d2);
+        };
+
+        $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+            if(!userGoal)return;
+
+            $scope.goal.is_visible = userGoal.is_visible;
+            $scope.goal.do_date = userGoal.do_date;
+            $scope.goal.note = userGoal.note;
+            $scope.goal.public = userGoal.goal.status;
+            $scope.goal.steps = userGoal.formatted_steps.length > 0;
+        });
+
+        $rootScope.$on('removeUserGoal', function (ev, id) {
+            $window.location.href = $window.location.origin + envPrefix + 'profile';
+        });
+
         $timeout(function () {
+            if($scope.goalId){
+                var url = envPrefix + 'api/v1.0/usergoals/' + $scope.goalId;
+
+                $http.get(url).success(function(data) {
+                    $scope.goal.is_visible = data.is_visible;
+                    $scope.goal.do_date = data.do_date;
+                    $scope.goal.note = data.note;
+                    $scope.goal.steps = data.formatted_steps.length > 0;
+                });
+            }
+
+            angular.forEach($scope.successStoryImageKeys, function (d) {
+                $( '.swipebox-key-'+d ).swipebox();
+            });
+            
             var afilateHeight = $('.affiliate-right iframe').height();
             var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();
             //$('.affiliate-right iframe').height(afilateHeight + 80);
@@ -623,10 +666,11 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox' ).swipebox();
+        $( '.swipebox-main' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
-
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
+        var path = $location.$$path;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -634,10 +678,32 @@ angular.module('goal', ['Interpolation',
         $scope.noIdeas = false;
         $scope.isSearching = false;
         //$scope.placeholder = '';
+        $scope.activeCategory = '';
         var locationsIds = [];
         
         $scope.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
+
+        if(path.length){
+            $scope.Ideas.busy = true;
+            $timeout(function () {
+                path = path.slice(1);
+                $scope.goTo(path);
+            },100);
+        }
+
+        $scope.goTo = function (path) {
+            $scope.noIdeas = false;
+            $scope.ideasTitle = false;
+            angular.element('.idea-item').addClass('ideas-result');
+            $scope.locations = [];
+            locationsIds = [];
+            $scope.activeCategory = path;
+            $scope.Ideas.reset();
+            $scope.search = '';
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+
         };
 
         $scope.castInt = function(value){
@@ -754,22 +820,23 @@ angular.module('goal', ['Interpolation',
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
-            $scope.locations = [];
-            locationsIds = [];
             if(ev.which == 13){
                 ev.preventDefault();
                 ev.stopPropagation();
+                $scope.locations = [];
+                locationsIds = [];
 
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search, $scope.activeCategory);
             }
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
                 if($scope.Ideas.noItem ){
+                    $scope.fadeMapIcon = false;
                     var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
@@ -789,9 +856,14 @@ angular.module('goal', ['Interpolation',
                     location.longitude = item.location.longitude;
                     location.title = item.title;
                     location.slug = item.slug;
+                    location.status = item.is_my_goal;
                     $scope.locations.push(location);
                 }
             });
+
+            $timeout(function() {
+                $scope.fadeMapIcon = ($scope.locations.length > 0);
+            }, 1000);
         });
 
         $scope.adventureText = function(slug, cJson){

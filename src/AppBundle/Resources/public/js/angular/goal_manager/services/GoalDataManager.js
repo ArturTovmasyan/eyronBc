@@ -12,7 +12,7 @@ angular.module('goalManage')
       add: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
-            $rootScope.$broadcast('addGoal');
+            $rootScope.$broadcast('addGoal', refreshingDate.goalId);
           },600);
           $analytics.eventTrack('Goal add', {  category: 'Goal', label: 'Goal add from Web' });
           return angular.fromJson(object);
@@ -41,7 +41,7 @@ angular.module('goalManage')
         if(object == 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
-            $rootScope.$broadcast('doneGoal');
+            $rootScope.$broadcast('doneGoal', refreshingDate.goalId);
           },600);
           $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' }); 
         }
