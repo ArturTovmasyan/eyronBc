@@ -26,11 +26,11 @@ angular.module('adds', ['Interpolation',
             if(res.length){
               angular.forEach(res, function (affiliate) {
                 if(window.innerWidth < 350){
-                  affiliate.html_content = affiliate.html_content.replace('data-width="370"', 'data-width="300"');
+                  affiliate.html_content = affiliate.html_content.replace(/data-width=\"\d+\"/, 'data-width="300"');
                 } else if(window.innerWidth < 580){
-                  affiliate.html_content = affiliate.html_content.replace('data-width="370"', 'data-width="'+ (window.innerWidth - 25) +'"');
+                  affiliate.html_content = affiliate.html_content.replace(/data-width=\"\d+\"/, 'data-width="'+ (window.innerWidth - 25) +'"');
                 } else if(window.innerWidth < 768){
-                  affiliate.html_content = affiliate.html_content.replace('data-width="370"', 'data-width="600"');
+                  affiliate.html_content = affiliate.html_content.replace(/data-width=\"\d+\"/, 'data-width="600"');
                 }
 
                 element.append(affiliate.html_content);
