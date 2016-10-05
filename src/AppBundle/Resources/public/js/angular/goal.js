@@ -820,11 +820,11 @@ angular.module('goal', ['Interpolation',
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
-            $scope.locations = [];
-            locationsIds = [];
             if(ev.which == 13){
                 ev.preventDefault();
                 ev.stopPropagation();
+                $scope.locations = [];
+                locationsIds = [];
 
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
@@ -836,6 +836,7 @@ angular.module('goal', ['Interpolation',
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
                 if($scope.Ideas.noItem ){
+                    $scope.fadeMapIcon = false;
                     var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
@@ -858,6 +859,10 @@ angular.module('goal', ['Interpolation',
                     $scope.locations.push(location);
                 }
             });
+
+            $timeout(function() {
+                $scope.fadeMapIcon = ($scope.locations.length > 0);
+            }, 1000);
         });
 
         $scope.adventureText = function(slug, cJson){
