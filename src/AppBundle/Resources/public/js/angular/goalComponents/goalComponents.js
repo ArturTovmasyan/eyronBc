@@ -600,6 +600,10 @@ angular.module('goalComponents', ['Interpolation',
 
       $scope.stepsArray = [{}];
 
+      if($scope.userGoal.formatted_steps.length == 1 && $scope.userGoal.formatted_steps[0].length == 0 ){
+        $scope.userGoal.formatted_steps = [{}];
+      }
+
       if(!$scope.userGoal.goal || !$scope.userGoal.goal.id){
         console.warn('undefined goal or goalId of UserGoal');
       }
