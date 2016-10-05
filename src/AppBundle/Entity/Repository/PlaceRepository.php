@@ -13,7 +13,7 @@ class PlaceRepository extends EntityRepository
 {
     /**
      * This function is used to get all places by goal ids
-     * 
+     *
      * @param $goalIds array
      * @return array
      */
@@ -29,23 +29,23 @@ class PlaceRepository extends EntityRepository
     }
 
     /**
-     * This function is used to get all places by names and related status
+     * This function is used to get all places by ids and related status
      *
-     * @param $places array
+     * @param $placesIds array
      * @param $userId integer
      * @return array
      */
-    public function findByNamesAndUserId($places, $userId)
+    public function findAllByIds($placesIds, $userId)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT p, (CASE WHEN ur.id = :userId THEN 1 ELSE 0 END) AS related
                            FROM AppBundle:Place p
                            LEFT JOIN p.userPlace up
                            LEFT JOIN up.user ur
-                           WHERE p.name in (:places)
+                           WHERE p.id in (:placesIds)
                            ")
             ->setParameter('userId', $userId)
-            ->setParameter('places', $places)
+            ->setParameter('placesIds', $placesIds)
             ->getResult();
     }
 
@@ -59,8 +59,10 @@ class PlaceRepository extends EntityRepository
     public function findAllByBounds($latitude, $longitude)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT p.name
+            ->createQuery("SELECT  p.id, pt.name as place_type
                            FROM AppBundle:Place p
+                           JOIN p.placeType pt
+                           INDEX BY p.id
                            WHERE (:latitude BETWEEN p.minLatitude AND p.maxLatitude) and
                                  (:longitude BETWEEN p.minLongitude AND p.maxLongitude)
                            ")

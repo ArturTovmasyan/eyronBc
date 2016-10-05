@@ -98,10 +98,21 @@ class GooglePlaceService
                 }
             }
 
-            //get current place max and min bounds
-            $placeBounds = $results[0]['geometry']['bounds'];
-            $minBounds = $placeBounds['southwest'];
-            $maxBounds = $placeBounds['northeast'];
+            //get max and min bounds for city
+            $cityBounds = $results[0]['geometry']['bounds'];
+            $cityMinBounds = $cityBounds['southwest'];
+            $cityMaxBounds = $cityBounds['northeast'];
+
+            //for country
+            if (isset($results[1]) && isset($results[1]['geometry']) && isset($results[1]['geometry']['bounds'])) {
+                $countryBounds = $results[1]['geometry']['bounds'];
+                $countryMinBounds = $countryBounds['southwest'];
+                $countryMaxBounds = $countryBounds['northeast'];
+            }
+            else{
+                $countryMinBounds = $cityMinBounds;
+                $countryMaxBounds = $cityMaxBounds;
+            }
 
             //set place short name in placeArray
             if (isset($results[1]) && isset($results[1]['address_components']) && isset($results[1]['address_components'][0])
@@ -126,6 +137,9 @@ class GooglePlaceService
                     unset($placeArray[PlaceType::COUNTRY_SHORT_NAME]);
                 }
 
+                //set default placeIds value
+                $placeIds = [];
+
                 //set createPlace array data
                 $createPlaces = $placeArray;
 
@@ -139,6 +153,9 @@ class GooglePlaceService
                 if ($placeInDb) {
 
                     foreach ($placeInDb as $pl) {
+
+                        //get place ids
+                        $placeIds[] = $pl->getId();
 
                         //get place name
                         $placeName = $pl->getName();
@@ -157,6 +174,16 @@ class GooglePlaceService
                     $placeType = $this->em->getRepository('AppBundle:PlaceType')->findAllIndexByName();
 
                     foreach ($createPlaces as $key => $place) {
+
+                        if ($key == PlaceType::TYPE_COUNTRY) {
+                            $minBounds = $countryMinBounds;
+                            $maxBounds = $countryMaxBounds;
+                        }
+                        else {
+                            $minBounds = $cityMinBounds;
+                            $maxBounds = $cityMaxBounds;
+                        }
+
                         //create new place
                         $newPlace = new Place();
                         $newPlace->setName($place);
@@ -166,10 +193,13 @@ class GooglePlaceService
                         $newPlace->setMaxLatitude($maxBounds['lat']);
                         $newPlace->setMaxLongitude($maxBounds['lng']);
                         $this->em->persist($newPlace);
-                    }
+                        $this->em->flush();
 
-                    $this->em->flush();
+                        $placeIds[] = $newPlace->getId();
+                    }
                 }
+                
+                return $placeIds;
             }
 
             return $placeArray;

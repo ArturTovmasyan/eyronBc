@@ -778,12 +778,12 @@ class GoalRepository extends EntityRepository
     /**
      * This function is used to get all goal by place
      *
-     * @param $place
+     * @param $placeIds
      * @param $userId
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByPlace($place, $userId)
+    public function findAllByPlaceIds($placeIds, $userId)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT g, p
@@ -791,9 +791,9 @@ class GoalRepository extends EntityRepository
                            JOIN g.place p
                            LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
                            LEFT JOIN ug.user u
-                           WHERE LOWER(p.name) in (:place) and (ug.id is null or ug.confirmed = :status)")
+                           WHERE p.id in (:placeIds) and (ug.id is null or ug.confirmed = :status)")
             ->setParameter('userId', $userId)
-            ->setParameter('place', $place)
+            ->setParameter('placeIds', $placeIds)
             ->setParameter('status', false)
             ->getResult();
     }
