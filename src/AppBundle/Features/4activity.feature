@@ -72,10 +72,12 @@ Feature: Activity
     And I wait
     And I am on "/notifications"
     And I wait
-    Then I should see "user2 useryan wrote success story on your important goal"
+    Then I should see "TEST3 NOTE"
     And I hover over the element
+    And I should not see "userTo useryan wrote success story on your important goal"
     And I click mark as read
     And I am on "/"
+    And I reload the page
     Then I should not see number on note icon
     And I wait
 

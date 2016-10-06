@@ -39,7 +39,6 @@ Feature: My Bucket list
     And I should see "Completed"
     When I click on "pull-right"
     And I wait for angular
-    Then I should see "Satellite"
 
   @javascript @subfilters
   Scenario: Open subfilters:dreams, important, urgent.......

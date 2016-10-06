@@ -94,9 +94,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         //set password
         $password = 'Test1234';
 
-        //reload current page
-//        $this->reload();
-        
         //open login form
         $this->clickLink('JOIN');
 
@@ -626,7 +623,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get element for hover
-        $element = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@id="notification-list"]//li[2])'));
+        $element = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@id="notification-list"]//li[2]//div[@class="clearfix"])'));
 
         // errors must not pass silently
         if (null === $element) {
@@ -637,9 +634,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $element->mouseOver();
 
         //get merge goal a tag
-        $removeLinks = $element->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//i[@class="close-icon"])'));
+        $removeLinks = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//ul[@id="notification-list"]//i[@class="close-icon"])'));
 
         $removeLinks->click();
+
+        $this->iWaitForView(1000);
     }
 
     /**
