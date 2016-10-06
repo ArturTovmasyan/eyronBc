@@ -58,6 +58,9 @@ class PlaceRepository extends EntityRepository
      */
     public function findAllByBounds($latitude, $longitude)
     {
+        $latitude = $latitude < 0 ? $latitude + 360 : $latitude;
+        $longitude = $longitude < 0 ? $longitude + 360 : $longitude;
+
         return $this->getEntityManager()
             ->createQuery("SELECT  p.id, pt.name as place_type
                            FROM AppBundle:Place p
