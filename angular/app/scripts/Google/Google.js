@@ -1,5 +1,5 @@
 angular.module('Google', [])
-    .directive('simpleMapMarker',['$timeout', '$window', function($timeout, $window){
+    .directive('simpleMapMarker',['$timeout', '$window', '$rootScope', function($timeout, $window, $rootScope){
 
         function Initialize(el, zoom){
             var m, data = {};
@@ -21,6 +21,8 @@ angular.module('Google', [])
                 isBounded: '=',
                 onMarkerClick: '&',
                 passiveMarkerIcon: '@',
+                activeGoalMarkerIcon1: '@',
+                activeGoalMarkerIcon2: '@',
                 itemPageUrl: '@',
                 activeMarkerIcon: '@'
             },
@@ -62,6 +64,37 @@ angular.module('Google', [])
                         },500);
                     }, true);
 
+                    scope.$on('addGoal', function(ev, data){
+                        if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+                            var icon = {
+                                url: scope.activeGoalMarkerIcon1,
+                                scaledSize:new google.maps.Size(35, 50)
+                            };
+                            scope.mapMarkers[data].setIcon(icon);
+                        }
+                    });
+
+                    $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+                        if(!userGoal || !userGoal.status || !scope.mapMarkers[userGoal.goal.id] || !scope.mapMarkers[userGoal.goal.id].map)
+                            return;
+
+                        var icon = {
+                            url: scope['activeGoalMarkerIcon'+userGoal.status],
+                            scaledSize:new google.maps.Size(35, 50)
+                        };
+                        scope.mapMarkers[userGoal.goal.id].setIcon(icon);
+                    });
+
+                    scope.$on('doneGoal', function(ev, data){
+                        if(scope.mapMarkers[data] && scope.mapMarkers[data].map){
+                            var icon = {
+                                url: scope.activeGoalMarkerIcon2,
+                                scaledSize:new google.maps.Size(35, 50)
+                            };
+                            scope.mapMarkers[data].setIcon(icon);
+                        }
+                    });
+
                     scope.$watch('markers',function(d){
                         if(!d){
                             return;
@@ -81,6 +114,14 @@ angular.module('Google', [])
                                     var m = addMarker(v, scope.passiveMarkerIcon, scope.map);
 
                                     scope.mapMarkers[v.id] = m;
+
+                                    if(v.status == 1 || v.status == 2){
+                                        var icon = {
+                                            url: scope['activeGoalMarkerIcon' + v.status],
+                                            scaledSize:new google.maps.Size(35, 50)
+                                        };
+                                        scope.mapMarkers[v.id].setIcon(icon);
+                                    }
 
                                     var infowindow = new google.maps.InfoWindow({
                                         content: v.title

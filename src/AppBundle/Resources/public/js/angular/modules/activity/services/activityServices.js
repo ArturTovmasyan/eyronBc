@@ -57,7 +57,7 @@ angular.module('activity')
       var img;
       this.busy = false;
       angular.forEach(this.reserve, function(item) {
-        if (!angular.isUndefined(item.goals) && item.goals[0].cached_image) {
+        if (!angular.isUndefined(item.goals) && item.goals.length && item.goals[0].cached_image) {
           img = new Image();
           img.src = item.goals[0].cached_image;
         }
