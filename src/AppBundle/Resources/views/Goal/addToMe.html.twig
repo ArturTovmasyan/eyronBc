@@ -310,7 +310,7 @@
                             <p data-ng-click="completedStepsShow = !completedStepsShow"
                                  data-ng-show="completedStepCount" class="text-purple">
                                 <span data-ng-show="!completedStepsShow">{{ "show" |trans }}</span>
-                                <span data-ng-show="completedStepsShow">{{ "hide" |trans }}</span>[[ completedStepCount]] {{ "completed" |trans }}
+                                <span data-ng-show="completedStepsShow">{{ "hide" |trans }}</span> [[ completedStepCount]] {{ "completed" |trans }}
                             </p>
 
                             <div class="form-group row"
@@ -362,8 +362,8 @@
                             </h3>
 
                             <p class="text-gray">
-                                <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
-                                <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
+                                <i class="icon-eye-icon ng-hide" data-ng-show="userGoal.is_visible"></i>
+                                <i class="icon-eye ng-hide" data-ng-hide="userGoal.is_visible"></i>
                                 <span>{{ "goal.visible_text"|trans }}</span>
                             </p>
 
