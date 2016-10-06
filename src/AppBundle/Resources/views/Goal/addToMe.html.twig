@@ -100,7 +100,6 @@
                             <i data-ng-show="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1"
                                class="icon-info text-purple"></i>
 
-
                             <span class="text-purple ng-hide"
                                   data-ng-show="complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
                             <span class="text-purple ng-hide"
@@ -198,7 +197,6 @@
                             </div>
                         </div>
 
-
                         <h3 data-ng-if="userGoal.goal.location">Location</h3>
 
                         <div class="form-group row" data-ng-if="userGoal.goal.location">
@@ -217,7 +215,7 @@
                         <div class="form-group row">
                             <div class="col-xs-12">
                                 {#<h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>#}
-                                <h3 class="ng-hide" data-ng-show="!(complete.switch == 1)">Priority</h3>
+                                <h3 class="ng-hide" data-ng-show="!(complete.switch == 1)">{{ 'goal.as_priority'|trans() }}</h3>
                                 <h6>Be better prepared to decide on goals</h6>
                                 {#<h3 class="ng-hide" data-ng-show="complete.switch">#}
                                 {#{{ 'goal.priority'|trans() }}: {% for id, name in filters %}#}
@@ -339,7 +337,7 @@
                             </div>
 
                             <div data-ng-click="completedStepsShow = !completedStepsShow"
-                                 data-ng-show="completedStepCount">Hide [[ completedStepCount]] Completed
+                                 data-ng-show="completedStepCount" class="text-purple">[[ completedStepCount]] {{ "completed" |trans }} 
                             </div>
 
                             <div class="form-group row"
@@ -356,7 +354,7 @@
                                     </md-checkbox>
                                 </div>
 
-                                <div data-ng-class="{'col-xs-12': complete.switch == 1,'col-xs-10 col-sm-11': !(complete.switch == 1)}">
+                                <div class="col-xs-10 col-sm-11">
                                     <div class="to-do-list">
                                         <input type="text"
                                                class="form-control"
@@ -401,8 +399,8 @@
                             <div>
                                 <md-radio-group data-ng-model="userGoal.is_visible" id="goal-is-visible" layout-gt-sm="row">
 
-                                    <md-radio-button data-ng-value="true" class="md-primary" flex-gt-xs="20">Visible</md-radio-button>
-                                    <md-radio-button data-ng-value="false" class="md-primary" flex-gt-xs="40"> Invisible
+                                    <md-radio-button data-ng-value="true" class="md-primary" flex-gt-xs="20">{{ "goal.visible"|trans }}</md-radio-button>
+                                    <md-radio-button data-ng-value="false" class="md-primary" flex-gt-xs="40"> {{ "my_bucket_list.invisible"|trans }}
                                     </md-radio-button>
 
                                 </md-radio-group>
