@@ -152,8 +152,16 @@
                                     </span>
                                 </li>
                             </ul>
-                            {% if author and author.id == userId %}
+                            {% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}
                                 <ul class="goal-icons" data-ng-cloak data-ng-init="goalId = {{ goal.id }}">
+                                    {% if author and author.id == userId %}
+                                        <li data-ng-init="isAuthor=true">
+                                            <a href="{{ path('add_goal') }}?id={{ goal.id }}&slug=Public">
+                                                <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
                                     <li>
                                         <a href="javascript:void(0)"
                                            data-ng-cloak
@@ -190,12 +198,6 @@
 
                                     <li data-ng-if="isLate(goal.do_date)">
                                         <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ path('add_goal') }}?id={{ goal.id }}&slug=Public">
-                                            <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
-                                        </a>
                                     </li>
 
                                     <li data-ng-if="goal.note">
