@@ -3,7 +3,6 @@ Feature: Settings
   As a user2
   I need to be able to open the page and change the info I want
 
-
   Background:
     Given I am on "/logout"
     And I wait for angular

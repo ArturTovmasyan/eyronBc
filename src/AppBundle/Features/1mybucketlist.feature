@@ -17,13 +17,13 @@ Feature: My Bucket list
     When I fill in "search" with "goal1"
     And I press key "13"
     And I wait for angular
-    Then I should see "LISTED BY"
-    And I should see "COMPLETED BY"
+    Then I should see "Listed by"
     And I should see "ADD"
     When I fill in "search" with "TEST777"
     And I press key "13"
-    And I wait for view "1000"
-    Then I should see "Sorry, we couldn't find anything, but you can explore other ideas:"
+    And I wait for angular
+    Then I should see "Sorry, we couldn't find anything."
+
 
   @javascript @myBucketList
   Scenario: Open My BucketList and show me my all goals
@@ -39,7 +39,6 @@ Feature: My Bucket list
     And I should see "Completed"
     When I click on "pull-right"
     And I wait for angular
-    Then I should see "Satellite"
 
   @javascript @subfilters
   Scenario: Open subfilters:dreams, important, urgent.......
