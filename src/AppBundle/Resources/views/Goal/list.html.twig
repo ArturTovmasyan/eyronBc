@@ -77,7 +77,7 @@
 
         {% set href = path('add_goal')~'?title=[[search]]'  %}
         <h2 data-ng-show="noIdeas" class="ng-hide text-center creating-goal">
-            <span class="empty-text text-center">{{ 'goal.not_found'|trans({'%search%' : '[[search]]', '%href%': href})|raw }}</span>
+            <span class="empty-text text-center">{{ 'goal.not_found'|trans({'%search%' : '[[search]]', '%href%': href, '%isSearch%' : '!!search'})|raw }}</span>
         </h2>
 
         {% if not search %}
