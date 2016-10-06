@@ -14,6 +14,18 @@
 .story-fade-in.ng-hide-add {
     transition: all linear 500ms;
 }
+/*map icon animation hide and show*/
+.map-top.ng-hide {
+    opacity: 0;
+}
+
+.map-top.ng-hide-remove {
+    transition: all linear 1000ms;
+}
+
+.map-top.ng-hide-add {
+    transition: all linear 500ms;
+}
 /* goals animation */
 .goals-animate.ng-enter,
 .goals-animate.ng-leave{
