@@ -184,23 +184,21 @@ class GooglePlaceService
                             $maxBounds = $cityMaxBounds;
                         }
 
-                        $minLng = $minBounds['lng'] < 0 ? $minBounds['lng'] + 360 : $minBounds['lng'];
-                        $maxLng = $maxBounds['lng'] < 0 ? $maxBounds['lng'] + 360 : $maxBounds['lng'];
+                        $minLng = $minBounds['lng'];
+                        $maxLng = $maxBounds['lng'];
 
-                        $minLat = $minBounds['lat'] < 0 ? $minBounds['lat'] + 360 : $minBounds['lat'];
-                        $maxLat = $maxBounds['lat'] < 0 ? $maxBounds['lat'] + 360 : $maxBounds['lat'];
-
+                        $maxLng = $maxLng > $minLng ? $maxLng + 360 : $maxLng;
 
                         //create new place
                         $newPlace = new Place();
                         $newPlace->setName($place);
                         $newPlace->setPlaceType($placeType[$key]);
 
-                        $newPlace->setMinLatitude($minLat < $maxLat ? $minLat : $maxLat);
-                        $newPlace->setMaxLatitude($minLat < $maxLat ? $maxLat : $minLat);
+                        $newPlace->setMinLatitude($minBounds['lat']);
+                        $newPlace->setMaxLatitude($maxBounds['lat']);
 
-                        $newPlace->setMinLongitude($minLng < $maxLng ? $minLng : $maxLng);
-                        $newPlace->setMaxLongitude($minLng < $maxLng ? $maxLng : $minLng);
+                        $newPlace->setMinLongitude($minLng);
+                        $newPlace->setMaxLongitude($maxLng);
 
                         $this->em->persist($newPlace);
                         $this->em->flush();

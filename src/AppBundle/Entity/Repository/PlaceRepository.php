@@ -58,8 +58,6 @@ class PlaceRepository extends EntityRepository
      */
     public function findAllByBounds($latitude, $longitude)
     {
-        $latitude = $latitude < 0 ? $latitude + 360 : $latitude;
-        $longitude = $longitude < 0 ? $longitude + 360 : $longitude;
 
         return $this->getEntityManager()
             ->createQuery("SELECT  p.id, pt.name as place_type
@@ -67,9 +65,10 @@ class PlaceRepository extends EntityRepository
                            JOIN p.placeType pt
                            INDEX BY p.id
                            WHERE (:latitude BETWEEN p.minLatitude AND p.maxLatitude) and
-                                 (:longitude BETWEEN p.minLongitude AND p.maxLongitude)
+                                 (( :longitude BETWEEN p.minLongitude AND p.maxLongitude ) OR (:negativeLng BETWEEN p.minLongitude AND p.maxLongitude ))
                            ")
             ->setParameter('latitude', $latitude)
+            ->setParameter('negativeLng', $longitude + 360)
             ->setParameter('longitude', $longitude)
             ->getResult();
     }

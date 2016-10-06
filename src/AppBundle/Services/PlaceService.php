@@ -45,7 +45,7 @@ class PlaceService
 
         //set default placeIds value
         $placeIds = [];
-        
+
         //get places
         $places = $this->em->getRepository('AppBundle:Place')->findAllByBounds($latitude, $longitude);
 
