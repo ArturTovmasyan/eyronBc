@@ -21,6 +21,10 @@ angular.module('profile')
         $("html, body").animate({ scrollTop: 0 }, "slow");
       };
 
+      $timeout(function () {
+        $('.alert-success').addClass('ng-hide');
+      }, 5000);
+
       $scope.castInt = function(value){
         return parseInt(value);
       };
