@@ -57,7 +57,7 @@
             <div class="goal-end">
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
                         {# edit goal status #}
                         <div class="clearfix ng-hide" data-ng-show="userGoal.id"
@@ -93,7 +93,7 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <h3 data-ng-class="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}"
                             class="ng-hide" data-ng-show="!(complete.switch == 1) || userGoal.do_date">
                             {{ "goal.deadline"|trans }}
@@ -218,7 +218,7 @@
                             <div class="col-xs-12">
                                 {#<h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>#}
                                 <h3 class="ng-hide" data-ng-show="!(complete.switch == 1)">Priority</h3>
-                                <p>Be better prepared to decide on goals</p>
+                                <h6>Be better prepared to decide on goals</h6>
                                 {#<h3 class="ng-hide" data-ng-show="complete.switch">#}
                                 {#{{ 'goal.priority'|trans() }}: {% for id, name in filters %}#}
                                 {#<strong class="text-purple priority-types ng-hide" data-ng-show="getPriority(userGoal)=={{ id }}">#}
@@ -383,7 +383,7 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <div class="no-marginb">
 
                             <h3 class="text-left">
@@ -416,9 +416,9 @@
                 {% if app.user %}
                     <hr/>
                     <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div data-ng-if="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
-                                <p class="text-gray clearfix">
+                                <p class="text-gray clearfix private-space">
                                     <strong class="text-dark-gray pull-left">
                                         <i class="icon-lock-white"></i>
                                         <span>{{ 'user_goal.private' |trans }}</span>
@@ -431,8 +431,7 @@
                 {% endif %}
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
-
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
                         <p class="text-center error-message" data-ng-if="invalidYear">
                             {{ 'success_story.error_day_in_month1'|trans }} [[dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}
@@ -446,14 +445,18 @@
 
                 {#<hr />#}
                 <div class="modal-bottom">
-                    <a href="javascript:void(0)" data-ng-click="save()"
-                       class="btn btn-purple">{{ "btn_save"|trans }}</a>
-                    <a href="javascript:void(0)" rel="modal:close" id="cancel"
-                       class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-                    <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
-                       class="btn btn-transparent">
-                        <span>{{ 'forget'|trans | upper }}</span>
-                    </a>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <a href="javascript:void(0)" data-ng-click="save()"
+                               class="btn btn-purple">{{ "btn_save"|trans }}</a>
+                            <a href="javascript:void(0)" rel="modal:close" id="cancel"
+                               class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
+                            <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
+                               class="btn btn-transparent">
+                                <span>{{ 'forget'|trans | upper }}</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div data-ng-show="showDetails">
