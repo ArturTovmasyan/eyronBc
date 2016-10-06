@@ -14,9 +14,9 @@ Feature: Activity
     And I wait for angular
     And I scroll page to ".modal-bottom"
     And I wait
-    And I change switch "2"
+    And I check radio "3"
     And I wait
-    And I change switch "2"
+    And I check radio "2"
     And  I click on "btn btn-purple"
     And I wait for angular
     And I am on "/profile"

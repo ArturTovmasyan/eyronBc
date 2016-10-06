@@ -409,10 +409,10 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $page = $session->getPage();
 
         //get date
-        $priority = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//div[@class="iradio_minimal-purple"]'));
+        $priority = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '//md-checkbox'));
 
         //click on icon
-        $priority->click();
+        $priority[0]->click();
     }
 
     /**
@@ -428,6 +428,24 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
 
         //get date
         $switchs = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//label[@class="onoffswitch-label"])'));
+
+        //click on icon
+        $switchs[$number]->click();
+    }
+
+    /**
+     * @When I check radio :number
+     */
+    public function iCheckRadio($number)
+    {
+        //get session
+        $session = $this->getSession(); // assume extends RawMinkContext
+
+        //get page
+        $page = $session->getPage();
+
+        //get date
+        $switchs = $page->findAll('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//md-radio-button)'));
 
         //click on icon
         $switchs[$number]->click();
@@ -661,5 +679,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         }
 
         $element->click();
+        
+        $this->iWaitForView(2000);
     }
 }
