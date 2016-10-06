@@ -22,8 +22,9 @@ Feature: My Bucket list
     And I should see "ADD"
     When I fill in "search" with "TEST777"
     And I press key "13"
-    And I wait for view "1000"
-    Then I should see "Sorry, we couldn't find anything, but you can explore other ideas:"
+    And I wait for angular
+    Then I should see "Sorry, we couldn't find anything."
+
 
   @javascript @myBucketList
   Scenario: Open My BucketList and show me my all goals

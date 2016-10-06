@@ -59,9 +59,6 @@ Feature: Activity
     Then I should be on "/ideas/most-popular"
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     When I scroll page to ".social"
-    And I wait for view "500"
-    And I click on show more
-    And I wait for view "1000"
 
   @javascript @notification
   Scenario: Check notification functionality
@@ -147,9 +144,9 @@ Feature: Activity
     When I am logged in as "user1"
     And I should see "user1"
     And I am on "/goal/goal9"
+    And I wait for angular
     Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
     And I should see "goal9"
-    And I should see "Map"
     When I scroll page to ".text-dark-gray"
     And I wait
     Then I should see "COMPLETED BY"

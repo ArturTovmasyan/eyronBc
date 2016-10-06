@@ -60,11 +60,11 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $this->getSession()->getDriver()->maximizeWindow();
     }
 
-    /** @BeforeSuite */
-    public static function callFixturesCommand(BeforeSuiteScope $scope)
-    {
-        $scope->output = shell_exec('./bin/behat.sh');
-    }
+//    /** @BeforeSuite */
+//    public static function callFixturesCommand(BeforeSuiteScope $scope)
+//    {
+//        $scope->output = shell_exec('./bin/behat.sh');
+//    }
 
     /**
      * @Given I am logged in as :user
@@ -640,5 +640,27 @@ class FeatureContext extends MinkContext implements KernelAwareContext, SnippetA
         $removeLinks = $element->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//i[@class="close-icon"])'));
 
         $removeLinks->click();
+    }
+
+    /**
+     * @Then I click on remove button
+     */
+    public function iClickOnRemoveButton()
+    {
+        //get session
+        $session = $this->getSession();
+
+        //get page
+        $page = $session->getPage();
+
+        //get element for hover
+        $element = $page->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', '(//a[text()="REMOVE"])'));
+
+        // errors must not pass silently
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', 'notification-list'));
+        }
+
+        $element->click();
     }
 }

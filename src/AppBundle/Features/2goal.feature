@@ -32,14 +32,13 @@ Feature: Goal page
     And I follow "Save"
     And I wait for angular
     Then I should see "user1"
-    And I should see "2064"
-    When I scroll page to ".information"
-    And I follow "Manage"
-    And I wait for angular
+    When I follow "Manage"
+    And I wait for view "2000"
+    Then I should see "2018"
     And I change switch "0"
     And I wait for view "500"
     Then I should see "Goal is completed"
-    And I should see "Deadline : 2064"
+    And I should see "Deadline : 2018"
     When I change switch "0"
     And I wait for view "500"
     Then I should see "Goal is active"
@@ -153,7 +152,7 @@ Feature: Goal page
     When I click on "navbar-right"
     And I am on "/profile"
     When I scroll page to ".information"
-    And I follow "Done"
+    And I follow "Complete"
     And I am on "profile/completed-goals"
     Then I should be on "profile/completed-goals"
     When I scroll page to ".information"
@@ -210,9 +209,10 @@ Feature: Goal page
     And I change switch "3"
     And I wait
     And I change switch "3"
-    When I follow "FORGET IT"
-    And  I follow "DELETE"
+    When I follow "REMOVE"
     And I wait
+    And  I click on remove button
+    And I wait for angular
     Then I should be on "/goal/goal1"
     And I reload the page
     And I wait for view "500"
@@ -222,7 +222,6 @@ Feature: Goal page
     When I scroll page to ".radio-inline"
     And I follow "Cancel"
     And I wait for angular
-    And I should see "goal"
     And I should see "Added"
 
   @javascript @goalDraft
@@ -236,7 +235,7 @@ Feature: Goal page
     When I follow "Drafts"
     Then I should be on "/goal/my-ideas/drafts"
     And I should see "Edit"
-    And I should see "Delete"
+    And I should see "Remove"
     When I follow "Edit"
     Then I should see "Suggest as public"
     And I scroll page to "top"
@@ -244,11 +243,10 @@ Feature: Goal page
     And I wait for view "1000"
     And I follow "Save"
     And I wait for angular
-    Then I should be on "/profile"
-    And I should see "Your Goal has been Successfully Published"
+    Then I should be on "/goal/create"
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
-    And I follow "Delete"
+    And I follow "Remove"
     And I wait for view "2000"
     Then I should see "Your goal will be permanently deleted."
     When I click on "btn btn-danger"
