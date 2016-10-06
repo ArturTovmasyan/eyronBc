@@ -6,6 +6,9 @@ search: SEARCH
 join: JOIN
 copyright: 2015 Bucketlist 127
 join_now: Join Now
+hide: Hide
+show: Show
+tasks: Tasks
 
 #blocks
 most_popular: Most Popular
@@ -59,7 +62,7 @@ goal:
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
       location_ex: Location
-      note_p: Add a note
+      note_p: Add a note ...
       add_step: Add a step
       add_title: Create goal
       add_description: The first step to dream big is to create a bucketlist. If you want to fulfill your dreams, experience life goals before you die, start just now by creating goals.
@@ -76,6 +79,11 @@ goal:
       as_visible: Set as Visible
       visible: Visible
       see_also: See also
+      in_proces: An active goal is a goal in process
+      status: Goal Status
+      take_note: Take notes, follow your goal
+      deside: Be better prepared to decide on goals
+      visibility: Visibility
       not_found: |
                     <p class="empty-text text-center">
                          Sorry, we couldn't find anything.
@@ -97,7 +105,7 @@ goal:
       complete_step: Take steps - Complete your Goal !
       private_text: You created this Goal only for your Bucketlist
       invisible_text: You can make the Goal invisible for other users
-      visible_text: You can make the Goal visible for other users
+      visible_text: Show or hide your goal from others
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
       create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED

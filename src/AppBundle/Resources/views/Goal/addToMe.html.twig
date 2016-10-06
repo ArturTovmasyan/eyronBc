@@ -57,7 +57,7 @@
             <div class="goal-end">
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
                         {# edit goal status #}
                         <div class="clearfix ng-hide" data-ng-show="userGoal.id"
@@ -67,19 +67,17 @@
                             <div class="no-marginb">
 
                                 <h3 class="text-left">
-                                    {#<span data-ng-show="complete.switch">{{ "goal.is_completed"|trans }}</span>#}
-                                    {#<span data-ng-hide="complete.switch">{{ "goal.is_active"|trans }}</span>#}
-                                    Goal Status
+                                    {{ "goal.status"|trans }}
                                 </h3>
 
-                                <p>An active goal is a goal in process</p>
+                                <p>{{ "goal.in_proces"|trans }}</p>
 
                                 <div>
                                     <div data-ng-init="complete.switch=(userGoal.status==UserGoalConstant['ACTIVE']? 0:1)">
                                         <md-radio-group data-ng-model="complete.switch" name="goal_status" layout-gt-sm="row">
 
-                                            <md-radio-button value="0" class="md-primary" flex-gt-xs="20">Active</md-radio-button>
-                                            <md-radio-button value="1" class="md-primary" flex-gt-xs="40"> Completed</md-radio-button>
+                                            <md-radio-button value="0" class="md-primary" flex-gt-xs="20">{{ "user_goal.active"|trans }}</md-radio-button>
+                                            <md-radio-button value="1" class="md-primary" flex-gt-xs="40"> {{ "user_goal.completed"|trans }}</md-radio-button>
 
                                         </md-radio-group>
                                     </div>
@@ -93,13 +91,12 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <h3 data-ng-class="{'text-purple': !(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1}"
                             class="ng-hide" data-ng-show="!(complete.switch == 1) || userGoal.do_date">
                             {{ "goal.deadline"|trans }}
                             <i data-ng-show="!(complete.switch == 1) && userGoal.id && userGoal.do_date && compareDates(firefox_do_date) == -1"
                                class="icon-info text-purple"></i>
-
 
                             <span class="text-purple ng-hide"
                                   data-ng-show="complete.switch == 1 && firefox_do_date && (!userGoal.do_date_status || userGoal.do_date_status == 1)">: [[ momentDateFormat(firefox_do_date, 'DD MMM YYYY') ]]</span>
@@ -198,7 +195,6 @@
                             </div>
                         </div>
 
-
                         <h3 data-ng-if="userGoal.goal.location">Location</h3>
 
                         <div class="form-group row" data-ng-if="userGoal.goal.location">
@@ -216,20 +212,10 @@
 
                         <div class="form-group row">
                             <div class="col-xs-12">
-                                {#<h3 class="ng-hide" data-ng-show="!complete.switch">{{ 'goal.as_priority'|trans() }} </h3>#}
-                                <h3 class="ng-hide" data-ng-show="!(complete.switch == 1)">Priority</h3>
-                                <p>Be better prepared to decide on goals</p>
-                                {#<h3 class="ng-hide" data-ng-show="complete.switch">#}
-                                {#{{ 'goal.priority'|trans() }}: {% for id, name in filters %}#}
-                                {#<strong class="text-purple priority-types ng-hide" data-ng-show="getPriority(userGoal)=={{ id }}">#}
-                                {#{{ name | trans | raw }}#}
-                                {#</strong>#}
-                                {#{% endfor %}#}
-                                {#</h3>#}
+                                <h3>{{ 'goal.priority'|trans() }}</h3>
+                                <h6>{{ "goal.deside"|trans }}</h6>
 
-                                <div class="priority ng-hide" data-ng-show="!(complete.switch == 1)">
-
-                                    {#<h5 class="text-gray hidden-xs">{{ 'goal.importance'|trans }}</h5>#}
+                                <div class="priority">
 
                                     <md-checkbox aria-label="Urgent" calss="md-primary"
                                                  data-ng-model="userGoal.urgent">
@@ -240,33 +226,16 @@
                                         {{ 'goal.important'|trans }}
                                     </md-checkbox>
 
-                                    {#<span>{{ 'goal.important'|trans }}</span>#}
-                                    {#<span>{{ 'goal.not_important'|trans }}</span>#}
-
-                                    {#{{ 'goal.critical_activities'|trans }}#}
-
-                                    {#{{ 'goal.avoid_interruptions'|trans }}#}
-
-                                    {#{{ 'goal.focus_goal'|trans }}#}
-
-                                    {#{{ 'goal.avoid_distractions'|trans }}#}
-
-
-                                    {#<bdi>{{ 'goal.not_urgent'|trans }}</bdi>#}
-
-                                    {#<bdi>{{ 'goal.urgent'|trans }}</bdi>#}
-
-                                    {#<p class="text-center text-dark-gray hidden-xs">{{ 'goal.urgency'|trans }}</p>#}
                                 </div>
 
                             </div>
                         </div>
 
-                        <h3>Notes</h3>
+                        <h3>{{ 'my_bucket_list.notes'|trans }}</h3>
 
                         <p>
                             <i class="icon-pencil"></i>
-                           Take notes,follow your goal
+                            {{ 'goal.take_note'|trans }}
                         </p>
 
                         <div class="form-group row">
@@ -279,7 +248,7 @@
                                     </div>
                         </div>
 
-                        <h3>Tasks</h3>
+                        <h3>{{ "tasks"|trans }}</h3>
 
                         <p>
                             <i title="Notes" class="icon-step-list"></i>
@@ -303,7 +272,7 @@
                              data-dnd-drop="dropCallback(event, index, item, external, type, '')">
                             <div class="form-group row"
                                  data-ng-repeat="(k, step) in userGoal.formatted_steps"
-                                 data-ng-show="!step.switch"
+                                 data-ng-show="!step.switch && !(!step.text && complete.switch == 1)"
                                  data-dnd-draggable="step"
                                  data-dnd-disable-if="!step.text"
                                  data-dnd-moved="moveElement($index)"
@@ -338,15 +307,17 @@
 
                             </div>
 
-                            <div data-ng-click="completedStepsShow = !completedStepsShow"
-                                 data-ng-show="completedStepCount">Hide [[ completedStepCount]] Completed
-                            </div>
+                            <p data-ng-click="completedStepsShow = !completedStepsShow"
+                                 data-ng-show="completedStepCount" class="text-purple">
+                                <span data-ng-show="!completedStepsShow">{{ "show" |trans }}</span>
+                                <span data-ng-show="completedStepsShow">{{ "hide" |trans }}</span> [[ completedStepCount]] {{ "completed" |trans }}
+                            </p>
 
                             <div class="form-group row"
                                  data-ng-repeat="(k, step) in userGoal.formatted_steps | filter: {switch: true}"
                                  data-ng-show="completedStepsShow">
 
-                                <div class="col-xs-2 col-sm-1">
+                                <div class="col-xs-2 col-sm-1 task-checkbox">
                                     <md-checkbox id="myonoffswitch[[k]]"
                                                  aria-label="steps"
                                                  name="{% if app.environment !='test' %}switch[ [[k]] ]{% endif %}"
@@ -356,7 +327,7 @@
                                     </md-checkbox>
                                 </div>
 
-                                <div data-ng-class="{'col-xs-12': complete.switch == 1,'col-xs-10 col-sm-11': !(complete.switch == 1)}">
+                                <div class="col-xs-10 col-sm-11">
                                     <div class="to-do-list">
                                         <input type="text"
                                                class="form-control"
@@ -383,26 +354,24 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <div class="no-marginb">
 
                             <h3 class="text-left">
-                                {{ "goal.visible"|trans }}
+                                {{ "goal.visibility"|trans }}
                             </h3>
 
                             <p class="text-gray">
-                                <i class="icon-eye-icon ng-hide" data-ng-hide="userGoal.is_visible"></i>
-                                <i class="icon-eye" data-ng-show="userGoal.is_visible"></i>
-                                <span data-ng-hide="userGoal.is_visible"
-                                      style="padding-top:5px;">{{ "goal.visible_text"|trans }}</span>
-                                <span data-ng-show="userGoal.is_visible">{{ "goal.invisible_text"|trans }}</span>
+                                <i class="icon-eye-icon ng-hide" data-ng-show="userGoal.is_visible"></i>
+                                <i class="icon-eye ng-hide" data-ng-hide="userGoal.is_visible"></i>
+                                <span>{{ "goal.visible_text"|trans }}</span>
                             </p>
 
                             <div>
                                 <md-radio-group data-ng-model="userGoal.is_visible" id="goal-is-visible" layout-gt-sm="row">
 
-                                    <md-radio-button data-ng-value="true" class="md-primary" flex-gt-xs="20">Visible</md-radio-button>
-                                    <md-radio-button data-ng-value="false" class="md-primary" flex-gt-xs="40"> Invisible
+                                    <md-radio-button data-ng-value="true" class="md-primary" flex-gt-xs="20">{{ "goal.visible"|trans }}</md-radio-button>
+                                    <md-radio-button data-ng-value="false" class="md-primary" flex-gt-xs="40"> {{ "my_bucket_list.invisible"|trans }}
                                     </md-radio-button>
 
                                 </md-radio-group>
@@ -416,9 +385,9 @@
                 {% if app.user %}
                     <hr/>
                     <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div data-ng-if="userGoal.id && userGoal.goal.author && userGoal.goal.author.id == {{ app.user.id }} && userGoal.goal.status == GoalConstant['PRIVATE_PRIVACY']">
-                                <p class="text-gray clearfix">
+                                <p class="text-gray clearfix private-space">
                                     <strong class="text-dark-gray pull-left">
                                         <i class="icon-lock-white"></i>
                                         <span>{{ 'user_goal.private' |trans }}</span>
@@ -431,8 +400,7 @@
                 {% endif %}
 
                 <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
-
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
                         <p class="text-center error-message" data-ng-if="invalidYear">
                             {{ 'success_story.error_day_in_month1'|trans }} [[dayInMonth]] {{ 'success_story.error_day_in_month2'|trans }}
@@ -446,14 +414,18 @@
 
                 {#<hr />#}
                 <div class="modal-bottom">
-                    <a href="javascript:void(0)" data-ng-click="save()"
-                       class="btn btn-purple">{{ "btn_save"|trans }}</a>
-                    <a href="javascript:void(0)" rel="modal:close" id="cancel"
-                       class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
-                    <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
-                       class="btn btn-transparent">
-                        <span>{{ 'forget'|trans | upper }}</span>
-                    </a>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                            <a href="javascript:void(0)" data-ng-click="save()"
+                               class="btn btn-purple">{{ "btn_save"|trans }}</a>
+                            <a href="javascript:void(0)" rel="modal:close" id="cancel"
+                               class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
+                            <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
+                               class="btn btn-transparent">
+                                <span>{{ 'forget'|trans | upper }}</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div data-ng-show="showDetails">

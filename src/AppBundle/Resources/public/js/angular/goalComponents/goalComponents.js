@@ -59,7 +59,7 @@ angular.module('goalComponents', ['Interpolation',
     };
 
     $scope.getPopularGoals = function(id){
-      path = path.replace('{count}', $scope.count);
+      path = path.replace('{count}', (window.innerWidth > 767 && window.innerWidth < 993)?2: $scope.count);
 
       var topIdeas = popularCache.get('top-ideas'+id);
 

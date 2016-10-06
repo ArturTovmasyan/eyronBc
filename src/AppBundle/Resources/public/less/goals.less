@@ -440,7 +440,7 @@
 
 .goal-end{
   background-color: #ffffff;
-  padding:10px 10px 3px;
+  padding:10px 10px 0;
   .rounded-corners(6px);
   margin-bottom: 50px;
 
@@ -465,6 +465,7 @@
   label.text-purple{
     font-size:18px;
   }
+
 
   md-radio-group .md-checked:not([disabled]).md-primary {
     .md-ink-ripple{
@@ -882,7 +883,7 @@
       }
 
       &.progress-section{
-        padding: 0;
+        padding: 0 0 0 10px;
         li:nth-child(2){
           width:140px;
           margin-right:10px;
@@ -1053,6 +1054,14 @@
 
       &.icon-info{
         margin: -1px 0 0 6px;
+      }
+    }
+    a{
+      &:hover{
+        i{
+          color: #7724F6;
+          cursor:pointer;
+        }
       }
     }
 
@@ -1230,9 +1239,17 @@
 
   .goal-end{
     padding: 0;
-    margin-bottom:60px;
+    margin-bottom:78px;
     textarea{
       resize: none;
+    }
+
+    md-radio-group{
+      margin-bottom: 15px;
+    }
+
+    .private-space{
+      padding: 15px 0 6px;
     }
 
     h3{
@@ -1430,6 +1447,10 @@
       ul{
         height:30px;
         padding:0;
+
+        &.progress-section{
+          padding: 0 0 0 5px;
+        }
         //margin-bottom:15px;
       }
 
@@ -1609,7 +1630,6 @@
   }
 
   .goal-end{
-    margin-bottom:70px;
     padding-bottom:3px;
 
     label.text-purple{
@@ -1620,6 +1640,14 @@
       }
     }
 
+    .private-space{
+      padding: 30px 0 21px;
+
+      span{
+        display: inline-block;
+        margin: 2px 0 0 0;
+      }
+    }
 
     strong{
       display:inline-block;
@@ -1638,13 +1666,11 @@
 
     .modal-bottom{
       button,a{
-        padding:10px 55px;
+        width: 135px;
+        padding:10px 0;
         font-size:15px;
         margin-right: 5px;
-
-        &.forget{
-          padding:7px 15px 7px 10px;
-        }
+        text-align: center;
       }
     }
   }
