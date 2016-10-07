@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\PlaceType;
 use AppBundle\Entity\UserPlace;
 use Application\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -17,7 +18,7 @@ class PlaceService
      * @var EntityManager
      */
     protected $em;
-    
+
     /**
      * NotifyAboutDoneGoalByPlaceService constructor.
      * @param GooglePlaceService $googlePlaceService
@@ -39,36 +40,54 @@ class PlaceService
      */
     public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
-        //get place by coordinate
-        $places = $this->googlePlaceService->getPlace($latitude, $longitude, true);
+        //set default value
+        $sendGoogleRequest = true;
 
-        //check if place not exist
+        //get places
+        $places = $this->em->getRepository('AppBundle:Place')->findAllByBounds($latitude, $longitude);
+
+        //get place Ids
+        $placeIds = array_map(function($item){return $item['id'];}, $places);
+
         if ($places) {
 
-            //create UserPlace for user
-            $this->createUserPlace($places, $latitude, $longitude, $user);
+            // check if place data is city and country
+            if(count($places) == 2 &&
+                reset($places)['place_type'] != end($places)['place_type']){
 
-            //get goal by place
-            $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlace($places, $user->getId());
-
-            return $goals;
+                $sendGoogleRequest = false;
+            }
         }
 
-        return null;
+        //check if sendGoogleRequest is true or places not exist
+        if (!$places || $sendGoogleRequest) {
+
+            //get places in google, create and return ids
+            $placeIds = $this->googlePlaceService->getPlace($latitude, $longitude, true);
+        }
+
+        //create UserPlace for user
+        $this->createUserPlace($placeIds, $latitude, $longitude, $user);
+
+        //get goal by place
+        $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlaceIds($placeIds, $user->getId());
+
+        return $goals;
+
     }
 
     /**
      * This function is used to create userPlace for user
      *
-     * @param $places
+     * @param $placesIds
      * @param $latitude
      * @param $longitude
      * @param User $user
      */
-    private function createUserPlace($places, $latitude, $longitude, User $user)
+    private function createUserPlace($placesIds, $latitude, $longitude, User $user)
     {
         //get all places in DB
-        $places = $this->em->getRepository('AppBundle:Place')->findByNamesAndUserId($places, $user->getId());
+        $places = $this->em->getRepository('AppBundle:Place')->findAllByIds($placesIds, $user->getId());
 
         //check if place exists
         if ($places) {
@@ -77,7 +96,6 @@ class PlaceService
             {
                 //check if user not related with place
                 if(!$place['related']) {
-
                     //create userPlace
                     $userPlace = new UserPlace();
                     $userPlace->setLatitude($latitude);
@@ -87,7 +105,7 @@ class PlaceService
                     $this->em->persist($userPlace);
                 }
             }
-            
+
             $this->em->flush();
         }
     }

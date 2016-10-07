@@ -718,17 +718,14 @@ class GoalController extends FOSRestController
      *         200="Ok",
      *         400="Bad request"
      *  },
-     *  parameters={
-     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
-     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
-     *  }
      * )
      *
-     * @return array
+     * @return mixed
      * @param $latitude float
      * @param $longitude float
      *
      * @Rest\View(serializerGroups={"goal"})
+     * @Rest\Get("/goals/places/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
      * @Security("has_role('ROLE_USER')")
      */
     public function getGoalsInPlaceAction($latitude, $longitude)
@@ -742,7 +739,7 @@ class GoalController extends FOSRestController
             //get current user
             $user = $this->getUser();
 
-            //get all goal by place
+            //get all goals by place
             $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
             //check if goal not exists
@@ -753,7 +750,7 @@ class GoalController extends FOSRestController
             return $allGoals;
         }
 
-        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+        return new Response('Missing coordinate data', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -777,6 +774,7 @@ class GoalController extends FOSRestController
      * @param $request
      *
      * @Rest\View()
+     * @Rest\Post("/goals/confirm")
      * @Security("has_role('ROLE_USER')")
      */
     public function postConfirmGoalsAction(Request $request)
@@ -785,13 +783,13 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //get goal data in request
-        $goalData = $request->get('goal', null);
+        $goalData = $request->get('goal');
 
         //get latitude
-        $latitude = $request->get('latitude', null);
+        $latitude = $request->get('latitude');
 
         //get longitude
-        $longitude = $request->get('longitude', null);
+        $longitude = $request->get('longitude');
 
         //check if goal ids not send
         if(!$goalData || !$latitude || !$longitude) {
