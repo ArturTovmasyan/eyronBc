@@ -720,7 +720,7 @@ class GoalController extends FOSRestController
      *  },
      * )
      *
-     * @return array
+     * @return mixed
      * @param $latitude float
      * @param $longitude float
      *
