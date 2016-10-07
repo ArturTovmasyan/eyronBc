@@ -31,9 +31,6 @@ class GooglePlaceServiceTest extends BaseClass
         $latitudeRussia = $placesData[1]['latitude'];
         $longitudeRussia = $placesData[1]['longitude'];
 
-        $russia = $placesData[1]['country'];
-        $moscow = $placesData[1]['city'];
-
         $data = array(
             array('latitude' => $latitudeArmenia,
                 'longitude' => $longitudeArmenia,
@@ -43,7 +40,7 @@ class GooglePlaceServiceTest extends BaseClass
             array('latitude' => $latitudeRussia,
                 'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => [PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia]));
+                'placeName' => []));
 
         return $data;
     }
@@ -71,7 +68,6 @@ class GooglePlaceServiceTest extends BaseClass
             $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
 
         } else {
-
             $this->assertEquals(2, count($googlePlace), 'getPlace() method by param save don\'t work correctly');
         }
     }
