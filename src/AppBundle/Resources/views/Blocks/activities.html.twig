@@ -1,9 +1,9 @@
 <div data-ls-activities
      id="activities"
+     data-ng-cloak
      {% if single  and activity is defined and userId is defined%}
         data-ls-count="10"
         data-ls-user="{{ userId }}"
-        data-ng-cloak
      {% endif %}>
 
     {% if not single%}

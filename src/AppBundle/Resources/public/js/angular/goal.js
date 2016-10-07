@@ -704,6 +704,7 @@ angular.module('goal', ['Interpolation',
 
         $scope.goTo = function (path) {
             $scope.noIdeas = false;
+            $scope.showMap = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
             $scope.locations = [];
@@ -798,6 +799,7 @@ angular.module('goal', ['Interpolation',
                 ev.stopPropagation();
                 $scope.locations = [];
                 locationsIds = [];
+                $scope.showMap = false;
 
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
