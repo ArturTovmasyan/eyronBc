@@ -39,6 +39,7 @@ class GooglePlaceService
      * @param $longitude float
      * @param $save boolean
      * @return mixed
+     * @throws \Exception
      */
     public function getPlace($latitude, $longitude, $save = false)
     {
@@ -63,8 +64,13 @@ class GooglePlaceService
         //json decode data
         $response = json_decode($response, true);
 
+        //check response
+        if (!$response) {
+            throw new \Exception('Connection error');
+        }
+
         //get error messages
-        $errorMessage = array_key_exists('error_message', $response) ? $response['error_message '] : null;
+        $errorMessage = array_key_exists('error_message', $response) ? $response['error_message'] : null;
 
         //check if error messages exist
         if (count($errorMessage) > 0) {
@@ -140,40 +146,34 @@ class GooglePlaceService
                 //set default placeIds value
                 $placeIds = [];
 
-                //set createPlace array data
-                $createPlaces = $placeArray;
-
-                //get places name in array
-                $places = array_values($placeArray);
-
                 //get places in DB
-                $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $places));
+                $placeInDb = $this->em->getRepository('AppBundle:Place')->findIdNameByName(array_values($placeArray));
 
                 //remove existing place in createPlaces array
                 if ($placeInDb) {
 
-                    foreach ($placeInDb as $pl) {
+                    foreach ($placeInDb as $place) {
 
                         //get place ids
-                        $placeIds[] = $pl->getId();
+                        $placeIds[] = $place['id'];
 
                         //get place name
-                        $placeName = $pl->getName();
+                        $placeName = $place['name'];
 
                         //remove existing place name in array
-                        if (($key = array_search($placeName, $createPlaces)) !== false) {
-                            unset($createPlaces[$key]);
+                        if (($key = array_search($placeName, $placeArray)) !== false) {
+                            unset($placeArray[$key]);
                         }
                     }
                 }
 
                 //check if createPlaces exist
-                if ($createPlaces) {
+                if ($placeArray) {
 
                     //get all placeType index by name
                     $placeType = $this->em->getRepository('AppBundle:PlaceType')->findAllIndexByName();
 
-                    foreach ($createPlaces as $key => $place) {
+                    foreach ($placeArray as $key => $place) {
 
                         if ($key == PlaceType::TYPE_COUNTRY) {
                             $minBounds = $countryMinBounds;

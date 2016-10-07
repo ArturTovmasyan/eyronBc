@@ -739,7 +739,7 @@ class GoalController extends FOSRestController
             //get current user
             $user = $this->getUser();
 
-            //get all goal by place
+            //get all goals by place
             $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
             //check if goal not exists
@@ -750,7 +750,7 @@ class GoalController extends FOSRestController
             return $allGoals;
         }
 
-        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+        return new Response('Missing coordinate data', Response::HTTP_BAD_REQUEST);
     }
 
     /**
