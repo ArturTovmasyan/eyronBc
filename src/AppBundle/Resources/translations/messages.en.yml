@@ -108,7 +108,7 @@ goal:
       visible_text: Show or hide your goal from others
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
-      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
+      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
       empty_private_ideas: Currently there are no Private goals in your Private goal list
@@ -362,6 +362,7 @@ delete_message: |
 complete_message: Complete your profile
 
 added: Added
+addedU: ADDED
 completed: Completed
 no_common: You haven`t common goals
 submit: Submit
@@ -432,6 +433,7 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
+      createdU: CREATED
       updated: Updated
       goal_link: Goal link
       comments: Comments

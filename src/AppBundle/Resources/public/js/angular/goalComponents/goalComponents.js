@@ -592,7 +592,8 @@ angular.module('goalComponents', ['Interpolation',
       $scope.GoalConstant = GoalConstant;
       $scope.UserGoalConstant = UserGoalConstant;
 
-      $scope.newAdded = (angular.element('#goal-create-form').length > 0 && window.location.href.indexOf('?id=') === -1);
+      $scope.newCreated = (angular.element('#goal-create-form').length > 0 && window.location.href.indexOf('?id=') === -1);
+      $scope.newAdded = $scope.newCreated;
 
       $scope.$on('addGoal', function(){
         $scope.newAdded = true;

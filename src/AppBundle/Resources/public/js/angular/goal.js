@@ -423,19 +423,20 @@ angular.module('goal', ['Interpolation',
 
         });
 
+        $('body').on('click', '.usergoal-save', function() {
+            $scope.isSave = true;
+        });
+
         angular.element(".goal-view-submit").click(function(){
             angular.element("#goal-create-form").ajaxFormUnbind();
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
             $scope.goalSubmitTemplate = '';
-            if(window.location.href.indexOf('?id=') === -1){
+            if(window.location.href.indexOf('?id=') === -1 && !$scope.isSave){
                 UserGoalDataManager.creates({id:$scope.newId}, {is_visible: true}, function (resource){
                     userGoalData.data = resource;
-                    if(window.location.href.indexOf('goal/create') != -1){
-                        // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-                        $window.location.href = $scope.redirectPath;
-                    }
+                    $window.location.href = $scope.redirectPath;
                 });
             } else {
                 $window.location.href = $scope.redirectPath;

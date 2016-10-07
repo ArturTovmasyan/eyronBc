@@ -29,12 +29,13 @@ angular.module('manage', ['Interpolation',
             goalUsersUrl = envPrefix + "goal/users",
             id = UserContext.id,
             locale = UserContext.locale,
-            changedLanguage = false;
+            changedLanguage = false,
+            cacheVersion = 11;
 
-        var templateCache = CacheFactory.get('bucketlist_templates_v10');
+        var templateCache = CacheFactory.get('bucketlist_templates_v' + cacheVersion);
 
         if(!templateCache){
-            templateCache = CacheFactory('bucketlist_templates_v10', {
+            templateCache = CacheFactory('bucketlist_templates_v' + cacheVersion, {
                 maxAge: 3 * 24 * 60 * 60 * 1000 ,// 3 day,
                 deleteOnExpire: 'aggressive'
             });
