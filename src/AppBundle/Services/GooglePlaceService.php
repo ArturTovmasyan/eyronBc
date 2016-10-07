@@ -187,7 +187,7 @@ class GooglePlaceService
                         $minLng = $minBounds['lng'];
                         $maxLng = $maxBounds['lng'];
 
-                        $maxLng = $maxLng > $minLng ? $maxLng + 360 : $maxLng;
+                        $maxLng = $maxLng < $minLng ? $maxLng + 360 : $maxLng;
 
                         //create new place
                         $newPlace = new Place();
