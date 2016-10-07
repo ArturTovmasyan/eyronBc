@@ -1,6 +1,10 @@
 <div class="modal" id="goal-modal" data-ng-controller="goalEnd">
     <div class="goal-container">
-        <div data-ng-if="newAdded" class="email">{{ "goal.create_goal" | trans }}</div>
+        <div data-ng-if="newAdded" class="email">
+            {{ "goal.create_goal" | trans }}
+            <span data-ng-if="!newCreated"> {{ "addedU" | trans }}</span>
+            <span data-ng-if="newCreated"> {{ "admin.label.name.createdU" | trans }}</span>
+        </div>
 
         <div class="modal-top">
             <figure data-ng-if="userGoal.goal.cached_image">
@@ -416,7 +420,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <a href="javascript:void(0)" data-ng-click="save()"
-                               class="btn btn-purple">{{ "btn_save"|trans }}</a>
+                               class="btn btn-purple usergoal-save">{{ "btn_save"|trans }}</a>
                             <a href="javascript:void(0)" rel="modal:close" id="cancel"
                                class="btn btn-transparent">{{ 'btn_cancel'|trans }}</a>
                             <a href="javascript:void(0)" data-ng-click="showDetails = ! showDetails"
