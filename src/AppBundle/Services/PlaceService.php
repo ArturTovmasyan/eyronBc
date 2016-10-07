@@ -47,7 +47,7 @@ class PlaceService
         $places = $this->em->getRepository('AppBundle:Place')->findAllByBounds($latitude, $longitude);
 
         //get place Ids
-        $placeIds = array_keys($places);
+        $placeIds = array_map(function($item){return $item['id'];}, $places);
 
         if ($places) {
 

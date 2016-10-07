@@ -63,7 +63,6 @@ class PlaceRepository extends EntityRepository
             ->createQuery("SELECT  p.id, pt.name as place_type
                            FROM AppBundle:Place p
                            JOIN p.placeType pt
-                           INDEX BY p.id
                            WHERE (:latitude BETWEEN p.minLatitude AND p.maxLatitude) and
                                  (( :longitude BETWEEN p.minLongitude AND p.maxLongitude ) OR
                                   (:negativeLng BETWEEN p.minLongitude AND p.maxLongitude ))
