@@ -704,7 +704,6 @@ angular.module('goal', ['Interpolation',
 
         $scope.goTo = function (path) {
             $scope.noIdeas = false;
-            $scope.showMap = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
             $scope.locations = [];
@@ -799,7 +798,6 @@ angular.module('goal', ['Interpolation',
                 ev.stopPropagation();
                 $scope.locations = [];
                 locationsIds = [];
-                $scope.showMap = false;
 
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
@@ -812,6 +810,7 @@ angular.module('goal', ['Interpolation',
             if(!d.length){
                 if($scope.Ideas.noItem ){
                     $scope.fadeMapIcon = false;
+                    $scope.showMap = false;
                     var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
@@ -838,6 +837,7 @@ angular.module('goal', ['Interpolation',
 
             $timeout(function() {
                 $scope.fadeMapIcon = ($scope.locations.length > 0);
+                $scope.showMap = $scope.showMap && $scope.fadeMapIcon ;
             }, 1000);
         });
 
