@@ -9,7 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Place
  *
- * @ORM\Table(name="place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_place", columns={"name", "place_type_id"})}
+ * @ORM\Table(name="place",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_place", columns={"name", "place_type_id"})},
+ *     indexes={
+ *          @ORM\Index(name="IDX_COORDINATE_SEARCH", columns={"min_latitude", "max_latitude", "min_longitude", "max_longitude", "place_type_id"}),
+ * }
  *  ))
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PlaceRepository")
  * @UniqueEntity(

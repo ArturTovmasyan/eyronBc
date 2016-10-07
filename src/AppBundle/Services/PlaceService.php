@@ -41,39 +41,21 @@ class PlaceService
     public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
         //set default value
-        $sendGoogleRequest = false;
-
-        //set default placeIds value
-        $placeIds = [];
+        $sendGoogleRequest = true;
 
         //get places
         $places = $this->em->getRepository('AppBundle:Place')->findAllByBounds($latitude, $longitude);
 
+        //get place Ids
+        $placeIds = array_map(function($item){return $item['id'];}, $places);
+
         if ($places) {
 
-            //get place Ids
-            $placeIds = array_keys($places);
+            // check if place data is city and country
+            if(count($places) == 2 &&
+                reset($places)['place_type'] != end($places)['place_type']){
 
-            //check if need to send request in google
-            if(count($places) > 2 || (count($places) == 1 &&
-               reset($places)['place_type'] == PlaceType::TYPE_COUNTRY)) {
-
-                $sendGoogleRequest = true;
-            }
-
-            //check if sendGoogleRequest not exist
-            if (!$sendGoogleRequest) {
-
-                //get places value in array
-                $placesValue = array_values($places);
-
-                if(count($placesValue) == 2) {
-
-                    //check if in array exist 2 similar types
-                    if ($placesValue[0]['place_type'] == $placesValue[1]['place_type']) {
-                        $sendGoogleRequest = true;
-                    }
-                }
+                $sendGoogleRequest = false;
             }
         }
 
