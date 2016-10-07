@@ -66,18 +66,13 @@ class GooglePlaceServiceTest extends BaseClass
         //get place by service
         $googlePlace = $googlePlaceService->getPlace($latitude, $longitude, $save);
 
-        $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
+        //check if save value is false
+        if (!$save) {
+            $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
 
-        //check if save value is true
-        if ($save) {
+        } else {
 
-            //get place value in assoc. array
-            $place = array_values($googlePlace);
-
-            //get place in by name in DB
-            $placeInDb = $this->em->getRepository('AppBundle:Place')->findBy(array('name' => $place));
-
-            $this->assertEquals(2, count($placeInDb), 'getPlace method by param save don\'t work correctly');
+            $this->assertEquals(2, count($googlePlace), 'getPlace() method by param save don\'t work correctly');
         }
     }
 }
