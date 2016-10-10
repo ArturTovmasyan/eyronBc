@@ -224,8 +224,9 @@ class UserRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT u.id as id, u.email as email, CONCAT(COALESCE(u.firstname, ''), ' ', COALESCE(u.lastname, '')) as fullName, u.locale
                             FROM ApplicationUserBundle:User u
-                            WHERE u.roles LIKE :role ")
+                            WHERE u.roles LIKE :role OR  u.roles LIKE :god")
             ->setParameter('role', '%' . 'ROLE_SUPER_ADMIN' . '%')
+            ->setParameter('god', '%' . 'ROLE_GOD' . '%')
             ->getResult()
             ;
     }
