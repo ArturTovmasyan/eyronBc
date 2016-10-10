@@ -865,7 +865,7 @@ class GoalController extends FOSRestController
 
                 //check if user has confirmed goal
                 if ($confirm) {
-                    $em->persist($userGoal);
+//                    $em->persist($userGoal);
                 }
             }
 
