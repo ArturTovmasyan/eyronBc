@@ -574,15 +574,35 @@ class GoalRepository extends EntityRepository
      * @param $limit
      * @return array
      */
-    public function findGoalGroupByCreationDate($limit)
+    public function findGoalGroupByCreationDateByAdmin($limit, $ids)
     {
         return $this->getEntityManager()
             ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
 						   FROM AppBundle:Goal g
-						   WHERE g.created > :limit
+						   WHERE g.created > :limit AND g.author in (:ids)
 						   GROUP BY dates
 						   ORDER BY dates')
             ->setParameter('limit', $limit)
+            ->setParameter('ids', $ids)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get goal group by created date
+     *
+     * @param $limit
+     * @return array
+     */
+    public function findGoalGroupByCreationDateByUser($limit, $ids)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
+						   FROM AppBundle:Goal g
+						   WHERE g.created > :limit AND g.author not in (:ids)
+						   GROUP BY dates
+						   ORDER BY dates')
+            ->setParameter('limit', $limit)
+            ->setParameter('ids', $ids)
             ->getResult();
     }
 

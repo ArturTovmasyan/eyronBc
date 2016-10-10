@@ -259,6 +259,24 @@ class MainController extends Controller
     }
 
     /**
+     * @param $index
+     * @param $array
+     * @return bool
+     */
+    private function checkAndGetFromArray($index, &$array)
+    {
+        // check data
+        foreach ($array as $key => $value){
+            if($index == $value['dates']){
+                $result = $value['counts'];
+                unset($array[$key]);
+                return $result;
+            }
+        }
+        return 0;
+    }
+
+    /**
      * This function is view statistic
      *
      * @Route("/moderator/goal-statistic", name="statistic_view")
@@ -268,56 +286,94 @@ class MainController extends Controller
     public function goalStatisticAction()
     {
         $em = $this->getDoctrine()->getManager();
+
+        // find all admins
+        $admins = $em->getRepository("ApplicationUserBundle:User")->findAdmins('');
+        // get admins ids
+        $adminIds = array_map(function($admin){return $admin['id']; }, $admins);
+
         $createLimit = new \DateTime('now');
+        $end = clone $createLimit;
         $createLimit->modify('-30 days');
+        $start = clone $createLimit;
         $createLimit = date_format($createLimit,'Y-m-d');
-        $results = $em->getRepository('AppBundle:Goal')->findGoalGroupByCreationDate($createLimit);
+
+        $adminResults = $em->getRepository('AppBundle:Goal')->findGoalGroupByCreationDateByAdmin($createLimit, $adminIds);
+        $userResults = $em->getRepository('AppBundle:Goal')->findGoalGroupByCreationDateByUser($createLimit, $adminIds);
+
         $createResult = array();
         $createCount = 0;
+        $createAxis = array('Total', 'By Admin', 'By User');
+        $createCategories = [];
+        $perUserCreated = array('By Admin' => 0, 'By User' => 0, 'Total' => 0 );
 
-        if($results) {
-            $count = 0;
+        for( $i = $start; $i < $end; $i->modify("+1 day")){
+            $adminResult = $this->checkAndGetFromArray($i->format('Y-m-d'), $adminResults);
+            $createResult[$i->format('Y-m-d')]['By Admin'] = $adminResult;
 
-            foreach($results as $n => $result)
-            {
-                $time1 = new \DateTime($result['dates']);
-                $createResult[$count]['dates'] = $result['dates'];
-                $createResult[$count]['counts'] = $result['counts'];
-                $count++;
-                $createCount +=$result['counts'];
+            $userResult = $this->checkAndGetFromArray($i->format('Y-m-d'), $userResults);
+            $createResult[$i->format('Y-m-d')]['By User'] = $userResult;
 
-                if(isset($results[$n + 1])){
-                    $time2 = new \DateTime($results[$n+1]['dates']);
+            $createResult[$i->format('Y-m-d')]['Total'] = $adminResult + $userResult;
 
-                    for($i =$count;$i < 30 ; $i++)
-                    {
-                        if(date_diff($time1,$time2)->d > 1){
-                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
-                            $createResult[$count]['counts'] = 0;
-                            $count++;
-                        }
-                    }
-                }else{
-                    $time2 = new \DateTime('now');
+            if($adminResult > 0 || $userResult > 0){
+                $createCount ++;
+            }
 
-                    for($i =$count;$i < 30 ; $i++)
-                    {
-                        if(date_diff($time1,$time2)->d > 0){
-                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
-                            $createResult[$count]['counts'] = 0;
-                            $count++;
-                        }
-                    }
-                }
-            };
-        }
-        else {
-            $create = new \DateTime('now');
-            $create = date_format($create,'Y-m-d');
-            $createResult[0]['dates'] = $create;
-            $createResult[0]['counts'] = 0;
+            $perUserCreated['Total'] += ($adminResult + $userResult);
+            $perUserCreated['By User'] += $userResult;
+            $perUserCreated['By Admin'] += $adminResult;
+
+            $day = $i->format('M d');
+            $createCategories[] = $day;//for view oll days in graph
+
         }
 
+        $createCategories = array_unique($createCategories);
+
+
+//        if($results) {
+//            $count = 0;
+//
+//            foreach($results as $n => $result)
+//            {
+//                $time1 = new \DateTime($result['dates']);
+//                $createResult[$count]['dates'] = $result['dates'];
+//                $createResult[$count]['counts'] = $result['counts'];
+//                $count++;
+//                $createCount +=$result['counts'];
+//
+//                if(isset($results[$n + 1])){
+//                    $time2 = new \DateTime($results[$n+1]['dates']);
+//
+//                    for($i =$count;$i < 30 ; $i++)
+//                    {
+//                        if(date_diff($time1,$time2)->d > 1){
+//                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
+//                            $createResult[$count]['counts'] = 0;
+//                            $count++;
+//                        }
+//                    }
+//                }else{
+//                    $time2 = new \DateTime('now');
+//
+//                    for($i =$count;$i < 30 ; $i++)
+//                    {
+//                        if(date_diff($time1,$time2)->d > 0){
+//                            $createResult[$count]['dates'] = date_format(date_add($time1, date_interval_create_from_date_string('1 days')), 'Y-m-d');
+//                            $createResult[$count]['counts'] = 0;
+//                            $count++;
+//                        }
+//                    }
+//                }
+//            };
+//        }
+//        else {
+//            $create = new \DateTime('now');
+//            $create = date_format($create,'Y-m-d');
+//            $createResult[0]['dates'] = $create;
+//            $createResult[0]['counts'] = 0;
+//        }
 
 
         //set updated goals in 30 days
@@ -546,10 +602,13 @@ class MainController extends Controller
         $ollDates = array_unique($ollDates);
 
         return array(
+            'createCategories' => $createCategories,
+            'createAxis' => $createAxis,
             'ollDates'       => $ollDates,
             'userNames'      => $kayNames,
             'perUser'		 => $perUser,
-            'result' 	     => $createResult,
+            'perUserCreated'		 => $perUserCreated,
+            'createResult' 	     => $createResult,
             'crawlerCount'	 => $createCount,
             'crawlerAverage' => $createAverage,
             'published'	     => $publishResult,
