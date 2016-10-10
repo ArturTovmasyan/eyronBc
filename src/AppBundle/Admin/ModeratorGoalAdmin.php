@@ -183,8 +183,18 @@ class ModeratorGoalAdmin extends AbstractAdmin
                 ->set('goalPublished','Goal published from Web')
             ;
         }
-        // get current user
+
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+
+        // check and set author
+        if((!$original && $object->getPublish() ==  PublishAware::PUBLISH) ||
+            ($original['publish'] != $object->getPublish() &&
+                $object->getPublish() == PublishAware::PUBLISH)){
+
+            $object->setPublishedBy($user->getUserName());
+        }
+
+        // get current user
         $description = $object->getDescription();
         $object->setDescription($description);
 

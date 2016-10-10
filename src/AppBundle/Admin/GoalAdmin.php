@@ -218,8 +218,17 @@ class GoalAdmin extends AbstractAdmin
                 $container->get('bl_notification')->sendNotification(null, $link, $object->getId(), $body, $object->getAuthor());
             }
         }
-        // get current user
+
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+
+        // check and set author
+        if((!$original && $object->getPublish() ==  PublishAware::PUBLISH) ||
+            ($original['publish'] != $object->getPublish() &&
+                $object->getPublish() == PublishAware::PUBLISH)){
+
+            $object->setPublishedBy($user->getUserName());
+        }
+
         $description = $object->getDescription();
         $object->setDescription($description);
 
