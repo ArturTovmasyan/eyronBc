@@ -133,8 +133,8 @@
                             {% endblock %}
 
                             <figcaption>
-                                <h3 class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}" data-ng-if="isMobile">
-                                    <span>
+                                <h3>
+                                    <span class="{% if profileUser.showName|length > 12 %}title-smaller{% endif %}" data-ng-if="isMobile">
                                         {% if profileUser.showName %}
                                             {{ profileUser.showName }}
                                         {% endif %}
@@ -166,8 +166,8 @@
                     </div>
                     <div class="col-sm-4 hidden-xs">
                         {% if profileUser.showName %}
-                            <h1 class="{% if profileUser.showName|length > 11 %}title-smaller{% endif %}">
-                                <span class="bg-blue">{{ profileUser.showName }}</span>
+                            <h1>
+                                <span class="bg-blue {% if profileUser.showName|length > 11 %}title-smaller{% endif %}">{{ profileUser.showName }}</span>
                             </h1>
                         {% endif %}
                         {% if  profileUser.getAge  %}
