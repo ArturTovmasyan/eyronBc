@@ -560,6 +560,40 @@ class UserController extends FOSRestController
         return $currentUser;
     }
 
+    /**
+     * This function is used to get current user overall progress
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to get current user overall progress",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         401="Access allowed only for registered users"
+     *     },
+     * )
+     * @Rest\View(serializerGroups={"overall"})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function getOverallAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        //check if not logged in user
+        if(!is_object($currentUser)) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
+        }
+
+        // get drafts
+        $progress = $currentUser->getOverallProgress();
+
+        return $progress;
+    }
+
 
     /**
      * This function is used to get apps string for mobile

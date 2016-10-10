@@ -26,6 +26,25 @@ angular.module('goalComponents', ['Interpolation',
         }, 500);
       };
     }])
+  .controller('overallProgressController', ['$scope', '$http', '$rootScope', 'envPrefix',
+    function($scope, $http, $rootScope, envPrefix){
+      var path = envPrefix + "api/v1.0/user/overall";
+
+      $rootScope.$on('lsJqueryModalClosedSaveGoal', function () {
+        $http.get(path)
+          .success(function(data){
+            $scope.overallProgress = data;
+          });
+      });
+
+      $scope.$on('doneGoal', function(){
+        $http.get(path)
+          .success(function(data){
+            $scope.overallProgress = data;
+          });
+      });
+
+    }])
   .controller('popularGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
     var path = envPrefix + "api/v1.0/top-ideas/{count}";

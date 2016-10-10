@@ -1,0 +1,23 @@
+{% if user.getOverallProgress is defined%}
+    <div class="right-menu" data-ng-controller="overallProgressController">
+        <div class="padding padding-no margin-top padding-bottom bg-white round" data-ng-init="overallProgress='{{ user.getOverallProgress }}'">
+            <div>
+                <ul class="row">
+                    <li class="col-xs-7">
+                        <i class="icon-creat-icon"></i>
+                        <a href="#">Overall Progress</a>
+                    </li>
+                </ul>
+            </div>
+
+            <hr/>
+
+            <div>
+                Achievment [[overallProgress]]%
+                <div data-ng-if="overallProgress == 100">progress normal</div>
+                <div data-ng-if="overallProgress > 100">progress good</div>
+                <div data-ng-if="overallProgress < 100">progress bad</div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -14,8 +14,9 @@
             </ul>
         </div>
     </div>
-{% endif  %}
 
+    {%  include "AppBundle:Blocks:overall.html.twig" with { 'user': user}%}
+{% endif  %}
 <div class="right-block padding padding-no round margin-top" data-ng-controller="popularGoalsController">
     <div class="right-menu">
         {% if isProfile is defined and isProfile%}
