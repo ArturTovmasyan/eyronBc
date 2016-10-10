@@ -17,11 +17,11 @@
                             <div class="swiper-slide comment-place story-fade-in"
                                  data-ng-init="count[{{ story.id }}] = {{ story.getVotersCount() }}">
 
-                                <div class="row">
+                                <div class="row no-gutter">
                                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                                         <div class="bg-white">
 
-                                            <div class="row no-gutter padding">
+                                            <div class="row padding">
 
                                                 <div class="col-xs-9">
 
@@ -177,12 +177,10 @@
                     </div>
 
                     <div class="swiper-pagination"></div>
-
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next swiper-button-next-home-story"></div>
+                    <div class="swiper-button-prev swiper-button-prev-home-story"></div>
                 </div>
-
-                <!-- Add Arrows -->
-                <div class="swiper-button-next swiper-button-next-home-story"></div>
-                <div class="swiper-button-prev swiper-button-prev-home-story"></div>
             </div>
         </div>
 
