@@ -308,16 +308,22 @@ class MainController extends Controller
         $perUserCreated = array('By Admin' => 0, 'By User' => 0, 'Total' => 0 );
 
         for( $i = $start; $i < $end; $i->modify("+1 day")){
+
+            $createResult[$i->format('Y-m-d')] = array(
+                'By Admin' => 0, 'By User' => 0, 'Total' => 0
+            );
+
+
             $adminResult = $this->checkAndGetFromArray($i->format('Y-m-d'), $adminResults);
-            $createResult[$i->format('Y-m-d')]['By Admin'] = $adminResult;
+            $createResult[$i->format('Y-m-d')]['By Admin'] += $adminResult;
 
             $userResult = $this->checkAndGetFromArray($i->format('Y-m-d'), $userResults);
-            $createResult[$i->format('Y-m-d')]['By User'] = $userResult;
+            $createResult[$i->format('Y-m-d')]['By User'] += $userResult;
 
-            $createResult[$i->format('Y-m-d')]['Total'] = $adminResult + $userResult;
+            $createResult[$i->format('Y-m-d')]['Total'] += $adminResult + $userResult;
 
             if($adminResult > 0 || $userResult > 0){
-                $createCount ++;
+                $createCount += $createResult[$i->format('Y-m-d')]['Total'];
             }
 
             $perUserCreated['Total'] += ($adminResult + $userResult);
