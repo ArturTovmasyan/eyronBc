@@ -354,6 +354,10 @@ angular.module('activity')
                   scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
+                  $timeout(function () {
+                    ev.update(true);
+                  }, 100)
+
                 },
                 onSlidePrevStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;
