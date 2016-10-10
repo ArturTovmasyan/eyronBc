@@ -810,6 +810,7 @@ angular.module('goal', ['Interpolation',
             if(!d.length){
                 if($scope.Ideas.noItem ){
                     $scope.fadeMapIcon = false;
+                    $scope.showMap = false;
                     var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
@@ -836,6 +837,7 @@ angular.module('goal', ['Interpolation',
 
             $timeout(function() {
                 $scope.fadeMapIcon = ($scope.locations.length > 0);
+                $scope.showMap = $scope.showMap && $scope.fadeMapIcon ;
             }, 1000);
         });
 
