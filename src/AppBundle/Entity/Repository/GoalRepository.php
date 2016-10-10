@@ -579,7 +579,7 @@ class GoalRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
 						   FROM AppBundle:Goal g
-						   WHERE g.created > :limit AND g.author in (:ids)
+						   WHERE g.created > :limit AND (g.author is null OR g.author in (:ids))
 						   GROUP BY dates
 						   ORDER BY dates')
             ->setParameter('limit', $limit)
@@ -598,7 +598,7 @@ class GoalRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
 						   FROM AppBundle:Goal g
-						   WHERE g.created > :limit AND (g.author is null OR g.author not in (:ids))
+						   WHERE g.created > :limit AND (g.author is not null AND g.author not in (:ids))
 						   GROUP BY dates
 						   ORDER BY dates')
             ->setParameter('limit', $limit)
