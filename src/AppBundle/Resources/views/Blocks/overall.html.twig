@@ -1,10 +1,10 @@
 {% if user.getOverallProgress is defined%}
-    <div class="right-menu" data-ng-controller="overallProgressController">
+    <div class="right-menu overall-progress" data-ng-controller="overallProgressController">
         <div class="padding margin-top padding-bottom bg-white round" data-ng-init="overallProgress='{{ user.getOverallProgress }}'">
             <div>
                 <ul class="row">
                     <li class="col-xs-7">
-                        <i class="icon-creat-icon"></i>
+                        <i class="overall-icon"></i>
                         <a href="#">{{ "overall.progress" | trans }}</a>
                     </li>
                 </ul>
@@ -12,23 +12,23 @@
 
             <hr/>
 
-            <div>
-                <p>
-                    <span class="text-gray">{{ "achievment" | trans }}</span>
-                    <span class="text-dark">[[overallProgress]]%</span>
-                </p>
+            <p>
+                <span class="text-gray">{{ "achievment" | trans }}</span>
+                <span class="text-dark-gray">[[overallProgress]]%</span>
+            </p>
 
+            <div class="bg-grey">
                 <div data-ng-if="overallProgress == 100" class="bg-purple"></div>
                 <div data-ng-if="overallProgress > 100" class="excellent-progress"></div>
                 <div data-ng-if="overallProgress < 100" class="falling-progress"></div>
-
-                <small class="text-gray" data-ng-if="overallProgress == 100">{{ "overall.good" | trans }}</small>
-
-                <small class="text-gray" data-ng-if="overallProgress > 100">{{ "overall.excellent" | trans }}</small>
-
-                <small class="text-gray" data-ng-if="overallProgress < 100">{{ "overall.falling" | trans }}</small>
-
             </div>
+
+            <small class="text-gray" data-ng-if="overallProgress == 100">{{ "overall.good" | trans }}</small>
+
+            <small class="text-gray" data-ng-if="overallProgress > 100">{{ "overall.excellent" | trans }}</small>
+
+            <small class="text-gray" data-ng-if="overallProgress < 100">{{ "overall.falling" | trans }}</small>
+
         </div>
     </div>
 {% endif %}
