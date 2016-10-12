@@ -1415,11 +1415,8 @@ class User extends BaseUser
     public function getOverallProgress()
     {
         $userGoals = $this->getUserGoal();
-        $timePercent = 0;
-        $goalPercent = 0;
         $count = 0;
-        $timesAgo = 0;
-        $allTimes = 0;
+        $overall = 0;
         if ($userGoals)
         {
             foreach($userGoals as $userGoal){
@@ -1434,24 +1431,24 @@ class User extends BaseUser
                         $currentLimit = date_diff($time3,$time1)->days;
 
                         if($currentLimit > $limit){
-                            $timesAgo += $limit;
-                            $allTimes += $limit;
+                            $timesAgo = $limit?$limit:1;
+                            $allTimes = $limit?$limit:1;
                         }else{
-                            $timesAgo += $currentLimit;
-                            $allTimes += $limit;
+                            $timesAgo = $currentLimit?$currentLimit:1;
+                            $allTimes = $limit?$limit:1;
                         }
 
-                        $goalPercent += ($userGoal->getSteps())?$userGoal->getCompleted(): ($currentLimit > $limit)?0:(100 - ($currentLimit*100/$limit));
+                        $goalPercent = $userGoal->getCompleted();
+                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
+                        $currentOverall = ($userGoal->getSteps())?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+                        $overall += $currentOverall;
                         $count++;
                     }
                 }
             }
 
-            if($count && $allTimes){
-                $goalPercent = $goalPercent/$count;
-                $timePercent = (100/$allTimes)*$timesAgo;
-                
-                return floor($goalPercent * 100/$timePercent);
+            if($count && $overall){
+                return floor($overall/$count);
             } else return 0;
         }
         
