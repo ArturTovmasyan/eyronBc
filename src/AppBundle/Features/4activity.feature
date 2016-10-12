@@ -87,7 +87,7 @@ Feature: Activity
     And I wait
     When I am logged in as "user1"
     And I should see "user1"
-    When I follow "Goalfriends"
+    When I am on "/goal-friends"
     And I wait for angular
     Then I should see "user3 user3"
     And I should see "Listed"
@@ -150,6 +150,14 @@ Feature: Activity
     And I wait for angular
     Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
     And I should see "goal9"
+    And I click on "icon-manage"
+    And I wait for angular
+    And follow "Cancel"
+    And I wait for view "1000"
+    And I click on "icon-ok-icon"
+    And I wait for angular
+    And follow "Cancel"
+    And I reload the page
     When I scroll page to ".text-dark-gray"
     And I wait
     Then I should see "COMPLETED BY"
