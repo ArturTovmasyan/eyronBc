@@ -36,7 +36,6 @@ Feature: Goal page
     And I check radio "1"
     And I wait for view "500"
     And I should see "Deadline : 2018"
-    And I should not see "Priority"
     When I check radio "0"
     And I should see "Priority"
 
@@ -102,7 +101,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY CREATED"
     When I scroll page to ".modal-bottom"
     And I follow "Cancel"
     And I wait for angular
@@ -167,7 +166,7 @@ Feature: Goal page
     And I scroll page to "top"
     And I press "btn_publish"
     And I wait for angular
-    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED"
+    Then I should see "CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY CREATED"
     And I follow "Cancel"
 
 
@@ -216,7 +215,7 @@ Feature: Goal page
     When I follow "My Ideas"
     Then I should be on "/goal/my-ideas"
     And I wait
-    Then I should see "PRIVATE GOALS"
+    Then I should see "My Private Ideas"
     When I follow "Drafts"
     Then I should be on "/goal/my-ideas/drafts"
     And I should see "Edit"
@@ -228,7 +227,7 @@ Feature: Goal page
     And I wait for view "1000"
     And I follow "Save"
     And I wait for angular
-    Then I should be on "/goal/create"
+    Then I should be on "/profile"
     When I am on "/goal/my-ideas/drafts"
     Then I should not see "TEST2 GOALS2"
     And I follow "Remove"
