@@ -327,6 +327,6 @@ class UserGoalRepository extends EntityRepository
                            WHERE u.id = :userId AND (ug.completionDate IS NOT NULL OR ug.doDate IS NOT NULL)
                            ")
             ->setParameter('userId', $userId)
-            ->getArrayResult();
+            ->getResult();
     }
 }
