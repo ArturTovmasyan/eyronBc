@@ -514,3 +514,11 @@ report:
   other: Other
   thanks: Thank you
   message: We have received your report
+
+achievment: Achievment
+
+overall:
+  progress: Overall Progress
+  good: Good job! You are in sync with your projected goals.
+  excellent: Excellent! You are outperforming!
+  falling: Get a move on! You are falling behind your goals.

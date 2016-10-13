@@ -1361,9 +1361,9 @@ class User extends BaseUser
                     if($userGoal->getListedDate() && $userGoal->getDoDate()){
                         $time1 = $userGoal->getListedDate();
                         $time2 = $userGoal->getDoDate();
-                        $limit = date_diff($time2,$time1)->d;
+                        $limit = date_diff($time2,$time1)->days;
                         $time3 = new \DateTime('now');
-                        $currentLimit = date_diff($time3,$time1)->d;
+                        $currentLimit = date_diff($time3,$time1)->days;
 
                         if($currentLimit > $limit){
                             $timesAgo += $limit;
@@ -1407,6 +1407,54 @@ class User extends BaseUser
     }
 
     /**
+     * Get overallProgress
+     *
+     * @Groups({"overall"})
+     * @return integer
+     */
+    public function getOverallProgress()
+    {
+        $userGoals = $this->getUserGoal();
+        $count = 0;
+        $overall = 0;
+        if ($userGoals)
+        {
+            foreach($userGoals as $userGoal){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
+                    //if goal have listed and do dates
+                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+                        
+                        $time1 = $userGoal->getListedDate();
+                        $time2 = $userGoal->getDoDate();
+                        $limit = date_diff($time2,$time1)->days;
+                        $time3 = new \DateTime('now');
+                        $currentLimit = date_diff($time3,$time1)->days;
+
+                        if($currentLimit > $limit){
+                            $timesAgo = $limit?$limit:1;
+                            $allTimes = $limit?$limit:1;
+                        }else{
+                            $timesAgo = $currentLimit?$currentLimit:1;
+                            $allTimes = $limit?$limit:1;
+                        }
+
+                        $goalPercent = $userGoal->getCompleted();
+                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
+                        $currentOverall = ($userGoal->getSteps())?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+                        $overall += $currentOverall;
+                        $count++;
+                    }
+                }
+            }
+
+            if($count && $overall){
+                return floor($overall/$count);
+            } else return 0;
+        }
+        
+    }
+
+    /**
      * @return array
      */
     public function getComingGoals()
@@ -1421,7 +1469,7 @@ class User extends BaseUser
                     if($userGoal->getListedDate() && $userGoal->getDoDate()){
                         $time1 = $userGoal->getDoDate();
                         $time2 = new \DateTime('now');
-                        $limit = date_diff($time1,$time2)->d;
+                        $limit = date_diff($time1,$time2)->days;
 
                         if($limit == 1 || $limit == 0){
                             $comingGoals[] = $userGoal;

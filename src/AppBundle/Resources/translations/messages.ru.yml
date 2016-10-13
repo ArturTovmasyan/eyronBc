@@ -452,3 +452,11 @@ report:
   other: Другие
   thanks: Спасибо
   message: Мы получили ваш рапорт
+
+achievment: Achievment
+
+overall:
+  progress: Overall Progress
+  good: Good job! You are in sync with your projected goals.
+  excellent: Excellent! You are outperforming!
+  falling: Get a move on! You are falling behind your goals.
