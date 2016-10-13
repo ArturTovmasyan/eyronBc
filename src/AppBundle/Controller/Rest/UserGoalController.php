@@ -539,4 +539,83 @@ class UserGoalController extends FOSRestController
 
         return new Response((int) $newDone, Response::HTTP_OK);
     }
+
+    /**
+     * This function is used to get active, completed userGoal counts by date
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="UserGoal",
+     *  description="This function is used to get active, completed userGoal counts by date",
+     *  statusCodes={
+     *         200="Returned when all ok",
+     *     }
+     * )
+     * @Rest\View()
+     * @Rest\Get("/api/v1.0/usergoal/calendar/data")
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @return Response
+     */
+    public function getCalendarData()
+    {
+        //get current user
+        $user = $this->getUser();
+
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get userGoal type count for calendar data
+        $userGoals = $em->getRepository('AppBundle:UserGoal')->findAllForCalendar($user->getId());
+
+        //set default values
+        $calendarData = [];
+        $completionCount = 0;
+        $activeCount = 0;
+
+        foreach ($userGoals as $userGoal)
+        {
+            //create completion data in array by date
+            if (isset($userGoal['completionDate']) || (isset($userGoal['completionDate']) && isset($userGoal['doDate']))) {
+
+                //get completion date in array
+                $completionDate = $userGoal['completionDate']->format('Y-m-d');
+
+                if (array_key_exists($completionDate, $calendarData)) {
+
+                    if (isset($calendarData[$completionDate]['completion'])) {
+                        $calendarData[$completionDate]['completion'] += 1;
+                    }
+                    else {
+                        $calendarData[$completionDate]['completion'] = 1;
+                    }
+                }
+                else {
+                    $calendarData[$completionDate]['completion'] = $completionCount + 1;
+                }
+            }
+
+            //create active data in array by date
+            if (isset($userGoal['doDate']) && (!isset($userGoal['completionDate']))) {
+
+                //get due date in array
+                $doDate = $userGoal['doDate']->format('Y-m-d');
+
+                if (array_key_exists($doDate, $calendarData)) {
+
+                    if (isset($calendarData[$doDate]['active'])) {
+                        $calendarData[$doDate]['active'] += 1;
+                    }
+                    else {
+                        $calendarData[$doDate]['active'] = 1;
+                    }
+                }
+                else {
+                    $calendarData[$doDate]['active'] = $activeCount + 1;
+                }
+            }
+        }
+
+        return $calendarData;
+    }
 }

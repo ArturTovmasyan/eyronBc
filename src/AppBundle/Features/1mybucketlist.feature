@@ -16,7 +16,7 @@ Feature: My Bucket list
     Given I am on "/ideas"
     When I fill in "search" with "goal1"
     And I press key "13"
-    And I wait for angular
+    And I wait for view "1000"
     Then I should see "Listed by"
     And I should see "ADD"
     When I fill in "search" with "TEST777"
