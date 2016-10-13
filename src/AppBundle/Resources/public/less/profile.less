@@ -144,7 +144,7 @@
       h3{
         color: #ffffff;
         font-size:18px;
-        margin:0 10px 15px;
+        margin:0 10px 8px;
         line-height: normal;
         span{
           white-space: nowrap;
@@ -265,7 +265,7 @@
     }
   }
 
-  h1.title-smaller{
+  h1.title-smaller,figcaption span.title-smaller{
     font-size:20px;
     line-height:30px;
     span{
@@ -344,7 +344,19 @@
       }
 
       &:last-child{
-        padding:0 20px;
+        padding:0 10px;
+          a{
+            display: inline-block;
+            margin: 0 0 0 5px;
+
+            .svg{
+              display: inline-block;
+              height: 30px;
+              width: 25px;
+            }
+          }
+
+
         &:hover{
           border-bottom:0;
         }
@@ -360,17 +372,6 @@
 
   hr{
     margin: -2px 0 0;
-  }
-
-  .mail-print{
-    text-align:right;
-    a{
-      display:inline-block;
-
-      &:hover{
-        text-decoration:none;
-      }
-    }
   }
 
   form{
@@ -424,13 +425,13 @@
 
 .calendar-place{
 
-  padding: 43px 0 10px;
+  padding: 15px 0 5px;
 
   .groupX {
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
     margin: 0 0 20px;
-    padding: 3px 15px 3px 15px;
+    padding: 2px 15px 2px 15px;
     color: #666666;
     background-color: #ffffff;
     border: 1px solid #efefef;
@@ -473,9 +474,30 @@
     color: #333333;
   }
 
+  caption{
+    background-color: #ffffff;
+  }
+
   .icon-arrow-left,.icon-arrow-right{
     font-size: 30px;
     color:#999999;
+  }
+
+  .month-calendar{
+    th,td{
+      width: 45px;
+    }
+
+    span.goal-count{
+      display: block;
+      margin: 0 auto 5px;
+    }
+  }
+
+  .year-calendar{
+    th,td{
+      width: 95px;
+    }
   }
 
   .table-bordered{
@@ -491,6 +513,10 @@
       span:not(.goal-count){
         display: block;
         text-align: right;
+      }
+
+      sup{
+        font-size: 12px;
       }
     }
 
@@ -508,7 +534,6 @@
   }
 
 
-
   span.goal-count{
     width: 20px;
     height: 20px;
@@ -516,9 +541,8 @@
     text-align: center;
     color:#ffffff;
     display: inline-block;
-    /* font-size: 12px; */
     vertical-align: middle;
-    margin: 0 15px 0 0;
+    margin: 0 5px 5px;
   }
 }
 
@@ -662,7 +686,7 @@
       }
     }
 
-    h1.title-smaller{
+    h1.title-smaller,figcaption span.title-smaller{
       font-size:23px;
       line-height:35px;
       span{
@@ -709,6 +733,11 @@
 
         &:last-child{
           padding: 2px 5px 4px;
+          a{
+            .svg{
+              width: 35px;
+            }
+          }
         }
       }
     }
@@ -737,11 +766,6 @@
 
     }
 
-    .svg{
-      display: inline-block;
-      height: 30px;
-      width: 35px;
-    }
   }
   .settings-menu{
     padding:0;
@@ -775,10 +799,30 @@
   }
 
   .calendar-place{
+    padding: 43px 0 10px;
+
     .table-bordered{
       th,td{
-        width: 162px;
+        width: 102px;
       }
+    }
+
+    .month-calendar{
+      //th,td{
+      //  width: 45px;
+      //}
+      span.goal-count{
+        display: inline-block;
+        margin: 0 7px 0 0;
+      }
+    }
+
+    caption{
+      background-color: transparent;
+    }
+
+    span.goal-count{
+      margin: 0 7px 0 0;
     }
   }
 }
@@ -888,7 +932,7 @@
       }
     }
 
-    h1.title-smaller{
+    h1.title-smaller,figcaption span.title-smaller{
       font-size:38px;
       span{
         padding: 7px 20px 14px;
@@ -959,6 +1003,18 @@
           padding: 25px 15px;
         }
       }
+    }
+  }
+
+  .calendar-place{
+    .table-bordered{
+      th,td{
+        width: 162px;
+      }
+    }
+
+    span.goal-count{
+      margin: 0 15px 0 0;
     }
   }
 }
