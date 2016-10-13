@@ -37,6 +37,13 @@ angular.module('goalComponents', ['Interpolation',
           });
       });
 
+      $rootScope.$on('removeUserGoal', function () {
+        $http.get(path)
+          .success(function(data){
+            $scope.overallProgress = data;
+          });
+      });
+
       $scope.$on('doneGoal', function(){
         $http.get(path)
           .success(function(data){
