@@ -434,7 +434,7 @@
     padding: 2px 15px 2px 15px;
     color: #666666;
     background-color: #ffffff;
-    border: 1px solid #efefef;
+    border: 1px solid #dcdcdc;
     font-weight: 400;
     min-width: 70px;
   }
@@ -445,8 +445,8 @@
 
   .md-button.middle {
     border-radius: 0;
-    border-left: 1px solid #efefef;
-    border-right: 1px solid #efefef;
+    border-left: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
   }
 
   .md-button.right {
@@ -472,6 +472,7 @@
     margin-top: 0;
     font-size: 22px;
     color: #333333;
+    font-weight: 700;
   }
 
   caption{
@@ -497,13 +498,39 @@
   .year-calendar{
     th,td{
       width: 95px;
+      height: 60px;
     }
+  }
+
+  sup{
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .lifetime{
+    height:70px;
+    border: 1px solid #b0b0b0;
+    padding: 11px;
+    margin: 0 0 10px 0;
+    position: relative;
+    .rounded-corners(6px);
+
+    span.text-grey-dark{
+      display: block;
+      text-align: right;
+    }
+  }
+
+  .absolute{
+    text-align: left;
+    bottom: 1px;
   }
 
   .table-bordered{
     th{
       text-align: center;
     }
+
     th,td{
       border: 1px solid #b0b0b0;
       background-color: #ffffff;
@@ -514,10 +541,11 @@
         display: block;
         text-align: right;
       }
+    }
 
-      sup{
-        font-size: 12px;
-      }
+    td{
+      padding: 14px 11px;
+      position: relative;
     }
 
     thead{
@@ -532,7 +560,6 @@
       }
     }
   }
-
 
   span.goal-count{
     width: 20px;
@@ -807,14 +834,30 @@
       }
     }
 
+    .lifetime{
+      height: 90px;
+      margin: 0 0 30px 0;
+    }
+
     .month-calendar{
-      //th,td{
-      //  width: 45px;
-      //}
+      td{
+        height: 55px;
+      }
       span.goal-count{
         display: inline-block;
-        margin: 0 7px 0 0;
+        margin: 0 5px 0 0;
       }
+    }
+
+    .year-calendar{
+      th,td{
+        width: 115px;
+        height: 75px;
+      }
+    }
+
+    .absolute{
+      bottom: 8px;
     }
 
     caption{
@@ -822,7 +865,7 @@
     }
 
     span.goal-count{
-      margin: 0 7px 0 0;
+      margin: 0 5px 0 0;
     }
   }
 }
@@ -1013,9 +1056,23 @@
       }
     }
 
+    .year-calendar{
+      th,td{
+        width: 182px;
+        height: 90px;
+      }
+    }
+
     span.goal-count{
+      width: 25px;
+      height: 25px;
+      line-height: 24px;
       margin: 0 15px 0 0;
     }
+
+    //.lifetime{
+    //  margin: 0 0 30px 0;
+    //}
   }
 }
 

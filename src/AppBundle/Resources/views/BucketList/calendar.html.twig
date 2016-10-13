@@ -73,9 +73,11 @@
                             <sup>1</sup>
                         </span>
 
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
+                        <span data-ng-class="{'absolute': !isMobile}">
+                            <span class="goal-count bg-purple">2</span>
+                            <span class="goal-count bg-gradinet">5</span>
+                            <span class="goal-count bg-green">6</span>
+                        </span>
                     </td>
 
                     <td>
@@ -93,50 +95,46 @@
 
                 <tr>
                     <td>
-                        <span class="text-gray">
-                            <sup>28</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>29</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>30</sup>
-                        </span>
-                        <span class="goal-count bg-gradinet">5</span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>31</sup>
+                        <span class="text-grey-dark">
+                            <sup>4</sup>
                         </span>
                     </td>
 
                     <td>
                         <span class="text-grey-dark">
-                            <sup>1</sup>
-                        </span>
-
-                        <span class="goal-count bg-purple">2</span>
-
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>2</sup>
+                            <sup>5</sup>
                         </span>
                     </td>
 
                     <td>
                         <span class="text-grey-dark">
-                           <sup>3</sup>
+                            <sup>6</sup>
                         </span>
-                        <span class="goal-count bg-green">6</span>
+                    </td>
+
+                    <td>
+                        <span class="text-grey-dark">
+                            <sup>7</sup>
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="text-grey-dark">
+                            <sup>8</sup>
+                        </span>
+
+                    </td>
+
+                    <td>
+                        <span class="text-grey-dark">
+                            <sup>9</sup>
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="text-grey-dark">
+                           <sup>10</sup>
+                        </span>
                     </td>
                 </tr>
 
@@ -144,6 +142,7 @@
             </table>
         </div>
 
+        {# start year calendar#}
         <div class="row">
             <div class="col-sm-6">
                 <div class="table-responsive">
@@ -163,9 +162,12 @@
                                     <sup>Feb</sup>
                                 </span>
 
-                                <span class="goal-count bg-purple">2</span>
-                                <span class="goal-count bg-gradinet">5</span>
-                                <span class="goal-count bg-green">6</span>
+                                <span class="absolute">
+                                    <span class="goal-count bg-purple">2</span>
+                                    <span class="goal-count bg-gradinet">5</span>
+                                    <span class="goal-count bg-green">6</span>
+                                </span>
+
                             </td>
 
                             <td>
@@ -243,8 +245,114 @@
                 </div>
             </div>
         </div>
+        {# end year calendar#}
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="lifetime bg-white">
+                    <span class="text-grey-dark">
+                       <sup>Year2016</sup>
+                    </span>
+
+                    <span class="absolute">
+                        <span class="goal-count bg-purple">2</span>
+                        <span class="goal-count bg-gradinet">5</span>
+                        <span class="goal-count bg-green">6</span>
+                    </span>
+                </div>
+            </div>
+        </div>
 
     </div>
-
-
 </div>
