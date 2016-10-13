@@ -313,7 +313,7 @@ class UserGoalRepository extends EntityRepository
     }
 
     /**
-     * This function is used to get all userGoal for calendar, that have completed or due date
+     * This function is used to get all userGoal completed or due date
      *
      * @param $userId
      * @return array
