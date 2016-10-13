@@ -325,7 +325,7 @@ class UserGoalRepository extends EntityRepository
                            FROM AppBundle:UserGoal ug
                            JOIN ug.user u
                            WHERE u.id = :userId AND (ug.completionDate IS NOT NULL OR ug.doDate IS NOT NULL)
-                           ORDER BY ug.updated DESC")
+                           ")
             ->setParameter('userId', $userId)
             ->getArrayResult();
     }
