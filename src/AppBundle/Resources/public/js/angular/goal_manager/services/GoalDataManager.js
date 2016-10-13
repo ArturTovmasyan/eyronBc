@@ -23,7 +23,8 @@ angular.module('goalManage')
       }},
       profile: {method:'GET', params:{ path:'usergoals',id: 'bucketlists', version: 'v2.0'}, transformResponse: function (object) {
         return angular.fromJson(object);
-      }},
+      }}, 
+      overall: {method:'GET', params:{ path:'user',id: 'overall'}},
       common: {method:'GET', params:{ path:'goals',where: 'common'}, transformResponse: function (object) {
         return angular.fromJson(object);
       }},

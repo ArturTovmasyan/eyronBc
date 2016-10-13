@@ -1,6 +1,6 @@
-{% if user.getOverallProgress is defined%}
+{% if user is defined%}
     <div class="right-menu overall-progress" data-ng-controller="overallProgressController">
-        <div data-ng-cloak data-ng-show="overallProgress > 0" class="ng-hide padding margin-top padding-bottom bg-white round" data-ng-init="overallProgress='{{ user.getOverallProgress }}'">
+        <div data-ng-cloak data-ng-show="overallProgress > 0" class="ng-hide padding margin-top padding-bottom bg-white round">
             <div>
                 <ul class="row">
                     <li class="col-xs-7">
