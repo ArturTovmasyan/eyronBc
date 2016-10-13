@@ -575,6 +575,7 @@ class UserGoalController extends FOSRestController
 
         foreach ($userGoals as $userGoal)
         {
+            //create completion data in array by date
             if (isset($userGoal['completionDate']) || (isset($userGoal['completionDate']) && isset($userGoal['doDate']))) {
 
                 //get completion date in array
@@ -594,6 +595,7 @@ class UserGoalController extends FOSRestController
                 }
             }
 
+            //create active data in array by date
             if (isset($userGoal['doDate']) && (!isset($userGoal['completionDate']))) {
 
                 //get due date in array
