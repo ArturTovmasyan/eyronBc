@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('profile')
-  .factory('lsInfiniteGoals', ['$http', 'localStorageService', 'UserGoalDataManager', '$analytics', function($http, localStorageService, UserGoalDataManager, $analytics) {
+  .factory('lsInfiniteGoals', ['$http', 'localStorageService', 'UserGoalDataManager', '$rootScope',
+    function($http, localStorageService, UserGoalDataManager, $rootScope) {
     var lsInfiniteGoals = function(loadCount) {
       this.userGoals = [];
       this.users = [];
@@ -205,7 +206,7 @@ angular.module('profile')
       if(this.request){
         this.getReserve(post);
       } else if(post.status == 'owned'){
-
+        $rootScope.$broadcast('owned');
         UserGoalDataManager.owned({id: data.userId, what: this.start, param: this.count}, function (newData) {
             // if get empty
             if(!newData.goals.length){
@@ -223,6 +224,7 @@ angular.module('profile')
         }.bind(this));
       }
       else {
+        $rootScope.$broadcast('profileNextPage', post);
         UserGoalDataManager.profile(post, function (newData) {
           // if get empty
           if(!newData.user_goals.length){

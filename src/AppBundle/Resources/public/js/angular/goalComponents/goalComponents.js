@@ -26,29 +26,43 @@ angular.module('goalComponents', ['Interpolation',
         }, 500);
       };
     }])
-  .controller('overallProgressController', ['$scope', '$http', '$rootScope', 'envPrefix',
-    function($scope, $http, $rootScope, envPrefix){
-      var path = envPrefix + "api/v1.0/user/overall";
+  .controller('overallProgressController', ['$scope', '$http', '$rootScope', 'UserGoalDataManager',
+    function($scope, $http, $rootScope, UserGoalDataManager){
+      $scope.currentPage = {};
 
       $rootScope.$on('lsJqueryModalClosedSaveGoal', function () {
-        $http.get(path)
-          .success(function(data){
-            $scope.overallProgress = data;
-          });
+        UserGoalDataManager.overall($scope.currentPage, function (data) {
+          $scope.overallProgress = data.progress;
+        });
       });
 
       $rootScope.$on('removeUserGoal', function () {
-        $http.get(path)
-          .success(function(data){
-            $scope.overallProgress = data;
-          });
+        UserGoalDataManager.overall($scope.currentPage, function (data) {
+          $scope.overallProgress = data.progress;
+        });
       });
 
       $scope.$on('doneGoal', function(){
-        $http.get(path)
-          .success(function(data){
-            $scope.overallProgress = data;
-          });
+        UserGoalDataManager.overall($scope.currentPage, function (data) {
+          $scope.overallProgress = data.progress;
+        });
+      });
+
+      $scope.$on('owned', function(){
+        var post = {
+          'owned' : true
+        };
+        $scope.currentPage = post;
+        UserGoalDataManager.overall(post, function (data) {
+          $scope.overallProgress = data.progress;
+        });
+      });
+
+      $scope.$on('profileNextPage', function(ev, data){
+        $scope.currentPage = data;
+        UserGoalDataManager.overall($scope.currentPage, function (data) {
+          $scope.overallProgress = data.progress;
+        });
       });
 
     }])
