@@ -8,8 +8,11 @@
 namespace Application\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\BadgeRepository")
@@ -42,6 +45,7 @@ class Badge
     /**
      * @Assert\NotBlank(message="badge.type.notBlank")
      * @ORM\Column(name="score", type="float")
+     * @Groups({"badge"})
      */
     protected $score = 0;
 
@@ -51,6 +55,14 @@ class Badge
      */
     protected $user;
 
+    /**
+     * @var
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    protected $updated;
+    
     /**
      * Get id
      *
@@ -131,5 +143,29 @@ class Badge
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Badge
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

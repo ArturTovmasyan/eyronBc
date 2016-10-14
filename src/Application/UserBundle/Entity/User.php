@@ -55,7 +55,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "badge"})
      */
     protected $id;
 
@@ -109,6 +109,7 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToMany(targetEntity="Badge", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"badge"})
      */
     protected $badges;
     
@@ -127,7 +128,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -176,7 +177,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -344,7 +345,7 @@ class User extends BaseUser
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      */
     private $mobileImagePath;
 
