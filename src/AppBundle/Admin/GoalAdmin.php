@@ -234,7 +234,7 @@ class GoalAdmin extends AbstractAdmin
             //get user
             $user = $userGoal->getUser();
 
-            //set userGoal rempve date in user
+            //set userGoal remove date in user
             $user->setUserGoalRemoveDate($currentDate);
         }
     }
