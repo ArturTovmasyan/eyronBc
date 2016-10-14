@@ -163,8 +163,9 @@ progress_bad: |
 progress_good: Wow!!! Your BucketList progress is uptodate, you meet your schedule and achieve your goals. Keep aiming!!!
 notify:
       now: Just now
-      minute:  minute(s) ago
-      hour:  hour(s) ago
+      minute:  minutes ago
+      hour:  hour ago
+      hours:  hours ago
       yesterday: yesterday at
 
 # buttons
