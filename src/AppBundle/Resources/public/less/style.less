@@ -205,6 +205,7 @@ body{
 #wrap{
   position: relative;
   padding-bottom: 300px;
+  background-color: #f4f4f4;
 }
 
 input.form-control:focus,textarea.form-control:focus,select.form-control:focus{
@@ -479,6 +480,10 @@ header{
                   width:25px !important;
                 }
 
+                &.icon-goalfrined-icon{
+                  margin: 0 -2px 0 -3px;
+                }
+
                 span{
                   padding-left:0;
                   margin-left: 0;
@@ -616,6 +621,14 @@ header{
 
               &.ideas-icon,&.activity-icon{
                 width:25px !important;
+              }
+
+              &.icon-goalfrined-icon{
+                margin: 0 3px 0 -4px;
+
+                span{
+                  vertical-align: top;
+                }
               }
 
               span{
@@ -919,6 +932,13 @@ header{
   }
 }
 
+.mybuucketlist{
+  display: inline-block;
+  width: 23px !important;
+  height: 23px;
+  background: url('../images/mybucketlist-icon.svg') no-repeat center center;
+}
+
 label{
   color:#a4a4a4;
 }
@@ -927,6 +947,7 @@ label{
   height: 2px;
   background: url('../images/divider.png') center top;
 }
+
 .arrow-left{
   width: 0;
   height: 0;
@@ -1293,7 +1314,7 @@ label{
 }
 
 .no-marginb{
-  margin-bottom:0;
+  margin-bottom:0 !important;
 }
 
 .text-left{
@@ -1454,7 +1475,7 @@ label{
     background-color: #5e1dc3;
   }
 
-  &:focus,&:active,&:visited{
+  &:focus,&:active{
     background-color: #4f3576;
   }
 }
@@ -2072,7 +2093,7 @@ footer{
 }
 
 .bg-purple{
-  background-color:#7627f5 !important;
+  background-color: #7724f6 !important;
 }
 
 .bg-blue{
@@ -2355,8 +2376,12 @@ footer{
     margin:10px 0 30px!important;
   }
 
+  .padding {
+    padding: 10px 20px 5px;
+  }
+
   #story-slider-homepage-container{
-    overflow: visible;
+    overflow: hidden;
   }
   .comment-place{
     padding-top:0;
@@ -2370,7 +2395,7 @@ footer{
   }
 
   .border-left{
-    margin: -14px 0 0 23px;
+    margin: -14px 0 0 25px;
   }
 
   figure:not(.user-image){
@@ -2409,6 +2434,10 @@ footer{
 
   .success-story-user{
     width: 130px;
+
+    span{
+      font-size: 10px;
+    }
   }
 
   .like-icon{
@@ -2467,8 +2496,6 @@ footer{
   }
 }
 
-
-
 .margin-top{
   margin-top:10px;
 }
@@ -2483,6 +2510,21 @@ footer{
 
 .padding-no{
   padding-bottom:0
+}
+
+.goalfrined-icon{
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  background: url('../images/goalfriends-icon.svg') no-repeat center center;
+  margin-right: 5px;
+}
+
+.menu-goalfrinds{
+  display: inline-block;
+  width: 25px !important;
+  height: 25px !important;
+  background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
 @media (min-width: @screen-sm) {
@@ -2590,6 +2632,8 @@ footer{
         }
       }
     }
+
+
 
     #notification{
 
@@ -2753,6 +2797,10 @@ footer{
 
   .ui-select-container{
     margin-bottom: 0;
+
+    .ui-select-choices.dropdown-menu{
+      min-width: 125px;
+    }
   }
 
   #homepage{
@@ -2872,6 +2920,10 @@ footer{
   #story-slider-homepage{
     margin:0 0 20px 0;
 
+    .padding {
+      padding: 20px 20px 5px;
+    }
+
     #story-slider-homepage-container{
       overflow: hidden;
     }
@@ -2890,6 +2942,10 @@ footer{
 
     .success-story-user{
       width:auto;
+
+      span{
+        font-size:12px;
+      }
     }
 
     .success-scroll {

@@ -14,9 +14,9 @@ Feature: Activity
     And I wait for angular
     And I scroll page to ".modal-bottom"
     And I wait
-    And I change switch "2"
+    And I check radio "3"
     And I wait
-    And I change switch "2"
+    And I check radio "2"
     And  I click on "btn btn-purple"
     And I wait for angular
     And I am on "/profile"
@@ -60,8 +60,6 @@ Feature: Activity
     And I should not see "Sorry, we couldn't find anything, but you can explore other ideas:"
     When I scroll page to ".social"
     And I wait for view "500"
-    And I click on show more
-    And I wait for view "1000"
 
   @javascript @notification
   Scenario: Check notification functionality
@@ -69,15 +67,17 @@ Feature: Activity
     And I wait
     When I am logged in as "user1"
     Then I should see "user1"
-    And I should see "1"
+    And I should see "4"
     When I click notify icon
     And I wait
     And I am on "/notifications"
     And I wait
-    Then I should see "user2 useryan wrote success story on your important goal"
+    Then I should see "TEST3 NOTE"
     And I hover over the element
+    And I should not see "userTo useryan wrote success story on your important goal"
     And I click mark as read
     And I am on "/"
+    And I reload the page
     Then I should not see number on note icon
     And I wait
 
@@ -87,7 +87,7 @@ Feature: Activity
     And I wait
     When I am logged in as "user1"
     And I should see "user1"
-    When I follow "Goalfriends"
+    When I am on "/goal-friends"
     And I wait for angular
     Then I should see "user3 user3"
     And I should see "Listed"
@@ -147,9 +147,17 @@ Feature: Activity
     When I am logged in as "user1"
     And I should see "user1"
     And I am on "/goal/goal9"
+    And I wait for angular
     Then I should see "One must be a fox in order to recognize traps, and a lion to frighten off wolves."
     And I should see "goal9"
-    And I should see "Map"
+    And I click on "icon-manage"
+    And I wait for angular
+    And follow "Cancel"
+    And I wait for view "1000"
+    And I click on "icon-ok-icon"
+    And I wait for angular
+    And follow "Cancel"
+    And I reload the page
     When I scroll page to ".text-dark-gray"
     And I wait
     Then I should see "COMPLETED BY"

@@ -50,12 +50,20 @@ class LoadPlaceData extends AbstractFixture implements OrderedFixtureInterface, 
         $place1 = new Place();
         $place1->setName('Armenia');
         $place1->setPlaceType($placeType1);
+        $place1->setMinLatitude(40.0641141);
+        $place1->setMaxLatitude(40.2426667);
+        $place1->setMinLongitude(44.3620849);
+        $place1->setMaxLongitude(44.6140493);
         $manager->persist($place1);
 
         // create place
         $place2 = new Place();
         $place2->setName('Yerevan');
         $place2->setPlaceType($placeType2);
+        $place2->setMinLatitude(40.0641141);
+        $place2->setMaxLatitude(40.2426667);
+        $place2->setMinLongitude(44.3620849);
+        $place2->setMaxLongitude(44.6140493);
         $manager->persist($place2);
 
         $goal1->addPlace($place1);

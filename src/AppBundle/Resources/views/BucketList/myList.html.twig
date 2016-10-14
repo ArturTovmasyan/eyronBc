@@ -54,6 +54,13 @@
                                 {{ 'menu.common'|trans }}
                             </a>
                         </li>
+
+                        <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
+                            <a href="#{{ owned }}" data-ng-click="goTo(5)">
+                                {{ 'menu.owned'|trans }}
+                            </a>
+                        </li>
+
                     {% endif %}
                     <li class="pull-right">
                         <a href="#" data-ng-class="{'map-marker-active': showMap}"
@@ -80,6 +87,8 @@
                  data-on-marker-click="onMarkerClick(goal)"
                  data-is-bounded="true"
                  data-item-page-url="{{ env_prefix  }}/goal/"
+                 data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+                 data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
                  data-active-marker-icon="{{ asset('bundles/app/images/map-marker-white.png') }}"
                  data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                  data-refresh="showMap"
@@ -314,7 +323,7 @@
 
                                                 </ul>
 
-                                                <ul class="progress-section">
+                                                <ul class="progress-section clearfix">
 
                                                     <li data-ng-if="!isEmpty(userGoal.steps)">
                                                         <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>

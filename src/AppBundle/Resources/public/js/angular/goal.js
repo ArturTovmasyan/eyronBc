@@ -94,6 +94,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.request = 0;
             this.start = 0;
+            this.category = "";
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -134,7 +135,7 @@ angular.module('goal', ['Interpolation',
                         img = new Image();
                         img.src = item.cached_image;
                     } else {
-                        if (!angular.isUndefined(item.goals[0]) && item.goals[0].cached_image) {
+                        if (!angular.isUndefined(item.goals) && item.goals[0] && item.goals[0].cached_image) {
                             img = new Image();
                             img.src = item.goals[0].cached_image;
                         }
@@ -422,26 +423,33 @@ angular.module('goal', ['Interpolation',
 
         });
 
+        $('body').on('click', '.usergoal-save', function() {
+            $scope.isSave = true;
+        });
+
         angular.element(".goal-view-submit").click(function(){
             angular.element("#goal-create-form").ajaxFormUnbind();
         });
 
         $scope.$on('lsJqueryModalClosedgoalSave', function(){
-            UserGoalDataManager.creates({id:$scope.newId}, {is_visible: true}, function (resource){
-                userGoalData.data = resource;
-                if(window.location.href.indexOf('goal/create') != -1 && window.location.href.indexOf('?id=') === -1){
-                    // var goalId = angular.element('#goal-create-form').attr('data-goal-id');
-                    $window.location.href = $scope.redirectPath;
-                }
-            });
             $scope.goalSubmitTemplate = '';
+            if(window.location.href.indexOf('?id=') === -1 && !$scope.isSave){
+                UserGoalDataManager.creates({id:$scope.newId}, {is_visible: true}, function (resource){
+                    userGoalData.data = resource;
+                    $window.location.href = $scope.redirectPath;
+                });
+            } else {
+                $window.location.href = $scope.redirectPath;
+            }
         })
 
     }])
-    .controller('goalInner', ['$scope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http',
-        function($scope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http){
+    .controller('goalInner', ['$scope', '$rootScope', '$filter', '$timeout', 'lsInfiniteItems', 'AuthenticatorLoginService', 'envPrefix', '$http', '$window',
+        function($scope, $rootScope, $filter, $timeout, lsInfiniteItems, AuthenticatorLoginService, envPrefix, $http, $window){
 
         $scope.successStoryShow = [];
+        $scope.goal = {};
+        $scope.successStoryImageKeys = [];
         $scope.successStoryActiveIndex = null;
         $scope.Ideas = new lsInfiniteItems(3);
 
@@ -449,7 +457,51 @@ angular.module('goal', ['Interpolation',
             AuthenticatorLoginService.openLoginPopup();
         };
 
+        $scope.isLate = function (date) {
+            if(!date){
+                return false;
+            }
+
+            var d1 = new Date(date);
+            var d2 = new Date();
+
+            return (d1 < d2);
+        };
+
+        $rootScope.$on('lsJqueryModalClosedSaveGoal', function (ev, userGoal) {
+            if(!userGoal)return;
+
+            $scope.goal.is_visible = userGoal.is_visible;
+            $scope.goal.do_date = userGoal.do_date;
+            $scope.goal.note = userGoal.note;
+            $scope.goal.public = userGoal.goal.status;
+            $scope.goal.steps = userGoal.formatted_steps.length > 0;
+        });
+
+        $rootScope.$on('removeUserGoal', function (ev, id) {
+            if($scope.isAuthor){
+                $window.location.href = $window.location.origin + envPrefix + 'profile';
+            } else {
+                $window.location.reload();
+            }
+        });
+
         $timeout(function () {
+            if($scope.goalId){
+                var url = envPrefix + 'api/v1.0/usergoals/' + $scope.goalId;
+
+                $http.get(url).success(function(data) {
+                    $scope.goal.is_visible = data.is_visible;
+                    $scope.goal.do_date = data.do_date;
+                    $scope.goal.note = data.note;
+                    $scope.goal.steps = data.formatted_steps.length > 0;
+                });
+            }
+
+            angular.forEach($scope.successStoryImageKeys, function (d) {
+                $( '.swipebox-key-'+d ).swipebox();
+            });
+            
             var afilateHeight = $('.affiliate-right iframe').height();
             var afilateMobileHeight = $('.affiliate-right-mobile iframe').height();
             //$('.affiliate-right iframe').height(afilateHeight + 80);
@@ -623,10 +675,11 @@ angular.module('goal', ['Interpolation',
             });
         }
 
-        $( '.swipebox' ).swipebox();
+        $( '.swipebox-main' ).swipebox();
     }])
-    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', function($scope, lsInfiniteItems, $timeout, envPrefix){
-
+    .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
+        function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
+        var path = $location.$$path;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -634,10 +687,32 @@ angular.module('goal', ['Interpolation',
         $scope.noIdeas = false;
         $scope.isSearching = false;
         //$scope.placeholder = '';
+        $scope.activeCategory = '';
         var locationsIds = [];
         
         $scope.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        };
+
+        if(path.length){
+            $scope.Ideas.busy = true;
+            $timeout(function () {
+                path = path.slice(1);
+                $scope.goTo(path);
+            },100);
+        }
+
+        $scope.goTo = function (path) {
+            $scope.noIdeas = false;
+            $scope.ideasTitle = false;
+            angular.element('.idea-item').addClass('ideas-result');
+            $scope.locations = [];
+            locationsIds = [];
+            $scope.activeCategory = path;
+            $scope.Ideas.reset();
+            $scope.search = '';
+            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+
         };
 
         $scope.castInt = function(value){
@@ -670,42 +745,6 @@ angular.module('goal', ['Interpolation',
 
             }, 100);
         }
-
-        $(function(){
-            jQuery('img.svg').each(function(){
-                var $img = jQuery(this);
-                var imgID = $img.attr('id');
-                var imgClass = $img.attr('class');
-                var imgURL = $img.attr('src');
-
-                jQuery.get(imgURL, function(data) {
-                    // Get the SVG tag, ignore the rest
-                    var $svg = jQuery(data).find('svg');
-
-                    // Add replaced image's ID to the new SVG
-                    if(typeof imgID !== 'undefined') {
-                        $svg = $svg.attr('id', imgID);
-                    }
-                    // Add replaced image's classes to the new SVG
-                    if(typeof imgClass !== 'undefined') {
-                        $svg = $svg.attr('class', imgClass+' replaced-svg');
-                    }
-
-                    // Remove any invalid XML tags as per http://validator.w3.org
-                    $svg = $svg.removeAttr('xmlns:a');
-
-                    // Check if the viewport is set, else we gonna set it if we can.
-                    if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-                        $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
-                    }
-
-                    // Replace image with new SVG
-                    $img.replaceWith($svg);
-
-                }, 'xml');
-
-            });
-        });
 
         $timeout(function(){
             if(window.innerWidth < 766){
@@ -754,22 +793,24 @@ angular.module('goal', ['Interpolation',
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
             angular.element('.idea-item').addClass('ideas-result');
-            $scope.locations = [];
-            locationsIds = [];
             if(ev.which == 13){
                 ev.preventDefault();
                 ev.stopPropagation();
+                $scope.locations = [];
+                locationsIds = [];
 
                 var ptName = window.location.pathname;
                 window.history.pushState("", "", ptName + "?search=" + $scope.search);
                 $scope.Ideas.reset();
-                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search);
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search, $scope.activeCategory);
             }
         };
 
         $scope.$watch('Ideas.items', function(d) {
             if(!d.length){
                 if($scope.Ideas.noItem ){
+                    $scope.fadeMapIcon = false;
+                    $scope.showMap = false;
                     var k = $scope.noIdeas;
                     $scope.noIdeas = true;
                     angular.element('.idea-item').removeClass('ideas-result');
@@ -789,9 +830,15 @@ angular.module('goal', ['Interpolation',
                     location.longitude = item.location.longitude;
                     location.title = item.title;
                     location.slug = item.slug;
+                    location.status = item.is_my_goal;
                     $scope.locations.push(location);
                 }
             });
+
+            $timeout(function() {
+                $scope.fadeMapIcon = ($scope.locations.length > 0);
+                $scope.showMap = $scope.showMap && $scope.fadeMapIcon ;
+            }, 1000);
         });
 
         $scope.adventureText = function(slug, cJson){

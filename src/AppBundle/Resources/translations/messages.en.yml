@@ -6,6 +6,9 @@ search: SEARCH
 join: JOIN
 copyright: 2015 Bucketlist 127
 join_now: Join Now
+hide: Hide
+show: Show
+tasks: Tasks
 
 #blocks
 most_popular: Most Popular
@@ -59,7 +62,7 @@ goal:
       successfully_add: Your idea has been added successfully.
       is_dream: A goal without target date is a dream ...
       location_ex: Location
-      note_p: Add a note
+      note_p: Add a note ...
       add_step: Add a step
       add_title: Create goal
       add_description: The first step to dream big is to create a bucketlist. If you want to fulfill your dreams, experience life goals before you die, start just now by creating goals.
@@ -76,18 +79,23 @@ goal:
       as_visible: Set as Visible
       visible: Visible
       see_also: See also
+      in_proces: An active goal is a goal in process
+      status: Goal Status
+      take_note: Take notes, follow your goal
+      deside: Be better prepared to decide on goals
+      visibility: Visibility
       not_found: |
                     <p class="empty-text text-center">
                          Sorry, we couldn't find anything.
                      </p>
 
-                     <p  class="empty-text text-center">
+                     <p  class="empty-text text-center ng-hide" data-ng-show='%isSearch%'>
                          <span>You can create this goal:</span>
                          <span class="text-purple">%search%</span>
                          <a  class="btn btn-purple" href="%href%">Start</a>
                      </p>
 
-                     <p  class="empty-text text-center">or you can explore other ideas:</p>
+                     <p  class="empty-text text-center ng-hide" data-ng-show='%isSearch%'>or you can explore other ideas:</p>
       list_title: Discover ideas that inspire you
       is_completed: Goal is completed
       is_active: Goal is active
@@ -97,10 +105,10 @@ goal:
       complete_step: Take steps - Complete your Goal !
       private_text: You created this Goal only for your Bucketlist
       invisible_text: You can make the Goal invisible for other users
-      visible_text: You can make the Goal visible for other users
+      visible_text: Show or hide your goal from others
       missed_deadline: You missed your deadline, please set new one
       scheduled_date: Scheduled Date
-      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY ADDED
+      create_goal: CONGRATULATIONS, YOUR GOAL HAS BEEN SUCCESSFULLY
       create_idea: CONGRATULATIONS, YOUR IDEA HAS BEEN SUCCESSFULLY CREATED AND ADDED AS A GOAL
       empty_draft: Currently there are no draft goals in your draft list
       empty_private_ideas: Currently there are no Private goals in your Private goal list
@@ -248,6 +256,7 @@ menu:
   completed: Completed
   map: Map
   common: In Common
+  owned: Owned
 
 right_menu:
   my_ideas: My Ideas
@@ -353,6 +362,7 @@ delete_message: |
 complete_message: Complete your profile
 
 added: Added
+addedU: ADDED
 completed: Completed
 no_common: You haven`t common goals
 submit: Submit
@@ -403,6 +413,7 @@ admin:
       file: File
       author: Author
       content: Content
+      content_type: Content Type
       replaceString: Replace String
       replaceWith: Replace With
       name: Name
@@ -422,6 +433,7 @@ admin:
       employee_id: Employee ID
       username: Username
       created: Created
+      createdU: CREATED
       updated: Updated
       goal_link: Goal link
       comments: Comments
@@ -437,6 +449,7 @@ admin:
       featured_date: Featured Date
       place: Place
       type: Type
+      report_type: Report Type
       place_type: Place Type
       user_place: User Place
       goal: Goal
@@ -501,3 +514,11 @@ report:
   other: Other
   thanks: Thank you
   message: We have received your report
+
+achievment: Achievment
+
+overall:
+  progress: Overall Progress
+  good: Good job! You are in sync with your projected goals.
+  excellent: Excellent! You are outperforming!
+  falling: Get a move on! You are falling behind your goals.

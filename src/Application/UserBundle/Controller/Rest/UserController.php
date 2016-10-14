@@ -8,6 +8,7 @@
 namespace Application\UserBundle\Controller\Rest;
 
 use Application\UserBundle\Entity\User;
+use AppBundle\Entity\UserGoal;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -558,6 +559,123 @@ class UserController extends FOSRestController
         }
 
         return $currentUser;
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    private function toBool($value){
+        if ($value === 'true' || $value === true || $value === 1){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * This function is used to get current user overall progress
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  section="User",
+     *  description="This function is used to to get current user overall progress",
+     *  statusCodes={
+     *         200="Returned when status changed",
+     *         401="Access allowed only for registered users"
+     *     },
+     * )
+     * @Secure(roles="ROLE_USER")
+     * @Rest\View()
+     */
+    public function getOverallAction(Request $request)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        //get current user
+        $currentUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        //check if not logged in user
+        if(!is_object($currentUser)) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "There is not any user logged in");
+        }
+
+        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
+            $content = $request->getContent();
+            $request->request->add(json_decode($content, true));
+        }
+
+        // check conditions
+        switch($request->get('condition')){
+            case UserGoal::ACTIVE:
+                $condition = UserGoal::ACTIVE;
+                break;
+            case UserGoal::COMPLETED:
+                $condition = UserGoal::COMPLETED;
+                break;
+            default:
+                $condition = null;
+        }
+
+        $dream = $this->toBool($request->query->get('isDream'));
+        $first = 0;
+        $count = null;
+        $owned = $request->get('owned');
+
+        $requestFilter = [];
+        $requestFilter[UserGoal::URGENT_IMPORTANT]          = $this->toBool($request->get('urgentImportant'));
+        $requestFilter[UserGoal::URGENT_NOT_IMPORTANT]      = $this->toBool($request->get('urgentNotImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
+        $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
+
+        if($owned){
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser);
+        } else{
+            $userGoals = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count);
+        }
+        
+
+        $count = 0;
+        $overall = 0;
+        if ($userGoals)
+        {
+            foreach($userGoals as $userGoal){
+                if($userGoal->getStatus() != UserGoal::COMPLETED){
+                    //if goal have listed and do dates
+                    if($userGoal->getListedDate() && $userGoal->getDoDate()){
+
+                        $time1 = $userGoal->getListedDate();
+                        $time2 = $userGoal->getDoDate();
+                        $limit = date_diff($time2,$time1)->days;
+                        $time3 = new \DateTime('now');
+                        $currentLimit = date_diff($time3,$time1)->days;
+
+                        if($currentLimit > $limit){
+                            $timesAgo = $limit?$limit:1;
+                            $allTimes = $limit?$limit:1;
+                        }else{
+                            $timesAgo = $currentLimit?$currentLimit:1;
+                            $allTimes = $limit?$limit:1;
+                        }
+
+                        $goalPercent = $userGoal->getCompleted();
+                        $currentTimePercent = (100 * $timesAgo)/$allTimes;
+                        $currentOverall = ($userGoal->getSteps())?($goalPercent * 100/$currentTimePercent):(($currentLimit > $limit || !$limit)?0:(100 - ($currentLimit*100/$limit)));
+                        $overall += $currentOverall;
+                        $count++;
+                    }
+                }
+            }
+
+            if($count && $overall){
+                return array('progress' => floor($overall/$count));
+            }
+        }
+
+        return array('progress' => 0);
     }
 
 

@@ -40,6 +40,7 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
 
         $lastMonth = new \DateTime();
         $lastMonth->modify('-1 month');
+        $matchesUserMax = $this->getContainer()->getParameter('matches_user_maximum_number');
 
         $users = $em->createQuery("SELECT u as user, mu,
                                       (SELECT COUNT(cmt) FROM ApplicationCommentBundle:Comment cmt WHERE cmt.author = u AND cmt.createdAt >= :lastMonth) as commentCount,
@@ -136,6 +137,18 @@ class ActiveFactorAndMatchesCommand extends ContainerAwareCommand
             $user['user']->setFactorCommandDate(new \DateTime());
 
             $progress->advance();
+
+            // remove old match users
+            $stmt = $em->getConnection()
+                ->prepare("DELETE FROM match_user WHERE id IN (select id from (select id
+                                           FROM match_user
+                                           WHERE match_user.user_id = :userId
+                                           ORDER BY common_factor DESC
+                                          LIMIT $matchesUserMax, 10000) x)");
+
+            $stmt->bindValue('userId', $userId);
+            $stmt->execute();
+
         }
 
         $em->flush();

@@ -13,6 +13,14 @@
                 <div style="color: limegreen">Total count   {{ crawlerCount }}</div>
                 <div style="color: limegreen">Average count   {{ crawlerAverage }}</div>
                 <div id="statistic" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <table class="table ">
+                    {% for name, count in perUserCreated %}
+                        <tr {% if name == 'Total' %}class="danger"{% else %}class="info"{% endif %}>
+                            <th style="text-align: center" >{{ name }}</th>
+                            <td >{{ count }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
 
                 <div style="color: limegreen">Total count   {{ updateCount }}</div>
                 <div style="color: limegreen">Average count   {{ updateAverage }}</div>
@@ -43,6 +51,7 @@
     <script src="{{ asset('app/bower_components/highcharts/modules/exporting.js') }}"></script>
     <script>
         $(function () {
+
             $('#statistic').highcharts({
                 title: {
                     text: 'Created',
@@ -50,11 +59,10 @@
                 },
                 xAxis: {
                     categories: [
-                        {% for object in result %}
-                            '{{ object['dates']|date('M d') }}',
+                        {% for category in createCategories %}
+                        '{{ category }}',
                         {% endfor %}
-                    ]
-                },
+                    ]},
                 yAxis: {
 
                     plotLines: [{
@@ -69,14 +77,18 @@
                     verticalAlign: 'middle',
                     borderWidth: 0
                 },
-                series: [{
-                    name: 'Statistic Line',
-                    data: [
-                        {% for object in result %}
-                        {{ object['counts'] }},
-                        {% endfor %}
-                    ]
-                }],
+                series: [
+                    {% for axis in createAxis  %}
+                    {
+                        name: '{{ axis }}',
+                        data: [
+                            {% for object in createResult %}
+                            {{ object[axis] }},
+                            {% endfor %}
+                        ]
+                    },{% endfor %}
+                ]
+
             });
 
             $('#updated').highcharts({

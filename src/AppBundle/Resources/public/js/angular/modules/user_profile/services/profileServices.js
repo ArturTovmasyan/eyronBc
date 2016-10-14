@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('profile')
-  .factory('lsInfiniteGoals', ['$http', 'localStorageService', 'UserGoalDataManager', '$analytics', function($http, localStorageService, UserGoalDataManager, $analytics) {
+  .factory('lsInfiniteGoals', ['$http', 'localStorageService', 'UserGoalDataManager', '$rootScope',
+    function($http, localStorageService, UserGoalDataManager, $rootScope) {
     var lsInfiniteGoals = function(loadCount) {
       this.userGoals = [];
       this.users = [];
@@ -69,19 +70,37 @@ angular.module('profile')
   
       if (this.busy) return;
       this.busy = true;
-      //when profile page
+      //when profile or owned page
       if(data){
-        UserGoalDataManager.profile(data, function (newData) {
-          if(!newData.user_goals.length){
-            this.noItem = true;
-          } else {
-            this.reserve = newData.user_goals;
-            this.imageLoad(true);
-            this.start += this.count;
-            this.request++;
-            this.busy = false;
-          }
-        }.bind(this));
+        // when owned page
+        if(data.status === 'owned'){
+          UserGoalDataManager.owned({id:  this.id, what: this.start, param: this.count}, function (newData) {
+            if(!newData.goals.length){
+              this.noItem = true;
+            } else {
+              this.reserve = newData.goals;
+              this.imageLoad(false);
+              this.start += this.count;
+              this.request++;
+              this.busy = false;
+            }
+          }.bind(this));
+        }
+        //when profile page
+        else {
+          UserGoalDataManager.profile(data, function (newData) {
+            if(!newData.user_goals.length){
+              this.noItem = true;
+            } else {
+              this.reserve = newData.user_goals;
+              this.imageLoad(true);
+              this.start += this.count;
+              this.request++;
+              this.busy = false;
+            }
+          }.bind(this));
+        }
+
       } else {//when goal users page
         if(this.id){
           UserGoalDataManager.friends({id: this.start, where: this.count, what: this.id, param: this.slug, search: this.search}, function (newData) {
@@ -179,13 +198,33 @@ angular.module('profile')
         'urgentImportant'       : (data.f_1 === 'true'),
         'urgentNotImportant'    : (data.f_2 === 'true'),
         'notUrgentImportant'    : (data.f_3 === 'true'),
-        'notUrgentNotImportant' : (data.f_4 === 'true')
+        'notUrgentNotImportant' : (data.f_4 === 'true'),
+        'status' : data.status
   
       };
   
       if(this.request){
         this.getReserve(post);
-      } else {
+      } else if(post.status == 'owned'){
+        $rootScope.$broadcast('owned');
+        UserGoalDataManager.owned({id: data.userId, what: this.start, param: this.count}, function (newData) {
+            // if get empty
+            if(!newData.goals.length){
+              this.noItem = true;
+            } else {
+              this.id = data.userId;
+              this.busy = false;
+              this.userGoals = this.userGoals.concat(newData.goals);
+              this.start += this.count;
+              this.request++;
+              post['first'] = this.start;
+              post['count'] = this.count;
+              this.nextReserve(post);
+            }
+        }.bind(this));
+      }
+      else {
+        $rootScope.$broadcast('profileNextPage', post);
         UserGoalDataManager.profile(post, function (newData) {
           // if get empty
           if(!newData.user_goals.length){

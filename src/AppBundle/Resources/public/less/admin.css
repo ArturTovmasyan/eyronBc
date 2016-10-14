@@ -51,10 +51,15 @@
     padding:25px 15px  15px;
     background-color: #f4f4f4;
     margin: 10px 0 15px;
+    height: 240px;
+    position: relative;
 }
 
+.images figure img{ margin:0 auto;}
 .images figcaption{
     padding: 10px 20px 0;
+    position: absolute;
+    bottom: 15px;
 }
 
 .file-list{
@@ -112,4 +117,13 @@
     height: 24px;
     display: block;
     background-size: 100%;
+}
+
+.more-content span {
+    display: none;
+}
+
+.admin-text {
+    width: 400px;
+    margin: 10px;
 }

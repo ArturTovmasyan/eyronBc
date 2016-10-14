@@ -12,7 +12,7 @@ angular.module('goalManage')
       add: {method:'PUT', params:{ path:'usergoals'}, transformResponse: function (object) {
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
-            $rootScope.$broadcast('addGoal');
+            $rootScope.$broadcast('addGoal', refreshingDate.goalId);
           },600);
           $analytics.eventTrack('Goal add', {  category: 'Goal', label: 'Goal add from Web' });
           return angular.fromJson(object);
@@ -23,8 +23,12 @@ angular.module('goalManage')
       }},
       profile: {method:'GET', params:{ path:'usergoals',id: 'bucketlists', version: 'v2.0'}, transformResponse: function (object) {
         return angular.fromJson(object);
-      }},
+      }}, 
+      overall: {method:'GET', params:{ path:'user',id: 'overall'}},
       common: {method:'GET', params:{ path:'goals',where: 'common'}, transformResponse: function (object) {
+        return angular.fromJson(object);
+      }},
+      owned: {method:'GET', params:{ path:'goals',where: 'owned'}, transformResponse: function (object) {
         return angular.fromJson(object);
       }},
       friends: {method:'GET', isArray: true, params:{ path:'user-list'}, transformResponse: function (object) {
@@ -38,7 +42,7 @@ angular.module('goalManage')
         if(object == 1){
           refreshCacheService.refreshCache(UserContext.id, refreshingDate.goalId);
           $timeout(function(){
-            $rootScope.$broadcast('doneGoal');
+            $rootScope.$broadcast('doneGoal', refreshingDate.goalId);
           },600);
           $analytics.eventTrack('Goal done', {  category: 'Goal', label: 'Goal done from Web' }); 
         }

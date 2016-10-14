@@ -1,9 +1,9 @@
 <div data-ls-activities
      id="activities"
+     data-ng-cloak
      {% if single  and activity is defined and userId is defined%}
         data-ls-count="10"
         data-ls-user="{{ userId }}"
-        data-ng-cloak
      {% endif %}>
 
     {% if not single%}
@@ -20,7 +20,6 @@
     {% endif %}
 
     <div class="goals-animate"
-         data-ng-cloak
             {#data-ng-class="{'padding-no': !activity.comment && !activity.success_story}"#}
          data-ng-repeat="activity in Activities.items"
          data-ng-init="activity.activeIndex = 1">

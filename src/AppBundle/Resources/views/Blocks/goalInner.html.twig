@@ -31,7 +31,7 @@
          data-infinite-scroll-distance='2'>
     </div>
 
-    <div class="goal-content">
+    <div class="goal-content" data-ng-init="goal.public= {% if goal.status %} true {% else %} false {% endif %} ">
         <div class="container">
             <div class="row">
                 <div class="col-md-5"></div>
@@ -80,7 +80,7 @@
 
                                     {% if image.downloadLink|length > 0 %}
                                         <div class="overlay swiper-slide">
-                                            <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox" data-title="{{ goal.title }}">
+                                            <a href="{{ image.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-main" data-title="{{ goal.title }}">
                                                 <img class="img-responsive" src="{{ image.downloadLink|blImageFilter('goal_bg') }}" alt="{{ goal.title }}" {% if image.imageSize["height"] < 435 %}style="height: 100%;" {% endif %}/>
                                             </a>
                                         </div>
@@ -102,7 +102,7 @@
                         </figure>
                     {% endif %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-ng-init="success[ {{ goal.id }} ] = {% if goal.isMyGoal == 2 %} true {% else %} false {% endif %}">
                     {% if page == inner %}
                         <div class="goal-information">
                             <ul class="row goal-links" data-ng-init="added = true">
@@ -116,7 +116,7 @@
                                     </li>
                                 {% endif %}
 
-                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || !completed}" {% endif %}>
+                                <li class="col-xs-{{ xs }} {% if goal.isMyGoal != 0 %}transparent{% endif %}" {% if goal.isMyGoal == 0 %}data-ng-class="{transparent: added || success[ {{ goal.id }} ]}" {% endif %}>
                                     {% if goal.isMyGoal == 0 %}
                                         <a href="javascript:void(0)"
                                            data-ng-init="added = false" data-ng-show="!added"
@@ -135,109 +135,100 @@
                                 </li>
 
 
-                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" {% if goal.isMyGoal != 2 %}data-ng-class="{transparent: !completed}"{% endif %}>
-                                    {% if goal.isMyGoal != 2 %}
-                                        <a href="javascript:void(0)"
-                                           data-ng-init="completed=true" data-ng-show="completed"
-                                           data-ng-cloak
-                                           data-ls-user-goal-manage
-                                           data-ls-goal-id="{{ goal.id }}"
-                                           data-ng-click="completed = false; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
-                                            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
-                                            <span class="text">{{ 'done'|trans | upper }}</span>
-                                        </a>
+                                <li class="col-xs-6 {% if goal.isMyGoal == 2 %}transparent{% endif %}" {% if goal.isMyGoal != 2 %}data-ng-class="{transparent: success[ {{ goal.id }} ]}"{% endif %}>
+                                    <a href="javascript:void(0)"
+                                       data-ng-show="!success[ {{ goal.id }} ]"
+                                       data-ng-cloak
+                                       data-ls-user-goal-manage
+                                       data-ls-goal-id="{{ goal.id }}"
+                                       data-ng-click="success[ {{ goal.id }} ] = true; added = true{% if isMobile() and not app.user%}; popoverByMobile(){% endif %}">
+                                        <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                        <span class="text">{{ 'done'|trans | upper }}</span>
+                                    </a>
 
-                                        <span class="ng-hide" data-ng-show="!completed">
-                                             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                             <span class="text">{{ 'completed'|trans | upper}}</span>
-                                        </span>
-
-                                    {% else %}
-                                        <span>
-                                             <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                            <span class="text">{{ 'completed'|trans | upper}}</span>
-                                        </span>
+                                    <span class="ng-hide" data-ng-show="success[ {{ goal.id }} ]">
+                                         <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                         <span class="text">{{ 'completed'|trans | upper}}</span>
+                                    </span>
+                                </li>
+                            </ul>
+                            {% if goal and goal.isMyGoal == 1 or goal.isMyGoal == 2 %}
+                                <ul class="goal-icons" data-ng-cloak data-ng-init="goalId = {{ goal.id }}">
+                                    {% if author and author.id == userId %}
+                                        <li data-ng-init="isAuthor=true">
+                                            <a href="{{ path('add_goal') }}?id={{ goal.id }}&slug=Public">
+                                                <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
+                                            </a>
+                                        </li>
                                     {% endif %}
 
-                                </li>
-                            </ul>
-
-                            <ul class="goal-icons">
-                                <li>
-                                    <a href="javascript:void(0)"
-                                       data-ng-cloak
-                                       data-ls-type="manage"
-                                       data-ls-goal-id="[[ goal.id ]]"
-                                       data-ls-goal-manage
-                                       class="text-gray manage-modal">
-                                        <i class="icon-manage"></i>
-                                    </a>
-                                </li>
-
-                                <li data-ng-init="goalStatus = (status == '{{ constant("AppBundle\\Entity\\UserGoal::COMPLETED") }}')">
-                                    <div class="check_status" data-ng-init="success[ goal.id ] = goalStatus">
+                                    <li class="bordered-list">
                                         <a href="javascript:void(0)"
                                            data-ng-cloak
-                                           data-ng-show="!success[ goal.id ]"
-                                           data-ng-click="goalId = [[ goal.id ]];success[ goal.id ] = true"
-                                           data-ls-goal-id="[[ goal.id ]]"
-                                           data-ls-user-goal-manage
-                                           id="done[[ goal.id ]]"
-                                           class="ng-hide">
-                                            {#<i class="icon done-icon"></i>#}
-                                            <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                           data-ls-type="manage"
+                                           data-ls-goal-id="{{  goal.id }}"
+                                           data-ls-goal-manage
+                                           class="text-gray manage-modal">
+                                            <i class="icon-manage"></i>
                                         </a>
-                                        <a  href="javascript:void(0)"
-                                            data-ng-show="success[ goal.id ]"
-                                            data-ls-user-goal-manage
-                                            data-ls-type="manage"
-                                            data-ng-cloak
-                                            data-ls-goal-id="[[ goal.id ]]"
-                                            class="successtory ng-hide"
-                                            id="success[[ goal.id ]]">
-                                            {#<i class="icon ok-icon-green"></i>#}
-                                            <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                        </a>
-                                    </div>
-                                </li>
+                                    </li>
 
-                                {#<li data-ng-if="isLate(userGoal.do_date)">#}
-                                <li>
-                                    <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
-                                </li>
+                                    <li class="bordered-list">
+                                        <div class="check_status">
+                                            <a href="javascript:void(0)"
+                                               data-ng-show="!success[ {{ goal.id }} ]"
+                                               data-ng-click="success[ {{ goal.id }} ] = true"
+                                               data-ls-goal-id="{{ goal.id }}"
+                                               data-ls-user-goal-manage
+                                               id="done{{ goal.id }}"
+                                               class="ng-hide">
+                                                <i class="icon-ok-icon"><span class="path1"></span><span class="path2"></span></i>
+                                            </a>
+                                            <a  href="javascript:void(0)"
+                                                data-ng-show="success[ {{ goal.id }} ]"
+                                                data-ls-user-goal-manage
+                                                data-ls-type="manage"
+                                                data-ls-goal-id="{{ goal.id }}"
+                                                class="successtory ng-hide"
+                                                id="success{{ goal.id }}">
+                                                <i class="icon-green-ok"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </a>
+                                        </div>
+                                    </li>
 
-                                {#<li data-ng-if="!goal.publish && goal.author && goal.author.id == '{{ profileUser.id }}'">#}
-                                <li>
-                                    <a href="{{ path('add_goal') }}?id=[[goal.id]]&slug=Public">
-                                        <i title="{{ 'my_bucket_list.edit'|trans }}" class="icon-pencil"></i>
-                                    </a>
-                                </li>
+                                    <li data-ng-if="isLate(goal.do_date)">
+                                        <i title="{{ 'my_bucket_list.missed_deadline'|trans }}"  class="icon-info text-purple"></i>
+                                    </li>
 
-                                <li>
-                                    <i title="{{ 'my_bucket_list.notes'|trans }}" class="edit-note"></i>
-                                </li>
+                                    <li data-ng-if="goal.note">
+                                        <i title="{{ 'my_bucket_list.notes'|trans }}" class="edit-note"></i>
+                                    </li>
 
-                                {#<li data-ng-if="!isEmpty(userGoal.steps)">#}
-                                <li>
-                                    <i title="{{ 'my_bucket_list.notes'|trans }}"  class="icon-step-list"></i>
-                                </li>
+                                    {#<li data-ng-if="!isEmpty(userGoal.steps)">#}
+                                    <li data-ng-if="goal.steps">
+                                        <i title="{{ 'goal.steps'|trans }}"  class="icon-step-list"></i>
+                                    </li>
 
-                                {#<li data-ng-if="!userGoal.is_visible">#}
-                                <li>
-                                    <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
-                                </li>
+                                    <li data-ng-if="goal.is_visible">
+                                        <i title="{{ 'goal.visible'|trans }}" class="icon-eye-icon"></i>
+                                    </li>
+                                    <li data-ng-if="!goal.is_visible">
+                                        <i title="{{ 'my_bucket_list.invisible'|trans }}" class="icon-eye"></i>
+                                    </li>
 
-                                {#<li data-ng-if="goal.author && goal.author.id == '{{ profileUser.id }}' && goal.status == '{{ constant('AppBundle\\Entity\\Goal::PRIVATE_PRIVACY') }}'">#}
-                                <li>
-                                    <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
-                                </li>
-                            </ul>
+                                    <li data-ng-if="!goal.public">
+                                        <i title="{{ 'my_bucket_list.private'|trans }}"  class="icon-lock-white"></i>
+                                    </li>
+                                </ul>
+                            {% endif %}
 
                             {% if goal.lat is not null and goal.lng is not null %}
-                                <div data-ng-show="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                <div data-ng-show="isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
                                     <div class="map-marker" data-ng-show="location"
                                          data-simple-map-marker
                                          data-zoom="14"
+                                         data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+                                         data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
                                          data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                                          data-markers="location"
 
@@ -442,10 +433,12 @@
                             </li>
                         </ul>
                             {% if goal.lat is not null and goal.lng is not null %}
-                                <div data-ng-show="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, title: '{{ goal.title }}', id: 'deed'}]">
+                                <div data-ng-show="!isDesktop" data-ng-init="location=[{latitude: {{ goal.lat }}, longitude: {{ goal.lng }}, status: '{{ goal.isMyGoal|default(0) }}', title: '{{ goal.title }}', id: 'deed'}]">
                                     <div class="map-marker" data-ng-show="location"
                                          data-simple-map-marker
                                          data-zoom="14"
+                                         data-active-goal-marker-icon1="{{ asset('bundles/app/images/Active-icon.png') }}"
+                                         data-active-goal-marker-icon2="{{ asset('bundles/app/images/Completed-icon.png') }}"
                                          data-passive-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
                                          data-markers="location"
 
@@ -663,12 +656,12 @@
                                             {% else %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div id="story-slider-image{{ key }}" class="swiper-container story-slider image-slider">
+                                                        <div id="story-slider-image{{ key }}" data-ng-init="successStoryImageKeys[{{ key }}] = {{ key }}" class="swiper-container story-slider image-slider">
                                                             <!-- Slides Container -->
                                                             <div class="swiper-wrapper">
                                                                 {% for k,file in files %}
                                                                     <div class="swiper-slide">
-                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox">
+                                                                        <a href="{{ file.downloadLink|blImageFilter('slide_max_size') }}" class="swipebox-key-{{ key }}">
                                                                             <img class="img-responsive" src="{{ file.downloadLink|blImageFilter('goal_list_small') }}" alt="{{ file.fileName }}"/>
                                                                         </a>
                                                                     </div>

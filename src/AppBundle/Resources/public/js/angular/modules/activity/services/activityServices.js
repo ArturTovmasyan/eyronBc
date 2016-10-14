@@ -57,7 +57,7 @@ angular.module('activity')
       var img;
       this.busy = false;
       angular.forEach(this.reserve, function(item) {
-        if (!angular.isUndefined(item.goals) && item.goals[0].cached_image) {
+        if (!angular.isUndefined(item.goals) && item.goals.length && item.goals[0].cached_image) {
           img = new Image();
           img.src = item.goals[0].cached_image;
         }
@@ -354,6 +354,10 @@ angular.module('activity')
                   scope.$parent.Activities.items[$(ev.container).data('index')].showComment = false;
                   scope.$parent.loadImage($(ev.container).data('index'));
                   scope.$parent.$apply();
+                  $timeout(function () {
+                    ev.update(true);
+                  }, 100)
+
                 },
                 onSlidePrevStart: function (ev) {
                   scope.$parent.Activities.items[$(ev.container).data('index')].createComment = false;

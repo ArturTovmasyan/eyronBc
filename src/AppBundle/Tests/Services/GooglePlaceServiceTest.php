@@ -30,10 +30,6 @@ class GooglePlaceServiceTest extends BaseClass
 
         $latitudeRussia = $placesData[1]['latitude'];
         $longitudeRussia = $placesData[1]['longitude'];
-        $rusShortName = $placesData[1]['short_name'];
-
-        $russia = $placesData[1]['country'];
-        $moscow = $placesData[1]['city'];
 
         $data = array(
             array('latitude' => $latitudeArmenia,
@@ -44,7 +40,7 @@ class GooglePlaceServiceTest extends BaseClass
             array('latitude' => $latitudeRussia,
                 'longitude' => $longitudeRussia,
                 'save' => true,
-                'placeName' => [PlaceType::TYPE_CITY => $moscow, PlaceType::TYPE_COUNTRY => $russia, PlaceType::COUNTRY_SHORT_NAME => $rusShortName]));
+                'placeName' => []));
 
         return $data;
     }
@@ -67,18 +63,12 @@ class GooglePlaceServiceTest extends BaseClass
         //get place by service
         $googlePlace = $googlePlaceService->getPlace($latitude, $longitude, $save);
 
-        $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
+        //check if save value is false
+        if (!$save) {
+            $this->assertEquals($placeName, $googlePlace, 'Places don\'t found, please check your google server key');
 
-        //check if save value is true
-        if ($save) {
-
-            //get place value in assoc. array
-            $place = array_values($googlePlace);
-
-            //get place in by name in DB
-            $placeInDb = $this->em->getRepository('AppBundle:Place')->findByName($place);
-
-            $this->assertEquals(2, count($placeInDb), 'getPlace method by param save don\'t work correctly');
+        } else {
+            $this->assertEquals(2, count($googlePlace), 'getPlace() method by param save don\'t work correctly');
         }
     }
 }

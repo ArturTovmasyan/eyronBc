@@ -32,6 +32,49 @@ class GoalController extends FOSRestController
 {
     const RandomGoalFriendCounts = 3;
 
+    /**
+     * @Rest\Get("/goals/{userId}/owned/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_owned", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get owned goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     *
+     * )
+     *
+     * @param int $userId
+     * @param int $first
+     * @param int $count
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getOwnedAction(Request $request, $userId, $first = null, $count = null)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get owned goals
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        // cached images
+        foreach($ownedGoals as $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
+
+        return  ['goals' => $ownedGoals];
+    }
+
 
     /**
      * @Rest\Get("/goals/{userId}/common/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_common", options={"method_prefix"=false})
@@ -675,17 +718,14 @@ class GoalController extends FOSRestController
      *         200="Ok",
      *         400="Bad request"
      *  },
-     *  parameters={
-     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
-     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
-     *  }
      * )
      *
-     * @return array
+     * @return mixed
      * @param $latitude float
      * @param $longitude float
      *
      * @Rest\View(serializerGroups={"goal"})
+     * @Rest\Get("/goals/places/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
      * @Security("has_role('ROLE_USER')")
      */
     public function getGoalsInPlaceAction($latitude, $longitude)
@@ -699,7 +739,7 @@ class GoalController extends FOSRestController
             //get current user
             $user = $this->getUser();
 
-            //get all goal by place
+            //get all goals by place
             $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
             //check if goal not exists
@@ -710,7 +750,7 @@ class GoalController extends FOSRestController
             return $allGoals;
         }
 
-        return new Response("Missing coordinate data", Response::HTTP_BAD_REQUEST);
+        return new Response('Missing coordinate data', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -734,6 +774,7 @@ class GoalController extends FOSRestController
      * @param $request
      *
      * @Rest\View()
+     * @Rest\Post("/goals/confirm")
      * @Security("has_role('ROLE_USER')")
      */
     public function postConfirmGoalsAction(Request $request)
@@ -742,13 +783,13 @@ class GoalController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //get goal data in request
-        $goalData = $request->get('goal', null);
+        $goalData = $request->get('goal');
 
         //get latitude
-        $latitude = $request->get('latitude', null);
+        $latitude = $request->get('latitude');
 
         //get longitude
-        $longitude = $request->get('longitude', null);
+        $longitude = $request->get('longitude');
 
         //check if goal ids not send
         if(!$goalData || !$latitude || !$longitude) {

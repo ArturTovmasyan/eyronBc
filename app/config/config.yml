@@ -8,6 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     node_path: /usr/local/bin/node
+    matches_user_maximum_number: 100
     locale: en
     languages:
        en: English
@@ -42,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v495
+        assets_version: v509
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~

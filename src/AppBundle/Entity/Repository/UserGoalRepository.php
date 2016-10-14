@@ -72,6 +72,23 @@ class UserGoalRepository extends EntityRepository
     }
 
     /**
+     * @param $owner
+     * @return array
+     */
+    public function findOwnedUserGoals($owner)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ug
+                           FROM AppBundle:UserGoal ug
+                           LEFT JOIN ug.goal g
+                           WHERE g.author = :owner
+                           ")
+            ->setParameter('owner', $owner)
+            ->getResult();
+    }
+    
+
+    /**
      * @param $userId
      * @param $status
      * @param $dream
@@ -144,9 +161,11 @@ class UserGoalRepository extends EntityRepository
 
         $query->andWhere($subQuery->getDQLPart('where'));
 
-        $query
-            ->setFirstResult($first)
-            ->setMaxResults($count);
+        if($count){
+            $query
+                ->setFirstResult($first)
+                ->setMaxResults($count); 
+        }
 
 
         if ($getLastDate){

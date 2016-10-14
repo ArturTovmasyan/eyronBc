@@ -67,7 +67,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      *      minMessage = "Your description be at least {{ limit }} characters long",
      *      maxMessage = "Your description cannot be longer than {{ limit }} characters"
      * )
-     * @Assert\NotBlank(message = "Goal description can't be blank")
+     * @Assert\NotBlank(message = "Goal description can't be blank", groups={"goal"})
      * @ORM\Column(name="description", type="text", length=10000, nullable=false)
      * @Groups({"goal", "goal_description"})
      */

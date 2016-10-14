@@ -427,13 +427,7 @@ class GoalRepository extends EntityRepository
                     ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('u.userGoal', 'ug')
                     ->join('AppBundle:UserGoal', 'ug1', 'WITH', 'ug1.goal = ug.goal AND ug1.user = :userId')
-                    ->where("u.id != :userId")
-                    ->andWhere('u.roles = :roles')
-                    ->setParameter('userId', $userId)
-                    ->setParameter('roles', 'a:0:{}')
-                    ->setFirstResult($first)
-                    ->setMaxResults($count)
-            ;
+                    ->where("u.id != :userId AND u.isAdmin = false");
 
         if ($search){
             $query->andWhere("u.firstname LIKE :search
@@ -449,8 +443,13 @@ class GoalRepository extends EntityRepository
                 $query->orderBy('u.createdAt', 'DESC');
                 break;
             case 'match':
-                $query
+                $query = $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('u')
+                    ->from('ApplicationUserBundle:User', 'u', 'u.id')
                     ->join('ApplicationUserBundle:MatchUser', 'm_user', 'WITH', 'm_user.user = :userId AND m_user.matchUser = u')
+                    ->where('u.isAdmin = false')
                     ->orderBy('m_user.commonFactor', 'DESC')
                     ->addOrderBy('m_user.commonCount', 'DESC')
                 ;
@@ -460,6 +459,10 @@ class GoalRepository extends EntityRepository
                 break;
         }
 
+        $query
+            ->setParameter('userId', $userId)
+            ->setFirstResult($first)
+            ->setMaxResults($count);
 
         return $query->getQuery()->getResult();
     }
@@ -571,15 +574,35 @@ class GoalRepository extends EntityRepository
      * @param $limit
      * @return array
      */
-    public function findGoalGroupByCreationDate($limit)
+    public function findGoalGroupByCreationDateByAdmin($limit, $ids)
     {
         return $this->getEntityManager()
             ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
 						   FROM AppBundle:Goal g
-						   WHERE g.created > :limit
+						   WHERE g.created > :limit AND (g.author is null OR g.author in (:ids))
 						   GROUP BY dates
 						   ORDER BY dates')
             ->setParameter('limit', $limit)
+            ->setParameter('ids', $ids)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get goal group by created date
+     *
+     * @param $limit
+     * @return array
+     */
+    public function findGoalGroupByCreationDateByUser($limit, $ids)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DATE(g.created) as dates, COUNT(g.created) as counts
+						   FROM AppBundle:Goal g
+						   WHERE g.created > :limit AND (g.author is not null AND g.author not in (:ids))
+						   GROUP BY dates
+						   ORDER BY dates')
+            ->setParameter('limit', $limit)
+            ->setParameter('ids', $ids)
             ->getResult();
     }
 
@@ -715,6 +738,29 @@ class GoalRepository extends EntityRepository
     }
 
     /**
+     * @param $owner
+     * @param $first
+     * @param $count
+     * @return array
+     */
+    public function findOwnedGoals($owner, $first, $count)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
+                           WHERE g.author = :owner AND g.publish = :publish
+                           
+                           ")
+            ->setParameter('owner', $owner)
+            ->setParameter('publish', PublishAware::PUBLISH)
+            ->setFirstResult($first)
+            ->setMaxResults($count)
+            ->getResult();
+    }
+
+
+    /**
      * @param $userId
      * @param $userIds
      * @return array
@@ -755,12 +801,12 @@ class GoalRepository extends EntityRepository
     /**
      * This function is used to get all goal by place
      *
-     * @param $place
+     * @param $placeIds
      * @param $userId
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findAllByPlace($place, $userId)
+    public function findAllByPlaceIds($placeIds, $userId)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT g, p
@@ -768,9 +814,9 @@ class GoalRepository extends EntityRepository
                            JOIN g.place p
                            LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
                            LEFT JOIN ug.user u
-                           WHERE LOWER(p.name) in (:place) and (ug.id is null or ug.confirmed = :status)")
+                           WHERE p.id in (:placeIds) and (ug.id is null or ug.confirmed = :status)")
             ->setParameter('userId', $userId)
-            ->setParameter('place', $place)
+            ->setParameter('placeIds', $placeIds)
             ->setParameter('status', false)
             ->getResult();
     }

@@ -38,22 +38,23 @@
   .icon-cloud{
     font-size: 40px;
   }
-  .icon-pencil{
-    position: absolute;
-    top:5px;
-    left:25px;
-  }
+  //.icon-pencil{
+  //  position: absolute;
+  //  top:5px;
+  //  left:25px;
+  //}
 
   .icon-eye{
-    font-size:35px;
-    margin-right:0;
+    font-size: 41px;
+    margin: -3px 0 -6px -8px;
   }
 
   .icon-eye-icon{
-    font-size: 21px;
-    margin:0 7px;
+    //font-size: 21px;
+    font-size: 26px;
+    margin:0 7px 0 0;
     vertical-align: middle;
-    padding-top: 4px;
+    padding-top: 5px;
     height: 32px;
   }
 
@@ -91,13 +92,12 @@
       left: 9px;
     }
 
-    input{
-      padding:6px 30px 6px 40px;
-    }
   }
 
   h6{
     font-size:14px;
+    color: #a2a2a2;
+    margin: 0;
 
     i{
       margin-right: 0;
@@ -376,8 +376,9 @@ a.close-modal{
 }
 
 .priority{
-  background-color: #f4f4f4;
-  position: relative;
+  padding-top: 10px;
+  //background-color: #f4f4f4;
+  //position: relative;
 
   .dotted{
     margin: 20px 30px 0 0;
@@ -596,7 +597,7 @@ a.close-modal{
   }
 
   h3{
-    color:#ffffff;
+    color:#ffffff !important;
     padding:0 0 23px 0;
     font-size:13px;
     line-height:24px;
@@ -769,6 +770,18 @@ a.close-modal{
       font-size:18px;
       line-height: 23px;
     }
+
+    h3{
+      font-size: 24px;
+      color: #333;
+      margin:30px 0 10px;
+    }
+
+    p{
+      i{
+        margin-right:0;
+      }
+    }
   }
   #mobile-modal{
     width:auto;
@@ -877,6 +890,12 @@ a.close-modal{
       padding: 20px 0 ;
     }
 
+  }
+
+  #goal-modal{
+    hr{
+      margin:15px 0 0;
+    }
   }
 
   #story-modal{
@@ -999,8 +1018,13 @@ a.close-modal{
     }
   }
   .priority{
+    padding-top:15px;
+    //height:270px;
 
-    height:270px;
+
+    md-checkbox{
+      margin-bottom:0;
+    }
 
     .dotted{
       border-left:1px dotted #999999;
