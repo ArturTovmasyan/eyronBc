@@ -298,6 +298,11 @@ class UserGoalRepository extends EntityRepository
             $message = UserGoal::DELETE;
         }
 
+//        $currentDate = new \DateTime('now');
+//        $user->setRemovedUserGoalDate($currentDate);
+//        $em->persist($user);
+
+
         $em->flush();
 
         return $message;

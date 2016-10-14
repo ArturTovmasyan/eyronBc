@@ -344,6 +344,12 @@ class User extends BaseUser
     private $mobileImagePath;
 
     /**
+     * @ORM\Column(name="removed_user_goal_date", type="datetime", nullable=true)
+     */
+    private $removedUserGoalDate;
+
+
+    /**
      * @return mixed
      */
     public function getDraftCount()
@@ -1925,5 +1931,29 @@ class User extends BaseUser
     public function getUserPlace()
     {
         return $this->userPlace;
+    }
+
+    /**
+     * Set removedUserGoalDate
+     *
+     * @param \DateTime $removedUserGoalDate
+     *
+     * @return User
+     */
+    public function setRemovedUserGoalDate($removedUserGoalDate)
+    {
+        $this->removedUserGoalDate = $removedUserGoalDate;
+
+        return $this;
+    }
+
+    /**
+     * Get removedUserGoalDate
+     *
+     * @return \DateTime
+     */
+    public function getRemovedUserGoalDate()
+    {
+        return $this->removedUserGoalDate;
     }
 }
