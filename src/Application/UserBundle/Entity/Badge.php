@@ -46,7 +46,7 @@ class Badge
     protected $score = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="badges")
+     * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="badges")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
