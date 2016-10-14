@@ -220,7 +220,7 @@ class UserGoalRepository extends EntityRepository
             ->setParameter('userGoalId', $userGoal)
             ->getSingleResult();
     }
-    
+
     /**
      * @param $userId
      * @return array
@@ -329,5 +329,23 @@ class UserGoalRepository extends EntityRepository
             ->setParameter('currentDate', new \DateTime())
             ->setParameter('goal', $goalId)
             ->execute();
+    }
+
+    /**
+     * This function is used to get all userGoal completed or due date
+     *
+     * @param $userId
+     * @return array
+     */
+    public function findAllForCalendar($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT ug.completionDate, ug.doDate
+                           FROM AppBundle:UserGoal ug
+                           JOIN ug.user u
+                           WHERE u.id = :userId AND (ug.completionDate IS NOT NULL OR ug.doDate IS NOT NULL)
+                           ")
+            ->setParameter('userId', $userId)
+            ->getResult();
     }
 }
