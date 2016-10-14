@@ -215,4 +215,27 @@ class GoalAdmin extends AbstractAdmin
         $this->updateData($object);
     }
 
+    /**
+     * @param mixed $object
+     */
+    public function preRemove($object) {
+
+        //get removed goal object
+        $goal = $this->getModelManager()->getEntityManager($this->getClass())->getUnitOfWork()->getOriginalEntityData($object);
+
+        //get all user goals
+        $userGoals = $goal['userGoal'];
+
+        //get current date
+        $currentDate = new \DateTime();
+
+        foreach ($userGoals as $userGoal)
+        {
+            //get user
+            $user = $userGoal->getUser();
+
+            //set userGoal rempve date in user
+            $user->setUserGoalRemoveDate($currentDate);
+        }
+    }
 }

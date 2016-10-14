@@ -344,10 +344,9 @@ class User extends BaseUser
     private $mobileImagePath;
 
     /**
-     * @ORM\Column(name="removed_user_goal_date", type="datetime", nullable=true)
+     * @ORM\Column(name="user_goal_remove_date", type="datetime", nullable=true)
      */
-    private $removedUserGoalDate;
-
+    private $userGoalRemoveDate;
 
     /**
      * @return mixed
@@ -1934,26 +1933,26 @@ class User extends BaseUser
     }
 
     /**
-     * Set removedUserGoalDate
+     * Set userGoalRemoveDate
      *
-     * @param \DateTime $removedUserGoalDate
+     * @param \DateTime $userGoalRemoveDate
      *
      * @return User
      */
-    public function setRemovedUserGoalDate($removedUserGoalDate)
+    public function setUserGoalRemoveDate($userGoalRemoveDate)
     {
-        $this->removedUserGoalDate = $removedUserGoalDate;
+        $this->userGoalRemoveDate = $userGoalRemoveDate;
 
         return $this;
     }
 
     /**
-     * Get removedUserGoalDate
+     * Get userGoalRemoveDate
      *
      * @return \DateTime
      */
-    public function getRemovedUserGoalDate()
+    public function getUserGoalRemoveDate()
     {
-        return $this->removedUserGoalDate;
+        return $this->userGoalRemoveDate;
     }
 }

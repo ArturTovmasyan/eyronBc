@@ -299,8 +299,10 @@ class UserGoalRepository extends EntityRepository
         }
 
         //get current date
-        $currentDate = new \DateTime('now');
-        $user->setRemovedUserGoalDate($currentDate);
+        $currentDate = new \DateTime();
+
+        //set removed userGoal date in user
+        $user->setUserGoalRemoveDate($currentDate);
 
         $em->persist($user);
         $em->flush();
