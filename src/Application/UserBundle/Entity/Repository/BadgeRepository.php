@@ -21,9 +21,9 @@ class BadgeRepository extends EntityRepository
     public function findTopUsersByType($type, $count)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT u
+            ->createQuery("SELECT u, b
                            FROM ApplicationUserBundle:User u
-                           LEFT JOIN u.badges b
+                           JOIN u.badges b
                            WHERE b.type = :types
                            ORDER BY b.score DESC")
             ->setParameter('types', $type)
