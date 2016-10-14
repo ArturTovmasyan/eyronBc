@@ -36,7 +36,7 @@ class BadgeController extends Controller
     public function getTopuserAction($type, $count)
     {
         //check if one is parameters not exists
-        if(!$type || !$count) {
+        if(!is_numeric($type) || !is_numeric($count) ) {
             return new Response('Invalid link parameter', Response::HTTP_BAD_REQUEST);
         }
 
