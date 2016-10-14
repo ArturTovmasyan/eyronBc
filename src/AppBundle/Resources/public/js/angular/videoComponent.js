@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('adminGoal', ['Interpolation',
+angular.module('videoComponent', ['Interpolation',
   'Google',
   'PathPrefix',
   'Authenticator',
