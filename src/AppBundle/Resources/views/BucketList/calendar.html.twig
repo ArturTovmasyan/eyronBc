@@ -1,34 +1,38 @@
-<div style="width: 100%; min-height: 300px;background-color: #f4f4f4" class="slide calendar-place ng-hide" data-ng-show="showCalendar">
+<div style="width: 100%; min-height: 500px;background-color: #f4f4f4" class="slide calendar-place  ng-hide"
+     data-ng-if="showCalendar"
+     data-ng-cloak
+     data-ng-controller="calendarController"
+     data-ng-show="initialization">
 
     <div class="container">
 
         <div class="row">
             <div class="col-sm-5">
                 <section>
-                    <md-button class="groupX left">Month</md-button>
-                    <md-button class="groupX middle">Year</md-button>
-                    <md-button class="groupX right">All</md-button>
+                    <md-button class="groupX left" data-ng-class="{'md-active': type == 'month'}" data-ng-click="type = 'month'">Month</md-button>
+                    <md-button class="groupX middle" data-ng-class="{'md-active': type == 'year'}" data-ng-click="type = 'year'">Year</md-button>
+                    <md-button class="groupX right" data-ng-class="{'md-active': type == 'all'}" data-ng-click="type = 'all'">All</md-button>
                 </section>
             </div>
             <div class="col-xs-9 col-sm-4">
-                <h3>September 2016</h3>
-                <h3>Years</h3>
-                <h3>Lifetime</h3>
+                <h3 class="ng-hide" data-ng-show="type == 'month'">[[ dateByFormat(currentYear, currentMonth, 1, 'MMMM YYYY')]]</h3>
+                <h3 class="ng-hide" data-ng-show="type == 'year'">Years</h3>
+                <h3 class="ng-hide" data-ng-show="type == 'all'">Lifetime</h3>
             </div>
             <div class="col-xs-3 col-sm-3 text-right">
 
-                <a href="#" data-ng-click="slickConfig.method.slickPrev()">
+                <a href="#" data-ng-click="prev()">
                     <i class="icon-arrow-left"><span class="path1"></span><span class="path2"></span></i>
                 </a>
 
-                <a href="#" data-ng-click="slickConfig.method.slickNext()">
+                <a href="#" data-ng-click="next()">
                     <i class="icon-arrow-right"></i>
                 </a>
 
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive ng-hide" data-ng-show="type == 'month'">
             <table class="table table-bordered month-calendar">
                 <thead>
                 <tr>
@@ -43,97 +47,16 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>
-                        <span class="text-gray">
-                            <sup>28</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>29</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>30</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-gray">
-                            <sup>31</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>1</sup>
+                <tr data-ng-repeat="1 in arrayBySize(6) track by $index" data-ng-hide="($index == 5 && noShowLast)">
+                    <td data-ng-repeat="1 in arrayBySize(7) track by $index">
+                        <span data-ng-class="{'text-gray': (days[(7 * $parent.$index + $index + 1)].status == 'inActive'), 'text-gray-dark': (days[(7 * $parent.$index + $index + 1)].status == 'active')}">
+                            <sup>[[days[7 * $parent.$index + $index + 1].day ]]</sup>
                         </span>
 
                         <span data-ng-class="{'absolute': !isMobile}">
-                            <span class="goal-count bg-purple">2</span>
-                            <span class="goal-count bg-gradinet">5</span>
-                            <span class="goal-count bg-green">6</span>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>2</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                           <sup>3</sup>
-                        </span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>4</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>5</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>6</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>7</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>8</sup>
-                        </span>
-
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                            <sup>9</sup>
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="text-grey-dark">
-                           <sup>10</sup>
+                        <span class="goal-count bg-purple ng-hide" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete ]]</span>
+                        <span class="goal-count bg-gradinet ng-hide" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline ]]</span>
+                        <span class="goal-count bg-green ng-hide" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current ]]</span>
                         </span>
                     </td>
                 </tr>
@@ -143,101 +66,27 @@
         </div>
 
         {# start year calendar#}
-        <div class="row">
-            <div class="col-sm-6">
+        <div class="row ng-hide" data-ng-show="type == 'year'">
+            <div class="col-sm-6"
+                 data-ng-cloak
+                 data-ng-repeat="1 in arrayBySize(2) track by $index">
                 <div class="table-responsive">
                     <table class="table table-bordered year-calendar">
-                        <caption class="text-center">2016</caption>
+                        <caption class="text-center">[[ +currentYear + $index ]]</caption>
                         <tbody>
 
-                        <tr>
-                            <td>
+                        <tr data-ng-repeat="1 in arrayBySize(4) track by $index">
+                            <td data-ng-repeat="1 in arrayBySize(3) track by $index">
                                 <span>
-                                    <sup>Jan</sup>
+                                    <sup>[[ dateByFormat(currentYear, 3 * $parent.$index + $index + 1, 1, 'MMM')]]</sup>
                                 </span>
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>Feb</sup>
-                                </span>
-
                                 <span class="absolute">
-                                    <span class="goal-count bg-purple">2</span>
-                                    <span class="goal-count bg-gradinet">5</span>
-                                    <span class="goal-count bg-green">6</span>
-                                </span>
-
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>March</sup>
+                                    <span class="goal-count bg-purple ng-hide" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index ][3 * $parent.$index + $index + 1].complete > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].complete ]]</span>
+                                    <span class="goal-count bg-gradinet ng-hide" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline ]]</span>
+                                    <span class="goal-count bg-green ng-hide" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current ]]</span>
                                 </span>
                             </td>
 
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <span>
-                                    <sup>April</sup>
-                                </span>
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>May</sup>
-                                </span>
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>June</sup>
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <span>
-                                    <sup>July</sup>
-                                </span>
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>Aug</sup>
-                                </span>
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>Sept</sup>
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <span>
-                                    <sup>Oct</sup>
-                                </span>
-
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>Nov</sup>
-                                </span>
-
-                            </td>
-
-                            <td>
-                                <span>
-                                    <sup>Dec</sup>
-                                </span>
-                            </td>
                         </tr>
 
                         </tbody>
@@ -247,108 +96,17 @@
         </div>
         {# end year calendar#}
 
-        <div class="row">
-            <div class="col-xs-6 col-sm-3 col-md-2">
+        <div class="row ng-hide" data-ng-show="type == 'all'">
+            <div class="col-xs-6 col-sm-3 col-md-2" data-ng-repeat="1 in arrayBySize(12) track by $index">
                 <div class="lifetime bg-white">
                     <span class="text-grey-dark">
-                       <sup>Year2016</sup>
+                       <sup>Year[[ +currentYear + $index]]</sup>
                     </span>
 
                     <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-2">
-                <div class="lifetime bg-white">
-                    <span class="text-grey-dark">
-                       <sup>Year2016</sup>
-                    </span>
-
-                    <span class="absolute">
-                        <span class="goal-count bg-purple">2</span>
-                        <span class="goal-count bg-gradinet">5</span>
-                        <span class="goal-count bg-green">6</span>
+                        <span class="goal-count bg-purple ng-hide" data-ng-show="myYears[+currentYear + $index ].complete > 0">[[ myYears[+currentYear + $index ].complete ]]</span>
+                        <span class="goal-count bg-gradinet ng-hide" data-ng-show="myYears[+currentYear + $index ].deadline > 0">[[ myYears[+currentYear + $index ].deadline ]]</span>
+                        <span class="goal-count bg-green ng-hide" data-ng-show="myYears[+currentYear + $index ].current > 0">[[ myYears[+currentYear + $index ].current ]]</span>
                     </span>
                 </div>
             </div>

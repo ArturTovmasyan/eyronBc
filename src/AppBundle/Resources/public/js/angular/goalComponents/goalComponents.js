@@ -95,6 +95,165 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
+  .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
+    function($scope, $http, CacheFactory, envPrefix, $timeout){
+      var path = envPrefix + 'api/v1.0/usergoal/calendar/data';
+      $scope.initialization = false;
+      $scope.getDaysInMonth = function(m, y) {
+        return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+      };
+
+      $scope.dateByFormat = function (year, month, day, format) {
+        var date = moment(year + '-' +((month > 9)?month:'0'+month)+'-'+((day > 9)?day:'0'+day));
+        return format?date.format(format):date;
+      };
+      
+      $scope.arrayBySize = function (size) {
+        return new Array(size);
+      };
+
+      $scope.now = moment();
+      $scope.type = 'month';
+      $scope.days = [];
+      $scope.myYears = [];
+      $scope.myYAMonths = [];
+      $scope.myDays = [];
+      $scope.currentDay = $scope.now.format('D');
+      $scope.currentMonth = $scope.now.format('M');
+      $scope.currentYear = $scope.now.format('YYYY');
+
+      $scope.initData =function (data) {
+        angular.forEach(data, function (v,k) {
+          var y = moment(k).format('YYYY'),
+            m = moment(k).format('M'),
+            d = moment(k).format('D');
+          $scope.myYears[y] = $scope.myYears[y]?$scope.myYears[y]:{complete:0, deadline:0, current:0};
+          $scope.myYAMonths[y] = $scope.myYAMonths[y]?$scope.myYAMonths[y]:[];
+          $scope.myYAMonths[y][m] = $scope.myYAMonths[y][m]?$scope.myYAMonths[y][m]:{complete:0, deadline:0, current:0};
+          $scope.myDays[y] = $scope.myDays[y]?$scope.myDays[y]:[];
+          $scope.myDays[y][m] = $scope.myDays[y][m]?$scope.myDays[y][m]:[];
+          $scope.myDays[y][m][d] = $scope.myDays[y][m][d]?$scope.myDays[y][m][d]:{complete:0, deadline:0, current:0};
+
+          if(v.completion){
+            $scope.myYears[y].complete = $scope.myYears[y].complete?($scope.myYears[y].complete + v.completion):(v.completion);
+            $scope.myYAMonths[y][m].complete = $scope.myYAMonths[y][m].complete?($scope.myYAMonths[y][m].complete + v.completion):(v.completion);
+            $scope.myDays[y][m][d].complete = $scope.myDays[y][m][d].complete?($scope.myDays[y][m][d].complete + v.completion):(v.completion);
+          }
+
+          if(v.active){
+            if($scope.compareDates(k) === -1){
+              $scope.myYears[y].deadline = $scope.myYears[y].deadline?($scope.myYears[y].deadline + v.active):(v.active);
+              $scope.myYAMonths[y][m].deadline = $scope.myYAMonths[y][m].deadline?($scope.myYAMonths[y][m].deadline + v.active):(v.active);
+              $scope.myDays[y][m][d].deadline = $scope.myDays[y][m][d].deadline?($scope.myDays[y][m][d].deadline + v.active):(v.active);
+            } else {
+              $scope.myYears[y].current = $scope.myYears[y].current?($scope.myYears[y].current + v.active):(v.active);
+              $scope.myYAMonths[y][m].current = $scope.myYAMonths[y][m].current?($scope.myYAMonths[y][m].current + v.active):(v.active);
+              $scope.myDays[y][m][d].current = $scope.myDays[y][m][d].current?($scope.myDays[y][m][d].current + v.active):(v.active);
+            }
+          }
+        });
+      };
+
+      $scope.initDate =function () {
+        for(var i = 1; i < 43; i++){
+          $scope.days[i] = {day: i}
+        }
+        
+        $scope.weekDay = $scope.dateByFormat($scope.currentYear, $scope.currentMonth, 1).weekday();
+        $scope.dayDifferent = (-$scope.weekDay);
+        $scope.prevMonthDay = $scope.getDaysInMonth($scope.currentMonth -1, $scope.currentYear);
+        $scope.currentMonthDay = $scope.getDaysInMonth($scope.currentMonth, $scope.currentYear);
+
+        angular.forEach($scope.days, function (v,k) {
+          $scope.days[k].day = (k + $scope.dayDifferent > 0)?((k + $scope.dayDifferent <= $scope.currentMonthDay)?(k + $scope.dayDifferent):(k + $scope.dayDifferent - $scope.currentMonthDay)):(k + $scope.dayDifferent + $scope.prevMonthDay);
+          $scope.days[k].status = (k + $scope.dayDifferent > 0 && k + $scope.dayDifferent <= $scope.currentMonthDay)?'active':'inActive';
+        });
+
+        $scope.noShowLast = ($scope.days[42].day != 42 && $scope.days[42].day >= 7);
+
+      };
+      
+      $scope.initDate();
+
+      $http.get(path)
+        .success(function(data){
+          $scope.initData(data);
+        });
+
+      $scope.prev = function () {
+        switch ($scope.type){
+          case 'month':
+            if($scope.currentMonth == 1){
+              if ($scope.currentYear <= 1966)return;
+              $scope.currentMonth = 12;
+              $scope.currentYear --;
+            } else {
+              $scope.currentMonth--;
+            }
+
+            $scope.initDate();
+            break;
+          case 'year':
+            if ($scope.currentYear <= 1966)return;
+            $scope.currentYear -= 2;
+            $scope.initDate();
+            break;
+          case 'all':
+            if ($scope.currentYear <= 1966)return;
+            $scope.currentYear -= 12;
+            $scope.initDate();
+            break;
+        }
+      };
+
+      $scope.next = function () {
+        switch ($scope.type){
+          case 'month':
+            if($scope.currentMonth == 12){
+              if ($scope.currentYear >= moment().add(50,'years').format('YYYY'))return;
+              $scope.currentMonth = 1;
+              $scope.currentYear ++;
+            } else {
+              $scope.currentMonth++;
+            }
+
+            $scope.initDate();
+            break;
+          case 'year':
+            if ($scope.currentYear >= moment().add(50,'years').format('YYYY'))return;
+            $scope.currentYear -= -2;
+            $scope.initDate();
+            break;
+          case 'all':
+            if ($scope.currentYear >= moment().add(50,'years').format('YYYY'))return;
+            $scope.currentYear -= -12;
+            $scope.initDate();
+            break;
+        }
+      };
+
+      $scope.compareDates = function(date1, date2){
+        if(!date1){
+          return null;
+        }
+
+        var d1 = new Date(date1);
+        var d2 = date2 ? new Date(date2): new Date();
+
+        if(d1 < d2){
+          return -1;
+        }
+        else if(d1 === d2){
+          return 0;
+        }
+        else {
+          return 1;
+        }
+      };
+
+      $scope.initialization = true;
+
+    }])
   .controller('featureGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
       var path = envPrefix + "api/v1.0/goal/featured";

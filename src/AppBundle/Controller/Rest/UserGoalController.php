@@ -551,7 +551,6 @@ class UserGoalController extends FOSRestController
      *         200="Returned when all ok",
      *     }
      * )
-     * @Rest\View()
      * @Rest\Get("/api/v1.0/usergoal/calendar/data")
      * @Security("has_role('ROLE_USER')")
      *
@@ -616,6 +615,6 @@ class UserGoalController extends FOSRestController
             }
         }
 
-        return $calendarData;
+        return new JsonResponse($calendarData);
     }
 }
