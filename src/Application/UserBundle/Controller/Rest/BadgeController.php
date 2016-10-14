@@ -41,10 +41,8 @@ class BadgeController extends Controller
         }
 
         //check if count great then 100
-        if($count > 100) {
-            $count = 100;
-        }
-
+        $count = $count > 100 ? 100 : $count;
+        
         //get entity manager
         $em = $this->getDoctrine()->getManager();
         
