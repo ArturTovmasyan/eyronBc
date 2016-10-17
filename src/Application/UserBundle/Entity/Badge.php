@@ -28,6 +28,17 @@ class Badge
     const TYPE_MOTIVATOR = 2;
     const TYPE_INNOVATOR = 3;
 
+    const MAXIMUM_NORMALIZE_SCORE = 10;
+
+    /**
+     * This value is used to show score normalized
+     *
+     * @Groups({"badge"})
+     * @Serializer\SerializedName("score")
+     * @var
+     */
+    public $normalizedScore;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -45,7 +56,6 @@ class Badge
     /**
      * @Assert\NotBlank(message="badge.type.notBlank")
      * @ORM\Column(name="score", type="float")
-     * @Groups({"badge"})
      */
     protected $score = 0;
 

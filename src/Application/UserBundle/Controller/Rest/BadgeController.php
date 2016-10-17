@@ -2,6 +2,7 @@
 
 namespace Application\UserBundle\Controller\Rest;
 
+use Application\UserBundle\Entity\Badge;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -50,8 +51,20 @@ class BadgeController extends Controller
         $this->get('bl.doctrine.listener')->disableUserStatsLoading();
 
         //get top users
-        $users = $em->getRepository('ApplicationUserBundle:Badge')->findTopUsersByType($type, $count);
+        $badges = $em->getRepository('ApplicationUserBundle:Badge')->findTopUsersByType($type, $count);
 
-        return $users;
+        if($badges){
+            $maxScoreBadge = reset($badges);
+            $maxScore = $maxScoreBadge->getScore();
+
+            // map for values and normalize scores
+            array_map(function($badge) use ($maxScore){
+                $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+                $normalizedScore = ceil($normalizedScore);
+                $badge->normalizedScore = $normalizedScore;
+            }, $badges);
+        }
+
+        return $badges;
     }
 }
