@@ -1,4 +1,4 @@
-<div style="width: 100%; min-height: 500px;background-color: #f4f4f4" class="slide calendar-place  ng-hide"
+<div class="slide calendar-place ng-hide"
      data-ng-if="showCalendar"
      data-ng-cloak
      data-ng-controller="calendarController"
@@ -100,7 +100,7 @@
             <div class="col-xs-6 col-sm-3 col-md-2" data-ng-repeat="1 in arrayBySize(12) track by $index">
                 <div class="lifetime bg-white">
                     <span class="text-grey-dark">
-                       <sup>Year[[ +currentYear + $index]]</sup>
+                       <sup>Year [[ +currentYear + $index]]</sup>
                     </span>
 
                     <span class="absolute">
