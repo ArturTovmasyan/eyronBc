@@ -139,7 +139,18 @@ class SuccessStoryController extends FOSRestController
         if (!isset($content->story)){
             return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
         }
+//
+//        $story     = $content->story;
+//        $videoLink = $content->videoLink;
 
+        // get date from request parameters
+//        $story = $request->get('story');
+//        $videoLink = $request->get('videoLink');
+
+//        if (!isset($story)){
+//            return new JsonResponse("story is empty", Response::HTTP_BAD_REQUEST);
+//        }
+//
         $story     = $content->story;
         $videoLink = $content->videoLink;
         $videoLink = array_values($videoLink);
@@ -148,6 +159,7 @@ class SuccessStoryController extends FOSRestController
         $lastStory = $em->getRepository('AppBundle:SuccessStory')->findUserGoalStory($this->getUser()->getId(), $goal->getId());
 
         $imageIds = $content->files;
+//        $imageIds = $request->get('files');
         if (count($lastStory) == 0){
             $successStory = new SuccessStory();
             $successStory->setGoal($goal);

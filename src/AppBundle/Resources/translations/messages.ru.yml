@@ -147,7 +147,8 @@ reminder_message: Крайний срок вашей цельи близок к 
 notify:
       now: несколько секунд назад
       minute:  минут назад
-      hour: час(ов) назад
+      hour: час назад
+      hours: часов назад
       yesterday: вчера в
 
 # buttons
