@@ -45,7 +45,10 @@ class BadgeController extends Controller
         
         //get entity manager
         $em = $this->getDoctrine()->getManager();
-        
+
+        // get listener
+        $this->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         //get top users
         $users = $em->getRepository('ApplicationUserBundle:Badge')->findTopUsersByType($type, $count);
 
