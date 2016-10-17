@@ -472,7 +472,7 @@
 
 .calendar-place{
   width: 100%;
-  min-height: 200px;
+  //min-height: 200px;
   background-color: #f4f4f4;
   padding: 15px 0 5px;
 
@@ -531,6 +531,10 @@
   .icon-arrow-left,.icon-arrow-right{
     font-size: 30px;
     color:#999999;
+
+    &:hover{
+      text-decoration: none;
+    }
   }
 
   .month-calendar{
@@ -879,7 +883,7 @@
 
   .calendar-place{
     padding: 43px 0 10px;
-
+    min-height: 500px;
 
     h3.year{
       padding-left: 15px;
@@ -897,6 +901,7 @@
     }
 
     .month-calendar{
+
       td{
         height: 55px;
       }
@@ -1111,6 +1116,11 @@
     h3.year{
       padding-left: 49px;
     }
+    a{
+      &:focus{
+        text-decoration: none;
+      }
+    }
 
     .table-bordered{
       th,td{
@@ -1118,6 +1128,32 @@
       }
     }
 
+    //tooltip._bottom tip tip-arrow{
+    //  border-bottom-color: #b0b0b0;
+    //}
+
+    tooltip {
+      &._top {
+        tip {
+          top: 0;
+        }
+      }
+    }
+
+    .calendar-tooltip{
+      background-color: #ffffff;
+      color: #999999;
+      border: 1px solid #b0b0b0;
+      min-width: 150px;
+      height: 45px;
+      line-height: normal;
+      padding-top: 5px;
+      .rounded-corners(4px);
+      tip-arrow{
+        border-bottom-color: #b0b0b0;
+        border-top-color: #b0b0b0;
+      }
+    }
 
     .year-calendar{
       th,td{
