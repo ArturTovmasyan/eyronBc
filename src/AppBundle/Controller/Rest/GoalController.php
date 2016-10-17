@@ -815,6 +815,51 @@ class GoalController extends FOSRestController
 
         $goals = $em->getRepository("AppBundle:Goal")->findUserUnConfirmInPlace($user);
 
+        //set confirm default value
+        $confirm = false;
+
+        //check if goals exist
+        if ($goals) {
+
+            //confirm done goal
+            foreach ($goals as $goal)
+            {
+
+                //get user goal by user id
+                $userGoals = $goal->getUserGoal();
+
+                //get current user userGoal
+                $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+                    return $item->getUser() == $user ? true : false;
+                });
+
+                //check if user have user goal
+                if ($relatedUserGoal->count() > 0) {
+
+                    //get related user goal
+                    $userGoal = $relatedUserGoal->first();
+
+                    //check if user goal is not completed
+                    if (!$userGoal->getConfirmed()) {
+
+                        //confirmed done goal for user
+                        $userGoal->setConfirmed(true);
+
+                        //set confirm value
+                        $confirm = true;
+
+                        $em->persist($userGoal);
+                    }
+                }
+            }
+
+            //check if user has confirmed goal
+            if ($confirm) {
+                $em->flush();
+                $em->clear();
+            }
+        }
+
         return $goals;
 
     }
