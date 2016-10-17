@@ -7,6 +7,8 @@
  */
 
 namespace Application\UserBundle\Services;
+use Application\UserBundle\Entity\Badge;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class BadgeService
@@ -14,5 +16,43 @@ namespace Application\UserBundle\Services;
  */
 class BadgeService
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * BadgeService constructor.
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+
+    /**
+     * This function is used to find badge by user, and add score
+     *
+     * @param $type
+     * @param $user
+     * @param $score
+     */
+    public function addScore($type, $user, $score)
+    {
+        // get badge
+        $badge = $this->em->getRepository("ApplicationUserBundle:badge")
+            ->findBadgeByUserAndType($user, $type);
+
+        if(!$badge){
+            $badge = new Badge();
+            $badge->setType($type);
+            $badge->setUser($user);
+        }
+
+        $badge->setScore($badge->getScore() + $score);
+        $this->em->persist($badge);
+        $this->em->flush();
+    }
 
 }

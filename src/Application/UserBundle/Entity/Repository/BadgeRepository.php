@@ -30,4 +30,21 @@ class BadgeRepository extends EntityRepository
             ->setMaxResults($count)
             ->getResult();
     }
+
+    /**
+     * @param $user
+     * @param $type
+     * @return mixed
+     */
+    public function findBadgeByUserAndType($user, $type)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT b
+                           FROM ApplicationUserBundle:Badge b
+                           JOIN b.user u
+                           WHERE b.user = :user AND b.type = :type")
+            ->setParameter('type', $type)
+            ->setParameter('user', $user->getUser())
+            ->getOneOrNullResult();
+    }
 }

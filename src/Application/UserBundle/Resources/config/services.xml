@@ -70,6 +70,7 @@
         </service>
 
         <service id="bl.badge.service" class="Application\UserBundle\Services\BadgeService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
     </services>
