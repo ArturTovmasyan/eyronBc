@@ -326,7 +326,7 @@ my_bucket_list:
 
   calendar:
     completed: Completed goals
-    deadline: Deadline goals
+    deadline: Overdue goals
     active: Active goals
 draft:
   edit: Edit

@@ -1,8 +1,7 @@
-<div class="slide calendar-place ng-hide"
+<div class="calendar-place"
      data-ng-if="showCalendar"
      data-ng-cloak
-     data-ng-controller="calendarController"
-     data-ng-show="initialization">
+     data-ng-controller="calendarController">
 
     <div class="container">
 
@@ -15,9 +14,9 @@
                 </section>
             </div>
             <div class="col-xs-9 col-sm-4">
-                <h3 class="ng-hide" data-ng-show="type == 'month'">[[ dateByFormat(currentYear, currentMonth, 1, 'MMMM YYYY')]]</h3>
-                <h3 class="ng-hide year" data-ng-show="type == 'year'">Years</h3>
-                <h3 class="ng-hide" data-ng-show="type == 'all'">Lifetime</h3>
+                <h3 data-ng-if="type == 'month'">[[ dateByFormat(currentYear, currentMonth, 1, 'MMMM YYYY')]]</h3>
+                <h3 class="year" data-ng-if="type == 'year'">Years</h3>
+                <h3 data-ng-if="type == 'all'">Lifetime</h3>
             </div>
             <div class="col-xs-3 col-sm-3 text-right">
 
@@ -56,9 +55,27 @@
                         </span>
 
                         <span data-ng-class="{'absolute': !isMobile}">
-                        <span class="goal-count bg-green ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.completed'|trans }}" data-tooltip-append-to-body="true" data-tooltip-side="bottom" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete ]]</span>
-                        <span class="goal-count bg-gradinet ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.deadline'|trans }}" data-tooltip-append-to-body="true" data-tooltip-side="bottom" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline ]]</span>
-                        <span class="goal-count bg-purple ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.active'|trans }}" data-tooltip-append-to-body="true" data-tooltip-side="bottom" data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current ]]</span>
+                        <span class="goal-count bg-green ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete ]] {{ 'my_bucket_list.calendar.completed'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].complete ]]</span>
+                        <span class="goal-count bg-gradinet ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline ]] {{ 'my_bucket_list.calendar.deadline'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].deadline ]]</span>
+                        <span class="goal-count bg-purple ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current ]] {{ 'my_bucket_list.calendar.active'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current > 0">[[myDays[currentYear][currentMonth][days[7 * $parent.$index + $index + 1].day].current ]]</span>
                         </span>
                             </td>
                         </tr>
@@ -86,9 +103,27 @@
                                     <sup>[[ dateByFormat(currentYear, 3 * $parent.$index + $index + 1, 1, 'MMM')]]</sup>
                                 </span>
                                 <span class="absolute">
-                                    <span class="goal-count bg-green ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.completed'|trans }}" data-tooltip-side="bottom" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index ][3 * $parent.$index + $index + 1].complete > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].complete ]]</span>
-                                    <span class="goal-count bg-gradinet ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.deadline'|trans }}" data-tooltip-side="bottom" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline ]]</span>
-                                    <span class="goal-count bg-purple ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.active'|trans }}" data-tooltip-side="bottom" data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current ]]</span>
+                                    <span class="goal-count bg-green ng-hide"
+                                          data-tooltips
+                                          data-tooltip-class="calendar-tooltip"
+                                          data-tooltip-append-to-body="true"
+                                          data-tooltip-template="[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].complete ]] {{ 'my_bucket_list.calendar.completed'|trans }}"
+                                          data-tooltip-side="bottom"
+                                          data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index ][3 * $parent.$index + $index + 1].complete > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].complete ]]</span>
+                                    <span class="goal-count bg-gradinet ng-hide"
+                                          data-tooltips
+                                          data-tooltip-class="calendar-tooltip"
+                                          data-tooltip-append-to-body="true"
+                                          data-tooltip-template="[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline ]] {{ 'my_bucket_list.calendar.deadline'|trans }}"
+                                          data-tooltip-side="bottom"
+                                          data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].deadline ]]</span>
+                                    <span class="goal-count bg-purple ng-hide"
+                                          data-tooltips
+                                          data-tooltip-class="calendar-tooltip"
+                                          data-tooltip-append-to-body="true"
+                                          data-tooltip-template="[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current ]] {{ 'my_bucket_list.calendar.active'|trans }}"
+                                          data-tooltip-side="bottom"
+                                          data-ng-show="myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current > 0">[[ myYAMonths[+currentYear + $parent.$parent.$index][3 * $parent.$index + $index + 1].current ]]</span>
                                 </span>
                             </td>
 
@@ -109,9 +144,27 @@
                     </span>
 
                     <span class="absolute">
-                        <span class="goal-count bg-green ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.completed'|trans }}" data-tooltip-side="bottom" data-ng-show="myYears[+currentYear + $index ].complete > 0">[[ myYears[+currentYear + $index ].complete ]]</span>
-                        <span class="goal-count bg-gradinet ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.deadline'|trans }}" data-tooltip-side="bottom" data-ng-show="myYears[+currentYear + $index ].deadline > 0">[[ myYears[+currentYear + $index ].deadline ]]</span>
-                        <span class="goal-count bg-purple ng-hide" data-tooltips data-tooltip-class="calendar-tooltip" data-tooltip-append-to-body="true" data-tooltip-template="{{ 'my_bucket_list.calendar.active'|trans }}" data-tooltip-side="bottom" data-ng-show="myYears[+currentYear + $index ].current > 0">[[ myYears[+currentYear + $index ].current ]]</span>
+                        <span class="goal-count bg-green ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[ myYears[+currentYear + $index ].complete ]] {{ 'my_bucket_list.calendar.completed'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myYears[+currentYear + $index ].complete > 0">[[ myYears[+currentYear + $index ].complete ]]</span>
+                        <span class="goal-count bg-gradinet ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[ myYears[+currentYear + $index ].deadline ]] {{ 'my_bucket_list.calendar.deadline'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myYears[+currentYear + $index ].deadline > 0">[[ myYears[+currentYear + $index ].deadline ]]</span>
+                        <span class="goal-count bg-purple ng-hide"
+                              data-tooltips
+                              data-tooltip-class="calendar-tooltip"
+                              data-tooltip-append-to-body="true"
+                              data-tooltip-template="[[ myYears[+currentYear + $index ].current ]] {{ 'my_bucket_list.calendar.active'|trans }}"
+                              data-tooltip-side="bottom"
+                              data-ng-show="myYears[+currentYear + $index ].current > 0">[[ myYears[+currentYear + $index ].current ]]</span>
                     </span>
                 </div>
             </div>
