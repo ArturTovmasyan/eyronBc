@@ -36,7 +36,6 @@ class PlaceService
      * @param $latitude float
      * @param $longitude float
      * @param User $user
-     * @return mixed|null
      */
     public function getAllGoalsByPlace($latitude, $longitude, User $user)
     {
@@ -69,10 +68,10 @@ class PlaceService
         //create UserPlace for user
         $this->createUserPlace($placeIds, $latitude, $longitude, $user);
 
-        //get goal by place
-        $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlaceIds($placeIds, $user->getId());
-
-        return $goals;
+//        //get goal by place
+//        $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlaceIds($placeIds, $user->getId());
+//
+//        return $goals;
 
     }
 
