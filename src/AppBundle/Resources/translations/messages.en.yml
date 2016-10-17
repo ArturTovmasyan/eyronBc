@@ -323,6 +323,10 @@ my_bucket_list:
   noinou_title: - not important, not urgent
   noinou_description: Goals differ in their priority. Some goals are really important and urgent and some are not. Here is the list of goals which are neither important, nor urgent.
 
+  calendar:
+    completed: Completed goals
+    deadline: Deadline goals
+    active: Active goals
 draft:
   edit: Edit
   update: Update Draft
