@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -24,6 +25,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class MainController extends Controller
 {
+    /**
+     * This action is used to redirect all gone pages
+     * @Route("/listed-users/{slug}")
+     * @Route("/done-users/{slug}")
+     */
+    public function gonePagesAction()
+    {
+        throw new HttpException(Response::HTTP_GONE);   
+    }
+    
     /**
      * @Route("/", name="homepage")
      * @Template()
@@ -199,34 +210,6 @@ class MainController extends Controller
     public function notificationsAction(Request $request)
     {
         return array();
-    }
-
-    /**
-     * @Route("/listed-users/{slug}", name="listed_users")
-     * @Route("/done-users/{slug}", name="done_users")
-     * @ParamConverter("goal", class="AppBundle:Goal",  options={
-     *   "mapping": {"slug": "slug"},
-     *   "repository_method" = "findOneBySlug" })
-     *
-     * @param Goal $goal
-     * @return array
-     */
-    public function goalUsersAction(Goal $goal)
-    {
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $em = $this->getDoctrine()->getManager();
-
-        if ($this->getUser()) {
-            $em->getRepository('ApplicationUserBundle:User')->setUserStats($this->getUser());
-        }
-
-        //This part is used for profile completion percent calculation
-        if ($this->getUser() instanceof User && $this->getUser()->getProfileCompletedPercent() != 100) {
-            $em->getRepository("ApplicationUserBundle:User")->updatePercentStatuses($this->getUser());
-        }
-        return $this->render('AppBundle:Main:goalFriends.html.twig', array(
-            'title'  => $goal->getTitle(),
-            'goalId' => $goal->getId()));
     }
 
     /**

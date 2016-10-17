@@ -836,5 +836,24 @@ class GoalRepository extends EntityRepository
             ->setParameter('goalIds', $goalIds)
             ->getResult();
     }
+
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findUserUnConfirmInPlace($userId)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, p
+                           FROM AppBundle:Goal g
+                           JOIN g.place p
+                           LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
+                           LEFT JOIN ug.user u
+                           WHERE (ug.id is null or ug.confirmed = :status)")
+            ->setParameter('userId', $userId)
+            ->setParameter('status', false)
+            ->getResult();
+    }
     
 }
