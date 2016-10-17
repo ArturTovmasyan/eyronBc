@@ -708,14 +708,57 @@ class GoalController extends FOSRestController
         return $goal;
     }
 
+//    /**
+//     * @ApiDoc(
+//     *  resource=true,
+//     *  section="Goal",
+//     *  description="This function is used to get goals in place",
+//     *  statusCodes={
+//     *         204="No content",
+//     *         400="Bad request"
+//     *  },
+//     * )
+//     *
+//     * @return mixed
+//     * @param $latitude float
+//     * @param $longitude float
+//     *
+//     * @Rest\View(serializerGroups={"goal"})
+//     * @Rest\Get("/goals/places/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
+//     * @Security("has_role('ROLE_USER')")
+//     */
+//    public function getGoalsInPlaceAction($latitude, $longitude)
+//    {
+//        //check if coordinate exist
+//        if ($latitude && $longitude) {
+//
+//            //get place service
+//            $placeService = $this->get('app.place');
+//
+//            //get current user
+//            $user = $this->getUser();
+//
+//            //get all goals by place
+//            $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
+//
+//            //check if goal not exists
+//            if (!$allGoals) {
+//                return new Response('', Response::HTTP_NO_CONTENT);
+//            }
+//
+//            return $allGoals;
+//        }
+//
+//        return new Response('Missing coordinate data', Response::HTTP_BAD_REQUEST);
+//    }
+
     /**
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to get goals in place",
+     *  description="This function is used to put user position",
      *  statusCodes={
      *         204="No content",
-     *         200="Ok",
      *         400="Bad request"
      *  },
      * )
@@ -724,11 +767,11 @@ class GoalController extends FOSRestController
      * @param $latitude float
      * @param $longitude float
      *
-     * @Rest\View(serializerGroups={"goal"})
-     * @Rest\Get("/goals/places/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
+     * @Rest\View()
+     * @Rest\PUT("/goals/user-position/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}))
      * @Security("has_role('ROLE_USER')")
      */
-    public function getGoalsInPlaceAction($latitude, $longitude)
+    public function putUserPositionAction($latitude, $longitude)
     {
         //check if coordinate exist
         if ($latitude && $longitude) {
@@ -740,14 +783,9 @@ class GoalController extends FOSRestController
             $user = $this->getUser();
 
             //get all goals by place
-            $allGoals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
+            $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
 
-            //check if goal not exists
-            if (!$allGoals) {
-                return new Response('', Response::HTTP_NO_CONTENT);
-            }
-
-            return $allGoals;
+            return new Response('', Response::HTTP_NO_CONTENT);
         }
 
         return new Response('Missing coordinate data', Response::HTTP_BAD_REQUEST);
@@ -757,125 +795,153 @@ class GoalController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  section="Goal",
-     *  description="This function is used to confirm goals",
+     *  description="This function is used to get goals in place",
      *  statusCodes={
-     *         200="Ok",
-     *         400="Bad request",
-     *         404="Not found"
+     *         200="OK",
+     *         400="Bad request"
      *  },
-     *  parameters={
-     *      {"name"="goal", "dataType"="array", "required"=true, "description"="Goal ids with userGoal visible status"},
-     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
-     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
-     *  }
      * )
      *
-     * @return array
-     * @param $request
-     *
-     * @Rest\View()
-     * @Rest\Post("/goals/confirm")
+     * @Rest\View(serializerGroups={"goal"})
+     * @Rest\GET("/goals/place/un-confirm")
      * @Security("has_role('ROLE_USER')")
      */
-    public function postConfirmGoalsAction(Request $request)
+    public function getUserUnConfirmAction()
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-
-        //get goal data in request
-        $goalData = $request->get('goal');
-
-        //get latitude
-        $latitude = $request->get('latitude');
-
-        //get longitude
-        $longitude = $request->get('longitude');
-
-        //check if goal ids not send
-        if(!$goalData || !$latitude || !$longitude) {
-           return new Response('Request data is empty', Response::HTTP_BAD_REQUEST);
-        }
-
-        //get goal ids
-        $goalIds = $goalData ? array_keys($goalData) : null;
-
         //get current user
         $user = $this->getUser();
 
-        //get all goals by ids
-        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
+        $em = $this->get("doctrine")->getManager();
 
-        //check if goals exist
-        if ($goals) {
-            
-            //confirm done goal
-            foreach ($goals as $goal)
-            {
-                //set confirm default value
-                $confirm = false;
+        $goals = $em->getRepository("AppBundle:Goal")->findUserUnConfirmInPlace($user);
 
-                //get user goal by user id
-                $userGoals = $goal->getUserGoal();
+        return $goals;
 
-                //get current user userGoal
-                $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
-                    return $item->getUser() == $user ? true : false;
-                });
-
-                //check if user have user goal
-                if ($relatedUserGoal->count() > 0) {
-
-                    //get related user goal
-                    $userGoal = $relatedUserGoal->first();
-
-                    //check if user goal not confirmed
-                    if (!$userGoal->getConfirmed()) {
-
-                        //confirmed done goal for user
-                        $userGoal->setConfirmed(true);
-
-                        //check if user goal is not completed
-                        if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
-
-                            //set completed status for goal
-                            $userGoal->setStatus(UserGoal::COMPLETED);
-                        }
-
-                        //set confirm value
-                        $confirm = true;
-                    }
-                }
-                else {
-
-                    //get visible value
-                    $visible = $goalData[$goal->getId()];
-
-                    //create new userGoal for current user
-                    $userGoal = new UserGoal();
-                    $userGoal->setUser($user);
-                    $userGoal->setGoal($goal);
-                    $userGoal->setStatus(UserGoal::COMPLETED);
-                    $userGoal->setIsVisible($visible);
-                    $userGoal->setCompletionDate(new \DateTime('now'));
-                    $userGoal->setConfirmed(true);
-
-                    //set confirm value
-                    $confirm = true;
-                }
-
-                //check if user has confirmed goal
-                if ($confirm) {
-                    $em->persist($userGoal);
-                }
-            }
-
-            $em->flush();
-            $em->clear();
-
-            return new Response('', Response::HTTP_NO_CONTENT);
-        }
-        else {
-            return new Response('Goals not found', Response::HTTP_NOT_FOUND);
-        }
     }
+
+//    /**
+//     * @ApiDoc(
+//     *  resource=true,
+//     *  section="Goal",
+//     *  description="This function is used to confirm goals",
+//     *  statusCodes={
+//     *         200="Ok",
+//     *         400="Bad request",
+//     *         404="Not found"
+//     *  },
+//     *  parameters={
+//     *      {"name"="goal", "dataType"="array", "required"=true, "description"="Goal ids with userGoal visible status"},
+//     *      {"name"="latitude", "dataType"="float", "required"=true, "description"="latitude"},
+//     *      {"name"="longitude", "dataType"="float", "required"=true, "description"="longitude"}
+//     *  }
+//     * )
+//     *
+//     * @return array
+//     * @param $request
+//     *
+//     * @Rest\View()
+//     * @Rest\Post("/goals/confirm")
+//     * @Security("has_role('ROLE_USER')")
+//     */
+//    public function postConfirmGoalsAction(Request $request)
+//    {
+//        //get entity manager
+//        $em = $this->getDoctrine()->getManager();
+//
+//        //get goal data in request
+//        $goalData = $request->get('goal');
+//
+//        //get latitude
+//        $latitude = $request->get('latitude');
+//
+//        //get longitude
+//        $longitude = $request->get('longitude');
+//
+//        //check if goal ids not send
+//        if(!$goalData || !$latitude || !$longitude) {
+//           return new Response('Request data is empty', Response::HTTP_BAD_REQUEST);
+//        }
+//
+//        //get goal ids
+//        $goalIds = $goalData ? array_keys($goalData) : null;
+//
+//        //get current user
+//        $user = $this->getUser();
+//
+//        //get all goals by ids
+//        $goals = $em->getRepository('AppBundle:Goal')->findAllByIds($goalIds);
+//
+//        //check if goals exist
+//        if ($goals) {
+//
+//            //confirm done goal
+//            foreach ($goals as $goal)
+//            {
+//                //set confirm default value
+//                $confirm = false;
+//
+//                //get user goal by user id
+//                $userGoals = $goal->getUserGoal();
+//
+//                //get current user userGoal
+//                $relatedUserGoal = $userGoals->filter(function ($item) use ($user) {
+//                    return $item->getUser() == $user ? true : false;
+//                });
+//
+//                //check if user have user goal
+//                if ($relatedUserGoal->count() > 0) {
+//
+//                    //get related user goal
+//                    $userGoal = $relatedUserGoal->first();
+//
+//                    //check if user goal not confirmed
+//                    if (!$userGoal->getConfirmed()) {
+//
+//                        //confirmed done goal for user
+//                        $userGoal->setConfirmed(true);
+//
+//                        //check if user goal is not completed
+//                        if ($userGoal->getStatus() !== UserGoal::COMPLETED) {
+//
+//                            //set completed status for goal
+//                            $userGoal->setStatus(UserGoal::COMPLETED);
+//                        }
+//
+//                        //set confirm value
+//                        $confirm = true;
+//                    }
+//                }
+//                else {
+//
+//                    //get visible value
+//                    $visible = $goalData[$goal->getId()];
+//
+//                    //create new userGoal for current user
+//                    $userGoal = new UserGoal();
+//                    $userGoal->setUser($user);
+//                    $userGoal->setGoal($goal);
+//                    $userGoal->setStatus(UserGoal::COMPLETED);
+//                    $userGoal->setIsVisible($visible);
+//                    $userGoal->setCompletionDate(new \DateTime('now'));
+//                    $userGoal->setConfirmed(true);
+//
+//                    //set confirm value
+//                    $confirm = true;
+//                }
+//
+//                //check if user has confirmed goal
+//                if ($confirm) {
+//                    $em->persist($userGoal);
+//                }
+//            }
+//
+//            $em->flush();
+//            $em->clear();
+//
+//            return new Response('', Response::HTTP_NO_CONTENT);
+//        }
+//        else {
+//            return new Response('Goals not found', Response::HTTP_NOT_FOUND);
+//        }
+//    }
 }
