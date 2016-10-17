@@ -292,7 +292,7 @@ my_bucket_list:
 
   calendar:
       completed: Достигнутых целей
-      deadline: Deadline целей
+      deadline: Запоздалых целей
       active: Активных целей
 
 draft:

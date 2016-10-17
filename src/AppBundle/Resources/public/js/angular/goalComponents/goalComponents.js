@@ -138,7 +138,6 @@ angular.module('goalComponents', ['Interpolation',
   .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
     function($scope, $http, CacheFactory, envPrefix, $timeout){
       var path = envPrefix + 'api/v1.0/usergoal/calendar/data';
-      $scope.initialization = false;
       $scope.getDaysInMonth = function(m, y) {
         return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
       };
@@ -290,9 +289,6 @@ angular.module('goalComponents', ['Interpolation',
           return 1;
         }
       };
-
-      $scope.initialization = true;
-
     }])
   .controller('featureGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
