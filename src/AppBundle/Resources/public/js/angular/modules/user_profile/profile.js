@@ -13,5 +13,6 @@ angular.module('profile', ['Interpolation',
   'manage',
   'notification',
   'activity',
-  'PathPrefix'
+  'PathPrefix',
+  '720kb.tooltips'
 ]);
