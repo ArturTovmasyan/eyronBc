@@ -11,11 +11,11 @@
         <div class="container">
             <div class="row">
 
-                {% block test  %}
-                    <div class="col-md-8">
+                <div class="col-md-8">
+                    {% block test  %}
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
-                    </div>
-                {% endblock %}
+                    {% endblock %}
+                </div>
 
                 <div class="col-md-4">
                     {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}

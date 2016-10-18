@@ -164,15 +164,34 @@
                             </figcaption>
                         </figure>
                     </div>
-                    <div class="col-sm-4 hidden-xs">
+                    <div class="col-sm-4 hidden-xs relative">
+
                         {% if profileUser.showName %}
                             <h1>
                                 <span class="bg-blue {% if profileUser.showName|length > 11 %}title-smaller{% endif %}">{{ profileUser.showName }}</span>
                             </h1>
                         {% endif %}
+
                         {% if  profileUser.getAge  %}
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
+
+                        <ul class="badge-place">
+                            <li>
+                                <i></i>
+                                <span>1234</span>
+                            </li>
+
+                            <li>
+                                <i></i>
+                                <span>1234</span>
+                            </li>
+
+                            <li>
+                                <i></i>
+                                <span>1234</span>
+                            </li>
+                        </ul>
                     </div>
 
                     {% if profileUser.id == app.user.id %}
