@@ -314,9 +314,6 @@ class CRUDController extends Controller
         //get all userGoals for old goal
         $oldGoalUserGoals = $goal->getUserGoal();
 
-        //set user goal remove date in user
-        $this->get('app.user_goal_manage')->setUserGoalRemoveDate($oldGoalUserGoals);
-        
         foreach($oldGoalUserGoals as $oldGoalUserGoal)
         {
             //remove old goal user goals

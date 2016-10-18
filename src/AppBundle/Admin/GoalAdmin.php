@@ -214,19 +214,4 @@ class GoalAdmin extends AbstractAdmin
 
         $this->updateData($object);
     }
-
-    /**
-     * @param mixed $object
-     */
-    public function preRemove($object)
-    {
-        //get all user goals
-        $userGoals = $object->getUserGoal();
-
-        //get container
-        $container = $this->getConfigurationPool()->getContainer();
-
-        //get user goal manage service
-        $container->get('app.user_goal_manage')->setUserGoalRemoveDate($userGoals);
-    }
 }
