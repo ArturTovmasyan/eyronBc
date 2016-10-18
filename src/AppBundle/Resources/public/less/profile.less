@@ -471,7 +471,8 @@
 }
 
 .calendar-place{
-
+  width: 100%;
+  background-color: #f4f4f4;
   padding: 15px 0 5px;
 
   .groupX {
@@ -526,9 +527,45 @@
     background-color: #ffffff;
   }
 
+  //tooltip {
+  //  &._top {
+  //    tip {
+  //      top: 0;
+  //    }
+  //  }
+  //}
+  //
+  .calendar-tooltip{
+    position: absolute;
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #b0b0b0;
+    min-width: 150px;
+    height: 34px;
+    line-height: normal;
+    padding: 5px 10px;
+    .rounded-corners(4px);
+    tip-arrow{
+      border-bottom-color: #b0b0b0;
+      border-top-color: #b0b0b0;
+    }
+  }
+
+  .arrow-up{
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #b0b0b0;
+  }
+
   .icon-arrow-left,.icon-arrow-right{
     font-size: 30px;
     color:#999999;
+
+    &:hover{
+      text-decoration: none;
+    }
   }
 
   .month-calendar{
@@ -580,7 +617,6 @@
 
     th,td{
       border: 1px solid #b0b0b0;
-      background-color: #ffffff;
       font-size: 12px;
       font-weight: 700;
 
@@ -606,6 +642,10 @@
         }
       }
     }
+
+    tbody,thead{
+      background-color: #ffffff;
+    }
   }
 
   span.goal-count{
@@ -617,6 +657,7 @@
     display: inline-block;
     vertical-align: middle;
     margin: 0 5px 5px;
+    cursor: pointer;
   }
 }
 
@@ -875,6 +916,10 @@
   .calendar-place{
     padding: 43px 0 10px;
 
+    h3.year{
+      padding-left: 15px;
+    }
+
     .table-bordered{
       th,td{
         width: 102px;
@@ -887,6 +932,7 @@
     }
 
     .month-calendar{
+
       td{
         height: 55px;
       }
@@ -1097,6 +1143,16 @@
   }
 
   .calendar-place{
+
+    h3.year{
+      padding-left: 49px;
+    }
+    a{
+      &:focus{
+        text-decoration: none;
+      }
+    }
+
     .table-bordered{
       th,td{
         width: 162px;

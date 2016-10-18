@@ -290,6 +290,14 @@ my_bucket_list:
   missed_deadline: Срок достижения цели нарушен
   year_old: -летний
 
+  calendar:
+      completed: Достигнутый цель
+      theCompleted: Достигнутых целей
+      deadline: Запоздалый цель
+      deadlines: Запоздалых целей
+      active: Активный цель
+      actives: Активных целей
+
 draft:
   edit: Редактировать
   update: Обновить черновик

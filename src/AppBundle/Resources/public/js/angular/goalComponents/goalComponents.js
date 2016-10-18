@@ -137,8 +137,9 @@ angular.module('goalComponents', ['Interpolation',
   }])
   .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
     function($scope, $http, CacheFactory, envPrefix, $timeout){
+      $scope.isHover = false;
+      $scope.hoveredText = '';
       var path = envPrefix + 'api/v1.0/usergoal/calendar/data';
-      $scope.initialization = false;
       $scope.getDaysInMonth = function(m, y) {
         return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
       };
@@ -150,6 +151,21 @@ angular.module('goalComponents', ['Interpolation',
       
       $scope.arrayBySize = function (size) {
         return new Array(size);
+      };
+
+      $scope.hoverIn = function (ev, text) {
+        $scope.isHover = true;
+        $scope.hoveredText = text;
+        var left = $(ev.target).offset().left;
+        var top  = $(ev.target).offset().top - 50;
+        
+        if(left > window.innerWidth/2){
+          left = left - 100;
+          $('.calendar-tooltip .arrow-up').css({left: 110});
+        } else {
+          $('.calendar-tooltip .arrow-up').css({left: 14});
+        }
+        $('.calendar-tooltip').css({top: top,left: left});
       };
 
       $scope.now = moment();
@@ -290,9 +306,6 @@ angular.module('goalComponents', ['Interpolation',
           return 1;
         }
       };
-
-      $scope.initialization = true;
-
     }])
   .controller('featureGoalsController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
