@@ -49,32 +49,34 @@
     }
   }
 
-  .badge-place{
-    padding-left: 0;
-    position: absolute;
-    bottom: 0;
 
-    li{
+}
+
+.badge-place{
+  padding-left: 0;
+  position: absolute;
+  bottom: 0;
+
+  li{
+    display: inline-block;
+
+    i{
       display: inline-block;
-
-      i{
-        display: inline-block;
-        vertical-align: middle;
-        width: 41px;
-        height: 41px;
-        background: url('../images/badge.svg') no-repeat left center;
-        background-size: 100%;
-      }
-      span{
-        display: inline-block;
-        font-size: 16px;
-        vertical-align: middle;
-        font-weight: 400;
-        color: #ffffff;
-      }
+      vertical-align: middle;
+      width: 41px;
+      height: 41px;
+      background: url('../images/badge.svg') no-repeat left center;
+      background-size: 100%;
     }
-
+    span{
+      display: inline-block;
+      font-size: 16px;
+      vertical-align: middle;
+      font-weight: 400;
+      color: #ffffff;
+    }
   }
+
 }
 
 .featured-icon{
@@ -748,24 +750,6 @@
       height: 200px;
     }
 
-    //.badge-place{
-    //
-    //  li{
-    //    margin-right: 8px;
-    //    a{
-    //
-    //      i{
-    //        width: 55px;
-    //        height: 55px;
-    //      }
-    //
-    //      span{
-    //        font-size: 25px;
-    //      }
-    //    }
-    //  }
-    //}
-
     #settings-form{
       figure{
         figcaption{
@@ -979,6 +963,21 @@
     }
   }
 
+  .badge-place{
+
+    li{
+      margin-right: 8px;
+      i{
+        width: 55px;
+        height: 55px;
+      }
+
+      span{
+        font-size: 25px;
+      }
+    }
+  }
+
   .profile{
     margin-top:10px;
     padding:20px 0 0 0;
@@ -1026,21 +1025,6 @@
 
     .relative{
       height: 230px;
-    }
-
-    .badge-place{
-
-      li{
-        margin-right: 8px;
-          i{
-            width: 55px;
-            height: 55px;
-          }
-
-          span{
-            font-size: 25px;
-          }
-      }
     }
 
     #settings-form{

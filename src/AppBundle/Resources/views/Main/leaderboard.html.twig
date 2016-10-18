@@ -1,68 +1,64 @@
 {% extends "AppBundle:Main:activities.html.twig" %}
 
-{% block angularApp %}
-<html data-ng-app="profile" data-ng-controller="notificationInnerController">
-{% endblock %}
+{#{% block angularApp %}#}
+{#<html data-ng-app="profile" data-ng-controller="notificationInnerController">#}
+{#{% endblock %}#}
 
 {% block test  %}
-    <div data-ng-cloak
-         data-infinite-scroll='nextNotifications()'
-         data-infinite-scroll-disabled='noNotification || busy'
-         class="bg-white padding">
-        <ul id="notification-list">
-            <li>
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h3 class="text-gray">Notifications</h3>
-                    </div>
-                    <div class="col-xs-7 text-right">
-                        <a class="text-grey-dark" data-ng-click="readAll()" href="javascript:void(0)">Mark All as read</a>
-                    </div>
-                </div>
-            </li>
 
-            <li>
-                <ul data-ng-repeat="notify in notifies" class="goals-animate" data-ng-cloak data-ng-class="{'unread': !notify.is_read}">
+    <div id="leaderboard-place">
+        <figure>
+            <img src=" " alt="user image"/>
+            <figcaption>
+                <ul class="badge-place">
                     <li>
-                        <i class="close-icon" data-ng-click="delete(notify.id, $index)"></i>
-                        <div data-ng-click="goNotificationPage(notify, $index)" class="clearfix" data-ng-init="time[notify.id] = getInterval(notify.notification.created)">
-                            <figure class="pull-left">
-                                <img data-ng-src="[[ ::notify.notification.performer.image_path ]]" data-ng-if="notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"  height="40"/>
-                                <img src="{{ asset('bundles/app/images/notify-user.png') }}" data-ng-if="!notify.notification.performer.image_path" alt="[[ ::notify.notification.performer.first_name ]]"  height="40"/>
-                            </figure>
-
-                            <p>
-                                <span>
-                                    <a class="pull-left" data-ng-if="notify.notification.performer" data-ng-href="{{ env_prefix }}/profile/[[ ::notify.notification.performer.u_id ]]">[[ notify.notification.performer.show_name]] &nbsp</a>
-                                    <span class="text-dark-gray" data-ng-bind-html="bodyInHtml(notify.notification.body)"></span>
-                                </span>
-                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'datetime'">[[ notify.notification.created | date: "MMMM d, yyyy 'at' h:mm a" ]] </span>
-                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'yesterday'">{{ 'notify.yesterday'|trans }} [[ notify.notification.created | date: "h:mm a" ]] </span>
-                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'hr'">
-                                    <span data-ng-if="time[notify.id].time == 1">[[ time[notify.id].time ]] {{ 'notify.hour'|trans }}</span>
-                                    <span data-ng-if="time[notify.id].time != 1">[[ time[notify.id].time ]] {{ 'notify.hours'|trans }}</span>
-                                </span>
-                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'minute'">[[ time[notify.id].time ]] {{ 'notify.minute'|trans }}</span>
-                                <span class="text-gray ng-hide" data-ng-show="time[notify.id].title == 'now'">{{ 'notify.now'|trans }}</span>
-                            </p>
-
-                        </div>
+                        <a href="#">
+                            <i></i>
+                            <span class="text-grey-dark">Traveler</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i></i>
+                            <span class="text-grey-dark">Inovator</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i></i>
+                            <span class="text-grey-dark">S.S. writer</span>
+                        </a>
                     </li>
                 </ul>
+            </figcaption>
+        </figure>
+
+        <ul class="bg-white margin-top">
+            <li class="text-orange">1</li>
+
+            <li>
+                <figure>
+                    <img src=" " alt="user image"/>
+                </figure>
             </li>
+
+            <li>Name Name</li>
+
+            <li class="text-orange">1234</li>
         </ul>
     </div>
+
 {% endblock %}
 
 {#todo add title and descripstion#}
 
-{#{%- block title -%}#}
-    {#{{- 'notification.title'|trans -}}#}
-{#{%- endblock -%}#}
+{%- block title -%}
+    {{- 'leaderboard.title'|trans -}}
+{%- endblock -%}
 
-{#{%- block meta_description -%}#}
-    {#{{- 'notification.description'|trans -}}#}
-{#{%- endblock -%}#}
+{%- block meta_description -%}
+    {{- 'leaderboard.description'|trans -}}
+{%- endblock -%}
 
 {#{%- block og_url -%}#}
 {#{{- app.request.uri -}}#}
