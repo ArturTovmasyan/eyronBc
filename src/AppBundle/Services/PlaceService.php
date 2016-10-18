@@ -31,13 +31,13 @@ class PlaceService
     }
 
     /**
-     * This function is used to get all goal by place without confirmed userGoals
+     * This function is used to create place by coordinate
      *
      * @param $latitude float
      * @param $longitude float
      * @param User $user
      */
-    public function getAllGoalsByPlace($latitude, $longitude, User $user)
+    public function createPlace($latitude, $longitude, User $user)
     {
         //set default value
         $sendGoogleRequest = true;
@@ -67,12 +67,6 @@ class PlaceService
 
         //create UserPlace for user
         $this->createUserPlace($placeIds, $latitude, $longitude, $user);
-
-//        //get goal by place
-//        $goals = $this->em->getRepository('AppBundle:Goal')->findAllByPlaceIds($placeIds, $user->getId());
-//
-//        return $goals;
-
     }
 
     /**

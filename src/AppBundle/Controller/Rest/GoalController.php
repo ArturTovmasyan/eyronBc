@@ -783,7 +783,7 @@ class GoalController extends FOSRestController
             $user = $this->getUser();
 
             //get all goals by place
-            $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
+            $placeService->createPlace($latitude, $longitude, $user);
 
             return new Response('', Response::HTTP_NO_CONTENT);
         }
@@ -816,7 +816,6 @@ class GoalController extends FOSRestController
         $goals = $em->getRepository("AppBundle:Goal")->findUserUnConfirmInPlace($user);
 
         return $goals;
-
     }
 
 //    /**
