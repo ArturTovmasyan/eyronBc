@@ -2547,8 +2547,8 @@ footer{
     li{
       display: inline-block;
       vertical-align: middle;
-      font-size: 20px;
-      margin-right: 15px;
+      font-size: 22px;
+      margin-right: 20px;
       &:last-child{
         float:right;
         margin-right: 0;
@@ -2560,27 +2560,39 @@ footer{
 
     &.badge-place{
       position: relative;
+      padding: 3px 20px;
       li{
+        margin-right: 30px;
         a{
+          cursor:pointer;
+          
           i{
             width: 40px;
             height: 40px;
           }
           span{
-            font-size: 14px;
+            font-size: 15px;
           }
           &:hover{
-            color: #7724F6;
+            span{
+              color: #7724F6 !important;
+            }
           }
         }
       }
     }
 
     &.bg-white{
+      margin-bottom: 10px;
       figure{
         width: 60px;
         height: 60px;
         .rounded-corners;
+      }
+      li{
+        &:last-child{
+          margin: 15px 0 0;
+        }
       }
     }
   }
@@ -3083,7 +3095,7 @@ footer{
 }
 
 .text-orange{
-  color: #d18654 !important;
+  color: #d38853 !important;
 }
 
 .line{
