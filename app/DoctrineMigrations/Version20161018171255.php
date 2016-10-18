@@ -18,7 +18,7 @@ class Version20161018171255 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql("CREATE TRIGGER `users_goals_before_delete` BEFORE DELETE ON `users_goals` FOR EACH ROW
+        $this->addSql("CREATE TRIGGER `users_goals_before_delete` AFTER DELETE ON `users_goals` FOR EACH ROW
                         BEGIN
                            UPDATE `fos_user` SET `user_goal_remove_date`= NOW() where `id` = OLD.user_id;
                         END;
