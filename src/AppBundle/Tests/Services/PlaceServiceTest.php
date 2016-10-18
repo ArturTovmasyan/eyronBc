@@ -16,9 +16,9 @@ class PlaceServiceTest extends BaseClass
     use MockGooglePlaceServiceTrait;
     
     /**
-     * This function is used to test getAllGoalsByPlace() method in place service
+     * This function is used to test createPlace() method in place service
      */
-    public function testGetAllGoalsByPlace()
+    public function testCreatePlace()
     {
         //get latitude and longitude from parameter
         $placesData = $this->container->getParameter('places');
@@ -34,11 +34,8 @@ class PlaceServiceTest extends BaseClass
         //get place service and inject mock it in
         $placeService = new PlaceService($googlePlaceServiceMock, $this->em);
 
-        //get place by service
-        $goals = $placeService->getAllGoalsByPlace($latitude, $longitude, $user);
-
-        //get goals count
-        $goalsCount = count($goals);
+        //create not existing place and userPlace for user
+        $placeService->createPlace($latitude, $longitude, $user);
 
         //get all userPlace
         $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(['latitude' => $latitude, 'longitude' => $longitude]);
@@ -46,7 +43,6 @@ class PlaceServiceTest extends BaseClass
         //get userPlace count
         $userPlacesCount = count($userPlaces);
 
-        $this->assertNotEquals(0, $goalsCount, 'getAllGoalsByPlace() method in PlaceService don\'t work correctly');
         $this->assertEquals(4, $userPlacesCount, 'createUserPlace() method in PlaceService don\'t work correctly');
     }
 }

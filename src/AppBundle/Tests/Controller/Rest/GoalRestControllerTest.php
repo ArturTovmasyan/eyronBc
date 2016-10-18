@@ -23,9 +23,9 @@ class GoalRestControllerTest extends BaseClass
     use MockGooglePlaceServiceTrait;
     
     /**
-     * This function is used to test getGoalsInPlaceAction rest
+     * This function is used to test putUserPositionAction rest
      */
-    public function testGetGoalsInPlace()
+    public function testPutUserPosition()
     {
         //get latitude and longitude from parameter
         $placesData = $this->container->getParameter('places')[0];
@@ -45,40 +45,45 @@ class GoalRestControllerTest extends BaseClass
         $this->client2->getContainer()->set('app.google_place', $googlePlaceServiceMock);
         
         //create url for test
-        $url = sprintf('/api/v1.0/goals/places/%s/%s', $latitude, $longitude);
+        $url = sprintf('/api/v1.0/goals/user-position/%s/%s', $latitude, $longitude);
 
         //try to get goals in place
-        $this->client2->request('GET', $url);
+        $this->client2->request('PUT', $url);
 
         //check page is opened
-        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not get goals in getGoalsInPlaceAction() rest!");
-
-        //check page response content type
-        $this->assertTrue(
-            $this->client2->getResponse()->headers->contains('Content-Type', 'application/json'),
-            $this->client2->getResponse()->headers
-        );
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "can not get goals in putUserPositionAction() rest!");
 
         // check database query count
         if ($profile = $this->client2->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on getGoalsInPlaceAction() rest!");
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on putUserPositionAction() rest!");
+        }
+    }
+
+    /**
+     * This function is used to test getUserUnConfirmAction() rest
+     *
+     */
+    public function testUserUnConfirmGoal()
+    {
+        //create url for test
+        $url = '/api/v1.0/goals/place/un-confirm';
+
+        //try to confirm goals
+        $this->client2->request('GET', $url);
+
+        // check page is opened
+        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_OK, "can not confirm goal in postConfirmGoalsAction() rest!");
+
+        // check database query count
+        if ($profile = $this->client2->getProfile()) {
+
+            // check the number of requests
+            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on postConfirmGoalsAction() rest!");
         }
 
         //get response content
         $responseResults = json_decode($this->client2->getResponse()->getContent(), true);
-
-        //set default goal id value
-        $goalIds = [];
-
-        foreach ($responseResults as $responseResult)
-        {
-            //check if confirmed goal exist
-            $this->assertContains('goal3', $responseResult, 'findAllByPlace() repository don\'t work correctly');
-
-            //add goal id in array
-            $goalIds[] = $responseResult['id'];
-        }
 
         //get one result in array
         $result = reset($responseResults);
@@ -117,87 +122,6 @@ class GoalRestControllerTest extends BaseClass
         if(array_key_exists('image_path', $result)) {
             $this->assertArrayHasKey('image_path', $result, 'Invalid image_path key in getGoalsInPlaceAction() rest json structure');
         }
-
-        return $goalIds;
-    }
-
-    /**
-     * This function is used to test postConfirmGoalsAction() rest
-     *
-     * @depends testGetGoalsInPlace
-     * @param $goalIds array
-     */
-    public function testPostConfirmGoal($goalIds)
-    {
-        //create empty array
-        $data = [];
-
-        //generate goal array data
-        foreach ($goalIds as $id)
-        {
-            $data[$id] = true;
-        }
-
-        //get latitude and longitude from parameter
-        $placesData = $this->container->getParameter('places')[0];
-        $latitude = $placesData['latitude'];
-        $longitude = $placesData['longitude'];
-
-        //create url for test
-        $url = '/api/v1.0/goals/confirm';
-
-        //try to confirm goals
-        $this->client2->request('POST', $url, array('goal' => $data, 'latitude' => $latitude, 'longitude' => $longitude));
-
-        // check page is opened
-        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "can not confirm goal in postConfirmGoalsAction() rest!");
-
-        // check database query count
-        if ($profile = $this->client2->getProfile()) {
-
-            // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on postConfirmGoalsAction() rest!");
-        }
-
-        //find all confirmed goal
-        $confirmedUserGoals = $this->em->getRepository('AppBundle:UserGoal')->findByConfirmed(true);
-
-        //get confirmed userGoal count
-        $confirmedUserGoalsCount = count($confirmedUserGoals);
-
-        //check confirmed userGoals count
-        $this->assertEquals(4, $confirmedUserGoalsCount, 'Goal confirm action don\'t work correctly');
-
-        foreach ($confirmedUserGoals as $userGoal)
-        {
-            //get userName for confirmed goal
-            $userName = $userGoal->getUser()->getUsername();
-
-            //check userGoal status after confirmed it
-            $this->assertEquals(UserGoal::COMPLETED, $userGoal->getStatus(), 'Goal confirm action don\'t work correctly');
-            $this->assertEquals('user1@user.com', $userName, 'Goal confirm action don\'t work correctly');
-        }
-
-        //get all userPlace
-        $userPlaces = $this->em->getRepository('AppBundle:UserPlace')->findBy(array('latitude' => $latitude, 'longitude' => $longitude));
-
-        //get userPlace count
-        $userPlacesCount = count($userPlaces);
-
-        //check userPlace count
-        $this->assertEquals(2, $userPlacesCount, 'UserPlace not created correctly');
-
-        //check suggestion after confirmation goal
-
-        //create url for test
-        $url = sprintf('/api/v1.0/goals/places/%s/%s', $latitude, $longitude);
-
-        
-        //try to get goals in place
-        $this->client2->request('GET', $url);
-
-        //check page is opened
-        $this->assertEquals($this->client2->getResponse()->getStatusCode(), Response::HTTP_NO_CONTENT, "Goal confirm action don't work correctly");
     }
 
     /**
