@@ -291,9 +291,12 @@ my_bucket_list:
   year_old: -летний
 
   calendar:
-      completed: Достигнутых целей
-      deadline: Запоздалых целей
-      active: Активных целей
+      completed: Достигнутый цель
+      theCompleted: Достигнутых целей
+      deadline: Запоздалый цель
+      deadlines: Запоздалых целей
+      active: Активный цель
+      actives: Активных целей
 
 draft:
   edit: Редактировать

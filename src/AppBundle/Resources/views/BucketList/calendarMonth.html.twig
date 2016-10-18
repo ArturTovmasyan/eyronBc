@@ -23,15 +23,15 @@
                     <span data-ng-class="{'absolute': !isMobile}">
                     <span class="goal-count bg-green ng-hide"
                           data-ng-mouseleave="isHover = false"
-                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].complete + ' ' + '{{ 'my_bucket_list.calendar.completed'|trans }}')"
+                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].complete + ' ' + (myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].complete > 1?'{{ 'my_bucket_list.calendar.theCompleted'|trans }}':'{{ 'my_bucket_list.calendar.completed'|trans }}'))"
                           data-ng-show="myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].complete > 0">[[myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].complete ]]</span>
                     <span class="goal-count bg-gradinet ng-hide"
                           data-ng-mouseleave="isHover = false"
-                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].deadline + ' ' + '{{ 'my_bucket_list.calendar.deadline'|trans }}')"
+                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].deadline + ' ' + (myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].deadline > 1?'{{ 'my_bucket_list.calendar.deadlines'|trans }}':'{{ 'my_bucket_list.calendar.deadline'|trans }}'))"
                           data-ng-show="myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].deadline > 0">[[myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].deadline ]]</span>
                     <span class="goal-count bg-purple ng-hide"
                           data-ng-mouseleave="isHover = false"
-                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].current + ' ' + '{{ 'my_bucket_list.calendar.active'|trans }}')"
+                          data-ng-mousemove="hoverIn($event, myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].current + ' ' + (myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].current > 1?'{{ 'my_bucket_list.calendar.actives'|trans }}':'{{ 'my_bucket_list.calendar.active'|trans }}'))"
                           data-ng-show="myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].current > 0">[[myDays[currentYear][currentMonth][days[7 * {{ i }} + {{ j }} + 1].day].current ]]</span>
                     </span>
                 </td>
