@@ -6,17 +6,20 @@
 
         <span class="absolute">
             <span class="goal-count bg-green ng-hide"
-                  title="[[ myYears[+currentYear + {{ index }} ].complete ]] {{ 'my_bucket_list.calendar.completed'|trans }}"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].complete +' '+ '{{ 'my_bucket_list.calendar.completed'|trans }}' )"
                   data-ng-show="myYears[+currentYear + {{ index }} ].complete > 0">
                 [[ myYears[+currentYear + {{ index }} ].complete ]]
             </span>
             <span class="goal-count bg-gradinet ng-hide"
-                  title="[[ myYears[+currentYear + {{ index }} ].deadline ]] {{ 'my_bucket_list.calendar.deadline'|trans }}"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].deadline + ' ' + '{{ 'my_bucket_list.calendar.deadline'|trans }}' )"
                   data-ng-show="myYears[+currentYear + {{ index }} ].deadline > 0">
                 [[ myYears[+currentYear + {{ index }} ].deadline ]]
             </span>
             <span class="goal-count bg-purple ng-hide"
-                  title="[[ myYears[+currentYear + {{ index }} ].current ]] {{ 'my_bucket_list.calendar.active'|trans }}"
+                  data-ng-mouseleave="isHover = false"
+                  data-ng-mousemove="hoverIn($event, myYears[+currentYear + {{ index }} ].current + ' ' + '{{ 'my_bucket_list.calendar.active'|trans }}' )"
                   data-ng-show="myYears[+currentYear + {{ index }} ].current > 0">
                 [[ myYears[+currentYear + {{ index }} ].current ]]
             </span>
