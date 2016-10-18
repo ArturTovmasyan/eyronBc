@@ -298,6 +298,7 @@ class UserGoalRepository extends EntityRepository
             $message = UserGoal::DELETE;
         }
 
+        $em->persist($user);
         $em->flush();
 
         return $message;

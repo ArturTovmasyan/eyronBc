@@ -214,5 +214,4 @@ class GoalAdmin extends AbstractAdmin
 
         $this->updateData($object);
     }
-
 }

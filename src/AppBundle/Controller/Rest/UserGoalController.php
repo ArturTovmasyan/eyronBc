@@ -250,6 +250,7 @@ class UserGoalController extends FOSRestController
      */
     public function deleteAction($userGoal)
     {
+        //get entity manager
         $em = $this->getDoctrine()->getManager();
         $msg = $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoal);
 

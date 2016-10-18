@@ -34,7 +34,7 @@ class CRUDController extends Controller
         $form = $this->createForm(new MergeGoalType($goalId));
 
         //check if method post
-        if($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
 
             //get entity manager
             $em = $this->get('doctrine')->getManager();
@@ -42,7 +42,7 @@ class CRUDController extends Controller
             // get data from request
             $form->handleRequest($request);
 
-            if($form->isValid() && $form->isSubmitted()){
+            if ($form->isValid() && $form->isSubmitted()) {
                 
                 //get merging goal id in form
                 $mergingGoal = $form->get('goal')->getData();
@@ -66,22 +66,22 @@ class CRUDController extends Controller
                 $this->mergeGoalAuthor($goal, $em, $mergeGoalObject);
 
                 //check if tag checked
-                if($tagChecked) {
+                if ($tagChecked) {
                     $this->mergeTags($goal, $mergingGoal, $em, $mergeGoalObject);
                 }
 
                 //check if successStory checked
-                if($storyChecked) {
+                if ($storyChecked) {
                     $this->mergeSuccessStory($goal, $em, $mergeGoalObject);
                 }
 
                 //check if comment checked
-                if($commentChecked) {
+                if ($commentChecked) {
                     $this->mergeComments($goal, $em, $mergeGoalObject);
                 }
 
                 //check if user checked
-                if($userChecked) {
+                if ($userChecked) {
                     $this->mergeUsers($goal, $mergingGoal, $em, $mergeGoalObject);
                 }
 
@@ -117,7 +117,6 @@ class CRUDController extends Controller
      */
     public function mergeComments($goal, $em, $mergeGoalObject)
     {
-
         //get thread id
         $threadId = 'goal_'.$goal->getSlug();
 
@@ -287,7 +286,6 @@ class CRUDController extends Controller
             //remove old goal user goals
             $goal->removeTag($oldGoalTag);
             $em->persist($goal);
-
         }
     }
 
