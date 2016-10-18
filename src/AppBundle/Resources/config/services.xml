@@ -137,6 +137,12 @@
             <argument type="service" id="app.google_place" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <!--Get User goal manage service -->
+        <service id="app.user_goal_manage" class="AppBundle\Services\UserGoalManageService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
     </services>
 
 </container>
