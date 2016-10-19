@@ -12,17 +12,19 @@
             <div class="row">
 
                 <div class="col-md-8">
-                    {% block test  %}
+                    {% block left_content %}
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
                     {% endblock %}
                 </div>
 
                 <div class="col-md-4">
-                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
-                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                    {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
-                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
-                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                    {% block rigth_content %}
+                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
+                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                        {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+                        {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
+                        {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                    {% endblock %}
                 </div>
             </div>
         </div>

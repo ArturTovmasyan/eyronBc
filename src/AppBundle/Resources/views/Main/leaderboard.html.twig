@@ -4,7 +4,7 @@
 <html data-ng-app="leaderboard" data-ng-controller="leaderboardController">
 {% endblock %}
 
-{% block test  %}
+{% block left_content  %}
 
     <div id="leaderboard-place">
         <figure class="round">
@@ -44,12 +44,15 @@
                 </figure>
             </li>
 
-            <li class="text-dark-gray">[[ user.user.first_name + ' ' + user.user.last_name]]</li>
+            <li class="text-dark-gray">[[ getFullName(user.user)]]</li>
 
             <li class="text-purple">[[ user.score]]</li>
         </ul>
     </div>
 
+{% endblock %}
+
+{% block rigth_content %}
 {% endblock %}
 
 {% block javascripts %}
