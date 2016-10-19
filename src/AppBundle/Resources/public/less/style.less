@@ -2539,6 +2539,86 @@ footer{
   background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
+.liderboard-icon{
+  display: inline-block;
+  width: 25px !important;
+  height: 25px !important;
+  background: url('../images/leaderboard-icon.svg') no-repeat center center;
+}
+
+#leaderboard-place{
+  ul{
+    padding: 20px;
+    clear: both;
+
+    li{
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 22px;
+      margin-right: 20px;
+      &:last-child{
+        float:right;
+        margin-right: 0;
+      }
+      &:hover{
+        background-color: transparent;
+      }
+    }
+
+    &.badge-place{
+      position: relative;
+      padding: 3px 20px;
+      li{
+        margin-right: 30px;
+        a{
+          cursor:pointer;
+          
+          i{
+            width: 40px;
+            height: 40px;
+          }
+          span{
+            font-size: 15px;
+          }
+          &:hover{
+            span{
+              color: #7724F6 !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.bg-white{
+      margin-bottom: 10px;
+      figure{
+        width: 60px;
+        height: 60px;
+        .rounded-corners;
+      }
+      li{
+        &:last-child{
+          margin: 15px 0 0;
+        }
+      }
+    }
+  }
+
+  figure{
+    figcaption{
+      ul{
+        li{
+          border-right:0;
+
+          &:last-child{
+            float: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -3020,8 +3100,6 @@ footer{
 .bg-white{
   background-color:#ffffff !important;
 }
-
-
 
 .line{
   height:1px;

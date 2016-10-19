@@ -1,0 +1,72 @@
+{% extends "AppBundle:Main:activities.html.twig" %}
+
+{% block angularApp %}
+<html data-ng-app="leaderboard" data-ng-controller="leaderboardController">
+{% endblock %}
+
+{% block test  %}
+
+    <div id="leaderboard-place">
+        <figure class="round">
+            <img src="{{ asset('bundles/app/images/leaderboard-image.jpg') }}" alt="Bucket List 127" class="img-responsive"/>
+            <figcaption>
+                <ul class="badge-place">
+                    <li>
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">
+                            <i></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">Traveler</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">
+                            <i></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">Inovator</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">
+                            <i></i>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">S.S. writer</span>
+                        </a>
+                    </li>
+                </ul>
+            </figcaption>
+        </figure>
+
+        <ul class="bg-white round margin-top goals-animate"
+            data-ng-cloak
+            data-ng-repeat="user in users">
+            <li class="text-purple">[[ $index + 1]]</li>
+
+            <li>
+                <figure>
+                    <img data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                </figure>
+            </li>
+
+            <li class="text-dark-gray">[[ user.user.first_name + ' ' + user.user.last_name]]</li>
+
+            <li class="text-purple">[[ user.score]]</li>
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_leaderboard.js'
+    'bundles/app/js/angular/modules/leaderboard/leaderboard.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{%- block title -%}
+    {{- 'leaderboard.title'|trans -}}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- 'leaderboard.description'|trans -}}
+{%- endblock -%}
