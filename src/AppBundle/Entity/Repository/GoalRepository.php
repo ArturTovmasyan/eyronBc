@@ -850,9 +850,10 @@ class GoalRepository extends EntityRepository
                            JOIN g.place p
                            LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
                            LEFT JOIN ug.user u
-                           WHERE (ug.id is null or ug.confirmed = :status)")
+                           WHERE ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
-            ->setParameter('status', false)
+            ->setParameter('status', true)
+            ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
     }
     
