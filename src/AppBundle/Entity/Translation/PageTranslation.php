@@ -24,7 +24,7 @@ class PageTranslation extends AbstractPersonalTranslation
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Page", inversedBy="translations")
-     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     protected $object;
 }
