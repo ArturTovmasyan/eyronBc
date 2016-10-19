@@ -2539,7 +2539,7 @@ footer{
   background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
-.liderboard-icon{
+.leaderboard-icon{
   display: inline-block;
   width: 25px !important;
   height: 25px !important;
@@ -2616,6 +2616,43 @@ footer{
           }
         }
       }
+    }
+  }
+}
+
+#leaderboard-list{
+
+  .leaderboard-icon{
+    margin-right: 10px;
+  }
+
+  hr{
+    margin-bottom:5px;
+  }
+
+  ul{
+    padding-left: 0;
+    border-bottom: 1px solid #eee;
+
+    li{
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+
+      figure{
+        width: 50px;
+        height: 50px;
+        .rounded-corners;
+      }
+
+      &:last-child{
+        float: right;
+        margin: 13px 0 0;
+      }
+    }
+
+    &:last-child{
+      border-bottom: 0;
     }
   }
 }

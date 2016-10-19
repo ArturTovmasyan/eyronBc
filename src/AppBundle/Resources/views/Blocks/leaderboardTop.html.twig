@@ -1,0 +1,40 @@
+{% if user is defined %}
+    <div data-ng-controller="goalFriends" id="leaderboard-list">
+        <div class="bg-white padding round margin-top"
+             data-ng-cloak
+             data-ng-init = "userId = {{ user.id }}">
+
+            <div class="row">
+                <div class="col-xs-10">
+                    <a href="{{ path('goal_friends') }}" class="heading text-gray">
+                        <i class="leaderboard-icon"></i>
+                        <span class="text">{{ 'leaderboard'|trans | capitalize }}</span>
+                    </a>
+                </div>
+
+                <div class="col-xs-2 text-right">
+                    <a href="javascript:void(0)" data-ng-click="refreshGoalFriends()" class="load" id="goalFriendLoad"></a>
+                </div>
+            </div>
+
+            <hr/>
+
+            <ul class="bg-white round goals-animate"
+                data-ng-cloak
+                {#data-ng-repeat="user in users"#}
+                    >
+                <li class="text-dark-gray">1[[ $index + 1]]</li>
+
+                <li>
+                    <figure>
+                        <img data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                    </figure>
+                </li>
+
+                <li class="text-dark-gray">name [[ getFullName(user.user)]]</li>
+
+                <li class="text-dark-gray"> 123[[ user.score]]</li>
+            </ul>
+        </div>
+    </div>
+{% endif %}
