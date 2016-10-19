@@ -54,6 +54,13 @@ class BadgeRepository extends EntityRepository
      */
     public function getMaxScores()
     {
+        // default return value
+        $result = array(
+            Badge::TYPE_TRAVELLER =>1,
+            Badge::TYPE_INNOVATOR =>2,
+            Badge::TYPE_MOTIVATOR =>1,
+            );
+
         $stmt = $this->getEntityManager()
             ->getConnection()
             ->prepare('
@@ -75,12 +82,15 @@ class BadgeRepository extends EntityRepository
         $stmt->bindValue('motivator', Badge::TYPE_MOTIVATOR);
         $stmt->bindValue('innovator', Badge::TYPE_INNOVATOR);
         $stmt->execute();
-        $result = $stmt->fetchAll();
+        $query = $stmt->fetchAll();
 
-        if($result){
-            $result = reset($result);
+        if($query){
+            $query = reset($query);
+            $result [Badge::TYPE_TRAVELLER] = $query['traveller'];
+            $result [Badge::TYPE_MOTIVATOR] = $query['motivator'];
+            $result [Badge::TYPE_INNOVATOR] = $query['innovator'];
         }
 
-        return $result ;
+        return  $result;
     }
 }

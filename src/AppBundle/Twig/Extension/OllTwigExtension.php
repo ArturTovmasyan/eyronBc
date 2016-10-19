@@ -285,18 +285,8 @@ class OllTwigExtension extends \Twig_Extension
     {
         // get max badge score
         $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore();
-        $result = 1;
 
-        if($type == Badge::TYPE_TRAVELLER){
-            $result = $maxBadgeScore['traveller'];
-        }elseif ($type == Badge::TYPE_INNOVATOR){
-            $result = $maxBadgeScore['innovator'];
-        }elseif ($type == Badge::TYPE_MOTIVATOR){
-            $result = $maxBadgeScore['motivator'];
-        }
-
-
-        return $result;
+        return array_key_exists($type, $maxBadgeScore) ? $maxBadgeScore[$type] : 1;
 
     }
 

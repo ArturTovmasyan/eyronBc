@@ -68,9 +68,30 @@ class BadgeService
             $badge->setUser($user);
         }
 
-        $badge->setScore($badge->getScore() + $score);
+        // generate new score
+        $newScore = $badge->getScore() + $score;
+
+        $badge->setScore($newScore);
         $this->em->persist($badge);
         $this->em->flush();
+
+        // get max score from cache
+        $maxScore = $this->getMaxScore();
+
+        // get score by type
+        $typMaxScore = $maxScore[$type];
+
+        // check is new score bigger
+        if($newScore > $typMaxScore){
+
+            // generate new max score
+            $maxScore[$type] = $newScore;
+
+            // add to cache
+            apc_delete(self::BADGE_MAX_SCORE);
+            apc_add(self::BADGE_MAX_SCORE, $maxScore);
+        }
+
     }
 
 
@@ -84,7 +105,7 @@ class BadgeService
         if(!$badgeMaxScore){
 
             $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
-            apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
+            apc_add(self::BADGE_MAX_SCORE, $badgeMaxScore);
         }
 
         return $badgeMaxScore;
