@@ -39,8 +39,10 @@
             <li class="text-purple">[[ $index + 1]]</li>
 
             <li>
-                <figure>
-                    <img data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                <figure class="image img-circle">
+                    {% set className = "user-no" ~ random(4) %}
+                    <img data-ng-if="user.user.image_path.length" data-ng-src="[[ user.user.image_path]]" alt="user image"/>
+                    <p data-ng-if="!user.user.image_path.length" class="no-image {{ className }}">[[ user.user.first_name  | limitTo: 1 | uppercase ]] [[ user.user.last_name | limitTo: 1 | uppercase ]]</p>
                 </figure>
             </li>
 
