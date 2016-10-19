@@ -184,17 +184,16 @@
         {% block body %}
         <div id="mainframe">
             <div id="wrap">
-
                 <header>
                     <nav class="navbar navbar-default navbar-fixed-top">
                         <div id="line"></div>
                         <div class="container" id="main-nav" style="display: none" {% if user %}data-ng-controller="notificationController"{% endif %}>
                             <div class="navbar-header navbar-mobile">
+                            {% if is_mobile() and not is_tablet() %}
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
 
-                                        {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
-                                        {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
+                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
@@ -212,8 +211,7 @@
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
-                                            {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
-                                            {{ include('AppBundle:Main:esiUser.html.twig') }}
+                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                         </li>
                                     </ul>
 
@@ -298,7 +296,7 @@
                                             <li>
                                                 <a href="{{ path('goals_list') }}" class="hidden-sm hidden-md hidden-lg {% if app.request.get('_route') == 'goals_list' %}active-mobile{% endif %}">
                                                     <i class="icon-ideas-icon"></i>
-                                                    {#<i class="ideas-icon"></i>#}
+                                                    <i class="ideas-icon"></i>
                                                 </a>
                                             </li>
                                             <li>
@@ -315,45 +313,48 @@
 
                                     </div>
                                 {% endif %}
+                            {% endif %}
+
                                 <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
                                     <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" class="img-responsive"/>
                                 </a>
                             </div>
-                            <div id="navbar" class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
 
-                                    {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
-                                    {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
+                            {% if not is_mobile() or is_tablet() %}
+                                <div id="navbar" class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
 
-                                    <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
-                                        <a href="{{ path('goals_list') }}">
-                                            <i class="icons ideas-icon"></i>
-                                            <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
-                                        </a>
-                                    </li>
+                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
 
-                                    {% if user %}
-                                        <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
-                                            <a href="{{ path('user_profile_single') }}">
-                                                <i class="icons mybucketlist-icon"></i>
-                                                <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                        <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
+                                            <a href="{{ path('goals_list') }}">
+                                                <i class="icons ideas-icon"></i>
+                                                <span class="hidden-sm">{{ 'ideas'|trans |upper }}</span>
                                             </a>
                                         </li>
-                                    {% endif %}
-                                </ul>
 
-                                <ul class="nav navbar-nav navbar-right">
-                                    {% if user %}
-                                        <li id="notification">
-                                            {{ include('AppBundle:Blocks:notification.html.twig') }}
+                                        {% if user %}
+                                            <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
+                                                <a href="{{ path('user_profile_single') }}">
+                                                    <i class="icons mybucketlist-icon"></i>
+                                                    <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+
+                                    <ul class="nav navbar-nav navbar-right">
+                                        {% if user %}
+                                            <li id="notification">
+                                                {{ include('AppBundle:Blocks:notification.html.twig') }}
+                                            </li>
+                                        {% endif %}
+                                        <li>
+                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                         </li>
-                                    {% endif %}
-                                    <li>
-                                        {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
-                                        {{ include('AppBundle:Main:esiUser.html.twig') }}
-                                    </li>
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
+                            {% endif %}
                         </div>
                     </nav>
                 </header>
