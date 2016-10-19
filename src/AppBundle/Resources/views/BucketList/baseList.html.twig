@@ -176,21 +176,18 @@
                             <p>{{ profileUser.getAge }} {{ "my_bucket_list.year_old"|trans }}</p>
                         {% endif %}
 
+                        {% set badges = profileUser.getBadges %}
+
                         <ul class="badge-place">
-                            <li>
-                                <i></i>
-                                <span>1234</span>
-                            </li>
 
-                            <li>
-                                <i></i>
-                                <span>1234</span>
-                            </li>
+                            {% for badge in badges %}
 
-                            <li>
-                                <i></i>
-                                <span>1234</span>
-                            </li>
+                                <li>
+                                    <i></i>
+                                    <span>{{ badge.score }}</span>
+                                </li>
+
+                            {% endfor %}
                         </ul>
                     </div>
 
