@@ -17,6 +17,8 @@ use Symfony\Component\Process\Process;
  */
 class BadgeService
 {
+    const BADGE_MAX_SCORE = 'badge_max_score';
+
     /**
      * @var EntityManager
      */
@@ -63,7 +65,7 @@ class BadgeService
     public function addScore($type, $user, $score)
     {
         // get badge
-        $badge = $this->em->getRepository("ApplicationUserBundle:badge")
+        $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
             ->findBadgeByUserAndType($user, $type);
 
         if(!$badge){
@@ -75,6 +77,23 @@ class BadgeService
         $badge->setScore($badge->getScore() + $score);
         $this->em->persist($badge);
         $this->em->flush();
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getMaxScore()
+    {
+        $badgeMaxScore = apc_fetch(self::BADGE_MAX_SCORE);
+
+        if(!$badgeMaxScore){
+
+            $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
+            apc_store(self::BADGE_MAX_SCORE, $badgeMaxScore);
+        }
+
+        return $badgeMaxScore;
     }
 
 }
