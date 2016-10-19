@@ -1,8 +1,8 @@
 {% extends "AppBundle:Main:activities.html.twig" %}
 
-{#{% block angularApp %}#}
-{#<html data-ng-app="profile" data-ng-controller="notificationInnerController">#}
-{#{% endblock %}#}
+{% block angularApp %}
+<html data-ng-app="leaderboard" data-ng-controller="leaderboardController">
+{% endblock %}
 
 {% block test  %}
 
@@ -12,19 +12,19 @@
             <figcaption>
                 <ul class="badge-place">
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_TRAVELLER']}">
                             <i></i>
                             <span class="text-dark-gray">Traveler</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">
                             <i></i>
                             <span class="text-dark-gray">Inovator</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">
                             <i></i>
                             <span class="text-dark-gray">S.S. writer</span>
                         </a>
@@ -47,6 +47,17 @@
             <li class="text-orange">1234</li>
         </ul>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts output='js/app_leaderboard.js'
+    'bundles/app/js/angular/modules/leaderboard/leaderboard.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 {% endblock %}
 
