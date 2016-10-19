@@ -96,6 +96,56 @@ class BadgeService
 
 
     /**
+     * This function is used to find badge by user, and remove score
+     *
+     * @param $type
+     * @param $userId
+     * @param $score
+     */
+    public function removeScore($type, $userId, $score)
+    {
+        // get user
+        $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
+
+        if(!$user){
+            throw new NotFoundHttpException('User not found');
+        }
+
+        // get badge
+        $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
+            ->findBadgeByUserAndType($userId, $type);
+
+        if($badge){
+
+            // generate new score
+            $newScore = $badge->getScore() - $score;
+            $newScore = $newScore < 0 ? 0 : $newScore;
+
+            $badge->setScore($newScore);
+            $this->em->persist($badge);
+            $this->em->flush();
+
+            // get max score from cache
+            $maxScore = $this->getMaxScore();
+
+            // get score by type
+            $typMaxScore = $maxScore[$type];
+
+            // check is new score bigger
+            if($newScore === $typMaxScore){
+
+                // generate new max score
+                $maxScore[$type] = $newScore;
+
+                // add to cache
+                apc_delete(self::BADGE_MAX_SCORE);
+                apc_add(self::BADGE_MAX_SCORE, $maxScore);
+            }
+        }
+    }
+
+
+    /**
      * @return array
      */
     public function getMaxScore()
