@@ -193,8 +193,8 @@
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
 
-                                        {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
-                                        {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
+                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
+                                        {#{{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}#}
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
@@ -212,8 +212,8 @@
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
-                                            {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
-                                            {{ include('AppBundle:Main:esiUser.html.twig') }}
+                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                            {#{{ include('AppBundle:Main:esiUser.html.twig') }}#}
                                         </li>
                                     </ul>
 
@@ -298,7 +298,7 @@
                                             <li>
                                                 <a href="{{ path('goals_list') }}" class="hidden-sm hidden-md hidden-lg {% if app.request.get('_route') == 'goals_list' %}active-mobile{% endif %}">
                                                     <i class="icon-ideas-icon"></i>
-                                                    {#<i class="ideas-icon"></i>#}
+                                                    <i class="ideas-icon"></i>
                                                 </a>
                                             </li>
                                             <li>
@@ -322,8 +322,7 @@
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
 
-                                    {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
-                                    {{ include('AppBundle:Main:esiActivity.html.twig', {'route': app.request.get('_route')}) }}
+                                    {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
 
                                     <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                         <a href="{{ path('goals_list') }}">
@@ -349,8 +348,7 @@
                                         </li>
                                     {% endif %}
                                     <li>
-                                        {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
-                                        {{ include('AppBundle:Main:esiUser.html.twig') }}
+                                        {{ render_esi(controller('AppBundle:Main:esiUser')) }}
                                     </li>
                                 </ul>
                             </div>
