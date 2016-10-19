@@ -2,6 +2,7 @@
 
 namespace Application\UserBundle\Entity\Repository;
 
+use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -46,5 +47,40 @@ class BadgeRepository extends EntityRepository
             ->setParameter('type', $type)
             ->setParameter('user', $user->getUser())
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaxScores()
+    {
+        $stmt = $this->getEntityManager()
+            ->getConnection()
+            ->prepare('
+                        SELECT * FROM
+                        (
+                          SELECT MAX(badge.score) as traveller FROM badge WHERE badge.type = :traveller
+                        ) as traveller,
+                        
+                       (
+                          SELECT MAX(badge.score) as motivator FROM badge WHERE badge.type = :motivator
+                        ) as motivator,
+                        
+                         (
+                          SELECT MAX(badge.score) as innovator FROM badge WHERE badge.type = :innovator
+                        ) as innovator
+
+                        ');
+        $stmt->bindValue('traveller', Badge::TYPE_TRAVELLER);
+        $stmt->bindValue('motivator', Badge::TYPE_MOTIVATOR);
+        $stmt->bindValue('innovator', Badge::TYPE_INNOVATOR);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        if($result){
+            $result = reset($result);
+        }
+
+        return $result ;
     }
 }

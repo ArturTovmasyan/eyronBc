@@ -184,7 +184,10 @@
 
                                 <li>
                                     <i></i>
-                                    <span>{{ badge.score }}</span>
+                                    {% set score = badge.score / maxBadgeScore(badge.type) *
+                                    constant("Application\\UserBundle\\Entity\\Badge::MAXIMUM_NORMALIZE_SCORE") %}
+                                    <span>{{ score|round(0, 'ceil')}}
+                                    </span>
                                 </li>
 
                             {% endfor %}

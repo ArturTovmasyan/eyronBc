@@ -8,6 +8,7 @@
 
 namespace AppBundle\Twig\Extension;
 
+use Application\UserBundle\Entity\Badge;
 use Symfony\Component\DependencyInjection\Container;
 use AppBundle\Entity\Goal;
 use AppBundle\Entity\NewFeed;
@@ -72,7 +73,8 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getSession', array($this, 'getSession')),
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
             new \Twig_SimpleFunction('getReferer', array($this, 'getReferer')),
-            new \Twig_SimpleFunction('getThreadInnerLink', array($this, 'getThreadInnerLink'))
+            new \Twig_SimpleFunction('getThreadInnerLink', array($this, 'getThreadInnerLink')),
+            new \Twig_SimpleFunction('maxBadgeScore', array($this, 'maxBadgeScore'))
         );
     }
     /**
@@ -273,6 +275,29 @@ class OllTwigExtension extends \Twig_Extension
         }
 
         return isset($slug) ? $router->generate('inner_goal', ['slug' => $slug]) : '#';
+    }
+
+    /**
+     * @param $type
+     * @return mixed
+     */
+    public function maxBadgeScore($type)
+    {
+        // get max badge score
+        $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore();
+        $result = 1;
+
+        if($type == Badge::TYPE_TRAVELLER){
+            $result = $maxBadgeScore['traveller'];
+        }elseif ($type == Badge::TYPE_INNOVATOR){
+            $result = $maxBadgeScore['innovator'];
+        }elseif ($type == Badge::TYPE_MOTIVATOR){
+            $result = $maxBadgeScore['motivator'];
+        }
+
+
+        return $result;
+
     }
 
     public function getName()
