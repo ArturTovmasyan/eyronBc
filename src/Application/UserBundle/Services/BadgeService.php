@@ -96,4 +96,13 @@ class BadgeService
         return $badgeMaxScore;
     }
 
+    /**
+     * @return array
+     */
+    public function test($a, $b)
+    {
+        return $a ;
+
+    }
+
 }
