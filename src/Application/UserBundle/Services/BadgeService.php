@@ -9,6 +9,7 @@
 namespace Application\UserBundle\Services;
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Process\Process;
 
 /**
  * Class BadgeService
@@ -22,12 +23,33 @@ class BadgeService
     private $em;
 
     /**
+     * @var
+     */
+    private $badgeCommand;
+
+    /**
      * BadgeService constructor.
      * @param EntityManager $em
+     * @param $badgeCommand
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, $badgeCommand)
     {
         $this->em = $em;
+        $this->badgeCommand = $badgeCommand;
+    }
+
+    /**
+     * @param $type
+     * @param $userId
+     * @param $score
+     */
+    public function addToQueue($type, $userId, $score)
+    {
+        $command  =  "$this->badgeCommand $type $userId $score";
+
+        $process = new Process($command);
+        $process->start();
+
     }
 
 

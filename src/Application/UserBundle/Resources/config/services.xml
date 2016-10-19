@@ -4,6 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="badge_command">%kernel.root_dir%/console bl:badge:calculate</parameter>
+    </parameters>
+    
     <services>
 
         <!--  Service for registration form -->
@@ -71,6 +75,7 @@
 
         <service id="bl.badge.service" class="Application\UserBundle\Services\BadgeService">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%badge_command%</argument>
         </service>
 
     </services>
