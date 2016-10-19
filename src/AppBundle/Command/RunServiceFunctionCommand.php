@@ -27,7 +27,7 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('bl:abstract:command')
+            ->setName('bl:run:service')
             ->setDescription('Run service function')
             ->addArgument('serviceName', InputArgument::REQUIRED, 'Class name of service')
             ->addArgument('function', InputArgument::REQUIRED, 'function name')
@@ -54,7 +54,7 @@ class RunServiceFunctionCommand extends ContainerAwareCommand
         $service = $container->get($serviceName);
 
         // run service function
-        call_user_func(array($service, $function), $arguments);
+        call_user_func_array(array($service, $function), $arguments);
 
         return null;
     }

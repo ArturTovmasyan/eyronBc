@@ -33,11 +33,11 @@ class BadgeRepository extends EntityRepository
     }
 
     /**
-     * @param $user
+     * @param $userId
      * @param $type
      * @return mixed
      */
-    public function findBadgeByUserAndType($user, $type)
+    public function findBadgeByUserAndType($userId, $type)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT b
@@ -45,7 +45,7 @@ class BadgeRepository extends EntityRepository
                            JOIN b.user u
                            WHERE b.user = :user AND b.type = :type")
             ->setParameter('type', $type)
-            ->setParameter('user', $user->getUser())
+            ->setParameter('user', $userId)
             ->getOneOrNullResult();
     }
 

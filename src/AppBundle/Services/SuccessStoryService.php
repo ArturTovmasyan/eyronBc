@@ -7,12 +7,13 @@
  */
 namespace AppBundle\Services;
 
+use Application\UserBundle\Entity\Badge;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class SuccessStoryService
+class SuccessStoryService extends AbstractProcessService
 {
     protected $container;
 

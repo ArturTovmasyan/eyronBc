@@ -9,6 +9,7 @@
 namespace Application\UserBundle\Services;
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -41,34 +42,27 @@ class BadgeService
     }
 
     /**
+     * This function is used to find badge by user, and add score
+     *
      * @param $type
      * @param $userId
      * @param $score
      */
-    public function addToQueue($type, $userId, $score)
+    public function addScore($type, $userId, $score)
     {
-        $command  =  "$this->badgeCommand $type $userId $score";
+        // get user
+        $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
 
-        $process = new Process($command);
-        $process->start();
+        if(!$user){
+            throw new NotFoundHttpException('User not found');
+            }
 
-    }
-
-
-    /**
-     * This function is used to find badge by user, and add score
-     *
-     * @param $type
-     * @param $user
-     * @param $score
-     */
-    public function addScore($type, $user, $score)
-    {
         // get badge
         $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
-            ->findBadgeByUserAndType($user, $type);
+            ->findBadgeByUserAndType($userId, $type);
 
         if(!$badge){
+
             $badge = new Badge();
             $badge->setType($type);
             $badge->setUser($user);
@@ -95,14 +89,4 @@ class BadgeService
 
         return $badgeMaxScore;
     }
-
-    /**
-     * @return array
-     */
-    public function test($a, $b)
-    {
-        return $a ;
-
-    }
-
 }
