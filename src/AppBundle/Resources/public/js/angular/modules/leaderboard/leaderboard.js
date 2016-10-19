@@ -16,12 +16,13 @@ angular.module('leaderboard', ['Interpolation',
   function ($scope, envPrefix, LeaderboardConstant, $http) {
     $scope.users = [];
     $scope.usersCount = 10;
+    $scope.LeaderboardConstant = LeaderboardConstant;
     $scope.pageStatus = LeaderboardConstant.TYPE_TRAVELLER;
     var url = envPrefix + 'api/v1.0/badges/{type}/topusers/' + $scope.usersCount;
 
-    url = url.replace('{type}', $scope.pageStatus);
-    $http.get(url).success(function(data) {
-      console.log(data);
+    var currentUrl = url.replace('{type}', $scope.pageStatus);
+    $http.get(currentUrl).success(function(data) {
+      $scope.users = data;
     })
     .error(function (res) {
       console.log(res);
@@ -35,18 +36,21 @@ angular.module('leaderboard', ['Interpolation',
     $scope.goTo = function (pageNumber) {
       switch (pageNumber){
         case LeaderboardConstant.TYPE_MOTIVATOR:
+          $scope.users = [];
           $scope.pageStatus = LeaderboardConstant.TYPE_MOTIVATOR;
           break;
         case LeaderboardConstant.TYPE_INNOVATOR:
+          $scope.users = [];
           $scope.pageStatus = LeaderboardConstant.TYPE_INNOVATOR;
           break;
         default:
+          $scope.users = [];
           $scope.pageStatus = LeaderboardConstant.TYPE_TRAVELLER;
       }
 
-      url = url.replace('{type}', $scope.pageStatus);
-      $http.get(url).success(function(data) {
-          console.log(data);
+      currentUrl = url.replace('{type}', $scope.pageStatus);
+      $http.get(currentUrl).success(function(data) {
+        $scope.users = data;
       })
       .error(function (res) {
         console.log(res);

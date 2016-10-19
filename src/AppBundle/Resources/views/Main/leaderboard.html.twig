@@ -12,39 +12,41 @@
             <figcaption>
                 <ul class="badge-place">
                     <li>
-                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_TRAVELLER']}">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">
                             <i></i>
-                            <span class="text-dark-gray">Traveler</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">Traveler</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">
                             <i></i>
-                            <span class="text-dark-gray">Inovator</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">Inovator</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])" data-ng-class="{'active': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">
+                        <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">
                             <i></i>
-                            <span class="text-dark-gray">S.S. writer</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">S.S. writer</span>
                         </a>
                     </li>
                 </ul>
             </figcaption>
         </figure>
 
-        <ul class="bg-white round margin-top">
-            <li class="text-purple">1</li>
+        <ul class="bg-white round margin-top goals-animate"
+            data-ng-cloak
+            data-ng-repeat="user in users">
+            <li class="text-purple">[[ $index + 1]]</li>
 
             <li>
                 <figure>
-                    <img src=" " alt="user image"/>
+                    <img data-ng-src="[[ user.user.image_path]]" alt="user image"/>
                 </figure>
             </li>
 
-            <li class="text-dark-gray">Name Name</li>
+            <li class="text-dark-gray">[[ user.user.first_name + ' ' + user.user.last_name]]</li>
 
-            <li class="text-purple">1234</li>
+            <li class="text-purple">[[ user.score]]</li>
         </ul>
     </div>
 
@@ -61,8 +63,6 @@
 
 {% endblock %}
 
-{#todo add title and descripstion#}
-
 {%- block title -%}
     {{- 'leaderboard.title'|trans -}}
 {%- endblock -%}
@@ -70,7 +70,3 @@
 {%- block meta_description -%}
     {{- 'leaderboard.description'|trans -}}
 {%- endblock -%}
-
-{#{%- block og_url -%}#}
-{#{{- app.request.uri -}}#}
-{#{%- endblock -%}#}
