@@ -29,7 +29,7 @@ class BadgeController extends Controller
      *  }
      * )
      *
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"badge"})
      * @return mixed
      */
     public function cgetAction()
