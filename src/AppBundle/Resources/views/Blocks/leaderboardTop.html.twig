@@ -22,10 +22,13 @@
 
             <hr/>
 
-            <ul class="bg-white round goals-animate"
+            <ul class="bg-white round badge-place goals-animate"
                 data-ng-cloak
                 data-ng-repeat="user in users">
-                <li class="text-gray">1[[ $index + 1]]</li>
+                <li class="text-gray">
+
+                    <i data-ng-class="badge-[[ $index + 1]]"></i>
+                </li>
 
                 <li>
                     <figure class="img-circle">
