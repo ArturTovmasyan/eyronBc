@@ -47,6 +47,7 @@ class BadgeService
         $minInnovatorScore = 0;
         $minMotivatorScore = 0;
         $minTravellerScore = 0;
+        $userIds = [];
 
         $repo = $this->em->getRepository("ApplicationUserBundle:Badge");
 
@@ -58,10 +59,11 @@ class BadgeService
             $maxScore = $maxScoreBadge->getScore();
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore){
+            array_map(function($badge) use ($maxScore, &$userIds){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
+                $userIds[] = $badge->getUser()->getId();
             }, $innovators);
 
             $minInnovator = end($innovators);
@@ -76,10 +78,11 @@ class BadgeService
             $maxScore = $maxScoreBadge->getScore();
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore){
+            array_map(function($badge) use ($maxScore, &$userIds){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
+                $userIds[] = $badge->getUser()->getId();
             }, $motivators);
 
             $minMotivator = end($motivators);
@@ -95,15 +98,18 @@ class BadgeService
 
 
             // map for values and normalize scores
-            array_map(function($badge) use ($maxScore){
+            array_map(function($badge) use ($maxScore, &$userIds){
                 $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
                 $normalizedScore = ceil($normalizedScore);
                 $badge->normalizedScore = $normalizedScore;
+                $userIds[] = $badge->getUser()->getId();
             }, $travellers);
 
             $minTraveller = end($travellers);
             $minTravellerScore = $minTraveller->normalizedScore;
         }
+
+        $userIds = array_unique($userIds);
 
         $result = array(
             'min' => array(
@@ -115,7 +121,8 @@ class BadgeService
                 'innovator' => $innovators,
                 'motivator' => $motivators,
                 'traveller' => $travellers,
-            )
+            ),
+            'users' => $userIds
         );
 
         return $result;
