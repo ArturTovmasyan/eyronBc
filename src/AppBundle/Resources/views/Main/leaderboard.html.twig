@@ -14,19 +14,19 @@
                     <li class="ng-hide">
                         <a href="#{{ 'leaderboard.traveler'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">
                             <i class="badge-1"></i>
-                            <span class="text-dark-gray" data-ng-class="{'text-purple': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">{{ 'leaderboard.traveler'| trans }}</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">{{ 'leaderboard.traveler'| trans }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="#{{ 'leaderboard.innovator'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">
                             <i class="badge-3"></i>
-                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">{{ 'leaderboard.innovator'| trans }}</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">{{ 'leaderboard.innovator'| trans }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="#{{ 'leaderboard.writer'| trans }}" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">
                             <i class="badge-2"></i>
-                            <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">{{ 'leaderboard.writer'| trans }}</span>
+                            <span class="text-dark-gray" data-ng-class="{'text-orange': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">{{ 'leaderboard.writer'| trans }}</span>
                         </a>
                     </li>
                 </ul>
