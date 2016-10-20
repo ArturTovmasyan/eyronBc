@@ -148,6 +148,7 @@
 
         <!-- goal service -->
         <service id="app.goal" class="AppBundle\Services\GoalService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
     </services>
