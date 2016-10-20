@@ -286,6 +286,8 @@ class UserGoalService extends AbstractProcessService
 
             $score = $userGoal->getStatus() == UserGoal::COMPLETED ? 2 : 1;
 
+            $score = $msg == UserGoal::DELETE ? $score + 1 : $score;
+
             // add score for innovator
             $this->runAsProcess('bl.badge.service', 'removeScore',
                 array(Badge::TYPE_INNOVATOR, $author->getId(), $score));
