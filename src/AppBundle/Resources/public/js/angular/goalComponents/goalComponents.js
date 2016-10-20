@@ -135,6 +135,59 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
+  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
+    function($scope, $http, CacheFactory, envPrefix, refreshingDate){
+      var path = envPrefix + "api/v1.0/badges/0/topusers/10";
+      $scope.users = [];
+      $scope.ollUsers = [];
+      $scope.index = 0;
+      $scope.isMobile = (window.innerWidth < 768);
+      var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
+
+      if(!leaderboardCache){
+        leaderboardCache = CacheFactory('bucketlist_by_leaderboard', {
+          maxAge: 24 * 60 * 60 * 1000 ,// 1 day
+          deleteOnExpire: 'aggressive'
+        });
+      }
+
+      $scope.initUsers = function () {
+        for(var i = 0; i < 3; i++){
+          $scope.users[i] = [i*10 + $scope.index];
+        }
+      };
+      
+      $scope.refreshLeaderboard = function () {
+        if(!$scope.ollUsers.length)return;
+        $scope.index = ($scope.index == 9)?0:$scope.index + 1;
+
+        $scope.initUsers();
+      };
+
+      $scope.getFullName = function (user) {
+        if($scope.isMobile){
+          return (user.first_name.length > 16)?(user.first_name.substr(0,13) + '...'):(user.first_name.length + user.last_name.length > 16)?(user.first_name + ' ' + user.last_name.substr(0,13 - user.first_name.length) + '...'): user.first_name + ' ' + user.last_name;
+        } else {
+          return user.first_name + ' ' + user.last_name;
+        }
+      };
+
+      var leaderboards = leaderboardCache.get('leaderboards');
+
+      if (!leaderboards || !leaderboards.length) {
+        $http.get(path)
+          .success(function(data){
+            $scope.ollUsers = data;
+            if($scope.ollUsers.length){
+              $scope.initUsers();
+              leaderboardCache.put('leaderboards', data);
+            }
+          });
+      }else {
+        $scope.ollUsers = leaderboards;
+        $scope.initUsers();
+      }
+    }])
   .controller('calendarController', ['$scope', '$http', 'CacheFactory', 'envPrefix', '$timeout',
     function($scope, $http, CacheFactory, envPrefix, $timeout){
       $scope.isHover = false;
