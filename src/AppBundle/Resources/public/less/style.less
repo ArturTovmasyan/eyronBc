@@ -2546,6 +2546,51 @@ footer{
   background: url('../images/leaderboard-icon.svg') no-repeat center center;
 }
 
+.badge-place{
+  padding-left: 0;
+  position: absolute;
+  bottom: 0;
+
+  li{
+    display: inline-block;
+    text-align: center;
+
+    i{
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      background-size: 100%;
+    }
+
+    .badge-1{
+      background: url('../images/traveler-icon.svg') no-repeat center center;
+    }
+
+    .badge-2{
+      background: url('../images/writer-icon.svg') no-repeat center center;
+    }
+
+    .badge-3{
+      background: url('../images/inovator-icon.svg') no-repeat center center;
+    }
+
+    span{
+      display: block;
+      font-size: 16px;
+      vertical-align: middle;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    a{
+      span{
+        display: inline-block;
+      }
+    }
+  }
+}
+
 #leaderboard-place{
   ul{
     padding: 10px;
@@ -2580,21 +2625,10 @@ footer{
             margin-right: 3px;
           }
 
-          .badge-1{
-            background: url('../images/traveler-icon.svg') no-repeat center center;
-          }
-
-          .badge-2{
-            background: url('../images/writer-icon.svg') no-repeat center center;
-          }
-
-          .badge-3{
-            background: url('../images/inovator-icon.svg') no-repeat center center;
-          }
-
           span{
             font-size: 13px;
           }
+
           &:hover{
             span{
               color: #ff5500 !important;
@@ -3488,6 +3522,22 @@ footer{
   .check_status{
     padding-bottom:5px;
   }
+
+  .badge-place{
+
+    li{
+      margin-right: 20px;
+      i{
+        width: 35px;
+        height: 35px;
+      }
+
+      span{
+        font-size: 18px;
+      }
+    }
+  }
+
   footer{
 
     ul{

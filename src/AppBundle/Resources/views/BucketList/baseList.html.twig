@@ -183,11 +183,11 @@
                             {% for badge in badges %}
 
                                 <li>
-                                    <i></i>
-                                    {% set score = badge.score / maxBadgeScore(badge.type) *
+                                    <i class="badge-{{ badge.type }}"></i>
+                                    {% set maxScore = maxBadgeScore(badge.type) != 0 ? maxBadgeScore(badge.type) : badge.score %}
+                                    {% set score = badge.score / maxScore *
                                     constant("Application\\UserBundle\\Entity\\Badge::MAXIMUM_NORMALIZE_SCORE") %}
-                                    <span>{{ score|round(0, 'ceil')}}
-                                    </span>
+                                    <span>{{ score|round(0, 'ceil')}}</span>
                                 </li>
 
                             {% endfor %}
