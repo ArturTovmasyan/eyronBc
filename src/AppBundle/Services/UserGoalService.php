@@ -23,11 +23,19 @@ class UserGoalService extends AbstractProcessService
      */
     private $em;
 
+    /**
+     * @var
+     */
     private $trans;
 
+    /**
+     * @var
+     */
     private $liipImage;
 
-
+    /**
+     * @var
+     */
     private $authorizationChecker;
 
     /**
@@ -277,6 +285,8 @@ class UserGoalService extends AbstractProcessService
         if(is_numeric($msg) && $author && !$author->isAdmin()){
 
             $score = $userGoal->getStatus() == UserGoal::COMPLETED ? 2 : 1;
+
+            $score = $msg == UserGoal::DELETE ? $score + 1 : $score;
 
             // add score for innovator
             $this->runAsProcess('bl.badge.service', 'removeScore',
