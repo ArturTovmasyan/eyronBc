@@ -846,13 +846,13 @@ class GoalRepository extends EntityRepository
     public function findUserUnConfirmInPlace($userId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, p, img
+            ->createQuery("SELECT g, p, img, ug
                            FROM AppBundle:Goal g
                            JOIN g.place p
-                           LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
+                           LEFT JOIN g.userGoal ug
                            LEFT JOIN ug.user u
                            LEFT JOIN g.images img
-                           WHERE ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
+                           WHERE (ug.goal = g and ug.user = :userId) AND ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
             ->setParameter('status', true)
             ->setParameter('completed', UserGoal::COMPLETED)
