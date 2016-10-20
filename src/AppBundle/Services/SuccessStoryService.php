@@ -43,6 +43,35 @@ class SuccessStoryService extends AbstractProcessService
         $body = $this->container->get('translator')->trans('notification.success_story_vote', [], null, 'en');
         $this->container->get('bl_notification')->sendNotification($user, $link, $successStory->getGoal()->getId(), $body, $successStory->getUser());
 
+        // get success story author
+        $successStoryAuthor = $successStory->getUser();
+        // add score for
+        $this->runAsProcess('bl.badge.service', 'addScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+
+        return new JsonResponse();
+    }
+
+    /**
+     * @param $storyId
+     * @param $user
+     * @return JsonResponse
+     */
+    public function removeVoteStory($storyId, $user)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
+        if (is_null($successStory)){
+            throw new HttpException(Response::HTTP_NOT_FOUND);
+        }
+
+        $successStory->removeVoter($user);
+        $em->flush();
+
+        // get success story author
+        $successStoryAuthor = $successStory->getUser();
+        // add score for
+        $this->runAsProcess('bl.badge.service', 'removeScore', array(Badge::TYPE_MOTIVATOR, $successStoryAuthor->getId(), 1));
+
         return new JsonResponse();
     }
 }

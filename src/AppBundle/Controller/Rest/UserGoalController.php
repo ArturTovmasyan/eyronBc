@@ -226,7 +226,7 @@ class UserGoalController extends FOSRestController
         if ($suggestAsVisible){
             $userGoal->setIsVisible(true);
         }
-        
+
         return $userGoal;
     }
 
@@ -250,9 +250,8 @@ class UserGoalController extends FOSRestController
      */
     public function deleteAction($userGoal)
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-        $msg = $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoal);
+        $userGoalService = $this->get('app.user.goal');
+        $msg = $userGoalService->deleteUserGoal($userGoal, $this->getUser());
 
         return new Response($msg, Response::HTTP_OK);
     }
@@ -508,35 +507,10 @@ class UserGoalController extends FOSRestController
     public function getDoneAction(Goal $goal, $isDone = null)
     {
         $this->denyAccessUnlessGranted('done', $goal, $this->get('translator')->trans('goal.add_access_denied'));
-        $em = $this->getDoctrine()->getManager();
 
-        if($isDone){
-            $status = UserGoal::COMPLETED;
-            $completionDate = new \DateTime('now');
-        }
-        else {
-            $status = UserGoal::ACTIVE;
-            $completionDate = null;
-        }
+        $userGoalService = $this->get('app.user.goal');
 
-        $newDone = true;
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
-
-        if(!$userGoal){
-            $userGoal = new UserGoal();
-            $userGoal->setGoal($goal);
-            $userGoal->setUser($this->getUser());
-            $userGoal->setIsVisible(true);
-        }
-        else {
-            $newDone = !($userGoal->getStatus() == UserGoal::COMPLETED);
-        }
-
-        $userGoal->setStatus($status);
-        $userGoal->setCompletionDate($completionDate);
-
-        $em->persist($userGoal);
-        $em->flush();
+        $newDone = $userGoalService->doneBy($goal, $this->getUser(), $isDone);
 
         return new Response((int) $newDone, Response::HTTP_OK);
     }

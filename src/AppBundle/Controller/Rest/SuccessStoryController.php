@@ -409,16 +409,7 @@ class SuccessStoryController extends FOSRestController
      */
     public function removeStoryVoteAction($storyId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $successStory = $em->getRepository('AppBundle:SuccessStory')->findStoryWithVotes($storyId);
-        if (is_null($successStory)){
-            throw new HttpException(Response::HTTP_NOT_FOUND);
-        }
-
-        $successStory->removeVoter($this->getUser());
-        $em->flush();
-
-        return new JsonResponse();
+        return $this->get('bl_story_service')->removeVoteStory($storyId, $this->getUser());
     }
 
     /**
