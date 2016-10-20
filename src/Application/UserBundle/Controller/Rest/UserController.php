@@ -590,6 +590,9 @@ class UserController extends FOSRestController
      */
     public function getOverallAction(Request $request)
     {
+        //disable listener for stats count
+        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
+
         // get entity manager
         $em = $this->getDoctrine()->getManager();
 
