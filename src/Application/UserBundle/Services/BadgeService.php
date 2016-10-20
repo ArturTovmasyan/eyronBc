@@ -55,7 +55,7 @@ class BadgeService
 
         if(!$user){
             throw new NotFoundHttpException('User not found');
-            }
+        }
 
         // get badge
         $badge = $this->em->getRepository("ApplicationUserBundle:Badge")
@@ -121,8 +121,13 @@ class BadgeService
             $newScore = $badge->getScore() - $score;
             $newScore = $newScore < 0 ? 0 : $newScore;
 
-            $badge->setScore($newScore);
-            $this->em->persist($badge);
+            if($newScore == 0){
+                $this->em->remove($badge);
+            }else{
+                $badge->setScore($newScore);
+                $this->em->persist($badge);
+            }
+
             $this->em->flush();
 
             // get max score from cache
