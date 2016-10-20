@@ -23,11 +23,19 @@ class UserGoalService extends AbstractProcessService
      */
     private $em;
 
+    /**
+     * @var
+     */
     private $trans;
 
+    /**
+     * @var
+     */
     private $liipImage;
 
-
+    /**
+     * @var
+     */
     private $authorizationChecker;
 
     /**

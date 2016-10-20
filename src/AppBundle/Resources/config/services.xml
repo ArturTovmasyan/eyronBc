@@ -145,6 +145,11 @@
             <argument type="service" id="liip_imagine.cache.manager" />
             <argument type="service" id="security.authorization_checker" />
         </service>
+
+        <!-- goal service -->
+        <service id="app.goal" class="AppBundle\Services\GoalService">
+        </service>
+
     </services>
 
 </container>
