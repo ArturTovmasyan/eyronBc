@@ -2,16 +2,16 @@
     <div data-ng-controller="topInLeaderboardController"
          id="leaderboard-list"
          class="ng-hide"
-         data-ng-show="ollUsers.length">
+         data-ng-show="normOfTop > 0">
         <div class="bg-white padding round margin-top"
              data-ng-cloak
              data-ng-init = "userId = {{ user.id }}">
 
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="{{ path('goal_friends') }}" class="heading text-gray">
+                    <a href="{{ path('leaderboard') }}" class="heading text-gray">
                         <i class="leaderboard-icon"></i>
-                        <span class="text">{{ 'leaderboard'|trans | capitalize }}</span>
+                        <span class="text">{{ 'leaderboard.name'|trans | capitalize }}</span>
                     </a>
                 </div>
 
@@ -24,10 +24,11 @@
 
             <ul class="bg-white round badge-place goals-animate"
                 data-ng-cloak
-                data-ng-repeat="user in users">
+                data-ng-repeat="(k, user) in users"
+                data-ng-if="user">
                 <li class="text-gray">
 
-                    <i data-ng-class="badge-[[ $index + 1]]"></i>
+                    <i class="badge-[[$index + 1]]"></i>
                 </li>
 
                 <li>

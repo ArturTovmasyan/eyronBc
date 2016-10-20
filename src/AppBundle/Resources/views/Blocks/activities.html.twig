@@ -49,7 +49,7 @@
 
                             <a data-ng-href="{{ env_prefix  }}/profile/[[ ::activity.user.u_id ]]" class="text-dark-gray">
                                 [[ ::activity.user.first_name ]] [[ ::activity.user.last_name ]]
-                                <i class="leaderboard-small"></i>
+                                <i class="leaderboard-small" data-ng-if="haveTop && inArray(activity.user.id)"></i>
                             </a>
 
                             <span class="text-gray" data-ng-if="activity.action=={{ constant('AppBundle\\Entity\\NewFeed::GOAL_CREATE') }}">

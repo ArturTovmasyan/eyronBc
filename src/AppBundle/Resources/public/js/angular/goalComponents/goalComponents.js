@@ -137,9 +137,9 @@ angular.module('goalComponents', ['Interpolation',
   }])
   .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
     function($scope, $http, CacheFactory, envPrefix, refreshingDate){
-      var path = envPrefix + "api/v1.0/badges/0/topusers/10";
-      $scope.users = [];
-      $scope.ollUsers = [];
+      var path = envPrefix + "api/v1.0/badges";
+      $scope.users = {};
+      $scope.allUsers = [];
       $scope.index = 0;
       $scope.isMobile = (window.innerWidth < 768);
       var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
@@ -152,16 +152,17 @@ angular.module('goalComponents', ['Interpolation',
       }
 
       $scope.initUsers = function () {
-        for(var i = 0; i < 3; i++){
-          $scope.users[i] = [i*10 + $scope.index];
-        }
+        angular.forEach($scope.allUsers, function (k,item) {
+          $scope.users[item] = ($scope.index < k.length)?k[$scope.index]:k[($scope.index % k.length)];
+        });
       };
       
       $scope.refreshLeaderboard = function () {
-        if(!$scope.ollUsers.length)return;
-        $scope.index = ($scope.index == 9)?0:$scope.index + 1;
+        if($scope.normOfTop > 0) {
+          $scope.index = ($scope.index == 9) ? 0 : $scope.index + 1;
 
-        $scope.initUsers();
+          $scope.initUsers();
+        }
       };
 
       $scope.getFullName = function (user) {
@@ -177,14 +178,18 @@ angular.module('goalComponents', ['Interpolation',
       if (!leaderboards || !leaderboards.length) {
         $http.get(path)
           .success(function(data){
-            $scope.ollUsers = data;
-            if($scope.ollUsers.length){
+            if(data.badges){
+              $scope.allUsers = data.badges;
+              $scope.minimums = data.min;
+              $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
               $scope.initUsers();
               leaderboardCache.put('leaderboards', data);
             }
           });
       }else {
-        $scope.ollUsers = leaderboards;
+        $scope.allUsers = leaderboards.badges;
+        $scope.minimums = leaderboards.min;
+        $scope.normOfTop = $scope.minimums.innovator + $scope.minimums.motivator + $scope.minimums.traveller;
         $scope.initUsers();
       }
     }])
@@ -457,11 +462,30 @@ angular.module('goalComponents', ['Interpolation',
     var path = envPrefix + "api/v1.0/goal/random/friends";
 
     var profileCache = CacheFactory.get('bucketlist');
+    var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
     var deg = 360;
+    $scope.topUsers = [];
 
     if(!profileCache){
       profileCache = CacheFactory('bucketlist');
     }
+
+    if(!leaderboardCache){
+      leaderboardCache = CacheFactory('bucketlist_by_leaderboard');
+    }
+
+    var leaderboards = leaderboardCache.get('leaderboards');
+    
+    if(leaderboards){
+      $scope.haveTop = (leaderboards.users && leaderboards.users.length > 0);
+      $scope.topUsers = leaderboards.users;
+    } else {
+      $scope.haveTop = false;
+    }
+
+    $scope.inArray = function (id) {
+      return ($scope.topUsers.indexOf(id) != -1)
+    };
 
     $scope.getGaolFriends = function(id){
 
