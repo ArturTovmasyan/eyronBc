@@ -2556,6 +2556,13 @@ footer{
       vertical-align: middle;
       font-size: 18px;
       margin-right: 12px;
+
+      a{
+        &:hover{
+          color: #7724F6 !important;
+        }
+      }
+
       &:last-child{
         float:right;
         margin-right: 0;
@@ -2567,17 +2574,30 @@ footer{
 
     &.badge-place{
       position: relative;
-      padding: 3px 4px;
+      padding: 5px 4px;
       li{
         margin-right: 7px;
         a{
           cursor:pointer;
           
           i{
-            width: 33px;
-            height: 33px;
-            margin-right: 0;
+            width: 30px;
+            height: 30px;
+            margin-right: 3px;
           }
+
+          .badge-1{
+            background: url('../images/traveler-icon.svg') no-repeat center center;
+          }
+
+          .badge-2{
+            background: url('../images/writer-icon.svg') no-repeat center center;
+          }
+
+          .badge-3{
+            background: url('../images/inovator-icon.svg') no-repeat center center;
+          }
+
           span{
             font-size: 13px;
           }
@@ -2596,6 +2616,12 @@ footer{
         width: 60px;
         height: 60px;
         .rounded-corners;
+
+        p{
+          width: 60px;
+          height: 60px;
+          line-height: 55px;
+        }
       }
       li{
         &:last-child{
@@ -2631,13 +2657,14 @@ footer{
   }
 
   ul{
-    padding-left: 0;
+    padding: 3px 0 7px 0;
     border-bottom: 1px solid #eee;
 
     li{
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
+      font-size: 14px;
 
       figure{
         width: 50px;
@@ -3122,13 +3149,12 @@ footer{
       }
 
       &.badge-place{
-        padding: 3px 20px;
+        padding: 10px 20px;
         li{
           margin-right: 30px;
           a{
             i{
-              width: 40px;
-              height: 40px;
+              margin-right: 10px;
             }
             span{
               font-size: 15px;
@@ -3161,6 +3187,20 @@ footer{
     }
   }
 
+  #leaderboard-list{
+    ul{
+
+      li{
+        font-size: 16px;
+        margin-right: 15px;
+
+        &:last-child{
+          margin: 13px 0 0;
+        }
+      }
+    }
+  }
+
 }
 
 .no-right{
@@ -3182,6 +3222,10 @@ footer{
 
 .text-green{
   color: #66cc33;
+}
+
+.text-orange{
+  color: #d38853 !important;
 }
 
 .bg-white{
