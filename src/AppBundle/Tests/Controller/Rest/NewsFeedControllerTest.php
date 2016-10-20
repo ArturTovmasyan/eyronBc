@@ -31,7 +31,7 @@ class NewsFeedControllerTest extends BaseClass
 
         if ($profile = $this->client11->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on $url api");
+            $this->assertLessThan(9, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on $url api");
         }
 
         //get response content
