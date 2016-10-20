@@ -217,12 +217,14 @@ angular.module('goalComponents', ['Interpolation',
         
         $scope.weekDay = $scope.dateByFormat($scope.currentYear, $scope.currentMonth, 1).weekday();
         $scope.dayDifferent = (-$scope.weekDay);
-        $scope.prevMonthDay = $scope.getDaysInMonth($scope.currentMonth -1, $scope.currentYear);
+        $scope.prevMonthDay = $scope.getDaysInMonth(($scope.currentMonth == 1)?12:$scope.currentMonth -1, ($scope.currentMonth == 1)?$scope.currentYear - 1:$scope.currentYear);
         $scope.currentMonthDay = $scope.getDaysInMonth($scope.currentMonth, $scope.currentYear);
 
         angular.forEach($scope.days, function (v,k) {
           $scope.days[k].day = (k + $scope.dayDifferent > 0)?((k + $scope.dayDifferent <= $scope.currentMonthDay)?(k + $scope.dayDifferent):(k + $scope.dayDifferent - $scope.currentMonthDay)):(k + $scope.dayDifferent + $scope.prevMonthDay);
           $scope.days[k].status = (k + $scope.dayDifferent > 0 && k + $scope.dayDifferent <= $scope.currentMonthDay)?'active':'inActive';
+          $scope.days[k].year = ($scope.days[k].status == 'active')?$scope.currentYear:((k + $scope.dayDifferent > $scope.currentMonthDay && $scope.currentMonth == 12)? (+$scope.currentYear + 1):(k + $scope.dayDifferent <= 0 && $scope.currentMonth == 1)?$scope.currentYear - 1:$scope.currentYear);
+          $scope.days[k].month = ($scope.days[k].status == 'active')?$scope.currentMonth:(k + $scope.dayDifferent > $scope.currentMonthDay)? ($scope.currentMonth == 12)?1:(+$scope.currentMonth + 1):(k + $scope.dayDifferent <= 0)?($scope.currentMonth == 1)?12:($scope.currentMonth - 1):$scope.currentMonth;
         });
 
         $scope.noShowLast = ($scope.days[42].day != 42 && $scope.days[42].day >= 7);

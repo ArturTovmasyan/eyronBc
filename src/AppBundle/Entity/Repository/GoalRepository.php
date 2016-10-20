@@ -725,11 +725,12 @@ class GoalRepository extends EntityRepository
     public function findCommonGoals($user1Id, $user2Id, $first, $count)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g
+            ->createQuery("SELECT g, img
                            FROM AppBundle:Goal g
                            INDEX BY g.id
                            JOIN g.userGoal ug WITH ug.user = :user1Id
-                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id")
+                           JOIN g.userGoal ug1 WITH ug1.user = :user2Id
+                           LEFT JOIN g.images img")
             ->setParameter('user1Id', $user1Id)
             ->setParameter('user2Id', $user2Id)
             ->setFirstResult($first)
@@ -845,15 +846,16 @@ class GoalRepository extends EntityRepository
     public function findUserUnConfirmInPlace($userId)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT g, p
+            ->createQuery("SELECT g, p, img, ug
                            FROM AppBundle:Goal g
                            JOIN g.place p
-                           LEFT JOIN AppBundle:UserGoal ug WITH ug.goal = g and ug.user = :userId
+                           LEFT JOIN g.userGoal ug
                            LEFT JOIN ug.user u
-                           WHERE (ug.id is null or ug.confirmed = :status)")
+                           LEFT JOIN g.images img
+                           WHERE (ug.goal = g and ug.user = :userId) and ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
-            ->setParameter('status', false)
+            ->setParameter('status', true)
+            ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
     }
-    
 }
