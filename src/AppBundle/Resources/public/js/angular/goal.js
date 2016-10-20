@@ -712,7 +712,9 @@ angular.module('goal', ['Interpolation',
             $scope.activeCategory = path;
             $scope.Ideas.reset();
             $scope.search = '';
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+            if(path != 'nearBy'){
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+            }
 
         };
 
@@ -808,7 +810,7 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$watch('Ideas.items', function(d) {
-            if(!d.length){
+            if(!d.length && path != 'nearBy'){
                 if($scope.Ideas.noItem ){
                     $scope.fadeMapIcon = false;
                     $scope.showMap = false;
