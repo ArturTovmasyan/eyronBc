@@ -852,7 +852,7 @@ class GoalRepository extends EntityRepository
                            LEFT JOIN g.userGoal ug
                            LEFT JOIN ug.user u
                            LEFT JOIN g.images img
-                           WHERE (ug.goal = g and ug.user = :userId) AND ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
+                           WHERE (ug.goal = g and ug.user = :userId) and ug.id is null or (ug.confirmed != :status AND ug.status != :completed) ")
             ->setParameter('userId', $userId)
             ->setParameter('status', true)
             ->setParameter('completed', UserGoal::COMPLETED)
