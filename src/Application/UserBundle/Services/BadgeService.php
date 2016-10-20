@@ -41,6 +41,86 @@ class BadgeService
         $this->badgeCommand = $badgeCommand;
     }
 
+    public function findTopUsers()
+    {
+        $count = 10;
+        $minInnovatorScore = 0;
+        $minMotivatorScore = 0;
+        $minTravellerScore = 0;
+
+        $repo = $this->em->getRepository("ApplicationUserBundle:Badge");
+
+        $innovators = $repo->findTopUsersByType(Badge::TYPE_INNOVATOR, $count);
+
+        // check innovators
+        if(is_array($innovators) && count($innovators) > 0){
+            $maxScoreBadge = reset($innovators);
+            $maxScore = $maxScoreBadge->getScore();
+
+            // map for values and normalize scores
+            array_map(function($badge) use ($maxScore){
+                $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+                $normalizedScore = ceil($normalizedScore);
+                $badge->normalizedScore = $normalizedScore;
+            }, $innovators);
+
+            $minInnovator = end($innovators);
+            $minInnovatorScore = $minInnovator->normalizedScore;
+        }
+
+        $motivators = $repo->findTopUsersByType(Badge::TYPE_MOTIVATOR, $count);
+
+        // check motivator
+        if(is_array($motivators) && count($motivators) > 0){
+            $maxScoreBadge = reset($motivators);
+            $maxScore = $maxScoreBadge->getScore();
+
+            // map for values and normalize scores
+            array_map(function($badge) use ($maxScore){
+                $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+                $normalizedScore = ceil($normalizedScore);
+                $badge->normalizedScore = $normalizedScore;
+            }, $motivators);
+
+            $minMotivator = end($motivators);
+            $minMotivatorScore = $minMotivator->normalizedScore;
+        }
+
+        $travellers = $repo->findTopUsersByType(Badge::TYPE_TRAVELLER, $count);
+
+        // check motivator
+        if(is_array($travellers) && count($travellers) > 0){
+            $maxScoreBadge = reset($travellers);
+            $maxScore = $maxScoreBadge->getScore();
+
+
+            // map for values and normalize scores
+            array_map(function($badge) use ($maxScore){
+                $normalizedScore = $badge->getScore()/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+                $normalizedScore = ceil($normalizedScore);
+                $badge->normalizedScore = $normalizedScore;
+            }, $travellers);
+
+            $minTraveller = end($travellers);
+            $minTravellerScore = $minTraveller->normalizedScore;
+        }
+
+        $result = array(
+            'min' => array(
+                'innovator' => $minInnovatorScore,
+                'motivator' => $minMotivatorScore,
+                'traveller' => $minTravellerScore,
+            ),
+            'badges' => array(
+                'innovator' => $innovators,
+                'motivator' => $motivators,
+                'traveller' => $travellers,
+            )
+        );
+
+        return $result;
+    }
+
     /**
      * This function is used to find badge by user, and add score
      *

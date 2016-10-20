@@ -29,6 +29,32 @@ class BadgeController extends Controller
      *  }
      * )
      *
+     * @Rest\View()
+     * @return mixed
+     */
+    public function cgetAction()
+    {
+        // get listener
+        $this->get('bl.doctrine.listener')->disableUserStatsLoading();
+
+        $badgeService = $this->get('bl.badge.service');
+
+        $badges = $badgeService->findTopUsers();
+
+       return $badges;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Badge",
+     *  description="This function is used to get TOP 100 users by badge score",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *         400="Bad request"
+     *  }
+     * )
+     *
      * @Rest\View(serializerGroups={"badge"})
      * @param $type
      * @param $count
