@@ -141,6 +141,9 @@
         <!-- user goal service -->
         <service id="app.user.goal" class="AppBundle\Services\UserGoalService">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="security.authorization_checker" />
         </service>
     </services>
 
