@@ -13,19 +13,19 @@
                 <ul class="badge-place">
                     <li>
                         <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_TRAVELLER'])">
-                            <i></i>
+                            <i class="badge-1"></i>
                             <span class="text-dark-gray" data-ng-class="{'text-purple': (pageStatus == LeaderboardConstant['TYPE_TRAVELLER'])}">Traveler</span>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_INNOVATOR'])">
-                            <i></i>
+                            <i class="badge-3"></i>
                             <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_INNOVATOR']}">Inovator</span>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)" data-ng-click="goTo(LeaderboardConstant['TYPE_MOTIVATOR'])">
-                            <i></i>
+                            <i class="badge-2"></i>
                             <span class="text-dark-gray" data-ng-class="{'text-purple': pageStatus == LeaderboardConstant['TYPE_MOTIVATOR']}">S.S. writer</span>
                         </a>
                     </li>
@@ -37,7 +37,7 @@
             data-ng-cloak
             data-ng-class="{'margin-top': $index == 0}"
             data-ng-repeat="user in users">
-            <li class="text-purple">[[ $index + 1]]</li>
+            <li class="text-orange">[[ $index + 1]]</li>
 
             <li>
                 <figure class="img-circle">
@@ -49,7 +49,7 @@
 
             <li class="text-dark-gray">[[ getFullName(user.user)]]</li>
 
-            <li class="text-purple">[[ user.score]]</li>
+            <li class="text-orange">[[ user.score]]</li>
         </ul>
     </div>
 
