@@ -63,7 +63,7 @@
         {% endif %}
 
         {% for category in categories %}
-            {% if category.slug != 'most-popular' and category.slug != 'featured' %}
+            {% if category.slug != 'most-popular' and category.slug != 'featured' and category.slug != 'nearby' %}
                 <li class="swiper-slide {% if selected and selected == category.slug %}active-category{% endif %}"
                     data-ng-class="{'active-category': activeCategory == '{{ category.slug }}'}">
                     <a href="#{{ category.slug }}"
