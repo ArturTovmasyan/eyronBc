@@ -189,7 +189,7 @@ angular.module('Google', [])
             }
         };
     }])
-    .directive('autocompleteMap',['$rootScope', function($rootScope){
+    .directive('autocompleteMap',['$rootScope', '$timeout', function($rootScope, $timeout){
 
         function Initialize(el, zoom){
             var m, data = {};
@@ -305,7 +305,13 @@ angular.module('Google', [])
                    $rootScope.$on('allowLocation', function (ev, position) {
                        scope.myLocation = addMarker(position.coords, scope.activeMarkerIcon, scope.map);
                    });
-                   
+
+                   $rootScope.$on('location-resize', function () {
+                       $timeout(function() {
+                           google.maps.event.trigger(scope.map, 'resize');
+                       }, 500);
+                   });
+
                     scope.setType = function (types) {
                         autocomplete.setTypes(types);
                     };

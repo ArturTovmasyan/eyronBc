@@ -11,6 +11,7 @@
 
         {% set mostPopular = false %}
         {% set featured = false %}
+        {% set nearby = false %}
 
         {% if categories|length > 0 %}
             {% for i in 0..(categories|length -1) %}
@@ -20,7 +21,22 @@
                 {% if categories[i].getSlug() == 'featured' %}
                     {% set featured = true %}
                 {% endif %}
+                {% if categories[i].getSlug() == 'nearby' %}
+                    {% set nearby = true %}
+                {% endif %}
             {% endfor %}
+        {% endif %}
+
+        {% if nearby %}
+            <li class="swiper-slide {% if selected and selected == 'nearby' %}active-category{% endif %}"
+                data-ng-class="{'active-category': activeCategory == 'nearby'}">
+                <a href="#nearby"
+                   data-ng-click="goTo('nearby')"
+                   data-slug="nearby">
+                    <img src="{{ asset('bundles/app/images/nearby.svg') }}" class="svg"/>
+                    <span>{{ 'nearby'|trans }}</span>
+                </a>
+            </li>
         {% endif %}
 
         {% if featured %}

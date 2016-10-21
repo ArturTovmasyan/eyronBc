@@ -135,6 +135,8 @@ Done: Выполнить
 
 ideas_list_title: Ознакомьтесь с тысячами вдохновляющих идей для вашего Бакетлиста
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Loction Service or enter your location
+nearby: Nearby
+explore: Explore
 
 # home
 homepage_title: Цель – это когда у вас есть воспоминания, а не только мечты!

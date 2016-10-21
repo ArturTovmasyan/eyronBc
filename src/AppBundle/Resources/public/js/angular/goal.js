@@ -739,8 +739,10 @@ angular.module('goal', ['Interpolation',
             $scope.activeCategory = path;
             $scope.Ideas.reset();
             $scope.search = '';
-            if(path != 'nearBy'){
+            if($scope.activeCategory != 'nearby'){
                 $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+            } else {
+                $scope.$emit('location-resize');
             }
 
         };
@@ -837,7 +839,7 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$watch('Ideas.items', function(d) {
-            if(!d.length && path != 'nearBy'){
+            if(!d.length && $scope.activeCategory != 'nearby'){
                 if($scope.Ideas.noItem ){
                     $scope.fadeMapIcon = false;
                     $scope.showMap = false;
