@@ -6,6 +6,7 @@ search: Поиск
 join: Присоединиться
 copyright: 2015 BUCKET LIST 127
 join_now: Присоединиться сейчас
+tasks: Задачи
 
 #blocks
 most_popular: Самое популярное
@@ -71,6 +72,10 @@ goal:
       as_visible: Установить статус “Видимый”
       visible: Видимый
       see_also: Посмотрите далее
+      in_proces: Активная Цель значит, что цель еще не достигнута
+      status: Статус Цели
+      take_note: Делая заметки вы ничего не пропустите
+      deside: Правильные приоритеты помогут в достижении цели
       not_found: |
                     <p class="empty-text text-center">
                          К сожалению, не найдено ни одной цели по заданным критериям
@@ -89,7 +94,7 @@ goal:
       completed_text: Если вы считаете, что Цель еще не достигнута, вы можете изменить статус цели вновь на активную.
       active_text: Если ваша Цель достигнута, просто отметьте ее
       completion_date: Дата завершения :
-      complete_step: Делайте что-нибудь – достигайте ваших целей!
+      complete_step: Подробные шаги сделают вас ближе к цели!
       private_text: Вы добавили эту цель только для вашего списка
       invisible_text: Вы можете скрыть Цель от других пользователей
       visible_text: Вы можете показать Цель от других пользователей
@@ -101,7 +106,7 @@ goal:
       empty_private_ideas: На данный момент в списке ваших личных целей нет ни одной цели
       deadline: Deadline
       priority: Приоритет
-      steps: Steps
+      steps: Шаги
       view_access_denied: Вы не имеете доступ просмотра этой идеи
       edit_access_denied: Вы не имеете доступ изменения этой идеи
       delete_access_denied: Вы не имеете доступ удаления этой идеи
@@ -242,8 +247,8 @@ menu:
   activity: Лента
   completed: Достигнутые
   map: Карта
-  common: Опшие
-  owned: Owned
+  common: Общие
+  owned: Созданные
 
 right_menu:
   my_ideas: Мои Идеи
@@ -465,10 +470,18 @@ report:
   thanks: Спасибо
   message: Мы получили ваш рапорт
 
-achievment: Achievment
+achievment: Достижение
 
 overall:
-  progress: Overall Progress
-  good: Good job! You are in sync with your projected goals.
-  excellent: Excellent! You are outperforming!
-  falling: Get a move on! You are falling behind your goals.
+  progress: Общий прогресс
+  good: Отличная работа! У вас все идет по плану.
+  excellent: Отлично! Вы опережайте свой график!
+  falling: Торопитесь! Вы отстаете от своего графика.
+
+leaderboard:
+  name: leaderboard
+  title: Bucketlist 127-Leaderboard
+  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
+  traveler: Traveler
+  innovator: Innovator
+  writer: S.S. writer

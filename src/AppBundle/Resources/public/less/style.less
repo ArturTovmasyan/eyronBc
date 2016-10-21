@@ -301,10 +301,7 @@ header{
     .navbar-brand{
       width: 150px;
       display: block;
-      padding:16px 30px 21px 20px;
-      img{
-        height:45px;
-      }
+      padding: 19px 30px 21px 20px;
     }
 
     .navbar-toggle{
@@ -478,6 +475,13 @@ header{
 
                 &.ideas-icon,&.activity-icon{
                   width:25px !important;
+                }
+
+                &.icon-suggest-icon{
+                  width: 27px;
+                  height:  27px;
+                  color: #e5e5e5;
+                  margin: 0 0 0 -3px;
                 }
 
                 &.icon-goalfrined-icon{
@@ -689,11 +693,11 @@ header{
 
   }
 
-  .icons{
-    display: inline-block;
-    width: 25px !important;
-    height: 30px;
-  }
+  //.icons{
+  //  display: inline-block;
+  //  width: 25px !important;
+  //  height: 30px;
+  //}
 
   .mybucketlist-icon{
     background: url('../images/my-bucketlist.svg') no-repeat center center;
@@ -720,11 +724,11 @@ header{
     background-size: 100%;
   }
 
-  .ideas-icon{
-    width: 30px !important;
-    background: url('../images/ideas.svg') no-repeat center center;
-    background-size: 100%;
-  }
+  //.ideas-icon{
+  //  width: 30px !important;
+  //  background: url('../images/ideas.svg') no-repeat center center;
+  //  background-size: 100%;
+  //}
 
 .edit-note{
   display:inline-block;
@@ -930,6 +934,18 @@ header{
       }
     }
   }
+}
+
+.icons{
+  display: inline-block;
+  width: 25px !important;
+  height: 30px;
+}
+
+.ideas-icon{
+  width: 30px !important;
+  background: url('../images/ideas.svg') no-repeat center center;
+  background-size: 100%;
 }
 
 .mybuucketlist{
@@ -2220,11 +2236,24 @@ footer{
     font-size:27px;
     vertical-align: middle;
     color: #a3a3a3;
+
+    &.icon-top-idea{
+      margin-right:10px;
+    }
   }
 
-  i.icon-top-idea{
-    margin-right:10px;
+  span{
+    svg{
+      width: 27px !important;
+      height: 27px !important;
+      vertical-align: middle;
+
+      polyline,path,{
+        stroke: #A4A4A4;
+      }
+    }
   }
+
 }
 
 .standart-pages{
@@ -2539,11 +2568,190 @@ footer{
   background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
-.nearby-title{
+.nearby-title {
   font-size: 21px;
   line-height: 33px;
   margin: 0;
   padding: 23px 0;
+}
+.leaderboard-icon{
+  display: inline-block;
+  width: 25px !important;
+  height: 25px !important;
+  background: url('../images/leaderboard-icon.svg') no-repeat center center;
+}
+
+.leaderboard-small{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url('../images/leaderboard_small.svg') no-repeat center center;
+  margin: 0 6px;
+}
+
+.badge-place{
+  padding-left: 0;
+
+  li{
+    display: inline-block;
+    text-align: center;
+
+    i{
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      background-size: 100%;
+    }
+
+    .badge-1{
+      background: url('../images/traveler-icon.svg') no-repeat center center;
+    }
+
+    .badge-2{
+      background: url('../images/writer-icon.svg') no-repeat center center;
+    }
+
+    .badge-3{
+      background: url('../images/inovator-icon.svg') no-repeat center center;
+    }
+
+    span{
+      display: block;
+      font-size: 16px;
+      vertical-align: middle;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    a{
+      span{
+        display: inline-block;
+      }
+    }
+  }
+}
+
+#leaderboard-place{
+  ul{
+    padding: 10px;
+    clear: both;
+
+    li{
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 18px;
+      margin-right: 12px;
+
+      &:last-child{
+        float:right;
+        margin-right: 0;
+      }
+      &:hover{
+        background-color: transparent;
+      }
+    }
+
+    &.badge-place{
+
+      padding: 5px 4px;
+      li{
+        margin-right: 7px;
+        a{
+          cursor:pointer;
+          
+          i{
+            width: 30px;
+            height: 30px;
+            margin-right: 3px;
+          }
+
+          span{
+            font-size: 13px;
+          }
+
+          &:hover{
+            span{
+              color: #ff5500 !important;
+            }
+          }
+        }
+      }
+    }
+
+    &.bg-white{
+      margin-bottom: 10px;
+      figure{
+        width: 60px;
+        height: 60px;
+        .rounded-corners;
+
+        p{
+          width: 60px;
+          height: 60px;
+          line-height: 55px;
+        }
+      }
+      li{
+        &:last-child{
+          margin: 18px 0 0;
+        }
+      }
+    }
+  }
+
+  figure{
+    figcaption{
+      ul{
+        li{
+          border-right:0;
+
+          &:last-child{
+            float: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+#leaderboard-list{
+
+  .icon-suggest-icon{
+    margin-right: 10px;
+  }
+
+  hr{
+    margin-bottom:5px;
+  }
+
+  ul{
+    padding: 3px 0 7px 0;
+    border-bottom: 1px solid #eee;
+
+    li{
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+      font-size: 14px;
+
+      figure,p{
+        width: 50px;
+        height: 50px;
+        .rounded-corners;
+        line-height: 45px;
+      }
+
+      &:last-child{
+        float: right;
+        margin: 13px 0 0;
+      }
+    }
+
+    &:last-child{
+      border-bottom: 0;
+    }
+  }
 }
 
 @media (min-width: @screen-sm) {
@@ -2577,10 +2785,10 @@ footer{
 
       .navbar-brand{
         height:78px;
-        padding:15px 20px 18px 5px;
-        img{
-          height:50px;
-        }
+        padding: 15px 20px 18px 5px;
+        //img{
+        //  height:50px;
+        //}
       }
 
       .navbar-right{
@@ -3001,6 +3209,68 @@ footer{
     padding-bottom:0
   }
 
+  #leaderboard-place{
+    ul{
+      padding: 20px;
+
+      li{
+        font-size: 22px;
+        margin-right: 20px;
+      }
+
+      &.badge-place{
+        padding: 10px 20px;
+        li{
+          margin-right: 30px;
+          a{
+            i{
+              margin-right: 10px;
+            }
+            span{
+              font-size: 15px;
+            }
+          }
+        }
+      }
+
+      &.bg-white{
+        li{
+          &:last-child{
+            margin: 15px 0 0;
+          }
+        }
+      }
+    }
+
+    figure{
+      figcaption{
+        ul{
+          li{
+            border-right:0;
+
+            &:last-child{
+              float: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #leaderboard-list{
+    ul{
+
+      li{
+        font-size: 16px;
+        margin-right: 7px;
+
+        &:last-child{
+          margin: 13px 0 0;
+        }
+      }
+    }
+  }
+
 }
 
 .no-right{
@@ -3024,11 +3294,13 @@ footer{
   color: #66cc33;
 }
 
+.text-orange{
+  color: #ff5500 !important;
+}
+
 .bg-white{
   background-color:#ffffff !important;
 }
-
-
 
 .line{
   height:1px;
@@ -3045,7 +3317,7 @@ footer{
 
     .navbar-brand{
       height:80px;
-      padding:15px 30px 21px 5px;
+      padding: 16px 30px 21px 5px;
     }
 
     .navbar-default{
@@ -3298,6 +3570,18 @@ footer{
   .check_status{
     padding-bottom:5px;
   }
+
+  .badge-place{
+
+    li{
+      margin-right: 30px;
+
+      span{
+        font-size: 18px;
+      }
+    }
+  }
+
   footer{
 
     ul{
