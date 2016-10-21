@@ -474,3 +474,11 @@ overall:
   good: Отличная работа! У вас все идет по плану.
   excellent: Отлично! Вы опережайте свой график!
   falling: Торопитесь! Вы отстаете от своего графика.
+
+leaderboard:
+  name: leaderboard
+  title: Bucketlist 127-Leaderboard
+  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
+  traveler: Traveler
+  innovator: Innovator
+  writer: S.S. writer

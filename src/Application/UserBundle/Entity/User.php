@@ -55,7 +55,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"user", "tiny_user"})
+     * @Groups({"user", "tiny_user", "badge"})
      */
     protected $id;
 
@@ -106,7 +106,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserPlace", indexBy="goal_id", mappedBy="user", cascade={"persist", "remove"})
      */
     protected $userPlace;
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity="Badge", mappedBy="user", cascade={"persist", "remove"})
+     */
+    protected $badges;
+
     /**
      * @Assert\NotBlank(groups={"personal"}, message="not_blank")
      * @Groups({"user"})
@@ -122,7 +127,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      * @SerializedName("first_name")
      */
     protected $firstname;
@@ -171,7 +176,7 @@ class User extends BaseUser
 
     /**
      * @var
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      * @SerializedName("last_name")
      */
     protected $lastname;
@@ -339,7 +344,7 @@ class User extends BaseUser
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"user", "tiny_user", "settings"})
+     * @Groups({"user", "tiny_user", "settings", "badge"})
      */
     private $mobileImagePath;
 
@@ -1129,7 +1134,7 @@ class User extends BaseUser
 
             //check if primary email equal currentEmail
             if ($primaryEmail && (!$userEmails || !array_key_exists($primaryEmail, $userEmails) ||
-               ($primaryEmail == $currentEmail))) {
+                    ($primaryEmail == $currentEmail))) {
 
                 $context->buildViolation('Set invalid primary email')
                     ->atPath('primary')
@@ -1217,7 +1222,7 @@ class User extends BaseUser
     /**
      * Get uId
      *
-     * @return string 
+     * @return string
      */
     public function getUId()
     {
@@ -1241,7 +1246,7 @@ class User extends BaseUser
     /**
      * Get activeTime
      *
-     * @return integer 
+     * @return integer
      */
     public function getActiveTime()
     {
@@ -1274,7 +1279,7 @@ class User extends BaseUser
     /**
      * Get SuccessStories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSuccessStories()
     {
@@ -1454,7 +1459,7 @@ class User extends BaseUser
         $idsArray = json_decode($this->registrationIds, true);
         return is_array($idsArray)?$idsArray:[];
     }
-    
+
     /**
      * Set activity
      *
@@ -1471,7 +1476,7 @@ class User extends BaseUser
     /**
      * Get activity
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivity()
     {
@@ -1582,7 +1587,7 @@ class User extends BaseUser
     /**
      * Get isCommentNotify
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsCommentNotify()
     {
@@ -1605,7 +1610,7 @@ class User extends BaseUser
     /**
      * Get isSuccessStoryNotify
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsSuccessStoryNotify()
     {
@@ -1628,7 +1633,7 @@ class User extends BaseUser
     /**
      * Get isCommentPushNote
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsCommentPushNote()
     {
@@ -1651,7 +1656,7 @@ class User extends BaseUser
     /**
      * Get isSuccessStoryPushNote
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsSuccessStoryPushNote()
     {
@@ -1674,7 +1679,7 @@ class User extends BaseUser
     /**
      * Get isProgressPushNote
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsProgressPushNote()
     {
@@ -1688,9 +1693,9 @@ class User extends BaseUser
     public function getSocialsName()
     {
         //check if login by facebook
-       if($this->getFacebookId()) {
-           return self::FACEBOOK;
-       }
+        if($this->getFacebookId()) {
+            return self::FACEBOOK;
+        }
         //check if login by google
         if($this->getGoogleId()) {
             return self::GOOGLE;
@@ -1942,8 +1947,6 @@ class User extends BaseUser
     public function setUserGoalRemoveDate($userGoalRemoveDate)
     {
         $this->userGoalRemoveDate = $userGoalRemoveDate;
-
-        return $this;
     }
 
     /**
@@ -1954,5 +1957,40 @@ class User extends BaseUser
     public function getUserGoalRemoveDate()
     {
         return $this->userGoalRemoveDate;
+    }
+
+    /**
+     * Add badge
+     *
+     * @param \Application\UserBundle\Entity\Badge $badge
+     *
+     * @return User
+     */
+    public function addBadge(\Application\UserBundle\Entity\Badge $badge)
+    {
+        $this->badges[] = $badge;
+        $badge->setUser($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove badge
+     *
+     * @param \Application\UserBundle\Entity\Badge $badge
+     */
+    public function removeBadge(\Application\UserBundle\Entity\Badge $badge)
+    {
+        $this->badges->removeElement($badge);
+    }
+
+    /**
+     * Get badges
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBadges()
+    {
+        return $this->badges;
     }
 }

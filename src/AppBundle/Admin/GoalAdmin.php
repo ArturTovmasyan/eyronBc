@@ -17,6 +17,7 @@ use AppBundle\Form\Type\BlMultipleVideoType;
 use AppBundle\Form\Type\LocationType;
 use AppBundle\Model\PublishAware;
 use AppBundle\Traits\GoalAdminTrait;
+use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -213,5 +214,44 @@ class GoalAdmin extends AbstractAdmin
         }
 
         $this->updateData($object);
+
+        // add badge
+        $this->addBadge($object, $original);
+
+    }
+
+    /**
+     * @param $object
+     */
+    private function addBadge($object, $originObject)
+    {
+        $addBadge = 0;
+        $removeBadge = 0;
+
+        if($originObject['publish'] == false && $object->getPublish() == true){
+            $addBadge++;
+        }
+        elseif ($originObject['publish'] == true && $object->getPublish() == false){
+            $removeBadge++;
+        }
+
+        if($object->getAuthor() && !$object->getAuthor()->isAdmin()){
+
+            $badgeService = $this->getConfigurationPool()->getContainer()->get("app.goal");
+
+            // check badge
+            if($addBadge > 0){
+
+                // add score for innovator
+                $badgeService->addBadgeForPublish('bl.badge.service', 'addScore',
+                    array(Badge::TYPE_INNOVATOR, $object->getAuthor()->getId(), $addBadge));
+                // check badge
+            }elseif($removeBadge > 0){
+
+                // add score for innovator
+                $badgeService->addBadgeForPublish('bl.badge.service', 'removeScore',
+                    array(Badge::TYPE_INNOVATOR, $object->getAuthor()->getId(), $removeBadge));
+            }
+        }
     }
 }

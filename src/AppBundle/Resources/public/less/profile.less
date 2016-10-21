@@ -52,9 +52,9 @@
 
 .featured-icon{
   display: inline-block;
-  width: 22px;
-  height: 33px;
-  background: url('../images/featured-icon.svg') no-repeat center center;
+  width: 27px;
+  height: 27px;
+  background: url('../images/featured.svg') no-repeat center center;
   margin-right: 5px;
   vertical-align: middle;
 }
@@ -209,14 +209,14 @@
 
         span{
           display:block;
-          color:#eeeeee;
+          color:#ffffff;
           font-size: 14px;
 
           &:last-child{
             font-size: 22px;
-            color:#ffffff;
           }
         }
+
         &:last-child{
           border:0;
         }
@@ -757,6 +757,16 @@
     .settings-icon{
       margin-right: -10px;
     }
+
+    .relative{
+      height: 200px;
+
+      .badge-place{
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
     #settings-form{
       figure{
         figcaption{
@@ -975,6 +985,7 @@
     }
   }
 
+
   .profile{
     margin-top:10px;
     padding:20px 0 0 0;
@@ -984,7 +995,7 @@
     }
 
     figure{
-      padding:20px 0;
+      padding:20px 0 14px;
 
       div{
         width:140px;
@@ -1003,7 +1014,7 @@
       }
 
       figcaption{
-        margin-top:11px;
+        margin-top: 17px;
 
         li{
           padding:0 20px;
@@ -1018,6 +1029,10 @@
         }
       }
 
+    }
+
+    .relative{
+      height: 232px;
     }
 
     #settings-form{
@@ -1172,10 +1187,6 @@
       line-height: 24px;
       margin: 0 15px 0 0;
     }
-
-    //.lifetime{
-    //  margin: 0 0 30px 0;
-    //}
   }
 }
 

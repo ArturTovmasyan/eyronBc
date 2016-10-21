@@ -160,6 +160,14 @@ class MainController extends Controller
     }
 
     /**
+     * @Route("/leaderboard", name="leaderboard")
+     * @Template()
+     */
+    public function leaderboardAction()
+    {
+        return [];
+    }
+    /**
      * This action is used to include user block in header
      *
      * @Template()

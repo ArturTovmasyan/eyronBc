@@ -102,132 +102,10 @@ class UserGoalController extends FOSRestController
      */
     public function putAction(Goal $goal, Request $request)
     {
-
         $this->denyAccessUnlessGranted('add', $goal, $this->get('translator')->trans('goal.add_access_denied'));
 
-        $em = $this->getDoctrine()->getManager();
-        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
-            $content = $request->getContent();
-            $request->request->add(json_decode($content, true));
-        }
-        
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
-
-        $suggestAsVisible = false;
-        if (!$userGoal) {
-            $userGoal = new UserGoal();
-            $userGoal->setGoal($goal);
-            $userGoal->setUser($this->getUser());
-            $suggestAsVisible = true;
-        }
-
-        if (!is_null($request->get('goal_status'))){
-            $userGoal->setStatus($request->get('goal_status') ? UserGoal::COMPLETED : UserGoal::ACTIVE);
-
-            if($userGoal->getStatus() == UserGoal::COMPLETED)
-            {
-                $this->denyAccessUnlessGranted('done', $goal, $this->get('translator')->trans('goal.add_access_denied'));
-
-                $completionDateRaw = $request->get('completion_date');
-                if($completionDateRaw){
-                    $completionDate = \DateTime::createFromFormat('d/m/Y', $completionDateRaw);
-
-                    if(!$completionDate){
-                        $completionDate = \DateTime::createFromFormat('m-d-Y', $completionDateRaw);
-                    }
-
-                    if(!$completionDate){
-                        return new Response('Error completed date', Response::HTTP_BAD_REQUEST);
-                    }
-                }
-                else {
-                    $completionDate = new \DateTime();
-                }
-
-                $userGoal->setCompletionDate($completionDate);
-            }
-            elseif($userGoal->getStatus() == UserGoal::ACTIVE){
-                $userGoal->setCompletionDate(null);
-            }
-        }
-
-        if(!is_null($dateStatus = $request->get('date_status'))){
-            $userGoal->setDateStatus($dateStatus);
-        }
-
-        if(!is_null($doDateStatus = $request->get('do_date_status'))){
-            $userGoal->setDoDateStatus($doDateStatus);
-        }
-
-        if (!is_null($request->get('is_visible'))){
-            $userGoal->setIsVisible($request->get('is_visible') ? true : false);
-        }
-
-        if (!is_null($steps = $request->get('steps')) && (is_array($steps) || is_array($steps = json_decode($steps)) )){
-            $userGoal->setSteps($steps);
-        }
-
-        if (!is_null($request->get('note'))){
-            $userGoal->setNote($request->get('note'));
-        }
-
-        if (!is_null($request->get('urgent'))){
-            $userGoal->setUrgent($request->get('urgent') ? true : false);
-        }
-
-        if (!is_null($request->get('important'))){
-            $userGoal->setImportant($request->get('important') ? true : false);
-        }
-
-        $location = $request->get('location');
-        if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
-            $userGoal->setAddress($location['address']);
-            $userGoal->setLat($location['latitude']);
-            $userGoal->setLng($location['longitude']);
-        }
-
-        if($goal->isAuthor($this->getUser())  && $goal->getReadinessStatus() == Goal::DRAFT){
-            // set status to publish
-            $goal->setReadinessStatus(Goal::TO_PUBLISH);
-            $em->persist($goal);
-        }
-
-        $doDateRaw = $request->get('do_date');
-        if($doDateRaw){
-            $doDate = \DateTime::createFromFormat('d/m/Y', $doDateRaw);
-
-            if (!$doDate || $doDateRaw != $doDate->format('d/m/Y')){
-                $doDate = \DateTime::createFromFormat('m/d/Y', $doDateRaw);
-            }
-
-            if(!$doDate){
-                $doDate = \DateTime::createFromFormat('m-d-Y', $doDateRaw);
-            }
-
-            if(!$doDate){
-                return new Response('Error do date', Response::HTTP_BAD_REQUEST);
-            }
-
-            if ($doDate->format('Y') < 100){
-                $doDate->modify('+2000 year');
-            }
-
-            $userGoal->setDoDate($doDate);
-        }
-
-        $liipManager = $this->get('liip_imagine.cache.manager');
-        if ($userGoal->getGoal()->getListPhotoDownloadLink()){
-            $userGoal->getGoal()->setCachedImage($liipManager->getBrowserPath($userGoal->getGoal()->getListPhotoDownloadLink(), 'goal_list_big'));
-        }
-
-        $em->persist($userGoal);
-        $em->flush();
-
-        if ($suggestAsVisible){
-            $userGoal->setIsVisible(true);
-        }
-        
-        return $userGoal;
+        $userGoalService = $this->get('app.user.goal');
+        return $userGoalService->addUserGoal($request, $goal, $this->getUser());
     }
 
     /**
@@ -250,9 +128,8 @@ class UserGoalController extends FOSRestController
      */
     public function deleteAction($userGoal)
     {
-        //get entity manager
-        $em = $this->getDoctrine()->getManager();
-        $msg = $em->getRepository('AppBundle:UserGoal')->removeUserGoal($this->getUser()->getId(), $userGoal);
+        $userGoalService = $this->get('app.user.goal');
+        $msg = $userGoalService->deleteUserGoal($userGoal, $this->getUser());
 
         return new Response($msg, Response::HTTP_OK);
     }
@@ -508,35 +385,10 @@ class UserGoalController extends FOSRestController
     public function getDoneAction(Goal $goal, $isDone = null)
     {
         $this->denyAccessUnlessGranted('done', $goal, $this->get('translator')->trans('goal.add_access_denied'));
-        $em = $this->getDoctrine()->getManager();
 
-        if($isDone){
-            $status = UserGoal::COMPLETED;
-            $completionDate = new \DateTime('now');
-        }
-        else {
-            $status = UserGoal::ACTIVE;
-            $completionDate = null;
-        }
+        $userGoalService = $this->get('app.user.goal');
 
-        $newDone = true;
-        $userGoal = $em->getRepository("AppBundle:UserGoal")->findByUserAndGoal($this->getUser()->getId(), $goal->getId());
-
-        if(!$userGoal){
-            $userGoal = new UserGoal();
-            $userGoal->setGoal($goal);
-            $userGoal->setUser($this->getUser());
-            $userGoal->setIsVisible(true);
-        }
-        else {
-            $newDone = !($userGoal->getStatus() == UserGoal::COMPLETED);
-        }
-
-        $userGoal->setStatus($status);
-        $userGoal->setCompletionDate($completionDate);
-
-        $em->persist($userGoal);
-        $em->flush();
+        $newDone = $userGoalService->doneBy($goal, $this->getUser(), $isDone);
 
         return new Response((int) $newDone, Response::HTTP_OK);
     }
