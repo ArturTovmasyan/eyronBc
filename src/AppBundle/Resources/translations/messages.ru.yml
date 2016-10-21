@@ -244,8 +244,8 @@ menu:
   activity: Лента
   completed: Достигнутые
   map: Карта
-  common: Опшие
-  owned: Owned
+  common: Общие
+  owned: Созданные
 
 right_menu:
   my_ideas: Мои Идеи
