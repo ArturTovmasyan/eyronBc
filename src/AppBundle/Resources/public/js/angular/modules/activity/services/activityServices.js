@@ -241,7 +241,8 @@ angular.module('activity')
     'UserContext',
     'localStorageService',
     'storageDates',
-    function(lsActivitiesItems, $interval, $timeout, $http, envPrefix, UserContext, localStorageService, storageDates){
+    'CacheFactory',
+    function(lsActivitiesItems, $interval, $timeout, $http, envPrefix, UserContext, localStorageService, storageDates, CacheFactory){
       return {
         restrict: 'EA',
         scope: {
@@ -250,9 +251,29 @@ angular.module('activity')
         },
         link: function(scope, el){
           scope.$parent.newActivity = false;
+          scope.$parent.topUsers = [];
+          var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
 
           scope.$parent.castInt = function(value){
             return parseInt(value);
+          };
+
+          if(!leaderboardCache){
+            leaderboardCache = CacheFactory('bucketlist_by_leaderboard');
+          }
+
+          var leaderboards = leaderboardCache.get('leaderboards');
+
+          if(leaderboards){
+            scope.$parent.haveTop = (leaderboards.users && leaderboards.users.length > 0);
+            scope.$parent.topUsers = leaderboards.users;
+          } else {
+            scope.$parent.haveTop = false;
+          }
+
+
+          scope.$parent.inArray = function (id) {
+            return (scope.$parent.topUsers.indexOf(id) != -1);
           };
           
           scope.$parent.isVoting = function(isVoting, isStory){
