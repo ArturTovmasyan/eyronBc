@@ -70,7 +70,7 @@ class Badge
      * @var
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime")
      */
     protected $updated;
     
