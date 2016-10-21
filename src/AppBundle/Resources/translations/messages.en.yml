@@ -530,3 +530,11 @@ overall:
   good: Good job! You are in sync with your projected goals.
   excellent: Excellent! You are outperforming!
   falling: Get a move on! You are falling behind your goals.
+
+leaderboard:
+  name: leaderboard
+  title: Bucketlist 127-Leaderboard
+  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
+  traveler: Traveler
+  innovator: Innovator
+  writer: S.S. writer

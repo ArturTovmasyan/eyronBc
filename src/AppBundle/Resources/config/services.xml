@@ -137,6 +137,20 @@
             <argument type="service" id="app.google_place" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <!-- user goal service -->
+        <service id="app.user.goal" class="AppBundle\Services\UserGoalService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="security.authorization_checker" />
+        </service>
+
+        <!-- goal service -->
+        <service id="app.goal" class="AppBundle\Services\GoalService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
     </services>
 
 </container>
