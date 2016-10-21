@@ -11,18 +11,22 @@
         <div class="container">
             <div class="row">
 
-                {% block test  %}
-                    <div class="col-md-8">
+                <div class="col-md-8">
+                    {% block left_content %}
                         {%  include "AppBundle:Blocks:activities.html.twig" with {'single': false}   %}
-                    </div>
-                {% endblock %}
+                    {% endblock %}
+                </div>
 
                 <div class="col-md-4">
-                    {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
-                    {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
-                    {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
-                    {%  include "AppBundle:Blocks:featureGoals.html.twig" %}
-                    {%  include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                    {% block rigth_content %}
+                        {% include 'AppBundle:Blocks:completeProfile.html.twig' with {'user': app.user}  %}
+                        {% include 'AppBundle:Blocks:myBucketlist.html.twig' with {'user': app.user} %}
+                        {% include 'AppBundle:Blocks:goalfriends.html.twig' with {'user': app.user} %}
+                        {% include "AppBundle:Blocks:featureGoals.html.twig" %}
+                        {% include "AppBundle:Blocks:popularGoals.html.twig" with {'user': app.user, 'count': 1}  %}
+                        {% include 'AppBundle:Blocks:leaderboardTop.html.twig' with {'user': app.user} %}
+
+                    {% endblock %}
                 </div>
             </div>
         </div>
