@@ -57,14 +57,14 @@ class UserPlace
     /**
      *
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="userPlace", cascade={"persist"})
-     * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id", nullable=false)
      */
     protected $place;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userPlace", cascade={"persist"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 

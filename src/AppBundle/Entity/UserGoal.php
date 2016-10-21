@@ -138,14 +138,14 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="userGoal", cascade={"persist"})
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", nullable=false)
      * @Groups({"userGoal_goal"})
      **/
     protected $goal;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="userGoal")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",  nullable=false)
      * @Groups({"user"})
      **/
     protected $user;

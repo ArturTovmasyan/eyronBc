@@ -40,7 +40,7 @@ class SuccessStory implements ActivityableInterface
     /**
      *
      * @ORM\ManyToOne(targetEntity="Goal", inversedBy="successStories", cascade={"persist"})
-     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="goal_id", referencedColumnName="id", nullable=false)
      */
     protected $goal;
 
@@ -57,7 +57,7 @@ class SuccessStory implements ActivityableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="SuccessStories")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @Groups({"successStory_user"})
      **/
     protected $user;
