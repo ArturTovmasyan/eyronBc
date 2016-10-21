@@ -147,6 +147,7 @@ Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in
 Done: complete
 
 ideas_list_title: Explore thousands of great ideas for your Bucket List
+ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Loction Service or enter your location
 
 # home
 homepage_title: The goal is to have memories, <br /> not only dreams!

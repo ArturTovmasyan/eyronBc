@@ -681,6 +681,7 @@ angular.module('goal', ['Interpolation',
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
         var path = $location.$$path;
+        $scope.browseError = '';
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -702,6 +703,32 @@ angular.module('goal', ['Interpolation',
                 $scope.goTo(path);
             },100);
         }
+
+        $scope.allowBrowserLocation = function () {
+
+            if (!navigator.geolocation){
+                $scope.browseError = "Geolocation is not supported by your browser";
+                return;
+            }
+
+            function success(position) {
+                $scope.position = position;
+                //todo get goals by  location
+                $timeout(function(){
+                    $scope.$emit('allowLocation', $scope.position);
+                },10);
+            }
+
+            function error() {
+                $scope.browseError = "Unable to retrieve your location";
+            }
+            
+            navigator.geolocation.getCurrentPosition(success, error);
+        };
+
+        $scope.$on('location_place_changed', function (ev, data) {
+            //todo get goals by  location
+        });
 
         $scope.goTo = function (path) {
             $scope.noIdeas = false;

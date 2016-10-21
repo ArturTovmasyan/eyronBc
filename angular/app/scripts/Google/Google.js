@@ -189,7 +189,7 @@ angular.module('Google', [])
             }
         };
     }])
-    .directive('autocompleteMap',[function(){
+    .directive('autocompleteMap',['$rootScope', function($rootScope){
 
         function Initialize(el, zoom){
             var m, data = {};
@@ -213,6 +213,29 @@ angular.module('Google', [])
             },
             templateUrl: '/app/scripts/Google/autocompleteMap.html',
             compile: function compile() {
+                function addMarker(obj, icon, map){
+                    if(!angular.isNumber(obj.latitude) || !angular.isNumber(obj.longitude)){
+                        return;
+                    }
+
+                    var m = new google.maps.Marker({
+                        position: new google.maps.LatLng(obj.latitude, obj.longitude),
+                        map: map
+                    });
+
+                    if(icon){
+                        var ic = {
+                            url: icon,
+                            scaledSize:new google.maps.Size(25, 40)
+                        };
+                        m.setIcon(ic);
+                    }
+
+                    map.setCenter(m.getPosition());
+
+                    return m;
+                }
+
                return function initMap(scope, el) {
                     scope.map = Initialize(document.getElementById('autocompleteMap'),scope.zoom);
                     var input = (document.getElementById('pac-input'));
@@ -234,6 +257,11 @@ angular.module('Google', [])
                         infowindow.close();
                         marker.setVisible(false);
                         var place = autocomplete.getPlace();
+
+                        $rootScope.$broadcast('location_place_changed',
+                          [place.geometry.location.lat(), place.geometry.location.lng()]
+                        );
+                        
                         if (!place.geometry) {
                             window.alert("Autocomplete's returned place contains no geometry");
                             return;
@@ -247,12 +275,17 @@ angular.module('Google', [])
                             scope.map.setZoom(17);  // Why 17? Because it looks good.
                         }
                         marker.setIcon(/** @type {google.maps.Icon} */({
-                            url: scope.activeMarkerIcon?scope.activeMarkerIcon:place.icon,
+                            url: place.icon,
                             size: new google.maps.Size(71, 71),
                             origin: new google.maps.Point(0, 0),
                             anchor: new google.maps.Point(17, 34),
                             scaledSize: new google.maps.Size(35, 35)
                         }));
+
+                        if(scope.myLocation){
+                            scope.myLocation.setVisible(false);
+                        }
+
                         marker.setPosition(place.geometry.location);
                         marker.setVisible(true);
 
@@ -269,6 +302,10 @@ angular.module('Google', [])
                         infowindow.open(scope.map, marker);
                     });
 
+                   $rootScope.$on('allowLocation', function (ev, position) {
+                       scope.myLocation = addMarker(position.coords, scope.activeMarkerIcon, scope.map);
+                   });
+                   
                     scope.setType = function (types) {
                         autocomplete.setTypes(types);
                     };
