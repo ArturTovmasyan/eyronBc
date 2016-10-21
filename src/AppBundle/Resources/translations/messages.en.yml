@@ -102,7 +102,7 @@ goal:
       completed_text: If you believe your Goal is still Active, you can undo it
       active_text: If you accomplished your Goal, just mark it
       completion_date: Completion date :
-      complete_step: Take steps - Complete your Goal !
+      complete_step: Take steps - Complete your Goal!
       private_text: You created this Goal only for your Bucketlist
       invisible_text: You can make the Goal invisible for other users
       visible_text: Show or hide your goal from others
@@ -257,7 +257,7 @@ menu:
   completed: Completed
   map: Map
   common: In Common
-  owned: Owned
+  owned: Created
 
 right_menu:
   my_ideas: My Ideas
@@ -523,7 +523,7 @@ report:
   thanks: Thank you
   message: We have received your report
 
-achievment: Achievment
+achievment: Achievement
 
 overall:
   progress: Overall Progress
