@@ -536,7 +536,7 @@ angular.module('goal', ['Interpolation',
             if(goalImageBottom != mainSliderBottom){
                 var distance = goalImageBottom - mainSliderBottom;
                 angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
-                angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
+                // angular.element('.overlay.swiper-slide').css("height",angular.element('.overlay.swiper-slide').innerHeight() - distance)
             }
         }
 
@@ -597,7 +597,7 @@ angular.module('goal', ['Interpolation',
                 if (goalImageBottom != mainSliderBottom) {
                     var distance = goalImageBottom - mainSliderBottom;
                     angular.element('.goal-image').css("height",angular.element('.goal-image').innerHeight() - distance);
-                    angular.element('.overlay').css("height",angular.element('.overlay').innerHeight() - distance)
+                    // angular.element('.overlay.swiper-slide').css("height",angular.element('.overlay.swiper-slide').innerHeight() - distance)
                 }
             }
         });
