@@ -71,7 +71,7 @@ class Affiliate
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\AffiliateBundle\Entity\AffiliateType")
-     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id", nullable=false)
      *
      * @Groups({"affiliate_affiliateType"})
      */
