@@ -462,6 +462,7 @@ admin:
       goal: Goal
       type_name: Name
       place_name: Name
+      blog: Blog
 
 # end sonata admin lable
 
