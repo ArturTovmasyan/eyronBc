@@ -180,15 +180,24 @@
 
                         <ul class="badge-place">
 
+                            {% set badgeTitles = {
+                            1 : 'leaderboard.traveller'|trans,
+                            2 : 'leaderboard.writer'|trans,
+                            3 : 'leaderboard.innovator'|trans
+                            } %}
+
                             {% for badge in badges %}
 
-                                <li>
-                                    <i class="badge-{{ badge.type }}"></i>
-                                    {% set maxScore = maxBadgeScore(badge.type) != 0 ? maxBadgeScore(badge.type) : badge.score %}
-                                    {% set score = badge.score / maxScore *
-                                    constant("Application\\UserBundle\\Entity\\Badge::MAXIMUM_NORMALIZE_SCORE") %}
-                                    <span>{{ score|round(0, 'ceil')}}</span>
-                                </li>
+                                {% set maxScore = maxBadgeScore(badge.type) != 0 ? maxBadgeScore(badge.type) : badge.score %}
+                                {% set score = badge.score / maxScore *
+                                constant("Application\\UserBundle\\Entity\\Badge::MAXIMUM_NORMALIZE_SCORE") %}
+
+                                {% if score  > 0 %}
+                                    <li>
+                                        <i title="{{ badgeTitles[badge.type] }}" class="badge-{{ badge.type }}"></i>
+                                        <span>{{ score|round(0, 'ceil')}}</span>
+                                    </li>
+                                {% endif %}
 
                             {% endfor %}
                         </ul>

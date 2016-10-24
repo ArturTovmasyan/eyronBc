@@ -166,10 +166,11 @@ class BadgeCommand extends ContainerAwareCommand
             $author = $successStory->getUser(); // get author
             $publish = $goal->getPublish();
 
-            // check is admin
-            if($publish && $author){
+            $voters = $successStory->getVotersCount();
 
-                $voters = $successStory->getVotersCount();
+            // check is admin
+            if($publish && $author && $voters > 0){
+
                 $badgeService->addScore(Badge::TYPE_MOTIVATOR, $author->getId(), $voters);
             }
 
