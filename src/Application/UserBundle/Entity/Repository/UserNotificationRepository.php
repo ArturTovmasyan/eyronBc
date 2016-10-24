@@ -24,7 +24,7 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder()
             ->from('ApplicationUserBundle:UserNotification', 'un')
             ->where('un.user = :userId')
-            ->orderBy('un.updated', 'DESC')
+            ->orderBy('un.created', 'DESC')
             ->setParameter('userId', $userId)
             ->setFirstResult($first)
             ->setMaxResults($count);
@@ -48,6 +48,7 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
         if ($getLastModified){
             $data = $query
                 ->select('un.id, un.updated')
+                ->orderBy('un.updated', 'DESC')
                 ->getQuery()
                 ->getResult();
 
