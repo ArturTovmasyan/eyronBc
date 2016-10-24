@@ -25,7 +25,6 @@ class BlogAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         //get product id for edit
-        $edit = $this->getSubject()->getData();
         $showMapper
             ->add('id', null, array('label' => 'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
@@ -59,6 +58,12 @@ class BlogAdmin extends AbstractAdmin
                 ->add('type', 'choice', array('choices' => ['text' => 'text', 'goal' => 'goal'], 'mapped' => false))
                 ->add('position', 'integer', array('mapped' => false))
                 ->add('content', 'text', array('mapped' => false))
+//                ->add('goal', 'genemu_jqueryselect2_entity', array(
+//                    'mapped' => false,
+//                    'class' => 'AppBundle\Entity\Goal',
+//                    'property' => 'title',
+//                    'placeholder' => 'Select goal'
+//                ))
             ;
         }
     }
