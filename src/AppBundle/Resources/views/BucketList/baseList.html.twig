@@ -188,9 +188,7 @@
 
                             {% for badge in badges %}
 
-                                {% set maxScore = maxBadgeScore(badge.type) != 0 ? maxBadgeScore(badge.type) : badge.score %}
-                                {% set score = badge.score / maxScore *
-                                constant("Application\\UserBundle\\Entity\\Badge::MAXIMUM_NORMALIZE_SCORE") %}
+                                {% set score = badgeNormalizer(badge.type, badge.Score) %}
 
                                 {% if score  > 0 %}
                                     <li>
