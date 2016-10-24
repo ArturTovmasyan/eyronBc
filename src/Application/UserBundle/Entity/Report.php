@@ -37,13 +37,13 @@ class Report
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="reported_user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="reported_user_id", referencedColumnName="id", nullable=false)
      */
     protected $reportedUser;
 
