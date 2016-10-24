@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -31,6 +32,12 @@ class BadgeCommand extends ContainerAwareCommand
         $this
             ->setName('bl:badge:calculate')
             ->setDescription('This command is used to calculate user badges')
+            ->setDefinition(array(
+                new InputOption(
+                    'type', 't', InputOption::VALUE_REQUIRED,
+                    'Type of badges  ( all|innovator|motivator)'
+                ),
+            ));
         ;
     }
 
@@ -41,13 +48,26 @@ class BadgeCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // get type
+        $type = $input->getOption('type');
+        $exec = false;
 
-        $output->writeln('start');
+        // check type
+        if($type == 'all' || $type == 'innovator'){
+            $this->calculateInnovator($input, $output);
+            $exec = true;
+        }
 
-        $this->calculateInnovator($input, $output);
-        $this->calculateMottivator($input, $output);
+        // che
+        if($type == 'all' || $type == 'motivator'){
+            $this->calculateMotivator($input, $output);
+            $exec = true;
+        }
 
-        $output->writeln('end');
+        if(!$exec){
+            $output->writeln('<error>Wrong type</error>');
+            return false;
+        }
 
         return null;
     }
@@ -115,7 +135,11 @@ class BadgeCommand extends ContainerAwareCommand
 
     }
 
-    private function calculateMottivator(InputInterface $input, OutputInterface $output)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    private function calculateMotivator(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
@@ -127,8 +151,7 @@ class BadgeCommand extends ContainerAwareCommand
                            FROM AppBundle:SuccessStory  s
                            JOIN s.goal g
                            JOIN g.userGoal ug
-                           JOIN g.author a
-                           WHERE a.isAdmin != 1 AND g.publish = 1
+                           WHERE g.publish = 1
                            ")
             ->getResult();
 
@@ -140,13 +163,14 @@ class BadgeCommand extends ContainerAwareCommand
 
             $goal = $successStory->getGoal();
             // get author
-            $author = $goal->getAuthor(); // get author
+            $author = $successStory->getUser(); // get author
             $publish = $goal->getPublish();
 
-            // check is admin
-            if($publish && $author && !$author->isAdmin()){
+            $voters = $successStory->getVotersCount();
 
-                $voters = $successStory->getVotersCount();
+            // check is admin
+            if($publish && $author && $voters > 0){
+
                 $badgeService->addScore(Badge::TYPE_MOTIVATOR, $author->getId(), $voters);
             }
 
