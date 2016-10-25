@@ -52,25 +52,11 @@ class BlogAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-//        if ($this->id($this->getSubject())) {
-//            // EDIT
-//            $edit = $this->getSubject()->getData();
-//
-//            $formMapper
-//                ->add('title', null, array('label'=>'admin.label.name.title'))
-//                ->add('type', 'choice', array('mapped' => false, 'choices' =>  ['text' => 'text', 'goal' => 'goal'],
-//                                              'data' => $edit['type']))
-//                ->add('position', 'integer', array('mapped' => false, 'data' => $edit['position']))
-//                ->add('content', 'text', array('mapped' => false, 'data' => $edit['content']))
-//            ;
-//        }
-//        else {
-            // CREATE
-            $formMapper
-                ->add('title', null, array('label'=>'admin.label.name.title'))
-                ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog', 'required' => false));
-            ;
-//        }
+        // CREATE
+        $formMapper
+            ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog'));
+        ;
     }
 
     // Fields to be shown on filter forms
