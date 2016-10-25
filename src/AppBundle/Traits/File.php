@@ -58,13 +58,13 @@ trait File
     protected  $file;
 
     /**
-     * @ORM\Column(name="file_original_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="file_original_name", type="string", length=160, nullable=true)
      * @Groups({"image"})
      */
     protected $fileOriginalName;
 
     /**
-     * @ORM\Column(name="file_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="file_name", type="string", length=70, nullable=true)
      * @Groups({"image"})
      */
     protected $fileName;

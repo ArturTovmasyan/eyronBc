@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * UserPlace
  *
- * @ORM\Table(name="user_place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_place", columns={"latitude", "longitude", "place_id", "user_id"})})
+ * @ORM\Table(name="user_place", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_place", columns={"user_id", "place_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserPlaceRepository")
  * @UniqueEntity(
- *     fields={"latitude", "longitude", "place", "user"},
+ *     fields={ "user", "place"},
  *     message="This user place is already created."
  * )
  */
