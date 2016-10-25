@@ -10,4 +10,16 @@ namespace AppBundle\Entity\Repository;
  */
 class BlogRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLastUpdated()
+    {
+       $data = $this->getEntityManager()
+            ->createQuery("SELECT b.updated 
+                           FROM AppBundle:Blog b
+                           ORDER BY b.updated DESC
+                           ")
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+        
+        return $data['updated'];
+    }
 }

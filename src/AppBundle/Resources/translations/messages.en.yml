@@ -463,6 +463,7 @@ admin:
       type_name: Name
       place_name: Name
       blog: Blog
+      blog_data: Data
 
 # end sonata admin lable
 

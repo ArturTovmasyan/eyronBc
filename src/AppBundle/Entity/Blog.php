@@ -28,20 +28,20 @@ class Blog
     /**
      * @var array
      * @Assert\Type("array")
-     * @ORM\Column(name="data", type="array", nullable=true)
+     * @ORM\Column(name="data", type="array")
      */
     private $data;
 
     /**
      * @var array
      * @Assert\Type("string")
-     * @ORM\Column(name="title", type="string", length=64, nullable=false)
+     * @ORM\Column(name="title", type="string", length=64)
      */
     private $title;
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=64, unique=true, nullable=false)
+     * @ORM\Column(length=64, unique=true)
      */
     protected $slug;
 
@@ -169,6 +169,7 @@ class Blog
 
             return $this->data;
         }
+        
         return null;
     }
 
@@ -177,6 +178,6 @@ class Blog
      */
     public function  setBlMultipleBlog($multipleBlog)
     {
-            $this->data = array_values($multipleBlog);
+        $this->data = array_values($multipleBlog);
     }
 }

@@ -22,23 +22,41 @@ class BlogController extends Controller
      */
     public function listAction(Request $request)
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $user = $this->getUser();
-//        $url = 'homepage';
+        $em = $this->getDoctrine()->getManager();
 
-        return new Response('BLOG LIST page');
+        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated();
+
+        $response = new Response();
+
+        // set last modified data
+        $response->setLastModified($lastModifiedDate);
+
+        // Set response as public. Otherwise it will be private by default.
+        $response->setPublic();
+
+        // Check that the Response is not modified for the given Request
+        if ($response->isNotModified($request)) {
+            // return the 304 Response immediately
+            return $response;
+        }
+
+        $blog = $em->getRepository('AppBundle:Blog')->findAll();
+
+        return $this->render('AppBundle:Blog:list.html.twig', ['blog' => $blog], $response);
     }
 
     /**
+     * @param $slug
+     * @Template()
      * @Route("/{slug}", name="blog_show")
+     * @return Response
      */
     public function showAction($slug)
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $user = $this->getUser();
-//        $url = 'homepage';
+        $em = $this->getDoctrine()->getManager();
+        $blog = $em->getRepository('AppBundle:Blog')->findOneBy(['slug' => $slug]);
 
-        return new Response('BLOG SHOW  '.$slug.'  PAGE');
+        return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog]);
     }
 }
 
