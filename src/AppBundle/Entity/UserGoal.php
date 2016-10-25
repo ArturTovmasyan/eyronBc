@@ -58,7 +58,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @ORM\Column(name="status", type="smallint")
      * @Groups({"userGoal"})
      */
     protected $status = self::ACTIVE;
