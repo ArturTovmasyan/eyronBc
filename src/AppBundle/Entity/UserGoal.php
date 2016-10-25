@@ -25,8 +25,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class UserGoal implements ActivityableInterface
 {
-    use Location;
-
     // constants for status
     const ACTIVE = 1;
     const COMPLETED = 2;
@@ -81,21 +79,21 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="is_visible", type="boolean", nullable=true)
+     * @ORM\Column(name="is_visible", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $isVisible = false;
 
     /**
      * @var
-     * @ORM\Column(name="urgent", type="boolean", nullable=true)
+     * @ORM\Column(name="urgent", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $urgent = false;
 
     /**
      * @var
-     * @ORM\Column(name="important", type="boolean", nullable=true)
+     * @ORM\Column(name="important", type="boolean")
      * @Groups({"userGoal"})
      */
     protected $important = true;
@@ -130,7 +128,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="listed_date", type="datetime", nullable=true)
+     * @ORM\Column(name="listed_date", type="datetime")
      * @Gedmo\Timestampable(on="create")
      * @Groups({"userGoal"})
      */

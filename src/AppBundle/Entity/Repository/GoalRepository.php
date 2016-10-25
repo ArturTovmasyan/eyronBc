@@ -746,8 +746,8 @@ class GoalRepository extends EntityRepository
      */
     public function findOwnedGoals($owner, $first, $count)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT g
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT g, i
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.author = :owner AND g.publish = :publish
@@ -756,8 +756,10 @@ class GoalRepository extends EntityRepository
             ->setParameter('owner', $owner)
             ->setParameter('publish', PublishAware::PUBLISH)
             ->setFirstResult($first)
-            ->setMaxResults($count)
-            ->getResult();
+            ->setMaxResults($count);
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator->getIterator()->getArrayCopy();
     }
 
 
