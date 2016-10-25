@@ -22,6 +22,11 @@ class Version20161025095829 extends AbstractMigration
         $this->addSql('UPDATE users_goals set urgent = 0 WHERE urgent IS NULL');
         $this->addSql('UPDATE users_goals set important = 0 WHERE important IS NULL');
         $this->addSql('ALTER TABLE users_goals CHANGE listed_date listed_date DATETIME NOT NULL, CHANGE urgent urgent TINYINT(1) NOT NULL, CHANGE important important TINYINT(1) NOT NULL, CHANGE is_visible is_visible TINYINT(1) NOT NULL');
+
+        $this->addSql('UPDATE goal_image set list_image = 0 WHERE list_image IS NULL');
+        $this->addSql('UPDATE goal_image set cover_image = 0 WHERE cover_image IS NULL');
+        $this->addSql('ALTER TABLE goal_image CHANGE list_image list_image TINYINT(1) NOT NULL, CHANGE cover_image cover_image TINYINT(1) NOT NULL');
+
     }
 
     /**
@@ -33,5 +38,6 @@ class Version20161025095829 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE users_goals CHANGE is_visible is_visible TINYINT(1) DEFAULT NULL, CHANGE urgent urgent TINYINT(1) DEFAULT NULL, CHANGE important important TINYINT(1) DEFAULT NULL, CHANGE listed_date listed_date DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE goal_image CHANGE list_image list_image TINYINT(1) DEFAULT NULL, CHANGE cover_image cover_image TINYINT(1) DEFAULT NULL');
     }
 }

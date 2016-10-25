@@ -78,7 +78,7 @@ class Affiliate
     protected $affiliateType;
 
     /**
-     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @ORM\Column(name="publish", type="boolean")
      */
     protected $publish = false;
 
