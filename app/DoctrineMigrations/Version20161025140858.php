@@ -25,7 +25,6 @@ class Version20161025140858 extends AbstractMigration
         $this->addSql('ALTER TABLE category_translations CHANGE object_id object_id INT NOT NULL');
         $this->addSql('ALTER TABLE page_translations CHANGE object_id object_id INT NOT NULL');
         $this->addSql('ALTER TABLE user_place CHANGE user_id user_id INT NOT NULL, CHANGE place_id place_id INT NOT NULL');
-        $this->addSql('ALTER TABLE user_notification ADD created DATETIME NOT NULL, CHANGE user_id user_id INT NOT NULL, CHANGE notification_id notification_id INT NOT NULL');
         $this->addSql('ALTER TABLE match_user CHANGE user_id user_id INT NOT NULL, CHANGE match_user_id match_user_id INT NOT NULL');
         $this->addSql('ALTER TABLE report CHANGE user_id user_id INT NOT NULL, CHANGE reported_user_id reported_user_id INT NOT NULL');
         $this->addSql('ALTER TABLE comment CHANGE thread_id thread_id VARCHAR(255) NOT NULL, CHANGE author_id author_id INT NOT NULL');
@@ -50,7 +49,6 @@ class Version20161025140858 extends AbstractMigration
         $this->addSql('ALTER TABLE place CHANGE place_type_id place_type_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE report CHANGE user_id user_id INT DEFAULT NULL, CHANGE reported_user_id reported_user_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE success_story CHANGE goal_id goal_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE user_notification DROP created, CHANGE user_id user_id INT DEFAULT NULL, CHANGE notification_id notification_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE user_place CHANGE place_id place_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL');
     }
 }
