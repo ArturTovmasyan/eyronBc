@@ -100,7 +100,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="note", type="text", nullable=true)
+     * @ORM\Column(name="note", type="string", length=1000, nullable=true)
      * @Groups({"userGoal"})
      */
     protected $note;
