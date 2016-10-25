@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -156,5 +157,26 @@ class Blog
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return array
+     */
+    public function  getBlMultipleBlog()
+    {
+        // check images and return array
+        if($this->data){
+
+            return $this->data;
+        }
+        return null;
+    }
+
+    /**
+     * @param $multipleBlog
+     */
+    public function  setBlMultipleBlog($multipleBlog)
+    {
+            $this->data = array_values($multipleBlog);
     }
 }

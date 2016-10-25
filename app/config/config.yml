@@ -68,6 +68,7 @@ twig:
     form:
         resources:
           - 'AppBundle:Form:multipleFile.html.twig'
+          - 'AppBundle:Form:multipleBlog.html.twig'
           - 'AppBundle:Form:storyMultipleFile.html.twig'
           - 'AppBundle:Form:location.html.twig'
           - 'AppBundle:Form:multipleVideo.html.twig'

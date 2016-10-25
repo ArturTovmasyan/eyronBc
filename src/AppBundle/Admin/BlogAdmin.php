@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Form\Type\BlMultipleBlogType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -16,6 +17,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BlogAdmin extends AbstractAdmin
 {
+
+    /**
+     * @param string $name
+     * @return mixed|null|string
+     */
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'AppBundle:Admin:blog_edit.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 
     /**
      * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
@@ -35,37 +52,25 @@ class BlogAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-        if ($this->id($this->getSubject())) {
-
-            // EDIT
-            //get product id for edit
-            $edit = $this->getSubject()->getData();
-            $type = array_keys($edit);
-            $editData = reset($edit);
-
-            $formMapper
-                ->add('title', null, array('label'=>'admin.label.name.title'))
-                ->add('type', 'choice', array('mapped' => false, 'choices' =>  ['text' => 'text', 'goal' => 'goal'],
-                                              'data' => $type[0]))
-                ->add('position', 'integer', array('mapped' => false, 'data' => $editData['position']))
-                ->add('content', 'text', array('mapped' => false, 'data' => $editData['content']))
-            ;
-        }
-        else {
+//        if ($this->id($this->getSubject())) {
+//            // EDIT
+//            $edit = $this->getSubject()->getData();
+//
+//            $formMapper
+//                ->add('title', null, array('label'=>'admin.label.name.title'))
+//                ->add('type', 'choice', array('mapped' => false, 'choices' =>  ['text' => 'text', 'goal' => 'goal'],
+//                                              'data' => $edit['type']))
+//                ->add('position', 'integer', array('mapped' => false, 'data' => $edit['position']))
+//                ->add('content', 'text', array('mapped' => false, 'data' => $edit['content']))
+//            ;
+//        }
+//        else {
             // CREATE
             $formMapper
                 ->add('title', null, array('label'=>'admin.label.name.title'))
-                ->add('type', 'choice', array('choices' => ['text' => 'text', 'goal' => 'goal'], 'mapped' => false))
-                ->add('position', 'integer', array('mapped' => false))
-                ->add('content', 'text', array('mapped' => false))
-//                ->add('goal', 'genemu_jqueryselect2_entity', array(
-//                    'mapped' => false,
-//                    'class' => 'AppBundle\Entity\Goal',
-//                    'property' => 'title',
-//                    'placeholder' => 'Select goal'
-//                ))
+                ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog', 'required' => false));
             ;
-        }
+//        }
     }
 
     // Fields to be shown on filter forms
@@ -92,30 +97,5 @@ class BlogAdmin extends AbstractAdmin
                     'delete' => array(),
                 )
             )) ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function prePersist($object)
-    {
-        //get form data
-        $type =  $this->getForm()->get('type')->getData();
-        $position =  $this->getForm()->get('position')->getData();
-        $content =  $this->getForm()->get('content')->getData();
-
-        //generate blog data array
-        $data = [$type => ['position' => $position, 'content' => $content]];
-
-        //set blog data
-        $object->setData($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function preUpdate($object)
-    {
-        $this->prePersist($object);
     }
 }

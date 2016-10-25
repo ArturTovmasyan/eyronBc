@@ -38,6 +38,10 @@
             <tag name="form.type" alias="bl_multiple_video" />
         </service>
 
+        <service id="bl.multiple.blog" class="AppBundle\Form\Type\BlMultipleBlogType">
+            <tag name="form.type" alias="bl_multiple_blog" />
+        </service>
+
          <!--service for twig extension replace in string -->
         <service id="bl.oll.in" class="AppBundle\Twig\Extension\OllTwigExtension">
             <argument type="service" id="service_container" />
