@@ -19,7 +19,7 @@ class Blog
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="smallint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -28,14 +28,14 @@ class Blog
     /**
      * @var array
      * @Assert\Type("array")
-     * @ORM\Column(name="data", type="array")
+     * @ORM\Column(type="array")
      */
     private $data;
 
     /**
      * @var array
      * @Assert\Type("string")
-     * @ORM\Column(name="title", type="string", length=64)
+     * @ORM\Column(type="string", length=64)
      */
     private $title;
 
@@ -48,7 +48,7 @@ class Blog
     /**
      * @var \DateTime
      * @Assert\Type("datetime")
-     * @ORM\Column(name="updated", type="datetime")
+     * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;

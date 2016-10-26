@@ -110,6 +110,8 @@ class BlogController extends Controller
             return $response;
         }
 
+        //@TODO load related goals by single query
+
         return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
     }
 }
