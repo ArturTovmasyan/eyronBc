@@ -662,4 +662,32 @@ class UserGoal implements ActivityableInterface
     {
         return $this->confirmed;
     }
+
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLat()
+    {
+        return 0;
+    }
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLng()
+    {
+        return 0;
+    }
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLocation()
+    {
+        return null;
+    }
+
 }
