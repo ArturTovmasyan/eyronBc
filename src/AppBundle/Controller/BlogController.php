@@ -23,7 +23,7 @@ class BlogController extends Controller
      */
     public function listAction()
     {
-        return $this->render('AppBundle:Blog:list.html.twig', []);
+        return $this->render('AppBundle:Blog:list.html.twig');
     }
 
     /**

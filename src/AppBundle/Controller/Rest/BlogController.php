@@ -37,6 +37,7 @@ class BlogController extends FOSRestController
         if (is_null($first) && is_null($count)) {
             return new Request('first and count params must not be empty', Response::HTTP_BAD_REQUEST);
         }
+
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
@@ -62,7 +63,7 @@ class BlogController extends FOSRestController
         $blogs = $em->getRepository('AppBundle:Blog')->findAllBlog($first, $count);
 
         $content = [
-            'blog' => $blogs,
+            'blogs' => $blogs,
         ];
 
         $serializer = $this->get('serializer');
@@ -134,7 +135,7 @@ class BlogController extends FOSRestController
 
         $serializer = $this->get('serializer');
         $serializedContent = $serializer->serialize($content, 'json',
-            SerializationContext::create()->setGroups(["blog"]));
+            SerializationContext::create()->setGroups(['blog']));
 
         $response->setContent($serializedContent);
 
