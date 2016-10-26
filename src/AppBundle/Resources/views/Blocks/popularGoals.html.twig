@@ -14,8 +14,9 @@
             </ul>
         </div>
     </div>
-
-    {%  include "AppBundle:Blocks:overall.html.twig" with { 'user': user}%}
+    {% if profileUser.id == app.user.id %}
+        {%  include "AppBundle:Blocks:overall.html.twig" with { 'user': user}%}
+    {% endif %}
 {% endif  %}
 <div class="right-block padding padding-no round margin-top" data-ng-controller="popularGoalsController">
     <div class="right-menu">
