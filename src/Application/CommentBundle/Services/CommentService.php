@@ -86,10 +86,11 @@ class CommentService extends AbstractProcessService
             ->getFlashBag()
             ->set('comments','Add comment from Web');
 
+        $em->flush();
+
+
         $this->runAsProcess('application.comment', 'sendNotification',
             array($goal->getId(), $user->getId(), $parentComment ? $parentComment->getId() : null ));
-
-        $em->flush();
 
         return $comment;
 
@@ -101,7 +102,7 @@ class CommentService extends AbstractProcessService
      * @param $parentCommentId
      * @throws \Throwable
      */
-    public function sendNotification($goalId, $userId, $parentCommentId)
+    public function sendNotification($goalId, $userId, $parentCommentId = null)
     {
         $em = $this->container->get('doctrine')->getManager();
         $goal = $em->getRepository("AppBundle:Goal")->find($goalId);
