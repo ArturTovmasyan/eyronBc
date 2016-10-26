@@ -17,15 +17,33 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class BlogController extends Controller
 {
+    const LIMIT = 2;
+
     /**
      * @Route("/blog", name="blog_list")
+     * @param Request $request
+     * @return Response
      */
     public function listAction(Request $request)
     {
+        //get entity manager
         $em = $this->getDoctrine()->getManager();
 
-        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated();
+        //get page number
+        $page = $request->query->get('page');
 
+        //generate first number by page
+        if($page > 1) {
+            $first = ($page - 1) * self::LIMIT;
+        }
+        else {
+            $first = 0;
+        }
+
+        //get last updated date for caching
+        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated($first, self::LIMIT);
+
+        //new response
         $response = new Response();
 
         // set last modified data
@@ -40,23 +58,59 @@ class BlogController extends Controller
             return $response;
         }
 
-        $blog = $em->getRepository('AppBundle:Blog')->findAll();
+        //get all blog
+        $blog = $em->getRepository('AppBundle:Blog')->findAllBlog();
 
-        return $this->render('AppBundle:Blog:list.html.twig', ['blog' => $blog], $response);
+        //get paginator
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $blog,
+            $request->query->getInt('page', 1)/*page number*/,
+            self::LIMIT
+        );
+
+        return $this->render('AppBundle:Blog:list.html.twig', ['blogs' => $pagination], $response);
     }
 
     /**
      * @param $slug
+     * @param Request $request
      * @Template()
      * @Route("/{slug}", name="blog_show")
      * @return Response
      */
-    public function showAction($slug)
+    public function showAction(Request $request, $slug)
     {
+        //get entity manager
         $em = $this->getDoctrine()->getManager();
+
+        //get blog
         $blog = $em->getRepository('AppBundle:Blog')->findOneBy(['slug' => $slug]);
 
-        return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog]);
+        if(is_null($blog)){
+            throw $this->createNotFoundException("Blog not found");
+        }
+
+        //get last updated date for caching
+        $lastModifiedDate = $blog->getUpdated();
+
+        //new response
+        $response = new Response();
+
+        // set last modified data
+        $response->setLastModified($lastModifiedDate);
+
+        // Set response as public. Otherwise it will be private by default.
+        $response->setPublic();
+
+        // Check that the Response is not modified for the given Request
+        if ($response->isNotModified($request)) {
+            // return the 304 Response immediately
+            return $response;
+        }
+
+        return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
     }
 }
 

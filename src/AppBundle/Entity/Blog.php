@@ -164,7 +164,7 @@ class Blog
      */
     public function  getBlMultipleBlog()
     {
-        // check images and return array
+        //check data and return array
         if($this->data){
 
             return $this->data;

@@ -83,6 +83,7 @@ class BlogAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'blog_link' => array('template' => 'AppBundle:Admin:blog_list_action_link.html.twig'),
                 )
             )) ;
     }

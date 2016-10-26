@@ -464,6 +464,7 @@ admin:
       place_name: Name
       blog: Blog
       blog_data: Data
+      blog_link: Blog link
 
 # end sonata admin lable
 
