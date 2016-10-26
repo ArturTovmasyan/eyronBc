@@ -135,12 +135,13 @@ angular.module('goalComponents', ['Interpolation',
       $scope.getPopularGoals(id);
     })
   }])
-  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'refreshingDate',
-    function($scope, $http, CacheFactory, envPrefix, refreshingDate){
+  .controller('topInLeaderboardController', ['$scope', '$http', 'CacheFactory', 'envPrefix', 'UserContext',
+    function($scope, $http, CacheFactory, envPrefix, UserContext){
       var path = envPrefix + "api/v1.0/badges";
       $scope.users = {};
       $scope.allUsers = [];
       $scope.index = 0;
+      $scope.currentUserId = UserContext.id;
       $scope.isMobile = (window.innerWidth < 768);
       var leaderboardCache = CacheFactory.get('bucketlist_by_leaderboard');
 

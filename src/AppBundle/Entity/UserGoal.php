@@ -58,7 +58,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="status", type="smallint", nullable=true)
+     * @ORM\Column(name="status", type="smallint")
      * @Groups({"userGoal"})
      */
     protected $status = self::ACTIVE;
@@ -100,7 +100,7 @@ class UserGoal implements ActivityableInterface
 
     /**
      * @var
-     * @ORM\Column(name="note", type="text", nullable=true)
+     * @ORM\Column(name="note", type="string", length=1000, nullable=true)
      * @Groups({"userGoal"})
      */
     protected $note;
@@ -662,4 +662,32 @@ class UserGoal implements ActivityableInterface
     {
         return $this->confirmed;
     }
+
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLat()
+    {
+        return 0;
+    }
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLng()
+    {
+        return 0;
+    }
+    /**
+     * @deprecated
+     * @return int
+     */
+    public function getLocation()
+    {
+        return null;
+    }
+
 }
