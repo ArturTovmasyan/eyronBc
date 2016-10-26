@@ -23,26 +23,31 @@ class BlogRepository extends EntityRepository
        $data = $this->getEntityManager()
             ->createQuery("SELECT b.updated 
                            FROM AppBundle:Blog b
-                           ORDER BY b.updated 
+                           ORDER BY b.updated DESC
                            ")
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->getResult();
 
-        $data = end($data);
+        $data = reset($data);
         return $data['updated'];
     }
 
     /**
+     * @param $first
+     * @param $count
+     * @return mixed
      * @return array
      */
-    public function findAllBlog()
+    public function findAllBlog($first, $count)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT b 
                            FROM AppBundle:Blog b
-                           ORDER BY b.updated DESC
+                           ORDER BY b.created DESC
                            ")
+            ->setFirstResult($first)
+            ->setMaxResults($count)
             ->getResult();
     }
 }

@@ -45,6 +45,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('id', null, array('label' => 'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
+            ->add('position', null, array('label'=>'admin.label.name.slug'))
             ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
             ->add('updated', null)
         ;
@@ -56,6 +57,7 @@ class BlogAdmin extends AbstractAdmin
         // CREATE
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'));
         ;
     }
@@ -66,6 +68,7 @@ class BlogAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
+            ->add('position', null, array('label'=>'admin.label.name.position', 'show_filter' => true))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'show_filter' => true))
         ;
     }
@@ -76,8 +79,10 @@ class BlogAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
-            ->add('updated', null)
+            ->add('updated')
+            ->add('created')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

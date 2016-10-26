@@ -2,9 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -16,12 +17,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Blog
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_GOAL = 'goal';
+
     /**
      * @var int
      *
      * @ORM\Column(type="smallint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"blog"})
      */
     private $id;
 
@@ -29,6 +34,7 @@ class Blog
      * @var array
      * @Assert\Type("array")
      * @ORM\Column(type="array")
+     * @Groups({"blog"})
      */
     private $data;
 
@@ -36,14 +42,33 @@ class Blog
      * @var array
      * @Assert\Type("string")
      * @ORM\Column(type="string", length=64)
+     * @Groups({"blog"})
      */
     private $title;
 
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=64, unique=true)
+     * @Groups({"blog"})
      */
     protected $slug;
+
+    /**
+     * @var \DateTime
+     * @Assert\Type("integer")
+     * @ORM\Column(type="smallint")
+     * @Groups({"blog"})
+     */
+    private $position;
+
+    /**
+     * @var \DateTime
+     * @Assert\Type("datetime")
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @Groups({"blog"})
+     */
+    private $created;
 
     /**
      * @var \DateTime
@@ -52,7 +77,7 @@ class Blog
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;
-    
+
     /**
      * Get id
      *
@@ -180,4 +205,72 @@ class Blog
     {
         $this->data = array_values($multipleBlog);
     }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Blog
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Blog
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * This function is used to get all related goal ids
+     *
+     */
+   public function getRelatedGoalIds()
+   {
+       $blogData = $this->data;
+       $ids = [];
+       
+       foreach ($blogData as $data)
+       {
+           if ($data['type'] == self::TYPE_GOAL) {
+
+               $ids[] = $data['content'];
+           }
+       }
+       
+       return $ids;
+   }
 }

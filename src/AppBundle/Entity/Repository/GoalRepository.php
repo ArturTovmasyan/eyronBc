@@ -860,4 +860,19 @@ class GoalRepository extends EntityRepository
             ->setParameter('completed', UserGoal::COMPLETED)
             ->getResult();
     }
+
+    /**
+     * @param $goalIds
+     * @return array
+     */
+    public function findGoalByIds($goalIds)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                "SELECT g
+                 FROM AppBundle:Goal g
+                 WHERE g.id in (:ids)")
+            ->setParameter('ids', $goalIds)
+            ->getResult();
+    }
 }
