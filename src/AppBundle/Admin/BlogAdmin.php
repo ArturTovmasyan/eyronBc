@@ -58,6 +58,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
+            ->add('file', 'file', array('label'=>'admin.label.name.position'))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'));
         ;
     }
@@ -91,5 +92,29 @@ class BlogAdmin extends AbstractAdmin
                     'blog_link' => array('template' => 'AppBundle:Admin:blog_list_action_link.html.twig'),
                 )
             )) ;
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function prePersist($object)
+    {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
+        //disable listener for stats count
+        $container->get('bl_service')->uploadFile($object);
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function preUpdate($object)
+    {
+        //get container
+        $container = $this->getConfigurationPool()->getContainer();
+
+        //disable listener for stats count
+        $container->get('bl_service')->uploadFile($object);
     }
 }

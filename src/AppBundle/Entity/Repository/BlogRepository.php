@@ -39,7 +39,7 @@ class BlogRepository extends EntityRepository
      * @return mixed
      * @return array
      */
-    public function findAllBlog($first, $count)
+    public function findAllBlogForMobile($first, $count)
     {
         return $this->getEntityManager()
             ->createQuery("SELECT b 
@@ -48,6 +48,20 @@ class BlogRepository extends EntityRepository
                            ")
             ->setFirstResult($first)
             ->setMaxResults($count)
+            ->getResult();
+    }
+
+    /**
+     * @return mixed
+     * @return array
+     */
+    public function findAllBlog()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT b 
+                           FROM AppBundle:Blog b
+                           ORDER BY b.created DESC
+                           ")
             ->getResult();
     }
 }

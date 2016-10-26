@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% set user = app.user %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{%- block title -%}BucketList{%- endblock -%}</title>
+    <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app/bower_components/bootstrap/dist/css/bootstrap.min.css') }}"/>
+
+    {# this allows to add additional meta data #}
+    {% block meta %}{% endblock %}
+
+    {# styles #}
+    {% block stylesheets %}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+{% block body %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+</body>
+</html>

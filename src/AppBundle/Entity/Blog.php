@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
@@ -17,6 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Blog
 {
+    // use file trait
+    use File;
+
     const TYPE_TEXT = 'text';
     const TYPE_GOAL = 'goal';
 
