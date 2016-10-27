@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Model\ImageableInterface;
 use AppBundle\Traits\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
@@ -61,6 +62,12 @@ class Blog implements ImageableInterface
     protected $slug;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @Groups({"blog"})
+     */
+    private $goals;
+    
+    /**
      * @var integer
      * @Assert\Type("integer")
      * @ORM\Column(type="smallint")
@@ -70,7 +77,7 @@ class Blog implements ImageableInterface
 
     /**
      * @var string
-     * @SerializedName("blog_image_path")
+     * @SerializedName("image_path")
      * @Groups({"blog"})
      */
     private $mobileImagePath;
@@ -206,28 +213,6 @@ class Blog implements ImageableInterface
     }
 
     /**
-     * @return array
-     */
-    public function  getBlMultipleBlog()
-    {
-        //check data and return array
-        if($this->data){
-
-            return $this->data;
-        }
-        
-        return null;
-    }
-
-    /**
-     * @param $multipleBlog
-     */
-    public function  setBlMultipleBlog($multipleBlog)
-    {
-        $this->data = array_values($multipleBlog);
-    }
-
-    /**
      * Set position
      *
      * @param integer $position
@@ -276,31 +261,13 @@ class Blog implements ImageableInterface
     }
 
     /**
-     * This function is used to get all related goal ids
-     *
-     */
-   public function getRelatedGoalIds()
-   {
-       $ids = [];
-       
-       foreach ($this->data as $data)
-       {
-           if ($data['type'] == self::TYPE_GOAL) {
-               $ids[] = $data['content'];
-           }
-       }
-       
-       return $ids;
-   }
-
-    /**
      * @param $path
      * @return $this
      */
     public function setMobileImagePath($path)
     {
         $this->mobileImagePath = $path;
-
+        
         return $this;
     }
 
@@ -334,5 +301,71 @@ class Blog implements ImageableInterface
     public function getMetaDescription()
     {
         return $this->metaDescription;
+    }
+
+    /**
+     * This function is used to get all related goal ids
+     *
+     */
+    public function getRelatedGoalIds()
+    {
+        $ids = [];
+
+        foreach ($this->data as $data)
+        {
+            if ($data['type'] == self::TYPE_GOAL) {
+                $ids[] = $data['content'];
+            }
+        }
+
+        return $ids;
+    }
+
+    /**
+     * @return array
+     */
+    public function  getBlMultipleBlog()
+    {
+        //check data and return array
+        if($this->data){
+
+            return $this->data;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $multipleBlog
+     */
+    public function  setBlMultipleBlog($multipleBlog)
+    {
+        $this->data = array_values($multipleBlog);
+    }
+    
+    /**
+     * @param array $goal
+     * @return $this
+     */
+    public function addGoals($goal)
+    {
+        $this->goals = $goal;
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getGoals()
+    {
+        return $this->goals;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->goals  = new ArrayCollection();
     }
 }

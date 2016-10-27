@@ -122,17 +122,13 @@ class BlogController extends FOSRestController
             return $response;
         }
 
-        //get related goal ids
+        //add goals in arrayCollection
         $goalIds = $blog->getRelatedGoalIds();
-
-        //get goals by ids
         $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
+        $blog->addGoals($relatedGoals);
 
-        $content = [
-            'blog' => $blog,
-            'goals' => $relatedGoals
-        ];
-
+        //set content in response
+        $content = ['blog' => $blog];
         $serializer = $this->get('serializer');
         $serializedContent = $serializer->serialize($content, 'json',
             SerializationContext::create()->setGroups(['blog']));

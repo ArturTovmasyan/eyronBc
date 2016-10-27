@@ -8,8 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 /**
@@ -18,15 +16,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class BlogController extends Controller
 {
-    const LIMIT = 10;
+//    const LIMIT = 10;
 
     /**
      * @Route("/blog", name="blog_list")
      * @Cache(expires="+1 month", public=true)
      * @return Response
-     * @param Request $request
      */
-    public function listAction(Request $request)
+    public function listAction()
     {
 //        //get entity manager
 //        $em = $this->getDoctrine()->getManager();
@@ -71,7 +68,6 @@ class BlogController extends Controller
 //            $request->query->getInt('page', 1)/*page number*/,
 //            self::LIMIT
 //        );
-
         return $this->render('AppBundle:Blog:list.html.twig');
     }
 
@@ -109,13 +105,12 @@ class BlogController extends Controller
             return $response;
         }
 
-        //get related goal ids
+        //add goals in arrayCollection
         $goalIds = $blog->getRelatedGoalIds();
-
-        //get goals by ids
         $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
+        $blog->addGoals($relatedGoals);
 
-        return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog, 'goals' => $relatedGoals], $response);
+        return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
     }
 }
 

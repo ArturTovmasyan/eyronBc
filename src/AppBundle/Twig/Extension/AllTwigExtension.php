@@ -15,7 +15,7 @@ use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\UserGoal;
 
 /**
- * Class OllTwigExtension
+ * Class AllTwigExtension
  * @package AppBundle\Twig\Extension
  */
 class AllTwigExtension extends \Twig_Extension
@@ -55,8 +55,8 @@ class AllTwigExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter('sliceString', array($this, 'sliceString')),
-            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag'),
-            new \Twig_SimpleFilter('remove_asset_version', array($this, 'removeAssetVersion') ,  array('is_safe' => array('html'))))
+            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag')),
+            new \Twig_SimpleFilter('remove_asset_version', array($this, 'removeAssetVersion'),  array('is_safe' => array('html')))
         ];
     }
 
@@ -297,10 +297,8 @@ class AllTwigExtension extends \Twig_Extension
     }
 
     /**
-     *
-     * @param type $word
-     * @param type $expr
-     * @return type
+     * @param $url
+     * @return string
      */
     public function removeAssetVersion($url)
     {
