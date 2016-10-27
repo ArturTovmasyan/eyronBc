@@ -434,6 +434,7 @@ angular.module('manage', ['Interpolation',
                     });
 
                     tmp.on($.modal.CLOSE, function(){
+                        $rootScope.$broadcast('lsGoalUsersModalClosed');
                         tmp.remove();
                     })
                 }
