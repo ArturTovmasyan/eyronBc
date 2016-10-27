@@ -208,6 +208,12 @@ angular.module('profile')
       $scope.friendName = '';
       $scope.category = 'all';
 
+      $scope.$on('lsGoalUsersModalClosed', function(){
+        if(!angular.isUndefined($scope.Friends)){
+          $scope.Friends.busy = true;
+        }
+      });
+
       $scope.getCategory = function(category){
         $scope.category = category;
         $scope.Friends.reset();
@@ -220,7 +226,7 @@ angular.module('profile')
         $scope.Friends = new lsInfiniteGoals(20);
       }
 
-      if(path.length){
+      if(path.length && !$scope.goalId){
         $timeout(function () {
           path = path.slice(1);
           switch (path){
