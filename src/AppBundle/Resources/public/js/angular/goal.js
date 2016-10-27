@@ -67,6 +67,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
+            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}";
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -96,6 +97,23 @@ angular.module('goal', ['Interpolation',
             this.request = 0;
             this.start = 0;
             this.category = "";
+        };
+
+        lsInfiniteItems.prototype.nearBy = function(position){
+            if (this.busy || angular.isUndefined(position) || !position.latitude || !position.longitude) {
+                return;
+            }
+
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude);
+
+            $http.get(url).success(function(data) {
+                if(!data.length){
+                    this.noItem = true;
+                }
+
+                this.items = this.items.concat(data);
+                this.busy = data.length ? false : true;
+            }.bind(this));
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -681,6 +699,7 @@ angular.module('goal', ['Interpolation',
     .controller('goalList', ['$scope', 'lsInfiniteItems', '$timeout', 'envPrefix', '$location',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
         var path = $location.$$path;
+        $scope.browseError = '';
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -703,6 +722,37 @@ angular.module('goal', ['Interpolation',
             },100);
         }
 
+        $scope.allowBrowserLocation = function () {
+
+            if (!navigator.geolocation){
+                $scope.browseError = "Geolocation is not supported by your browser";
+                return;
+            }
+
+            function success(position) {
+                $scope.position = position;
+                $scope.userLocation = position.coords;
+                $scope.Ideas.reset();
+                $scope.Ideas.nearBy($scope.userLocation );
+
+                $timeout(function(){
+                    $scope.$emit('allowLocation', $scope.position);
+                },10);
+            }
+
+            function error() {
+                $scope.browseError = "Unable to retrieve your location";
+            }
+            
+            navigator.geolocation.getCurrentPosition(success, error);
+        };
+
+        $scope.$on('location_place_changed', function (ev, data) {
+            $scope.userLocation = data;
+            $scope.Ideas.reset();
+            $scope.Ideas.nearBy(data);
+        });
+
         $scope.goTo = function (path) {
             $scope.noIdeas = false;
             $scope.ideasTitle = false;
@@ -712,7 +762,28 @@ angular.module('goal', ['Interpolation',
             $scope.activeCategory = path;
             $scope.Ideas.reset();
             $scope.search = '';
-            $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+            if($scope.activeCategory != 'nearby'){
+                $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
+            } else {
+                $scope.$emit('location-resize');
+                if($scope.position){
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nearBy($scope.position.coords);
+
+                    $timeout(function(){
+                        $scope.$emit('allowLocation', $scope.position);
+                    },10);
+                } else if($scope.userLocation){
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nearBy($scope.userLocation);
+
+                    $timeout(function () {
+                        $('html, body').stop().animate( {
+                            'scrollTop': $('div[data-autocomplete-map]').offset().top + $('div[data-autocomplete-map]').outerHeight()
+                        }, 900);
+                    }, 1000);
+                }
+            }
 
         };
 
@@ -808,7 +879,7 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$watch('Ideas.items', function(d) {
-            if(!d.length){
+            if(!d.length && $scope.activeCategory != 'nearby'){
                 if($scope.Ideas.noItem ){
                     $scope.fadeMapIcon = false;
                     $scope.showMap = false;
