@@ -287,8 +287,8 @@ class OllTwigExtension extends \Twig_Extension
     public function badgeNormalizer($type, $score)
     {
         // get max badge score
-        $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore();
-        $maxScore = array_key_exists($type, $maxBadgeScore) ? $maxBadgeScore[$type] : 1;
+        $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore($score, $type);
+        $maxScore = array_key_exists($type, $maxBadgeScore) ? $maxBadgeScore[$type] : $score;
         $normalizedScore = $score/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
         $normalizedScore = ceil($normalizedScore);
 
