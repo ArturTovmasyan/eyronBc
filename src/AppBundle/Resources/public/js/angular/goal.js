@@ -776,6 +776,12 @@ angular.module('goal', ['Interpolation',
                 } else if($scope.userLocation){
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.userLocation);
+
+                    $timeout(function () {
+                        $('html, body').stop().animate( {
+                            'scrollTop': $('div[data-autocomplete-map]').offset().top + $('div[data-autocomplete-map]').outerHeight()
+                        }, 900);
+                    }, 1000);
                 }
             }
 

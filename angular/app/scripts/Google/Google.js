@@ -236,6 +236,14 @@ angular.module('Google', [])
                     return m;
                 }
 
+                function scrollToGoals(el) {
+                    $timeout(function () {
+                        $('html, body').stop().animate( {
+                            'scrollTop': el.offset().top + el.outerHeight()
+                        }, 900);
+                    }, 1000);
+                }
+
                return function initMap(scope, el) {
                     scope.map = Initialize(document.getElementById('autocompleteMap'),scope.zoom);
                     var input = (document.getElementById('pac-input'));
@@ -257,6 +265,8 @@ angular.module('Google', [])
                         infowindow.close();
                         marker.setVisible(false);
                         var place = autocomplete.getPlace();
+
+                        scrollToGoals(el);
 
                         $rootScope.$broadcast('location_place_changed',
                           {
@@ -306,6 +316,8 @@ angular.module('Google', [])
                     });
 
                    $rootScope.$on('allowLocation', function (ev, position) {
+                       scrollToGoals(el);
+
                        scope.myLocation = addMarker(position.coords, scope.activeMarkerIcon, scope.map);
                    });
 
