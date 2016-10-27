@@ -259,7 +259,10 @@ angular.module('Google', [])
                         var place = autocomplete.getPlace();
 
                         $rootScope.$broadcast('location_place_changed',
-                          [place.geometry.location.lat(), place.geometry.location.lng()]
+                          {
+                              latitude: place.geometry.location.lat(),
+                              longitude: place.geometry.location.lng()
+                          }
                         );
                         
                         if (!place.geometry) {

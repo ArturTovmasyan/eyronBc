@@ -67,6 +67,7 @@ angular.module('goal', ['Interpolation',
             this.busy = false;
             this.noItem = false;
             this.category = "";
+            this.nearByPath = envPrefix + "api/v1.0/goals/nearby/{latitude}/{longitude}";
             this.isReset = false;
             this.request = 0;
             this.start = 0;
@@ -96,6 +97,23 @@ angular.module('goal', ['Interpolation',
             this.request = 0;
             this.start = 0;
             this.category = "";
+        };
+
+        lsInfiniteItems.prototype.nearBy = function(position){
+            if (this.busy || angular.isUndefined(position) || !position.latitude || !position.longitude) {
+                return;
+            }
+
+            var url = this.nearByPath.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude);
+
+            $http.get(url).success(function(data) {
+                if(!data.length){
+                    this.noItem = true;
+                }
+
+                this.items = this.items.concat(data);
+                this.busy = data.length ? false : true;
+            }.bind(this));
         };
 
         lsInfiniteItems.prototype.getReserve = function(url, search, category) {
@@ -713,7 +731,10 @@ angular.module('goal', ['Interpolation',
 
             function success(position) {
                 $scope.position = position;
-                //todo get goals by  location
+                $scope.userLocation = position.coords;
+                $scope.Ideas.reset();
+                $scope.Ideas.nearBy($scope.userLocation );
+
                 $timeout(function(){
                     $scope.$emit('allowLocation', $scope.position);
                 },10);
@@ -727,7 +748,9 @@ angular.module('goal', ['Interpolation',
         };
 
         $scope.$on('location_place_changed', function (ev, data) {
-            //todo get goals by  location
+            $scope.userLocation = data;
+            $scope.Ideas.reset();
+            $scope.Ideas.nearBy(data);
         });
 
         $scope.goTo = function (path) {
@@ -743,6 +766,17 @@ angular.module('goal', ['Interpolation',
                 $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
             } else {
                 $scope.$emit('location-resize');
+                if($scope.position){
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nearBy($scope.position.coords);
+
+                    $timeout(function(){
+                        $scope.$emit('allowLocation', $scope.position);
+                    },10);
+                } else if($scope.userLocation){
+                    $scope.Ideas.reset();
+                    $scope.Ideas.nearBy($scope.userLocation);
+                }
             }
 
         };

@@ -59,6 +59,45 @@ class GoalController extends FOSRestController
         // get near by goals
         $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
 
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        $filters = [
+            0 => 'goal_list_small',
+            1 => 'goal_list_small',
+            2 => 'goal_list_small',
+            3 => 'goal_list_small',
+            4 => 'goal_list_horizontal',
+            5 => 'goal_list_big',
+            6 => 'goal_list_vertical',
+            7 => 'goal_list_small',
+            8 => 'goal_list_small',
+            9 => 'goal_list_small',
+        ];
+
+        // cached images
+        foreach($nearbyGoals as $key => $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$key]));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
+
+
+
+
+
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        for($i = 0; $i < 10; $i++){
+            if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
+                $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
+            }
+        }
+
         return  $nearbyGoals;
     }
 
