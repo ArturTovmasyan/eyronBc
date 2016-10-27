@@ -75,9 +75,6 @@ class GoalRepository extends EntityRepository
 
 
         return $result;
-
-//        $paginator = new Paginator($query, $fetchJoinCollection = true);
-//        return $paginator->getIterator()->getArrayCopy();
     }
 
     /**
