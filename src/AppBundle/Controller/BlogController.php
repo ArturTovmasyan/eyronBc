@@ -92,14 +92,11 @@ class BlogController extends Controller
             throw $this->createNotFoundException("Blog not found");
         }
 
-        //get last updated date for caching
-        $lastModifiedDate = $blog->getUpdated();
-
         //new response
         $response = new Response();
 
         // set last modified data
-        $response->setLastModified($lastModifiedDate);
+        $response->setLastModified($blog->getUpdated());
 
         // Set response as public. Otherwise it will be private by default.
         $response->setPublic();
