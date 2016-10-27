@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% set user = app.user %}
-<html>
+<html amp lang="en">
 <head>
     <meta charset="utf-8" />
     <title>{%- block title -%}BucketList{%- endblock -%}</title>
@@ -10,25 +9,34 @@
     {# this allows to add additional meta data #}
     {% block meta %}{% endblock %}
 
-    {# styles #}
-    {% block stylesheets %}
-    {% endblock %}
-
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    {# custom css#}
+    <style amp-custom>
+        {% block stylesheets %}
+            {% stylesheets output='css/amp-base.css'
+                '@AppBundle/Resources/public/less/amp.less'
+            %}
+            {{ source(asset_url|remove_asset_version) }}
+            {% endstylesheets %}
+        {% endblock %}
+    </style>
 </head>
 
 <body>
 {% block body %}
-    {% block content %}
-    {% endblock %}
-{% endblock %}
-
-{% block javascripts %}
+    {# header + menu#}
+    {% block content %}{% endblock %}
+    {# footer #}
 {% endblock %}
 </body>
 </html>

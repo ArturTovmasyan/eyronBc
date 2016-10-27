@@ -281,13 +281,11 @@ class Blog implements ImageableInterface
      */
    public function getRelatedGoalIds()
    {
-       $blogData = $this->data;
        $ids = [];
        
-       foreach ($blogData as $data)
+       foreach ($this->data as $data)
        {
            if ($data['type'] == self::TYPE_GOAL) {
-
                $ids[] = $data['content'];
            }
        }

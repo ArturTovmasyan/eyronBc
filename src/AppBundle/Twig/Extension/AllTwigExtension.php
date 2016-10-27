@@ -18,7 +18,7 @@ use AppBundle\Entity\UserGoal;
  * Class OllTwigExtension
  * @package AppBundle\Twig\Extension
  */
-class OllTwigExtension extends \Twig_Extension
+class AllTwigExtension extends \Twig_Extension
 {
     /**
      * @var
@@ -48,16 +48,16 @@ class OllTwigExtension extends \Twig_Extension
         $this->environment = $environment;
     }
 
-
     /**
      * @return array
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter('sliceString', array($this, 'sliceString')),
-            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag'))
-        );
+            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag'),
+            new \Twig_SimpleFilter('remove_asset_version', array($this, 'removeAssetVersion') ,  array('is_safe' => array('html'))))
+        ];
     }
 
     /**
@@ -294,6 +294,23 @@ class OllTwigExtension extends \Twig_Extension
 
         return $normalizedScore;
 
+    }
+
+    /**
+     *
+     * @param type $word
+     * @param type $expr
+     * @return type
+     */
+    public function removeAssetVersion($url)
+    {
+        $pos = strpos($url, '?');
+
+        if($pos){
+            $url = substr($url, 0, $pos);
+        }
+
+        return $url;
     }
 
     public function getName()
