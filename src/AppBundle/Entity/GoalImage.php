@@ -50,16 +50,16 @@ class GoalImage implements ImageableInterface
     protected $goal;
 
     /**
-     * @ORM\Column(type="boolean", name="list_image", nullable=true)
+     * @ORM\Column(type="boolean", name="list_image")
      * @Groups({"image"})
      */
-    protected $list;
+    protected $list = false;
 
     /**
-     * @ORM\Column(type="boolean", name="cover_image", nullable=true)
+     * @ORM\Column(type="boolean", name="cover_image")
      * @Groups({"image"})
      */
-    protected $cover;
+    protected $cover = false;
 
     /**
      * @var

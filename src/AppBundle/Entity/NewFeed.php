@@ -40,7 +40,7 @@ class NewFeed
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      *
      * @Groups({"new_feed"})
      */

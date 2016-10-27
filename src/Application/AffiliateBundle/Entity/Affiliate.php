@@ -71,14 +71,14 @@ class Affiliate
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\AffiliateBundle\Entity\AffiliateType")
-     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="affiliate_type_id", referencedColumnName="id", nullable=false)
      *
      * @Groups({"affiliate_affiliateType"})
      */
     protected $affiliateType;
 
     /**
-     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @ORM\Column(name="publish", type="boolean")
      */
     protected $publish = false;
 

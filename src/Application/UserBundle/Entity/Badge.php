@@ -61,7 +61,7 @@ class Badge
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User", inversedBy="badges")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @Groups({"badge"})
      */
     protected $user;
@@ -70,7 +70,7 @@ class Badge
      * @var
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime")
      */
     protected $updated;
     

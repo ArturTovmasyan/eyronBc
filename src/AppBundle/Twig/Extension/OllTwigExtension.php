@@ -74,7 +74,7 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('locations', array($this, 'locations')),
             new \Twig_SimpleFunction('getReferer', array($this, 'getReferer')),
             new \Twig_SimpleFunction('getThreadInnerLink', array($this, 'getThreadInnerLink')),
-            new \Twig_SimpleFunction('maxBadgeScore', array($this, 'maxBadgeScore'))
+            new \Twig_SimpleFunction('badgeNormalizer', array($this, 'badgeNormalizer'))
         );
     }
     /**
@@ -277,16 +277,22 @@ class OllTwigExtension extends \Twig_Extension
         return isset($slug) ? $router->generate('inner_goal', ['slug' => $slug]) : '#';
     }
 
+
     /**
      * @param $type
-     * @return mixed
+     * @param $score
+     * @return float
+     * @throws \Throwable
      */
-    public function maxBadgeScore($type)
+    public function badgeNormalizer($type, $score)
     {
         // get max badge score
-        $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore();
+        $maxBadgeScore = $this->container->get('bl.badge.service')->getMaxScore($score, $type);
+        $maxScore = array_key_exists($type, $maxBadgeScore) ? $maxBadgeScore[$type] : $score;
+        $normalizedScore = $score/$maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+        $normalizedScore = ceil($normalizedScore);
 
-        return array_key_exists($type, $maxBadgeScore) ? $maxBadgeScore[$type] : 1;
+        return $normalizedScore;
 
     }
 

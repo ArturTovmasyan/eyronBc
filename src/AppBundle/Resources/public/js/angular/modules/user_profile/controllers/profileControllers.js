@@ -1,8 +1,18 @@
 'use strict';
 
 angular.module('profile')
-  .controller('profileController',['$scope', '$rootScope', '$timeout', 'lsInfiniteGoals', '$http', '$compile', 'refreshingDate', '$location', 'UserGoalConstant',
-    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant) {
+  .controller('profileController',
+    ['$scope',
+      '$rootScope',
+      '$timeout',
+      'lsInfiniteGoals',
+      '$http',
+      '$compile',
+      'refreshingDate',
+      '$location',
+      'UserGoalConstant',
+      'UserContext',
+    function ($scope, $rootScope, $timeout, lsInfiniteGoals, $http, $compile, refreshingDate, $location, UserGoalConstant, UserContext) {
       var path = $location.$$path;
       $scope.errorMessages = [];
       $scope.userGoalIds = [];
@@ -115,6 +125,10 @@ angular.module('profile')
               $scope.goTo(4);
               break;
             case UserGoalConstant.OWNED_PATH:
+              if(UserContext.id == $scope.profile.userId){
+                window.location.href = window.location.href.replace('#/' + UserGoalConstant.OWNED_PATH,'')
+              }
+              
               $scope.goTo(5);
               break;
             default:
@@ -147,7 +161,7 @@ angular.module('profile')
       });
 
       $scope.isEmpty = function (object) {
-        return !Object.keys(object).length;
+        return (angular.isUndefined(object) || !Object.keys(object).length);
       };
 
       $scope.isLate = function (date) {

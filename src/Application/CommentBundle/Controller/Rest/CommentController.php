@@ -56,65 +56,8 @@ class CommentController extends FOSRestController
      */
     public function putAction(Request $request, Goal $goal, Comment $parentComment = null)
     {
-        if($request->getContentType() == 'application/json' || $request->getContentType() == 'json'){
-            $content = $request->getContent();
-            $request->request->add(json_decode($content, true));
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $threadId = 'goal_' . $goal->getSlug();
-        $thread = $em->getRepository('ApplicationCommentBundle:Thread')->find($threadId);
-        if (is_null($thread)){
-            $thread = new Thread();
-            $thread->setId($threadId);
-
-            $em->persist($thread);
-        }
-
-        if (!is_null($parentComment)){
-            if ($parentComment->getThread()->getId() != $thread->getId()){
-                throw new HttpException(Response::HTTP_BAD_REQUEST);
-            }
-        }
-
-        $body = $request->get('commentBody', null);
-        if (is_null($body)){
-            throw new HttpException(Response::HTTP_BAD_REQUEST, 'Body can not be empty');
-        }
-
-        $comment = new Comment();
-        $comment->setThread($thread);
-        $comment->setAuthor($this->getUser());
-        $comment->setBody($body);
-        $comment->setParent($parentComment);
-        $thread->addComment($comment);
-        $em->persist($comment);
-
-
-        $this->get('request_stack')->getCurrentRequest()->getSession()
-            ->getFlashBag()
-            ->set('comments','Add comment from Web');
-
-
-        $this->container->get('bl.doctrine.listener')->disableUserStatsLoading();
-        $importantAddedUsers = $em->getRepository('AppBundle:Goal')->findImportantAddedUsers($goal->getId());
-        $link = $this->get('router')->generate('inner_goal', ['slug' => $goal->getSlug()]);
-        $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.important_goal_comment' : 'notification.important_goal_reply', [], null, 'en');
-        $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $importantAddedUsers);
-
-        //check if goal author is not admin and not null
-        if($goal && $goal->hasAuthorForNotify($this->getUser()->getId())) {
-            $this->get('user_notify')->sendNotifyAboutNewComment($goal, $this->getUser(), $body);
-
-            //Send notification to goal author
-            $body = $this->get('translator')->trans(is_null($parentComment) ? 'notification.comment' : 'notification.reply', [], null, 'en');
-            $this->get('bl_notification')->sendNotification($this->getUser(), $link, $goal->getId(), $body, $goal->getAuthor());
-        }
-
-        $em->flush();
-
-
-        return $comment;
+        return $this->container->get("application.comment")
+            ->putComment($request, $goal, $this->getUser(), $parentComment);
     }
 
     /**

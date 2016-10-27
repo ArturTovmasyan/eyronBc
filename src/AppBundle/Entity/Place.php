@@ -50,6 +50,7 @@ class Place
     /**
      *
      * @ORM\ManyToOne(targetEntity="PlaceType")
+     * @ORM\JoinColumn(name="place_type_id", referencedColumnName="id", nullable=false)
      */
     protected $placeType;
 

@@ -10,10 +10,18 @@ namespace Application\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\Repository\UserNotificationRepository")
- * @ORM\Table(name="user_notification", indexes={@ORM\Index(name="IDX_notification_last_modified", columns={"user_id", "updated"})})
+ * @ORM\Table(name="user_notification",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_user_notification", columns={"user_id", "notification_id"})},
+ *     indexes={@ORM\Index(name="IDX_user_notification", columns={"user_id", "created"}),
+ *              @ORM\Index(name="IDX_notification_last_modified", columns={"user_id", "updated"})})
+ * @UniqueEntity(
+ *     fields={"user", "notification"},
+ *     message="This notification is already exist."
+ * )
  */
 class UserNotification
 {
@@ -27,7 +35,7 @@ class UserNotification
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
      * @Groups({"userNotification_user"})
      */
@@ -35,7 +43,7 @@ class UserNotification
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\UserBundle\Entity\Notification", inversedBy="userNotifications")
-     * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="notification_id", referencedColumnName="id", nullable=false)
      *
      * @Groups({"userNotification_notification"})
      */
@@ -54,6 +62,13 @@ class UserNotification
      * @Groups({"userNotification"})
      */
     protected $updated;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     * @Groups({"userNotification"})
+     */
+    protected $created;
 
     /**
      * Get id
@@ -151,5 +166,22 @@ class UserNotification
     public function getNotification()
     {
         return $this->notification;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 }

@@ -34,7 +34,7 @@ class Category
     protected $id;
 
     /**
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="title", type="string", length=25)
      * @Groups("category")
      * @Gedmo\Translatable
      */
@@ -42,7 +42,7 @@ class Category
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(name="slug", type="string", unique=true, nullable=false)
+     * @ORM\Column(name="slug", type="string", unique=true, length=25)
      * @Groups("category")
      */
     protected $slug;

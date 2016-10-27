@@ -39,7 +39,9 @@
                     </figure>
                 </li>
 
-                <li class="text-gray">[[ getFullName(user.user)]]</li>
+                <li>
+                    <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (k == 'innovator' && currentUserId != user.user.id?'#/owned':'')]]"  class="text-gray">[[ getFullName(user.user)]]</a>
+                </li>
 
                 <li class="text-gray">[[ user.score]]</li>
             </ul>

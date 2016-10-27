@@ -15,11 +15,12 @@ angular.module('leaderboard', ['Interpolation',
   INNOVATOR_PATH : 'Innovator',
   MAXIMUM_NORMALIZE_SCORE : 10
   })
-  .controller('leaderboardController',['$scope', 'envPrefix', 'LeaderboardConstant', '$http', '$location', '$timeout',
-  function ($scope, envPrefix, LeaderboardConstant, $http, $location, $timeout) {
+  .controller('leaderboardController',['$scope', 'envPrefix', 'LeaderboardConstant', '$http', '$location', '$timeout', 'UserContext',
+  function ($scope, envPrefix, LeaderboardConstant, $http, $location, $timeout, UserContext) {
     var path = $location.$$path;
     $scope.users = [];
     $scope.usersCount = 10;
+    $scope.currentUserId = UserContext.id;
     $scope.isMobile = (window.innerWidth < 768);
     $scope.LeaderboardConstant = LeaderboardConstant;
     $scope.pageStatus = LeaderboardConstant.TYPE_INNOVATOR;

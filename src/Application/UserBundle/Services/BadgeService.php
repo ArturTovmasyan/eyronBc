@@ -163,7 +163,7 @@ class BadgeService
         $this->em->flush();
 
         // get max score from cache
-        $maxScore = $this->getMaxScore();
+        $maxScore = $this->getMaxScore($newScore, $type);
 
         // get score by type
         $typMaxScore = $maxScore[$type];
@@ -218,7 +218,7 @@ class BadgeService
             $this->em->flush();
 
             // get max score from cache
-            $maxScore = $this->getMaxScore();
+            $maxScore = $this->getMaxScore($newScore, $type);
 
             // get score by type
             $typMaxScore = $maxScore[$type];
@@ -236,15 +236,23 @@ class BadgeService
         }
     }
 
-
     /**
-     * @return array
+     * @param int $score
+     * @param int $type
+     * @return mixed
      */
-    public function getMaxScore()
+    public function getMaxScore($score = 0, $type = 0)
     {
         $badgeMaxScore = apc_fetch(self::BADGE_MAX_SCORE);
 
-        if(!$badgeMaxScore){
+        $getNewFromDb = true;
+        if(is_array($badgeMaxScore) &&
+            array_key_exists($type, $badgeMaxScore) &&
+            $badgeMaxScore[$type] >= $score){
+            $getNewFromDb = false;
+        }
+
+        if(!$badgeMaxScore || $getNewFromDb){
 
             $badgeMaxScore = $this->em->getRepository('ApplicationUserBundle:Badge')->getMaxScores();
             apc_add(self::BADGE_MAX_SCORE, $badgeMaxScore);
