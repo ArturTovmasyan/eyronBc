@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalRepository extends EntityRepository
 {
     const TopIdeasCount = 100;
+    const NEAR_BY_GOAL_COUNT = 10;
 
     /**
      * @param $latitude
@@ -34,10 +35,10 @@ class GoalRepository extends EntityRepository
     {
         //3959 search in miles
         //6371 search in km
-        return $this->getEntityManager()
+        $query =  $this->getEntityManager()
             ->createQuery("SELECT g, i,
                            (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
-                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as dist
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as HIDDEN dist
                            FROM AppBundle:Goal g
                            LEFT JOIN g.images i
                            WHERE g.lat is not null and g.lng is not null
@@ -45,8 +46,11 @@ class GoalRepository extends EntityRepository
                          ")
             ->setParameter('lat', $latitude)
             ->setParameter('lng', $longitude)
-            ->setMaxResults(10)
-            ->getResult();
+            ->setMaxResults(self::NEAR_BY_GOAL_COUNT)
+            ;
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        return $paginator->getIterator()->getArrayCopy();
     }
 
     /**
