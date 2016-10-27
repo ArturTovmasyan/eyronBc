@@ -60,7 +60,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('file', 'file', array('label'=>'admin.label.name.position', 'required' => false))
-            ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
+            ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
         ;
     }
