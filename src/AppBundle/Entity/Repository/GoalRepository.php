@@ -26,6 +26,30 @@ class GoalRepository extends EntityRepository
     const TopIdeasCount = 100;
 
     /**
+     * @param $latitude
+     * @param $longitude
+     * @return array
+     */
+    public function findNearbyGoals($latitude, $longitude)
+    {
+        //3959 search in miles
+        //6371 search in km
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, i,
+                           (6371 * acos(cos(radians(:lat)) * cos(radians(g.lat)) * cos(radians(g.lng)
+                            - radians(:lng)) + sin(radians(:lat)) * sin(radians(g.lat)))) as dist
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images i
+                           WHERE g.lat is not null and g.lng is not null
+                           ORDER BY dist
+                         ")
+            ->setParameter('lat', $latitude)
+            ->setParameter('lng', $longitude)
+            ->setMaxResults(10)
+            ->getResult();
+    }
+
+    /**
      * @param $count
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
