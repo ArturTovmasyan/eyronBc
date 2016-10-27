@@ -46,7 +46,9 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('position', null, array('label'=>'admin.label.name.slug'))
-            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
+//            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
+            ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
+            ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('updated', null)
         ;
     }
@@ -54,12 +56,12 @@ class BlogAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
-        // CREATE
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
-            ->add('file', 'file', array('label'=>'admin.label.name.position'))
-            ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'));
+            ->add('file', 'file', array('label'=>'admin.label.name.position', 'required' => false))
+            ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
+            ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
         ;
     }
 
@@ -82,8 +84,10 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
+            ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('updated')
             ->add('created')
+            ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

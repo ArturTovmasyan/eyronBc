@@ -1,4 +1,4 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "::anp.html.twig" %}
 
 {% block content %}
     <div class="container">
@@ -10,8 +10,10 @@
     </div>
 {% endblock %}
 
-{#{%- block title -%}#}
-{#{%- endblock -%}#}
+{%- block title -%}
+    {{ blog.title }}
+{%- endblock -%}
 
-{#{%- block meta_description -%}#}
-{#{%- endblock -%}#}
+{%- block meta_description -%}
+    {{- blog.metaDescription|markdown|striptags|sliceString -}}
+{%- endblock -%}

@@ -60,7 +60,7 @@ class BlogController extends FOSRestController
         }
 
         //get all blog
-        $blogs = $em->getRepository('AppBundle:Blog')->findAllBlog($first, $count);
+        $blogs = $em->getRepository('AppBundle:Blog')->findAllBlogForMobile($first, $count);
 
         $content = [
             'blogs' => $blogs,
@@ -68,7 +68,7 @@ class BlogController extends FOSRestController
 
         $serializer = $this->get('serializer');
         $serializedContent = $serializer->serialize($content, 'json',
-            SerializationContext::create());
+            SerializationContext::create()->setGroups(['blog']));
 
         $response->setContent($serializedContent);
 

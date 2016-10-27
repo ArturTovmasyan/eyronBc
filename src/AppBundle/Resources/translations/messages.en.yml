@@ -466,6 +466,7 @@ admin:
       blog_data: Data
       blog_link: Blog link
       position: Position
+      meta_description: Meta Desc.
 
 # end sonata admin lable
 

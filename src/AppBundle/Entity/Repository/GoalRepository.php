@@ -869,8 +869,9 @@ class GoalRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery(
-                "SELECT g
+                "SELECT g, im
                  FROM AppBundle:Goal g
+                 LEFT JOIN g.images im
                  WHERE g.id in (:ids)")
             ->setParameter('ids', $goalIds)
             ->getResult();

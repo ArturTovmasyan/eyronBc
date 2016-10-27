@@ -2,12 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ImageableInterface;
 use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -16,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="blog")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\BlogRepository")
  */
-class Blog
+class Blog implements ImageableInterface
 {
     // use file trait
     use File;
@@ -43,7 +45,7 @@ class Blog
     private $data;
 
     /**
-     * @var array
+     * @var string
      * @Assert\Type("string")
      * @ORM\Column(type="string", length=64)
      * @Groups({"blog"})
@@ -51,6 +53,7 @@ class Blog
     private $title;
 
     /**
+     * @var string
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=64, unique=true)
      * @Groups({"blog"})
@@ -58,12 +61,26 @@ class Blog
     protected $slug;
 
     /**
-     * @var \DateTime
+     * @var integer
      * @Assert\Type("integer")
      * @ORM\Column(type="smallint")
      * @Groups({"blog"})
      */
     private $position;
+
+    /**
+     * @var string
+     * @SerializedName("blog_image_path")
+     * @Groups({"blog"})
+     */
+    private $mobileImagePath;
+
+    /**
+     * @var string
+     * @Assert\Type("string")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $metaDescription;
 
     /**
      * @var \DateTime
@@ -277,4 +294,47 @@ class Blog
        
        return $ids;
    }
+
+    /**
+     * @param $path
+     * @return $this
+     */
+    public function setMobileImagePath($path)
+    {
+        $this->mobileImagePath = $path;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagePath()
+    {
+        return $this->getDownloadLink();
+    }
+
+    /**
+     * Set metaDescription
+     *
+     * @param string $metaDescription
+     *
+     * @return Blog
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get metaDescription
+     *
+     * @return string
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
 }
