@@ -43,7 +43,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: v518
+        assets_version: v520
     default_locale:  en
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -135,6 +135,10 @@ doctrine:
                 dayofweek:      Oro\ORM\Query\AST\Functions\SimpleFunction
             numeric_functions:
                 timestampdiff:  Oro\ORM\Query\AST\Functions\Numeric\TimestampDiff
+                ACOS: DoctrineExtensions\Query\Mysql\Acos
+                SIN: DoctrineExtensions\Query\Mysql\Sin
+                RADIANS: DoctrineExtensions\Query\Mysql\Radians
+                COS: DoctrineExtensions\Query\Mysql\Cos
             string_functions:
                 match_against: AppBundle\Extensions\Doctrine\MatchAgainst
 

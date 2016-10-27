@@ -33,6 +33,36 @@ class GoalController extends FOSRestController
     const RandomGoalFriendCounts = 3;
 
     /**
+     * @Rest\Get("/goals/nearby/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get near by goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *         400="Bad request",
+     *  },
+     *
+     * )
+     * @param Request $request
+     * @param $longitude
+     * @param $latitude
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getNearbyAction(Request $request, $latitude, $longitude)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get near by goals
+        $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
+
+        return  $nearbyGoals;
+    }
+
+    /**
      * @Rest\Get("/goals/{userId}/owned/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_owned", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,

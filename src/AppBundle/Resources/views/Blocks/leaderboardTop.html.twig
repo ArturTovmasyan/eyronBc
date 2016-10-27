@@ -28,8 +28,7 @@
                 data-ng-repeat="(k, user) in users"
                 data-ng-if="user">
                 <li class="text-gray">
-
-                    <i class="badge-[[$index + 1]]"></i>
+                    <i class="badge-[[ (k == 'motivator')?2:(k == 'innovator')?3:1]]"></i>
                 </li>
 
                 <li>

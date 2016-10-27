@@ -2237,15 +2237,23 @@ footer{
     vertical-align: middle;
     color: #a3a3a3;
 
-    &.ideas-icon{
-      width: 27px !important;
-      height: 27px !important;
+    &.icon-top-idea{
+      margin-right:10px;
     }
   }
 
-  i.icon-top-idea{
-    margin-right:10px;
+  span{
+    svg{
+      width: 27px !important;
+      height: 27px !important;
+      vertical-align: middle;
+
+      polyline,path,{
+        stroke: #A4A4A4;
+      }
+    }
   }
+
 }
 
 .standart-pages{
@@ -2560,6 +2568,21 @@ footer{
   background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
+.nearby-title {
+  font-size: 21px;
+  line-height: 33px;
+  margin: 0;
+  padding: 23px 0;
+
+  span{
+    &:hover{
+      color: #5e1dc3 !important;
+    }
+    &:active,&:focus{
+      color: #4f3576 !important;
+    }
+  }
+}
 .leaderboard-icon{
   display: inline-block;
   width: 25px !important;
@@ -3547,6 +3570,12 @@ footer{
 
   }
 
+  .nearby-title{
+    font-size: 32px;
+    line-height: 48px;
+    padding: 63px 0;
+  }
+
   .check_status{
     padding-bottom:5px;
   }
@@ -3612,6 +3641,7 @@ html {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
 
 
 @media (min-width: @screen-lg) {
@@ -3912,4 +3942,7 @@ div[dnd-list] {
   font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
+  color: #fff;
+  vertical-align: middle;
+  margin-bottom: 6px;
 }
