@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,6 +22,7 @@ class BlogController extends Controller
 
     /**
      * @Route("/blog", name="blog_list")
+     * @Cache(expires="+1 month", public=true)
      * @return Response
      * @param Request $request
      */
