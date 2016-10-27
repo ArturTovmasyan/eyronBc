@@ -124,12 +124,11 @@ class SuccessStoryService extends AbstractProcessService
             return new JsonResponse("Success Story can't created {$errorsString}", Response::HTTP_BAD_REQUEST);
         }
 
-        $this->runAsProcess('bl_story_service', 'sendNotification',
-            array($goal->getId(), $user->getId(), $successStory->getId(), $story));
-
-
         $em->persist($successStory);
         $em->flush();
+
+        $this->runAsProcess('bl_story_service', 'sendNotification',
+            array($goal->getId(), $user->getId(), $story, true));
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
 
@@ -165,8 +164,10 @@ class SuccessStoryService extends AbstractProcessService
             $successStory = new SuccessStory();
             $successStory->setGoal($goal);
             $successStory->setUser($user);
+            $isNew = true;
         }
         else {
+            $isNew = false;
             $successStory = $lastStory[0];
             foreach($successStory->getFiles() as $file){
                 if (!in_array($file->getId(), $imageIds)){
@@ -202,7 +203,7 @@ class SuccessStoryService extends AbstractProcessService
         $em->flush();
 
         $this->runAsProcess('bl_story_service', 'sendNotification',
-            array($goal->getId(), $user->getId(), $successStory->getId(), $story));
+            array($goal->getId(), $user->getId(), $story, $isNew));
 
         return new JsonResponse($successStory->getId(), Response::HTTP_OK);
 
@@ -212,11 +213,11 @@ class SuccessStoryService extends AbstractProcessService
     /**
      * @param $goalId
      * @param $userId
-     * @param $successStoryId
      * @param $story
+     * @param $isNew
      * @throws \Throwable
      */
-    public function sendNotification($goalId, $userId, $successStoryId, $story)
+    public function sendNotification($goalId, $userId, $story, $isNew)
     {
         $em = $this->container->get('doctrine')->getManager();
         $goal = $em->getRepository("AppBundle:Goal")->find($goalId);
@@ -229,7 +230,7 @@ class SuccessStoryService extends AbstractProcessService
         $this->container->get('bl_notification')->sendNotification($user, $link, $goal->getId(), $body, $importantAddedUsers);
 
         //check if goal author not admin and not null
-        if($goal->hasAuthorForNotify($user->getId()) && is_null($successStoryId)) {
+        if($goal->hasAuthorForNotify($user->getId()) && $isNew) {
             $this->container->get('user_notify')->sendNotifyAboutNewSuccessStory($goal, $user, $story);
 
             //Send notification to goal author
