@@ -42,28 +42,28 @@ class BlogController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         //get last updated date for caching
-        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated($first, $count);
+//        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated($first, $count);
 
         //new response
         $response = new Response();
 
-        // set last modified data
-        $response->setLastModified($lastModifiedDate);
-
-        // Set response as public. Otherwise it will be private by default.
-        $response->setPublic();
-
-        // Check that the Response is not modified for the given Request
-        if ($response->isNotModified($request)) {
-            // return the 304 Response immediately
-            return $response;
-        }
+//        // set last modified data
+//        $response->setLastModified($lastModifiedDate);
+//
+//        // Set response as public. Otherwise it will be private by default.
+//        $response->setPublic();
+//
+//        // Check that the Response is not modified for the given Request
+//        if ($response->isNotModified($request)) {
+//            // return the 304 Response immediately
+//            return $response;
+//        }
 
         //get all blog
         $blogs = $em->getRepository('AppBundle:Blog')->findAllBlogForMobile($first, $count);
 
         $content = [
-            'blogs' => $blogs,
+            'items' => $blogs,
         ];
 
         $serializer = $this->get('serializer');
@@ -104,23 +104,23 @@ class BlogController extends FOSRestController
             return new Response('Blog not found', Response::HTTP_NOT_FOUND);
         }
 
-        //get last updated date for caching
-        $lastModifiedDate = $blog->getUpdated();
-
-        //new response
+//        //get last updated date for caching
+//        $lastModifiedDate = $blog->getUpdated();
+//
+//        //new response
         $response = new Response();
-
-        // set last modified data
-        $response->setLastModified($lastModifiedDate);
-
-        // Set response as public. Otherwise it will be private by default.
-        $response->setPublic();
-
-        // Check that the Response is not modified for the given Request
-        if ($response->isNotModified($request)) {
-            // return the 304 Response immediately
-            return $response;
-        }
+//
+//        // set last modified data
+//        $response->setLastModified($lastModifiedDate);
+//
+//        // Set response as public. Otherwise it will be private by default.
+//        $response->setPublic();
+//
+//        // Check that the Response is not modified for the given Request
+//        if ($response->isNotModified($request)) {
+//            // return the 304 Response immediately
+//            return $response;
+//        }
 
         //add goals in arrayCollection
         $goalIds = $blog->getRelatedGoalIds();

@@ -1,14 +1,21 @@
-{% extends "::anp.html.twig" %}
+{% extends "::amp.html.twig" %}
 
 {% block content %}
     <div>
         <h1>{{ blog.title }}</h1>
-        <img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}">
+
+        <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                 width="200" height="200">
+        </amp-img>
+
         {% set goals = blog.goals %}
         <p class="text-center">{{ 'RELATED GOALS' }}</p>
+
         {% for goal in goals %}
-            <div class="text-center">{{ goal.id ~ '.' ~ goal.title }} <br />
-                <img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}">
+            <div>{{ goal.title }} <br />
+                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                         width="100" height="100">
+                </amp-img>
             </div>
         {% endfor %}
     </div>
