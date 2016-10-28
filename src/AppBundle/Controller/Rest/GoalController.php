@@ -49,20 +49,57 @@ class GoalController extends FOSRestController
      * @param int $count
      * @param Request $request
      * @return mixed
-     * @Rest\View(serializerGroups={"tiny_goal"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "tiny_goal"})
      */
     public function getOwnedAction(Request $request, $userId, $first = null, $count = null)
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        $publish = $this->getUser()->getId() != $userId;
+        $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
+
         // get owned goals
-        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count);
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
+        //This part is used to calculate goal stats
+        $goalIds   = [];
+        $authorIds = [];
+        foreach($ownedGoals as $userGoal){
+            $goalIds[$userGoal->getGoal()->getId()] = 1;
+            if ($userGoal->getGoal()->getAuthor()) {
+                $authorIds[] = $userGoal->getGoal()->getAuthor()->getId();
+            }
+        }
+
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
+
+        foreach($ownedGoals as $userGoal){
+            $userGoal->getGoal()->setStats([
+                'listedBy' => $goalStats[$userGoal->getGoal()->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$userGoal->getGoal()->getId()]['doneBy'],
+            ]);
+
+            if ($userGoal->getGoal()->getAuthor()) {
+                $stats = $authorstats[$userGoal->getGoal()->getAuthor()->getId()];
+                $userGoal->getGoal()->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
         // cached images
-        foreach($ownedGoals as $goal) {
+        foreach($ownedGoals as $userGoal) {
+
+            $goal = $userGoal->getGoal();
+
             if ($goal->getListPhotoDownloadLink()) {
                 try {
                     $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
