@@ -55,6 +55,7 @@ class GoalController extends FOSRestController
     {
         //get entity manager
         $em = $this->getDoctrine()->getManager();
+        $user      = $this->getUser();
 
         // get near by goals
         $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
@@ -73,6 +74,37 @@ class GoalController extends FOSRestController
             8 => 'goal_list_small',
             9 => 'goal_list_small',
         ];
+
+        //This part is used to calculate goal stats
+        $goalIds   = [];
+        $authorIds = [];
+        foreach($nearbyGoals as $goal){
+            $goalIds[$goal->getId()] = 1;
+            if ($goal->getAuthor()) {
+                $authorIds[] = $goal->getAuthor()->getId();
+            }
+        }
+
+        $goalStats = $em->getRepository("AppBundle:Goal")->findGoalStateCount($goalIds, true);
+        $authorstats = $em->getRepository("ApplicationUserBundle:User")->findUsersStats($authorIds);
+
+        foreach($nearbyGoals as $goal){
+            $goal->setStats([
+                'listedBy' => $goalStats[$goal->getId()]['listedBy'],
+                'doneBy'   => $goalStats[$goal->getId()]['doneBy'],
+            ]);
+
+            if ($goal->getAuthor()) {
+                $stats = $authorstats[$goal->getAuthor()->getId()];
+                $goal->getAuthor()->setStats([
+                    "listedBy" => $stats['listedBy'] + $stats['doneBy'],
+                    "active"   => $stats['listedBy'],
+                    "doneBy"   => $stats['doneBy']
+                ]);
+            }
+        }
+
+        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
 
         // cached images
         foreach($nearbyGoals as $key => $goal) {
