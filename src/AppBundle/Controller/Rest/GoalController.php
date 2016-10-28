@@ -104,7 +104,10 @@ class GoalController extends FOSRestController
             }
         }
 
-        $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+        if($user){
+            $em->getRepository('ApplicationUserBundle:User')->setUserStats($user);
+
+        }
 
         // cached images
         foreach($nearbyGoals as $key => $goal) {
@@ -150,7 +153,7 @@ class GoalController extends FOSRestController
      * @param int $count
      * @param Request $request
      * @return mixed
-     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "tiny_goal"})
+     * @Rest\View(serializerGroups={"userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user"})
      */
     public function getOwnedAction(Request $request, $userId, $first = null, $count = null)
     {
@@ -203,7 +206,7 @@ class GoalController extends FOSRestController
 
             if ($goal->getListPhotoDownloadLink()) {
                 try {
-                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), 'goal_list_horizontal'));
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $this->getUser()->getId() == $userId ? 'goal_bucketlist' : 'goal_list_horizontal'));
                 } catch (\Exception $e) {
                     $goal->setCachedImage("");
                 }
