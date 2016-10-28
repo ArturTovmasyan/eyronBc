@@ -809,7 +809,8 @@ class GoalRepository extends EntityRepository
             ->andWhere('ug.user = :owner')
             ->setParameter('owner', $owner)
             ->setFirstResult($first)
-            ->setMaxResults($count);
+            ->setMaxResults($count)
+            ->orderBy('g.created', 'DESC')
         ;
 
         if($publish){
