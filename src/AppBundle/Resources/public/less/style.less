@@ -2568,21 +2568,6 @@ footer{
   background: url('../images/menu-goalfrinds.svg') no-repeat center center;
 }
 
-.nearby-title {
-  font-size: 21px;
-  line-height: 33px;
-  margin: 0;
-  padding: 23px 0;
-
-  span{
-    &:hover{
-      color: #5e1dc3 !important;
-    }
-    &:active,&:focus{
-      color: #4f3576 !important;
-    }
-  }
-}
 .leaderboard-icon{
   display: inline-block;
   width: 25px !important;
@@ -2592,8 +2577,8 @@ footer{
 
 .leaderboard-small{
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: url('../images/leaderboard_small.svg') no-repeat center center;
   margin: 0 6px;
 }
@@ -2649,7 +2634,7 @@ footer{
     li{
       display: inline-block;
       vertical-align: middle;
-      font-size: 18px;
+      font-size: 16px;
       margin-right: 12px;
 
       &:last-child{
@@ -2676,7 +2661,7 @@ footer{
         margin-right: 7px;
         a{
           cursor:pointer;
-          
+
           i{
             width: 30px;
             height: 30px;
@@ -2699,19 +2684,23 @@ footer{
     &.bg-white{
       margin-bottom: 10px;
       figure{
-        width: 60px;
-        height: 60px;
+        width: 45px;
+        height: 45px;
         .rounded-corners;
 
+        img{
+          height: 45px;
+        }
+
         p{
-          width: 60px;
-          height: 60px;
-          line-height: 55px;
+          width: 45px;
+          height: 45px;
+          line-height: 40px;
         }
       }
       li{
         &:last-child{
-          margin: 18px 0 0;
+          margin: 10px 0 0;
         }
       }
     }
@@ -3260,6 +3249,22 @@ footer{
       }
 
       &.bg-white{
+
+        figure{
+          width: 60px;
+          height: 60px;
+
+          img{
+            height: 60px;
+          }
+
+          p{
+            width: 60px;
+            height: 60px;
+            line-height: 55px;
+          }
+        }
+
         li{
           &:last-child{
             margin: 15px 0 0;
@@ -3587,12 +3592,6 @@ footer{
 
   }
 
-  .nearby-title{
-    font-size: 32px;
-    line-height: 48px;
-    padding: 63px 0;
-  }
-
   .check_status{
     padding-bottom:5px;
   }
@@ -3658,7 +3657,6 @@ html {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
 
 
 @media (min-width: @screen-lg) {
@@ -3914,52 +3912,4 @@ div[dnd-list] {
   background-color: #7725f6;
   opacity: 0.5;
   min-height: 40px;
-}
-
-#autocompleteMap {
-  height: 100%;
-}
-.mapControls {
-  margin-top: 10px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  width: 300px;
-}
-
-#pac-input:focus {
-  border-color: #4d90fe;
-}
-
-.pac-container {
-  font-family: Roboto;
-}
-
-#type-selector {
-  color: #fff;
-  background-color: #4d90fe;
-  padding: 5px 11px 0px 11px;
-}
-
-#type-selector label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
-  color: #fff;
-  vertical-align: middle;
-  margin-bottom: 6px;
 }
