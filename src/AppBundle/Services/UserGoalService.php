@@ -148,12 +148,12 @@ class UserGoalService extends AbstractProcessService
             $userGoal->setImportant($request->get('important') ? true : false);
         }
 
-        $location = $request->get('location');
-        if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
-            $userGoal->setAddress($location['address']);
-            $userGoal->setLat($location['latitude']);
-            $userGoal->setLng($location['longitude']);
-        }
+//        $location = $request->get('location');
+//        if(isset($location['address']) && isset($location['latitude']) && isset($location['longitude'])){
+//            $userGoal->setAddress($location['address']);
+//            $userGoal->setLat($location['latitude']);
+//            $userGoal->setLng($location['longitude']);
+//        }
 
         if($goal->isAuthor($user)  && $goal->getReadinessStatus() == Goal::DRAFT){
             // set status to publish
