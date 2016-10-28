@@ -793,22 +793,30 @@ class GoalRepository extends EntityRepository
     /**
      * @param $owner
      * @param $first
+     * @param $publish
      * @param $count
      * @return array
      */
-    public function findOwnedGoals($owner, $first, $count)
+    public function findOwnedGoals($owner, $first, $count, $publish)
     {
         $query = $this->getEntityManager()
-            ->createQuery("SELECT g, i
-                           FROM AppBundle:Goal g
-                           LEFT JOIN g.images i
-                           WHERE g.author = :owner AND g.publish = :publish
-                           
-                           ")
+            ->createQueryBuilder()
+            ->select('ug, g, i')
+            ->from('AppBundle:UserGoal', 'ug')
+            ->join('ug.goal', 'g')
+            ->leftJoin('g.images', 'i')
+            ->where('g.author = :owner')
+            ->andWhere('ug.user = :owner')
             ->setParameter('owner', $owner)
-            ->setParameter('publish', PublishAware::PUBLISH)
             ->setFirstResult($first)
             ->setMaxResults($count);
+        ;
+
+        if($publish){
+            $query
+                ->andWhere('g.publish = :publish')
+                ->setParameter('publish', PublishAware::PUBLISH);
+        }
 
         $paginator = new Paginator($query, $fetchJoinCollection = true);
         return $paginator->getIterator()->getArrayCopy();
