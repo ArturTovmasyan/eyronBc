@@ -223,8 +223,6 @@
                                             <a href="javascript:void(0)" data-ng-click="joinToggle11 = !joinToggle11;$parent.$parent.joinToggle11 = !$parent.$parent.joinToggle11" class="text-right"><i class="icon-remove-email"></i> </a>
                                         </li>
 
-                                        <li class="divider hidden-xs"></li>
-
                                         {% if app.user and app.user.activity %}
                                             <li>
                                                 <a href="{{ path('activity') }}">
@@ -249,16 +247,12 @@
                                             </a>
                                         </li>
 
-                                        <li class="divider hidden-xs"></li>
-
                                         <li>
                                             <a href="{{ path('goals_list') }}">
                                                 <i class="icons ideas-icon"></i>
                                                 <span>{{ 'ideas'| trans | capitalize }}</span>
                                             </a>
                                         </li>
-
-                                        <li class="divider hidden-xs"></li>
 
                                         <li>
                                             <a href="{{ path('user_profile') }}">
@@ -267,8 +261,6 @@
                                             </a>
                                         </li>
 
-                                        <li class="divider hidden-xs"></li>
-
                                         <li>
                                             <a href="{{ path('add_goal') }}">
                                                 <i class="icons add-goal"></i>
@@ -276,16 +268,12 @@
                                             </a>
                                         </li>
 
-                                        <li class="divider hidden-xs"></li>
-
                                         <li>
                                             <a href="{{ path("edit_user_profile") }}">
                                                 <i class="icons settings-icon"></i>
                                                 <span>{{ 'settings'|trans }}</span>
                                             </a>
                                         </li>
-
-                                        <li class="divider hidden-xs"></li>
 
                                         <li>
                                             <a href="{{ path("fos_user_security_logout") }}">
