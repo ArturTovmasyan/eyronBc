@@ -8,7 +8,9 @@
 
     <div id="leaderboard-place">
         <figure class="round">
-            <img src="{{ asset('bundles/app/images/leaderboard-image.jpg') }}" alt="Bucket List 127" class="img-responsive"/>
+
+            <img src="{% if isMobile() %}{{ asset('bundles/app/images/leaderboard-phone.svg') }}{% else %}{{ asset('bundles/app/images/leaderboard-image.jpg') }}{% endif %}" alt="Bucket List 127" class="img-responsive"/>
+
             <figcaption>
                 <ul class="badge-place">
                     <li class="ng-hide">
