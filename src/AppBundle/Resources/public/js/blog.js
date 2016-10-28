@@ -3,6 +3,7 @@ var $collectionHolder;
 // setup an "add a tag" link
 var $addTagLink = $('<div class=" btn-group btn-group-sm"><button type="button" class="btn btn-xs add-button">Add blog</button></div>');
 var $newLinkLi = $('<p class="add-blog"></p>').append($addTagLink);
+var select2TegIds = [];
 
 
 jQuery(document).ready(function() {
@@ -37,8 +38,6 @@ function addTagForm($collectionHolder, $newLinkLi) {
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
 
-    //console.log(newForm);
-
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
@@ -46,6 +45,24 @@ function addTagForm($collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li class="file-list col-sm-3"></li>').append(newForm);
     addTagFormDeleteLink($newFormLi);
     $newLinkLi.after($newFormLi);
+    select2TegIds[index] = '#' + $(newForm).find( "select" ).last()[0].id;
+    $(select2TegIds[index]).parent().parent().hide();
+
+    $("select[id$='_" + index+"_type']").change(function(ev){
+        var choice = ev.target.value;
+        if(choice == 'goal'){
+            $(select2TegIds[index]).parent().parent().show();
+            $(select2TegIds[index]).select2();
+            $("div[id$='_" + index+"_content']").hide()
+        } else if(choice == 'text'){
+            $("div[id$='_" + index+"_content']").show()
+            $(select2TegIds[index]).parent().parent().hide();
+        }
+    });
+
+    $("select[id$='_" + index+"_goal']").change(function(ev){
+        console.log(ev.val);
+    });
 }
 
 function addTagFormDeleteLink($newFormLi)
