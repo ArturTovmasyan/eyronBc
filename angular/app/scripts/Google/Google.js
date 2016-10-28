@@ -189,6 +189,151 @@ angular.module('Google', [])
             }
         };
     }])
+    .directive('autocompleteMap',['$rootScope', '$timeout', function($rootScope, $timeout){
+
+        function Initialize(el, zoom){
+            var m, data = {};
+            data.center = new google.maps.LatLng(40.177037, 44.514841);
+            data.zoom = zoom ? zoom : 10;
+            data.scrollwheel = false;
+            data.mapTypeId = google.maps.MapTypeId.ROADMAP;
+            m = new google.maps.Map(el,data);
+
+            return m;
+        }
+
+        return {
+            restrict: 'EA',
+            scope: {
+                zoom: '=',
+                refresh: '=',
+                isBounded: '=',
+                onMarkerClick: '&',
+                activeMarkerIcon: '@'
+            },
+            templateUrl: '/app/scripts/Google/autocompleteMap.html',
+            compile: function compile() {
+                function addMarker(obj, icon, map){
+                    if(!angular.isNumber(obj.latitude) || !angular.isNumber(obj.longitude)){
+                        return;
+                    }
+
+                    var m = new google.maps.Marker({
+                        position: new google.maps.LatLng(obj.latitude, obj.longitude),
+                        map: map
+                    });
+
+                    if(icon){
+                        var ic = {
+                            url: icon,
+                            scaledSize:new google.maps.Size(25, 40)
+                        };
+                        m.setIcon(ic);
+                    }
+
+                    map.setCenter(m.getPosition());
+
+                    return m;
+                }
+
+                function scrollToGoals(el) {
+                    $timeout(function () {
+                        $('html, body').stop().animate( {
+                            'scrollTop': el.offset().top + el.outerHeight()
+                        }, 900);
+                    }, 1000);
+                }
+
+               return function initMap(scope, el) {
+                    scope.map = Initialize(document.getElementById('autocompleteMap'),scope.zoom);
+                    var input = (document.getElementById('pac-input'));
+
+                    var types = document.getElementById('type-selector');
+                    scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+                    scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+                    var autocomplete = new google.maps.places.Autocomplete(input);
+                    autocomplete.bindTo('bounds', scope.map);
+
+                    var infowindow = new google.maps.InfoWindow();
+                    var marker = new google.maps.Marker({
+                        map: scope.map,
+                        anchorPoint: new google.maps.Point(0, -29)
+                    });
+
+                    autocomplete.addListener('place_changed', function() {
+                        infowindow.close();
+                        marker.setVisible(false);
+                        var place = autocomplete.getPlace();
+
+                        scrollToGoals(el);
+
+                        $rootScope.$broadcast('location_place_changed',
+                          {
+                              latitude: place.geometry.location.lat(),
+                              longitude: place.geometry.location.lng()
+                          }
+                        );
+                        
+                        if (!place.geometry) {
+                            window.alert("Autocomplete's returned place contains no geometry");
+                            return;
+                        }
+
+                        // If the place has a geometry, then present it on a map.
+                        if (place.geometry.viewport) {
+                            scope.map.fitBounds(place.geometry.viewport);
+                        } else {
+                            scope.map.setCenter(place.geometry.location);
+                            scope.map.setZoom(17);  // Why 17? Because it looks good.
+                        }
+                        marker.setIcon(/** @type {google.maps.Icon} */({
+                            url: place.icon,
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(35, 35)
+                        }));
+
+                        if(scope.myLocation){
+                            scope.myLocation.setVisible(false);
+                        }
+
+                        marker.setPosition(place.geometry.location);
+                        marker.setVisible(true);
+
+                        var address = '';
+                        if (place.address_components) {
+                            address = [
+                                (place.address_components[0] && place.address_components[0].short_name || ''),
+                                (place.address_components[1] && place.address_components[1].short_name || ''),
+                                (place.address_components[2] && place.address_components[2].short_name || '')
+                            ].join(' ');
+                        }
+
+                        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                        infowindow.open(scope.map, marker);
+                    });
+
+                   $rootScope.$on('allowLocation', function (ev, position) {
+                       scrollToGoals(el);
+
+                       scope.myLocation = addMarker(position.coords, scope.activeMarkerIcon, scope.map);
+                   });
+
+                   $rootScope.$on('location-resize', function () {
+                       $timeout(function() {
+                           google.maps.event.trigger(scope.map, 'resize');
+                       }, 500);
+                   });
+
+                    scope.setType = function (types) {
+                        autocomplete.setTypes(types);
+                    };
+                }
+            }
+        };
+    }])
     .directive('googlePlacesAutocomplete',[function(){
         return {
             restrict: 'EA',

@@ -33,6 +33,75 @@ class GoalController extends FOSRestController
     const RandomGoalFriendCounts = 3;
 
     /**
+     * @Rest\Get("/goals/nearby/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get near by goals",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *         400="Bad request",
+     *  },
+     *
+     * )
+     * @param Request $request
+     * @param $longitude
+     * @param $latitude
+     * @param Request $request
+     * @return mixed
+     * @Rest\View(serializerGroups={"tiny_goal"})
+     */
+    public function getNearbyAction(Request $request, $latitude, $longitude)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // get near by goals
+        $nearbyGoals = $em->getRepository('AppBundle:Goal')->findNearbyGoals($latitude, $longitude);
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        $filters = [
+            0 => 'goal_list_small',
+            1 => 'goal_list_small',
+            2 => 'goal_list_small',
+            3 => 'goal_list_small',
+            4 => 'goal_list_horizontal',
+            5 => 'goal_list_big',
+            6 => 'goal_list_vertical',
+            7 => 'goal_list_small',
+            8 => 'goal_list_small',
+            9 => 'goal_list_small',
+        ];
+
+        // cached images
+        foreach($nearbyGoals as $key => $goal) {
+            if ($goal->getListPhotoDownloadLink()) {
+                try {
+                    $goal->setCachedImage($liipManager->getBrowserPath($goal->getListPhotoDownloadLink(), $filters[$key]));
+                } catch (\Exception $e) {
+                    $goal->setCachedImage("");
+                }
+            }
+        }
+
+
+
+
+
+
+        $liipManager = $this->get('liip_imagine.cache.manager');
+
+        for($i = 0; $i < 10; $i++){
+            if (isset($goals[$i]) && $goals[$i]->getListPhotoDownloadLink()) {
+                $goals[$i]->setCachedImage($liipManager->getBrowserPath($goals[$i]->getListPhotoDownloadLink(), $filters[$i]));
+            }
+        }
+
+        return  $nearbyGoals;
+    }
+
+    /**
      * @Rest\Get("/goals/{userId}/owned/{first}/{count}", defaults={"first"=null, "count"=null}, requirements={"first"="\d+", "count"="\d+"}, name="get_goal_owned", options={"method_prefix"=false})
      * @ApiDoc(
      *  resource=true,
