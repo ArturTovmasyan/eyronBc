@@ -1,23 +1,25 @@
 {% extends "::amp.html.twig" %}
 
 {% block content %}
+
+    {% set blodData = blog.data %}
+    {% set goals = blog.goals %}
+
     <section class="category">
         <h1>{{ blog.title }}</h1>
 
         <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
                  width="200" height="200">
         </amp-img>
+        <br />
 
-        {% set goals = blog.goals %}
+        {% for data in blodData%}
+            {% if data.type == 'text' %}
+                <p>{{ data.content }}</p>
+            {% endif %}
+        {% endfor %}
+
         <p class="text-center">{{ 'RELATED GOALS' }}</p>
-
-        {#{% for goal in goals %}#}
-            {#<div>{{ goal.title }} <br />#}
-                {#<amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"#}
-                         {#width="100" height="100">#}
-                {#</amp-img>#}
-            {#</div>#}
-        {#{% endfor %}#}
 
         <amp-live-list layout="container"
                        data-poll-interval="15000"
