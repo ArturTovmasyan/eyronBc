@@ -1559,7 +1559,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/429ae3fe1641a54ea0934bb06dac355affc41f8d",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/285c005ff2d90b6571cc62b019d461a0356cd1b2",
                 "reference": "285c005ff2d90b6571cc62b019d461a0356cd1b2",
                 "shasum": ""
             },
@@ -1601,7 +1601,10 @@
             "autoload": {
                 "psr-4": {
                     "HWI\\Bundle\\OAuthBundle\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7166,7 +7169,7 @@
             ],
             "authors": [
                 {
-                    "name": "William Durand",
+                    "name": "William DURAND",
                     "email": "william.durand1@gmail.com"
                 }
             ],

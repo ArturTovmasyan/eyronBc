@@ -55,13 +55,14 @@
                             </a>
                         </li>
 
-                        <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
-                            <a href="#{{ owned }}" data-ng-click="goTo(5)">
-                                {{ 'menu.owned'|trans }}
-                            </a>
-                        </li>
-
                     {% endif %}
+
+                    <li data-ng-class="{'active': profile.status == '{{ owned }}' }">
+                        <a href="#{{ owned }}" data-ng-click="goTo(5)">
+                            {{ 'menu.owned'|trans }}
+                        </a>
+                    </li>
+
                     <li class="pull-right">
 
                         <a href="#" class="calendar" data-ng-class="{'calendar-active': showCalendar}" data-ng-click="showCalendar = !showCalendar">
