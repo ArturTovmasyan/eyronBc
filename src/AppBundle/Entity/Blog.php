@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\SerializedName;
 
@@ -16,8 +17,12 @@ use JMS\Serializer\Annotation\SerializedName;
 /**
  * Blog
  *
- * @ORM\Table(name="blog")
+ * @ORM\Table(name="blog", uniqueConstraints={@ORM\UniqueConstraint(name="IDX_duplicate_blog_title", columns={"title"})},)
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\BlogRepository")
+ * @UniqueEntity(
+ *     fields={"title"},
+ *     message="This blog title is already use."
+ * )
  */
 class Blog implements ImageableInterface
 {
@@ -48,7 +53,7 @@ class Blog implements ImageableInterface
     /**
      * @var string
      * @Assert\Type("string")
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
      * @Groups({"blog"})
      */
     private $title;
