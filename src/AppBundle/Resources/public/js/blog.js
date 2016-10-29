@@ -55,13 +55,24 @@ function addTagForm($collectionHolder, $newLinkLi) {
             $(select2TegIds[index]).select2();
             $("div[id$='_" + index+"_content']").hide()
         } else if(choice == 'text'){
-            $("div[id$='_" + index+"_content']").show()
+            $("div[id$='_" + index+"_content']").show();
             $(select2TegIds[index]).parent().parent().hide();
         }
     });
 
     $("select[id$='_" + index+"_goal']").change(function(ev){
-        console.log(ev.val);
+        var id = ev.val;
+        $.get( "/api/v1.0/goals/image/"+id, function( data ) {
+            var img = $("img[id='_" + index+"_goal']");
+            if(img.length){
+                img.attr("src",data.image_path);
+            } else {
+                img = $('<img style="width: 270px;height: 200px;margin-bottom: 13px;" src="' + data.image_path + '" alt="goal image" id="_'+index+'_goal">');
+                img.prependTo($("div[id$='_" + index+"_goal']").first())
+            }
+
+        });
+
     });
 }
 

@@ -24,11 +24,12 @@ class BlogType extends AbstractType
         $builder
             ->add('type', ChoiceType::class,  array('choices' => [Blog::TYPE_TEXT => 'Text', Blog::TYPE_GOAL => 'Goal']))
             ->add('position', IntegerType::class)
-            ->add('content', TextareaType::class)
+            ->add('content', TextareaType::class, array('required' => false))
             ->add('goal', 'genemu_jqueryselect2_entity', array(
+                'required' => false,
                 'class' => 'AppBundle\Entity\Goal',
                 'property' => 'title',
-                'placeholder' => 'Select goal',))
+                'placeholder' => 'Select goal'))
         ;
     }
 
