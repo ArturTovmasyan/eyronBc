@@ -1,7 +1,7 @@
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addTagLink = $('<div class=" btn-group btn-group-sm"><button type="button" class="btn btn-xs add-button">Add blog</button></div>');
+var $addTagLink = $('<div class=" btn-group btn-group-sm"><button type="button" class="btn btn-xs add-button">Add text or goal</button></div>');
 var $newLinkLi = $('<p style="margin-top: 12px;" class="add-blog"></p>').append($addTagLink);
 var select2TegIds = [];
 

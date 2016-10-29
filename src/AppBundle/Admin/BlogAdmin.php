@@ -45,7 +45,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('id', null, array('label' => 'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
-            ->add('position', null, array('label'=>'admin.label.name.slug'))
+            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('updated', null)
@@ -58,7 +58,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
-            ->add('file', 'file', array('label'=>'admin.label.name.position', 'required' => false))
+            ->add('file', 'file', array('label'=>'admin.label.name.images', 'required' => false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
         ;

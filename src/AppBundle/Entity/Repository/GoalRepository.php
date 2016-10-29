@@ -932,6 +932,7 @@ class GoalRepository extends EntityRepository
             ->createQuery(
                 "SELECT g, im
                  FROM AppBundle:Goal g
+                 INDEX BY g.id
                  LEFT JOIN g.images im
                  WHERE g.id in (:ids)")
             ->setParameter('ids', $goalIds)

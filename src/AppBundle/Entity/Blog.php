@@ -71,7 +71,7 @@ class Blog implements ImageableInterface
      * @Groups({"blog"})
      */
     private $goals;
-    
+
     /**
      * @var integer
      * @Assert\Type("integer")
@@ -372,5 +372,13 @@ class Blog implements ImageableInterface
     public function __construct()
     {
         $this->goals  = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->id;
     }
 }
