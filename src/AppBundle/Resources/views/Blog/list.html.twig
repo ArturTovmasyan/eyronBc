@@ -1,18 +1,26 @@
 {% extends "::amp.html.twig" %}
 
 {% block content %}
-    <div class="row">
+    <div>
         <h1 >{{ 'BLOG LIST PAGE' }}</h1>
-        <amp-list width=auto
-                  height=100
-                  layout=fixed-height
-                  src="https://bucketlist.loc/app_dev.php/api/v1.0/blogs/0/1">
-            <template type="amp-mustache">
-                {% verbatim %}
-                    {{data.type}}
-                {% endverbatim %}
-            </template>
-        </amp-list>
+    </div>
+
+    <div>
+        {% for blog in blogs %}
+            <h3><a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">{{ blog.title }}</a></h3>
+            <p>
+                <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                         width="100" height="100">
+                </amp-img>
+            </p>
+            <p>
+                <span>{{ 'Description' }}</span> <br /><br />
+                {{ blog.metaDescription }}
+            </p>
+        {% endfor %}
+    </div>
+    <div>
+    {{ knp_pagination_render(blogs) }}
     </div>
 {% endblock %}
 
