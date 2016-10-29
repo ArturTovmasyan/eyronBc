@@ -1,27 +1,46 @@
 {% extends "::amp.html.twig" %}
 
 {% block content %}
-    <div>
-        <h1 >{{ 'BLOG LIST PAGE' }}</h1>
-    </div>
 
-    <div>
-        {% for blog in blogs %}
-            <h3><a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">{{ blog.title }}</a></h3>
-            <p>
-                <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
-                         width="100" height="100">
-                </amp-img>
-            </p>
-            <p>
-                <span>{{ 'Description' }}</span> <br /><br />
-                {{ blog.metaDescription }}
-            </p>
-        {% endfor %}
-    </div>
-    <div>
-    {{ knp_pagination_render(blogs) }}
-    </div>
+        <section class="category">
+            <div>
+                <h1>{{ 'BUCKETLIST STORIES' }}</h1>
+            </div>
+
+
+                <amp-live-list layout="container"
+                               data-poll-interval="15000"
+                               data-max-items-per-page="7"
+                               id="amp-live-list-insert-blog">
+                    <button update
+                            on="tap:amp-live-list-insert-blog.update"
+                            class="button button-primary button-update">You have updates</button>
+                    <div items class="samples">
+                        {% for blog in blogs %}
+                            <div id="{{ blog.title }}"
+                                 data-sort-time="20161029091050">
+                                <div class="card blog">
+                                    <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                                             layout="responsive"
+                                             width="1280"
+                                             height="853">
+                                    </amp-img>
+                                    <p><a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">{{ blog.title }}</a></p>
+                                    <p>
+                                        {{ blog.metaDescription }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </amp-live-list>
+
+            <div>
+                {{ knp_pagination_render(blogs) }}
+            </div>
+
+        </section>
+
 {% endblock %}
 
 {#{%- block title -%}#}

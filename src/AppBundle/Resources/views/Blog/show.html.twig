@@ -11,15 +11,9 @@
         <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
                  width="200" height="200">
         </amp-img>
-        <br />
 
-        {% for data in blodData %}
-            {% if data.type == 'text' %}
-                <p>{{ data.content }}</p>
-            {% endif %}
-        {% endfor %}
-
-        <p class="text-center">{{ 'RELATED GOALS' }}</p>
+        {% set goals = blog.goals %}
+        <p class="text-center">{{ 'goal.see_also'|trans }}</p>
 
         <amp-live-list layout="container"
                        data-poll-interval="15000"
