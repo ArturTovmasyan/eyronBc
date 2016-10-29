@@ -11,13 +11,39 @@
         {% set goals = blog.goals %}
         <p class="text-center">{{ 'RELATED GOALS' }}</p>
 
-        {% for goal in goals %}
-            <div>{{ goal.title }} <br />
-                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                         width="100" height="100">
-                </amp-img>
+        {#{% for goal in goals %}#}
+            {#<div>{{ goal.title }} <br />#}
+                {#<amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"#}
+                         {#width="100" height="100">#}
+                {#</amp-img>#}
+            {#</div>#}
+        {#{% endfor %}#}
+
+        <amp-live-list layout="container"
+                       data-poll-interval="15000"
+                       data-max-items-per-page="7"
+                       id="amp-live-list-insert-blog">
+            <button update
+                    on="tap:amp-live-list-insert-blog.update"
+                    class="button button-primary button-update">You have updates</button>
+            <div items class="samples">
+                {% for goal in goals %}
+                    <div id="{{ goal.title }}"
+                         data-sort-time="20161029091050">
+                        <div class="card blog">
+                            <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                     layout="responsive"
+                                     width="1280"
+                                     height="853">
+                            </amp-img>
+                            <p>{{ goal.title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
             </div>
-        {% endfor %}
+        </amp-live-list>
+
     </div>
 {% endblock %}
 
