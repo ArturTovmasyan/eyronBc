@@ -1,7 +1,7 @@
 {% extends "::amp.html.twig" %}
 
 {% block content %}
-    <div>
+    <section class="category">
         <h1>{{ blog.title }}</h1>
 
         <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
@@ -44,7 +44,7 @@
             </div>
         </amp-live-list>
 
-    </div>
+    </section>
 {% endblock %}
 
 {%- block title -%}
