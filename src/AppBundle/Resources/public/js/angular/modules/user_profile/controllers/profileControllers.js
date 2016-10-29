@@ -125,10 +125,6 @@ angular.module('profile')
               $scope.goTo(4);
               break;
             case UserGoalConstant.OWNED_PATH:
-              if(UserContext.id == $scope.profile.userId){
-                window.location.href = window.location.href.replace('#/' + UserGoalConstant.OWNED_PATH,'')
-              }
-              
               $scope.goTo(5);
               break;
             default:

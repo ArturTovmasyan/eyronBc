@@ -294,7 +294,7 @@ header{
   }
 
   .navbar-default {
-    background: #021523;
+    background: #061b28;
     z-index: 10000;
     border:0;
 
@@ -373,11 +373,11 @@ header{
       }
 
       .active a{
-        background-color: #7627f5;
+        background-color: #061b28;
         color: #E5E5E5;
 
         &:hover,&:focus{
-          background-color: #7627f5;
+          background-color: #000000;
           color: #E5E5E5;
         }
       }
@@ -433,6 +433,31 @@ header{
             text-align: left;
             font-size:18px;
           }
+
+          i{
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 27px;
+
+            &.menu-hamburger{
+              background: url('../images/grey-burger.svg') no-repeat center center;
+
+              &:hover{
+                background: url('../images/white-burger.svg') no-repeat center center;
+              }
+            }
+
+            &.menu-remove{
+              background: url('../images/grey-remove.svg') no-repeat center center;
+
+              &:hover{
+                background: url('../images/white-remove.svg') no-repeat center center;
+              }
+            }
+          }
+
           .icon-arrow-down,.icon-icon-up{
               margin-top:9px;
               position:absolute;
@@ -448,7 +473,7 @@ header{
         }
 
         .user-menu{
-          background-color: #2b2b2b;
+          background-color: #021523;
           padding-left:0;
           li{
             border-left:0;
@@ -516,10 +541,10 @@ header{
 
         .join-class {
           min-width:320px;
-          background-color: #2b2b2b;
+          background-color: #021523;
           color:#e3e3e3;
           &:hover{
-            background-color: #2b2b2b;
+            background-color: #021523;
           }
         }
         .popover{
@@ -598,7 +623,7 @@ header{
           float: none;
           display: block;
           text-align: left;
-          border-bottom: 1px solid #271e6e !important;
+          //border-bottom: 1px solid #271e6e !important;
           a{
             display: block;
             padding: 1px 5px 1px 35px !important;
@@ -627,6 +652,10 @@ header{
                 width:25px !important;
               }
 
+              &.icon-suggest-icon{
+                margin: 0 5px 0 -4px;
+              }
+
               &.icon-goalfrined-icon{
                 margin: 0 3px 0 -4px;
 
@@ -653,12 +682,18 @@ header{
 
           &:first-child{
             height: 75px;
+
+            background: #061b28;
             .navbar-brand{
               padding: 15px 25px !important;
             }
             .icon-remove-email{
               font-size: 40px;
-              margin: 12px 10px;
+              background: #021523;
+              line-height: 75px;
+              height: 75px;
+              width: 75px;
+              text-align: center;
             }
           }
         }
@@ -687,7 +722,7 @@ header{
       }
 
       &.active-mobile{
-        background-color: #7724F6;
+        background-color: #000000;
       }
     }
 
@@ -928,9 +963,9 @@ header{
 
   .open{
     a.relative{
-      background-color: #7724F6;
+      background-color: #000000;
       &:hover,&:active,&:focus{
-        background-color: #7724F6;
+        background-color: #000000;
       }
     }
   }
@@ -2769,6 +2804,13 @@ footer{
   }
 }
 
+.nearby-title{
+  font-size: 21px;
+  line-height: normal;
+  font-weight: 300;
+  margin: 30px 0;
+}
+
 @media (min-width: @screen-sm) {
 
   header{
@@ -2788,7 +2830,7 @@ footer{
         }
 
         li{
-          border-left: 1px solid #4421AB;
+          border-left: 1px solid #030d14;
           border-bottom:0;
           a{
             font-size:16px;
@@ -3302,6 +3344,21 @@ footer{
     }
   }
 
+  .nearby-title{
+    padding: 50px 0;
+    font-size: 32px;
+    margin: 20px 0 10px 0;
+
+    span{
+      &:hover{
+        color: #5e1dc3 !important;
+      }
+
+      &:active{
+        color: #4f3576 !important;
+      }
+    }
+  }
 }
 
 .no-right{
@@ -3365,8 +3422,8 @@ footer{
             }
 
             &:hover{
-              background-color: #7724F6;
-              color: #E5E5E5;
+              background-color: #000000;
+              color: #ffffff;
             }
           }
         }
@@ -3434,9 +3491,9 @@ footer{
       }
 
       &:hover,&:active,&:focus{
-        background-color: #7724F6;
+        background-color: #000000;
         a.relative{
-          background-color: #7724F6;
+          background-color: #000000;
         }
       }
 
@@ -3913,3 +3970,58 @@ div[dnd-list] {
   opacity: 0.5;
   min-height: 40px;
 }
+
+/* map styles*/
+
+
+
+#autocompleteMap{
+  width: 100%;
+  height: 300px;
+}
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 3px 11px 3px 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  margin-top: 12px;
+
+  &:focus {
+    border: 2px solid #4d90fe;
+  }
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0 11px;
+  margin-top: 12px;
+  label{
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+    color: #fff;
+    vertical-align: middle;
+  }
+}
+
+/* end map styles*/
