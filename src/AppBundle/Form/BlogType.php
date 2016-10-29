@@ -29,6 +29,7 @@ class BlogType extends AbstractType
                 'required' => false,
                 'class' => 'AppBundle\Entity\Goal',
                 'property' => 'title',
+                'choice_value' => 'id',
                 'placeholder' => 'Select goal'))
         ;
     }

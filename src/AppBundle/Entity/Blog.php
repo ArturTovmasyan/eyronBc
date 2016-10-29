@@ -340,22 +340,7 @@ class Blog implements ImageableInterface
      */
     public function  setBlMultipleBlog($multipleBlog)
     {
-        $array = [];
-        
-        foreach ($multipleBlog as $arrayData)
-        {
-            $goal = $arrayData['goal'];
-
-            if(!is_null($goal)) {
-                $goalId = $arrayData['goal']->getId();
-
-                unset($arrayData['goal']);
-
-                $arrayData['content'] = $goalId;
-                $array[] = $arrayData;
-            }
-        }
-        $this->data = array_values($array);
+        $this->data = array_values($multipleBlog);
     }
     
     /**
