@@ -92,8 +92,9 @@ header{
       margin-bottom:0;
 
       li{
+        list-style-type: none;
         border-left: 1px solid #030d14;
-        display: inline-block;
+        float: left;
 
         a{
           color: #E5E5E5;
@@ -425,9 +426,6 @@ header {
   justify-content: flex-start;
   margin: 8px;
   padding: 0;
-  min-width: 300px;
-  max-width: 300px;
-  width: 300px;
 }
 
 .category {
@@ -457,8 +455,8 @@ header {
           border-bottom:0;
           a{
             font-size:16px;
-            padding-top:24px;
-            padding-bottom:24px;
+            padding-top:22px;
+            padding-bottom:21px;
           }
         }
       }
@@ -547,6 +545,14 @@ header {
 
   .category{
     max-width: 960px;
+  }
+
+  .samples{
+    .card{
+      min-width: 300px;
+      max-width: 300px;
+      width: 300px;
+    }
   }
 
   header{
@@ -653,4 +659,8 @@ header {
 
 .text-center{
   text-align: center;
+}
+
+hide{
+
 }

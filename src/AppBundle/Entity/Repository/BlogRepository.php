@@ -52,6 +52,8 @@ class BlogRepository extends EntityRepository
     }
 
     /**
+     * This function is used to get all blog order by position
+     *
      * @return mixed
      * @return array
      */

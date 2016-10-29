@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Blog;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -29,6 +30,7 @@ class BlogType extends AbstractType
                 'required' => false,
                 'class' => 'AppBundle\Entity\Goal',
                 'property' => 'title',
+                'choice_value' => 'id',
                 'placeholder' => 'Select goal'))
         ;
     }
