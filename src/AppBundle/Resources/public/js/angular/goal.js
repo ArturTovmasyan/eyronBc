@@ -700,6 +700,8 @@ angular.module('goal', ['Interpolation',
         function($scope, lsInfiniteItems, $timeout, envPrefix, $location){
         var path = $location.$$path;
         $scope.browseError = '';
+        $scope.notAllowed = true;
+        $scope.browserAllowed = false;
         $scope.Ideas = new lsInfiniteItems();
         $scope.filterVisibility = false;
         $scope.locations = [];
@@ -730,6 +732,7 @@ angular.module('goal', ['Interpolation',
             }
 
             function success(position) {
+                $scope.notAllowed = false;
                 $scope.position = position;
                 $scope.userLocation = position.coords;
                 $scope.Ideas.reset();
@@ -741,6 +744,7 @@ angular.module('goal', ['Interpolation',
             }
 
             function error() {
+                $scope.notAllowed = false;
                 $scope.browseError = "Unable to retrieve your location";
             }
             
@@ -766,6 +770,10 @@ angular.module('goal', ['Interpolation',
                 $scope.Ideas.nextPage(envPrefix + "api/v1.0/goals/{first}/{count}", $scope.search,$scope.activeCategory);
             } else {
                 $scope.$emit('location-resize');
+                if(!$scope.browserAllowed){
+                    $scope.browserAllowed = true;
+                    $scope.allowBrowserLocation();
+                }
                 if($scope.position){
                     $scope.Ideas.reset();
                     $scope.Ideas.nearBy($scope.position.coords);

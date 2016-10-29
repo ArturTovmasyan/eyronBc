@@ -9,7 +9,7 @@
     <div id="leaderboard-place">
         <figure class="round">
 
-            <img src="{% if isMobile() %}{{ asset('bundles/app/images/leaderboard-phone.svg') }}{% else %}{{ asset('bundles/app/images/leaderboard-image.jpg') }}{% endif %}" alt="Bucket List 127" class="img-responsive"/>
+            <img data-ng-src="[[ (isMobile?'{{ asset('bundles/app/images/leaderboard-phone.svg') }}':'{{ asset('bundles/app/images/leaderboard-image.jpg') }}') ]]" alt="Bucket List 127" class="img-responsive"/>
 
             <figcaption>
                 <ul class="badge-place">
@@ -50,7 +50,7 @@
             </li>
 
             <li>
-                <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR'] && currentUserId != user.user.id?'#/owned':'')]]" class="text-dark-gray">[[ getFullName(user.user)]]</a>
+                <a href="{{ env_prefix }}/profile/[[ user.user.u_id + (pageStatus == LeaderboardConstant['TYPE_INNOVATOR']?'#/owned':'')]]" class="text-dark-gray">[[ getFullName(user.user)]]</a>
             </li>
 
             <li class="text-orange">[[ user.score]]</li>

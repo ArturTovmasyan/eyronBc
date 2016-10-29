@@ -46,7 +46,6 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('position', null, array('label'=>'admin.label.name.slug'))
-//            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('updated', null)
@@ -105,7 +104,7 @@ class BlogAdmin extends AbstractAdmin
         //get container
         $container = $this->getConfigurationPool()->getContainer();
 
-        //disable listener for stats count
+        //call upload file listener
         $container->get('bl_service')->uploadFile($object);
     }
 
@@ -117,7 +116,7 @@ class BlogAdmin extends AbstractAdmin
         //get container
         $container = $this->getConfigurationPool()->getContainer();
 
-        //disable listener for stats count
+        //call upload file listener
         $container->get('bl_service')->uploadFile($object);
     }
 }

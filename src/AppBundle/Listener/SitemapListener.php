@@ -49,7 +49,7 @@ class SitemapListener implements SitemapListenerInterface
             //get absolute homepage url
             $url = $this->router->generate('homepage', array(), true);
 
-            //add homepage url to the urlset named default
+            //add homepage url to the url set named default
             $this->createSitemapEntry($url, new \DateTime(), UrlConcrete::CHANGEFREQ_YEARLY, 1, static::SITEMAP_DEFAULT);
 
             // get all goals
@@ -61,7 +61,7 @@ class SitemapListener implements SitemapListenerInterface
                 $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
                 $tagUpdatedDate = $goal->getUpdated()->format("Y-m-d H:i:s");
 
-                //add homepage url to the urlset named default
+                //add goal url to the url set named default
                 $this->createSitemapEntry($url, new \DateTime($tagUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.8, static::SITEMAP_DEFAULT);
             }
 
@@ -76,18 +76,8 @@ class SitemapListener implements SitemapListenerInterface
 
                 $blogUpdatedDate = $blog->getUpdated()->format("Y-m-d H:i:s");
 
-                //add homepage url to the urlset named default
+                //add blog url to the url set named blog
                 $this->createSitemapEntry($url, new \DateTime($blogUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.9, static::SITEMAP_BLOG);
-
-                $event->getUrlContainer()->addUrl(
-                    new UrlConcrete(
-                        $url,
-                        new \DateTime($blogUpdatedDate),
-                        UrlConcrete::CHANGEFREQ_YEARLY,
-                        0.9
-                    ),
-                    'blog'
-                );
             }
         }
         // Start event named 'eventName'

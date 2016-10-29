@@ -21,24 +21,206 @@
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
+    <script async custom-element="amp-live-list" src="https://cdn.ampproject.org/v0/amp-live-list-0.1.js"></script>
+
+
+
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     {# custom css#}
+    {#{% block stylesheets %}#}
+        {#{% stylesheets output='css/amp-base.css'#}
+        {#'@AppBundle/Resources/public/less/amp.less'#}
+
+        {#%}#}
+
+        {#&#123;&#35;{{ source(asset_url|remove_asset_version) }}&#35;&#125;#}
+        {#{% endstylesheets %}#}
+    {#{% endblock %}#}
+
     <style amp-custom>
+
+        .amp-live-list-item {
+            justify-content: center;
+            display: flex;
+        }
+        .blog {
+            padding: 0;
+            background: #fff;
+            width: 300px;
+        }
+        .blog p {
+            padding: 8px;
+            margin: 0;
+        }
+        .match {
+            background: #fff;
+            min-width: 0%;
+        }
+        header {
+            font-size: 2rem;
+        }
+        .side {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .content {
+            font-size: 2rem;
+            padding: 8px;
+        }
+        .flag {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        .button-update {
+            margin: 16px;
+        }
+
+        .samples {
+            padding-bottom: 16px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex-grow: 0;
+        }
+
+        .card {
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+            float: none;
+            overflow: hidden;
+            padding: 8px;
+            margin: 16px;
+            border-radius: 2px;
+        }
+
+        .samples .card {
+            background: white;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 8px;
+            padding: 0;
+            min-width: 300px;
+            max-width: 300px;
+            width: 300px;
+        }
+
+        footer{
+            width:100%;
+            position: absolute;
+            bottom: 0;
+            height:300px;
+            background-color: #021523;
+        }
+
+        footer small{
+            display: block;
+            padding: 24px 0 0;
+            color:#ffffff;
+            font-family: 'Open Sans', sans-serif;
+            font-size:9px;
+        }
+
+        footer ul{
+            padding:10px 0 0;
+            text-align: center;}
+        footer ul li{
+            display: inline-block;
+            list-style: none;
+            padding: 5px 13px;}
+        a{
+            color:#E5E5E5;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size:12px;
+        }
+
+        a:hover{
+             color:#E5E5E5;
+             text-decoration: underline;
+         }
+
+        .category {
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        main{
+            position: relative;
+            min-height:100%;
+        }
+
         {% block stylesheets %}
             {% stylesheets output='css/amp-base.css'
                 '@AppBundle/Resources/public/less/amp.less'
             %}
-            {#{{ source(asset_url|remove_asset_version) }}#}
+            {{ source(asset_url|remove_asset_version) }}
             {% endstylesheets %}
         {% endblock %}
+
     </style>
+
 </head>
 
 <body>
 {% block body %}
+    <main>
     {# header + menu#}
     {% block content %}{% endblock %}
-    {# footer #}
+    </main>
+    <footer>
+            <ul class="apps clearfix">
+                <li>
+                    <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" height="40" width="138"></amp-img>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" height="40" width="138"></amp-img>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="social">
+                <li>
+                    <a href="https://www.facebook.com/bucketlist127com/" target="_blank" class="facebook-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.instagram.com/bucketlist127/" target="_blank" class="instagram-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.twitter.com/bucketlist127" target="_blank" class="twitter-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.pinterest.com/bucketlist127/" target="_blank" class="pinterest-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://plus.google.com/+Bucketlist127com" target="_blank" class="gplus-icon"></a>
+                </li>
+
+                <li>
+                    <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" class="youtube-icon"></a>
+                </li>
+
+            </ul>
+
+            {#{{ knp_menu_render('AppBundle:Builder:mainMenu') }}#}
+
+
+
+        <div class="footer-bottom">
+            <small>&copy; {{ 'copyright'|trans | upper }}</small>
+            {#{{ knp_menu_render('AppBundle:Builder:privacyMenu') }}#}
+        </div>
+
+    </footer>
 {% endblock %}
 </body>
 </html>
