@@ -2,7 +2,7 @@ var $collectionHolder;
 
 // setup an "add a tag" link
 var $addTagLink = $('<div class=" btn-group btn-group-sm"><button type="button" class="btn btn-xs add-button">Add blog</button></div>');
-var $newLinkLi = $('<p class="add-blog"></p>').append($addTagLink);
+var $newLinkLi = $('<p style="margin-top: 12px;" class="add-blog"></p>').append($addTagLink);
 var select2TegIds = [];
 
 
@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
     for(var index = 0; index < $collectionHolder.data('index'); index++){
         if($("div[id$='_" + index+"_type']").length){
             simpleTypeByIndex(index, 'div[id$="_bl_multiple_blog_'+index+'"');
+            addTagFormDeleteLink($('div[id$="_bl_multiple_blog_'+index+'"'));
         }
     }
 
@@ -56,7 +57,7 @@ function addTagForm($collectionHolder, $newLinkLi) {
 
 function addTagFormDeleteLink($newFormLi)
 {
-    var $removeFormA = $('<a class="delete-link" href="#">Delete</a>');
+    var $removeFormA = $('<a class="delete-link btn btn-danger" href="#">Delete</a>');
     $newFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
