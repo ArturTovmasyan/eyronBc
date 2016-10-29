@@ -28,7 +28,7 @@
             {% stylesheets output='css/amp-base.css'
                 '@AppBundle/Resources/public/less/amp.less'
             %}
-            {#{{ source(asset_url|remove_asset_version) }}#}
+            {{ source(asset_url|remove_asset_version) }}
             {% endstylesheets %}
         {% endblock %}
     </style>
