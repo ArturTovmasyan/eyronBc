@@ -69,6 +69,17 @@
 
     </div>
 
+    <div class="container" data-ng-cloak data-ng-show="activeCategory == 'nearby'">
+        <h3 class="text-center nearby-title text-dark">
+            {{ 'ideas_near_by_allow'|trans |raw }}
+        </h3>
+        <p data-ng-cloak data-ng-show="browseError.length > 0" class="error-message text-center">[[ browseError]]</p>
+        <div data-autocomplete-map
+             data-active-marker-icon="{{ asset('bundles/app/images/map-marker-purple.png') }}"
+         style="width: 100%; height: 300px;margin-bottom:30px;">
+        </div>
+    </div>
+
     <div class="container ideas-list"
          data-ng-cloak
          data-infinite-scroll='Ideas.nextPage("{{ env_prefix }}/api/v1.0/goals/{first}/{count}", search, activeCategory)'
