@@ -149,7 +149,7 @@ Done: complete
 ideas_list_title: Explore thousands of great ideas for your Bucket List
 ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Loction Service or enter your location
 nearby: Nearby
-explore: Explore
+explore: Confirm
 
 # home
 homepage_title: The goal is to have memories, <br /> not only dreams!
@@ -539,4 +539,4 @@ leaderboard:
   description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
   traveler: Traveler
   innovator: Innovator
-  writer: S.S. writer
+  writer: Mentor
