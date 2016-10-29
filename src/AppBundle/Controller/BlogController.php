@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BlogController extends Controller
 {
-    const LIMIT = 3;
+    const LIMIT = 5;
 
     /**
      * @Route("/blog", name="blog_list")
