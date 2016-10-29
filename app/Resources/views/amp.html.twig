@@ -166,11 +166,67 @@
 
 <body>
 {% block body %}
-    <main>
-    {# header + menu#}
-    {% block content %}{% endblock %}
-    </main>
-    <footer>
+    <div id="mainframe">
+        <div id="wrap">
+            <header>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div id="line"></div>
+                    <div class="container" id="main-nav">
+                        <div class="navbar-header">
+
+                            <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
+                                <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
+                            </a>
+                        </div>
+
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+
+                                {% if app.user and app.user.activity %}
+                                    <li class="ActivityPage{% if app.request.get('_route') == 'activity' %}active{% endif %}">
+                                        <a href="{{ path('activity') }}">
+                                            <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="activity" width="30" height="30"></amp-img>
+                                            <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                <li>
+                                    <a href="{{ path('goals_list') }}">
+                                        <amp-img src="{{ asset('bundles/app/images/ideas.svg') }}" alt="Ideas" width="30" height="30"></amp-img>
+                                        <span>{{ 'ideas'|trans |upper }}</span>
+                                    </a>
+                                </li>
+
+                                {% if app.user %}
+                                    <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
+                                        <a href="{{ path('user_profile_single') }}">
+                                            <amp-img src="{{ asset('bundles/app/images/my-bucketlist.svg') }}" alt="Mybucketlist" width="25" height="30"></amp-img>
+                                            <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                {#{% if app.user %}#}
+                                    {#<li id="notification">#}
+                                        {#{{ include('AppBundle:Blocks:notification.html.twig') }}#}
+                                    {#</li>#}
+                                {#{% endif %}#}
+                                {#<li>#}
+                                    {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
+                                {#</li>#}
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer>
             <ul class="apps clearfix">
                 <li>
                     <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
@@ -186,41 +242,54 @@
 
             <ul class="social">
                 <li>
-                    <a href="https://www.facebook.com/bucketlist127com/" target="_blank" class="facebook-icon"></a>
+                    <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/facebook-icon.svg') }}" alt="Facebook" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="https://www.instagram.com/bucketlist127/" target="_blank" class="instagram-icon"></a>
+                    <a href="https://www.instagram.com/bucketlist127/" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/instagram-icon.svg') }}" alt="Instagram" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="https://www.twitter.com/bucketlist127" target="_blank" class="twitter-icon"></a>
+                    <a href="https://www.twitter.com/bucketlist127" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/twitter-icon.svg') }}" alt="Twitter" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="https://www.pinterest.com/bucketlist127/" target="_blank" class="pinterest-icon"></a>
+                    <a href="https://www.pinterest.com/bucketlist127/" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/pinterest-icon.svg') }}" alt="Pinterest" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="https://plus.google.com/+Bucketlist127com" target="_blank" class="gplus-icon"></a>
+                    <a href="https://plus.google.com/+Bucketlist127com" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/gplus-icon.svg') }}" alt="Google" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
                 <li>
-                    <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank" class="youtube-icon"></a>
+                    <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank">
+                        <amp-img src="{{ asset('bundles/app/images/youtube-icon.svg') }}" alt="Youtube" height="40" width="40"></amp-img>
+                    </a>
                 </li>
 
             </ul>
 
-            {#{{ knp_menu_render('AppBundle:Builder:mainMenu') }}#}
+            {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
 
 
 
         <div class="footer-bottom">
             <small>&copy; {{ 'copyright'|trans | upper }}</small>
-            {#{{ knp_menu_render('AppBundle:Builder:privacyMenu') }}#}
+            {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
         </div>
 
     </footer>
+    </div>
 {% endblock %}
 </body>
 </html>
