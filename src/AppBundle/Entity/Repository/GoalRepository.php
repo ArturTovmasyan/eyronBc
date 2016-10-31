@@ -455,22 +455,6 @@ class GoalRepository extends EntityRepository
             ->getResult();
     }
 
-    /**
-     * This function is used to get random goal
-     * 
-     * @param $count
-     * @return array
-     */
-    public function findRandomGoal($count)
-    {
-        return $this->getEntityManager()
-            ->createQuery("SELECT g, RAND() as HIDDEN rand
-                           FROM AppBundle:Goal g
-                           ORDER BY rand 
-                           ")
-            ->setMaxResults($count)
-            ->getResult();
-    }
 
     /**
      * @param $userId
@@ -952,6 +936,33 @@ class GoalRepository extends EntityRepository
                  INDEX BY g.id
                  LEFT JOIN g.images im
                  WHERE g.id in (:ids)")
+            ->setParameter('ids', $goalIds)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get random goal
+     *
+     * @param $count
+     * @return array
+     */
+    public function findRandomGoal($count)
+    {
+        //get random goal ids
+        $goalIds = $this->getEntityManager()
+            ->createQuery("SELECT g.id, RAND() as HIDDEN rand
+                           FROM AppBundle:Goal g
+                           ORDER BY rand 
+                           ")
+            ->setMaxResults($count)
+            ->getResult();
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, img 
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images img
+                           WHERE g.id in (:ids)
+                           ")
             ->setParameter('ids', $goalIds)
             ->getResult();
     }
