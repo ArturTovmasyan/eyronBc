@@ -46,6 +46,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
+            ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
             ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
@@ -59,6 +60,7 @@ class BlogAdmin extends AbstractAdmin
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
+            ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('file', 'file', array('label'=>'admin.label.name.images', 'required' => false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
@@ -71,6 +73,7 @@ class BlogAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
+            ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('position', null, array('label'=>'admin.label.name.position', 'show_filter' => true))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'show_filter' => true))
         ;
@@ -84,6 +87,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
+            ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
             ->add('updated')
             ->add('created')
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images'))

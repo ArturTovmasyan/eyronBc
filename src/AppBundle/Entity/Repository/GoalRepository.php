@@ -456,6 +456,23 @@ class GoalRepository extends EntityRepository
     }
 
     /**
+     * This function is used to get random goal
+     * 
+     * @param $count
+     * @return array
+     */
+    public function findRandomGoal($count)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, RAND() as HIDDEN rand
+                           FROM AppBundle:Goal g
+                           ORDER BY rand 
+                           ")
+            ->setMaxResults($count)
+            ->getResult();
+    }
+
+    /**
      * @param $userId
      * @param $type
      * @param $search

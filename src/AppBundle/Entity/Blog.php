@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\ImageableInterface;
+use AppBundle\Model\PublishAware;
 use AppBundle\Traits\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,7 +25,7 @@ use JMS\Serializer\Annotation\SerializedName;
  *     message="This blog title is already use."
  * )
  */
-class Blog implements ImageableInterface
+class Blog implements ImageableInterface, PublishAware
 {
     // use file trait
     use File;
@@ -49,12 +50,6 @@ class Blog implements ImageableInterface
      * @Groups({"blog"})
      */
     private $data;
-
-    /**
-     * @var array
-     * @Assert\Type("array")
-     */
-    public $blogData;
 
     /**
      * @var string
@@ -93,6 +88,13 @@ class Blog implements ImageableInterface
      * @ORM\Column(type="string", length=255)
      */
     private $metaDescription;
+
+    /**
+     * @var
+     * @ORM\Column(name="publish", type="boolean")
+     * @Groups({"blog"})
+     */
+    protected $publish = PublishAware::NOT_PUBLISH;
 
     /**
      * @var \DateTime
@@ -362,11 +364,34 @@ class Blog implements ImageableInterface
         {
             if ($blog['type'] == self::TYPE_GOAL) {
                 $goalId = $blog['content'];
-                $blogData[$key]['content'] = $goals[$goalId];
+                $blogData[$key]['goal'] = $goals[$goalId];
             }
         }
 
-        $this->blogData = $blogData;
+        $this->data = $blogData;
+    }
+
+    /**
+     * Set publish
+     *
+     * @param boolean $publish
+     * @return Goal
+     */
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * Get publish
+     *
+     * @return boolean
+     */
+    public function getPublish()
+    {
+        return $this->publish;
     }
 
     /**

@@ -34,7 +34,7 @@ class GoalController extends Controller
     const STAGE_URL = 'http://stage.bucketlist127.com/';
     const STAGE_CACHE_PREFIX = '-stage';
     const PROD_CACHE_PREFIX = '-prod';
-
+    const RANDOM_GOAL_COUNT = 3;
 
     /**
      * @Route("goal/add-modal", name="add_modal")
@@ -465,5 +465,19 @@ class GoalController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('add_goal', array('id' => $object->getId()));
+    }
+
+    /**
+     * @Route("random/goals", name="random_goal")
+     * @Template()
+     * @return array
+     */
+    public function randomGoalAction()
+    {
+        //get random goal
+        $em = $this->getDoctrine()->getManager();
+        $randomGoals = $em->getRepository('AppBundle:Goal')->findRandomGoal(self::RANDOM_GOAL_COUNT);
+
+        return ['goals' => $randomGoals];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Blog;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -55,6 +56,9 @@ class BlogController extends Controller
             return $response;
         }
 
+        //enable published filter for blog
+        $em->getFilters()->enable('publish_filter');
+        
         //get all blog
         $blog = $em->getRepository('AppBundle:Blog')->findAllBlog();
 
@@ -104,7 +108,7 @@ class BlogController extends Controller
             return $response;
         }
 
-        //add goals in arrayCollection
+        //add goals in each array data in blog
         $goalIds = $blog->getRelatedGoalIds();
         $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
         $blog->addGoalsInData($relatedGoals);

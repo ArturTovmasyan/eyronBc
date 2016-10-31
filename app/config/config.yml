@@ -144,6 +144,7 @@ doctrine:
                 SIN: DoctrineExtensions\Query\Mysql\Sin
                 RADIANS: DoctrineExtensions\Query\Mysql\Radians
                 COS: DoctrineExtensions\Query\Mysql\Cos
+                Rand: AppBundle\Extensions\Doctrine\Random
             string_functions:
                 match_against: AppBundle\Extensions\Doctrine\MatchAgainst
 
