@@ -276,13 +276,18 @@ header{
 .header{
   position: relative;
   height: 270px;
+  line-height: 270px;
+  margin-bottom: 35px;
 
   h1{
     position: absolute;
     z-index: 10;
     text-align: center;
     width: 100%;
-    top: 10%;
+    margin:0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
   }
 
   &>figure{
@@ -305,6 +310,7 @@ header{
   .overlay{
     background: rgba(0, 0, 0, 0.6);
     height:270px;
+    display: block;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
@@ -335,7 +341,7 @@ footer{
 
   small{
     display: block;
-    padding: 24px 0 0;
+    padding: 24px 0 0 12px;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
     font-size:9px;
@@ -365,7 +371,7 @@ footer{
   }
 
   .social{
-    padding:30px 0 0;
+    padding: 10px 0 0;
     li{
       padding:5px 4px;
 
@@ -398,7 +404,7 @@ footer{
       text-align: right;
       float: right;
       li{
-        padding:5px 2px 5px 5px;
+        padding: 1px 12px 5px 5px;
         a{
           //padding-top: 19px;
           display: inline-block;
@@ -418,32 +424,35 @@ footer{
 .amp-live-list-item {
   justify-content: center;
   display: flex;
+  margin: 0 auto;
 }
+
 .blog {
   padding: 0;
   background: #fff;
   width: 300px;
 
   p {
-    padding: 8px;
+    padding: 0 8px 8px;
     margin: 0;
   }
 }
 
-.match {
-  background: #fff;
-  min-width: 0%;
-}
+//.match {
+//  background: #fff;
+//  min-width: 0%;
+//}
 
 //header {
 //  font-size: 2rem;
 //}
 
-.side {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
+//.side {
+//  display: flex;
+//  align-items: center;
+//  justify-content: space-around;
+//}
+
 .content {
   font-size: 2rem;
   padding: 8px;
@@ -472,6 +481,24 @@ footer{
     justify-content: flex-start;
     margin: 8px;
     padding: 0;
+
+    p{
+      font-size:14px;
+      color: #000333;
+    }
+
+    h3{
+      font-size:24px;
+      color: #333;
+      margin: 20px 10px;
+    }
+
+    a{
+      text-decoration: none;
+      &:hover,&:focus{
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -561,6 +588,26 @@ footer{
       }
     }
   }
+
+  .header{
+    height: 270px;
+    line-height: 270px;
+    margin-bottom: 35px;
+
+    h1{
+     font-size: 52px;
+    }
+
+    &>figure{
+      height:270px;
+      overflow:hidden;
+    }
+
+    .overlay{
+      height:270px;
+    }
+  }
+
   footer{
     ul{
       li{
@@ -581,13 +628,13 @@ footer{
 
     small{
       float: left;
-      padding: 24px 0 15px;
+      padding: 24px 0 15px 15px;
       font-size: 12px;
     }
     .footer-bottom{
       ul{
         li{
-          padding:5px 2px 5px 25px;
+          padding:5px 15px 5px 25px;
           a{
             font-size: 12px;
           }
@@ -601,6 +648,10 @@ footer{
 
   .category{
     max-width: 960px;
+  }
+
+  .amp-live-list-item {
+    margin: inherit;
   }
 
   .samples{

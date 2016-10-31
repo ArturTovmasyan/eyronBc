@@ -2,48 +2,62 @@
 
 {% block content %}
 
+    {% set className = "profile-image profile-image" ~ random(4) %}
+    {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
+    {% set itemCount = blogs.getTotalItemCount() %}
+
     <div class="header">
         <h1 class="text-white">{{ 'BUCKETLIST STORIES' }}</h1>
         <figure>
             <span class="overlay"></span>
-            <amp-img src="{{ blogs[0].imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="100"
+            {% if itemCount  %}
+                {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
+            {% else %}
+                {% set image = asset(imgPath) %}
+            {% endif %}"
+
+            <amp-img src="{{ image }}"  layout="responsive"  width="100"
                      height="853"></amp-img>
         </figure>
     </div>
-        <section class="category">
 
-                <amp-live-list layout="container"
-                               data-poll-interval="15000"
-                               data-max-items-per-page="7"
-                               id="amp-live-list-insert-blog">
-                    <button update
-                            on="tap:amp-live-list-insert-blog.update"
-                            class="button button-primary button-update">You have updates</button>
-                    <div items class="samples">
-                        {% for blog in blogs %}
-                            <div id="{{ blog.title }}"
-                                 data-sort-time="20161029091050">
-                                <div class="card blog">
-                                    <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
-                                             layout="responsive"
-                                             width="1280"
-                                             height="853">
-                                    </amp-img>
-                                    <p><a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">{{ blog.title }}</a></p>
-                                    <p>
-                                        {{ blog.metaDescription }}
-                                    </p>
-                                </div>
-                            </div>
-                        {% endfor %}
+    <section class="category">
+
+        <amp-live-list layout="container"
+                       data-poll-interval="15000"
+                       data-max-items-per-page="7"
+                       id="amp-live-list-insert-blog">
+            <button update
+                    on="tap:amp-live-list-insert-blog.update"
+                    class="button button-primary button-update">You have updates</button>
+            <div items class="samples">
+                {% for blog in blogs %}
+                    <div id="{{ blog.title }}"
+                         data-sort-time="20161029091050">
+                        <div class="card blog">
+                            <a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">
+                                <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                                         layout="responsive"
+                                         width="1280"
+                                         height="853">
+                                </amp-img>
+
+                                <h3 class="text-center">{{ blog.title }}</h3>
+
+                                <p class="text-center">{{ blog.metaDescription }}</p>
+
+                            </a>
+                        </div>
                     </div>
-                </amp-live-list>
-
-            <div>
-                {{ knp_pagination_render(blogs) }}
+                {% endfor %}
             </div>
+        </amp-live-list>
 
-        </section>
+        <div>
+            {{ knp_pagination_render(blogs) }}
+        </div>
+
+    </section>
 
 {% endblock %}
 
