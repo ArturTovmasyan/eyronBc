@@ -6,10 +6,10 @@
 {% block content %}
 
     {% set blog = object %}
-    {% set blodData = blog.data %}
+    {% set blogData = blog.data %}
 
     <div class="header">
-        <h1>{{ blog.title }}</h1>
+        <h1 class="text-white">{{ blog.title }}</h1>
         <figure>
             <span class="overlay"></span>
             <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="100"
@@ -17,68 +17,52 @@
         </figure>
     </div>
 
-    {#<div class="bg-white">#}
-        {#<amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"  layout="responsive"  width="100"#}
-                 {#height="853" ></amp-img>#}
-    {#</div>#}
+    <div class="bg-white content-inner">
+        <figure class="goal-cover">
+            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"  layout="responsive"  width="1280" height="853"></amp-img>
+        </figure>
 
-    <section class="category">
+        {% for data in blogData %}
 
-        <h2 class="text-center text-dark">{{ 'goal.see_also'|trans }}</h2>
+            {% if data.type == 'text' %}
 
-        <amp-live-list layout="container"
-                       data-poll-interval="15000"
-                       data-max-items-per-page="7"
-                       id="amp-live-list-insert-blog">
-            <button update
-                    on="tap:amp-live-list-insert-blog.update"
-                    class="button button-primary button-update">You have updates</button>
-            <div items class="samples">
+                <p>{{ data.content }}</p>
 
-                {% for data in blodData %}
+            {% elseif data.type == 'goal' %}
 
-                    {% if data.type == 'text' %}
+                {% set goal = data.goals %}
 
-                        <p>{{ data.content }}</p>
+                <div class="goals-information">
+                    <figure>
+                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                            <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                     layout="responsive"
+                                     width="1280"
+                                     height="853">
+                            </amp-img>
+                        </a>
+                    </figure>
 
-                    {% elseif data.type == 'goal' %}
+                    <div>
+                        <h3 class="text-blue">{{ goal.title }}</h3>
+                        <h4 class="text-blue">sub title</h4>
+                        {% if goal.description %}
+                            <p class="text-blue">{{ goal.description|markdown|striptags|sliceString }}</p>
+                        {% endif %}
+                    </div>
+                </div>
 
-                        {% set goal = data.goal %}
-
-                        <div id="{{ goal.title }}"
-                             data-sort-time="20161029091050">
-                            <div class="card blog">
-                                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                         layout="responsive"
-                                         width="1280"
-                                         height="853">
-                                </amp-img>
-                                <p>{{ goal.description|markdown|sliceString }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </amp-live-list>
-    </section>
-
-    <div class="sonata-preview-form-container">
-        {{ block('parentForm') }}
+            {% endif %}
+        {% endfor %}
     </div>
 
+    {# todo see also for GEvorg#}
+
+    {#<div class="sonata-preview-form-container">#}
+        {#{{ block('parentForm') }}#}
+    {#</div>#}
     {#.sonata-preview-form-container .row {#}
     {#display: none;#}
     {#}#}
 
 {% endblock %}
-
-{#{% block formactions %}#}
-    {#<button class="btn btn-success" type="submit" name="btn_preview_approve">#}
-        {#<i class="fa fa-check"></i>#}
-        {#{{ 'btn_preview_approve'|trans({}, 'SonataAdminBundle') }}#}
-    {#</button>#}
-    {#<button class="btn btn-danger" type="submit" name="btn_preview_decline">#}
-        {#<i class="fa fa-times"></i>#}
-        {#{{ 'btn_preview_decline'|trans({}, 'SonataAdminBundle') }}#}
-    {#</button>#}
-{#{% endblock %}#}
