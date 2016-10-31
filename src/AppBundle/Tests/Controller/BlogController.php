@@ -9,7 +9,7 @@ class BlogControllerTest extends BaseClass
 {
 
     /**
-     * 
+     * This test is used to check goal list page
      */
     public function testBlogList()
     {
@@ -20,16 +20,19 @@ class BlogControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(6, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
+
+        $this->assertEquals(1, $crawler->filter('html:contains("BLOG")')->count(), 'Blog list page don\'t work correctly');
+        $this->assertEquals(1, $crawler->filter('html:contains("BLOG")')->count(), 'Blog list page don\'t work correctly');
     }
 
     /**
-     *
+     * This test is used to check goal show page
      */
     public function testBlogShow()
     {
-        $blog = $this->em->getRepository('AppBundle:Blog')->findOneBy(['title' => 'NEW BLOG']);
+        $blog = $this->em->getRepository('AppBundle:Blog')->findOneBy(['title' => 'BLOG']);
         $slug = $blog->getSlug();
 
         $url = sprintf('/%s', $slug);
@@ -41,8 +44,9 @@ class BlogControllerTest extends BaseClass
 
         if ($profile = $this->client->getProfile()) {
             // check the number of requests
-            $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
+            $this->assertLessThan(6, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on group list page!");
         }
 
+        $this->assertEquals(1, $crawler->filter('body:contains("BLOG")')->count(), 'Blog list page don\'t work correctly');
     }
 }

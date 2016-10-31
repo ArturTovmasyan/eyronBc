@@ -30,30 +30,31 @@ class LoadBlogData extends AbstractFixture implements OrderedFixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $goal1 = $this->getReference('goal1');
-
-        $oldPhotoPath = __DIR__ . '/images/image1.jpg';
-        $photoPath = __DIR__ . '/../../../../web/uploads/images/blogPhoto.jpg';
-
-        // copy photo path
-        copy($oldPhotoPath, $photoPath);
-
-        // new uploaded file
-        $photo = new UploadedFile(
-            $photoPath,
-            'photo.jpg',
-            'image/jpeg'
-        );
+        $goal2 = $this->getReference('goal2');
 
         $blog1 = new Blog();
-        $blog1->setTitle('NEW BLOG');
+        $blog1->setTitle('BLOG');
         $blog1->setPosition(1);
         $blog1->setPublish(1);
         $blog1->setMetaDescription('Description for new blog!!!!!');
-        $blog1->setFile($photo);
-//        $blog1->setFileOriginalName('blogPhoto.jpg');
-        $blog1->setData([['type' => Blog::TYPE_GOAL, 'content' => $goal1->getId()]]);
+        $blog1->setFileName('blogPhoto.jpg');
+        $blog1->setFileOriginalName('blogPhoto.jpg');
+        $blog1->setData([['type' => Blog::TYPE_GOAL, 'content' => $goal1->getId()],
+                        ['type' => Blog::TYPE_TEXT, 'content' => 'TEXT FOR BLOG DESCRIPTION....']]);
 
         $manager->persist($blog1);
+
+        $blog2 = new Blog();
+        $blog2->setTitle('BLOG1');
+        $blog2->setPosition(1);
+        $blog2->setPublish(1);
+        $blog2->setMetaDescription('Description for new blog!!!!!');
+        $blog2->setFileName('blogPhoto.jpg');
+        $blog2->setFileOriginalName('blogPhoto.jpg');
+        $blog2->setData([['type' => Blog::TYPE_GOAL, 'content' => $goal2->getId()],
+                        ['type' => Blog::TYPE_TEXT, 'content' => 'TEXT FOR BLOG TEST BLOG DESCRIPTION....']]);
+
+        $manager->persist($blog2);
 
         $manager->flush();
     }

@@ -32,54 +32,57 @@ class MainControllerTest extends BaseClass
         //get sitemap array
         $siteMap = $xmlData['sitemap'];
 
-        $this->assertArrayHasKey('loc', $siteMap, 'Invalid loc key in sitemap.xml response');
-        $this->assertArrayHasKey('lastmod', $siteMap, 'Invalid lastmod key in sitemap.xml response');
+        foreach ($siteMap as $sm)
+        {
+            $this->assertArrayHasKey('loc', $sm, 'Invalid loc key in sitemap.xml response');
+            $this->assertArrayHasKey('lastmod', $sm, 'Invalid lastmod key in sitemap.xml response');
 
-        //get sitemap location
-        $siteMapLoc = $siteMap['loc'];
+            //get sitemap location
+            $siteMapLoc = $sm['loc'];
 
-        //get array data for deafult sitemap.xml url
-        $xmlPath = parse_url($siteMapLoc);
+            //get array data for deafult sitemap.xml url
+            $xmlPath = parse_url($siteMapLoc);
 
-        //get default sitemap path
-        $defaultXmlPath = $xmlPath['path'];
+            //get default sitemap path
+            $defaultXmlPath = $xmlPath['path'];
 
-        // try to open page
-        $this->client->request('GET', $defaultXmlPath);
+            // try to open page
+            $this->client->request('GET', $defaultXmlPath);
 
-        // Assert that the response status code is 2xx
-        $this->assertTrue($this->client->getResponse()->isSuccessful(), "can not open sitemap.default.xml");
+            // Assert that the response status code is 2xx
+            $this->assertTrue($this->client->getResponse()->isSuccessful(), "can not open sitemap.default.xml");
 
-        //get content in response
-        $defaultXmlData = $this->client->getResponse()->getContent();
+            //get content in response
+            $defaultXmlData = $this->client->getResponse()->getContent();
 
-        //get xml data in content
-        $xml = simplexml_load_string($defaultXmlData);
+            //get xml data in content
+            $xml = simplexml_load_string($defaultXmlData);
 
-        //json_encode xml data
-        $defaultXmlDataEncode = json_encode($xml);
+            //json_encode xml data
+            $defaultXmlDataEncode = json_encode($xml);
 
-        //json_decode xml data for get json structure
-        $xmlData = json_decode($defaultXmlDataEncode, true);
+            //json_decode xml data for get json structure
+            $xmlData = json_decode($defaultXmlDataEncode, true);
 
-        if(array_key_exists('url', $xmlData)) {
+            if(array_key_exists('url', $xmlData)) {
 
-            //get default sitemap data
-            $defaultXmlArrays = $xmlData['url'];
+                //get default sitemap data
+                $defaultXmlArrays = $xmlData['url'];
 
-            foreach ($defaultXmlArrays as $defaultXmlArray)
-            {
-                $this->assertArrayHasKey('loc', $defaultXmlArray, 'Invalid loc key in sitemap.default.xml response');
-                $this->assertArrayHasKey('lastmod', $defaultXmlArray, 'Invalid lastmod key in sitemap.default.xml response');
-                $this->assertArrayHasKey('changefreq', $defaultXmlArray, 'Invalid changefreq key in sitemap.default.xml response');
-                $this->assertArrayHasKey('priority', $defaultXmlArray, 'Invalid priority key in sitemap.default.xml response');
+                foreach ($defaultXmlArrays as $defaultXmlArray)
+                {
+                    $this->assertArrayHasKey('loc', $defaultXmlArray, 'Invalid loc key in sitemap.default.xml response');
+                    $this->assertArrayHasKey('lastmod', $defaultXmlArray, 'Invalid lastmod key in sitemap.default.xml response');
+                    $this->assertArrayHasKey('changefreq', $defaultXmlArray, 'Invalid changefreq key in sitemap.default.xml response');
+                    $this->assertArrayHasKey('priority', $defaultXmlArray, 'Invalid priority key in sitemap.default.xml response');
+                }
             }
-        }
 
-        // Check that the profiler is enabled
-        if ($profile = $this->client->getProfile()){
-            // check the number of requests
-            $this->assertLessThan(16, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on page!");
+            // Check that the profiler is enabled
+            if ($profile = $this->client->getProfile()){
+                // check the number of requests
+                $this->assertLessThan(16, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on page!");
+            }
         }
     }
 
