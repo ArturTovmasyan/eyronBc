@@ -476,7 +476,7 @@ class GoalController extends Controller
     {
         //get random goal
         $em = $this->getDoctrine()->getManager();
-        $randomGoals = $em->getRepository('AppBundle:Goal')->findRandomGoal(self::RANDOM_GOAL_COUNT);
+        $randomGoals = $em->getRepository('AppBundle:Goal')->findAllByCategory(null, null, 0, self::RANDOM_GOAL_COUNT);
 
         return ['goals' => $randomGoals];
     }
