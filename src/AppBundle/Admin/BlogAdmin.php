@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BlogAdmin extends AbstractAdmin
 {
+    public $supportsPreviewMode = true;
+    
     /**
      * @param string $name
      * @return mixed|null|string
@@ -26,6 +28,9 @@ class BlogAdmin extends AbstractAdmin
         switch ($name) {
             case 'edit':
                 return 'AppBundle:Admin:blog_edit.html.twig';
+                break;
+            case 'preview':
+                return 'AppBundle:Admin:preview.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
@@ -48,7 +53,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
-            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
+//            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('updated', null)
         ;

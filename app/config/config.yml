@@ -256,6 +256,8 @@ sonata_admin:
     show_mosaic_button: true
     security:
         handler: sonata.admin.security.handler.role
+    templates:
+        preview:  AppBundle:Admin:preview.html.twig
 
 sonata_user:
     security_acl:     false
