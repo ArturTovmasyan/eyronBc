@@ -47,6 +47,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
+            ->add('data', null, array('template' => 'AppBundle:Admin:blog_show_field.html.twig'))
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
             ->add('updated', null)
         ;

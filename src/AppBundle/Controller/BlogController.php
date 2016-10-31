@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BlogController extends Controller
 {
-    const LIMIT = 5;
+    const LIMIT = 7;
 
     /**
      * @Route("/blog", name="blog_list")
@@ -107,7 +107,7 @@ class BlogController extends Controller
         //add goals in arrayCollection
         $goalIds = $blog->getRelatedGoalIds();
         $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
-        $blog->addGoals($relatedGoals);
+        $blog->addGoalsInData($relatedGoals);
 
         return $this->render('AppBundle:Blog:show.html.twig', ['blog' => $blog], $response);
     }

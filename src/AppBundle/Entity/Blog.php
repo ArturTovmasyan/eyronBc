@@ -51,6 +51,12 @@ class Blog implements ImageableInterface
     private $data;
 
     /**
+     * @var array
+     * @Assert\Type("array")
+     */
+    public $blogData;
+
+    /**
      * @var string
      * @Assert\Type("string")
      * @ORM\Column(type="string", length=64, unique=true)
@@ -65,12 +71,6 @@ class Blog implements ImageableInterface
      * @Groups({"blog"})
      */
     protected $slug;
-
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     * @Groups({"blog"})
-     */
-    private $goals;
 
     /**
      * @var integer
@@ -349,29 +349,24 @@ class Blog implements ImageableInterface
     }
     
     /**
-     * @param array $goal
+     * This function is used to add goal in each array data
+     *
+     * @param array $goals
      * @return $this
      */
-    public function addGoals($goal)
+    public function addGoalsInData($goals)
     {
-        $this->goals = $goal;
-        return $this;
-    }
+        $blogData = $this->data;
 
-    /**
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getGoals()
-    {
-        return $this->goals;
-    }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->goals  = new ArrayCollection();
+        foreach ($blogData as $key => $blog)
+        {
+            if ($blog['type'] == self::TYPE_GOAL) {
+                $goalId = $blog['content'];
+                $blogData[$key]['content'] = $goals[$goalId];
+            }
+        }
+
+        $this->blogData = $blogData;
     }
 
     /**

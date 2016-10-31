@@ -2,8 +2,7 @@
 
 {% block content %}
 
-    {% set blodData = blog.data %}
-    {#{% set goals = blog.goals %}#}
+    {% set blodData = blog.blogData %}
 
     <section class="category">
         <h1>{{ blog.title }}</h1>
@@ -12,7 +11,6 @@
                  width="200" height="200">
         </amp-img>
 
-        {% set goals = blog.goals %}
         <p class="text-center">{{ 'goal.see_also'|trans }}</p>
 
         <amp-live-list layout="container"
@@ -23,20 +21,31 @@
                     on="tap:amp-live-list-insert-blog.update"
                     class="button button-primary button-update">You have updates</button>
             <div items class="samples">
-                {#{% for goal in goals %}#}
-                    {#<div id="{{ goal.title }}"#}
-                         {#data-sort-time="20161029091050">#}
-                        {#<div class="card blog">#}
-                            {#<amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"#}
-                                     {#layout="responsive"#}
-                                     {#width="1280"#}
-                                     {#height="853">#}
-                            {#</amp-img>#}
-                            {#<p>{{ goal.title }}</p>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#{% endfor %}#}
 
+                {% for data in blodData %}
+
+                    {% set content = data.content %}
+
+                    {% if data.type == 'text' %}
+
+                    <p>{{ content }}</p>
+
+                    {% elseif data.type == 'goal' %}
+
+                    <div id="{{ content.title }}"
+                         data-sort-time="20161029091050">
+                        <div class="card blog">
+                            <amp-img src="{{ content.imagePath|blImageFilter('goal_list_small') }}"
+                                     layout="responsive"
+                                     width="1280"
+                                     height="853">
+                            </amp-img>
+                            <p>{{ content.description|markdown|sliceString }}</p>
+                        </div>
+                    </div>
+
+                    {% endif %}
+                {% endfor %}
             </div>
         </amp-live-list>
 
