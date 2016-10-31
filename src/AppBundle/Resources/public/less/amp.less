@@ -276,13 +276,17 @@ header{
 .header{
   position: relative;
   height: 270px;
+  line-height: 270px;
+  margin-bottom: 35px;
 
   h1{
     position: absolute;
     z-index: 10;
     text-align: center;
     width: 100%;
-    top: 10%;
+    margin:0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
   }
 
   &>figure{
@@ -305,6 +309,7 @@ header{
   .overlay{
     background: rgba(0, 0, 0, 0.6);
     height:270px;
+    display: block;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
@@ -475,6 +480,23 @@ footer{
     justify-content: flex-start;
     margin: 8px;
     padding: 0;
+
+    p{
+      font-size:14px;
+      color: #000333;
+    }
+
+    h3{
+      font-size:24px;
+      color: #333;
+    }
+
+    a{
+      text-decoration: none;
+      &:hover,&:focus{
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -604,6 +626,10 @@ footer{
 
   .category{
     max-width: 960px;
+  }
+
+  .amp-live-list-item {
+    margin: inherit;
   }
 
   .samples{

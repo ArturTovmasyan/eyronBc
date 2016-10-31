@@ -5,7 +5,7 @@
     {% set blodData = blog.data %}
 
     <div class="header">
-        <h1>{{ blog.title }}</h1>
+        <h1 class="text-white">{{ blog.title }}</h1>
         <figure>
             <span class="overlay"></span>
             <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="100"
@@ -44,12 +44,17 @@
                         <div id="{{ goal.title }}"
                              data-sort-time="20161029091050">
                             <div class="card blog">
-                                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                         layout="responsive"
-                                         width="1280"
-                                         height="853">
-                                </amp-img>
-                                <p>{{ goal.description|markdown|sliceString }}</p>
+                                <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                                    <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                             layout="responsive"
+                                             width="1280"
+                                             height="853">
+                                    </amp-img>
+
+                                    <h3 class="text-center">{{ goal.title }}</h3>
+
+                                    <p>{{ goal.description|markdown|sliceString }}</p>
+                                </a>
                             </div>
                         </div>
                     {% endif %}
