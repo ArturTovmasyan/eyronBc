@@ -364,7 +364,7 @@ class Blog implements ImageableInterface, PublishAware
         {
             if ($blog['type'] == self::TYPE_GOAL) {
                 $goalId = $blog['content'];
-                $blogData[$key]['goal'] = $goals[$goalId];
+                $blogData[$key]['goals'] = $goals[$goalId];
             }
         }
 

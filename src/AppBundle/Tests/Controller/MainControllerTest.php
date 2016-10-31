@@ -79,7 +79,7 @@ class MainControllerTest extends BaseClass
         // Check that the profiler is enabled
         if ($profile = $this->client->getProfile()){
             // check the number of requests
-            $this->assertLessThan(15, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on page!");
+            $this->assertLessThan(16, $profile->getCollector('db')->getQueryCount(), "number of requests are much more greater than needed on page!");
         }
     }
 
