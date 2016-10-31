@@ -208,9 +208,8 @@ header .navbar-default .navbar-right li:last-child .join-class:hover {
 }
 .header {
   position: relative;
-  height: 270px;
-  line-height: 270px;
-  margin-bottom: 35px;
+  height: 240px;
+  line-height: 160px;
 }
 .header h1 {
   position: absolute;
@@ -244,6 +243,9 @@ header .navbar-default .navbar-right li:last-child .join-class:hover {
 }
 .header .overlay:hover {
   background: rgba(0, 0, 0, 0.8);
+}
+section.category {
+  margin-top: 35px;
 }
 .category {
   margin: 0 auto;
@@ -395,6 +397,67 @@ footer .footer-bottom ul li a:hover {
   margin: 16px;
   border-radius: 2px;
 }
+.title {
+  font-size: 30px;
+  line-height: normal;
+  font-weight: 300;
+  margin: 20px 0;
+}
+.left {
+  float: left;
+}
+.bg-white {
+  background-color: #ffffff;
+}
+.text-blue {
+  color: #000333;
+}
+.content-inner {
+  width: 320px;
+  margin: -100px auto 20px;
+  padding: 0 0 20px 0;
+}
+.content-inner .goal-cover {
+  width: 280px;
+  overflow: hidden;
+  margin: 0 auto 15px;
+}
+.content-inner .goals-information {
+  width: 280px;
+  border: 1px solid #ebebeb;
+  margin: 0 auto 20px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+.content-inner .goals-information figure {
+  width: 280px;
+  height: 180px;
+  margin: 0;
+  overflow: hidden;
+}
+.content-inner .goals-information p {
+  font-size: 16px;
+  line-height: 26px;
+}
+.content-inner .goals-information div {
+  width: 260px;
+  padding: 0 10px 10px;
+}
+.content-inner .goals-information div h3 {
+  margin: 10px 0 0;
+  font-size: 21px;
+}
+.content-inner .goals-information div h4 {
+  margin: 0;
+  font-size: 16px;
+}
+.content-inner .goals-information div p {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
 @media (min-width: 768px) {
   header .navbar {
     min-height: 82px;
@@ -447,7 +510,6 @@ footer .footer-bottom ul li a:hover {
   .header {
     height: 270px;
     line-height: 270px;
-    margin-bottom: 35px;
   }
   .header h1 {
     font-size: 52px;
@@ -458,6 +520,42 @@ footer .footer-bottom ul li a:hover {
   }
   .header .overlay {
     height: 270px;
+  }
+  .content-inner {
+    width: 750px;
+    margin: -60px auto 30px;
+  }
+  .content-inner .goal-cover {
+    width: 750px;
+    height: 425px;
+  }
+  .content-inner .goals-information {
+    width: 680px;
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .content-inner .goals-information figure {
+    width: 320px;
+    height: 180px;
+    margin: 0 20px 0 0;
+    float: left;
+  }
+  .content-inner .goals-information div {
+    float: left;
+    width: 310px;
+    height: 180px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .content-inner .goals-information div h3 {
+    font-size: 24px;
+  }
+  .content-inner .goals-information div h4 {
+    font-size: 18px;
+  }
+  .content-inner .goals-information div p {
+    font-size: 14px;
   }
   footer ul li {
     display: inline-block;
@@ -482,6 +580,11 @@ footer .footer-bottom ul li a:hover {
   }
   footer .footer-bottom ul li a {
     font-size: 12px;
+  }
+  .title {
+    font-size: 36px;
+    padding: 31px 0 34px;
+    margin: 0;
   }
 }
 @media (min-width: 992px) {
@@ -553,6 +656,10 @@ footer .footer-bottom ul li a:hover {
   }
   footer small {
     padding: 25px 30px;
+  }
+  .title {
+    padding: 62px 0 68px;
+    font-size: 48px;
   }
 }
 .clearfix {

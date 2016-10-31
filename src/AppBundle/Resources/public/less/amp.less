@@ -275,9 +275,8 @@ header{
 
 .header{
   position: relative;
-  height: 270px;
-  line-height: 270px;
-  margin-bottom: 35px;
+  height: 240px;
+  line-height: 160px;
 
   h1{
     position: absolute;
@@ -317,6 +316,10 @@ header{
     }
   }
 
+}
+
+section.category{
+  margin-top: 35px;
 }
 
 .category {
@@ -511,10 +514,80 @@ footer{
   border-radius: 2px;
 }
 
-//.category {
-//    margin: 0 auto;
-//    padding: 0;
-//}
+.title{
+  font-size: 30px;
+  line-height: normal;
+  font-weight: 300;
+  margin: 20px 0;
+}
+
+.left{
+  float:left;
+}
+
+.bg-white{
+  background-color: #ffffff;
+}
+
+.text-blue{
+  color: #000333;
+}
+
+.content-inner{
+  width: 320px;
+  margin: -100px auto 20px;
+  padding: 0 0 20px 0;
+
+  .goal-cover{
+    width: 280px;
+    overflow: hidden;
+    margin: 0 auto 15px;
+  }
+
+  .goals-information{
+    width: 280px;
+    border: 1px solid #ebebeb;
+    margin: 0 auto 20px;
+    border-radius: 4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+
+    figure{
+      width: 280px;
+      height: 180px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    p{
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    div{
+      width: 260px;
+      padding: 0 10px 10px;
+
+      h3{
+        margin: 10px 0 0;
+        font-size: 21px;
+      }
+
+      h4{
+        margin: 0;
+        font-size: 16px;
+      }
+
+      p{
+        margin: 5px 0 0;
+        font-size: 14px;
+      }
+    }
+
+  }
+}
 
 @media (min-width: 768px) {
   header{
@@ -589,10 +662,10 @@ footer{
     }
   }
 
+
   .header{
     height: 270px;
     line-height: 270px;
-    margin-bottom: 35px;
 
     h1{
      font-size: 52px;
@@ -605,6 +678,50 @@ footer{
 
     .overlay{
       height:270px;
+    }
+  }
+
+  .content-inner{
+    width: 750px;
+    margin: -60px auto 30px;
+
+    .goal-cover{
+      width: 750px;
+      height: 425px;
+    }
+
+    .goals-information{
+      width: 680px;
+      content: "";
+      display: table;
+      clear: both;
+
+      figure{
+        width: 320px;
+        height: 180px;
+        margin: 0 20px 0 0;
+        float: left;
+      }
+
+      div{
+        float:left;
+        width: 310px;
+        height: 180px;
+        overflow: hidden;
+        padding:0;
+
+        h3{
+          font-size: 24px;
+        }
+
+        h4{
+          font-size: 18px;
+        }
+
+        p{
+          font-size: 14px;
+        }
+      }
     }
   }
 
@@ -641,6 +758,12 @@ footer{
         }
       }
     }
+  }
+
+  .title{
+    font-size: 36px;
+    padding: 31px 0 34px;
+    margin: 0;
   }
 }
 
@@ -759,6 +882,11 @@ footer{
     small{
       padding: 25px 30px;
     }
+  }
+
+  .title{
+    padding: 62px 0 68px;
+    font-size: 48px;
   }
 }
 
