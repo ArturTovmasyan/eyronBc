@@ -4,14 +4,17 @@
 
     {% set blodData = blog.data %}
 
-    <section class="category">
+    <div class="header">
         <h1>{{ blog.title }}</h1>
+        <figure>
+            <span class="overlay"></span>
+            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="100"
+                     height="853"></amp-img>
+        </figure>
+    </div>
+    <section class="category">
 
-        <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
-                 width="200" height="200">
-        </amp-img>
-
-        <p class="text-center">{{ 'goal.see_also'|trans }}</p>
+        <h2 class="text-center text-dark">{{ 'goal.see_also'|trans }}</h2>
 
         <amp-live-list layout="container"
                        data-poll-interval="15000"

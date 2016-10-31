@@ -50,10 +50,11 @@
                     <div id="line"></div>
                     <div class="category" id="main-nav">
                         <div class="navbar-header">
-
-                            <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
-                                <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
-                            </a>
+                            {% if not app.user or not isMobile() or isTablet()%}
+                                <a class="navbar-brand hidden-xs" href="{{ path("homepage") }}">
+                                    <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
+                                </a>
+                            {% endif %}
                         </div>
 
                         <div id="navbar" class="navbar-collapse collapse">
@@ -63,7 +64,7 @@
                                     <li class="ActivityPage{% if app.request.get('_route') == 'activity' %}active{% endif %}">
                                         <a href="{{ path('activity') }}">
                                             <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="activity" width="30" height="30"></amp-img>
-                                            <span class="hidden-sm">{{ 'activity'|trans |upper }}</span>
+                                            <span class="hide-text">{{ 'activity'|trans |upper }}</span>
                                         </a>
                                     </li>
                                 {% endif %}
@@ -71,7 +72,7 @@
                                 <li>
                                     <a href="{{ path('goals_list') }}">
                                         <amp-img src="{{ asset('bundles/app/images/ideas.svg') }}" alt="Ideas" width="30" height="30"></amp-img>
-                                        <span>{{ 'ideas'|trans |upper }}</span>
+                                        <span class="hide-text">{{ 'ideas'|trans |upper }}</span>
                                     </a>
                                 </li>
 
@@ -79,7 +80,7 @@
                                     <li {% if app.request.get('_route') == 'user_profile_single' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                         <a href="{{ path('user_profile_single') }}">
                                             <amp-img src="{{ asset('bundles/app/images/my-bucketlist.svg') }}" alt="Mybucketlist" width="25" height="30"></amp-img>
-                                            <span class="hidden-sm">{{ 'my_bucketlist'|trans |upper }}</span>
+                                            <span class="hide-text">{{ 'my_bucketlist'|trans |upper }}</span>
                                         </a>
                                     </li>
                                 {% endif %}
