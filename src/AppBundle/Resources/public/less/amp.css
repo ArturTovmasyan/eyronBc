@@ -1,3 +1,254 @@
+body,
+html {
+  height: 100%;
+}
+#mainframe {
+  position: relative;
+  min-height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+#wrap {
+  position: relative;
+  padding-bottom: 300px;
+  background-color: #f4f4f4;
+}
+header {
+  background: #021523;
+}
+header #line {
+  height: 4px;
+  background: red;
+  background: -webkit-linear-gradient(left, #ffa600, #de451b, #1b54cf, #00824c);
+  background: -o-linear-gradient(left, #ffa600, #de451b, #1b54cf, #00824c);
+  background: -moz-linear-gradient(left, #ffa600, #de451b, #1b54cf, #00824c);
+  background: linear-gradient(to right, #ffa600, #de451b, #1b54cf, #00824c);
+}
+header .navbar {
+  min-height: 81px;
+}
+header .navbar-fixed-top .navbar-collapse {
+  max-height: 400px;
+}
+header .navbar-default {
+  background: #061b28;
+  z-index: 10000;
+  border: 0;
+}
+header .navbar-default .navbar-brand {
+  width: 150px;
+  display: block;
+  padding: 19px 30px 21px 20px;
+}
+header .navbar-default .navbar-header {
+  float: left;
+}
+header .navbar-default .navbar-toggle {
+  margin-top: 19px;
+  background-color: transparent;
+  border: 0;
+}
+header .navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+header .navbar-default .navbar-toggle i {
+  display: inline-block;
+  font-size: 36px;
+  margin-top: -11px;
+  color: #ffffff;
+  background-color: transparent;
+}
+header .navbar-default .navbar-toggle i:hover,
+header .navbar-default .navbar-toggle i:focus,
+header .navbar-default .navbar-toggle i:active {
+  text-decoration: none;
+}
+header .navbar-default .navbar-toggle:hover,
+header .navbar-default .navbar-toggle:focus,
+header .navbar-default .navbar-toggle:active {
+  background: transparent;
+}
+header .navbar-default .navbar-collapse {
+  border-color: #4421AB;
+}
+header .navbar-default .navbar-nav {
+  float: left;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+header .navbar-default .navbar-nav figure {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+}
+header .navbar-default .navbar-nav figure img {
+  height: 40px;
+}
+header .navbar-default .navbar-nav li {
+  list-style-type: none;
+  border-left: 1px solid #030d14;
+  float: left;
+}
+header .navbar-default .navbar-nav li a {
+  color: #E5E5E5;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 21px 19px;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+header .navbar-default .navbar-nav li a i {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 30px;
+}
+header .navbar-default .navbar-nav li a span {
+  padding-left: 7px;
+  vertical-align: top;
+  padding-top: 5px;
+  display: none;
+}
+header .navbar-default .navbar-nav li a:hover {
+  text-decoration: none;
+}
+header .navbar-default .navbar-nav li a:focus {
+  outline: none;
+  color: #E5E5E5;
+  text-decoration: none;
+}
+header .navbar-default .navbar-nav li:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+header .navbar-default .navbar-nav .active a {
+  background-color: #061b28;
+  color: #E5E5E5;
+}
+header .navbar-default .navbar-nav .active a:hover,
+header .navbar-default .navbar-nav .active a:focus {
+  background-color: #000000;
+  color: #E5E5E5;
+}
+header .navbar-default .navbar-form {
+  border: 0;
+  box-shadow: none;
+}
+header .navbar-default .navbar-right {
+  float: right;
+  text-align: center;
+}
+header .navbar-default .navbar-right li {
+  border-bottom: 0;
+}
+header .navbar-default .navbar-right li a {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+header .navbar-default .navbar-right li:last-child .user {
+  display: block;
+  padding: 19px 5px 19px 15px;
+  position: relative;
+}
+header .navbar-default .navbar-right li:last-child .user figure {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  float: left;
+  margin: 0 10px 0 0;
+  border: 2px solid #cecece;
+}
+header .navbar-default .navbar-right li:last-child .user figure img {
+  height: 40px;
+}
+header .navbar-default .navbar-right li:last-child .user p {
+  float: left;
+  width: 40px;
+  height: 40px;
+  line-height: 34px;
+  vertical-align: middle;
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+header .navbar-default .navbar-right li:last-child .user span.name {
+  float: left;
+  padding: 9px 0 4px 8px;
+  display: inline-block;
+  text-align: left;
+  font-size: 18px;
+}
+header .navbar-default .navbar-right li:last-child .user i {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 27px;
+}
+header .navbar-default .navbar-right li:last-child .user i.menu-hamburger {
+  background: url('../images/grey-burger.svg') no-repeat center center;
+}
+header .navbar-default .navbar-right li:last-child .user i.menu-hamburger:hover {
+  background: url('../images/white-burger.svg') no-repeat center center;
+}
+header .navbar-default .navbar-right li:last-child .user i.menu-remove {
+  background: url('../images/grey-remove.svg') no-repeat center center;
+}
+header .navbar-default .navbar-right li:last-child .user i.menu-remove:hover {
+  background: url('../images/white-remove.svg') no-repeat center center;
+}
+header .navbar-default .navbar-right li:last-child .join-class {
+  min-width: 320px;
+  background-color: #021523;
+  color: #e3e3e3;
+}
+header .navbar-default .navbar-right li:last-child .join-class:hover {
+  background-color: #021523;
+}
+.header {
+  position: relative;
+  height: 270px;
+}
+.header h1 {
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  width: 100%;
+  top: 10%;
+}
+.header > figure {
+  position: absolute;
+  width: 100%;
+  height: 270px;
+  margin: 0;
+  overflow: hidden;
+}
+.header > figure img {
+  width: 100%;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+.header .overlay {
+  background: rgba(0, 0, 0, 0.6);
+  height: 270px;
+}
+.header .overlay:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.category {
+  margin: 0 auto;
+  padding: 0;
+}
+.text-dark {
+  color: #021523;
+}
+.text-white {
+  color: #ffffff;
+}
 footer {
   width: 100%;
   position: absolute;
@@ -11,6 +262,7 @@ footer small {
   color: #ffffff;
   font-family: 'Open Sans', sans-serif;
   font-size: 9px;
+  float: left;
 }
 footer ul {
   padding: 10px 0 0;
@@ -26,6 +278,7 @@ footer ul li a {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 12px;
+  text-decoration: none;
 }
 footer ul li a:hover {
   color: #E5E5E5;
@@ -42,33 +295,13 @@ footer .social li a {
   width: 40px;
   height: 40px;
 }
-footer .social li .facebook-icon {
-  background: url('../images/facebook-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
-footer .social li .instagram-icon {
-  background: url('../images/instagram-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
-footer .social li .twitter-icon {
-  background: url('../images/twitter-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
-footer .social li .pinterest-icon {
-  background: url('../images/pinterest-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
-footer .social li .gplus-icon {
-  background: url('../images/gplus-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
-footer .social li .youtube-icon {
-  background: url('../images/youtube-icon.svg') no-repeat center center;
-  background-size: 100%;
-}
 footer .apps {
   margin: 0 auto;
   padding: 40px 0 0;
+}
+footer .apps li {
+  float: left;
+  padding: 5px;
 }
 footer .footer-bottom {
   position: absolute;
@@ -79,12 +312,12 @@ footer .footer-bottom {
 footer .footer-bottom ul {
   padding: 0;
   text-align: right;
+  float: right;
 }
 footer .footer-bottom ul li {
   padding: 5px 2px 5px 5px;
 }
 footer .footer-bottom ul li a {
-  padding-top: 19px;
   display: inline-block;
   font-size: 8px;
   text-transform: uppercase;
@@ -93,4 +326,208 @@ footer .footer-bottom ul li a {
 }
 footer .footer-bottom ul li a:hover {
   text-decoration: underline;
+}
+.amp-live-list-item {
+  justify-content: center;
+  display: flex;
+}
+.blog {
+  padding: 0;
+  background: #fff;
+  width: 300px;
+}
+.blog p {
+  padding: 8px;
+  margin: 0;
+}
+.match {
+  background: #fff;
+  min-width: 0%;
+}
+.side {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.content {
+  font-size: 2rem;
+  padding: 8px;
+}
+.button-update {
+  margin: 16px;
+}
+.samples {
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-grow: 0;
+}
+.samples .card {
+  background: white;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 8px;
+  padding: 0;
+}
+.card {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  float: none;
+  overflow: hidden;
+  padding: 8px;
+  margin: 16px;
+  border-radius: 2px;
+}
+@media (min-width: 768px) {
+  header .navbar {
+    min-height: 82px;
+  }
+  header .navbar-default .navbar-nav figure {
+    height: auto;
+  }
+  header .navbar-default .navbar-nav figure img {
+    height: auto;
+  }
+  header .navbar-default .navbar-nav li {
+    border-left: 1px solid #030d14;
+    border-bottom: 0;
+  }
+  header .navbar-default .navbar-nav li a {
+    font-size: 16px;
+    padding-top: 22px;
+    padding-bottom: 21px;
+  }
+  header .navbar-default .navbar-brand {
+    height: 78px;
+    padding: 15px 20px 18px 5px;
+  }
+  header .navbar-default .navbar-right li a {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  header .navbar-default .navbar-right li:last-child {
+    width: 210px;
+  }
+  header .navbar-default .navbar-right li:last-child .user {
+    padding: 15px 5px 13px 15px;
+  }
+  header .navbar-default .navbar-right li:last-child .user figure {
+    width: 50px;
+    height: 50px;
+  }
+  header .navbar-default .navbar-right li:last-child .user figure img {
+    height: 50px;
+  }
+  header .navbar-default .navbar-right li:last-child .user p {
+    width: 50px;
+    height: 50px;
+    line-height: 46px;
+  }
+  header .navbar-default .navbar-right li:last-child .user span.name {
+    padding: 15px 0 4px 8px;
+    font-size: 16px;
+  }
+  footer ul li {
+    display: inline-block;
+    padding: 5px 25px;
+  }
+  footer ul li a {
+    font-size: 14px;
+  }
+  footer .social {
+    padding: 0;
+  }
+  footer .social li {
+    padding: 5px 10px;
+  }
+  footer small {
+    float: left;
+    padding: 24px 0 15px;
+    font-size: 12px;
+  }
+  footer .footer-bottom ul li {
+    padding: 5px 2px 5px 25px;
+  }
+  footer .footer-bottom ul li a {
+    font-size: 12px;
+  }
+}
+@media (min-width: 992px) {
+  .category {
+    max-width: 960px;
+  }
+  .samples .card {
+    min-width: 300px;
+    max-width: 300px;
+    width: 300px;
+  }
+  header .navbar {
+    min-height: 84px;
+  }
+  header .navbar-brand {
+    height: 80px;
+    padding: 16px 30px 21px 5px;
+  }
+  header .navbar-default .navbar-nav li a {
+    font-size: 16px;
+    padding: 22px 23px;
+  }
+  header .navbar-default .navbar-nav li a i.mybucketlist-icon {
+    margin-right: 6px;
+  }
+  header .navbar-default .navbar-nav li a span {
+    display: inline-block;
+  }
+  header .navbar-default .navbar-nav li a:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  header .navbar-default .navbar-right li:last-child {
+    width: 235px;
+  }
+  header .navbar-default .navbar-right li:last-child .user {
+    padding: 16px 5px 14px 15px;
+  }
+  header .navbar-default .navbar-right li:last-child .user span.name {
+    padding: 13px 0 4px 8px;
+  }
+  header .navbar-default .navbar-right li:last-child .user .icon-arrow-down,
+  header .navbar-default .navbar-right li:last-child .user .icon-icon-up {
+    margin-right: 10px;
+    margin-top: 7px;
+  }
+  header .navbar-default .navbar-right li:last-child .user-menu {
+    width: 235px;
+  }
+  header .navbar-default .navbar-right li:last-child .user-menu li a {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  header .navbar-default .navbar-right li:last-child .join-class {
+    min-width: 234px;
+  }
+  header .navbar-default .navbar-right li:last-child .popover-content a {
+    font-size: 14px;
+  }
+  footer ul li a {
+    font-size: 16px;
+  }
+  footer .apps {
+    padding: 30px 0 0;
+  }
+  footer small {
+    padding: 25px 30px;
+  }
+}
+.clearfix {
+  content: "";
+  display: table;
+  clear: both;
+}
+.text-center {
+  text-align: center;
 }
