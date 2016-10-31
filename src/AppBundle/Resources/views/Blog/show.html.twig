@@ -39,7 +39,7 @@
 
                     {% elseif data.type == 'goal' %}
 
-                        {% set goal = data.goal %}
+                        {% set goal = data.goals %}
 
                         <div id="{{ goal.title }}"
                              data-sort-time="20161029091050">
@@ -49,7 +49,9 @@
                                          width="1280"
                                          height="853">
                                 </amp-img>
-                                <p>{{ goal.description|markdown|sliceString }}</p>
+                                {% if goal.description %}
+                                    <p>{{ goal.description|markdown|sliceString }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     {% endif %}
