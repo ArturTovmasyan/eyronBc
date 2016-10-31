@@ -31,6 +31,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *          @ORM\Index(name="fulltext_index_title", columns={"title"}, flags={"fulltext"}),
  *          @ORM\Index(name="fulltext_index_description", columns={"description"}, flags={"fulltext"}),
  *          @ORM\Index(name="fulltext_index", columns={"title", "description"}, flags={"fulltext"}),
+ *          @ORM\Index(name="idx_active_publish", columns={"publish", "archived"}),
  * })
  */
 class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface, ActivityableInterface, ImageableInterface, \Serializable
@@ -160,7 +161,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @var
-     * @ORM\Column(name="publish", type="boolean", nullable=true)
+     * @ORM\Column(name="publish", type="boolean")
      * @Groups({"tiny_goal", "goal"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
