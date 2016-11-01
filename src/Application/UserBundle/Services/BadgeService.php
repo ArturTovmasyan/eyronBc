@@ -7,6 +7,7 @@
  */
 
 namespace Application\UserBundle\Services;
+use AppBundle\Services\AbstractProcessService;
 use AppBundle\Services\PutNotificationService;
 use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\Badge;
@@ -18,7 +19,7 @@ use Symfony\Component\Process\Process;
  * Class BadgeService
  * @package Application\UserBundle\Services
  */
-class BadgeService
+class BadgeService extends AbstractProcessService
 {
     const BADGE_MAX_SCORE = 'badge_max_score';
 
@@ -173,8 +174,10 @@ class BadgeService
             $badge->setUser($user);
         }
 
+        $oldScore = $badge->getScore();
+
         // generate new score
-        $newScore = $badge->getScore() + $score;
+        $newScore = $oldScore + $score;
 
         $badge->setScore($newScore);
         $this->em->persist($badge);
@@ -195,6 +198,13 @@ class BadgeService
             // add to cache
             apc_delete(self::BADGE_MAX_SCORE);
             apc_add(self::BADGE_MAX_SCORE, $maxScore);
+        }
+
+        // check has changed
+        if($this->hasScoreChanged($newScore, $oldScore, $type)){
+
+            $this->runAsProcess('bl.badge.service', 'sendNotify',
+                array($userId));
         }
 
     }
@@ -226,6 +236,24 @@ class BadgeService
         return false;
     }
 
+    /**
+     * @param $userId
+     */
+    private function sendNotify($userId)
+    {
+        // get user
+        $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
+
+        if(!$user){
+            throw new NotFoundHttpException('User not found');
+        }
+
+//        $this->notification->sendNotification($user)
+//        $this->notifyService->sendEmail($user)
+//        $this->pushNote->sendPushNote($user, $message);
+
+    }
+
 
     /**
      * This function is used to find badge by user, and remove score
@@ -249,8 +277,9 @@ class BadgeService
 
         if($badge){
 
+            $oldScore = $badge->getScore();
             // generate new score
-            $newScore = $badge->getScore() - $score;
+            $newScore = $oldScore - $score;
             $newScore = $newScore < 0 ? 0 : $newScore;
 
             if($newScore == 0){
@@ -277,6 +306,13 @@ class BadgeService
                 // add to cache
                 apc_delete(self::BADGE_MAX_SCORE);
                 apc_add(self::BADGE_MAX_SCORE, $maxScore);
+            }
+
+            // check has changed
+            if($this->hasScoreChanged($newScore, $oldScore, $type)){
+
+                $this->runAsProcess('bl.badge.service', 'sendNotify',
+                    array($userId));
             }
         }
     }
