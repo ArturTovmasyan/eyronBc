@@ -181,6 +181,33 @@ class BadgeService
 
     }
 
+    /**
+     * @param $newScore
+     * @param $oldScore
+     * @param $type
+     * @return bool
+     */
+    private function hasScoreChanged($newScore, $oldScore, $type)
+    {
+        // get score
+        $scores = $this->getMaxScore();
+
+        // get type
+        $maxScore = $scores[$type];
+
+        // new score
+        $newNormalizedScore = $newScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+
+        // old score
+        $oldNormalizedScore = $oldScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+
+        if($newNormalizedScore != $oldNormalizedScore){
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * This function is used to find badge by user, and remove score
