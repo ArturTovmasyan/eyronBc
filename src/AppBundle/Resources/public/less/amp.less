@@ -441,6 +441,9 @@ footer{
   padding: 0;
   background: #fff;
   width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+
 
   p {
     padding: 0 8px 8px;
@@ -483,7 +486,7 @@ footer{
   justify-content: flex-start;
   flex-grow: 0;
 
-  .card {
+  figure{
     background: white;
     flex: 1 1 auto;
     display: flex;
@@ -491,34 +494,30 @@ footer{
     justify-content: flex-start;
     margin: 8px;
     padding: 0;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    float: none;
+    overflow: hidden;
+    border-radius: 2px;
 
-    p{
-      font-size:14px;
-      color: #000333;
-    }
-
-    h3{
-      font-size:24px;
-      color: #333;
-      margin: 20px 10px;
-    }
-
-    a{
-      text-decoration: none;
-      &:hover,&:focus{
-        text-decoration: none;
+    figcaption{
+      h3{
+        font-size:24px;
+        color: #333;
+        margin: 20px 10px;
+      }
+      p{
+        font-size:14px;
+        color: #000333;
       }
     }
   }
 }
 
-.card {
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-  float: none;
-  overflow: hidden;
-  padding: 8px;
-  margin: 16px;
-  border-radius: 2px;
+a{
+  text-decoration: none;
+  &:hover,&:focus{
+    text-decoration: none;
+  }
 }
 
 .title{
@@ -725,6 +724,7 @@ footer{
 
         h3{
           font-size: 24px;
+          margin: 15px 0;
         }
 
         //h4{
@@ -791,7 +791,7 @@ footer{
   }
 
   .samples{
-    .card{
+    figure{
       min-width: 300px;
       max-width: 300px;
       width: 300px;
