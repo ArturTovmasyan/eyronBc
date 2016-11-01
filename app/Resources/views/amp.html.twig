@@ -15,17 +15,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="canonical" href="https://ampbyexample.com/components/amp-list/">
+    {#<link rel="canonical" href="https://ampbyexample.com/components/amp-list/">#}
     <link rel="canonical" href="https://ampbyexample.com/components/amp-sidebar/">
 
     <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    {#<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>#}
     {#<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>#}
 
     {#<script async custom-element="amp-live-list" src="https://cdn.ampproject.org/v0/amp-live-list-0.1.js"></script>#}
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-
-
 
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -46,18 +44,18 @@
 
 <body>
 {% block body %}
+
     {% set user = app.user %}
+
     <div id="mainframe">
         <div id="wrap">
             <header>
                 <nav class="navbar navbar-fixed-top">
                     <div id="line"></div>
                     <div class="category">
-                        {#<div class="navbar-header">#}
-                            <a class="logo" href="{{ path("homepage") }}">
-                                <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
-                            </a>
-                        {#</div>#}
+                        <a class="logo" href="{{ path("homepage") }}">
+                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
+                        </a>
 
                         <div class="sidebar-right">
 
@@ -142,14 +140,21 @@
                                     <span>{{ 'join'|trans |upper }}</span>
                                 </div>
                             {% else %}
+
+                                {% set lastName = user.lastName %}
+                                {% set firstName = user.firstName %}
+                                {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+                                {% set className = "user-no" ~ random(4) %}
+
                                 <div on='tap:sidebar.toggle'>
                                     <a class="user">
 
                                         {% if user.getPhotoLink %}
-                                            <figure class="img-circle">
-                                                <img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}">
+                                            <figure>
+                                                <amp-img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}"></amp-img>
                                             </figure>
                                         {% else %}
+                                            {{ dump(nameOnImage) }}
                                             <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
                                         {% endif %}
 
