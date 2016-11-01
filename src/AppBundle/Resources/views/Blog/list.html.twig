@@ -27,7 +27,7 @@
             <div class="amp-live-list-item">
                 {% for blog in blogs %}
                     <figure class="blog">
-                        <a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">
+                        <a href="{{ path('blog_show', {'slug' : blog.slug}) }}">
                             <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
                                      layout="responsive"
                                      width="1280"
