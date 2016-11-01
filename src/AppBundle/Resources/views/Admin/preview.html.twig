@@ -21,14 +21,13 @@
         <h1 class="text-white">{{ blog.title }}</h1>
         <figure>
             <span class="overlay"></span>
-            <img src="{{ blog.imagePath|blImageFilter('user_cover') }}" layout="responsive"  width="1280"
-                 height="853">
+            <img src="{{ blog.imagePath|blImageFilter('user_cover') }}" alt="{{ blog.title }}">
         </figure>
     </div>
 
     <div class="bg-white content-inner">
         <figure class="goal-cover">
-            <img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" >
+            <img src="{{ blog.imagePath|blImageFilter('goal_bg') }}">
         </figure>
 
         {% if blogData|length > 0 %}
@@ -46,7 +45,8 @@
                     <div class="goals-information">
                         <figure>
                             <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
-                                <img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}">
+                                <img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                    alt="{{ goal.title }}">
                             </a>
                         </figure>
 
