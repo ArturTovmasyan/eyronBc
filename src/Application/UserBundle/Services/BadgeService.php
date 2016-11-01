@@ -7,6 +7,8 @@
  */
 
 namespace Application\UserBundle\Services;
+use AppBundle\Services\PutNotificationService;
+use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,19 +28,35 @@ class BadgeService
     private $em;
 
     /**
-     * @var
+     * @var UserNotifyService
      */
-    private $badgeCommand;
+    private $notifyService;
+
+    /**
+     * @var PutNotificationService
+     */
+    private $pushNote;
+
+    /**
+     * @var NotificationService
+     */
+    private $notification;
 
     /**
      * BadgeService constructor.
      * @param EntityManager $em
-     * @param $badgeCommand
+     * @param UserNotifyService $notifyService
+     * @param PutNotificationService $pushNote
+     * @param NotificationService $notification
      */
-    public function __construct(EntityManager $em, $badgeCommand)
+    public function __construct(EntityManager $em, UserNotifyService $notifyService,
+                                PutNotificationService $pushNote,
+                                NotificationService $notification)
     {
         $this->em = $em;
-        $this->badgeCommand = $badgeCommand;
+        $this->notifyService = $notifyService;
+        $this->pushNote= $pushNote;
+        $this->notification= $notification;
     }
 
     public function findTopUsers()
