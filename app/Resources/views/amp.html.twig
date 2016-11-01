@@ -57,6 +57,13 @@
 
         <ul class="sidebar">
 
+            {#<li>#}
+                {#<a href="{{ path('notifications') }}">#}
+                    {#<amp-img src="{{ asset('bundles/app/images/no-note.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>#}
+                    {#<span class="text">{{ 'notification'|trans | capitalize}}</span>#}
+                {#</a>#}
+            {#</li>#}
+
             {% if user and user.activity %}
                 <li>
                     <a href="{{ path('activity') }}">
@@ -69,7 +76,7 @@
             <li>
                 <a href="{{ path('leaderboard') }}">
                     <amp-img src="{{ asset('bundles/app/images/leaderboard-blog.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>
-                    <span class="text">{{ 'leaderboard'|trans | capitalize}}</span>
+                    <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
                 </a>
             </li>
 
