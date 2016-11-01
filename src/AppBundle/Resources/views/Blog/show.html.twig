@@ -23,8 +23,8 @@
         {% for data in blogData %}
 
             {% if data.type == 'text' %}
-
-                <p>{{ data.content }}</p>
+                
+                <p>{{ data.content|markdown|striptags }}</p>
 
             {% elseif data.type == 'goal' and data.goals is defined %}
 
