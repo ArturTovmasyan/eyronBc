@@ -481,7 +481,7 @@ overall:
 leaderboard:
   name: Доска лидеров
   title: Bucketlist 127-Доска лидеров
-  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
+  description: Таблица лидеров Bucket List 127 отображает рейтинг активных пользователей по разным направлениям.
   traveler: Путешественник
   innovator: Иноватор
   writer: Ментор

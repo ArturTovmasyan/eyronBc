@@ -536,7 +536,7 @@ overall:
 leaderboard:
   name: leaderboard
   title: Bucketlist 127-Leaderboard
-  description: This board is meant to display the ranking of leaders in a competitive event, in this particular case events in travelling, innovation and S.S. writing.
+  description: The Bucket List 127 Leaderboard is used to display the rank among people based on their activity.
   traveler: Traveler
   innovator: Innovator
   writer: Mentor
