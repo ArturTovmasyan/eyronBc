@@ -8,15 +8,15 @@
 
     <div class="header">
         <h1 class="text-white">{{ 'BUCKETLIST STORIES' }}</h1>
+
         <figure>
-            <span class="overlay"></span>
             {% if itemCount  %}
                 {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
             {% else %}
                 {% set image = asset(imgPath) %}
-            {% endif %}"
-
-            <amp-img src="{{ image }}"  layout="responsive"  width="100"
+            {% endif %}
+            <span class="overlay"></span>
+            <amp-img src="{{ image }}"  layout="responsive"  width="1280"
                      height="853"></amp-img>
         </figure>
     </div>

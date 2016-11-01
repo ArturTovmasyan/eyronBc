@@ -42,7 +42,7 @@ header{
     .navbar-brand{
       width: 150px;
       display: block;
-      padding: 19px 30px 21px 20px;
+      padding: 14px 30px 21px 20px;
     }
 
     .navbar-header {
@@ -133,6 +133,10 @@ header{
         &:hover{
           background-color: #000000;
           color:#ffffff;
+        }
+
+        &.no-border{
+          border-left: 0;
         }
       }
 
@@ -292,11 +296,11 @@ header{
   &>figure{
     position: absolute;
     width: 100%;
-    height:270px;
+    height:240px;
     margin: 0;
     overflow:hidden;
 
-    img{
+    amp-img{
       width: 100%;
       -webkit-filter: blur(20px);
       -moz-filter: blur(20px);
@@ -308,8 +312,11 @@ header{
 
   .overlay{
     background: rgba(0, 0, 0, 0.6);
-    height:270px;
+    height:240px;
     display: block;
+    position: absolute;
+    width: 100%;
+    z-index:2;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
@@ -537,6 +544,8 @@ footer{
   width: 320px;
   margin: -100px auto 20px;
   padding: 0 0 20px 0;
+  position: relative;
+  z-index: 10;
 
   .goal-cover{
     width: 280px;
