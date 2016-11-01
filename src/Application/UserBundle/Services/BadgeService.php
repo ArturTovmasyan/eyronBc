@@ -224,10 +224,10 @@ class BadgeService extends AbstractProcessService
         $maxScore = $scores[$type];
 
         // new score
-        $newNormalizedScore = $newScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+        $newNormalizedScore = ceil($newScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE);
 
         // old score
-        $oldNormalizedScore = $oldScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE;
+        $oldNormalizedScore = ceil($oldScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE);
 
         if($newNormalizedScore != $oldNormalizedScore){
             return true;
@@ -239,7 +239,7 @@ class BadgeService extends AbstractProcessService
     /**
      * @param $userId
      */
-    private function sendNotify($userId)
+    public function sendNotify($userId)
     {
         // get user
         $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
