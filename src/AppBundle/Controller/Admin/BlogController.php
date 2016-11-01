@@ -7,12 +7,12 @@
  */
 namespace AppBundle\Controller\Admin;
 
-use Doctrine\ORM\Cache\LockException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -30,6 +30,43 @@ class BlogController extends Controller
      */
     public function editAction($id = null)
     {
+        //get object data by id
+        $request = $this->getRequest();
+        $data = $request->request->get('s5818596732b2d');
+        $id = $request->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        //get entity manager
+        $em = $this->get('doctrine')->getManager();
+
+        //disable goal archived filters
+        $em->getFilters()->disable('archived_goal_filter');
+
+        //add goals in each array data in blog
+        $goalIds = $object->getRelatedGoalIds();
+        $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
+        $object->addGoalsInData($relatedGoals);
+
+        //set data in request
+        $data['bl_multiple_blog'] = $object->getData();
+
+        //get parent edit action
+        $result =  parent::editAction($id = null);
+
+        return $result;
+    }
+
+    /**
+     * Create action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function createAction()
+    {
         //get entity manager
         $em = $this->get('doctrine')->getManager();
 
@@ -41,23 +78,33 @@ class BlogController extends Controller
         // the key used to lookup the template
         $templateKey = 'edit';
 
-        $id = $request->get($this->admin->getIdParameter());
-        $object = $this->admin->getObject($id);
+        $this->admin->checkAccess('create');
 
-        if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        $class = new \ReflectionClass($this->admin->hasActiveSubClass() ? $this->admin->getActiveSubClass() : $this->admin->getClass());
+
+        if ($class->isAbstract()) {
+            return $this->render(
+                'SonataAdminBundle:CRUD:select_subclass.html.twig',
+                array(
+                    'base_template' => $this->getBaseTemplate(),
+                    'admin' => $this->admin,
+                    'action' => 'create',
+                ),
+                null,
+                $request
+            );
         }
 
-        $this->admin->checkAccess('edit', $object);
+        $object = $this->admin->getNewInstance();
 
-        $preResponse = $this->preEdit($request, $object);
+        $preResponse = $this->preCreate($request, $object);
         if ($preResponse !== null) {
             return $preResponse;
         }
 
         $this->admin->setSubject($object);
 
-        /** @var $form Form */
+        /** @var $form \Symfony\Component\Form\Form */
         $form = $this->admin->getForm();
         $form->setData($object);
         $form->handleRequest($request);
@@ -70,23 +117,23 @@ class BlogController extends Controller
             $isFormValid = $form->isValid();
 
             // persist if the form was valid and if in preview mode the preview was approved
-            if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
-                try {
-                    $object = $this->admin->update($object);
+            if ($isFormValid && (!$this->isInPreviewMode($request) || $this->isPreviewApproved($request))) {
+                $this->admin->checkAccess('create', $object);
 
+                try {
+                    $object = $this->admin->create($object);
 
                     if ($this->isXmlHttpRequest()) {
                         return $this->renderJson(array(
                             'result' => 'ok',
                             'objectId' => $this->admin->getNormalizedIdentifier($object),
-                            'objectName' => $this->escapeHtml($this->admin->toString($object)),
                         ), 200, array());
                     }
 
                     $this->addFlash(
                         'sonata_flash_success',
                         $this->admin->trans(
-                            'flash_edit_success',
+                            'flash_create_success',
                             array('%name%' => $this->escapeHtml($this->admin->toString($object))),
                             'SonataAdminBundle'
                         )
@@ -98,12 +145,6 @@ class BlogController extends Controller
                     $this->handleModelManagerException($e);
 
                     $isFormValid = false;
-                } catch (LockException $e) {
-                    $this->addFlash('sonata_flash_error', $this->admin->trans('flash_lock_error', array(
-                        '%name%' => $this->escapeHtml($this->admin->toString($object)),
-                        '%link_start%' => '<a href="'.$this->admin->generateObjectUrl('edit', $object).'">',
-                        '%link_end%' => '</a>',
-                    ), 'SonataAdminBundle'));
                 }
             }
 
@@ -113,7 +154,7 @@ class BlogController extends Controller
                     $this->addFlash(
                         'sonata_flash_error',
                         $this->admin->trans(
-                            'flash_edit_error',
+                            'flash_create_error',
                             array('%name%' => $this->escapeHtml($this->admin->toString($object))),
                             'SonataAdminBundle'
                         )
@@ -126,7 +167,7 @@ class BlogController extends Controller
                 $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
                 $object->addGoalsInData($relatedGoals);
 
-                // enable the preview template if the form was valid and preview was requested
+                // pick the preview template if the form was valid and preview was requested
                 $templateKey = 'preview';
                 $this->admin->getShow();
             }
@@ -137,9 +178,8 @@ class BlogController extends Controller
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
 
-
         return $this->render($this->admin->getTemplate($templateKey), array(
-            'action' => 'edit',
+            'action' => 'create',
             'form' => $view,
             'object' => $object,
         ), null);
