@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    {% set blodData = blog.data %}
+    {% set blogData = blog.data %}
 
     <div class="header">
         <h1 class="text-white">{{ blog.title }}</h1>
@@ -18,16 +18,17 @@
             <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"  layout="responsive"  width="1280" height="853"></amp-img>
         </figure>
 
-        {% for data in blodData %}
+    {% if blogData|length > 0 %}
+
+        {% for data in blogData %}
 
             {% if data.type == 'text' %}
 
                 <p>{{ data.content }}</p>
 
-            {% elseif data.type == 'goal' %}
+            {% elseif data.type == 'goal' and data.goals is defined %}
 
                 {% set goal = data.goals %}
-
 
                 <div class="goals-information">
                     <figure>
@@ -50,6 +51,7 @@
 
             {% endif %}
         {% endfor %}
+    {% endif %}
     </div>
 
 
