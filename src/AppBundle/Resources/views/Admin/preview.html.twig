@@ -5,7 +5,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets output='css/blog.css'
+    {% stylesheets output='css/blog_preview.css'
     'bundles/app/less/amp.less'
     filter='less,cssrewrite' %}
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
@@ -63,11 +63,11 @@
         {% endif %}
     </div>
 
+    {#{{ render_esi(controller('AppBundle:Goal:randomGoal')) }}#}
+
     <div class="sonata-preview-form-container">
         {{ block('parentForm') }}
     </div>
-    {# todo see also for GEvorg#}
-
 {% endblock %}
 
   {% block formactions %}
