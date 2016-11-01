@@ -146,7 +146,7 @@
                                 {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
                                 {% set className = "user-no" ~ random(4) %}
 
-                                <div on='tap:sidebar.toggle'>
+                                <button on='tap:sidebar.toggle'>
                                     <a class="user">
 
                                         {% if user.getPhotoLink %}
@@ -163,7 +163,7 @@
                                         {#<amp-img src="{{ asset('bundles/app/images/grey-burger.svg') }}" alt="Ideas" width="30" height="30"></amp-img>#}
                                         {#<amp-img src="{{ asset('bundles/app/images/grey-remove.svg') }}" alt="Ideas" width="30" height="30"></amp-img>#}
                                     </a>
-                                </div>
+                                </button>
                             {% endif %}
 
                         </div>
