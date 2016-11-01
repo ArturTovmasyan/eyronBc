@@ -42,7 +42,7 @@ header{
     .navbar-brand{
       width: 150px;
       display: block;
-      padding: 19px 30px 21px 20px;
+      padding: 14px 30px 21px 20px;
     }
 
     .navbar-header {
@@ -133,6 +133,10 @@ header{
         &:hover{
           background-color: #000000;
           color:#ffffff;
+        }
+
+        &.no-border{
+          border-left: 0;
         }
       }
 
@@ -275,24 +279,28 @@ header{
 
 .header{
   position: relative;
-  height: 270px;
+  height: 240px;
+  line-height: 160px;
 
   h1{
     position: absolute;
     z-index: 10;
     text-align: center;
     width: 100%;
-    top: 10%;
+    margin:0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
   }
 
   &>figure{
     position: absolute;
     width: 100%;
-    height:270px;
+    height:240px;
     margin: 0;
     overflow:hidden;
 
-    img{
+    amp-img{
       width: 100%;
       -webkit-filter: blur(20px);
       -moz-filter: blur(20px);
@@ -304,13 +312,21 @@ header{
 
   .overlay{
     background: rgba(0, 0, 0, 0.6);
-    height:270px;
+    height:240px;
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index:2;
 
     &:hover{
       background: rgba(0, 0, 0, 0.8);
     }
   }
 
+}
+
+section.category{
+  margin-top: 35px;
 }
 
 .category {
@@ -335,7 +351,7 @@ footer{
 
   small{
     display: block;
-    padding: 24px 0 0;
+    padding: 24px 0 0 12px;
     color:#ffffff;
     font-family: 'Open Sans', sans-serif;
     font-size:9px;
@@ -365,7 +381,7 @@ footer{
   }
 
   .social{
-    padding:30px 0 0;
+    padding: 10px 0 0;
     li{
       padding:5px 4px;
 
@@ -398,7 +414,7 @@ footer{
       text-align: right;
       float: right;
       li{
-        padding:5px 2px 5px 5px;
+        padding: 1px 12px 5px 5px;
         a{
           //padding-top: 19px;
           display: inline-block;
@@ -418,32 +434,35 @@ footer{
 .amp-live-list-item {
   justify-content: center;
   display: flex;
+  margin: 0 auto;
 }
+
 .blog {
   padding: 0;
   background: #fff;
   width: 300px;
 
   p {
-    padding: 8px;
+    padding: 0 8px 8px;
     margin: 0;
   }
 }
 
-.match {
-  background: #fff;
-  min-width: 0%;
-}
+//.match {
+//  background: #fff;
+//  min-width: 0%;
+//}
 
 //header {
 //  font-size: 2rem;
 //}
 
-.side {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
+//.side {
+//  display: flex;
+//  align-items: center;
+//  justify-content: space-around;
+//}
+
 .content {
   font-size: 2rem;
   padding: 8px;
@@ -472,6 +491,24 @@ footer{
     justify-content: flex-start;
     margin: 8px;
     padding: 0;
+
+    p{
+      font-size:14px;
+      color: #000333;
+    }
+
+    h3{
+      font-size:24px;
+      color: #333;
+      margin: 20px 10px;
+    }
+
+    a{
+      text-decoration: none;
+      &:hover,&:focus{
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -484,10 +521,86 @@ footer{
   border-radius: 2px;
 }
 
-//.category {
-//    margin: 0 auto;
-//    padding: 0;
-//}
+.title{
+  font-size: 30px;
+  line-height: normal;
+  font-weight: 300;
+  margin: 20px 0;
+}
+
+.left{
+  float:left;
+}
+
+.bg-white{
+  background-color: #ffffff;
+}
+
+.text-blue{
+  color: #000333;
+}
+
+.content-inner{
+  width: 320px;
+  margin: -100px auto 20px;
+  padding: 0 0 20px 0;
+  position: relative;
+  z-index: 10;
+
+  .goal-cover{
+    width: 280px;
+    overflow: hidden;
+    margin: 0 auto 15px;
+  }
+
+  .goals-information{
+    width: 280px;
+    border: 1px solid #ebebeb;
+    margin: 0 auto 20px;
+    border-radius: 4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+
+    figure{
+      width: 280px;
+      height: 180px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    p{
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    div{
+      width: 260px;
+      padding: 0 10px 10px;
+
+      h3{
+        margin: 10px 0 0;
+        font-size: 21px;
+      }
+
+      //h4{
+      //  margin: 0;
+      //  font-size: 16px;
+      //}
+
+      p{
+        margin: 5px 0 0;
+        font-size: 14px;
+
+        &:nth-of-type(2) {
+          color: red;
+        }
+      }
+    }
+
+  }
+}
 
 @media (min-width: 768px) {
   header{
@@ -561,6 +674,70 @@ footer{
       }
     }
   }
+
+
+  .header{
+    height: 270px;
+    line-height: 270px;
+
+    h1{
+     font-size: 52px;
+    }
+
+    &>figure{
+      height:270px;
+      overflow:hidden;
+    }
+
+    .overlay{
+      height:270px;
+    }
+  }
+
+  .content-inner{
+    width: 750px;
+    margin: -60px auto 30px;
+
+    .goal-cover{
+      width: 750px;
+      height: 425px;
+    }
+
+    .goals-information{
+      width: 680px;
+      content: "";
+      display: table;
+      clear: both;
+
+      figure{
+        width: 320px;
+        height: 180px;
+        margin: 0 20px 0 0;
+        float: left;
+      }
+
+      div{
+        float:left;
+        width: 310px;
+        height: 180px;
+        overflow: hidden;
+        padding:0;
+
+        h3{
+          font-size: 24px;
+        }
+
+        //h4{
+        //  font-size: 18px;
+        //}
+
+        p{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
   footer{
     ul{
       li{
@@ -581,13 +758,13 @@ footer{
 
     small{
       float: left;
-      padding: 24px 0 15px;
+      padding: 24px 0 15px 15px;
       font-size: 12px;
     }
     .footer-bottom{
       ul{
         li{
-          padding:5px 2px 5px 25px;
+          padding:5px 15px 5px 25px;
           a{
             font-size: 12px;
           }
@@ -595,12 +772,22 @@ footer{
       }
     }
   }
+
+  .title{
+    font-size: 36px;
+    padding: 31px 0 34px;
+    margin: 0;
+  }
 }
 
 @media(min-width: 992px){
 
   .category{
     max-width: 960px;
+  }
+
+  .amp-live-list-item {
+    margin: inherit;
   }
 
   .samples{
@@ -708,6 +895,11 @@ footer{
     small{
       padding: 25px 30px;
     }
+  }
+
+  .title{
+    padding: 20px 0 ;
+    font-size: 48px;
   }
 }
 

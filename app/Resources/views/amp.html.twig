@@ -69,7 +69,7 @@
                                     </li>
                                 {% endif %}
 
-                                <li>
+                                <li {% if not app.user and isMobile() and not isTablet()%} class="no-border"{% endif %}>
                                     <a href="{{ path('goals_list') }}">
                                         <amp-img src="{{ asset('bundles/app/images/ideas.svg') }}" alt="Ideas" width="30" height="30"></amp-img>
                                         <span class="hide-text">{{ 'ideas'|trans |upper }}</span>
