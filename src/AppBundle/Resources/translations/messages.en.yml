@@ -135,7 +135,7 @@ goal_friend_menu:
       all: All
       recently_matched: Recently Matched
       most_matching: Most Matching
-      most_activity: Most active
+      most_activity: Most Active
 
 activities:
       title: Bucket List 127-Activity
