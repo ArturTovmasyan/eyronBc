@@ -19,38 +19,41 @@
             <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"  layout="responsive"  width="1280" height="853"></amp-img>
         </figure>
 
-        {% for data in blogData %}
+        {% if blogData|length > 0 %}
 
-            {% if data.type == 'text' %}
+            {% for data in blogData %}
 
-                <p>{{ data.content|markdown|striptags }}</p>
+                {% if data.type == 'text' %}
 
-            {% elseif data.type == 'goal' %}
+                    <p>{{ data.content|markdown|striptags }}</p>
 
-                {% set goal = data.goals %}
+                {% elseif data.type == 'goal' and data.goals is defined %}
 
-                <div class="goals-information">
-                    <figure>
-                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
-                            <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
-                                     layout="responsive"
-                                     width="1280"
-                                     height="853">
-                            </amp-img>
-                        </a>
-                    </figure>
+                    {% set goal = data.goals %}
 
-                    <div>
-                        <h3 class="text-blue">{{ goal.title }}</h3>
-                        <h4 class="text-blue">sub title</h4>
-                        {% if goal.description %}
-                            <p class="text-blue">{{ goal.description|markdown|striptags|sliceString }}</p>
-                        {% endif %}
+                    <div class="goals-information">
+                        <figure>
+                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                                <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                         layout="responsive"
+                                         width="1280"
+                                         height="853">
+                                </amp-img>
+                            </a>
+                        </figure>
+
+                        <div>
+                            <h3 class="text-blue">{{ goal.title }}</h3>
+                            <h4 class="text-blue">sub title</h4>
+                            {% if goal.description %}
+                                <p class="text-blue">{{ goal.description|markdown|striptags|sliceString }}</p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
 
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 
     {# todo see also for GEvorg#}

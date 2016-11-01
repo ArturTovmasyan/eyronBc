@@ -32,7 +32,9 @@ class BlogController extends Controller
     {
         //get object data by id
         $request = $this->getRequest();
-        $data = $request->request->get('s5818596732b2d');
+        $uniqId = $request->query->get('uniqid');
+        $data = $request->request->get($uniqId);
+
         $id = $request->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
 
@@ -42,13 +44,19 @@ class BlogController extends Controller
         //disable goal archived filters
         $em->getFilters()->disable('archived_goal_filter');
 
-        //add goals in each array data in blog
-        $goalIds = $object->getRelatedGoalIds();
-        $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
-        $object->addGoalsInData($relatedGoals);
+        if ($this->isPreviewRequested()) {
 
-        //set data in request
-        $data['bl_multiple_blog'] = $object->getData();
+            $arrayData = $data['bl_multiple_blog'];
+            $object->setData($arrayData);
+
+            //add goals in each array data in blog
+            $goalIds = $object->getRelatedGoalIds();
+            $relatedGoals = $em->getRepository('AppBundle:Goal')->findGoalByIds($goalIds);
+            $object->addGoalsInData($relatedGoals);
+
+            //set data in request
+            $data['bl_multiple_blog'] = $object->getData();
+        }
 
         //get parent edit action
         $result =  parent::editAction($id = null);
