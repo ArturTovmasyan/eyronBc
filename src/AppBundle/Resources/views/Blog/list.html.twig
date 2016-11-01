@@ -22,37 +22,28 @@
     </div>
 
     <section class="category">
+        <div class="samples clearfix">
+            <div class="amp-live-list-item">
+            {% for blog in blogs %}
+                <figure class="blog">
+                    <a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">
+                        <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
+                                 layout="responsive"
+                                 width="1280"
+                                 height="853">
+                        </amp-img>
 
-        <amp-live-list layout="container"
-                       data-poll-interval="15000"
-                       data-max-items-per-page="7"
-                       id="amp-live-list-insert-blog">
-            <button update
-                    on="tap:amp-live-list-insert-blog.update"
-                    class="button button-primary button-update">You have updates</button>
-            <div items class="samples">
-                {% for blog in blogs %}
-                    <div id="{{ blog.title }}"
-                         data-sort-time="20161029091050">
-                        <div class="card blog">
-                            <a href="{{ path('blog_show', {'slug' : blog.slug}) }}" target="_blank">
-                                <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
-                                         layout="responsive"
-                                         width="1280"
-                                         height="853">
-                                </amp-img>
+                        <figcaption>
+                            <h3 class="text-center text-blue">{{ blog.title }}</h3>
 
-                                <h3 class="text-center text-blue">{{ blog.title }}</h3>
+                            <p class="text-center text-blue">{{ blog.metaDescription }}</p>
+                        </figcaption>
+                    </a>
 
-                                <p class="text-center text-blue">{{ blog.metaDescription }}</p>
-
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </amp-live-list>
-
+                </figure>
+            {% endfor %}
+        </div>
+        </div>
         <div class="text-center">
             {{ knp_pagination_render(blogs) }}
         </div>
