@@ -674,10 +674,6 @@ footer .footer-bottom ul li a:hover {
 .text-center {
   text-align: center;
 }
-
-.sonata-preview-form .row{
+.sonata-preview-form-container .row {
   display: none;
-}
-.approve-holder  button{
-  margin-right: 20px;
 }
