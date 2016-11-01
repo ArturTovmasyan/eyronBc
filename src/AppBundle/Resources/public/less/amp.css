@@ -26,188 +26,78 @@ header #line {
 header .navbar {
   min-height: 81px;
 }
-header .navbar-fixed-top .navbar-collapse {
-  max-height: 400px;
-}
-header .navbar-default {
-  background: #061b28;
-  z-index: 10000;
-  border: 0;
-}
-header .navbar-default .navbar-brand {
+header .logo {
   width: 150px;
   display: block;
   padding: 14px 30px 21px 20px;
-}
-header .navbar-default .navbar-header {
   float: left;
 }
-header .navbar-default .navbar-toggle {
-  margin-top: 19px;
-  background-color: transparent;
-  border: 0;
+header .join amp-img {
+  float: left;
+  margin: 20px 8px;
 }
-header .navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff;
-}
-header .navbar-default .navbar-toggle i {
+header .join span {
   display: inline-block;
-  font-size: 36px;
-  margin-top: -11px;
-  color: #ffffff;
-  background-color: transparent;
-}
-header .navbar-default .navbar-toggle i:hover,
-header .navbar-default .navbar-toggle i:focus,
-header .navbar-default .navbar-toggle i:active {
-  text-decoration: none;
-}
-header .navbar-default .navbar-toggle:hover,
-header .navbar-default .navbar-toggle:focus,
-header .navbar-default .navbar-toggle:active {
-  background: transparent;
-}
-header .navbar-default .navbar-collapse {
-  border-color: #4421AB;
-}
-header .navbar-default .navbar-nav {
-  float: left;
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-header .navbar-default .navbar-nav figure {
-  height: 40px;
-  width: 40px;
-  overflow: hidden;
-}
-header .navbar-default .navbar-nav figure img {
-  height: 40px;
-}
-header .navbar-default .navbar-nav li {
-  list-style-type: none;
-  border-left: 1px solid #030d14;
-  float: left;
-}
-header .navbar-default .navbar-nav li a {
-  color: #E5E5E5;
+  color: #e5e5e5;
   font-weight: bold;
-  font-size: 16px;
-  padding: 21px 19px;
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
+  line-height: 75px;
+  float: left;
 }
-header .navbar-default .navbar-nav li a i {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 30px;
-}
-header .navbar-default .navbar-nav li a span {
-  padding-left: 7px;
-  vertical-align: top;
-  padding-top: 5px;
-  display: none;
-}
-header .navbar-default .navbar-nav li a:hover {
-  text-decoration: none;
-}
-header .navbar-default .navbar-nav li a:focus {
-  outline: none;
-  color: #E5E5E5;
-  text-decoration: none;
-}
-header .navbar-default .navbar-nav li:hover {
-  background-color: #000000;
+header .join span:hover {
   color: #ffffff;
 }
-header .navbar-default .navbar-nav li.no-border {
-  border-left: 0;
-}
-header .navbar-default .navbar-nav .active a {
-  background-color: #061b28;
-  color: #E5E5E5;
-}
-header .navbar-default .navbar-nav .active a:hover,
-header .navbar-default .navbar-nav .active a:focus {
-  background-color: #000000;
-  color: #E5E5E5;
-}
-header .navbar-default .navbar-form {
-  border: 0;
-  box-shadow: none;
-}
-header .navbar-default .navbar-right {
+header .sidebar-right {
   float: right;
   text-align: center;
+  margin: 0 20px 0 0;
 }
-header .navbar-default .navbar-right li {
-  border-bottom: 0;
-}
-header .navbar-default .navbar-right li a {
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
-header .navbar-default .navbar-right li:last-child .user {
+header .sidebar-right a {
   display: block;
-  padding: 19px 5px 19px 15px;
-  position: relative;
+  cursor: pointer;
 }
-header .navbar-default .navbar-right li:last-child .user figure {
-  background-color: transparent;
-  width: 40px;
-  height: 40px;
+header .sidebar-right figure {
+  margin: 15px;
+  float: left;
+  width: 50px;
+  height: 50px;
+  line-height: 46px;
+  border-radius: 4px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
   overflow: hidden;
-  float: left;
-  margin: 0 10px 0 0;
-  border: 2px solid #cecece;
 }
-header .navbar-default .navbar-right li:last-child .user figure img {
-  height: 40px;
-}
-header .navbar-default .navbar-right li:last-child .user p {
-  float: left;
-  width: 40px;
-  height: 40px;
-  line-height: 34px;
-  vertical-align: middle;
-  margin: 0 5px;
-  font-size: 14px;
-  font-weight: 600;
-}
-header .navbar-default .navbar-right li:last-child .user span.name {
-  float: left;
-  padding: 9px 0 4px 8px;
+header .sidebar-right .name {
   display: inline-block;
+  color: #e5e5e5;
+  font-weight: bold;
+  line-height: 75px;
+}
+header .sidebar-right .name:hover {
+  color: #ffffff;
+}
+header .sidebar-right .sidebar {
+  background-color: #021523;
+  padding: 0 10px;
+}
+header .sidebar-right .sidebar li {
+  display: block;
+  border-left: 0;
   text-align: left;
-  font-size: 18px;
+  margin-bottom: 0;
 }
-header .navbar-default .navbar-right li:last-child .user i {
+header .sidebar-right .sidebar li a {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  color: #ffffff;
+}
+header .sidebar-right .sidebar li a span {
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 27px;
-}
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger {
-  background: url('../images/grey-burger.svg') no-repeat center center;
-}
-header .navbar-default .navbar-right li:last-child .user i.menu-hamburger:hover {
-  background: url('../images/white-burger.svg') no-repeat center center;
-}
-header .navbar-default .navbar-right li:last-child .user i.menu-remove {
-  background: url('../images/grey-remove.svg') no-repeat center center;
-}
-header .navbar-default .navbar-right li:last-child .user i.menu-remove:hover {
-  background: url('../images/white-remove.svg') no-repeat center center;
-}
-header .navbar-default .navbar-right li:last-child .join-class {
-  min-width: 320px;
-  background-color: #021523;
-  color: #e3e3e3;
-}
-header .navbar-default .navbar-right li:last-child .join-class:hover {
-  background-color: #021523;
+  vertical-align: top;
+  padding: 5px 0 5px 7px;
 }
 .header {
   position: relative;
@@ -252,6 +142,27 @@ header .navbar-default .navbar-right li:last-child .join-class:hover {
 }
 section.category {
   margin-top: 35px;
+}
+amp-sidebar {
+  width: 250px;
+  padding-right: 10px;
+  background: #021523;
+}
+.amp-sidebar-image {
+  line-height: 100px;
+  vertical-align: middle;
+}
+.amp-close-image {
+  top: 15px;
+  left: 225px;
+  cursor: pointer;
+}
+li {
+  margin-bottom: 20px;
+  list-style: none;
+}
+button {
+  margin-left: 20px;
 }
 .category {
   margin: 0 auto;
@@ -343,7 +254,6 @@ footer .footer-bottom ul li a:hover {
 }
 .amp-live-list-item {
   justify-content: center;
-  display: flex;
   margin: 0 auto;
 }
 .blog {
@@ -384,6 +294,8 @@ footer .footer-bottom ul li a:hover {
   float: none;
   overflow: hidden;
   border-radius: 2px;
+  min-width: 300px;
+  max-width: 400px;
 }
 .samples figure figcaption h3 {
   font-size: 24px;
@@ -428,6 +340,9 @@ a:focus {
   overflow: hidden;
   margin: 0 auto 15px;
 }
+.content-inner p {
+  padding: 0 20px;
+}
 .content-inner .goals-information {
   width: 280px;
   border: 1px solid #ebebeb;
@@ -464,54 +379,6 @@ a:focus {
   color: red;
 }
 @media (min-width: 768px) {
-  header .navbar {
-    min-height: 82px;
-  }
-  header .navbar-default .navbar-nav figure {
-    height: auto;
-  }
-  header .navbar-default .navbar-nav figure img {
-    height: auto;
-  }
-  header .navbar-default .navbar-nav li {
-    border-left: 1px solid #030d14;
-    border-bottom: 0;
-  }
-  header .navbar-default .navbar-nav li a {
-    font-size: 16px;
-    padding-top: 22px;
-    padding-bottom: 21px;
-  }
-  header .navbar-default .navbar-brand {
-    height: 78px;
-    padding: 15px 20px 18px 5px;
-  }
-  header .navbar-default .navbar-right li a {
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-  header .navbar-default .navbar-right li:last-child {
-    width: 210px;
-  }
-  header .navbar-default .navbar-right li:last-child .user {
-    padding: 15px 5px 13px 15px;
-  }
-  header .navbar-default .navbar-right li:last-child .user figure {
-    width: 50px;
-    height: 50px;
-  }
-  header .navbar-default .navbar-right li:last-child .user figure img {
-    height: 50px;
-  }
-  header .navbar-default .navbar-right li:last-child .user p {
-    width: 50px;
-    height: 50px;
-    line-height: 46px;
-  }
-  header .navbar-default .navbar-right li:last-child .user span.name {
-    padding: 15px 0 4px 8px;
-    font-size: 16px;
-  }
   .header {
     height: 270px;
     line-height: 270px;
@@ -596,60 +463,12 @@ a:focus {
   }
   .amp-live-list-item {
     margin: inherit;
+    display: flex;
   }
   .samples figure {
     min-width: 300px;
     max-width: 300px;
     width: 300px;
-  }
-  header .navbar {
-    min-height: 84px;
-  }
-  header .navbar-brand {
-    height: 80px;
-    padding: 16px 30px 21px 5px;
-  }
-  header .navbar-default .navbar-nav li a {
-    font-size: 16px;
-    padding: 22px 23px;
-  }
-  header .navbar-default .navbar-nav li a i.mybucketlist-icon {
-    margin-right: 6px;
-  }
-  header .navbar-default .navbar-nav li a span {
-    display: inline-block;
-  }
-  header .navbar-default .navbar-nav li a:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
-  header .navbar-default .navbar-right li:last-child {
-    width: 235px;
-  }
-  header .navbar-default .navbar-right li:last-child .user {
-    padding: 16px 5px 14px 15px;
-  }
-  header .navbar-default .navbar-right li:last-child .user span.name {
-    padding: 13px 0 4px 8px;
-  }
-  header .navbar-default .navbar-right li:last-child .user .icon-arrow-down,
-  header .navbar-default .navbar-right li:last-child .user .icon-icon-up {
-    margin-right: 10px;
-    margin-top: 7px;
-  }
-  header .navbar-default .navbar-right li:last-child .user-menu {
-    width: 235px;
-  }
-  header .navbar-default .navbar-right li:last-child .user-menu li a {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  header .navbar-default .navbar-right li:last-child .join-class {
-    min-width: 234px;
-  }
-  header .navbar-default .navbar-right li:last-child .popover-content a {
-    font-size: 14px;
   }
   footer ul li a {
     font-size: 16px;
@@ -665,14 +484,11 @@ a:focus {
     font-size: 48px;
   }
 }
-.clearfix {
+.clear {
   content: "";
   display: table;
   clear: both;
 }
 .text-center {
   text-align: center;
-}
-.sonata-preview-form-container .row {
-  display: none;
 }
