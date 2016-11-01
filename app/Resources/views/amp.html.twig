@@ -1,0 +1,245 @@
+<!DOCTYPE html >
+<html amp lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{%- block title -%}BucketList{%- endblock -%}</title>
+    <meta name="description" content="{%- block meta_description -%}BucketList{%- endblock -%}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    {# this allows to add additional meta data #}
+    {% block meta %}{% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('bucketlist152x152.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('bucketlist120x120.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bucketlist72x72.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bucketlist57x57.png') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="canonical" href="https://ampbyexample.com/components/amp-sidebar/">
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <style amp-custom>
+
+        {% block stylesheets %}
+            {% stylesheets output='css/amp-base.css'
+                '@AppBundle/Resources/public/less/amp.less'
+            %}
+            {{ source(asset_url|remove_asset_version) }}
+            {% endstylesheets %}
+        {% endblock %}
+
+    </style>
+
+</head>
+
+<body>
+{% block body %}
+
+    {% set user = app.user %}
+
+    <amp-sidebar id='sidebar'
+                 layout="nodisplay"
+                 side="right">
+        <amp-img class='amp-close-image'
+                 src="/img/ic_close_black_18dp_2x.png"
+                 width="20"
+                 height="20"
+                 alt="close sidebar"
+                 on="tap:sidebar.close"
+                 role="button"
+                 tabindex="0"></amp-img>
+
+        <ul class="sidebar">
+
+            {#<li>#}
+                {#<a href="{{ path('notifications') }}">#}
+                    {#<amp-img src="{{ asset('bundles/app/images/no-note.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>#}
+                    {#<span class="text">{{ 'notification'|trans | capitalize}}</span>#}
+                {#</a>#}
+            {#</li>#}
+
+            {% if user and user.activity %}
+                <li>
+                    <a href="{{ path('activity') }}">
+                        <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="25" height="30"></amp-img>
+                        <span>{{ 'activity'|trans }}</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li>
+                <a href="{{ path('leaderboard') }}">
+                    <amp-img src="{{ asset('bundles/app/images/leaderboard-blog.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>
+                    <span class="text">{{ 'leaderboard.name'|trans | capitalize}}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('goal_friends') }}">
+                    <i class="menu-goalfrinds"></i>
+                    <amp-img src="{{ asset('bundles/app/images/menu-goalfrinds.svg') }}" alt="Goalfrinds" width="24" height="30"></amp-img>
+                    <span class="text">{{ 'goalfriends'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('goals_list') }}">
+                    <amp-img src="{{ asset('bundles/app/images/ideas.svg') }}" alt="Ideas" width="25" height="25"></amp-img>
+                    <span>{{ 'ideas'|trans | capitalize }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('user_profile') }}">
+                    <amp-img src="{{ asset('bundles/app/images/my-bucketlist.svg') }}" alt="My-bucketlist" width="25" height="30"></amp-img>
+                    <span>{{ 'my_bucketlist'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('add_goal') }}">
+                    <amp-img src="{{ asset('bundles/app/images/add-goal.svg') }}" alt="Add-goal" width="28" height="30"></amp-img>
+                    <span>{{ 'create_goal'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path("edit_user_profile") }}">
+                    <amp-img src="{{ asset('bundles/app/images/settings.svg') }}" alt="Settings" width="24" height="30"></amp-img>
+                    <span>{{ 'settings'|trans }}</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path("fos_user_security_logout") }}">
+                    <amp-img src="{{ asset('bundles/app/images/logout.svg') }}" alt="Logout" width="30" height="30"></amp-img>
+                    <span>{{ 'logout'|trans }}</span>
+                </a>
+            </li>
+        </ul>
+    </amp-sidebar>
+    <div id="mainframe">
+        <div id="wrap">
+            <header>
+                <nav class="navbar navbar-fixed-top">
+                    <div id="line"></div>
+                    <div class="category">
+                        <a class="logo" href="{{ path("homepage") }}">
+                            <amp-img src="{{ asset('bundles/app/images/logo.png') }}" alt="Bucket List 127" width="125" height="50"></amp-img>
+                        </a>
+
+                        <div class="sidebar-right">
+
+                            {% if not user %}
+                                <div class="join">
+                                    <amp-img src="{{ asset('bundles/app/images/join-icon.svg') }}" alt="Ideas" width="30" height="30"></amp-img>
+                                    <span>{{ 'join'|trans |upper }}</span>
+                                </div>
+                            {% else %}
+
+                                {% set lastName = user.lastName %}
+                                {% set firstName = user.firstName %}
+                                {% set nameOnImage = firstName|slice(0,1) ~ lastName|slice(0,1) %}
+                                {% set className = "user-no" ~ random(4) %}
+
+                                <button on='tap:sidebar.toggle'>
+                                    <a class="user">
+
+                                        {% if user.getPhotoLink %}
+                                            <figure>
+                                                <amp-img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" width="50" height="50"></amp-img>
+                                            </figure>
+                                        {% else %}
+                                            <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
+                                        {% endif %}
+
+                                        <span class="name">{{ user.firstName|slice(0, 8) }} {{ user.firstName|length > 8 ? '...' : '' }}</span>
+                                    </a>
+                                </button>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer>
+
+            <div class="category">
+                <ul class="apps clear">
+                    <li>
+                        <a href="https://itunes.apple.com/am/app/bucket-list-things-to-do-before/id978336819" class="app-store" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/appstore.png') }}" alt="Appstore" height="40" width="138"></amp-img>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://play.google.com/store/apps/details?id=com.magicdevs.bucketlist" class="google-play" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/googleplay.png') }}" alt="Googleplay" height="40" width="138"></amp-img>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="social">
+                    <li>
+                        <a href="https://www.facebook.com/bucketlist127com/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/facebook-icon.svg') }}" alt="Facebook" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.instagram.com/bucketlist127/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/instagram-icon.svg') }}" alt="Instagram" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.twitter.com/bucketlist127" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/twitter-icon.svg') }}" alt="Twitter" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.pinterest.com/bucketlist127/" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/pinterest-icon.svg') }}" alt="Pinterest" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://plus.google.com/+Bucketlist127com" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/gplus-icon.svg') }}" alt="Google" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.youtube.com/channel/UCPKHRpfrec7Xm0iyLi0VQ7g" target="_blank">
+                            <amp-img src="{{ asset('bundles/app/images/youtube-icon.svg') }}" alt="Youtube" height="40" width="40"></amp-img>
+                        </a>
+                    </li>
+
+                </ul>
+
+                {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+            </div>
+
+        <div class="footer-bottom">
+            <div class="category">
+                <small>&copy; {{ 'copyright'|trans | upper }}</small>
+                {{ knp_menu_render('AppBundle:Builder:privacyMenu') }}
+            </div>
+        </div>
+
+    </footer>
+    </div>
+{% endblock %}
+</body>
+</html>

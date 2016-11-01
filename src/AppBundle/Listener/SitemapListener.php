@@ -13,8 +13,8 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class SitemapListener implements SitemapListenerInterface
 {
-    const PROJECT = 'bucket_list';
-    const PROJECT_ITEM_LIMIT = 100;
+    const SITEMAP_DEFAULT = 'default';
+    const SITEMAP_BLOG = 'blog';
 
     private $event;
 
@@ -44,15 +44,15 @@ class SitemapListener implements SitemapListenerInterface
 
         $section = $this->event->getSection();
 
-        if (is_null($section) || $section == 'default') {
+        if (is_null($section) || $section == 'default' || $section == 'blog') {
 
             //get absolute homepage url
             $url = $this->router->generate('homepage', array(), true);
 
-            //add homepage url to the urlset named default
-            $this->createSitemapEntry($url, new \DateTime(), UrlConcrete::CHANGEFREQ_YEARLY, 1);
+            //add homepage url to the url set named default
+            $this->createSitemapEntry($url, new \DateTime(), UrlConcrete::CHANGEFREQ_YEARLY, 1, static::SITEMAP_DEFAULT);
 
-            // get all tag
+            // get all goals
             $goals = $this->em->getRepository('AppBundle:Goal')->findBy(array('publish' => Goal::PUBLISH));
 
             foreach ($goals as $goal) {
@@ -61,15 +61,30 @@ class SitemapListener implements SitemapListenerInterface
                 $url = $this->router->generate('inner_goal', array('slug' => $slug), true);
                 $tagUpdatedDate = $goal->getUpdated()->format("Y-m-d H:i:s");
 
-                //add homepage url to the urlset named default
-                $this->createSitemapEntry($url, new \DateTime($tagUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.8);
+                //add goal url to the url set named default
+                $this->createSitemapEntry($url, new \DateTime($tagUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.8, static::SITEMAP_DEFAULT);
+            }
+
+            //get all blogs
+            $blogs = $this->em->getRepository('AppBundle:Blog')->findAll();
+
+            foreach ($blogs as $blog)
+            {
+                $slug = $blog->getSlug();
+
+                $url = $this->router->generate('blog_show', array('slug' => $slug), true);
+
+                $blogUpdatedDate = $blog->getUpdated()->format("Y-m-d H:i:s");
+
+                //add blog url to the url set named blog
+                $this->createSitemapEntry($url, new \DateTime($blogUpdatedDate), UrlConcrete::CHANGEFREQ_YEARLY, 0.9, static::SITEMAP_BLOG);
             }
         }
         // Start event named 'eventName'
         $stopwatch->stop('bl_sitemap_listener');
     }
 
-    private function createSitemapEntry($url, $modifiedDate, $changeFrequency, $priority)
+    private function createSitemapEntry($url, $modifiedDate, $changeFrequency, $priority, $name)
     {
         //add homepage url to the urlset named default
         $this->event->getGenerator()->addUrl(
@@ -79,7 +94,7 @@ class SitemapListener implements SitemapListenerInterface
                 $changeFrequency,
                 $priority
             ),
-            'default'
+            $name
         );
     }
 }

@@ -110,8 +110,17 @@ app_badge_rest:
     resource: Application\UserBundle\Controller\Rest\BadgeController
     prefix:   /
 
+app_blog_rest:
+    type:     rest
+    resource: AppBundle\Controller\Rest\BlogController
+    prefix:   /
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 application_affiliate:
     resource: "@ApplicationAffiliateBundle/Resources/config/routing.yml"
+
+app_blog:
+    resource: "@AppBundle/Controller/BlogController.php"
+    type: annotation

@@ -1,0 +1,67 @@
+{% extends "::amp.html.twig" %}
+
+{% block content %}
+
+    {% set blogData = blog.data %}
+
+    <div class="header">
+        <h1 class="text-white">{{ blog.title }}</h1>
+        <figure>
+            <span class="overlay"></span>
+            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
+                     height="853"></amp-img>
+        </figure>
+    </div>
+
+    <div class="bg-white content-inner">
+        <figure class="goal-cover">
+            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}"  layout="responsive"  width="1280" height="853"></amp-img>
+        </figure>
+
+    {% if blogData|length > 0 %}
+
+        {% for data in blogData %}
+
+            {% if data.type == 'text' %}
+                
+                <p>{{ data.content|markdown|striptags }}</p>
+
+            {% elseif data.type == 'goal' and data.goals is defined %}
+
+                {% set goal = data.goals %}
+
+                <div class="goals-information">
+                    <figure>
+                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                            <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                     layout="responsive"
+                                     width="1280"
+                                     height="853">
+                            </amp-img>
+                        </a>
+                    </figure>
+
+                    <div>
+                        <h3 class="text-blue">{{ goal.title }}</h3>
+                        {% if goal.description %}
+                            <p class="text-blue">{{ goal.description|markdown|striptags|sliceString }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </div>
+
+    {{ render_esi(controller('AppBundle:Goal:randomGoal')) }}
+
+{% endblock %}
+
+{%- block title -%}
+    {{ blog.title }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- blog.metaDescription|markdown|striptags|sliceString -}}
+{%- endblock -%}

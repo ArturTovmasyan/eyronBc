@@ -56,7 +56,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"goal", "tiny_goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft", "blog"})
      */
     protected $id;
 
@@ -70,7 +70,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(message = "Goal description can't be blank", groups={"goal"})
      * @ORM\Column(name="description", type="text", length=10000, nullable=false)
-     * @Groups({"goal", "goal_description"})
+     * @Groups({"goal", "goal_description", "blog"})
      */
     protected $description;
 
@@ -84,7 +84,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
      * )
      * @Assert\NotBlank(groups={"goal"}, message = "Goal title can't be blank")
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Groups({"goal", "tiny_goal", "goal_draft"})
+     * @Groups({"goal", "tiny_goal", "goal_draft", "blog"})
      */
     protected $title;
 
@@ -251,7 +251,7 @@ class Goal implements MultipleFileInterface, PublishAware, ArchivedGoalInterface
 
     /**
      * @SerializedName("image_path")
-     * @Groups({"tiny_goal", "goal", "image_link"})
+     * @Groups({"tiny_goal", "goal", "image_link", "blog"})
      */
     private $mobileImagePath;
 
