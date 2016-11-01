@@ -142,6 +142,7 @@ header .user-no4 {
   -o-border-radius: 50%;
   overflow: hidden;
   color: #ffffff;
+  border: 2px solid #cecece;
 }
 .sidebar-right .name {
   display: inline-block;
@@ -523,12 +524,12 @@ a:focus {
   }
   .amp-live-list-item {
     margin: inherit;
-    display: flex;
   }
   .samples figure {
     min-width: 300px;
     max-width: 300px;
     width: 300px;
+    float: left;
   }
   footer ul li a {
     font-size: 16px;
