@@ -120,7 +120,7 @@
             <tag name="sonata.admin" manager_type="orm" group="Blog" label="admin.label.name.blog"/>
             <argument/>
             <argument>AppBundle\Entity\Blog</argument>
-            <argument/>
+            <argument>AppBundle:Admin/Blog</argument>
         </service>
 
     </services>
