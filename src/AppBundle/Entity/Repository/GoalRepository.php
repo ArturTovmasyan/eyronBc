@@ -27,6 +27,28 @@ class GoalRepository extends EntityRepository
     const NEAR_BY_GOAL_COUNT = 10;
 
     /**
+     * @param $text
+     * @param $count
+     * @return array
+     */
+    public function findGoalsByAutocomplete($text, $count)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('g.id as id, g.title as value, g.title as label')
+                ->from('AppBundle:Goal', 'g', 'g.id')
+                ->where('g.publish = :publish')
+                ->andWhere('g.title LIKE :text')
+                ->setParameter('publish', PublishAware::PUBLISH)
+                ->setParameter('text', '%' . $text . '%')
+                ->setMaxResults($count);
+        ;
+        
+        return $query->getQuery()->getResult();
+    }
+    
+    /**
      * @param $latitude
      * @param $longitude
      * @return array
