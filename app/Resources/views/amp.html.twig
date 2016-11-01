@@ -149,7 +149,6 @@
                                                 <amp-img src="{{ user.getPhotoLink|blImageFilter('user_icon') }}" alt="{{ user.filename }}" width="50" height="50"></amp-img>
                                             </figure>
                                         {% else %}
-                                            {{ dump(nameOnImage) }}
                                             <p class="no-image {{ className }}">{{ nameOnImage | upper}}</p>
                                         {% endif %}
 
