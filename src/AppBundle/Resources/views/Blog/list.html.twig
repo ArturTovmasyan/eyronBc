@@ -10,7 +10,7 @@
         <h1 class="text-white">{{ 'BUCKETLIST STORIES' }}</h1>
 
         <figure>
-            {% if itemCount  %}
+            {% if itemCount %}
                 {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
             {% else %}
                 {% set image = asset(imgPath) %}
@@ -44,7 +44,7 @@
 
                                 <h3 class="text-center text-blue">{{ blog.title }}</h3>
 
-                                <p class="text-center text-blue">{{ blog.metaDescription }}</p>
+                                <p class="text-center text-blue">{{ blog.metaDescription|markdown|striptags }}</p>
 
                             </a>
                         </div>

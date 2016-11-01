@@ -458,13 +458,12 @@ footer .footer-bottom ul li a:hover {
   margin: 10px 0 0;
   font-size: 21px;
 }
-.content-inner .goals-information div h4 {
-  margin: 0;
-  font-size: 16px;
-}
 .content-inner .goals-information div p {
   margin: 5px 0 0;
   font-size: 14px;
+}
+.content-inner .goals-information div p:nth-of-type(2) {
+  color: red;
 }
 @media (min-width: 768px) {
   header .navbar {
@@ -558,9 +557,6 @@ footer .footer-bottom ul li a:hover {
   }
   .content-inner .goals-information div h3 {
     font-size: 24px;
-  }
-  .content-inner .goals-information div h4 {
-    font-size: 18px;
   }
   .content-inner .goals-information div p {
     font-size: 14px;
@@ -666,7 +662,7 @@ footer .footer-bottom ul li a:hover {
     padding: 25px 30px;
   }
   .title {
-    padding: 62px 0 68px;
+    padding: 20px 0 ;
     font-size: 48px;
   }
 }
