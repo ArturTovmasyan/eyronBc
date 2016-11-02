@@ -250,7 +250,7 @@ footer small {
   float: left;
 }
 footer ul {
-  padding: 10px 0 0;
+  padding: 0;
   text-align: center;
 }
 footer ul li {
@@ -271,7 +271,7 @@ footer ul li a:hover {
   text-decoration: underline;
 }
 footer .social {
-  padding: 10px 0 0;
+  padding: 0;
 }
 footer .social li {
   padding: 5px 4px;
@@ -501,7 +501,7 @@ a:focus {
     font-size: 14px;
   }
   footer .social {
-    padding: 0;
+    padding: 10px 0 0;
   }
   footer .social li {
     padding: 5px 10px;
