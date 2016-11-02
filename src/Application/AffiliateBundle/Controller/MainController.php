@@ -96,7 +96,7 @@ class MainController extends Controller
             $affiliate = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findOneByUfi($ufi);
             if (is_null($affiliate)) {
                 $affiliate = new Affiliate();
-                $affiliate->setName($result[PlaceType::TYPE_CITY]);
+                $affiliate->setName($city ? $city : $country);
                 $affiliate->setAffiliateType($affiliateType);
                 $affiliate->setUfi($ufi);
                 $affiliate->setLinks([$link]);
