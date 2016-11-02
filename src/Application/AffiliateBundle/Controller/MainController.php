@@ -78,23 +78,32 @@ class MainController extends Controller
         $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
 
         if ($ufi) {
-            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findAffiliateTypeByName('DealsFinder');
+            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:AffiliateType')->findOneByName('DealsFinder');
 
             if (!$affiliateType){
                 $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.deals_finder_type_not_found'));
                 return $this->redirect($referer);
             }
 
-            $affiliate = new Affiliate();
-            $affiliate->setName($result[PlaceType::TYPE_CITY]);
-            $affiliate->setAffiliateType($affiliateType);
-            $affiliate->setUfi($ufi);
-            $affiliate->setLinks([$link]);
+            $affiliate = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findOneByUfi($ufi);
+            if (is_null($affiliate)) {
+                $affiliate = new Affiliate();
+                $affiliate->setName($result[PlaceType::TYPE_CITY]);
+                $affiliate->setAffiliateType($affiliateType);
+                $affiliate->setUfi($ufi);
+                $affiliate->setLinks([$link]);
+
+                $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.created'));
+            }
+            else {
+
+                $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.updated'));
+                $affiliate->addLink($link);
+            }
 
             $em->persist($affiliate);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.created'));
             return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
         }
 
