@@ -412,6 +412,7 @@ footer{
     figcaption{
       height: 155px;
       overflow: hidden;
+      position: relative;
       h3{
         font-size:24px;
         color: #333;
@@ -450,6 +451,16 @@ a{
 
 .text-blue{
   color: #000333;
+}
+
+.transparent{
+  display: block;
+  width: 100%;
+  height: 35px;
+  position: absolute;
+  bottom: -37px;
+  z-index: 10000;
+  box-shadow: 0 -21px 10px rgba(255, 255, 255, 0.52);
 }
 
 .content-inner{
@@ -494,6 +505,7 @@ a{
     div{
       width: 260px;
       padding: 0 10px 10px;
+      position: relative;
 
       h3{
         margin: 10px 0 0;
