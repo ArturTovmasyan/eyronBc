@@ -95,25 +95,33 @@ header{
 
 .sidebar{
   background-color: #021523;
-  padding: 0 10px;
+  padding: 0;
 
   li{
     display: block;
     border-left: 0;
     text-align: left;
     margin-bottom: 0;
+    padding: 0 10px;
     a{
       padding: 10px 20px;
       font-size: 14px;
       font-weight: 500;
       display: block;
-      color: #ffffff;
+      color: #e5e5e5;
       font-family: 'Open Sans', sans-serif;
 
       span{
         display: inline-block;
         vertical-align: top;
         padding: 5px 0 5px 7px;
+      }
+    }
+
+    &:hover{
+      background: #000000;
+      a{
+        color: #ffffff;
       }
     }
   }
