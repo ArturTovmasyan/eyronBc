@@ -12,10 +12,10 @@
     {% endstylesheets %}
 {% endblock %}
 
-{% block content %}
+ {% set blog = object %}
+ {% set blogData = blog.data %}
 
-    {% set blog = object %}
-    {% set blogData = blog.data %}
+{% block content %}
 
     <div class="header">
         <h1 class="text-white">{{ blog.title }}</h1>
@@ -44,7 +44,7 @@
 
                     <div class="goals-information">
                         <figure>
-                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                                 <img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
                                     alt="{{ goal.title }}">
                             </a>
@@ -73,3 +73,11 @@
   {% block formactions %}
       {{ include('AppBundle:Admin:preview_buttons.html.twig') }}
   {% endblock %}
+
+{%- block title -%}
+    {{ blog.title }}
+{%- endblock -%}
+
+{%- block meta_description -%}
+    {{- blog.metaDescription|markdown|replace({'#': ''})|striptags|sliceString -}}
+{%- endblock -%}
