@@ -172,13 +172,16 @@ class MainController extends Controller
     /**
      * This action is used to include user block and activity block in header
      *
+     * @param $isLogged
      * @param $route
      * @return JsonResponse
      */
-    public function esiAction($route)
+    public function esiAction($route, $isLogged)
     {
         // generate activities
-        $activityTwig = $this->renderView('AppBundle:Main:esiActivity.html.twig', array('route' => $route));
+        $activityTwig = $isLogged ?
+            $this->renderView('AppBundle:Main:esiActivity.html.twig', array('route' => $route)) :
+            null;
 
         // generate user
         $userTwig = $this->renderView('AppBundle:Main:esiUser.html.twig');
