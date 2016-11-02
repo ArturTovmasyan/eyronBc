@@ -57,17 +57,17 @@
 
         <ul class="sidebar">
 
-            {#<li>#}
-                {#<a href="{{ path('notifications') }}">#}
-                    {#<amp-img src="{{ asset('bundles/app/images/no-note.svg') }}" alt="Leaderboard" width="27" height="27"></amp-img>#}
-                    {#<span class="text">{{ 'notification'|trans | capitalize}}</span>#}
-                {#</a>#}
-            {#</li>#}
+            <li>
+                <a href="{{ path('notifications') }}">
+                    <amp-img src="{{ asset('bundles/app/images/bell.png') }}" alt="Notifications" width="20" height="24"></amp-img>
+                    <span class="note-text">{{ 'notification'|trans | capitalize}}</span>
+                </a>
+            </li>
 
             {% if user and user.activity %}
                 <li>
                     <a href="{{ path('activity') }}">
-                        <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="25" height="30"></amp-img>
+                        <amp-img src="{{ asset('bundles/app/images/activity.svg') }}" alt="Activity" width="27" height="30"></amp-img>
                         <span>{{ 'activity'|trans }}</span>
                     </a>
                 </li>
