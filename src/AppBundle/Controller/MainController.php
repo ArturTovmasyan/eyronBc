@@ -189,6 +189,19 @@ class MainController extends Controller
         return array('route' => $route);
     }
 
+    /**
+     * This action is used to include user block in header
+     * @Route("/esi-user-for-amp", name="esi_user_for_amp")
+     * @Template()
+     * @return array
+     */
+    public function esiUserForAmpAction()
+    {
+        $user = $this->getUser();
+
+        return array('user' => $user);
+    }
+
 
     /**
      * @Route("/goal-friends", name="goal_friends")
