@@ -42,8 +42,8 @@
                     </figure>
 
                     <div>
-                        <h3 class="text-blue">
-                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">{{ goal.title }}</a>
+                        <h3>
+                            <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" class="text-blue">{{ goal.title }}</a>
                         </h3>
 
                         {% if goal.description %}
