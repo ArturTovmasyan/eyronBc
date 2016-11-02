@@ -44,7 +44,7 @@ class BlogController extends Controller
         //disable goal archived filters
         $em->getFilters()->disable('archived_goal_filter');
 
-        if ($this->isPreviewRequested()) {
+        if ($this->isPreviewRequested() && array_key_exists('bl_multiple_blog', $data)) {
 
             $arrayData = $data['bl_multiple_blog'];
             $object->setData($arrayData);
@@ -190,6 +190,7 @@ class BlogController extends Controller
             'action' => 'create',
             'form' => $view,
             'object' => $object,
+//            'image_path' => $image_path
         ), null);
     }
 }

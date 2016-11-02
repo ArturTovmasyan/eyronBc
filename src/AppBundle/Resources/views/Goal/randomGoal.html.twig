@@ -6,7 +6,7 @@
         <div class="amp-live-list-item">
             {% for goal in goals %}
                 <figure class="blog">
-                    <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}" target="_blank">
+                    <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                         <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
                                  layout="responsive"
                                  width="1280"
@@ -14,11 +14,13 @@
                         </amp-img>
 
                         <figcaption>
+                            <span class="transparent"></span>
                             <h3 class="text-center">{{ goal.title }}</h3>
 
                             {% if goal.description %}
                                 <p>{{ goal.description|markdown|sliceString }}</p>
                             {% endif %}
+
                         </figcaption>
                     </a>
 
