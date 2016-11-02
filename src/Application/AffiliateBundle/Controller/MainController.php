@@ -67,9 +67,8 @@ class MainController extends Controller
 
         if (!is_null($affiliate)){
             $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.already_exists'));
-            return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
 
-            return $this->redirect($referer);
+            return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
         }
 
         $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
