@@ -73,8 +73,15 @@ class MainController extends Controller
 
         $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
 
+        if (!isset($result[PlaceType::TYPE_COUNTRY]) && !isset($result[PlaceType::TYPE_CITY])){
+            $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.google_api_error'));
+
+            return $this->redirect($referer);
+        }
+
         $city = isset($result[PlaceType::TYPE_CITY]) ? $result[PlaceType::TYPE_CITY] : '';
-        $searchTerm = urlencode($result[PlaceType::TYPE_COUNTRY] . ' ' . $city);
+        $country = isset($result[PlaceType::TYPE_COUNTRY]) ? $result[PlaceType::TYPE_COUNTRY] : '';
+        $searchTerm = urlencode($country . ' ' . $city);
 
         $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
 
