@@ -46,7 +46,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/generate-affiliate/{id}", name="generate_affiliate")
+     * @Route("/admin/generate-affiliate/{id}", name="generate_affiliate")
      */
     public function generateAffiliate(Request $request, Goal $goal)
     {
@@ -73,28 +73,45 @@ class MainController extends Controller
 
         $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
 
-        $searchTerm = urlencode($result[PlaceType::TYPE_COUNTRY] . ' ' . $result[PlaceType::TYPE_CITY]);
+        if (!isset($result[PlaceType::TYPE_COUNTRY]) && !isset($result[PlaceType::TYPE_CITY])){
+            $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.google_api_error'));
+
+            return $this->redirect($referer);
+        }
+
+        $city = isset($result[PlaceType::TYPE_CITY]) ? $result[PlaceType::TYPE_CITY] : '';
+        $country = isset($result[PlaceType::TYPE_COUNTRY]) ? $result[PlaceType::TYPE_COUNTRY] : '';
+        $searchTerm = urlencode($country . ' ' . $city);
 
         $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
 
         if ($ufi) {
-            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findAffiliateTypeByName('DealsFinder');
+            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:AffiliateType')->findOneByName('DealsFinder');
 
             if (!$affiliateType){
                 $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.deals_finder_type_not_found'));
                 return $this->redirect($referer);
             }
 
-            $affiliate = new Affiliate();
-            $affiliate->setName($result[PlaceType::TYPE_CITY]);
-            $affiliate->setAffiliateType($affiliateType);
-            $affiliate->setUfi($ufi);
-            $affiliate->setLinks([$link]);
+            $affiliate = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findOneByUfi($ufi);
+            if (is_null($affiliate)) {
+                $affiliate = new Affiliate();
+                $affiliate->setName($city ? $city : $country);
+                $affiliate->setAffiliateType($affiliateType);
+                $affiliate->setUfi($ufi);
+                $affiliate->setLinks([$link]);
+
+                $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.created'));
+            }
+            else {
+
+                $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.updated'));
+                $affiliate->addLink($link);
+            }
 
             $em->persist($affiliate);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.created'));
             return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
         }
 
