@@ -182,6 +182,12 @@
         {% endif %}
 
         {% block body %}
+
+        {% if user %}
+            {% set esiTwigs =  render_esi(controller('AppBundle:Main:esi', {'route': app.request.get('_route')})) %}
+            {% set esiTwigs = esiTwigs|json_decode %}
+        {% endif %}
+
         <div id="mainframe">
             <div id="wrap">
                 <header>
@@ -193,7 +199,10 @@
                                 {% if user %}
                                     <ul class="nav navbar-nav  hidden-sm hidden-md hidden-lg">
 
-                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
+                                        {% if esiTwigs is defined %}
+                                            {{ esiTwigs.activityTwig|raw }}
+                                        {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
+                                            {% endif %}
                                         <li data-ng-show="!joinToggle11">
                                             <a href="{{ path('goals_list') }}" {% if app.request.get('_route') == 'goals_list' %}class="active-mobile" data-ng-click="scrollTop()"{% endif %}>
                                                 {#<i class="icon-ideas-icon"></i>#}
@@ -211,7 +220,10 @@
                                             {{ include('AppBundle:Blocks:notification.html.twig') }}
                                         </li>
                                         <li>
-                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                            {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
+                                            {% if esiTwigs is defined %}
+                                                {{ esiTwigs.userTwig|raw }}
+                                            {% endif %}
                                         </li>
                                     </ul>
 
@@ -320,7 +332,10 @@
                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav">
 
-                                        {{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}
+                                        {% if esiTwigs is defined %}
+                                            {{ esiTwigs.activityTwig|raw }}
+                                            {#{{ render_esi(controller('AppBundle:Main:esiActivity', {'route': app.request.get('_route')})) }}#}
+                                        {% endif %}
 
                                         <li {% if app.request.get('_route') == 'goals_list' %}class="active" data-ng-click="scrollTop()"{% endif %}>
                                             <a href="{{ path('goals_list') }}">
@@ -346,7 +361,10 @@
                                             </li>
                                         {% endif %}
                                         <li>
-                                            {{ render_esi(controller('AppBundle:Main:esiUser')) }}
+                                            {#{{ render_esi(controller('AppBundle:Main:esiUser')) }}#}
+                                            {% if esiTwigs is defined %}
+                                                {{ esiTwigs.userTwig|raw }}
+                                            {% endif %}
                                         </li>
                                     </ul>
                                 </div>
