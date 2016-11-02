@@ -24,7 +24,7 @@
 
             {% if data.type == 'text' %}
                 
-                <p>{{ data.content|removeTag|markdown|striptags }}</p>
+                <p>{{ data.content|removeTag|markdown }}</p>
 
             {% elseif data.type == 'goal' and data.goals is defined %}
 
@@ -44,7 +44,7 @@
                     <div>
                         <h3 class="text-blue">{{ goal.title }}</h3>
                         {% if goal.description %}
-                            <p class="text-blue">{{ goal.description|removeTag|markdown|striptags|sliceString }}</p>
+                            <p class="text-blue">{{ goal.description|removeTag|markdown|sliceString }}</p>
                         {% endif %}
                     </div>
                 </div>
