@@ -56,7 +56,7 @@
                         <div>
                             <h3 class="text-blue">{{ goal.title }}</h3>
                             {% if goal.description %}
-                                <p class="text-blue">{{ goal.description|removeTag|markdown|sliceString }}</p>
+                                <p class="text-blue">{{ goal.description|removeTag|markdown }}</p>
                             {% endif %}
                         </div>
                     </div>
