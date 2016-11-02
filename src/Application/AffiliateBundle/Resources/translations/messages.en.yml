@@ -1,0 +1,6 @@
+admin:
+   flash:
+      empty_location: The task hasn't location
+      already_exists: Affiliate already exists
+      created: Affiliate successfully created
+      ufi_not_found: Ufi not found

@@ -26,4 +26,19 @@ class AffiliateRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('zone', $zone)
             ->getResult();
     }
+
+    /**
+     * @param $link
+     * @return mixed
+     */
+    public function findGoalAffiliateByLink($link)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT a
+                           FROM ApplicationAffiliateBundle:Affiliate a
+                           WHERE a.links LIKE :link")
+            ->setParameter('link', '%' . $link .'%')
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+    }
 }

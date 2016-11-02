@@ -16,6 +16,14 @@
 {% block actions %}
     <li>{% include 'AppBundle:Admin:goal_edit_action_link.html.twig' %}</li>
     {{ parent() }}
+    {% if object.archived == 0 %}
+        <li>
+            <a class="sonata-action-element" href="{{ path('generate_affiliate', {'id': object.id}) }}">
+                <i class="fa fa-plus-circle"></i>
+                {{ 'admin.label.name.generate_affiliate'|trans() }}
+            </a>
+        </li>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

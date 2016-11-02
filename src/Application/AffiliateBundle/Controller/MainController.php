@@ -2,6 +2,9 @@
 
 namespace Application\AffiliateBundle\Controller;
 
+use AppBundle\Entity\Goal;
+use AppBundle\Entity\PlaceType;
+use Application\AffiliateBundle\Entity\Affiliate;
 use Application\AffiliateBundle\Entity\AffiliateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,5 +43,61 @@ class MainController extends Controller
             'htmlContent' => $htmlContent,
             'jsContent'   => $jsContent
         ];
+    }
+
+    /**
+     * @Route("/generate-affiliate/{id}", name="generate_affiliate")
+     */
+    public function generateAffiliate(Request $request, Goal $goal)
+    {
+        $referer = $request->headers->get('referer');
+
+        if (!$goal->getLat() || !$goal->getLng()){
+            $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.empty_location'));
+
+            return $this->redirect($referer);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $googlePlace =  $this->get('app.google_place');
+        $routing     = $this->get('router');
+
+        $link = $request->getSchemeAndHttpHost() . $routing->generate('inner_goal', ['slug' => $goal->getSlug()]);
+        $affiliate = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findGoalAffiliateByLink($link);
+
+        if (!is_null($affiliate)){
+            $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.already_exists'));
+
+            return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
+        }
+
+        $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
+
+        $searchTerm = urlencode($result[PlaceType::TYPE_COUNTRY] . ' ' . $result[PlaceType::TYPE_CITY]);
+
+        $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
+
+        if ($ufi) {
+            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:AffiliateType')->find(1);
+
+            if (!$affiliateType){
+                throw new \Exception('Affiliate Type not found');
+            }
+
+            $affiliate = new Affiliate();
+            $affiliate->setName($result[PlaceType::TYPE_CITY]);
+            $affiliate->setAffiliateType($affiliateType);
+            $affiliate->setUfi($ufi);
+            $affiliate->setLinks([$link]);
+
+            $em->persist($affiliate);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add("sonata_flash_success", $this->get('translator')->trans('admin.flash.created'));
+            return $this->redirectToRoute('admin_application_affiliate_affiliate_show', ['id' => $affiliate->getId()]);
+        }
+
+        $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.ufi_not_found'));
+        return $this->redirect($referer);
     }
 }

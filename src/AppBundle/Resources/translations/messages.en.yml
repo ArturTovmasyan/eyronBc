@@ -472,6 +472,7 @@ admin:
       blog_link: Blog link
       position: Position
       meta_description: Meta Desc.
+      generate_affiliate: Generate Affiliate
 
 # end sonata admin lable
 
