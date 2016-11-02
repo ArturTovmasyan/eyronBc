@@ -82,25 +82,7 @@ class BlogController extends Controller
         $em->getFilters()->disable('archived_goal_filter');
 
         $request = $this->getRequest();
-//
-//        $uniqId = $request->query->get('uniqid');
-//        $image = $request->files->get($uniqId);
-//
-//        $image_path = null;
-//        $image = reset($image);
-//
-//        if($image) {
-//
-//            $pathDir = $image->getRealPath();
-//
-//            $file = file_get_contents($pathDir);
-//            $fileName = time();
-//
-//            $newImage = '/var/www/html/bucketlist/web/uploads/images/'.$fileName.'blog_preview.jpg';
-//            file_put_contents($newImage, $file);
-//            $image_path = 'bucketlist.loc/uploads/images/'.$fileName.'blog_preview.jpg';
-//        }
-        
+
         // the key used to lookup the template
         $templateKey = 'edit';
 
