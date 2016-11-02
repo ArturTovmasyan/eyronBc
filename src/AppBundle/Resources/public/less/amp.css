@@ -132,7 +132,7 @@ header .user-no4 {
 .sidebar-right {
   float: right;
   text-align: center;
-  margin: 0 5px 0 0;
+  margin: 0 1px 0 0;
 }
 .sidebar-right a {
   display: block;
@@ -140,7 +140,7 @@ header .user-no4 {
 }
 .sidebar-right figure,
 .sidebar-right p {
-  margin: 15px;
+  margin: 11px 5px;
   float: left;
   width: 50px;
   height: 50px;
@@ -159,6 +159,10 @@ header .user-no4 {
   color: #e5e5e5;
   font-weight: bold;
   line-height: 75px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 73px;
+  overflow: hidden;
 }
 .sidebar-right .name:hover {
   color: #ffffff;
@@ -448,12 +452,13 @@ a:focus {
 .content-inner .goals-information p {
   font-size: 16px;
   line-height: 26px;
+  color: #000333;
 }
 .content-inner .goals-information div {
   width: 260px;
   padding: 0 10px 10px;
   position: relative;
-  height: 170px;
+  height: 135px;
   overflow: hidden;
 }
 .content-inner .goals-information div h3 {
@@ -462,14 +467,17 @@ a:focus {
   padding: 0;
 }
 .content-inner .goals-information div p {
-  margin: 5px 0 0;
+  margin: 0;
   font-size: 14px;
   padding: 0;
 }
-.content-inner .goals-information div p:nth-of-type(2) {
-  color: red;
-}
 @media (min-width: 768px) {
+  .sidebar-right {
+    margin: 0 15px 0 0;
+  }
+  .sidebar-right .name {
+    width: auto;
+  }
   .header {
     height: 270px;
     line-height: 270px;
@@ -508,6 +516,7 @@ a:focus {
     float: left;
     width: 310px;
     padding: 0;
+    height: 170px;
   }
   .content-inner .goals-information div h3 {
     font-size: 24px;

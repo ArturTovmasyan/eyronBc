@@ -55,9 +55,10 @@
 
 {% endblock %}
 
-{#TODO static text for below blocks#}
-{#{%- block title -%}#}
-{#{%- endblock -%}#}
+{%- block title -%}
+    {{- 'goal.stories_title'|trans -}}
+{%- endblock -%}
 
-{#{%- block meta_description -%}#}
-{#{%- endblock -%}#}
+{%- block meta_description -%}
+    {{- 'goal.stories_description'|trans -}}
+{%- endblock -%}
