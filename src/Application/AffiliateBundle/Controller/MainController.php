@@ -78,10 +78,11 @@ class MainController extends Controller
         $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
 
         if ($ufi) {
-            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:AffiliateType')->find(1);
+            $affiliateType = $em->getRepository('ApplicationAffiliateBundle:Affiliate')->findAffiliateTypeByName('DealsFinder');
 
             if (!$affiliateType){
-                throw new \Exception('Affiliate Type not found');
+                $request->getSession()->getFlashBag()->add("sonata_flash_error", $this->get('translator')->trans('admin.flash.deals_finder_type_not_found'));
+                return $this->redirect($referer);
             }
 
             $affiliate = new Affiliate();

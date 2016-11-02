@@ -4,3 +4,5 @@ admin:
       already_exists: Affiliate already exists
       created: Affiliate successfully created
       ufi_not_found: Ufi not found
+      deals_finder_type_not_found: Affiliate type with 'DealsFinder' name not found
+

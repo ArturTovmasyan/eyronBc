@@ -41,4 +41,18 @@ class AffiliateRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults(1)
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function findAffiliateTypeByName($name)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT at
+                           FROM ApplicationAffiliateBundle:AffiliateType at
+                           WHERE at.name = :name")
+            ->setParameter('name', $name)
+            ->getOneOrNullResult();
+    }
 }
