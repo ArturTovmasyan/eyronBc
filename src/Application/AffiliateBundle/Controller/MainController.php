@@ -46,7 +46,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/generate-affiliate/{id}", name="generate_affiliate")
+     * @Route("/admin/generate-affiliate/{id}", name="generate_affiliate")
      */
     public function generateAffiliate(Request $request, Goal $goal)
     {
@@ -73,7 +73,8 @@ class MainController extends Controller
 
         $result = $googlePlace->getPlace($goal->getLat(), $goal->getLng());
 
-        $searchTerm = urlencode($result[PlaceType::TYPE_COUNTRY] . ' ' . $result[PlaceType::TYPE_CITY]);
+        $city = isset($result[PlaceType::TYPE_CITY]) ? $result[PlaceType::TYPE_CITY] : '';
+        $searchTerm = urlencode($result[PlaceType::TYPE_COUNTRY] . ' ' . $city);
 
         $ufi = $this->get('application_affiliate.find_ufi')->findUfiBySearchTerm($searchTerm);
 
