@@ -632,6 +632,31 @@ class UserController extends FOSRestController
         $requestFilter[UserGoal::NOT_URGENT_IMPORTANT]      = $this->toBool($request->get('notUrgentImportant'));
         $requestFilter[UserGoal::NOT_URGENT_NOT_IMPORTANT]  = $this->toBool($request->get('notUrgentNotImportant'));
 
+
+        if($owned){
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findOwnedUserGoals($currentUser, true);
+        } else{
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
+                ->findAllByUser($currentUser->getId(), $condition, $dream, $requestFilter, $first, $count, true);
+        }
+
+        if(is_null($lastUpdated)){
+            return array('progress' => 0);
+        }
+
+        $response = new Response();
+
+        $lastDeleted = $currentUser->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         if($owned){
             $userGoals = $em->getRepository('AppBundle:UserGoal')
                 ->findOwnedUserGoals($currentUser);
@@ -674,7 +699,12 @@ class UserController extends FOSRestController
             }
 
             if($count && $overall){
-                return array('progress' => floor($overall/$count));
+
+                $result = array('progress' => floor($overall/$count));
+
+                $response->setContent(json_encode($result));
+
+                return $response;
             }
         }
 
