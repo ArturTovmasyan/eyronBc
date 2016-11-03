@@ -847,12 +847,18 @@ class GoalRepository extends EntityRepository
 
         if($getLastUpdated){
             $result = $query
-                ->select('ug.id')
+                ->select('ug.updated')
                 ->getQuery()
-                ->getArrayResult();
+                ->getResult();
             ;
 
-            return $result;
+            $lastUpdated = null;
+
+            array_map(function ($item) use (&$lastUpdated){
+                $lastUpdated = $item['updated'] > $lastUpdated ? $item['updated'] : $lastUpdated;
+            }, $result);
+
+            return $lastUpdated;
         }
 
         $paginator = new Paginator($query, $fetchJoinCollection = true);

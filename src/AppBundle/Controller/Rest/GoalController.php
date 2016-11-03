@@ -16,6 +16,7 @@ use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -195,7 +196,25 @@ class GoalController extends FOSRestController
         $publish = $this->getUser()->getId() != $userId;
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
 
-//        $ownedGoals2 = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
+        $response = new Response();
+
+        // get last updated
+        $lastUpdated = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
+
+        if (is_null($lastUpdated)) {
+            return  ['goals' => [] ];
+        }
+
+        $lastDeleted = $user->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         // get owned goals
         $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish);
 
@@ -246,7 +265,17 @@ class GoalController extends FOSRestController
             }
         }
 
-        return  ['goals' => $ownedGoals];
+
+        $serializer = $this->get('serializer');
+
+        $result = ['goals' => $ownedGoals];
+
+        $serializedContent = $serializer->serialize($result, 'json',
+            SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user")));
+
+        $response->setContent($serializedContent);
+
+        return $response;
     }
 
 
