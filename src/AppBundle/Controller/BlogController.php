@@ -27,6 +27,9 @@ class BlogController extends Controller
         //get entity manager
         $em = $this->getDoctrine()->getManager();
 
+        //enable published filter for blog
+        $em->getFilters()->enable('publish_filter');
+
         //get page number
         $page = $request->query->get('page');
 
@@ -38,8 +41,8 @@ class BlogController extends Controller
             $first = 0;
         }
 
-        //get last updated date for caching
-        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastUpdated($first, self::LIMIT);
+        //get last published date for caching
+        $lastModifiedDate = $em->getRepository('AppBundle:Blog')->findLastPublishedDate($first, self::LIMIT);
 
         //new response
         $response = new Response();
@@ -56,9 +59,6 @@ class BlogController extends Controller
             return $response;
         }
 
-        //enable published filter for blog
-        $em->getFilters()->enable('publish_filter');
-        
         //get all blog
         $blog = $em->getRepository('AppBundle:Blog')->findAllBlog();
 

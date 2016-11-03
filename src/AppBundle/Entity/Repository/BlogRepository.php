@@ -18,37 +18,19 @@ class BlogRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findLastUpdated($first, $count)
+    public function findLastPublishedDate($first, $count)
     {
        $data = $this->getEntityManager()
-            ->createQuery("SELECT b.updated 
+            ->createQuery("SELECT b.publishedDate
                            FROM AppBundle:Blog b
-                           ORDER BY b.updated DESC
+                           ORDER BY b.publishedDate DESC
                            ")
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->getResult();
 
         $data = reset($data);
-        return $data['updated'];
-    }
-
-    /**
-     * @param $first
-     * @param $count
-     * @return mixed
-     * @return array
-     */
-    public function findAllBlogForMobile($first, $count)
-    {
-        return $this->getEntityManager()
-            ->createQuery("SELECT b 
-                           FROM AppBundle:Blog b
-                           ORDER BY b.created DESC
-                           ")
-            ->setFirstResult($first)
-            ->setMaxResults($count)
-            ->getResult();
+        return $data['publishedDate'];
     }
 
     /**
@@ -62,7 +44,7 @@ class BlogRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT b 
                            FROM AppBundle:Blog b
-                           ORDER BY b.created DESC
+                           ORDER BY b.publishedDate DESC
                            ")
             ->getResult();
     }
