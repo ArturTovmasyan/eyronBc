@@ -180,6 +180,17 @@ header{
   min-height: 200px;
   line-height: 95px;
 
+  &>div{
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+
+    h1{
+      position: relative;
+    }
+  }
+
   h1{
     position: absolute;
     z-index: 10;
@@ -189,6 +200,7 @@ header{
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 30px;
+    padding: 5px 10px;
   }
 
   &>figure{
@@ -612,6 +624,14 @@ h1.text-center{
         h3{
           font-size: 24px;
           margin: 15px 0;
+
+          a{
+            text-decoration: none;
+
+            &:hover,&:focus{
+              text-decoration: none;
+            }
+          }
         }
 
         p{
