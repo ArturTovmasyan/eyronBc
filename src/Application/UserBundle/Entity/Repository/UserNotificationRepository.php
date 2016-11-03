@@ -48,7 +48,7 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
         if ($getLastModified){
             $data = $query
                 ->select('un.id, un.updated')
-                ->orderBy('un.updated', 'DESC')
+                ->orderBy('un.created', 'DESC')
                 ->getQuery()
                 ->getResult();
 
@@ -56,12 +56,15 @@ class UserNotificationRepository extends \Doctrine\ORM\EntityRepository
                 return null;
             }
 
+            $lastUpdated = null;
+
             $etag = '';
             foreach($data as $d){
+                $lastUpdated = $d['updated'] > $lastUpdated ? $d['updated'] : $lastUpdated;
                 $etag .= '_' . $d['id'];
             }
 
-            return ['lastModified' => $data[0]['updated'], 'etag' => md5($etag)];
+            return ['lastModified' => $lastUpdated, 'etag' => md5($etag)];
         }
 
         $query
