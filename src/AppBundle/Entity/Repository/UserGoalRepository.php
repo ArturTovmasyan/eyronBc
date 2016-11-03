@@ -71,20 +71,43 @@ class UserGoalRepository extends EntityRepository
         return $query;
     }
 
+
     /**
      * @param $owner
-     * @return array
+     * @param bool $getLastDate
+     * @return array|mixed
      */
-    public function findOwnedUserGoals($owner)
+    public function findOwnedUserGoals($owner, $getLastDate = false)
     {
-        return $this->getEntityManager()
-            ->createQuery("SELECT ug
-                           FROM AppBundle:UserGoal ug
-                           LEFT JOIN ug.goal g
-                           WHERE g.author = :owner
-                           ")
-            ->setParameter('owner', $owner)
-            ->getResult();
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->from('AppBundle:UserGoal', 'ug')
+                ->join('ug.goal', 'g')
+                ->where('g.author = :owner')
+                ->setParameter('owner', $owner)
+        ;
+
+        if($getLastDate){
+            $result = $query
+                ->select('max(ug.updated)')
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if($result){
+                $result = new \DateTime(reset($result));
+            }
+
+        }
+        else{
+            $result = $query
+                ->select('ug')
+                ->getQuery()
+                ->getResult();
+        }
+
+        return $result;
+
     }
     
 
