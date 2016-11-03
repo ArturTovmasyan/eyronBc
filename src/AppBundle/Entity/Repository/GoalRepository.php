@@ -822,6 +822,10 @@ class GoalRepository extends EntityRepository
      */
     public function findOwnedGoals($owner, $first, $count, $publish)
     {
+
+        $filter = $this->getEntityManager()->getFilters();
+        $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
+
         $query = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('ug, g, i')

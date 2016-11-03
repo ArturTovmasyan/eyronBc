@@ -244,7 +244,29 @@ class LoadGoalData extends AbstractFixture implements OrderedFixtureInterface, C
         $goal14->setAuthor($user8);
         $goal14->setPublish(true);
         $manager->persist($goal14);
-        
+
+        // create goal
+        $goal15 = new Goal();
+        $goal15->setDescription('goal15 goal15');
+        $goal15->setTitle('goal15');
+        $goal15->setStatus(1);
+        $goal15->setVideoLink(null);
+        $goal15->setReadinessStatus(Goal::TO_PUBLISH);
+        $goal15->setAuthor($user1);
+        $goal15->setPublish(true);
+        $manager->persist($goal15);
+
+        // create goal
+        $userGoal32 = new UserGoal();
+        $userGoal32->setUser($user1);
+        $userGoal32->setGoal($goal15);
+        $userGoal32->setIsVisible(true);
+        $userGoal32->setNote('32222');
+        $userGoal32->setImportant(true);
+        $userGoal32->setUrgent(false);
+        $userGoal32->setDoDate(new \DateTime('now'));
+        $manager->persist($userGoal32);
+
         // create goal
         $userGoal1 = new UserGoal();
         $userGoal1->setUser($user);
