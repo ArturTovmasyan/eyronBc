@@ -195,8 +195,12 @@ class GoalController extends FOSRestController
         $publish = $this->getUser()->getId() != $userId;
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
 
+        if(!$user){
+            return new JsonResponse(array('error'=>'User not found'), Response::HTTP_NOT_FOUND);
+        }
+
         // get owned goals
-        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish);
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($user->getId(), $first, $count, $publish);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
