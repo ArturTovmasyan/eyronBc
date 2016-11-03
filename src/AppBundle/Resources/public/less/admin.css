@@ -127,3 +127,7 @@
     width: 400px;
     margin: 10px;
 }
+
+.sonata-preview-form-container .row {
+    display: none;
+}
