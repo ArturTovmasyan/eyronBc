@@ -195,6 +195,7 @@ class GoalController extends FOSRestController
         $publish = $this->getUser()->getId() != $userId;
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
 
+//        $ownedGoals2 = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
         // get owned goals
         $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish);
 
