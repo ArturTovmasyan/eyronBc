@@ -24,7 +24,7 @@ class BlogType extends AbstractType
     {
         $builder
             ->add('type', ChoiceType::class,  array('choices' => [Blog::TYPE_TEXT => 'Text', Blog::TYPE_GOAL => 'Goal']))
-            ->add('content', TextareaType::class, array('required' => false))
+            ->add('content', TextareaType::class)
             ->add('goal', 'text', array(
                 'required' => false,
             ))

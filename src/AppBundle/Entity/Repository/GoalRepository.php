@@ -816,11 +816,12 @@ class GoalRepository extends EntityRepository
     /**
      * @param $owner
      * @param $first
-     * @param $publish
      * @param $count
+     * @param $publish
+     * @param bool $getLastUpdated
      * @return array
      */
-    public function findOwnedGoals($owner, $first, $count, $publish)
+    public function findOwnedGoals($owner, $first, $count, $publish, $getLastUpdated = false)
     {
 
         $filter = $this->getEntityManager()->getFilters();
@@ -838,12 +839,30 @@ class GoalRepository extends EntityRepository
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
+            ->addOrderBy('ug.updated', 'DESC')
+
         ;
 
         if($publish){
             $query
                 ->andWhere('g.publish = :publish')
                 ->setParameter('publish', PublishAware::PUBLISH);
+        }
+
+        if($getLastUpdated){
+            $result = $query
+                ->select('ug.updated')
+                ->getQuery()
+                ->getResult();
+            ;
+
+            $lastUpdated = null;
+
+            array_map(function ($item) use (&$lastUpdated){
+                $lastUpdated = $item['updated'] > $lastUpdated ? $item['updated'] : $lastUpdated;
+            }, $result);
+
+            return $lastUpdated;
         }
 
         $paginator = new Paginator($query, $fetchJoinCollection = true);

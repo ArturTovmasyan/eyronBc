@@ -214,16 +214,19 @@ class UserGoalController extends FOSRestController
 
         if ($request->get('_route') == 'get_usergoal_bucketlist')
         {
-            $data = $em->getRepository('AppBundle:UserGoal')
+            $lastUpdated = $em->getRepository('AppBundle:UserGoal')
                 ->findAllByUser($user->getId(), $condition, $dream, $requestFilter, $first, $count, true);
 
-            if (is_null($data)) {
+            if (is_null($lastUpdated)) {
                 return ['user_goals' => [], 'user' => $user];
             }
 
-            $response->setLastModified($data['lastDate']);
-            $response->headers->set('ETag', $data['etag']);
-            $response->headers->set('cache-control', 'private, must-revalidate');
+            $lastDeleted = $user->getUserGoalRemoveDate();
+            $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+            $response->setLastModified($lastModified);
+//            $response->headers->set('ETag', $data['etag']);
+//            $response->headers->set('cache-control', 'private, must-revalidate');
 
             if ($response->isNotModified($request)) {
                 return $response;

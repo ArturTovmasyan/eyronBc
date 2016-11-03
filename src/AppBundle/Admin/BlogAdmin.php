@@ -47,13 +47,13 @@ class BlogAdmin extends AbstractAdmin
     {
         //get product id for edit
         $showMapper
-            ->add('id', null, array('label' => 'admin.label.name.id'))
+            ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('metaDescription', null, array('label'=>'admin.label.name.meta_description'))
-            ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
+            ->add('getImagePath', null, array('template'=>'AppBundle:Admin:blog_image_show.html.twig', 'label'=>'admin.label.name.images'))
+            ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
             ->add('updated', null)
         ;
     }
@@ -63,10 +63,10 @@ class BlogAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('file', 'file', array('label'=>'admin.label.name.images', 'required' => false))
+            ->add('file', 'file', array('label'=>'admin.label.name.images', 'required'=>false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
+            ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))
         ;
     }
@@ -78,8 +78,11 @@ class BlogAdmin extends AbstractAdmin
             ->add('id', null, array('label'=>'admin.label.name.id', 'show_filter' => true))
             ->add('title', null, array('label'=>'admin.label.name.title', 'show_filter' => true))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
-            ->add('position', null, array('label'=>'admin.label.name.position', 'show_filter' => true))
             ->add('slug', null, array('label'=>'admin.label.name.slug', 'show_filter' => true))
+            ->add('publishedDate', 'doctrine_orm_date_range', array('label' => 'admin.label.name.published_date'), 'sonata_type_date_range_picker',
+                array('field_options_start'=>array('format'=>'yyyy-MM-dd'),
+                    'field_options_end'=>array('format'=>'yyyy-MM-dd'))
+            );
         ;
     }
 
@@ -89,9 +92,9 @@ class BlogAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label'=>'admin.label.name.id'))
             ->add('title', null, array('label'=>'admin.label.name.title'))
-            ->add('position', null, array('label'=>'admin.label.name.position'))
             ->add('slug', null, array('label'=>'admin.label.name.slug'))
             ->add('publish', null, array('editable' => true, 'label'=>'admin.label.name.publish'))
+            ->add('publishedDate', 'datetime', array('label'=>'admin.label.name.published_date'))
             ->add('updated')
             ->add('created')
             ->add('getImagePath', null, array('template' => 'AppBundle:Admin:blog_image_list.html.twig', 'label'=>'admin.label.name.images'))

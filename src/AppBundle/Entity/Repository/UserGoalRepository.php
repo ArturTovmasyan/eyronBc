@@ -171,7 +171,8 @@ class UserGoalRepository extends EntityRepository
         if ($getLastDate){
 
             $dates = $query
-                ->select('ug.id, ug.updated as updated')
+                ->select('ug.updated')
+                ->orderBy('ug.updated', 'desc')
                 ->getQuery()
                 ->getResult();
 
@@ -179,17 +180,18 @@ class UserGoalRepository extends EntityRepository
                 return null;
             }
 
-            $lastModifiedDate = $dates[0]['updated'];
-            $etag = $dates[0]['id'];
-            for($i = 1; $i < count($dates); $i++){
-                if ($lastModifiedDate < $dates[$i]['updated']){
-                    $lastModifiedDate = $dates[$i]['updated'];
-                }
+            $lastModifiedDate = reset($dates);
+            return $lastModifiedDate['updated'];
+//            $etag = $dates[0]['id'];
+//            for($i = 1; $i < count($dates); $i++){
+//                if ($lastModifiedDate < $dates[$i]['updated']){
+//                    $lastModifiedDate = $dates[$i]['updated'];
+//                }
+//
+//                $etag .=  '_' . $dates[$i]['id'];
+//            }
 
-                $etag .=  '_' . $dates[$i]['id'];
-            }
-
-            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
+//            return ['lastDate' => $lastModifiedDate, 'etag' => md5($etag)];
         }
 
         $query
