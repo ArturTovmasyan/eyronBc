@@ -39,7 +39,6 @@ class Blog implements ImageableInterface, PublishAware
      * @ORM\Column(type="smallint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"blog"})
      */
     private $id;
 
@@ -47,7 +46,6 @@ class Blog implements ImageableInterface, PublishAware
      * @var array
      * @Assert\Type("array")
      * @ORM\Column(type="array")
-     * @Groups({"blog"})
      */
     private $data;
 
@@ -55,7 +53,6 @@ class Blog implements ImageableInterface, PublishAware
      * @var string
      * @Assert\Type("string")
      * @ORM\Column(type="string", length=64, unique=true)
-     * @Groups({"blog"})
      */
     private $title;
 
@@ -63,22 +60,20 @@ class Blog implements ImageableInterface, PublishAware
      * @var string
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=64, unique=true)
-     * @Groups({"blog"})
      */
     protected $slug;
 
     /**
-     * @var integer
-     * @Assert\Type("integer")
-     * @ORM\Column(type="smallint")
-     * @Groups({"blog"})
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\Type("datetime")
      */
-    private $position;
+    protected $publishedDate;
 
     /**
      * @var string
      * @SerializedName("image_path")
-     * @Groups({"blog"})
      */
     private $mobileImagePath;
 
@@ -92,7 +87,6 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * @var
      * @ORM\Column(name="publish", type="boolean")
-     * @Groups({"blog"})
      */
     protected $publish = PublishAware::NOT_PUBLISH;
 
@@ -101,7 +95,6 @@ class Blog implements ImageableInterface, PublishAware
      * @Assert\Type("datetime")
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @Groups({"blog"})
      */
     private $created;
 
@@ -220,30 +213,6 @@ class Blog implements ImageableInterface, PublishAware
     }
 
     /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return Blog
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -308,6 +277,30 @@ class Blog implements ImageableInterface, PublishAware
     public function getMetaDescription()
     {
         return $this->metaDescription;
+    }
+
+    /**
+     * Set publishedDate
+     *
+     * @param \DateTime $publishedDate
+     *
+     * @return Blog
+     */
+    public function setPublishedDate($publishedDate)
+    {
+        $this->publishedDate = $publishedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedDate
+     *
+     * @return \DateTime
+     */
+    public function getPublishedDate()
+    {
+        return $this->publishedDate;
     }
 
     /**
