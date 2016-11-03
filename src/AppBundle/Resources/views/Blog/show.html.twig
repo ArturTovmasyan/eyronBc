@@ -8,7 +8,7 @@
         <h1 class="text-white">{{ blog.title }}</h1>
         <figure>
             <span class="overlay"></span>
-            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}"  layout="responsive"  width="1280"
+            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}" alt="{{ blog.title }}" layout="responsive" width="1280"
                      height="853"></amp-img>
         </figure>
     </div>
@@ -35,6 +35,7 @@
                     <figure>
                         <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}">
                             <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
+                                     alt="{{ goal.title }}"
                                      layout="responsive"
                                      width="1280"
                                      height="853">
@@ -44,7 +45,7 @@
 
                     <div>
                         <span class="transparent"></span>
-                        <h3 class="text-blue">{{ goal.title }}</h3>
+                        <a href="{{ path('inner_goal', {'slug' : goal.slug}) }}"><h3 class="text-blue">{{ goal.title }}</h3></a>
                         {% if goal.description %}
                             {{ goal.description|removeTag|markdown }}
                         {% endif %}

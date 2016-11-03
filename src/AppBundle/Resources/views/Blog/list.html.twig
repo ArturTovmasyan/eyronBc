@@ -20,12 +20,18 @@
             <figure>
                 {% if itemCount %}
                     {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
+                    {% set imageAlt = blogs[0].title %}
                 {% else %}
                     {% set image = asset(imgPath) %}
+                    {% set imageAlt = 'goal.stories_title'|trans %}
                 {% endif %}
                 <span class="overlay"></span>
-                <amp-img src="{{ image }}"  layout="responsive"  width="1280"
-                         height="853"></amp-img>
+                <amp-img src="{{ image }}"
+                         layout="responsive"
+                         width="1280"
+                         height="853"
+                         alt="{{ imageAlt }}">
+                </amp-img>
             </figure>
 
         </div>
@@ -40,7 +46,8 @@
                             <amp-img src="{{ blog.imagePath|blImageFilter('goal_list_small') }}"
                                      layout="responsive"
                                      width="1280"
-                                     height="853">
+                                     height="853"
+                                     alt="{{ blog.title }}">
                             </amp-img>
 
                             <figcaption>

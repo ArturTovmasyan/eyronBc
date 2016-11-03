@@ -20,14 +20,14 @@
         <h1 class="text-white">{{ blog.title }}</h1>
         <figure>
             <span class="overlay"></span>
-            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}" layout="responsive" width="1280"
+            <amp-img src="{{ blog.imagePath|blImageFilter('user_cover') }}" alt="{{ blog.title }}" layout="responsive" width="1280"
             height="853"></amp-img>
         </figure>
     </div>
 
     <div class="bg-white content-inner">
         <figure class="goal-cover">
-            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" layout="responsive" width="1280" height="853"></amp-img>
+            <amp-img src="{{ blog.imagePath|blImageFilter('goal_bg') }}" alt="{{ blog.title }}" layout="responsive" width="1280" height="853"></amp-img>
         </figure>
 
         {% if blogData|length > 0 %}
@@ -48,7 +48,8 @@
                                 <amp-img src="{{ goal.imagePath|blImageFilter('goal_list_small') }}"
                                          layout="responsive"
                                          width="1280"
-                                         height="853">
+                                         height="853"
+                                         alt="{{ goal.title }}">
                                 </amp-img>
                             </a>
                         </figure>
