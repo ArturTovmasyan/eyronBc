@@ -9,11 +9,14 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset("bundles/app/less/admin.css") }}">
-    {#{% stylesheets output='css/blog_preview.css'#}
-    {#'bundles/app/less/amp.less'#}
-    {#filter='less,cssrewrite' %}#}
-    {#<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>#}
-    {#{% endstylesheets %}#}
+
+    {#TODO MUST BE MOVE amp.less style in admin.css and remove below style block#}
+    {% stylesheets output='css/blog_preview.css'
+    'bundles/app/less/amp.less'
+    filter='less,cssrewrite' %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+
+    {% endstylesheets %}
 {% endblock %}
 
 {% block content %}
