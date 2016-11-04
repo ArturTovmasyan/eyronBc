@@ -97,10 +97,16 @@ header{
   }
 }
 
+h1.text-center{
+  font-weight: 300;
+  font-size: 22px;
+  padding: 0 10px 5px;
+}
+
+
 .header{
   position: relative;
-  min-height: 200px;
-  line-height: 95px;
+  min-height: 140px;
 
   &>div{
     position: absolute;
@@ -120,9 +126,11 @@ header{
     width: 100%;
     margin:0;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
     font-size: 30px;
     padding: 5px 10px;
+    &.stories-title{
+      line-height: 125px;
+    }
   }
 
   &>figure{
@@ -144,7 +152,7 @@ header{
 
   .overlay{
     background: rgba(0, 0, 0, 0.6);
-    height:240px;
+    height: 140px;
     display: block;
     position: absolute;
     width: 100%;
@@ -158,7 +166,7 @@ header{
 }
 
 section.category{
-  margin-top: 0;
+  margin-top: 10px;
 }
 
 amp-sidebar {
@@ -355,15 +363,17 @@ footer{
       height: 155px;
       overflow: hidden;
       position: relative;
+      padding: 0 15px;
       h3{
-        font-size:24px;
+        font-size:20px;
         color: #333;
-        margin: 20px 10px;
+        margin: 20px 10px 5px;
       }
       p{
         font-size:16px;
         line-height: 26px;
         color: #000333;
+        padding: 0 0 8px;
       }
     }
   }
@@ -407,7 +417,7 @@ a{
 
 .content-inner{
   width: 320px;
-  margin: -100px auto 20px;
+  margin: 0 auto 20px;
   padding: 0 0 20px 0;
   position: relative;
   z-index: 10;
@@ -418,8 +428,12 @@ a{
     margin: 0 auto 15px;
   }
 
+  div.text-justify{
+    padding: 0 15px;
+  }
+
   p{
-    padding: 0 20px;
+    text-align: justify;
   }
 
   .goals-information{
@@ -458,6 +472,11 @@ a{
         padding: 0;
       }
 
+
+      h2{
+        font-size: 18px;
+        margin: 5px 0;
+      }
       p{
         margin: 0;
         font-size: 14px;
@@ -468,16 +487,20 @@ a{
   }
 }
 
-h1.text-center{
-  font-weight: 300;
-  font-size: 22px;
-}
+
 
 @media (min-width: 768px) {
 
+  .amp-navbar{
+    height: 78px;
+  }
 
   .category{
     min-width: 768px;
+  }
+
+  .content-inner{
+    margin: -100px auto 20px;
   }
 
   .samples{
@@ -485,6 +508,16 @@ h1.text-center{
       margin: 8px 7px;
       float: left;
       width: 360px;
+      figcaption{
+        padding: 0 40px;
+        h3{
+          font-size: 22px;
+          margin: 20px 0;
+        }
+        p{
+          padding: 0 0 8px;
+        }
+      }
     }
   }
 
@@ -502,10 +535,32 @@ h1.text-center{
   }
   .header{
     height: 270px;
-    line-height: 270px;
+
+    div{
+      h1{
+        font-size: 45px;
+        width: 97%;
+        margin: 0 auto;
+        line-height: 190px;
+
+        &.title-small{
+          font-size: 38px;
+          line-height: 57px;
+          padding-top: 50px;
+        }
+      }
+    }
 
     h1{
      font-size: 52px;
+     font-weight: 300;
+     padding: 5px 15px;
+
+
+      &.stories-title{
+        line-height: 240px;
+      }
+
     }
 
     &>figure{
@@ -525,6 +580,10 @@ h1.text-center{
     .goal-cover{
       width: 750px;
       height: 425px;
+    }
+
+    div.text-justify{
+      padding: 0 15px;
     }
 
     .goals-information{
@@ -547,7 +606,7 @@ h1.text-center{
         height: 170px;
 
         h3{
-          font-size: 24px;
+          font-size: 22px;
           margin: 15px 0;
 
           a{
@@ -610,9 +669,34 @@ h1.text-center{
 
 @media(min-width: 992px){
 
+  .amp-navbar{
+    height: 84px;
+
+    .logo{
+      padding: 14px 0 21px 5px;
+    }
+  }
+
   .category{
     max-width: 1170px;
   }
+
+  .header{
+    div{
+      h1{
+        width: 63%;
+        padding: 30px 0;
+        font-size:52px;
+
+        &.title-small{
+          font-size: 45px;
+          line-height: 68px;
+          padding-top: 30px;
+        }
+      }
+    }
+  }
+
 
   section.category{
     min-width: inherit;
