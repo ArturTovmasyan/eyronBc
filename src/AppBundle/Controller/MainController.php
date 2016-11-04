@@ -174,20 +174,9 @@ class MainController extends Controller
      * @Template()
      * @return array
      */
-    public function esiUserAction()
+    public function esiMenuAction()
     {
         return array();
-    }
-
-    /**
-     * This action is used to include activity menu in header
-     *
-     * @Template()
-     * @return array
-     */
-    public function esiActivityAction($route)
-    {
-        return array('route' => $route);
     }
 
     /**
