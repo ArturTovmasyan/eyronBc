@@ -7,6 +7,9 @@
  */
 
 namespace Application\UserBundle\Services;
+use AppBundle\Services\AbstractProcessService;
+use AppBundle\Services\PutNotificationService;
+use AppBundle\Services\UserNotifyService;
 use Application\UserBundle\Entity\Badge;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +19,7 @@ use Symfony\Component\Process\Process;
  * Class BadgeService
  * @package Application\UserBundle\Services
  */
-class BadgeService
+class BadgeService extends AbstractProcessService
 {
     const BADGE_MAX_SCORE = 'badge_max_score';
 
@@ -26,21 +29,48 @@ class BadgeService
     private $em;
 
     /**
+     * @var UserNotifyService
+     */
+    private $notifyService;
+
+    /**
+     * @var PutNotificationService
+     */
+    private $pushNote;
+
+    /**
+     * @var NotificationService
+     */
+    private $notification;
+
+    /**
      * @var
      */
-    private $badgeCommand;
+    private $router;
 
     /**
      * BadgeService constructor.
      * @param EntityManager $em
-     * @param $badgeCommand
+     * @param UserNotifyService $notifyService
+     * @param PutNotificationService $pushNote
+     * @param NotificationService $notification
+     * @param $router
      */
-    public function __construct(EntityManager $em, $badgeCommand)
+    public function __construct(EntityManager $em, UserNotifyService $notifyService,
+                                PutNotificationService $pushNote,
+                                NotificationService $notification,
+                                $router)
     {
         $this->em = $em;
-        $this->badgeCommand = $badgeCommand;
+        $this->notifyService = $notifyService;
+        $this->pushNote= $pushNote;
+        $this->notification= $notification;
+        $this->router= $router;
     }
 
+    /**
+     * @return array
+     */
     public function findTopUsers()
     {
         $count = 10;
@@ -155,8 +185,10 @@ class BadgeService
             $badge->setUser($user);
         }
 
+        $oldScore = $badge->getScore();
+
         // generate new score
-        $newScore = $badge->getScore() + $score;
+        $newScore = $oldScore + $score;
 
         $badge->setScore($newScore);
         $this->em->persist($badge);
@@ -178,6 +210,71 @@ class BadgeService
             apc_delete(self::BADGE_MAX_SCORE);
             apc_add(self::BADGE_MAX_SCORE, $maxScore);
         }
+
+        // check has changed
+        if($this->hasScoreChanged($newScore, $oldScore, $type)){
+
+            $this->runAsProcess('bl.badge.service', 'sendNotify',
+                array($userId, 1, $type));
+        }
+
+    }
+
+    /**
+     * @param $newScore
+     * @param $oldScore
+     * @param $type
+     * @return bool
+     */
+    private function hasScoreChanged($newScore, $oldScore, $type)
+    {
+        // get score
+        $scores = $this->getMaxScore();
+
+        // get type
+        $maxScore = $scores[$type];
+
+        // new score
+        $newNormalizedScore = ceil($newScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE);
+
+        // old score
+        $oldNormalizedScore = ceil($oldScore / $maxScore * Badge::MAXIMUM_NORMALIZE_SCORE);
+
+        if($newNormalizedScore != $oldNormalizedScore){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $userId
+     * @param $increase
+     * @param $type
+     */
+    public function sendNotify($userId, $increase, $type)
+    {
+        // get user
+        $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
+
+        if(!$user){
+            throw new NotFoundHttpException('User not found');
+        }
+        $typeAsString = $type == Badge::TYPE_INNOVATOR ? 'an ' : 'a ';
+        $types = Badge::getTypesAsString();
+        $typeAsString .= array_key_exists($type, $types) ? $types[$type] : '';
+
+        if($increase){
+            $message = "Congratulations! You rose to the top on the leaderboard as $typeAsString.";
+
+        }else{
+            $message = "Oops! You went down on the leaderboard as an $typeAsString . To reach the top, devote more time to Bucket List..";
+        }
+
+        $link = $this->router->generate('leaderboard');
+        $this->notification->sendNotification(null, $link, null, $message, $user);
+        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
+        $this->pushNote->sendPushNote($user, $message);
 
     }
 
@@ -204,8 +301,9 @@ class BadgeService
 
         if($badge){
 
+            $oldScore = $badge->getScore();
             // generate new score
-            $newScore = $badge->getScore() - $score;
+            $newScore = $oldScore - $score;
             $newScore = $newScore < 0 ? 0 : $newScore;
 
             if($newScore == 0){
@@ -232,6 +330,13 @@ class BadgeService
                 // add to cache
                 apc_delete(self::BADGE_MAX_SCORE);
                 apc_add(self::BADGE_MAX_SCORE, $maxScore);
+            }
+
+            // check has changed
+            if($this->hasScoreChanged($newScore, $oldScore, $type)){
+
+                $this->runAsProcess('bl.badge.service', 'sendNotify',
+                    array($userId, 0, $type));
             }
         }
     }
