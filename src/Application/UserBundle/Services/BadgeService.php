@@ -44,22 +44,33 @@ class BadgeService extends AbstractProcessService
     private $notification;
 
     /**
+     * @var
+     */
+    private $router;
+
+    /**
      * BadgeService constructor.
      * @param EntityManager $em
      * @param UserNotifyService $notifyService
      * @param PutNotificationService $pushNote
      * @param NotificationService $notification
+     * @param $router
      */
     public function __construct(EntityManager $em, UserNotifyService $notifyService,
                                 PutNotificationService $pushNote,
-                                NotificationService $notification)
+                                NotificationService $notification,
+                                $router)
     {
         $this->em = $em;
         $this->notifyService = $notifyService;
         $this->pushNote= $pushNote;
         $this->notification= $notification;
+        $this->router= $router;
     }
 
+    /**
+     * @return array
+     */
     public function findTopUsers()
     {
         $count = 10;
@@ -204,7 +215,7 @@ class BadgeService extends AbstractProcessService
         if($this->hasScoreChanged($newScore, $oldScore, $type)){
 
             $this->runAsProcess('bl.badge.service', 'sendNotify',
-                array($userId));
+                array($userId, 1, $type));
         }
 
     }
@@ -238,8 +249,10 @@ class BadgeService extends AbstractProcessService
 
     /**
      * @param $userId
+     * @param $increase
+     * @param $type
      */
-    public function sendNotify($userId)
+    public function sendNotify($userId, $increase, $type)
     {
         // get user
         $user = $this->em->getRepository("ApplicationUserBundle:User")->find($userId);
@@ -247,10 +260,21 @@ class BadgeService extends AbstractProcessService
         if(!$user){
             throw new NotFoundHttpException('User not found');
         }
+        $typeAsString = $type == Badge::TYPE_INNOVATOR ? 'an ' : 'a ';
+        $types = Badge::getTypesAsString();
+        $typeAsString .= array_key_exists($type, $types) ? $types[$type] : '';
 
-//        $this->notification->sendNotification($user)
-//        $this->notifyService->sendEmail($user)
-//        $this->pushNote->sendPushNote($user, $message);
+        if($increase){
+            $message = "Congratulations! You rose to the top on the leaderboard as $typeAsString.";
+
+        }else{
+            $message = "Oops! You went down on the leaderboard as an $typeAsString . To reach the top, devote more time to Bucket List..";
+        }
+
+        $link = $this->router->generate('leaderboard');
+        $this->notification->sendNotification(null, $link, null, $message, $user);
+        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
+        $this->pushNote->sendPushNote($user, $message);
 
     }
 
@@ -312,7 +336,7 @@ class BadgeService extends AbstractProcessService
             if($this->hasScoreChanged($newScore, $oldScore, $type)){
 
                 $this->runAsProcess('bl.badge.service', 'sendNotify',
-                    array($userId));
+                    array($userId, 0, $type));
             }
         }
     }

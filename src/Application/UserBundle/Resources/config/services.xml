@@ -74,6 +74,7 @@
             <argument type="service" id="user_notify" />
             <argument type="service" id="bl_put_notification_service" />
             <argument type="service" id="bl_notification" />
+            <argument type="service" id="router" />
         </service>
 
     </services>
