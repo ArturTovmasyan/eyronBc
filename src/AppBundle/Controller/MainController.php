@@ -170,28 +170,7 @@ class MainController extends Controller
     }
 
     /**
-     * This action is used to include user block and activity block in header
-     *
-     * @param $isLogged
-     * @param $route
-     * @return JsonResponse
-     */
-    public function esiAction($route, $isLogged)
-    {
-        // generate activities
-        $activityTwig = $isLogged ?
-            $this->renderView('AppBundle:Main:esiActivity.html.twig', array('route' => $route)) :
-            null;
-
-        // generate user
-        $userTwig = $this->renderView('AppBundle:Main:esiUser.html.twig');
-
-        return new JsonResponse(array('activityTwig' => $activityTwig, 'userTwig' => $userTwig));
-    }
-
-    /**
      * This action is used to include user block in header
-     * @deprecated
      * @Template()
      * @return array
      */
@@ -202,7 +181,6 @@ class MainController extends Controller
 
     /**
      * This action is used to include activity menu in header
-     * @deprecated
      *
      * @Template()
      * @return array
