@@ -167,26 +167,16 @@ class MainController extends Controller
     {
         return [];
     }
+
     /**
      * This action is used to include user block in header
      *
      * @Template()
      * @return array
      */
-    public function esiUserAction()
+    public function esiMenuAction()
     {
         return array();
-    }
-
-    /**
-     * This action is used to include activity menu in header
-     *
-     * @Template()
-     * @return array
-     */
-    public function esiActivityAction($route)
-    {
-        return array('route' => $route);
     }
 
     /**
