@@ -273,7 +273,7 @@ class BadgeService extends AbstractProcessService
 
         $link = $this->router->generate('leaderboard');
         $this->notification->sendNotification(null, $link, null, $message, $user);
-        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
+//        $this->notifyService->sendEmail($user->getEmail(), $message, 'increase-decrease on the leaderboard');
         $this->pushNote->sendPushNote($user, $message);
 
     }
