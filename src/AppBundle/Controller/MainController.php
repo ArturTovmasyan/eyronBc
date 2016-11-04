@@ -179,28 +179,6 @@ class MainController extends Controller
         return array();
     }
 
-//    /**
-//     * This action is used to include user block in header
-//     *
-//     * @Template()
-//     * @return array
-//     */
-//    public function esiUserAction()
-//    {
-//        return array();
-//    }
-
-//    /**
-//     * This action is used to include activity menu in header
-//     *
-//     * @Template()
-//     * @return array
-//     */
-//    public function esiActivityAction($route)
-//    {
-//        return array('route' => $route);
-//    }
-
     /**
      * This action is used to include user block in header
      * @Route("/esi-user-for-amp", name="esi_user_for_amp")
