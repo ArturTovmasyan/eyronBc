@@ -1,0 +1,18 @@
+{% extends "SonataAdminBundle:CRUD:base_edit.html.twig" %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% javascripts output='js/app_admin_blog_edit.js'
+    'app/bower_components/angular/angular.min.js'
+    'app/scripts/Interpolation/Interpolation.js'
+    'app/scripts/PathPrefix/PathPrefix.js'
+    'bundles/app/js/blog.js'
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

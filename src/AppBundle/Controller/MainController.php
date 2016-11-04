@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -167,26 +168,28 @@ class MainController extends Controller
     {
         return [];
     }
+
     /**
      * This action is used to include user block in header
-     *
      * @Template()
      * @return array
      */
-    public function esiUserAction()
+    public function esiMenuAction()
     {
         return array();
     }
 
     /**
-     * This action is used to include activity menu in header
-     *
+     * This action is used to include user block in header
+     * @Route("/esi-user-for-amp", name="esi_user_for_amp")
      * @Template()
      * @return array
      */
-    public function esiActivityAction($route)
+    public function esiUserForAmpAction()
     {
-        return array('route' => $route);
+        $user = $this->getUser();
+
+        return array('user' => $user);
     }
 
 

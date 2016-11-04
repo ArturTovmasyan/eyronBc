@@ -64,10 +64,11 @@
                     </li>
 
                     <li class="pull-right">
-
-                        <a href="#" class="calendar" data-ng-class="{'calendar-active': showCalendar}" data-ng-click="showCalendar = !showCalendar">
-                            <img src="{{ asset('bundles/app/images/calendar-icon.svg') }}" class="svg"/>
-                        </a>
+                        {% if  myProfile%}
+                            <a href="#" class="calendar" data-ng-class="{'calendar-active': showCalendar}" data-ng-click="showCalendar = !showCalendar">
+                                <img src="{{ asset('bundles/app/images/calendar-icon.svg') }}" class="svg"/>
+                            </a>
+                        {% endif %}
 
                         <a href="#" data-ng-class="{'map-marker-active': showMap}"
                            data-ng-click="showMap=!showMap; triggerMap('.google-map')">

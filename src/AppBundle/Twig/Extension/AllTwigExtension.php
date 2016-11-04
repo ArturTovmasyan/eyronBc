@@ -15,10 +15,10 @@ use AppBundle\Entity\NewFeed;
 use AppBundle\Entity\UserGoal;
 
 /**
- * Class OllTwigExtension
+ * Class AllTwigExtension
  * @package AppBundle\Twig\Extension
  */
-class OllTwigExtension extends \Twig_Extension
+class AllTwigExtension extends \Twig_Extension
 {
     /**
      * @var
@@ -48,16 +48,17 @@ class OllTwigExtension extends \Twig_Extension
         $this->environment = $environment;
     }
 
-
     /**
      * @return array
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter('sliceString', array($this, 'sliceString')),
-            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag'))
-        );
+            new \Twig_SimpleFilter('removeTag', array($this, 'removeTag')),
+            new \Twig_SimpleFilter('remove_asset_version', array($this, 'removeAssetVersion'),  array('is_safe' => array('html'))),
+            new \Twig_SimpleFilter('json_decode', array($this, 'json_decode'))
+        ];
     }
 
     /**
@@ -77,6 +78,18 @@ class OllTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('badgeNormalizer', array($this, 'badgeNormalizer'))
         );
     }
+
+
+    /**
+     * @param $json
+     * @return mixed
+     */
+    public function json_decode($json)
+    {
+        $content = json_decode($json, true);
+        return $content;
+    }
+
     /**
      * @param $search
      * @param $replace
@@ -294,6 +307,21 @@ class OllTwigExtension extends \Twig_Extension
 
         return $normalizedScore;
 
+    }
+
+    /**
+     * @param $url
+     * @return string
+     */
+    public function removeAssetVersion($url)
+    {
+        $pos = strpos($url, '?');
+
+        if($pos){
+            $url = substr($url, 0, $pos);
+        }
+
+        return $url;
     }
 
     public function getName()

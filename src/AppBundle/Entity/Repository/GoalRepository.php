@@ -27,6 +27,28 @@ class GoalRepository extends EntityRepository
     const NEAR_BY_GOAL_COUNT = 10;
 
     /**
+     * @param $text
+     * @param $count
+     * @return array
+     */
+    public function findGoalsByAutocomplete($text, $count)
+    {
+        $query =
+            $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('g.id as id, g.title as value, g.title as label')
+                ->from('AppBundle:Goal', 'g', 'g.id')
+                ->where('g.publish = :publish')
+                ->andWhere('g.title LIKE :text')
+                ->setParameter('publish', PublishAware::PUBLISH)
+                ->setParameter('text', '%' . $text . '%')
+                ->setMaxResults($count);
+        ;
+        
+        return $query->getQuery()->getResult();
+    }
+    
+    /**
      * @param $latitude
      * @param $longitude
      * @return array
@@ -455,6 +477,7 @@ class GoalRepository extends EntityRepository
             ->getResult();
     }
 
+
     /**
      * @param $userId
      * @param $type
@@ -793,12 +816,17 @@ class GoalRepository extends EntityRepository
     /**
      * @param $owner
      * @param $first
-     * @param $publish
      * @param $count
+     * @param $publish
+     * @param bool $getLastUpdated
      * @return array
      */
-    public function findOwnedGoals($owner, $first, $count, $publish)
+    public function findOwnedGoals($owner, $first, $count, $publish, $getLastUpdated = false)
     {
+
+        $filter = $this->getEntityManager()->getFilters();
+        $filter->isEnabled('visibility_filter') ? $filter->disable('visibility_filter') : null;
+
         $query = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('ug, g, i')
@@ -811,12 +839,30 @@ class GoalRepository extends EntityRepository
             ->setFirstResult($first)
             ->setMaxResults($count)
             ->orderBy('g.created', 'DESC')
+            ->addOrderBy('ug.updated', 'DESC')
+
         ;
 
         if($publish){
             $query
                 ->andWhere('g.publish = :publish')
                 ->setParameter('publish', PublishAware::PUBLISH);
+        }
+
+        if($getLastUpdated){
+            $result = $query
+                ->select('ug.updated')
+                ->getQuery()
+                ->getResult();
+            ;
+
+            $lastUpdated = null;
+
+            array_map(function ($item) use (&$lastUpdated){
+                $lastUpdated = $item['updated'] > $lastUpdated ? $item['updated'] : $lastUpdated;
+            }, $result);
+
+            return $lastUpdated;
         }
 
         $paginator = new Paginator($query, $fetchJoinCollection = true);
@@ -919,6 +965,50 @@ class GoalRepository extends EntityRepository
             ->setParameter('userId', $userId)
             ->setParameter('status', true)
             ->setParameter('completed', UserGoal::COMPLETED)
+            ->getResult();
+    }
+
+    /**
+     * @param $goalIds
+     * @return array
+     */
+    public function findGoalByIds($goalIds)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                "SELECT g, im
+                 FROM AppBundle:Goal g
+                 INDEX BY g.id
+                 LEFT JOIN g.images im
+                 WHERE g.id in (:ids)")
+            ->setParameter('ids', $goalIds)
+            ->getResult();
+    }
+
+    /**
+     * This function is used to get random goal
+     *
+     * @param $count
+     * @return array
+     */
+    public function findRandomGoal($count)
+    {
+        //get random goal ids
+        $goalIds = $this->getEntityManager()
+            ->createQuery("SELECT g.id, RAND() as HIDDEN rand
+                           FROM AppBundle:Goal g
+                           ORDER BY rand 
+                           ")
+            ->setMaxResults($count)
+            ->getResult();
+
+        return $this->getEntityManager()
+            ->createQuery("SELECT g, img 
+                           FROM AppBundle:Goal g
+                           LEFT JOIN g.images img
+                           WHERE g.id in (:ids)
+                           ")
+            ->setParameter('ids', $goalIds)
             ->getResult();
     }
 }

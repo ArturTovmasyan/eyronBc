@@ -2034,7 +2034,7 @@ footer{
   }
 
   ul{
-    padding:10px 0 0;
+    padding: 0;
     text-align: center;
     li{
       display: inline-block;
@@ -2645,7 +2645,7 @@ footer{
       background: url('../images/inovator-icon.svg') no-repeat center center;
     }
 
-    span{
+    span,a{
       display: block;
       font-size: 16px;
       vertical-align: middle;
@@ -2656,6 +2656,10 @@ footer{
     a{
       span{
         display: inline-block;
+      }
+
+      &:hover{
+        color: #7724F6;
       }
     }
   }
@@ -3134,6 +3138,7 @@ footer{
 
   footer{
     ul{
+      padding: 10px 0 0;
       li{
         display: inline-block;
         padding: 5px 25px;

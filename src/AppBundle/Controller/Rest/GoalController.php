@@ -16,6 +16,7 @@ use Application\CommentBundle\Entity\Thread;
 use Application\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -31,6 +32,38 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class GoalController extends FOSRestController
 {
     const RandomGoalFriendCounts = 3;
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get autocomplete goals",
+     *  statusCodes={
+     *         204="No content",
+     *         400="Bad request"
+     *  },
+     * )
+     *
+     * @return mixed
+     * @param Request $request
+     *
+     * @Rest\View()
+     * @Rest\Get("/goals/get-autocomplete-items", name="app_rest_goal_autocomplete",))
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function gerAutocompleteAction(Request $request)
+    {
+        //get entity manager
+        $em = $this->getDoctrine()->getManager();
+        $count = 10;
+
+        $search = $request->get('text');
+
+        // get near by goals
+        $goals = $em->getRepository('AppBundle:Goal')->findGoalsByAutocomplete($search, $count);
+
+        return array('items' => array_values($goals), 'more'=>false, 'status'=>'OK');
+    }
 
     /**
      * @Rest\Get("/goals/nearby/{latitude}/{longitude}", requirements={"latitude" = "[-+]?(\d*[.])?\d+", "longitude" = "[-+]?(\d*[.])?\d+"}, name="get_goal_nearby", options={"method_prefix"=false})
@@ -163,8 +196,33 @@ class GoalController extends FOSRestController
         $publish = $this->getUser()->getId() != $userId;
         $user      = $userId ? $em->getRepository('ApplicationUserBundle:User')->find($userId) : $this->getUser();
 
+        // check user
+        if(!$user) {
+            return new JsonResponse(array('error' => 'User not found'), Response::HTTP_NOT_FOUND);
+        }
+
+        $response = new Response();
+
+        // get last updated
+        $lastUpdated = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish, true);
+
+        if (is_null($lastUpdated)) {
+            return  ['goals' => [] ];
+        }
+
+        $lastDeleted = $user->getUserGoalRemoveDate();
+        $lastModified = $lastDeleted > $lastUpdated ? $lastDeleted: $lastUpdated;
+
+        $response->setLastModified($lastModified);
+
+        // check is modified
+        if ($response->isNotModified($request)) {
+            return $response;
+
+        }
+
         // get owned goals
-        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($userId, $first, $count, $publish);
+        $ownedGoals = $em->getRepository('AppBundle:Goal')->findOwnedGoals($user->getId(), $first, $count, $publish);
 
         $liipManager = $this->get('liip_imagine.cache.manager');
 
@@ -213,7 +271,17 @@ class GoalController extends FOSRestController
             }
         }
 
-        return  ['goals' => $ownedGoals];
+
+        $serializer = $this->get('serializer');
+
+        $result = ['goals' => $ownedGoals];
+
+        $serializedContent = $serializer->serialize($result, 'json',
+            SerializationContext::create()->setGroups(array("userGoal", "userGoal_goal", "tiny_goal", "goal_author", "tiny_user")));
+
+        $response->setContent($serializedContent);
+
+        return $response;
     }
 
 
@@ -847,6 +915,29 @@ class GoalController extends FOSRestController
     public function getImageAction(Goal $goal)
     {
         return $goal;
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Goal",
+     *  description="This function is used to get goal image path",
+     *  statusCodes={
+     *         200="Returned when goals was returned",
+     *  },
+     * )
+     *
+     * @Rest\View()
+     *
+     * @Rest\Get("/goals/title/{id}", requirements={"id"="\d+"}, name="app_rest_goal_title",)
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param Goal $goal
+     * @return array
+     */
+    public function getTitleAction(Goal $goal)
+    {
+        return array("title" => $goal->getTitle());
     }
 
 //    /**

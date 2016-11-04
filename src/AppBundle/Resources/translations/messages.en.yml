@@ -49,6 +49,8 @@ goal:
       friends_description: Start over and see the list of your goalfriends with whom you have common goals. Be active and see the people that have the same taste and interest.
       view_description: See what the idea/goal contains in its inner page. It may have a list of pictures, videos, success stories and comments. Success stories inform you of the experience people have had about it. Leave you own comment and express your thought!
       ideas_title: Bucket List 127-Ideas
+      stories_title: Bucket List 127-Stories
+      stories_description:  Check out Bucket List 127 Stories, where you can find crazy and motivational stories, creative articles and much more. Let Bucket List 127 lead you to success
       list_description: The list of ideas that will help you to research awesome goals to add to your own Bucketlist page. You may combine any idea with your own goals to make your bucketlist creative and imaginative.
       complete_text: Complete a goal
       public: Suggest as public
@@ -147,7 +149,7 @@ Type in a youtube or vimeo link in the field: Type in a youtube or vimeo link in
 Done: complete
 
 ideas_list_title: Explore thousands of great ideas for your Bucket List
-ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Loction Service or enter your location
+ideas_near_by_allow: <span class="text-purple" data-ng-click="allowBrowserLocation()">Allow</span> your Browser Location Service or enter your location
 nearby: Nearby
 explore: Confirm
 
@@ -158,6 +160,7 @@ homepage_description: Have your list of goals for life and see how much more you
 homepage_success_story: Stories that inspire
 
 #notification
+notification_menu: Notifications
 test_message: testing notifications in BucketList
 reminder_message: Your goal deadline is close to end.Do your best to meet the deadline.
 progress_bad: Get a move on! You are falling behind your goals.
@@ -260,6 +263,7 @@ menu:
   map: Map
   common: In Common
   owned: Created
+  bucketlist_stories: Bucketlist Stories
 
 right_menu:
   my_ideas: My Ideas
@@ -465,6 +469,13 @@ admin:
       goal: Goal
       type_name: Name
       place_name: Name
+      blog: Blog
+      blog_data: Data
+      blog_link: Blog link
+      position: Position
+      meta_description: Meta Desc.
+      generate_affiliate: Generate Affiliate
+      published_date: Published Date
 
 # end sonata admin lable
 

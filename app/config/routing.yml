@@ -115,3 +115,7 @@ _liip_imagine:
 
 application_affiliate:
     resource: "@ApplicationAffiliateBundle/Resources/config/routing.yml"
+
+app_blog:
+    resource: "@AppBundle/Controller/BlogController.php"
+    type: annotation

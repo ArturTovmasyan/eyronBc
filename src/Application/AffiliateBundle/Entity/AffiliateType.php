@@ -46,7 +46,7 @@ class AffiliateType
     protected $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="name", type="string", length=50, nullable=false, unique=true)
      * @Groups({"affiliateType"})
      */
     protected $name;
