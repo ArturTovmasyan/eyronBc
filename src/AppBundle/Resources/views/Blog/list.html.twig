@@ -6,36 +6,23 @@
     {% set imgPath ='bundles/app/images/cover' ~ random(4) ~ '.png' %}
     {% set itemCount = blogs.getTotalItemCount() %}
 
+    <div class="header">
 
+        <h1 class="text-white text-center stories-title">{{ 'menu.bucketlist_stories'|trans }}</h1>
 
-    {% if is_mobile() and not is_tablet() %}
-        <h1 class="text-blue text-center">{{ 'menu.bucketlist_stories'|trans }}</h1>
-    {% endif %}
+        <figure>
+            {% if itemCount %}
+                {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
+            {% else %}
+                {% set image = asset(imgPath) %}
+            {% endif %}
+            <span class="overlay"></span>
+            <amp-img src="{{ image }}"  layout="responsive"  width="1280"
+                     height="853"></amp-img>
+        </figure>
 
-    {% if not is_mobile() or is_tablet() %}
-        <div class="header">
+    </div>
 
-            <h1 class="text-white">{{ 'menu.bucketlist_stories'|trans }}</h1>
-
-            <figure>
-                {% if itemCount %}
-                    {% set image = blogs[0].imagePath|blImageFilter('user_cover') %}
-                    {% set imageAlt = blogs[0].title %}
-                {% else %}
-                    {% set image = asset(imgPath) %}
-                    {% set imageAlt = 'goal.stories_title'|trans %}
-                {% endif %}
-                <span class="overlay"></span>
-                <amp-img src="{{ image }}"
-                         layout="responsive"
-                         width="1280"
-                         height="853"
-                         alt="{{ imageAlt }}">
-                </amp-img>
-            </figure>
-
-        </div>
-    {% endif %}
     <section class="category">
 
         <div class="samples">
