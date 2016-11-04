@@ -65,6 +65,7 @@ class BlogAdmin extends AbstractAdmin
             ->add('title', null, array('label'=>'admin.label.name.title'))
             ->add('publish', null, array('label'=>'admin.label.name.publish'))
             ->add('file', 'file', array('label'=>'admin.label.name.images', 'required'=>false))
+            ->add('blog', 'sonata_type_model_autocomplete', array('label'=>'admin.label.name.blog', 'property'=>'title', 'multiple' => true, 'required' => false))
             ->add('metaDescription', 'textarea', array('label'=>'admin.label.name.meta_description'))
             ->add('publishedDate', 'sonata_type_date_picker', array('label'=>'admin.label.name.published_date', 'required'=>false))
             ->add('bl_multiple_blog', BlMultipleBlogType::class, array('label'=>'admin.label.name.blog_data'))

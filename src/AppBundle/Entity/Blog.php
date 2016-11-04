@@ -107,6 +107,21 @@ class Blog implements ImageableInterface, PublishAware
     private $updated;
 
     /**
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="parent", cascade={"persist", "remove"})
+     */
+    private $blog;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Blog")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    public function __construct() {
+        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -392,6 +407,64 @@ class Blog implements ImageableInterface, PublishAware
      */
     public function __toString()
     {
-        return (string) $this->id;
+        return (string) $this->title;
+    }
+
+    /**
+     * Add blog
+     *
+     * @param \AppBundle\Entity\Blog $blog
+     *
+     * @return Blog
+     */
+    public function addBlog(Blog $blog)
+    {
+        $this->blog[] = $blog;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog
+     *
+     * @param Blog $blog
+     */
+    public function removeBlog(Blog $blog)
+    {
+        $this->blog->removeElement($blog);
+    }
+
+    /**
+     * Get blog
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlog()
+    {
+        return $this->blog;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Blog $parent
+     *
+     * @return Blog
+     */
+    public function setParent(Blog $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Blog
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }
