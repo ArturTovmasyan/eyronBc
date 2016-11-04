@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    <div class="bg-dark-grey">
     {% set blogData = blog.data %}
 
 
@@ -70,8 +71,11 @@
         </div>
     </div>
 
-    {{ render_esi(controller('AppBundle:Goal:randomGoal')) }}
+    <div class="bg-grey">
+        {{ render_esi(controller('AppBundle:Goal:randomGoal')) }}
+    </div>
 
+    </div>
 {% endblock %}
 
 {%- block title -%}
