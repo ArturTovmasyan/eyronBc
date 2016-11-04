@@ -160,7 +160,7 @@ homepage_description: Have your list of goals for life and see how much more you
 homepage_success_story: Stories that inspire
 
 #notification
-notification: Notifications
+notification_menu: Notifications
 test_message: testing notifications in BucketList
 reminder_message: Your goal deadline is close to end.Do your best to meet the deadline.
 progress_bad: Get a move on! You are falling behind your goals.

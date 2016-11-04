@@ -46,11 +46,11 @@ class NotificationService
             }
 
             $currentDate = new \DateTime();
-            $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}, '{$currentDate->format('Y-m-d H:i:s')}'),";
+            $insertDataInQuery .= "(false, {$toUser->getId()}, {$notification->getId()}, '{$currentDate->format('Y-m-d H:i:s')}', '{$currentDate->format('Y-m-d H:i:s')}'),";
         }
 
         if ($insertDataInQuery){
-            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id, updated) VALUES ' . trim($insertDataInQuery, ',');
+            $insertDataInQuery = 'INSERT INTO user_notification (is_read, user_id, notification_id, updated, created) VALUES ' . trim($insertDataInQuery, ',');
 
             $stmt = $this->entityManager->getConnection()->prepare($insertDataInQuery);
             $stmt->execute();

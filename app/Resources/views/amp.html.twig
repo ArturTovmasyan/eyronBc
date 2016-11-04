@@ -61,7 +61,7 @@
             <li>
                 <a href="{{ path('notifications') }}">
                     <amp-img src="{{ asset('bundles/app/images/bell.png') }}" alt="Notifications" width="20" height="24"></amp-img>
-                    <span class="note-text">{{ 'notification'|trans | capitalize}}</span>
+                    <span class="note-text">{{ 'notification_menu'|trans | capitalize}}</span>
                 </a>
             </li>
             {% endif %}
@@ -134,7 +134,7 @@
     <div id="mainframe">
         <div id="wrap">
             <header>
-                <nav class="navbar navbar-fixed-top">
+                <nav class="amp-navbar">
                     <div id="line"></div>
                     <div class="category">
                         <a class="logo" href="{{ path("homepage") }}">
