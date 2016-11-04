@@ -117,9 +117,9 @@ class Blog implements ImageableInterface, PublishAware
      */
     private $parent;
 
-    public function __construct() {
-        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+//    public function __construct() {
+//        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
+//    }
 
     /**
      * Get id
@@ -258,7 +258,7 @@ class Blog implements ImageableInterface, PublishAware
     public function setMobileImagePath($path)
     {
         $this->mobileImagePath = $path;
-        
+
         return $this;
     }
 
@@ -326,8 +326,7 @@ class Blog implements ImageableInterface, PublishAware
     {
         $ids = [];
 
-        foreach ($this->data as $data)
-        {
+        foreach ($this->data as $data) {
             if ($data['type'] == self::TYPE_GOAL) {
                 $ids[] = $data['content'];
             }
@@ -339,10 +338,10 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * @return array
      */
-    public function  getBlMultipleBlog()
+    public function getBlMultipleBlog()
     {
         //check data and return array
-        if($this->data){
+        if ($this->data) {
 
             return $this->data;
         }
@@ -353,11 +352,11 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * @param $multipleBlog
      */
-    public function  setBlMultipleBlog($multipleBlog)
+    public function setBlMultipleBlog($multipleBlog)
     {
         $this->data = array_values($multipleBlog);
     }
-    
+
     /**
      * This function is used to add goal in each array data
      *
@@ -368,8 +367,7 @@ class Blog implements ImageableInterface, PublishAware
     {
         $blogData = $this->data;
 
-        foreach ($blogData as $key => $blog)
-        {
+        foreach ($blogData as $key => $blog) {
             if ($blog['type'] == self::TYPE_GOAL && $blog['content']) {
                 $goalId = $blog['content'];
                 $blogData[$key]['goals'] = $goals[$goalId];
@@ -407,7 +405,15 @@ class Blog implements ImageableInterface, PublishAware
      */
     public function __toString()
     {
-        return (string) $this->title;
+        return (string)$this->title;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->blog = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -417,7 +423,7 @@ class Blog implements ImageableInterface, PublishAware
      *
      * @return Blog
      */
-    public function addBlog(Blog $blog)
+    public function addBlog(\AppBundle\Entity\Blog $blog)
     {
         $this->blog[] = $blog;
 
@@ -427,9 +433,9 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * Remove blog
      *
-     * @param Blog $blog
+     * @param \AppBundle\Entity\Blog $blog
      */
-    public function removeBlog(Blog $blog)
+    public function removeBlog(\AppBundle\Entity\Blog $blog)
     {
         $this->blog->removeElement($blog);
     }
@@ -447,11 +453,11 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * Set parent
      *
-     * @param Blog $parent
+     * @param \AppBundle\Entity\Blog $parent
      *
      * @return Blog
      */
-    public function setParent(Blog $parent = null)
+    public function setParent(\AppBundle\Entity\Blog $parent = null)
     {
         $this->parent = $parent;
 
@@ -461,7 +467,7 @@ class Blog implements ImageableInterface, PublishAware
     /**
      * Get parent
      *
-     * @return Blog
+     * @return \AppBundle\Entity\Blog
      */
     public function getParent()
     {
