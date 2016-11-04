@@ -20,6 +20,12 @@ body{
 
 header{
   background: #021523;
+  height: 81px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 10001;
+  top: 0;
 
   #line{
     height:4px;
@@ -31,13 +37,13 @@ header{
   }
 
   .amp-navbar{
-    height: 81px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    background: #021523;
-    z-index: 10001;
-    top: 0;
+    //height: 81px;
+    //position: fixed;
+    //right: 0;
+    //left: 0;
+    //background: #021523;
+    //z-index: 10001;
+    //top: 0;
   }
 
   .logo{
@@ -51,6 +57,7 @@ header{
 .sidebar{
   background-color: #021523;
   padding: 0;
+  z-index: 1000000;
 
   li{
     display: block;
@@ -173,6 +180,7 @@ amp-sidebar {
   width: 250px;
   padding-right: 10px;
   background: #021523;
+  margin-top: 4em;
 }
 .amp-sidebar-image {
   line-height: 100px;
@@ -691,7 +699,7 @@ a{
         &.title-small{
           font-size: 45px;
           line-height: 68px;
-          padding-top: 30px;
+          padding-top: 85px;
         }
       }
     }
