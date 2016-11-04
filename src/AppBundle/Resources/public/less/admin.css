@@ -131,3 +131,8 @@
 .sonata-preview-form-container .row {
     display: none;
 }
+
+img.admin-preview {
+    max-height: 200px;
+    max-width: 200px;
+}
